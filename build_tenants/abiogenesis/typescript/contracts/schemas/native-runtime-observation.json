@@ -4396,8 +4396,7 @@
     },
     "actor_process_started": {
       "initiates": [
-        "actor_process_active",
-        "actor_process_live"
+        "actor_process_active"
       ],
       "terminates": [],
       "clips": [],
@@ -4408,15 +4407,13 @@
         "actor_process_spawn_failed"
       ],
       "terminates": [
-        "actor_process_active",
-        "actor_process_live"
+        "actor_process_active"
       ],
       "clips": [],
       "declips": []
     },
     "actor_process_stdout_observed": {
       "initiates": [
-        "actor_process_live",
         "actor_stdout_available"
       ],
       "terminates": [],
@@ -4425,7 +4422,6 @@
     },
     "actor_process_stderr_observed": {
       "initiates": [
-        "actor_process_live",
         "actor_stderr_available"
       ],
       "terminates": [],
@@ -4477,17 +4473,14 @@
         "actor_process_exited"
       ],
       "terminates": [
-        "actor_process_active",
-        "actor_process_live"
+        "actor_process_active"
       ],
       "clips": [],
       "declips": []
     },
     "actor_process_termination_unconfirmed": {
       "initiates": [
-        "actor_process_termination_unconfirmed",
-        "actor_cleanup_live",
-        "actor_cleanup_pending"
+        "actor_cleanup_live"
       ],
       "terminates": [],
       "clips": [],

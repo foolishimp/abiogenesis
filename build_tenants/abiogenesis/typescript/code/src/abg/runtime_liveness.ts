@@ -8,6 +8,8 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { runtimePrefixComputation, runtimeEventBodiesAtPrefix, runtimeEventProfileScheduleFromValidatedPrefix, unscopedRuntimeEventPrefix, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
+import { constructRuntimeFluentPattern, deriveRuntimeHeldFluentProjection, holdsAt } from "./event_calculus.js";
 import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix, admitNativeRuntimeLivenessEvent,
@@ -808,9 +810,21 @@ function deriveRuntimeLivenessSemantics(
     const occurrenceDone = actorDone || actorRef === null && any(["frame_closed", "c_call_judged"], e => frameOccurrence
       ? e.kind === "frame_closed" && e.frameId === context.scope.frameId
       : e.kind === "c_call_judged" && e.aggregateId === context.scope.cCallRef);
-    const processLive = actorRef !== null && any(["actor_process_started"], e =>
-      record(e.payload) && e.payload.actorInvocationRef === actorRef) &&
-      !any(["actor_process_spawn_failed"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef) &&
+    // The spawn-failure fact is read through holdsAt over the fold at the cut
+    // before the event at `ordinal`, so this relation, which the fold's
+    // liveness rule evaluates, never re-enters the fold at its own event.
+    const started = { processRef: null as string | null };
+    const spawnFailed = (processRef: string | null) => {
+      const boundary = events.at(-1);
+      return processRef !== null && boundary !== undefined &&
+        holdsAt(deriveRuntimeHeldFluentProjection(validatedRuntimeEventPrefixBeforeEvent(prefix, boundary.eventId)),
+          constructRuntimeFluentPattern({ name: "actor_process_spawn_failed", identity: processRef })).length !== 0;
+    };
+    const processLive = actorRef !== null && any(["actor_process_started"], e => {
+      if (!record(e.payload) || e.payload.actorInvocationRef !== actorRef) return false;
+      started.processRef = e.aggregateId; return true;
+    }) &&
+      !spawnFailed(started.processRef) &&
       !actorDone && !any(["actor_process_exited"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef);
     let disposition: RuntimeLivenessObserverProjection["disposition"]["disposition"] = "continue_waiting";
     let reason = "within_bound_lease";

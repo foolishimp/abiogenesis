@@ -345,6 +345,7 @@ const RUN_QUIESCENCE_ALLOWED_HISTORICAL_FLUENTS = new Set([
   "actor_process_exited",
   "actor_process_signal_requested",
   "actor_process_spawn_failed",
+  "actor_process_terminated",
   "actor_process_termination_unconfirmed",
   "actor_process_timed_out",
   "continuation_terminated",

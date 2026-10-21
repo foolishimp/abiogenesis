@@ -9,6 +9,7 @@ import { constants as osConstants } from "node:os";
 import { lstatSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { sampleNativeEventTime } from "./native_event_time.js";
+import { constructRuntimeFluentPattern, deriveRuntimeHeldFluentProjection, holdsAt } from "./event_calculus.js";
 import { observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import { isSha256Digest, sha256Canonical, } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
@@ -336,16 +337,19 @@ export function projectActorProcessLifecycle(prefix, actorInvocationRef) {
     if (actorTerminal !== undefined && processTerminal === undefined) {
         throw new TypeError("ActorInvocation cleanup terminal requires confirmed Process terminality");
     }
-    const terminationUnconfirmed = processTerminal === undefined && rows.some((event) => event.kind === "actor_process_termination_unconfirmed");
-    const processLive = started.length === 1 && processTerminal === undefined;
-    const runTerminal = indexedRuntimeEvents(prefix, "kind:run_stopped").length !== 0 ||
-        indexedRuntimeEvents(prefix, "kind:runtime_failure_observed").some(event => event.aggregateType === "run");
-    const cleanupPending = actorTerminal === undefined &&
-        (processTerminal !== undefined || (runTerminal && started.length === 1));
+    // The lifecycle facts are decided once, by the actor_process_lifecycle rule
+    // of the Event Calculus fold; this projection reads them through holdsAt.
+    const processRef = rows.find((event) => event.aggregateType === "process")?.aggregateId ?? null;
+    const held = processRef === null ? null : deriveRuntimeHeldFluentProjection(prefix);
+    const lifecycle = (name) => processRef !== null && held !== null &&
+        holdsAt(held, constructRuntimeFluentPattern({ name, identity: processRef })).length !== 0;
+    const processLive = lifecycle("actor_process_live");
+    const terminationUnconfirmed = lifecycle("actor_process_termination_unconfirmed");
+    const cleanupPending = lifecycle("actor_cleanup_pending");
     return deepFreeze({
         kind: "actor_process_lifecycle_projection",
         actorInvocationRef,
-        processRef: rows.find((event) => event.aggregateType === "process")?.aggregateId ?? null,
+        processRef,
         processTerminalEventRef: processTerminal?.eventId ?? null,
         processTerminalKind: processTerminal === undefined
             ? null

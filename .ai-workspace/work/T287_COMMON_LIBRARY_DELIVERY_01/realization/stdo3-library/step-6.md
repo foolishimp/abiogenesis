@@ -354,3 +354,45 @@ activation's fields plus `witness seam: <two files, result, fixture action>`.
 Commit message first line `Step 6: calculus fold and ROOT_DERIVED_RULES; advance over foldStep; D7 replay witness`.
 
 ACTION: execute step 6 as re-activated.
+
+## Return 2
+
+- commit: the commit carrying this Return (first line `Step 6: calculus fold and ROOT_DERIVED_RULES; advance over foldStep; D7 replay witness`, parent `4124ec7e0`); its hash is in the final report.
+- restore: `git cherry-pick --no-commit 1dea2c79d` applied cleanly to every tenant path. The staged tenant tree equals `1dea2c79d` (`git diff --cached 1dea2c79d -- build_tenants` is empty). Only this file conflicted, because both sides appended to it; it was resolved to HEAD's copy and this section appended. `step-7.md` carries a concurrent Executive edit (the gate flag); it is not staged.
+- module cut: unchanged from `1dea2c79d`'s Return. `code/src/abg/calculus/axioms.ts` holds the carriers, `ROOT_EVENT_CALCULUS` (axiom-only), the effect-ref switch and its helpers, the fluent and pattern constructors and validators, and `axiomEffectOf(event, dependencies, context?)`, whose context is fold data only. `rules.ts` holds `ROOT_DERIVED_RULES`; `fold.ts` holds `emptyFoldState`, `effectOf`, `foldStep` and the overloaded `holdsAt`; `index.ts` re-exports. `event_calculus.ts` re-exports every previously public name, so no importer changed, and keeps `eventCalculusDependencies` and the class as the memo; `advance` (`event_calculus.ts:236`) is the `foldStep` loop followed by `memoize`. No import cycle: `abg/calculus/` does not import `event_calculus.ts`.
+- rules:
+  - `terminal_run_census`: `runtime_failure_observed`, `run_stopped`, `run_closed`; `actor_cleanup_live` for held live processes and the run-matched end of Run-scoped active fluents, with the preserving-stop exception.
+  - `process_cleanup`: `actor_process_exited`, `actor_process_spawn_failed`, `actor_invocation_closed`, `actor_invocation_failed`; terminates `actor_cleanup_live(processRef)` and, on an actor terminal, the probe-scoped `runtime_invocation_active`.
+  - `liveness`: `runtime_activity_probe_observed`, `runtime_external_interruption_observed`, `actor_process_timeout_observed`; derives nothing, throws on a missing source and threshold relation.
+  - `actor_process_lifecycle`: S, T, U, G, O, A, R kinds plus `run_stopped` and `runtime_failure_observed`; the §4.4 formulas from the state before the event; G and O have no effect.
+- one-producer table: `actor_process_live`, `actor_process_termination_unconfirmed`, `actor_process_terminated` (context-guarded: exit while live held and unconfirmed not held) and `actor_cleanup_pending` are produced only by `actor_process_lifecycle` (`rules.ts:141-178`). `actor_process_active`, `actor_process_exited`, `actor_process_spawn_failed`, `actor_cleanup_live` and the stdout and stderr availability fluents stay in the axiom table.
+- emission premise: holds in `code/src` (single emitter `actor_process.ts:1323` `onProcessFinalized`, exclusive with U at `:1327` and spawn failure at `:1318`). Broken in `test_env/support/t287-native-work-currentness-consumers.mjs:268-274` (U then exit, same process) and `m5-terminal-quiescence-owner.test.mjs:196-197`. The context guard is load-bearing, so the effect stays in the rule; moving it to the axiom table is not a step 6 change.
+- design delta (Delta 1): `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` §4.4 gains one paragraph after the P-FOLD paragraph, stating the D7 witness law; §10.6 row 5 gains the witness relation in `U(B)` as decided by the Executive at step 6 (D7, 2026-10-22), and its decider cell names the Executive for it. Nothing else in the design changed. The paragraph cites `abg/replay.ts:1387`, the `activeFluents` line in this commit's tree (it was `:1386` before the one-line `replay.ts:348` addition).
+- readers changed: `actor_process.ts:15`, `:627-635` (`holdsAt` with a process-ref pattern; cardinality `TypeError`s, terminal kind and refs and `cleanupDisposition` kept); `runtime_liveness.ts:11-12`, `:813-827` (`actor_process_spawn_failed` through `holdsAt` at the cut before the event); `replay.ts:348` (`actor_process_terminated` allowed historical).
+- unit lane: `test_env/tests/t287-calculus-fold.test.mjs`, 6 cases. P-FOLD on the `createU1Fixture` store (`t287-native-work-currentness-consumers.mjs`): 22 cuts on each of the validated and owned prefixes; cold fold, `project` and `forkAt` agree on `holds`, `clippedFluentRefs` and `declippedPatternRefs`. Four expected-effect data tables through `foldStep` (counterexample A, counterexample B, spawn failure without start, termination unconfirmed then exit), and one one-producer case.
+- gate (Delta 2 command for the lane):
+  - build: rc 0, 32 s. The regenerated tracked outputs equal the cherry-picked index (no unstaged diff under `build/`, `contracts/` or the manifest).
+  - lint:imports: rc 0, under 1 s.
+  - unit lane `node --experimental-vm-modules --test test_env/tests/t287-calculus-fold.test.mjs`: rc 0, 1 s, 6 pass, 0 fail.
+  - test:installed:language: rc 0, 49 s, 1 pass, 0 fail.
+- witness seam (Delta 3, one run after the build, rc 1, 1 s):
+  - `t287-continuation-causation.test.mjs`: pass (1 of 1). Its fixture `test_env/fixtures/continuation-causation.json` carries one stored `replayStateDigest` and no actor process events, so its witness does not move under the new law.
+  - `m5-consensus-module.test.mjs`: fail at module link, before any assertion: `../../build/code/src/public/index.js` does not export `ROOT_PUBLIC_OPERATION_IDS` (imported at `:26`). The name is absent from `code/src` at `98e0257d0` (`git grep` empty; last touched by `adaeede02`), and this step changes nothing under `code/src/public`, so the failure reproduces at `98e0257d0`. Baseline failure; recorded, not pursued.
+  - fixture action: none. No failure was a stored-witness comparison.
+  - The fail-closed negative at `traversal_route.ts:5371` is argued, not exercised: neither recorded store (`continuation-causation.json`, `abi5-root-r10.events.jsonl`) holds actor process events, and the r10 suite did not load.
+- stored-digest check: the regenerated manifest and capability graph drop 47 digests (the `event_calculus.d.ts` declaration digest, the native-runtime-observation contract digest and their dependants). None appears in any tracked file under `test_env` (`proof`, `fixtures`, `tests`, `support`). Two appear only in untracked historical UAT outputs under `test_env/test_runs/sandbox-uat/` (2026-10-08), which no gate or suite reads. `ROOT_EVENT_CONTRACT_DIGEST` is unchanged.
+- self-check:
+  - (1) Pass: the grep over `event_calculus.ts` returns no line.
+  - (2) Pass: each of the four lifecycle fluents is initiated only in `calculus/rules.ts` (`deriveActorProcessLifecycle`); other `code/src/abg` mentions are `holdsAt` reads, name sets or event-kind lists.
+  - (3) Pass: outside `abg/calculus/`, only the `event_calculus.ts:64` re-export (plus a comment at `:47`) and the pre-existing `abg/index.ts:191` public re-export name `ROOT_EVENT_CALCULUS`; `ROOT_DERIVED_RULES` is read only inside `abg/calculus/`.
+  - (4) Pass: no export of `abg/calculus/` takes an axiom, rule or callback parameter.
+  - (5) Pass.
+  - (6) Pass: the commit touches the 13 tenant paths of `1dea2c79d`, the design file (Delta 1) and this file.
+- step 8 census: unchanged from `1dea2c79d`'s Return: `native_worksite_execution.ts:226`; `native_work_effect.ts:17-20`, `:101`; `runtime_history.ts:568`; `event_calculus.ts:92`, `:109`; `runtime_liveness.ts:823-828`, `:663`, `:382`, `:430`, `:432`; `actor_process.ts:604-621`, `:643-645`; `replay.ts:2411-2412`, `:2417`, `:2448`; `c_call.ts:1872`, `:2001`, `:2017`, `:2036`, `:2054`, `:2058`; `worksite_construction_recovery.ts:243`.
+- residuals:
+  - (1) The `runtime_liveness.ts:813` `holdsAt` read is argued, not exercised (no lane calls `deriveRuntimeLivenessSemantics` with actor events).
+  - (2) `runtime_liveness.ts:823-828` still decides `processLive` from event kinds; only the 813 read was granted.
+  - (3) Expected step 8 flips, not run and not edited: `m5-terminal-quiescence-owner.test.mjs:166-167` and `:222`; `t287-native-work-unknown-effect.test.mjs` near `:69`; the `t287-event-calculus-owner-continuation.test.mjs` source patch, whose target now lives in `calculus/axioms.ts`.
+  - (4) `m5-consensus-module.test.mjs` cannot load at baseline (`ROOT_PUBLIC_OPERATION_IDS`), so the r10 proof store's stored witnesses are unexercised by this step.
+  - The earlier residuals on the gate flag and on the witness are closed by Delta 2 and D7.
+- return route: this file
