@@ -150,3 +150,38 @@ and both behaviors); (b) the gate fails after one bounded fix; (c) a site
 needs a Product or requirement change to close.
 
 ACTION: execute step 3 as activated.
+
+## Executive note (2026-10-22, from the step 1 re-review)
+
+Design §10.6 row 2 omits two relations that this step's Return records:
+(1) the admit atoms return `Outcome` and so depend on the step 2 carrier
+(`shared/refusal.ts`), which the constitution §16.14 record of step 2 admits;
+(2) the catalog disposition of the five admit atoms: the design's §10.7
+calls them a `catalog_extension` of `N05`, and `N05` is a row of Table
+5.6.3-B (the selected leaf-instance catalog: "strict schema and I-JSON
+admission", `shared/i_json.ts::admitIJsonValue` and the owner Valibot
+schemas), not a §10 catalog relation. In Return, state which §16.14 (b) row
+of the step 2 record covers the admit atoms and that they extend the `N05`
+leaf instance; change no constitution text in this step.
+
+## Executive note 2 (2026-10-22, from the step 2 Return at `69132360f`)
+
+Do these first, before any admit code; they are in your grant:
+
+1. Rename the carrier's sequencing export `then` to `andThen` in
+   `code/src/shared/refusal.ts` and in every design mention (§3's code
+   block and prose, §4, §5, §10.7's carrier row) and in the constitution
+   §16.14 (b) row that lists the carrier's exports. Reason, stated in one
+   sentence in design §3: a module namespace with an export named `then` is
+   a thenable, so `import()` of the module never settles; static imports
+   work, dynamic ones hang. The step 2 Worker verified it with a probe.
+2. Design §2: the `shared/refusal.ts` row's Imports column says `none`;
+   the file imports the type `JsonValue` from `canonical_json.ts`. Change
+   the column to `value` (types only).
+3. Design §2 move 1 links `static_definition_bindings.ts` at its old path,
+   which no longer exists; point the link at `public/binding/static_definition_bindings.ts`.
+4. Design §10.6 row 1: record that the carrier's `catalog_addition_proposal`
+   was accepted through the constitution §16.14 record at step 2 (commit
+   `69132360f`), so the row's `U(B)` is empty and it co-evolves.
+
+List each of these lines in Return. Head for this step is `69132360f`.
