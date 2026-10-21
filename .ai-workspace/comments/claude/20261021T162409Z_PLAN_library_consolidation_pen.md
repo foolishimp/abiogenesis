@@ -34,8 +34,12 @@ Executive writes only activations, dispositions, the ledger and posts. It
 does not re-run gates: the Worker's gate output in the return is the
 evidence, and the step 8 review re-executes the full suite once. It reads
 returns and reviews, not diffs; the whole diff is read once, at step 8.
-A same-actor transition to Writer is not planned; if one becomes necessary it
-is recorded in the ledger before the effect, as the basis requires.
+Recorded same-actor Writer transition, standing for this plan: the Executive
+writes the plan post, the step files and this ledger, and commits those
+commentary surfaces at checkpoints; nothing else. Step 0's build was a
+worktree mutation by the Executive (eleven tracked build outputs and four
+generated digests changed); it was reverted, and from step 2 on every build
+is a Worker effect inside its grant.
 
 **Worker: Opus 5.5 at xhigh effort, fresh agent, one at a time.** Writer grant
 per step: the files, retirements and gate named in that step; commits on
@@ -45,9 +49,11 @@ material beyond what the activation names, and does not read reviewer
 transcripts, only the review file.
 
 **Reviewer: at max effort, fresh agent, over the frozen commit by hash, at
-steps 1, 6, 7 and 8 only.** Returns findings graded on the project scales
-(severity `S0` to `S4`, priority `P0` to `P5`), each with chaseable evidence
-(file and line, command, output). Step 1 is reviewed by Opus 5.5, because
+steps 1, 6, 7 and 8 only.** Returns findings with technical severity (`S0`
+to `S4`) and triage, each with chaseable evidence (file and line, command,
+output). Priority (`P0` to `P5`) and boundary effect are the Executive's,
+assigned at disposition (project basis, "Executive, Writer, And Reviewer
+Binding"). Step 1 is reviewed by Opus 5.5, because
 the Executive authored the design and a Fable reading would not be
 independent of it. Steps 6, 7 and the step 8 whole diff are reviewed by
 Fable: the design reframe and the two highest-risk realizations. Steps 2 to
@@ -84,8 +90,8 @@ with sections `Activation`, `Return`, `Review` (reviewed steps) and
 2. Worker commits and appends `Return`: commit hash, changed paths, gate
    command and output, residuals.
 3. Reviewed steps: Reviewer appends `Review` over the commit hash.
-4. Executive triages. `P0` to `P2`: one bounded repair activation to a fresh
-   Worker carrying the review and the commit hash, never a message to the
+4. Executive assigns priority and disposes. `P0` to `P2`: one bounded repair
+   activation to a fresh Worker carrying the review and the commit hash, never a message to the
    finished Worker (a continuation re-reads its whole transcript); the repair
    commit is re-reviewed on the blocking findings only. `P3` to `P5`: ledger,
    no repair, no re-review. A still-blocking finding after one repair round
@@ -104,9 +110,8 @@ It is the gate of every step. Unit evidence is added only where a step
 introduces an irreducible atom (constitution SP-05, SP-06): equality at
 step 4, exact match and checked record at step 5, the fold at step 6. A
 changed owner seam gets one focused integration scenario with its material
-negative, at step 7. Broad suites, stable-atom reruns and the thirteen
-lifecycle and calculus suites run once, at step 8, the integrated
-qualification boundary (SP-06; EXECUTIVE_BASELINE §8: substantial cycles
+negative, at step 7. Broad suites and stable-atom reruns run once, as one
+deduplicated invocation at step 8, the integrated qualification boundary (SP-06; EXECUTIVE_BASELINE §8: substantial cycles
 near the boundary, focused regression during construction). A step 8
 failure returns to the first violated seam (SP-09) and authorizes no test
 expansion. Sources: released ACTIVATION §6 and §7 (cheapest focused proof;
@@ -133,12 +138,12 @@ Answer in one message. Steps 2 to 5 proceed under the recommended defaults on
 
 | Id | Decision | Recommendation | Blocks |
 |---|---|---|---|
-| D0 | Withdraw the cross-consumer handoff that Root's conjunction decision (`realization/common-consolidation-conjunction-01/decision.md`, row "Cross-consumer handoff") accepted as bounded DESIGN. Replacement: B13. | Withdraw. The HOW itself says it admits no event. | step 1 |
+| D0 | Withdraw the cross-consumer handoff that Root's conjunction decision (`realization/common-consolidation-conjunction-01/decision.md`, row "Cross-consumer handoff") accepted as bounded DESIGN. Replacement: B14 (the corrected invariant and the refusal route). | Withdraw, once the design carries B14; held until the step 1 repair commit. | step 1 repair |
 | D1 | `ROOT_DERIVED_RULES` as the carrier of contextual Event Calculus effects (realizes the IACS's `RuntimeDerivedFluentRule`). | Yes. | step 6 |
 | D2 | `checkExactRecord` digest leg runs after projection (`expected(event, value)`), not before. | After projection; the signature already says so. | step 5 |
-| D3 | The two "native composite classifications" (O-TYPE) are ingress questions answered by `admitContract`, not an `encode` parameter on equality. | Yes. | step 3 |
+| D3 | The two "native composite classifications" (O-TYPE) are ingress questions answered by `admitContract`, not an `encode` parameter on equality. | Yes, per site: each is decided when its ingress site is touched (steps 3 and 4) and recorded in that step's Return; no blanket closure. | steps 3, 4 |
 | D4 | Throwing `i_json` API: keep as a thin lift over `admitJson` through step 7, retire at step 8. | Keep then retire. | step 3, step 8 |
-| D5 | Retire `terminationConfirmed` (and siblings `exitObserved`, `timedOut`, `signalSequence` where derivable) from event payloads and artifacts via a new root event profile `@2`, legacy digest retained (the mechanism exists: `abg/event_contract_profiles.ts`). Alternative: keep the field and add a fold-time equality check against the fluent. | Profile `@2`. | step 7 |
+| D5 | Retire `terminationConfirmed` from event payloads via a new root event profile. The store recognizes exactly two digests (`event_store.ts:1189`) and reopening rejects any other stamp (`:3608`), so a third profile needs validators, transitions and fresh-process reopening: a recovery obligation of its own. Alternative: keep the field; the lifecycle rule derives the fluent and checks the copied field against it at fold time; retirement recorded for the next profile change. | The alternative (B14). Jim was told of this change on 2026-10-22 and answered "ok go"; override before step 7 if the migration is wanted now. | step 7 |
 
 ## Steps
 
@@ -174,6 +179,15 @@ Files:
 Gate: the three views agree on carriers (B8 check); every atom has a
 falsifier. No code moves, so no test runs. Commit.
 
+Repair before review: the Worker transcribed B13 before the former
+Executive's review of the plan (2026-10-22) showed B13's invariant
+overstated and its route wrong. A fresh Worker carries B14 into the design
+document, the IACS, the ticket section and the GOALS sentence: the three
+layers (observation, admission, derived state), the refusal route through
+`refuseActorProcessEffect`, the facts encoding, D5 as the alternative, D3
+per site, D0 withdrawn on that basis. The Opus review runs over the repaired
+commit.
+
 ### Step 2. Carrier and layering (`realization_refactor`)
 
 Add `shared/refusal.ts` (`StructuralRefusal`, `Outcome`, `ok`, `refused`,
@@ -195,6 +209,19 @@ the second `isRecord`, the inline shape guards as touched (32 known), and the
 inlined `v.safeParse` in `bindStaticOwner`. `i_json` throwing entry becomes a
 lift over `admitJson` (D4).
 
+Owner obligations closed in this step's Return, each with its site list:
+O-RESOURCE (`definition_binding_mechanics.requiredSlot` and
+`exactContractCoordinate` take `unknown`; they consume `admitRef` and
+`admitContract`), O-SHAPE (the 38 local guards and seven `isJsonRecordShape`
+consumers), O-SCHEMA (`product/default_library.jsonRecord` and
+`abg/project_read_definition_bindings.asRecord` replaced by `admitContract`),
+O-KEY (the five NUL-joined bodies and the private `exactKeys` at
+`product/default_library.ts:117` replaced by `hasExactKeys`; exact owner
+shape, not legacy collision), O-CODEC (`decodeEventBody` keeps returning an
+unknown restored event for later event-store validation; `admitJson` does not
+move semantic admission earlier). D3 sites touched here are decided and
+recorded.
+
 Gate: steel thread. No unit lane: these atoms are thin wrappers over the
 JSON parser and the schema library (SP-05). P-INGRESS and P-KEYS are
 established at step 8 by the integrated run. Commit.
@@ -204,13 +231,16 @@ established at step 8 by the integrated run. Commit.
 `shared/value/`: `canonicalEquals(JsonValue, JsonValue)`, `writeCanonicalRecord`,
 `sha256Canonical`, `sha256Bytes`, `deepFreeze`, `isDeeplyFrozen`. Retire the 12
 `sameCanonical*` copies (including `hog/parent_rehydration.ts:62`), the 39
-inline comparisons, the 3 hand-rolled writers. The C2 bug at
-`abg/execution_basis.ts:529` closes by type: the body view passes `admitJson`
-before comparison. `c_call.ts` carries most sites.
+inline comparisons, the 3 hand-rolled writers. The C2 path keeps its truthful
+materialization (`abg/execution_basis.ts:800` materializes the event-body
+view before comparison); `canonicalEquals` takes the materialized `JsonValue`,
+and an unmaterialized view (custom prototype) is refused at ingress
+(`shared/i_json.ts:141`). `c_call.ts` carries most sites. O-TYPE sites
+touched here are decided per D3 and recorded in Return.
 
 Gate: steel thread, plus one focused unit lane for the new irreducible atom:
-P-EQUAL (equality agrees with digest equality on `JsonValue`; the C2
-counterexample is refused at ingress). Commit.
+P-EQUAL positive (materialized bodies compare equal to the durable read and
+the C2 reuse proceeds) and negative (the wrong carrier is refused). Commit.
 
 ### Step 5. Select family (`realization_refactor`, D2)
 
@@ -242,39 +272,70 @@ falsifiers, counterexamples A (`actor_process.ts:631`) and B
 
 ### Step 7. Lifecycle failure carrier and projection (`realization_refactor`, D5)
 
-Replaces the withdrawn step 6 of the design.
-1. `shared/owned_process_lifetime.ts`, `abg/worker_transport.ts` (`runProcess`
-   at `:451`), `implementation/worksite_command_helper.ts` command and HTTP
-   adapters: terminal facts return as a refusal carrier with `OwnedProcessFacts`
-   as evidence; no rethrow. `hog/ccall_lifecycle.ts:551` passes that refusal to
-   `failCCall`, so `failTraversal` admits it at the successor prefix.
-2. Root event profile `@2`: `terminationConfirmed` leaves `actor_*` payloads and
-   result artifacts; the 20 known sites read `holdsAt`; `replay.ts:2444`'s
-   recomputation goes. Legacy digest retained for recorded stores.
+Replaces the withdrawn step 6 of the design; route per B14.
+1. The owner reports one of three process terminal events from the facts
+   inside `onProcessFinalized` (`actor_process.ts:1312-1328`); those events
+   are in `L` on both paths and drive the lifecycle rule. The reporting
+   choice is `hasConfirmedOwnedProcessBoundary(facts)` in `shared/process/`,
+   used by the actor and by the helper's command and HTTP adapters (today two
+   formulas: `worker_transport.ts:461`, `worksite_command_helper.ts:769`).
+   The actor's outer catch (`actor_process.ts:1403`) builds its refusal from
+   the message alone: `refuseActorProcessEffect` now sets `diagnosticRef` to
+   `constructRuntimeFailureDiagnosticRef(encodeOwnedProcessFacts(facts))`
+   so `admitRuntimeFailure` retains the encoded facts inline
+   (`runtime_failure.ts:84`, `:100-105`). The refusal reaches `failCCall`
+   (`ccall_lifecycle.ts:541`) and `failTraversal` admits it. If
+   `admitRuntimeFailure` itself throws, the facts are lost with the Run's
+   failure and the physical state stays unknown; nothing is written beside
+   the log. Command and HTTP facts enter `L` as members of the admitted leaf
+   result or failure subject; their lifecycle question is answered by
+   projecting that admitted event.
+2. D5 alternative: `terminationConfirmed` stays in payloads. The
+   `actor_process_lifecycle` rule derives the fluent and checks the copied
+   field against it at fold time; the 20 known readers switch to `holdsAt`;
+   `replay.ts:2444`'s private recomputation goes. No profile change.
 3. No `process-failure.json`. `inspectWorksiteCommandExecutionProcessFailure`
    is a projection at the prefix in `product/worksite_command_execution.ts`.
    `task.json`, `launch.json`, `result.json` stay as spawn-boundary transport.
 
 Gate: steel thread, plus one focused integration scenario at the changed
-seam with its material negative: a no-child launch failure yields the same
-fluent on worker, command and HTTP, and no file is read (P-LIFECYCLE whole
-path; SP-06). The lifecycle suites wait for step 8. Commit.
+seam with its two material negatives: a no-child launch failure, and an
+error after launch with unresolved cleanup (`scopeAbsence` not `"absent"`,
+`firstError` set). Each yields the admitted refusal with the encoded facts
+and the same answer derived from `L` on worker (fluent via `holdsAt`),
+command and HTTP (the admitted result or failure subject), with no file
+read (P-LIFECYCLE whole path; SP-06). The lifecycle suites wait for step 8.
+Commit.
 
 ### Step 8. Close
 
-- D4 retirement of the throwing `i_json` entry.
+- D4 retirement of the throwing `i_json` entry, only where the affected
+  caller contracts are demonstrated in this step's Return; otherwise the
+  bridge stays and the remainder is recorded.
+- Completion condition: O-RESOURCE, O-SHAPE, O-CODEC, O-SCHEMA and O-KEY are
+  closed in step 3's Return and O-TYPE per site in steps 3 and 4; the
+  library does not close with any of them open.
 - Lint rule for the B13 invariant: no lifecycle boolean computed or copied
   outside `abg/calculus/` (the `holdsAt` falsifier as a check).
-- The integrated run, once: `npm test`, `npm run test:m5`, and the thirteen
-  lifecycle and calculus suites (`t287-owned-process-lifetime`,
-  `m5-worker-transport`, `m5-event-calculus-runtime`,
-  `t287-event-calculus-owner-continuation`, `t287-calculus-state-transfer`,
-  `m5-fresh-process-reconstruction`, `t287-reconstruction-conservation`,
-  `t287-worksite-command-execution`, `t287-observed-worksite-command`,
-  `t287-runtime-activity-quiescence`, `m5-terminal-quiescence-owner`,
-  `t287-generic-job-lifecycle`, `m5-event-store-reopen`). A failure returns
-  to the first violated seam (SP-09); bisection over the eight step commits
-  localizes it; no test expansion.
+- The integrated run, once, as one deduplicated `node --test` invocation
+  after `npm run build` (the `test:unit`, `test:m5` and lifecycle lists
+  overlap; each file appears once): `m5-c-algebra-validation`,
+  `t287-c2a-fp-source-contract`, `m5-installed-graph-edge`,
+  `m5-worker-transport`, `m5-event-store-reopen`, `m5-event-calculus-runtime`,
+  `m5-retry-lifecycle-authority`, `m5-s03-authority`, `m5-consensus-module`,
+  `m5-s06-prime`, `m5-installed-portability`, `m5-terminal-quiescence-owner`,
+  `m5-fresh-process-reconstruction`, `t287-native-structural-gates`,
+  `t287-native-runtime-gate`, `forward-command-contracts`,
+  `forward-command-owners`, `t287-native-semantic-revision`,
+  `t287-owned-process-lifetime`, `t287-event-calculus-owner-continuation`,
+  `t287-calculus-state-transfer`, `t287-reconstruction-conservation`,
+  `t287-ordered-reconstruction`, `t287-worksite-command-execution`,
+  `t287-observed-worksite-command`, `t287-runtime-activity-quiescence`,
+  `t287-generic-job-lifecycle`, `t287-common-computational-library`, then
+  `test:uat:harness`. The step 8 Reviewer reads that run's output and reruns
+  only a suite a finding names, for the uncertainty it resolves. A failure
+  returns to the first violated seam (SP-09); bisection over the eight step
+  commits localizes it; no test expansion.
 - One independent review of the whole diff against the post's proofs
   (P-EQUAL to P-LAYER plus P-LIFECYCLE whole path), same-family disclosed.
 - Closing post; T-287 ledger section closed for the library deliverable;
@@ -293,3 +354,4 @@ path; SP-06). The lifecycle suites wait for step 8. Commit.
 | Step | Commit | Gate | Retired | Agents | Note |
 |---|---|---|---|---|---|
 | 0 | `93a4b08df` (posts) | build 34 s pass; `test:installed:language` 46 s, 1/1 pass at `93a4b08df` | none | none | steel thread ≈ 80 s per step; D0–D5 taken at the recommended defaults on Jim's "go" (2026-10-22). The tracked `build/` tree at `2e74fcd8c` was stale against its source: the step 0 build changed 11 files (+357/−149). Reverted after the smoke so step 1 stays design-only; code steps commit the rebuilt outputs with their source. |
+| 1 | `44be3cbce` (Worker), `0e89859bf` (repair, B14), `97b1200bc` (repair 2, four S2) | design-only; seven self-checks pass at both commits; Opus max review of `0e89859bf`: No, 4 S2 (facts not in `L` as content; command/HTTP have no lifecycle events; co-evolution overclaimed; caller-supplied axioms vs closed module law), 12 S3, 7 S4; S2 = P1; repair 2 closed all four (facts via reported terminal events plus the refusal retained inline through `failCCall`'s data: reference, ratified in the post; command/HTTP by projection; `U(B)` table §10.6; closed module law), 9 of 12 S3 closed; re-review: S2 2 and 4 closed, S2 1 and 3 partly, no new S2. Accepted with one `P2` narrowed out of the claim: the no-child launch failure's receipt path (`actor_process.ts:1369`) does not carry the facts into `L`; design-gated for step 7 (see step-1.md Disposition 2). D0 withdrawn. Ledgered: 7 S3, 10 S4 across both reviews | K01–K12 catalog, the demotion sentence, Codex C1–C5 as accepted contracts, the file side channel | 3 Workers (Opus xhigh), 2 Reviewers (Opus max) | design doc 429→703 lines, IACS 35→69, ticket +92, GOALS row refreshed; new atom `encodeOwnedProcessFacts` (shared/process) accepted at disposition; D5 attribution recorded in the decisions table |

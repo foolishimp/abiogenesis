@@ -662,3 +662,139 @@ closure).
 Not claimed: design-gate acceptance, which is the owner's; decision
 completeness for D1 to D4; any runtime proof; independence from my own
 earlier two reviews.
+
+### B14. Correction to B13 (2026-10-22, after the former Executive's review of the plan)
+
+B13 overstated the invariant and traced the failure route wrongly. Both are
+corrected here; B13's conclusion, that the file side channel is withdrawn,
+stands only once the route below is in place.
+
+**The invariant, corrected.** PRODUCT.md (Live State, Recovery And Valid
+Reuse) permits what B13 forbade: "Ordinary internal handoffs use its
+established state; they do not reconstruct or reauthenticate the accumulated
+history merely because control crosses a function or role boundary." And it
+binds what B13 meant: "Derived state is discardable and reproducible from the
+one admitted history; it is never an independent authority." Constitution
+§4.1 says the same for the realization: internal interfaces preserve immutable
+owner-established facts across function, module and role boundaries without
+serialization or reconstruction. So there are three layers, and the law
+differs per layer:
+
+1. **Physical observation.** A process boundary is observed once, by its
+   owner (`createOwnedProcessLifetime`), into immutable `OwnedProcessFacts`.
+   Those facts are handed in memory to the actor that admits them. That
+   handoff is permitted and required; re-observing, serializing or
+   re-reading them inside the program is not.
+2. **Admission.** The owner admits the observation as an event, on the
+   success path (`actor_process_exited` and siblings) or on the failure path
+   (the refusal carrying the facts, below). Admission is the only point at
+   which an observation becomes history.
+3. **Derived state.** Lifecycle questions ("is this process gone", "may this
+   Run close") are answered from the fold of admitted history, through
+   `holdsAt`. Derived state is never recomputed from copied payload fields
+   and never read from a second store. `holdsAt` answers admitted questions
+   only; it does not replace the physical observation in layer 1.
+
+What is forbidden is a second store of observations, written by one
+interface and read back by another as evidence or truth: the
+`process-failure.json` sibling and its inspector. Its only justification is
+the case where admission itself fails, which is a store-failure model the
+owner has not selected (constitution §4.1: machinery whose sole
+justification is an unselected failure model is removed; GOALS: excessive
+resilience is frozen).
+
+**The route, corrected.** B13 said the facts travel by throw and are lost
+at the `invocation.complete` catch. Wrong. The transport delivers the final
+facts through `onProcessFinalized` (`worker_transport.ts:455`); the actor
+retains them before admission (`actor_process.ts:1306`, "Keep the canonical
+facts even if their semantic admission fails"). The loss is at the actor's
+outer catch (`actor_process.ts:1403`): `refuseActorProcessEffect` builds the
+refusal from the error message alone and drops `finalProcessFacts`. That
+refusal already reaches `failCCall` (`hog/ccall_lifecycle.ts:541`) and
+`failTraversal` admits it. The `invocation.complete` catch at `:551` is
+downstream of a successful actor receipt and is not this route.
+
+Replacement, therefore: `refuseActorProcessEffect` carries the retained
+`finalProcessFacts` as the refusal's evidence, encoded once for the event
+body. `OwnedProcessFacts` is not JSON: `launchFailure` and `firstError` are
+`Error`, `cleanupDeadlineNs` is `bigint`. Encoding: an `Error` becomes a
+description record (`name`, `message`, and `code`, `errno`, `syscall`,
+`path`, `stack` where present; unavailable members named, never `{}`); the
+`bigint` becomes a tagged base-10 string; `null` stays `null`; all other
+members are JSON-native. This is the encoding Codex's HOW specified for the
+file; it moves to the refusal. `failTraversal` then admits the refusal at
+the successor prefix, and the facts are history. If admission itself fails,
+the refusal is still returned to the HoG and the Run fails with it in
+memory; the physical state stays unknown, as the Product's qualification law
+requires. No file.
+
+**The focused scenario for step 7** has two negatives, not one: a no-child
+launch failure, and an error after launch with unresolved cleanup
+(`scopeAbsence` not `"absent"`, `firstError` set). Both must yield the
+admitted refusal with the encoded facts, and the same `holdsAt` answer on
+worker, command and HTTP.
+
+**D5, re-decided.** `isKnownRootEventContractDigest` (`event_store.ts:1189`)
+recognizes exactly the legacy digest and the current one, and reopening
+(`:3608`) rejects any stamp that is not the current digest. A new profile
+that retains only the legacy digest would reject every store written today.
+A three-profile mechanism with validators, permitted transitions and
+fresh-process reopening is a recovery obligation in its own right and is not
+proportional to retiring one copied boolean. D5 is therefore taken as the
+alternative: the payload field stays; the lifecycle rule derives the fluent
+and checks the copied field against it at fold time; retirement of the field
+is recorded as an obligation for the next profile change.
+
+**B14 addendum (2026-10-22, after the step 1 review).** Two precisions.
+
+1. *How the facts reach `L`.* The owner already reports exactly one process
+   terminal event from the facts inside `onProcessFinalized`
+   (`actor_process.ts:1312-1328`): `actor_process_spawn_failed`,
+   `actor_process_exited` with `status` and `signal`, or
+   `actor_process_termination_unconfirmed`. Those events are in `L` on the
+   success and the failure path alike, and they are what the lifecycle rule
+   folds. The rule therefore takes no `OwnedProcessFacts` as input;
+   `hasConfirmedOwnedProcessBoundary(facts)` is the owner's reporting choice
+   at the boundary (layer 1 to layer 2), owned once in `shared/process/` and
+   used by the actor and by the helper's command and HTTP adapters alike. The
+   remaining members of the facts (`firstError`, `launchFailure`,
+   `cleanupElapsedMs`, `probeCount`, `signalAttempts`, `closeObserved`,
+   `streamsDisposed`, `drainExpired`) are attribution evidence. On the
+   failure path they travel as the refusal's diagnostic subject:
+   `refuseActorProcessEffect` sets `diagnosticRef` to
+   `constructRuntimeFailureDiagnosticRef(encodedFacts)` (a `data:` reference,
+   `abg/runtime_failure.ts:84`), and `admitRuntimeFailure` retains such a
+   subject inline (`:100-105`, `:126-127`), so the encoded facts are in `L`
+   with the admitted failure. If `admitRuntimeFailure` itself throws
+   (`:237`, `:281`), the facts are lost with the Run's failure and the
+   physical state stays unknown; no change is made on that path.
+2. *The encoding is an atom.* `encodeOwnedProcessFacts(facts): JsonValue` in
+   `shared/process/` is ratified as the Prime atom realizing B14's encoding.
+   Fixed form: every member of `OwnedProcessFacts` keeps its name; an `Error`
+   becomes `{ name, message, code, errno, syscall, path }` with each member
+   a string or `null` (`stack` is omitted: unbounded and not canonical); the
+   `bigint` becomes `{ "kind": "bigint", "value": "<base-10 digits>" }`;
+   `null` stays `null`; booleans, numbers and strings pass through. Falsifier:
+   any member whose encoding is not one of those forms, or a `stack` member
+   present.
+3. *Helper-run processes.* Command and HTTP processes run inside the helper
+   child and have no `actor_process_*` events. Their facts enter `L` as
+   members of the admitted leaf result (`result.json` read once by the
+   parent, then `c_call_result_admitted`) or of the admitted failure's
+   diagnostic subject. For them the lifecycle question is answered by
+   projecting that admitted event, not by `holdsAt`. The invariant is the
+   same: one admitted history, every answer derived from it.
+
+**B14 addendum, ratified correction (2026-10-22, after step 1 repair 2).**
+Item 1 above named the wrong site for the inline reference.
+`admitRuntimeFailure` retains a `data:` reference only when it decodes to
+exactly the subject it admits, `{ stage, candidate }`
+(`abg/runtime_failure.ts:239-241`, `hog/traversal_failure.ts:87`), so the
+reference cannot be built by `refuseActorProcessEffect` on the facts alone.
+Ratified route: the actor refusal carries the encoded facts as a member
+(`refuseActorProcessEffect` at `actor_process.ts:1362` and `:1403`); the
+C-call failure (`hog/ccall_lifecycle.ts:541`, `failCCall`) builds the
+reference with `constructRuntimeFailureDiagnosticRef({ stage, candidate: refusal })`
+and passes it as `diagnosticRef`, so `admitRuntimeFailure` retains the whole
+refusal, facts included, inline in `L`. The lifecycle rule is unchanged by
+this: it folds the owner's reported terminal events and takes no facts.
