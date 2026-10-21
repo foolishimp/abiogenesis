@@ -1,0 +1,15 @@
+# Closed proof successor — semantic input admission stopped
+
+C0-HOST-BIN-MODE-04 preserved the exact successor03 source, successful compile, emitted stage, archive and already-installed sunny host. It performed no compile, generator, pack, source/test/support edit, whole-candidate copy or sunny reinstall. All prior package/source/member inventories are reused by exact hash.
+
+The corrected preservation check passed once. All 5,271 member bytes and paths match the archive, no symlink was present, every non-bin mode was exact, and only the two declared package bins followed the pinned pacote execute-bit rule (0644 to 0755). This is new successor evidence. The predecessor's unconditional equality assertion remains failed. The actual command used --bin-links=false; pacote extraction is the source-backed normalization mechanism.
+
+The unchanged first sunny test then ran once and failed after 38.49 seconds with invocation_admission_refusal / authority_mismatch: “invocation admission requires the exact held artifact-truth predecessor prefix.” The stack identifies setupInstalledRootInvocation at support line 805, from retainedInputOrigin test line 233, runCase line 398. The exact command/environment, PID 82263, stdout, empty stderr, exit 1 and STOP are retained. No repair, retry or subsequent case was performed.
+
+The actual Product fixture install and earlier primary/alias invocation and basis admissions completed. The retained original log has 11 rows ending at alias basis ordinal 11: three artifact, two public-operation, two invocation, two implementation and two basis admissions. No traversal/CCall/evidence/Result row was admitted. target.txt remains the initial nine bytes “original\n”. Semantic invocation/basis setup and the C0 owner body did not complete. This is a failed owner-test setup boundary, not an executed C0 failure or currentness result.
+
+Zero principal physical C0 attempts, fresh readonly reopen children or native/provider actors. The process exited before the test's later close callback was registered; no append owner was reacquired and no explicit EventStore close receipt is claimed. Original log, target, installed consumer, cache and unused case roots are retained. No cleanup. A post-stop read-routing error is preserved separately without proof credit.
+
+Readback verified all 8,623 successor03 records, 5,866 original physical records, 12 selected source/test/support files and 936 main generated files unchanged. The original archive remains 6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5. The stopped successor is compact and references the immutable package inventories rather than copying them.
+
+The exact artifact-truth predecessor handoff requires Executive triage and a separately selected fixture successor before any owner retry. No production repair is inferred here. Genuine sunny/admitted-unavailable/unadmitted-effect/refusal proof, F5, anti-revival, deep negatives, cold/hot measurements and component regressions remain unexecuted. Final combined campaign, independent review and Executive acceptance remain pending.

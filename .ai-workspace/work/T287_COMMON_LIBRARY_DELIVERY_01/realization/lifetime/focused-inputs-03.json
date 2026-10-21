@@ -1,0 +1,52 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+    "bytes": 11283,
+    "sha256": "9d4b6c01ba565534ceb22ed0a49f6df7606a69349fce11f83651dc4ddae1ee5f"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "bytes": 32848,
+    "sha256": "8f04a97ee6bf99fbdd18a4bd6a9816048dfa08c83c9a2d0704e86f3fb683e51e"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "bytes": 62348,
+    "sha256": "f60f6187b88449e688ecdbdc8edf2de4ded6a6cd569c405a089527c1136fd97a"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "bytes": 132724,
+    "sha256": "7532aadf7fc497a5a4da3ccdf51fb9d1989832958e0f0baf424b3a6df68f32af"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "bytes": 24181,
+    "sha256": "df39d2e5fbabf7e149099d468c951bd2a3e9b3eaaa9651f5dd53833ff89ad3e9"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "bytes": 27799,
+    "sha256": "acaa70ab481093a3349e5cd9f3131ec7189e39cf7ed711659e8c6d441e45a309"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "bytes": 51313,
+    "sha256": "19cb0f8dc20501d40acf1df02044350d476518cfc38eaa71d748681c429c35de"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "bytes": 38266,
+    "sha256": "19721571186a09b4277946599d98dc3f2a894bff56fea1985ec56b48463638e4"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "bytes": 40026,
+    "sha256": "8fe508e8418b81e88198530022de69fd68d5419150b87a6bbc26db12eea28110"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "bytes": 66079,
+    "sha256": "ea445c16d2ae0a2a375ea721607b8d92d32c870797db9d1ed8436190f07801ef"
+  }
+]

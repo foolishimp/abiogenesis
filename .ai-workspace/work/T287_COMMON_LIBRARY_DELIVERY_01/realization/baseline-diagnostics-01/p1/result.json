@@ -1,0 +1,113 @@
+{
+  "status": "stopped",
+  "activation": "BASELINE-DIAGNOSTICS-01",
+  "subjectId": "baseline",
+  "lane": "public-preparation",
+  "frontier": "post-execution diagnostic coverage check",
+  "underlyingWorkload": {
+    "status": "satisfied",
+    "oracle": {
+      "predicate": "P1 preparation and resolution",
+      "satisfied": true
+    },
+    "result": {
+      "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/result.json",
+      "sha256": "45ab673952ab969521b1b545abaf9d2a78dc612b9c67045a63bf6a0a4b90155c",
+      "bytes": 1768,
+      "mode": "0o644"
+    },
+    "process": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/process-result.json",
+      "sha256": "50d9963bc92bcf06495d8cf22c91cfd8e9bcd0811e4077c30d9f65e8867e90ae",
+      "bytes": 314,
+      "mode": "0o644"
+    }
+  },
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/coverage-result.json",
+    "sha256": "be89cd598e1f64a6d522731d1f1367c6507fddecb5b65b99b8359308e66b7f40",
+    "bytes": 1134,
+    "mode": "0o644"
+  },
+  "unchangedCoverageContract": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/coverage-contract.json",
+    "sha256": "e68d72412313a964da781e84a1b6bbfe62183da244cad56bf00199dd9dde43ac",
+    "bytes": 1375,
+    "mode": "0o644"
+  },
+  "unchangedChecker": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/check-coverage.py",
+    "sha256": "f080e85a2de5e140714bf4ee3bdd7b8af29614a6075a0914e21b8f0180fdced7",
+    "bytes": 4548,
+    "mode": "0o644"
+  },
+  "localization": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/failure-localization.json",
+    "sha256": "e942099856664e78a19ce63ea1f3a59935d31aa81ce0ff1883c8a30f4c84d26d",
+    "bytes": 3329,
+    "mode": "0o644"
+  },
+  "externalChildEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/non-node-child-edges.json",
+    "sha256": "3cfa41544d03401380156dade0b0d15bc455e188801efcd2664414672d84c734",
+    "bytes": 127099,
+    "mode": "0o644"
+  },
+  "rawObservationSummary": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic/diagnostic-summary.json",
+    "sha256": "980b5a3a2c7e64faca55691213ab297d95a7bb2389d8baed57042c7682bc2bf8",
+    "bytes": 225078,
+    "mode": "0o644"
+  },
+  "ownerHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/owner-handoff.json",
+    "sha256": "9bd85ba6fc3f15d603a042aee136da868d78e9d202a624f3bf767ae56c219b4c",
+    "bytes": 2720,
+    "mode": "0o644"
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/measurement-return.json",
+    "sha256": "25d0c8f7ca3505f4613f6cf2051e4ea0b22e25fd03a0d4c2f5fc355e87fe8d03",
+    "bytes": 7705,
+    "mode": "0o644"
+  },
+  "preservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/preservation-after.json",
+    "sha256": "a0c4af4dccee1c7340f51cb2d5602e27f33bec221dc61cbe1126f3edde58bad7",
+    "bytes": 3393,
+    "mode": "0o644"
+  },
+  "physicalResources": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/physical-resources.json",
+    "sha256": "600f0d32c303635d33429879f4f3f7a960db346e6432382ee268bcd7f3884817",
+    "bytes": 7272256,
+    "mode": "0o644"
+  },
+  "cacheInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/cache-inventory.json",
+    "sha256": "c84ceb8cd4c7c74a9a31d8fdf28064c6e90af97bbc78b5819c29134338c94458",
+    "bytes": 7763,
+    "mode": "0o644"
+  },
+  "portableEvidenceMap": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/portable-evidence-map.json",
+    "sha256": "d4dd914c935be520c37318ab18318638dbd537e31f87c46be07b592ec92c5fea",
+    "bytes": 53213,
+    "mode": "0o644"
+  },
+  "P3": {
+    "status": "not_configured_or_executed",
+    "rootsStillAbsent": [
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/diagnostic",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p3",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/host",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/worksite"
+    ]
+  },
+  "nativeCalls": 0,
+  "retry": false,
+  "cleanup": false,
+  "claims": "Original P1 owner/oracle success remains bounded evidence. Diagnostic coverage is stopped at the frozen external-child whitelist. No Product failure or complete measurement acceptance inferred. Root successor required before analysis reclassification or P3."
+}

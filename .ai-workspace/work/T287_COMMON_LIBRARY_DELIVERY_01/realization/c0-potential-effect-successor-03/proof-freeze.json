@@ -1,0 +1,194 @@
+{
+  "activation": "C0-STAGE-METADATA-03",
+  "records": [
+    {
+      "path": "HOW-binding.md",
+      "bytes": 2746,
+      "sha256": "5879424820bd702a5c540e0374e947e996ab1ceab5fbab2d0bd3f5205de84f2d"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 2076,
+      "sha256": "f81e328c23782a7a765e977b051494ecd0707b88bc1ff3c319dc33d940890653"
+    },
+    {
+      "path": "archive-members.json",
+      "bytes": 1262495,
+      "sha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034"
+    },
+    {
+      "path": "archive-payload-owner-input.json",
+      "bytes": 915559,
+      "sha256": "13e8d432ec28205aa9050ff907963ea1b16446be1708601c34f593440c475163"
+    },
+    {
+      "path": "archive-payload-owner-result.json",
+      "bytes": 829,
+      "sha256": "35e6e2e5a39fb976b2d724c31427ab164b4757205509826288e9c6f769906a2d"
+    },
+    {
+      "path": "command-environment.json",
+      "bytes": 854,
+      "sha256": "8817a81977346d1192a40406c502ba5b76115fe924229ae75cbd4a43dd6e0e6e"
+    },
+    {
+      "path": "commands-config.json",
+      "bytes": 1400,
+      "sha256": "05b8ddcb4c785bb0fdaa3fef4e5d58dedf77e8f3321fd6593342130b0870a072"
+    },
+    {
+      "path": "common.py",
+      "bytes": 1373,
+      "sha256": "9dc09a38bf640105bb73844ede8f100e3b3271932e004108166da5693bba6bdf"
+    },
+    {
+      "path": "dependency-directory-metadata.json",
+      "bytes": 166044,
+      "sha256": "4c86b32669669749a6c3365da0826a0ebf8b5005bb9b6eb378d1f88e001753a0"
+    },
+    {
+      "path": "dependency-inputs.json",
+      "bytes": 1006601,
+      "sha256": "b65e98ccd69e8473d4c33872b67760b4f18ac84e2b22de3ea0df6da8ab453185"
+    },
+    {
+      "path": "emitted-correspondence.json",
+      "bytes": 8498,
+      "sha256": "92713d5d355dfa3991b3a707f1084f07fdc932851cb548f5595630c4eccaad1e"
+    },
+    {
+      "path": "generated-inventory.json",
+      "bytes": 249264,
+      "sha256": "5e60b19b9779bdd0a2169e4d82ed499800d4f29d35031350a7b9c15040d6a810"
+    },
+    {
+      "path": "metadata-consumption-result.json",
+      "bytes": 784,
+      "sha256": "6e2f6512b32000f486325d3ec4ce02257eef16256e9af716b79ae92a17df3972"
+    },
+    {
+      "path": "metadata-correspondence.json",
+      "bytes": 43594,
+      "sha256": "8cd938d5cb915a823c36a3d6b9fc624e8cbf955a8854a82030474b364ab49f2b"
+    },
+    {
+      "path": "offline-closure.json",
+      "bytes": 5419,
+      "sha256": "a610d875df5dc3970c319d2151bba4481173640afbe2bdacf02dc598f7eaad7d"
+    },
+    {
+      "path": "package-source-correspondence.json",
+      "bytes": 1199,
+      "sha256": "d7e00ff346c1dbb188e6b2ee22b78afd283818e2bc9e0fc84c3eb932684547fa"
+    },
+    {
+      "path": "prebuild-freeze.json",
+      "bytes": 4954,
+      "sha256": "3081bf315f7f3995ac3b3150a7e3387c58c2a3afd33a98c78e8bac8bbde7fbf4"
+    },
+    {
+      "path": "prepare-stage.py",
+      "bytes": 4275,
+      "sha256": "866953587fd0d0f801bdceee534446f1c7353d045bc88a2cb7fcc9877abeea41"
+    },
+    {
+      "path": "producer-input-pins.json",
+      "bytes": 3107,
+      "sha256": "4126bf5608beb2003f21b8e7059711b7b20ac1b51947c5f0fcf9bb8825ed8fb2"
+    },
+    {
+      "path": "proof-boundary.md",
+      "bytes": 2910,
+      "sha256": "08a3a4fa4d47012c5925b536dcb497147782bad685b0fd62a3db2d7fbc713b71"
+    },
+    {
+      "path": "proof-commands-config.json",
+      "bytes": 16470,
+      "sha256": "ee6c50c41de3c04b9fe7b15ef6ba3b21f215d67959c55e86c333248ef3567cf7"
+    },
+    {
+      "path": "proof-resources.json",
+      "bytes": 6821,
+      "sha256": "61bb8a0228e5461dd7305d24f0006cc46faf48a4be69e40f821fcd8c0be84afe"
+    },
+    {
+      "path": "read-routing-notes.json",
+      "bytes": 854,
+      "sha256": "e0c70c29a9ddffd5017aa15e4f74e566ebb91efb32cdc21c3a9ebfe2d25700e6"
+    },
+    {
+      "path": "resource-preflight.json",
+      "bytes": 312,
+      "sha256": "7048bb08532cba6017120d8b8b51cadd77689824d50c9a1b43030a55631355fd"
+    },
+    {
+      "path": "run-command.py",
+      "bytes": 2349,
+      "sha256": "01c1fe6f20bf881a6a5456069e9135f2f779086028ae900515e8bfb00f58f2f9"
+    },
+    {
+      "path": "run-proof-command.py",
+      "bytes": 2349,
+      "sha256": "e4580260414679e06509260bb2886ff8683bb0398cf97781dc8a67ee5f73ba1b"
+    },
+    {
+      "path": "source-inputs.json",
+      "bytes": 353610,
+      "sha256": "fc95840383cbccd2fc27769d923a12c8c32dfa33adc20a17f3b4b1e4c504def3"
+    },
+    {
+      "path": "stage-post-generation-inventory.json",
+      "bytes": 1784057,
+      "sha256": "5ce8d5e7aff9b3be5cd244e120e0a39f28a3f1f49a04e70e2cab5b86085438e7"
+    },
+    {
+      "path": "stage-pre-generation-inventory.json",
+      "bytes": 1784289,
+      "sha256": "fa1fcb8561acfeccbcfcabde2a4890803be2feef1b2833527bc17e788da40c94"
+    },
+    {
+      "path": "verify-archive.py",
+      "bytes": 4597,
+      "sha256": "2d081c03bae74f318a47dc0589fe8d80e2db4f024f95938a7ba302611d035c13"
+    },
+    {
+      "path": "verify-generation.py",
+      "bytes": 2422,
+      "sha256": "bf013b1de48f359d054a1df4807ea67cb58dd31f9e20a5d321c813ed8a94c6eb"
+    },
+    {
+      "path": "verify-installed-host.py",
+      "bytes": 1311,
+      "sha256": "842d5218872ebca8afa59b158d1056c158b46d07b75721763d706c359a51faa0"
+    },
+    {
+      "path": "verify-metadata.mjs",
+      "bytes": 13718,
+      "sha256": "f36eb963621bbd0d574bd0fac7c4214d7e78e09f9ab735778fd443a848b7ce13"
+    },
+    {
+      "path": "verify-payload.mjs",
+      "bytes": 1937,
+      "sha256": "894f2030400b8c9fc1b5cc47271bd50855daa92c7b136e2bcb2a643bb17c2268"
+    },
+    {
+      "path": "wrapper-correspondence.json",
+      "bytes": 560,
+      "sha256": "426645ce6f2175d0f4b0ccfc78a6a55c0aac6174706637b529f314bb68f158a2"
+    }
+  ],
+  "archive": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 10681835,
+    "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5"
+  },
+  "sourceInputsSha256": "fc95840383cbccd2fc27769d923a12c8c32dfa33adc20a17f3b4b1e4c504def3",
+  "stageInventorySha256": "5ce8d5e7aff9b3be5cd244e120e0a39f28a3f1f49a04e70e2cab5b86085438e7",
+  "memberInventorySha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034",
+  "proofResourcesSha256": "61bb8a0228e5461dd7305d24f0006cc46faf48a4be69e40f821fcd8c0be84afe",
+  "preparationFreezeSha256": "3081bf315f7f3995ac3b3150a7e3387c58c2a3afd33a98c78e8bac8bbde7fbf4",
+  "status": "Prospective exact ordered owner proof, before any install/setup/C0 effect",
+  "principalAttemptsAlreadyExecuted": 0
+}

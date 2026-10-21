@@ -1,0 +1,247 @@
+{
+  "status": "observations_retained_coverage_stopped",
+  "subjectId": "baseline",
+  "lane": "public-preparation",
+  "rawTimeEvidence": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic/execution.stderr",
+    "sha256": "5723beb445b67cedc5fa2f2869953b588e17426b82925981458eae535037d301",
+    "bytes": 777,
+    "mode": "0o644"
+  },
+  "command": {
+    "reportedWallSeconds": 329.43,
+    "reportedUserSeconds": 382.08,
+    "reportedSystemSeconds": 16.66,
+    "maximumResidentSetSizeBytes": 2981330944,
+    "peakMemoryFootprintBytes": 2279814800,
+    "wrapperWallSeconds": 329.511485791998,
+    "scope": "/usr/bin/time -l measured original runner with awaited children and passive observer overhead; no per-external-child attribution"
+  },
+  "launcherSamples": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic/execution.json",
+    "sha256": "9afdd6167921b995cd34cb6bad7d3e679307995175f890270bdd10bb4c03e590",
+    "bytes": 1672,
+    "mode": "0o644"
+  },
+  "nodeObservationSummary": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic/diagnostic-summary.json",
+    "sha256": "980b5a3a2c7e64faca55691213ab297d95a7bb2389d8baed57042c7682bc2bf8",
+    "bytes": 225078,
+    "mode": "0o644"
+  },
+  "nodeProcessRecords": 16,
+  "nativeTraceRecords": 16,
+  "traceBytes": 255090229,
+  "observerRecordBytes": 184057,
+  "analyserFailures": [],
+  "perPidSamples": [
+    {
+      "pid": 10391,
+      "ppid": 9385,
+      "wallMs": 21597.345792,
+      "cpuUs": {
+        "user": 25050236,
+        "system": 484206
+      },
+      "maxRSSKiB": 2053072
+    },
+    {
+      "pid": 10662,
+      "ppid": 9385,
+      "wallMs": 25707.822416000003,
+      "cpuUs": {
+        "user": 32036801,
+        "system": 623261
+      },
+      "maxRSSKiB": 2911456
+    },
+    {
+      "pid": 10932,
+      "ppid": 9385,
+      "wallMs": 47090.4885,
+      "cpuUs": {
+        "user": 50182421,
+        "system": 1116931
+      },
+      "maxRSSKiB": 2265184
+    },
+    {
+      "pid": 11367,
+      "ppid": 10932,
+      "wallMs": 2331.543166,
+      "cpuUs": {
+        "user": 2153875,
+        "system": 2628971
+      },
+      "maxRSSKiB": 624224
+    },
+    {
+      "pid": 11430,
+      "ppid": 9385,
+      "wallMs": 24803.267042,
+      "cpuUs": {
+        "user": 26499329,
+        "system": 805553
+      },
+      "maxRSSKiB": 2165920
+    },
+    {
+      "pid": 11682,
+      "ppid": 11430,
+      "wallMs": 1548.716292,
+      "cpuUs": {
+        "user": 1545032,
+        "system": 1575769
+      },
+      "maxRSSKiB": 584848
+    },
+    {
+      "pid": 11719,
+      "ppid": 9385,
+      "wallMs": 23994.865374999998,
+      "cpuUs": {
+        "user": 28098894,
+        "system": 531181
+      },
+      "maxRSSKiB": 2021248
+    },
+    {
+      "pid": 11991,
+      "ppid": 9385,
+      "wallMs": 30274.647416,
+      "cpuUs": {
+        "user": 33839422,
+        "system": 607401
+      },
+      "maxRSSKiB": 2519872
+    },
+    {
+      "pid": 12333,
+      "ppid": 9385,
+      "wallMs": 23351.031583999997,
+      "cpuUs": {
+        "user": 27435156,
+        "system": 542510
+      },
+      "maxRSSKiB": 2095904
+    },
+    {
+      "pid": 12615,
+      "ppid": 9385,
+      "wallMs": 24211.743541,
+      "cpuUs": {
+        "user": 28336031,
+        "system": 552635
+      },
+      "maxRSSKiB": 2156448
+    },
+    {
+      "pid": 9385,
+      "ppid": 9384,
+      "wallMs": 329270.459167,
+      "cpuUs": {
+        "user": 42996740,
+        "system": 2285501
+      },
+      "maxRSSKiB": 2160896
+    },
+    {
+      "pid": 9400,
+      "ppid": 9385,
+      "wallMs": 2480.817125,
+      "cpuUs": {
+        "user": 2295320,
+        "system": 2622822
+      },
+      "maxRSSKiB": 552048
+    },
+    {
+      "pid": 9425,
+      "ppid": 9385,
+      "wallMs": 3014.190083,
+      "cpuUs": {
+        "user": 5761576,
+        "system": 151181
+      },
+      "maxRSSKiB": 1256176
+    },
+    {
+      "pid": 9687,
+      "ppid": 9385,
+      "wallMs": 20890.04325,
+      "cpuUs": {
+        "user": 24357068,
+        "system": 466270
+      },
+      "maxRSSKiB": 2056528
+    },
+    {
+      "pid": 9900,
+      "ppid": 9385,
+      "wallMs": 191.866042,
+      "cpuUs": {
+        "user": 314649,
+        "system": 45165
+      },
+      "maxRSSKiB": 232336
+    },
+    {
+      "pid": 9927,
+      "ppid": 9385,
+      "wallMs": 42396.070083000006,
+      "cpuUs": {
+        "user": 47583557,
+        "system": 771420
+      },
+      "maxRSSKiB": 2249136
+    }
+  ],
+  "counterScope": "Per-PID per-API read/write/hash/JSON/canonical and actual RuntimeHistory observations remain separate in the pinned summary; overlapping channels are not summed. Native trace unsized/error fields are retained. Later exit handlers are outside each JS snapshot; memory samples are not heap peaks.",
+  "overheadScope": "Observer record serialization/hashing is excluded from JS counters where the frozen observer specifies; native fs trace includes preflight/evidence/observer IO. Exact trace and observer record bytes are separate overhead, never subtracted from filesystem channels. Post-run analysis, retention, copies and inventories are outside the timed endpoint.",
+  "referenceEndpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/measurement-return.json",
+    "sha256": "edd74b069ed0caf2c11bb2e7cca1de3e998d036d493656123211bac16ae74317",
+    "bytes": 2377,
+    "mode": "0o644"
+  },
+  "referenceRawTimes": {
+    "rawTimeEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/execution.stderr",
+      "sha256": "c724eecd8955d645d081a10cd653bd21adf13a8eb63ba7d2967d7fabf207cb7f",
+      "bytes": 777
+    },
+    "reportedWallSeconds": 310.07,
+    "reportedUserSeconds": 360.32,
+    "reportedSystemSeconds": 15.26,
+    "externalWrapperWallMs": 310074.60924983025,
+    "scope": "exact /usr/bin/time -l command accounting over runner plus awaited children and proof overhead; raw platform counters retained without child-specific attribution"
+  },
+  "comparisonLimit": "One uninstrumented and one diagnostic baseline P1 observation, with explicit fresh empty diagnostic npm cache versus earlier endpoint ambient cache boundary. Raw timing difference does not isolate instrumentation overhead and supports no statistical speed or heap claim.",
+  "externalChildEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/non-node-child-edges.json",
+    "sha256": "3cfa41544d03401380156dade0b0d15bc455e188801efcd2664414672d84c734",
+    "bytes": 127099,
+    "mode": "0o644"
+  },
+  "footprints": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/footprints.json",
+    "sha256": "b4dd662c9e208ca04e9c864e79ab8d2950f19fdee9763b589f528f8c54e7c77f",
+    "bytes": 3587,
+    "mode": "0o644"
+  },
+  "nativeCalls": 0,
+  "unobserved": [
+    "tar/du per-PID CPU, memory and internal read/write bytes",
+    "OS-wide IO totals and unique or CoW-exclusive allocation",
+    "unsized native fs completion bytes and unprobed APIs",
+    "cold causal-iteration internal work and later exit-handler work",
+    "isolated observer overhead and statistical performance distribution"
+  ],
+  "unobservedIsZero": false,
+  "coverageFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/coverage-result.json",
+    "sha256": "be89cd598e1f64a6d522731d1f1367c6507fddecb5b65b99b8359308e66b7f40",
+    "bytes": 1134,
+    "mode": "0o644"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "source": "Root CORRECT_BINDING_AND_CONTINUE_GRANTED_P5 message, attributed transcription",
+  "recordedAt": "2026-10-21T06:46:46.180476+00:00",
+  "firstSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/binding-stop-freeze.json",
+    "bytes": 1580,
+    "sha256": "331bab10734d99453aec507afe592b97f56471a87e47f1cf67471163cfcace68"
+  },
+  "cause": "Old E03 setup precedes already-selected P3 fixture dependency repair; exact P5 input predicate correctly refused the substitution. Zero install/runtime.",
+  "selectedRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+  "expectedSha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+  "scope": "Support acquisition only; no Product/E03/test/support edit or new packaging/review cycle. Reuse previous full readiness by exact frozen inventory identities; no repeated full readiness scan.",
+  "ordinarySourceSelection": "Other transitive routes selected from extant sources only where exact bytes match the existing P5 frozen pin.",
+  "stop": "First genuine new predicate/runtime failure stops before repair/retry."
+}

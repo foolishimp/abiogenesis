@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "/usr/bin/time",
+    "-l",
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/configuration.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution",
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "configurationSha256": "a9abaf7e7c6b0d53cf89fd32d2a9b0327f65d57e7242546d5fe985da2ba1329d",
+  "grantSha256": "349048ca2db84f936e3a244e98c95d672416e2c0bad1526fb04c0dfc9258b1ff",
+  "retryCount": 0,
+  "startedAt": "2026-10-21T06:49:02.251075+00:00"
+}

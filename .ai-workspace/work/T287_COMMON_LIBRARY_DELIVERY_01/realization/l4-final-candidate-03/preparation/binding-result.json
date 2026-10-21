@@ -1,0 +1,79 @@
+{
+  "status": "BOUND_NOT_GRANTED",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+    "bytes": 10681835,
+    "mode": "0o644"
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "2960e5dddf8959de4ff269a3aac92dce2a8dd27bb79dee308b5fa394a3bf9920",
+    "bytes": 3189620,
+    "mode": "0o644"
+  },
+  "configs": {
+    "p1": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/p1.configuration.NOT_GRANTED.json",
+      "sha256": "676f27bcfa64cd532bbf72da6193efc9c6ef67bd9b0d03bd51f74eb32ada2f51"
+    },
+    "p2": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/p2.configuration.NOT_GRANTED.json",
+      "sha256": "26b11c9acdaa85ede02aa2810f5961084a1313b6f1aba72886623aad559b77a3"
+    },
+    "p3": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/p3.configuration.NOT_GRANTED.json",
+      "sha256": "c950be8091934f908f973847540556cba6993356d4175114d3fdd9294a570849"
+    }
+  },
+  "ownerConfig": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/owner-resolution.configuration.NOT_GRANTED.json",
+    "sha256": "6f43de674edd3257a63720a182a6a922a77bbde03d7bdbf1c97b27d71c817384"
+  },
+  "sourceAfterimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/source-afterimages.json",
+    "sha256": "80704c80e912323ea86d8b62a00d576cfd8c6518f581cff349772e8a67b7fc5d"
+  },
+  "counts": {
+    "source": 1319,
+    "generated": 940,
+    "dependencies": 4576,
+    "support": 14,
+    "packageMembers": 5271
+  },
+  "originalRunnerUnchanged": true,
+  "originalOracleUnchanged": true,
+  "sourceWrites": 0,
+  "builds": 0,
+  "packages": 0,
+  "installs": 0,
+  "ownerAttempts": 0,
+  "nativeCalls": 0,
+  "allocatedRoots": 0,
+  "resourceAbsence": {
+    "status": "all_absent",
+    "paths": [
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/owner-resolution",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/caches/p1",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/caches/p2",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/caches/p3",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/evidence",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/host",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/scratchParent",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/worksite",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/evidence",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/host",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/scratchParent",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/secondInstall",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/evidence",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/host",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/scratchParent",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/worksite"
+    ],
+    "allocated": false
+  },
+  "actualP1HandoffPending": true,
+  "noFinal02ReceiptTransfer": true,
+  "artifactChangeStopsScope": true
+}

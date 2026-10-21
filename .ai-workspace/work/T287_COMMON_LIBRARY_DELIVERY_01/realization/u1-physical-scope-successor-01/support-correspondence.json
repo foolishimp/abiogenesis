@@ -1,0 +1,502 @@
+{
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "sha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "sha256": "f46908c1598ddc8a7a21a5a890dc2a1af5fe75089160e15054824cfcb59ddca3"
+  },
+  "matches": [
+    {
+      "kind": "top-level declaration",
+      "name": "results",
+      "beforeSha256": "d7a10ea0c2aa7c07cbb122978801c51a6d64869d46344ba642a5dc044b85f189",
+      "afterSha256": "d7a10ea0c2aa7c07cbb122978801c51a6d64869d46344ba642a5dc044b85f189",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "fixtures",
+      "beforeSha256": "8ded7998ae1e6ab0bb13c87fb20aa6d2fbe5519708d016fb00e2c3e8cb977602",
+      "afterSha256": "8ded7998ae1e6ab0bb13c87fb20aa6d2fbe5519708d016fb00e2c3e8cb977602",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "attempts",
+      "beforeSha256": "c45bad5edf462ea906190d57c5dcb49b2d582a707325092dad67457aee19cac6",
+      "afterSha256": "c45bad5edf462ea906190d57c5dcb49b2d582a707325092dad67457aee19cac6",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "physicalFacts",
+      "beforeSha256": "7872839d8b67b2c3afe93cd3d5590fbce66a4b443c58755967646b106942076d",
+      "afterSha256": "7872839d8b67b2c3afe93cd3d5590fbce66a4b443c58755967646b106942076d",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "gateTraces",
+      "beforeSha256": "3d6f934a1c7cc9a0d0615659628313b92431ebb1c8e35c40778ebcce67a51eb6",
+      "afterSha256": "3d6f934a1c7cc9a0d0615659628313b92431ebb1c8e35c40778ebcce67a51eb6",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "gateOutputs",
+      "beforeSha256": "f902d4766c986943d485e2984dbebf68ed8fbee9d25909670b089d54b57375ef",
+      "afterSha256": "f902d4766c986943d485e2984dbebf68ed8fbee9d25909670b089d54b57375ef",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "handoffChecks",
+      "beforeSha256": "7f7fc9e8d5c223db251485f3b402b22829744340aa862a1c6094324febc3dd34",
+      "afterSha256": "7f7fc9e8d5c223db251485f3b402b22829744340aa862a1c6094324febc3dd34",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "contextChecks",
+      "beforeSha256": "82b15dab3a07c6f768c75be268dc38910bf2c35105ad2fb25c354e6c83eec4c4",
+      "afterSha256": "82b15dab3a07c6f768c75be268dc38910bf2c35105ad2fb25c354e6c83eec4c4",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "CASE_NAMES",
+      "beforeSha256": "9af5faecedd283bb0ac9b62420c93b5ad0b00fc24145935ae4cce0713d5d9e0f",
+      "afterSha256": "9af5faecedd283bb0ac9b62420c93b5ad0b00fc24145935ae4cce0713d5d9e0f",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "FIRST_CASE",
+      "beforeSha256": "58f3d18bfa905cc5c9916358d0bbb59f5526b41515709e8a3811ceee68e93aee",
+      "afterSha256": "58f3d18bfa905cc5c9916358d0bbb59f5526b41515709e8a3811ceee68e93aee",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "selectedCases",
+      "beforeSha256": "a2566e63d6095159dbc5c2421b5a5c7a1edcda4bc95246ffebc7d081e3992573",
+      "afterSha256": "a2566e63d6095159dbc5c2421b5a5c7a1edcda4bc95246ffebc7d081e3992573",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "omittedCases",
+      "beforeSha256": "20c08f24ad0feb5897354f7f115f1e4b9daaeae3ebbb569818faac1dfb9ffbae",
+      "afterSha256": "20c08f24ad0feb5897354f7f115f1e4b9daaeae3ebbb569818faac1dfb9ffbae",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "proofSucceeded",
+      "beforeSha256": "133046942038ba9607bdfd1a47648e83b22b8ad594a6d02844ea5fea1a9f0399",
+      "afterSha256": "133046942038ba9607bdfd1a47648e83b22b8ad594a6d02844ea5fea1a9f0399",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "preserveOnFailure",
+      "beforeSha256": "f78fb92810867a6673fe7c9e45d59dcb8b6cd348fc2d8c01956e174467d4c81b",
+      "afterSha256": "f78fb92810867a6673fe7c9e45d59dcb8b6cd348fc2d8c01956e174467d4c81b",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "traced",
+      "beforeSha256": "4c86e13fe4fb668ac02ee573b8e180aa3bceb56dc09125ea7c63fe0c4a128115",
+      "afterSha256": "4c86e13fe4fb668ac02ee573b8e180aa3bceb56dc09125ea7c63fe0c4a128115",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "observed",
+      "beforeSha256": "71178bb0f78c982f7f55fcf8d8a90bc7ce23ecac0d4735c507c08f3610837088",
+      "afterSha256": "71178bb0f78c982f7f55fcf8d8a90bc7ce23ecac0d4735c507c08f3610837088",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "checkedHandoff",
+      "beforeSha256": "8fe6561eb5b8a080a324ec8a8e3f1d0c63a3dc1f3e4aa8856035014af52ddeca",
+      "afterSha256": "8fe6561eb5b8a080a324ec8a8e3f1d0c63a3dc1f3e4aa8856035014af52ddeca",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "physicalInventory",
+      "beforeSha256": "a5511eff3dc31fae4ed805f8eb825bb5a7887cc449e8abf49523c2daf78466f1",
+      "afterSha256": "a5511eff3dc31fae4ed805f8eb825bb5a7887cc449e8abf49523c2daf78466f1",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "retainedJournal",
+      "beforeSha256": "59594a460d4a42674f3b4edebce69d0b83d957f26b75ebf63b411aa4a872197d",
+      "afterSha256": "59594a460d4a42674f3b4edebce69d0b83d957f26b75ebf63b411aa4a872197d",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "retain",
+      "beforeSha256": "be2ee0eef279e4ae7e8a4177f1e2a508704eeb3944bcbd89b343bc72cdd44b14",
+      "afterSha256": "be2ee0eef279e4ae7e8a4177f1e2a508704eeb3944bcbd89b343bc72cdd44b14",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "selected",
+      "beforeSha256": "c37cdda6d90c33cb3e0d9acb2930cc3dc9bdcb463aced13925845f33922583e8",
+      "afterSha256": "c37cdda6d90c33cb3e0d9acb2930cc3dc9bdcb463aced13925845f33922583e8",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "proveCause",
+      "beforeSha256": "93a21ea5e502deba76b0fa4fe2f7d26fcb36e0a56044a56f3d22d90e96d40f3b",
+      "afterSha256": "93a21ea5e502deba76b0fa4fe2f7d26fcb36e0a56044a56f3d22d90e96d40f3b",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "c0Success",
+      "beforeSha256": "67408fadde9516d29f1d03b2aec472dbad5c2e569bbe4ba3875bc341e369f59b",
+      "afterSha256": "67408fadde9516d29f1d03b2aec472dbad5c2e569bbe4ba3875bc341e369f59b",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "assessmentContract",
+      "beforeSha256": "edfc7a6864c975e5e519383d3b141c356f27ebb8d05829a5777c718c1ff351c0",
+      "afterSha256": "edfc7a6864c975e5e519383d3b141c356f27ebb8d05829a5777c718c1ff351c0",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "assessmentSchema",
+      "beforeSha256": "2e516af478692ed7db6a7285d9b9f7add8a4dab4dda7563bb6d0750dc6b86726",
+      "afterSha256": "2e516af478692ed7db6a7285d9b9f7add8a4dab4dda7563bb6d0750dc6b86726",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "governanceInput",
+      "beforeSha256": "866d17e94f075bfbdc28f5f4d1f32e71e616cfe7916810c4f0796492b2ae0eae",
+      "afterSha256": "866d17e94f075bfbdc28f5f4d1f32e71e616cfe7916810c4f0796492b2ae0eae",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "observedConsumers",
+      "beforeSha256": "56a79a229263544a45961ac06ddea9be3eb2e5238d0457929a34a2c3dd815211",
+      "afterSha256": "56a79a229263544a45961ac06ddea9be3eb2e5238d0457929a34a2c3dd815211",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "synthesized",
+      "beforeSha256": "33f28d92d38eacb6b9f793b74761c3718a133bcc44b285795a758883d9722bc5",
+      "afterSha256": "33f28d92d38eacb6b9f793b74761c3718a133bcc44b285795a758883d9722bc5",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "governanceConsumers",
+      "beforeSha256": "2bdc99919567ebb3990364cd338949e64272298aba88485c4f4b535ecf5d092e",
+      "afterSha256": "2bdc99919567ebb3990364cd338949e64272298aba88485c4f4b535ecf5d092e",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "D",
+      "beforeSha256": "ebba713c7323665cd72df744c608ee6a00b80b790db2c712a6a4ab611c2e1a7b",
+      "afterSha256": "ebba713c7323665cd72df744c608ee6a00b80b790db2c712a6a4ab611c2e1a7b",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "coordinateOf",
+      "beforeSha256": "a598c3dbbf101e0afd4c382966366d2ff455343699621d4250f2acab66a7ae80",
+      "afterSha256": "a598c3dbbf101e0afd4c382966366d2ff455343699621d4250f2acab66a7ae80",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "semanticData",
+      "beforeSha256": "fc1bf9eee684fc6ec3e3e38c0853676dc0bbab045790ddd1471b62970ce9b2c6",
+      "afterSha256": "fc1bf9eee684fc6ec3e3e38c0853676dc0bbab045790ddd1471b62970ce9b2c6",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "semanticOwnerHarness",
+      "beforeSha256": "a9f5713bdba0cdb381b1425a66aa88bbdca709601240b2aca29641b3528db7be",
+      "afterSha256": "a9f5713bdba0cdb381b1425a66aa88bbdca709601240b2aca29641b3528db7be",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "semanticFoldConsumer",
+      "beforeSha256": "7650ade760ca6f0a296fc33dfc0272a47d4d93fb100ec0f1de2764b1afef1764",
+      "afterSha256": "7650ade760ca6f0a296fc33dfc0272a47d4d93fb100ec0f1de2764b1afef1764",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "revisionIntakeConsumer",
+      "beforeSha256": "226ee8f9b075e803259743ea632d8df487f4f5c1981a541393741c6481678e01",
+      "afterSha256": "226ee8f9b075e803259743ea632d8df487f4f5c1981a541393741c6481678e01",
+      "equal": true
+    },
+    {
+      "kind": "top-level declaration",
+      "name": "revisionEvidenceConsumer",
+      "beforeSha256": "0dc57fc682ea66a70f1490d741fdedd7a455d75a2d72e2ad1feb97626542b6a2",
+      "afterSha256": "0dc57fc682ea66a70f1490d741fdedd7a455d75a2d72e2ad1feb97626542b6a2",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "assert",
+      "beforeSha256": "873a52c50438666300e4623dc313f7b866cca97953733483319517ac6c5627fe",
+      "afterSha256": "873a52c50438666300e4623dc313f7b866cca97953733483319517ac6c5627fe",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "test",
+      "beforeSha256": "113af16b410d8a927bb42057cfebea1c6d22c7ad93d093f19bd1214f085ca5d1",
+      "afterSha256": "113af16b410d8a927bb42057cfebea1c6d22c7ad93d093f19bd1214f085ca5d1",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "fs",
+      "beforeSha256": "34edd19e8e6f5c4e890c0d0792eeb19a093b174fc033e711fbe17b8708f3aab9",
+      "afterSha256": "34edd19e8e6f5c4e890c0d0792eeb19a093b174fc033e711fbe17b8708f3aab9",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "dirname",
+      "beforeSha256": "abdd4e11942f34eea3ff1bcb67dfc394b2290835bc0a437f8a1d39bcf8eb0763",
+      "afterSha256": "abdd4e11942f34eea3ff1bcb67dfc394b2290835bc0a437f8a1d39bcf8eb0763",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "join",
+      "beforeSha256": "8d639ed20db215952c5f59d57b8c956d0a91a2b8f271fdf84cf00143c349e38f",
+      "afterSha256": "8d639ed20db215952c5f59d57b8c956d0a91a2b8f271fdf84cf00143c349e38f",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "pathToFileURL",
+      "beforeSha256": "0a08bf32cf53de913f32ba0d2bdd4665b82680f3b3ed1d9c7fa5d9d6ab843696",
+      "afterSha256": "0a08bf32cf53de913f32ba0d2bdd4665b82680f3b3ed1d9c7fa5d9d6ab843696",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "createU1Fixture",
+      "beforeSha256": "c28502f547bb010b5c3fa38edb97022d4f8a01d8629a3b3e6bdb3e736c88090b",
+      "afterSha256": "c28502f547bb010b5c3fa38edb97022d4f8a01d8629a3b3e6bdb3e736c88090b",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "product",
+      "beforeSha256": "05e658ec37a4ecd12226dc2d45293c0ec40f833c1ced8f5687f3da6d6a250622",
+      "afterSha256": "05e658ec37a4ecd12226dc2d45293c0ec40f833c1ced8f5687f3da6d6a250622",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "hash",
+      "beforeSha256": "b1187d1d87473958ca76f4265a5773f72c3fa8a5ae58e001bfaa79e63bae9e44",
+      "afterSha256": "b1187d1d87473958ca76f4265a5773f72c3fa8a5ae58e001bfaa79e63bae9e44",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "ids",
+      "beforeSha256": "19c209b438fc396f278de9c57b8d65ba1a95f82d4ec3e3d9541a86bd9b8e01ce",
+      "afterSha256": "19c209b438fc396f278de9c57b8d65ba1a95f82d4ec3e3d9541a86bd9b8e01ce",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "identity",
+      "beforeSha256": "b831a6040343b530336f0db4e8db33ffe9bb3e009854b690151e5d30e0d625aa",
+      "afterSha256": "b831a6040343b530336f0db4e8db33ffe9bb3e009854b690151e5d30e0d625aa",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "clone",
+      "beforeSha256": "2474295de7b801750297a1abb5556e0cb2b8561cdecbd9141803b71adbc58081",
+      "afterSha256": "2474295de7b801750297a1abb5556e0cb2b8561cdecbd9141803b71adbc58081",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "current",
+      "beforeSha256": "3607b5197759102bf43075d01594a26c075aecb453875fd52e50f485ff9b77f7",
+      "afterSha256": "3607b5197759102bf43075d01594a26c075aecb453875fd52e50f485ff9b77f7",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "component",
+      "beforeSha256": "4197746c1c0cd299f7ab40f43da2a124a7bedc009665afb8a8eccf26f5d3dd04",
+      "afterSha256": "4197746c1c0cd299f7ab40f43da2a124a7bedc009665afb8a8eccf26f5d3dd04",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "traceInvalidator",
+      "beforeSha256": "6257eaef958b3336c9911630ee730aba747a09e1ca144784a162435efc180f77",
+      "afterSha256": "6257eaef958b3336c9911630ee730aba747a09e1ca144784a162435efc180f77",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "admittedResult",
+      "beforeSha256": "602403bf3229bb7d5dd991a72c059ae8b4daec0f61f5c63a353232dff3d10b92",
+      "afterSha256": "602403bf3229bb7d5dd991a72c059ae8b4daec0f61f5c63a353232dff3d10b92",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "admitNativeSource",
+      "beforeSha256": "ed5cd9f8d06a7a8511a703eeffb37bbdc02e119df0d16cd53f0b5ee55999768f",
+      "afterSha256": "ed5cd9f8d06a7a8511a703eeffb37bbdc02e119df0d16cd53f0b5ee55999768f",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "semanticFixtureHelpers",
+      "beforeSha256": "da6f703a1e63e0152c6616e4829b3e2978323b6db6bb062f6570ad17f0e41142",
+      "afterSha256": "da6f703a1e63e0152c6616e4829b3e2978323b6db6bb062f6570ad17f0e41142",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "p",
+      "beforeSha256": "6c54d2a871acc8e614eb5222a70101f7b290608f246db37e6b3e9ff214da9bfa",
+      "afterSha256": "6c54d2a871acc8e614eb5222a70101f7b290608f246db37e6b3e9ff214da9bfa",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "g",
+      "beforeSha256": "9cc92beaa28d593ec0aab5764e12d67d99fa687c97d36791907e5dd518a7575c",
+      "afterSha256": "9cc92beaa28d593ec0aab5764e12d67d99fa687c97d36791907e5dd518a7575c",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "calculus",
+      "beforeSha256": "3b67aeb8a7314d1b04c2c840bc3a50287338baf81a1c5360ac3dd0c45a80fd5d",
+      "afterSha256": "3b67aeb8a7314d1b04c2c840bc3a50287338baf81a1c5360ac3dd0c45a80fd5d",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "prefixes",
+      "beforeSha256": "db7eff35c72e68ed00da4dc0b43dda48844289590dd694ca986664cd753952ae",
+      "afterSha256": "db7eff35c72e68ed00da4dc0b43dda48844289590dd694ca986664cd753952ae",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "nativeOwner",
+      "beforeSha256": "1deb6aadf22ed007120cba919beb14bf08881c53b2885a29e264ef4cb313306f",
+      "afterSha256": "1deb6aadf22ed007120cba919beb14bf08881c53b2885a29e264ef4cb313306f",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "constructNativeWorkspaceWorkObservation",
+      "beforeSha256": "f90970a7786d82df618dc27e3b51f90b9ac8d0f16285af4d6a47330c8da9178a",
+      "afterSha256": "f90970a7786d82df618dc27e3b51f90b9ac8d0f16285af4d6a47330c8da9178a",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "assessmentOwner",
+      "beforeSha256": "6cb5408a0c27ec164b43b370d16d8efcdea0ad73a5189b755366dc7423ed41c1",
+      "afterSha256": "6cb5408a0c27ec164b43b370d16d8efcdea0ad73a5189b755366dc7423ed41c1",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "projectNativeWorkUnknownEffectTask",
+      "beforeSha256": "d4baa042af11f58a8085e488a3bb0616f7d77f4988deefd1f6eac815b635dc64",
+      "afterSha256": "d4baa042af11f58a8085e488a3bb0616f7d77f4988deefd1f6eac815b635dc64",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "selectHeldEventStoreDurablePrefix",
+      "beforeSha256": "d0c0ede4bfe2e36eae6c44785fb127ac93b8820f4b6d3529197a23d04c40d678",
+      "afterSha256": "d0c0ede4bfe2e36eae6c44785fb127ac93b8820f4b6d3529197a23d04c40d678",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "deepFreeze",
+      "beforeSha256": "032da1418a7193d4bfb847a204e4324b774c78b0805a1046a3a205b985303596",
+      "afterSha256": "032da1418a7193d4bfb847a204e4324b774c78b0805a1046a3a205b985303596",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "semantic",
+      "beforeSha256": "5ea3d4d72d8e91b3f1117179e100978cdff13e5a3af279921ff8e84d536cf4f4",
+      "afterSha256": "5ea3d4d72d8e91b3f1117179e100978cdff13e5a3af279921ff8e84d536cf4f4",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "revisionProduct",
+      "beforeSha256": "9b162b4a311a307d9696ad40d39883cccc523109f972b163ab7f10f5ca8af589",
+      "afterSha256": "9b162b4a311a307d9696ad40d39883cccc523109f972b163ab7f10f5ca8af589",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "R",
+      "beforeSha256": "df3a7f6011c3f0bc628843e966e975ed4dd06f086cdb7254274f3b010a84908a",
+      "afterSha256": "df3a7f6011c3f0bc628843e966e975ed4dd06f086cdb7254274f3b010a84908a",
+      "equal": true
+    },
+    {
+      "kind": "existing import binding",
+      "name": "observationFor",
+      "beforeSha256": "9f0ae15734040dd00d4d3c564475395ef54dc44e93e9a220f08c1bde90c7a364",
+      "afterSha256": "9f0ae15734040dd00d4d3c564475395ef54dc44e93e9a220f08c1bde90c7a364",
+      "equal": true
+    },
+    {
+      "kind": "existing test body",
+      "name": "U1-P5-02 actual C0 successor and every affected currentness consumer",
+      "beforeSha256": "8ee5179b0e4aa5d100218b9ccb7a4aa28f2706a3c12172e92a08ec465ea1db7a",
+      "afterSha256": "8ee5179b0e4aa5d100218b9ccb7a4aa28f2706a3c12172e92a08ec465ea1db7a",
+      "equal": true
+    }
+  ],
+  "allExistingEqual": true,
+  "additionalTestNames": [
+    "U1 physical target scope successor across bindings and native Result scopes"
+  ],
+  "originalCorrespondence": "../currentness-consumers/reused-support-correspondence.json",
+  "originalE2Appendix": "../u1-cross-binding-triage-01/E2-support-correspondence.json",
+  "limit": "No earlier 38-call aggregate or 26-body population is re-executed here. All old declarations/bindings/test body and shared support are conserved. The intentional EventCalculus target-predicate change is separately proved by the new selected population; final combined aggregate remains required."
+}

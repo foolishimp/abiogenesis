@@ -1,0 +1,60 @@
+{
+  "activation": "REOPEN18-OWNER-CLONE-SUCCESSOR-07",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/overlay-binding.json",
+    "sha256": "11fc7ffe82afbb04dad1e5bbd44800ad42f6e0300249dd4e892f43a7b92a05d5",
+    "bytes": 9496
+  },
+  "how": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/HOW-binding.md",
+    "sha256": "c5f9c5044aca40f37b3017282340af06ac966aaa1a33befbb8df0d04b7b103cc",
+    "bytes": 3775
+  },
+  "support": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+    "sha256": "0dcec2afd65c3d525a87057892d8a65a9a91df2ffc5be5e5ec42601a7fabbfaf",
+    "bytes": 4966
+  },
+  "test": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "sha256": "2f47abc4d95073f9f4528e01db3a0e90a7f543e10cc331f7ecc3a4e114ac3e69",
+    "bytes": 65127
+  },
+  "syntax": {
+    "pid": 48103,
+    "exitCode": 0,
+    "wallMs": 45.57449999265373,
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/run-command.py",
+    "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "bytes": 2571
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/commands-config.json",
+    "sha256": "8f6fd4c5271e4185619bb7c115c23d1299cb23b4426d5e8909203f361e6e2548",
+    "bytes": 5590
+  },
+  "environment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/command-environment.json",
+    "sha256": "65075b4a115a46c36a5ac4f1793084059e8587762180b282be6d86f2c05cd644",
+    "bytes": 1066
+  },
+  "resources": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/resources.json",
+    "sha256": "756b7dc6f0b7d5617afbd810b3b5082ed7184968091f00e077f0158c300e7b1d",
+    "bytes": 2161
+  },
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/preimages/new-empty-append-sink.mjs",
+    "sha256": "0d13d5d882d3d30ab8af2cc613b9d9540db4b4aa001349811726f0983d4f9a02",
+    "bytes": 4743
+  },
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/support.diff",
+    "sha256": "6712ad7a765668d82fb8e65a065d0bcb807d47ba76ae7bb0eaabee082274ba18",
+    "bytes": 656
+  }
+}

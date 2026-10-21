@@ -1,0 +1,195 @@
+{
+  "support": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+      "bytes": 40077,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/root-installed-environment.mjs",
+      "role": "unchanged historical source contract, exact match required at final binding"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd",
+      "bytes": 1177,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/candidate-basis.mjs",
+      "role": "unchanged historical source contract, exact match required at final binding"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/language-smoke-fixture.mjs",
+      "role": "unchanged historical source contract, exact match required at final binding"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "bytes": 21826,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/registered-graph-selection.mjs",
+      "role": "unchanged historical source contract, exact match required at final binding"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "sha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+      "bytes": 10076,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/fixtures/registered-selection-product/index.mjs",
+      "role": "unchanged historical source contract, exact match required at final binding"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "bytes": 8359,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/fixtures/language-smoke/program.mjs",
+      "role": "unchanged historical source contract, exact match required at final binding"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+      "bytes": 22919,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/fixtures/language-structural/program.mjs",
+      "role": "unchanged historical source contract, exact match required at final binding"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "bytes": 10669,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/fixtures/language-structural/leaf.mjs",
+      "role": "unchanged historical source contract, exact match required at final binding"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "bytes": 7076,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/language-structural-fixture.mjs",
+      "role": "closed structural support successor"
+    }
+  ],
+  "owners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "sha256": "683adaea9685ab094fd80559230fe1ee7a13cc235f6bc41490869a66c89a47d0",
+      "bytes": 44013,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/abg/event_prefix.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+      "sha256": "67258ae85c34dbc5230e2ccc5cfa161f87c07893023f31beab00442e68736243",
+      "bytes": 45336,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/abg/graph_application.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "sha256": "050b8e8870a62432180857e726905425a2f6d0186a19fac886fb037d480ad872",
+      "bytes": 224638,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/abg/traversal_route.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "sha256": "76ce4bc7f8a2c0550020afd3d538b5e8ee3e5ac5e8ac5206ac9a5d28979d31ab",
+      "bytes": 260192,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/abg/retry.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/fan_out.ts",
+      "sha256": "3a7b695dd2fa529c212ba9be14a2587fe6462a367412e4ca51a8acd297576abd",
+      "bytes": 12282,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/abg/fan_out.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/fan_out_projection.ts",
+      "sha256": "80f17578df1809c8bae3fb3966e8e2be4418df34a75ea925d8def4de4caa8f50",
+      "bytes": 54972,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/abg/fan_out_projection.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "sha256": "85e3d2c266792329857bcd7ed3047fac983fbd31278e3f5f5347bcc53c613f3d",
+      "bytes": 86807,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/abg/project_read_ports.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "sha256": "a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+      "bytes": 15165,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/abg/project_read_operation_contracts.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "sha256": "13b6361c4d0c2b8b76bbf69054851bddb20b49206754284fcf65dfe9c2d19396",
+      "bytes": 33095,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/product/run_invocation_operation.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "sha256": "bf0cfb0b8f94721625846619f141f3e72910fc0425bcc4cdc954b2633a5b2b3e",
+      "bytes": 40761,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/hog/workflow_lifecycle.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+      "sha256": "d11a0f5368a8fa905a013c46b216c807938fa8057048c8d1ed3a5e367ad18030",
+      "bytes": 50830,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/hog/route_proposal.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/public/cli.ts",
+      "sha256": "d0d09512077b21d20b3a0cd34292e308b12e27a1c75449062418a7bd358fbb9e",
+      "bytes": 4136,
+      "mode": "0o644",
+      "tenantRelativePath": "code/src/public/cli.ts"
+    }
+  ],
+  "authority": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "bytes": 11923,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "bytes": 97498,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md",
+      "sha256": "4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+      "bytes": 14789,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853,
+      "mode": "0o644"
+    }
+  ],
+  "meaning": "Historical inspection pins are not future final artifact proof. Support bytes must exactly match; final source/emitted closure needs fresh explicit pins."
+}

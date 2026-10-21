@@ -1,0 +1,56 @@
+{
+  "kind": "bounded_writer_preparation_activation",
+  "utc": "2026-10-20T23:25:40.109074+00:00",
+  "writer": "/root/stdo3_proof_writer",
+  "return_to": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "additional_frames": [
+    "Install",
+    "Proof"
+  ],
+  "head": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "basis_pins": {
+    "L2-execution-contract.md": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    "L2-candidate-freeze-02.json": "4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae",
+    "acceptance/freeze.json": "6196a6b7c05442ceb8f79d4733b9796c639d34c7500106153fbe0a22edd28f8f",
+    "proof/L2-report.md": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+    "realization/pure/report.md": "1f2cd5fa046cf39ea42de3ed5022c2b874f814627176664c962143e6ca784b7c",
+    "realization/pure/freeze.json": "ce01cdb084f5b0c3827ac9cce481d12e63193a24a1467c9409c9be9a768acca4",
+    "proof/baseline/source-manifest.json": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9"
+  },
+  "grant": [
+    "proof/run-installed.mjs",
+    "realization/proof/** new preparation only"
+  ],
+  "effects": [
+    "author bounded runner/oracle/configuration/coverage records",
+    "syntax and static closure checks without executing installed Product or provider"
+  ],
+  "prohibited": [
+    "production or test-support edits",
+    "combined moving source snapshot",
+    "main-tree build/test/package",
+    "baseline or L2 overwrite",
+    "installed P1-P5 execution",
+    "native dispatch",
+    "continuation17 acquisition/retry/cleanup/migration",
+    "Git mutations",
+    "other actor activation"
+  ],
+  "stops": [
+    "basis drift",
+    "unsupported interface",
+    "first failed integration prerequisite",
+    "unknown physical effect"
+  ],
+  "claims": {
+    "L3": "preparation in progress",
+    "L4": "not activated",
+    "L5": "not claimed"
+  }
+}

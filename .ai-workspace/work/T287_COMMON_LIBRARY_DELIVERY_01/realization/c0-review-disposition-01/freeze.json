@@ -1,0 +1,241 @@
+{
+  "kind": "C0-REVIEW-DISPOSITION-01_closed_public_record",
+  "successor": "C0-DISPOSITION-ARRAY-02",
+  "writer": "/root/stdo3_k11_successor_writer",
+  "returnTo": "/root",
+  "status": "closed_public_record_pending_required_proof_with_separately_selected_realization",
+  "at": "2026-10-21T04:14:01.197568+00:00",
+  "recordCount": 21,
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/F6-capsule.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3705,
+      "sha256": "dc730988fe4449dc90feb74142b2c04f4bea88d078dbf17ee86b0df9c2e83078"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/HOW-array-successor-02.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2565,
+      "sha256": "1671b69e94ff3640c5bf9381dbdc1365be593b1dcc1b1e44d2234d31b1275fcf"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/activation.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3072,
+      "sha256": "e49daf279004aa5dd83dd432cc2987572e2f81a589aebee9cea757fd234e513c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/external-review-root-summary.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3812,
+      "sha256": "d89dece373d0f4336d2ce5d96f2bbee9b4e52f316add07db7e89bb174576b5c6"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/finalize-successor-02.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3330,
+      "sha256": "d0f4f904e36991f4304cc3d3f72616b5895d6a132864acda0efe694aceb42e05"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/first-cause.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 668,
+      "sha256": "0cb89e2f718d078997c349317014f54e5e07600f4df235519345b6c38cfdd9bb"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/frozen-source-relations-02.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 7916,
+      "sha256": "3842369fbcdb0ae4cd65a9c3a83b132be44b9de4ff485200b54372fc870cfe27"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/preflight.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2694,
+      "sha256": "efb2c9f7c23c986c88af53afabe8c5dd1c00438516bf2d2f19b61ec38846a702"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/public-assessment.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 8130,
+      "sha256": "349e415c6fc6e295144058544ebbcfda7d40e7db70e265700337da947f0e71dd"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/return-successor-02.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1714,
+      "sha256": "54c7da72fcac362b2885d8cb2a413e175e11680ab92b9cb503cdb49229760c67"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/return.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2270,
+      "sha256": "f78afb3a0f10b01a022ba6e73aef4e59c144ac2dfd31f8156b3d33acd7630f75"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/root-triage-array-02.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1980,
+      "sha256": "f840400703010773bc27c2d5cadb3dd12d189f3f64d31320fbd6df483d7b89f3"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/root-triage.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5670,
+      "sha256": "8ab1990693a7a47343209e722e41268014243209369be2c3d99f7a041c07e8b1"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/source-pins.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 9660,
+      "sha256": "3b0ee33e78427ad538df6d93d99cf3b03f025b9c532584b8b40f132415eb627c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/successor-execution-receipt-02.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1104,
+      "sha256": "57d2354c76cdcc6cb6c86973502045d3385bf7faf92f471f2a625745c125a091"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/successor-request-02.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5654,
+      "sha256": "651e4ec2d9c6b6cf76c32b06b100d90f1d3bd53f698c2545f3d777b26eee1304"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/temporal-note-02.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1075,
+      "sha256": "f04f3f1c55aece0bb50bfdbd3473786bee4ab7070bd9d82660c56ed2b00dee7e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/validate-and-freeze.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 12572,
+      "sha256": "115c736c017f28a67a228d84db7bd26162d8636071e2513dae3395824264625e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/validate-successor-02.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 13208,
+      "sha256": "d6e5fd50778d1be40bd56dec892dbe0b4c7fe1b84d740804ee6aa781e83bb19d"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/validation.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 8317,
+      "sha256": "5357c9d04178c293d013d8d0e7b5a0596d93b174af0a08f30fbbe4cee0a357ec"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/validator-successor-02.diff",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5962,
+      "sha256": "22f14d1be84e20732d225cae511f811327904573e9c553b313333df222abe568"
+    }
+  ],
+  "assessment": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/public-assessment.md",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 8130,
+    "sha256": "349e415c6fc6e295144058544ebbcfda7d40e7db70e265700337da947f0e71dd"
+  },
+  "historicalTriage": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/root-triage.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 5670,
+    "sha256": "8ab1990693a7a47343209e722e41268014243209369be2c3d99f7a041c07e8b1"
+  },
+  "successorTriage": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/root-triage-array-02.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1980,
+    "sha256": "f840400703010773bc27c2d5cadb3dd12d189f3f64d31320fbd6df483d7b89f3"
+  },
+  "temporalNote": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/temporal-note-02.md",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1075,
+    "sha256": "f04f3f1c55aece0bb50bfdbd3473786bee4ab7070bd9d82660c56ed2b00dee7e"
+  },
+  "capsule": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/F6-capsule.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3705,
+    "sha256": "dc730988fe4449dc90feb74142b2c04f4bea88d078dbf17ee86b0df9c2e83078"
+  },
+  "validation": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/validation.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 8317,
+    "sha256": "5357c9d04178c293d013d8d0e7b5a0596d93b174af0a08f30fbbe4cee0a357ec"
+  },
+  "request": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/successor-request-02.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 5654,
+    "sha256": "651e4ec2d9c6b6cf76c32b06b100d90f1d3bd53f698c2545f3d777b26eee1304"
+  },
+  "actualValidationReceipt": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/successor-execution-receipt-02.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1104,
+    "sha256": "57d2354c76cdcc6cb6c86973502045d3385bf7faf92f471f2a625745c125a091"
+  },
+  "firstFailure": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/first-cause.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 668,
+    "sha256": "0cb89e2f718d078997c349317014f54e5e07600f4df235519345b6c38cfdd9bb"
+  },
+  "return": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/return-successor-02.md",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1714,
+    "sha256": "54c7da72fcac362b2885d8cb2a413e175e11680ab92b9cb503cdb49229760c67"
+  },
+  "method": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+  },
+  "composition": [],
+  "exclusion": "freeze.json itself; all listed records immutable after return",
+  "historicalProductionRepairGranted": false,
+  "subsequentRealizationActivation": "C0-POTENTIAL-EFFECT-REALIZATION-01, Root-attributed temporal note",
+  "productionEffectsGrantedToThisRecordWriter": false,
+  "allC0Closure": false,
+  "independentWholeCandidateAssurance": false,
+  "L5Acceptance": false,
+  "releaseClaim": false
+}

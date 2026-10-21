@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/counterexample.mjs",
+    "old"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript",
+  "resolved_executable": "/opt/homebrew/bin/node",
+  "started_utc": "2026-10-21T01:25:28.877925+00:00",
+  "environment_overrides": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources",
+    "ABI5_CONTEXT_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources"
+  },
+  "returncode": 0,
+  "wall_seconds": 0.3781169999856502,
+  "completed_utc": "2026-10-21T01:25:29.256295+00:00",
+  "stdout": {
+    "bytes": 807,
+    "sha256": "17f38ae2b742b3ab6a9c5bf085a155007bfe06ffdfbcd557407ca6419ef9a7a4"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,276 @@
+{
+  "activation": "P5-CARRIER-SUCCESSOR-06",
+  "status": "STOPPED_FIRST_GENUINE_RUNTIME_FAILURE",
+  "scope": "One selected installed C1 to C2 proof with controlled provider; no native semantic credit or L5 acceptance",
+  "archive": {
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844
+  },
+  "ownedTestSuccessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "bytes": 54114,
+    "sha256": "a9a11a3e666f8303cfed31fb9525df8b60277c27bc7edc5360da6b147ef5ed6a"
+  },
+  "failure": {
+    "phase": "installed Public C2",
+    "assertionSourceLine": 702,
+    "expectedExitCode": 0,
+    "actualExitCode": 1,
+    "ownerOutput": {
+      "outcomeKind": "refusal",
+      "value": {
+        "code": "invalid_capability",
+        "issuePaths": [
+          "/runEnvironmentResources",
+          "/runEnvironment/cause/missing_binding"
+        ],
+        "evidenceRefs": []
+      }
+    },
+    "receiptFailure": null,
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/commands/test.stdout",
+      "bytes": 3616,
+      "sha256": "c8677a9ea798e753dfba8f4922f49e669062d336b98bd85d937127663bb46c9d"
+    },
+    "rawFailure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/archive/test-evidence/failure.json",
+      "bytes": 6266,
+      "sha256": "8396cca1d3a8d1d22a768dff6a458a65f11f924c230895ac06e5653069ffc0be"
+    },
+    "rawCall": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/archive/test-evidence/definition-call.json",
+      "bytes": 27455434,
+      "sha256": "67641581499f44cd72db33dbe9d99876fe2dd0c3139ebac96579f91dfc684cfb"
+    },
+    "rawOwnerOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/archive/test-evidence/public-outcome.json",
+      "bytes": 3368,
+      "sha256": "88253e327c80f012c791f3fd94b10d72f98b0ce36f6ca667d27919265b84f4c9"
+    }
+  },
+  "C1": {
+    "executed": true,
+    "disposition": "closed",
+    "resultKind": "worksite_construction_result",
+    "resultRef": "worksite-construction-result://abiogenesis/12e5ac92f071e3c1a5ff636472073a518fe5e43923e84b0b67dfb78d25501206",
+    "resultDigest": "sha256:12e5ac92f071e3c1a5ff636472073a518fe5e43923e84b0b67dfb78d25501206",
+    "runId": "run://abiogenesis/80a96f1ca8b8e51fc7cfe6f52c92d607dececff2e7c24a5db1196ad8d80c8f57",
+    "runtimeStatus": "closed",
+    "eventCount": 186,
+    "controlledProviderPid": 33509,
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/archive/test-evidence/source-completion.json",
+      "bytes": 121799,
+      "sha256": "8e7b80da7e108f47e956b75407fc2318fac006ee6eb2bc108d4168470a6061a5"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/archive/test-evidence/source-events.json",
+      "bytes": 5777781,
+      "sha256": "7c21ef8ddfdca58b13d1ad2707b4f5fa75ebcbd5f33c80601426e055c0681e16"
+    }
+  },
+  "C2": {
+    "invocationSubmitted": true,
+    "invocationRef": "invocation://abiogenesis/b3f041f7bec429529d2498c18e2ff5f7f1d6d84c50140229736c921f6d4b8b7d",
+    "acquisitionKind": "reopen",
+    "inputResourceKeys": [
+      "kind",
+      "schemaVersion",
+      "eventResource",
+      "catalog",
+      "catalogView",
+      "applications",
+      "source"
+    ],
+    "productExecutionResolution": null,
+    "invocationAdmission": null,
+    "run": null,
+    "replay": null,
+    "entryPrefixEqualsSourceClose": true,
+    "closePrefixEqualsEntry": true,
+    "entryPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch/abi5-root-env-FEbHCo/runtime/events.jsonl",
+      "prefixLength": 3807469,
+      "prefixDigest": "sha256:f838e4b69b83faa7da007fd720e4606afaf763c215baedb90a28321df13a2f77",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474856433,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:015e04b2334182f76b7c3a039cddaf5e5a61503c2d1380b47fb18d44ed656728"
+    },
+    "helperExecutionReached": false,
+    "commandOperationsReached": 0,
+    "httpProbesReached": 0,
+    "freshReplayChildrenReached": 0,
+    "N2": "NOT_REACHED",
+    "localNegativeCampaign": "NOT_REACHED",
+    "budgetProjectionOnly": {
+      "rule": {
+        "aggregation": "sum",
+        "commandFields": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "httpResponseFields": {
+          "launch": [
+            "timeoutMs",
+            "terminationGraceMs",
+            "terminationGraceMs"
+          ],
+          "request": [
+            "timeoutMs"
+          ]
+        },
+        "perOperationDrain": {
+          "field": "terminationGraceMs",
+          "maximumMs": 250,
+          "operation": "minimum"
+        },
+        "ownerAllowanceMs": 5000,
+        "limitComparison": "required_budget_strictly_less_than_each_limit",
+        "limitOrdering": "absolute_strictly_greater_than_inactivity"
+      },
+      "commandBudgetMs": 14500,
+      "httpProbeBudgetMs": 8250,
+      "requiredExecutionBudgetMs": 27750
+    }
+  },
+  "outerHost": {
+    "key": "test",
+    "startedAt": "2026-10-21T07:16:51.252Z",
+    "completedAt": "2026-10-21T07:20:39.240Z",
+    "wallMs": 227983.11349999998,
+    "pid": 31363,
+    "groupId": 31363,
+    "supervisorPid": 31360,
+    "timedOut": false,
+    "events": [
+      {
+        "kind": "spawn",
+        "pid": 31363,
+        "atMs": 18.121916
+      },
+      {
+        "kind": "exit",
+        "status": 1,
+        "signal": null,
+        "atMs": 227982.22870799998
+      },
+      {
+        "kind": "close",
+        "status": 1,
+        "signal": null,
+        "atMs": 227982.46645799998
+      }
+    ],
+    "facts": {
+      "directExit": {
+        "status": 1,
+        "signal": null
+      },
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "scopeKind": "posix_process_group",
+      "scopeAbsence": "absent",
+      "closeObserved": true,
+      "streamsDisposed": true,
+      "drainExpired": false,
+      "firstError": null,
+      "cleanupDeadlineNs": "1399111601608916",
+      "cleanupElapsedMs": 0.19775,
+      "probeCount": 1,
+      "signalAttempts": 0
+    },
+    "stdout": {
+      "bytes": 3616,
+      "sha256": "c8677a9ea798e753dfba8f4922f49e669062d336b98bd85d937127663bb46c9d"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "success": false,
+    "physicalAbsenceIsNotAdmission": true
+  },
+  "independentRecordedIdentityAbsence": {
+    "observedAt": "2026-10-21T07:31:41.699380+00:00",
+    "rows": [
+      {
+        "label": "test-host",
+        "pidOrGroupId": 31363,
+        "groupProbe": false,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "test-host",
+        "pidOrGroupId": 31363,
+        "groupProbe": true,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "test-supervisor",
+        "pidOrGroupId": 31360,
+        "groupProbe": false,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "construction",
+        "pidOrGroupId": 33509,
+        "groupProbe": false,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "construction",
+        "pidOrGroupId": 33509,
+        "groupProbe": true,
+        "presence": "absent",
+        "errno": 3
+      }
+    ],
+    "scope": "Only actually recorded owned/fixture identities; no invented command PID and no universal descendant claim"
+  },
+  "retention": {
+    "root": "/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6",
+    "physicalNodes": 6487,
+    "regularFileBytes": 140335531,
+    "portableCopies": 25,
+    "cleanupHooksInvoked": 0,
+    "originalStoreCloseAttempted": true,
+    "closeError": null,
+    "replayStoreCloseAttempted": false,
+    "allRecordedScopesAbsent": true
+  },
+  "preservation": {
+    "ownInputsExact": true,
+    "reusedBootstrapMembers": 5271,
+    "reusedBootstrapBytesExact": true,
+    "reusedBootstrapMembershipExact": true,
+    "binModeNormalizations": 2,
+    "operatorChmod": false,
+    "newBootstrapInstallCount": 0,
+    "priorFailureFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/failure-freeze.json",
+      "bytes": 3308415,
+      "sha256": "b648ee75c60526a62d93e54f37b53b94e6c7594a1e79a9ffb9289b82e1340f96"
+    },
+    "main936": "Inherited exact binding; no main generated write or repeat whole-main inventory in this activation",
+    "stageDependencies": "Inherited exact binding plus declared read-only link targets; no build or dependency writes"
+  },
+  "limits": [
+    "The old05 C1 failure remains preserved; current C1 success belongs only to the corrected carrier successor.",
+    "C2 structured carrier has only bounded pure-parser evidence; no actual C2 actor or helper ran in this cut.",
+    "No command, HTTP, compact-ack/full-artifact admission, owner-local negatives, fresh replay, or N2 equality credit was reached.",
+    "Physical absence is scoped to recorded identities, distinct from semantic admission and not a universal descendant assertion.",
+    "No production defect or repair disposition is inferred from this refusal; Executive triage is separate.",
+    "No retry, cleanup, package/build/production mutation, Git, native provider or historical continuation was performed."
+  ]
+}

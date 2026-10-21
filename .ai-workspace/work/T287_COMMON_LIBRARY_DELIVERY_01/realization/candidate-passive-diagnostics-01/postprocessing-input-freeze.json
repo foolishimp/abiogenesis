@@ -1,0 +1,31 @@
+{
+  "status": "frozen_before_workload_exit_analysis",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/check-coverage.py",
+      "sha256": "d2bfa59f96315740ab95a081011e37d05090eda0b4191a68becece905ed10edf",
+      "bytes": 9375
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/measure-and-close.py",
+      "sha256": "575573dae11866efabe04682a6d97b4a4b13e8d761fc96466c7f9f9de89daf7d",
+      "bytes": 6716
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/retain-diagnostic.py",
+      "sha256": "d0bbeb56020d38f1a7526e1af7808dd7156da55f711dfb2a481e41799669ab4f",
+      "bytes": 3466
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/coverage-contract.json",
+      "sha256": "f4b0d61bf4495155bd4006923e79254e7fb03389080b4681900a9a5657817169",
+      "bytes": 7444
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-analyse.mjs",
+      "sha256": "dad5f922ffe6df46bd223774603b24c8c535918d33db1dc66a0254c0af969da0",
+      "bytes": 3317
+    }
+  ],
+  "scope": "Existing immutable analyser/retention plus candidate binding of previously closed coverage rules; no instrumentation change"
+}

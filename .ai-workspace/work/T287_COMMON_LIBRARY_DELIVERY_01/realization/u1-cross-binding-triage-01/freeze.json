@@ -1,0 +1,31 @@
+{
+  "kind": "bounded_writer_intake_freeze",
+  "activation": "U1-CROSS-BINDING-TRIAGE-01",
+  "actor": "/root/stdo3_currentness_writer",
+  "at": "2026-10-21T01:18:41.941826+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "result": "falsified",
+  "claim": "A valid current b2 C0 predecessor at the same canonical root/path is retired by an authenticated b1 unknown native effect.",
+  "subject_production_freeze_sha256": "433107b89d8eb01cc5a67ad6c8543e18d37575d5f89ba490c3795108955e788d",
+  "subject_support_freeze_sha256": "31912a68550eefc19e88c64bbc45a6c8db674a86e2c90dec16ecf53b674a1371",
+  "L2_contract_sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "manifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/manifest.json",
+    "sha256": "aac18d81c536e44802ec910e89245a69ad73c1a70b92961664fe2ff52026f7ab"
+  },
+  "report_sha256": "1e9853acbb804de6918039963d03a6770b1e256d5f4dddb850d206c1ded35667",
+  "HOW_proposal_sha256": "307154e78c65f8a91004a39870cb2e740584889f2fcc52e584de6aac8a7d85df",
+  "actual_result_sha256": "8ee707cfdf6fec652a24870dcd6f48ad7beb3f411a9b55630cbf93835515637c",
+  "discriminator_sha256": "3f00d7b6ff6e59b1ad7b2b72c392f98dc1af00f93b017c62f66cc9bf015e608b",
+  "one_attempt": true,
+  "production_changed": false,
+  "old_stage_changed": false,
+  "native_or_command_actors_launched": 0,
+  "new_Result_or_successor": false,
+  "physical_roots_retained": true,
+  "acceptance": false,
+  "decision_authority": "/root Executive",
+  "stopped_editing": true
+}

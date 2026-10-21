@@ -1,0 +1,26 @@
+{
+  "sourceBasis": "stdo://releases/v3.0.0-rc.1/",
+  "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "member": "standards/EXECUTIVE_BASELINE.md",
+  "member_sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+  "member_bytes": 156797,
+  "installed_source_mode_preserved": "0444",
+  "spans": [
+    {
+      "heading": "Executive",
+      "startByte": 55240,
+      "endByte": 55942,
+      "byteCount": 702,
+      "sha256": "f570de4d76c017e873f390926698a04c9704c443e602092c4c13985b5eb4cd80"
+    },
+    {
+      "heading": "The three duties",
+      "startByte": 64650,
+      "endByte": 65910,
+      "byteCount": 1260,
+      "sha256": "20ec39085c7dbe19a1b7a06f00d8dcadf7b82e4cb9c163be282e7a3a53b6a68e"
+    }
+  ],
+  "factory": "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+  "semantic_execution": "not performed"
+}

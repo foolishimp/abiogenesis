@@ -1,0 +1,40 @@
+{
+  "kind": "E04_post_run_evidence_index_failure",
+  "status": "STOP_AWAITING_EXECUTIVE_TRIAGE",
+  "failedDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/case-outcomes.json",
+    "bytes": 23856,
+    "sha256": "52d5b062d860ff541ad970d88a926502a22a2d0f6613c63e6bc45416fbea54a5"
+  },
+  "cause": "aggregation used prefix glob caseId + - *.json without checking the owner-emitted caseId field; SNAPSHOT prefix includes three different cases",
+  "mismatches": [
+    {
+      "selectedCaseId": "SNAPSHOT",
+      "actualReceiptCaseId": "SNAPSHOT-DIRECTORY",
+      "path": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-DIRECTORY-01.json",
+      "sha256": "87cb20b54681065850a0850eeb6f62f10916cc5f9d9e6ff2e21210046d8c612c"
+    },
+    {
+      "selectedCaseId": "SNAPSHOT",
+      "actualReceiptCaseId": "SNAPSHOT-STALE",
+      "path": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-STALE-01.json",
+      "sha256": "d2e5dc2f66b1d60b07077358ff6d7d8dce8fd3cd4c74fb7364af814b437298ab"
+    },
+    {
+      "selectedCaseId": "SNAPSHOT",
+      "actualReceiptCaseId": "SNAPSHOT-SYMLINK",
+      "path": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-SYMLINK-01.json",
+      "sha256": "beefba5901f3f918a1a00cb569bfe4294ed9914a3190a5cf9d8e095e370b15f0"
+    }
+  ],
+  "actualRuntimeResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/evidence/result.json",
+    "sha256": "ec7c6966fc9bf9b04deabf0efd56a0761e27720c38a092d3d287f35f90d8eef0",
+    "status": "OBSERVED_FINITE_PASS",
+    "physicalHostAndGroup": "known absent in execution-receipt.json; host 68865, supervisor 68864"
+  },
+  "preservationSha256": "af91d8277cd1cee7823ef8b5a91a06c75758ffb1f20f167414db036630245f8c",
+  "effectsAfterDetection": "failure record only; no correction, deletion, retry, new case or source effect",
+  "smallestProposedReentry": "new successor map keyed by exact parsed receipt.caseId; preserve this failed draft; no re-execution",
+  "responsibleOwner": "new Writer evidence index, not production filesystem owner"
+}

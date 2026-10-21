@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-21T06:59:04.924110+00:00",
+  "rows": [
+    {
+      "label": "installer",
+      "pid": 19464,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "installer",
+      "pid": 19464,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "supervisor",
+      "pid": 19461,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    }
+  ]
+}

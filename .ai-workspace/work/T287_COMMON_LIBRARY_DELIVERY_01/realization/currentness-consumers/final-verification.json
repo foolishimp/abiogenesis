@@ -1,0 +1,18 @@
+{
+  "verified_at": "2026-10-21T00:35:22.724673+00:00",
+  "closed_source_and_record_files": 54,
+  "main_generated_files": 936,
+  "dependency_entries": 4576,
+  "stage_files_excluding_dependencies": 1948,
+  "initial_source_inventory_entries": 1315,
+  "explicit_successors": 3,
+  "compiled_generator_outputs": 745,
+  "unknown_stage_files": 0,
+  "production_changes_this_activation": 0,
+  "new_native_or_command_process_launches": 0,
+  "support_correspondence_sha256": "2db14155c6dd849cba0b79ad5d6489efc56fa2e6b8fe611281406df4aa7363f1",
+  "support_correspondence_all_equal": true,
+  "passed_final_selected_run": "focused-05.json",
+  "no_test_repeats_after_scope_success": true,
+  "no_self_acceptance": true
+}

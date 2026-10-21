@@ -1,0 +1,26 @@
+{
+  "status": "syntax_checked_not_executed",
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/select-population.py",
+    "sha256": "5a59f5bf6ce3a451f3430c12a566d8df6e517ecc773d4e4a4afc217a191f764a",
+    "bytes": 15244,
+    "mode": "0o644"
+  },
+  "successor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/select-population.py",
+    "sha256": "f7e6dfac061cf563c82be6772e8f69628e8e9d3b9c91d4540c8b89f81b9e7169",
+    "bytes": 19564,
+    "mode": "0o644"
+  },
+  "changes": [
+    "New successor root only",
+    "Optional provider tied to selected lane",
+    "Explicit completed population freeze list",
+    "Preserved original stop and prior completed carrier input verification",
+    "Exact already-produced fixture member mappings from three selected physical populations"
+  ],
+  "observedNativeFormats": "shape-contract.json",
+  "ProductImports": 0,
+  "workloads": 0,
+  "archiveEffects": 0
+}

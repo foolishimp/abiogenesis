@@ -1,0 +1,1 @@
+{"status":"satisfied","lane":"public-preparation","evidence":"/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence"}

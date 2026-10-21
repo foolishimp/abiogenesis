@@ -1,0 +1,32 @@
+{
+  "activation": "C2-SOURCE-PREFIX-REPAIR-01",
+  "status": "CLOSED_SOURCE_AND_HOW_READY_FOR_SEPARATELY_GRANTED_BUILD",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "bytes": 128713,
+    "sha256": "1b3dbf39b6713f575a3456975de76747e06cdcab289c77ba5fee4a05d6b75389"
+  },
+  "design": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "bytes": 67023,
+    "sha256": "dfb98d80113aaf150e05a09577d4cc3898b339e33426790f878ed02c90b89d5c"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/two-file.diff",
+    "bytes": 2058,
+    "sha256": "aa684692c67b642ebb6b15dcc86332ac80cb359e0313f2e6a61c29b84a8ec42c"
+  },
+  "diagnosticTranscription": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/original-diagnostic-transcription.json",
+    "bytes": 6271,
+    "sha256": "ad1943b9bbbcec5cd3f187698f4c467bd4e7ca424f65ff7dae4092b8b8e96ffb"
+  },
+  "observedOriginalPredicate": false,
+  "observedAdaptedPredicate": true,
+  "newDiagnosticRuntimeCount": 0,
+  "optionalNegativeVariantsExecuted": false,
+  "runtimeAdmission": false,
+  "build": false,
+  "installedRetry": false,
+  "acceptanceClaim": false
+}

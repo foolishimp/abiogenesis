@@ -1,0 +1,59 @@
+{
+  "compiler_receipt": "commands/02-isolated-typescript.json",
+  "changes": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/gtl/stdo_run_environment.js",
+        "kind": "file",
+        "bytes": 24489,
+        "sha256": "d8245461e99361b22501b2a6bad08c8ba9c170e3eaaba0cd0ada16f14956c4c3",
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/gtl/stdo_run_environment.js",
+        "kind": "file",
+        "bytes": 24748,
+        "sha256": "5b5c6d533f2dd33d5cf85e4467ebaad9cc321aa5a7cbabe02ab249924909c9dd",
+        "mode": "0o644"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "kind": "file",
+        "bytes": 25333,
+        "sha256": "12743b59366a2e52c2ed2629065f5644133403db359411ad5e7dc34010164abf",
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "kind": "file",
+        "bytes": 25582,
+        "sha256": "91fa46843154ffc6010812e029e9bd86033c195415af9eb44c42348a22d51913",
+        "mode": "0o644"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+        "kind": "file",
+        "bytes": 10169,
+        "sha256": "6dc7005b4c9416e66c8aad89de1558504eceaee6e4966c9c14e720d1ad86c0f9",
+        "mode": "0o644"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+        "kind": "file",
+        "bytes": 14629,
+        "sha256": "e45af06ccbf8ef80dda57277b99a849961ac9713641ebdc31a8a5f1a292b6cfa",
+        "mode": "0o644"
+      }
+    }
+  ],
+  "unchanged_entry_count": 6629,
+  "stage_entries": 6632,
+  "generated_change_count": 1,
+  "generator_run": false,
+  "package_or_install_identity_claim": false,
+  "explanation": "Only the granted source and test plus the compiler-emitted STDO JavaScript differ from the pinned pure stage. Product manifest is intentionally unchanged; this constructor stage is not a new package or installed subject."
+}

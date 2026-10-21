@@ -1,0 +1,4 @@
+{
+  "scriptSha256": "2d081c03bae74f318a47dc0589fe8d80e2db4f024f95938a7ba302611d035c13",
+  "scope": "Read actual tar members and staged bytes; no extraction, installation or workload"
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "t287_passive_diagnostic_configuration",
+  "status": "NOT_GRANTED",
+  "activationFile": null,
+  "subjectId": null,
+  "lane": null,
+  "diagnosticRoot": null,
+  "node": null,
+  "preload": null,
+  "probes": null,
+  "originalRunner": null,
+  "originalOracle": null,
+  "originalConfiguration": null,
+  "originalGrant": null,
+  "referenceEndpoint": null,
+  "requiredPins": [],
+  "moduleRoots": [],
+  "emittedModules": [
+    {"member": "build/code/src/abg/runtime_history.js", "sha256": null},
+    {"member": "build/code/src/abg/event_prefix.js", "sha256": null},
+    {"member": "build/code/src/shared/canonical_json.js", "sha256": null}
+  ],
+  "childCommands": [],
+  "bindingRule": "Create one new configuration for each baseline/candidate P1/P3 diagnostic repetition after its exact uninstrumented endpoint succeeds. Pin all scripts, original unchanged runner/oracle, actual original-format activated runtime configuration/grant, toolchain, archive/member inventory and three emitted modules. Declare stageTenant plus exact granted installed/evidence/host/scratch parents as moduleRoots; a loaded URL must be canonical, within a declared root and byte-identical to its selected module pin. Child commands enumerate exact node path and observed bare node alias if used; npm-node-script binds the actual toolchain npm CLI script path/digest and invokes it through the exact Node binary with observer flags. No ambient NODE_OPTIONS or PATH shim; do not instrument unlisted processes silently. New canonical /private/tmp diagnostic and runtime roots only, all absent before execution. No P2/P4/native repetition.",
+  "effectGrantFields": ["status:granted", "configurationSha256", "launcherSha256", "nativeCalls:0", "diagnosticRoot", "runtimeRoots"]
+}

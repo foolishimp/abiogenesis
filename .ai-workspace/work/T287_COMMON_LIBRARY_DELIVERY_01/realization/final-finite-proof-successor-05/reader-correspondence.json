@@ -1,0 +1,9 @@
+{
+  "kind": "administrative_source_carrier_discovery",
+  "originalScriptSha256": "ebc00ef2719f91a70495de9a88561bc977a84fcc407192e41b952455bafdc09b",
+  "originalErrorSha256": "6ef77f092b8bb3515c83a5fa2a09a97de01c1e64b9a3c3a43fc8156475c0aff0",
+  "origin": "New verifier assumed main-generated preimage rows all carry mode. That historical carrier pins path/sha256/bytes and may omit mode.",
+  "correction": "Check source-declared fields only, as the earlier closed preservation verifier did. All hash/bytes checks retained. Stage/link inventories do declare modes and remain exact.",
+  "executionBeforeDiscovery": "All6642 frozen stage records checked; no syntax/workload or new physical resource creation.",
+  "credit": "Failed reader completion receives no completed preflight credit; subsequent exact reader completes current activation before any workload."
+}

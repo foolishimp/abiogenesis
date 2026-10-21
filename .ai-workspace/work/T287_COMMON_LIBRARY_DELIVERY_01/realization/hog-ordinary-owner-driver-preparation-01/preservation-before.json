@@ -1,0 +1,17 @@
+{
+  "closedSupportRowsChecked": 42,
+  "protectedMainFilesChecked": 936,
+  "mismatches": [],
+  "supportFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/freeze.json",
+    "sha256": "8c0af8cdc2e3ae01d12e05a3baf328ce1637093444659cf0b8540859c241e49b",
+    "bytes": 13936,
+    "mode": "0o644"
+  },
+  "protectedMainInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-generated.json",
+    "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96",
+    "bytes": 248218,
+    "mode": "0o644"
+  }
+}

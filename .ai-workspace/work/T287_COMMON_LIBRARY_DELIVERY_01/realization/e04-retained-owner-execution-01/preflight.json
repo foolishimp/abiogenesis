@@ -1,0 +1,75 @@
+{
+  "kind": "E04_execution_preflight",
+  "preparationRowsVerified": 74,
+  "mainRowsVerified": 936,
+  "rootFacts": {
+    "scratchRoot": {
+      "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f",
+      "absent": true,
+      "parentCanonical": true
+    },
+    "evidenceRoot": {
+      "path": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f",
+      "absent": true,
+      "parentCanonical": true
+    }
+  },
+  "environment": {
+    "NODE_OPTIONS": null,
+    "NODE_PATH": null,
+    "NODE_COMPILE_CACHE": null
+  },
+  "failures": [],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/freeze.json",
+      "bytes": 20018,
+      "sha256": "c8ef87c3f4476d43836417468291feefe709c1edb5e6654fc0d5b9dcd5252d3c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/HOW.md",
+      "bytes": 12072,
+      "sha256": "b9a7120861158a992086c1d2e3272580c4038c1b2257dd868589626d0cf68af9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/configuration-not-granted.json",
+      "bytes": 2454,
+      "sha256": "15310f3d54b8aa44cececa6be5484bd4427316e1b9337e6126328f28a42e9332"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/freeze.json",
+      "bytes": 31209,
+      "sha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/protected-main-before.json",
+      "bytes": 206172,
+      "sha256": "5719405d1c83524500a70c4d4f41f6f1026958830e9c0bd81ea41eea93a386db"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs",
+      "bytes": 16970,
+      "sha256": "a2b048d65b52baf252b347c994f132992c60e13cc6d539255bbca4da71ef2d73"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/owner-support.mjs",
+      "bytes": 10268,
+      "sha256": "b1c66a318ec263258aad7851c01143c73384cd11fb914dcf4cc93d43a9e22122"
+    }
+  ]
+}

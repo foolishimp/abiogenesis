@@ -1,0 +1,63 @@
+--- preimage
++++ successor
+@@ -601,6 +601,38 @@
+     OWNER_ACTOR_REF, workspaceBinding, catalogView, resolution.program.programRef,
+     resolution.selectedCatalogEntry, policy, [capabilityGrant], grantBasis,
+   );
++  const environmentRef = resolution.program.policies[gtl.RUN_ENVIRONMENT_POLICY];
++  const environmentDeclarations = resolution.programPublication.runEnvironments.filter((row) =>
++    row.declarationRef === environmentRef
++  );
++  assert.equal(environmentDeclarations.length, 1, "C2 requires its one declared run environment");
++  const environmentDeclaration = environmentDeclarations[0];
++  assert.equal(environmentDeclaration.dependencies.length, 1);
++  const dependencyRoot = await realpath(environment.installedRoot);
++  const recordPath = await realpath(join(dependencyRoot, gtl.WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.path));
++  const supportRoot = join(workspaceBinding.roots.archiveRoot, "c2-run-environment-support");
++  await mkdir(supportRoot);
++  const temporaryRoot = await realpath(supportRoot);
++  const coordinates = {
++    dependencies: environmentDeclaration.dependencies.map((dependency) => ({
++      dependencyRef: dependency.dependencyRef, root: dependencyRoot, recordPath,
++    })),
++    pythonPath: null, temporaryRoot,
++  };
++  const runEnvironmentResources = product.constructRunEnvironmentResources({
++    kind: "run_environment_resources", schemaVersion: "5.0.0", ...coordinates,
++    permission: {
++      authorityRef: authority.authorityRef, authorityDigest: authority.authorityDigest,
++      actorRef: OWNER_ACTOR_REF, programRef: resolution.program.programRef,
++      environmentRef, environmentDigest: product.sha256Canonical(environmentDeclaration),
++      operations: ["read_context"], ...coordinates,
++    },
++  });
++  if (proof !== null) await proof.write("run-environment-binding.json", {
++    programRef: resolution.program.programRef, programDigest: resolution.resolution.programDigest,
++    policyKey: gtl.RUN_ENVIRONMENT_POLICY, environmentRef,
++    declaration: environmentDeclaration, resources: runEnvironmentResources,
++  });
+   const closeHandoff = environment.store.projectReopenAuthorityAndClose();
+   const eventResource = {
+     kind: "reopen_abg_event_resource", schemaVersion: "5.0.0", closeHandoff,
+@@ -648,6 +680,7 @@
+       kind: "run_invocation_resource_assertion", schemaVersion: "5.0.0",
+       eventResource, catalog, catalogView, applications: [],
+       source: { kind: "admitted_source_result", basis: sourceBasis },
++      runEnvironmentResources,
+     },
+     requestRef: "request://t287/c2-ack", correlationRef: "correlation://t287/c2-ack",
+     eventTime: "2026-09-09T00:00:00.000Z", provenanceRefs: ["provenance://t287/c2-ack/deterministic-fixture"],
+@@ -669,7 +702,12 @@
+       `fs.writeFileSync(${JSON.stringify(join(proof.root, "command-prompt.txt"))},prompt,{flag:'wx'});`,
+       `fs.writeFileSync(${JSON.stringify(join(proof.root, "command-process.json"))},JSON.stringify({pid:process.pid,provider:'controlled-command'}),{flag:'wx'});`,
+     ]),
+-    "const input=JSON.parse(prompt.split('\\n\\n')[1]);",
++    "const taskSections=prompt.split('\\n\\n').filter(section=>section.startsWith('## task\\n'));",
++    "if(taskSections.length!==1)throw Error('expected one canonical task section');",
++    "const taskSection=JSON.parse(taskSections[0].slice('## task\\n'.length));",
++    "if(taskSection===null||typeof taskSection!=='object'||Array.isArray(taskSection)||Object.keys(taskSection).length!==1||typeof taskSection.ownerPrompt!=='string')throw Error('expected task ownerPrompt');",
++    "const input=JSON.parse(taskSection.ownerPrompt.split('\\n\\n')[1]);",
++    "if(input===null||typeof input!=='object'||Array.isArray(input)||Object.keys(input).length!==1||typeof input.command!=='string')throw Error('expected exact semantic command input');",
+     ...(proof === null ? [] : [
+       `fs.writeFileSync(${JSON.stringify(join(proof.root, "command-tool-input.json"))},JSON.stringify(input),{flag:'wx'});`,
+     ]),

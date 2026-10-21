@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern",
+    "S06 exact coordinate|S06 resolved locks|S06 catalog construction|fixed declaration owner|compose sources|substitute source|unpublished or ambiguous|static sources|runtime use|existing named workflow|registered selection|borrowed implementation|W2-05 three-function|native transport delegates|preparation module loading",
+    "test_env/tests/m5-s06-prime.test.mjs",
+    "test_env/tests/t287-static-declaration-closure.test.mjs",
+    "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript",
+  "resolved_executable": "/opt/homebrew/bin/node",
+  "started_utc": "2026-10-20T23:15:42.798155+00:00",
+  "environment_overrides": {},
+  "returncode": 1,
+  "wall_seconds": 2.896705084014684,
+  "completed_utc": "2026-10-20T23:15:45.694993+00:00",
+  "stdout": {
+    "bytes": 3366,
+    "sha256": "1577c6feff3cbce5d6d973c8288cdfb949ff8905836363000197804bb7ee0c3f"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-21T01:24:26.606466+00:00",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "937ac47e383e740fb75a8eb367195cb2893681c064fee9f55af92369f5d56189",
+      "bytes": 89640
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "sha256": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546",
+      "bytes": 37664
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61",
+      "bytes": 53780
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1",
+      "bytes": 34273
+    }
+  ],
+  "production_scope": "event_calculus.ts target predicate only",
+  "test_plan": "Add one selected sequential physical-scope proof in currentness-consumers; shared support/unknown-effect test need no mutation if their existing extension points suffice.",
+  "closed_triage_freeze": "e33a48502c846c69c9d671460b114498f6e9a99f5e7d4d8cc65eaabd67ca6987",
+  "closed_support_freeze": "31912a68550eefc19e88c64bbc45a6c8db674a86e2c90dec16ecf53b674a1371"
+}

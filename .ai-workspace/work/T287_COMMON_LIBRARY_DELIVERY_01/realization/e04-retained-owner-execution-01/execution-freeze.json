@@ -1,0 +1,49 @@
+{
+  "kind": "E04_preexecution_exact_input_freeze",
+  "activation": "E04-RETAINED-OWNER-EXECUTION-01",
+  "preparationFreezeSha256": "c8ef87c3f4476d43836417468291feefe709c1edb5e6654fc0d5b9dcd5252d3c",
+  "status": "frozen_before_single_host_launch",
+  "files": [
+    {
+      "path": "HOW.md",
+      "bytes": 4819,
+      "sha256": "c708aaf4970d13f698ceb176005a9d40804e243f93a1f5fe14aeafb740c6ea09"
+    },
+    {
+      "path": "grant.json",
+      "bytes": 1601,
+      "sha256": "a7e157c716dce1afc98ec2ff6fc49fb90a6f0284b5c75f4f176d22041f29339c"
+    },
+    {
+      "path": "launch-config.json",
+      "bytes": 3254,
+      "sha256": "b818b6e5bb316624eea53738169e909fb3156136a12c595bc70cc3eeaa4151fa"
+    },
+    {
+      "path": "launcher-syntax.json",
+      "bytes": 508,
+      "sha256": "6aa8cd8336aca06f82958d8733118765674017a1628d33b05396c6666f728549"
+    },
+    {
+      "path": "launcher-syntax.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "launcher-syntax.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "launcher.mjs",
+      "bytes": 6566,
+      "sha256": "320520e0689cebf388f9d83eccebe21dd61dd02187e6e0274aab37763eec1835"
+    },
+    {
+      "path": "preflight.json",
+      "bytes": 3426,
+      "sha256": "cd6c04a1161182aa820ab5ee765cf26f0edb6f4eb23243cf3d608ecac4d80c1a"
+    }
+  ],
+  "physicalPopulationExecuted": false
+}

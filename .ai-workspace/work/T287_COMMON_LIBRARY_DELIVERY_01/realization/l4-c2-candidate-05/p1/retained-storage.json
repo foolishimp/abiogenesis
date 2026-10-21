@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/usr/bin/du",
+    "-sk",
+    "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05"
+  ],
+  "stdout": "613240\t/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81\n356108\t/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05\n",
+  "allocatedBytes": 992612352,
+  "limitBytes": 4294967296,
+  "scope": "Post-endpoint owned physical parent and record carrier; not peak storage."
+}

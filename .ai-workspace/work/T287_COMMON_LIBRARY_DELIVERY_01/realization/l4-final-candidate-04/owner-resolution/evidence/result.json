@@ -1,0 +1,12 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "nativeCalls": 0,
+  "actualOwner": true,
+  "noNewAdmission": true,
+  "eventBytesUnchanged": true,
+  "preparationCaseEnvironment": {
+    "ABI5_PREPARATION_RESOLVE_CALL": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/calls/preparation-resolve.json"
+  },
+  "limit": "controlled actual-owner read; existing static preparation test is a separately granted invocation, not run by this script"
+}

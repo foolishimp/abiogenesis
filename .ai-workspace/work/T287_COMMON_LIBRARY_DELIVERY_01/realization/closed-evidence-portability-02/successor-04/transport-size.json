@@ -1,0 +1,19 @@
+{
+  "status": "within_selected_bounds",
+  "newArchiveCountThisSuccessor": 0,
+  "successor03ArchiveCount": 10,
+  "priorArchiveCount": 4,
+  "successor03CompressedBytes": 55685201,
+  "priorCompressedBytes": 136487957,
+  "totalCompressedArchiveBytes": 192173158,
+  "successor03NewUniquePayloadBytes": 540288931,
+  "successor03AuthoredMetadataBytes": 96667101,
+  "successor04BytesBeforeFinalRecords": 44673,
+  "finalRecordReserveBytes": 16777216,
+  "admittedNewLogicalCarrierUpperBound": 653777921,
+  "requiredRepositoryTransportFileExtentUpperBound": 1318672476,
+  "requiredRepositoryFileCount": 1750,
+  "logicalLimit": 2147483648,
+  "compressedLimit": 1073741824,
+  "scope": "New unique object payload plus authored successor metadata is the original logical-carrier scope. Required repository transport file extent counts existing compressed archives and mapped repository files once per path. Original-address logical bytes include duplicated installs/copies and are not new carrier allocation. No original package or object is extracted."
+}

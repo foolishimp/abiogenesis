@@ -1,0 +1,161 @@
+{
+  "result": "re_entry_requested",
+  "first_failure": {
+    "label": "first unexpected failure",
+    "error": {
+      "name": "TypeError",
+      "message": "artifact admission requires one authority-scope fluent identity",
+      "stack": "TypeError: artifact admission requires one authority-scope fluent identity\n    at eventCalculusEffectRefs (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js:545:23)\n    at RuntimeEventCalculusDerivation.advance (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js:1676:60)\n    at eventCalculusDerivation (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js:1850:16)\n    at Module.deriveRuntimeEventCalculusProjection (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js:1854:12)\n    at views (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:649:27)\n    at failC0AfterPublication (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:833:26)\n    at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:1032:5)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)"
+    },
+    "dependentCasesStopped": true
+  },
+  "originating_relation": "controlled binding artifact payload lacks authorityScopeRef required by existing Event Calculus artifact fluent; selected complete failure precondition was not met",
+  "affected_frame": "integration/proof fixture handoff",
+  "last_prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-pT8HsX/events.jsonl",
+    "prefixLength": 134939,
+    "prefixDigest": "sha256:839391fabfb344697505e0cf6b67a89a18e85f9c98c1bde33b63545d2330ce8e",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 474151847,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:d8ac7072648d678fac6bb25ed9fdb37b31a38875516fa3e3570c32a2405b92ae"
+  },
+  "last_worksite": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-generic-worksite-fixture-70YfP4/worksite",
+  "artifact_event": {
+    "admissionOrdinal": 23,
+    "aggregateId": "workspace-binding://abiogenesis/8f92e2a80ad7892077d8f777425ee9e56a592bc43e28ecc11bcd19027b0df67f",
+    "aggregateType": "workspace",
+    "basisId": "workspace-authority://abiogenesis/0437b0e493a414ee79dcf02603ae07267aa6715f12cbe61d236dc707bc52141f",
+    "causationEventRefs": [],
+    "correlationId": "correlation://u1",
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "eventId": "event://abiogenesis/bbecfb3b05026e802968255127c5d3fa85dffb1da417bcf51c6a9d61ecaa820d",
+    "eventTime": "2026-10-21T00:00:00.000Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+    "kind": "public_operation_artifact_admitted",
+    "parentAggregateId": null,
+    "payload": {
+      "artifact": {
+        "authorityBasisDigest": "sha256:0437b0e493a414ee79dcf02603ae07267aa6715f12cbe61d236dc707bc52141f",
+        "authorityBasisId": "workspace-authority://abiogenesis/0437b0e493a414ee79dcf02603ae07267aa6715f12cbe61d236dc707bc52141f",
+        "authorizedActorRef": "actor://generic-worksite/test",
+        "bindingDigest": "sha256:8f92e2a80ad7892077d8f777425ee9e56a592bc43e28ecc11bcd19027b0df67f",
+        "bindingId": "workspace-binding://abiogenesis/8f92e2a80ad7892077d8f777425ee9e56a592bc43e28ecc11bcd19027b0df67f",
+        "kind": "workspace_binding_candidate",
+        "lockDigest": "sha256:a4db0612a2e732fd4c76cd77128aa10d1eea041512dfaa988701b9f7178acd5d",
+        "lockId": "lock://generic-worksite/test",
+        "productSetDigest": "sha256:31c0f293efa66cabfe11efe310b622d2cc4953ae8c0d405600620a3cb249c1b7",
+        "productSetId": "product-set://u1/physical-scope-b2",
+        "roots": {
+          "archiveRoot": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-generic-worksite-fixture-70YfP4/archive",
+          "eventLogRoot": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-generic-worksite-fixture-70YfP4/eventLog",
+          "productRoot": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-generic-worksite-fixture-70YfP4/product",
+          "projectionRoot": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-generic-worksite-fixture-70YfP4/projection",
+          "runtimeStateRoot": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-generic-worksite-fixture-70YfP4/runtimeState",
+          "toolchainRoot": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-generic-worksite-fixture-70YfP4/toolchain"
+        },
+        "schemaVersion": "5.0.0",
+        "workspaceId": "workspace://generic-worksite/test"
+      },
+      "artifactDigest": "sha256:8f92e2a80ad7892077d8f777425ee9e56a592bc43e28ecc11bcd19027b0df67f",
+      "artifactRef": "workspace-binding://abiogenesis/8f92e2a80ad7892077d8f777425ee9e56a592bc43e28ecc11bcd19027b0df67f",
+      "operationId": "abg.operation.workspace.bind",
+      "workspaceAuthorityBasis": {
+        "authorityBasisDigest": "sha256:0437b0e493a414ee79dcf02603ae07267aa6715f12cbe61d236dc707bc52141f",
+        "authorityBasisId": "workspace-authority://abiogenesis/0437b0e493a414ee79dcf02603ae07267aa6715f12cbe61d236dc707bc52141f",
+        "authorityManifestDigest": "sha256:38ff0b5e4323afa0c1bb0bb128b6d36f530da093892bfabb4f741269b3190305",
+        "authorityManifestRef": "manifest://generic-worksite/authority",
+        "authorityMode": "trusted_developer",
+        "authorizedActorRef": "actor://generic-worksite/test",
+        "canonicalRoot": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-generic-worksite-fixture-70YfP4/worksite",
+        "kind": "workspace_authority_basis",
+        "schemaVersion": "5.0.0",
+        "workspaceId": "workspace://generic-worksite/test"
+      }
+    },
+    "payloadDigest": "sha256:d399c5eb9e5afa5935ef3f28b0e219bd2c8d66dc8ca26e1a3b58b5973df1aa42",
+    "scopeClass": "workspace",
+    "workflowVersion": "5.0.0"
+  },
+  "physical_effect_started_in_failure_case": false,
+  "failure_evidence_or_result_admitted": false,
+  "dependent_cases_stopped": true,
+  "repair_or_retry": false,
+  "source_delta": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "preimage_sha256": "2fb146d5dd8c869eec147c08effa6688fea918493274a93d00bfafc4ade7e93c",
+      "sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb",
+      "bytes": 88506
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "preimage_sha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07",
+      "bytes": 79887
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "preimage_sha256": "6a332fe393db54a876b761eb0f8d494a1db4356b799b19f78e143d5420c4a1b8",
+      "sha256": "bec0264685b959619fbffbec3dc28adbf98976169669e5f63334b04e6bf9d3fa",
+      "bytes": 20558
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "preimage_sha256": "f75417d472354cdc474c32cecf17f5a7bc2426c4dc5534e447afe3ad5d635567",
+      "sha256": "3cdd78601462643b44c30c521f732132b33d2790e994861398c20ca2aece13bd",
+      "bytes": 39809
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimage_sha256": "f46908c1598ddc8a7a21a5a890dc2a1af5fe75089160e15054824cfcb59ddca3",
+      "sha256": "6b592c35d2ce2f5d892bf77df46ba264fee1cfa57e13d3d272f2f9213eb603e3",
+      "bytes": 95706
+    }
+  ],
+  "emitted_delta": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.d.ts",
+      "preimage_sha256": "e5e9c0dd2c59705e38385ae659ec6f7b1568621e1c847be9d59de05d901dff51",
+      "sha256": "b9f22c070103c23a60e309ca3b4cfa84a2cb0b9352973371c3afaee192ccf948"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "preimage_sha256": "48d938c86d9a27538dcdaf5a6cea82acc48808ad1fb6b6847c6a58adbe91182e",
+      "sha256": "b501f094602054ada71ecc853218bf36045c45bdc6442d8f99cb00736c2027dc"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "preimage_sha256": "fa680e2fffb2faeac2376c58288a8dccb4a7526db941ee918e86bee2f9a8cd19",
+      "sha256": "b6ce21dea12f1f247fe2903fa99e7c60f814cc8131637b80fba6904583517953"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/native_worksite_execution.js",
+      "preimage_sha256": "dc2334bac09095e6ba0d804c3b490f5a333272fd986f9848313307827149d46b",
+      "sha256": "f339e61977d18033993a81c6e895b6e369eaa01bfc484bf01221c5255caea87b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+      "preimage_sha256": "58a7bddc352cdaa29a7456214fa8c1b760994e8fd7627ded80ff2cced782734e",
+      "sha256": "6a13656f990b3036c56ca456728a1b36898a0d11b192c4017468dff26e715cdb"
+    }
+  ],
+  "case_progress": {
+    "original_eight_assertions_completed": true,
+    "next_successor_assertions_completed": true,
+    "failure_case": "stopped before physical write",
+    "new_failure_auth_negatives": "not reached"
+  },
+  "compile_attempts": 1,
+  "successor_execution_attempts": 1,
+  "root_triage": {
+    "owner_producer": "environment_admission.ts:969-1001",
+    "cause": "sparse legacy storage profile accepted a controlled artifact lacking required owner scope coordinates",
+    "reentry": "test fixture/source-correspondence only; production auth unchanged",
+    "root_successor_grant": "U1-C0-FAILURE-FIXTURE-02 begins only after this stopped freeze is closed"
+  }
+}

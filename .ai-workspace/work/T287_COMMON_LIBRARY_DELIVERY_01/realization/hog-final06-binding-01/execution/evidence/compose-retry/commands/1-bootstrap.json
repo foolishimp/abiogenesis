@@ -1,0 +1,54 @@
+{
+  "label": "bootstrap",
+  "executable": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+  "args": [
+    "install",
+    "--offline",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund",
+    "--bin-links=false",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+  ],
+  "cwd": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/host",
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/user.npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/global.npmrc",
+    "TMPDIR": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent",
+    "npm_config_cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache"
+  },
+  "wallMs": 2338.8827499999998,
+  "parentCpuUs": {
+    "user": 2919,
+    "system": 432
+  },
+  "parentResourceUsage": {
+    "userCPUTime": 397562,
+    "systemCPUTime": 447977,
+    "maxRSS": 246512,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 16343,
+    "majorPageFault": 78,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 0,
+    "ipcReceived": 1,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 1051,
+    "involuntaryContextSwitches": 88073
+  },
+  "stdout": "\nadded 1 package in 2s\n",
+  "stderr": "",
+  "exitCode": 0,
+  "signal": null
+}

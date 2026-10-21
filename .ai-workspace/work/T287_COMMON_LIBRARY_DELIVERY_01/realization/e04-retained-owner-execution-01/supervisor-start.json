@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/launcher.mjs"
+  ],
+  "pid": 68864,
+  "groupId": 68864,
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "executionFreezeSha256": "933ff2ea1dd07650818565bf526778e486a170c037e57ee5faac2b04f046b323"
+}

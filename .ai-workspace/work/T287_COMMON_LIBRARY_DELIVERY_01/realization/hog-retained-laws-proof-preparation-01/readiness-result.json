@@ -1,0 +1,2092 @@
+{
+  "status": "satisfied",
+  "scope": "support artifact readiness only; historical final01 archive; no install/admission/traversal",
+  "abiArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+    "bytes": 10679557,
+    "mode": "0o644"
+  },
+  "abiPublication": {
+    "artifactDigest": "sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+    "closureContracts": [
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/branch-construction-child-closure@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/branch-construction-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/branch-construction-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/branch-construction-result@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5",
+        "refusalValueKind": "worksite_branch_construction_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/branch-construction@5",
+        "resultContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/branch-construction-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/branch-construction-closure@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/branch-construction-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/branch-construction-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/branch-construction-result@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5",
+        "refusalValueKind": "worksite_branch_construction_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/branch-construction@5",
+        "resultContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/branch-construction-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/branch-construction/branch-application-child-closure@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/branch-construction-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/branch-construction-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/branch-construction/branch-application@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5",
+        "refusalValueKind": "worksite_branch_construction_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/branch-construction@5",
+        "resultContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/branch-construction-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/branch-construction/reducer-child-closure@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/branch-construction-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/branch-construction-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/branch-construction/reducer@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5",
+        "refusalValueKind": "worksite_branch_construction_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/branch-construction@5",
+        "resultContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/branch-construction-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/construction-child-closure@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/construction-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/construction-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/construction-result@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "refusalValueKind": "worksite_construction_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/construction@5",
+        "resultContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/construction-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/construction-closure@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/construction-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/construction-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/construction-result@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "refusalValueKind": "worksite_construction_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/construction@5",
+        "resultContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/construction-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/construction/reducer-child-closure@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/construction-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/construction-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/construction-reducer@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "refusalValueKind": "worksite_construction_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/construction@5",
+        "resultContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/construction-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/construction/vector-application-child-closure@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/construction-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/construction-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/construction/vector-application@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "refusalValueKind": "worksite_construction_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/construction@5",
+        "resultContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/construction-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/file-parents-child-closure@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/file-parents-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/file-parents-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/file-parents@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/file-parents-refusal@5",
+        "refusalValueKind": "worksite_effect_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/file-parents-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/file-parents@5",
+        "resultContractRef": "contract://abiogenesis/worksite/file-parents-output@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/file-parents-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/file-parents-closure@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/file-parents-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/file-parents-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/file-parents@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/file-parents-refusal@5",
+        "refusalValueKind": "worksite_effect_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/file-parents-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/file-parents@5",
+        "resultContractRef": "contract://abiogenesis/worksite/file-parents-output@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/file-parents-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/file-replace-child-closure@5",
+        "closureScope": "graph_call",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/file-replace-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/file-replace-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/file-replace-result@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/file-replace-refusal@5",
+        "refusalValueKind": "worksite_effect_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/file-replace-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/file-replace@5",
+        "resultContractRef": "contract://abiogenesis/worksite/file-replace-output@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/file-replace-transition@5"
+      },
+      {
+        "closureContractRef": "contract://abiogenesis/worksite/file-replace-closure@5",
+        "closureScope": "run",
+        "eventKindRefs": [
+          "terminal_reached",
+          "frame_closed",
+          "graph_call_closed",
+          "run_closed"
+        ],
+        "evidenceContractRef": "contract://abiogenesis/worksite/file-replace-evidence@5",
+        "judgmentContractRef": "contract://abiogenesis/worksite/file-replace-judgment@5",
+        "kind": "closure_contract",
+        "predicateRef": "predicate://abiogenesis/worksite/file-replace-result@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/file-replace-refusal@5",
+        "refusalValueKind": "worksite_effect_refusal",
+        "rejectionContractRef": "contract://abiogenesis/worksite/file-replace-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/file-replace@5",
+        "resultContractRef": "contract://abiogenesis/worksite/file-replace-output@5",
+        "terminalKind": "completed",
+        "transitionContractRef": "contract://abiogenesis/worksite/file-replace-transition@5"
+      }
+    ],
+    "contracts": [
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-child-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_child_closure"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_closure"
+      },
+      {
+        "contractKind": "evidence",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-evidence@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_evidence_candidate"
+      },
+      {
+        "contractKind": "failure",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-failure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_failure"
+      },
+      {
+        "contractKind": "judgment",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-judgment@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_judgment"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_output_vector"
+      },
+      {
+        "contractKind": "refusal",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_refusal"
+      },
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-task@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_task"
+      },
+      {
+        "contractKind": "transition",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-transition@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_transition"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction-vector@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_vector"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction/branch-application-child-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_branch_application_child_closure"
+      },
+      {
+        "contractKind": "failure",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction/branch-application-failure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_branch_application_failure"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/branch-construction/reducer-child-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_branch_construction_reducer_child_closure"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/construction-candidate-bundle@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_candidate_bundle"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/construction-child-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_child_closure"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/construction-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_closure"
+      },
+      {
+        "contractKind": "evidence",
+        "contractRef": "contract://abiogenesis/worksite/construction-evidence@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_evidence_candidate"
+      },
+      {
+        "contractKind": "failure",
+        "contractRef": "contract://abiogenesis/worksite/construction-failure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_failure"
+      },
+      {
+        "contractKind": "judgment",
+        "contractRef": "contract://abiogenesis/worksite/construction-judgment@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_judgment"
+      },
+      {
+        "contractKind": "refusal",
+        "contractRef": "contract://abiogenesis/worksite/construction-refusal@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_refusal"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_result"
+      },
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/worksite/construction-task@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_task"
+      },
+      {
+        "contractKind": "transition",
+        "contractRef": "contract://abiogenesis/worksite/construction-transition@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_transition"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/construction-worker-result@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_worker_result"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_replace_output_vector"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/construction/file-replace-vector@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_replace_vector"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/construction/reducer-child-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_reducer_child_closure"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/construction/vector-application-child-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_vector_application_child_closure"
+      },
+      {
+        "contractKind": "failure",
+        "contractRef": "contract://abiogenesis/worksite/construction/vector-application-failure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_construction_vector_application_failure"
+      },
+      {
+        "contractKind": "evidence",
+        "contractRef": "contract://abiogenesis/worksite/file-parents-evidence@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_parents_evidence_candidate"
+      },
+      {
+        "contractKind": "failure",
+        "contractRef": "contract://abiogenesis/worksite/file-parents-failure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_effect_refusal"
+      },
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/worksite/file-parents-input@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_parents_request"
+      },
+      {
+        "contractKind": "judgment",
+        "contractRef": "contract://abiogenesis/worksite/file-parents-judgment@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "judgment_candidate"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/file-parents-output@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_parents_result"
+      },
+      {
+        "contractKind": "refusal",
+        "contractRef": "contract://abiogenesis/worksite/file-parents-refusal@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_effect_refusal"
+      },
+      {
+        "contractKind": "transition",
+        "contractRef": "contract://abiogenesis/worksite/file-parents-transition@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "evaluated_transition"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/file-replace-child-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_replace_child_closure"
+      },
+      {
+        "contractKind": "closure",
+        "contractRef": "contract://abiogenesis/worksite/file-replace-closure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_replace_closure"
+      },
+      {
+        "contractKind": "evidence",
+        "contractRef": "contract://abiogenesis/worksite/file-replace-evidence@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_replace_evidence_candidate"
+      },
+      {
+        "contractKind": "failure",
+        "contractRef": "contract://abiogenesis/worksite/file-replace-failure@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_effect_refusal"
+      },
+      {
+        "contractKind": "input",
+        "contractRef": "contract://abiogenesis/worksite/file-replace-input@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_replace_request"
+      },
+      {
+        "contractKind": "judgment",
+        "contractRef": "contract://abiogenesis/worksite/file-replace-judgment@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_replace_judgment"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/file-replace-output@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_replace_output"
+      },
+      {
+        "contractKind": "refusal",
+        "contractRef": "contract://abiogenesis/worksite/file-replace-refusal@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_effect_refusal"
+      },
+      {
+        "contractKind": "transition",
+        "contractRef": "contract://abiogenesis/worksite/file-replace-transition@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_file_replace_transition"
+      },
+      {
+        "contractKind": "output",
+        "contractRef": "contract://abiogenesis/worksite/preserved-result/artifact@5",
+        "contractVersion": "5.0.0",
+        "valueKind": "worksite_preserved_result_artifact"
+      }
+    ],
+    "contributionManifestRef": "contribution-manifest://abiogenesis/conformance/a41fbc3715e011cc5e94440d345a7d55dc58b1c3393d066b4a0c0ca655d4a230",
+    "contributions": [
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/worksite/branch-construction/branch-application@5",
+        "handle": "graph-function://abiogenesis/worksite/branch-construction/branch-application@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/worksite/branch-construction@5"
+        ],
+        "provenanceRefs": [
+          "sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+          "sha256:81b468b92fe64c3445776cd5e215ad199c629eebedb9338b135bb0c13d44a9a3"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/worksite/branch-construction@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/worksite/branch-construction/reduce@5",
+        "handle": "graph-function://abiogenesis/worksite/branch-construction/reduce@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/worksite/branch-construction@5"
+        ],
+        "provenanceRefs": [
+          "sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+          "sha256:81b468b92fe64c3445776cd5e215ad199c629eebedb9338b135bb0c13d44a9a3"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/worksite/branch-construction@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/worksite/branch-construction@5",
+        "handle": "graph-function://abiogenesis/worksite/branch-construction@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/worksite/branch-construction@5"
+        ],
+        "provenanceRefs": [
+          "sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+          "sha256:81b468b92fe64c3445776cd5e215ad199c629eebedb9338b135bb0c13d44a9a3"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/worksite/branch-construction@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/worksite/construction/reduce@5",
+        "handle": "graph-function://abiogenesis/worksite/construction/reduce@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/worksite/branch-construction@5",
+          "program://abiogenesis/worksite/construction@5"
+        ],
+        "provenanceRefs": [
+          "sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+          "sha256:81b468b92fe64c3445776cd5e215ad199c629eebedb9338b135bb0c13d44a9a3"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/worksite/branch-construction@5",
+          "program://abiogenesis/worksite/construction@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/worksite/construction/vector-application@5",
+        "handle": "graph-function://abiogenesis/worksite/construction/vector-application@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/worksite/branch-construction@5",
+          "program://abiogenesis/worksite/construction@5"
+        ],
+        "provenanceRefs": [
+          "sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+          "sha256:81b468b92fe64c3445776cd5e215ad199c629eebedb9338b135bb0c13d44a9a3"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/worksite/branch-construction@5",
+          "program://abiogenesis/worksite/construction@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/worksite/construction@5",
+        "handle": "graph-function://abiogenesis/worksite/construction@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/worksite/branch-construction@5",
+          "program://abiogenesis/worksite/construction@5"
+        ],
+        "provenanceRefs": [
+          "sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+          "sha256:81b468b92fe64c3445776cd5e215ad199c629eebedb9338b135bb0c13d44a9a3"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/worksite/branch-construction@5",
+          "program://abiogenesis/worksite/construction@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/worksite/file-parents@5",
+        "handle": "graph-function://abiogenesis/worksite/file-parents@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/worksite/file-parents@5"
+        ],
+        "provenanceRefs": [
+          "sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+          "sha256:81b468b92fe64c3445776cd5e215ad199c629eebedb9338b135bb0c13d44a9a3"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/worksite/file-parents@5"
+        ]
+      },
+      {
+        "compatibilityRefs": [
+          "compatibility://abiogenesis/major/5"
+        ],
+        "declarationOrContractRef": "graph-function://abiogenesis/worksite/file-replace@5",
+        "handle": "graph-function://abiogenesis/worksite/file-replace@5",
+        "kind": "graph_function",
+        "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "programMembershipRefs": [
+          "program://abiogenesis/worksite/branch-construction@5",
+          "program://abiogenesis/worksite/construction@5",
+          "program://abiogenesis/worksite/file-replace@5"
+        ],
+        "provenanceRefs": [
+          "sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+          "sha256:81b468b92fe64c3445776cd5e215ad199c629eebedb9338b135bb0c13d44a9a3"
+        ],
+        "readinessPrerequisiteRefs": [
+          "program://abiogenesis/worksite/branch-construction@5",
+          "program://abiogenesis/worksite/construction@5",
+          "program://abiogenesis/worksite/file-replace@5"
+        ]
+      }
+    ],
+    "descriptorRef": "descriptor://abiogenesis/typescript-tenant/a41fbc3715e011cc5e94440d345a7d55dc58b1c3393d066b4a0c0ca655d4a230",
+    "evaluators": [],
+    "graphFunctions": [
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/worksite/branch-construction/branch-application-child-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.failure_contract": "contract://abiogenesis/worksite/branch-construction/branch-application-failure@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/worksite/branch-construction/branch-application@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+            "contract://abiogenesis/worksite/construction-result@5",
+            "contract://abiogenesis/worksite/construction-task@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/worksite/construction-result@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/worksite/branch-construction-vector@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/worksite/branch-construction-vector@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/worksite/branch-construction/branch-application@5",
+        "outputs": [
+          "contract://abiogenesis/worksite/construction-result@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "branch-application",
+          "branch-construction",
+          "worksite"
+        ],
+        "template": {
+          "applications": [
+            {
+              "applicationRef": "graph-function-application://abiogenesis/b879a5519b642b358d3116fb46ec04a7f99806c2bad82923197c2a530c0817bf",
+              "batchRef": "batch://abiogenesis/worksite/branch-construction/branches@5",
+              "elementGraphFunctionRef": "graph-function://abiogenesis/worksite/construction@5",
+              "inputContractRef": "contract://abiogenesis/worksite/branch-construction-vector@5",
+              "inputMemberContractRef": "contract://abiogenesis/worksite/construction-task@5",
+              "inputVectorRef": "contract://abiogenesis/worksite/branch-construction-vector@5",
+              "kind": "graph_function_application",
+              "outputContractRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+              "outputMemberContractRef": "contract://abiogenesis/worksite/construction-result@5",
+              "outputVectorRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+              "relationKind": "fan_out"
+            },
+            {
+              "applicationRef": "graph-function-application://abiogenesis/b1251894aef3bb60ea93e9a98ef5d317d9517a00dbb5833ece4bc65d24473dd7",
+              "inputContractRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+              "inputVectorRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+              "kind": "graph_function_application",
+              "outputContractRef": "contract://abiogenesis/worksite/construction-result@5",
+              "reducerGraphFunctionRef": "graph-function://abiogenesis/worksite/branch-construction/reduce@5",
+              "relationKind": "fan_in"
+            }
+          ],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/branch-construction/branch-application@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/branch-construction/branch-application@5",
+              "term": {
+                "inputCarrierRef": "contract://abiogenesis/worksite/branch-construction-vector@5",
+                "kind": "c_compose",
+                "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5",
+                "terms": [
+                  {
+                    "batchRef": "batch://abiogenesis/worksite/branch-construction/branches@5",
+                    "inputCarrierRef": "contract://abiogenesis/worksite/branch-construction-vector@5",
+                    "kind": "c_batch",
+                    "outputCarrierRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+                    "taskInputCarrierRef": "contract://abiogenesis/worksite/construction-task@5",
+                    "taskOutputCarrierRef": "contract://abiogenesis/worksite/construction-result@5",
+                    "tasks": [
+                      {
+                        "graphFunctionRef": "graph-function://abiogenesis/worksite/construction@5",
+                        "inputCarrierRef": "contract://abiogenesis/worksite/construction-task@5",
+                        "kind": "c_workflow",
+                        "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5"
+                      }
+                    ]
+                  },
+                  {
+                    "graphFunctionRef": "graph-function://abiogenesis/worksite/branch-construction/reduce@5",
+                    "inputCarrierRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5"
+                  }
+                ]
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/branch-construction/branch-application@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/branch-construction/branch-application@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/worksite/branch-construction/reducer-child-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/worksite/branch-construction-evidence@5",
+          "abg.failure_contract": "contract://abiogenesis/worksite/branch-construction-failure@5",
+          "abg.judgment_contract": "contract://abiogenesis/worksite/branch-construction-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/worksite/branch-construction/reducer@5",
+          "abg.transition_contract": "contract://abiogenesis/worksite/branch-construction-transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+            "contract://abiogenesis/worksite/construction-result@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/worksite/construction-result@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/worksite/branch-construction-output-vector@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/worksite/branch-construction-output-vector@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/worksite/branch-construction/reduce@5",
+        "outputs": [
+          "contract://abiogenesis/worksite/construction-result@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "branch-construction",
+          "fd",
+          "reducer",
+          "worksite"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/branch-construction/reduce@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/branch-construction/reduce@5",
+              "term": {
+                "armId": "arm://abiogenesis/worksite/branch-construction/reduce-fd@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/worksite/branch-construction/reducer@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5",
+                "programLocusRef": "locus://abiogenesis/worksite/branch-construction/reduce@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/worksite/branch-construction-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/worksite/branch-construction-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/worksite/branch-construction/reduce-fd@5",
+                  "inputContractRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+                  "judgmentContractRef": "contract://abiogenesis/worksite/branch-construction-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/worksite/construction-result@5",
+                  "refusalContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "reducer",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/branch-construction/reduce@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/branch-construction/reduce@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/worksite/branch-construction-child-closure@5",
+          "abg.closure_contract": "contract://abiogenesis/worksite/branch-construction-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/worksite/branch-construction-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/worksite/branch-construction-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/worksite/branch-construction-result@5",
+          "abg.transition_contract": "contract://abiogenesis/worksite/branch-construction-transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/worksite/file.replace/v1"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/worksite/branch-construction-vector@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/worksite/construction-result@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/worksite/branch-construction-task@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/worksite/branch-construction-task@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/worksite/branch-construction@5",
+        "outputs": [
+          "contract://abiogenesis/worksite/construction-result@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "branch-construction",
+          "fd",
+          "worksite"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/branch-construction@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/branch-construction/root@5",
+              "term": {
+                "inputCarrierRef": "contract://abiogenesis/worksite/branch-construction-task@5",
+                "kind": "c_compose",
+                "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5",
+                "terms": [
+                  {
+                    "armId": "arm://abiogenesis/worksite/branch-construction/plan-fd@5",
+                    "compositionRef": null,
+                    "fibre": "F_D",
+                    "inputCarrierRef": "contract://abiogenesis/worksite/branch-construction-task@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/worksite/branch-construction/plan@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/worksite/branch-construction-vector@5",
+                    "programLocusRef": "locus://abiogenesis/worksite/branch-construction/plan@5",
+                    "requirement": {
+                      "evidenceContractRef": "contract://abiogenesis/worksite/branch-construction-evidence@5",
+                      "failureContractRef": "contract://abiogenesis/worksite/branch-construction-failure@5",
+                      "implementationBindingRef": "implementation-binding://abiogenesis/worksite/branch-construction/plan-fd@5",
+                      "inputContractRef": "contract://abiogenesis/worksite/branch-construction-task@5",
+                      "judgmentContractRef": "contract://abiogenesis/worksite/branch-construction-judgment@5",
+                      "kind": "executable_leaf_requirement",
+                      "outputContractRef": "contract://abiogenesis/worksite/branch-construction-vector@5",
+                      "refusalContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5"
+                    },
+                    "resultBearing": false,
+                    "stageRole": "aggregate_authority_and_readiness",
+                    "vectorIndex": 0
+                  },
+                  {
+                    "graphFunctionRef": "graph-function://abiogenesis/worksite/branch-construction/branch-application@5",
+                    "inputCarrierRef": "contract://abiogenesis/worksite/branch-construction-vector@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5"
+                  }
+                ]
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/branch-construction/root@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/branch-construction/root@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/worksite/construction/reducer-child-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/worksite/construction-evidence@5",
+          "abg.failure_contract": "contract://abiogenesis/worksite/construction-failure@5",
+          "abg.judgment_contract": "contract://abiogenesis/worksite/construction-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/worksite/construction-reducer@5",
+          "abg.transition_contract": "contract://abiogenesis/worksite/construction-transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/worksite/construction-result@5",
+            "contract://abiogenesis/worksite/construction/file-replace-output-vector@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/worksite/construction-result@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/worksite/construction/file-replace-output-vector@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/worksite/construction/file-replace-output-vector@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/worksite/construction/reduce@5",
+        "outputs": [
+          "contract://abiogenesis/worksite/construction-result@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "construction",
+          "fd",
+          "reducer",
+          "worksite"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/construction/reduce@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/construction/reduce@5",
+              "term": {
+                "armId": "arm://abiogenesis/worksite/construction/reduce-fd@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/worksite/construction-reducer@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5",
+                "programLocusRef": "locus://abiogenesis/worksite/construction/reduce@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/worksite/construction-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/worksite/construction-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/worksite/construction-reducer-fd@5",
+                  "inputContractRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+                  "judgmentContractRef": "contract://abiogenesis/worksite/construction-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/worksite/construction-result@5",
+                  "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "reducer",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/construction/reduce@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/construction/reduce@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/worksite/construction/vector-application-child-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.failure_contract": "contract://abiogenesis/worksite/construction/vector-application-failure@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/worksite/construction/vector-application@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+            "contract://abiogenesis/worksite/file-replace-input@5",
+            "contract://abiogenesis/worksite/file-replace-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/worksite/construction-result@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/worksite/construction/file-replace-vector@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/worksite/construction/file-replace-vector@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/worksite/construction/vector-application@5",
+        "outputs": [
+          "contract://abiogenesis/worksite/construction-result@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "construction",
+          "vector-application",
+          "worksite"
+        ],
+        "template": {
+          "applications": [
+            {
+              "applicationRef": "graph-function-application://abiogenesis/972f8d2dbdc7e7dfcc3908a093ed397b3f778cbb12501562031111d00db81a08",
+              "batchRef": "batch://abiogenesis/worksite/construction/targets@5",
+              "elementGraphFunctionRef": "graph-function://abiogenesis/worksite/file-replace@5",
+              "inputContractRef": "contract://abiogenesis/worksite/construction/file-replace-vector@5",
+              "inputMemberContractRef": "contract://abiogenesis/worksite/file-replace-input@5",
+              "inputVectorRef": "contract://abiogenesis/worksite/construction/file-replace-vector@5",
+              "kind": "graph_function_application",
+              "outputContractRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+              "outputMemberContractRef": "contract://abiogenesis/worksite/file-replace-output@5",
+              "outputVectorRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+              "relationKind": "fan_out"
+            },
+            {
+              "applicationRef": "graph-function-application://abiogenesis/64e2ce4937f94627f56a78bb78c83809290be7916739d55c2bb619e8a621d7ec",
+              "inputContractRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+              "inputVectorRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+              "kind": "graph_function_application",
+              "outputContractRef": "contract://abiogenesis/worksite/construction-result@5",
+              "reducerGraphFunctionRef": "graph-function://abiogenesis/worksite/construction/reduce@5",
+              "relationKind": "fan_in"
+            }
+          ],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/construction/vector-application@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/construction/vector-application@5",
+              "term": {
+                "inputCarrierRef": "contract://abiogenesis/worksite/construction/file-replace-vector@5",
+                "kind": "c_compose",
+                "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5",
+                "terms": [
+                  {
+                    "batchRef": "batch://abiogenesis/worksite/construction/targets@5",
+                    "inputCarrierRef": "contract://abiogenesis/worksite/construction/file-replace-vector@5",
+                    "kind": "c_batch",
+                    "outputCarrierRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+                    "taskInputCarrierRef": "contract://abiogenesis/worksite/file-replace-input@5",
+                    "taskOutputCarrierRef": "contract://abiogenesis/worksite/file-replace-output@5",
+                    "tasks": [
+                      {
+                        "graphFunctionRef": "graph-function://abiogenesis/worksite/file-replace@5",
+                        "inputCarrierRef": "contract://abiogenesis/worksite/file-replace-input@5",
+                        "kind": "c_workflow",
+                        "outputCarrierRef": "contract://abiogenesis/worksite/file-replace-output@5"
+                      }
+                    ]
+                  },
+                  {
+                    "graphFunctionRef": "graph-function://abiogenesis/worksite/construction/reduce@5",
+                    "inputCarrierRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5"
+                  }
+                ]
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/construction/vector-application@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/construction/vector-application@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/worksite/construction-child-closure@5",
+          "abg.closure_contract": "contract://abiogenesis/worksite/construction-closure@5",
+          "abg.compute_regime": "mixed",
+          "abg.evidence_contract": "contract://abiogenesis/worksite/construction-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/worksite/construction-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/worksite/construction-result@5",
+          "abg.raw_result_contract": "contract://abiogenesis/worksite/construction-worker-result@5",
+          "abg.transition_contract": "contract://abiogenesis/worksite/construction-transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/worksite/file.replace/v1"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/worksite/construction-candidate-bundle@5",
+            "contract://abiogenesis/worksite/construction-worker-result@5",
+            "contract://abiogenesis/worksite/construction/file-replace-vector@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/worksite/construction-result@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/worksite/construction-task@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/worksite/construction-task@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/worksite/construction@5",
+        "outputs": [
+          "contract://abiogenesis/worksite/construction-result@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "construction",
+          "mixed",
+          "worksite"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/construction@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/construction/root@5",
+              "term": {
+                "inputCarrierRef": "contract://abiogenesis/worksite/construction-task@5",
+                "kind": "c_compose",
+                "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5",
+                "terms": [
+                  {
+                    "armId": "arm://abiogenesis/worksite/construction/candidate-fp@5",
+                    "compositionRef": null,
+                    "fibre": "F_P",
+                    "inputCarrierRef": "contract://abiogenesis/worksite/construction-task@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/worksite/construction-candidate@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/worksite/construction-candidate-bundle@5",
+                    "programLocusRef": "locus://abiogenesis/worksite/construction/candidate@5",
+                    "requirement": {
+                      "evidenceContractRef": "contract://abiogenesis/worksite/construction-evidence@5",
+                      "failureContractRef": "contract://abiogenesis/worksite/construction-failure@5",
+                      "implementationBindingRef": "implementation-binding://abiogenesis/worksite/construction-candidate-fp@5",
+                      "inputContractRef": "contract://abiogenesis/worksite/construction-task@5",
+                      "judgmentContractRef": "contract://abiogenesis/worksite/construction-judgment@5",
+                      "kind": "executable_leaf_requirement",
+                      "outputContractRef": "contract://abiogenesis/worksite/construction-candidate-bundle@5",
+                      "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5"
+                    },
+                    "resultBearing": false,
+                    "stageRole": "candidate",
+                    "vectorIndex": 0
+                  },
+                  {
+                    "armId": "arm://abiogenesis/worksite/construction/authority-join-fd@5",
+                    "compositionRef": null,
+                    "fibre": "F_D",
+                    "inputCarrierRef": "contract://abiogenesis/worksite/construction-candidate-bundle@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/worksite/construction-authority-join@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/worksite/construction/file-replace-vector@5",
+                    "programLocusRef": "locus://abiogenesis/worksite/construction/authority-join@5",
+                    "requirement": {
+                      "evidenceContractRef": "contract://abiogenesis/worksite/construction-evidence@5",
+                      "failureContractRef": "contract://abiogenesis/worksite/construction-failure@5",
+                      "implementationBindingRef": "implementation-binding://abiogenesis/worksite/construction-authority-join-fd@5",
+                      "inputContractRef": "contract://abiogenesis/worksite/construction-candidate-bundle@5",
+                      "judgmentContractRef": "contract://abiogenesis/worksite/construction-judgment@5",
+                      "kind": "executable_leaf_requirement",
+                      "outputContractRef": "contract://abiogenesis/worksite/construction/file-replace-vector@5",
+                      "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5"
+                    },
+                    "resultBearing": false,
+                    "stageRole": "authority_join",
+                    "vectorIndex": 1
+                  },
+                  {
+                    "graphFunctionRef": "graph-function://abiogenesis/worksite/construction/vector-application@5",
+                    "inputCarrierRef": "contract://abiogenesis/worksite/construction/file-replace-vector@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/worksite/construction-result@5"
+                  }
+                ]
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/construction/root@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/construction/root@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/worksite/file-parents-child-closure@5",
+          "abg.closure_contract": "contract://abiogenesis/worksite/file-parents-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/worksite/file-parents-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/worksite/file-parents-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/worksite/file-parents@5",
+          "abg.transition_contract": "contract://abiogenesis/worksite/file-parents-transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/worksite/file.parents/v1"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/worksite/file-parents-input@5",
+            "contract://abiogenesis/worksite/file-parents-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/worksite/file-parents-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/worksite/file-parents-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/worksite/file-parents-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/worksite/file-parents@5",
+        "outputs": [
+          "contract://abiogenesis/worksite/file-parents-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "c0",
+          "worksite"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/file-parents@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/file-parents/fd@5",
+              "term": {
+                "armId": "arm://abiogenesis/worksite/file-parents/fd@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/worksite/file-parents-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/worksite/file-parents@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/worksite/file-parents-output@5",
+                "programLocusRef": "node://abiogenesis/worksite/file-parents/fd@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/worksite/file-parents-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/worksite/file-parents-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/worksite/file-parents-fd@5",
+                  "inputContractRef": "contract://abiogenesis/worksite/file-parents-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/worksite/file-parents-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/worksite/file-parents-output@5",
+                  "refusalContractRef": "contract://abiogenesis/worksite/file-parents-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "file-parents",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/file-parents/fd@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/file-parents/fd@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/worksite/file-replace-child-closure@5",
+          "abg.closure_contract": "contract://abiogenesis/worksite/file-replace-closure@5",
+          "abg.compute_regime": "F_D",
+          "abg.evidence_contract": "contract://abiogenesis/worksite/file-replace-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/worksite/file-replace-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/worksite/file-replace-result@5",
+          "abg.transition_contract": "contract://abiogenesis/worksite/file-replace-transition@5"
+        },
+        "effects": [
+          "effect://abiogenesis/worksite/file.replace/v1"
+        ],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/worksite/file-replace-input@5",
+            "contract://abiogenesis/worksite/file-replace-output@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/worksite/file-replace-output@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/worksite/file-replace-input@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/worksite/file-replace-input@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/worksite/file-replace@5",
+        "outputs": [
+          "contract://abiogenesis/worksite/file-replace-output@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "c0",
+          "worksite"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/file-replace@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/file-replace/fd-leaf@5",
+              "term": {
+                "armId": "arm://abiogenesis/worksite/file-replace/fd@5",
+                "compositionRef": null,
+                "fibre": "F_D",
+                "inputCarrierRef": "contract://abiogenesis/worksite/file-replace-input@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/worksite/file-replace-result@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/worksite/file-replace-output@5",
+                "programLocusRef": "node://abiogenesis/worksite/file-replace/fd-leaf@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/worksite/file-replace-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/worksite/file-replace-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/worksite/file-replace-fd@5",
+                  "inputContractRef": "contract://abiogenesis/worksite/file-replace-input@5",
+                  "judgmentContractRef": "contract://abiogenesis/worksite/file-replace-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/worksite/file-replace-output@5",
+                  "refusalContractRef": "contract://abiogenesis/worksite/file-replace-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "file-replace",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/file-replace/fd-leaf@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/file-replace/fd-leaf@5"
+          ]
+        },
+        "version": "5.0.0"
+      }
+    ],
+    "implementationBindings": [
+      {
+        "bindingRef": "implementation-binding://abiogenesis/worksite/branch-construction/plan-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/worksite/branch-construction-failure@5",
+        "implementationRef": "implementation://abiogenesis/worksite/branch-construction/plan-fd@5",
+        "inputContractRef": "contract://abiogenesis/worksite/branch-construction-task@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/worksite_branch_construction.js",
+        "namedSymbol": "realizeWorksiteBranchConstructionPlan",
+        "outputContractRef": "contract://abiogenesis/worksite/branch-construction-vector@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/worksite/branch-construction/reduce-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/worksite/branch-construction-failure@5",
+        "implementationRef": "implementation://abiogenesis/worksite/branch-construction/reduce-fd@5",
+        "inputContractRef": "contract://abiogenesis/worksite/branch-construction-output-vector@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/worksite_branch_construction.js",
+        "namedSymbol": "realizeWorksiteBranchConstructionReduction",
+        "outputContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/worksite/branch-construction-refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/worksite/construction-authority-join-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/worksite/construction-failure@5",
+        "implementationRef": "implementation://abiogenesis/worksite/construction-authority-join-fd@5",
+        "inputContractRef": "contract://abiogenesis/worksite/construction-candidate-bundle@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/worksite_construction.js",
+        "namedSymbol": "realizeWorksiteFileReplaceVector",
+        "outputContractRef": "contract://abiogenesis/worksite/construction/file-replace-vector@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/worksite/construction-candidate-fp@5",
+        "computeRegime": "F_P",
+        "failureContractRef": "contract://abiogenesis/worksite/construction-failure@5",
+        "implementationRef": "implementation://abiogenesis/worksite/construction-candidate-fp@5",
+        "inputContractRef": "contract://abiogenesis/worksite/construction-task@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/worksite_construction.js",
+        "namedSymbol": "realizeWorksiteConstructionCandidate",
+        "outputContractRef": "contract://abiogenesis/worksite/construction-candidate-bundle@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/worksite/construction-reducer-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/worksite/construction-failure@5",
+        "implementationRef": "implementation://abiogenesis/worksite/construction-reducer-fd@5",
+        "inputContractRef": "contract://abiogenesis/worksite/construction/file-replace-output-vector@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/worksite_construction.js",
+        "namedSymbol": "reduceWorksiteConstructionResults",
+        "outputContractRef": "contract://abiogenesis/worksite/construction-result@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/worksite/file-parents-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/worksite/file-parents-failure@5",
+        "implementationRef": "implementation://abiogenesis/worksite/file-parents-fd@5",
+        "inputContractRef": "contract://abiogenesis/worksite/file-parents-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/worksite_file_replace.js",
+        "namedSymbol": "realizeWorksiteFileParents",
+        "outputContractRef": "contract://abiogenesis/worksite/file-parents-output@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/worksite/file-parents-refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/worksite/file-replace-fd@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/worksite/file-replace-failure@5",
+        "implementationRef": "implementation://abiogenesis/worksite/file-replace-fd@5",
+        "inputContractRef": "contract://abiogenesis/worksite/file-replace-input@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/worksite_file_replace.js",
+        "namedSymbol": "realizeWorksiteFileReplace",
+        "outputContractRef": "contract://abiogenesis/worksite/file-replace-output@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/worksite/file-replace-refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/worksite/preserved-result/authenticate@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/worksite/construction-failure@5",
+        "implementationRef": "implementation://abiogenesis/worksite/preserved-result/authenticate@5",
+        "inputContractRef": "contract://abiogenesis/worksite/construction-task@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/worksite_construction.js",
+        "namedSymbol": "authenticateWorksitePreservedResult",
+        "outputContractRef": "contract://abiogenesis/worksite/preserved-result/artifact@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5"
+      },
+      {
+        "bindingRef": "implementation-binding://abiogenesis/worksite/preserved-result/derive@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://abiogenesis/worksite/construction-failure@5",
+        "implementationRef": "implementation://abiogenesis/worksite/preserved-result/derive@5",
+        "inputContractRef": "contract://abiogenesis/worksite/preserved-result/artifact@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/code/src/implementation/worksite_construction.js",
+        "namedSymbol": "deriveWorksitePreservedCandidate",
+        "outputContractRef": "contract://abiogenesis/worksite/construction-candidate-bundle@5",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1",
+        "refusalContractRef": "contract://abiogenesis/worksite/construction-refusal@5"
+      }
+    ],
+    "kind": "module_publication",
+    "moduleRef": "module://abiogenesis/worksite/construction@5",
+    "moduleVersion": "5.0.0",
+    "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "productContentDigest": "sha256:a41fbc3715e011cc5e94440d345a7d55dc58b1c3393d066b4a0c0ca655d4a230",
+    "productManifestDigest": "sha256:81b468b92fe64c3445776cd5e215ad199c629eebedb9338b135bb0c13d44a9a3",
+    "productSemanticsBinding": {
+      "bindingRef": "product-semantics://abiogenesis/conformance@5",
+      "kind": "product_semantics_binding",
+      "modulePath": "build/code/src/product/builtin_semantics.js",
+      "namedSymbol": "ABI5_PRODUCT_SEMANTICS",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    },
+    "programs": [
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/worksite/branch-construction/branch-application@5",
+          "graph-function://abiogenesis/worksite/branch-construction/reduce@5",
+          "graph-function://abiogenesis/worksite/branch-construction@5",
+          "graph-function://abiogenesis/worksite/construction/reduce@5",
+          "graph-function://abiogenesis/worksite/construction/vector-application@5",
+          "graph-function://abiogenesis/worksite/construction@5",
+          "graph-function://abiogenesis/worksite/file-replace@5"
+        ],
+        "closureContractRef": "contract://abiogenesis/worksite/branch-construction-closure@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "policies": {
+          "abg.compute_regime": "F_D",
+          "abg.default_start_ref": "start://abiogenesis/worksite/branch-construction@5",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/worksite/branch-construction@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/worksite/branch-construction@5",
+            "startRef": "start://abiogenesis/worksite/branch-construction@5"
+          }
+        ],
+        "version": "5.0.0"
+      },
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/worksite/construction/reduce@5",
+          "graph-function://abiogenesis/worksite/construction/vector-application@5",
+          "graph-function://abiogenesis/worksite/construction@5",
+          "graph-function://abiogenesis/worksite/file-replace@5"
+        ],
+        "closureContractRef": "contract://abiogenesis/worksite/construction-closure@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "policies": {
+          "abg.compute_regime": "mixed",
+          "abg.default_start_ref": "start://abiogenesis/worksite/construction@5",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/worksite/construction@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/worksite/construction@5",
+            "startRef": "start://abiogenesis/worksite/construction@5"
+          }
+        ],
+        "version": "5.0.0"
+      },
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/worksite/file-parents@5"
+        ],
+        "closureContractRef": "contract://abiogenesis/worksite/file-parents-closure@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "policies": {
+          "abg.compute_regime": "F_D",
+          "abg.default_start_ref": "start://abiogenesis/worksite/file-parents@5",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/worksite/file-parents@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/worksite/file-parents@5",
+            "startRef": "start://abiogenesis/worksite/file-parents@5"
+          }
+        ],
+        "version": "5.0.0"
+      },
+      {
+        "callableMembership": [
+          "graph-function://abiogenesis/worksite/file-replace@5"
+        ],
+        "closureContractRef": "contract://abiogenesis/worksite/file-replace-closure@5",
+        "kind": "gtl_program",
+        "moduleRef": "module://abiogenesis/worksite/construction@5",
+        "policies": {
+          "abg.compute_regime": "F_D",
+          "abg.default_start_ref": "start://abiogenesis/worksite/file-replace@5",
+          "abg.root_mode": "direct"
+        },
+        "programRef": "program://abiogenesis/worksite/file-replace@5",
+        "starts": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/worksite/file-replace@5",
+            "startRef": "start://abiogenesis/worksite/file-replace@5"
+          }
+        ],
+        "version": "5.0.0"
+      }
+    ],
+    "rules": []
+  },
+  "fixture": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture/artifacts/abi5-tests-structural-fixtures-5.0.0.tgz",
+    "artifactSha256": "eb5c7c3fd4f1f524f34c8a0a3fb876aa42fd1456cfad24da8012beffaf9b7bea",
+    "artifactBytes": 9623,
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture",
+    "basis": {
+      "productId": "product://abi5-tests/structural-fixtures@5.0.0",
+      "packageName": "@abi5-tests/structural-fixtures",
+      "packageVersion": "5.0.0",
+      "productContentDigest": "sha256:6e70e5268fa4a9706338b99cf513523d5cc55a93aac7ef9f6afa3359e1d0a588",
+      "artifactDigest": "sha256:eb5c7c3fd4f1f524f34c8a0a3fb876aa42fd1456cfad24da8012beffaf9b7bea",
+      "manifestDigest": "sha256:2e9a0d13dc5682bdd1db07750795955616c2d7b14aa5cf3e7e7e2a7412ea4d3a"
+    },
+    "package": {
+      "dependencies": {
+        "@abiogenesis/typescript-tenant": "file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      },
+      "exports": {
+        "./program": "./build/program.mjs"
+      },
+      "files": [
+        "build",
+        "contracts",
+        "product-toolchain-manifest.json"
+      ],
+      "name": "@abi5-tests/structural-fixtures",
+      "type": "module",
+      "version": "5.0.0"
+    },
+    "manifest": {
+      "kind": "abg_product_toolchain_manifest",
+      "schemaVersion": "5.0.0",
+      "productId": "product://abi5-tests/structural-fixtures@5.0.0",
+      "packageName": "@abi5-tests/structural-fixtures",
+      "packageVersion": "5.0.0",
+      "productContentDigest": "sha256:6e70e5268fa4a9706338b99cf513523d5cc55a93aac7ef9f6afa3359e1d0a588",
+      "productRelativeLocators": [
+        "build/leaf.mjs",
+        "build/program.mjs",
+        "contracts/public-contract-catalog.schema.json",
+        "package.json"
+      ],
+      "descriptorRef": "descriptor://abi5-tests/structural/mechanics@5",
+      "publisherNamespace": "abi5-tests",
+      "contributionManifestRef": "contribution-manifest://abi5-tests/structural/mechanics@5",
+      "contributionManifestDigest": "sha256:a1e5917cc821c97d6f2cc4276daea054a886158db65098d359d5bb15fb983e61",
+      "contributionManifest": {
+        "kind": "product_contribution_manifest",
+        "schemaVersion": "5.0.0",
+        "contributionManifestRef": "contribution-manifest://abi5-tests/structural/mechanics@5",
+        "productId": "product://abi5-tests/structural-fixtures@5.0.0",
+        "productVersion": "5.0.0",
+        "descriptorRef": "descriptor://abi5-tests/structural/mechanics@5",
+        "productContentDigest": "sha256:6e70e5268fa4a9706338b99cf513523d5cc55a93aac7ef9f6afa3359e1d0a588",
+        "publicContractCatalogId": "catalog://abi5-tests/language-fixtures@5",
+        "publicContractCatalogDigest": "sha256:b8b3c70d90d520f25c04434a2e047527e3747b01717db7b10c4934ae1405523b",
+        "capabilityDefinitionGraph": {
+          "graphId": "capability-definition-graph://abiogenesis/abg-5",
+          "graphVersion": "5.0.0",
+          "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d"
+        },
+        "publicationBindings": [
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "publicationDigest": "sha256:b9649560c89a86b5e7b5c501836bc318bac841aefbd0614424e3940a87fa9340"
+          }
+        ],
+        "rows": [
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/atomic@5",
+            "handle": "graph-function://abi5-tests/structural/atomic@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/atomic@5",
+              "program://abi5-tests/structural/workflow@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/atomic@5",
+              "program://abi5-tests/structural/workflow@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/compose@5",
+            "handle": "graph-function://abi5-tests/structural/compose@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/compose@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/compose@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/fan-out/element@5",
+            "handle": "graph-function://abi5-tests/structural/fan-out/element@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/fan-out@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/fan-out@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/fan-out/reducer@5",
+            "handle": "graph-function://abi5-tests/structural/fan-out/reducer@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/fan-out@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/fan-out@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/fan-out@5",
+            "handle": "graph-function://abi5-tests/structural/fan-out@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/fan-out@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/fan-out@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/gate/target@5",
+            "handle": "graph-function://abi5-tests/structural/gate/target@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/gate@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/gate@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/gate@5",
+            "handle": "graph-function://abi5-tests/structural/gate@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/gate@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/gate@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/graph-edge@5",
+            "handle": "graph-function://abi5-tests/structural/graph-edge@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/graph-edge@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/graph-edge@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/recursion/step@5",
+            "handle": "graph-function://abi5-tests/structural/recursion/step@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/recursion@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/recursion@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/recursion@5",
+            "handle": "graph-function://abi5-tests/structural/recursion@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/recursion@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/recursion@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/retry@5",
+            "handle": "graph-function://abi5-tests/structural/retry@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/retry@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/retry@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/substitute@5",
+            "handle": "graph-function://abi5-tests/structural/substitute@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/substitute@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/substitute@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/worker-compose@5",
+            "handle": "graph-function://abi5-tests/structural/worker-compose@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/worker-compose@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/worker-compose@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/worker-deterministic@5",
+            "handle": "graph-function://abi5-tests/structural/worker-deterministic@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/worker-deterministic@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/worker-deterministic@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/worker@5",
+            "handle": "graph-function://abi5-tests/structural/worker@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/worker@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/worker@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/workflow@5",
+            "handle": "graph-function://abi5-tests/structural/workflow@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/workflow@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/workflow@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          },
+          {
+            "moduleRef": "module://abi5-tests/structural/mechanics@5",
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://abi5-tests/structural/atomic@5",
+            "handle": "gtl://abi5-tests/structural/atomic/direct@5",
+            "kind": "graph_function",
+            "owningProductId": "product://abi5-tests/structural-fixtures@5.0.0",
+            "programMembershipRefs": [
+              "program://abi5-tests/structural/atomic/direct@5"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://abi5-tests/structural/atomic/direct@5"
+            ],
+            "provenanceRef": "provenance://abi5-tests/language-fixtures@5"
+          }
+        ]
+      },
+      "compatibilityRefs": [
+        "compatibility://abiogenesis/major/5"
+      ],
+      "declaredDependencies": [
+        {
+          "kind": "requires",
+          "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+          "packageVersion": "5.0.0-rc.1",
+          "compatibilityRef": "compatibility://abiogenesis/major/5",
+          "requiredContractRefs": [
+            "abg.contract.gtl.root-declaration",
+            "abg.schema.public-operation-invocation"
+          ],
+          "requiredCapabilityRefs": [
+            "abg.capability.catalog.invoke-graph-function@5",
+            "abg.capability.gtl.declare@5"
+          ]
+        }
+      ],
+      "provenanceRef": "provenance://abi5-tests/language-fixtures@5",
+      "declaredCapabilityRefs": [],
+      "capabilityDefinitionGraph": {
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0",
+        "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+        "assetLocator": {
+          "path": "contracts/capabilities/capability-definition-graph.json",
+          "mediaType": "application/json",
+          "schemaVersion": "5.0.0",
+          "contentDigest": "sha256:f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+        }
+      },
+      "publicContractCatalog": {
+        "schemaVersion": "5.0.0",
+        "catalogId": "catalog://abi5-tests/language-fixtures@5",
+        "catalogVersion": "5.0.0",
+        "catalogSchemaPath": "contracts/public-contract-catalog.schema.json",
+        "catalogSchemaDigest": "sha256:61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+        "rows": [],
+        "catalogDigest": "sha256:b8b3c70d90d520f25c04434a2e047527e3747b01717db7b10c4934ae1405523b"
+      }
+    },
+    "manifestBytesSha256": "32eb3cc7befae224a41d55894717271079a83873dcd4ccdb764eb41a97c90ca6"
+  },
+  "expectedRefusals": 4,
+  "fixturePackCalls": 1,
+  "internalPackStdout": "helper consumes npm JSON and returns artifactPath; raw internal stdout not exposed by its declared interface",
+  "installs": 0,
+  "workloads": 0,
+  "nativeCalls": 0,
+  "cleanup": false
+}

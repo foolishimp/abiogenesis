@@ -1,0 +1,6 @@
+{
+  "all_previous_failure_result_evidence_predicates_unchanged": true,
+  "normalization": "indent and local isRecord identifier only; return changes from transition carrier to authenticated request",
+  "preimage_event_calculus_sha256": "2fb146d5dd8c869eec147c08effa6688fea918493274a93d00bfafc4ade7e93c",
+  "successor_c_call_outcome_sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07"
+}

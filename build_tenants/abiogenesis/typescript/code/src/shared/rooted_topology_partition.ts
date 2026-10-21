@@ -1,4 +1,5 @@
 import { isSha256Digest, type Sha256Digest } from "./digests.js";
+import { hasExactKeys } from "./admission_predicates.js";
 import { deepFreeze } from "./immutable.js";
 import { isNonBlankRef } from "./references.js";
 
@@ -64,12 +65,6 @@ const WITNESS_KEYS = Object.freeze([
 
 const SEGMENT_KEYS = Object.freeze(["parentRef", "segmentRef"]);
 
-function hasExactKeys(value: object, keys: readonly string[]): boolean {
-  const actual = Object.keys(value).sort();
-  return actual.length === keys.length &&
-    actual.every((key, index) => key === keys[index]);
-}
-
 function validateCanonicalRootedTopologyWitness(
   value: unknown,
   label: "source" | "target",
@@ -78,7 +73,7 @@ function validateCanonicalRootedTopologyWitness(
     typeof value !== "object" ||
     value === null ||
     Array.isArray(value) ||
-    !hasExactKeys(value, WITNESS_KEYS)
+    !hasExactKeys(value as Readonly<Record<string, unknown>>, WITNESS_KEYS)
   ) {
     return {
       valid: false,

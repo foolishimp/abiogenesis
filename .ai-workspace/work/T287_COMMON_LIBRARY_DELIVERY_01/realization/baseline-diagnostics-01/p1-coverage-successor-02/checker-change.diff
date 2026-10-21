@@ -1,0 +1,47 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/check-coverage.py
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/check-coverage-successor.py
+@@ -1,10 +1,25 @@
+ from pathlib import Path
+ import json,hashlib,os,sys,datetime
+-lane=Path(sys.argv[1]).resolve();config=json.loads((lane/'diagnostic-configuration.json').read_text());root=Path(config['diagnosticRoot']);sha=lambda b:hashlib.sha256(b).hexdigest()
++lane=Path(sys.argv[1]).resolve();output=Path(sys.argv[2]).resolve();config=json.loads((lane/'diagnostic-configuration.json').read_text());root=Path(config['diagnosticRoot']);sha=lambda b:hashlib.sha256(b).hexdigest()
+ def obj(p):return json.loads(Path(p).read_text())
+ def pin(p):p=Path(p);return {'path':str(p),'sha256':sha(p.read_bytes()),'bytes':p.stat().st_size}
+-summary=obj(root/'diagnostic-summary.json');contract=obj(lane/'coverage-contract.json');runtime=obj(config['originalConfiguration']['path']);evidence=Path(runtime['lanes'][config['lane']]['roots']['evidence']);result=obj(evidence/'result.json')
++summary=obj(root/'diagnostic-summary.json');contract=obj(output/'coverage-contract.json');runtime=obj(config['originalConfiguration']['path']);evidence=Path(runtime['lanes'][config['lane']]['roots']['evidence']);result=obj(evidence/'result.json')
++def external_allowed(edge):
++ assert edge['classification']=='external-uninstrumented'
++ assert edge['effectiveFile']==edge['file'] and edge['effectiveArgs']==edge['args']
++ args=edge['args']
++ if edge['file']=='/usr/bin/du':
++  return len(args)==3 and args[:2]==['/usr/bin/du','-sk'] and args[2] in contract['allowedDuRoots']
++ if edge['file']!='tar' or len(args) not in [3,4] or args[0]!='tar':return False
++ matches=[x for x in contract['archiveBindings'] if x['archive']['path']==args[2]]
++ if len(matches)!=1:return False
++ return (len(args)==3 and args[1]=='-tzf') or (len(args)==4 and args[1]=='-xOzf' and args[3] in matches[0]['members'])
+ try:
++ for binding in contract['archiveBindings']:
++  for field in ['archive','inventory']:
++   item=binding[field];assert sha(Path(item['path']).read_bytes())==item['sha256'],item['path']
++  inventory=obj(binding['inventory']['path']);names={'package/'+x['path'] for x in inventory['files']}
++  assert set(binding['members'])<=names
+  assert result['status']=='satisfied' and result['subjectId']=='baseline' and result['lane']==config['lane'] and result['nativeCalls']==0
+  assert summary['status']=='observations_only' and not summary['failures']
+  processes=summary['processes'];by_pid={p['pid']:p for p in processes};assert len(by_pid)==len(processes)
+@@ -19,7 +34,7 @@
+   for edge in p['launches']:
+    if edge['classification'] in ['node-preloaded','npm-explicit-node-preloaded']:
+     assert edge['pid'] in by_pid and edge['pid'] in traces,edge
+-   else:assert edge['classification']=='external-uninstrumented' and edge['file'] in [x['file'] for x in contract['allowedUninstrumentedChildren']],edge
++   else:assert external_allowed(edge),edge
+    edges.append({'parentPid':p['pid'],**edge})
+  assert loaded==set(expected),(loaded,expected)
+  assert histories>0 and 'hash.update.inputBytes' in counterNames and 'JSON.stringify.outputUtf8Bytes' in counterNames and 'writeCanonicalJson.deliveredUtf8Bytes' in counterNames
+@@ -35,6 +50,6 @@
+  answer={'status':'satisfied','subjectId':'baseline','lane':config['lane'],'configuration':pin(lane/'diagnostic-configuration.json'),'workloadResult':pin(evidence/'result.json'),'summary':pin(root/'diagnostic-summary.json'),'processCount':len(processes),'traceFileCount':len(summary['traces']),'observedHistoryOwners':histories,'loadedMembers':sorted(loaded),'childEdges':edges,'observedCounterNames':sorted(counterNames),'outputCorrespondence':referenceOutput,'limits':contract['sampling'],'nativeCalls':0,'scope':'Passive-observer coverage plus original frozen workload oracle; no semantic acceptance or inferred missing counters.'}
+ except Exception as error:
+  answer={'status':'stopped','subjectId':'baseline','lane':config['lane'],'firstCause':repr(error),'summary':pin(root/'diagnostic-summary.json'),'workloadResult':pin(evidence/'result.json'),'stop':'No repair/retry/next lane; return Root.'}
+-with (lane/'coverage-result.json').open('x') as f:json.dump(answer,f,indent=2);f.write('\n')
++with (output/'coverage-result.json').open('x') as f:json.dump(answer,f,indent=2);f.write('\n')
+ print(json.dumps({k:v for k,v in answer.items() if k in ['status','firstCause','processCount','traceFileCount','observedHistoryOwners','loadedMembers']}))
+ if answer['status']!='satisfied':sys.exit(1)

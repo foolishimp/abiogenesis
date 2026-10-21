@@ -1,0 +1,28 @@
+{
+  "label": "syntax",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--check",
+    "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/overlay",
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/tmp",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/npm-cache",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "timeoutMs": 600000,
+  "proofFreezeSha256": "0c31a2a957d470b255313ca2c0cd680302f5798c507a584c9baeb37da0344eeb",
+  "runnerSha256": "08d6b7711945aa8f9209f227e5d9427981478d128e9f4f9b61fdfccb33323280",
+  "startedUnix": 1792562994.562159
+}

@@ -1,0 +1,16 @@
+{
+  "status": "unchanged",
+  "closedInputCount": 30,
+  "inputMismatches": [],
+  "protectedMainBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/protected-main-before.json",
+    "sha256": "2876b3ba124920c894481f1655aff4b79bb5c0acf3c1be92e63a56719a43c3cb"
+  },
+  "protectedMainFiles": 936,
+  "protectedMainMismatches": [],
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+  "executionAuthority": "none; all templates NOT_GRANTED",
+  "installedWorkloads": 0,
+  "nativeCalls": 0,
+  "GitMutations": 0
+}

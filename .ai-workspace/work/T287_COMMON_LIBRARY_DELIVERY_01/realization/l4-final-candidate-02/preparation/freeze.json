@@ -1,0 +1,144 @@
+{
+  "kind": "FINAL-CANDIDATE-BINDING-PREPARATION-02_closed_preparation_freeze",
+  "status": "preparation_ready; endpoints_NOT_GRANTED",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/HOW.md",
+      "sha256": "667452c2a73bdc6f4f575118dd4fa49ab700d8013f786e718533ce7cc7424076",
+      "bytes": 5136,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/activation.json",
+      "sha256": "c9a6876c4def6f7f0f08dff419b539a4b69902ee5ef5df72d36c860f36312bcf",
+      "bytes": 2873,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/actual-handoff-binding-map.json",
+      "sha256": "df0d60c672b86a590076e91d60e24a97984f9cec2caf8bc5915e11e821c63aa8",
+      "bytes": 3393,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/cache-plan.NOT_GRANTED.json",
+      "sha256": "0b339d1a1ebbfe58b631df019254049e1db9fb3bca7dd940cd8c45eadaee77df",
+      "bytes": 1734,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/closed-candidate-binding.NOT_BOUND.json",
+      "sha256": "b04d58f9a62540e125f92fe5ea1a23aa9bede611af8f2634a43ef0f24d9486c5",
+      "bytes": 861,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/commands.NOT_GRANTED.json",
+      "sha256": "cd9eaef29a85c4ce692a348495fa6c1d9ed4471700258382060099fc58bf36b5",
+      "bytes": 1703,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/output-correspondence-inputs.json",
+      "sha256": "b48b9472c6177f91b76e0f30b8df027b31969a392fa4afab9e73040b94613dbd",
+      "bytes": 1361,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/owner-resolution.configuration.NOT_GRANTED.json",
+      "sha256": "09f879687dd1f55ab108933edce1ddf48c3d97e2d30045579037af0add616efd",
+      "bytes": 1971,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/owner-resolution.effect-grant.NOT_GRANTED.json",
+      "sha256": "70d673731537602296c79483569eb6391b4de73f9c8559a9230bb718a1bcf59a",
+      "bytes": 528,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/p1.configuration.NOT_GRANTED.json",
+      "sha256": "2454ca3f50f4151fc2283bc91bdde3e47381ab332bc762ace1d6445023d59761",
+      "bytes": 2839,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/p1.effect-grant.NOT_GRANTED.json",
+      "sha256": "6fffc876ddf93bb8fac3594b510cb7d4da60e239e3670a6e41f7ccb06d94a60b",
+      "bytes": 1370,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/p2.configuration.NOT_GRANTED.json",
+      "sha256": "15974a5d0456e91c41127604acf651d33c0d0999daec4e76616c135eb3f960aa",
+      "bytes": 3385,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/p2.effect-grant.NOT_GRANTED.json",
+      "sha256": "74b33c03e460c22a874efb104f8c2609613902a0856351d85a9e27351062ea04",
+      "bytes": 1449,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/p3.configuration.NOT_GRANTED.json",
+      "sha256": "f32194739472a41be0f81c986e62d9eb38d04ec933e572aa10bfad2956db5cc2",
+      "bytes": 3145,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/p3.effect-grant.NOT_GRANTED.json",
+      "sha256": "5357b4df7944f78735098c6385ec3710225149f16815bb25ec31af5ddabf8c64",
+      "bytes": 1445,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/preparation-checks.json",
+      "sha256": "28ecd7ce05ec68d1c2fb853c9f43da6aee2b1f459db1942f22f853992d568411",
+      "bytes": 2929,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/preservation-after.json",
+      "sha256": "ca0f58959abb36a48e0e4ce1645ef08a29ee486e5e59fce9353661407985d523",
+      "bytes": 270,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/preservation-before.json",
+      "sha256": "c049a5981b5db41f2f3ee8468b4a52c4e1f67fbcb5beaabaaccab9b971998a47",
+      "bytes": 2106,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/resource-plan.json",
+      "sha256": "3e50848b044e84dfce7e5adc37f4b98098387d05255b049f0cd12a4d2175caef",
+      "bytes": 1899,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/return.json",
+      "sha256": "97e92dd68312f061df208b502ee3c54ad6139dc77ecc76c37f93d0803679aec8",
+      "bytes": 1496,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/return.md",
+      "sha256": "47adb286edaabace3ae7e260aeccb5309ce81a46ea2d8935887ccdf3ced3d6ac",
+      "bytes": 2868,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/translate-inventories.mjs",
+      "sha256": "05684b0abf2967a7a668a887c2a9c822f1405346145796fba309b33a789774e6",
+      "bytes": 11839,
+      "mode": "0o644"
+    }
+  ],
+  "ownedOutputs": [],
+  "sourceOrRuntimeEffects": false
+}

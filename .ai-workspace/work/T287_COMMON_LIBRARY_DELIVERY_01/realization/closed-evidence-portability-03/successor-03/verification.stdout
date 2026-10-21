@@ -1,0 +1,41 @@
+{
+  "verified": true,
+  "originalSourceAddresses": 120454,
+  "originalFrozenMetadataRows": 132879,
+  "representations": {
+    "repository_file": 8145,
+    "package_member": 111792,
+    "archive_object": 516,
+    "archive_chunks": 1
+  },
+  "uniqueRepositoryFiles": 2197,
+  "newArchives": 20,
+  "reusedArchives": 10,
+  "archiveObjects": 575,
+  "originalPackages": 8,
+  "packageMembers": 26371,
+  "chunkedWholeFilesVerified": 1,
+  "nativeCoverageRelations": {
+    "file": 125793,
+    "symlink": 13,
+    "exact_v8_metadata_only": 7029,
+    "system_node_identity_only": 1,
+    "directory": 7073
+  },
+  "exactExclusionRowsVerified": 7030,
+  "declaredFieldAdapters": 35,
+  "originalAbsoluteSourcePathsOpened": 0,
+  "originalTreesScanned": 0,
+  "ProductExecutions": 0,
+  "originalOwnerAcquisitions": 0,
+  "copiedBytesConferRuntimeAuthority": false,
+  "oldFailedCutsRemainFailed": true,
+  "verifierSuccessor": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03",
+  "preservedStoppedCut": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/stopped-freeze.json",
+    "sha256": "6ee9057a2f82daf8a54263bbcacf747fdfb8b7ca1326c13219aab8a3fa06f1a1",
+    "bytes": 10002
+  },
+  "packageRepositoryRoutesVerified": 2,
+  "newArchivesCreated": 0
+}

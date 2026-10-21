@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/usr/local/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/check-coverage.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01",
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/check-coverage.py",
+    "sha256": "d2bfa59f96315740ab95a081011e37d05090eda0b4191a68becece905ed10edf",
+    "bytes": 9375
+  },
+  "noRuntimeRepeat": true
+}

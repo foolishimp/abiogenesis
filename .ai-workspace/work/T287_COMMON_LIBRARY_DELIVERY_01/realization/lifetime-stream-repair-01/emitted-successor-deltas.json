@@ -1,0 +1,28 @@
+[
+  {
+    "path": "code/src/implementation/worksite_command_helper.js",
+    "before": {
+      "path": "code/src/implementation/worksite_command_helper.js",
+      "bytes": 59108,
+      "sha256": "28c0cd8895b9aeec8bdfa1279da0b22d11c142bef09eadc9d83b8e351d375274"
+    },
+    "after": {
+      "path": "code/src/implementation/worksite_command_helper.js",
+      "bytes": 59159,
+      "sha256": "35821199d7045945e1817191421f019cdeb93cca8ac9161e6ea31d61940ad855"
+    }
+  },
+  {
+    "path": "code/src/shared/owned_process_lifetime.js",
+    "before": {
+      "path": "code/src/shared/owned_process_lifetime.js",
+      "bytes": 10273,
+      "sha256": "54b656422329f2a916e0bde7bb55435cdc7123b2087871f60228d8dff6cb1eb1"
+    },
+    "after": {
+      "path": "code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    }
+  }
+]

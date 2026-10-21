@@ -1,0 +1,23 @@
+{
+  "activation": "P5-CARRIER-SUCCESSOR-06",
+  "executive": "/root",
+  "writer": "/root/stdo3_lifetime_writer",
+  "source": "Root closed conjunction and selection, attributed transcription",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "recordedAt": "2026-10-21T07:13:45.361562+00:00",
+  "priorFailureFreeze": "b648ee75c60526a62d93e54f37b53b94e6c7594a1e79a9ffb9289b82e1340f96",
+  "testPreimageSha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329",
+  "mainWriteTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs"
+  ],
+  "recordWriteTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06",
+  "newPhysicalRoot": "/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6",
+  "reuseBootstrapHostReadOnly": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host",
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "permittedRun": "One pure carrier check, syntax, then one original exact P5 case; no repeated bootstrap install",
+  "stops": "First genuine failure before repair/retry/next operation",
+  "retentionCapBytes": 3221225472,
+  "productionEdits": false,
+  "oldProofEdits": false,
+  "nativeProviderSemanticCredit": false
+}

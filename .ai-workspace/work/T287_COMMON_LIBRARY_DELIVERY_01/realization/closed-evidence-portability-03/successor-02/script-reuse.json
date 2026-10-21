@@ -1,0 +1,11 @@
+{
+  "predecessorScript": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-01/select-population.py",
+  "sha256": "595b0877455e0e5b56df216f3bd4660bc453de5facd5ea1d0a29c39467985750",
+  "changes": [
+    "Known selected symlinks container explicitly classifies its two native rows as metadata, preserving target/readOnlyByGrant without dereference.",
+    "Population freeze binds an explicit closed data/control list; final streams and receipt are enclosed after completion."
+  ],
+  "adapterInspection": "adapter-inspection.json",
+  "noBlanketHashOmission": true,
+  "RootDisposition": "Bounded local repair, one successor attempt, stop on a genuinely new mismatch."
+}

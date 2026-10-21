@@ -1,0 +1,57 @@
+{
+  "key": "test",
+  "startedAt": "2026-10-21T07:16:51.252Z",
+  "completedAt": "2026-10-21T07:20:39.240Z",
+  "wallMs": 227983.11349999998,
+  "pid": 31363,
+  "groupId": 31363,
+  "supervisorPid": 31360,
+  "timedOut": false,
+  "events": [
+    {
+      "kind": "spawn",
+      "pid": 31363,
+      "atMs": 18.121916
+    },
+    {
+      "kind": "exit",
+      "status": 1,
+      "signal": null,
+      "atMs": 227982.22870799998
+    },
+    {
+      "kind": "close",
+      "status": 1,
+      "signal": null,
+      "atMs": 227982.46645799998
+    }
+  ],
+  "facts": {
+    "directExit": {
+      "status": 1,
+      "signal": null
+    },
+    "launchFailure": null,
+    "noChildEstablished": false,
+    "scopeKind": "posix_process_group",
+    "scopeAbsence": "absent",
+    "closeObserved": true,
+    "streamsDisposed": true,
+    "drainExpired": false,
+    "firstError": null,
+    "cleanupDeadlineNs": "1399111601608916",
+    "cleanupElapsedMs": 0.19775,
+    "probeCount": 1,
+    "signalAttempts": 0
+  },
+  "stdout": {
+    "bytes": 3616,
+    "sha256": "c8677a9ea798e753dfba8f4922f49e669062d336b98bd85d937127663bb46c9d"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "success": false,
+  "physicalAbsenceIsNotAdmission": true
+}

@@ -1,0 +1,24 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^CX-1 selected C0",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript",
+  "overrides": {
+    "TMPDIR": "/private/tmp/abg-u1-c0-cx1-g3q8nmnt",
+    "ABG_U1_EVIDENCE_DIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/falsifier/evidence",
+    "ABG_WORKSITE_BUILD_ROOT": null,
+    "ABG_U1_FIRST_CASE": null
+  },
+  "test_sha256": "90795de41c3ac1848d79003d7adbfbed02fc411f0b9382f1fde20865953a282f",
+  "old_emitted_sha256": "fa680e2fffb2faeac2376c58288a8dccb4a7526db941ee918e86bee2f9a8cd19",
+  "node": "v24.7.0",
+  "expected_result": "supported CX-1 falsified relation; assertions pass only on the selected defect",
+  "exit_code": 0,
+  "wall_seconds": 0.5161662101745605,
+  "stdout_sha256": "26652ec6f804f359359925bfe9532d666cee16b7fc102d2b50d9e6f8fc567168",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

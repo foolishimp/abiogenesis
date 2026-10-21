@@ -1,0 +1,66 @@
+{
+  "kind": "t287_hog_ordinary_owner_effect_grant",
+  "status": "NOT_GRANTED",
+  "issuedBy": "/root",
+  "configurationSha256": null,
+  "runnerSha256": "ac3ce1aa03a9b7b47184a25d9338300be87b5a4a606573a3e364a53a7376c7c7",
+  "oracleSha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+  "inspectedInputsSha256": "603969137ea499c886fab2cd9d466ff427290fcaf4c6130e73ad4111c0e2abc5",
+  "subjectId": "candidate",
+  "cases": [
+    "compose-retry",
+    "workflow-foldback",
+    "fanout-partial"
+  ],
+  "maxNativeCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "resources": {
+    "parent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9",
+    "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/driver-evidence",
+    "cases": {
+      "compose-retry": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache"
+      },
+      "workflow-foldback": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/cache"
+      },
+      "fanout-partial": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/cache"
+      }
+    }
+  },
+  "npmCacheSeed": {
+    "path": null,
+    "sha256": null,
+    "bytes": null,
+    "mode": null,
+    "root": null
+  },
+  "effects": [
+    "new exact resource roots",
+    "copy exact inventoried npm cache seed into each fresh cache; retained cache/index/log writes",
+    "offline exact ABI bootstrap/install; no ABI pack/build",
+    "unchanged authored structural fixture pack/install with exact ABI archive dependency",
+    "three sequential Public starts and selected fresh reads",
+    "read-only historical owner projections over actual returned event prefix",
+    "raw commands, owner receipts, physical inventories and footprints"
+  ],
+  "unobserved": [
+    "raw stdout and exit for helper-internal successful npm pack/install commands are not exposed by existing support; captured outer failures and retained package/store/physical residue remain",
+    "internal read/hash/encode/write and RuntimeHistory counters",
+    "peak child heap or per-helper CPU"
+  ]
+}

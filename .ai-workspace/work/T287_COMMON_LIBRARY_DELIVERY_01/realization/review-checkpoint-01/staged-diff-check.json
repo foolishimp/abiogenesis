@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "git",
+    "diff",
+    "--cached",
+    "--check"
+  ],
+  "exitCode": 2,
+  "wallSeconds": 16.15253158309497,
+  "stdoutBytes": 146075,
+  "stderrBytes": 0
+}

@@ -1,0 +1,31 @@
+{
+  "status": "frozen_before_execution",
+  "subjectId": "candidate",
+  "lane": "public-preparation",
+  "allowedDuRoots": [
+    "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence",
+    "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/host",
+    "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/scratchParent",
+    "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/worksite"
+  ],
+  "externalTarForms": [
+    "tar -tzf actual verified archive",
+    "tar -xOzf actual verified archive named package member"
+  ],
+  "members": [
+    "package/product-toolchain-manifest.json",
+    "package/package.json",
+    "package/contracts/capabilities/capability-definition-graph.json"
+  ],
+  "archiveRule": "Candidate exact configured archive plus one actual fixture archive bound through P1 setup/owner state or P3 installed-environment/artifact receipts and source. Full source package bytes and archive inventory retained.",
+  "requirements": [
+    "Original result and oracle satisfied",
+    "Exact lane and zero native calls",
+    "All preloaded child PIDs have observation and trace; no probe errors",
+    "All three emitted module identities observed and exact",
+    "P1 selected Program and ten operation labels/contracts/outcomes equal reference; P3 literal Hello World and fresh reads exact",
+    "External tar/du omission boundary preserved"
+  ],
+  "unexpectedChildren": "stop to Root",
+  "limits": "External tar/du per-PID CPU/memory/IO unobserved; spawn return is not exit status. Native trace and JS byte channels overlap; unsized is not zero. No summed maxima or OS-wide total."
+}

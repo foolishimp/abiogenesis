@@ -1,0 +1,3 @@
+# Retained installer footprint clarification
+
+The exact footprint inventory, captured before its report, records scratchEmpty:false. The report sentence calling scratch empty is incorrect. npm enabled Node's compile cache before the config refusal: scratch contains76 node-compile-cache files; host contains the one supplied package.json. There are84 retained nodes and249941 regular-file bytes in total. npm's task cache remains empty, logs empty, installed package absent, and test evidence absent. The physical inventory and original report/freeze remain unchanged; this clarification corrects only that derived prose claim. No additional process, installation, fixture, cleanup or source effect occurred.

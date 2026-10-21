@@ -1,0 +1,99 @@
+{
+  "root": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5",
+  "initiallyAbsent": true,
+  "directories": [
+    {
+      "command": "route-self-contained",
+      "path": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/05-route-self-contained",
+      "canonical": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/05-route-self-contained",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475092969,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "route-self-contained",
+      "path": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/05-route-self-contained/tmp",
+      "canonical": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/05-route-self-contained/tmp",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475092970,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "route-self-contained",
+      "path": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/05-route-self-contained/route-scratch",
+      "canonical": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/05-route-self-contained/route-scratch",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475092971,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "native-workspace-physical-regression",
+      "path": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/06-native-workspace-physical-regression",
+      "canonical": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/06-native-workspace-physical-regression",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475092972,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "native-workspace-physical-regression",
+      "path": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/06-native-workspace-physical-regression/tmp",
+      "canonical": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/06-native-workspace-physical-regression/tmp",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475092973,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "terminal-quiescence7",
+      "path": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/07-terminal-quiescence7",
+      "canonical": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/07-terminal-quiescence7",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475092974,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "terminal-quiescence7",
+      "path": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/07-terminal-quiescence7/tmp",
+      "canonical": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/07-terminal-quiescence7/tmp",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475092975,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "D02-preparation-owner-case",
+      "path": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/08-D02-preparation-owner-case",
+      "canonical": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/08-D02-preparation-owner-case",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475092976,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "D02-preparation-owner-case",
+      "path": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/08-D02-preparation-owner-case/tmp",
+      "canonical": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/08-D02-preparation-owner-case/tmp",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475092977,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    }
+  ],
+  "routeScratchExistingBeforeCommand": true,
+  "limitBytes": 3221225472,
+  "oldRootsWritable": false
+}

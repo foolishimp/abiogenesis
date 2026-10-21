@@ -1,0 +1,746 @@
+{
+  "files": [
+    {
+      "path": ".ai-workspace/comments/codex/20261021_STDO3_ABG5_RECONCILIATION.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "cb43d4eb9ce9b15439f98db4de410c5d2987b5f4eb75ec24a1d70b52f0b1016c",
+      "bytes": 15784
+    },
+    {
+      "path": ".ai-workspace/tickets/active/.gitkeep",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "034d52da1488fbfa80236900eb58a58932c819e760218edd5b1ec6454f74391b",
+      "bytes": 231
+    },
+    {
+      "path": "AGENTS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "bytes": 11923
+    },
+    {
+      "path": "CLAUDE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "0653bb4d081d388f98693ba8b1da3b62cc2b2faf58fde792b20dd456cd1989c8",
+      "bytes": 5297
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+      "bytes": 3083
+    },
+    {
+      "path": "specification/GOALS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "fd759854a8a4e868513653df7ab8228ecffb49d6beab0096448a0c64b6c059b9",
+      "bytes": 77637
+    },
+    {
+      "path": "specification/INTENT.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "bytes": 16326
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "bytes": 97498
+    },
+    {
+      "path": "specification/requirements/00-starter.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "bc6fae43aa6fdaf0fd56a6245eefa83b233ed2cac3f9177efe3873b1e5ac7e84",
+      "bytes": 306
+    },
+    {
+      "path": "specification/requirements/abg/README.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "c3eeb69701836792e0c1f0c355272c968c93400c33555a383de1084a1b92461b",
+      "bytes": 3144
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "fe8b38aa68686d3a14dd53db2e9cebc36163a99b16b6ccf76d4c8052a9cbb361",
+      "bytes": 10341
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "2a0fc5559673a860c2b7ff16091ba2ba37da3b1fe1337141c2faa639d6ca1e64",
+      "bytes": 7870
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "baf81ffdc9948f96a903b2f4af98b4975445d1a9f24f89a657a35b5b95743f9e",
+      "bytes": 8976
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
+      "bytes": 6297
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CONVERGENCE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "03aa87426b46e9d58f81cadd926d98973a5c113a603195b0a73eb0586b57f902",
+      "bytes": 2695
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CORRECTION.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "d1d663f3011c127d85ac73440edb6d9c133c6e88f5f2291ebded68439b8c3edb",
+      "bytes": 1164
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "bytes": 16630
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "5ff1c91698d5ba71f81bada072ecdc008cf1ef74e216af3b15126e56c7d666b1",
+      "bytes": 13365
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "3bbde7990ad1d5e779b75d2f592598f12471e93fed66ba487070c1d4d85aaeb6",
+      "bytes": 20151
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-FRAME.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "36b200e1fc89e4b0a9c3f922e674c854505090fa911558d1b956b2350e287d51",
+      "bytes": 1422
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-GRAPHCALL.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "7dfcdf946e649d846a42e640438598e13f119bfbfec3c2ab0ccf836a7dd9a045",
+      "bytes": 1546
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+      "bytes": 6120
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "0ed4ec30606484c9430354b4676f4166ca0e19fe338830a3b71bf9947e70222d",
+      "bytes": 12282
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "5c2a1cf2de4686deac3ba97863d88483bfa8aab5cd9141cda2f1f7b9dfecf7de",
+      "bytes": 7680
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-ITERATION.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "39259a007bbe83cf57b16f042dd83018146d47831e45a767d4c22cb85e810e84",
+      "bytes": 6335
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-JOB-WORKER.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "0b2c2105ea5b1808214f282672b2974d0faf43b0872022e0d9a64844bb716f15",
+      "bytes": 1207
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-LEAFTASK.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "d54227e3c548004f8b80d76efd5d0283f52e5ce2d411c2addc4dce691adb08ce",
+      "bytes": 1588
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-LINEAGE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "968f97fd609aee04fed41160c65991683f0b113a1a3cb0b13898bc0017407fdc",
+      "bytes": 1437
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "a10a8edcd84e1e15115b1c66110ab0d66a5a34e61d0e849d4a375752675bf63e",
+      "bytes": 11203
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "ad3b105c013f74d60bc32a2e4a56ec65e91d25a011ce0722f84a9f7e22947381",
+      "bytes": 6517
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-POLICY.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "c6e41fb43aaede4a1e28e229bb93e8b8ccbddc48d84372390a1bbdbad5f480f6",
+      "bytes": 2343
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+      "bytes": 10959
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROVENANCE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "ef0caf7118426de7fcae3cdb1073e721cd770a85a7d7c58dec257f02f011efcb",
+      "bytes": 1542
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "372c99dc400cb5f6206ff4e1f9e3b47cc3ce0cf786700e6b2817cb82f97ddf22",
+      "bytes": 21645
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+      "bytes": 15697
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-RETRY.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "4fd1f4798487eb072d8afbe3e9aa8f70fedf425d681ae244eaba9c8874434307",
+      "bytes": 3157
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "c58539026886596543c3ec6c2e6fd010f1220c6031bb68df8fff22e1e6ed50c6",
+      "bytes": 2952
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
+      "bytes": 7453
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "70b1e781d2e91bfaa08785cb4f39d21a3ab588a49ec3150943c18968c7f113b4",
+      "bytes": 2201
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SELFHOSTING.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "edcac76a57069c7d5b0aa2776546c3f404eb6774260f818ddfb99dc715fdfaae",
+      "bytes": 4840
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71",
+      "bytes": 9837
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+      "bytes": 9354
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-TUNER.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "fadea8385f24f9f4576406eff83c70eead0586f247661fab57f7dfb602012088",
+      "bytes": 7626
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-WORKER.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "a4c1646e81e1f831cdd663d25347f07280b4602be577e9e0d594a499de4499ea",
+      "bytes": 2386
+    },
+    {
+      "path": "specification/requirements/gtl/README.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "be6365c9fd06027f3144ba5fbf18ffaa62ed016474d2a4377c31314af38c7786",
+      "bytes": 3104
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-ASSET-SURFACE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "eeef3aa0369f7eefb18f79e79e66a727365520800c0c194bfba7fb2ae7db5c25",
+      "bytes": 4068
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-ATTRS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "9204569254a620bb78974512df974e16edfece2ea72dff47a07c14e1bd396807",
+      "bytes": 1391
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+      "bytes": 14789
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c",
+      "bytes": 2702
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "0c0f325ca423cbec7d7fc97a362f330e7dfb2d90e7024519cc0389c89dac2fcd",
+      "bytes": 12477
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "bdc3f6b3a30813c85eb48603ada692cff34222e67debd2413560aaa39a1af8c4",
+      "bytes": 4522
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
+      "bytes": 7701
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-EVALUATOR.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "42036bb55c3aad49e6bc215e02842e1841de3b3a999653182becc6ff28b85069",
+      "bytes": 3326
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPH.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "bd45b6b6d8ccb0b0c349d93427404344c04459c3ac1068877b3779a2c4917f93",
+      "bytes": 2507
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "212283db05bab5ecf94f5bd92eb2ff81c478476a62228c07771b3eb865ba4606",
+      "bytes": 3525
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "bytes": 6880
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "a8ae2a4496762081396ec42a514f6d3c422fd7fb0f8227cb6fab0eed4bde0da4",
+      "bytes": 7386
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-HOF.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "8a39633b575ac4cf8b0f9d1ae2f9546cb22ea3e4c858ebd101b6ba9bd60c556c",
+      "bytes": 5096
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-HOOKS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "fc31e5211472bf6e929fba23288605a5e74af57fac8f469c07dc3c1586c2adc0",
+      "bytes": 6742
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-IDENTITY.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "7235fc6d099971608994cabc98bcd4c5016f8f8b959904ace2e05a5564913249",
+      "bytes": 1605
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-INTERFACE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "e69bcd76af46eca21ee161f9f0128dd7e4cc531debbdbd9c6a346b43fbc4fe2f",
+      "bytes": 1379
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-JOB.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "9e4efc269a0b856810116c70e6b9ed26ed2b61e4ebc4c3f309aaf5a74e5ca40b",
+      "bytes": 2019
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
+      "bytes": 19343
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "fdf36c5ed1a8272e8a253237c96719f5555d3fe84e38c3086e925815221e4412",
+      "bytes": 2862
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-LAWS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
+      "bytes": 9060
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-MODULE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "c1b1f7644f59776854103b3f0bfab515e88ed444363b6f81f9bfc4cb83e0d27c",
+      "bytes": 1531
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-NODE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "d2e7d99595799498120a0a5b68a06067ed7269c387c4383310e3b59880885054",
+      "bytes": 4053
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-OPERATOR.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "e327338bf8b9a49f1184e838b604eee6e7ff34811685bb609524fec3f9807549",
+      "bytes": 1287
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-RECURSE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "448addbc9f1b94f9b19be063c7068a59ed6b1f2d7fa3c222413ee450d371883c",
+      "bytes": 1677
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "9bf74b1fc99629e8f8b2499bf3f7954ee5077df0c0a76cc7cb372c5e2696c4e1",
+      "bytes": 6346
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-ROLE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "6ef4b749ba5fa87f0ffabb4d0345b4f4a0c6e81517fb18608309e3d5ec89eb75",
+      "bytes": 1429
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-RULE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "e52d418e515d23a534848000f85900c326bc19a57e03c71708bcf37427b6c2cb",
+      "bytes": 1722
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "6d9ed61cbb2042ab58c9d0ec04eafd862af422d5fe4c28164921c69325a2a24c",
+      "bytes": 3930
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SUBSTITUTE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "33519b9b578a792a72b9f059f8dc28b385497d28825e150a566e613b8909703a",
+      "bytes": 1531
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SUBWORK.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "ed4bc476d481b3406d9049087440e7ddd6926c249284a48a51e16fa60d5469de",
+      "bytes": 1398
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SYNTHESIS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "a421c652fa49f71177ebac25b17e9a31a4b1b362ce81fc14f5f44322b24b6000",
+      "bytes": 2053
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "f5494e90c534f17280357e03cf5755cf8c78627fd642887d226cb959da138ec0",
+      "bytes": 5929
+    },
+    {
+      "path": "specification/requirements/mapping/README.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "f51ebafa63c9e49d64ef212851e99879c770d85436a5717b10644993a889b47f",
+      "bytes": 515
+    },
+    {
+      "path": "specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "bytes": 5954
+    },
+    {
+      "path": "specification/requirements/mapping/REQ-M-GTL3-MAPPING.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "1060b39e83a2ceee5dd74fb403bd45a7f8d3f1ea071a74f2fa1ba2b81b680822",
+      "bytes": 2212
+    },
+    {
+      "path": "specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "a19da2e0ab2d7b5aa705bbd7fd84b8fc858a411d6c023dd4deba6b316959ec0b",
+      "bytes": 5307
+    },
+    {
+      "path": "specification/requirements/mapping/REQ-M-GTL3-PROVENANCE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "f6015a9a4eb0c34ec8b376de4ad2ccf18c698c1e73f50c81da25f6e8ad8a57c9",
+      "bytes": 1888
+    },
+    {
+      "path": "specification/requirements/product/README.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "e777272a024d69540fec847591ab3f9132a5ab01e456f566adb4ff76be1a43b3",
+      "bytes": 1141
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-CATALOG.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
+      "bytes": 13757
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-CONSENSUS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "9e16808a05ca078fded2854073d6280c1ae7f3ff173be7354ecb20d76123a52d",
+      "bytes": 16255
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-INSTALL.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "1882675ef5f4dd33a8dd4ee5d80ff33203d243fb30ec65b125057b7db081b98f",
+      "bytes": 21741
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-POLICY.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "e13953bc84a5a41d9d54f7fac4ab3b53142e12a9a35ee8b3fbefb210a6104d98",
+      "bytes": 34046
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "bytes": 19406
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "0366cdd8f4392f94e7a1f3fbfc91e265133dcd23cb0ebe13db4167e57fbe8c5b",
+      "bytes": 35987
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd",
+      "bytes": 17479
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "bytes": 6687
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "741cbaf8d7ea1b82006718d8fa84ccd62c01c59bff93885e75a26d16f8944169",
+      "bytes": 8706
+    },
+    {
+      "path": "specification/scenarios/01-language-primitives-and-traversal.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "653f053844afaa1208436a07788bf3e74cd708ccaea2b14cf9237be14f4538db",
+      "bytes": 2262
+    },
+    {
+      "path": "specification/scenarios/02-governed-transition-surfaces.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "27ea8db0271325e60b51912840ec7645831f2561584eb9b6fb9db1e939d9dda1",
+      "bytes": 1724
+    },
+    {
+      "path": "specification/scenarios/03-graph-function-algebra.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "c84384f3edeca7d1854bd65cbcfe1952de2bedda9c9ed272e5e33a08e5de4452",
+      "bytes": 1904
+    },
+    {
+      "path": "specification/scenarios/04-publication-and-semantic-work.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "d14bacb12dc827c012b8042ad61d41ec67eff9954d7c35608d324f8fb5c69f19",
+      "bytes": 1695
+    },
+    {
+      "path": "specification/scenarios/05-runtime-aggregates-and-event-truth.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "99fb041fd94ef78c4e08889a9d1f5de5a2715143753f735db8dae89f041c7942",
+      "bytes": 2611
+    },
+    {
+      "path": "specification/scenarios/06-replay-lineage-and-correction.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "0cb66435a4086d7ca4f8147879ee72113351b45aa7874837a78c95be836021e9",
+      "bytes": 1968
+    },
+    {
+      "path": "specification/scenarios/07-governed-probabilistic-runtime.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "26571fb240a88b419a0cb5c8e95b466194b0092f96c6e5bbf00b1f83dc763eb2",
+      "bytes": 3418
+    },
+    {
+      "path": "specification/scenarios/08-derived-artifact-governance.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "09b0041430d9890b4594f422d5cff875cb2cb10e9ac202b655294b2030d3950f",
+      "bytes": 1411
+    },
+    {
+      "path": "specification/scenarios/09-research-product-lab-scenario-catalog.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "a1682360f6bb11f905f3e2870910c300c5451fe3561f47a49dc7910994ebbf19",
+      "bytes": 4594
+    },
+    {
+      "path": "specification/scenarios/10-total-assurance-projection-uat.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "c8033497feac48e1073e14a06da99fd2936c77c133cc547564d6a20b2eea6da6",
+      "bytes": 5955
+    },
+    {
+      "path": "specification/scenarios/11-event-sourced-payload-ledger-uat.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "04d5c97494eb76a3d47307f25715449f42bc957ec99cd66a020f2bdb352508cf",
+      "bytes": 7918
+    },
+    {
+      "path": "specification/scenarios/README.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "bab7af0087d9087d0b5856da3cd829b9786794e636467ce7c592e89b79c7ed12",
+      "bytes": 1872
+    },
+    {
+      "path": "specification/scenarios/TESTCASE_AUTHORITY.md",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "77db31e6b38e96fb6256e2590b9669c98617a487a6d7f6dfd98ce35c2deb14c1",
+      "bytes": 3832
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "type": "file",
+      "mode": "0o644",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146
+    }
+  ]
+}

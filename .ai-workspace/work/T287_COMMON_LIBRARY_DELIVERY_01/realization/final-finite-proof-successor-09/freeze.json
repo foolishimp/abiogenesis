@@ -1,0 +1,312 @@
+{
+  "kind": "closed_writer_subject",
+  "activation": "FINITE-REST-09",
+  "status": "candidate_ready",
+  "changedTestSha256": "fc57f1684d311fd1967ef7b3af456c046096e0fbe518cb1bd96df942d1c0f57b",
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "sourceFreezeSha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+  "preflightFreezeSha256": "ac787cddd90f83c0569ae7edf539a6c7c2340980384421e67c2cc61813d52ea6",
+  "stopSha256": null,
+  "reportSha256": "ec2d5a788e9c51658e2a718bf3bede7e25b354b8e39fdda37cdf7b020cea4549",
+  "files": [
+    {
+      "path": "HOW-binding.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3206,
+      "sha256": "b4724eea517813a7c7dbb94a15522723499a083bf4c8275c223441281bfb41e1"
+    },
+    {
+      "path": "REPORT.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2094,
+      "sha256": "ec2d5a788e9c51658e2a718bf3bede7e25b354b8e39fdda37cdf7b020cea4549"
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1419,
+      "sha256": "1bb9a86ed3e8f9bbf979fbcba73a146f94abfcdcf191e395202cb9d750130faa"
+    },
+    {
+      "path": "close-subject.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 9883,
+      "sha256": "c916f561538610d30d13072be096b3832ecb82f64ca9e8fce592aa23d9311594"
+    },
+    {
+      "path": "command-environment.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1066,
+      "sha256": "79e8d538a0fe37249681b16921deb2d23c5b064ce8f962be309cb76af601837c"
+    },
+    {
+      "path": "command-freezes/D02-preparation-owner-case.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4360,
+      "sha256": "1c90b01bf776a970e34ef18bd349e0f94f0ea28291c3821b6c30a46d8e90cdff"
+    },
+    {
+      "path": "command-freezes/native-workspace-physical-regression.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3591,
+      "sha256": "ce898b83fe538b657727f09bcef005b3cd7afc34170cdfe2c02d77a875a84af6"
+    },
+    {
+      "path": "command-freezes/terminal-quiescence7.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3454,
+      "sha256": "cbfd54f360fc228583dac4ee698d334c8889ec91963d6065ed37620272d3480d"
+    },
+    {
+      "path": "commands-config.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2578,
+      "sha256": "50b9b69a0421037726a144476b194ba0228464eeacb989269b14b144032dbbf8"
+    },
+    {
+      "path": "commands/D02-preparation-owner-case.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2108,
+      "sha256": "2157be7e48ae06c0e6f233aadc20c9c7cb75541fee67282c9dfef62768caab52"
+    },
+    {
+      "path": "commands/D02-preparation-owner-case.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 239,
+      "sha256": "bf54719d394422fa47f2ee8ffa7460a3baa91a47543796175eaaa43e8263f677"
+    },
+    {
+      "path": "commands/D02-preparation-owner-case.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/D02-preparation-owner-case.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 510,
+      "sha256": "30f0552873fefd1c87e3923f4a3fdb34430b59a7371b23245f72fa5466469680"
+    },
+    {
+      "path": "commands/native-workspace-physical-regression.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1969,
+      "sha256": "d7faa5644c74f00e51bf15acb22c682c835d45442ed65b7b0629f46df0d2f1dd"
+    },
+    {
+      "path": "commands/native-workspace-physical-regression.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 239,
+      "sha256": "3c44c109cc9015924e544812fd56aebb6f025f3efdea62f8c1d9493b5c0c3b5a"
+    },
+    {
+      "path": "commands/native-workspace-physical-regression.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/native-workspace-physical-regression.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3358,
+      "sha256": "7f494759197cd3aab6c2af55384744768f4ce8789fee9b31573b1688360662fd"
+    },
+    {
+      "path": "commands/syntax.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1395,
+      "sha256": "0176efbb8cc096ddbe1a0c7b3ebdc378cdf60e84294d6bebc2e7be5a3c15e3ed"
+    },
+    {
+      "path": "commands/syntax.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 239,
+      "sha256": "5ff94edc9f4a9adce2f0cdf8034b93ff3c1249247a8d3b1def669c65b9b2752b"
+    },
+    {
+      "path": "commands/syntax.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/syntax.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/terminal-quiescence7.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1815,
+      "sha256": "83676d38569487109fc8fa8d6cfa6d61ceeecebd53b38e5816d181fb4c3bdfb7"
+    },
+    {
+      "path": "commands/terminal-quiescence7.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 240,
+      "sha256": "e28e0197b343d61525192c1697d906ccf6094a46e08d6945b3ea393354cc2e88"
+    },
+    {
+      "path": "commands/terminal-quiescence7.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/terminal-quiescence7.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 764,
+      "sha256": "7a58ff537cebd7ccd2ed74799aa834cddf4874f78e1a624babc3f0dd5b8a8b7a"
+    },
+    {
+      "path": "component-physical-facts.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3738,
+      "sha256": "8a70d0484db2c19d9a4bd1e5b552551521ad4fc51e6d07df09cab61e20425d7e"
+    },
+    {
+      "path": "input-binding.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 10327,
+      "sha256": "34268619406d0e6bc5f3fa603115ccba1f2f8fab237e00fa2f0078cf37e2acf8"
+    },
+    {
+      "path": "mapped-outcomes.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3778,
+      "sha256": "9aad59e19ecfd3b005b4c334618d99b05c91aa63dbba4515c0288b4a3de7535c"
+    },
+    {
+      "path": "overlay/build",
+      "kind": "symlink",
+      "mode": "0o755",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build"
+    },
+    {
+      "path": "overlay/node_modules",
+      "kind": "symlink",
+      "mode": "0o755",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules"
+    },
+    {
+      "path": "overlay/test_env/support",
+      "kind": "symlink",
+      "mode": "0o755",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support"
+    },
+    {
+      "path": "overlay/test_env/tests/t287-native-workspace-work.test.mjs",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 87048,
+      "sha256": "fc57f1684d311fd1967ef7b3af456c046096e0fbe518cb1bd96df942d1c0f57b"
+    },
+    {
+      "path": "physical-inventory.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 292,
+      "sha256": "792be4c35f9b76eb2b1abb9c22f50a0a8d261acfa711da720919b97e089ad163"
+    },
+    {
+      "path": "preflight-freeze.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2824,
+      "sha256": "ac787cddd90f83c0569ae7edf539a6c7c2340980384421e67c2cc61813d52ea6"
+    },
+    {
+      "path": "preimages/t287-native-workspace-work.test.mjs",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 86994,
+      "sha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384"
+    },
+    {
+      "path": "prepare-proof.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 7424,
+      "sha256": "582e11b5ef9f371c2beb67568c62cbe8a1535a9529405073c9c66f444dee6919"
+    },
+    {
+      "path": "preservation-after.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 7452,
+      "sha256": "b22943ba1a9455cbeb3245d0981c057efbcc160ee15cd28a5994b0f0fdf450e1"
+    },
+    {
+      "path": "process-observation.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 281,
+      "sha256": "93984cf241962fd9e64d02cf49dc0c3339509082d9ab0f70468c084605f87931"
+    },
+    {
+      "path": "resource-cost.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 357,
+      "sha256": "75c96964d7a56bcf01b0b9ee1e22e250760f8742a4637e24e2b90d351fe9c4d2"
+    },
+    {
+      "path": "resources.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2596,
+      "sha256": "0bf7f30886324caa198ac9278d173665336e086d03aef19c8f6e8f02f4714c97"
+    },
+    {
+      "path": "run-command.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2571,
+      "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec"
+    },
+    {
+      "path": "test.diff",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1151,
+      "sha256": "d7f3095e029e9831e2168bc0910997fa36c94be20599f01ab05ded315f545070"
+    }
+  ],
+  "recordCount": 42,
+  "logicalBytes": 261360,
+  "physicalInventorySha256": "792be4c35f9b76eb2b1abb9c22f50a0a8d261acfa711da720919b97e089ad163",
+  "physicalRows": 0,
+  "physicalLogicalBytes": 0,
+  "executedCommands": 3,
+  "failedCommands": [],
+  "unexecutedCommands": []
+}

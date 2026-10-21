@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^physical HTTP owner:",
+    "test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current",
+  "exitCode": 1,
+  "seconds": 0.9702153329271823,
+  "startedAt": "2026-10-20T23:41:33.107268+00:00",
+  "basisSha256": "27e9b8a5e40a48fc86724514af4d4d4e7111bdd0b0659db616f823ebdc346e62"
+}

@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "git",
+    "fetch",
+    "--prune",
+    "origin"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 2.8157092498149723,
+  "branch": "main",
+  "head": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+  "originMain": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+  "aheadBehind": "0\t0"
+}

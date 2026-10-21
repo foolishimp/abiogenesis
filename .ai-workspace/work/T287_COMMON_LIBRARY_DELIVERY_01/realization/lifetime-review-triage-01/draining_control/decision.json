@@ -1,0 +1,8 @@
+{
+  "case": "draining_control",
+  "outcome": "control_pass",
+  "observationSha256": "a8c4839f43039453cda0ba0769a4547e0a5f719a03fd003b10b78c2c8c3c8915",
+  "scopeAbsent": true,
+  "hostExitCode": 0,
+  "failSafeSignals": []
+}

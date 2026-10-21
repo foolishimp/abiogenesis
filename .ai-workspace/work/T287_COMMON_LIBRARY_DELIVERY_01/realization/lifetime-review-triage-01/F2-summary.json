@@ -1,0 +1,18 @@
+[
+  {
+    "case": "draining_control",
+    "outcome": "control_pass",
+    "observationSha256": "a8c4839f43039453cda0ba0769a4547e0a5f719a03fd003b10b78c2c8c3c8915",
+    "scopeAbsent": true,
+    "hostExitCode": 0,
+    "failSafeSignals": []
+  },
+  {
+    "case": "early_stdin_close",
+    "outcome": "actual_unhandled_EPIPE_no_owner_completion",
+    "observationSha256": "629d78cddec2db2f75884d624fb1e428c3fb35ed22f599b823254741b0287907",
+    "scopeAbsent": true,
+    "hostExitCode": 1,
+    "failSafeSignals": []
+  }
+]

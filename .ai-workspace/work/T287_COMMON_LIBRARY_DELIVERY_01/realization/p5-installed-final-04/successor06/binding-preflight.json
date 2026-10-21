@@ -1,0 +1,32 @@
+{
+  "changedTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "bytes": 54114,
+    "sha256": "a9a11a3e666f8303cfed31fb9525df8b60277c27bc7edc5360da6b147ef5ed6a"
+  },
+  "sameFinal06Archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10681844,
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079"
+  },
+  "sameManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/proof/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3189620,
+    "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4"
+  },
+  "originalSetupSha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+  "freshSupportSha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2",
+  "replayWorkerSha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e",
+  "proofPackageRootCanonical": true,
+  "newRootAbsent": true,
+  "copiedSourcesExact": 12,
+  "symlinksReadOnly": true,
+  "priorFailurePreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/failure-freeze.json",
+    "bytes": 3308415,
+    "sha256": "b648ee75c60526a62d93e54f37b53b94e6c7594a1e79a9ffb9289b82e1340f96"
+  },
+  "fullStageAndDependencyAcquisitionRepeated": false,
+  "newBootstrapInstall": false,
+  "configPathsDistinctEmpty": true
+}

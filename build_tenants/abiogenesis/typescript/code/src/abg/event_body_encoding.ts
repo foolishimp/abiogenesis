@@ -1,5 +1,5 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { isRecord, isJsonRecordShape } from "../shared/admission_predicates.js";
+import { isRecord, isJsonRecordShape, hasExactKeys } from "../shared/admission_predicates.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { RuntimeEvent, RuntimeEventCandidate } from "./event_store.js";
 
@@ -22,8 +22,6 @@ const slotFor = (kind: unknown): BodySlot | null => kind === "basis_admitted" ? 
   : kind === "c_call_result_admitted" ? "c_call_result_value"
   : kind === "actor_transport_binding_admitted" ? "native_definition_material" : null;
 const fieldFor = (slot: Exclude<BodySlot, "native_definition_material">): "rawInputValue" | "value" => slot === "basis_input" ? "rawInputValue" : "value";
-const exactKeys = (value: Record<string, unknown>, keys: readonly string[]): boolean =>
-  Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key));
 
 function nativeParts(payload: unknown) {
   if (!isJsonRecordShape(payload) || !isJsonRecordShape(payload.instructionAssembly)) return null;
@@ -160,8 +158,8 @@ export function decodeEventBody(record: unknown, inlineByEvent: InlineEventBodie
 } {
   if (!isRecord(record) || record.kind !== REFERENCE_RECORD) return { event: record, physicallyInline: true };
   const reference = record.bodyReference, event = record.event;
-  if (!exactKeys(record, ["kind", "codecVersion", "event", "bodyReference"]) || (record.codecVersion !== 1 && record.codecVersion !== 2) ||
-      !isRecord(reference) || !exactKeys(reference, ["sourceEventRef", "sourcePayloadDigest", "sourceSlot", "bodyDigest"]) ||
+  if (!hasExactKeys(record, ["kind", "codecVersion", "event", "bodyReference"]) || (record.codecVersion !== 1 && record.codecVersion !== 2) ||
+      !isRecord(reference) || !hasExactKeys(reference, ["sourceEventRef", "sourcePayloadDigest", "sourceSlot", "bodyDigest"]) ||
       typeof reference.sourceEventRef !== "string" || !isRecord(event) || !isJsonRecordShape(event.payload)) {
     throw new TypeError("durable body reference record is malformed");
   }

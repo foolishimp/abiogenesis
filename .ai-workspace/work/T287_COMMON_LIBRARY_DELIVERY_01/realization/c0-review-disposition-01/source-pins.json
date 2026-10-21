@@ -1,0 +1,228 @@
+{
+  "kind": "C0-REVIEW-DISPOSITION-01_exact_source_and_evidence_pins",
+  "method": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+  },
+  "composition": [],
+  "files": [
+    {
+      "path": "specification/PRODUCT.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 97498,
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 10959,
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 26853,
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 63515,
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 26888,
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/manifest.json",
+      "mode": "0o444",
+      "kind": "file",
+      "bytes": 13478,
+      "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source-union-manifest.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 668704,
+      "sha256": "311ae0287daefeef3f32b160e4f86e80b27087b6641f31935d34a31c06b014a1"
+    },
+    {
+      "path": "AGENTS.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 11923,
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3146,
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+      "mode": "0o444",
+      "kind": "file",
+      "bytes": 87324,
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md",
+      "mode": "0o444",
+      "kind": "file",
+      "bytes": 103132,
+      "sha256": "8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/first-cause.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2153,
+      "sha256": "a054de724d00abbdf8f1efe9438a6da9d342c55bde02cb8d858510e5856b08c9"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/HOW-structure-successor-02.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 6063,
+      "sha256": "8b514d133010d065fb6d4eb412a2921bc6d0eb877011a02c389d0a8f56c03c23"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/result.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 8955,
+      "sha256": "c0f1a30eefe2f91c3337abb32dbf6943ba320e6f6ae3a19e58dd786b65723a24"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/hold.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 565,
+      "sha256": "cbf6b01e8bda14fc3a0ff504aab32c2ed741d497d977cee39a99c4c2dc456655"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/return.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2168,
+      "sha256": "4d4729d33baf1f828ba2307856cc9df9bc8168f3da98a56d09a2fb0bc6cc7051"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 88506,
+      "sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 79887,
+      "sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 20558,
+      "sha256": "bec0264685b959619fbffbec3dc28adbf98976169669e5f63334b04e6bf9d3fa"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 39809,
+      "sha256": "3cdd78601462643b44c30c521f732132b33d2790e994861398c20ca2aece13bd"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 292659,
+      "sha256": "028bba5e6b32041eafb5d5cb42ca0007527523b1bfd978e720f2fd904920fc55"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 44013,
+      "sha256": "683adaea9685ab094fd80559230fe1ee7a13cc235f6bc41490869a66c89a47d0"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 128699,
+      "sha256": "eb32f6535993b608db9fb9aa1f01661acc99b7498c9af92123e628b1e878e371"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 68980,
+      "sha256": "821f71d2874e23410cd91af782db6261533b41fab0dcd3843cc0d7466443e9c6"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 34676,
+      "sha256": "93fc6b319623133a5f7bb5f983296871223ee868948d82ec2534b7b709b2ebd9"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 37945,
+      "sha256": "a897af022c737d5058f6446960719547edb73467917777178a6891f86717f85d"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 40469,
+      "sha256": "38028647a6203337796b43702748a4a88ab5a0c04db0c4426c5b11bb11440cf6"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 43489,
+      "sha256": "bed19177f3671edfb3bc0a4b569416379baab71a88609feabbb9df724bb54b84"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 87171,
+      "sha256": "7f467ecb9186148308bea23e6d4a70f65d51f2a757a4db629bc0fa5383c3a06e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 28736,
+      "sha256": "a6cc614c027f884b76b17203915c961c9e25f667849c714d14b7401d6d45ac2c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 98519,
+      "sha256": "a0247ed1f3d41bc2ba93e8689e7a37906344fa5aea1cb78241633b4720ebe46c"
+    }
+  ],
+  "authority": "Product/requirements WHAT; frame and accepted design/L2 HOW; exact frozen subjects and public assessment remain separately scoped"
+}

@@ -1,0 +1,215 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "lane": "declared-execution",
+  "rowBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p3",
+  "files": [
+    {
+      "path": "actual-returned-prefix.json",
+      "sha256": "8f27f3785d03da61d0c41e18381f0cf0d7d8f81eef404c7a5b4d7ec3edaae106",
+      "bytes": 2150,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "cache-allocation.json",
+      "sha256": "5f2fc60ff92f726fea4783e6458b5ba9195996e6cc5ced6e10e7274c43eeb3fc",
+      "bytes": 140,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "command.json",
+      "sha256": "44b67857be4475a03547af0c357fed1765a588465a5383d40f289bd39c63dc77",
+      "bytes": 1262,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "configuration.json",
+      "sha256": "68c4284665da8b96ef692a9cc267850b656b229fcc11e1534fa4ec8fd54a4368",
+      "bytes": 5981,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "effect-grant.json",
+      "sha256": "8b6aad86d9b7b0edd1eb5b34ea36789757847c19ba6379d205563227ae6eef73",
+      "bytes": 1898,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/activation-preconditions.json",
+      "sha256": "f3bb92cb07e1d35c91f32274da9ad0b360a641bfd7976f300fd1472b03fadaf0",
+      "bytes": 8893,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/artifact-0.json",
+      "sha256": "62a773cdeb95c7263fa6ae7c052b433ddd36b8cc0f893200aa2e6993c3394b27",
+      "bytes": 300,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/artifact-1.json",
+      "sha256": "59800371ebb565ad9cbab2a2e47be5ec23b126e5f445c2d9366a6df7240b6612",
+      "bytes": 272,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/bootstrap-inventory.json",
+      "sha256": "6d567c46577105ea939b74977c1bf99b5a13dc4ccbb3b4636a26d66e558e2a97",
+      "bytes": 987997,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/commands/1-bootstrap-offline-install.json",
+      "sha256": "a1ca39d28f386865559b79e89e4fa65daeafe7a2c3abf7197eeb1b49da9bdddc",
+      "bytes": 792,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/commands/2-installed-declaration-consumer.json",
+      "sha256": "c6b497e7fab8aeddddb7eb4abcb4a9e639c1d00a978d0d27b6c3c787dff11a8d",
+      "bytes": 959,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/effective-environment.json",
+      "sha256": "3f9f3bd4c0c274474f53d60457af27dc79d6a8840a3708633aeaf36e34694aad",
+      "bytes": 447,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/events.jsonl",
+      "sha256": "b9324852942af8a96e9a7eadb6e090316d54e5d5ce89920be5e7dcf48cec93df",
+      "bytes": 3217551,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/installed-environment.json",
+      "sha256": "5849dec6bb7f7a49d742085c6a4deb4f2d60a54028ef2f07c27b99c324d548e8",
+      "bytes": 52112713,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/measurements.json",
+      "sha256": "3566bbfa34760007ad8dbbc4686ee9a61682a8262cac27bbb8f2bf5f2f6b5b00",
+      "bytes": 9153,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/reads/t287-final04-p3-6f42d9a31e5870bc-run_replay-call.json",
+      "sha256": "40bc6c36a52ab8031e8bd9f44d22e00a5709bb341d78731049a3b2d96ae0f74b",
+      "bytes": 10101,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/reads/t287-final04-p3-6f42d9a31e5870bc-run_replay.json",
+      "sha256": "2ef25fa615a31729da5c6f12677d1cf3139e3750008a3f57022a6dbf714fd023",
+      "bytes": 8007,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/reads/t287-final04-p3-6f42d9a31e5870bc-run_result-call.json",
+      "sha256": "5c5b8317c0e257c21143dd97d98a0d4391509235e9e19b6505d5450490a4aca9",
+      "bytes": 10044,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/reads/t287-final04-p3-6f42d9a31e5870bc-run_result.json",
+      "sha256": "69a6e6aec9d9917dfdad8d4f1449f8632576e9b822e03fd072a13b1060a43f69",
+      "bytes": 8428,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/result.json",
+      "sha256": "fb9f5208b6cc3396ddeee320a9e89eb3ef7e365f18dddd2cd8c8bcfe0e731aea",
+      "bytes": 1964,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/start.json",
+      "sha256": "6a30b43be007648dbcf347859c43425635f39424997cf9b89dfddefacaf2dacc",
+      "bytes": 28078097,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "input-freeze.json",
+      "sha256": "b4ce6cb14a84fa595bf21e3f209a926d044710841f000ca21242dcb7ad147917",
+      "bytes": 1623,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "launch.json",
+      "sha256": "8c46b0580ad5ea12ff33ffed208d4b7e6d864793e462c0b97a6982b22e984255",
+      "bytes": 489,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "portable-evidence-map.json",
+      "sha256": "a79748f515c562be89d0835e19365a40f7020976a1d5a144a7a19969a0ee11f4",
+      "bytes": 10503,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "process-result.json",
+      "sha256": "5a63ac5f4b1bbffc9aed6cd6e6f52c7e3ddb5a982fb1414296e6d78fe8a20c08",
+      "bytes": 311,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "result.json",
+      "sha256": "7051a32d72d0d03818419c91229dbb2c7b3dfbb1333e708079ea1baf2e6388f2",
+      "bytes": 5962,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retained-size-preflight.json",
+      "sha256": "326d0aea8d890242b3055e004042f3475a5a3f794b60a0b33e708c6d70299f81",
+      "bytes": 629,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "stderr-time.txt",
+      "sha256": "b8b1dddc3c3ab105183285b630cb4ea32270e68e6efac369def18e24f11b58e2",
+      "bytes": 777,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "stdout.txt",
+      "sha256": "7383e9af8409f0c7e4c82fefc0bf17f71707be58aa20ea7a7f9f1697ca5fb809",
+      "bytes": 125,
+      "mode": "0o644",
+      "kind": "file"
+    }
+  ],
+  "recordCount": 29,
+  "resultSha256": "7051a32d72d0d03818419c91229dbb2c7b3dfbb1333e708079ea1baf2e6388f2",
+  "nativeCalls": 0,
+  "physicalRule": "Actual P3 physical roots retained; exact original inventories and finite case evidence, no extra full physical inventory at closure."
+}

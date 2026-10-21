@@ -1,0 +1,42 @@
+{
+  "activation": "U1-CROSS-BINDING-TRIAGE-01",
+  "at": "2026-10-21T01:08:36.015803+00:00",
+  "pins": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/freeze.json",
+      "sha256": "433107b89d8eb01cc5a67ad6c8543e18d37575d5f89ba490c3795108955e788d"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/freeze.json",
+      "sha256": "31912a68550eefc19e88c64bbc45a6c8db674a86e2c90dec16ecf53b674a1371"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1"
+    }
+  ],
+  "frozen_read_support_checks": [
+    {
+      "inventory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-final-inventory.json",
+      "sha256": "67805244f331645108591162e61f7f5203678919796a107aba270db477bdf975",
+      "checked": 1948,
+      "mismatches": []
+    },
+    {
+      "inventory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/dependency-inventory.json",
+      "sha256": "991ddad43eb30a968aeb30e579aabb327a4c2016c1e157c840606c043363ad82",
+      "checked": 4576,
+      "mismatches": []
+    },
+    {
+      "inventory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/manifest.json",
+      "sha256": "c4fab7a7eb9f561c27bf1f0a62dc78ff9a167cdda04abf7bfc81b517d966f476",
+      "checked": 61,
+      "mismatches": []
+    }
+  ],
+  "new_write_territory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01",
+  "production_changes_authorized": false,
+  "native_or_command_actor_launches_authorized": false,
+  "new_inventory_corresponds_to_final_combined_artifact": false
+}

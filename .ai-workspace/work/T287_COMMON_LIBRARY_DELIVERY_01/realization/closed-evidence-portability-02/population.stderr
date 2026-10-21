@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/select-population.py", line 123, in <module>
+    exclusions.append(dict(source=c['provider'], route=str(path), reason='Provider identity is metadata only; no provider tool or credential copied'))
+                                  ~^^^^^^^^^^^^
+KeyError: 'provider'

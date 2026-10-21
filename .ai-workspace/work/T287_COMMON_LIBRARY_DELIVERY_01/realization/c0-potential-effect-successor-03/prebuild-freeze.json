@@ -1,0 +1,143 @@
+{
+  "activation": "C0-STAGE-METADATA-03",
+  "records": [
+    {
+      "path": "HOW-binding.md",
+      "bytes": 2746,
+      "sha256": "5879424820bd702a5c540e0374e947e996ab1ceab5fbab2d0bd3f5205de84f2d"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 2076,
+      "sha256": "f81e328c23782a7a765e977b051494ecd0707b88bc1ff3c319dc33d940890653"
+    },
+    {
+      "path": "command-environment.json",
+      "bytes": 854,
+      "sha256": "8817a81977346d1192a40406c502ba5b76115fe924229ae75cbd4a43dd6e0e6e"
+    },
+    {
+      "path": "commands-config.json",
+      "bytes": 1400,
+      "sha256": "05b8ddcb4c785bb0fdaa3fef4e5d58dedf77e8f3321fd6593342130b0870a072"
+    },
+    {
+      "path": "common.py",
+      "bytes": 1373,
+      "sha256": "9dc09a38bf640105bb73844ede8f100e3b3271932e004108166da5693bba6bdf"
+    },
+    {
+      "path": "dependency-directory-metadata.json",
+      "bytes": 166044,
+      "sha256": "4c86b32669669749a6c3365da0826a0ebf8b5005bb9b6eb378d1f88e001753a0"
+    },
+    {
+      "path": "dependency-inputs.json",
+      "bytes": 1006601,
+      "sha256": "b65e98ccd69e8473d4c33872b67760b4f18ac84e2b22de3ea0df6da8ab453185"
+    },
+    {
+      "path": "prepare-stage.py",
+      "bytes": 4275,
+      "sha256": "866953587fd0d0f801bdceee534446f1c7353d045bc88a2cb7fcc9877abeea41"
+    },
+    {
+      "path": "producer-input-pins.json",
+      "bytes": 3107,
+      "sha256": "4126bf5608beb2003f21b8e7059711b7b20ac1b51947c5f0fcf9bb8825ed8fb2"
+    },
+    {
+      "path": "resource-preflight.json",
+      "bytes": 312,
+      "sha256": "7048bb08532cba6017120d8b8b51cadd77689824d50c9a1b43030a55631355fd"
+    },
+    {
+      "path": "run-command.py",
+      "bytes": 2349,
+      "sha256": "01c1fe6f20bf881a6a5456069e9135f2f779086028ae900515e8bfb00f58f2f9"
+    },
+    {
+      "path": "source-inputs.json",
+      "bytes": 353610,
+      "sha256": "fc95840383cbccd2fc27769d923a12c8c32dfa33adc20a17f3b4b1e4c504def3"
+    },
+    {
+      "path": "stage-pre-generation-inventory.json",
+      "bytes": 1784289,
+      "sha256": "fa1fcb8561acfeccbcfcabde2a4890803be2feef1b2833527bc17e788da40c94"
+    },
+    {
+      "path": "verify-archive.py",
+      "bytes": 4597,
+      "sha256": "2d081c03bae74f318a47dc0589fe8d80e2db4f024f95938a7ba302611d035c13"
+    },
+    {
+      "path": "verify-generation.py",
+      "bytes": 2422,
+      "sha256": "bf013b1de48f359d054a1df4807ea67cb58dd31f9e20a5d321c813ed8a94c6eb"
+    },
+    {
+      "path": "verify-metadata.mjs",
+      "bytes": 13718,
+      "sha256": "f36eb963621bbd0d574bd0fac7c4214d7e78e09f9ab735778fd443a848b7ce13"
+    },
+    {
+      "path": "verify-payload.mjs",
+      "bytes": 1937,
+      "sha256": "894f2030400b8c9fc1b5cc47271bd50855daa92c7b136e2bcb2a643bb17c2268"
+    },
+    {
+      "path": "wrapper-correspondence.json",
+      "bytes": 560,
+      "sha256": "426645ce6f2175d0f4b0ccfc78a6a55c0aac6174706637b529f314bb68f158a2"
+    }
+  ],
+  "tools": [
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "bytes": 86104016
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "bytes": 54
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/package.json",
+      "sha256": "e14cc7eeb538420c8f6f2a05fbcd7d748ee7dd2bb0e3bec07cb7355f16e5b484",
+      "bytes": 6603
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-actual.js",
+      "sha256": "20c74c9704dc94f656fb8e2f64ff9a89039437e70ad2fb69d13dcead814dcecd",
+      "bytes": 14873
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-virtual.js",
+      "sha256": "7c0cfc479b1d2104ebfdeab437641166f5fb535240be8760b4949f4cecc170eb",
+      "bytes": 9884
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/shrinkwrap.js",
+      "sha256": "783828176377372b3641ee41169ce561f5cdcda03d4f10da615b9a0e3a2eb94c",
+      "bytes": 38053
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/lib/index.js",
+      "sha256": "e77f7128b7f6a0b5f6a4e5e52de4ada0c3fdaad1542c98957185576ae1d99e35",
+      "bytes": 15879
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/pacote/lib/dir.js",
+      "sha256": "185f5bc3ec548b1a6adfe963e4ed2275159e3654b6ca0d136a45671bf642c0df",
+      "bytes": 3086
+    }
+  ],
+  "newCompileCount": 0,
+  "reusedCompileReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/commands/tsc.result.json",
+    "sha256": "c626aa609e1deb61538ab7c8b47ad45cbb8647be33bafb51f6868bbfc5d6f245"
+  },
+  "status": "Exact copied source/emission/dependency metadata pinned before single generator/material/pack sequence; no workload yet"
+}

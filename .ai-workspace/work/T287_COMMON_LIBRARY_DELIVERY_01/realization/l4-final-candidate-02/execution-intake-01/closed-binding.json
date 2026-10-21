@@ -1,0 +1,20 @@
+{
+  "kind": "t287_closed_candidate_inventory_binding",
+  "status": "closed_candidate_selected",
+  "subjectId": "candidate",
+  "repoRoot": "/Users/jim/src/apps/abiogenesis",
+  "closedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02",
+  "freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+    "sha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+    "bytes": 3048274,
+    "mode": "0o644"
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/bound-subject-01",
+  "requirements": [
+    "Root supplies exact ready_for_separately_granted_L4 combined-final-02 freeze and verifies actual rows",
+    "set closedRoot and freeze from that return, never from active directory name or historical final01",
+    "select closed_candidate_selected only after actual closed-subject intake; this status grants no runtime effects",
+    "output is only runner-shaped inventories and subject.NOT_GRANTED.json; no active lane or grant is produced"
+  ]
+}

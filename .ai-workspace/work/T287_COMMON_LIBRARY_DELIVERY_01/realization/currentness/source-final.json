@@ -1,0 +1,37 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "sha256": "937ac47e383e740fb75a8eb367195cb2893681c064fee9f55af92369f5d56189",
+    "bytes": 89640
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "sha256": "f75417d472354cdc474c32cecf17f5a7bc2426c4dc5534e447afe3ad5d635567",
+    "bytes": 39699
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+    "sha256": "6a332fe393db54a876b761eb0f8d494a1db4356b799b19f78e143d5420c4a1b8",
+    "bytes": 20058
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "sha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384",
+    "bytes": 86994
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+    "sha256": "011e3fbae5975cd8ffcfd79182e55a5830019a66e2b1aa406bbcca4ff9ba4279",
+    "bytes": 11243
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+    "sha256": "e5847b76b08c0f3ac77d40b5ef8243bbe03df42eff5b36e5d7120ddfa8fafa68",
+    "bytes": 11020
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+    "sha256": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546",
+    "bytes": 37664
+  }
+]

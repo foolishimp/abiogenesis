@@ -1,0 +1,193 @@
+{
+  "activation": "HOG-FINAL06-EXECUTION-01",
+  "writer": "/root/stdo3_final_proof_writer",
+  "returnTo": "/root",
+  "utc": "2026-10-21T07:49:04.488919+00:00",
+  "status": "failed_stopped_for_executive_triage",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "method": {
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "preparationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/freeze.json",
+    "sha256": "f2c99f6ec483195c7f0b226dd184bcdb9f166a00aad9f93eb3e0a4c1ad0fa149",
+    "bytes": 16042
+  },
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/configuration.json",
+    "sha256": "48995917e83265514c0e41539a3471992ec7854d63707b2caaa4209bf4e35a5b",
+    "bytes": 8341
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/effect-grant.json",
+    "sha256": "d8ccf6d75014c094a672453f732f9f8a8ed80aa16a66b3a6f4f7d8983d000efe",
+    "bytes": 3989
+  },
+  "executiveDecision": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/executive-decision.json",
+    "sha256": "c4be33c26b2c734d20be1fe999032d44e502660d0962f982e2638fe3e21d71e8",
+    "bytes": 3490
+  },
+  "subject": {
+    "id": "candidate",
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+      "sha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+      "bytes": 1994729,
+      "mode": "0o644"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+      "bytes": 10681844,
+      "mode": "0o644"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4",
+      "bytes": 3189620,
+      "mode": "0o644"
+    },
+    "productContentDigest": "sha256:7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214"
+  },
+  "actualFinalP1": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/result.json",
+    "sha256": "231d13b475ac77dd4c1468500aa73a2639233822e7252014105d84ae6acf74fc",
+    "bytes": 1759,
+    "mode": "0o644"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs",
+    "sha256": "ac3ce1aa03a9b7b47184a25d9338300be87b5a4a606573a3e364a53a7376c7c7",
+    "bytes": 20862
+  },
+  "oracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/oracle.mjs",
+    "sha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+    "bytes": 9679
+  },
+  "execution": {
+    "request": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/commands/hog.request.json",
+      "sha256": "25f563432dbb413d2e6182ef781f5b5333a2da81983b1e768935d72ca2311013",
+      "bytes": 1457
+    },
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/commands/hog.result.json",
+      "sha256": "af2da230313f6b04dbfa468471b25f6ea17a65a5a3a9cf94da63d74daed0c477",
+      "bytes": 239
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/driver.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/driver.stderr",
+      "sha256": "a186e40d7d2e2688917f1262f3d88233ea4169a8ab76805c9d7764957711ff0b",
+      "bytes": 1774
+    },
+    "exitCode": 1,
+    "wallMs": 41976.27212502994,
+    "outerCeilingMs": 1800000,
+    "outerCeilingReached": false,
+    "supervisorSignals": 0
+  },
+  "firstFailure": {
+    "record": {
+      "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence/first-failure.json",
+      "sha256": "2279f24677224291acc18df450808ec7be7b0b8effd38ae964bab6bfc4557790",
+      "bytes": 1780
+    },
+    "phase": "installed-catalog-setup",
+    "case": "compose-retry",
+    "error": {
+      "name": "AssertionError",
+      "message": "{\"kind\":\"product_execution_resolution_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"incompatible_or_unproven\",\"stage\":\"catalog\",\"message\":\"direct public control requires next or asset target with until converged and no caller-selected start\"}\n+ actual - expected\n\n+ 'product_execution_resolution_refusal'\n- 'loaded_product_execution_resolution'\n",
+      "stack": "AssertionError [ERR_ASSERTION]: {\"kind\":\"product_execution_resolution_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"incompatible_or_unproven\",\"stage\":\"catalog\",\"message\":\"direct public control requires next or asset target with until converged and no caller-selected start\"}\n+ actual - expected\n\n+ 'product_execution_resolution_refusal'\n- 'loaded_product_execution_resolution'\n\n    at Module.constructInstalledStartCall (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs:264:10)\n    at async runCase (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs:180:27)\n    at async main (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs:224:31)"
+    },
+    "preciseBoundary": "constructInstalledStartCall resolution assertion at original run.mjs:180, after setup close handoff and before start-call-and-resolution or Public start."
+  },
+  "reached": [
+    "Original full input preflight satisfied",
+    "Offline bootstrap and all 5271 installed member checks passed",
+    "Original structural fixture pack/install and setup catalog owner calls completed",
+    "Actual setup store close handoff retained",
+    "Start-call construction received catalog refusal"
+  ],
+  "notReached": [
+    "No compose-retry Public start or outcome oracle",
+    "No workflow-foldback allocation or execution",
+    "No fanout-partial allocation or execution",
+    "No fresh Result/replay checks"
+  ],
+  "actualPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/actual-prefix.json",
+    "sha256": "127061f2d03e37d53be228f558d146a5a31f30ae12d895fb209864b0bc94088d",
+    "bytes": 1801
+  },
+  "physicalResources": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/physical-resources.json",
+    "sha256": "697adc48c5e2c56e803f30e824ce2ae54867961efa9c140a9a32ac6e82df50da",
+    "bytes": 5255252
+  },
+  "resourceRoots": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/resource-root-states.json",
+    "sha256": "89e5f577eb1127fd5954bc701b207180bf63186b89caafa2833ec6bbee134308",
+    "bytes": 2599
+  },
+  "observedEffects": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/observed-effects.json",
+    "sha256": "f348c9372cbacf94146be49eb04841212a9a3c61d3e8fe34faea1b67af3eb2b8",
+    "bytes": 5809
+  },
+  "portableEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/portable-evidence-map.json",
+    "sha256": "68141a713cd5c03cf17aff94f710f3e7c3e0171b5b656db4ffaee82f9c939967",
+    "bytes": 10777
+  },
+  "preservation": {
+    "record": {
+      "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence/failure-preservation.json",
+      "sha256": "5e4fcf9b73c7911f1182b04a9afabb812d5e42c8b05e5df2469ed9fa9dea38d5",
+      "bytes": 967
+    },
+    "results": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/source-inventory.json",
+        "status": "unchanged"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/emitted-inventory.json",
+        "status": "unchanged"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/dependency-inventory.json",
+        "status": "unchanged"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/support-inventory.json",
+        "status": "unchanged"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/protected-main-inventory.json",
+        "status": "unchanged"
+      }
+    ],
+    "scope": "Original driver checked exact source/emitted/dependency/support and protected main inventories once after failure; no extra full inventories were run."
+  },
+  "retention": {
+    "runtimeLogicalBytes": 344234139,
+    "executionLogicalBytesBeforeReturn": 125135820,
+    "preparationBindingBytes": 4462394,
+    "maxAdditionalBytes": 4294967296,
+    "scope": "Logical retained file bytes, not exclusive disk allocation; compact return/freeze metadata follows."
+  },
+  "limits": [
+    "No independent semantic acceptance, L5 or release acceptance.",
+    "The refusal establishes failure of this exact prepared HoG call path; causal repair and scope selection remain Executive work.",
+    "One observed failed run and raw time/resource output do not establish a performance distribution or causal comparison."
+  ],
+  "disposition": "Stopped before repair, retry, cleanup, next case or optional law tests. Preserve this cut and return Root for multi-frame triage."
+}

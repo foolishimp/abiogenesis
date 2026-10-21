@@ -1,0 +1,52 @@
+{
+  "kind": "E04_preparation_handoff",
+  "status": "PREPARATION_CLOSED_READY_FOR_EXECUTIVE_SELECTION",
+  "activation": "E04-RETAINED-OWNER-PROOF-PREPARATION-01",
+  "HOW": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/HOW.md",
+    "bytes": 12072,
+    "sha256": "b9a7120861158a992086c1d2e3272580c4038c1b2257dd868589626d0cf68af9"
+  },
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/configuration-not-granted.json",
+    "bytes": 2454,
+    "sha256": "15310f3d54b8aa44cececa6be5484bd4427316e1b9337e6126328f28a42e9332"
+  },
+  "support": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/owner-support.mjs",
+      "bytes": 10268,
+      "sha256": "b1c66a318ec263258aad7851c01143c73384cd11fb914dcf4cc93d43a9e22122"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs",
+      "bytes": 16970,
+      "sha256": "a2b048d65b52baf252b347c994f132992c60e13cc6d539255bbca4da71ef2d73"
+    }
+  ],
+  "preflightReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/callable-preflight.json",
+    "bytes": 817,
+    "sha256": "b969ddc8acd804ccb6ef302952e651196d41314e33d4609266572efe5a1675cb"
+  },
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/report.md",
+    "bytes": 6272,
+    "sha256": "50c50e10699f88ab9ecccb3e565a1e690b8374221115e92d791ae4f00b535c5c"
+  },
+  "caseMap": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/cases.json",
+    "bytes": 5576,
+    "sha256": "b8efa571c13968d2bb2e48f9567f4f188801d4df8eaceeaad1d3cefe1ddf544d"
+  },
+  "preservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/preservation.json",
+    "bytes": 1334,
+    "sha256": "a70a91f1deeac4d647d9124704f4d6539e1688e212cf0aff2b5bb109c04d99bd"
+  },
+  "physicalCaseExecutions": 0,
+  "fixtureRootsCreated": 0,
+  "executionGrant": "not granted; separate exact Executive activation required",
+  "scope": "direct actual-owner filesystem population only; no native/installed/runtime admission claim",
+  "writerStoppedAfterFreeze": true
+}

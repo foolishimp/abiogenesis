@@ -1,0 +1,47 @@
+{
+  "kind": "first unexpected selected command failure",
+  "command": "sunny-owner",
+  "request": {
+    "label": "sunny-owner",
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--test",
+      "--test-name-pattern",
+      "^B04-06 replace: installed owner, ABG admission and fresh replay$",
+      "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript",
+    "effectiveEnvironment": {
+      "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "HOME": "/Users/jim",
+      "LANG": "en_AU.UTF-8",
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-04/sunny/scratch/",
+      "npm_config_offline": "true",
+      "npm_config_ignore_scripts": "true",
+      "npm_config_audit": "false",
+      "npm_config_fund": "false",
+      "npm_config_update_notifier": "false",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-04/sunny/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-04/sunny/npm-logs",
+      "NODE_OPTIONS": "",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-03/sunny/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-04/sunny/evidence"
+    },
+    "timeoutMs": 600000,
+    "proofFreezeSha256": "c77a45e768538de187fbf835cb71202f374f01b637048cc834fcdcbf04e21be8",
+    "runnerSha256": "ba8f9c23b73c240e255c8887e5f8890227642846c31a7284b320bc8230b9e407",
+    "startedUnix": 1792562352.634641
+  },
+  "result": {
+    "pid": 82263,
+    "exitCode": 1,
+    "wallMs": 38491.034584119916,
+    "stdoutSha256": "fa7d613dbe10b9c04dc2a5d4ada628c6ae3274048f684f97a7535697f95a4818",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "disposition": "stopped before repair/retry/next case"
+}

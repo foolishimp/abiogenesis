@@ -1,0 +1,27 @@
+{
+  "activation": "L4-FINAL-CANDIDATE-P1-P3-04",
+  "issuedBy": "/root",
+  "writer": "/root/stdo3_k11_successor_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "l2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04",
+  "physicalParent": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc",
+  "runtimeCondition": "exact successor06 unavailable-owner exit0 and required owner assertions; Root confirmed receipt before this activation record",
+  "sequence": [
+    "P1",
+    "owner-resolution",
+    "P2",
+    "P3"
+  ],
+  "emptySeed": "explicitly selected by Root subject to exact unchanged 14-package/17-edge closure",
+  "maxAdditionalRetainedBytes": 10737418240,
+  "nativeProviderCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "sourceBuildPackGitEffects": false,
+  "firstFailure": "stop before next effect; preserve records; no repair/retry",
+  "startedAt": "2026-10-21T06:40:27.405121+00:00"
+}

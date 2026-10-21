@@ -1,0 +1,25 @@
+[
+  {
+    "name": "unique",
+    "returned": {
+      "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch/abi5-root-env-FEbHCo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch/abi5-root-env-FEbHCo/workspace/.ai-workspace/archive/worksite-command-execution/5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946/6b6ced519603ecb0dcce47d0dda6411a6bbd31f30812fef1759049451696646b/launch.json'"
+    },
+    "error": null
+  },
+  {
+    "name": "missing",
+    "returned": null,
+    "error": {
+      "name": "Error",
+      "message": "expected one canonical task section"
+    }
+  },
+  {
+    "name": "duplicate",
+    "returned": null,
+    "error": {
+      "name": "Error",
+      "message": "expected one canonical task section"
+    }
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "status": "satisfied",
+  "lane": "public-preparation",
+  "subjectId": "candidate",
+  "configurationSha256": "f6a48fa2bd789131ec61937dfc0570716cc47a38abaa31624e62ab8343a95b49",
+  "oracle": {
+    "predicate": "P1 preparation and resolution",
+    "satisfied": true
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:d208a18d254a890f5a85c076a59f38fe241fc9bab1c3a8f93492a90c8556f1ef",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/evidence/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:82b23d18ca9f81caad665891c228cee346e3dfd97557b8d1dac9f9483060737a",
+      "prefixLength": 3113200,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 475163826
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:1e97da60915514af71261fc8cc71f066dccc3e4cc3251794998ca3e242de6d2d",
+      "device": 16777231,
+      "durableByteLength": 3113200,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:82b23d18ca9f81caad665891c228cee346e3dfd97557b8d1dac9f9483060737a",
+      "eventLogPath": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/evidence/resources/events/runtime.events.jsonl",
+      "inode": 475163826,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "nativeCalls": 0,
+  "claims": "bounded lane predicates only; required omitted measurements and P5 obligations remain separate; no L5 or release acceptance",
+  "retainedCleanupHooks": 0
+}

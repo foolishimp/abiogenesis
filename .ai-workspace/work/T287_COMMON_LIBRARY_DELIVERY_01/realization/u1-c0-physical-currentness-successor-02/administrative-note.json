@@ -1,0 +1,8 @@
+{
+  "kind": "read_only_inventory_lookup_note",
+  "scope": "post-proof reporting only",
+  "notes": [
+    "A guessed currentness/manifest.json read was absent; the actual currentness/freeze.json record_files inventory was then discovered and all 47 records verified.",
+    "No integration, physical effect, source edit or test retry occurred during these read-only inventory lookups."
+  ]
+}

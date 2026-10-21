@@ -1,0 +1,12 @@
+{
+  "emitted": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+  "sha256": "c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+  "bytes": 110016,
+  "renderer": {
+    "startByte": 100071,
+    "endByte": 102379,
+    "sha256": "10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+    "unchangedRendererBytes": true
+  },
+  "gtlSourceSha256": "df39d2e5fbabf7e149099d468c951bd2a3e9b3eaaa9651f5dd53833ff89ad3e9"
+}

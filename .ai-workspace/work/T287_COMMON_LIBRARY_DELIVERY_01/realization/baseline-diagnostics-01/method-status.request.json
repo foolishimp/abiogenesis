@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/Users/jim/.local/bin/stdo",
+    "status",
+    "--definition",
+    "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "--verify"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 0,
+  "stdoutSha256": "be61c6fb497f70f5347fae578d95b10ccb61e0b1b99dc28f8ae42f61b3bb877e",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

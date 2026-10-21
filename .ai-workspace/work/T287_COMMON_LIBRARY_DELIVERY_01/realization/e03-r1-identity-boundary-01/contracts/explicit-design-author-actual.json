@@ -1,0 +1,630 @@
+{
+  "inputCanonicalDigest": "sha256:7406568c41d211a3ce52bab5051687b98162cf6c832e5f6254166bc83c67f3dd",
+  "records": {
+    "baseline": {
+      "contract": {
+        "kind": "semantic_job_actor_contract",
+        "schemaVersion": "5.0.0",
+        "stageRef": "stage://generic-job-mechanics.example/design@5",
+        "role": "author",
+        "sourceMemberRefs": [
+          "member://generic-job-mechanics.example/request@5"
+        ],
+        "quoteRule": "exact_unique_original_source_substring",
+        "requirementRefs": [
+          "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569"
+        ],
+        "obligationRefs": [
+          "obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251"
+        ],
+        "predecessorStatementRefs": [
+          "stage://generic-job-mechanics.example/intent@5/s",
+          "stage://generic-job-mechanics.example/product@5/s",
+          "stage://generic-job-mechanics.example/requirements@5/s"
+        ],
+        "currentCandidate": null,
+        "templateRefs": [
+          "proof-template://generic-job-mechanics.example/native-check@5"
+        ],
+        "criteria": [
+          "criterion://generic-job-mechanics.example/source@5"
+        ],
+        "capabilities": [
+          "worksite_design"
+        ],
+        "bindingRule": {
+          "candidate": "same_response_requirement_candidate_ref",
+          "existing": "incoming_requirement_ref",
+          "activation": "independent_satisfied_assessment",
+          "previousVersions": [
+            {
+              "requirementRef": "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569",
+              "versionRef": "semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733"
+            }
+          ],
+          "newPreviousVersionRef": null
+        },
+        "design": {
+          "groundedRequirementRefs": [
+            "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569"
+          ],
+          "active": [
+            {
+              "requirementRef": "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569",
+              "obligationRef": "obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251",
+              "versionRef": "semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733"
+            }
+          ],
+          "targetRoles": [
+            "implementation",
+            "verifier",
+            "configuration"
+          ],
+          "scope": {
+            "readRoots": [
+              "."
+            ],
+            "writeRoots": [
+              "."
+            ],
+            "parentWriteRoots": [
+              "."
+            ],
+            "evidenceWriteRoots": [
+              "evidence"
+            ],
+            "executableCapabilities": [
+              {
+                "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                "relativeCwdRoots": [
+                  "."
+                ],
+                "environment": {},
+                "maxTimeoutMs": 120000,
+                "maxTerminationGraceMs": 1000
+              }
+            ]
+          },
+          "bounds": {
+            "maxSourceMembers": 20,
+            "maxSourceBytes": 1048576,
+            "maxContextFiles": 50,
+            "maxContextBytes": 1048576,
+            "maxTargets": 20,
+            "maxCommands": 32
+          },
+          "coverageRules": [
+            "every_grounded_requirement_has_active_binding",
+            "each_active_obligation_has_implementation_and_verifier_target",
+            "target_binding_versions_equal_active_versions_selected_by_its_obligations"
+          ],
+          "pathRule": "relative_nontraversing_unique_within_declared_roots",
+          "commandRule": "top_level_and_nested_http_launch_within_exact_capabilities",
+          "executionCapacity": {
+            "selectedLimits": {
+              "inactivityTimeoutMs": 300000,
+              "absoluteTimeoutMs": 900000
+            },
+            "budgetRule": {
+              "aggregation": "sum",
+              "commandFields": [
+                "timeoutMs",
+                "terminationGraceMs",
+                "terminationGraceMs"
+              ],
+              "httpResponseFields": {
+                "launch": [
+                  "timeoutMs",
+                  "terminationGraceMs"
+                ],
+                "request": [
+                  "timeoutMs"
+                ]
+              },
+              "ownerAllowanceMs": 5000,
+              "limitComparison": "required_budget_strictly_less_than_each_limit",
+              "limitOrdering": "absolute_strictly_greater_than_inactivity"
+            },
+            "currentCandidate": null
+          },
+          "dependencyRule": "declared_read_paths_observed_before_construction",
+          "readinessRule": "readiness_is_not_fulfillment"
+        },
+        "contractDigest": "sha256:ba3c0d43c77f6f7134564a5a08df0ec21984e8db5b58de800bc3d3b30eb37d79"
+      },
+      "canonicalContract": "{\"bindingRule\":{\"activation\":\"independent_satisfied_assessment\",\"candidate\":\"same_response_requirement_candidate_ref\",\"existing\":\"incoming_requirement_ref\",\"newPreviousVersionRef\":null,\"previousVersions\":[{\"requirementRef\":\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\",\"versionRef\":\"semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733\"}]},\"capabilities\":[\"worksite_design\"],\"contractDigest\":\"sha256:ba3c0d43c77f6f7134564a5a08df0ec21984e8db5b58de800bc3d3b30eb37d79\",\"criteria\":[\"criterion://generic-job-mechanics.example/source@5\"],\"currentCandidate\":null,\"design\":{\"active\":[{\"obligationRef\":\"obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251\",\"requirementRef\":\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\",\"versionRef\":\"semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733\"}],\"bounds\":{\"maxCommands\":32,\"maxContextBytes\":1048576,\"maxContextFiles\":50,\"maxSourceBytes\":1048576,\"maxSourceMembers\":20,\"maxTargets\":20},\"commandRule\":\"top_level_and_nested_http_launch_within_exact_capabilities\",\"coverageRules\":[\"every_grounded_requirement_has_active_binding\",\"each_active_obligation_has_implementation_and_verifier_target\",\"target_binding_versions_equal_active_versions_selected_by_its_obligations\"],\"dependencyRule\":\"declared_read_paths_observed_before_construction\",\"executionCapacity\":{\"budgetRule\":{\"aggregation\":\"sum\",\"commandFields\":[\"timeoutMs\",\"terminationGraceMs\",\"terminationGraceMs\"],\"httpResponseFields\":{\"launch\":[\"timeoutMs\",\"terminationGraceMs\"],\"request\":[\"timeoutMs\"]},\"limitComparison\":\"required_budget_strictly_less_than_each_limit\",\"limitOrdering\":\"absolute_strictly_greater_than_inactivity\",\"ownerAllowanceMs\":5000},\"currentCandidate\":null,\"selectedLimits\":{\"absoluteTimeoutMs\":900000,\"inactivityTimeoutMs\":300000}},\"groundedRequirementRefs\":[\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\"],\"pathRule\":\"relative_nontraversing_unique_within_declared_roots\",\"readinessRule\":\"readiness_is_not_fulfillment\",\"scope\":{\"evidenceWriteRoots\":[\"evidence\"],\"executableCapabilities\":[{\"environment\":{},\"executable\":\"/opt/homebrew/Cellar/node/24.7.0/bin/node\",\"maxTerminationGraceMs\":1000,\"maxTimeoutMs\":120000,\"relativeCwdRoots\":[\".\"]}],\"parentWriteRoots\":[\".\"],\"readRoots\":[\".\"],\"writeRoots\":[\".\"]},\"targetRoles\":[\"implementation\",\"verifier\",\"configuration\"]},\"kind\":\"semantic_job_actor_contract\",\"obligationRefs\":[\"obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251\"],\"predecessorStatementRefs\":[\"stage://generic-job-mechanics.example/intent@5/s\",\"stage://generic-job-mechanics.example/product@5/s\",\"stage://generic-job-mechanics.example/requirements@5/s\"],\"quoteRule\":\"exact_unique_original_source_substring\",\"requirementRefs\":[\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\"],\"role\":\"author\",\"schemaVersion\":\"5.0.0\",\"sourceMemberRefs\":[\"member://generic-job-mechanics.example/request@5\"],\"stageRef\":\"stage://generic-job-mechanics.example/design@5\",\"templateRefs\":[\"proof-template://generic-job-mechanics.example/native-check@5\"]}",
+      "canonicalContractSha256": "sha256:29aca2534ecd7b4abd5f50a0ab53f08efd2676bc983f573278f32431b9282224",
+      "repeat": {
+        "kind": "semantic_job_actor_contract",
+        "schemaVersion": "5.0.0",
+        "stageRef": "stage://generic-job-mechanics.example/design@5",
+        "role": "author",
+        "sourceMemberRefs": [
+          "member://generic-job-mechanics.example/request@5"
+        ],
+        "quoteRule": "exact_unique_original_source_substring",
+        "requirementRefs": [
+          "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569"
+        ],
+        "obligationRefs": [
+          "obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251"
+        ],
+        "predecessorStatementRefs": [
+          "stage://generic-job-mechanics.example/intent@5/s",
+          "stage://generic-job-mechanics.example/product@5/s",
+          "stage://generic-job-mechanics.example/requirements@5/s"
+        ],
+        "currentCandidate": null,
+        "templateRefs": [
+          "proof-template://generic-job-mechanics.example/native-check@5"
+        ],
+        "criteria": [
+          "criterion://generic-job-mechanics.example/source@5"
+        ],
+        "capabilities": [
+          "worksite_design"
+        ],
+        "bindingRule": {
+          "candidate": "same_response_requirement_candidate_ref",
+          "existing": "incoming_requirement_ref",
+          "activation": "independent_satisfied_assessment",
+          "previousVersions": [
+            {
+              "requirementRef": "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569",
+              "versionRef": "semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733"
+            }
+          ],
+          "newPreviousVersionRef": null
+        },
+        "design": {
+          "groundedRequirementRefs": [
+            "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569"
+          ],
+          "active": [
+            {
+              "requirementRef": "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569",
+              "obligationRef": "obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251",
+              "versionRef": "semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733"
+            }
+          ],
+          "targetRoles": [
+            "implementation",
+            "verifier",
+            "configuration"
+          ],
+          "scope": {
+            "readRoots": [
+              "."
+            ],
+            "writeRoots": [
+              "."
+            ],
+            "parentWriteRoots": [
+              "."
+            ],
+            "evidenceWriteRoots": [
+              "evidence"
+            ],
+            "executableCapabilities": [
+              {
+                "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                "relativeCwdRoots": [
+                  "."
+                ],
+                "environment": {},
+                "maxTimeoutMs": 120000,
+                "maxTerminationGraceMs": 1000
+              }
+            ]
+          },
+          "bounds": {
+            "maxSourceMembers": 20,
+            "maxSourceBytes": 1048576,
+            "maxContextFiles": 50,
+            "maxContextBytes": 1048576,
+            "maxTargets": 20,
+            "maxCommands": 32
+          },
+          "coverageRules": [
+            "every_grounded_requirement_has_active_binding",
+            "each_active_obligation_has_implementation_and_verifier_target",
+            "target_binding_versions_equal_active_versions_selected_by_its_obligations"
+          ],
+          "pathRule": "relative_nontraversing_unique_within_declared_roots",
+          "commandRule": "top_level_and_nested_http_launch_within_exact_capabilities",
+          "executionCapacity": {
+            "selectedLimits": {
+              "inactivityTimeoutMs": 300000,
+              "absoluteTimeoutMs": 900000
+            },
+            "budgetRule": {
+              "aggregation": "sum",
+              "commandFields": [
+                "timeoutMs",
+                "terminationGraceMs",
+                "terminationGraceMs"
+              ],
+              "httpResponseFields": {
+                "launch": [
+                  "timeoutMs",
+                  "terminationGraceMs"
+                ],
+                "request": [
+                  "timeoutMs"
+                ]
+              },
+              "ownerAllowanceMs": 5000,
+              "limitComparison": "required_budget_strictly_less_than_each_limit",
+              "limitOrdering": "absolute_strictly_greater_than_inactivity"
+            },
+            "currentCandidate": null
+          },
+          "dependencyRule": "declared_read_paths_observed_before_construction",
+          "readinessRule": "readiness_is_not_fulfillment"
+        },
+        "contractDigest": "sha256:ba3c0d43c77f6f7134564a5a08df0ec21984e8db5b58de800bc3d3b30eb37d79"
+      },
+      "repeatCanonicalContract": "{\"bindingRule\":{\"activation\":\"independent_satisfied_assessment\",\"candidate\":\"same_response_requirement_candidate_ref\",\"existing\":\"incoming_requirement_ref\",\"newPreviousVersionRef\":null,\"previousVersions\":[{\"requirementRef\":\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\",\"versionRef\":\"semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733\"}]},\"capabilities\":[\"worksite_design\"],\"contractDigest\":\"sha256:ba3c0d43c77f6f7134564a5a08df0ec21984e8db5b58de800bc3d3b30eb37d79\",\"criteria\":[\"criterion://generic-job-mechanics.example/source@5\"],\"currentCandidate\":null,\"design\":{\"active\":[{\"obligationRef\":\"obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251\",\"requirementRef\":\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\",\"versionRef\":\"semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733\"}],\"bounds\":{\"maxCommands\":32,\"maxContextBytes\":1048576,\"maxContextFiles\":50,\"maxSourceBytes\":1048576,\"maxSourceMembers\":20,\"maxTargets\":20},\"commandRule\":\"top_level_and_nested_http_launch_within_exact_capabilities\",\"coverageRules\":[\"every_grounded_requirement_has_active_binding\",\"each_active_obligation_has_implementation_and_verifier_target\",\"target_binding_versions_equal_active_versions_selected_by_its_obligations\"],\"dependencyRule\":\"declared_read_paths_observed_before_construction\",\"executionCapacity\":{\"budgetRule\":{\"aggregation\":\"sum\",\"commandFields\":[\"timeoutMs\",\"terminationGraceMs\",\"terminationGraceMs\"],\"httpResponseFields\":{\"launch\":[\"timeoutMs\",\"terminationGraceMs\"],\"request\":[\"timeoutMs\"]},\"limitComparison\":\"required_budget_strictly_less_than_each_limit\",\"limitOrdering\":\"absolute_strictly_greater_than_inactivity\",\"ownerAllowanceMs\":5000},\"currentCandidate\":null,\"selectedLimits\":{\"absoluteTimeoutMs\":900000,\"inactivityTimeoutMs\":300000}},\"groundedRequirementRefs\":[\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\"],\"pathRule\":\"relative_nontraversing_unique_within_declared_roots\",\"readinessRule\":\"readiness_is_not_fulfillment\",\"scope\":{\"evidenceWriteRoots\":[\"evidence\"],\"executableCapabilities\":[{\"environment\":{},\"executable\":\"/opt/homebrew/Cellar/node/24.7.0/bin/node\",\"maxTerminationGraceMs\":1000,\"maxTimeoutMs\":120000,\"relativeCwdRoots\":[\".\"]}],\"parentWriteRoots\":[\".\"],\"readRoots\":[\".\"],\"writeRoots\":[\".\"]},\"targetRoles\":[\"implementation\",\"verifier\",\"configuration\"]},\"kind\":\"semantic_job_actor_contract\",\"obligationRefs\":[\"obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251\"],\"predecessorStatementRefs\":[\"stage://generic-job-mechanics.example/intent@5/s\",\"stage://generic-job-mechanics.example/product@5/s\",\"stage://generic-job-mechanics.example/requirements@5/s\"],\"quoteRule\":\"exact_unique_original_source_substring\",\"requirementRefs\":[\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\"],\"role\":\"author\",\"schemaVersion\":\"5.0.0\",\"sourceMemberRefs\":[\"member://generic-job-mechanics.example/request@5\"],\"stageRef\":\"stage://generic-job-mechanics.example/design@5\",\"templateRefs\":[\"proof-template://generic-job-mechanics.example/native-check@5\"]}",
+      "retainedExplicit": null,
+      "retainedLimitLookup": null,
+      "selectedDesign": null,
+      "actualBudget": {
+        "rule": {
+          "aggregation": "sum",
+          "commandFields": [
+            "timeoutMs",
+            "terminationGraceMs",
+            "terminationGraceMs"
+          ],
+          "httpResponseFields": {
+            "launch": [
+              "timeoutMs",
+              "terminationGraceMs"
+            ],
+            "request": [
+              "timeoutMs"
+            ]
+          },
+          "ownerAllowanceMs": 5000,
+          "limitComparison": "required_budget_strictly_less_than_each_limit",
+          "limitOrdering": "absolute_strictly_greater_than_inactivity"
+        },
+        "commandBudgetMs": 0,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 5000
+      }
+    },
+    "successor": {
+      "contract": {
+        "kind": "semantic_job_actor_contract",
+        "schemaVersion": "5.0.0",
+        "stageRef": "stage://generic-job-mechanics.example/design@5",
+        "role": "author",
+        "sourceMemberRefs": [
+          "member://generic-job-mechanics.example/request@5"
+        ],
+        "quoteRule": "exact_unique_original_source_substring",
+        "requirementRefs": [
+          "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569"
+        ],
+        "obligationRefs": [
+          "obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251"
+        ],
+        "predecessorStatementRefs": [
+          "stage://generic-job-mechanics.example/intent@5/s",
+          "stage://generic-job-mechanics.example/product@5/s",
+          "stage://generic-job-mechanics.example/requirements@5/s"
+        ],
+        "currentCandidate": null,
+        "templateRefs": [
+          "proof-template://generic-job-mechanics.example/native-check@5"
+        ],
+        "criteria": [
+          "criterion://generic-job-mechanics.example/source@5"
+        ],
+        "capabilities": [
+          "worksite_design"
+        ],
+        "bindingRule": {
+          "candidate": "same_response_requirement_candidate_ref",
+          "existing": "incoming_requirement_ref",
+          "activation": "independent_satisfied_assessment",
+          "previousVersions": [
+            {
+              "requirementRef": "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569",
+              "versionRef": "semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733"
+            }
+          ],
+          "newPreviousVersionRef": null
+        },
+        "design": {
+          "groundedRequirementRefs": [
+            "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569"
+          ],
+          "active": [
+            {
+              "requirementRef": "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569",
+              "obligationRef": "obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251",
+              "versionRef": "semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733"
+            }
+          ],
+          "targetRoles": [
+            "implementation",
+            "verifier",
+            "configuration"
+          ],
+          "scope": {
+            "readRoots": [
+              "."
+            ],
+            "writeRoots": [
+              "."
+            ],
+            "parentWriteRoots": [
+              "."
+            ],
+            "evidenceWriteRoots": [
+              "evidence"
+            ],
+            "executableCapabilities": [
+              {
+                "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                "relativeCwdRoots": [
+                  "."
+                ],
+                "environment": {},
+                "maxTimeoutMs": 120000,
+                "maxTerminationGraceMs": 1000
+              }
+            ]
+          },
+          "bounds": {
+            "maxSourceMembers": 20,
+            "maxSourceBytes": 1048576,
+            "maxContextFiles": 50,
+            "maxContextBytes": 1048576,
+            "maxTargets": 20,
+            "maxCommands": 32
+          },
+          "coverageRules": [
+            "every_grounded_requirement_has_active_binding",
+            "each_active_obligation_has_implementation_and_verifier_target",
+            "target_binding_versions_equal_active_versions_selected_by_its_obligations"
+          ],
+          "pathRule": "relative_nontraversing_unique_within_declared_roots",
+          "commandRule": "top_level_and_nested_http_launch_within_exact_capabilities",
+          "executionCapacity": {
+            "selectedLimits": {
+              "inactivityTimeoutMs": 300000,
+              "absoluteTimeoutMs": 900000
+            },
+            "budgetRule": {
+              "aggregation": "sum",
+              "commandFields": [
+                "timeoutMs",
+                "terminationGraceMs",
+                "terminationGraceMs"
+              ],
+              "httpResponseFields": {
+                "launch": [
+                  "timeoutMs",
+                  "terminationGraceMs",
+                  "terminationGraceMs"
+                ],
+                "request": [
+                  "timeoutMs"
+                ]
+              },
+              "perOperationDrain": {
+                "field": "terminationGraceMs",
+                "maximumMs": 250,
+                "operation": "minimum"
+              },
+              "ownerAllowanceMs": 5000,
+              "limitComparison": "required_budget_strictly_less_than_each_limit",
+              "limitOrdering": "absolute_strictly_greater_than_inactivity"
+            },
+            "currentCandidate": null
+          },
+          "dependencyRule": "declared_read_paths_observed_before_construction",
+          "readinessRule": "readiness_is_not_fulfillment"
+        },
+        "contractDigest": "sha256:d874d9a0a200e872a79d0feeb02c6ef111ddbd09f9fc96bb4ffdddb5d0a03d42"
+      },
+      "canonicalContract": "{\"bindingRule\":{\"activation\":\"independent_satisfied_assessment\",\"candidate\":\"same_response_requirement_candidate_ref\",\"existing\":\"incoming_requirement_ref\",\"newPreviousVersionRef\":null,\"previousVersions\":[{\"requirementRef\":\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\",\"versionRef\":\"semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733\"}]},\"capabilities\":[\"worksite_design\"],\"contractDigest\":\"sha256:d874d9a0a200e872a79d0feeb02c6ef111ddbd09f9fc96bb4ffdddb5d0a03d42\",\"criteria\":[\"criterion://generic-job-mechanics.example/source@5\"],\"currentCandidate\":null,\"design\":{\"active\":[{\"obligationRef\":\"obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251\",\"requirementRef\":\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\",\"versionRef\":\"semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733\"}],\"bounds\":{\"maxCommands\":32,\"maxContextBytes\":1048576,\"maxContextFiles\":50,\"maxSourceBytes\":1048576,\"maxSourceMembers\":20,\"maxTargets\":20},\"commandRule\":\"top_level_and_nested_http_launch_within_exact_capabilities\",\"coverageRules\":[\"every_grounded_requirement_has_active_binding\",\"each_active_obligation_has_implementation_and_verifier_target\",\"target_binding_versions_equal_active_versions_selected_by_its_obligations\"],\"dependencyRule\":\"declared_read_paths_observed_before_construction\",\"executionCapacity\":{\"budgetRule\":{\"aggregation\":\"sum\",\"commandFields\":[\"timeoutMs\",\"terminationGraceMs\",\"terminationGraceMs\"],\"httpResponseFields\":{\"launch\":[\"timeoutMs\",\"terminationGraceMs\",\"terminationGraceMs\"],\"request\":[\"timeoutMs\"]},\"limitComparison\":\"required_budget_strictly_less_than_each_limit\",\"limitOrdering\":\"absolute_strictly_greater_than_inactivity\",\"ownerAllowanceMs\":5000,\"perOperationDrain\":{\"field\":\"terminationGraceMs\",\"maximumMs\":250,\"operation\":\"minimum\"}},\"currentCandidate\":null,\"selectedLimits\":{\"absoluteTimeoutMs\":900000,\"inactivityTimeoutMs\":300000}},\"groundedRequirementRefs\":[\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\"],\"pathRule\":\"relative_nontraversing_unique_within_declared_roots\",\"readinessRule\":\"readiness_is_not_fulfillment\",\"scope\":{\"evidenceWriteRoots\":[\"evidence\"],\"executableCapabilities\":[{\"environment\":{},\"executable\":\"/opt/homebrew/Cellar/node/24.7.0/bin/node\",\"maxTerminationGraceMs\":1000,\"maxTimeoutMs\":120000,\"relativeCwdRoots\":[\".\"]}],\"parentWriteRoots\":[\".\"],\"readRoots\":[\".\"],\"writeRoots\":[\".\"]},\"targetRoles\":[\"implementation\",\"verifier\",\"configuration\"]},\"kind\":\"semantic_job_actor_contract\",\"obligationRefs\":[\"obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251\"],\"predecessorStatementRefs\":[\"stage://generic-job-mechanics.example/intent@5/s\",\"stage://generic-job-mechanics.example/product@5/s\",\"stage://generic-job-mechanics.example/requirements@5/s\"],\"quoteRule\":\"exact_unique_original_source_substring\",\"requirementRefs\":[\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\"],\"role\":\"author\",\"schemaVersion\":\"5.0.0\",\"sourceMemberRefs\":[\"member://generic-job-mechanics.example/request@5\"],\"stageRef\":\"stage://generic-job-mechanics.example/design@5\",\"templateRefs\":[\"proof-template://generic-job-mechanics.example/native-check@5\"]}",
+      "canonicalContractSha256": "sha256:efbe3def5eb9985d51b3a46d0bb625a95229d22ad119bc1a21c8289d3729ff2e",
+      "repeat": {
+        "kind": "semantic_job_actor_contract",
+        "schemaVersion": "5.0.0",
+        "stageRef": "stage://generic-job-mechanics.example/design@5",
+        "role": "author",
+        "sourceMemberRefs": [
+          "member://generic-job-mechanics.example/request@5"
+        ],
+        "quoteRule": "exact_unique_original_source_substring",
+        "requirementRefs": [
+          "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569"
+        ],
+        "obligationRefs": [
+          "obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251"
+        ],
+        "predecessorStatementRefs": [
+          "stage://generic-job-mechanics.example/intent@5/s",
+          "stage://generic-job-mechanics.example/product@5/s",
+          "stage://generic-job-mechanics.example/requirements@5/s"
+        ],
+        "currentCandidate": null,
+        "templateRefs": [
+          "proof-template://generic-job-mechanics.example/native-check@5"
+        ],
+        "criteria": [
+          "criterion://generic-job-mechanics.example/source@5"
+        ],
+        "capabilities": [
+          "worksite_design"
+        ],
+        "bindingRule": {
+          "candidate": "same_response_requirement_candidate_ref",
+          "existing": "incoming_requirement_ref",
+          "activation": "independent_satisfied_assessment",
+          "previousVersions": [
+            {
+              "requirementRef": "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569",
+              "versionRef": "semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733"
+            }
+          ],
+          "newPreviousVersionRef": null
+        },
+        "design": {
+          "groundedRequirementRefs": [
+            "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569"
+          ],
+          "active": [
+            {
+              "requirementRef": "requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569",
+              "obligationRef": "obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251",
+              "versionRef": "semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733"
+            }
+          ],
+          "targetRoles": [
+            "implementation",
+            "verifier",
+            "configuration"
+          ],
+          "scope": {
+            "readRoots": [
+              "."
+            ],
+            "writeRoots": [
+              "."
+            ],
+            "parentWriteRoots": [
+              "."
+            ],
+            "evidenceWriteRoots": [
+              "evidence"
+            ],
+            "executableCapabilities": [
+              {
+                "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+                "relativeCwdRoots": [
+                  "."
+                ],
+                "environment": {},
+                "maxTimeoutMs": 120000,
+                "maxTerminationGraceMs": 1000
+              }
+            ]
+          },
+          "bounds": {
+            "maxSourceMembers": 20,
+            "maxSourceBytes": 1048576,
+            "maxContextFiles": 50,
+            "maxContextBytes": 1048576,
+            "maxTargets": 20,
+            "maxCommands": 32
+          },
+          "coverageRules": [
+            "every_grounded_requirement_has_active_binding",
+            "each_active_obligation_has_implementation_and_verifier_target",
+            "target_binding_versions_equal_active_versions_selected_by_its_obligations"
+          ],
+          "pathRule": "relative_nontraversing_unique_within_declared_roots",
+          "commandRule": "top_level_and_nested_http_launch_within_exact_capabilities",
+          "executionCapacity": {
+            "selectedLimits": {
+              "inactivityTimeoutMs": 300000,
+              "absoluteTimeoutMs": 900000
+            },
+            "budgetRule": {
+              "aggregation": "sum",
+              "commandFields": [
+                "timeoutMs",
+                "terminationGraceMs",
+                "terminationGraceMs"
+              ],
+              "httpResponseFields": {
+                "launch": [
+                  "timeoutMs",
+                  "terminationGraceMs",
+                  "terminationGraceMs"
+                ],
+                "request": [
+                  "timeoutMs"
+                ]
+              },
+              "perOperationDrain": {
+                "field": "terminationGraceMs",
+                "maximumMs": 250,
+                "operation": "minimum"
+              },
+              "ownerAllowanceMs": 5000,
+              "limitComparison": "required_budget_strictly_less_than_each_limit",
+              "limitOrdering": "absolute_strictly_greater_than_inactivity"
+            },
+            "currentCandidate": null
+          },
+          "dependencyRule": "declared_read_paths_observed_before_construction",
+          "readinessRule": "readiness_is_not_fulfillment"
+        },
+        "contractDigest": "sha256:d874d9a0a200e872a79d0feeb02c6ef111ddbd09f9fc96bb4ffdddb5d0a03d42"
+      },
+      "repeatCanonicalContract": "{\"bindingRule\":{\"activation\":\"independent_satisfied_assessment\",\"candidate\":\"same_response_requirement_candidate_ref\",\"existing\":\"incoming_requirement_ref\",\"newPreviousVersionRef\":null,\"previousVersions\":[{\"requirementRef\":\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\",\"versionRef\":\"semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733\"}]},\"capabilities\":[\"worksite_design\"],\"contractDigest\":\"sha256:d874d9a0a200e872a79d0feeb02c6ef111ddbd09f9fc96bb4ffdddb5d0a03d42\",\"criteria\":[\"criterion://generic-job-mechanics.example/source@5\"],\"currentCandidate\":null,\"design\":{\"active\":[{\"obligationRef\":\"obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251\",\"requirementRef\":\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\",\"versionRef\":\"semantic-job-binding://abiogenesis/37ab91efc2b92629cc74b6f7e81dc1a59c519a12e2375e0bf1d042b9dfd19733\"}],\"bounds\":{\"maxCommands\":32,\"maxContextBytes\":1048576,\"maxContextFiles\":50,\"maxSourceBytes\":1048576,\"maxSourceMembers\":20,\"maxTargets\":20},\"commandRule\":\"top_level_and_nested_http_launch_within_exact_capabilities\",\"coverageRules\":[\"every_grounded_requirement_has_active_binding\",\"each_active_obligation_has_implementation_and_verifier_target\",\"target_binding_versions_equal_active_versions_selected_by_its_obligations\"],\"dependencyRule\":\"declared_read_paths_observed_before_construction\",\"executionCapacity\":{\"budgetRule\":{\"aggregation\":\"sum\",\"commandFields\":[\"timeoutMs\",\"terminationGraceMs\",\"terminationGraceMs\"],\"httpResponseFields\":{\"launch\":[\"timeoutMs\",\"terminationGraceMs\",\"terminationGraceMs\"],\"request\":[\"timeoutMs\"]},\"limitComparison\":\"required_budget_strictly_less_than_each_limit\",\"limitOrdering\":\"absolute_strictly_greater_than_inactivity\",\"ownerAllowanceMs\":5000,\"perOperationDrain\":{\"field\":\"terminationGraceMs\",\"maximumMs\":250,\"operation\":\"minimum\"}},\"currentCandidate\":null,\"selectedLimits\":{\"absoluteTimeoutMs\":900000,\"inactivityTimeoutMs\":300000}},\"groundedRequirementRefs\":[\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\"],\"pathRule\":\"relative_nontraversing_unique_within_declared_roots\",\"readinessRule\":\"readiness_is_not_fulfillment\",\"scope\":{\"evidenceWriteRoots\":[\"evidence\"],\"executableCapabilities\":[{\"environment\":{},\"executable\":\"/opt/homebrew/Cellar/node/24.7.0/bin/node\",\"maxTerminationGraceMs\":1000,\"maxTimeoutMs\":120000,\"relativeCwdRoots\":[\".\"]}],\"parentWriteRoots\":[\".\"],\"readRoots\":[\".\"],\"writeRoots\":[\".\"]},\"targetRoles\":[\"implementation\",\"verifier\",\"configuration\"]},\"kind\":\"semantic_job_actor_contract\",\"obligationRefs\":[\"obligation://abiogenesis/semantic-job/2872487c22f6c107f848072aa0578d30024359665bd3d0bf35b7605758702251\"],\"predecessorStatementRefs\":[\"stage://generic-job-mechanics.example/intent@5/s\",\"stage://generic-job-mechanics.example/product@5/s\",\"stage://generic-job-mechanics.example/requirements@5/s\"],\"quoteRule\":\"exact_unique_original_source_substring\",\"requirementRefs\":[\"requirement://abiogenesis/semantic-job/618d5cae2fc5a43c24e1588e33c9677725b4c7ad5eec951e03063ba7bb518569\"],\"role\":\"author\",\"schemaVersion\":\"5.0.0\",\"sourceMemberRefs\":[\"member://generic-job-mechanics.example/request@5\"],\"stageRef\":\"stage://generic-job-mechanics.example/design@5\",\"templateRefs\":[\"proof-template://generic-job-mechanics.example/native-check@5\"]}",
+      "retainedExplicit": null,
+      "retainedLimitLookup": null,
+      "selectedDesign": null,
+      "actualBudget": {
+        "rule": {
+          "aggregation": "sum",
+          "commandFields": [
+            "timeoutMs",
+            "terminationGraceMs",
+            "terminationGraceMs"
+          ],
+          "httpResponseFields": {
+            "launch": [
+              "timeoutMs",
+              "terminationGraceMs",
+              "terminationGraceMs"
+            ],
+            "request": [
+              "timeoutMs"
+            ]
+          },
+          "perOperationDrain": {
+            "field": "terminationGraceMs",
+            "maximumMs": 250,
+            "operation": "minimum"
+          },
+          "ownerAllowanceMs": 5000,
+          "limitComparison": "required_budget_strictly_less_than_each_limit",
+          "limitOrdering": "absolute_strictly_greater_than_inactivity"
+        },
+        "commandBudgetMs": 0,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 5000
+      }
+    }
+  },
+  "differences": [
+    {
+      "path": "$.contractDigest",
+      "baseline": "sha256:ba3c0d43c77f6f7134564a5a08df0ec21984e8db5b58de800bc3d3b30eb37d79",
+      "successor": "sha256:d874d9a0a200e872a79d0feeb02c6ef111ddbd09f9fc96bb4ffdddb5d0a03d42"
+    },
+    {
+      "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+      "baselineAbsent": true,
+      "successor": "terminationGraceMs"
+    },
+    {
+      "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+      "baselineAbsent": true,
+      "successor": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "exitCode": 0,
+  "elapsedSeconds": 0.11581283318810165,
+  "completedAt": "2026-10-21T06:10:46.227998+00:00",
+  "requestSha256": "fbfe545646bd303cc94c983d66f1f712a5eb65addafbc8f9d77edf061d92fe87",
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/commands/binding.stdout",
+    "sha256": "74d1b18ae4cff89f95bbceff26e19c210581ba825f6c5ac17dff2d87b01d3470",
+    "bytes": 331
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/commands/binding.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "retryCount": 0
+}

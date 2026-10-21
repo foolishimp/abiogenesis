@@ -1,0 +1,43 @@
+{
+  "status": "stopped_at_first_verification_failure",
+  "activation": "REVIEW-CHECKPOINT-PORTABILITY-03-SUCCESSOR-02",
+  "firstFailure": "verify-transport.py:142 inherited archive_object-only package assertion",
+  "observation": "New exact package routes are repository_file, not missing or changed payload",
+  "actualPackageTransports": [
+    {
+      "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+      "bytes": 10681844,
+      "transport": {
+        "kind": "repository_file",
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/npm-cache/_cacache/content-v2/sha512/c3/51/4729f94c2bfdd6cf4f4640252fc788edaf2511a5dddfd4e3df2fb6dc0a489e66a77e07d4c5938c0170df13d9fddac1ed006a7f72acb90dc22be734c8b698"
+      }
+    },
+    {
+      "sha256": "fadd07e06799be957087419527c683ce18650ecf0abfe669c0f28e034d84aef6",
+      "bytes": 10681875,
+      "transport": {
+        "kind": "repository_file",
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/npm-cache/_cacache/content-v2/sha512/14/3a/efd7d9ce56004d20718d68ea92f3301cb975ac9a8b66a59bea6105c97ad1457bfd79000cc27522c53181a63df945e36520154d3375ecf45f8e883e75eba4"
+      }
+    }
+  ],
+  "populationStatus": "satisfied",
+  "packagingStatus": "satisfied",
+  "archives": 20,
+  "compressedBytes": 120156719,
+  "payloadBytes": 1007934270,
+  "verificationReceipt": {
+    "exitCode": 1,
+    "wallSeconds": 28.07608783314936,
+    "pid": 27315,
+    "outerTimeoutReached": false,
+    "stdout": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/verification.stdout",
+    "stderr": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/verification.stderr"
+  },
+  "noClaim": "Full population/native coverage and portable-carrier closure not reached",
+  "ProductExecutions": 0,
+  "GitEffects": 0,
+  "sourceWrites": 0,
+  "cleanup": 0,
+  "next": "Return Root; no repair or retry under current grant"
+}

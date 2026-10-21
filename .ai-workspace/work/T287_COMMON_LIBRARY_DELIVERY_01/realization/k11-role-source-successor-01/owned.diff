@@ -1,0 +1,99 @@
+--- before/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts
+@@ -220,10 +220,13 @@
+   const d = constructRunEnvironmentDeclaration(value), a = d.corpusAccess;
+   const sources = d.dependencies.filter(x =>
+     /^stdo:\/\/releases\/[^/]+\/$/u.test(x.basisRef) && x.recordFormat === "stdo_source_manifest@1");
+-  if (sources.length === 0 || (a !== null && (
++  if (sources.length === 0 || d.roles.some(r => !r.sourceBindings.some(b => {
++    const context = d.contexts.find(c => c.contextRef === b.contextRef);
++    return sources.some(source => source.basisRef === context?.sourceLocator);
++  })) || (a !== null && (
+     !sources.some(x => x.dependencyRef === a.sourceDependencyRef) ||
+     ![a.representationDependencyRef, a.axiomDependencyRef].every(ref => d.dependencies.some(x => x.dependencyRef === ref && x.recordFormat === "release_record@1")) ||
+-    d.roles.some(r => r.accessRefs.length === 0)))) throw new TypeError("STDO requires exact source and every explicitly selected corpus dependency and access");
++    d.roles.some(r => r.accessRefs.length === 0)))) throw new TypeError("STDO requires exact source, native source material for every role, and every explicitly selected corpus dependency and access");
+   return d;
+ }
+ export function runEnvironmentForProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>) {
+--- before/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs
++++ after/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs
+@@ -31,6 +31,59 @@
+ });
+ after(async () => { if (root) await rm(root, { recursive: true, force: true }); });
+ 
++function withGenericMaterial(declaration) {
++  const d = structuredClone(declaration), bytes = Buffer.from('Generic role material carries no STDO method text.\n');
++  const member = { path: 'generic-policy.txt', type: 'file', digest: product.sha256Bytes(bytes), target: null };
++  const record = Buffer.from(JSON.stringify({ kind: 'run_environment_member_inventory', schemaVersion: '5.0.0', members: [member] }));
++  const members = product.runEnvironmentRecordMembers('member_inventory@1', record);
++  assert.deepEqual(members, [member]);
++  const contextMember = { memberRef: 'member:k11-generic', path: member.path, byteCount: bytes.length, digest: member.digest };
++  d.dependencies.push({ dependencyRef: 'dependency:k11-generic', basisRef: 'generic://k11-source/', recordRef: 'record:k11-generic',
++    recordDigest: product.sha256Bytes(record), recordFormat: 'member_inventory@1', inventoryDigest: gtl.stdoInventoryDigest(members), members });
++  d.contexts.push({ contextRef: 'context:k11-generic', sourceLocator: 'generic://k11-source/',
++    inventoryDigest: product.sha256Canonical([contextMember]), members: [contextMember] });
++  return { d, genericBinding: { contextRef: 'context:k11-generic', memberRef: contextMember.memberRef,
++    memberDigest: member.digest, startByte: 0, endByte: bytes.length, spanDigest: member.digest } };
++}
++
++function assertEveryRoleBindsNativeSource(declaration) {
++  const { d, genericBinding } = withGenericMaterial(declaration), original = d.roles[0];
++  d.roles = ['author', 'assessor', 'constructor', 'command_executor', 'selector'].map(role => ({
++    ...structuredClone(original), role, programLocusRef: original.programLocusRef + '/' + role,
++    sourceBindings: [structuredClone(genericBinding), ...structuredClone(original.sourceBindings)],
++  }));
++  assert.strictEqual(gtl.constructStdoRunEnvironmentDeclaration(d), d,
++    'every role may retain extra generic material before its explicit native source binding');
++  assert.ok(Object.isFrozen(d));
++  for (let index = 0; index < d.roles.length; index += 1) {
++    const crossed = structuredClone(d);
++    crossed.roles[index].sourceBindings = [structuredClone(genericBinding)];
++    assert.strictEqual(gtl.constructRunEnvironmentDeclaration(crossed), crossed,
++      'generic environment still accepts explicit generic material');
++    assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(crossed), /native source material for every role/,
++      `STDO frame names and other roles cannot supply ${crossed.roles[index].role}'s missing native material`);
++  }
++  const allCrossed = structuredClone(d);
++  for (const role of allCrossed.roles) role.sourceBindings = [structuredClone(genericBinding)];
++  assert.strictEqual(gtl.constructRunEnvironmentDeclaration(allCrossed), allCrossed);
++  assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(allCrossed), /native source material for every role/);
++  const misleadingUri = structuredClone(allCrossed);
++  misleadingUri.dependencies.at(-1).basisRef = misleadingUri.contexts.at(-1).sourceLocator = 'stdo://releases/generic-inventory/';
++  assert.strictEqual(gtl.constructRunEnvironmentDeclaration(misleadingUri), misleadingUri);
++  assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(misleadingUri), /native source material for every role/,
++    'an STDO-shaped URI with a generic inventory format does not supply native source material');
++  const secondSource = structuredClone(d), source = structuredClone(d.dependencies[0]), context = structuredClone(d.contexts[0]);
++  source.dependencyRef = 'dependency:k11-second-stdo'; source.basisRef = 'stdo://releases/another-explicit-cut/';
++  source.recordRef = source.basisRef + 'manifest.json';
++  context.contextRef = 'context:k11-second-stdo'; context.sourceLocator = source.basisRef;
++  secondSource.dependencies.push(source); secondSource.contexts.push(context);
++  for (const role of secondSource.roles) for (const binding of role.sourceBindings) {
++    if (binding.contextRef === d.contexts[0].contextRef) binding.contextRef = context.contextRef;
++  }
++  assert.strictEqual(gtl.constructStdoRunEnvironmentDeclaration(secondSource), secondSource,
++    'roles may bind a different unique explicit STDO source without positional source selection');
++}
++
+ test('K11 current public specialization admits exact standalone STDO3 and conserves explicit source identity', () => {
+   const d = environment.declaration;
+   assert.strictEqual(gtl.constructStdoRunEnvironmentDeclaration(d), d);
+@@ -63,6 +116,10 @@
+   ]) { const changed = structuredClone(d); mutate(changed); assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(changed), TypeError); }
+ });
+ 
++test('K11 every standalone role binds native STDO material while additional generic material remains explicit', () => {
++  assertEveryRoleBindsNativeSource(environment.declaration);
++});
++
+ test('K11 explicit corpus construction still requires every source, companion and role-access join', () => {
+   // Declaration-only corpus fixture: this test performs no Python/tool access.
+   const d = structuredClone(environment.declaration), digest = product.sha256Canonical('declared companion bytes');
+@@ -79,6 +136,7 @@
+   d.accesses = [{ accessRef: 'access:declared', operation: 'validate', mode: 'validation', frameIndexRefs: [], maxOutputBytes: 1000, timeoutMs: 100 }];
+   d.roles[0].accessRefs = ['access:declared'];
+   assert.strictEqual(gtl.constructStdoRunEnvironmentDeclaration(d), d);
++  assertEveryRoleBindsNativeSource(d);
+   for (const mutate of [
+     x => { x.roles[0].accessRefs = []; },
+     x => { x.corpusAccess.sourceDependencyRef = 'dependency:representation'; },

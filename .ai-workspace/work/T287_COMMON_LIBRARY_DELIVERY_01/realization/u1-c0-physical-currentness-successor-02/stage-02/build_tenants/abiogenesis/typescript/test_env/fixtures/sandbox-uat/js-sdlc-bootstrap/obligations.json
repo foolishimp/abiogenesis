@@ -1,0 +1,124 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-JS-SDLC-BOOTSTRAP",
+  "kind": "sdlc_js_full_node_test",
+  "expectedReturnValue": "Hello, world!",
+  "stageMeanings": [
+    {
+      "stage": "conformance_project",
+      "filesToProduce": [
+        "specification/project-conformance.md"
+      ],
+      "instructions": [
+        "Write only specification/project-conformance.md.",
+        "Declare the project pressure for a JavaScript Hello World software build traversal.",
+        "Name the required downstream lifecycle surfaces: implementation design, source, test design, component test source, UAT test source, test execution plan, and test execution result.",
+        "State that ABG owns startup admission, registry selection, graph-call opening, vector traversal, F_P dispatch, evidence admission, event emission, closure, and convergence.",
+        "Do not write source, tests, package files, or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "implementation_design",
+      "filesToProduce": [
+        "design/implementation-design.md"
+      ],
+      "instructions": [
+        "Write only design/implementation-design.md.",
+        "Use the prior conformance_project artifact as the authority.",
+        "Define a minimal JavaScript module that exports helloWorld() returning exactly \"Hello, world!\".",
+        "Name package.json, src/hello.mjs, design/test-design.md, test/component/hello.test.mjs, test/uat/hello.uat.test.mjs, test-execution-plan.json, and execution result as separate lifecycle surfaces.",
+        "Do not materialize source, tests, package files, or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "source",
+      "filesToProduce": [
+        "package.json",
+        "src/hello.mjs"
+      ],
+      "instructions": [
+        "Write only package.json and src/hello.mjs.",
+        "Use the prior implementation_design artifact as the authority.",
+        "package.json must be private:true and type:module.",
+        "src/hello.mjs must export helloWorld() returning exactly \"Hello, world!\".",
+        "Do not write test source or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "test_design",
+      "filesToProduce": [
+        "design/test-design.md"
+      ],
+      "instructions": [
+        "Write only design/test-design.md.",
+        "Use the prior source artifact summaries as the evidence source.",
+        "Specify both component and UAT validation obligations.",
+        "The component test must import helloWorld and assert the exact return value \"Hello, world!\".",
+        "The UAT test must validate the user-visible greeting contract through the same exported function.",
+        "Do not write test source in this vector."
+      ]
+    },
+    {
+      "stage": "component_test_source",
+      "filesToProduce": [
+        "test/component/hello.test.mjs"
+      ],
+      "instructions": [
+        "Write only test/component/hello.test.mjs.",
+        "Use the prior test_design and source artifact summaries as the evidence source.",
+        "Use node:test and node:assert/strict.",
+        "Import the named export exactly as: import { helloWorld } from \"../../src/hello.mjs\".",
+        "Assert helloWorld() returns exactly \"Hello, world!\"."
+      ]
+    },
+    {
+      "stage": "uat_test_source",
+      "filesToProduce": [
+        "test/uat/hello.uat.test.mjs"
+      ],
+      "instructions": [
+        "Write only test/uat/hello.uat.test.mjs.",
+        "Use the prior component_test_source, test_design, and source artifact summaries as the evidence source.",
+        "Use node:test and node:assert/strict.",
+        "Import the named export exactly as: import { helloWorld } from \"../../src/hello.mjs\".",
+        "Assert the user-visible greeting contract is exactly \"Hello, world!\"."
+      ]
+    },
+    {
+      "stage": "test_execution_plan",
+      "filesToProduce": [
+        "test-execution-plan.json"
+      ],
+      "instructions": [
+        "Write only test-execution-plan.json.",
+        "Use the prior component_test_source and uat_test_source artifact summaries as the evidence source.",
+        "The command must be node with args [\"--test\", \"test/component/hello.test.mjs\", \"test/uat/hello.uat.test.mjs\"].",
+        "expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.",
+        "expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.",
+        "assertedReturnValue must be \"Hello, world!\".",
+        "Do not execute the test in this vector."
+      ]
+    },
+    {
+      "stage": "test_execution_result",
+      "instructions": [
+        "Produce no files.",
+        "Judge the observed executionStatus, planSatisfied flag, observedTestPassCount, and stdout digest against the prior test_execution_plan.",
+        "Accept only if both component and UAT tests passed, planSatisfied is true, and observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount.",
+        "Do not reject solely because node:test uses a different TAP prefix glyph when the F_D pass-count check is satisfied."
+      ]
+    }
+  ],
+  "requirements": [],
+  "requirementSpanStageMeanings": [],
+  "requiredDepthClassRefs": [],
+  "sourcePin": {
+    "repository": "odd_glc",
+    "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+    "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+    "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+    "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+    "startByte": 15571,
+    "endByte": 21691,
+    "selectedDigest": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4"
+  }
+}

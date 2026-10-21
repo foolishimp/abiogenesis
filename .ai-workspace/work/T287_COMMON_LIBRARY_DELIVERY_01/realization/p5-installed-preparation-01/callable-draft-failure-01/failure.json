@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-21T01:13:51.089467+00:00",
+  "phase": "read-only callable source preflight before executable checks",
+  "cause": "New diagnostic assertion used Product index export projectWorksiteCommandExecutionBudget; Product index does not export it. Dedicated product/worksite_command_execution module owns/exports it, as existing selected budget test demonstrates.",
+  "disposition": "returned to Executive before correction or checks",
+  "effects": "Only granted two source drafts and new record root; no fixture/installed/Public/actor/process execution",
+  "smallestReentry": "same test-only explicit installed dedicated Product module import; no producer/export/expectation changes",
+  "files": [
+    {
+      "source": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "copy": "t287-worksite-command-execution.test.mjs",
+      "bytes": 53781,
+      "sha256": "23ae07792d6d575a302616d0d62d450800665cd7c9dc5a56946f43e442b22946"
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "copy": "fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "copy": "index.ts",
+      "bytes": 25105,
+      "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23"
+    }
+  ]
+}

@@ -1,0 +1,289 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-RUST-CLI",
+  "taskRef": "task://abiogenesis-sandbox-uat/rust-cli/original",
+  "task": "Implement the COMPLETE unchanged selected original test workload below. It is ABG-owned test data outside the Product package. Preserve all original outcomes and unresolved source obligations. Use only the installed generic lifecycle. The adaptation notes govern interpretation of legacy mechanisms, not weakening of original application outcomes.\n\n  sdlcComplianceScenario({\n    key: \"rust-cli\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-RUST-CLI\",\n    kind: \"rust_cli\",\n    expectedStdout: \"Hello, world!\\n\",\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare a Rust CLI Hello World software-build traversal.\",\n          \"The source surface must include Cargo.toml and src/main.rs.\",\n          \"The execution proof must run cargo run --quiet and observe stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Define a minimal Rust binary crate named glc_hello_world_rust.\",\n          \"The binary must print exactly \\\"Hello, world!\\\" followed by one newline.\",\n          \"Name component and UAT test source surfaces that execute cargo run --quiet and assert stdout.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"Cargo.toml\", \"src/main.rs\"],\n        instructions: [\n          \"Write only Cargo.toml and src/main.rs.\",\n          \"Cargo.toml must define package name glc_hello_world_rust, version 0.0.0, edition 2021, and no dependencies.\",\n          \"src/main.rs must define main() and print exactly \\\"Hello, world!\\\" followed by one newline.\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Specify component and UAT validation of the Rust CLI stdout contract.\",\n          \"Both tests must spawn cargo run --quiet from the project root and assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/rust-cli.test.mjs\"],\n        instructions: [\n          \"Write only test/component/rust-cli.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run cargo with [\\\"run\\\", \\\"--quiet\\\"] from the project root.\",\n          \"Assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/rust-cli.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/rust-cli.uat.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run cargo with [\\\"run\\\", \\\"--quiet\\\"] from the project root.\",\n          \"Assert the user-visible Rust CLI output is exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        filesToProduce: [\"test-execution-plan.json\"],\n        instructions: [\n          \"Write only test-execution-plan.json.\",\n          \"The JSON command must be node.\",\n          \"The args must be [\\\"--test\\\", \\\"test/component/rust-cli.test.mjs\\\", \\\"test/uat/rust-cli.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Accept only if the planned node:test command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\"\n        ]\n      }\n    ]\n  }),\n\nINTERPRETATION\n{\n  \"runtimeAuthority\": \"Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.\",\n  \"executionEvidence\": \"Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.\",\n  \"sourcePreservation\": \"Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.\",\n  \"legacyTraversal\": \"The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.\"\n}",
+  "sourceMembers": [
+    {
+      "path": "source/rust-cli/source.original.txt",
+      "fixtureFile": "rust-cli/source.original.txt",
+      "digest": "sha256:d6f2ffff4e3ae4889be374367208a575664eb9b094c442d7ca303ebaa9ad6a81"
+    },
+    {
+      "path": "source/rust-cli/obligations.json",
+      "fixtureFile": "rust-cli/obligations.json",
+      "digest": "sha256:a741af9e5fe435b761be1cb081e559e82b35ceb3ea3d38039749ccdcdd98421a"
+    },
+    {
+      "path": "source/rust-cli/oracle.json",
+      "fixtureFile": "rust-cli/oracle.json",
+      "digest": "sha256:fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e"
+    }
+  ],
+  "requiredSupportRefs": [
+    "support://abiogenesis-sandbox-uat/rust-cli/complete-original-outcome"
+  ],
+  "authorityRefs": [
+    "authority://abiogenesis-sandbox-uat/rust-cli/test-workload"
+  ],
+  "readRoots": [
+    "source/rust-cli/source.original.txt",
+    "source/rust-cli/obligations.json",
+    "source/rust-cli/oracle.json",
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "Cargo.toml",
+    "src/main.rs",
+    "design/test-design.md",
+    "test/component/rust-cli.test.mjs",
+    "test/uat/rust-cli.uat.test.mjs",
+    "test-execution-plan.json"
+  ],
+  "maxContextFiles": 256,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "workOrders": {
+    "induction": {
+      "outcome": "Establish and preserve the complete original outcome, source obligations and unresolved meaning.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the dependency-free Rust 2021 package glc_hello_world_rust version 0.0.0. Component and UAT tests must each actually execute cargo run --quiet, asserting status 0 and exact stdout; conserve all original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-cli/source.original.txt",
+        "source/rust-cli/obligations.json",
+        "source/rust-cli/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "Cargo.toml",
+        "src/main.rs",
+        "design/test-design.md",
+        "test/component/rust-cli.test.mjs",
+        "test/uat/rust-cli.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "specification": {
+      "outcome": "Author every source-grounded governing, requirement, UAT and qualification surface required by the original source.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the dependency-free Rust 2021 package glc_hello_world_rust version 0.0.0. Component and UAT tests must each actually execute cargo run --quiet, asserting status 0 and exact stdout; conserve all original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-cli/source.original.txt",
+        "source/rust-cli/obligations.json",
+        "source/rust-cli/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "Cargo.toml",
+        "src/main.rs",
+        "design/test-design.md",
+        "test/component/rust-cli.test.mjs",
+        "test/uat/rust-cli.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "design": {
+      "outcome": "Author the complete source-grounded design and genuine executable proof plan, retaining all original dependencies.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the dependency-free Rust 2021 package glc_hello_world_rust version 0.0.0. Component and UAT tests must each actually execute cargo run --quiet, asserting status 0 and exact stdout; conserve all original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-cli/source.original.txt",
+        "source/rust-cli/obligations.json",
+        "source/rust-cli/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "Cargo.toml",
+        "src/main.rs",
+        "design/test-design.md",
+        "test/component/rust-cli.test.mjs",
+        "test/uat/rust-cli.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "construction": {
+      "outcome": "Construct the missing original application/test/lifecycle assets and repair observed failures without weakening any obligation.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the dependency-free Rust 2021 package glc_hello_world_rust version 0.0.0. Component and UAT tests must each actually execute cargo run --quiet, asserting status 0 and exact stdout; conserve all original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-cli/source.original.txt",
+        "source/rust-cli/obligations.json",
+        "source/rust-cli/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "Cargo.toml",
+        "src/main.rs",
+        "design/test-design.md",
+        "test/component/rust-cli.test.mjs",
+        "test/uat/rust-cli.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "testing": {
+      "outcome": "Execute the exact original proof commands against the real application. Preserve native observations, failing evidence, authentic depth and mutation evidence where required.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the dependency-free Rust 2021 package glc_hello_world_rust version 0.0.0. Component and UAT tests must each actually execute cargo run --quiet, asserting status 0 and exact stdout; conserve all original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-cli/source.original.txt",
+        "source/rust-cli/obligations.json",
+        "source/rust-cli/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "cargo run --quiet",
+        "node --test test/component/rust-cli.test.mjs test/uat/rust-cli.uat.test.mjs"
+      ]
+    },
+    "uat": {
+      "outcome": "Independently assess the full original source against every oracle obligation and actual admitted execution evidence. Preserve unmet and indeterminate outcomes.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the dependency-free Rust 2021 package glc_hello_world_rust version 0.0.0. Component and UAT tests must each actually execute cargo run --quiet, asserting status 0 and exact stdout; conserve all original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-cli/source.original.txt",
+        "source/rust-cli/obligations.json",
+        "source/rust-cli/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "Preserve the dependency-free Rust 2021 package glc_hello_world_rust version 0.0.0. Component and UAT tests must each actually execute cargo run --quiet, asserting status 0 and exact stdout; conserve all original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ]
+    }
+  },
+  "testing": {
+    "selectedPaths": [
+      "specification/project-conformance.md",
+      "design/implementation-design.md",
+      "Cargo.toml",
+      "src/main.rs",
+      "design/test-design.md",
+      "test/component/rust-cli.test.mjs",
+      "test/uat/rust-cli.uat.test.mjs",
+      "test-execution-plan.json",
+      "source/rust-cli/source.original.txt",
+      "source/rust-cli/obligations.json",
+      "source/rust-cli/oracle.json"
+    ],
+    "commands": [
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/rust-cli/cli",
+        "executable": "cargo",
+        "args": [
+          "run",
+          "--quiet"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 180000,
+        "terminationGraceMs": 10000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/rust-cli/tests",
+        "executable": "node",
+        "args": [
+          "--test",
+          "test/component/rust-cli.test.mjs",
+          "test/uat/rust-cli.uat.test.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 300000,
+        "terminationGraceMs": 10000,
+        "expectedReports": []
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/rust-cli/cli-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/rust-cli/cli",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/rust-cli/tests-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/rust-cli/tests",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/rust-cli/test-count",
+        "predicateKind": "test_pass_count",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/rust-cli/tests",
+          "greaterThanOrEqual": 2
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/rust-cli/stdout",
+        "predicateKind": "stdout_exact",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/rust-cli/cli",
+          "equals": "Hello, world!\n"
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "pathKind": "file",
+        "relativePath": "Cargo.lock"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "target"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "execution-evidence"
+      }
+    ]
+  },
+  "assessment": {
+    "sources": [
+      "source/rust-cli/source.original.txt",
+      "source/rust-cli/obligations.json"
+    ],
+    "candidatePath": "src/main.rs",
+    "rubricPath": "source/rust-cli/oracle.json"
+  },
+  "legacyInterpretation": {
+    "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+    "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+    "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+    "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+  }
+}

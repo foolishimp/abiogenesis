@@ -1,0 +1,86 @@
+{
+  "status": "bound_for_root_verification_NOT_GRANTED",
+  "activation": "HOG-FINAL06-BINDING-01",
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/configuration.NOT_GRANTED.json",
+    "sha256": "14fb2113791748d14da814abf40322290c1d10d4ea0c7064325675bdcf498883",
+    "bytes": 8343,
+    "mode": "0o644"
+  },
+  "effectGrantDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/effect-grant.NOT_GRANTED.json",
+    "sha256": "ea0b9051ba6e05ba25222b7003984dbd366c1424c5ea439fe2008af05820538e",
+    "bytes": 3641,
+    "mode": "0o644"
+  },
+  "commands": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/commands.NOT_GRANTED.json",
+    "sha256": "8b5c64a16039fc4f2ef4797f41fddd120a5676649ff0f2815af5ab4649927bdd",
+    "bytes": 1553,
+    "mode": "0o644"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs",
+    "sha256": "ac3ce1aa03a9b7b47184a25d9338300be87b5a4a606573a3e364a53a7376c7c7",
+    "bytes": 20862,
+    "mode": "0o644"
+  },
+  "oracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/oracle.mjs",
+    "sha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+    "bytes": 9679,
+    "mode": "0o644"
+  },
+  "inspectedInputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/inspected-inputs.json",
+    "sha256": "5b7daf7af1e7683798e45177edcd0ac0b332cc83072227f123987f8f75baebb8",
+    "bytes": 12709,
+    "mode": "0o644"
+  },
+  "modeRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/installed-mode-relation.json",
+    "sha256": "b276008f8e9dfe996a3a5e1503e02e95f1edbc1660ad17b5efa47f42750ca9ad",
+    "bytes": 2193,
+    "mode": "0o644"
+  },
+  "rawTar": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/raw-tar-inventory.json",
+    "sha256": "404c0be5cc48bbc85e5b80685c01072458c720a513aca5465f543d4f47b475fb",
+    "bytes": 1262495,
+    "mode": "0o644"
+  },
+  "installedExpected": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/installed-expected-inventory.json",
+    "sha256": "8adea12fa0fa9ade763993d339a3ca90265014d6ac6db92b6d86c7a020c0a6bc",
+    "bytes": 1227586,
+    "mode": "0o644"
+  },
+  "candidateRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/candidate-record.json",
+    "sha256": "800ff388b7b416267fdc6980221537ae1489277c8672bfd184047f2958fc5155",
+    "bytes": 2287,
+    "mode": "0o644"
+  },
+  "cacheSeed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/npm-cache-seed-inventory.json",
+    "sha256": "453bf5f7779f3515865996709acda6af32e12ded3dd50c58b8d85d9baa44f092",
+    "bytes": 2839,
+    "mode": "0o644",
+    "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p1"
+  },
+  "sourceRows": 1214,
+  "contextRowsRetained": 106,
+  "emittedRows": 940,
+  "dependencyRows": 4576,
+  "supportRows": 17,
+  "protectedMainRows": 936,
+  "inspectedPairs": 21,
+  "attributedSupportChanges": 1,
+  "cacheSeedFiles": 8,
+  "cacheSeedBytes": 10690996,
+  "physicalRoot": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9",
+  "physicalRootAbsent": true,
+  "effects": "Binding records only; no cache copy/install/traversal/build/pack/Git/provider or old-cut changes",
+  "resultConsumer": "/root",
+  "next": "Root verifies exact binding and separately authorizes execution; Writer stops."
+}

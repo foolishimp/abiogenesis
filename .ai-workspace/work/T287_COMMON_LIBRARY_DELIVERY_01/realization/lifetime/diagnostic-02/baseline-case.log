@@ -1,0 +1,32 @@
+(node:37647) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native Design command budget retains exact capacity through both roles, readiness and historical correspondence (128.242166ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 436.510667
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-semantic-job.test.mjs:51:1
+✖ native Design command budget retains exact capacity through both roles, readiness and historical correspondence (128.242166ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'failure'
+  - 'success'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs:136:92)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failure',
+    expected: 'success',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

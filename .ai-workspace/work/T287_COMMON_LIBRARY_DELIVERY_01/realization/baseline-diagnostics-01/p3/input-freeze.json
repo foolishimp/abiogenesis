@@ -1,0 +1,170 @@
+{
+  "status": "frozen_before_effects",
+  "activation": "DIAGNOSTIC-EXTERNAL-ARCHIVE-02",
+  "subjectId": "baseline",
+  "lane": "declared-execution",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/HOW.md",
+      "sha256": "11a463145d4d0c387ccdc571f29ff4aa16e0d23873b311e8cce30b30687f27db",
+      "bytes": 1322,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/activation.json",
+      "sha256": "e953608bc9fe4bbabae71bf3982a0607f9760673305007d15796bddae110eed0",
+      "bytes": 2102,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/command.json",
+      "sha256": "8c6d36a6b2a09f23bee934c90eff9de7337c3145c9eaf69a0234a8c05f31e2fb",
+      "bytes": 1373,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/coverage-contract.json",
+      "sha256": "68469863089c4298c360008a355cd40f6ca168f70d29948e28adf7efa8941bc2",
+      "bytes": 8868,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/diagnostic-configuration.json",
+      "sha256": "79752e11e2761f99263f55cee48f06369d734c0a1b4d798ec70076705360f4f1",
+      "bytes": 8811,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/diagnostic-effect-grant.json",
+      "sha256": "d43d853a1e5064c01f552b357002eafc68d85852e5d24457b053229312128b89",
+      "bytes": 3309,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/output-correspondence.json",
+      "sha256": "dec64dcd7f29b3a312e3db9792e40c95468d93e5d8a5f69efa842a8aced35f28",
+      "bytes": 5371,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/preflight-command.json",
+      "sha256": "fd3090d93b4755e7e890b3699d593d0258d0e7ae4e6557eab9cc238185576d86",
+      "bytes": 623,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/preflight-preservation.json",
+      "sha256": "a511814016d8c0c21c384d2b15958f9e053f1f5c24d281b4eb02a78a3a7c93fa",
+      "bytes": 3393,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/preflight-result.json",
+      "sha256": "0787289ef0a86c4c749b0aecafd7e0c8e9462f48b9ffff3e1abf215d5f40e4ac",
+      "bytes": 192,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/preflight.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/preflight.stdout",
+      "sha256": "4869fcf85552d3f5e9503604b704d68262fa02d30c56ed0b7a61582a9bd791af",
+      "bytes": 58,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+      "sha256": "fb6ff2dad6f19f0342b89d63261bf42d7de451bfbdf9e10bb75d5f1e112a6696",
+      "bytes": 5797,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-effect-grant.json",
+      "sha256": "95333f81ec03f5cff85a94cdd84ccbfeeeb8b7e15964bca70d24f91f93e6ee30",
+      "bytes": 5604,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-runner.mjs",
+      "sha256": "1ee5db3e8640b1c2cd5e4acab4249d710f61415c42fa00ca40a12595674792fa",
+      "bytes": 4771,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-preload.mjs",
+      "sha256": "5420045ebd31cb00bb27ab408e623cd141b3a8691d4a2e8b24f058c821c90852",
+      "bytes": 7531,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-probes.mjs",
+      "sha256": "b54dc5c3b1da3016c4113a0edfc9929f433491c095445939c0e98cdd2731da01",
+      "bytes": 6035,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-analyse.mjs",
+      "sha256": "dad5f922ffe6df46bd223774603b24c8c535918d33db1dc66a0254c0af969da0",
+      "bytes": 3317,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/check-coverage-successor.py",
+      "sha256": "9cf73214c58b585fc411b9e6a8ddb1b999248fd7ed84ea5aa3bf73ab160ea6ce",
+      "bytes": 5439,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/retain-diagnostic.py",
+      "sha256": "d0bbeb56020d38f1a7526e1af7808dd7156da55f711dfb2a481e41799669ab4f",
+      "bytes": 3466,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/check-preservation.py",
+      "sha256": "99202b727d154b5a3b0e89b350bcf7fe0dc745e8ea2deb45e95438f86cf17c8e",
+      "bytes": 2833,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/freeze.json",
+      "sha256": "0270d388acf82cc8555edb6e38e148686288e949931498b87300ed2fe162560c",
+      "bytes": 5513,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/freeze.json",
+      "sha256": "f0643a3c7916acf534d7f90115d4019a29604a5539db472443ce162b57b68cb2",
+      "bytes": 48203,
+      "mode": "0o644"
+    }
+  ],
+  "preconditions": {
+    "allRootsInitiallyAbsent": [
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/diagnostic",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p3",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/host",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent",
+      "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/worksite"
+    ],
+    "explicitEmptyCache": true,
+    "runtimeClosure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/archive-closure.json",
+      "sha256": "500076db05114a43578f76410e3546b0bddd5a59360a52ed161a835016b1e2b6",
+      "bytes": 6972,
+      "mode": "0o644"
+    },
+    "sourceAndOldPrefixesPreserved": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/preflight-preservation.json",
+      "sha256": "a511814016d8c0c21c384d2b15958f9e053f1f5c24d281b4eb02a78a3a7c93fa",
+      "bytes": 3393,
+      "mode": "0o644"
+    }
+  },
+  "sequence": "One P3 diagnostic, then actual producer archive binding, frozen analyser, separate narrowed coverage and preservation. First failure stops; no retry or cleanup."
+}

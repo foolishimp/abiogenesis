@@ -1,0 +1,33 @@
+{
+  "label": "codec14",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/04-codec14/tmp/",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/cache",
+    "npm_config_logs_dir": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/host"
+  },
+  "timeoutMs": 600000,
+  "commandFreezeSha256": "90b350e6a83cae2f6ec1e9fa1436689f959a296e25e79d04108e3c26eb6e2016",
+  "runnerSha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+  "startedUnix": 1792568659.581079
+}

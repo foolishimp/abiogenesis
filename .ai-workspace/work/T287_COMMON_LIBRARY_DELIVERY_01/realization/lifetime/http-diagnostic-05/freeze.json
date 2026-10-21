@@ -1,0 +1,40 @@
+{
+  "kind": "bounded-original-response-diagnostic",
+  "files": [
+    {
+      "path": "activation.md",
+      "sha256": "9da940100adf62bdabfc7d9e7f9183f6f6ff5dea99ba3f8378114cc42f1034f5",
+      "bytes": 892
+    },
+    {
+      "path": "basis.json",
+      "sha256": "27e9b8a5e40a48fc86724514af4d4d4e7111bdd0b0659db616f823ebdc346e62",
+      "bytes": 671
+    },
+    {
+      "path": "case.json",
+      "sha256": "aa69706c81faf27dcb10122e8840d08f7dde42fbcd68b9f973a5ee5c45a04e22",
+      "bytes": 518
+    },
+    {
+      "path": "case.tap",
+      "sha256": "e341a7ebbaf1ad5e06ce68ee447798a0238ac83df540747f9cff200b3f7b096e",
+      "bytes": 2823
+    },
+    {
+      "path": "cleanup.json",
+      "sha256": "b759966db1f8dd9a1ae6e75e8a7c44200d928f2bc429067e9c538f94c90c7ba4",
+      "bytes": 371
+    },
+    {
+      "path": "result.md",
+      "sha256": "60edc8273d1cae1b170e3474cdb99612d347fd1f2c7bc19cb4fd9e4163f7e790",
+      "bytes": 2094
+    },
+    {
+      "path": "current/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "sha256": "ea42536d56aac7d8c2b4073354804d9f002afe8f6fc400fbe6d3fd4b0ef7199e",
+      "bytes": 28731
+    }
+  ]
+}

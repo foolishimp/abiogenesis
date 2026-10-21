@@ -1,0 +1,44 @@
+{
+  "endpointConfiguration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/configuration.json",
+    "sha256": "3a91cd7e8cfd582d75bb2b364be0a55a3e7abaf17688c984e78be0ffa09e3374",
+    "bytes": 5143,
+    "mode": "0o644"
+  },
+  "endpointGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/effect-grant.json",
+    "sha256": "855b51f73e310719b23a9e3019fee4e70175769019962259d28836ce729743a0",
+    "bytes": 2145,
+    "mode": "0o644"
+  },
+  "endpointResult": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/result.json",
+    "sha256": "231d13b475ac77dd4c1468500aa73a2639233822e7252014105d84ae6acf74fc",
+    "bytes": 1759,
+    "mode": "0o644"
+  },
+  "wrapperResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/result.json",
+    "sha256": "58a50d9cc6aab7f15fa65376d9c01f557daaafe66801fd26aa6fd8168877dbd4",
+    "bytes": 7060,
+    "mode": "0o644"
+  },
+  "measurement": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/measurements.json",
+    "sha256": "04816e742e54c64ea935b50ca5d45f658d13c79d098d4d6fcc018997aff31862",
+    "bytes": 16320,
+    "mode": "0o644"
+  },
+  "rawTime": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/stderr-time.txt",
+    "sha256": "5fbdc03970581b0f2ed68421f4e73e63461712110947a17eb166aa43aa9542f5",
+    "bytes": 777,
+    "mode": "0o644"
+  },
+  "ownerState": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/p1-owner-state.json",
+    "sha256": "506cc1088d44acd3fd981d6518d85b3f94760a379889ddeebe1c8b2b3004ccf1",
+    "bytes": 41971061,
+    "mode": "0o644"
+  }
+}

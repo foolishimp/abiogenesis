@@ -1,0 +1,9 @@
+# Attribution and distinct subject
+
+`c0-f5-public-assessment.md` copies this Writer's earlier public C0-F5 source-feasibility assessment verbatim from the conversation. It is the public assessment, not hidden reasoning and not an invented runtime receipt. The source is the parent-delivered conversation; no original local raw-transcript hash is claimed. The companion's new file hash identifies this retained copy only.
+
+Author: `/root/stdo3_k11_successor_writer`, separately activated read-only assessor for C0-F5 proof admissibility. Independence limit: the assessor packaged final02 but did not author C0; this was independent of C0 authoring, not independent whole-final02 assurance. Distinct frame: F-WORKSITE-CAUSALITY plus Proof. Exact HOW subject: `../c0-unadmitted-effect-how-01/freeze.json` SHA `63ffbc96fef785a6a2e032e168f55827863329eb9fe5e351269bd9cace1ac7c7`; HOW `2e2aafcb4db0423eb079a552dca218e09a7592ee2f970296631e9abfb3fa6df8`; prospective proof `eb7c1f1038cf46a5841290ea18d344410d36057031bea863c0dbbad9e2e84b26`. Its inspection used closed final02 preimages; the moving implementation was not a frozen proof subject.
+
+The reported 38-pin verification belongs to that earlier assessment, not a new execution or a fresh 38-pin claim in this carrier. The assessment concludes source feasibility conditionally: supplied Product semantic handoff coordinates remain raw input premises; genuine invocation/basis admission creates an admitted-input origin, not semantic authorship, performed handoff or F_P dispatch. No generic substituted basis is credited.
+
+Temporal note, attributed to Root: after that assessment, Executive selected the ordinary semantic input-admission route as a lawful refinement of HOW row 5, with no generic semantic basis or F_P dispatch. This note records selection only. It asserts no later execution outcome, C0 acceptance or current candidate identity.

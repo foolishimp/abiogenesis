@@ -1,0 +1,62 @@
+{
+  "reusedPreservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/preservation-after.json",
+    "sha256": "0716c78e942ddfffc2518fda459dc4241912988623b84212a2cd40703bab73fb",
+    "bytes": 3927
+  },
+  "predecessorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/freeze.json",
+    "sha256": "04c6e9dbdf22eb68ec3024240c7e7e64b951b9fa85f2aa849080e2f0fc09bd89",
+    "bytes": 11784
+  },
+  "stageInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage-post-generation-inventory.json",
+    "sha256": "eb41de1242486d6bcfe5cec7b902bd25092cc91ddda6dfe513448c6dbbd83d37",
+    "bytes": 1784333
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+    "sha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+    "bytes": 1994729
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844
+  },
+  "currentSelectedTestPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+      "sha256": "524c4e603099fd0532acfa99cd1059beeb8228d9fc2591c2bc87e8158958d68e",
+      "bytes": 53677
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384",
+      "bytes": 86994
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "sha256": "011e3fbae5975cd8ffcfd79182e55a5830019a66e2b1aa406bbcca4ff9ba4279",
+      "bytes": 11243
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "sha256": "eea1089a08001120f8d71d5ad0c487d1914473c2404893d0c9448f8833a929b6",
+      "bytes": 42210
+    }
+  ],
+  "currentMainSupport": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+    "sha256": "0dcec2afd65c3d525a87057892d8a65a9a91df2ffc5be5e5ec42601a7fabbfaf",
+    "bytes": 4966
+  },
+  "currentMainTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "sha256": "2f47abc4d95073f9f4528e01db3a0e90a7f543e10cc331f7ecc3a4e114ac3e69",
+    "bytes": 65127
+  },
+  "fullScansRepeated": 0,
+  "sourceBuildPackageEffects": false,
+  "scope": "Reuse closed07/06/05 complete preservation chain; verify selected current inputs and immutable archive/tool/adapter. No new full-stage/main936/bootstrap scan or mutation."
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/run.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis",
+    "sha256": "ac3ce1aa03a9b7b47184a25d9338300be87b5a4a606573a3e364a53a7376c7c7",
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "scope": "Node syntax only; no imports or Product workload"
+  },
+  {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/oracle.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis",
+    "sha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "scope": "Node syntax only; no imports or Product workload"
+  }
+]

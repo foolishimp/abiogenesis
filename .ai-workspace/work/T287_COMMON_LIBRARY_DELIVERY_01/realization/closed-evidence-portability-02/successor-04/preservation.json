@@ -1,0 +1,37 @@
+{
+  "status": "satisfied",
+  "predecessor03": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/stopped-freeze.json",
+    "sha256": "c89bd914df332cc466662b94229cdb4032825bfcca7a78557a30b25b42840647",
+    "bytes": 2069,
+    "mode": "0o644"
+  },
+  "predecessor02": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/stopped-freeze.json",
+    "sha256": "d06a7a2890b1abd0cb90fa19770a909ac5f7c8a764db031ba7c54a74280aa5df",
+    "bytes": 1067,
+    "mode": "0o644"
+  },
+  "priorCarrier": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-01/freeze.json",
+    "sha256": "cc2fa82adf85c24d8f6c09fa419053985cdf28243e62af8d9c2424c635c43977",
+    "bytes": 4157,
+    "mode": "0o644"
+  },
+  "all50PredecessorRecordsUnchanged": true,
+  "all15OriginalStopRecordsUnchanged": true,
+  "allPriorCarrierRecordsUnchanged": true,
+  "requiredRepositoryDependenciesChecked": 1750,
+  "originalSourceCoordinatesReacquired": false,
+  "priorProtectedMain936Evidence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/stop-preservation.json",
+    "sha256": "bfbc54df184d5e2f3dc6fc70f1747dddca483843a1ce82fad4642a2cb9248121",
+    "bytes": 3304,
+    "mode": "0o644"
+  },
+  "mainScope": "The fresh main936 preservation check belongs to immutable successor03. Successor04 is repository/archive-only and writes only this new output root.",
+  "newArchiveWrites": 0,
+  "ProductExecutions": 0,
+  "GitEffects": 0,
+  "mismatches": 0
+}

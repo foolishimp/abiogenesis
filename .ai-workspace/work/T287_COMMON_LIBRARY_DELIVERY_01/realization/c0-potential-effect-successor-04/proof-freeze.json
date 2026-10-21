@@ -1,0 +1,92 @@
+{
+  "activation": "C0-HOST-BIN-MODE-04",
+  "records": [
+    {
+      "path": "HOW-binding.md",
+      "sha256": "93cb6a669c739905514feaf6bd23a5c03f04fbcf985cf7a2d4a8d2b1cded8d85",
+      "bytes": 2565
+    },
+    {
+      "path": "activation.json",
+      "sha256": "f8166768d68bf78e2135da1d93a4032633fe017b91a096c5c8dff48c26383003",
+      "bytes": 1119
+    },
+    {
+      "path": "command-environment.json",
+      "sha256": "ca19c6dc3aa0079e3a0862e4a3e1ea19b4882752660c03e64a72023ec61f22a8",
+      "bytes": 854
+    },
+    {
+      "path": "mode-relation-pins.json",
+      "sha256": "2732f3625bab129b166b3cf0d3b149f388d6025ed09dff1cb8edcec8eb23035a",
+      "bytes": 1803
+    },
+    {
+      "path": "preservation-before.json",
+      "sha256": "c032b3d6d3c01bc0d6a127a7d25742120841298499120c6536b6a68071e3a1d2",
+      "bytes": 825
+    },
+    {
+      "path": "proof-commands-config.json",
+      "sha256": "c92708421558e1d91cecaec0d7b5f79f96b6b4882a4e362beddad5727f7066e3",
+      "bytes": 15030
+    },
+    {
+      "path": "proof-resources.json",
+      "sha256": "870a9294e191e61ad5facca28541dffd34642aceb2e6e0e4013c1005ee31f8c6",
+      "bytes": 7114
+    },
+    {
+      "path": "run-proof-command.py",
+      "sha256": "ba8f9c23b73c240e255c8887e5f8890227642846c31a7284b320bc8230b9e407",
+      "bytes": 2389
+    },
+    {
+      "path": "verify-installed-host.py",
+      "sha256": "a9814a4115c6a1885366e444b86996a2c27fbbc57fe1403f24faec0d3019dc30",
+      "bytes": 2319
+    }
+  ],
+  "reusedExactRecords": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/proof-freeze.json",
+      "sha256": "dc4931ca55fc37265b64ab8b3a29502873113a054370335fa5120e138acc8f9c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source-inputs.json",
+      "sha256": "fc95840383cbccd2fc27769d923a12c8c32dfa33adc20a17f3b4b1e4c504def3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage-post-generation-inventory.json",
+      "sha256": "5ce8d5e7aff9b3be5cd244e120e0a39f28a3f1f49a04e70e2cab5b86085438e7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/dependency-inputs.json",
+      "sha256": "b65e98ccd69e8473d4c33872b67760b4f18ac84e2b22de3ea0df6da8ab453185"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/generated-inventory.json",
+      "sha256": "5e60b19b9779bdd0a2169e4d82ed499800d4f29d35031350a7b9c15040d6a810"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/archive-members.json",
+      "sha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/archive-payload-owner-result.json",
+      "sha256": "35e6e2e5a39fb976b2d724c31427ab164b4757205509826288e9c6f769906a2d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/offline-closure.json",
+      "sha256": "a610d875df5dc3970c319d2151bba4481173640afbe2bdacf02dc598f7eaad7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/proof-boundary.md",
+      "sha256": "08a3a4fa4d47012c5925b536dcb497147782bad685b0fd62a3db2d7fbc713b71"
+    }
+  ],
+  "archiveSha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+  "predecessorFreezeSha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+  "principalAttemptsBeforeExecution": 0,
+  "status": "Prospective corrected host relation and unchanged finite owner proof, no workload yet"
+}

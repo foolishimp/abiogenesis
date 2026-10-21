@@ -1,0 +1,15 @@
+{
+  "status": "failed",
+  "subjectId": "candidate",
+  "phase": "installed-catalog-setup",
+  "case": "compose-retry",
+  "error": {
+    "name": "AssertionError",
+    "message": "{\"kind\":\"product_execution_resolution_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"incompatible_or_unproven\",\"stage\":\"catalog\",\"message\":\"direct public control requires next or asset target with until converged and no caller-selected start\"}\n+ actual - expected\n\n+ 'product_execution_resolution_refusal'\n- 'loaded_product_execution_resolution'\n",
+    "stack": "AssertionError [ERR_ASSERTION]: {\"kind\":\"product_execution_resolution_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"incompatible_or_unproven\",\"stage\":\"catalog\",\"message\":\"direct public control requires next or asset target with until converged and no caller-selected start\"}\n+ actual - expected\n\n+ 'product_execution_resolution_refusal'\n- 'loaded_product_execution_resolution'\n\n    at Module.constructInstalledStartCall (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs:264:10)\n    at async runCase (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs:180:27)\n    at async main (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs:224:31)"
+  },
+  "completedCases": [],
+  "cleanupHooksCaptured": 1,
+  "cleanupHooksInvoked": 0,
+  "action": "stopped; no repair, retry, reopen, close or cleanup attempted"
+}

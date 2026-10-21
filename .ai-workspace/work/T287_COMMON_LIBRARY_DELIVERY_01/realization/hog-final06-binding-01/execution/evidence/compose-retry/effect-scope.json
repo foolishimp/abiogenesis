@@ -1,0 +1,24 @@
+{
+  "roots": {
+    "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence",
+    "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/host",
+    "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent",
+    "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/worksite",
+    "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache"
+  },
+  "env": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/user.npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/global.npmrc",
+    "TMPDIR": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent",
+    "npm_config_cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache"
+  },
+  "worksite": "actual setup-owned workspace beneath scratchParent; reserved worksite path not allocated",
+  "cleanup": "captured, not invoked"
+}

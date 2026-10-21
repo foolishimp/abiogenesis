@@ -1,0 +1,248 @@
+{
+  "sourceEntriesUnchanged": 1319,
+  "sourceUnionManifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source-union-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 668704,
+    "sha256": "311ae0287daefeef3f32b160e4f86e80b27087b6641f31935d34a31c06b014a1"
+  },
+  "stageEntriesExactlyEqualPostGeneration": 6641,
+  "stageInventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage-post-generation-inventory.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1784057,
+    "sha256": "6457d71a058fbe88aa3f122647ad45253d1c67accf6156de4d7b3b427b07152b"
+  },
+  "independentDependencyEntriesUnchanged": 4576,
+  "noSharedDependencyInodes": true,
+  "dependencyRelativeLinksConfined": true,
+  "dependencyInventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/dependency-inventory.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1006396,
+    "sha256": "fa19b0c0f1448fe0fbcd681a86fb25ca9704fbcf504f5ccf7cefc0da860041a7"
+  },
+  "mainGeneratedEntriesUnchanged": 936,
+  "mainInputEntriesUnchanged": 1319,
+  "mainGeneratedCapture": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/protected-main-generated.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 248218,
+    "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96"
+  },
+  "mainInputCapture": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/protected-main-inputs.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 353457,
+    "sha256": "39f63411679539ba5876575f5428829b72c64ed620defedc9889686ca24dd400"
+  },
+  "priorCutEntriesUnchanged": 109303,
+  "priorRoots": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01",
+      "entries": 8012,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01",
+      "entries": 8688,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness",
+      "entries": 6681,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers",
+      "entries": 6698,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01",
+      "entries": 28,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01",
+      "entries": 100,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01",
+      "entries": 18,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "entries": 30,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01",
+      "entries": 18,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01",
+      "entries": 42,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01",
+      "entries": 6779,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01",
+      "entries": 19,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-candidate-01",
+      "entries": 17,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01",
+      "entries": 30,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01",
+      "entries": 24,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime",
+      "entries": 24077,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-review-triage-01",
+      "entries": 48,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01",
+      "entries": 6817,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01",
+      "entries": 6674,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01",
+      "entries": 58,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof",
+      "entries": 19,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure",
+      "entries": 6693,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-currentness",
+      "entries": 1,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01",
+      "entries": 6574,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02",
+      "entries": 6561,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01",
+      "entries": 29,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01",
+      "entries": 6599,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline",
+      "entries": 1312,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build",
+      "entries": 6629,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation",
+      "entries": 28,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    }
+  ],
+  "priorCapture": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/protected-prior-trees.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 38814685,
+    "sha256": "693e40ddb38e56e5cdb317a06861964ec3f549b12a604bad3afab36a72b2a834"
+  },
+  "activeTerritoryExclusions": [
+    "e04-retained-owner-execution-01",
+    "final-review-dispositions-01",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "laterConcurrentExclusion": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/concurrent-exclusion-note.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 311,
+    "sha256": "6b8ae9ce6d9a7503fc48d0cdf1cb72124b2e0a9ac4bdba29456f8a134d8e418b"
+  },
+  "noCaptureRefresh": true,
+  "finalExecutiveClassificationUpdate": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/concurrent-classification-update-02.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 806,
+    "sha256": "1c573bb69acd1a64c5d2b7ebb09d4336cf755220d17a8789ee3d721da06bcb25"
+  },
+  "continuation17": "No-open/no-mutation territory; no content scan or recursive preservation claim",
+  "prebuildInputsUnchanged": true,
+  "stoppedExistingEvidenceUnchanged": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stopped-records-structure-02.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 207460,
+    "sha256": "49799f9a37d0de09f28a12d21de79a0693d00a6da5c8fe2744919c9c3359fdbe"
+  },
+  "originalStructuralFailurePreserved": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/first-cause.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 2153,
+    "sha256": "a054de724d00abbdf8f1efe9438a6da9d342c55bde02cb8d858510e5856b08c9"
+  },
+  "allOtherSourceInputsUnchanged": true,
+  "exactAuthorizedDerivedSourcePaths": [
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json"
+  ],
+  "archiveUnchanged": true,
+  "toolchainUnchanged": true,
+  "effectBoundary": "This Writer wrote only combined-final-02. Prior captured closed roots are unchanged; explicitly active sibling territories were excluded once."
+}

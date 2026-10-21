@@ -1,0 +1,7 @@
+{
+  "firstFailedCommand": "native-workspace-physical-regression",
+  "actualReporterDiagnostics": "\u2716 failing tests:\n\ntest at test_env/tests/t287-native-workspace-work.test.mjs:37:1\n\u2716 post-effect channel conflict retains admitted native failure scope without a fabricated exchange (24.452292ms)\n  AssertionError [ERR_ASSERTION]: prior C0 observation is current before the native physical effect\n  \n  false !== true\n  \n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs:100:40)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+  "laterCommands": "Not started; original Node aggregate may finish its internal cases",
+  "stopSha256": "99bf23059b9f843e1213fedd84ac2be548d675ce2ab0cb68704db6b7ca5113e1",
+  "repairOrRetry": false
+}

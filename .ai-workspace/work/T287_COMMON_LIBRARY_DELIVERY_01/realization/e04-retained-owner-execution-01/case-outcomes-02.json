@@ -1,0 +1,413 @@
+{
+  "kind": "E04_actual_case_outcome_map",
+  "activation": "E04-EVIDENCE-INDEX-02",
+  "status": "EXACT_CASE_ID_SUCCESSOR",
+  "join": "parsed receipt.caseId equality; no prefix-glob identity",
+  "caseIds": [
+    "PERSIST",
+    "PUBLISH",
+    "RACE",
+    "DEST-SYMLINK",
+    "DEST-HARDLINK",
+    "TEMP-PARTIAL",
+    "SNAPSHOT",
+    "SNAPSHOT-STALE",
+    "SNAPSHOT-SYMLINK",
+    "SNAPSHOT-DIRECTORY"
+  ],
+  "physicalCaseCount": 10,
+  "originalStepReceiptCount": 13,
+  "newPhysicalExecutions": 0,
+  "cases": [
+    {
+      "caseId": "PERSIST",
+      "steps": [
+        {
+          "receiptCaseId": "PERSIST",
+          "step": "created",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PERSIST-01.json",
+          "archive": "evidence/PERSIST-01.json",
+          "bytes": 908,
+          "sha256": "e6d3fac45b35f6b25ff803ba3ff717b6394ec045fe59be88cc5035b710c34f33",
+          "disposition": "fulfilled",
+          "output": "created",
+          "error": null
+        },
+        {
+          "receiptCaseId": "PERSIST",
+          "step": "same",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PERSIST-02.json",
+          "archive": "evidence/PERSIST-02.json",
+          "bytes": 907,
+          "sha256": "2c2eb8081d840b0a3e1afadca2109b1e5e9f895ad02ad91521487a0f35df0da7",
+          "disposition": "fulfilled",
+          "output": "preserved",
+          "error": null
+        },
+        {
+          "receiptCaseId": "PERSIST",
+          "step": "different",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PERSIST-03.json",
+          "archive": "evidence/PERSIST-03.json",
+          "bytes": 908,
+          "sha256": "737917bae29f17e5a7a8bb556fa2b4cdf05752c7b8a05ab6b613a4ba17cc88fe",
+          "disposition": "fulfilled",
+          "output": "collision",
+          "error": null
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "PERSIST",
+        "observedSteps": 3,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PERSIST-passed.json",
+        "archive": "evidence/PERSIST-passed.json",
+        "bytes": 89,
+        "sha256": "c92dad3a76af199d7e0554a620e0a097cb0156f208a57d388eb2208f42eac907"
+      }
+    },
+    {
+      "caseId": "PUBLISH",
+      "steps": [
+        {
+          "receiptCaseId": "PUBLISH",
+          "step": "created",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PUBLISH-01.json",
+          "archive": "evidence/PUBLISH-01.json",
+          "bytes": 746,
+          "sha256": "f7634c8e849618c0ad9ae56f1435a0a25f32d660411a4ecec800c4109ec1f002",
+          "disposition": "fulfilled",
+          "output": null,
+          "error": null
+        },
+        {
+          "receiptCaseId": "PUBLISH",
+          "step": "identical-collision",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PUBLISH-02.json",
+          "archive": "evidence/PUBLISH-02.json",
+          "bytes": 2169,
+          "sha256": "5e4f8b6ed3153ea410624ed0887ddf5ad28a491cd06cfb2f73287f88d671400b",
+          "disposition": "rejected",
+          "output": null,
+          "error": {
+            "name": "Error",
+            "code": "EEXIST",
+            "message": "EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json'",
+            "stack": "Error: EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json'\n    at async link (node:internal/fs/promises:1060:10)\n    at async Object.publishCreateOnly (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:1137:9)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:132:9",
+            "syscall": "link",
+            "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json.tmp-68865",
+            "dest": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json"
+          }
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "PUBLISH",
+        "observedSteps": 2,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PUBLISH-passed.json",
+        "archive": "evidence/PUBLISH-passed.json",
+        "bytes": 89,
+        "sha256": "af58788111ca63cfd84f40aa4a44d1d0d6641afef228fc6d8374a6582653881c"
+      }
+    },
+    {
+      "caseId": "RACE",
+      "steps": [
+        {
+          "receiptCaseId": "RACE",
+          "step": "actual-link-race",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/RACE-01.json",
+          "archive": "evidence/RACE-01.json",
+          "bytes": 5733,
+          "sha256": "8f24fe9e0dee0ef36784fbfb5b1511feec355962778024bf3c4b59fe6b8b4a19",
+          "disposition": "rejected",
+          "output": null,
+          "error": {
+            "name": "Error",
+            "code": "EEXIST",
+            "message": "EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/RACE/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/RACE/result.json'",
+            "stack": "Error: EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/RACE/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/RACE/result.json'\n    at async Module.link (node:internal/fs/promises:1060:10)\n    at async link (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:142:24)\n    at async Object.publishCreateOnly (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:1137:9)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:144:9",
+            "syscall": "link",
+            "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/RACE/result.json.tmp-68865",
+            "dest": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/RACE/result.json"
+          }
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "RACE",
+        "observedSteps": 1,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/RACE-passed.json",
+        "archive": "evidence/RACE-passed.json",
+        "bytes": 86,
+        "sha256": "75d38f26d5c3d2e4c53e5616fa30abbc51a1bad19dde4b86b0db88e39c3ab903"
+      }
+    },
+    {
+      "caseId": "DEST-SYMLINK",
+      "steps": [
+        {
+          "receiptCaseId": "DEST-SYMLINK",
+          "step": "existing-link-collision",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/DEST-SYMLINK-01.json",
+          "archive": "evidence/DEST-SYMLINK-01.json",
+          "bytes": 3084,
+          "sha256": "8f37607a09895f4c52febfe5d47afa31bff215423bccb71476335979277e138b",
+          "disposition": "rejected",
+          "output": null,
+          "error": {
+            "name": "Error",
+            "code": "EEXIST",
+            "message": "EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json'",
+            "stack": "Error: EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json'\n    at async link (node:internal/fs/promises:1060:10)\n    at async Object.publishCreateOnly (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:1137:9)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:156:9",
+            "syscall": "link",
+            "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json.tmp-68865",
+            "dest": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json"
+          }
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "DEST-SYMLINK",
+        "observedSteps": 1,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/DEST-SYMLINK-passed.json",
+        "archive": "evidence/DEST-SYMLINK-passed.json",
+        "bytes": 94,
+        "sha256": "2bfb3aed6b52e8f8f61df25034f6c30e04a626d10b3319077859866e25bcc222"
+      }
+    },
+    {
+      "caseId": "DEST-HARDLINK",
+      "steps": [
+        {
+          "receiptCaseId": "DEST-HARDLINK",
+          "step": "existing-link-collision",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/DEST-HARDLINK-01.json",
+          "archive": "evidence/DEST-HARDLINK-01.json",
+          "bytes": 3288,
+          "sha256": "cf8ba65fdbc6bb236d7c7000e9ef568731862f52925103c80bcad501d2daa9d9",
+          "disposition": "rejected",
+          "output": null,
+          "error": {
+            "name": "Error",
+            "code": "EEXIST",
+            "message": "EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-HARDLINK/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-HARDLINK/result.json'",
+            "stack": "Error: EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-HARDLINK/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-HARDLINK/result.json'\n    at async link (node:internal/fs/promises:1060:10)\n    at async Object.publishCreateOnly (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:1137:9)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:156:9",
+            "syscall": "link",
+            "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-HARDLINK/result.json.tmp-68865",
+            "dest": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-HARDLINK/result.json"
+          }
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "DEST-HARDLINK",
+        "observedSteps": 1,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/DEST-HARDLINK-passed.json",
+        "archive": "evidence/DEST-HARDLINK-passed.json",
+        "bytes": 95,
+        "sha256": "19a654aef4d1f0cf0f45574dedadcd3aec9045fb9d77595e40a96bf194b11fc3"
+      }
+    },
+    {
+      "caseId": "TEMP-PARTIAL",
+      "steps": [
+        {
+          "receiptCaseId": "TEMP-PARTIAL",
+          "step": "partial-temporary",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/TEMP-PARTIAL-01.json",
+          "archive": "evidence/TEMP-PARTIAL-01.json",
+          "bytes": 1579,
+          "sha256": "fa3ec22b5c9bea9fac26a9b5769cce7c5c24c373e248f1c496e04c03807255e3",
+          "disposition": "rejected",
+          "output": null,
+          "error": {
+            "name": "Error",
+            "code": "EIO",
+            "message": "E04 controlled temporary write interruption",
+            "stack": "Error: E04 controlled temporary write interruption\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:162:37",
+            "syscall": null,
+            "path": null,
+            "dest": null
+          }
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "TEMP-PARTIAL",
+        "observedSteps": 1,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/TEMP-PARTIAL-passed.json",
+        "archive": "evidence/TEMP-PARTIAL-passed.json",
+        "bytes": 94,
+        "sha256": "b3043f249cc896d68e29bf5704266b8719e529f24ee9ab489535fae474833b84"
+      }
+    },
+    {
+      "caseId": "SNAPSHOT",
+      "steps": [
+        {
+          "receiptCaseId": "SNAPSHOT",
+          "step": "materialize",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-01.json",
+          "archive": "evidence/SNAPSHOT-01.json",
+          "bytes": 19180,
+          "sha256": "33b5dfb53463e459fffaddc2d13085bd0fd70e9253d211e5a4116813ed84778c",
+          "disposition": "fulfilled",
+          "output": {
+            "snapshotRef": "worksite-command-snapshot://abiogenesis/f17c18c860aff7c2749ff424492336f3e04915e490eafec2daa789a292bdcb80",
+            "snapshotDigest": "sha256:f17c18c860aff7c2749ff424492336f3e04915e490eafec2daa789a292bdcb80",
+            "snapshotMembers": [
+              {
+                "kind": "worksite_snapshot_member",
+                "sourceMemberRef": "observed-worksite-execution-source://abiogenesis/4be1d4262f0ef504c346f6d147faf5524b7f71cca8317e3ef28e465e4d34622a",
+                "schemaVersion": "5.0.0",
+                "ordinal": 0,
+                "sourceObservationRef": "worksite-observation://abiogenesis/e15d8369e4d4e329ef3560872d76067b38f23ee6b171e5205dc8e81c8657634f",
+                "sourceObservationDigest": "sha256:e15d8369e4d4e329ef3560872d76067b38f23ee6b171e5205dc8e81c8657634f",
+                "relativePath": "src/first.txt",
+                "byteLength": 22,
+                "digest": "sha256:5a5f0febeddda6e3e27883d6419b0356623d3c320230f433b329d5c5577f1b23"
+              },
+              {
+                "kind": "worksite_snapshot_member",
+                "sourceMemberRef": "observed-worksite-execution-source://abiogenesis/55646701c5d9cf541b09bd20f2b2845850e20258ca8ab103bd132f828c1ad82b",
+                "schemaVersion": "5.0.0",
+                "ordinal": 1,
+                "sourceObservationRef": "worksite-observation://abiogenesis/a284a227252ba62d2200688dd9aaf7397fc39b51f1b8d79079955341746d0cfa",
+                "sourceObservationDigest": "sha256:a284a227252ba62d2200688dd9aaf7397fc39b51f1b8d79079955341746d0cfa",
+                "relativePath": "src/second.txt",
+                "byteLength": 23,
+                "digest": "sha256:a986c0ac9f55539a2297d886f6ad2c8d545f803e8f5ab4d404bd8bfe8dc16f96"
+              }
+            ]
+          },
+          "error": null
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "SNAPSHOT",
+        "observedSteps": 1,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-passed.json",
+        "archive": "evidence/SNAPSHOT-passed.json",
+        "bytes": 90,
+        "sha256": "417989d0cdf4c4403610da480cf72e9de112e1ce24f3649e6a3eef086ee1a658"
+      }
+    },
+    {
+      "caseId": "SNAPSHOT-STALE",
+      "steps": [
+        {
+          "receiptCaseId": "SNAPSHOT-STALE",
+          "step": "materialize",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-STALE-01.json",
+          "archive": "evidence/SNAPSHOT-STALE-01.json",
+          "bytes": 18207,
+          "sha256": "d2e5dc2f66b1d60b07077358ff6d7d8dce8fd3cd4c74fb7364af814b437298ab",
+          "disposition": "rejected",
+          "output": null,
+          "error": {
+            "name": "TypeError",
+            "code": null,
+            "message": "snapshot source bytes differ from protected O1",
+            "stack": "TypeError: snapshot source bytes differ from protected O1\n    at Object.materializeSnapshot (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:434:19)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:186:9",
+            "syscall": null,
+            "path": null,
+            "dest": null
+          }
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "SNAPSHOT-STALE",
+        "observedSteps": 1,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-STALE-passed.json",
+        "archive": "evidence/SNAPSHOT-STALE-passed.json",
+        "bytes": 96,
+        "sha256": "22337c040432f2b29edc81f9907b69c6fa2cdb9a15120c0305c49ef4cf45ce3f"
+      }
+    },
+    {
+      "caseId": "SNAPSHOT-SYMLINK",
+      "steps": [
+        {
+          "receiptCaseId": "SNAPSHOT-SYMLINK",
+          "step": "materialize",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-SYMLINK-01.json",
+          "archive": "evidence/SNAPSHOT-SYMLINK-01.json",
+          "bytes": 15936,
+          "sha256": "beefba5901f3f918a1a00cb569bfe4294ed9914a3190a5cf9d8e095e370b15f0",
+          "disposition": "rejected",
+          "output": null,
+          "error": {
+            "name": "TypeError",
+            "code": null,
+            "message": "worksite path has a symlink or aliased component",
+            "stack": "TypeError: worksite path has a symlink or aliased component\n    at confinedExistingPath (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:164:19)\n    at async Object.materializeSnapshot (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:429:28)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:186:9",
+            "syscall": null,
+            "path": null,
+            "dest": null
+          }
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "SNAPSHOT-SYMLINK",
+        "observedSteps": 1,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-SYMLINK-passed.json",
+        "archive": "evidence/SNAPSHOT-SYMLINK-passed.json",
+        "bytes": 98,
+        "sha256": "f4b438108ba23fd43844e4517c9ea5760f8fed3ad6d3baaa4cbef64c9f738d41"
+      }
+    },
+    {
+      "caseId": "SNAPSHOT-DIRECTORY",
+      "steps": [
+        {
+          "receiptCaseId": "SNAPSHOT-DIRECTORY",
+          "step": "materialize",
+          "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-DIRECTORY-01.json",
+          "archive": "evidence/SNAPSHOT-DIRECTORY-01.json",
+          "bytes": 15105,
+          "sha256": "87cb20b54681065850a0850eeb6f62f10916cc5f9d9e6ff2e21210046d8c612c",
+          "disposition": "rejected",
+          "output": null,
+          "error": {
+            "name": "TypeError",
+            "code": null,
+            "message": "worksite path is not one file",
+            "stack": "TypeError: worksite path is not one file\n    at confinedExistingPath (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:170:19)\n    at async Object.materializeSnapshot (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:429:28)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:186:9",
+            "syscall": null,
+            "path": null,
+            "dest": null
+          }
+        }
+      ],
+      "passedReceipt": {
+        "caseId": "SNAPSHOT-DIRECTORY",
+        "observedSteps": 1,
+        "status": "BOUNDED_OWNER_CASE_PASSED",
+        "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-DIRECTORY-passed.json",
+        "archive": "evidence/SNAPSHOT-DIRECTORY-passed.json",
+        "bytes": 100,
+        "sha256": "c11c3a5e15f6621e18f8e6394d418d88fe74a5c03574ea398b3087b1db06ad24"
+      }
+    }
+  ],
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/evidence/result.json",
+    "bytes": 10366,
+    "sha256": "ec7c6966fc9bf9b04deabf0efd56a0761e27720c38a092d3d287f35f90d8eef0"
+  },
+  "preservedIncorrectDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/case-outcomes.json",
+    "bytes": 23856,
+    "sha256": "52d5b062d860ff541ad970d88a926502a22a2d0f6613c63e6bc45416fbea54a5"
+  },
+  "preservedFirstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/case-map-first-failure.json",
+    "bytes": 2249,
+    "sha256": "4367de001ba234a2bed6e41c93df32a948c028d6eef6ca50f732560b726d20f7"
+  },
+  "claim": "same original ten cases and thirteen steps; derived index corrected, original runtime/substrate observations unchanged"
+}

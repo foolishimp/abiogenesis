@@ -1,0 +1,91 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-analyse.mjs",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1",
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_cache": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p1"
+  },
+  "analyserSha256": "dad5f922ffe6df46bd223774603b24c8c535918d33db1dc66a0254c0af969da0",
+  "inputCompletion": {
+    "exitCode": 0,
+    "signal": null,
+    "pid": 9384,
+    "start": {
+      "wall": 56.535417,
+      "cpu": {
+        "user": 59748,
+        "system": 15497
+      },
+      "memory": {
+        "rss": 153616384,
+        "heapTotal": 7176192,
+        "heapUsed": 4777544,
+        "external": 2274123,
+        "arrayBuffers": 32829
+      },
+      "resource": {
+        "userCPUTime": 59760,
+        "systemCPUTime": 15505,
+        "maxRSS": 150016,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 9658,
+        "majorPageFault": 74,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 0,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 50,
+        "involuntaryContextSwitches": 82
+      }
+    },
+    "end": {
+      "wall": 329490.103208,
+      "cpu": {
+        "user": 67361,
+        "system": 16804
+      },
+      "memory": {
+        "rss": 152813568,
+        "heapTotal": 6389760,
+        "heapUsed": 4741016,
+        "external": 2274163,
+        "arrayBuffers": 32829
+      },
+      "resource": {
+        "userCPUTime": 67369,
+        "systemCPUTime": 16808,
+        "maxRSS": 150272,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 9701,
+        "majorPageFault": 75,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 0,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 58,
+        "involuntaryContextSwitches": 187
+      }
+    },
+    "scope": "launcher PID only; time -l raw stderr labels measured child; diagnostic process records separately identify each Node PID",
+    "retention": "No retry or cleanup"
+  },
+  "scope": "Closed diagnostic traces/process files only; no workload repetition"
+}

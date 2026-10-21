@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/usr/local/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/select-population.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C.UTF-8",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "startedUtc": "2026-10-21T04:46:06.016968+00:00",
+  "executable": {
+    "path": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+    "sha256": "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539",
+    "bytes": 152096,
+    "mode": "0o775"
+  },
+  "purpose": "One corrected finite read-only population selection; no archives or Product execution"
+}

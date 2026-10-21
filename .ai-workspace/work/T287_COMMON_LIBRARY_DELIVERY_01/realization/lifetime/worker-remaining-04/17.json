@@ -1,0 +1,16 @@
+{
+  "case": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^M5\\ ABG\\ transport\\ excludes\\ descendant\\ output\\ emitted\\ after\\ direct\\-process\\ exit$",
+    "test_env/tests/m5-worker-transport.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+  "exitCode": 0,
+  "seconds": 0.40487458393909037,
+  "startedAt": "2026-10-20T23:42:59.330255+00:00",
+  "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+  "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+}

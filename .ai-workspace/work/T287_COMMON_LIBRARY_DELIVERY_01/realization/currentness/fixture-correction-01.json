@@ -1,0 +1,8 @@
+{
+  "source": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+  "previous_sha256": "6932933210147baa420a484fd0ae4919ba3d50c0bef330f9ef255063daa92b27",
+  "corrected_sha256": "fc21f36dbcd9c311e336829e7e85d404bf4626ab2f430649e6d06538e2575846",
+  "grant": "Executive U1-FIXTURE-01",
+  "production_bytes_changed": false,
+  "recording_note": "Source/preimage/stage writes completed; final hash receipt required a second record-only command after a Python variable-shadowing error."
+}

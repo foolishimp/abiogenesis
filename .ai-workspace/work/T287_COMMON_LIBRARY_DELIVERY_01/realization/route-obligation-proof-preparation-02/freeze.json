@@ -1,0 +1,215 @@
+{
+  "kind": "bounded_route_obligation_proof_preparation_freeze",
+  "activation": "ROUTE-TYPED-INVENTORY-02",
+  "writer": "/root/stdo3_k11_successor_writer",
+  "returnTo": "/root",
+  "status": "CLOSED_PREPARATION_WITH_EXPLICIT_RETAINED_ROUTE_PREMISE_GAP",
+  "closedAt": "2026-10-21T05:10:28.457924+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "method": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "proofReportSha256": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+  "historicalStoppedFreezeSha256": "1b199141a606886883536badffa53435719e2e8a7e39ad277468cebe9a313b14",
+  "historicalFirstCauseSha256": "93e090eca14db67a2876232d04a81937cefd74e2c6eebf42a9dded25cb02ce4d",
+  "preservation": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/preservation.json",
+    "kind": "file",
+    "sha256": "4bb6655346381125c18fe0cd358d3d4b694b8fa1f4114ec03c7e3a0caaa2d67c",
+    "bytes": 9028,
+    "mode": "0o644"
+  },
+  "readiness": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/readiness.json",
+    "kind": "file",
+    "sha256": "604d22ffc6279cf4ee1757929f9fb170893d0706b3aa67e6a28d1c3c896099db",
+    "bytes": 959,
+    "mode": "0o644"
+  },
+  "report": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/return.md",
+    "kind": "file",
+    "sha256": "478fc43de7fca233e98c2b61b4b498f8850e5415ca741211de8b1426e353017a",
+    "bytes": 3820,
+    "mode": "0o644"
+  },
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/HOW.md",
+      "kind": "file",
+      "sha256": "a18ca96f2b45a2b3ece5038a425726b2094ab1b65b0ccf12ac9699e60b885bed",
+      "bytes": 4557,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/c0-f5-attribution.md",
+      "kind": "file",
+      "sha256": "fe8ec6a3915c806279e0ad50fd6ef89e57ac7cf9ffe31eb1171afbc4d90b61df",
+      "bytes": 1895,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/c0-f5-public-assessment.md",
+      "kind": "file",
+      "sha256": "c6da5d92f2989ad9b2391a1a76b802a4fe03e3e8d068e3e485aa55915ecfab49",
+      "bytes": 5247,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/check-preparation.py",
+      "kind": "file",
+      "sha256": "0b252efad7e916e190c45621eb6117dbf2e7a91ec04c8c82165f4cd94ad1a663",
+      "bytes": 4115,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/execution-resolution.diff",
+      "kind": "file",
+      "sha256": "bee9d6362ae33aadd96ab2df7dc2853b0be6c69c07e41ad07103c1cd3dd1356c",
+      "bytes": 1363,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/obligation-map.md",
+      "kind": "file",
+      "sha256": "e7e436aace78ed0eac4fec506ff071115fa87ed2059680b5d4b796620446beae",
+      "bytes": 9615,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/preservation.json",
+      "kind": "file",
+      "sha256": "4bb6655346381125c18fe0cd358d3d4b694b8fa1f4114ec03c7e3a0caaa2d67c",
+      "bytes": 9028,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/preservation.request.json",
+      "kind": "file",
+      "sha256": "2941d74958645554da149d97d39a9a69713cd34ac9ca41e1ed8a07ef1be68ca7",
+      "bytes": 435,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/preservation.result.json",
+      "kind": "file",
+      "sha256": "62506eb8d71be4474c43bfd54f324ff71c7381dc51cef91ca0c1bb61bf8c3fe9",
+      "bytes": 324,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/preservation.stderr",
+      "kind": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/preservation.stdout",
+      "kind": "file",
+      "sha256": "a126139799b64c53126a1094bcf1626729405e389352fe92ccd4f9851af05b49",
+      "bytes": 599,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/prospective-inputs.json",
+      "kind": "file",
+      "sha256": "2e0188daab9abf3eb40c04f433f73fd57d19138b9afee00f47d279407dd4f9ee",
+      "bytes": 2078,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/prospective-oracle.md",
+      "kind": "file",
+      "sha256": "963a948c94749c586ea805e8656ebf44405c77479a843707a3ba7abf544c65d4",
+      "bytes": 9593,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/readiness.json",
+      "kind": "file",
+      "sha256": "604d22ffc6279cf4ee1757929f9fb170893d0706b3aa67e6a28d1c3c896099db",
+      "bytes": 959,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/readiness.request.json",
+      "kind": "file",
+      "sha256": "67d45b046de0070df4b29f370801f095e7f17b9145e6664e9f24e4d67fdfb2ed",
+      "bytes": 502,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/readiness.result.json",
+      "kind": "file",
+      "sha256": "9729214f6b06b4e34331798574becbbd3a182d59eca17a906aed956b8a5ca673",
+      "bytes": 325,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/readiness.stderr",
+      "kind": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/readiness.stdout",
+      "kind": "file",
+      "sha256": "f4ba94a32b36be3155370c2847043092ad35d42f758cbd8ae7d161d696edf18f",
+      "bytes": 875,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/return.md",
+      "kind": "file",
+      "sha256": "478fc43de7fca233e98c2b61b4b498f8850e5415ca741211de8b1426e353017a",
+      "bytes": 3820,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/source-pins.json",
+      "kind": "file",
+      "sha256": "9cbc95b95b726499b474abfb1cf21e442e5e46abaeb2caf05d79c3774aec1f0a",
+      "bytes": 31318,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/verify-preservation.py",
+      "kind": "file",
+      "sha256": "6f791279ae4294d33729193e5c82bb825621e5b4ea4abbdfe03dd6b23740a11a",
+      "bytes": 5575,
+      "mode": "0o644"
+    }
+  ],
+  "recordCount": 21,
+  "effect": {
+    "onlyNewCarrierWritten": true,
+    "main936VerifiedOnce": true,
+    "correctedPreservationExecutions": 1,
+    "metadataReadinessExecutions": 1,
+    "runtimeImports": 0,
+    "applicationTests": 0,
+    "nativeCalls": 0,
+    "builds": 0,
+    "packages": 0,
+    "installs": 0,
+    "gitOperations": 0
+  },
+  "runtimeTemplate": "NOT_GRANTED",
+  "candidateBinding": null,
+  "limitations": [
+    "P5/P4 future required captures not executed by this preparation",
+    "P4 registered selection does not prove retained graph input workflow foldback branch",
+    "Retained branch authentic positive premise remains absent; optional deterministic fixture refinement requires separate selection",
+    "Historical empty-target or two-start eight-of-eleven basis execution not claimed by pure/static receipts",
+    "Exact final candidate support correspondence required before evidence reuse",
+    "C0-F5 companion is attributed earlier read-only source feasibility, not later execution or acceptance"
+  ],
+  "independentFinalAssurance": false,
+  "L4Claim": false,
+  "L5Claim": false
+}

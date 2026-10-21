@@ -1,0 +1,313 @@
+[
+  {
+    "case": 13,
+    "observation": {
+      "scope": "posix_process_group",
+      "probes": 1,
+      "signals": 0,
+      "cleanupMs": 0.196541,
+      "closeObserved": true,
+      "bufferedBytes": 13
+    }
+  },
+  {
+    "case": 14,
+    "observation": {
+      "owner": "http",
+      "mode": "response",
+      "fixtureRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-2xD1li",
+      "pid": 88340,
+      "pgid": 88340,
+      "scopeAbsent": true,
+      "observation": {
+        "request": {
+          "hostname": "127.0.0.1",
+          "port": 59991,
+          "method": "GET",
+          "path": "/",
+          "timeoutMs": 300
+        },
+        "portFile": {
+          "relativePath": "response.port",
+          "port": 59991,
+          "state": "observed",
+          "issue": null,
+          "byteLength": 5,
+          "digest": "sha256:96971e09beb509aaeff18c951d0fdacef62a0db1af661f37a409c1d7f382cea0"
+        },
+        "response": {
+          "status": 200,
+          "body": "actual-http",
+          "bodyDigest": "sha256:e5ab4333bf8dcadb488fa653be055c239888ce705142af82536e39db927c44d0",
+          "byteLength": 11
+        },
+        "process": {
+          "exitStatus": 0,
+          "processSignal": null,
+          "timedOut": false,
+          "signalSequence": [],
+          "terminationConfirmed": true,
+          "stdout": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "",
+            "byteLength": 0,
+            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "stderr": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "",
+            "byteLength": 0,
+            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      "failure": null
+    }
+  },
+  {
+    "case": 14,
+    "observation": {
+      "owner": "http",
+      "mode": "invalid",
+      "fixtureRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-2xD1li",
+      "pid": 88342,
+      "pgid": 88342,
+      "scopeAbsent": true,
+      "observation": {
+        "request": null,
+        "portFile": {
+          "relativePath": "invalid.port",
+          "port": null,
+          "state": "invalid",
+          "issue": "noncanonical_decimal_port",
+          "byteLength": 7,
+          "digest": "sha256:f1234d75178d892a133a410355a5a990cf75d2f33eba25d575943d4df632f3a4"
+        },
+        "response": null,
+        "process": {
+          "exitStatus": 128,
+          "processSignal": "SIGTERM",
+          "timedOut": false,
+          "signalSequence": [
+            "SIGTERM"
+          ],
+          "terminationConfirmed": true,
+          "stdout": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "",
+            "byteLength": 0,
+            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "stderr": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "",
+            "byteLength": 0,
+            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      "failure": null
+    }
+  },
+  {
+    "case": 14,
+    "observation": {
+      "owner": "http",
+      "mode": "missing",
+      "fixtureRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-2xD1li",
+      "pid": 88344,
+      "pgid": 88344,
+      "scopeAbsent": true,
+      "observation": {
+        "request": null,
+        "portFile": {
+          "relativePath": "missing.port",
+          "port": null,
+          "state": "absent",
+          "issue": "port_file_timeout",
+          "byteLength": null,
+          "digest": null
+        },
+        "response": null,
+        "process": {
+          "exitStatus": 128,
+          "processSignal": "SIGTERM",
+          "timedOut": false,
+          "signalSequence": [
+            "SIGTERM"
+          ],
+          "terminationConfirmed": true,
+          "stdout": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "",
+            "byteLength": 0,
+            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "stderr": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "",
+            "byteLength": 0,
+            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      "failure": null
+    }
+  },
+  {
+    "case": 14,
+    "observation": {
+      "owner": "http",
+      "mode": "request-failure",
+      "fixtureRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-2xD1li",
+      "pid": 88353,
+      "pgid": 88353,
+      "scopeAbsent": true,
+      "observation": {
+        "request": {
+          "hostname": "127.0.0.1",
+          "port": 1,
+          "method": "GET",
+          "path": "/",
+          "timeoutMs": 300
+        },
+        "portFile": {
+          "relativePath": "request-failure.port",
+          "port": 1,
+          "state": "observed",
+          "issue": null,
+          "byteLength": 1,
+          "digest": "sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        "response": null,
+        "process": {
+          "exitStatus": 124,
+          "processSignal": "SIGTERM",
+          "timedOut": true,
+          "signalSequence": [
+            "SIGTERM"
+          ],
+          "terminationConfirmed": true,
+          "stdout": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "",
+            "byteLength": 0,
+            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "stderr": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "",
+            "byteLength": 0,
+            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      },
+      "failure": null
+    }
+  },
+  {
+    "case": 14,
+    "observation": {
+      "owner": "http",
+      "mode": "owner-error",
+      "fixtureRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-2xD1li",
+      "pid": 88356,
+      "pgid": 88356,
+      "scopeAbsent": true,
+      "observation": null,
+      "failure": {
+        "name": "TypeError",
+        "code": "ERR_INVALID_HTTP_TOKEN",
+        "message": "Method must be a valid HTTP token [\"bad\nmethod\"]"
+      }
+    }
+  },
+  {
+    "case": 15,
+    "observation": {
+      "owner": "worker",
+      "capturedBytes": 14,
+      "lateDiagnosticRetained": false
+    }
+  },
+  {
+    "case": 15,
+    "observation": {
+      "owner": "command",
+      "capturedBytes": 14,
+      "lateDiagnosticRetained": false
+    }
+  },
+  {
+    "case": 15,
+    "observation": {
+      "owner": "http",
+      "capturedBytes": 30,
+      "lateDiagnosticRetained": true
+    }
+  },
+  {
+    "case": 17,
+    "observation": {
+      "ownedGroupAbsent": true,
+      "escapedGroup": 88383,
+      "closeObserved": false,
+      "disposed": true,
+      "cleanupMs": 31.640834,
+      "signals": 0,
+      "probes": 1
+    }
+  },
+  {
+    "case": 27,
+    "observation": {
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "deadlineExpired": false,
+      "hostPid": 88602,
+      "identity": {
+        "pid": 88603,
+        "pgid": 88603
+      },
+      "stdout": "",
+      "stderr": "",
+      "owner": {
+        "kind": "rejected",
+        "name": "Error",
+        "code": "EPIPE",
+        "errno": -32,
+        "syscall": "write",
+        "message": "write EPIPE",
+        "stack": "Error: write EPIPE\n    at WriteWrap.onWriteComplete [as oncomplete] (node:internal/stream_base_commons:87:19)"
+      },
+      "survived": {
+        "survived": true,
+        "pid": 88602
+      },
+      "samples": [
+        {
+          "group": "absent",
+          "pid": "absent"
+        }
+      ]
+    }
+  }
+]

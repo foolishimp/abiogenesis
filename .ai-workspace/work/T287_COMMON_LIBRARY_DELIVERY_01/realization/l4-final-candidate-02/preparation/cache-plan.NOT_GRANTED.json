@@ -1,0 +1,24 @@
+{
+  "status": "NOT_GRANTED",
+  "selectedExistingSeedRoot": null,
+  "candidateExistingSeedRoot": "/Users/jim/.npm/_cacache",
+  "seedInventory": {
+    "path": null,
+    "sha256": null
+  },
+  "newRoots": {
+    "p1": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/caches/p1",
+    "p2": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/caches/p2",
+    "p3": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/caches/p3"
+  },
+  "seedRules": [
+    "Select exact finite existing content/index entries only after final package dependency/bundle closure is known. Every copied file must have relative path, SHA256, byte count and mode; preserve identity.",
+    "Do not assume all dependency entries must be copied merely because source devDependencies exist. Final archive bundled dependency membership controls actual needs.",
+    "No copying a whole home cache, mutable-main dependency symlinks, npm scripts or network fallback.",
+    "Separate later grant freezes seed manifest and validates all source bytes before copying to each initially absent task cache. Cache roots are outside original runner lane root set.",
+    "Runner environment names the exact task cache; npm may write content/index/tmp/log metadata there. Retain cache and raw install/pack command receipts.",
+    "No seed selected, cache inventory scan/copy, metadata write or external allocation in this preparation.",
+    "If final package closure proves no preexisting cache entries required, Root must explicitly select and freeze that empty seed relation before launch; it is not inferred here."
+  ],
+  "cacheFootprintScope": "separate from original runner lane footprints; capture logical bytes/allocatedKiB at actual exit under later grant; no guessed counters"
+}

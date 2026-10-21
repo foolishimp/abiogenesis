@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The [common computational library deliverable](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable) must be implemented, evidenced and accepted before remaining 5.0 release work resumes. L1 and exact L2 design are accepted; L3–L5 remain pending and library delivery is open. The user selects a full-tree checkpoint before implementation; no L3 activation is current. Existing accepted evidence retains its original subjects. Current-candidate lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The [common computational library deliverable](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable) precedes remaining 5.0 release work. L1/L2 are accepted. L3 is implemented with active retirement and mandatory E03 process-truth correction open; L4 is partial; interim L5 source review has one S2 blocker and delivery acceptance is absent. The release gate is closed. Root selects an unfinished review checkpoint now, after durable records/HOW preparation and portable evidence, before further source/runtime mutation. Prior remote checkpoint `67c3337`; current work uncommitted. Existing evidence retains its exact subjects. Current-candidate lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
 
 ## Current Selection
 
@@ -34,18 +34,47 @@ and [exact L2 delivery design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVER
 are accepted. L2 binds D02–D04 contraction, K11 standalone STDO3 context,
 E03 shared physical lifetime/timing, U1 scoped unknown-effect currentness,
 E01/E02/E04 retained domains, and frozen P1–P5 proof. Independent review 02
-closed the bounded timer-domain design finding; implementation and execution
-remain pending. The isolated baseline built and packed, which establishes
-mechanical readiness only.
+closed the bounded timer-domain design finding. L3 implementations exist, but
+active fixture/support retirement is not delivered and E03 process truth needs
+mandatory correction. L4 is partial: new-candidate P1 passed; P5 successor08
+timed out, with late C1 completion and C2 admission/opening retained but no C2 outcome.
+Owner-resolution, P2, P3, HoG and P4 remain held. The
+[independent effects-review return](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/review-effects.md)
+contains E03-L5-01, severity S2; Root assigns priority P1 and a delivery blocker.
+That priority is distinct from the successful installed proof lane P1. L5
+delivery acceptance remains absent; historical evidence keeps its exact scope.
 
-The user now selects a [full-tree commit/push checkpoint](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md),
-including other-session commentary and analysis, before implementation.
-No L3 source or runtime activation is current. After that checkpoint, a
-separate bounded activation may realize the accepted scope, execute its
-obligations and seek L5 independent delivery acceptance under
-[T-287's library milestones](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable).
-Design acceptance does not establish observed contraction, delivery or
-release readiness; the release-resumption gate remains closed.
+The owner's correction is: **“the purpose of the calculus is to strip out old
+fixtures, to remove massive tech debt”**. Root's
+[retirement decision](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/decision.md)
+selects removal of the redundant fresh-process runner, consolidation of U1 setup,
+and replacement of private generic canonical/hash algorithms by existing common
+capabilities, preserving distinct caller and witness obligations. Per capability,
+completion records actual retired implementations/fixtures/callers, canonical
+replacement and use, retained obligations, exceptions with reasons and affected
+proof. Historical immutable evidence does not require active compatibility
+maintenance. The companion-only helper and production default-library v2.5.1
+definition require explicit source/role HOW decisions; neither is already retired.
+
+Root selects the [full-tree review checkpoint](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
+now, after current records, proposed HOW preparation and portable evidence,
+before further source/runtime mutation. It includes public commentary from the
+other session and may truthfully contain the unfinished refactor and blocker.
+The prior remote checkpoint is `67c3337`; current work is uncommitted. Git belongs
+to a separate Writer activation. The [current plan](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/plan.md)
+then orders retirement/process-truth repair → one final candidate → proportionate
+affected installed/finite proof and one P4 native witness → independent L5 →
+remaining 5.0 release work. The
+[operation boundary](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-operation-boundary)
+retains exact grants and open obligations.
+
+The owner's Executive correction applies [proportionality and steel-thread
+controls](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#design-and-proof-controls):
+reuse exact applicable evidence, repair and reprove only affected relations,
+and widen the earliest real entry-to-outcome path by material uncertainty.
+Review findings inform Executive priority and boundary decisions; they do not
+activate a new review campaign. Product/authority and supported-path blockers,
+required independent L5 and the closed release-resumption gate remain.
 
 The intended asset is a reusable computational basis from which feature
 behaviour is composed. The calculus identifies common structure, contracts

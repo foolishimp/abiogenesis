@@ -1,0 +1,28 @@
+{
+  "activation": "PORTABILITY-OPTIONAL-PROVIDER-03",
+  "status": "granted",
+  "populationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/population-freeze.json",
+    "sha256": "ebb57ed34ccb49eebd821dab546f6fbd46144bedcd2112c80a46f76cd255d829",
+    "bytes": 3853,
+    "mode": "0o644"
+  },
+  "populationReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/population.receipt.json",
+    "sha256": "174b12c88bf82c580af8af042589e23ad92e11299ba21db29104824fd70a81b4",
+    "bytes": 769,
+    "mode": "0o644"
+  },
+  "packageWriter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/package.py",
+    "sha256": "1bbecfb56e42e6b01a89fd6fbab0c4492bc008a84501b95c28af0c1eb99a3889",
+    "bytes": 7261,
+    "mode": "0o644"
+  },
+  "populationRows": 69428,
+  "logicalLimit": 2147483648,
+  "compressedLimit": 1073741824,
+  "archiveTarget": 94371840,
+  "syntaxCheck": "passed; no execution",
+  "scope": "One inert transport archive construction after successful frozen selection; stop first failure"
+}

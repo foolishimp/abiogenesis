@@ -1,0 +1,39 @@
+{
+  "status": "NOT_GRANTED",
+  "translation": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/translate-inventories.mjs",
+      "<new closed-candidate binding file>"
+    ],
+    "scope": "record construction after Root closed-subject selection; no Product or runtime effect"
+  },
+  "endpointPattern": {
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+      "--configuration",
+      "<separately frozen active lane configuration>",
+      "--lane",
+      "<public-preparation | partial-install | declared-execution>"
+    ],
+    "cwd": "new per-lane execution record directory, never old immutable stage or evidence",
+    "stdout": "exact raw stdout retained in new lane record",
+    "stderr": "exact raw stderr and time-l retained in new lane record",
+    "environment": "exact active configuration plus original runner explicit TMPDIR/ABI5_WAVE1_FROZEN_*; no ambient NODE_OPTIONS/provider"
+  },
+  "ownerPattern": {
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs",
+      "<separately frozen actual P1 owner configuration>"
+    ],
+    "cwd": "new owner-resolution execution records",
+    "position": "after P1 oracle success and before any P2 append"
+  },
+  "noneExecuted": true
+}

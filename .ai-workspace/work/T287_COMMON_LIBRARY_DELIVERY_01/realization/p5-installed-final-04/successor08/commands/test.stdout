@@ -1,0 +1,20 @@
+✖ T-287 C2 compact acknowledgment preserves installed large-log observation and replay (600001.950708ms)
+✖ test_env/tests/t287-worksite-command-execution.test.mjs (629850.886209ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 0
+ℹ cancelled 2
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 629865.413375
+
+✖ failing tests:
+
+test at test_env/tests/t287-worksite-command-execution.test.mjs:407:1
+✖ T-287 C2 compact acknowledgment preserves installed large-log observation and replay (600001.950708ms)
+  'test timed out after 600000ms'
+
+test at test_env/tests/t287-worksite-command-execution.test.mjs:1:1
+✖ test_env/tests/t287-worksite-command-execution.test.mjs (629850.886209ms)
+  'Promise resolution is still pending but the event loop has already resolved'

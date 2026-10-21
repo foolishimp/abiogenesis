@@ -1,0 +1,89 @@
+{
+  "kind": "E04_index_successor_checks",
+  "activation": "E04-EVIDENCE-INDEX-02",
+  "status": "PASSED_INDEX_CONGRUENCE_ONLY",
+  "HOW": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/HOW-index-successor-02.md",
+    "bytes": 4322,
+    "sha256": "ed6d9b309ecb99f563117e5bbcd3c19d113791ef5dbc9c79aff5765375aa133c"
+  },
+  "sourceArchiveFiles": 25,
+  "exactRawArchivePairs": 25,
+  "allowedCaseIds": [
+    "PERSIST",
+    "PUBLISH",
+    "RACE",
+    "DEST-SYMLINK",
+    "DEST-HARDLINK",
+    "TEMP-PARTIAL",
+    "SNAPSHOT",
+    "SNAPSHOT-STALE",
+    "SNAPSHOT-SYMLINK",
+    "SNAPSHOT-DIRECTORY"
+  ],
+  "uniqueCases": 10,
+  "uniqueOriginalSteps": 13,
+  "onePassReceiptPerCase": true,
+  "perCaseStepLabels": {
+    "PERSIST": [
+      "created",
+      "same",
+      "different"
+    ],
+    "PUBLISH": [
+      "created",
+      "identical-collision"
+    ],
+    "RACE": [
+      "actual-link-race"
+    ],
+    "DEST-SYMLINK": [
+      "existing-link-collision"
+    ],
+    "DEST-HARDLINK": [
+      "existing-link-collision"
+    ],
+    "TEMP-PARTIAL": [
+      "partial-temporary"
+    ],
+    "SNAPSHOT": [
+      "materialize"
+    ],
+    "SNAPSHOT-STALE": [
+      "materialize"
+    ],
+    "SNAPSHOT-SYMLINK": [
+      "materialize"
+    ],
+    "SNAPSHOT-DIRECTORY": [
+      "materialize"
+    ]
+  },
+  "allSourceStepsConsumedExactlyOnce": true,
+  "foreignEntries": 0,
+  "unknownCaseIds": 0,
+  "duplicateSteps": 0,
+  "newPhysicalExecutions": 0,
+  "preservedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/case-outcomes.json",
+      "bytes": 23856,
+      "sha256": "52d5b062d860ff541ad970d88a926502a22a2d0f6613c63e6bc45416fbea54a5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/case-map-first-failure.json",
+      "bytes": 2249,
+      "sha256": "4367de001ba234a2bed6e41c93df32a948c028d6eef6ca50f732560b726d20f7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/evidence/result.json",
+      "bytes": 10366,
+      "sha256": "ec7c6966fc9bf9b04deabf0efd56a0761e27720c38a092d3d287f35f90d8eef0"
+    }
+  ],
+  "successor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/case-outcomes-02.json",
+    "bytes": 23896,
+    "sha256": "f8ff73bc62f32dd43864b3b9e72f142b00402ebf34e62b3a950ac220d58224b0"
+  }
+}

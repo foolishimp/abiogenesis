@@ -1,0 +1,151 @@
+{
+  "at": "2026-10-21T04:06:52.051951+00:00",
+  "kind": "read_only_source_and_record_verification",
+  "passed": true,
+  "pinned_source_files_unchanged": 38,
+  "main_generated_files_unchanged": 936,
+  "exact_preconditions": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json",
+      "sha256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/L2-supplement.md",
+      "sha256": "48800f72c2186c2f352ef94bb3616fe5253aa9086b884e1ee0120e3954d798a6"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+      "sha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2"
+    }
+  ],
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "frame_anchor_present": true,
+  "integration_anchor_present": true,
+  "local_links": [
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md",
+      "target": "activation.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/activation.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md",
+      "target": "method-resolution.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/method-resolution.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md",
+      "target": "source-pins.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/source-pins.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md",
+      "target": "review-attribution-and-triage.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md",
+      "target": "prospective-grant-and-proof.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/prospective-grant-and-proof.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/prospective-grant-and-proof.md",
+      "target": "source-pins.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/source-pins.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/prospective-grant-and-proof.md",
+      "target": "review-attribution-and-triage.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/prospective-grant-and-proof.md",
+      "target": "HOW-proposal.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/report.md",
+      "target": "HOW-proposal.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/report.md",
+      "target": "review-attribution-and-triage.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/report.md",
+      "target": "prospective-grant-and-proof.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/prospective-grant-and-proof.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/report.md",
+      "target": "source-pins.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/source-pins.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/report.md",
+      "target": "main-generated-936-preservation.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/main-generated-936-preservation.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md",
+      "target": "source-pins.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/source-pins.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md",
+      "target": "../u1-c0-physical-currentness-successor-02/freeze.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md",
+      "target": "../u1-c0-physical-currentness-successor-02/L2-supplement.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/L2-supplement.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md",
+      "target": "../combined-final-02/freeze.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md",
+      "target": "HOW-proposal.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md",
+      "target": "prospective-grant-and-proof.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/prospective-grant-and-proof.md"
+    }
+  ],
+  "proposed_production_edit_paths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts"
+  ],
+  "execution_claims": {
+    "production_edits": 0,
+    "test_edits": 0,
+    "support_edits": 0,
+    "compiles": 0,
+    "product_test_executions": 0,
+    "native_or_model_executions": 0,
+    "git_mutations": 0,
+    "continuation17_accesses": 0
+  },
+  "authority_boundary": "These checks validate the frozen proposal records and source preservation only; no runtime, acceptance or realization grant."
+}

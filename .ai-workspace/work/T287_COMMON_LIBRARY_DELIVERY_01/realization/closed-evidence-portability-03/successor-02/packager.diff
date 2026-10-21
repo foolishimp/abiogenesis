@@ -1,0 +1,52 @@
+--- .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/package.py
++++ .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/package.py
+@@ -39,9 +39,12 @@
+     exact(grant['populationFreeze'])
+     for pin in read(D/'population-freeze.json')['files']: exact(pin)
+     assert read(D/'population.receipt.json')['exitCode'] == 0
++    closure = read(D/'population-command-closure.json')
++    assert closure['exitCode'] == 0
++    for row in closure['files']: exact(dict(row, path=str(D/row['path'])))
+     population = read(D/'population.json')['rows']
+     selected = {r['path']:r for r in population}
+-    metadata = {r['path']:r for r in read(D/'original-metadata.json')['rows']}
++    metadata = {r['path']:r for r in read(D/'object-source-states.json')['rows']}
+     plan = read(D/'object-plan.json')
+     groups = collections.defaultdict(list)
+     for obj in plan['objects']:
+@@ -80,25 +83,20 @@
+         with gzip.open(target,'rb') as src:
+             for b in iter(lambda:src.read(1024**2),b''): n+=len(b); h.update(b)
+         done.append(dict(path=name,sha256=digest(target),compressedBytes=target.stat().st_size,uncompressedTarBytes=n,uncompressedTarSha256=h.hexdigest(),payloadBytes=sum(r['bytes'] for r in rows),objects=len(rows),wallSeconds=time.monotonic()-t,verified=True))
+-    for row in population:
+-        p=Path(row['path']);source_state(p,metadata[str(p)]);assert digest(p)==row['sha256'],str(p)
+-    for p,m in metadata.items():
+-        if m['kind']!='file': source_state(Path(p),m)
+-    activation=read(D/'activation.json')
+-    for pin in [*activation['selectedFreezes'],activation['priorCarrier'],activation['predecessorStop'],activation['predecessorManifest']]: exact(pin)
+-    for row in read(D.parent/'stopped-manifest.json')['files']:exact(row)
+-    prior_freeze=read(PRIOR/'freeze.json')
+-    assert digest(PRIOR/'manifest.json')==prior_freeze['manifest_sha256']
+-    for row in read(PRIOR/'manifest.json')['records']:exact(dict(row,path=str(PRIOR/row['path'])))
+-    main=read(D/'protected-main-before.json')['inventory'];exact(main)
+-    main_rows=read(main['path'])['files']
+-    for row in main_rows:exact(dict(row,path=str(R/row['path']) if not Path(row['path']).is_absolute() else row['path']))
++    # Only newly copied object sources need fresh physical custody checks.
++    # All other byte routes are checked by the repository/archive-only verifier.
++    for source in {row['source'] for row in plan['objects']}:
++        source_state(Path(source), metadata[source])
++    activation = read(D/'activation.json')
++    for row in [*activation['selectedFreezes'], activation['priorCarrier'], activation['preservedStop']]: exact(row)
++    stopped = Path(activation['preservedStop']['path'])
++    for row in read(stopped)['files']: exact(dict(row, path=str(stopped.parent/row['path'])))
+     authored=sum(p.stat().st_size for p in D.iterdir() if p.is_file() and not p.name.endswith('.tar.gz'))
+     payload=sum(r['bytes'] for r in plan['objects'])
+     assert payload+authored <= LOGICAL_LIMIT
+-    write('preservation-after-packaging.json',dict(status='satisfied',selectedFiles=len(population),metadataRows=len(metadata),mainGeneratedFiles=len(main_rows),selectedFreezes=len(activation['selectedFreezes']),priorCarrierUnchanged=True,stoppedCutUnchanged=True,allSelectedOriginalBytesAndCoordinatesUnchanged=True,mismatches=0))
++    write('preservation-after-packaging.json',dict(status='satisfied',selectedFiles=len(population),copiedObjectSourceStates=len(metadata),selectedFreezes=len(activation['selectedFreezes']),priorCarrierFreezeUnchanged=True,stoppedCutUnchanged=True,newObjectSourceStatesUnchanged=True,mainScope='Earlier closed main936 preservation evidence retained; no main scan or write in this transport.',mismatches=0))
+     write('archives.json',dict(status='satisfied',populationFreeze=grant['populationFreeze'],startedUtc=started,completedUtc=datetime.datetime.now(datetime.timezone.utc).isoformat(),archives=done,totalCompressedBytes=sum(x['compressedBytes'] for x in done),newLogicalPayloadBytes=payload,authoredBytes=authored,logicalBoundBytes=payload+authored,compressedLimit=COMPRESSED_LIMIT,logicalLimit=LOGICAL_LIMIT,perArchiveTarget=ARCHIVE_TARGET,ProductExecutions=0,originalOwnerAcquisitions=0))
+-    print(json.dumps(dict(status='satisfied',archives=len(done),compressedBytes=sum(x['compressedBytes'] for x in done),payloadBytes=payload,preservedSources=len(population),protectedMain=len(main_rows))))
++    print(json.dumps(dict(status='satisfied',archives=len(done),compressedBytes=sum(x['compressedBytes'] for x in done),payloadBytes=payload,preservedSources=len(population),copiedObjectSources=len(metadata))))
+ except Exception as error:
+     write('STOP-packaging.json',dict(status='stopped',firstCause=repr(error),traceback=traceback.format_exc(),completedArchives=done,stop='Return Root; no retry, repair, cleanup or redefinition'))
+     raise

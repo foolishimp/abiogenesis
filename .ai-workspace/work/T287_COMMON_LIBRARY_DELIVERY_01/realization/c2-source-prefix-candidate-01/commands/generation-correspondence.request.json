@@ -1,0 +1,27 @@
+{
+  "label": "generation-correspondence",
+  "argv": [
+    "/usr/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-generation.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript",
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/tmp",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/npm-cache",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "timeoutMs": 600000,
+  "prebuildFreezeSha256": "f9603ef3a2fa1b90517f8eb532bd9b8cf63979225c5b95a0e3c5e9d7b9e5931e",
+  "runnerSha256": "01c1fe6f20bf881a6a5456069e9135f2f779086028ae900515e8bfb00f58f2f9",
+  "startedUnix": 1792570646.696105
+}

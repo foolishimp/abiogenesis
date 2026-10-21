@@ -1,0 +1,34 @@
+{
+  "scope": "Pure detached exact retained05 rows; no append store, physical owner, runtime event admission or test suite execution",
+  "log": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/scratch/abi5-root-env-gbhzQQ/runtime/events.jsonl",
+  "logSha256": "7d89635584b8311d4333dbdd967994f7277e131a181b7f9bd8ef0d892ad0f4db",
+  "receipt": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/evidence/B04-02-rename-successor-read-owner.json",
+  "receiptSha256": "46496a7136ba3391aa22902e8f4ce7d82f4cadc06d27295bae85db1267d797f2",
+  "rows": 29,
+  "fibreOrdinal": 26,
+  "invocationOrdinal": 4,
+  "dependencyRows": 10,
+  "strictBeforeFibre": true,
+  "fullIndexedColdEqual": true,
+  "priorFullAccepts": true,
+  "priorIndexedRefuses": true,
+  "missingInvocationRefuses": true,
+  "authenticPositive": true,
+  "negativeNames": [
+    "authorization grant",
+    "implementation selection",
+    "alternate output contract",
+    "strict support order",
+    "basis actor",
+    "duplicate opening",
+    "missing binding",
+    "later-only implementation"
+  ],
+  "alternateContract": {
+    "oldPureAccepts": true,
+    "newPureRefuses": true,
+    "vectorSha256": "sha256:b2190c336d6c61afb321973e136c4156408493d8e0ce4e77547e7002a9166677"
+  },
+  "scriptSha256": "72455293c4733ecd6761c859a1e12e55d59af1d7be2bab18f1dfeb0dc9c8b280",
+  "testSha256": "209a3540fc5a23f1395b6ee21bfa30e63a4571b51cfb38f87c18d2fb4e94f478"
+}

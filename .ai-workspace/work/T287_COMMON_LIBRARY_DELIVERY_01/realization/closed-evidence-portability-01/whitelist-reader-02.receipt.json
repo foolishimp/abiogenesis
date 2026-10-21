@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python3",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-01/build-whitelist-02.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exit_code": 0,
+  "wall_seconds": 15.951340913772583,
+  "stdout_sha256": "8b76a3a059ee9c378ba0e9f9d583008c048591478d431f69effb5587b1dc4d60",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

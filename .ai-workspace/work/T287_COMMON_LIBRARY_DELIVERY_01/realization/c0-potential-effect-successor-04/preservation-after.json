@@ -1,0 +1,13 @@
+{
+  "predecessorFreezeSha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+  "predecessorRecordsVerified": 8623,
+  "predecessorPhysicalInventorySha256": "170c052687bc5fcba4d9882ef952b9094e2d7434cd82a33e15097d13df8f9d6d",
+  "predecessorPhysicalFilesVerified": 5866,
+  "mainSelectedSourceReferenceSha256": "7bff0ba927fe867a67cea1d98c276589a34e05e3fc92d443f058faf98a977527",
+  "mainSelectedSourceFilesUnchanged": 12,
+  "mainGeneratedReferenceSha256": "7faf85c8d9126f75917fe5b4088239ad42299c84303336ae751638b191b411bd",
+  "mainGeneratedFilesUnchanged": 936,
+  "newWholeCandidateCopies": 0,
+  "sourceChanges": [],
+  "noOldHostOrStageWriteObserved": true
+}

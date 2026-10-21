@@ -1,0 +1,69 @@
+{
+  "kind": "t287_hog_ordinary_owner_effect_grant",
+  "status": "NOT_GRANTED",
+  "issuedBy": "/root",
+  "configurationSha256": "14fb2113791748d14da814abf40322290c1d10d4ea0c7064325675bdcf498883",
+  "runnerSha256": "ac3ce1aa03a9b7b47184a25d9338300be87b5a4a606573a3e364a53a7376c7c7",
+  "oracleSha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+  "inspectedInputsSha256": "5b7daf7af1e7683798e45177edcd0ac0b332cc83072227f123987f8f75baebb8",
+  "subjectId": "candidate",
+  "cases": [
+    "compose-retry",
+    "workflow-foldback",
+    "fanout-partial"
+  ],
+  "maxNativeCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "resources": {
+    "parent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9",
+    "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/driver-evidence",
+    "cases": {
+      "compose-retry": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache"
+      },
+      "workflow-foldback": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/cache"
+      },
+      "fanout-partial": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/cache"
+      }
+    }
+  },
+  "npmCacheSeed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/npm-cache-seed-inventory.json",
+    "sha256": "453bf5f7779f3515865996709acda6af32e12ded3dd50c58b8d85d9baa44f092",
+    "bytes": 2839,
+    "mode": "0o644",
+    "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p1"
+  },
+  "effects": [
+    "new exact resource roots",
+    "copy exact inventoried npm cache seed into each fresh cache; retained cache/index/log writes",
+    "offline exact ABI bootstrap/install; no ABI pack/build",
+    "unchanged authored structural fixture pack/install with exact ABI archive dependency",
+    "three sequential Public starts and selected fresh reads",
+    "read-only historical owner projections over actual returned event prefix",
+    "raw commands, owner receipts, physical inventories and footprints"
+  ],
+  "unobserved": [
+    "raw stdout and exit for helper-internal successful npm pack/install commands are not exposed by existing support; captured outer failures and retained package/store/physical residue remain",
+    "internal read/hash/encode/write and RuntimeHistory counters",
+    "peak child heap or per-helper CPU"
+  ],
+  "maxAdditionalRetainedBytes": 4294967296,
+  "preparationActivation": "HOG-FINAL06-BINDING-01",
+  "preparationOnly": true
+}

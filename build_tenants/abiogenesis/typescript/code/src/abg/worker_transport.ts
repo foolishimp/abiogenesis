@@ -11,6 +11,7 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
+import { createMonotonicDeadline, createOwnedProcessLifetime } from "../shared/owned_process_lifetime.js";
 import type { RuntimeLivenessObserverProjection } from "./runtime_liveness_contracts.js";
 import {
   classifyWorkerTransportFailure,
@@ -349,7 +350,7 @@ function observeStructuredOutput(stdout: string, structuredOutputExpected: boole
   return observer.finish();
 }
 
-function runProcess(input: {
+async function runProcess(input: {
   readonly command: string;
   readonly args: readonly string[];
   readonly cwd: string;
@@ -362,320 +363,102 @@ function runProcess(input: {
   readonly stderrPath: string;
   readonly observer?: WorkerProcessObserver;
 }): Promise<ProcessObservation> {
-  return new Promise((resolveProcess, rejectProcess) => {
-    let stdout = "";
-    let stderr = "";
-    let timedOut = false;
-    let timeoutClass: WorkerTransportTimeoutClass | null = null;
-    let launchError: string | null = null;
-    let resultBearingStdout: string | null = null;
-    let settled = false;
-    let forceTimer: ReturnType<typeof setTimeout> | null = null;
-    let confirmationTimer: ReturnType<typeof setTimeout> | null = null;
-    let groupCheckTimer: ReturnType<typeof setTimeout> | null = null;
-    let drainTimer: ReturnType<typeof setTimeout> | null = null;
-    let inactivityTimer: ReturnType<typeof setTimeout> | null = null;
-    let absoluteTimer: ReturnType<typeof setTimeout> | null = null;
-    let observedExit: {
-      readonly status: number | null;
-      readonly signal: NodeJS.Signals | null;
-    } | null = null;
-    let observerActive = true;
-    let pendingObserverError: Error | null = null;
-    let closeObserved = false;
-    let cleanupStarted = false;
-    const snapshotResultBearingStdout = (): void => {
-      if (resultBearingStdout === null) resultBearingStdout = stdout;
-    };
-    const clearLeaseTimers = (): void => {
-      if (inactivityTimer !== null) clearTimeout(inactivityTimer);
-      if (absoluteTimer !== null) clearTimeout(absoluteTimer);
-      inactivityTimer = null;
-      absoluteTimer = null;
-    };
-    const child = spawn(input.command, input.args, {
-      cwd: input.cwd,
-      env: input.env,
-      detached: process.platform !== "win32",
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-    const signalProcessTree = (signal: NodeJS.Signals): void => {
-      try {
-        if (process.platform !== "win32" && child.pid !== undefined) {
-          process.kill(-child.pid, signal);
-        } else {
-          child.kill(signal);
-        }
-      } catch {
-        // Signal failure is not termination evidence. The group probe below
-        // must still confirm absence or retain an unconfirmed residue.
-      }
-    };
-    const ownedGroupGone = (): boolean => {
-      if (process.platform === "win32") return observedExit !== null;
-      if (child.pid === undefined) return launchError !== null;
-      try { process.kill(-child.pid, 0); return false; }
-      catch (error) { return (error as NodeJS.ErrnoException).code === "ESRCH"; }
-    };
-    const settle = (
-      status: number | null,
-      signal: NodeJS.Signals | null,
-      exitObserved: boolean,
-      terminationConfirmed: boolean,
-    ): void => {
-      if (settled) return;
-      settled = true;
-      observerActive = false;
-      clearLeaseTimers();
-      if (forceTimer !== null) clearTimeout(forceTimer);
-      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
-      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
-      if (drainTimer !== null) clearTimeout(drainTimer);
-      resolveProcess({
-        status,
-        signal,
-        timedOut,
-        timeoutClass,
-        exitObserved,
-        terminationConfirmed,
-        launchError,
-        resultBearingStdout: resultBearingStdout ?? stdout,
-        stdout,
-        stderr,
-      });
-    };
-    const settleObserverFailure = (): void => {
-      if (settled) return;
-      settled = true;
-      observerActive = false;
-      clearLeaseTimers();
-      if (forceTimer !== null) clearTimeout(forceTimer);
-      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
-      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
-      if (drainTimer !== null) clearTimeout(drainTimer);
-      child.stdout.destroy();
-      child.stderr.destroy();
-      child.stdin.destroy();
-      rejectProcess(pendingObserverError ?? new TypeError(
-        "worker process observer failed without one captured error",
-      ));
-    };
-    const finishTermination = (confirmed: boolean): void => {
-      if (settled || drainTimer !== null) return;
-      if (!confirmed) {
-        try { input.observer?.onTerminationUnconfirmed?.(); }
-        catch (error) { pendingObserverError ??= error instanceof Error ? error : new TypeError(String(error)); }
-      }
-      clearLeaseTimers();
-      if (forceTimer !== null) clearTimeout(forceTimer);
-      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
-      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
-      const finish = () => {
-        child.stdout.destroy(); child.stderr.destroy(); child.stdin.destroy();
-        if (pendingObserverError !== null) settleObserverFailure();
-        else settle(observedExit?.status ?? null, observedExit?.signal ?? null,
-          observedExit !== null, confirmed && observedExit !== null);
-      };
-      if (closeObserved) finish();
-      else drainTimer = setTimeout(finish, Math.min(input.terminationGraceMs, 250));
-    };
-    const checkOwnedGroup = (): void => {
-      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
-      groupCheckTimer = null;
-      if (settled || drainTimer !== null) return;
-      if (ownedGroupGone() && (observedExit !== null || launchError !== null)) {
-        finishTermination(true); return;
-      }
-      groupCheckTimer = setTimeout(checkOwnedGroup, Math.min(input.terminationGraceMs, 10));
-    };
-    const beginOwnedCleanup = (): void => {
-      if (settled || cleanupStarted) return;
-      if (ownedGroupGone() && observedExit !== null) { finishTermination(true); return; }
-      cleanupStarted = true;
-      clearLeaseTimers();
-      if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGTERM"))) return;
-      signalProcessTree("SIGTERM");
-      forceTimer = setTimeout(() => {
-        if (settled || drainTimer !== null) return;
-        if (ownedGroupGone() && observedExit !== null) { finishTermination(true); return; }
-        if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGKILL"))) return;
-        signalProcessTree("SIGKILL");
-        confirmationTimer = setTimeout(() => finishTermination(ownedGroupGone()), input.terminationGraceMs);
-      }, input.terminationGraceMs);
-      checkOwnedGroup();
-    };
-    const beginObserverFailure = (error: unknown): void => {
-      if (settled || pendingObserverError !== null) return;
-      pendingObserverError = error instanceof Error
-        ? error
-        : new TypeError(String(error));
-      observerActive = false;
-      clearLeaseTimers();
-      if (forceTimer !== null) clearTimeout(forceTimer);
-      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
-      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
-      if (drainTimer !== null) clearTimeout(drainTimer);
-      drainTimer = null;
-      child.stdin.destroy();
-      cleanupStarted = true;
-      signalProcessTree("SIGKILL");
-      confirmationTimer = setTimeout(() => finishTermination(ownedGroupGone()), input.terminationGraceMs);
-      checkOwnedGroup();
-    };
-    const notifyObserver = (action: (() => void) | undefined): boolean => {
-      if (!observerActive || action === undefined) return !settled;
-      try {
-        action();
-        return true;
-      } catch (error) {
-        beginObserverFailure(error);
-        return false;
-      }
-    };
-    const notifyProgressObserver = (
-      action: (() => boolean) | undefined,
-    ): boolean => {
-      if (!observerActive || action === undefined) return false;
-      try {
-        return action() === true;
-      } catch (error) {
-        beginObserverFailure(error);
-        return false;
-      }
-    };
-    const beginTimeout = (
-      observedTimeoutClass: WorkerTransportTimeoutClass,
-    ): void => {
-      if (settled || timedOut) return;
-      if (input.observer?.onNativeSupervisionWakeup !== undefined) {
-        let decision: ReturnType<NonNullable<WorkerProcessObserver["onNativeSupervisionWakeup"]>> | null = null;
-        if (!notifyObserver(() => { decision = input.observer!.onNativeSupervisionWakeup!(); })) return;
-        const selected = decision as ReturnType<NonNullable<WorkerProcessObserver["onNativeSupervisionWakeup"]>> | null;
-        if (selected === null || !Number.isFinite(selected.nextWakeDelayMs) || selected.nextWakeDelayMs <= 0) {
-          beginObserverFailure(new TypeError("native supervision returned no finite declared wakeup")); return;
-        }
-        if (selected.projection.disposition.disposition !== "controlled_terminate") {
-          if (selected.admittedThresholdEventRef !== null || selected.timeoutClass !== null) {
-            beginObserverFailure(new TypeError("non-consequential native wakeup claimed a threshold")); return;
-          }
-          if (inactivityTimer !== null) clearTimeout(inactivityTimer);
-          inactivityTimer = setTimeout(() => beginTimeout("inactivity"), selected.nextWakeDelayMs);
-          return;
-        }
-        if (selected.admittedThresholdEventRef === null || selected.timeoutClass === null) {
-          beginObserverFailure(new TypeError("native containment lacks its admitted threshold")); return;
-        }
-        observedTimeoutClass = selected.timeoutClass;
-      }
-      timedOut = true;
-      timeoutClass = observedTimeoutClass;
-      clearLeaseTimers();
-      snapshotResultBearingStdout();
-      if (input.observer?.onNativeSupervisionWakeup === undefined && !notifyObserver(() =>
-        input.observer?.onTimeoutObserved?.(observedTimeoutClass)
-      )) return;
-      beginOwnedCleanup();
-    };
-    const renewInactivityLease = (): void => {
-      if (settled || timedOut) return;
-      if (inactivityTimer !== null) clearTimeout(inactivityTimer);
-      inactivityTimer = setTimeout(
-        () => beginTimeout("inactivity"),
-        input.timeoutMs,
-      );
-    };
-    renewInactivityLease();
-    absoluteTimer = setTimeout(
-      () => beginTimeout("absolute"),
-      input.absoluteTimeoutMs,
-    );
-    child.once("spawn", () => {
-      if (settled) return;
-      if (child.pid !== undefined) {
-        notifyObserver(() => input.observer?.onProcessStarted?.(child.pid!));
-      }
-    });
-    child.stdout.setEncoding("utf8");
-    child.stderr.setEncoding("utf8");
-    child.stdout.on("data", (chunk: string) => {
-      if (settled) return;
-      try { appendFileSync(input.stdoutPath, chunk, "utf8"); }
-      catch (error) { beginObserverFailure(error); return; }
-      stdout += chunk;
-      if (notifyProgressObserver(
-        input.observer?.onStdoutObserved === undefined
-          ? undefined
-          : () => input.observer!.onStdoutObserved!(chunk),
-      )) {
-        renewInactivityLease();
-      }
-    });
-    child.stderr.on("data", (chunk: string) => {
-      if (settled) return;
-      try { appendFileSync(input.stderrPath, chunk, "utf8"); }
-      catch (error) { beginObserverFailure(error); return; }
-      stderr += chunk;
-      if (notifyProgressObserver(
-        input.observer?.onStderrObserved === undefined
-          ? undefined
-          : () => input.observer!.onStderrObserved!(chunk),
-      )) {
-        renewInactivityLease();
-      }
-    });
-    child.once("error", (error) => {
-      if (settled) return;
-      snapshotResultBearingStdout();
-      launchError = error.message;
-      notifyObserver(() => input.observer?.onSpawnFailed?.(error.message));
-    });
-    child.once("exit", (status, signal) => {
-      if (settled) return;
-      clearLeaseTimers();
-      snapshotResultBearingStdout();
-      observedExit = { status, signal };
-      child.stdout.destroy(); child.stderr.destroy(); child.stdin.destroy();
-      if (pendingObserverError !== null) {
-        try {
-          input.observer?.onProcessExited?.(status, signal);
-        } catch {
-          // Preserve the first observer failure and the last admitted prefix.
-        }
-        checkOwnedGroup();
-        return;
-      }
-      if (!notifyObserver(() => input.observer?.onProcessExited?.(status, signal))) return;
-      if (cleanupStarted) checkOwnedGroup();
-      else beginOwnedCleanup();
-    });
-    child.once("close", (status, signal) => {
-      if (settled) return;
-      closeObserved = true;
-      snapshotResultBearingStdout();
-      if (pendingObserverError !== null) {
-        if (observedExit === null && launchError !== null) {
-          try {
-            input.observer?.onSpawnFailed?.(launchError);
-          } catch {
-            // Preserve the first observer failure and the last admitted prefix.
-          }
-        }
-        checkOwnedGroup();
-        return;
-      }
-      if (observedExit !== null) {
-        if (cleanupStarted) checkOwnedGroup();
-        else beginOwnedCleanup();
-        return;
-      }
-      settle(status, signal, false, false);
-    });
-    if (input.stdin === null) {
-      child.stdin.end();
-    } else {
-      child.stdin.end(input.stdin);
-    }
+  let stdout = "";
+  let stderr = "";
+  let timedOut = false;
+  let timeoutClass: WorkerTransportTimeoutClass | null = null;
+  let launchError: string | null = null;
+  let resultBearingStdout: string | null = null;
+  let captureOpen = true;
+  const inactivityTimer = createMonotonicDeadline();
+  const absoluteTimer = createMonotonicDeadline();
+  const clearLeaseTimers = (): void => { inactivityTimer.cancel(); absoluteTimer.cancel(); };
+  const snapshotResultBearingStdout = (): void => { resultBearingStdout ??= stdout; };
+  const child = spawn(input.command, input.args, {
+    cwd: input.cwd, env: input.env, detached: process.platform !== "win32",
+    stdio: ["pipe", "pipe", "pipe"],
   });
+  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: input.terminationGraceMs }, {
+    onSpawn: (pid) => input.observer?.onProcessStarted?.(pid),
+    onError: (error) => {
+      clearLeaseTimers(); snapshotResultBearingStdout(); launchError = error.message;
+      input.observer?.onSpawnFailed?.(error.message);
+    },
+    onExit: (status, signal) => {
+      clearLeaseTimers(); snapshotResultBearingStdout(); captureOpen = false;
+      child.stdout.destroy(); child.stderr.destroy(); child.stdin.destroy();
+      input.observer?.onProcessExited?.(status, signal);
+    },
+    onSignalRequested: (signal) => {
+      clearLeaseTimers(); input.observer?.onSignalRequested?.(signal);
+    },
+    onUnconfirmed: () => { clearLeaseTimers(); input.observer?.onTerminationUnconfirmed?.(); },
+  });
+  const beginTimeout = (observedTimeoutClass: WorkerTransportTimeoutClass): void => {
+    if (timedOut || lifetime.snapshot().cleanupDeadlineNs !== null) return;
+    if (input.observer?.onNativeSupervisionWakeup !== undefined) {
+      const selected = lifetime.observe(() => input.observer!.onNativeSupervisionWakeup!());
+      if (selected === undefined) return;
+      if (!Number.isFinite(selected.nextWakeDelayMs) || selected.nextWakeDelayMs <= 0) {
+        lifetime.fail(new TypeError("native supervision returned no finite declared wakeup")); return;
+      }
+      if (selected.projection.disposition.disposition !== "controlled_terminate") {
+        if (selected.admittedThresholdEventRef !== null || selected.timeoutClass !== null) {
+          lifetime.fail(new TypeError("non-consequential native wakeup claimed a threshold")); return;
+        }
+        inactivityTimer.after(selected.nextWakeDelayMs, () => beginTimeout("inactivity"));
+        return;
+      }
+      if (selected.admittedThresholdEventRef === null || selected.timeoutClass === null) {
+        lifetime.fail(new TypeError("native containment lacks its admitted threshold")); return;
+      }
+      observedTimeoutClass = selected.timeoutClass;
+    }
+    timedOut = true; timeoutClass = observedTimeoutClass;
+    clearLeaseTimers(); snapshotResultBearingStdout();
+    if (input.observer?.onNativeSupervisionWakeup === undefined) {
+      lifetime.observe(() => input.observer?.onTimeoutObserved?.(observedTimeoutClass));
+    }
+    lifetime.requestTermination();
+  };
+  const renewInactivityLease = (): void => {
+    if (timedOut || lifetime.snapshot().cleanupDeadlineNs !== null) return;
+    inactivityTimer.after(input.timeoutMs, () => beginTimeout("inactivity"));
+  };
+  const onStdout = (chunk: string): void => {
+    if (!captureOpen) return;
+    lifetime.observe(() => {
+      appendFileSync(input.stdoutPath, chunk, "utf8"); stdout += chunk;
+      if (input.observer?.onStdoutObserved?.(chunk) === true) renewInactivityLease();
+    });
+  };
+  const onStderr = (chunk: string): void => {
+    if (!captureOpen) return;
+    lifetime.observe(() => {
+      appendFileSync(input.stderrPath, chunk, "utf8"); stderr += chunk;
+      if (input.observer?.onStderrObserved?.(chunk) === true) renewInactivityLease();
+    });
+  };
+  try {
+    renewInactivityLease();
+    absoluteTimer.after(input.absoluteTimeoutMs, () => beginTimeout("absolute"));
+    child.stdout.setEncoding("utf8"); child.stderr.setEncoding("utf8");
+    child.stdout.on("data", onStdout); child.stderr.on("data", onStderr);
+    child.stdin.end(input.stdin ?? undefined);
+  } catch (error) { lifetime.fail(error); }
+  try {
+    const facts = await lifetime.completion;
+    if (facts.firstError !== null) throw facts.firstError;
+    return {
+      status: facts.directExit?.status ?? null, signal: facts.directExit?.signal ?? null,
+      timedOut, timeoutClass, exitObserved: facts.directExit !== null,
+      terminationConfirmed: facts.scopeAbsence === "absent" && facts.directExit !== null,
+      launchError, resultBearingStdout: resultBearingStdout ?? stdout, stdout, stderr,
+    };
+  } finally {
+    clearLeaseTimers(); captureOpen = false;
+    child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
+  }
 }
 
 /** Pure existing protocol parser, shared by the native artifact observer. */

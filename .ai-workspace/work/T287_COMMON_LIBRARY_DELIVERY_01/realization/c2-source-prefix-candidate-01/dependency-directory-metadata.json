@@ -1,0 +1,7011 @@
+{
+  "donor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/dependency-directory-metadata.json",
+    "sha256": "0a81d61cc8a684469a36d2169c3beedc8f261d2f48160797241d06820b437976",
+    "bytes": 165916
+  },
+  "sourceRows": [
+    {
+      "path": ".",
+      "mode": "0o755",
+      "mtime_ns": 1792538041011250329,
+      "dev": 16777231,
+      "inode": 474455350
+    },
+    {
+      "path": ".bin",
+      "mode": "0o755",
+      "mtime_ns": 1792538041009377757,
+      "dev": 16777231,
+      "inode": 474456483
+    },
+    {
+      "path": "@standard-schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040673657239,
+      "dev": 16777231,
+      "inode": 474459839
+    },
+    {
+      "path": "@standard-schema/spec",
+      "mode": "0o755",
+      "mtime_ns": 1792538040756990548,
+      "dev": 16777231,
+      "inode": 474459840
+    },
+    {
+      "path": "@standard-schema/spec/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040757780127,
+      "dev": 16777231,
+      "inode": 474459842
+    },
+    {
+      "path": "@types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040673607155,
+      "dev": 16777231,
+      "inode": 474455351
+    },
+    {
+      "path": "@types/node",
+      "mode": "0o755",
+      "mtime_ns": 1792538040785897673,
+      "dev": 16777231,
+      "inode": 474455352
+    },
+    {
+      "path": "@types/node/assert",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783185814,
+      "dev": 16777231,
+      "inode": 474455394
+    },
+    {
+      "path": "@types/node/compatibility",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783324271,
+      "dev": 16777231,
+      "inode": 474455353
+    },
+    {
+      "path": "@types/node/dns",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783493645,
+      "dev": 16777231,
+      "inode": 474455426
+    },
+    {
+      "path": "@types/node/fs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783870726,
+      "dev": 16777231,
+      "inode": 474455428
+    },
+    {
+      "path": "@types/node/readline",
+      "mode": "0o755",
+      "mtime_ns": 1792538040784321015,
+      "dev": 16777231,
+      "inode": 474455384
+    },
+    {
+      "path": "@types/node/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040784913345,
+      "dev": 16777231,
+      "inode": 474455379
+    },
+    {
+      "path": "@types/node/timers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040785352218,
+      "dev": 16777231,
+      "inode": 474455375
+    },
+    {
+      "path": "@types/node/ts5.6",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786046130,
+      "dev": 16777231,
+      "inode": 474455420
+    },
+    {
+      "path": "@types/node/ts5.6/compatibility",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786168588,
+      "dev": 16777231,
+      "inode": 474455421
+    },
+    {
+      "path": "@types/node/ts5.7",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786301129,
+      "dev": 16777231,
+      "inode": 474455413
+    },
+    {
+      "path": "@types/node/ts5.7/compatibility",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786413045,
+      "dev": 16777231,
+      "inode": 474455414
+    },
+    {
+      "path": "@valibot",
+      "mode": "0o755",
+      "mtime_ns": 1792538040673673447,
+      "dev": 16777231,
+      "inode": 474459885
+    },
+    {
+      "path": "@valibot/to-json-schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040759443868,
+      "dev": 16777231,
+      "inode": 474459886
+    },
+    {
+      "path": "@valibot/to-json-schema/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040761012525,
+      "dev": 16777231,
+      "inode": 474459888
+    },
+    {
+      "path": "ajv",
+      "mode": "0o755",
+      "mtime_ns": 1792538040793794711,
+      "dev": 16777231,
+      "inode": 474459897
+    },
+    {
+      "path": "ajv/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803791403,
+      "dev": 16777231,
+      "inode": 474459899
+    },
+    {
+      "path": "ajv/dist/compile",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810164324,
+      "dev": 16777231,
+      "inode": 474460155
+    },
+    {
+      "path": "ajv/dist/compile/codegen",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808327960,
+      "dev": 16777231,
+      "inode": 474460190
+    },
+    {
+      "path": "ajv/dist/compile/jtd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809216246,
+      "dev": 16777231,
+      "inode": 474460200
+    },
+    {
+      "path": "ajv/dist/compile/validate",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808762082,
+      "dev": 16777231,
+      "inode": 474460157
+    },
+    {
+      "path": "ajv/dist/refs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803432197,
+      "dev": 16777231,
+      "inode": 474460220
+    },
+    {
+      "path": "ajv/dist/refs/json-schema-2019-09",
+      "mode": "0o755",
+      "mtime_ns": 1792538040799500636,
+      "dev": 16777231,
+      "inode": 474460221
+    },
+    {
+      "path": "ajv/dist/refs/json-schema-2019-09/meta",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783632186,
+      "dev": 16777231,
+      "inode": 474460222
+    },
+    {
+      "path": "ajv/dist/refs/json-schema-2020-12",
+      "mode": "0o755",
+      "mtime_ns": 1792538040799530094,
+      "dev": 16777231,
+      "inode": 474460239
+    },
+    {
+      "path": "ajv/dist/refs/json-schema-2020-12/meta",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783667603,
+      "dev": 16777231,
+      "inode": 474460240
+    },
+    {
+      "path": "ajv/dist/runtime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810277699,
+      "dev": 16777231,
+      "inode": 474460127
+    },
+    {
+      "path": "ajv/dist/standalone",
+      "mode": "0o755",
+      "mtime_ns": 1792538040802841742,
+      "dev": 16777231,
+      "inode": 474460119
+    },
+    {
+      "path": "ajv/dist/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803468321,
+      "dev": 16777231,
+      "inode": 474460104
+    },
+    {
+      "path": "ajv/dist/vocabularies",
+      "mode": "0o755",
+      "mtime_ns": 1792538040805026229,
+      "dev": 16777231,
+      "inode": 474459900
+    },
+    {
+      "path": "ajv/dist/vocabularies/applicator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808915665,
+      "dev": 16777231,
+      "inode": 474460007
+    },
+    {
+      "path": "ajv/dist/vocabularies/core",
+      "mode": "0o755",
+      "mtime_ns": 1792538040807249049,
+      "dev": 16777231,
+      "inode": 474459918
+    },
+    {
+      "path": "ajv/dist/vocabularies/discriminator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809249163,
+      "dev": 16777231,
+      "inode": 474459988
+    },
+    {
+      "path": "ajv/dist/vocabularies/dynamic",
+      "mode": "0o755",
+      "mtime_ns": 1792538040807019926,
+      "dev": 16777231,
+      "inode": 474459902
+    },
+    {
+      "path": "ajv/dist/vocabularies/format",
+      "mode": "0o755",
+      "mtime_ns": 1792538040800072133,
+      "dev": 16777231,
+      "inode": 474459998
+    },
+    {
+      "path": "ajv/dist/vocabularies/jtd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810411948,
+      "dev": 16777231,
+      "inode": 474459947
+    },
+    {
+      "path": "ajv/dist/vocabularies/unevaluated",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809775993,
+      "dev": 16777231,
+      "inode": 474459937
+    },
+    {
+      "path": "ajv/dist/vocabularies/validation",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810023450,
+      "dev": 16777231,
+      "inode": 474460064
+    },
+    {
+      "path": "ajv/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803976235,
+      "dev": 16777231,
+      "inode": 474460262
+    },
+    {
+      "path": "ajv/lib/compile",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810229157,
+      "dev": 16777231,
+      "inode": 474460358
+    },
+    {
+      "path": "ajv/lib/compile/codegen",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808419168,
+      "dev": 16777231,
+      "inode": 474460370
+    },
+    {
+      "path": "ajv/lib/compile/jtd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809330329,
+      "dev": 16777231,
+      "inode": 474460374
+    },
+    {
+      "path": "ajv/lib/compile/validate",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808823874,
+      "dev": 16777231,
+      "inode": 474460359
+    },
+    {
+      "path": "ajv/lib/refs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803655529,
+      "dev": 16777231,
+      "inode": 474460382
+    },
+    {
+      "path": "ajv/lib/refs/json-schema-2019-09",
+      "mode": "0o755",
+      "mtime_ns": 1792538040800803837,
+      "dev": 16777231,
+      "inode": 474460383
+    },
+    {
+      "path": "ajv/lib/refs/json-schema-2019-09/meta",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783723519,
+      "dev": 16777231,
+      "inode": 474460384
+    },
+    {
+      "path": "ajv/lib/refs/json-schema-2020-12",
+      "mode": "0o755",
+      "mtime_ns": 1792538040801238418,
+      "dev": 16777231,
+      "inode": 474460396
+    },
+    {
+      "path": "ajv/lib/refs/json-schema-2020-12/meta",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783766935,
+      "dev": 16777231,
+      "inode": 474460397
+    },
+    {
+      "path": "ajv/lib/runtime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810345407,
+      "dev": 16777231,
+      "inode": 474460345
+    },
+    {
+      "path": "ajv/lib/standalone",
+      "mode": "0o755",
+      "mtime_ns": 1792538040802878325,
+      "dev": 16777231,
+      "inode": 474460342
+    },
+    {
+      "path": "ajv/lib/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803696237,
+      "dev": 16777231,
+      "inode": 474460337
+    },
+    {
+      "path": "ajv/lib/vocabularies",
+      "mode": "0o755",
+      "mtime_ns": 1792538040805075604,
+      "dev": 16777231,
+      "inode": 474460263
+    },
+    {
+      "path": "ajv/lib/vocabularies/applicator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808986206,
+      "dev": 16777231,
+      "inode": 474460304
+    },
+    {
+      "path": "ajv/lib/vocabularies/core",
+      "mode": "0o755",
+      "mtime_ns": 1792538040807416924,
+      "dev": 16777231,
+      "inode": 474460273
+    },
+    {
+      "path": "ajv/lib/vocabularies/discriminator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809391037,
+      "dev": 16777231,
+      "inode": 474460296
+    },
+    {
+      "path": "ajv/lib/vocabularies/dynamic",
+      "mode": "0o755",
+      "mtime_ns": 1792538040807065051,
+      "dev": 16777231,
+      "inode": 474460266
+    },
+    {
+      "path": "ajv/lib/vocabularies/format",
+      "mode": "0o755",
+      "mtime_ns": 1792538040802556535,
+      "dev": 16777231,
+      "inode": 474460300
+    },
+    {
+      "path": "ajv/lib/vocabularies/jtd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810484947,
+      "dev": 16777231,
+      "inode": 474460282
+    },
+    {
+      "path": "ajv/lib/vocabularies/unevaluated",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809842868,
+      "dev": 16777231,
+      "inode": 474460278
+    },
+    {
+      "path": "ajv/lib/vocabularies/validation",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810061325,
+      "dev": 16777231,
+      "inode": 474460323
+    },
+    {
+      "path": "ajv-formats",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758762246,
+      "dev": 16777231,
+      "inode": 474456486
+    },
+    {
+      "path": "ajv-formats/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040760281529,
+      "dev": 16777231,
+      "inode": 474456488
+    },
+    {
+      "path": "ajv-formats/src",
+      "mode": "0o755",
+      "mtime_ns": 1792538040760449737,
+      "dev": 16777231,
+      "inode": 474456500
+    },
+    {
+      "path": "effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040949186687,
+      "dev": 16777231,
+      "inode": 474456742
+    },
+    {
+      "path": "effect/.index",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859008750,
+      "dev": 16777231,
+      "inode": 474459166
+    },
+    {
+      "path": "effect/Arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859092916,
+      "dev": 16777231,
+      "inode": 474459130
+    },
+    {
+      "path": "effect/Array",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859167624,
+      "dev": 16777231,
+      "inode": 474459080
+    },
+    {
+      "path": "effect/BigDecimal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859241832,
+      "dev": 16777231,
+      "inode": 474459138
+    },
+    {
+      "path": "effect/BigInt",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859303790,
+      "dev": 16777231,
+      "inode": 474456795
+    },
+    {
+      "path": "effect/Boolean",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859378748,
+      "dev": 16777231,
+      "inode": 474459238
+    },
+    {
+      "path": "effect/Brand",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859452206,
+      "dev": 16777231,
+      "inode": 474459118
+    },
+    {
+      "path": "effect/Cache",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859521247,
+      "dev": 16777231,
+      "inode": 474456819
+    },
+    {
+      "path": "effect/Cause",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859589789,
+      "dev": 16777231,
+      "inode": 474459074
+    },
+    {
+      "path": "effect/Channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859664747,
+      "dev": 16777231,
+      "inode": 474459189
+    },
+    {
+      "path": "effect/ChildExecutorDecision",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859730704,
+      "dev": 16777231,
+      "inode": 474459205
+    },
+    {
+      "path": "effect/Chunk",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859806037,
+      "dev": 16777231,
+      "inode": 474456817
+    },
+    {
+      "path": "effect/Clock",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859874620,
+      "dev": 16777231,
+      "inode": 474459320
+    },
+    {
+      "path": "effect/Config",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859949078,
+      "dev": 16777231,
+      "inode": 474459078
+    },
+    {
+      "path": "effect/ConfigError",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860022619,
+      "dev": 16777231,
+      "inode": 474459120
+    },
+    {
+      "path": "effect/ConfigProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860092994,
+      "dev": 16777231,
+      "inode": 474456777
+    },
+    {
+      "path": "effect/ConfigProviderPathPatch",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860161619,
+      "dev": 16777231,
+      "inode": 474459332
+    },
+    {
+      "path": "effect/Console",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860231743,
+      "dev": 16777231,
+      "inode": 474459338
+    },
+    {
+      "path": "effect/Context",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860304576,
+      "dev": 16777231,
+      "inode": 474456799
+    },
+    {
+      "path": "effect/Cron",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860382659,
+      "dev": 16777231,
+      "inode": 474459324
+    },
+    {
+      "path": "effect/Data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860459075,
+      "dev": 16777231,
+      "inode": 474459300
+    },
+    {
+      "path": "effect/DateTime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860529408,
+      "dev": 16777231,
+      "inode": 474459088
+    },
+    {
+      "path": "effect/DefaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860613991,
+      "dev": 16777231,
+      "inode": 474456828
+    },
+    {
+      "path": "effect/Deferred",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860685699,
+      "dev": 16777231,
+      "inode": 474459098
+    },
+    {
+      "path": "effect/Differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860754782,
+      "dev": 16777231,
+      "inode": 474459160
+    },
+    {
+      "path": "effect/Duration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860858031,
+      "dev": 16777231,
+      "inode": 474459302
+    },
+    {
+      "path": "effect/Effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860936822,
+      "dev": 16777231,
+      "inode": 474459132
+    },
+    {
+      "path": "effect/Effectable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861022655,
+      "dev": 16777231,
+      "inode": 474456743
+    },
+    {
+      "path": "effect/Either",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861090988,
+      "dev": 16777231,
+      "inode": 474456785
+    },
+    {
+      "path": "effect/Encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861170696,
+      "dev": 16777231,
+      "inode": 474459142
+    },
+    {
+      "path": "effect/Equal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861441694,
+      "dev": 16777231,
+      "inode": 474459256
+    },
+    {
+      "path": "effect/Equivalence",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861521986,
+      "dev": 16777231,
+      "inode": 474459209
+    },
+    {
+      "path": "effect/ExecutionPlan",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861583277,
+      "dev": 16777231,
+      "inode": 474459094
+    },
+    {
+      "path": "effect/ExecutionStrategy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861659985,
+      "dev": 16777231,
+      "inode": 474459276
+    },
+    {
+      "path": "effect/Exit",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861732943,
+      "dev": 16777231,
+      "inode": 474459260
+    },
+    {
+      "path": "effect/FastCheck",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861804901,
+      "dev": 16777231,
+      "inode": 474459199
+    },
+    {
+      "path": "effect/Fiber",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861875317,
+      "dev": 16777231,
+      "inode": 474459252
+    },
+    {
+      "path": "effect/FiberHandle",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861950233,
+      "dev": 16777231,
+      "inode": 474459312
+    },
+    {
+      "path": "effect/FiberId",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862040816,
+      "dev": 16777231,
+      "inode": 474456755
+    },
+    {
+      "path": "effect/FiberMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862119732,
+      "dev": 16777231,
+      "inode": 474456749
+    },
+    {
+      "path": "effect/FiberRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862185440,
+      "dev": 16777231,
+      "inode": 474459201
+    },
+    {
+      "path": "effect/FiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862269356,
+      "dev": 16777231,
+      "inode": 474459114
+    },
+    {
+      "path": "effect/FiberRefsPatch",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862346439,
+      "dev": 16777231,
+      "inode": 474456793
+    },
+    {
+      "path": "effect/FiberSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862428731,
+      "dev": 16777231,
+      "inode": 474459096
+    },
+    {
+      "path": "effect/FiberStatus",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862508188,
+      "dev": 16777231,
+      "inode": 474459232
+    },
+    {
+      "path": "effect/Function",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862589563,
+      "dev": 16777231,
+      "inode": 474459162
+    },
+    {
+      "path": "effect/GlobalValue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862665562,
+      "dev": 16777231,
+      "inode": 474456771
+    },
+    {
+      "path": "effect/Graph",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862748104,
+      "dev": 16777231,
+      "inode": 474459124
+    },
+    {
+      "path": "effect/GroupBy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862820853,
+      "dev": 16777231,
+      "inode": 474459181
+    },
+    {
+      "path": "effect/HKT",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863234851,
+      "dev": 16777231,
+      "inode": 474459288
+    },
+    {
+      "path": "effect/Hash",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862904644,
+      "dev": 16777231,
+      "inode": 474456830
+    },
+    {
+      "path": "effect/HashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862978186,
+      "dev": 16777231,
+      "inode": 474459174
+    },
+    {
+      "path": "effect/HashRing",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863067143,
+      "dev": 16777231,
+      "inode": 474459215
+    },
+    {
+      "path": "effect/HashSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863152351,
+      "dev": 16777231,
+      "inode": 474459072
+    },
+    {
+      "path": "effect/Inspectable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863403600,
+      "dev": 16777231,
+      "inode": 474456801
+    },
+    {
+      "path": "effect/Iterable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863482224,
+      "dev": 16777231,
+      "inode": 474456797
+    },
+    {
+      "path": "effect/JSONSchema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863562640,
+      "dev": 16777231,
+      "inode": 474459217
+    },
+    {
+      "path": "effect/KeyedPool",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863648640,
+      "dev": 16777231,
+      "inode": 474459286
+    },
+    {
+      "path": "effect/Layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863727848,
+      "dev": 16777231,
+      "inode": 474459211
+    },
+    {
+      "path": "effect/LayerMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863806556,
+      "dev": 16777231,
+      "inode": 474459112
+    },
+    {
+      "path": "effect/List",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863883222,
+      "dev": 16777231,
+      "inode": 474459236
+    },
+    {
+      "path": "effect/LogLevel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864050804,
+      "dev": 16777231,
+      "inode": 474459152
+    },
+    {
+      "path": "effect/LogSpan",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864148554,
+      "dev": 16777231,
+      "inode": 474456745
+    },
+    {
+      "path": "effect/Logger",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863958555,
+      "dev": 16777231,
+      "inode": 474456809
+    },
+    {
+      "path": "effect/Mailbox",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864228387,
+      "dev": 16777231,
+      "inode": 474459104
+    },
+    {
+      "path": "effect/ManagedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864315553,
+      "dev": 16777231,
+      "inode": 474459187
+    },
+    {
+      "path": "effect/Match",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864392636,
+      "dev": 16777231,
+      "inode": 474459090
+    },
+    {
+      "path": "effect/MergeDecision",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864479302,
+      "dev": 16777231,
+      "inode": 474459092
+    },
+    {
+      "path": "effect/MergeState",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864553093,
+      "dev": 16777231,
+      "inode": 474459122
+    },
+    {
+      "path": "effect/MergeStrategy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864629884,
+      "dev": 16777231,
+      "inode": 474459176
+    },
+    {
+      "path": "effect/Metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864693509,
+      "dev": 16777231,
+      "inode": 474459298
+    },
+    {
+      "path": "effect/MetricBoundaries",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864767800,
+      "dev": 16777231,
+      "inode": 474459328
+    },
+    {
+      "path": "effect/MetricHook",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864848216,
+      "dev": 16777231,
+      "inode": 474459334
+    },
+    {
+      "path": "effect/MetricKey",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864920133,
+      "dev": 16777231,
+      "inode": 474459203
+    },
+    {
+      "path": "effect/MetricKeyType",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865003091,
+      "dev": 16777231,
+      "inode": 474459144
+    },
+    {
+      "path": "effect/MetricLabel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865083715,
+      "dev": 16777231,
+      "inode": 474459082
+    },
+    {
+      "path": "effect/MetricPair",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865159340,
+      "dev": 16777231,
+      "inode": 474459314
+    },
+    {
+      "path": "effect/MetricPolling",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865231548,
+      "dev": 16777231,
+      "inode": 474459234
+    },
+    {
+      "path": "effect/MetricRegistry",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865310630,
+      "dev": 16777231,
+      "inode": 474456761
+    },
+    {
+      "path": "effect/MetricState",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865387005,
+      "dev": 16777231,
+      "inode": 474456815
+    },
+    {
+      "path": "effect/Micro",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865460755,
+      "dev": 16777231,
+      "inode": 474456765
+    },
+    {
+      "path": "effect/ModuleVersion",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865550171,
+      "dev": 16777231,
+      "inode": 474459110
+    },
+    {
+      "path": "effect/MutableHashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865630129,
+      "dev": 16777231,
+      "inode": 474459254
+    },
+    {
+      "path": "effect/MutableHashSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865711878,
+      "dev": 16777231,
+      "inode": 474459336
+    },
+    {
+      "path": "effect/MutableList",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865791378,
+      "dev": 16777231,
+      "inode": 474456787
+    },
+    {
+      "path": "effect/MutableQueue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865872127,
+      "dev": 16777231,
+      "inode": 474459191
+    },
+    {
+      "path": "effect/MutableRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865950668,
+      "dev": 16777231,
+      "inode": 474459224
+    },
+    {
+      "path": "effect/NonEmptyIterable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866038960,
+      "dev": 16777231,
+      "inode": 474459318
+    },
+    {
+      "path": "effect/Number",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866122126,
+      "dev": 16777231,
+      "inode": 474459183
+    },
+    {
+      "path": "effect/Option",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866205500,
+      "dev": 16777231,
+      "inode": 474459156
+    },
+    {
+      "path": "effect/Order",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866287291,
+      "dev": 16777231,
+      "inode": 474456751
+    },
+    {
+      "path": "effect/Ordering",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866372874,
+      "dev": 16777231,
+      "inode": 474459226
+    },
+    {
+      "path": "effect/ParseResult",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866594331,
+      "dev": 16777231,
+      "inode": 474459246
+    },
+    {
+      "path": "effect/PartitionedSemaphore",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866677414,
+      "dev": 16777231,
+      "inode": 474459270
+    },
+    {
+      "path": "effect/Pipeable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866758955,
+      "dev": 16777231,
+      "inode": 474459213
+    },
+    {
+      "path": "effect/Pool",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866837663,
+      "dev": 16777231,
+      "inode": 474459304
+    },
+    {
+      "path": "effect/Predicate",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866920330,
+      "dev": 16777231,
+      "inode": 474456773
+    },
+    {
+      "path": "effect/Pretty",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867015204,
+      "dev": 16777231,
+      "inode": 474459278
+    },
+    {
+      "path": "effect/PrimaryKey",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867093578,
+      "dev": 16777231,
+      "inode": 474459274
+    },
+    {
+      "path": "effect/PubSub",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867179411,
+      "dev": 16777231,
+      "inode": 474459258
+    },
+    {
+      "path": "effect/Queue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867263869,
+      "dev": 16777231,
+      "inode": 474459250
+    },
+    {
+      "path": "effect/Random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867356994,
+      "dev": 16777231,
+      "inode": 474459292
+    },
+    {
+      "path": "effect/RateLimiter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867434660,
+      "dev": 16777231,
+      "inode": 474456813
+    },
+    {
+      "path": "effect/RcMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867516743,
+      "dev": 16777231,
+      "inode": 474459294
+    },
+    {
+      "path": "effect/RcRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867608326,
+      "dev": 16777231,
+      "inode": 474459128
+    },
+    {
+      "path": "effect/Readable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867693450,
+      "dev": 16777231,
+      "inode": 474459284
+    },
+    {
+      "path": "effect/Record",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867770491,
+      "dev": 16777231,
+      "inode": 474456811
+    },
+    {
+      "path": "effect/RedBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867942115,
+      "dev": 16777231,
+      "inode": 474459102
+    },
+    {
+      "path": "effect/Redacted",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867855991,
+      "dev": 16777231,
+      "inode": 474459248
+    },
+    {
+      "path": "effect/Ref",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868027740,
+      "dev": 16777231,
+      "inode": 474456781
+    },
+    {
+      "path": "effect/RegExp",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868115823,
+      "dev": 16777231,
+      "inode": 474456805
+    },
+    {
+      "path": "effect/Reloadable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868209072,
+      "dev": 16777231,
+      "inode": 474459240
+    },
+    {
+      "path": "effect/Request",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868539695,
+      "dev": 16777231,
+      "inode": 474459264
+    },
+    {
+      "path": "effect/RequestBlock",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868610195,
+      "dev": 16777231,
+      "inode": 474456759
+    },
+    {
+      "path": "effect/RequestResolver",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868695194,
+      "dev": 16777231,
+      "inode": 474456763
+    },
+    {
+      "path": "effect/Resource",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868778735,
+      "dev": 16777231,
+      "inode": 474459296
+    },
+    {
+      "path": "effect/Runtime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868863777,
+      "dev": 16777231,
+      "inode": 474459126
+    },
+    {
+      "path": "effect/RuntimeFlags",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868940943,
+      "dev": 16777231,
+      "inode": 474459268
+    },
+    {
+      "path": "effect/RuntimeFlagsPatch",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869018317,
+      "dev": 16777231,
+      "inode": 474459106
+    },
+    {
+      "path": "effect/STM",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870330310,
+      "dev": 16777231,
+      "inode": 474459148
+    },
+    {
+      "path": "effect/Schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869099692,
+      "dev": 16777231,
+      "inode": 474456783
+    },
+    {
+      "path": "effect/ScheduleDecision",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869205191,
+      "dev": 16777231,
+      "inode": 474459170
+    },
+    {
+      "path": "effect/ScheduleInterval",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869286774,
+      "dev": 16777231,
+      "inode": 474459322
+    },
+    {
+      "path": "effect/ScheduleIntervals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869364690,
+      "dev": 16777231,
+      "inode": 474459164
+    },
+    {
+      "path": "effect/Scheduler",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869440232,
+      "dev": 16777231,
+      "inode": 474459134
+    },
+    {
+      "path": "effect/Schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869520273,
+      "dev": 16777231,
+      "inode": 474459195
+    },
+    {
+      "path": "effect/SchemaAST",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869602439,
+      "dev": 16777231,
+      "inode": 474456803
+    },
+    {
+      "path": "effect/Scope",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869685022,
+      "dev": 16777231,
+      "inode": 474459158
+    },
+    {
+      "path": "effect/ScopedCache",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869766813,
+      "dev": 16777231,
+      "inode": 474456767
+    },
+    {
+      "path": "effect/ScopedRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869850021,
+      "dev": 16777231,
+      "inode": 474456779
+    },
+    {
+      "path": "effect/Secret",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869922521,
+      "dev": 16777231,
+      "inode": 474459280
+    },
+    {
+      "path": "effect/SingleProducerAsyncInput",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870015062,
+      "dev": 16777231,
+      "inode": 474459242
+    },
+    {
+      "path": "effect/Sink",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870087103,
+      "dev": 16777231,
+      "inode": 474459136
+    },
+    {
+      "path": "effect/SortedMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870159102,
+      "dev": 16777231,
+      "inode": 474456821
+    },
+    {
+      "path": "effect/SortedSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870244769,
+      "dev": 16777231,
+      "inode": 474459146
+    },
+    {
+      "path": "effect/Stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870413393,
+      "dev": 16777231,
+      "inode": 474459116
+    },
+    {
+      "path": "effect/StreamEmit",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870565225,
+      "dev": 16777231,
+      "inode": 474459308
+    },
+    {
+      "path": "effect/StreamHaltStrategy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870650475,
+      "dev": 16777231,
+      "inode": 474459197
+    },
+    {
+      "path": "effect/Streamable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870487476,
+      "dev": 16777231,
+      "inode": 474456807
+    },
+    {
+      "path": "effect/String",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870739391,
+      "dev": 16777231,
+      "inode": 474459272
+    },
+    {
+      "path": "effect/Struct",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870826099,
+      "dev": 16777231,
+      "inode": 474459185
+    },
+    {
+      "path": "effect/Subscribable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870912848,
+      "dev": 16777231,
+      "inode": 474459086
+    },
+    {
+      "path": "effect/SubscriptionRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871002597,
+      "dev": 16777231,
+      "inode": 474459084
+    },
+    {
+      "path": "effect/Supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871079972,
+      "dev": 16777231,
+      "inode": 474459326
+    },
+    {
+      "path": "effect/Symbol",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871165305,
+      "dev": 16777231,
+      "inode": 474459154
+    },
+    {
+      "path": "effect/SynchronizedRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871255429,
+      "dev": 16777231,
+      "inode": 474459316
+    },
+    {
+      "path": "effect/TArray",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871411804,
+      "dev": 16777231,
+      "inode": 474459282
+    },
+    {
+      "path": "effect/TDeferred",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871507761,
+      "dev": 16777231,
+      "inode": 474459228
+    },
+    {
+      "path": "effect/TMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872359881,
+      "dev": 16777231,
+      "inode": 474456757
+    },
+    {
+      "path": "effect/TPriorityQueue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872439922,
+      "dev": 16777231,
+      "inode": 474459290
+    },
+    {
+      "path": "effect/TPubSub",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872515005,
+      "dev": 16777231,
+      "inode": 474459306
+    },
+    {
+      "path": "effect/TQueue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872684004,
+      "dev": 16777231,
+      "inode": 474459100
+    },
+    {
+      "path": "effect/TRandom",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872877545,
+      "dev": 16777231,
+      "inode": 474459193
+    },
+    {
+      "path": "effect/TReentrantLock",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872971003,
+      "dev": 16777231,
+      "inode": 474459230
+    },
+    {
+      "path": "effect/TRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873057127,
+      "dev": 16777231,
+      "inode": 474459178
+    },
+    {
+      "path": "effect/TSemaphore",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873237210,
+      "dev": 16777231,
+      "inode": 474456826
+    },
+    {
+      "path": "effect/TSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873322292,
+      "dev": 16777231,
+      "inode": 474459108
+    },
+    {
+      "path": "effect/TSubscriptionRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873415834,
+      "dev": 16777231,
+      "inode": 474459310
+    },
+    {
+      "path": "effect/Take",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871342262,
+      "dev": 16777231,
+      "inode": 474459222
+    },
+    {
+      "path": "effect/TestAnnotation",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871591886,
+      "dev": 16777231,
+      "inode": 474456769
+    },
+    {
+      "path": "effect/TestAnnotationMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871678427,
+      "dev": 16777231,
+      "inode": 474456753
+    },
+    {
+      "path": "effect/TestAnnotations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871765302,
+      "dev": 16777231,
+      "inode": 474459266
+    },
+    {
+      "path": "effect/TestClock",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871848801,
+      "dev": 16777231,
+      "inode": 474459140
+    },
+    {
+      "path": "effect/TestConfig",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871936467,
+      "dev": 16777231,
+      "inode": 474459168
+    },
+    {
+      "path": "effect/TestContext",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872022342,
+      "dev": 16777231,
+      "inode": 474459244
+    },
+    {
+      "path": "effect/TestLive",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872106758,
+      "dev": 16777231,
+      "inode": 474459172
+    },
+    {
+      "path": "effect/TestServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872194341,
+      "dev": 16777231,
+      "inode": 474456789
+    },
+    {
+      "path": "effect/TestSized",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872311590,
+      "dev": 16777231,
+      "inode": 474459220
+    },
+    {
+      "path": "effect/Tracer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872779837,
+      "dev": 16777231,
+      "inode": 474456747
+    },
+    {
+      "path": "effect/Trie",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873144543,
+      "dev": 16777231,
+      "inode": 474459207
+    },
+    {
+      "path": "effect/Tuple",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873503666,
+      "dev": 16777231,
+      "inode": 474459076
+    },
+    {
+      "path": "effect/Types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873589291,
+      "dev": 16777231,
+      "inode": 474456791
+    },
+    {
+      "path": "effect/Unify",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873703124,
+      "dev": 16777231,
+      "inode": 474456824
+    },
+    {
+      "path": "effect/UpstreamPullRequest",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873795707,
+      "dev": 16777231,
+      "inode": 474456775
+    },
+    {
+      "path": "effect/UpstreamPullStrategy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873885164,
+      "dev": 16777231,
+      "inode": 474459330
+    },
+    {
+      "path": "effect/Utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873980872,
+      "dev": 16777231,
+      "inode": 474459150
+    },
+    {
+      "path": "effect/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040874034330,
+      "dev": 16777231,
+      "inode": 474456832
+    },
+    {
+      "path": "effect/dist/cjs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948043111,
+      "dev": 16777231,
+      "inode": 474458326
+    },
+    {
+      "path": "effect/dist/cjs/internal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948275651,
+      "dev": 16777231,
+      "inode": 474458480
+    },
+    {
+      "path": "effect/dist/cjs/internal/channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040947590155,
+      "dev": 16777231,
+      "inode": 474458705
+    },
+    {
+      "path": "effect/dist/cjs/internal/configProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918657114,
+      "dev": 16777231,
+      "inode": 474458503
+    },
+    {
+      "path": "effect/dist/cjs/internal/defaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040885521555,
+      "dev": 16777231,
+      "inode": 474458529
+    },
+    {
+      "path": "effect/dist/cjs/internal/differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040923138004,
+      "dev": 16777231,
+      "inode": 474458667
+    },
+    {
+      "path": "effect/dist/cjs/internal/effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882319032,
+      "dev": 16777231,
+      "inode": 474458591
+    },
+    {
+      "path": "effect/dist/cjs/internal/encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040902551457,
+      "dev": 16777231,
+      "inode": 474458599
+    },
+    {
+      "path": "effect/dist/cjs/internal/fiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918320657,
+      "dev": 16777231,
+      "inode": 474458558
+    },
+    {
+      "path": "effect/dist/cjs/internal/hashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040915912005,
+      "dev": 16777231,
+      "inode": 474458685
+    },
+    {
+      "path": "effect/dist/cjs/internal/layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882452740,
+      "dev": 16777231,
+      "inode": 474458747
+    },
+    {
+      "path": "effect/dist/cjs/internal/managedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882551239,
+      "dev": 16777231,
+      "inode": 474458701
+    },
+    {
+      "path": "effect/dist/cjs/internal/metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040933004989,
+      "dev": 16777231,
+      "inode": 474458799
+    },
+    {
+      "path": "effect/dist/cjs/internal/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040936071721,
+      "dev": 16777231,
+      "inode": 474458828
+    },
+    {
+      "path": "effect/dist/cjs/internal/redBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040916039212,
+      "dev": 16777231,
+      "inode": 474458550
+    },
+    {
+      "path": "effect/dist/cjs/internal/schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040903876991,
+      "dev": 16777231,
+      "inode": 474458506
+    },
+    {
+      "path": "effect/dist/cjs/internal/schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040947781612,
+      "dev": 16777231,
+      "inode": 474458735
+    },
+    {
+      "path": "effect/dist/cjs/internal/stm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948493358,
+      "dev": 16777231,
+      "inode": 474458610
+    },
+    {
+      "path": "effect/dist/cjs/internal/stm/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040945007003,
+      "dev": 16777231,
+      "inode": 474458651
+    },
+    {
+      "path": "effect/dist/cjs/internal/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948942480,
+      "dev": 16777231,
+      "inode": 474458562
+    },
+    {
+      "path": "effect/dist/cjs/internal/supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918379657,
+      "dev": 16777231,
+      "inode": 474458862
+    },
+    {
+      "path": "effect/dist/cjs/internal/testing",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948643690,
+      "dev": 16777231,
+      "inode": 474458728
+    },
+    {
+      "path": "effect/dist/dts",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007600351,
+      "dev": 16777231,
+      "inode": 474456833
+    },
+    {
+      "path": "effect/dist/dts/internal",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007803099,
+      "dev": 16777231,
+      "inode": 474456972
+    },
+    {
+      "path": "effect/dist/dts/internal/channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007356560,
+      "dev": 16777231,
+      "inode": 474457195
+    },
+    {
+      "path": "effect/dist/dts/internal/configProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983995612,
+      "dev": 16777231,
+      "inode": 474456996
+    },
+    {
+      "path": "effect/dist/dts/internal/defaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040957677180,
+      "dev": 16777231,
+      "inode": 474457024
+    },
+    {
+      "path": "effect/dist/dts/internal/differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040987315801,
+      "dev": 16777231,
+      "inode": 474457159
+    },
+    {
+      "path": "effect/dist/dts/internal/effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955195902,
+      "dev": 16777231,
+      "inode": 474457083
+    },
+    {
+      "path": "effect/dist/dts/internal/encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040972505261,
+      "dev": 16777231,
+      "inode": 474457088
+    },
+    {
+      "path": "effect/dist/dts/internal/fiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983723114,
+      "dev": 16777231,
+      "inode": 474457049
+    },
+    {
+      "path": "effect/dist/dts/internal/hashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040981724208,
+      "dev": 16777231,
+      "inode": 474457177
+    },
+    {
+      "path": "effect/dist/dts/internal/layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955224319,
+      "dev": 16777231,
+      "inode": 474457239
+    },
+    {
+      "path": "effect/dist/dts/internal/managedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955273569,
+      "dev": 16777231,
+      "inode": 474457192
+    },
+    {
+      "path": "effect/dist/dts/internal/metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040995663086,
+      "dev": 16777231,
+      "inode": 474457293
+    },
+    {
+      "path": "effect/dist/dts/internal/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040998103697,
+      "dev": 16777231,
+      "inode": 474457322
+    },
+    {
+      "path": "effect/dist/dts/internal/redBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040981766333,
+      "dev": 16777231,
+      "inode": 474457041
+    },
+    {
+      "path": "effect/dist/dts/internal/schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040973473130,
+      "dev": 16777231,
+      "inode": 474457001
+    },
+    {
+      "path": "effect/dist/dts/internal/schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007506143,
+      "dev": 16777231,
+      "inode": 474457226
+    },
+    {
+      "path": "effect/dist/dts/internal/stm",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007892057,
+      "dev": 16777231,
+      "inode": 474457101
+    },
+    {
+      "path": "effect/dist/dts/internal/stm/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538041005551737,
+      "dev": 16777231,
+      "inode": 474457142
+    },
+    {
+      "path": "effect/dist/dts/internal/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538041008148639,
+      "dev": 16777231,
+      "inode": 474457053
+    },
+    {
+      "path": "effect/dist/dts/internal/supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983765071,
+      "dev": 16777231,
+      "inode": 474457358
+    },
+    {
+      "path": "effect/dist/dts/internal/testing",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007968223,
+      "dev": 16777231,
+      "inode": 474457218
+    },
+    {
+      "path": "effect/dist/esm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948150485,
+      "dev": 16777231,
+      "inode": 474457579
+    },
+    {
+      "path": "effect/dist/esm/internal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948326150,
+      "dev": 16777231,
+      "inode": 474457733
+    },
+    {
+      "path": "effect/dist/esm/internal/channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040947658696,
+      "dev": 16777231,
+      "inode": 474457958
+    },
+    {
+      "path": "effect/dist/esm/internal/configProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918746072,
+      "dev": 16777231,
+      "inode": 474457756
+    },
+    {
+      "path": "effect/dist/esm/internal/defaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040885686679,
+      "dev": 16777231,
+      "inode": 474457782
+    },
+    {
+      "path": "effect/dist/esm/internal/differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040923238629,
+      "dev": 16777231,
+      "inode": 474457920
+    },
+    {
+      "path": "effect/dist/esm/internal/effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882586197,
+      "dev": 16777231,
+      "inode": 474457844
+    },
+    {
+      "path": "effect/dist/esm/internal/encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040902652123,
+      "dev": 16777231,
+      "inode": 474457852
+    },
+    {
+      "path": "effect/dist/esm/internal/fiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918459073,
+      "dev": 16777231,
+      "inode": 474457811
+    },
+    {
+      "path": "effect/dist/esm/internal/hashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040916082545,
+      "dev": 16777231,
+      "inode": 474457938
+    },
+    {
+      "path": "effect/dist/esm/internal/layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882681947,
+      "dev": 16777231,
+      "inode": 474458000
+    },
+    {
+      "path": "effect/dist/esm/internal/managedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882762280,
+      "dev": 16777231,
+      "inode": 474457954
+    },
+    {
+      "path": "effect/dist/esm/internal/metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040933116530,
+      "dev": 16777231,
+      "inode": 474458052
+    },
+    {
+      "path": "effect/dist/esm/internal/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040936155762,
+      "dev": 16777231,
+      "inode": 474458081
+    },
+    {
+      "path": "effect/dist/esm/internal/redBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040916115462,
+      "dev": 16777231,
+      "inode": 474457803
+    },
+    {
+      "path": "effect/dist/esm/internal/schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040903912157,
+      "dev": 16777231,
+      "inode": 474457759
+    },
+    {
+      "path": "effect/dist/esm/internal/schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040947824153,
+      "dev": 16777231,
+      "inode": 474457988
+    },
+    {
+      "path": "effect/dist/esm/internal/stm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948539857,
+      "dev": 16777231,
+      "inode": 474457863
+    },
+    {
+      "path": "effect/dist/esm/internal/stm/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040945105419,
+      "dev": 16777231,
+      "inode": 474457904
+    },
+    {
+      "path": "effect/dist/esm/internal/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948996230,
+      "dev": 16777231,
+      "inode": 474457815
+    },
+    {
+      "path": "effect/dist/esm/internal/supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918496073,
+      "dev": 16777231,
+      "inode": 474458115
+    },
+    {
+      "path": "effect/dist/esm/internal/testing",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948693982,
+      "dev": 16777231,
+      "inode": 474457981
+    },
+    {
+      "path": "effect/index",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863315725,
+      "dev": 16777231,
+      "inode": 474459262
+    },
+    {
+      "path": "effect/src",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007695808,
+      "dev": 16777231,
+      "inode": 474459340
+    },
+    {
+      "path": "effect/src/internal",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007856974,
+      "dev": 16777231,
+      "inode": 474459408
+    },
+    {
+      "path": "effect/src/internal/channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007427476,
+      "dev": 16777231,
+      "inode": 474459523
+    },
+    {
+      "path": "effect/src/internal/configProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040984055236,
+      "dev": 16777231,
+      "inode": 474459419
+    },
+    {
+      "path": "effect/src/internal/defaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040957935845,
+      "dev": 16777231,
+      "inode": 474459431
+    },
+    {
+      "path": "effect/src/internal/differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040987363967,
+      "dev": 16777231,
+      "inode": 474459502
+    },
+    {
+      "path": "effect/src/internal/effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955376443,
+      "dev": 16777231,
+      "inode": 474459463
+    },
+    {
+      "path": "effect/src/internal/encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040972546344,
+      "dev": 16777231,
+      "inode": 474459466
+    },
+    {
+      "path": "effect/src/internal/fiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983861196,
+      "dev": 16777231,
+      "inode": 474459442
+    },
+    {
+      "path": "effect/src/internal/hashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040981800166,
+      "dev": 16777231,
+      "inode": 474459510
+    },
+    {
+      "path": "effect/src/internal/layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955542484,
+      "dev": 16777231,
+      "inode": 474459547
+    },
+    {
+      "path": "effect/src/internal/managedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955658275,
+      "dev": 16777231,
+      "inode": 474459519
+    },
+    {
+      "path": "effect/src/internal/metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040995714086,
+      "dev": 16777231,
+      "inode": 474459577
+    },
+    {
+      "path": "effect/src/internal/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040998224863,
+      "dev": 16777231,
+      "inode": 474459592
+    },
+    {
+      "path": "effect/src/internal/redBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040981851749,
+      "dev": 16777231,
+      "inode": 474459436
+    },
+    {
+      "path": "effect/src/internal/schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040973510130,
+      "dev": 16777231,
+      "inode": 474459422
+    },
+    {
+      "path": "effect/src/internal/schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007554351,
+      "dev": 16777231,
+      "inode": 474459539
+    },
+    {
+      "path": "effect/src/internal/stm",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007930265,
+      "dev": 16777231,
+      "inode": 474459472
+    },
+    {
+      "path": "effect/src/internal/stm/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538041005637653,
+      "dev": 16777231,
+      "inode": 474459493
+    },
+    {
+      "path": "effect/src/internal/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538041008192680,
+      "dev": 16777231,
+      "inode": 474459444
+    },
+    {
+      "path": "effect/src/internal/supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983944904,
+      "dev": 16777231,
+      "inode": 474459610
+    },
+    {
+      "path": "effect/src/internal/testing",
+      "mode": "0o755",
+      "mtime_ns": 1792538041008014598,
+      "dev": 16777231,
+      "inode": 474459535
+    },
+    {
+      "path": "fast-check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040856363057,
+      "dev": 16777231,
+      "inode": 474455431
+    },
+    {
+      "path": "fast-check/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040855337647,
+      "dev": 16777231,
+      "inode": 474455437
+    },
+    {
+      "path": "fast-check/lib/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040785824465,
+      "dev": 16777231,
+      "inode": 474456227
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773596994,
+      "dev": 16777231,
+      "inode": 474456268
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/builders",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765302334,
+      "dev": 16777231,
+      "inode": 474456271
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766007996,
+      "dev": 16777231,
+      "inode": 474456328
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/helpers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040771571172,
+      "dev": 16777231,
+      "inode": 474456330
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/implementations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040772584833,
+      "dev": 16777231,
+      "inode": 474456322
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/interfaces",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773299829,
+      "dev": 16777231,
+      "inode": 474456364
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/mappers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040778542174,
+      "dev": 16777231,
+      "inode": 474456299
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_shared",
+      "mode": "0o755",
+      "mtime_ns": 1792538040778876380,
+      "dev": 16777231,
+      "inode": 474456395
+    },
+    {
+      "path": "fast-check/lib/check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040791446474,
+      "dev": 16777231,
+      "inode": 474456431
+    },
+    {
+      "path": "fast-check/lib/check/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786189463,
+      "dev": 16777231,
+      "inode": 474456466
+    },
+    {
+      "path": "fast-check/lib/check/arbitrary/definition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786347795,
+      "dev": 16777231,
+      "inode": 474456467
+    },
+    {
+      "path": "fast-check/lib/check/model",
+      "mode": "0o755",
+      "mtime_ns": 1792538040787274582,
+      "dev": 16777231,
+      "inode": 474456470
+    },
+    {
+      "path": "fast-check/lib/check/model/command",
+      "mode": "0o755",
+      "mtime_ns": 1792538040787099666,
+      "dev": 16777231,
+      "inode": 474456478
+    },
+    {
+      "path": "fast-check/lib/check/model/commands",
+      "mode": "0o755",
+      "mtime_ns": 1792538040787501955,
+      "dev": 16777231,
+      "inode": 474456473
+    },
+    {
+      "path": "fast-check/lib/check/precondition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040788365325,
+      "dev": 16777231,
+      "inode": 474456432
+    },
+    {
+      "path": "fast-check/lib/check/property",
+      "mode": "0o755",
+      "mtime_ns": 1792538040789091404,
+      "dev": 16777231,
+      "inode": 474456435
+    },
+    {
+      "path": "fast-check/lib/check/runner",
+      "mode": "0o755",
+      "mtime_ns": 1792538040791106851,
+      "dev": 16777231,
+      "inode": 474456445
+    },
+    {
+      "path": "fast-check/lib/check/runner/configuration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040790433230,
+      "dev": 16777231,
+      "inode": 474456447
+    },
+    {
+      "path": "fast-check/lib/check/runner/reporter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040790933769,
+      "dev": 16777231,
+      "inode": 474456454
+    },
+    {
+      "path": "fast-check/lib/check/runner/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040791301308,
+      "dev": 16777231,
+      "inode": 474456460
+    },
+    {
+      "path": "fast-check/lib/esm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836729796,
+      "dev": 16777231,
+      "inode": 474455699
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809853118,
+      "dev": 16777231,
+      "inode": 474455965
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040800179632,
+      "dev": 16777231,
+      "inode": 474456006
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/builders",
+      "mode": "0o755",
+      "mtime_ns": 1792538040796005573,
+      "dev": 16777231,
+      "inode": 474456009
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040796237363,
+      "dev": 16777231,
+      "inode": 474456066
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/helpers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040798892640,
+      "dev": 16777231,
+      "inode": 474456068
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/implementations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040799439261,
+      "dev": 16777231,
+      "inode": 474456060
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/interfaces",
+      "mode": "0o755",
+      "mtime_ns": 1792538040799874217,
+      "dev": 16777231,
+      "inode": 474456103
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/mappers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040802759700,
+      "dev": 16777231,
+      "inode": 474456037
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_shared",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803161490,
+      "dev": 16777231,
+      "inode": 474456134
+    },
+    {
+      "path": "fast-check/lib/esm/check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040814634257,
+      "dev": 16777231,
+      "inode": 474456171
+    },
+    {
+      "path": "fast-check/lib/esm/check/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810260157,
+      "dev": 16777231,
+      "inode": 474456206
+    },
+    {
+      "path": "fast-check/lib/esm/check/arbitrary/definition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810507906,
+      "dev": 16777231,
+      "inode": 474456207
+    },
+    {
+      "path": "fast-check/lib/esm/check/model",
+      "mode": "0o755",
+      "mtime_ns": 1792538040811759773,
+      "dev": 16777231,
+      "inode": 474456210
+    },
+    {
+      "path": "fast-check/lib/esm/check/model/command",
+      "mode": "0o755",
+      "mtime_ns": 1792538040811549900,
+      "dev": 16777231,
+      "inode": 474456218
+    },
+    {
+      "path": "fast-check/lib/esm/check/model/commands",
+      "mode": "0o755",
+      "mtime_ns": 1792538040811934606,
+      "dev": 16777231,
+      "inode": 474456213
+    },
+    {
+      "path": "fast-check/lib/esm/check/precondition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040812161146,
+      "dev": 16777231,
+      "inode": 474456172
+    },
+    {
+      "path": "fast-check/lib/esm/check/property",
+      "mode": "0o755",
+      "mtime_ns": 1792538040812848309,
+      "dev": 16777231,
+      "inode": 474456175
+    },
+    {
+      "path": "fast-check/lib/esm/check/runner",
+      "mode": "0o755",
+      "mtime_ns": 1792538040814293676,
+      "dev": 16777231,
+      "inode": 474456185
+    },
+    {
+      "path": "fast-check/lib/esm/check/runner/configuration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040813784553,
+      "dev": 16777231,
+      "inode": 474456187
+    },
+    {
+      "path": "fast-check/lib/esm/check/runner/reporter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040814150551,
+      "dev": 16777231,
+      "inode": 474456194
+    },
+    {
+      "path": "fast-check/lib/esm/check/runner/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040814422383,
+      "dev": 16777231,
+      "inode": 474456200
+    },
+    {
+      "path": "fast-check/lib/esm/random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040815044421,
+      "dev": 16777231,
+      "inode": 474456168
+    },
+    {
+      "path": "fast-check/lib/esm/random/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040815109796,
+      "dev": 16777231,
+      "inode": 474456169
+    },
+    {
+      "path": "fast-check/lib/esm/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040815356211,
+      "dev": 16777231,
+      "inode": 474455961
+    },
+    {
+      "path": "fast-check/lib/esm/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836281757,
+      "dev": 16777231,
+      "inode": 474455700
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040830204792,
+      "dev": 16777231,
+      "inode": 474455707
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040820655555,
+      "dev": 16777231,
+      "inode": 474455752
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/builders",
+      "mode": "0o755",
+      "mtime_ns": 1792538040817416282,
+      "dev": 16777231,
+      "inode": 474455760
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040817671781,
+      "dev": 16777231,
+      "inode": 474455814
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/helpers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040819685061,
+      "dev": 16777231,
+      "inode": 474455816
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/implementations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040820099059,
+      "dev": 16777231,
+      "inode": 474455810
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/interfaces",
+      "mode": "0o755",
+      "mtime_ns": 1792538040820438557,
+      "dev": 16777231,
+      "inode": 474455849
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/mappers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040821963298,
+      "dev": 16777231,
+      "inode": 474455786
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_shared",
+      "mode": "0o755",
+      "mtime_ns": 1792538040823604622,
+      "dev": 16777231,
+      "inode": 474455878
+    },
+    {
+      "path": "fast-check/lib/esm/types/check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835337970,
+      "dev": 16777231,
+      "inode": 474455909
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040830488540,
+      "dev": 16777231,
+      "inode": 474455944
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/arbitrary/definition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040830724330,
+      "dev": 16777231,
+      "inode": 474455945
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/model",
+      "mode": "0o755",
+      "mtime_ns": 1792538040831638992,
+      "dev": 16777231,
+      "inode": 474455948
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/model/command",
+      "mode": "0o755",
+      "mtime_ns": 1792538040831386952,
+      "dev": 16777231,
+      "inode": 474455956
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/model/commands",
+      "mode": "0o755",
+      "mtime_ns": 1792538040831944157,
+      "dev": 16777231,
+      "inode": 474455951
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/precondition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040832389487,
+      "dev": 16777231,
+      "inode": 474455910
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/property",
+      "mode": "0o755",
+      "mtime_ns": 1792538040833123025,
+      "dev": 16777231,
+      "inode": 474455913
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/runner",
+      "mode": "0o755",
+      "mtime_ns": 1792538040834903598,
+      "dev": 16777231,
+      "inode": 474455923
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/runner/configuration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040834274727,
+      "dev": 16777231,
+      "inode": 474455924
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/runner/reporter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040834690141,
+      "dev": 16777231,
+      "inode": 474455931
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/runner/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835024139,
+      "dev": 16777231,
+      "inode": 474455937
+    },
+    {
+      "path": "fast-check/lib/esm/types/random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835872717,
+      "dev": 16777231,
+      "inode": 474455906
+    },
+    {
+      "path": "fast-check/lib/esm/types/random/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835960675,
+      "dev": 16777231,
+      "inode": 474455907
+    },
+    {
+      "path": "fast-check/lib/esm/types/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836163549,
+      "dev": 16777231,
+      "inode": 474455703
+    },
+    {
+      "path": "fast-check/lib/esm/types/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836548047,
+      "dev": 16777231,
+      "inode": 474455901
+    },
+    {
+      "path": "fast-check/lib/esm/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040837156877,
+      "dev": 16777231,
+      "inode": 474456161
+    },
+    {
+      "path": "fast-check/lib/random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040837596041,
+      "dev": 16777231,
+      "inode": 474456428
+    },
+    {
+      "path": "fast-check/lib/random/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040837680665,
+      "dev": 16777231,
+      "inode": 474456429
+    },
+    {
+      "path": "fast-check/lib/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040838216662,
+      "dev": 16777231,
+      "inode": 474456223
+    },
+    {
+      "path": "fast-check/lib/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040855021190,
+      "dev": 16777231,
+      "inode": 474455438
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040849301806,
+      "dev": 16777231,
+      "inode": 474455445
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040842922468,
+      "dev": 16777231,
+      "inode": 474455490
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/builders",
+      "mode": "0o755",
+      "mtime_ns": 1792538040840034110,
+      "dev": 16777231,
+      "inode": 474455498
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040840229484,
+      "dev": 16777231,
+      "inode": 474455552
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/helpers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040842260222,
+      "dev": 16777231,
+      "inode": 474455554
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/implementations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040842459513,
+      "dev": 16777231,
+      "inode": 474455548
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/interfaces",
+      "mode": "0o755",
+      "mtime_ns": 1792538040842803344,
+      "dev": 16777231,
+      "inode": 474455587
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/mappers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040843932754,
+      "dev": 16777231,
+      "inode": 474455524
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_shared",
+      "mode": "0o755",
+      "mtime_ns": 1792538040844112586,
+      "dev": 16777231,
+      "inode": 474455616
+    },
+    {
+      "path": "fast-check/lib/types/check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854280361,
+      "dev": 16777231,
+      "inode": 474455647
+    },
+    {
+      "path": "fast-check/lib/types/check/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040849555388,
+      "dev": 16777231,
+      "inode": 474455682
+    },
+    {
+      "path": "fast-check/lib/types/check/arbitrary/definition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040849857553,
+      "dev": 16777231,
+      "inode": 474455683
+    },
+    {
+      "path": "fast-check/lib/types/check/model",
+      "mode": "0o755",
+      "mtime_ns": 1792538040850865422,
+      "dev": 16777231,
+      "inode": 474455686
+    },
+    {
+      "path": "fast-check/lib/types/check/model/command",
+      "mode": "0o755",
+      "mtime_ns": 1792538040850764965,
+      "dev": 16777231,
+      "inode": 474455694
+    },
+    {
+      "path": "fast-check/lib/types/check/model/commands",
+      "mode": "0o755",
+      "mtime_ns": 1792538040851241753,
+      "dev": 16777231,
+      "inode": 474455689
+    },
+    {
+      "path": "fast-check/lib/types/check/precondition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040851559627,
+      "dev": 16777231,
+      "inode": 474455648
+    },
+    {
+      "path": "fast-check/lib/types/check/property",
+      "mode": "0o755",
+      "mtime_ns": 1792538040852343497,
+      "dev": 16777231,
+      "inode": 474455651
+    },
+    {
+      "path": "fast-check/lib/types/check/runner",
+      "mode": "0o755",
+      "mtime_ns": 1792538040853904322,
+      "dev": 16777231,
+      "inode": 474455661
+    },
+    {
+      "path": "fast-check/lib/types/check/runner/configuration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040853431032,
+      "dev": 16777231,
+      "inode": 474455662
+    },
+    {
+      "path": "fast-check/lib/types/check/runner/reporter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040853742906,
+      "dev": 16777231,
+      "inode": 474455669
+    },
+    {
+      "path": "fast-check/lib/types/check/runner/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854104029,
+      "dev": 16777231,
+      "inode": 474455675
+    },
+    {
+      "path": "fast-check/lib/types/random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854613401,
+      "dev": 16777231,
+      "inode": 474455644
+    },
+    {
+      "path": "fast-check/lib/types/random/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854718150,
+      "dev": 16777231,
+      "inode": 474455645
+    },
+    {
+      "path": "fast-check/lib/types/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854984857,
+      "dev": 16777231,
+      "inode": 474455441
+    },
+    {
+      "path": "fast-check/lib/types/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040855263147,
+      "dev": 16777231,
+      "inode": 474455639
+    },
+    {
+      "path": "fast-check/lib/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040855804435,
+      "dev": 16777231,
+      "inode": 474456422
+    },
+    {
+      "path": "fast-deep-equal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758733080,
+      "dev": 16777231,
+      "inode": 474460409
+    },
+    {
+      "path": "fast-deep-equal/es6",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758572539,
+      "dev": 16777231,
+      "inode": 474460416
+    },
+    {
+      "path": "fast-uri",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765917455,
+      "dev": 16777231,
+      "inode": 474459787
+    },
+    {
+      "path": "fast-uri/.github",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766369078,
+      "dev": 16777231,
+      "inode": 474459827
+    },
+    {
+      "path": "fast-uri/.github/workflows",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766703784,
+      "dev": 16777231,
+      "inode": 474459828
+    },
+    {
+      "path": "fast-uri/benchmark",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765516582,
+      "dev": 16777231,
+      "inode": 474459788
+    },
+    {
+      "path": "fast-uri/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763100680,
+      "dev": 16777231,
+      "inode": 474459834
+    },
+    {
+      "path": "fast-uri/test",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763902092,
+      "dev": 16777231,
+      "inode": 474459799
+    },
+    {
+      "path": "fast-uri/test/fixtures",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764587755,
+      "dev": 16777231,
+      "inode": 474459814
+    },
+    {
+      "path": "fast-uri/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765913913,
+      "dev": 16777231,
+      "inode": 474459795
+    },
+    {
+      "path": "json-schema-traverse",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758559831,
+      "dev": 16777231,
+      "inode": 474459769
+    },
+    {
+      "path": "json-schema-traverse/.github",
+      "mode": "0o755",
+      "mtime_ns": 1792538040759863282,
+      "dev": 16777231,
+      "inode": 474459780
+    },
+    {
+      "path": "json-schema-traverse/.github/workflows",
+      "mode": "0o755",
+      "mtime_ns": 1792538040760014739,
+      "dev": 16777231,
+      "inode": 474459782
+    },
+    {
+      "path": "json-schema-traverse/spec",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758556498,
+      "dev": 16777231,
+      "inode": 474459772
+    },
+    {
+      "path": "json-schema-traverse/spec/fixtures",
+      "mode": "0o755",
+      "mtime_ns": 1792538040756772300,
+      "dev": 16777231,
+      "inode": 474459775
+    },
+    {
+      "path": "jsonc-parser",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764028216,
+      "dev": 16777231,
+      "inode": 474459860
+    },
+    {
+      "path": "jsonc-parser/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040756642175,
+      "dev": 16777231,
+      "inode": 474459865
+    },
+    {
+      "path": "jsonc-parser/lib/esm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764463088,
+      "dev": 16777231,
+      "inode": 474459866
+    },
+    {
+      "path": "jsonc-parser/lib/esm/impl",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763074680,
+      "dev": 16777231,
+      "inode": 474459867
+    },
+    {
+      "path": "jsonc-parser/lib/umd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764580880,
+      "dev": 16777231,
+      "inode": 474459875
+    },
+    {
+      "path": "jsonc-parser/lib/umd/impl",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763157721,
+      "dev": 16777231,
+      "inode": 474459876
+    },
+    {
+      "path": "pure-rand",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773752410,
+      "dev": 16777231,
+      "inode": 474456504
+    },
+    {
+      "path": "pure-rand/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040769656308,
+      "dev": 16777231,
+      "inode": 474456509
+    },
+    {
+      "path": "pure-rand/lib/distribution",
+      "mode": "0o755",
+      "mtime_ns": 1792538040759176577,
+      "dev": 16777231,
+      "inode": 474456576
+    },
+    {
+      "path": "pure-rand/lib/distribution/internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040759898823,
+      "dev": 16777231,
+      "inode": 474456580
+    },
+    {
+      "path": "pure-rand/lib/esm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765045169,
+      "dev": 16777231,
+      "inode": 474456531
+    },
+    {
+      "path": "pure-rand/lib/esm/distribution",
+      "mode": "0o755",
+      "mtime_ns": 1792538040762358434,
+      "dev": 16777231,
+      "inode": 474456555
+    },
+    {
+      "path": "pure-rand/lib/esm/distribution/internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040762853848,
+      "dev": 16777231,
+      "inode": 474456559
+    },
+    {
+      "path": "pure-rand/lib/esm/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763872425,
+      "dev": 16777231,
+      "inode": 474456567
+    },
+    {
+      "path": "pure-rand/lib/esm/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040768140317,
+      "dev": 16777231,
+      "inode": 474456532
+    },
+    {
+      "path": "pure-rand/lib/esm/types/distribution",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766319078,
+      "dev": 16777231,
+      "inode": 474456534
+    },
+    {
+      "path": "pure-rand/lib/esm/types/distribution/internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766884283,
+      "dev": 16777231,
+      "inode": 474456539
+    },
+    {
+      "path": "pure-rand/lib/esm/types/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040767641862,
+      "dev": 16777231,
+      "inode": 474456547
+    },
+    {
+      "path": "pure-rand/lib/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040769091479,
+      "dev": 16777231,
+      "inode": 474456588
+    },
+    {
+      "path": "pure-rand/lib/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773642202,
+      "dev": 16777231,
+      "inode": 474456510
+    },
+    {
+      "path": "pure-rand/lib/types/distribution",
+      "mode": "0o755",
+      "mtime_ns": 1792538040772086461,
+      "dev": 16777231,
+      "inode": 474456512
+    },
+    {
+      "path": "pure-rand/lib/types/distribution/internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040772370084,
+      "dev": 16777231,
+      "inode": 474456517
+    },
+    {
+      "path": "pure-rand/lib/types/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773369412,
+      "dev": 16777231,
+      "inode": 474456525
+    },
+    {
+      "path": "require-from-string",
+      "mode": "0o755",
+      "mtime_ns": 1792538040755979013,
+      "dev": 16777231,
+      "inode": 474460422
+    },
+    {
+      "path": "typescript",
+      "mode": "0o755",
+      "mtime_ns": 1792538040858804168,
+      "dev": 16777231,
+      "inode": 474456594
+    },
+    {
+      "path": "typescript/bin",
+      "mode": "0o755",
+      "mtime_ns": 1792538040755892555,
+      "dev": 16777231,
+      "inode": 474456595
+    },
+    {
+      "path": "typescript/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040857668591,
+      "dev": 16777231,
+      "inode": 474456600
+    },
+    {
+      "path": "typescript/lib/cs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040826626646,
+      "dev": 16777231,
+      "inode": 474456651
+    },
+    {
+      "path": "typescript/lib/de",
+      "mode": "0o755",
+      "mtime_ns": 1792538040827616057,
+      "dev": 16777231,
+      "inode": 474456699
+    },
+    {
+      "path": "typescript/lib/es",
+      "mode": "0o755",
+      "mtime_ns": 1792538040828817258,
+      "dev": 16777231,
+      "inode": 474456711
+    },
+    {
+      "path": "typescript/lib/fr",
+      "mode": "0o755",
+      "mtime_ns": 1792538040830298208,
+      "dev": 16777231,
+      "inode": 474456708
+    },
+    {
+      "path": "typescript/lib/it",
+      "mode": "0o755",
+      "mtime_ns": 1792538040831143536,
+      "dev": 16777231,
+      "inode": 474456648
+    },
+    {
+      "path": "typescript/lib/ja",
+      "mode": "0o755",
+      "mtime_ns": 1792538040832220238,
+      "dev": 16777231,
+      "inode": 474456640
+    },
+    {
+      "path": "typescript/lib/ko",
+      "mode": "0o755",
+      "mtime_ns": 1792538040833460481,
+      "dev": 16777231,
+      "inode": 474456702
+    },
+    {
+      "path": "typescript/lib/pl",
+      "mode": "0o755",
+      "mtime_ns": 1792538040834510017,
+      "dev": 16777231,
+      "inode": 474456614
+    },
+    {
+      "path": "typescript/lib/pt-br",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835587094,
+      "dev": 16777231,
+      "inode": 474456696
+    },
+    {
+      "path": "typescript/lib/ru",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836537130,
+      "dev": 16777231,
+      "inode": 474456656
+    },
+    {
+      "path": "typescript/lib/tr",
+      "mode": "0o755",
+      "mtime_ns": 1792538040837632541,
+      "dev": 16777231,
+      "inode": 474456731
+    },
+    {
+      "path": "typescript/lib/zh-cn",
+      "mode": "0o755",
+      "mtime_ns": 1792538040838980033,
+      "dev": 16777231,
+      "inode": 474456671
+    },
+    {
+      "path": "typescript/lib/zh-tw",
+      "mode": "0o755",
+      "mtime_ns": 1792538040839768403,
+      "dev": 16777231,
+      "inode": 474456692
+    },
+    {
+      "path": "undici-types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764066174,
+      "dev": 16777231,
+      "inode": 474459724
+    },
+    {
+      "path": "valibot",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765676415,
+      "dev": 16777231,
+      "inode": 474459849
+    },
+    {
+      "path": "valibot/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040768169067,
+      "dev": 16777231,
+      "inode": 474459851
+    }
+  ],
+  "copiedRows": [
+    {
+      "path": ".",
+      "mode": "0o755",
+      "mtime_ns": 1792538041011250329,
+      "dev": 16777231,
+      "inode": 475097335
+    },
+    {
+      "path": ".bin",
+      "mode": "0o755",
+      "mtime_ns": 1792538041009377757,
+      "dev": 16777231,
+      "inode": 475098471
+    },
+    {
+      "path": "@standard-schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040673657239,
+      "dev": 16777231,
+      "inode": 475101841
+    },
+    {
+      "path": "@standard-schema/spec",
+      "mode": "0o755",
+      "mtime_ns": 1792538040756990548,
+      "dev": 16777231,
+      "inode": 475101842
+    },
+    {
+      "path": "@standard-schema/spec/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040757780127,
+      "dev": 16777231,
+      "inode": 475101844
+    },
+    {
+      "path": "@types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040673607155,
+      "dev": 16777231,
+      "inode": 475097336
+    },
+    {
+      "path": "@types/node",
+      "mode": "0o755",
+      "mtime_ns": 1792538040785897673,
+      "dev": 16777231,
+      "inode": 475097337
+    },
+    {
+      "path": "@types/node/assert",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783185814,
+      "dev": 16777231,
+      "inode": 475097380
+    },
+    {
+      "path": "@types/node/compatibility",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783324271,
+      "dev": 16777231,
+      "inode": 475097338
+    },
+    {
+      "path": "@types/node/dns",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783493645,
+      "dev": 16777231,
+      "inode": 475097415
+    },
+    {
+      "path": "@types/node/fs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783870726,
+      "dev": 16777231,
+      "inode": 475097417
+    },
+    {
+      "path": "@types/node/readline",
+      "mode": "0o755",
+      "mtime_ns": 1792538040784321015,
+      "dev": 16777231,
+      "inode": 475097370
+    },
+    {
+      "path": "@types/node/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040784913345,
+      "dev": 16777231,
+      "inode": 475097365
+    },
+    {
+      "path": "@types/node/timers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040785352218,
+      "dev": 16777231,
+      "inode": 475097361
+    },
+    {
+      "path": "@types/node/ts5.6",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786046130,
+      "dev": 16777231,
+      "inode": 475097409
+    },
+    {
+      "path": "@types/node/ts5.6/compatibility",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786168588,
+      "dev": 16777231,
+      "inode": 475097410
+    },
+    {
+      "path": "@types/node/ts5.7",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786301129,
+      "dev": 16777231,
+      "inode": 475097399
+    },
+    {
+      "path": "@types/node/ts5.7/compatibility",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786413045,
+      "dev": 16777231,
+      "inode": 475097400
+    },
+    {
+      "path": "@valibot",
+      "mode": "0o755",
+      "mtime_ns": 1792538040673673447,
+      "dev": 16777231,
+      "inode": 475101887
+    },
+    {
+      "path": "@valibot/to-json-schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040759443868,
+      "dev": 16777231,
+      "inode": 475101888
+    },
+    {
+      "path": "@valibot/to-json-schema/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040761012525,
+      "dev": 16777231,
+      "inode": 475101890
+    },
+    {
+      "path": "ajv",
+      "mode": "0o755",
+      "mtime_ns": 1792538040793794711,
+      "dev": 16777231,
+      "inode": 475101899
+    },
+    {
+      "path": "ajv-formats",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758762246,
+      "dev": 16777231,
+      "inode": 475098474
+    },
+    {
+      "path": "ajv-formats/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040760281529,
+      "dev": 16777231,
+      "inode": 475098476
+    },
+    {
+      "path": "ajv-formats/src",
+      "mode": "0o755",
+      "mtime_ns": 1792538040760449737,
+      "dev": 16777231,
+      "inode": 475098488
+    },
+    {
+      "path": "ajv/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803791403,
+      "dev": 16777231,
+      "inode": 475101901
+    },
+    {
+      "path": "ajv/dist/compile",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810164324,
+      "dev": 16777231,
+      "inode": 475102160
+    },
+    {
+      "path": "ajv/dist/compile/codegen",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808327960,
+      "dev": 16777231,
+      "inode": 475102195
+    },
+    {
+      "path": "ajv/dist/compile/jtd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809216246,
+      "dev": 16777231,
+      "inode": 475102205
+    },
+    {
+      "path": "ajv/dist/compile/validate",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808762082,
+      "dev": 16777231,
+      "inode": 475102162
+    },
+    {
+      "path": "ajv/dist/refs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803432197,
+      "dev": 16777231,
+      "inode": 475102224
+    },
+    {
+      "path": "ajv/dist/refs/json-schema-2019-09",
+      "mode": "0o755",
+      "mtime_ns": 1792538040799500636,
+      "dev": 16777231,
+      "inode": 475102225
+    },
+    {
+      "path": "ajv/dist/refs/json-schema-2019-09/meta",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783632186,
+      "dev": 16777231,
+      "inode": 475102226
+    },
+    {
+      "path": "ajv/dist/refs/json-schema-2020-12",
+      "mode": "0o755",
+      "mtime_ns": 1792538040799530094,
+      "dev": 16777231,
+      "inode": 475102243
+    },
+    {
+      "path": "ajv/dist/refs/json-schema-2020-12/meta",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783667603,
+      "dev": 16777231,
+      "inode": 475102244
+    },
+    {
+      "path": "ajv/dist/runtime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810277699,
+      "dev": 16777231,
+      "inode": 475102132
+    },
+    {
+      "path": "ajv/dist/standalone",
+      "mode": "0o755",
+      "mtime_ns": 1792538040802841742,
+      "dev": 16777231,
+      "inode": 475102124
+    },
+    {
+      "path": "ajv/dist/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803468321,
+      "dev": 16777231,
+      "inode": 475102109
+    },
+    {
+      "path": "ajv/dist/vocabularies",
+      "mode": "0o755",
+      "mtime_ns": 1792538040805026229,
+      "dev": 16777231,
+      "inode": 475101902
+    },
+    {
+      "path": "ajv/dist/vocabularies/applicator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808915665,
+      "dev": 16777231,
+      "inode": 475102011
+    },
+    {
+      "path": "ajv/dist/vocabularies/core",
+      "mode": "0o755",
+      "mtime_ns": 1792538040807249049,
+      "dev": 16777231,
+      "inode": 475101920
+    },
+    {
+      "path": "ajv/dist/vocabularies/discriminator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809249163,
+      "dev": 16777231,
+      "inode": 475101992
+    },
+    {
+      "path": "ajv/dist/vocabularies/dynamic",
+      "mode": "0o755",
+      "mtime_ns": 1792538040807019926,
+      "dev": 16777231,
+      "inode": 475101904
+    },
+    {
+      "path": "ajv/dist/vocabularies/format",
+      "mode": "0o755",
+      "mtime_ns": 1792538040800072133,
+      "dev": 16777231,
+      "inode": 475102002
+    },
+    {
+      "path": "ajv/dist/vocabularies/jtd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810411948,
+      "dev": 16777231,
+      "inode": 475101949
+    },
+    {
+      "path": "ajv/dist/vocabularies/unevaluated",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809775993,
+      "dev": 16777231,
+      "inode": 475101939
+    },
+    {
+      "path": "ajv/dist/vocabularies/validation",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810023450,
+      "dev": 16777231,
+      "inode": 475102068
+    },
+    {
+      "path": "ajv/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803976235,
+      "dev": 16777231,
+      "inode": 475102266
+    },
+    {
+      "path": "ajv/lib/compile",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810229157,
+      "dev": 16777231,
+      "inode": 475102362
+    },
+    {
+      "path": "ajv/lib/compile/codegen",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808419168,
+      "dev": 16777231,
+      "inode": 475102374
+    },
+    {
+      "path": "ajv/lib/compile/jtd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809330329,
+      "dev": 16777231,
+      "inode": 475102378
+    },
+    {
+      "path": "ajv/lib/compile/validate",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808823874,
+      "dev": 16777231,
+      "inode": 475102363
+    },
+    {
+      "path": "ajv/lib/refs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803655529,
+      "dev": 16777231,
+      "inode": 475102386
+    },
+    {
+      "path": "ajv/lib/refs/json-schema-2019-09",
+      "mode": "0o755",
+      "mtime_ns": 1792538040800803837,
+      "dev": 16777231,
+      "inode": 475102387
+    },
+    {
+      "path": "ajv/lib/refs/json-schema-2019-09/meta",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783723519,
+      "dev": 16777231,
+      "inode": 475102388
+    },
+    {
+      "path": "ajv/lib/refs/json-schema-2020-12",
+      "mode": "0o755",
+      "mtime_ns": 1792538040801238418,
+      "dev": 16777231,
+      "inode": 475102400
+    },
+    {
+      "path": "ajv/lib/refs/json-schema-2020-12/meta",
+      "mode": "0o755",
+      "mtime_ns": 1792538040783766935,
+      "dev": 16777231,
+      "inode": 475102401
+    },
+    {
+      "path": "ajv/lib/runtime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810345407,
+      "dev": 16777231,
+      "inode": 475102349
+    },
+    {
+      "path": "ajv/lib/standalone",
+      "mode": "0o755",
+      "mtime_ns": 1792538040802878325,
+      "dev": 16777231,
+      "inode": 475102346
+    },
+    {
+      "path": "ajv/lib/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803696237,
+      "dev": 16777231,
+      "inode": 475102341
+    },
+    {
+      "path": "ajv/lib/vocabularies",
+      "mode": "0o755",
+      "mtime_ns": 1792538040805075604,
+      "dev": 16777231,
+      "inode": 475102267
+    },
+    {
+      "path": "ajv/lib/vocabularies/applicator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040808986206,
+      "dev": 16777231,
+      "inode": 475102308
+    },
+    {
+      "path": "ajv/lib/vocabularies/core",
+      "mode": "0o755",
+      "mtime_ns": 1792538040807416924,
+      "dev": 16777231,
+      "inode": 475102277
+    },
+    {
+      "path": "ajv/lib/vocabularies/discriminator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809391037,
+      "dev": 16777231,
+      "inode": 475102300
+    },
+    {
+      "path": "ajv/lib/vocabularies/dynamic",
+      "mode": "0o755",
+      "mtime_ns": 1792538040807065051,
+      "dev": 16777231,
+      "inode": 475102270
+    },
+    {
+      "path": "ajv/lib/vocabularies/format",
+      "mode": "0o755",
+      "mtime_ns": 1792538040802556535,
+      "dev": 16777231,
+      "inode": 475102304
+    },
+    {
+      "path": "ajv/lib/vocabularies/jtd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810484947,
+      "dev": 16777231,
+      "inode": 475102286
+    },
+    {
+      "path": "ajv/lib/vocabularies/unevaluated",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809842868,
+      "dev": 16777231,
+      "inode": 475102282
+    },
+    {
+      "path": "ajv/lib/vocabularies/validation",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810061325,
+      "dev": 16777231,
+      "inode": 475102327
+    },
+    {
+      "path": "effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040949186687,
+      "dev": 16777231,
+      "inode": 475098731
+    },
+    {
+      "path": "effect/.index",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859008750,
+      "dev": 16777231,
+      "inode": 475101167
+    },
+    {
+      "path": "effect/Arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859092916,
+      "dev": 16777231,
+      "inode": 475101131
+    },
+    {
+      "path": "effect/Array",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859167624,
+      "dev": 16777231,
+      "inode": 475101081
+    },
+    {
+      "path": "effect/BigDecimal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859241832,
+      "dev": 16777231,
+      "inode": 475101139
+    },
+    {
+      "path": "effect/BigInt",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859303790,
+      "dev": 16777231,
+      "inode": 475098784
+    },
+    {
+      "path": "effect/Boolean",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859378748,
+      "dev": 16777231,
+      "inode": 475101239
+    },
+    {
+      "path": "effect/Brand",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859452206,
+      "dev": 16777231,
+      "inode": 475101119
+    },
+    {
+      "path": "effect/Cache",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859521247,
+      "dev": 16777231,
+      "inode": 475098808
+    },
+    {
+      "path": "effect/Cause",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859589789,
+      "dev": 16777231,
+      "inode": 475101075
+    },
+    {
+      "path": "effect/Channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859664747,
+      "dev": 16777231,
+      "inode": 475101190
+    },
+    {
+      "path": "effect/ChildExecutorDecision",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859730704,
+      "dev": 16777231,
+      "inode": 475101206
+    },
+    {
+      "path": "effect/Chunk",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859806037,
+      "dev": 16777231,
+      "inode": 475098806
+    },
+    {
+      "path": "effect/Clock",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859874620,
+      "dev": 16777231,
+      "inode": 475101321
+    },
+    {
+      "path": "effect/Config",
+      "mode": "0o755",
+      "mtime_ns": 1792538040859949078,
+      "dev": 16777231,
+      "inode": 475101079
+    },
+    {
+      "path": "effect/ConfigError",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860022619,
+      "dev": 16777231,
+      "inode": 475101121
+    },
+    {
+      "path": "effect/ConfigProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860092994,
+      "dev": 16777231,
+      "inode": 475098766
+    },
+    {
+      "path": "effect/ConfigProviderPathPatch",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860161619,
+      "dev": 16777231,
+      "inode": 475101333
+    },
+    {
+      "path": "effect/Console",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860231743,
+      "dev": 16777231,
+      "inode": 475101339
+    },
+    {
+      "path": "effect/Context",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860304576,
+      "dev": 16777231,
+      "inode": 475098788
+    },
+    {
+      "path": "effect/Cron",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860382659,
+      "dev": 16777231,
+      "inode": 475101325
+    },
+    {
+      "path": "effect/Data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860459075,
+      "dev": 16777231,
+      "inode": 475101301
+    },
+    {
+      "path": "effect/DateTime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860529408,
+      "dev": 16777231,
+      "inode": 475101089
+    },
+    {
+      "path": "effect/DefaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860613991,
+      "dev": 16777231,
+      "inode": 475098817
+    },
+    {
+      "path": "effect/Deferred",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860685699,
+      "dev": 16777231,
+      "inode": 475101099
+    },
+    {
+      "path": "effect/Differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860754782,
+      "dev": 16777231,
+      "inode": 475101161
+    },
+    {
+      "path": "effect/Duration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860858031,
+      "dev": 16777231,
+      "inode": 475101303
+    },
+    {
+      "path": "effect/Effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040860936822,
+      "dev": 16777231,
+      "inode": 475101133
+    },
+    {
+      "path": "effect/Effectable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861022655,
+      "dev": 16777231,
+      "inode": 475098732
+    },
+    {
+      "path": "effect/Either",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861090988,
+      "dev": 16777231,
+      "inode": 475098774
+    },
+    {
+      "path": "effect/Encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861170696,
+      "dev": 16777231,
+      "inode": 475101143
+    },
+    {
+      "path": "effect/Equal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861441694,
+      "dev": 16777231,
+      "inode": 475101257
+    },
+    {
+      "path": "effect/Equivalence",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861521986,
+      "dev": 16777231,
+      "inode": 475101210
+    },
+    {
+      "path": "effect/ExecutionPlan",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861583277,
+      "dev": 16777231,
+      "inode": 475101095
+    },
+    {
+      "path": "effect/ExecutionStrategy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861659985,
+      "dev": 16777231,
+      "inode": 475101277
+    },
+    {
+      "path": "effect/Exit",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861732943,
+      "dev": 16777231,
+      "inode": 475101261
+    },
+    {
+      "path": "effect/FastCheck",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861804901,
+      "dev": 16777231,
+      "inode": 475101200
+    },
+    {
+      "path": "effect/Fiber",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861875317,
+      "dev": 16777231,
+      "inode": 475101253
+    },
+    {
+      "path": "effect/FiberHandle",
+      "mode": "0o755",
+      "mtime_ns": 1792538040861950233,
+      "dev": 16777231,
+      "inode": 475101313
+    },
+    {
+      "path": "effect/FiberId",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862040816,
+      "dev": 16777231,
+      "inode": 475098744
+    },
+    {
+      "path": "effect/FiberMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862119732,
+      "dev": 16777231,
+      "inode": 475098738
+    },
+    {
+      "path": "effect/FiberRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862185440,
+      "dev": 16777231,
+      "inode": 475101202
+    },
+    {
+      "path": "effect/FiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862269356,
+      "dev": 16777231,
+      "inode": 475101115
+    },
+    {
+      "path": "effect/FiberRefsPatch",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862346439,
+      "dev": 16777231,
+      "inode": 475098782
+    },
+    {
+      "path": "effect/FiberSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862428731,
+      "dev": 16777231,
+      "inode": 475101097
+    },
+    {
+      "path": "effect/FiberStatus",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862508188,
+      "dev": 16777231,
+      "inode": 475101233
+    },
+    {
+      "path": "effect/Function",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862589563,
+      "dev": 16777231,
+      "inode": 475101163
+    },
+    {
+      "path": "effect/GlobalValue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862665562,
+      "dev": 16777231,
+      "inode": 475098760
+    },
+    {
+      "path": "effect/Graph",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862748104,
+      "dev": 16777231,
+      "inode": 475101125
+    },
+    {
+      "path": "effect/GroupBy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862820853,
+      "dev": 16777231,
+      "inode": 475101182
+    },
+    {
+      "path": "effect/HKT",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863234851,
+      "dev": 16777231,
+      "inode": 475101289
+    },
+    {
+      "path": "effect/Hash",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862904644,
+      "dev": 16777231,
+      "inode": 475098819
+    },
+    {
+      "path": "effect/HashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040862978186,
+      "dev": 16777231,
+      "inode": 475101175
+    },
+    {
+      "path": "effect/HashRing",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863067143,
+      "dev": 16777231,
+      "inode": 475101216
+    },
+    {
+      "path": "effect/HashSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863152351,
+      "dev": 16777231,
+      "inode": 475101073
+    },
+    {
+      "path": "effect/Inspectable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863403600,
+      "dev": 16777231,
+      "inode": 475098790
+    },
+    {
+      "path": "effect/Iterable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863482224,
+      "dev": 16777231,
+      "inode": 475098786
+    },
+    {
+      "path": "effect/JSONSchema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863562640,
+      "dev": 16777231,
+      "inode": 475101218
+    },
+    {
+      "path": "effect/KeyedPool",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863648640,
+      "dev": 16777231,
+      "inode": 475101287
+    },
+    {
+      "path": "effect/Layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863727848,
+      "dev": 16777231,
+      "inode": 475101212
+    },
+    {
+      "path": "effect/LayerMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863806556,
+      "dev": 16777231,
+      "inode": 475101113
+    },
+    {
+      "path": "effect/List",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863883222,
+      "dev": 16777231,
+      "inode": 475101237
+    },
+    {
+      "path": "effect/LogLevel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864050804,
+      "dev": 16777231,
+      "inode": 475101153
+    },
+    {
+      "path": "effect/LogSpan",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864148554,
+      "dev": 16777231,
+      "inode": 475098734
+    },
+    {
+      "path": "effect/Logger",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863958555,
+      "dev": 16777231,
+      "inode": 475098798
+    },
+    {
+      "path": "effect/Mailbox",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864228387,
+      "dev": 16777231,
+      "inode": 475101105
+    },
+    {
+      "path": "effect/ManagedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864315553,
+      "dev": 16777231,
+      "inode": 475101188
+    },
+    {
+      "path": "effect/Match",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864392636,
+      "dev": 16777231,
+      "inode": 475101091
+    },
+    {
+      "path": "effect/MergeDecision",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864479302,
+      "dev": 16777231,
+      "inode": 475101093
+    },
+    {
+      "path": "effect/MergeState",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864553093,
+      "dev": 16777231,
+      "inode": 475101123
+    },
+    {
+      "path": "effect/MergeStrategy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864629884,
+      "dev": 16777231,
+      "inode": 475101177
+    },
+    {
+      "path": "effect/Metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864693509,
+      "dev": 16777231,
+      "inode": 475101299
+    },
+    {
+      "path": "effect/MetricBoundaries",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864767800,
+      "dev": 16777231,
+      "inode": 475101329
+    },
+    {
+      "path": "effect/MetricHook",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864848216,
+      "dev": 16777231,
+      "inode": 475101335
+    },
+    {
+      "path": "effect/MetricKey",
+      "mode": "0o755",
+      "mtime_ns": 1792538040864920133,
+      "dev": 16777231,
+      "inode": 475101204
+    },
+    {
+      "path": "effect/MetricKeyType",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865003091,
+      "dev": 16777231,
+      "inode": 475101145
+    },
+    {
+      "path": "effect/MetricLabel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865083715,
+      "dev": 16777231,
+      "inode": 475101083
+    },
+    {
+      "path": "effect/MetricPair",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865159340,
+      "dev": 16777231,
+      "inode": 475101315
+    },
+    {
+      "path": "effect/MetricPolling",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865231548,
+      "dev": 16777231,
+      "inode": 475101235
+    },
+    {
+      "path": "effect/MetricRegistry",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865310630,
+      "dev": 16777231,
+      "inode": 475098750
+    },
+    {
+      "path": "effect/MetricState",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865387005,
+      "dev": 16777231,
+      "inode": 475098804
+    },
+    {
+      "path": "effect/Micro",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865460755,
+      "dev": 16777231,
+      "inode": 475098754
+    },
+    {
+      "path": "effect/ModuleVersion",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865550171,
+      "dev": 16777231,
+      "inode": 475101111
+    },
+    {
+      "path": "effect/MutableHashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865630129,
+      "dev": 16777231,
+      "inode": 475101255
+    },
+    {
+      "path": "effect/MutableHashSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865711878,
+      "dev": 16777231,
+      "inode": 475101337
+    },
+    {
+      "path": "effect/MutableList",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865791378,
+      "dev": 16777231,
+      "inode": 475098776
+    },
+    {
+      "path": "effect/MutableQueue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865872127,
+      "dev": 16777231,
+      "inode": 475101192
+    },
+    {
+      "path": "effect/MutableRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040865950668,
+      "dev": 16777231,
+      "inode": 475101225
+    },
+    {
+      "path": "effect/NonEmptyIterable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866038960,
+      "dev": 16777231,
+      "inode": 475101319
+    },
+    {
+      "path": "effect/Number",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866122126,
+      "dev": 16777231,
+      "inode": 475101184
+    },
+    {
+      "path": "effect/Option",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866205500,
+      "dev": 16777231,
+      "inode": 475101157
+    },
+    {
+      "path": "effect/Order",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866287291,
+      "dev": 16777231,
+      "inode": 475098740
+    },
+    {
+      "path": "effect/Ordering",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866372874,
+      "dev": 16777231,
+      "inode": 475101227
+    },
+    {
+      "path": "effect/ParseResult",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866594331,
+      "dev": 16777231,
+      "inode": 475101247
+    },
+    {
+      "path": "effect/PartitionedSemaphore",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866677414,
+      "dev": 16777231,
+      "inode": 475101271
+    },
+    {
+      "path": "effect/Pipeable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866758955,
+      "dev": 16777231,
+      "inode": 475101214
+    },
+    {
+      "path": "effect/Pool",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866837663,
+      "dev": 16777231,
+      "inode": 475101305
+    },
+    {
+      "path": "effect/Predicate",
+      "mode": "0o755",
+      "mtime_ns": 1792538040866920330,
+      "dev": 16777231,
+      "inode": 475098762
+    },
+    {
+      "path": "effect/Pretty",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867015204,
+      "dev": 16777231,
+      "inode": 475101279
+    },
+    {
+      "path": "effect/PrimaryKey",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867093578,
+      "dev": 16777231,
+      "inode": 475101275
+    },
+    {
+      "path": "effect/PubSub",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867179411,
+      "dev": 16777231,
+      "inode": 475101259
+    },
+    {
+      "path": "effect/Queue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867263869,
+      "dev": 16777231,
+      "inode": 475101251
+    },
+    {
+      "path": "effect/Random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867356994,
+      "dev": 16777231,
+      "inode": 475101293
+    },
+    {
+      "path": "effect/RateLimiter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867434660,
+      "dev": 16777231,
+      "inode": 475098802
+    },
+    {
+      "path": "effect/RcMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867516743,
+      "dev": 16777231,
+      "inode": 475101295
+    },
+    {
+      "path": "effect/RcRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867608326,
+      "dev": 16777231,
+      "inode": 475101129
+    },
+    {
+      "path": "effect/Readable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867693450,
+      "dev": 16777231,
+      "inode": 475101285
+    },
+    {
+      "path": "effect/Record",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867770491,
+      "dev": 16777231,
+      "inode": 475098800
+    },
+    {
+      "path": "effect/RedBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867942115,
+      "dev": 16777231,
+      "inode": 475101103
+    },
+    {
+      "path": "effect/Redacted",
+      "mode": "0o755",
+      "mtime_ns": 1792538040867855991,
+      "dev": 16777231,
+      "inode": 475101249
+    },
+    {
+      "path": "effect/Ref",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868027740,
+      "dev": 16777231,
+      "inode": 475098770
+    },
+    {
+      "path": "effect/RegExp",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868115823,
+      "dev": 16777231,
+      "inode": 475098794
+    },
+    {
+      "path": "effect/Reloadable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868209072,
+      "dev": 16777231,
+      "inode": 475101241
+    },
+    {
+      "path": "effect/Request",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868539695,
+      "dev": 16777231,
+      "inode": 475101265
+    },
+    {
+      "path": "effect/RequestBlock",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868610195,
+      "dev": 16777231,
+      "inode": 475098748
+    },
+    {
+      "path": "effect/RequestResolver",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868695194,
+      "dev": 16777231,
+      "inode": 475098752
+    },
+    {
+      "path": "effect/Resource",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868778735,
+      "dev": 16777231,
+      "inode": 475101297
+    },
+    {
+      "path": "effect/Runtime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868863777,
+      "dev": 16777231,
+      "inode": 475101127
+    },
+    {
+      "path": "effect/RuntimeFlags",
+      "mode": "0o755",
+      "mtime_ns": 1792538040868940943,
+      "dev": 16777231,
+      "inode": 475101269
+    },
+    {
+      "path": "effect/RuntimeFlagsPatch",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869018317,
+      "dev": 16777231,
+      "inode": 475101107
+    },
+    {
+      "path": "effect/STM",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870330310,
+      "dev": 16777231,
+      "inode": 475101149
+    },
+    {
+      "path": "effect/Schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869099692,
+      "dev": 16777231,
+      "inode": 475098772
+    },
+    {
+      "path": "effect/ScheduleDecision",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869205191,
+      "dev": 16777231,
+      "inode": 475101171
+    },
+    {
+      "path": "effect/ScheduleInterval",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869286774,
+      "dev": 16777231,
+      "inode": 475101323
+    },
+    {
+      "path": "effect/ScheduleIntervals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869364690,
+      "dev": 16777231,
+      "inode": 475101165
+    },
+    {
+      "path": "effect/Scheduler",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869440232,
+      "dev": 16777231,
+      "inode": 475101135
+    },
+    {
+      "path": "effect/Schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869520273,
+      "dev": 16777231,
+      "inode": 475101196
+    },
+    {
+      "path": "effect/SchemaAST",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869602439,
+      "dev": 16777231,
+      "inode": 475098792
+    },
+    {
+      "path": "effect/Scope",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869685022,
+      "dev": 16777231,
+      "inode": 475101159
+    },
+    {
+      "path": "effect/ScopedCache",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869766813,
+      "dev": 16777231,
+      "inode": 475098756
+    },
+    {
+      "path": "effect/ScopedRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869850021,
+      "dev": 16777231,
+      "inode": 475098768
+    },
+    {
+      "path": "effect/Secret",
+      "mode": "0o755",
+      "mtime_ns": 1792538040869922521,
+      "dev": 16777231,
+      "inode": 475101281
+    },
+    {
+      "path": "effect/SingleProducerAsyncInput",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870015062,
+      "dev": 16777231,
+      "inode": 475101243
+    },
+    {
+      "path": "effect/Sink",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870087103,
+      "dev": 16777231,
+      "inode": 475101137
+    },
+    {
+      "path": "effect/SortedMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870159102,
+      "dev": 16777231,
+      "inode": 475098810
+    },
+    {
+      "path": "effect/SortedSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870244769,
+      "dev": 16777231,
+      "inode": 475101147
+    },
+    {
+      "path": "effect/Stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870413393,
+      "dev": 16777231,
+      "inode": 475101117
+    },
+    {
+      "path": "effect/StreamEmit",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870565225,
+      "dev": 16777231,
+      "inode": 475101309
+    },
+    {
+      "path": "effect/StreamHaltStrategy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870650475,
+      "dev": 16777231,
+      "inode": 475101198
+    },
+    {
+      "path": "effect/Streamable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870487476,
+      "dev": 16777231,
+      "inode": 475098796
+    },
+    {
+      "path": "effect/String",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870739391,
+      "dev": 16777231,
+      "inode": 475101273
+    },
+    {
+      "path": "effect/Struct",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870826099,
+      "dev": 16777231,
+      "inode": 475101186
+    },
+    {
+      "path": "effect/Subscribable",
+      "mode": "0o755",
+      "mtime_ns": 1792538040870912848,
+      "dev": 16777231,
+      "inode": 475101087
+    },
+    {
+      "path": "effect/SubscriptionRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871002597,
+      "dev": 16777231,
+      "inode": 475101085
+    },
+    {
+      "path": "effect/Supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871079972,
+      "dev": 16777231,
+      "inode": 475101327
+    },
+    {
+      "path": "effect/Symbol",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871165305,
+      "dev": 16777231,
+      "inode": 475101155
+    },
+    {
+      "path": "effect/SynchronizedRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871255429,
+      "dev": 16777231,
+      "inode": 475101317
+    },
+    {
+      "path": "effect/TArray",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871411804,
+      "dev": 16777231,
+      "inode": 475101283
+    },
+    {
+      "path": "effect/TDeferred",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871507761,
+      "dev": 16777231,
+      "inode": 475101229
+    },
+    {
+      "path": "effect/TMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872359881,
+      "dev": 16777231,
+      "inode": 475098746
+    },
+    {
+      "path": "effect/TPriorityQueue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872439922,
+      "dev": 16777231,
+      "inode": 475101291
+    },
+    {
+      "path": "effect/TPubSub",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872515005,
+      "dev": 16777231,
+      "inode": 475101307
+    },
+    {
+      "path": "effect/TQueue",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872684004,
+      "dev": 16777231,
+      "inode": 475101101
+    },
+    {
+      "path": "effect/TRandom",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872877545,
+      "dev": 16777231,
+      "inode": 475101194
+    },
+    {
+      "path": "effect/TReentrantLock",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872971003,
+      "dev": 16777231,
+      "inode": 475101231
+    },
+    {
+      "path": "effect/TRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873057127,
+      "dev": 16777231,
+      "inode": 475101179
+    },
+    {
+      "path": "effect/TSemaphore",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873237210,
+      "dev": 16777231,
+      "inode": 475098815
+    },
+    {
+      "path": "effect/TSet",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873322292,
+      "dev": 16777231,
+      "inode": 475101109
+    },
+    {
+      "path": "effect/TSubscriptionRef",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873415834,
+      "dev": 16777231,
+      "inode": 475101311
+    },
+    {
+      "path": "effect/Take",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871342262,
+      "dev": 16777231,
+      "inode": 475101223
+    },
+    {
+      "path": "effect/TestAnnotation",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871591886,
+      "dev": 16777231,
+      "inode": 475098758
+    },
+    {
+      "path": "effect/TestAnnotationMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871678427,
+      "dev": 16777231,
+      "inode": 475098742
+    },
+    {
+      "path": "effect/TestAnnotations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871765302,
+      "dev": 16777231,
+      "inode": 475101267
+    },
+    {
+      "path": "effect/TestClock",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871848801,
+      "dev": 16777231,
+      "inode": 475101141
+    },
+    {
+      "path": "effect/TestConfig",
+      "mode": "0o755",
+      "mtime_ns": 1792538040871936467,
+      "dev": 16777231,
+      "inode": 475101169
+    },
+    {
+      "path": "effect/TestContext",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872022342,
+      "dev": 16777231,
+      "inode": 475101245
+    },
+    {
+      "path": "effect/TestLive",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872106758,
+      "dev": 16777231,
+      "inode": 475101173
+    },
+    {
+      "path": "effect/TestServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872194341,
+      "dev": 16777231,
+      "inode": 475098778
+    },
+    {
+      "path": "effect/TestSized",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872311590,
+      "dev": 16777231,
+      "inode": 475101221
+    },
+    {
+      "path": "effect/Tracer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040872779837,
+      "dev": 16777231,
+      "inode": 475098736
+    },
+    {
+      "path": "effect/Trie",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873144543,
+      "dev": 16777231,
+      "inode": 475101208
+    },
+    {
+      "path": "effect/Tuple",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873503666,
+      "dev": 16777231,
+      "inode": 475101077
+    },
+    {
+      "path": "effect/Types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873589291,
+      "dev": 16777231,
+      "inode": 475098780
+    },
+    {
+      "path": "effect/Unify",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873703124,
+      "dev": 16777231,
+      "inode": 475098813
+    },
+    {
+      "path": "effect/UpstreamPullRequest",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873795707,
+      "dev": 16777231,
+      "inode": 475098764
+    },
+    {
+      "path": "effect/UpstreamPullStrategy",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873885164,
+      "dev": 16777231,
+      "inode": 475101331
+    },
+    {
+      "path": "effect/Utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040873980872,
+      "dev": 16777231,
+      "inode": 475101151
+    },
+    {
+      "path": "effect/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040874034330,
+      "dev": 16777231,
+      "inode": 475098821
+    },
+    {
+      "path": "effect/dist/cjs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948043111,
+      "dev": 16777231,
+      "inode": 475100322
+    },
+    {
+      "path": "effect/dist/cjs/internal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948275651,
+      "dev": 16777231,
+      "inode": 475100478
+    },
+    {
+      "path": "effect/dist/cjs/internal/channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040947590155,
+      "dev": 16777231,
+      "inode": 475100704
+    },
+    {
+      "path": "effect/dist/cjs/internal/configProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918657114,
+      "dev": 16777231,
+      "inode": 475100501
+    },
+    {
+      "path": "effect/dist/cjs/internal/defaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040885521555,
+      "dev": 16777231,
+      "inode": 475100527
+    },
+    {
+      "path": "effect/dist/cjs/internal/differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040923138004,
+      "dev": 16777231,
+      "inode": 475100665
+    },
+    {
+      "path": "effect/dist/cjs/internal/effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882319032,
+      "dev": 16777231,
+      "inode": 475100589
+    },
+    {
+      "path": "effect/dist/cjs/internal/encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040902551457,
+      "dev": 16777231,
+      "inode": 475100597
+    },
+    {
+      "path": "effect/dist/cjs/internal/fiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918320657,
+      "dev": 16777231,
+      "inode": 475100556
+    },
+    {
+      "path": "effect/dist/cjs/internal/hashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040915912005,
+      "dev": 16777231,
+      "inode": 475100683
+    },
+    {
+      "path": "effect/dist/cjs/internal/layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882452740,
+      "dev": 16777231,
+      "inode": 475100747
+    },
+    {
+      "path": "effect/dist/cjs/internal/managedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882551239,
+      "dev": 16777231,
+      "inode": 475100700
+    },
+    {
+      "path": "effect/dist/cjs/internal/metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040933004989,
+      "dev": 16777231,
+      "inode": 475100799
+    },
+    {
+      "path": "effect/dist/cjs/internal/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040936071721,
+      "dev": 16777231,
+      "inode": 475100828
+    },
+    {
+      "path": "effect/dist/cjs/internal/redBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040916039212,
+      "dev": 16777231,
+      "inode": 475100548
+    },
+    {
+      "path": "effect/dist/cjs/internal/schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040903876991,
+      "dev": 16777231,
+      "inode": 475100504
+    },
+    {
+      "path": "effect/dist/cjs/internal/schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040947781612,
+      "dev": 16777231,
+      "inode": 475100735
+    },
+    {
+      "path": "effect/dist/cjs/internal/stm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948493358,
+      "dev": 16777231,
+      "inode": 475100608
+    },
+    {
+      "path": "effect/dist/cjs/internal/stm/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040945007003,
+      "dev": 16777231,
+      "inode": 475100649
+    },
+    {
+      "path": "effect/dist/cjs/internal/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948942480,
+      "dev": 16777231,
+      "inode": 475100560
+    },
+    {
+      "path": "effect/dist/cjs/internal/supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918379657,
+      "dev": 16777231,
+      "inode": 475100862
+    },
+    {
+      "path": "effect/dist/cjs/internal/testing",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948643690,
+      "dev": 16777231,
+      "inode": 475100728
+    },
+    {
+      "path": "effect/dist/dts",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007600351,
+      "dev": 16777231,
+      "inode": 475098822
+    },
+    {
+      "path": "effect/dist/dts/internal",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007803099,
+      "dev": 16777231,
+      "inode": 475098961
+    },
+    {
+      "path": "effect/dist/dts/internal/channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007356560,
+      "dev": 16777231,
+      "inode": 475099184
+    },
+    {
+      "path": "effect/dist/dts/internal/configProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983995612,
+      "dev": 16777231,
+      "inode": 475098985
+    },
+    {
+      "path": "effect/dist/dts/internal/defaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040957677180,
+      "dev": 16777231,
+      "inode": 475099013
+    },
+    {
+      "path": "effect/dist/dts/internal/differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040987315801,
+      "dev": 16777231,
+      "inode": 475099148
+    },
+    {
+      "path": "effect/dist/dts/internal/effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955195902,
+      "dev": 16777231,
+      "inode": 475099072
+    },
+    {
+      "path": "effect/dist/dts/internal/encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040972505261,
+      "dev": 16777231,
+      "inode": 475099077
+    },
+    {
+      "path": "effect/dist/dts/internal/fiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983723114,
+      "dev": 16777231,
+      "inode": 475099038
+    },
+    {
+      "path": "effect/dist/dts/internal/hashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040981724208,
+      "dev": 16777231,
+      "inode": 475099166
+    },
+    {
+      "path": "effect/dist/dts/internal/layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955224319,
+      "dev": 16777231,
+      "inode": 475099228
+    },
+    {
+      "path": "effect/dist/dts/internal/managedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955273569,
+      "dev": 16777231,
+      "inode": 475099181
+    },
+    {
+      "path": "effect/dist/dts/internal/metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040995663086,
+      "dev": 16777231,
+      "inode": 475099282
+    },
+    {
+      "path": "effect/dist/dts/internal/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040998103697,
+      "dev": 16777231,
+      "inode": 475099312
+    },
+    {
+      "path": "effect/dist/dts/internal/redBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040981766333,
+      "dev": 16777231,
+      "inode": 475099030
+    },
+    {
+      "path": "effect/dist/dts/internal/schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040973473130,
+      "dev": 16777231,
+      "inode": 475098990
+    },
+    {
+      "path": "effect/dist/dts/internal/schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007506143,
+      "dev": 16777231,
+      "inode": 475099215
+    },
+    {
+      "path": "effect/dist/dts/internal/stm",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007892057,
+      "dev": 16777231,
+      "inode": 475099090
+    },
+    {
+      "path": "effect/dist/dts/internal/stm/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538041005551737,
+      "dev": 16777231,
+      "inode": 475099131
+    },
+    {
+      "path": "effect/dist/dts/internal/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538041008148639,
+      "dev": 16777231,
+      "inode": 475099042
+    },
+    {
+      "path": "effect/dist/dts/internal/supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983765071,
+      "dev": 16777231,
+      "inode": 475099348
+    },
+    {
+      "path": "effect/dist/dts/internal/testing",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007968223,
+      "dev": 16777231,
+      "inode": 475099207
+    },
+    {
+      "path": "effect/dist/esm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948150485,
+      "dev": 16777231,
+      "inode": 475099572
+    },
+    {
+      "path": "effect/dist/esm/internal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948326150,
+      "dev": 16777231,
+      "inode": 475099727
+    },
+    {
+      "path": "effect/dist/esm/internal/channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538040947658696,
+      "dev": 16777231,
+      "inode": 475099952
+    },
+    {
+      "path": "effect/dist/esm/internal/configProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918746072,
+      "dev": 16777231,
+      "inode": 475099750
+    },
+    {
+      "path": "effect/dist/esm/internal/defaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040885686679,
+      "dev": 16777231,
+      "inode": 475099776
+    },
+    {
+      "path": "effect/dist/esm/internal/differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040923238629,
+      "dev": 16777231,
+      "inode": 475099914
+    },
+    {
+      "path": "effect/dist/esm/internal/effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882586197,
+      "dev": 16777231,
+      "inode": 475099838
+    },
+    {
+      "path": "effect/dist/esm/internal/encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040902652123,
+      "dev": 16777231,
+      "inode": 475099846
+    },
+    {
+      "path": "effect/dist/esm/internal/fiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918459073,
+      "dev": 16777231,
+      "inode": 475099805
+    },
+    {
+      "path": "effect/dist/esm/internal/hashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040916082545,
+      "dev": 16777231,
+      "inode": 475099932
+    },
+    {
+      "path": "effect/dist/esm/internal/layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882681947,
+      "dev": 16777231,
+      "inode": 475099994
+    },
+    {
+      "path": "effect/dist/esm/internal/managedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040882762280,
+      "dev": 16777231,
+      "inode": 475099948
+    },
+    {
+      "path": "effect/dist/esm/internal/metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040933116530,
+      "dev": 16777231,
+      "inode": 475100046
+    },
+    {
+      "path": "effect/dist/esm/internal/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040936155762,
+      "dev": 16777231,
+      "inode": 475100075
+    },
+    {
+      "path": "effect/dist/esm/internal/redBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040916115462,
+      "dev": 16777231,
+      "inode": 475099797
+    },
+    {
+      "path": "effect/dist/esm/internal/schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040903912157,
+      "dev": 16777231,
+      "inode": 475099753
+    },
+    {
+      "path": "effect/dist/esm/internal/schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538040947824153,
+      "dev": 16777231,
+      "inode": 475099982
+    },
+    {
+      "path": "effect/dist/esm/internal/stm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948539857,
+      "dev": 16777231,
+      "inode": 475099857
+    },
+    {
+      "path": "effect/dist/esm/internal/stm/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040945105419,
+      "dev": 16777231,
+      "inode": 475099898
+    },
+    {
+      "path": "effect/dist/esm/internal/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948996230,
+      "dev": 16777231,
+      "inode": 475099809
+    },
+    {
+      "path": "effect/dist/esm/internal/supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040918496073,
+      "dev": 16777231,
+      "inode": 475100109
+    },
+    {
+      "path": "effect/dist/esm/internal/testing",
+      "mode": "0o755",
+      "mtime_ns": 1792538040948693982,
+      "dev": 16777231,
+      "inode": 475099975
+    },
+    {
+      "path": "effect/index",
+      "mode": "0o755",
+      "mtime_ns": 1792538040863315725,
+      "dev": 16777231,
+      "inode": 475101263
+    },
+    {
+      "path": "effect/src",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007695808,
+      "dev": 16777231,
+      "inode": 475101341
+    },
+    {
+      "path": "effect/src/internal",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007856974,
+      "dev": 16777231,
+      "inode": 475101409
+    },
+    {
+      "path": "effect/src/internal/channel",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007427476,
+      "dev": 16777231,
+      "inode": 475101524
+    },
+    {
+      "path": "effect/src/internal/configProvider",
+      "mode": "0o755",
+      "mtime_ns": 1792538040984055236,
+      "dev": 16777231,
+      "inode": 475101420
+    },
+    {
+      "path": "effect/src/internal/defaultServices",
+      "mode": "0o755",
+      "mtime_ns": 1792538040957935845,
+      "dev": 16777231,
+      "inode": 475101432
+    },
+    {
+      "path": "effect/src/internal/differ",
+      "mode": "0o755",
+      "mtime_ns": 1792538040987363967,
+      "dev": 16777231,
+      "inode": 475101503
+    },
+    {
+      "path": "effect/src/internal/effect",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955376443,
+      "dev": 16777231,
+      "inode": 475101464
+    },
+    {
+      "path": "effect/src/internal/encoding",
+      "mode": "0o755",
+      "mtime_ns": 1792538040972546344,
+      "dev": 16777231,
+      "inode": 475101467
+    },
+    {
+      "path": "effect/src/internal/fiberRefs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983861196,
+      "dev": 16777231,
+      "inode": 475101443
+    },
+    {
+      "path": "effect/src/internal/hashMap",
+      "mode": "0o755",
+      "mtime_ns": 1792538040981800166,
+      "dev": 16777231,
+      "inode": 475101511
+    },
+    {
+      "path": "effect/src/internal/layer",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955542484,
+      "dev": 16777231,
+      "inode": 475101548
+    },
+    {
+      "path": "effect/src/internal/managedRuntime",
+      "mode": "0o755",
+      "mtime_ns": 1792538040955658275,
+      "dev": 16777231,
+      "inode": 475101520
+    },
+    {
+      "path": "effect/src/internal/metric",
+      "mode": "0o755",
+      "mtime_ns": 1792538040995714086,
+      "dev": 16777231,
+      "inode": 475101578
+    },
+    {
+      "path": "effect/src/internal/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538040998224863,
+      "dev": 16777231,
+      "inode": 475101593
+    },
+    {
+      "path": "effect/src/internal/redBlackTree",
+      "mode": "0o755",
+      "mtime_ns": 1792538040981851749,
+      "dev": 16777231,
+      "inode": 475101437
+    },
+    {
+      "path": "effect/src/internal/schedule",
+      "mode": "0o755",
+      "mtime_ns": 1792538040973510130,
+      "dev": 16777231,
+      "inode": 475101423
+    },
+    {
+      "path": "effect/src/internal/schema",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007554351,
+      "dev": 16777231,
+      "inode": 475101540
+    },
+    {
+      "path": "effect/src/internal/stm",
+      "mode": "0o755",
+      "mtime_ns": 1792538041007930265,
+      "dev": 16777231,
+      "inode": 475101473
+    },
+    {
+      "path": "effect/src/internal/stm/opCodes",
+      "mode": "0o755",
+      "mtime_ns": 1792538041005637653,
+      "dev": 16777231,
+      "inode": 475101494
+    },
+    {
+      "path": "effect/src/internal/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538041008192680,
+      "dev": 16777231,
+      "inode": 475101445
+    },
+    {
+      "path": "effect/src/internal/supervisor",
+      "mode": "0o755",
+      "mtime_ns": 1792538040983944904,
+      "dev": 16777231,
+      "inode": 475101611
+    },
+    {
+      "path": "effect/src/internal/testing",
+      "mode": "0o755",
+      "mtime_ns": 1792538041008014598,
+      "dev": 16777231,
+      "inode": 475101536
+    },
+    {
+      "path": "fast-check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040856363057,
+      "dev": 16777231,
+      "inode": 475097420
+    },
+    {
+      "path": "fast-check/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040855337647,
+      "dev": 16777231,
+      "inode": 475097426
+    },
+    {
+      "path": "fast-check/lib/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040785824465,
+      "dev": 16777231,
+      "inode": 475098215
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773596994,
+      "dev": 16777231,
+      "inode": 475098256
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/builders",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765302334,
+      "dev": 16777231,
+      "inode": 475098259
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766007996,
+      "dev": 16777231,
+      "inode": 475098316
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/helpers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040771571172,
+      "dev": 16777231,
+      "inode": 475098318
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/implementations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040772584833,
+      "dev": 16777231,
+      "inode": 475098310
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/interfaces",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773299829,
+      "dev": 16777231,
+      "inode": 475098352
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_internals/mappers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040778542174,
+      "dev": 16777231,
+      "inode": 475098287
+    },
+    {
+      "path": "fast-check/lib/arbitrary/_shared",
+      "mode": "0o755",
+      "mtime_ns": 1792538040778876380,
+      "dev": 16777231,
+      "inode": 475098383
+    },
+    {
+      "path": "fast-check/lib/check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040791446474,
+      "dev": 16777231,
+      "inode": 475098419
+    },
+    {
+      "path": "fast-check/lib/check/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786189463,
+      "dev": 16777231,
+      "inode": 475098454
+    },
+    {
+      "path": "fast-check/lib/check/arbitrary/definition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040786347795,
+      "dev": 16777231,
+      "inode": 475098455
+    },
+    {
+      "path": "fast-check/lib/check/model",
+      "mode": "0o755",
+      "mtime_ns": 1792538040787274582,
+      "dev": 16777231,
+      "inode": 475098458
+    },
+    {
+      "path": "fast-check/lib/check/model/command",
+      "mode": "0o755",
+      "mtime_ns": 1792538040787099666,
+      "dev": 16777231,
+      "inode": 475098466
+    },
+    {
+      "path": "fast-check/lib/check/model/commands",
+      "mode": "0o755",
+      "mtime_ns": 1792538040787501955,
+      "dev": 16777231,
+      "inode": 475098461
+    },
+    {
+      "path": "fast-check/lib/check/precondition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040788365325,
+      "dev": 16777231,
+      "inode": 475098420
+    },
+    {
+      "path": "fast-check/lib/check/property",
+      "mode": "0o755",
+      "mtime_ns": 1792538040789091404,
+      "dev": 16777231,
+      "inode": 475098423
+    },
+    {
+      "path": "fast-check/lib/check/runner",
+      "mode": "0o755",
+      "mtime_ns": 1792538040791106851,
+      "dev": 16777231,
+      "inode": 475098433
+    },
+    {
+      "path": "fast-check/lib/check/runner/configuration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040790433230,
+      "dev": 16777231,
+      "inode": 475098435
+    },
+    {
+      "path": "fast-check/lib/check/runner/reporter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040790933769,
+      "dev": 16777231,
+      "inode": 475098442
+    },
+    {
+      "path": "fast-check/lib/check/runner/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040791301308,
+      "dev": 16777231,
+      "inode": 475098448
+    },
+    {
+      "path": "fast-check/lib/esm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836729796,
+      "dev": 16777231,
+      "inode": 475097688
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040809853118,
+      "dev": 16777231,
+      "inode": 475097954
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040800179632,
+      "dev": 16777231,
+      "inode": 475097995
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/builders",
+      "mode": "0o755",
+      "mtime_ns": 1792538040796005573,
+      "dev": 16777231,
+      "inode": 475097998
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040796237363,
+      "dev": 16777231,
+      "inode": 475098055
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/helpers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040798892640,
+      "dev": 16777231,
+      "inode": 475098057
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/implementations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040799439261,
+      "dev": 16777231,
+      "inode": 475098049
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/interfaces",
+      "mode": "0o755",
+      "mtime_ns": 1792538040799874217,
+      "dev": 16777231,
+      "inode": 475098091
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_internals/mappers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040802759700,
+      "dev": 16777231,
+      "inode": 475098026
+    },
+    {
+      "path": "fast-check/lib/esm/arbitrary/_shared",
+      "mode": "0o755",
+      "mtime_ns": 1792538040803161490,
+      "dev": 16777231,
+      "inode": 475098122
+    },
+    {
+      "path": "fast-check/lib/esm/check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040814634257,
+      "dev": 16777231,
+      "inode": 475098159
+    },
+    {
+      "path": "fast-check/lib/esm/check/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810260157,
+      "dev": 16777231,
+      "inode": 475098194
+    },
+    {
+      "path": "fast-check/lib/esm/check/arbitrary/definition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040810507906,
+      "dev": 16777231,
+      "inode": 475098195
+    },
+    {
+      "path": "fast-check/lib/esm/check/model",
+      "mode": "0o755",
+      "mtime_ns": 1792538040811759773,
+      "dev": 16777231,
+      "inode": 475098198
+    },
+    {
+      "path": "fast-check/lib/esm/check/model/command",
+      "mode": "0o755",
+      "mtime_ns": 1792538040811549900,
+      "dev": 16777231,
+      "inode": 475098206
+    },
+    {
+      "path": "fast-check/lib/esm/check/model/commands",
+      "mode": "0o755",
+      "mtime_ns": 1792538040811934606,
+      "dev": 16777231,
+      "inode": 475098201
+    },
+    {
+      "path": "fast-check/lib/esm/check/precondition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040812161146,
+      "dev": 16777231,
+      "inode": 475098160
+    },
+    {
+      "path": "fast-check/lib/esm/check/property",
+      "mode": "0o755",
+      "mtime_ns": 1792538040812848309,
+      "dev": 16777231,
+      "inode": 475098163
+    },
+    {
+      "path": "fast-check/lib/esm/check/runner",
+      "mode": "0o755",
+      "mtime_ns": 1792538040814293676,
+      "dev": 16777231,
+      "inode": 475098173
+    },
+    {
+      "path": "fast-check/lib/esm/check/runner/configuration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040813784553,
+      "dev": 16777231,
+      "inode": 475098175
+    },
+    {
+      "path": "fast-check/lib/esm/check/runner/reporter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040814150551,
+      "dev": 16777231,
+      "inode": 475098182
+    },
+    {
+      "path": "fast-check/lib/esm/check/runner/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040814422383,
+      "dev": 16777231,
+      "inode": 475098188
+    },
+    {
+      "path": "fast-check/lib/esm/random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040815044421,
+      "dev": 16777231,
+      "inode": 475098156
+    },
+    {
+      "path": "fast-check/lib/esm/random/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040815109796,
+      "dev": 16777231,
+      "inode": 475098157
+    },
+    {
+      "path": "fast-check/lib/esm/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040815356211,
+      "dev": 16777231,
+      "inode": 475097950
+    },
+    {
+      "path": "fast-check/lib/esm/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836281757,
+      "dev": 16777231,
+      "inode": 475097689
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040830204792,
+      "dev": 16777231,
+      "inode": 475097696
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040820655555,
+      "dev": 16777231,
+      "inode": 475097741
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/builders",
+      "mode": "0o755",
+      "mtime_ns": 1792538040817416282,
+      "dev": 16777231,
+      "inode": 475097749
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040817671781,
+      "dev": 16777231,
+      "inode": 475097803
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/helpers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040819685061,
+      "dev": 16777231,
+      "inode": 475097805
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/implementations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040820099059,
+      "dev": 16777231,
+      "inode": 475097799
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/interfaces",
+      "mode": "0o755",
+      "mtime_ns": 1792538040820438557,
+      "dev": 16777231,
+      "inode": 475097838
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_internals/mappers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040821963298,
+      "dev": 16777231,
+      "inode": 475097775
+    },
+    {
+      "path": "fast-check/lib/esm/types/arbitrary/_shared",
+      "mode": "0o755",
+      "mtime_ns": 1792538040823604622,
+      "dev": 16777231,
+      "inode": 475097867
+    },
+    {
+      "path": "fast-check/lib/esm/types/check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835337970,
+      "dev": 16777231,
+      "inode": 475097898
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040830488540,
+      "dev": 16777231,
+      "inode": 475097933
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/arbitrary/definition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040830724330,
+      "dev": 16777231,
+      "inode": 475097934
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/model",
+      "mode": "0o755",
+      "mtime_ns": 1792538040831638992,
+      "dev": 16777231,
+      "inode": 475097937
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/model/command",
+      "mode": "0o755",
+      "mtime_ns": 1792538040831386952,
+      "dev": 16777231,
+      "inode": 475097945
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/model/commands",
+      "mode": "0o755",
+      "mtime_ns": 1792538040831944157,
+      "dev": 16777231,
+      "inode": 475097940
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/precondition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040832389487,
+      "dev": 16777231,
+      "inode": 475097899
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/property",
+      "mode": "0o755",
+      "mtime_ns": 1792538040833123025,
+      "dev": 16777231,
+      "inode": 475097902
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/runner",
+      "mode": "0o755",
+      "mtime_ns": 1792538040834903598,
+      "dev": 16777231,
+      "inode": 475097912
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/runner/configuration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040834274727,
+      "dev": 16777231,
+      "inode": 475097913
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/runner/reporter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040834690141,
+      "dev": 16777231,
+      "inode": 475097920
+    },
+    {
+      "path": "fast-check/lib/esm/types/check/runner/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835024139,
+      "dev": 16777231,
+      "inode": 475097926
+    },
+    {
+      "path": "fast-check/lib/esm/types/random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835872717,
+      "dev": 16777231,
+      "inode": 475097895
+    },
+    {
+      "path": "fast-check/lib/esm/types/random/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835960675,
+      "dev": 16777231,
+      "inode": 475097896
+    },
+    {
+      "path": "fast-check/lib/esm/types/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836163549,
+      "dev": 16777231,
+      "inode": 475097692
+    },
+    {
+      "path": "fast-check/lib/esm/types/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836548047,
+      "dev": 16777231,
+      "inode": 475097890
+    },
+    {
+      "path": "fast-check/lib/esm/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040837156877,
+      "dev": 16777231,
+      "inode": 475098149
+    },
+    {
+      "path": "fast-check/lib/random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040837596041,
+      "dev": 16777231,
+      "inode": 475098416
+    },
+    {
+      "path": "fast-check/lib/random/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040837680665,
+      "dev": 16777231,
+      "inode": 475098417
+    },
+    {
+      "path": "fast-check/lib/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040838216662,
+      "dev": 16777231,
+      "inode": 475098211
+    },
+    {
+      "path": "fast-check/lib/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040855021190,
+      "dev": 16777231,
+      "inode": 475097427
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040849301806,
+      "dev": 16777231,
+      "inode": 475097434
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040842922468,
+      "dev": 16777231,
+      "inode": 475097479
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/builders",
+      "mode": "0o755",
+      "mtime_ns": 1792538040840034110,
+      "dev": 16777231,
+      "inode": 475097487
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/data",
+      "mode": "0o755",
+      "mtime_ns": 1792538040840229484,
+      "dev": 16777231,
+      "inode": 475097541
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/helpers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040842260222,
+      "dev": 16777231,
+      "inode": 475097543
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/implementations",
+      "mode": "0o755",
+      "mtime_ns": 1792538040842459513,
+      "dev": 16777231,
+      "inode": 475097537
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/interfaces",
+      "mode": "0o755",
+      "mtime_ns": 1792538040842803344,
+      "dev": 16777231,
+      "inode": 475097576
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_internals/mappers",
+      "mode": "0o755",
+      "mtime_ns": 1792538040843932754,
+      "dev": 16777231,
+      "inode": 475097513
+    },
+    {
+      "path": "fast-check/lib/types/arbitrary/_shared",
+      "mode": "0o755",
+      "mtime_ns": 1792538040844112586,
+      "dev": 16777231,
+      "inode": 475097605
+    },
+    {
+      "path": "fast-check/lib/types/check",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854280361,
+      "dev": 16777231,
+      "inode": 475097636
+    },
+    {
+      "path": "fast-check/lib/types/check/arbitrary",
+      "mode": "0o755",
+      "mtime_ns": 1792538040849555388,
+      "dev": 16777231,
+      "inode": 475097671
+    },
+    {
+      "path": "fast-check/lib/types/check/arbitrary/definition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040849857553,
+      "dev": 16777231,
+      "inode": 475097672
+    },
+    {
+      "path": "fast-check/lib/types/check/model",
+      "mode": "0o755",
+      "mtime_ns": 1792538040850865422,
+      "dev": 16777231,
+      "inode": 475097675
+    },
+    {
+      "path": "fast-check/lib/types/check/model/command",
+      "mode": "0o755",
+      "mtime_ns": 1792538040850764965,
+      "dev": 16777231,
+      "inode": 475097683
+    },
+    {
+      "path": "fast-check/lib/types/check/model/commands",
+      "mode": "0o755",
+      "mtime_ns": 1792538040851241753,
+      "dev": 16777231,
+      "inode": 475097678
+    },
+    {
+      "path": "fast-check/lib/types/check/precondition",
+      "mode": "0o755",
+      "mtime_ns": 1792538040851559627,
+      "dev": 16777231,
+      "inode": 475097637
+    },
+    {
+      "path": "fast-check/lib/types/check/property",
+      "mode": "0o755",
+      "mtime_ns": 1792538040852343497,
+      "dev": 16777231,
+      "inode": 475097640
+    },
+    {
+      "path": "fast-check/lib/types/check/runner",
+      "mode": "0o755",
+      "mtime_ns": 1792538040853904322,
+      "dev": 16777231,
+      "inode": 475097650
+    },
+    {
+      "path": "fast-check/lib/types/check/runner/configuration",
+      "mode": "0o755",
+      "mtime_ns": 1792538040853431032,
+      "dev": 16777231,
+      "inode": 475097651
+    },
+    {
+      "path": "fast-check/lib/types/check/runner/reporter",
+      "mode": "0o755",
+      "mtime_ns": 1792538040853742906,
+      "dev": 16777231,
+      "inode": 475097658
+    },
+    {
+      "path": "fast-check/lib/types/check/runner/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854104029,
+      "dev": 16777231,
+      "inode": 475097664
+    },
+    {
+      "path": "fast-check/lib/types/random",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854613401,
+      "dev": 16777231,
+      "inode": 475097633
+    },
+    {
+      "path": "fast-check/lib/types/random/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854718150,
+      "dev": 16777231,
+      "inode": 475097634
+    },
+    {
+      "path": "fast-check/lib/types/stream",
+      "mode": "0o755",
+      "mtime_ns": 1792538040854984857,
+      "dev": 16777231,
+      "inode": 475097430
+    },
+    {
+      "path": "fast-check/lib/types/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040855263147,
+      "dev": 16777231,
+      "inode": 475097628
+    },
+    {
+      "path": "fast-check/lib/utils",
+      "mode": "0o755",
+      "mtime_ns": 1792538040855804435,
+      "dev": 16777231,
+      "inode": 475098410
+    },
+    {
+      "path": "fast-deep-equal",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758733080,
+      "dev": 16777231,
+      "inode": 475102413
+    },
+    {
+      "path": "fast-deep-equal/es6",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758572539,
+      "dev": 16777231,
+      "inode": 475102420
+    },
+    {
+      "path": "fast-uri",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765917455,
+      "dev": 16777231,
+      "inode": 475101789
+    },
+    {
+      "path": "fast-uri/.github",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766369078,
+      "dev": 16777231,
+      "inode": 475101829
+    },
+    {
+      "path": "fast-uri/.github/workflows",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766703784,
+      "dev": 16777231,
+      "inode": 475101830
+    },
+    {
+      "path": "fast-uri/benchmark",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765516582,
+      "dev": 16777231,
+      "inode": 475101790
+    },
+    {
+      "path": "fast-uri/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763100680,
+      "dev": 16777231,
+      "inode": 475101836
+    },
+    {
+      "path": "fast-uri/test",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763902092,
+      "dev": 16777231,
+      "inode": 475101801
+    },
+    {
+      "path": "fast-uri/test/fixtures",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764587755,
+      "dev": 16777231,
+      "inode": 475101816
+    },
+    {
+      "path": "fast-uri/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765913913,
+      "dev": 16777231,
+      "inode": 475101797
+    },
+    {
+      "path": "json-schema-traverse",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758559831,
+      "dev": 16777231,
+      "inode": 475101770
+    },
+    {
+      "path": "json-schema-traverse/.github",
+      "mode": "0o755",
+      "mtime_ns": 1792538040759863282,
+      "dev": 16777231,
+      "inode": 475101782
+    },
+    {
+      "path": "json-schema-traverse/.github/workflows",
+      "mode": "0o755",
+      "mtime_ns": 1792538040760014739,
+      "dev": 16777231,
+      "inode": 475101784
+    },
+    {
+      "path": "json-schema-traverse/spec",
+      "mode": "0o755",
+      "mtime_ns": 1792538040758556498,
+      "dev": 16777231,
+      "inode": 475101773
+    },
+    {
+      "path": "json-schema-traverse/spec/fixtures",
+      "mode": "0o755",
+      "mtime_ns": 1792538040756772300,
+      "dev": 16777231,
+      "inode": 475101777
+    },
+    {
+      "path": "jsonc-parser",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764028216,
+      "dev": 16777231,
+      "inode": 475101862
+    },
+    {
+      "path": "jsonc-parser/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040756642175,
+      "dev": 16777231,
+      "inode": 475101867
+    },
+    {
+      "path": "jsonc-parser/lib/esm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764463088,
+      "dev": 16777231,
+      "inode": 475101868
+    },
+    {
+      "path": "jsonc-parser/lib/esm/impl",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763074680,
+      "dev": 16777231,
+      "inode": 475101869
+    },
+    {
+      "path": "jsonc-parser/lib/umd",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764580880,
+      "dev": 16777231,
+      "inode": 475101877
+    },
+    {
+      "path": "jsonc-parser/lib/umd/impl",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763157721,
+      "dev": 16777231,
+      "inode": 475101878
+    },
+    {
+      "path": "pure-rand",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773752410,
+      "dev": 16777231,
+      "inode": 475098492
+    },
+    {
+      "path": "pure-rand/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040769656308,
+      "dev": 16777231,
+      "inode": 475098497
+    },
+    {
+      "path": "pure-rand/lib/distribution",
+      "mode": "0o755",
+      "mtime_ns": 1792538040759176577,
+      "dev": 16777231,
+      "inode": 475098565
+    },
+    {
+      "path": "pure-rand/lib/distribution/internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040759898823,
+      "dev": 16777231,
+      "inode": 475098569
+    },
+    {
+      "path": "pure-rand/lib/esm",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765045169,
+      "dev": 16777231,
+      "inode": 475098519
+    },
+    {
+      "path": "pure-rand/lib/esm/distribution",
+      "mode": "0o755",
+      "mtime_ns": 1792538040762358434,
+      "dev": 16777231,
+      "inode": 475098543
+    },
+    {
+      "path": "pure-rand/lib/esm/distribution/internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040762853848,
+      "dev": 16777231,
+      "inode": 475098547
+    },
+    {
+      "path": "pure-rand/lib/esm/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040763872425,
+      "dev": 16777231,
+      "inode": 475098555
+    },
+    {
+      "path": "pure-rand/lib/esm/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040768140317,
+      "dev": 16777231,
+      "inode": 475098520
+    },
+    {
+      "path": "pure-rand/lib/esm/types/distribution",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766319078,
+      "dev": 16777231,
+      "inode": 475098522
+    },
+    {
+      "path": "pure-rand/lib/esm/types/distribution/internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040766884283,
+      "dev": 16777231,
+      "inode": 475098527
+    },
+    {
+      "path": "pure-rand/lib/esm/types/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040767641862,
+      "dev": 16777231,
+      "inode": 475098535
+    },
+    {
+      "path": "pure-rand/lib/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040769091479,
+      "dev": 16777231,
+      "inode": 475098577
+    },
+    {
+      "path": "pure-rand/lib/types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773642202,
+      "dev": 16777231,
+      "inode": 475098498
+    },
+    {
+      "path": "pure-rand/lib/types/distribution",
+      "mode": "0o755",
+      "mtime_ns": 1792538040772086461,
+      "dev": 16777231,
+      "inode": 475098500
+    },
+    {
+      "path": "pure-rand/lib/types/distribution/internals",
+      "mode": "0o755",
+      "mtime_ns": 1792538040772370084,
+      "dev": 16777231,
+      "inode": 475098505
+    },
+    {
+      "path": "pure-rand/lib/types/generator",
+      "mode": "0o755",
+      "mtime_ns": 1792538040773369412,
+      "dev": 16777231,
+      "inode": 475098513
+    },
+    {
+      "path": "require-from-string",
+      "mode": "0o755",
+      "mtime_ns": 1792538040755979013,
+      "dev": 16777231,
+      "inode": 475102426
+    },
+    {
+      "path": "typescript",
+      "mode": "0o755",
+      "mtime_ns": 1792538040858804168,
+      "dev": 16777231,
+      "inode": 475098583
+    },
+    {
+      "path": "typescript/bin",
+      "mode": "0o755",
+      "mtime_ns": 1792538040755892555,
+      "dev": 16777231,
+      "inode": 475098584
+    },
+    {
+      "path": "typescript/lib",
+      "mode": "0o755",
+      "mtime_ns": 1792538040857668591,
+      "dev": 16777231,
+      "inode": 475098589
+    },
+    {
+      "path": "typescript/lib/cs",
+      "mode": "0o755",
+      "mtime_ns": 1792538040826626646,
+      "dev": 16777231,
+      "inode": 475098640
+    },
+    {
+      "path": "typescript/lib/de",
+      "mode": "0o755",
+      "mtime_ns": 1792538040827616057,
+      "dev": 16777231,
+      "inode": 475098688
+    },
+    {
+      "path": "typescript/lib/es",
+      "mode": "0o755",
+      "mtime_ns": 1792538040828817258,
+      "dev": 16777231,
+      "inode": 475098700
+    },
+    {
+      "path": "typescript/lib/fr",
+      "mode": "0o755",
+      "mtime_ns": 1792538040830298208,
+      "dev": 16777231,
+      "inode": 475098697
+    },
+    {
+      "path": "typescript/lib/it",
+      "mode": "0o755",
+      "mtime_ns": 1792538040831143536,
+      "dev": 16777231,
+      "inode": 475098637
+    },
+    {
+      "path": "typescript/lib/ja",
+      "mode": "0o755",
+      "mtime_ns": 1792538040832220238,
+      "dev": 16777231,
+      "inode": 475098629
+    },
+    {
+      "path": "typescript/lib/ko",
+      "mode": "0o755",
+      "mtime_ns": 1792538040833460481,
+      "dev": 16777231,
+      "inode": 475098691
+    },
+    {
+      "path": "typescript/lib/pl",
+      "mode": "0o755",
+      "mtime_ns": 1792538040834510017,
+      "dev": 16777231,
+      "inode": 475098603
+    },
+    {
+      "path": "typescript/lib/pt-br",
+      "mode": "0o755",
+      "mtime_ns": 1792538040835587094,
+      "dev": 16777231,
+      "inode": 475098685
+    },
+    {
+      "path": "typescript/lib/ru",
+      "mode": "0o755",
+      "mtime_ns": 1792538040836537130,
+      "dev": 16777231,
+      "inode": 475098645
+    },
+    {
+      "path": "typescript/lib/tr",
+      "mode": "0o755",
+      "mtime_ns": 1792538040837632541,
+      "dev": 16777231,
+      "inode": 475098720
+    },
+    {
+      "path": "typescript/lib/zh-cn",
+      "mode": "0o755",
+      "mtime_ns": 1792538040838980033,
+      "dev": 16777231,
+      "inode": 475098660
+    },
+    {
+      "path": "typescript/lib/zh-tw",
+      "mode": "0o755",
+      "mtime_ns": 1792538040839768403,
+      "dev": 16777231,
+      "inode": 475098681
+    },
+    {
+      "path": "undici-types",
+      "mode": "0o755",
+      "mtime_ns": 1792538040764066174,
+      "dev": 16777231,
+      "inode": 475101725
+    },
+    {
+      "path": "valibot",
+      "mode": "0o755",
+      "mtime_ns": 1792538040765676415,
+      "dev": 16777231,
+      "inode": 475101851
+    },
+    {
+      "path": "valibot/dist",
+      "mode": "0o755",
+      "mtime_ns": 1792538040768169067,
+      "dev": 16777231,
+      "inode": 475101853
+    }
+  ],
+  "consumedFields": [
+    "mode",
+    "mtime_ns"
+  ],
+  "allConsumedFieldsExact": true,
+  "copy": "copytree symlinks=True copy_function=copy2; directory metadata restored after children",
+  "hiddenLock": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/node_modules/.package-lock.json",
+    "sha256": "4de25c4643692482146e4307a4829cbe0d9702e25143723b792d827a744f73e1",
+    "bytes": 7229,
+    "mtime_ns": 1792538041011378787
+  },
+  "nodeModulesMtimeNs": 1792538041011250329,
+  "sameHiddenLockFreshnessRelation": true
+}

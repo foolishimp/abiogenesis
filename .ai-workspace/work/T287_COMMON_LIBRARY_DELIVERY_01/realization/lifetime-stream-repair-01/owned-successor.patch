@@ -1,0 +1,411 @@
+--- closed-E03/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts
++++ stream-repair/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts
+@@ -117,6 +117,23 @@
+   readonly signalAttempts: number;
+ }
+ 
++/** Keep Node's error channel observed through terminal close, including errors
++ * queued by destroy(). Disconnect the lifetime before publishing its outcome;
++ * the remaining inert guard retains no owner callback or completion authority. */
++function guardOwnedErrors(
++  emitter: ChildProcess | NonNullable<ChildProcess["stdin"]> | NonNullable<ChildProcess["stdout"]>,
++  observeError: (error: Error) => void,
++): () => void {
++  let report: ((error: Error) => void) | null = observeError;
++  const onError = (error: Error): void => { report?.(error); };
++  const onClose = (): void => {
++    report = null;
++    emitter.off("error", onError); emitter.off("close", onClose);
++  };
++  emitter.on("error", onError); emitter.once("close", onClose);
++  return () => { report = null; };
++}
++
+ /** Physical facts for one freshly spawned, caller-owned group/direct child.
+  * It never infers owner success, ABG admission, or universal descendant absence. */
+ export function createOwnedProcessLifetime(
+@@ -148,6 +165,7 @@
+   let probeCount = 0;
+   let signalAttempts = 0;
+   let killAttempted = false;
++  let completionPublished = false;
+   let resolveCompletion!: (facts: OwnedProcessFacts) => void;
+   const completion = new Promise<OwnedProcessFacts>((resolve) => { resolveCompletion = resolve; });
+   const noChild = (): boolean => child.pid === undefined && launchFailure !== null;
+@@ -181,10 +199,17 @@
+     if (phase === "complete") return;
+     phase = "complete";
+     phaseTimer.cancel(); probeTimer.cancel(); drainTimer.cancel();
+-    child.off("spawn", onSpawn); child.off("error", onError);
++    child.off("spawn", onSpawn);
+     child.off("exit", onExit); child.off("close", onClose);
+-    child.stdin?.destroy(); child.stdout?.destroy(); child.stderr?.destroy();
+     streamsDisposed = true;
++    for (const stream of [child.stdin, child.stdout, child.stderr]) {
++      try { stream?.destroy(); }
++      catch (error) { streamsDisposed = false; fail(error); }
++    }
++    // Synchronous disposal errors still belong to this outcome. Errors queued
++    // for later delivery cannot rewrite it or become an unhandled host error.
++    for (const disconnect of errorGuards) disconnect();
++    completionPublished = true;
+     resolveCompletion(Object.freeze(snapshot()));
+   };
+   const observe = <T>(action: () => T): T | undefined => {
+@@ -240,15 +265,17 @@
+     check();
+   };
+   const fail = (error: unknown): void => {
+-    if (phase === "complete") return;
++    if (completionPublished) return;
+     firstError ??= error instanceof Error ? error : new TypeError(String(error));
+     requestTermination("immediate");
+   };
+   function onSpawn(): void { if (child.pid !== undefined) observe(() => observations.onSpawn?.(child.pid!)); }
+   function onError(error: Error): void {
+-    if (child.pid === undefined) launchFailure = error;
+-    observe(() => observations.onError?.(error));
+-    requestTermination();
++    if (child.pid === undefined) {
++      launchFailure ??= error;
++      observe(() => observations.onError?.(error));
++      requestTermination();
++    } else fail(error);
+   }
+   function onExit(status: number | null, signalValue: NodeJS.Signals | null): void {
+     directExit = Object.freeze({ status, signal: signalValue });
+@@ -261,7 +288,11 @@
+     if (phase === "drain") complete();
+     else { requestTermination(); check(); }
+   }
+-  child.once("spawn", onSpawn); child.once("error", onError);
++  const errorGuards = [guardOwnedErrors(child, onError)];
++  for (const stream of [child.stdin, child.stdout, child.stderr]) {
++    if (stream !== null && !stream.closed) errorGuards.push(guardOwnedErrors(stream, fail));
++  }
++  child.once("spawn", onSpawn);
+   child.once("exit", onExit); child.once("close", onClose);
+   return { completion, requestTermination, fail, observe, snapshot };
+ }
+--- closed-E03/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts
++++ stream-repair/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts
+@@ -1063,7 +1063,8 @@
+   let response: Awaited<ReturnType<typeof oneHttpRequest>> = null;
+   let ownerError: Error | null = null;
+   let facts: Awaited<typeof lifetime.completion>;
+-  const observing = (): boolean => !launchFailed && !completed && !lifetime.snapshot().closeObserved && requestOpen;
++  const observing = (): boolean => !launchFailed && !completed && !lifetime.snapshot().closeObserved &&
++    lifetime.snapshot().firstError === null && requestOpen;
+   void lifetime.completion.then(() => { completed = true; });
+   try {
+     child.stdout.on("data", onStdout); child.stderr.on("data", onStderr);
+--- closed-E03/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
++++ stream-repair/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
+@@ -1,10 +1,12 @@
+ import assert from 'node:assert/strict';
+ import { EventEmitter } from 'node:events';
+ import { spawn } from 'node:child_process';
++import { writeFileSync } from 'node:fs';
+ import { mkdtemp, readFile, realpath, rm, writeFile } from 'node:fs/promises';
+ import { tmpdir } from 'node:os';
+ import { dirname, join, resolve } from 'node:path';
+ import { pathToFileURL } from 'node:url';
++import { Readable, Writable } from 'node:stream';
+ import { SourceTextModule, SyntheticModule } from 'node:vm';
+ import test from 'node:test';
+ 
+@@ -50,11 +52,17 @@
+ class ControlledChild extends EventEmitter {
+   constructor(pid = 321) {
+     super(); this.pid = pid; this.disposals = 0;
+-    for (const stream of ['stdin', 'stdout', 'stderr']) this[stream] = { destroy: () => { this.disposals++; } };
+-  }
+-}
+-function controlledLifetime({ grace = 100, platform = 'posix', probe = () => 'present', observations = {}, pid = 321, signalError = false } = {}) {
+-  const timer = controlledClock(), child = new ControlledChild(pid), signals = [];
++    for (const name of ['stdin', 'stdout', 'stderr']) {
++      const stream = new EventEmitter();
++      stream.closed = false;
++      stream.destroy = () => { this.disposals++; stream.destroyed = true; };
++      stream.once('close', () => { stream.closed = true; });
++      this[name] = stream;
++    }
++  }
++}
++function controlledLifetime({ grace = 100, platform = 'posix', probe = () => 'present', observations = {}, pid = 321, signalError = false, childOverride = null } = {}) {
++  const timer = controlledClock(), child = childOverride ?? new ControlledChild(pid), signals = [];
+   const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: grace, host: {
+     clock: timer.clock, platform, probeGroup: probe,
+     signal: (_child, value) => { signals.push({ value, time: timer.now() }); if (signalError) throw new Error('controlled signal error'); },
+@@ -79,6 +87,24 @@
+   assert.equal(calls, 0); assert.equal(t.arms.at(-1).delay, 1);
+   t.fire(t.arms.at(-1).id, ns(MAX + 1)); assert.equal(calls, 1);
+   for (const invalid of [0, -1, Infinity, NaN]) assert.throws(() => d.after(invalid, () => {}), TypeError);
++});
++
++test('controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing', () => {
++  // These expected deadlines are literals, not the production conversion or ns().
++  for (const [delay, due, firstArm] of [
++    [Number.MIN_VALUE, 1n, 1], [0.0000005, 1n, 1], [0.0000015, 2n, 1],
++    [0.125, 125000n, 1], [1.125, 1125000n, 2],
++    [2147483646, 2147483646000000n, 2147483646],
++    [2147483647, 2147483647000000n, 2147483647],
++    [2147483648, 2147483648000000n, 2147483647],
++    [Number.MAX_SAFE_INTEGER, 9007199254740991000000n, 2147483647],
++  ]) {
++    const t = controlledClock(), wait = createMonotonicDeadline(t.clock); let calls = 0;
++    wait.after(delay, () => calls++); assert.equal(t.arms[0].delay, firstArm);
++    t.fire(t.arms.at(-1).id, due - 1n); assert.equal(calls, 0, `not due at ${due - 1n}`);
++    const final = t.arms.at(-1).id; t.fire(final, due); assert.equal(calls, 1);
++    t.fire(final, due + 1n); assert.equal(calls, 1); assert.equal(t.active(), 0);
++  }
+ });
+ 
+ test('controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit', () => {
+@@ -110,9 +136,92 @@
+     x.timer.advance(400); const facts = await x.lifetime.completion;
+     assert.equal(facts.firstError, first); assert.equal(facts.scopeAbsence, 'present');
+     assert.equal(facts.directExit, null); assert.equal(facts.closeObserved, false); assert.equal(facts.drainExpired, true);
+-    assert.equal(completions, 1); assert.equal(x.timer.active(), 0); assert.equal(x.child.eventNames().length, 0);
++    assert.equal(completions, 1); assert.equal(x.timer.active(), 0);
++    assert.deepEqual(x.child.eventNames().sort(), ['close', 'error'], 'inert tail guard until terminal child close');
++    x.child.emit('close'); assert.equal(x.child.eventNames().length, 0);
+     assert.equal(x.child.disposals, 3); assert.equal(x.signals.filter(row => row.value === 'SIGKILL').length, 1);
+   }
++});
++
++test('controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection', async () => {
++  for (const name of ['stdin', 'stdout', 'stderr']) for (const ownerFirst of [false, true]) {
++    const streamError = Object.assign(new Error(`owned-${name}`), { code: 'EPIPE' });
++    const first = ownerFirst ? new Error('earlier owner failure') : streamError;
++    let absent = false, launchErrors = 0, ordinary = 0, completions = 0;
++    const x = controlledLifetime({ probe: () => absent ? 'absent' : 'present', observations: {
++      onError: () => launchErrors++, onExit: () => ordinary++, onSignalRequested: () => ordinary++,
++    } });
++    x.lifetime.completion.then(() => completions++);
++    if (ownerFirst) x.lifetime.fail(first);
++    x.child[name].emit('error', streamError);
++    const deadline = x.lifetime.snapshot().cleanupDeadlineNs;
++    x.child[name].emit('error', new Error('second stream failure'));
++    x.lifetime.observe(() => ordinary++);
++    assert.equal(x.lifetime.snapshot().cleanupDeadlineNs, deadline);
++    assert.equal(x.lifetime.snapshot().firstError, first); assert.equal(launchErrors, 0);
++    absent = true; x.child.emit('exit', null, 'SIGKILL'); x.child.emit('close');
++    const facts = await x.lifetime.completion;
++    assert.equal(facts.firstError, first); assert.equal(facts.launchFailure, null);
++    assert.equal(facts.scopeAbsence, 'absent'); assert.equal(facts.directExit.signal, 'SIGKILL');
++    assert.equal(facts.signalAttempts, 1); assert.equal(completions, 1); assert.equal(ordinary, 0);
++    assert.equal(x.timer.active(), 0); assert.equal(facts.streamsDisposed, true);
++    for (const stream of [x.child.stdin, x.child.stdout, x.child.stderr]) {
++      assert.equal(stream.listenerCount('error'), 1);
++      stream.emit('error', new Error('delayed disposal error'));
++      assert.equal(x.lifetime.snapshot().firstError, first);
++      stream.emit('close'); assert.equal(stream.listenerCount('error'), 0);
++    }
++  }
++});
++
++test('controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct', async () => {
++  const launch = Object.assign(new Error('no executable'), { code: 'ENOENT' });
++  let projected = null;
++  const missing = controlledLifetime({ observations: { onError: error => { projected = error; } } });
++  missing.child.pid = undefined; missing.child.emit('error', launch); missing.child.emit('close');
++  const noChild = await missing.lifetime.completion;
++  assert.equal(projected, launch); assert.equal(noChild.launchFailure, launch);
++  assert.equal(noChild.firstError, null); assert.equal(noChild.noChildEstablished, true);
++  const first = Object.assign(new Error('postlaunch child error'), { code: 'EIO' });
++  const live = controlledLifetime({ observations: { onError: () => assert.fail('postlaunch error is not a launch failure') } });
++  live.child.emit('error', first); live.child.emit('error', new Error('later child error'));
++  live.timer.advance(300); const facts = await live.lifetime.completion;
++  assert.equal(facts.firstError, first); assert.equal(facts.launchFailure, null);
++  assert.equal(facts.scopeAbsence, 'present'); assert.equal(facts.closeObserved, false);
++  live.child.emit('error', new Error('inert postcompletion child error'));
++  live.child.emit('close'); assert.equal(live.child.listenerCount('error'), 0);
++  assert.equal(live.lifetime.snapshot().firstError, first); assert.equal(facts.closeObserved, false);
++});
++
++test('controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close', async () => {
++  for (const name of ['stdin', 'stdout', 'stderr']) {
++    const error = Object.assign(new Error(`queued-${name}`), { code: 'EIO' });
++    const stream = name === 'stdin' ? new Writable({ write(_chunk, _encoding, done) { done(); },
++      destroy(_error, done) { queueMicrotask(() => done(error)); } })
++      : new Readable({ read() {}, destroy(_error, done) { queueMicrotask(() => done(error)); } });
++    const closed = new Promise(resolveClose => stream.once('close', resolveClose));
++    const child = new ControlledChild(); child[name] = stream;
++    const x = controlledLifetime({ childOverride: child, probe: () => 'absent' });
++    child.emit('exit', 0, null); x.timer.advance(100);
++    const facts = await x.lifetime.completion;
++    assert.equal(facts.firstError, null); assert.equal(facts.closeObserved, false);
++    assert.equal(facts.streamsDisposed, true); assert.equal(facts.drainExpired, true);
++    await closed; assert.equal(stream.closed, true); assert.equal(stream.listenerCount('error'), 0);
++    assert.equal(x.lifetime.snapshot().firstError, null, 'delayed error cannot rewrite published outcome');
++    child.emit('close'); assert.equal(child.listenerCount('error'), 0);
++  }
++  for (const throws of [false, true]) {
++    const first = new Error('synchronous dispose failure'), child = new ControlledChild();
++    child.stdout.destroy = () => { child.disposals++; if (throws) throw first; child.stdout.emit('error', first); };
++    const x = controlledLifetime({ childOverride: child, probe: () => 'absent' });
++    child.emit('exit', 0, null); child.emit('close'); const facts = await x.lifetime.completion;
++    assert.equal(facts.firstError, first); assert.equal(child.disposals, 3, 'all three disposal attempts occur');
++    assert.equal(facts.streamsDisposed, !throws); assert.equal(facts.scopeAbsence, 'absent');
++  }
++  const alreadyClosed = new ControlledChild(); alreadyClosed.stdout.emit('close');
++  const x = controlledLifetime({ childOverride: alreadyClosed, probe: () => 'absent' });
++  assert.equal(alreadyClosed.stdout.listenerCount('error'), 0);
++  alreadyClosed.emit('exit', 0, null); alreadyClosed.emit('close'); await x.lifetime.completion;
+ });
+ 
+ test('controlled lifetime: callback errors stop ordinary observations and retain the first error', async () => {
+@@ -166,7 +275,8 @@
+   export async function controlledCommand(c, task) {
+     confinedExistingPath=c.confinedPath; reportObservation=c.report;
+     return runCommand(task, '/controlled', 0, 'attempt://selected');
+-  }` : 'export { runCommand, runHttpProbe };';
++  }
++  export { runHttpProbe };` : 'export { runCommand, runHttpProbe };';
+   assert.match(source, /await main\(\);\s*$/u); source = source.replace(/await main\(\);\s*$/u, suffix);
+   const previous = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));
+   const mod = new SourceTextModule(source, { identifier: path });
+@@ -273,6 +383,59 @@
+   declaration.launch.args[1] = WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder;
+   return declaration;
+ }
++
++test('controlled owners: command and HTTP reject the original stream error before reports or a dependent request', async t => {
++  const root = await scratch(t);
++  for (const owner of ['command', 'http']) {
++    const child = new ControlledChild(); child.stdin = null;
++    const clock = controlledClock(), first = Object.assign(new Error(`${owner} readable failure`), { code: 'EIO' });
++    const port = join(root, 'selected.port');
++    let lifetime, absent = false, reports = 0, requests = 0, notifyStarted, notifyRead;
++    const started = new Promise(resolveStarted => { notifyStarted = resolveStarted; });
++    const read = new Promise(resolveRead => { notifyRead = resolveRead; });
++    const helper = await helperModule(t, true, {
++      'node:child_process': { spawn: () => {
++        if (owner === 'http') writeFileSync(port, '12345'); return child;
++      } },
++      'node:fs/promises': { readFile: async (...args) => {
++        const bytes = await readFile(...args);
++        if (args[0] === port) { child.stdout.emit('error', first); notifyRead(); }
++        return bytes;
++      } },
++      'node:http': { request: () => { requests++; throw new Error('dependent HTTP request must not begin'); } },
++      '../shared/owned_process_lifetime.js': {
++        createOwnedProcessLifetime: (process, bounds, observations) => {
++          lifetime = createOwnedProcessLifetime(process, { ...bounds, host: { clock: clock.clock,
++            platform: 'posix', probeGroup: () => absent ? 'absent' : 'present', signal: () => {} } }, observations);
++          notifyStarted(); return lifetime;
++        },
++      },
++    });
++    const task = { taskRef: 'task://stream-failure', commands: [{ commandId: 'command://stream-failure', executable: 'controlled',
++      args: [], environment: [], relativeCwd: '.', timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [{}] }] };
++    const pending = owner === 'command'
++      ? helper.controlledCommand({ confinedPath: async () => root, report: async () => { reports++; } }, task)
++      : helper.runHttpProbe({}, root, httpDeclaration('controlled', 'selected.port', { terminationGraceMs: 100 }));
++    // Install the rejection observer before the controlled failure is emitted.
++    const outcome = pending.then(value => ({ value }), error => ({ error }));
++    await started;
++    if (owner === 'command') child.stderr.emit('error', first);
++    else {
++      await read;
++      // Let the HTTP loop advance while the owned process has not exited or
++      // closed: firstError itself must prevent the dependent request.
++      await new Promise(resolveTurn => setImmediate(resolveTurn));
++      assert.equal(lifetime.snapshot().directExit, null); assert.equal(lifetime.snapshot().closeObserved, false);
++      assert.equal(requests, 0);
++    }
++    assert.equal(lifetime.snapshot().firstError, first); assert.equal(lifetime.snapshot().launchFailure, null);
++    absent = true; child.emit('exit', null, 'SIGKILL'); child.emit('close');
++    const observed = await outcome;
++    assert.equal(observed.error, first); assert.equal(reports, 0); assert.equal(requests, 0);
++    assert.equal(lifetime.snapshot().scopeAbsence, 'absent'); assert.equal(clock.active(), 0);
++    assert.equal(lifetime.snapshot().signalAttempts, 1);
++  }
++});
+ 
+ test('physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed', { timeout: 5000 }, async t => {
+   const child = spawn(process.execPath, ['-e', 'process.stdout.write("actual-output")'], { detached: process.platform !== 'win32', stdio: ['pipe', 'pipe', 'pipe'] });
+--- closed-E03/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
++++ stream-repair/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
+@@ -1,4 +1,5 @@
+ import assert from "node:assert/strict";
++import { spawn } from "node:child_process";
+ import { chmod, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
+ import { tmpdir } from "node:os";
+ import { dirname, join, resolve } from "node:path";
+@@ -1030,3 +1031,74 @@
+   assert.equal(wakeups, 1); assert.equal(result.timedOut, false); assert.equal(result.terminationConfirmed, true);
+   t.diagnostic('Controlled owner wakeup value with a real local process; no native provider or admitted native threshold claim.');
+ });
++
++test('M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive', {
++  skip: process.platform === 'win32', timeout: 10000,
++}, async t => {
++  const root = await realpath(await mkdtemp(join(tmpdir(), 'abi5-owned-stdin-error-')));
++  const childFile = join(root, 'finite-child.mjs'), hostFile = join(root, 'host.mjs');
++  const workerModule = new URL('../../build/code/src/abg/worker_transport.js', import.meta.url).href;
++  const contractModule = new URL('../../build/code/src/abg/transport_contracts.js', import.meta.url).href;
++  await writeFile(childFile, `import {closeSync,writeFileSync} from 'node:fs';import {execFileSync} from 'node:child_process';
++    writeFileSync(${JSON.stringify(join(root, 'child.json'))},JSON.stringify({pid:process.pid,pgid:Number(execFileSync('/bin/ps',['-o','pgid=','-p',String(process.pid)],{encoding:'utf8'}).trim())}));
++    closeSync(0);setTimeout(()=>process.exit(0),300);`);
++  await writeFile(hostFile, `import {writeFileSync} from 'node:fs';
++    import {runWorkerTransport} from ${JSON.stringify(workerModule)};
++    import {constructKnownWorkerTransportContract} from ${JSON.stringify(contractModule)};
++    const record=value=>writeFileSync(${JSON.stringify(join(root, 'owner.json'))},JSON.stringify(value));
++    try {const result=await runWorkerTransport({contract:constructKnownWorkerTransportContract('claude',{command:process.execPath,prefixArgs:[${JSON.stringify(childFile)}],environment:{}}),
++      prompt:'x'.repeat(8388608),lane:'worker_executes',cwd:${JSON.stringify(root)},archiveRoot:${JSON.stringify(join(root, 'archive'))},label:'stdin-error',
++      timeoutMs:1000,absoluteTimeoutMs:2000,terminationGraceMs:100,environment:{},observer:{onProcessStarted:pid=>writeFileSync(${JSON.stringify(join(root, 'started.json'))},JSON.stringify({pid}))}});
++      record({kind:'returned',result});process.exitCode=21;
++    } catch(error) {record({kind:'rejected',name:error.name,code:error.code,errno:error.errno,syscall:error.syscall,message:error.message,stack:error.stack});}
++    writeFileSync(${JSON.stringify(join(root, 'survived.json'))},JSON.stringify({survived:true,pid:process.pid}));`);
++  const host = spawn(process.execPath, [hostFile], { detached: true, stdio: ['ignore', 'pipe', 'pipe'],
++    env: Object.fromEntries(Object.entries(process.env).filter(([key]) => !['NODE_OPTIONS', 'NODE_COMPILE_CACHE'].includes(key))) });
++  const scopeState = pid => { try { process.kill(pid, 0); return 'present'; } catch (error) {
++    if (error.code === 'ESRCH') return 'absent'; return 'unknown';
++  } };
++  const killScope = pid => { try { process.kill(-pid, 'SIGKILL'); } catch (error) { if (error.code !== 'ESRCH') throw error; } };
++  let stdout = '', stderr = '', deadlineExpired = false, identity = null;
++  const cleanupSignals = [];
++  t.after(async () => {
++    for (const pid of [host.pid, identity?.pgid]) if (pid !== undefined && scopeState(-pid) === 'present') {
++      killScope(pid);
++    }
++    await rm(root, { recursive: true, force: true });
++  });
++  host.stdout.on('data', bytes => { stdout += bytes; }); host.stderr.on('data', bytes => { stderr += bytes; });
++  const exit = await new Promise((resolveExit, reject) => {
++    const timer = setTimeout(() => { deadlineExpired = true; killScope(host.pid); }, 5000);
++    host.once('error', error => { clearTimeout(timer); reject(error); });
++    host.once('close', (code, signal) => { clearTimeout(timer); resolveExit({ code, signal }); });
++  });
++  const optionalJson = file => readFile(join(root, file), 'utf8').then(JSON.parse, error => {
++    if (error.code === 'ENOENT') return null; throw error;
++  });
++  identity = await optionalJson('child.json');
++  const started = await optionalJson('started.json');
++  if (identity === null && started !== null) identity = { pid: started.pid, pgid: started.pid };
++  const samples = [];
++  for (let i = 0; identity !== null && i < 120; i++) {
++    const sample = { group: scopeState(-identity.pgid), pid: scopeState(identity.pid) }; samples.push(sample);
++    if (sample.group !== 'present') break;
++    await new Promise(resolveWait => setTimeout(resolveWait, 25));
++  }
++  const observed = { exit, deadlineExpired, hostPid: host.pid, identity, stdout, stderr,
++    owner: await optionalJson('owner.json'), survived: await optionalJson('survived.json'), samples };
++  // Capture the actual failure/owner/physical facts before assertions or cleanup.
++  t.diagnostic(JSON.stringify(observed));
++  if (identity !== null && samples.at(-1)?.group === 'present') {
++    killScope(identity.pgid); cleanupSignals.push('SIGKILL');
++    for (let i = 0; i < 40 && scopeState(-identity.pgid) === 'present'; i++)
++      await new Promise(resolveWait => setTimeout(resolveWait, 25));
++    t.diagnostic(JSON.stringify({ cleanupSignals, groupAfterCleanup: scopeState(-identity.pgid) }));
++  }
++  assert.equal(samples.at(-1)?.group, 'absent', 'known worker group is absent before dependent test work');
++  assert.deepEqual(cleanupSignals, []); assert.equal(deadlineExpired, false);
++  assert.equal(exit.code, 0); assert.equal(exit.signal, null); assert.equal(observed.survived?.survived, true);
++  assert.equal(observed.owner?.kind, 'rejected'); assert.equal(observed.owner.code, 'EPIPE');
++  assert.equal(observed.owner.syscall, 'write'); assert.equal(observed.owner.message, 'write EPIPE');
++  assert.doesNotMatch(stderr, /Unhandled 'error' event/u);
++  assert.equal(await optionalJson('archive/stdin-error-transport.json'), null, 'no fabricated transport result');
++});

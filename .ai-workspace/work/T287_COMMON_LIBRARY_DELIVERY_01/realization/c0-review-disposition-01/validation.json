@@ -1,0 +1,233 @@
+{
+  "status": "satisfied",
+  "scope": "Finite source/evidence pins, record consistency and local links; no runtime or tests",
+  "at": "2026-10-21T04:13:47.911458+00:00",
+  "protected": {
+    "namedFreezes": [
+      {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 6111,
+        "sha256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a"
+      },
+      {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 3048274,
+        "sha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2"
+      },
+      {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/freeze.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 37904,
+        "sha256": "8b8ddc4bdd2627704fe9c51bc2a55e9ea9474d07870796b23fcbeac1ad265cc6"
+      }
+    ],
+    "final02BoundRecords": 8640,
+    "P1BoundRecords": 116,
+    "C0BoundCarrierRecords": 35,
+    "C0FrozenSourceRecords": 5,
+    "mainGeneratedRecords": 936,
+    "mainCapture": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/protected-main-generated.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 248218,
+      "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96"
+    },
+    "allCheckedSHABytesModesTargetsMatch": true,
+    "otherFrozenCuts": "No writes outside this new work carrier. This check does not repeat every historical cut interior.",
+    "continuation17": "Not opened or inventoried"
+  },
+  "sourcePinCount": 31,
+  "links": [
+    {
+      "document": "return.md",
+      "target": "public-assessment.md",
+      "exists": true
+    },
+    {
+      "document": "return.md",
+      "target": "external-review-root-summary.json",
+      "exists": true
+    },
+    {
+      "document": "return.md",
+      "target": "root-triage.json",
+      "exists": true
+    },
+    {
+      "document": "return.md",
+      "target": "F6-capsule.json",
+      "exists": true
+    },
+    {
+      "document": "return.md",
+      "target": "source-pins.json",
+      "exists": true
+    },
+    {
+      "document": "return.md",
+      "target": "preflight.json",
+      "exists": true
+    },
+    {
+      "document": "return.md",
+      "target": "activation.md",
+      "exists": true
+    },
+    {
+      "document": "return-successor-02.md",
+      "target": "root-triage-array-02.json",
+      "exists": true
+    },
+    {
+      "document": "return-successor-02.md",
+      "target": "HOW-array-successor-02.md",
+      "exists": true
+    },
+    {
+      "document": "return-successor-02.md",
+      "target": "public-assessment.md",
+      "exists": true
+    },
+    {
+      "document": "return-successor-02.md",
+      "target": "external-review-root-summary.json",
+      "exists": true
+    },
+    {
+      "document": "return-successor-02.md",
+      "target": "root-triage.json",
+      "exists": true
+    },
+    {
+      "document": "return-successor-02.md",
+      "target": "F6-capsule.json",
+      "exists": true
+    },
+    {
+      "document": "return-successor-02.md",
+      "target": "temporal-note-02.md",
+      "exists": true
+    },
+    {
+      "document": "return-successor-02.md",
+      "target": "frozen-source-relations-02.json",
+      "exists": true
+    },
+    {
+      "document": "temporal-note-02.md",
+      "target": "root-triage.json",
+      "exists": true
+    },
+    {
+      "document": "temporal-note-02.md",
+      "target": "frozen-source-relations-02.json",
+      "exists": true
+    },
+    {
+      "document": "HOW-array-successor-02.md",
+      "target": "temporal-note-02.md",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts:606",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs:373",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md:700",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md:80",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts:5234",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts:165",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts:335",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts:649",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts:442",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts:386",
+      "exists": true
+    },
+    {
+      "document": "public-assessment.md",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts:320",
+      "exists": true
+    }
+  ],
+  "publicAssessment": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/public-assessment.md",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 8130,
+    "sha256": "349e415c6fc6e295144058544ebbcfda7d40e7db70e265700337da947f0e71dd"
+  },
+  "verbatimProvenance": "Transcribed from this actor preceding public final response; no raw transcript retrieval or transcript hash is claimed",
+  "successor": "C0-DISPOSITION-ARRAY-02",
+  "request": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/successor-request-02.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 5654,
+    "sha256": "651e4ec2d9c6b6cf76c32b06b100d90f1d3bd53f698c2545f3d777b26eee1304"
+  },
+  "P1": {
+    "status": "exact_final02_P1_satisfied",
+    "actualPublicCalls": 10,
+    "callLabels": [
+      "workspace-create",
+      "product-verify-0",
+      "product-verify-1",
+      "product-resolve",
+      "product-install-0",
+      "product-install-1",
+      "workspace-bind",
+      "catalog-admit",
+      "catalog-view",
+      "program-conformance"
+    ],
+    "everyRowExitZeroAndResult": true,
+    "nativeCalls": 0,
+    "retryCount": 0,
+    "dependentLanesStarted": false
+  },
+  "allC0Closure": false,
+  "releaseClaim": false,
+  "writeTerritory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01",
+  "noOtherWritesByThisActivation": true
+}

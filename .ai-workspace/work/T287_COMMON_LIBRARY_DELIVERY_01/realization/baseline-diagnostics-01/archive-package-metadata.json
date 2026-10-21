@@ -1,0 +1,4492 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+  },
+  "membersVerified": 5267,
+  "metadata": {
+    "node_modules/@standard-schema/spec/package.json": {
+      "sha256": "58e5bd75ddd0684c88b07cd799585cc72a37fd6efb8ab0c936d49e230d5164fb",
+      "bytes": 1146,
+      "mode": "0o644",
+      "package": {
+        "name": "@standard-schema/spec",
+        "description": "A family of specs for interoperable TypeScript",
+        "version": "1.1.0",
+        "license": "MIT",
+        "author": "Colin McDonnell",
+        "homepage": "https://standardschema.dev",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/standard-schema/standard-schema"
+        },
+        "keywords": [
+          "typescript",
+          "schema",
+          "validation",
+          "standard",
+          "interface"
+        ],
+        "type": "module",
+        "main": "./dist/index.js",
+        "types": "./dist/index.d.ts",
+        "exports": {
+          ".": {
+            "standard-schema-spec": "./src/index.ts",
+            "import": {
+              "types": "./dist/index.d.ts",
+              "default": "./dist/index.js"
+            },
+            "require": {
+              "types": "./dist/index.d.cts",
+              "default": "./dist/index.cjs"
+            }
+          }
+        },
+        "sideEffects": false,
+        "files": [
+          "dist"
+        ],
+        "publishConfig": {
+          "access": "public"
+        },
+        "devDependencies": {
+          "tsup": "^8.3.0",
+          "typescript": "^5.6.2"
+        },
+        "scripts": {
+          "lint": "pnpm biome lint ./src",
+          "format": "pnpm biome format --write ./src",
+          "check": "pnpm biome check ./src",
+          "build": "tsup"
+        }
+      }
+    },
+    "node_modules/@valibot/to-json-schema/package.json": {
+      "sha256": "5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2",
+      "bytes": 1832,
+      "mode": "0o644",
+      "package": {
+        "name": "@valibot/to-json-schema",
+        "description": "The official JSON schema converter for Valibot",
+        "version": "1.7.1",
+        "license": "MIT",
+        "author": "Fabian Hiller",
+        "homepage": "https://valibot.dev",
+        "contributors": [
+          {
+            "name": "Guillaume Cornut"
+          }
+        ],
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/open-circle/valibot"
+        },
+        "keywords": [
+          "valibot",
+          "schema",
+          "converter",
+          "json-schema"
+        ],
+        "type": "module",
+        "main": "./dist/index.mjs",
+        "types": "./dist/index.d.mts",
+        "exports": {
+          ".": {
+            "import": {
+              "types": "./dist/index.d.mts",
+              "default": "./dist/index.mjs"
+            },
+            "require": {
+              "types": "./dist/index.d.cts",
+              "default": "./dist/index.cjs"
+            }
+          }
+        },
+        "sideEffects": false,
+        "files": [
+          "dist"
+        ],
+        "publishConfig": {
+          "access": "public"
+        },
+        "scripts": {
+          "test": "vitest --typecheck",
+          "coverage": "vitest run --coverage --isolate",
+          "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit && deno check ./src/index.ts",
+          "lint.fix": "eslint \"src/**/*.ts*\" --fix",
+          "format": "prettier --write ./src",
+          "format.check": "prettier --check ./src",
+          "build": "tsdown"
+        },
+        "devDependencies": {
+          "@eslint/js": "^9.39.1",
+          "@types/node": "^24.10.1",
+          "@vitest/coverage-v8": "^4.1.8",
+          "eslint": "^9.39.1",
+          "eslint-import-resolver-typescript": "^4.4.4",
+          "eslint-plugin-import": "^2.32.0",
+          "eslint-plugin-jsdoc": "^61.4.0",
+          "eslint-plugin-security": "^3.0.1",
+          "globals": "^16.5.0",
+          "tsdown": "^0.16.6",
+          "typescript": "^5.9.3",
+          "typescript-eslint": "^8.47.0",
+          "valibot": "^1.4.0",
+          "vite": "^7.2.4",
+          "vite-tsconfig-paths": "^5.1.4",
+          "vitest": "4.1.8"
+        },
+        "peerDependencies": {
+          "valibot": "^1.4.0"
+        }
+      }
+    },
+    "node_modules/ajv-formats/package.json": {
+      "sha256": "402fb4bcfa457f0226813f3976ac42839dd619907c075c108efba8600d7edb69",
+      "bytes": 1897,
+      "mode": "0o644",
+      "package": {
+        "name": "ajv-formats",
+        "version": "3.0.1",
+        "description": "Format validation for Ajv v7+",
+        "main": "dist/index.js",
+        "types": "dist/index.d.ts",
+        "files": [
+          "src/",
+          "dist/"
+        ],
+        "scripts": {
+          "build": "tsc",
+          "prettier:write": "prettier --write \"./**/*.{md,json,yaml,js,ts}\"",
+          "prettier:check": "prettier --list-different \"./**/*.{md,json,yaml,js,ts}\"",
+          "eslint": "eslint --ext .ts ./src/**/*",
+          "test-spec": "jest",
+          "test-cov": "jest --coverage",
+          "test": "npm run prettier:check && npm run build && npm run eslint && npm run test-cov",
+          "ci-test": "npm run test"
+        },
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/ajv-validator/ajv-formats.git"
+        },
+        "keywords": [
+          "Ajv",
+          "JSON-Schema",
+          "format",
+          "validation"
+        ],
+        "author": "Evgeny Poberezkin",
+        "license": "MIT",
+        "bugs": {
+          "url": "https://github.com/ajv-validator/ajv-formats/issues"
+        },
+        "homepage": "https://github.com/ajv-validator/ajv-formats#readme",
+        "dependencies": {
+          "ajv": "^8.0.0"
+        },
+        "peerDependencies": {
+          "ajv": "^8.0.0"
+        },
+        "peerDependenciesMeta": {
+          "ajv": {
+            "optional": true
+          }
+        },
+        "devDependencies": {
+          "@ajv-validator/config": "^0.3.0",
+          "@types/jest": "^26.0.5",
+          "@types/node": "^14.10.1",
+          "@typescript-eslint/eslint-plugin": "^3.7.0",
+          "@typescript-eslint/parser": "^3.7.0",
+          "ajv": "^8.0.0",
+          "eslint": "^7.5.0",
+          "eslint-config-prettier": "^6.11.0",
+          "husky": "^4.2.5",
+          "jest": "^26.1.0",
+          "json-schema-test": "^2.0.0",
+          "lint-staged": "^10.2.11",
+          "prettier": "^2.3.2",
+          "ts-jest": "^26.1.3",
+          "typescript": "^4.0.0"
+        },
+        "prettier": "@ajv-validator/config/prettierrc.json",
+        "husky": {
+          "hooks": {
+            "pre-commit": "lint-staged && npm test"
+          }
+        },
+        "lint-staged": {
+          "*.{md,json,yaml,js,ts}": "prettier --write"
+        }
+      }
+    },
+    "node_modules/ajv/package.json": {
+      "sha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",
+      "bytes": 4405,
+      "mode": "0o644",
+      "package": {
+        "name": "ajv",
+        "version": "8.20.0",
+        "description": "Another JSON Schema Validator",
+        "main": "dist/ajv.js",
+        "types": "dist/ajv.d.ts",
+        "files": [
+          "lib/",
+          "dist/",
+          ".runkit_example.js"
+        ],
+        "sideEffects": false,
+        "scripts": {
+          "eslint": "eslint \"lib/**/*.ts\" \"spec/**/*.*s\" --ignore-pattern spec/JSON-Schema-Test-Suite",
+          "prettier:write": "prettier --write \"./**/*.{json,yaml,js,ts}\"",
+          "prettier:check": "prettier --list-different \"./**/*.{json,yaml,js,ts}\"",
+          "test-spec": "cross-env TS_NODE_PROJECT=spec/tsconfig.json mocha -r ts-node/register \"spec/**/*.spec.{ts,js}\" -R dot",
+          "test-codegen": "nyc cross-env TS_NODE_PROJECT=spec/tsconfig.json mocha -r ts-node/register 'spec/codegen.spec.ts' -R spec",
+          "test-debug": "npm run test-spec -- --inspect-brk",
+          "test-cov": "nyc npm run test-spec",
+          "rollup": "rm -rf bundle && rollup -c",
+          "bundle": "rm -rf bundle && node ./scripts/bundle.js ajv ajv7 ajv7 && node ./scripts/bundle.js 2019 ajv2019 ajv2019 && node ./scripts/bundle.js 2020 ajv2020 ajv2020 && node ./scripts/bundle.js jtd ajvJTD ajvJTD",
+          "build": "rm -rf dist && tsc && cp -r lib/refs dist && rm dist/refs/json-schema-2019-09/index.ts && rm dist/refs/json-schema-2020-12/index.ts && rm dist/refs/jtd-schema.ts",
+          "json-tests": "rm -rf spec/_json/*.js && node scripts/jsontests",
+          "test-karma": "karma start",
+          "test-browser": "rm -rf .browser && npm run bundle && scripts/prepare-tests && karma start",
+          "test-all": "npm run test-cov",
+          "test": "npm run json-tests && npm run prettier:check && npm run eslint && npm link && npm link --legacy-peer-deps ajv && npm run test-cov",
+          "test-ci": "AJV_FULL_TEST=true npm test",
+          "prepublish": "npm run build",
+          "benchmark": "npm i && npm run build && npm link && cd ./benchmark && npm link --legacy-peer-deps ajv && npm i && node ./jtd",
+          "docs:dev": "./scripts/prepare-site && vuepress dev docs",
+          "docs:build": "./scripts/prepare-site && vuepress build docs"
+        },
+        "nyc": {
+          "exclude": [
+            "**/spec/**",
+            "node_modules"
+          ],
+          "reporter": [
+            "lcov",
+            "text-summary"
+          ]
+        },
+        "repository": "ajv-validator/ajv",
+        "keywords": [
+          "JSON",
+          "schema",
+          "validator",
+          "validation",
+          "jsonschema",
+          "json-schema",
+          "json-schema-validator",
+          "json-schema-validation"
+        ],
+        "author": "Evgeny Poberezkin",
+        "license": "MIT",
+        "bugs": "https://github.com/ajv-validator/ajv/issues",
+        "homepage": "https://ajv.js.org",
+        "runkitExampleFilename": ".runkit_example.js",
+        "dependencies": {
+          "fast-deep-equal": "^3.1.3",
+          "fast-uri": "^3.0.1",
+          "json-schema-traverse": "^1.0.0",
+          "require-from-string": "^2.0.2"
+        },
+        "devDependencies": {
+          "@ajv-validator/config": "^0.5.0",
+          "@rollup/plugin-commonjs": "^25.0.7",
+          "@rollup/plugin-json": "^6.1.0",
+          "@rollup/plugin-node-resolve": "^15.2.3",
+          "@rollup/plugin-typescript": "^11.1.6",
+          "@types/chai": "^4.3.11",
+          "@types/mocha": "^10.0.6",
+          "@types/node": "^20.11.30",
+          "@types/require-from-string": "^1.2.3",
+          "@typescript-eslint/eslint-plugin": "^7.3.1",
+          "@typescript-eslint/parser": "^7.3.1",
+          "ajv-formats": "^3.0.1",
+          "browserify": "^17.0.0",
+          "chai": "^4.4.1",
+          "cross-env": "^7.0.3",
+          "dayjs": "^1.11.10",
+          "dayjs-plugin-utc": "^0.1.2",
+          "eslint": "^8.57.0",
+          "eslint-config-prettier": "^9.1.0",
+          "glob": "^10.3.10",
+          "husky": "^9.0.11",
+          "jimp": "^0.22.10",
+          "js-beautify": "^1.15.1",
+          "json-schema-test": "^2.0.0",
+          "karma": "^6.4.2",
+          "karma-chrome-launcher": "^3.2.0",
+          "karma-mocha": "^2.0.1",
+          "lint-staged": "^15.2.2",
+          "mocha": "^10.3.0",
+          "module-from-string": "^3.3.0",
+          "node-fetch": "^3.3.2",
+          "nyc": "^15.1.0",
+          "prettier": "3.0.3",
+          "re2": "^1.20.9",
+          "rollup": "^2.79.1",
+          "rollup-plugin-terser": "^7.0.2",
+          "ts-node": "^10.9.2",
+          "tsify": "^5.0.4",
+          "typescript": "5.3.3",
+          "uri-js": "^4.4.1"
+        },
+        "collective": {
+          "type": "opencollective",
+          "url": "https://opencollective.com/ajv"
+        },
+        "funding": {
+          "type": "github",
+          "url": "https://github.com/sponsors/epoberezkin"
+        },
+        "prettier": "@ajv-validator/config/prettierrc.json",
+        "husky": {
+          "hooks": {
+            "pre-commit": "lint-staged && npm test"
+          }
+        },
+        "lint-staged": {
+          "*.{json,yaml,js,ts}": "prettier --write"
+        }
+      }
+    },
+    "node_modules/effect/.index/package.json": {
+      "sha256": "df9a638d6698d9edbf15c55280f11baf86a3b668693f246bb0f5587e2db3a78e",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/.index.js",
+        "module": "../dist/esm/.index.js",
+        "types": "../dist/dts/.index.d.ts"
+      }
+    },
+    "node_modules/effect/Arbitrary/package.json": {
+      "sha256": "32de935e63f44da3a5d92d301329fce1fe2cf2882bdb51a2ab6f9af37056820e",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Arbitrary.js",
+        "module": "../dist/esm/Arbitrary.js",
+        "types": "../dist/dts/Arbitrary.d.ts"
+      }
+    },
+    "node_modules/effect/Array/package.json": {
+      "sha256": "fdf4bff6dfa9344c772777455f63e994705b69315c2b0202a191b0a193002b8f",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Array.js",
+        "module": "../dist/esm/Array.js",
+        "types": "../dist/dts/Array.d.ts"
+      }
+    },
+    "node_modules/effect/BigDecimal/package.json": {
+      "sha256": "f84e5a63479a71da255013ae527503aebcd50798c5e4c177f2ed0ed526088c53",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/BigDecimal.js",
+        "module": "../dist/esm/BigDecimal.js",
+        "types": "../dist/dts/BigDecimal.d.ts"
+      }
+    },
+    "node_modules/effect/BigInt/package.json": {
+      "sha256": "481022a1819c4a180facc2268310e1a9f015311a0bd348f8c75ab55c503a0914",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/BigInt.js",
+        "module": "../dist/esm/BigInt.js",
+        "types": "../dist/dts/BigInt.d.ts"
+      }
+    },
+    "node_modules/effect/Boolean/package.json": {
+      "sha256": "7d4c7cadde6a4283f5d001a02d16c4ba68376fc330a578e0f07a082d3cb5491a",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Boolean.js",
+        "module": "../dist/esm/Boolean.js",
+        "types": "../dist/dts/Boolean.d.ts"
+      }
+    },
+    "node_modules/effect/Brand/package.json": {
+      "sha256": "546e2be942e113db5842c401c7ebe94ff63be55267bff4b464a07324d54bc3c8",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Brand.js",
+        "module": "../dist/esm/Brand.js",
+        "types": "../dist/dts/Brand.d.ts"
+      }
+    },
+    "node_modules/effect/Cache/package.json": {
+      "sha256": "cb7757da8ae0d5405a2faa0cdd597edb8b4bd8aa76568e9ea28dbabc5fe7b356",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Cache.js",
+        "module": "../dist/esm/Cache.js",
+        "types": "../dist/dts/Cache.d.ts"
+      }
+    },
+    "node_modules/effect/Cause/package.json": {
+      "sha256": "2396b0d3de366d7945b56f88b15510891f3c39a3e9e785313967da8594787b9a",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Cause.js",
+        "module": "../dist/esm/Cause.js",
+        "types": "../dist/dts/Cause.d.ts"
+      }
+    },
+    "node_modules/effect/Channel/package.json": {
+      "sha256": "52c67163e0cc13215b8f089f4571120139124dd9a809a71ee6cb8d6b1559b697",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Channel.js",
+        "module": "../dist/esm/Channel.js",
+        "types": "../dist/dts/Channel.d.ts"
+      }
+    },
+    "node_modules/effect/ChildExecutorDecision/package.json": {
+      "sha256": "c1dc37624a456f51d1cc53aac41ae11672ac8b47a71f9ea97ce1c50194383b06",
+      "bytes": 179,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ChildExecutorDecision.js",
+        "module": "../dist/esm/ChildExecutorDecision.js",
+        "types": "../dist/dts/ChildExecutorDecision.d.ts"
+      }
+    },
+    "node_modules/effect/Chunk/package.json": {
+      "sha256": "3f89ab2e6305993f330e097489992ad72d608a3a47f24a28f436c0ff010125b8",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Chunk.js",
+        "module": "../dist/esm/Chunk.js",
+        "types": "../dist/dts/Chunk.d.ts"
+      }
+    },
+    "node_modules/effect/Clock/package.json": {
+      "sha256": "b16c6eeb2bbea99b5de3640a8043d1c77d7d303337e3893415b4be14df3148d5",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Clock.js",
+        "module": "../dist/esm/Clock.js",
+        "types": "../dist/dts/Clock.d.ts"
+      }
+    },
+    "node_modules/effect/Config/package.json": {
+      "sha256": "a1fe70f453684c75c3818e0256cc1a50ebff5cf6bd77360ff7afa1b42cfe912d",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Config.js",
+        "module": "../dist/esm/Config.js",
+        "types": "../dist/dts/Config.d.ts"
+      }
+    },
+    "node_modules/effect/ConfigError/package.json": {
+      "sha256": "d2a62bb12d701b8dabc43f95f639914e590b23b81304b6c39cc3b77e6cc521c6",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ConfigError.js",
+        "module": "../dist/esm/ConfigError.js",
+        "types": "../dist/dts/ConfigError.d.ts"
+      }
+    },
+    "node_modules/effect/ConfigProvider/package.json": {
+      "sha256": "a542db3135a7a75442c0070fb52db2cc0174ee0c4dc7479a4c9cd62f45a5be56",
+      "bytes": 158,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ConfigProvider.js",
+        "module": "../dist/esm/ConfigProvider.js",
+        "types": "../dist/dts/ConfigProvider.d.ts"
+      }
+    },
+    "node_modules/effect/ConfigProviderPathPatch/package.json": {
+      "sha256": "c8fc01c4270ccabcc63ed8a86ded6108ae7f3f508b9da1212bad1fb8058d575e",
+      "bytes": 185,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ConfigProviderPathPatch.js",
+        "module": "../dist/esm/ConfigProviderPathPatch.js",
+        "types": "../dist/dts/ConfigProviderPathPatch.d.ts"
+      }
+    },
+    "node_modules/effect/Console/package.json": {
+      "sha256": "21aad2e5753520428e46bc6ce1eb8945074cc113ff72a4baab224dc488be9fa9",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Console.js",
+        "module": "../dist/esm/Console.js",
+        "types": "../dist/dts/Console.d.ts"
+      }
+    },
+    "node_modules/effect/Context/package.json": {
+      "sha256": "43d9ff5d3ea86777b8b50ced9e7004a8220bdc179002792e285c612686cab8bc",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Context.js",
+        "module": "../dist/esm/Context.js",
+        "types": "../dist/dts/Context.d.ts"
+      }
+    },
+    "node_modules/effect/Cron/package.json": {
+      "sha256": "99bb4f89dc98d1dc4dd683440f78c1c70d3e927f3f2674b24c022e232c3c36aa",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Cron.js",
+        "module": "../dist/esm/Cron.js",
+        "types": "../dist/dts/Cron.d.ts"
+      }
+    },
+    "node_modules/effect/Data/package.json": {
+      "sha256": "01e9eddb50a10d43cf3d7f1e225893b93378ca3eb01dbf2d4da58c1e29926330",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Data.js",
+        "module": "../dist/esm/Data.js",
+        "types": "../dist/dts/Data.d.ts"
+      }
+    },
+    "node_modules/effect/DateTime/package.json": {
+      "sha256": "fb1e90bce4805a7f8700be9ece9d02e84a330e7cff308d55e007a6cd4a3dd2bf",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/DateTime.js",
+        "module": "../dist/esm/DateTime.js",
+        "types": "../dist/dts/DateTime.d.ts"
+      }
+    },
+    "node_modules/effect/DefaultServices/package.json": {
+      "sha256": "1b1ecb5be43215acc9b54cbc759a9d784a5f501f5677f33e71eb33c8868dd113",
+      "bytes": 161,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/DefaultServices.js",
+        "module": "../dist/esm/DefaultServices.js",
+        "types": "../dist/dts/DefaultServices.d.ts"
+      }
+    },
+    "node_modules/effect/Deferred/package.json": {
+      "sha256": "c70f1ee7eb7fe77d28320694e3e8eae101c23a88829540811c63971b251a4e2c",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Deferred.js",
+        "module": "../dist/esm/Deferred.js",
+        "types": "../dist/dts/Deferred.d.ts"
+      }
+    },
+    "node_modules/effect/Differ/package.json": {
+      "sha256": "909701b61b15b3070348c05964ddfe06bbb748696643ce5e56ed85cf4fb52453",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Differ.js",
+        "module": "../dist/esm/Differ.js",
+        "types": "../dist/dts/Differ.d.ts"
+      }
+    },
+    "node_modules/effect/dist/esm/package.json": {
+      "sha256": "49edc9f84863400668087eda784914f1f5ec6c715fce41f2dda2859c37572060",
+      "bytes": 44,
+      "mode": "0o644",
+      "package": {
+        "type": "module",
+        "sideEffects": []
+      }
+    },
+    "node_modules/effect/Duration/package.json": {
+      "sha256": "368f90d09eda6c96d42c48daaaa305422013eccda1c74624be4cb6fa31ea5bc7",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Duration.js",
+        "module": "../dist/esm/Duration.js",
+        "types": "../dist/dts/Duration.d.ts"
+      }
+    },
+    "node_modules/effect/Effect/package.json": {
+      "sha256": "043fbf1834308398816f9bff6a5b649af7b0672a1a85207a679e8f8a39252681",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Effect.js",
+        "module": "../dist/esm/Effect.js",
+        "types": "../dist/dts/Effect.d.ts"
+      }
+    },
+    "node_modules/effect/Effectable/package.json": {
+      "sha256": "49f433f318abd4707fd1d2e9662eda992d5c55e7f74595b36036358ec51770d6",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Effectable.js",
+        "module": "../dist/esm/Effectable.js",
+        "types": "../dist/dts/Effectable.d.ts"
+      }
+    },
+    "node_modules/effect/Either/package.json": {
+      "sha256": "fbebf5c8eff9bd938c54716c12bb699282be4f723fb92eb1eee40b2b7b00113d",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Either.js",
+        "module": "../dist/esm/Either.js",
+        "types": "../dist/dts/Either.d.ts"
+      }
+    },
+    "node_modules/effect/Encoding/package.json": {
+      "sha256": "7cd5897c1d677451752b7ef3ef93047c2ba9b062a1e16b6c681cff1747a1ec64",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Encoding.js",
+        "module": "../dist/esm/Encoding.js",
+        "types": "../dist/dts/Encoding.d.ts"
+      }
+    },
+    "node_modules/effect/Equal/package.json": {
+      "sha256": "a6630e6324ed7a15b63f0c872286c3af3e2ce83e5fa29c1c31a4d482be42cc0e",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Equal.js",
+        "module": "../dist/esm/Equal.js",
+        "types": "../dist/dts/Equal.d.ts"
+      }
+    },
+    "node_modules/effect/Equivalence/package.json": {
+      "sha256": "adb16651e3deacc948aab7ef7d4375ae325226ac688e9090b43798f8df4616e4",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Equivalence.js",
+        "module": "../dist/esm/Equivalence.js",
+        "types": "../dist/dts/Equivalence.d.ts"
+      }
+    },
+    "node_modules/effect/ExecutionPlan/package.json": {
+      "sha256": "3b8b8eed00199e7ac20828285d2c1b1d5856c5cebc0109ab67188cb3cc0033fc",
+      "bytes": 155,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ExecutionPlan.js",
+        "module": "../dist/esm/ExecutionPlan.js",
+        "types": "../dist/dts/ExecutionPlan.d.ts"
+      }
+    },
+    "node_modules/effect/ExecutionStrategy/package.json": {
+      "sha256": "930001af418e3e6e10b718a55f8de6d96ff8056add32e8310a9195f81e7b734d",
+      "bytes": 167,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ExecutionStrategy.js",
+        "module": "../dist/esm/ExecutionStrategy.js",
+        "types": "../dist/dts/ExecutionStrategy.d.ts"
+      }
+    },
+    "node_modules/effect/Exit/package.json": {
+      "sha256": "bb02e87ef53d50ba172832863f0104e1900b09944dd1b3457f6894a4b3b55979",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Exit.js",
+        "module": "../dist/esm/Exit.js",
+        "types": "../dist/dts/Exit.d.ts"
+      }
+    },
+    "node_modules/effect/FastCheck/package.json": {
+      "sha256": "e3383b26014a5eb94c20c13fdeca8994916d1c445fb19b706eafc721a1e57541",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/FastCheck.js",
+        "module": "../dist/esm/FastCheck.js",
+        "types": "../dist/dts/FastCheck.d.ts"
+      }
+    },
+    "node_modules/effect/Fiber/package.json": {
+      "sha256": "8e43b59962891a0f5c702d2443513509f4ecef919889192e3ce3326fcbd17eb2",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Fiber.js",
+        "module": "../dist/esm/Fiber.js",
+        "types": "../dist/dts/Fiber.d.ts"
+      }
+    },
+    "node_modules/effect/FiberHandle/package.json": {
+      "sha256": "ff4b1449531b2f06c848d2f57ec25592a855c712ac7cedd193a418ab1fa099dd",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/FiberHandle.js",
+        "module": "../dist/esm/FiberHandle.js",
+        "types": "../dist/dts/FiberHandle.d.ts"
+      }
+    },
+    "node_modules/effect/FiberId/package.json": {
+      "sha256": "585fd13a2a9ced394bcfcce9898aaa5db63f48415e316cd8777ba4a2a0cca9b6",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/FiberId.js",
+        "module": "../dist/esm/FiberId.js",
+        "types": "../dist/dts/FiberId.d.ts"
+      }
+    },
+    "node_modules/effect/FiberMap/package.json": {
+      "sha256": "8e57373b7c20bfd5be4204569ccc8a55a436ff60e17631d9545f8c5af397d2ff",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/FiberMap.js",
+        "module": "../dist/esm/FiberMap.js",
+        "types": "../dist/dts/FiberMap.d.ts"
+      }
+    },
+    "node_modules/effect/FiberRef/package.json": {
+      "sha256": "22aa1246b78cab010bb49319b98726a8e979262cbde4f4de79a84b1b1856638a",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/FiberRef.js",
+        "module": "../dist/esm/FiberRef.js",
+        "types": "../dist/dts/FiberRef.d.ts"
+      }
+    },
+    "node_modules/effect/FiberRefs/package.json": {
+      "sha256": "2bd7d0317ee79bd0f9689056a51fdd97fafbb28589bc180c47548f816038c6d4",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/FiberRefs.js",
+        "module": "../dist/esm/FiberRefs.js",
+        "types": "../dist/dts/FiberRefs.d.ts"
+      }
+    },
+    "node_modules/effect/FiberRefsPatch/package.json": {
+      "sha256": "8b5a61d185a6fe31ee08e259f1954fb114135257aaddad4faef1b19dbc110663",
+      "bytes": 158,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/FiberRefsPatch.js",
+        "module": "../dist/esm/FiberRefsPatch.js",
+        "types": "../dist/dts/FiberRefsPatch.d.ts"
+      }
+    },
+    "node_modules/effect/FiberSet/package.json": {
+      "sha256": "d52f03bedc37d05f70d61e0e32513382af87d2e2c712c0dd85307f6597cde816",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/FiberSet.js",
+        "module": "../dist/esm/FiberSet.js",
+        "types": "../dist/dts/FiberSet.d.ts"
+      }
+    },
+    "node_modules/effect/FiberStatus/package.json": {
+      "sha256": "f260f7144c1782588bcec3ad149b3479edb0c671c3b8252d367e22a27a3f9d82",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/FiberStatus.js",
+        "module": "../dist/esm/FiberStatus.js",
+        "types": "../dist/dts/FiberStatus.d.ts"
+      }
+    },
+    "node_modules/effect/Function/package.json": {
+      "sha256": "86d5ae023d3cdf24ffd089a322ebe1f6d598271433bdebdf65cfc6614f5a0467",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Function.js",
+        "module": "../dist/esm/Function.js",
+        "types": "../dist/dts/Function.d.ts"
+      }
+    },
+    "node_modules/effect/GlobalValue/package.json": {
+      "sha256": "385ac5aed621ee38d42993dba0ab4f84a90f7faef43b54543b27a6ab5ffe3c26",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/GlobalValue.js",
+        "module": "../dist/esm/GlobalValue.js",
+        "types": "../dist/dts/GlobalValue.d.ts"
+      }
+    },
+    "node_modules/effect/Graph/package.json": {
+      "sha256": "93dc27ecdae7fefbe0a8671e3500a5cb2f9bed1e7bc2fbc58db2fc3f148b4eb3",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Graph.js",
+        "module": "../dist/esm/Graph.js",
+        "types": "../dist/dts/Graph.d.ts"
+      }
+    },
+    "node_modules/effect/GroupBy/package.json": {
+      "sha256": "0d08f6ca23d528a060890cf4fabce42768b695bf00a1ca8e098711c4cdce78a4",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/GroupBy.js",
+        "module": "../dist/esm/GroupBy.js",
+        "types": "../dist/dts/GroupBy.d.ts"
+      }
+    },
+    "node_modules/effect/Hash/package.json": {
+      "sha256": "22aedd2dc020eb2510a9e990b58de2be8ec36353f9243adc4ae26e3e7a44b528",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Hash.js",
+        "module": "../dist/esm/Hash.js",
+        "types": "../dist/dts/Hash.d.ts"
+      }
+    },
+    "node_modules/effect/HashMap/package.json": {
+      "sha256": "c433fe07cc64254e9d267eb7d594f27bb481cf7188820f245d79e66cd3170d90",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/HashMap.js",
+        "module": "../dist/esm/HashMap.js",
+        "types": "../dist/dts/HashMap.d.ts"
+      }
+    },
+    "node_modules/effect/HashRing/package.json": {
+      "sha256": "c300c416b29b4ad315fd07c6ecf1da36e4495e436acf2adf23010cd6a4d3e35a",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/HashRing.js",
+        "module": "../dist/esm/HashRing.js",
+        "types": "../dist/dts/HashRing.d.ts"
+      }
+    },
+    "node_modules/effect/HashSet/package.json": {
+      "sha256": "863781cc3d1d9621df28e2a308c01c668602365b63432e7b46a753d3dbcda286",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/HashSet.js",
+        "module": "../dist/esm/HashSet.js",
+        "types": "../dist/dts/HashSet.d.ts"
+      }
+    },
+    "node_modules/effect/HKT/package.json": {
+      "sha256": "9e1634e4c26f143e231551e0169c89872fe02148e6eb3d9ec3e9f1c94587dcef",
+      "bytes": 125,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/HKT.js",
+        "module": "../dist/esm/HKT.js",
+        "types": "../dist/dts/HKT.d.ts"
+      }
+    },
+    "node_modules/effect/index/package.json": {
+      "sha256": "aa5e67546c8da5257f23291c9d1282f7627bca362af85f75323ce0a87ee01b4f",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/index.js",
+        "module": "../dist/esm/index.js",
+        "types": "../dist/dts/index.d.ts"
+      }
+    },
+    "node_modules/effect/Inspectable/package.json": {
+      "sha256": "f4c2ae7308d28bf1320bef12a0a5f07fccd86d940c6594e8e37ab730f08aa2aa",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Inspectable.js",
+        "module": "../dist/esm/Inspectable.js",
+        "types": "../dist/dts/Inspectable.d.ts"
+      }
+    },
+    "node_modules/effect/Iterable/package.json": {
+      "sha256": "7451848e865a95192e8519841e63189996a7d86382e8a0af8215c8e361455425",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Iterable.js",
+        "module": "../dist/esm/Iterable.js",
+        "types": "../dist/dts/Iterable.d.ts"
+      }
+    },
+    "node_modules/effect/JSONSchema/package.json": {
+      "sha256": "a0f1f7e2c5391d810f82641ef95d0158f479f66766253fc5de2fb25585053558",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/JSONSchema.js",
+        "module": "../dist/esm/JSONSchema.js",
+        "types": "../dist/dts/JSONSchema.d.ts"
+      }
+    },
+    "node_modules/effect/KeyedPool/package.json": {
+      "sha256": "cc88d2722eb12d16006d7a1ce89ca20be88fd48e1f375019e97ec3ad0afb5f0c",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/KeyedPool.js",
+        "module": "../dist/esm/KeyedPool.js",
+        "types": "../dist/dts/KeyedPool.d.ts"
+      }
+    },
+    "node_modules/effect/Layer/package.json": {
+      "sha256": "9241936b7f291f26d868693dc0852508206e1b0b5c2d8ca90f44b5b3138134b4",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Layer.js",
+        "module": "../dist/esm/Layer.js",
+        "types": "../dist/dts/Layer.d.ts"
+      }
+    },
+    "node_modules/effect/LayerMap/package.json": {
+      "sha256": "f75032a0c462b248246d6c2b6ffc33f6eba0024550819d1068a38e9aca5db11c",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/LayerMap.js",
+        "module": "../dist/esm/LayerMap.js",
+        "types": "../dist/dts/LayerMap.d.ts"
+      }
+    },
+    "node_modules/effect/List/package.json": {
+      "sha256": "59666fcbdf93e62b2f38ece075c6c71f217101a2010495293109a07e65ebf225",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/List.js",
+        "module": "../dist/esm/List.js",
+        "types": "../dist/dts/List.d.ts"
+      }
+    },
+    "node_modules/effect/Logger/package.json": {
+      "sha256": "7fa4bde445679c8ed16976217f9a9e8249de6982185b23e079286bbd6abf4493",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Logger.js",
+        "module": "../dist/esm/Logger.js",
+        "types": "../dist/dts/Logger.d.ts"
+      }
+    },
+    "node_modules/effect/LogLevel/package.json": {
+      "sha256": "c35a45f580f32a1ca39ecf2bde1bf507e1def06ea8fefcb40c0c1fb1794ba3cf",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/LogLevel.js",
+        "module": "../dist/esm/LogLevel.js",
+        "types": "../dist/dts/LogLevel.d.ts"
+      }
+    },
+    "node_modules/effect/LogSpan/package.json": {
+      "sha256": "f940a649a226aabb4fb16dbee534589b4a1aed884c8fb857cf427d289a806447",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/LogSpan.js",
+        "module": "../dist/esm/LogSpan.js",
+        "types": "../dist/dts/LogSpan.d.ts"
+      }
+    },
+    "node_modules/effect/Mailbox/package.json": {
+      "sha256": "5a38af77ccd2dcf5d786f5d35b02af4a3e8ef2f52ca166fc7a595c30ee5ed3e5",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Mailbox.js",
+        "module": "../dist/esm/Mailbox.js",
+        "types": "../dist/dts/Mailbox.d.ts"
+      }
+    },
+    "node_modules/effect/ManagedRuntime/package.json": {
+      "sha256": "bed3587eaf675437e6014fbdb1e457a7e3e5325b3e7b108fa37a1475615deea1",
+      "bytes": 158,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ManagedRuntime.js",
+        "module": "../dist/esm/ManagedRuntime.js",
+        "types": "../dist/dts/ManagedRuntime.d.ts"
+      }
+    },
+    "node_modules/effect/Match/package.json": {
+      "sha256": "f88b0aba11d3ad9e2748c1b44ab98edbb15248c68facea47c8c9743859b914ac",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Match.js",
+        "module": "../dist/esm/Match.js",
+        "types": "../dist/dts/Match.d.ts"
+      }
+    },
+    "node_modules/effect/MergeDecision/package.json": {
+      "sha256": "332d381a59eb22f61482426d39e28c337b7f5528997ca59dc1bd371e463ee220",
+      "bytes": 155,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MergeDecision.js",
+        "module": "../dist/esm/MergeDecision.js",
+        "types": "../dist/dts/MergeDecision.d.ts"
+      }
+    },
+    "node_modules/effect/MergeState/package.json": {
+      "sha256": "45fa63b79ebaeb79ed92471f04802dff50f9842fae78351b1e882b1f619528ef",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MergeState.js",
+        "module": "../dist/esm/MergeState.js",
+        "types": "../dist/dts/MergeState.d.ts"
+      }
+    },
+    "node_modules/effect/MergeStrategy/package.json": {
+      "sha256": "99b6e55974fc34b8e3e15067d5b7f5a7f551b63f94874fae9a0445eb09640dd5",
+      "bytes": 155,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MergeStrategy.js",
+        "module": "../dist/esm/MergeStrategy.js",
+        "types": "../dist/dts/MergeStrategy.d.ts"
+      }
+    },
+    "node_modules/effect/Metric/package.json": {
+      "sha256": "b10d5c084fe80659705ab01edff318b3c3fdea7685b00e1863eaa5878f9bada8",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Metric.js",
+        "module": "../dist/esm/Metric.js",
+        "types": "../dist/dts/Metric.d.ts"
+      }
+    },
+    "node_modules/effect/MetricBoundaries/package.json": {
+      "sha256": "647505cce7f0bd0892d7f77002442b00704ed8b019eee9314813b782059df5e0",
+      "bytes": 164,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MetricBoundaries.js",
+        "module": "../dist/esm/MetricBoundaries.js",
+        "types": "../dist/dts/MetricBoundaries.d.ts"
+      }
+    },
+    "node_modules/effect/MetricHook/package.json": {
+      "sha256": "bbb1e8712188e46043f50e39ee4edcda8bb0813e95d85da65163ab72414232b0",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MetricHook.js",
+        "module": "../dist/esm/MetricHook.js",
+        "types": "../dist/dts/MetricHook.d.ts"
+      }
+    },
+    "node_modules/effect/MetricKey/package.json": {
+      "sha256": "70134df07fefa4e386ba3e57a982095fafd7977530386ba9f102cd30f8b59c00",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MetricKey.js",
+        "module": "../dist/esm/MetricKey.js",
+        "types": "../dist/dts/MetricKey.d.ts"
+      }
+    },
+    "node_modules/effect/MetricKeyType/package.json": {
+      "sha256": "c4f4800fe9288fce4bdc16dc61095ac5ddb558440b3bc384a20360837e4776ae",
+      "bytes": 155,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MetricKeyType.js",
+        "module": "../dist/esm/MetricKeyType.js",
+        "types": "../dist/dts/MetricKeyType.d.ts"
+      }
+    },
+    "node_modules/effect/MetricLabel/package.json": {
+      "sha256": "8ad04e504a887cb41f2a4f820ff57684f2d0153d48b6ce4c94ae5ad0a88a49a3",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MetricLabel.js",
+        "module": "../dist/esm/MetricLabel.js",
+        "types": "../dist/dts/MetricLabel.d.ts"
+      }
+    },
+    "node_modules/effect/MetricPair/package.json": {
+      "sha256": "a8c9ecda86d2c290bb532673865d108df3008bf4ae41fc19491282a0e042518f",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MetricPair.js",
+        "module": "../dist/esm/MetricPair.js",
+        "types": "../dist/dts/MetricPair.d.ts"
+      }
+    },
+    "node_modules/effect/MetricPolling/package.json": {
+      "sha256": "f95fa32aa32dc034bb9da013c3784a78c663cb8866900e0b4482c7310923749c",
+      "bytes": 155,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MetricPolling.js",
+        "module": "../dist/esm/MetricPolling.js",
+        "types": "../dist/dts/MetricPolling.d.ts"
+      }
+    },
+    "node_modules/effect/MetricRegistry/package.json": {
+      "sha256": "1911a0038474b0fd47579f31c77cc8f6dce60abb574da07bc6ce6470900e9ddb",
+      "bytes": 158,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MetricRegistry.js",
+        "module": "../dist/esm/MetricRegistry.js",
+        "types": "../dist/dts/MetricRegistry.d.ts"
+      }
+    },
+    "node_modules/effect/MetricState/package.json": {
+      "sha256": "f12ab7318107ae459d5c2808e9e8b96065cf9ace1768ffe17df406c01399a30f",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MetricState.js",
+        "module": "../dist/esm/MetricState.js",
+        "types": "../dist/dts/MetricState.d.ts"
+      }
+    },
+    "node_modules/effect/Micro/package.json": {
+      "sha256": "4df4c8ecb645b305cad1f829f1d6d8a574cc31ca3dcb4563fbec6bc8cd6b7ef4",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Micro.js",
+        "module": "../dist/esm/Micro.js",
+        "types": "../dist/dts/Micro.d.ts"
+      }
+    },
+    "node_modules/effect/ModuleVersion/package.json": {
+      "sha256": "65e1a0ba99200fdf1b12ed9fe284e042778d2a88428b4ac0e82e3d63277a5805",
+      "bytes": 155,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ModuleVersion.js",
+        "module": "../dist/esm/ModuleVersion.js",
+        "types": "../dist/dts/ModuleVersion.d.ts"
+      }
+    },
+    "node_modules/effect/MutableHashMap/package.json": {
+      "sha256": "1d07b16c7cc30f7a0832a6f8bc450f00365d74feb1748c1dcf0429439adb185e",
+      "bytes": 158,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MutableHashMap.js",
+        "module": "../dist/esm/MutableHashMap.js",
+        "types": "../dist/dts/MutableHashMap.d.ts"
+      }
+    },
+    "node_modules/effect/MutableHashSet/package.json": {
+      "sha256": "2309b92ccfe29f9e8c53d52f60df390e25481033397c0f43840c88d3f619745b",
+      "bytes": 158,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MutableHashSet.js",
+        "module": "../dist/esm/MutableHashSet.js",
+        "types": "../dist/dts/MutableHashSet.d.ts"
+      }
+    },
+    "node_modules/effect/MutableList/package.json": {
+      "sha256": "07463f9fef0754e90d77c40b8652928063dea0fa749d3a98ec42c8c1c5b171ad",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MutableList.js",
+        "module": "../dist/esm/MutableList.js",
+        "types": "../dist/dts/MutableList.d.ts"
+      }
+    },
+    "node_modules/effect/MutableQueue/package.json": {
+      "sha256": "a7c29dee1f146ba92e0cf9ebecb3723fc55d8efd8fea9572cc33f2c3bba636e3",
+      "bytes": 152,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MutableQueue.js",
+        "module": "../dist/esm/MutableQueue.js",
+        "types": "../dist/dts/MutableQueue.d.ts"
+      }
+    },
+    "node_modules/effect/MutableRef/package.json": {
+      "sha256": "abd5f8d6f4166608efdf040ba4fad6c1c60af35a25e0853353cd08dd8b57adf2",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/MutableRef.js",
+        "module": "../dist/esm/MutableRef.js",
+        "types": "../dist/dts/MutableRef.d.ts"
+      }
+    },
+    "node_modules/effect/NonEmptyIterable/package.json": {
+      "sha256": "99201da8d688043e47ef825dfca82876fb656b34823a4e7e7cb89e073cae3bb7",
+      "bytes": 164,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/NonEmptyIterable.js",
+        "module": "../dist/esm/NonEmptyIterable.js",
+        "types": "../dist/dts/NonEmptyIterable.d.ts"
+      }
+    },
+    "node_modules/effect/Number/package.json": {
+      "sha256": "ce533017c230cbbe99cc80cbd72b114ba202523af0ae58da2885d4d329f52121",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Number.js",
+        "module": "../dist/esm/Number.js",
+        "types": "../dist/dts/Number.d.ts"
+      }
+    },
+    "node_modules/effect/Option/package.json": {
+      "sha256": "61a9fab008f939fef690496b0c47d836e30edbe780ef98ade512b74ba0a9d983",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Option.js",
+        "module": "../dist/esm/Option.js",
+        "types": "../dist/dts/Option.d.ts"
+      }
+    },
+    "node_modules/effect/Order/package.json": {
+      "sha256": "ae7fbdb0b15964e9511448369c793ae02671f4f1016465ba91704bcb6c1da940",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Order.js",
+        "module": "../dist/esm/Order.js",
+        "types": "../dist/dts/Order.d.ts"
+      }
+    },
+    "node_modules/effect/Ordering/package.json": {
+      "sha256": "f45f7b4f70cb840bf59f0528ed44306990c0256ee0a88dcfcc263bf8c61954b4",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Ordering.js",
+        "module": "../dist/esm/Ordering.js",
+        "types": "../dist/dts/Ordering.d.ts"
+      }
+    },
+    "node_modules/effect/package.json": {
+      "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2",
+      "bytes": 40617,
+      "mode": "0o644",
+      "package": {
+        "name": "effect",
+        "version": "3.22.1",
+        "description": "The missing standard library for TypeScript, for writing production-grade software.",
+        "license": "MIT",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/Effect-TS/effect.git",
+          "directory": "packages/effect"
+        },
+        "sideEffects": [],
+        "homepage": "https://effect.website",
+        "dependencies": {
+          "@standard-schema/spec": "^1.0.0",
+          "fast-check": "^3.23.1"
+        },
+        "publishConfig": {
+          "provenance": true
+        },
+        "main": "./dist/cjs/index.js",
+        "module": "./dist/esm/index.js",
+        "types": "./dist/dts/index.d.ts",
+        "exports": {
+          "./package.json": "./package.json",
+          ".": {
+            "types": "./dist/dts/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "default": "./dist/cjs/index.js"
+          },
+          "./.index": {
+            "types": "./dist/dts/.index.d.ts",
+            "import": "./dist/esm/.index.js",
+            "default": "./dist/cjs/.index.js"
+          },
+          "./Arbitrary": {
+            "types": "./dist/dts/Arbitrary.d.ts",
+            "import": "./dist/esm/Arbitrary.js",
+            "default": "./dist/cjs/Arbitrary.js"
+          },
+          "./Array": {
+            "types": "./dist/dts/Array.d.ts",
+            "import": "./dist/esm/Array.js",
+            "default": "./dist/cjs/Array.js"
+          },
+          "./BigDecimal": {
+            "types": "./dist/dts/BigDecimal.d.ts",
+            "import": "./dist/esm/BigDecimal.js",
+            "default": "./dist/cjs/BigDecimal.js"
+          },
+          "./BigInt": {
+            "types": "./dist/dts/BigInt.d.ts",
+            "import": "./dist/esm/BigInt.js",
+            "default": "./dist/cjs/BigInt.js"
+          },
+          "./Boolean": {
+            "types": "./dist/dts/Boolean.d.ts",
+            "import": "./dist/esm/Boolean.js",
+            "default": "./dist/cjs/Boolean.js"
+          },
+          "./Brand": {
+            "types": "./dist/dts/Brand.d.ts",
+            "import": "./dist/esm/Brand.js",
+            "default": "./dist/cjs/Brand.js"
+          },
+          "./Cache": {
+            "types": "./dist/dts/Cache.d.ts",
+            "import": "./dist/esm/Cache.js",
+            "default": "./dist/cjs/Cache.js"
+          },
+          "./Cause": {
+            "types": "./dist/dts/Cause.d.ts",
+            "import": "./dist/esm/Cause.js",
+            "default": "./dist/cjs/Cause.js"
+          },
+          "./Channel": {
+            "types": "./dist/dts/Channel.d.ts",
+            "import": "./dist/esm/Channel.js",
+            "default": "./dist/cjs/Channel.js"
+          },
+          "./ChildExecutorDecision": {
+            "types": "./dist/dts/ChildExecutorDecision.d.ts",
+            "import": "./dist/esm/ChildExecutorDecision.js",
+            "default": "./dist/cjs/ChildExecutorDecision.js"
+          },
+          "./Chunk": {
+            "types": "./dist/dts/Chunk.d.ts",
+            "import": "./dist/esm/Chunk.js",
+            "default": "./dist/cjs/Chunk.js"
+          },
+          "./Clock": {
+            "types": "./dist/dts/Clock.d.ts",
+            "import": "./dist/esm/Clock.js",
+            "default": "./dist/cjs/Clock.js"
+          },
+          "./Config": {
+            "types": "./dist/dts/Config.d.ts",
+            "import": "./dist/esm/Config.js",
+            "default": "./dist/cjs/Config.js"
+          },
+          "./ConfigError": {
+            "types": "./dist/dts/ConfigError.d.ts",
+            "import": "./dist/esm/ConfigError.js",
+            "default": "./dist/cjs/ConfigError.js"
+          },
+          "./ConfigProvider": {
+            "types": "./dist/dts/ConfigProvider.d.ts",
+            "import": "./dist/esm/ConfigProvider.js",
+            "default": "./dist/cjs/ConfigProvider.js"
+          },
+          "./ConfigProviderPathPatch": {
+            "types": "./dist/dts/ConfigProviderPathPatch.d.ts",
+            "import": "./dist/esm/ConfigProviderPathPatch.js",
+            "default": "./dist/cjs/ConfigProviderPathPatch.js"
+          },
+          "./Console": {
+            "types": "./dist/dts/Console.d.ts",
+            "import": "./dist/esm/Console.js",
+            "default": "./dist/cjs/Console.js"
+          },
+          "./Context": {
+            "types": "./dist/dts/Context.d.ts",
+            "import": "./dist/esm/Context.js",
+            "default": "./dist/cjs/Context.js"
+          },
+          "./Cron": {
+            "types": "./dist/dts/Cron.d.ts",
+            "import": "./dist/esm/Cron.js",
+            "default": "./dist/cjs/Cron.js"
+          },
+          "./Data": {
+            "types": "./dist/dts/Data.d.ts",
+            "import": "./dist/esm/Data.js",
+            "default": "./dist/cjs/Data.js"
+          },
+          "./DateTime": {
+            "types": "./dist/dts/DateTime.d.ts",
+            "import": "./dist/esm/DateTime.js",
+            "default": "./dist/cjs/DateTime.js"
+          },
+          "./DefaultServices": {
+            "types": "./dist/dts/DefaultServices.d.ts",
+            "import": "./dist/esm/DefaultServices.js",
+            "default": "./dist/cjs/DefaultServices.js"
+          },
+          "./Deferred": {
+            "types": "./dist/dts/Deferred.d.ts",
+            "import": "./dist/esm/Deferred.js",
+            "default": "./dist/cjs/Deferred.js"
+          },
+          "./Differ": {
+            "types": "./dist/dts/Differ.d.ts",
+            "import": "./dist/esm/Differ.js",
+            "default": "./dist/cjs/Differ.js"
+          },
+          "./Duration": {
+            "types": "./dist/dts/Duration.d.ts",
+            "import": "./dist/esm/Duration.js",
+            "default": "./dist/cjs/Duration.js"
+          },
+          "./Effect": {
+            "types": "./dist/dts/Effect.d.ts",
+            "import": "./dist/esm/Effect.js",
+            "default": "./dist/cjs/Effect.js"
+          },
+          "./Effectable": {
+            "types": "./dist/dts/Effectable.d.ts",
+            "import": "./dist/esm/Effectable.js",
+            "default": "./dist/cjs/Effectable.js"
+          },
+          "./Either": {
+            "types": "./dist/dts/Either.d.ts",
+            "import": "./dist/esm/Either.js",
+            "default": "./dist/cjs/Either.js"
+          },
+          "./Encoding": {
+            "types": "./dist/dts/Encoding.d.ts",
+            "import": "./dist/esm/Encoding.js",
+            "default": "./dist/cjs/Encoding.js"
+          },
+          "./Equal": {
+            "types": "./dist/dts/Equal.d.ts",
+            "import": "./dist/esm/Equal.js",
+            "default": "./dist/cjs/Equal.js"
+          },
+          "./Equivalence": {
+            "types": "./dist/dts/Equivalence.d.ts",
+            "import": "./dist/esm/Equivalence.js",
+            "default": "./dist/cjs/Equivalence.js"
+          },
+          "./ExecutionPlan": {
+            "types": "./dist/dts/ExecutionPlan.d.ts",
+            "import": "./dist/esm/ExecutionPlan.js",
+            "default": "./dist/cjs/ExecutionPlan.js"
+          },
+          "./ExecutionStrategy": {
+            "types": "./dist/dts/ExecutionStrategy.d.ts",
+            "import": "./dist/esm/ExecutionStrategy.js",
+            "default": "./dist/cjs/ExecutionStrategy.js"
+          },
+          "./Exit": {
+            "types": "./dist/dts/Exit.d.ts",
+            "import": "./dist/esm/Exit.js",
+            "default": "./dist/cjs/Exit.js"
+          },
+          "./FastCheck": {
+            "types": "./dist/dts/FastCheck.d.ts",
+            "import": "./dist/esm/FastCheck.js",
+            "default": "./dist/cjs/FastCheck.js"
+          },
+          "./Fiber": {
+            "types": "./dist/dts/Fiber.d.ts",
+            "import": "./dist/esm/Fiber.js",
+            "default": "./dist/cjs/Fiber.js"
+          },
+          "./FiberHandle": {
+            "types": "./dist/dts/FiberHandle.d.ts",
+            "import": "./dist/esm/FiberHandle.js",
+            "default": "./dist/cjs/FiberHandle.js"
+          },
+          "./FiberId": {
+            "types": "./dist/dts/FiberId.d.ts",
+            "import": "./dist/esm/FiberId.js",
+            "default": "./dist/cjs/FiberId.js"
+          },
+          "./FiberMap": {
+            "types": "./dist/dts/FiberMap.d.ts",
+            "import": "./dist/esm/FiberMap.js",
+            "default": "./dist/cjs/FiberMap.js"
+          },
+          "./FiberRef": {
+            "types": "./dist/dts/FiberRef.d.ts",
+            "import": "./dist/esm/FiberRef.js",
+            "default": "./dist/cjs/FiberRef.js"
+          },
+          "./FiberRefs": {
+            "types": "./dist/dts/FiberRefs.d.ts",
+            "import": "./dist/esm/FiberRefs.js",
+            "default": "./dist/cjs/FiberRefs.js"
+          },
+          "./FiberRefsPatch": {
+            "types": "./dist/dts/FiberRefsPatch.d.ts",
+            "import": "./dist/esm/FiberRefsPatch.js",
+            "default": "./dist/cjs/FiberRefsPatch.js"
+          },
+          "./FiberSet": {
+            "types": "./dist/dts/FiberSet.d.ts",
+            "import": "./dist/esm/FiberSet.js",
+            "default": "./dist/cjs/FiberSet.js"
+          },
+          "./FiberStatus": {
+            "types": "./dist/dts/FiberStatus.d.ts",
+            "import": "./dist/esm/FiberStatus.js",
+            "default": "./dist/cjs/FiberStatus.js"
+          },
+          "./Function": {
+            "types": "./dist/dts/Function.d.ts",
+            "import": "./dist/esm/Function.js",
+            "default": "./dist/cjs/Function.js"
+          },
+          "./GlobalValue": {
+            "types": "./dist/dts/GlobalValue.d.ts",
+            "import": "./dist/esm/GlobalValue.js",
+            "default": "./dist/cjs/GlobalValue.js"
+          },
+          "./Graph": {
+            "types": "./dist/dts/Graph.d.ts",
+            "import": "./dist/esm/Graph.js",
+            "default": "./dist/cjs/Graph.js"
+          },
+          "./GroupBy": {
+            "types": "./dist/dts/GroupBy.d.ts",
+            "import": "./dist/esm/GroupBy.js",
+            "default": "./dist/cjs/GroupBy.js"
+          },
+          "./HKT": {
+            "types": "./dist/dts/HKT.d.ts",
+            "import": "./dist/esm/HKT.js",
+            "default": "./dist/cjs/HKT.js"
+          },
+          "./Hash": {
+            "types": "./dist/dts/Hash.d.ts",
+            "import": "./dist/esm/Hash.js",
+            "default": "./dist/cjs/Hash.js"
+          },
+          "./HashMap": {
+            "types": "./dist/dts/HashMap.d.ts",
+            "import": "./dist/esm/HashMap.js",
+            "default": "./dist/cjs/HashMap.js"
+          },
+          "./HashRing": {
+            "types": "./dist/dts/HashRing.d.ts",
+            "import": "./dist/esm/HashRing.js",
+            "default": "./dist/cjs/HashRing.js"
+          },
+          "./HashSet": {
+            "types": "./dist/dts/HashSet.d.ts",
+            "import": "./dist/esm/HashSet.js",
+            "default": "./dist/cjs/HashSet.js"
+          },
+          "./Inspectable": {
+            "types": "./dist/dts/Inspectable.d.ts",
+            "import": "./dist/esm/Inspectable.js",
+            "default": "./dist/cjs/Inspectable.js"
+          },
+          "./Iterable": {
+            "types": "./dist/dts/Iterable.d.ts",
+            "import": "./dist/esm/Iterable.js",
+            "default": "./dist/cjs/Iterable.js"
+          },
+          "./JSONSchema": {
+            "types": "./dist/dts/JSONSchema.d.ts",
+            "import": "./dist/esm/JSONSchema.js",
+            "default": "./dist/cjs/JSONSchema.js"
+          },
+          "./KeyedPool": {
+            "types": "./dist/dts/KeyedPool.d.ts",
+            "import": "./dist/esm/KeyedPool.js",
+            "default": "./dist/cjs/KeyedPool.js"
+          },
+          "./Layer": {
+            "types": "./dist/dts/Layer.d.ts",
+            "import": "./dist/esm/Layer.js",
+            "default": "./dist/cjs/Layer.js"
+          },
+          "./LayerMap": {
+            "types": "./dist/dts/LayerMap.d.ts",
+            "import": "./dist/esm/LayerMap.js",
+            "default": "./dist/cjs/LayerMap.js"
+          },
+          "./List": {
+            "types": "./dist/dts/List.d.ts",
+            "import": "./dist/esm/List.js",
+            "default": "./dist/cjs/List.js"
+          },
+          "./LogLevel": {
+            "types": "./dist/dts/LogLevel.d.ts",
+            "import": "./dist/esm/LogLevel.js",
+            "default": "./dist/cjs/LogLevel.js"
+          },
+          "./LogSpan": {
+            "types": "./dist/dts/LogSpan.d.ts",
+            "import": "./dist/esm/LogSpan.js",
+            "default": "./dist/cjs/LogSpan.js"
+          },
+          "./Logger": {
+            "types": "./dist/dts/Logger.d.ts",
+            "import": "./dist/esm/Logger.js",
+            "default": "./dist/cjs/Logger.js"
+          },
+          "./Mailbox": {
+            "types": "./dist/dts/Mailbox.d.ts",
+            "import": "./dist/esm/Mailbox.js",
+            "default": "./dist/cjs/Mailbox.js"
+          },
+          "./ManagedRuntime": {
+            "types": "./dist/dts/ManagedRuntime.d.ts",
+            "import": "./dist/esm/ManagedRuntime.js",
+            "default": "./dist/cjs/ManagedRuntime.js"
+          },
+          "./Match": {
+            "types": "./dist/dts/Match.d.ts",
+            "import": "./dist/esm/Match.js",
+            "default": "./dist/cjs/Match.js"
+          },
+          "./MergeDecision": {
+            "types": "./dist/dts/MergeDecision.d.ts",
+            "import": "./dist/esm/MergeDecision.js",
+            "default": "./dist/cjs/MergeDecision.js"
+          },
+          "./MergeState": {
+            "types": "./dist/dts/MergeState.d.ts",
+            "import": "./dist/esm/MergeState.js",
+            "default": "./dist/cjs/MergeState.js"
+          },
+          "./MergeStrategy": {
+            "types": "./dist/dts/MergeStrategy.d.ts",
+            "import": "./dist/esm/MergeStrategy.js",
+            "default": "./dist/cjs/MergeStrategy.js"
+          },
+          "./Metric": {
+            "types": "./dist/dts/Metric.d.ts",
+            "import": "./dist/esm/Metric.js",
+            "default": "./dist/cjs/Metric.js"
+          },
+          "./MetricBoundaries": {
+            "types": "./dist/dts/MetricBoundaries.d.ts",
+            "import": "./dist/esm/MetricBoundaries.js",
+            "default": "./dist/cjs/MetricBoundaries.js"
+          },
+          "./MetricHook": {
+            "types": "./dist/dts/MetricHook.d.ts",
+            "import": "./dist/esm/MetricHook.js",
+            "default": "./dist/cjs/MetricHook.js"
+          },
+          "./MetricKey": {
+            "types": "./dist/dts/MetricKey.d.ts",
+            "import": "./dist/esm/MetricKey.js",
+            "default": "./dist/cjs/MetricKey.js"
+          },
+          "./MetricKeyType": {
+            "types": "./dist/dts/MetricKeyType.d.ts",
+            "import": "./dist/esm/MetricKeyType.js",
+            "default": "./dist/cjs/MetricKeyType.js"
+          },
+          "./MetricLabel": {
+            "types": "./dist/dts/MetricLabel.d.ts",
+            "import": "./dist/esm/MetricLabel.js",
+            "default": "./dist/cjs/MetricLabel.js"
+          },
+          "./MetricPair": {
+            "types": "./dist/dts/MetricPair.d.ts",
+            "import": "./dist/esm/MetricPair.js",
+            "default": "./dist/cjs/MetricPair.js"
+          },
+          "./MetricPolling": {
+            "types": "./dist/dts/MetricPolling.d.ts",
+            "import": "./dist/esm/MetricPolling.js",
+            "default": "./dist/cjs/MetricPolling.js"
+          },
+          "./MetricRegistry": {
+            "types": "./dist/dts/MetricRegistry.d.ts",
+            "import": "./dist/esm/MetricRegistry.js",
+            "default": "./dist/cjs/MetricRegistry.js"
+          },
+          "./MetricState": {
+            "types": "./dist/dts/MetricState.d.ts",
+            "import": "./dist/esm/MetricState.js",
+            "default": "./dist/cjs/MetricState.js"
+          },
+          "./Micro": {
+            "types": "./dist/dts/Micro.d.ts",
+            "import": "./dist/esm/Micro.js",
+            "default": "./dist/cjs/Micro.js"
+          },
+          "./ModuleVersion": {
+            "types": "./dist/dts/ModuleVersion.d.ts",
+            "import": "./dist/esm/ModuleVersion.js",
+            "default": "./dist/cjs/ModuleVersion.js"
+          },
+          "./MutableHashMap": {
+            "types": "./dist/dts/MutableHashMap.d.ts",
+            "import": "./dist/esm/MutableHashMap.js",
+            "default": "./dist/cjs/MutableHashMap.js"
+          },
+          "./MutableHashSet": {
+            "types": "./dist/dts/MutableHashSet.d.ts",
+            "import": "./dist/esm/MutableHashSet.js",
+            "default": "./dist/cjs/MutableHashSet.js"
+          },
+          "./MutableList": {
+            "types": "./dist/dts/MutableList.d.ts",
+            "import": "./dist/esm/MutableList.js",
+            "default": "./dist/cjs/MutableList.js"
+          },
+          "./MutableQueue": {
+            "types": "./dist/dts/MutableQueue.d.ts",
+            "import": "./dist/esm/MutableQueue.js",
+            "default": "./dist/cjs/MutableQueue.js"
+          },
+          "./MutableRef": {
+            "types": "./dist/dts/MutableRef.d.ts",
+            "import": "./dist/esm/MutableRef.js",
+            "default": "./dist/cjs/MutableRef.js"
+          },
+          "./NonEmptyIterable": {
+            "types": "./dist/dts/NonEmptyIterable.d.ts",
+            "import": "./dist/esm/NonEmptyIterable.js",
+            "default": "./dist/cjs/NonEmptyIterable.js"
+          },
+          "./Number": {
+            "types": "./dist/dts/Number.d.ts",
+            "import": "./dist/esm/Number.js",
+            "default": "./dist/cjs/Number.js"
+          },
+          "./Option": {
+            "types": "./dist/dts/Option.d.ts",
+            "import": "./dist/esm/Option.js",
+            "default": "./dist/cjs/Option.js"
+          },
+          "./Order": {
+            "types": "./dist/dts/Order.d.ts",
+            "import": "./dist/esm/Order.js",
+            "default": "./dist/cjs/Order.js"
+          },
+          "./Ordering": {
+            "types": "./dist/dts/Ordering.d.ts",
+            "import": "./dist/esm/Ordering.js",
+            "default": "./dist/cjs/Ordering.js"
+          },
+          "./ParseResult": {
+            "types": "./dist/dts/ParseResult.d.ts",
+            "import": "./dist/esm/ParseResult.js",
+            "default": "./dist/cjs/ParseResult.js"
+          },
+          "./PartitionedSemaphore": {
+            "types": "./dist/dts/PartitionedSemaphore.d.ts",
+            "import": "./dist/esm/PartitionedSemaphore.js",
+            "default": "./dist/cjs/PartitionedSemaphore.js"
+          },
+          "./Pipeable": {
+            "types": "./dist/dts/Pipeable.d.ts",
+            "import": "./dist/esm/Pipeable.js",
+            "default": "./dist/cjs/Pipeable.js"
+          },
+          "./Pool": {
+            "types": "./dist/dts/Pool.d.ts",
+            "import": "./dist/esm/Pool.js",
+            "default": "./dist/cjs/Pool.js"
+          },
+          "./Predicate": {
+            "types": "./dist/dts/Predicate.d.ts",
+            "import": "./dist/esm/Predicate.js",
+            "default": "./dist/cjs/Predicate.js"
+          },
+          "./Pretty": {
+            "types": "./dist/dts/Pretty.d.ts",
+            "import": "./dist/esm/Pretty.js",
+            "default": "./dist/cjs/Pretty.js"
+          },
+          "./PrimaryKey": {
+            "types": "./dist/dts/PrimaryKey.d.ts",
+            "import": "./dist/esm/PrimaryKey.js",
+            "default": "./dist/cjs/PrimaryKey.js"
+          },
+          "./PubSub": {
+            "types": "./dist/dts/PubSub.d.ts",
+            "import": "./dist/esm/PubSub.js",
+            "default": "./dist/cjs/PubSub.js"
+          },
+          "./Queue": {
+            "types": "./dist/dts/Queue.d.ts",
+            "import": "./dist/esm/Queue.js",
+            "default": "./dist/cjs/Queue.js"
+          },
+          "./Random": {
+            "types": "./dist/dts/Random.d.ts",
+            "import": "./dist/esm/Random.js",
+            "default": "./dist/cjs/Random.js"
+          },
+          "./RateLimiter": {
+            "types": "./dist/dts/RateLimiter.d.ts",
+            "import": "./dist/esm/RateLimiter.js",
+            "default": "./dist/cjs/RateLimiter.js"
+          },
+          "./RcMap": {
+            "types": "./dist/dts/RcMap.d.ts",
+            "import": "./dist/esm/RcMap.js",
+            "default": "./dist/cjs/RcMap.js"
+          },
+          "./RcRef": {
+            "types": "./dist/dts/RcRef.d.ts",
+            "import": "./dist/esm/RcRef.js",
+            "default": "./dist/cjs/RcRef.js"
+          },
+          "./Readable": {
+            "types": "./dist/dts/Readable.d.ts",
+            "import": "./dist/esm/Readable.js",
+            "default": "./dist/cjs/Readable.js"
+          },
+          "./Record": {
+            "types": "./dist/dts/Record.d.ts",
+            "import": "./dist/esm/Record.js",
+            "default": "./dist/cjs/Record.js"
+          },
+          "./RedBlackTree": {
+            "types": "./dist/dts/RedBlackTree.d.ts",
+            "import": "./dist/esm/RedBlackTree.js",
+            "default": "./dist/cjs/RedBlackTree.js"
+          },
+          "./Redacted": {
+            "types": "./dist/dts/Redacted.d.ts",
+            "import": "./dist/esm/Redacted.js",
+            "default": "./dist/cjs/Redacted.js"
+          },
+          "./Ref": {
+            "types": "./dist/dts/Ref.d.ts",
+            "import": "./dist/esm/Ref.js",
+            "default": "./dist/cjs/Ref.js"
+          },
+          "./RegExp": {
+            "types": "./dist/dts/RegExp.d.ts",
+            "import": "./dist/esm/RegExp.js",
+            "default": "./dist/cjs/RegExp.js"
+          },
+          "./Reloadable": {
+            "types": "./dist/dts/Reloadable.d.ts",
+            "import": "./dist/esm/Reloadable.js",
+            "default": "./dist/cjs/Reloadable.js"
+          },
+          "./Request": {
+            "types": "./dist/dts/Request.d.ts",
+            "import": "./dist/esm/Request.js",
+            "default": "./dist/cjs/Request.js"
+          },
+          "./RequestBlock": {
+            "types": "./dist/dts/RequestBlock.d.ts",
+            "import": "./dist/esm/RequestBlock.js",
+            "default": "./dist/cjs/RequestBlock.js"
+          },
+          "./RequestResolver": {
+            "types": "./dist/dts/RequestResolver.d.ts",
+            "import": "./dist/esm/RequestResolver.js",
+            "default": "./dist/cjs/RequestResolver.js"
+          },
+          "./Resource": {
+            "types": "./dist/dts/Resource.d.ts",
+            "import": "./dist/esm/Resource.js",
+            "default": "./dist/cjs/Resource.js"
+          },
+          "./Runtime": {
+            "types": "./dist/dts/Runtime.d.ts",
+            "import": "./dist/esm/Runtime.js",
+            "default": "./dist/cjs/Runtime.js"
+          },
+          "./RuntimeFlags": {
+            "types": "./dist/dts/RuntimeFlags.d.ts",
+            "import": "./dist/esm/RuntimeFlags.js",
+            "default": "./dist/cjs/RuntimeFlags.js"
+          },
+          "./RuntimeFlagsPatch": {
+            "types": "./dist/dts/RuntimeFlagsPatch.d.ts",
+            "import": "./dist/esm/RuntimeFlagsPatch.js",
+            "default": "./dist/cjs/RuntimeFlagsPatch.js"
+          },
+          "./STM": {
+            "types": "./dist/dts/STM.d.ts",
+            "import": "./dist/esm/STM.js",
+            "default": "./dist/cjs/STM.js"
+          },
+          "./Schedule": {
+            "types": "./dist/dts/Schedule.d.ts",
+            "import": "./dist/esm/Schedule.js",
+            "default": "./dist/cjs/Schedule.js"
+          },
+          "./ScheduleDecision": {
+            "types": "./dist/dts/ScheduleDecision.d.ts",
+            "import": "./dist/esm/ScheduleDecision.js",
+            "default": "./dist/cjs/ScheduleDecision.js"
+          },
+          "./ScheduleInterval": {
+            "types": "./dist/dts/ScheduleInterval.d.ts",
+            "import": "./dist/esm/ScheduleInterval.js",
+            "default": "./dist/cjs/ScheduleInterval.js"
+          },
+          "./ScheduleIntervals": {
+            "types": "./dist/dts/ScheduleIntervals.d.ts",
+            "import": "./dist/esm/ScheduleIntervals.js",
+            "default": "./dist/cjs/ScheduleIntervals.js"
+          },
+          "./Scheduler": {
+            "types": "./dist/dts/Scheduler.d.ts",
+            "import": "./dist/esm/Scheduler.js",
+            "default": "./dist/cjs/Scheduler.js"
+          },
+          "./Schema": {
+            "types": "./dist/dts/Schema.d.ts",
+            "import": "./dist/esm/Schema.js",
+            "default": "./dist/cjs/Schema.js"
+          },
+          "./SchemaAST": {
+            "types": "./dist/dts/SchemaAST.d.ts",
+            "import": "./dist/esm/SchemaAST.js",
+            "default": "./dist/cjs/SchemaAST.js"
+          },
+          "./Scope": {
+            "types": "./dist/dts/Scope.d.ts",
+            "import": "./dist/esm/Scope.js",
+            "default": "./dist/cjs/Scope.js"
+          },
+          "./ScopedCache": {
+            "types": "./dist/dts/ScopedCache.d.ts",
+            "import": "./dist/esm/ScopedCache.js",
+            "default": "./dist/cjs/ScopedCache.js"
+          },
+          "./ScopedRef": {
+            "types": "./dist/dts/ScopedRef.d.ts",
+            "import": "./dist/esm/ScopedRef.js",
+            "default": "./dist/cjs/ScopedRef.js"
+          },
+          "./Secret": {
+            "types": "./dist/dts/Secret.d.ts",
+            "import": "./dist/esm/Secret.js",
+            "default": "./dist/cjs/Secret.js"
+          },
+          "./SingleProducerAsyncInput": {
+            "types": "./dist/dts/SingleProducerAsyncInput.d.ts",
+            "import": "./dist/esm/SingleProducerAsyncInput.js",
+            "default": "./dist/cjs/SingleProducerAsyncInput.js"
+          },
+          "./Sink": {
+            "types": "./dist/dts/Sink.d.ts",
+            "import": "./dist/esm/Sink.js",
+            "default": "./dist/cjs/Sink.js"
+          },
+          "./SortedMap": {
+            "types": "./dist/dts/SortedMap.d.ts",
+            "import": "./dist/esm/SortedMap.js",
+            "default": "./dist/cjs/SortedMap.js"
+          },
+          "./SortedSet": {
+            "types": "./dist/dts/SortedSet.d.ts",
+            "import": "./dist/esm/SortedSet.js",
+            "default": "./dist/cjs/SortedSet.js"
+          },
+          "./Stream": {
+            "types": "./dist/dts/Stream.d.ts",
+            "import": "./dist/esm/Stream.js",
+            "default": "./dist/cjs/Stream.js"
+          },
+          "./StreamEmit": {
+            "types": "./dist/dts/StreamEmit.d.ts",
+            "import": "./dist/esm/StreamEmit.js",
+            "default": "./dist/cjs/StreamEmit.js"
+          },
+          "./StreamHaltStrategy": {
+            "types": "./dist/dts/StreamHaltStrategy.d.ts",
+            "import": "./dist/esm/StreamHaltStrategy.js",
+            "default": "./dist/cjs/StreamHaltStrategy.js"
+          },
+          "./Streamable": {
+            "types": "./dist/dts/Streamable.d.ts",
+            "import": "./dist/esm/Streamable.js",
+            "default": "./dist/cjs/Streamable.js"
+          },
+          "./String": {
+            "types": "./dist/dts/String.d.ts",
+            "import": "./dist/esm/String.js",
+            "default": "./dist/cjs/String.js"
+          },
+          "./Struct": {
+            "types": "./dist/dts/Struct.d.ts",
+            "import": "./dist/esm/Struct.js",
+            "default": "./dist/cjs/Struct.js"
+          },
+          "./Subscribable": {
+            "types": "./dist/dts/Subscribable.d.ts",
+            "import": "./dist/esm/Subscribable.js",
+            "default": "./dist/cjs/Subscribable.js"
+          },
+          "./SubscriptionRef": {
+            "types": "./dist/dts/SubscriptionRef.d.ts",
+            "import": "./dist/esm/SubscriptionRef.js",
+            "default": "./dist/cjs/SubscriptionRef.js"
+          },
+          "./Supervisor": {
+            "types": "./dist/dts/Supervisor.d.ts",
+            "import": "./dist/esm/Supervisor.js",
+            "default": "./dist/cjs/Supervisor.js"
+          },
+          "./Symbol": {
+            "types": "./dist/dts/Symbol.d.ts",
+            "import": "./dist/esm/Symbol.js",
+            "default": "./dist/cjs/Symbol.js"
+          },
+          "./SynchronizedRef": {
+            "types": "./dist/dts/SynchronizedRef.d.ts",
+            "import": "./dist/esm/SynchronizedRef.js",
+            "default": "./dist/cjs/SynchronizedRef.js"
+          },
+          "./TArray": {
+            "types": "./dist/dts/TArray.d.ts",
+            "import": "./dist/esm/TArray.js",
+            "default": "./dist/cjs/TArray.js"
+          },
+          "./TDeferred": {
+            "types": "./dist/dts/TDeferred.d.ts",
+            "import": "./dist/esm/TDeferred.js",
+            "default": "./dist/cjs/TDeferred.js"
+          },
+          "./TMap": {
+            "types": "./dist/dts/TMap.d.ts",
+            "import": "./dist/esm/TMap.js",
+            "default": "./dist/cjs/TMap.js"
+          },
+          "./TPriorityQueue": {
+            "types": "./dist/dts/TPriorityQueue.d.ts",
+            "import": "./dist/esm/TPriorityQueue.js",
+            "default": "./dist/cjs/TPriorityQueue.js"
+          },
+          "./TPubSub": {
+            "types": "./dist/dts/TPubSub.d.ts",
+            "import": "./dist/esm/TPubSub.js",
+            "default": "./dist/cjs/TPubSub.js"
+          },
+          "./TQueue": {
+            "types": "./dist/dts/TQueue.d.ts",
+            "import": "./dist/esm/TQueue.js",
+            "default": "./dist/cjs/TQueue.js"
+          },
+          "./TRandom": {
+            "types": "./dist/dts/TRandom.d.ts",
+            "import": "./dist/esm/TRandom.js",
+            "default": "./dist/cjs/TRandom.js"
+          },
+          "./TReentrantLock": {
+            "types": "./dist/dts/TReentrantLock.d.ts",
+            "import": "./dist/esm/TReentrantLock.js",
+            "default": "./dist/cjs/TReentrantLock.js"
+          },
+          "./TRef": {
+            "types": "./dist/dts/TRef.d.ts",
+            "import": "./dist/esm/TRef.js",
+            "default": "./dist/cjs/TRef.js"
+          },
+          "./TSemaphore": {
+            "types": "./dist/dts/TSemaphore.d.ts",
+            "import": "./dist/esm/TSemaphore.js",
+            "default": "./dist/cjs/TSemaphore.js"
+          },
+          "./TSet": {
+            "types": "./dist/dts/TSet.d.ts",
+            "import": "./dist/esm/TSet.js",
+            "default": "./dist/cjs/TSet.js"
+          },
+          "./TSubscriptionRef": {
+            "types": "./dist/dts/TSubscriptionRef.d.ts",
+            "import": "./dist/esm/TSubscriptionRef.js",
+            "default": "./dist/cjs/TSubscriptionRef.js"
+          },
+          "./Take": {
+            "types": "./dist/dts/Take.d.ts",
+            "import": "./dist/esm/Take.js",
+            "default": "./dist/cjs/Take.js"
+          },
+          "./TestAnnotation": {
+            "types": "./dist/dts/TestAnnotation.d.ts",
+            "import": "./dist/esm/TestAnnotation.js",
+            "default": "./dist/cjs/TestAnnotation.js"
+          },
+          "./TestAnnotationMap": {
+            "types": "./dist/dts/TestAnnotationMap.d.ts",
+            "import": "./dist/esm/TestAnnotationMap.js",
+            "default": "./dist/cjs/TestAnnotationMap.js"
+          },
+          "./TestAnnotations": {
+            "types": "./dist/dts/TestAnnotations.d.ts",
+            "import": "./dist/esm/TestAnnotations.js",
+            "default": "./dist/cjs/TestAnnotations.js"
+          },
+          "./TestClock": {
+            "types": "./dist/dts/TestClock.d.ts",
+            "import": "./dist/esm/TestClock.js",
+            "default": "./dist/cjs/TestClock.js"
+          },
+          "./TestConfig": {
+            "types": "./dist/dts/TestConfig.d.ts",
+            "import": "./dist/esm/TestConfig.js",
+            "default": "./dist/cjs/TestConfig.js"
+          },
+          "./TestContext": {
+            "types": "./dist/dts/TestContext.d.ts",
+            "import": "./dist/esm/TestContext.js",
+            "default": "./dist/cjs/TestContext.js"
+          },
+          "./TestLive": {
+            "types": "./dist/dts/TestLive.d.ts",
+            "import": "./dist/esm/TestLive.js",
+            "default": "./dist/cjs/TestLive.js"
+          },
+          "./TestServices": {
+            "types": "./dist/dts/TestServices.d.ts",
+            "import": "./dist/esm/TestServices.js",
+            "default": "./dist/cjs/TestServices.js"
+          },
+          "./TestSized": {
+            "types": "./dist/dts/TestSized.d.ts",
+            "import": "./dist/esm/TestSized.js",
+            "default": "./dist/cjs/TestSized.js"
+          },
+          "./Tracer": {
+            "types": "./dist/dts/Tracer.d.ts",
+            "import": "./dist/esm/Tracer.js",
+            "default": "./dist/cjs/Tracer.js"
+          },
+          "./Trie": {
+            "types": "./dist/dts/Trie.d.ts",
+            "import": "./dist/esm/Trie.js",
+            "default": "./dist/cjs/Trie.js"
+          },
+          "./Tuple": {
+            "types": "./dist/dts/Tuple.d.ts",
+            "import": "./dist/esm/Tuple.js",
+            "default": "./dist/cjs/Tuple.js"
+          },
+          "./Types": {
+            "types": "./dist/dts/Types.d.ts",
+            "import": "./dist/esm/Types.js",
+            "default": "./dist/cjs/Types.js"
+          },
+          "./Unify": {
+            "types": "./dist/dts/Unify.d.ts",
+            "import": "./dist/esm/Unify.js",
+            "default": "./dist/cjs/Unify.js"
+          },
+          "./UpstreamPullRequest": {
+            "types": "./dist/dts/UpstreamPullRequest.d.ts",
+            "import": "./dist/esm/UpstreamPullRequest.js",
+            "default": "./dist/cjs/UpstreamPullRequest.js"
+          },
+          "./UpstreamPullStrategy": {
+            "types": "./dist/dts/UpstreamPullStrategy.d.ts",
+            "import": "./dist/esm/UpstreamPullStrategy.js",
+            "default": "./dist/cjs/UpstreamPullStrategy.js"
+          },
+          "./Utils": {
+            "types": "./dist/dts/Utils.d.ts",
+            "import": "./dist/esm/Utils.js",
+            "default": "./dist/cjs/Utils.js"
+          },
+          "./index": {
+            "types": "./dist/dts/index.d.ts",
+            "import": "./dist/esm/index.js",
+            "default": "./dist/cjs/index.js"
+          }
+        },
+        "typesVersions": {
+          "*": {
+            ".index": [
+              "./dist/dts/.index.d.ts"
+            ],
+            "Arbitrary": [
+              "./dist/dts/Arbitrary.d.ts"
+            ],
+            "Array": [
+              "./dist/dts/Array.d.ts"
+            ],
+            "BigDecimal": [
+              "./dist/dts/BigDecimal.d.ts"
+            ],
+            "BigInt": [
+              "./dist/dts/BigInt.d.ts"
+            ],
+            "Boolean": [
+              "./dist/dts/Boolean.d.ts"
+            ],
+            "Brand": [
+              "./dist/dts/Brand.d.ts"
+            ],
+            "Cache": [
+              "./dist/dts/Cache.d.ts"
+            ],
+            "Cause": [
+              "./dist/dts/Cause.d.ts"
+            ],
+            "Channel": [
+              "./dist/dts/Channel.d.ts"
+            ],
+            "ChildExecutorDecision": [
+              "./dist/dts/ChildExecutorDecision.d.ts"
+            ],
+            "Chunk": [
+              "./dist/dts/Chunk.d.ts"
+            ],
+            "Clock": [
+              "./dist/dts/Clock.d.ts"
+            ],
+            "Config": [
+              "./dist/dts/Config.d.ts"
+            ],
+            "ConfigError": [
+              "./dist/dts/ConfigError.d.ts"
+            ],
+            "ConfigProvider": [
+              "./dist/dts/ConfigProvider.d.ts"
+            ],
+            "ConfigProviderPathPatch": [
+              "./dist/dts/ConfigProviderPathPatch.d.ts"
+            ],
+            "Console": [
+              "./dist/dts/Console.d.ts"
+            ],
+            "Context": [
+              "./dist/dts/Context.d.ts"
+            ],
+            "Cron": [
+              "./dist/dts/Cron.d.ts"
+            ],
+            "Data": [
+              "./dist/dts/Data.d.ts"
+            ],
+            "DateTime": [
+              "./dist/dts/DateTime.d.ts"
+            ],
+            "DefaultServices": [
+              "./dist/dts/DefaultServices.d.ts"
+            ],
+            "Deferred": [
+              "./dist/dts/Deferred.d.ts"
+            ],
+            "Differ": [
+              "./dist/dts/Differ.d.ts"
+            ],
+            "Duration": [
+              "./dist/dts/Duration.d.ts"
+            ],
+            "Effect": [
+              "./dist/dts/Effect.d.ts"
+            ],
+            "Effectable": [
+              "./dist/dts/Effectable.d.ts"
+            ],
+            "Either": [
+              "./dist/dts/Either.d.ts"
+            ],
+            "Encoding": [
+              "./dist/dts/Encoding.d.ts"
+            ],
+            "Equal": [
+              "./dist/dts/Equal.d.ts"
+            ],
+            "Equivalence": [
+              "./dist/dts/Equivalence.d.ts"
+            ],
+            "ExecutionPlan": [
+              "./dist/dts/ExecutionPlan.d.ts"
+            ],
+            "ExecutionStrategy": [
+              "./dist/dts/ExecutionStrategy.d.ts"
+            ],
+            "Exit": [
+              "./dist/dts/Exit.d.ts"
+            ],
+            "FastCheck": [
+              "./dist/dts/FastCheck.d.ts"
+            ],
+            "Fiber": [
+              "./dist/dts/Fiber.d.ts"
+            ],
+            "FiberHandle": [
+              "./dist/dts/FiberHandle.d.ts"
+            ],
+            "FiberId": [
+              "./dist/dts/FiberId.d.ts"
+            ],
+            "FiberMap": [
+              "./dist/dts/FiberMap.d.ts"
+            ],
+            "FiberRef": [
+              "./dist/dts/FiberRef.d.ts"
+            ],
+            "FiberRefs": [
+              "./dist/dts/FiberRefs.d.ts"
+            ],
+            "FiberRefsPatch": [
+              "./dist/dts/FiberRefsPatch.d.ts"
+            ],
+            "FiberSet": [
+              "./dist/dts/FiberSet.d.ts"
+            ],
+            "FiberStatus": [
+              "./dist/dts/FiberStatus.d.ts"
+            ],
+            "Function": [
+              "./dist/dts/Function.d.ts"
+            ],
+            "GlobalValue": [
+              "./dist/dts/GlobalValue.d.ts"
+            ],
+            "Graph": [
+              "./dist/dts/Graph.d.ts"
+            ],
+            "GroupBy": [
+              "./dist/dts/GroupBy.d.ts"
+            ],
+            "HKT": [
+              "./dist/dts/HKT.d.ts"
+            ],
+            "Hash": [
+              "./dist/dts/Hash.d.ts"
+            ],
+            "HashMap": [
+              "./dist/dts/HashMap.d.ts"
+            ],
+            "HashRing": [
+              "./dist/dts/HashRing.d.ts"
+            ],
+            "HashSet": [
+              "./dist/dts/HashSet.d.ts"
+            ],
+            "Inspectable": [
+              "./dist/dts/Inspectable.d.ts"
+            ],
+            "Iterable": [
+              "./dist/dts/Iterable.d.ts"
+            ],
+            "JSONSchema": [
+              "./dist/dts/JSONSchema.d.ts"
+            ],
+            "KeyedPool": [
+              "./dist/dts/KeyedPool.d.ts"
+            ],
+            "Layer": [
+              "./dist/dts/Layer.d.ts"
+            ],
+            "LayerMap": [
+              "./dist/dts/LayerMap.d.ts"
+            ],
+            "List": [
+              "./dist/dts/List.d.ts"
+            ],
+            "LogLevel": [
+              "./dist/dts/LogLevel.d.ts"
+            ],
+            "LogSpan": [
+              "./dist/dts/LogSpan.d.ts"
+            ],
+            "Logger": [
+              "./dist/dts/Logger.d.ts"
+            ],
+            "Mailbox": [
+              "./dist/dts/Mailbox.d.ts"
+            ],
+            "ManagedRuntime": [
+              "./dist/dts/ManagedRuntime.d.ts"
+            ],
+            "Match": [
+              "./dist/dts/Match.d.ts"
+            ],
+            "MergeDecision": [
+              "./dist/dts/MergeDecision.d.ts"
+            ],
+            "MergeState": [
+              "./dist/dts/MergeState.d.ts"
+            ],
+            "MergeStrategy": [
+              "./dist/dts/MergeStrategy.d.ts"
+            ],
+            "Metric": [
+              "./dist/dts/Metric.d.ts"
+            ],
+            "MetricBoundaries": [
+              "./dist/dts/MetricBoundaries.d.ts"
+            ],
+            "MetricHook": [
+              "./dist/dts/MetricHook.d.ts"
+            ],
+            "MetricKey": [
+              "./dist/dts/MetricKey.d.ts"
+            ],
+            "MetricKeyType": [
+              "./dist/dts/MetricKeyType.d.ts"
+            ],
+            "MetricLabel": [
+              "./dist/dts/MetricLabel.d.ts"
+            ],
+            "MetricPair": [
+              "./dist/dts/MetricPair.d.ts"
+            ],
+            "MetricPolling": [
+              "./dist/dts/MetricPolling.d.ts"
+            ],
+            "MetricRegistry": [
+              "./dist/dts/MetricRegistry.d.ts"
+            ],
+            "MetricState": [
+              "./dist/dts/MetricState.d.ts"
+            ],
+            "Micro": [
+              "./dist/dts/Micro.d.ts"
+            ],
+            "ModuleVersion": [
+              "./dist/dts/ModuleVersion.d.ts"
+            ],
+            "MutableHashMap": [
+              "./dist/dts/MutableHashMap.d.ts"
+            ],
+            "MutableHashSet": [
+              "./dist/dts/MutableHashSet.d.ts"
+            ],
+            "MutableList": [
+              "./dist/dts/MutableList.d.ts"
+            ],
+            "MutableQueue": [
+              "./dist/dts/MutableQueue.d.ts"
+            ],
+            "MutableRef": [
+              "./dist/dts/MutableRef.d.ts"
+            ],
+            "NonEmptyIterable": [
+              "./dist/dts/NonEmptyIterable.d.ts"
+            ],
+            "Number": [
+              "./dist/dts/Number.d.ts"
+            ],
+            "Option": [
+              "./dist/dts/Option.d.ts"
+            ],
+            "Order": [
+              "./dist/dts/Order.d.ts"
+            ],
+            "Ordering": [
+              "./dist/dts/Ordering.d.ts"
+            ],
+            "ParseResult": [
+              "./dist/dts/ParseResult.d.ts"
+            ],
+            "PartitionedSemaphore": [
+              "./dist/dts/PartitionedSemaphore.d.ts"
+            ],
+            "Pipeable": [
+              "./dist/dts/Pipeable.d.ts"
+            ],
+            "Pool": [
+              "./dist/dts/Pool.d.ts"
+            ],
+            "Predicate": [
+              "./dist/dts/Predicate.d.ts"
+            ],
+            "Pretty": [
+              "./dist/dts/Pretty.d.ts"
+            ],
+            "PrimaryKey": [
+              "./dist/dts/PrimaryKey.d.ts"
+            ],
+            "PubSub": [
+              "./dist/dts/PubSub.d.ts"
+            ],
+            "Queue": [
+              "./dist/dts/Queue.d.ts"
+            ],
+            "Random": [
+              "./dist/dts/Random.d.ts"
+            ],
+            "RateLimiter": [
+              "./dist/dts/RateLimiter.d.ts"
+            ],
+            "RcMap": [
+              "./dist/dts/RcMap.d.ts"
+            ],
+            "RcRef": [
+              "./dist/dts/RcRef.d.ts"
+            ],
+            "Readable": [
+              "./dist/dts/Readable.d.ts"
+            ],
+            "Record": [
+              "./dist/dts/Record.d.ts"
+            ],
+            "RedBlackTree": [
+              "./dist/dts/RedBlackTree.d.ts"
+            ],
+            "Redacted": [
+              "./dist/dts/Redacted.d.ts"
+            ],
+            "Ref": [
+              "./dist/dts/Ref.d.ts"
+            ],
+            "RegExp": [
+              "./dist/dts/RegExp.d.ts"
+            ],
+            "Reloadable": [
+              "./dist/dts/Reloadable.d.ts"
+            ],
+            "Request": [
+              "./dist/dts/Request.d.ts"
+            ],
+            "RequestBlock": [
+              "./dist/dts/RequestBlock.d.ts"
+            ],
+            "RequestResolver": [
+              "./dist/dts/RequestResolver.d.ts"
+            ],
+            "Resource": [
+              "./dist/dts/Resource.d.ts"
+            ],
+            "Runtime": [
+              "./dist/dts/Runtime.d.ts"
+            ],
+            "RuntimeFlags": [
+              "./dist/dts/RuntimeFlags.d.ts"
+            ],
+            "RuntimeFlagsPatch": [
+              "./dist/dts/RuntimeFlagsPatch.d.ts"
+            ],
+            "STM": [
+              "./dist/dts/STM.d.ts"
+            ],
+            "Schedule": [
+              "./dist/dts/Schedule.d.ts"
+            ],
+            "ScheduleDecision": [
+              "./dist/dts/ScheduleDecision.d.ts"
+            ],
+            "ScheduleInterval": [
+              "./dist/dts/ScheduleInterval.d.ts"
+            ],
+            "ScheduleIntervals": [
+              "./dist/dts/ScheduleIntervals.d.ts"
+            ],
+            "Scheduler": [
+              "./dist/dts/Scheduler.d.ts"
+            ],
+            "Schema": [
+              "./dist/dts/Schema.d.ts"
+            ],
+            "SchemaAST": [
+              "./dist/dts/SchemaAST.d.ts"
+            ],
+            "Scope": [
+              "./dist/dts/Scope.d.ts"
+            ],
+            "ScopedCache": [
+              "./dist/dts/ScopedCache.d.ts"
+            ],
+            "ScopedRef": [
+              "./dist/dts/ScopedRef.d.ts"
+            ],
+            "Secret": [
+              "./dist/dts/Secret.d.ts"
+            ],
+            "SingleProducerAsyncInput": [
+              "./dist/dts/SingleProducerAsyncInput.d.ts"
+            ],
+            "Sink": [
+              "./dist/dts/Sink.d.ts"
+            ],
+            "SortedMap": [
+              "./dist/dts/SortedMap.d.ts"
+            ],
+            "SortedSet": [
+              "./dist/dts/SortedSet.d.ts"
+            ],
+            "Stream": [
+              "./dist/dts/Stream.d.ts"
+            ],
+            "StreamEmit": [
+              "./dist/dts/StreamEmit.d.ts"
+            ],
+            "StreamHaltStrategy": [
+              "./dist/dts/StreamHaltStrategy.d.ts"
+            ],
+            "Streamable": [
+              "./dist/dts/Streamable.d.ts"
+            ],
+            "String": [
+              "./dist/dts/String.d.ts"
+            ],
+            "Struct": [
+              "./dist/dts/Struct.d.ts"
+            ],
+            "Subscribable": [
+              "./dist/dts/Subscribable.d.ts"
+            ],
+            "SubscriptionRef": [
+              "./dist/dts/SubscriptionRef.d.ts"
+            ],
+            "Supervisor": [
+              "./dist/dts/Supervisor.d.ts"
+            ],
+            "Symbol": [
+              "./dist/dts/Symbol.d.ts"
+            ],
+            "SynchronizedRef": [
+              "./dist/dts/SynchronizedRef.d.ts"
+            ],
+            "TArray": [
+              "./dist/dts/TArray.d.ts"
+            ],
+            "TDeferred": [
+              "./dist/dts/TDeferred.d.ts"
+            ],
+            "TMap": [
+              "./dist/dts/TMap.d.ts"
+            ],
+            "TPriorityQueue": [
+              "./dist/dts/TPriorityQueue.d.ts"
+            ],
+            "TPubSub": [
+              "./dist/dts/TPubSub.d.ts"
+            ],
+            "TQueue": [
+              "./dist/dts/TQueue.d.ts"
+            ],
+            "TRandom": [
+              "./dist/dts/TRandom.d.ts"
+            ],
+            "TReentrantLock": [
+              "./dist/dts/TReentrantLock.d.ts"
+            ],
+            "TRef": [
+              "./dist/dts/TRef.d.ts"
+            ],
+            "TSemaphore": [
+              "./dist/dts/TSemaphore.d.ts"
+            ],
+            "TSet": [
+              "./dist/dts/TSet.d.ts"
+            ],
+            "TSubscriptionRef": [
+              "./dist/dts/TSubscriptionRef.d.ts"
+            ],
+            "Take": [
+              "./dist/dts/Take.d.ts"
+            ],
+            "TestAnnotation": [
+              "./dist/dts/TestAnnotation.d.ts"
+            ],
+            "TestAnnotationMap": [
+              "./dist/dts/TestAnnotationMap.d.ts"
+            ],
+            "TestAnnotations": [
+              "./dist/dts/TestAnnotations.d.ts"
+            ],
+            "TestClock": [
+              "./dist/dts/TestClock.d.ts"
+            ],
+            "TestConfig": [
+              "./dist/dts/TestConfig.d.ts"
+            ],
+            "TestContext": [
+              "./dist/dts/TestContext.d.ts"
+            ],
+            "TestLive": [
+              "./dist/dts/TestLive.d.ts"
+            ],
+            "TestServices": [
+              "./dist/dts/TestServices.d.ts"
+            ],
+            "TestSized": [
+              "./dist/dts/TestSized.d.ts"
+            ],
+            "Tracer": [
+              "./dist/dts/Tracer.d.ts"
+            ],
+            "Trie": [
+              "./dist/dts/Trie.d.ts"
+            ],
+            "Tuple": [
+              "./dist/dts/Tuple.d.ts"
+            ],
+            "Types": [
+              "./dist/dts/Types.d.ts"
+            ],
+            "Unify": [
+              "./dist/dts/Unify.d.ts"
+            ],
+            "UpstreamPullRequest": [
+              "./dist/dts/UpstreamPullRequest.d.ts"
+            ],
+            "UpstreamPullStrategy": [
+              "./dist/dts/UpstreamPullStrategy.d.ts"
+            ],
+            "Utils": [
+              "./dist/dts/Utils.d.ts"
+            ],
+            "index": [
+              "./dist/dts/index.d.ts"
+            ]
+          }
+        }
+      }
+    },
+    "node_modules/effect/ParseResult/package.json": {
+      "sha256": "29e07c8de997e1be947fd6a23f43478b0d773068d55ddc626bcc0c192b147ef8",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ParseResult.js",
+        "module": "../dist/esm/ParseResult.js",
+        "types": "../dist/dts/ParseResult.d.ts"
+      }
+    },
+    "node_modules/effect/PartitionedSemaphore/package.json": {
+      "sha256": "8676529ca77ede2d0336abdcd6a71578975550444b1fe4addfc007c7a98f53fc",
+      "bytes": 176,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/PartitionedSemaphore.js",
+        "module": "../dist/esm/PartitionedSemaphore.js",
+        "types": "../dist/dts/PartitionedSemaphore.d.ts"
+      }
+    },
+    "node_modules/effect/Pipeable/package.json": {
+      "sha256": "874598b39fecfc97dee6094096d25ae98b40afefd1725a9ad4218cc75f177b7e",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Pipeable.js",
+        "module": "../dist/esm/Pipeable.js",
+        "types": "../dist/dts/Pipeable.d.ts"
+      }
+    },
+    "node_modules/effect/Pool/package.json": {
+      "sha256": "8df0016cbd1728789f1f5f84de858eaea61c1e6696580440ef8977d611e49022",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Pool.js",
+        "module": "../dist/esm/Pool.js",
+        "types": "../dist/dts/Pool.d.ts"
+      }
+    },
+    "node_modules/effect/Predicate/package.json": {
+      "sha256": "31e96808b9882782d292748b289e677fa08e86e1b34bb7f340a03cc03718803a",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Predicate.js",
+        "module": "../dist/esm/Predicate.js",
+        "types": "../dist/dts/Predicate.d.ts"
+      }
+    },
+    "node_modules/effect/Pretty/package.json": {
+      "sha256": "ba26088830fa8b89cbe07bddeaa3e6aafbc54de28c982ef1c7e95952becab555",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Pretty.js",
+        "module": "../dist/esm/Pretty.js",
+        "types": "../dist/dts/Pretty.d.ts"
+      }
+    },
+    "node_modules/effect/PrimaryKey/package.json": {
+      "sha256": "0c35d289c964dc7a80197f5a624054581b1ddc41d08f05e4bc81c72808151fdf",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/PrimaryKey.js",
+        "module": "../dist/esm/PrimaryKey.js",
+        "types": "../dist/dts/PrimaryKey.d.ts"
+      }
+    },
+    "node_modules/effect/PubSub/package.json": {
+      "sha256": "6089c760980d05c2d475fedffc427274dac95b369654d740e57d4b37df89df3a",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/PubSub.js",
+        "module": "../dist/esm/PubSub.js",
+        "types": "../dist/dts/PubSub.d.ts"
+      }
+    },
+    "node_modules/effect/Queue/package.json": {
+      "sha256": "b7a4a096762abe53b07211d3d76326ed29b80da69f49c7da2245cd091a599b11",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Queue.js",
+        "module": "../dist/esm/Queue.js",
+        "types": "../dist/dts/Queue.d.ts"
+      }
+    },
+    "node_modules/effect/Random/package.json": {
+      "sha256": "5912da455537db02135cf7dc275e113d712924dbb2e6ed975e03da9f94851a1d",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Random.js",
+        "module": "../dist/esm/Random.js",
+        "types": "../dist/dts/Random.d.ts"
+      }
+    },
+    "node_modules/effect/RateLimiter/package.json": {
+      "sha256": "df4f32993e2277ee9f9be31e2c9f18dc8ed708d9463218ea81a7dc17d8883bcc",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/RateLimiter.js",
+        "module": "../dist/esm/RateLimiter.js",
+        "types": "../dist/dts/RateLimiter.d.ts"
+      }
+    },
+    "node_modules/effect/RcMap/package.json": {
+      "sha256": "2eb71ae676b5ca2e8e2e45de262969efb3c54e493373c736051531b69a839ebb",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/RcMap.js",
+        "module": "../dist/esm/RcMap.js",
+        "types": "../dist/dts/RcMap.d.ts"
+      }
+    },
+    "node_modules/effect/RcRef/package.json": {
+      "sha256": "9fe77df33b436040a0a74a64b721a3bbbe5ab5515fba48f7bb529511a31cb91e",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/RcRef.js",
+        "module": "../dist/esm/RcRef.js",
+        "types": "../dist/dts/RcRef.d.ts"
+      }
+    },
+    "node_modules/effect/Readable/package.json": {
+      "sha256": "8eabf3a17eaeb9dfd7b686c90d96c846c6fa97a7282002ddbc4c687db826e5c9",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Readable.js",
+        "module": "../dist/esm/Readable.js",
+        "types": "../dist/dts/Readable.d.ts"
+      }
+    },
+    "node_modules/effect/Record/package.json": {
+      "sha256": "7250fab7b69db5c07e14085f46537331e703f279ef85ea8fce06b9f370cb1ad9",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Record.js",
+        "module": "../dist/esm/Record.js",
+        "types": "../dist/dts/Record.d.ts"
+      }
+    },
+    "node_modules/effect/Redacted/package.json": {
+      "sha256": "6f44531cd7e913bb7c31916a50258ee0cfaca2d926cc507b0005b3c4c3881766",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Redacted.js",
+        "module": "../dist/esm/Redacted.js",
+        "types": "../dist/dts/Redacted.d.ts"
+      }
+    },
+    "node_modules/effect/RedBlackTree/package.json": {
+      "sha256": "5cdce8d1ef5a9019e80fb4b6e7b7d7cd2fc1bb9db06c4c39d43187cb9660b9e8",
+      "bytes": 152,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/RedBlackTree.js",
+        "module": "../dist/esm/RedBlackTree.js",
+        "types": "../dist/dts/RedBlackTree.d.ts"
+      }
+    },
+    "node_modules/effect/Ref/package.json": {
+      "sha256": "baae7b2049a8730f535601dfa02d28a499f9f20904c94e97448236f81a331acb",
+      "bytes": 125,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Ref.js",
+        "module": "../dist/esm/Ref.js",
+        "types": "../dist/dts/Ref.d.ts"
+      }
+    },
+    "node_modules/effect/RegExp/package.json": {
+      "sha256": "71f43e6d6005ea13dab012d06d63f4edec916d56eecc9e0f5e948a08ed360bb8",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/RegExp.js",
+        "module": "../dist/esm/RegExp.js",
+        "types": "../dist/dts/RegExp.d.ts"
+      }
+    },
+    "node_modules/effect/Reloadable/package.json": {
+      "sha256": "7b2de1fdc31d3b7fdc859b70a735bd668f5484751a69b3c2550d8f90f415efbb",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Reloadable.js",
+        "module": "../dist/esm/Reloadable.js",
+        "types": "../dist/dts/Reloadable.d.ts"
+      }
+    },
+    "node_modules/effect/Request/package.json": {
+      "sha256": "0f45f61abbb8c8cd1e1d6bb2c54cbd45c892b9d280cdfafcf9e7a3ef2b0b4da2",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Request.js",
+        "module": "../dist/esm/Request.js",
+        "types": "../dist/dts/Request.d.ts"
+      }
+    },
+    "node_modules/effect/RequestBlock/package.json": {
+      "sha256": "18b87c1a2f46b3a129700484445ca970b915ec49b3c6c0376eb7fd328a44e076",
+      "bytes": 152,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/RequestBlock.js",
+        "module": "../dist/esm/RequestBlock.js",
+        "types": "../dist/dts/RequestBlock.d.ts"
+      }
+    },
+    "node_modules/effect/RequestResolver/package.json": {
+      "sha256": "2e96c2aeb46ca8b7405ddb43024e12a311b13923f0b4137507008b8f3a643d6d",
+      "bytes": 161,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/RequestResolver.js",
+        "module": "../dist/esm/RequestResolver.js",
+        "types": "../dist/dts/RequestResolver.d.ts"
+      }
+    },
+    "node_modules/effect/Resource/package.json": {
+      "sha256": "45995db940867704475691fe55e2ccd319c36ff06662aba0ed0bff7c89ef6554",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Resource.js",
+        "module": "../dist/esm/Resource.js",
+        "types": "../dist/dts/Resource.d.ts"
+      }
+    },
+    "node_modules/effect/Runtime/package.json": {
+      "sha256": "8d95220d920748c7ea209e84b50bf235de972aed143783001a9c5ac1cf34f880",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Runtime.js",
+        "module": "../dist/esm/Runtime.js",
+        "types": "../dist/dts/Runtime.d.ts"
+      }
+    },
+    "node_modules/effect/RuntimeFlags/package.json": {
+      "sha256": "d05a4ff097e0b3ebb004c57b3de318a1190a5ac383e806ed0b12b5c799eb4554",
+      "bytes": 152,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/RuntimeFlags.js",
+        "module": "../dist/esm/RuntimeFlags.js",
+        "types": "../dist/dts/RuntimeFlags.d.ts"
+      }
+    },
+    "node_modules/effect/RuntimeFlagsPatch/package.json": {
+      "sha256": "ce9ad8422b33767ec93e640ba700706edfb1e32eff00065f6c4595c1c27b2eca",
+      "bytes": 167,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/RuntimeFlagsPatch.js",
+        "module": "../dist/esm/RuntimeFlagsPatch.js",
+        "types": "../dist/dts/RuntimeFlagsPatch.d.ts"
+      }
+    },
+    "node_modules/effect/Schedule/package.json": {
+      "sha256": "490491980554c6682b8188d258313d972c72a539afc18e86cde74551619b61a5",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Schedule.js",
+        "module": "../dist/esm/Schedule.js",
+        "types": "../dist/dts/Schedule.d.ts"
+      }
+    },
+    "node_modules/effect/ScheduleDecision/package.json": {
+      "sha256": "6045288cd10005a06d81edb1f48f7fe08865bf53a12767a0200d6caab77bd791",
+      "bytes": 164,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ScheduleDecision.js",
+        "module": "../dist/esm/ScheduleDecision.js",
+        "types": "../dist/dts/ScheduleDecision.d.ts"
+      }
+    },
+    "node_modules/effect/ScheduleInterval/package.json": {
+      "sha256": "825e0efdf6786888fd8e9040fb40bbc2f61e242cd697208f0ea5975705e6fea9",
+      "bytes": 164,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ScheduleInterval.js",
+        "module": "../dist/esm/ScheduleInterval.js",
+        "types": "../dist/dts/ScheduleInterval.d.ts"
+      }
+    },
+    "node_modules/effect/ScheduleIntervals/package.json": {
+      "sha256": "8d38b3edd3630b5ea40e976463df283ead490f2f1e5630de5cb4b988fbce50e6",
+      "bytes": 167,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ScheduleIntervals.js",
+        "module": "../dist/esm/ScheduleIntervals.js",
+        "types": "../dist/dts/ScheduleIntervals.d.ts"
+      }
+    },
+    "node_modules/effect/Scheduler/package.json": {
+      "sha256": "9bc945dbe6e857e42b342448dc510ca23c2e81b8a8f6b55b2b6f265b85274d10",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Scheduler.js",
+        "module": "../dist/esm/Scheduler.js",
+        "types": "../dist/dts/Scheduler.d.ts"
+      }
+    },
+    "node_modules/effect/Schema/package.json": {
+      "sha256": "0f34627509dd7adcb0689fbaf61ddb9c1f96acf2ff4e1341e545ada635fd852f",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Schema.js",
+        "module": "../dist/esm/Schema.js",
+        "types": "../dist/dts/Schema.d.ts"
+      }
+    },
+    "node_modules/effect/SchemaAST/package.json": {
+      "sha256": "3401500d6c554b482fb4ce357de63e3b7bc628eaad047f7433fc2bfc732c2df2",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/SchemaAST.js",
+        "module": "../dist/esm/SchemaAST.js",
+        "types": "../dist/dts/SchemaAST.d.ts"
+      }
+    },
+    "node_modules/effect/Scope/package.json": {
+      "sha256": "a9ed98006548ff8817c06145960a14d0f443d1f65796838b2b3402284aca0076",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Scope.js",
+        "module": "../dist/esm/Scope.js",
+        "types": "../dist/dts/Scope.d.ts"
+      }
+    },
+    "node_modules/effect/ScopedCache/package.json": {
+      "sha256": "cdc36b50e0fc731be39e7552b46d22396c537cdff09862775455f5b937a10567",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ScopedCache.js",
+        "module": "../dist/esm/ScopedCache.js",
+        "types": "../dist/dts/ScopedCache.d.ts"
+      }
+    },
+    "node_modules/effect/ScopedRef/package.json": {
+      "sha256": "39be180180715c1943f32f2f0b1ebf0268aa3d3a6483bd6a1ca990b7035a4941",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/ScopedRef.js",
+        "module": "../dist/esm/ScopedRef.js",
+        "types": "../dist/dts/ScopedRef.d.ts"
+      }
+    },
+    "node_modules/effect/Secret/package.json": {
+      "sha256": "05372d28b66a4398561a7110e41700ce43e6ced1c03f94fea56e5ff0c053b92f",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Secret.js",
+        "module": "../dist/esm/Secret.js",
+        "types": "../dist/dts/Secret.d.ts"
+      }
+    },
+    "node_modules/effect/SingleProducerAsyncInput/package.json": {
+      "sha256": "5148b157701b87b6014c794ec68a7a8c635d59ed0b27660f86fbf6e8c34bb70b",
+      "bytes": 188,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/SingleProducerAsyncInput.js",
+        "module": "../dist/esm/SingleProducerAsyncInput.js",
+        "types": "../dist/dts/SingleProducerAsyncInput.d.ts"
+      }
+    },
+    "node_modules/effect/Sink/package.json": {
+      "sha256": "5c077d03ff47ee4f704e44e2c5f6764514174593def82e3a97029433c731e169",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Sink.js",
+        "module": "../dist/esm/Sink.js",
+        "types": "../dist/dts/Sink.d.ts"
+      }
+    },
+    "node_modules/effect/SortedMap/package.json": {
+      "sha256": "f9fd3d0e13dafc478b3659d1677907f4224af8bf883141774639570869c9a71a",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/SortedMap.js",
+        "module": "../dist/esm/SortedMap.js",
+        "types": "../dist/dts/SortedMap.d.ts"
+      }
+    },
+    "node_modules/effect/SortedSet/package.json": {
+      "sha256": "a1e11279512cf39a12d807d61bb063df58cea13061ec197743f44b82f64a8d10",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/SortedSet.js",
+        "module": "../dist/esm/SortedSet.js",
+        "types": "../dist/dts/SortedSet.d.ts"
+      }
+    },
+    "node_modules/effect/STM/package.json": {
+      "sha256": "bda68b7ffb9c7a38ad748381a61271997c598056dc9e7deed268f53c8856df61",
+      "bytes": 125,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/STM.js",
+        "module": "../dist/esm/STM.js",
+        "types": "../dist/dts/STM.d.ts"
+      }
+    },
+    "node_modules/effect/Stream/package.json": {
+      "sha256": "0dfaf6429f36e588063d4dc2e5d67ae3494e52f6b60c5301b01563d033e3a33f",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Stream.js",
+        "module": "../dist/esm/Stream.js",
+        "types": "../dist/dts/Stream.d.ts"
+      }
+    },
+    "node_modules/effect/Streamable/package.json": {
+      "sha256": "2640b290c1154ebe58a23885d586ed6afcbc78993a187c6120733c31e1962661",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Streamable.js",
+        "module": "../dist/esm/Streamable.js",
+        "types": "../dist/dts/Streamable.d.ts"
+      }
+    },
+    "node_modules/effect/StreamEmit/package.json": {
+      "sha256": "b108025b9251790459a5e7f5bb772772763d4de9697fecc41887f27573b36f1b",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/StreamEmit.js",
+        "module": "../dist/esm/StreamEmit.js",
+        "types": "../dist/dts/StreamEmit.d.ts"
+      }
+    },
+    "node_modules/effect/StreamHaltStrategy/package.json": {
+      "sha256": "8c047f1edc7c7b12c92a06b7b434ece912c9c499503a3a7234ac0a8ab41155b6",
+      "bytes": 170,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/StreamHaltStrategy.js",
+        "module": "../dist/esm/StreamHaltStrategy.js",
+        "types": "../dist/dts/StreamHaltStrategy.d.ts"
+      }
+    },
+    "node_modules/effect/String/package.json": {
+      "sha256": "20376b5e44d4584e7eee6d433acfdbe944c3087ec3ac98510ba1705aefc5ed85",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/String.js",
+        "module": "../dist/esm/String.js",
+        "types": "../dist/dts/String.d.ts"
+      }
+    },
+    "node_modules/effect/Struct/package.json": {
+      "sha256": "920abdeb60af643f66f9930581c0271d3376a4014874f8463de644a055f2bd7b",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Struct.js",
+        "module": "../dist/esm/Struct.js",
+        "types": "../dist/dts/Struct.d.ts"
+      }
+    },
+    "node_modules/effect/Subscribable/package.json": {
+      "sha256": "b0a2973e39aa68496a2f5f8fb6d8f767c774d64b9e3606d14484ab5e42806b4b",
+      "bytes": 152,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Subscribable.js",
+        "module": "../dist/esm/Subscribable.js",
+        "types": "../dist/dts/Subscribable.d.ts"
+      }
+    },
+    "node_modules/effect/SubscriptionRef/package.json": {
+      "sha256": "4a965b3bca48a1a44c0a4226820d365c3d0d78287c081e24e361c2d83045dfa6",
+      "bytes": 161,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/SubscriptionRef.js",
+        "module": "../dist/esm/SubscriptionRef.js",
+        "types": "../dist/dts/SubscriptionRef.d.ts"
+      }
+    },
+    "node_modules/effect/Supervisor/package.json": {
+      "sha256": "30a0b681979442e2d9a2373bd4bdd91cc25dde04d34370e156c77c1e94ab9980",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Supervisor.js",
+        "module": "../dist/esm/Supervisor.js",
+        "types": "../dist/dts/Supervisor.d.ts"
+      }
+    },
+    "node_modules/effect/Symbol/package.json": {
+      "sha256": "cb70ed4bac3dd438ca90bfcdd676584fd2cead4fc95fe5b1ce08ff4dbcd3c112",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Symbol.js",
+        "module": "../dist/esm/Symbol.js",
+        "types": "../dist/dts/Symbol.d.ts"
+      }
+    },
+    "node_modules/effect/SynchronizedRef/package.json": {
+      "sha256": "83206349fb011cbbd80b410804ae897f3da90333e01dd73d119a41517270c297",
+      "bytes": 161,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/SynchronizedRef.js",
+        "module": "../dist/esm/SynchronizedRef.js",
+        "types": "../dist/dts/SynchronizedRef.d.ts"
+      }
+    },
+    "node_modules/effect/Take/package.json": {
+      "sha256": "61bc5b02f96a11877e0c7da481ea9463444c79b8dd26c3a12d9b9c4f9154f44b",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Take.js",
+        "module": "../dist/esm/Take.js",
+        "types": "../dist/dts/Take.d.ts"
+      }
+    },
+    "node_modules/effect/TArray/package.json": {
+      "sha256": "62342520c501ca52f15ce09a866dc3e8a8705b183d1e633341c75fda9e784947",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TArray.js",
+        "module": "../dist/esm/TArray.js",
+        "types": "../dist/dts/TArray.d.ts"
+      }
+    },
+    "node_modules/effect/TDeferred/package.json": {
+      "sha256": "15440ac777a80023343813ca171b6948c68df11f2523971379cffc921937df02",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TDeferred.js",
+        "module": "../dist/esm/TDeferred.js",
+        "types": "../dist/dts/TDeferred.d.ts"
+      }
+    },
+    "node_modules/effect/TestAnnotation/package.json": {
+      "sha256": "edd303c53f7b998e57d26f02a3564f0a937816065d5b268b9d44dd720750286e",
+      "bytes": 158,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TestAnnotation.js",
+        "module": "../dist/esm/TestAnnotation.js",
+        "types": "../dist/dts/TestAnnotation.d.ts"
+      }
+    },
+    "node_modules/effect/TestAnnotationMap/package.json": {
+      "sha256": "3338d94657624afc4c9eed4d937c95dbd51d808d6cf56ee4e829121df0e7ef54",
+      "bytes": 167,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TestAnnotationMap.js",
+        "module": "../dist/esm/TestAnnotationMap.js",
+        "types": "../dist/dts/TestAnnotationMap.d.ts"
+      }
+    },
+    "node_modules/effect/TestAnnotations/package.json": {
+      "sha256": "ce8886d5cfd1acf1baf25131be15912292dce0bed95da818057d113fecb25d34",
+      "bytes": 161,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TestAnnotations.js",
+        "module": "../dist/esm/TestAnnotations.js",
+        "types": "../dist/dts/TestAnnotations.d.ts"
+      }
+    },
+    "node_modules/effect/TestClock/package.json": {
+      "sha256": "cce3f2a65c7b7cb82290f86b30c270bdbeb4c9a8e7198acfe7b545255238475b",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TestClock.js",
+        "module": "../dist/esm/TestClock.js",
+        "types": "../dist/dts/TestClock.d.ts"
+      }
+    },
+    "node_modules/effect/TestConfig/package.json": {
+      "sha256": "de393f1de3474de6ea789336abf322955081d19951a7006bfa0e63ed5e1a2ee0",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TestConfig.js",
+        "module": "../dist/esm/TestConfig.js",
+        "types": "../dist/dts/TestConfig.d.ts"
+      }
+    },
+    "node_modules/effect/TestContext/package.json": {
+      "sha256": "d83f2f43b18654f52cde85ef493cb34386976b39db773337ebda40340b280edb",
+      "bytes": 149,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TestContext.js",
+        "module": "../dist/esm/TestContext.js",
+        "types": "../dist/dts/TestContext.d.ts"
+      }
+    },
+    "node_modules/effect/TestLive/package.json": {
+      "sha256": "c0b68ffa0f4942b412c9ff079fc7a50a65db5106909b809152e7f377d453f7fb",
+      "bytes": 140,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TestLive.js",
+        "module": "../dist/esm/TestLive.js",
+        "types": "../dist/dts/TestLive.d.ts"
+      }
+    },
+    "node_modules/effect/TestServices/package.json": {
+      "sha256": "a7e00c024fd964b739156653a35b8c4a365c516f339adb681204748dd59136ff",
+      "bytes": 152,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TestServices.js",
+        "module": "../dist/esm/TestServices.js",
+        "types": "../dist/dts/TestServices.d.ts"
+      }
+    },
+    "node_modules/effect/TestSized/package.json": {
+      "sha256": "bc85f7ea1c3de6bb1c4048ede9afd05397ce953e577817568908b776bc914878",
+      "bytes": 143,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TestSized.js",
+        "module": "../dist/esm/TestSized.js",
+        "types": "../dist/dts/TestSized.d.ts"
+      }
+    },
+    "node_modules/effect/TMap/package.json": {
+      "sha256": "a506e23ea4d2963b1da1fbecbb78f9f810c7d6ae2ccafe4e57955ac4bc1b2ec8",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TMap.js",
+        "module": "../dist/esm/TMap.js",
+        "types": "../dist/dts/TMap.d.ts"
+      }
+    },
+    "node_modules/effect/TPriorityQueue/package.json": {
+      "sha256": "f6d3193d1e91151101df337237b6847572f495699bcdef92a0fc56dd349601c9",
+      "bytes": 158,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TPriorityQueue.js",
+        "module": "../dist/esm/TPriorityQueue.js",
+        "types": "../dist/dts/TPriorityQueue.d.ts"
+      }
+    },
+    "node_modules/effect/TPubSub/package.json": {
+      "sha256": "36c904ad7717d7ebc69d11a5002a4ab4044ddc6a0614e3cd8aaf6108d97c3fb4",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TPubSub.js",
+        "module": "../dist/esm/TPubSub.js",
+        "types": "../dist/dts/TPubSub.d.ts"
+      }
+    },
+    "node_modules/effect/TQueue/package.json": {
+      "sha256": "78a95d85d118ef56a5e567692d9f323f29dad7b447b1a5bbe76ed497fcd4eeea",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TQueue.js",
+        "module": "../dist/esm/TQueue.js",
+        "types": "../dist/dts/TQueue.d.ts"
+      }
+    },
+    "node_modules/effect/Tracer/package.json": {
+      "sha256": "6f136082b1c837815dcdf69602729a0bbbe16a7ce71c0f7abb1a495e2a9ef1a9",
+      "bytes": 134,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Tracer.js",
+        "module": "../dist/esm/Tracer.js",
+        "types": "../dist/dts/Tracer.d.ts"
+      }
+    },
+    "node_modules/effect/TRandom/package.json": {
+      "sha256": "faea9214faeab8c9a80afa5079ff8e52c85b8d3b7a5107e10a30d050464b6bb2",
+      "bytes": 137,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TRandom.js",
+        "module": "../dist/esm/TRandom.js",
+        "types": "../dist/dts/TRandom.d.ts"
+      }
+    },
+    "node_modules/effect/TReentrantLock/package.json": {
+      "sha256": "462801d31a68c692b1079bbd689e82c23c3d66543ba60cb46ea07403a9ddb04e",
+      "bytes": 158,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TReentrantLock.js",
+        "module": "../dist/esm/TReentrantLock.js",
+        "types": "../dist/dts/TReentrantLock.d.ts"
+      }
+    },
+    "node_modules/effect/TRef/package.json": {
+      "sha256": "95cb1a017af2042096fbf7b14dd923759cba98815f7d5e8e389510c7c4ad3b9c",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TRef.js",
+        "module": "../dist/esm/TRef.js",
+        "types": "../dist/dts/TRef.d.ts"
+      }
+    },
+    "node_modules/effect/Trie/package.json": {
+      "sha256": "96308b6690e729ff935088e5d0c5d4ab0b683966b0d235bf954c845cd19470f6",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Trie.js",
+        "module": "../dist/esm/Trie.js",
+        "types": "../dist/dts/Trie.d.ts"
+      }
+    },
+    "node_modules/effect/TSemaphore/package.json": {
+      "sha256": "893a5b8bf22c8543c50729a954d2d9f8f56d50e7bf2aaeed51a362585b370e35",
+      "bytes": 146,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TSemaphore.js",
+        "module": "../dist/esm/TSemaphore.js",
+        "types": "../dist/dts/TSemaphore.d.ts"
+      }
+    },
+    "node_modules/effect/TSet/package.json": {
+      "sha256": "782b1bc025255480f99328b194d15676234a017bb6f13a5abdd1f69a981df690",
+      "bytes": 128,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TSet.js",
+        "module": "../dist/esm/TSet.js",
+        "types": "../dist/dts/TSet.d.ts"
+      }
+    },
+    "node_modules/effect/TSubscriptionRef/package.json": {
+      "sha256": "c54fbe0533d9e949f0e6d8a009310da752145ad998945d01da7b16bb93349967",
+      "bytes": 164,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/TSubscriptionRef.js",
+        "module": "../dist/esm/TSubscriptionRef.js",
+        "types": "../dist/dts/TSubscriptionRef.d.ts"
+      }
+    },
+    "node_modules/effect/Tuple/package.json": {
+      "sha256": "b90b6bed61e85250e56625da657bc273d3d93f59444231a71f1b827dec50ff36",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Tuple.js",
+        "module": "../dist/esm/Tuple.js",
+        "types": "../dist/dts/Tuple.d.ts"
+      }
+    },
+    "node_modules/effect/Types/package.json": {
+      "sha256": "7bac1e993d9573595ab5e1d8e04fca06b3429b1cc31d0570246f9c9f83926c7a",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Types.js",
+        "module": "../dist/esm/Types.js",
+        "types": "../dist/dts/Types.d.ts"
+      }
+    },
+    "node_modules/effect/Unify/package.json": {
+      "sha256": "67f993db5e2c9637d40b7ad95fc5bec277a441c9c76fb8bd01c156c6993ebc29",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Unify.js",
+        "module": "../dist/esm/Unify.js",
+        "types": "../dist/dts/Unify.d.ts"
+      }
+    },
+    "node_modules/effect/UpstreamPullRequest/package.json": {
+      "sha256": "b94900ee8c091f00f0f92d01b82a266ecc963109eaf2ecdf2256e079bb8f9edc",
+      "bytes": 173,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/UpstreamPullRequest.js",
+        "module": "../dist/esm/UpstreamPullRequest.js",
+        "types": "../dist/dts/UpstreamPullRequest.d.ts"
+      }
+    },
+    "node_modules/effect/UpstreamPullStrategy/package.json": {
+      "sha256": "59e24633791a3013f68a94d78da268f2872e6639f04080dd0b7cded9698e387d",
+      "bytes": 176,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/UpstreamPullStrategy.js",
+        "module": "../dist/esm/UpstreamPullStrategy.js",
+        "types": "../dist/dts/UpstreamPullStrategy.d.ts"
+      }
+    },
+    "node_modules/effect/Utils/package.json": {
+      "sha256": "345602142ea20531689c2d953486a153c31a2693e68e047a308397f9f91e509c",
+      "bytes": 131,
+      "mode": "0o644",
+      "package": {
+        "sideEffects": [],
+        "main": "../dist/cjs/Utils.js",
+        "module": "../dist/esm/Utils.js",
+        "types": "../dist/dts/Utils.d.ts"
+      }
+    },
+    "node_modules/fast-check/lib/esm/package.json": {
+      "sha256": "3ca9d4afd21425087cf31893b8f9f63c81b0b8408db5e343ca76e5f8aa26ab9a",
+      "bytes": 23,
+      "mode": "0o644",
+      "package": {
+        "type": "module"
+      }
+    },
+    "node_modules/fast-check/package.json": {
+      "sha256": "b994e87a5691e4edb1eead91c23093b86149bcb73c0af5e55f3593d16e1b35d4",
+      "bytes": 3319,
+      "mode": "0o644",
+      "package": {
+        "name": "fast-check",
+        "version": "3.23.2",
+        "description": "Property based testing framework for JavaScript (like QuickCheck)",
+        "type": "commonjs",
+        "main": "lib/fast-check.js",
+        "exports": {
+          "./package.json": "./package.json",
+          ".": {
+            "require": {
+              "types": "./lib/types/fast-check.d.ts",
+              "default": "./lib/fast-check.js"
+            },
+            "import": {
+              "types": "./lib/esm/types/fast-check.d.ts",
+              "default": "./lib/esm/fast-check.js"
+            }
+          }
+        },
+        "module": "lib/esm/fast-check.js",
+        "types": "lib/types/fast-check.d.ts",
+        "files": [
+          "lib",
+          "runkit.cjs"
+        ],
+        "sideEffects": false,
+        "runkitExampleFilename": "runkit.cjs",
+        "scripts": {
+          "build": "yarn build:publish-cjs && yarn build:publish-esm && yarn build:publish-types && node postbuild/main.mjs",
+          "build-ci": "cross-env EXPECT_GITHUB_SHA=true yarn build",
+          "build:publish-types": "tsc -p tsconfig.publish.types.json && tsc -p tsconfig.publish.types.json --outDir lib/esm/types",
+          "build:publish-cjs": "tsc -p tsconfig.publish.json",
+          "build:publish-esm": "tsc -p tsconfig.publish.json --module es2015 --moduleResolution node --outDir lib/esm && cp package.esm-template.json lib/esm/package.json",
+          "typecheck": "tsc --noEmit",
+          "test": "vitest --config vitest.unit.config.mjs",
+          "e2e": "vitest --config vitest.e2e.config.mjs",
+          "update:documentation": "cross-env UPDATE_CODE_SNIPPETS=true vitest --config vitest.documentation.config.mjs",
+          "test-bundle": "node test-bundle/run.cjs && node test-bundle/run.mjs && node test-bundle/run-advanced.cjs",
+          "test-legacy-bundle": "nvs add 8 && $(nvs which 8) test-bundle/run.cjs && $(nvs which 8) test-bundle/run-advanced.cjs",
+          "docs": "api-extractor run --local && rm docs/fast-check.api.json && typedoc --out docs src/fast-check-default.ts && node postbuild/main.mjs",
+          "docs-ci": "cross-env EXPECT_GITHUB_SHA=true yarn docs",
+          "docs:serve": "yarn dlx serve docs/"
+        },
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/dubzzz/fast-check.git",
+          "directory": "packages/fast-check"
+        },
+        "author": "Nicolas DUBIEN <github@dubien.org>",
+        "license": "MIT",
+        "bugs": {
+          "url": "https://github.com/dubzzz/fast-check/issues"
+        },
+        "homepage": "https://fast-check.dev/",
+        "engines": {
+          "node": ">=8.0.0"
+        },
+        "dependencies": {
+          "pure-rand": "^6.1.0"
+        },
+        "devDependencies": {
+          "@fast-check/expect-type": "0.2.0",
+          "@fast-check/poisoning": "0.2.2",
+          "@microsoft/api-extractor": "^7.48.0",
+          "@types/node": "^20.14.15",
+          "@vitest/coverage-v8": "^2.1.8",
+          "cross-env": "^7.0.3",
+          "glob": "^11.0.0",
+          "not-node-buffer": "npm:buffer@^6.0.3",
+          "regexp-tree": "^0.1.27",
+          "replace-in-file": "^8.2.0",
+          "typedoc": "^0.27.4",
+          "typescript": "~5.7.2",
+          "vitest": "^2.1.8"
+        },
+        "keywords": [
+          "property-based testing",
+          "end-to-end testing",
+          "unit testing",
+          "testing",
+          "quickcheck",
+          "jscheck",
+          "jsverify",
+          "faker",
+          "fuzzer",
+          "fuzz",
+          "jest"
+        ],
+        "tsd": {
+          "directory": "test/type"
+        },
+        "funding": [
+          {
+            "type": "individual",
+            "url": "https://github.com/sponsors/dubzzz"
+          },
+          {
+            "type": "opencollective",
+            "url": "https://opencollective.com/fast-check"
+          }
+        ]
+      }
+    },
+    "node_modules/fast-deep-equal/package.json": {
+      "sha256": "a5c63940db0260739be9e2ac67f3aac268df4db5770420ee4e34e493152f97d2",
+      "bytes": 1496,
+      "mode": "0o644",
+      "package": {
+        "name": "fast-deep-equal",
+        "version": "3.1.3",
+        "description": "Fast deep equal",
+        "main": "index.js",
+        "scripts": {
+          "eslint": "eslint *.js benchmark/*.js spec/*.js",
+          "build": "node build",
+          "benchmark": "npm i && npm run build && cd ./benchmark && npm i && node ./",
+          "test-spec": "mocha spec/*.spec.js -R spec",
+          "test-cov": "nyc npm run test-spec",
+          "test-ts": "tsc --target ES5 --noImplicitAny index.d.ts",
+          "test": "npm run build && npm run eslint && npm run test-ts && npm run test-cov",
+          "prepublish": "npm run build"
+        },
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/epoberezkin/fast-deep-equal.git"
+        },
+        "keywords": [
+          "fast",
+          "equal",
+          "deep-equal"
+        ],
+        "author": "Evgeny Poberezkin",
+        "license": "MIT",
+        "bugs": {
+          "url": "https://github.com/epoberezkin/fast-deep-equal/issues"
+        },
+        "homepage": "https://github.com/epoberezkin/fast-deep-equal#readme",
+        "devDependencies": {
+          "coveralls": "^3.1.0",
+          "dot": "^1.1.2",
+          "eslint": "^7.2.0",
+          "mocha": "^7.2.0",
+          "nyc": "^15.1.0",
+          "pre-commit": "^1.2.2",
+          "react": "^16.12.0",
+          "react-test-renderer": "^16.12.0",
+          "sinon": "^9.0.2",
+          "typescript": "^3.9.5"
+        },
+        "nyc": {
+          "exclude": [
+            "**/spec/**",
+            "node_modules"
+          ],
+          "reporter": [
+            "lcov",
+            "text-summary"
+          ]
+        },
+        "files": [
+          "index.js",
+          "index.d.ts",
+          "react.js",
+          "react.d.ts",
+          "es6/"
+        ],
+        "types": "index.d.ts"
+      }
+    },
+    "node_modules/fast-uri/benchmark/package.json": {
+      "sha256": "463a034d344b042e495841b770ca69a812693087ee2053d7c18cc8497e020b58",
+      "bytes": 293,
+      "mode": "0o644",
+      "package": {
+        "name": "benchmark",
+        "version": "1.0.0",
+        "description": "",
+        "main": "index.js",
+        "private": true,
+        "scripts": {
+          "bench": "node benchmark.mjs"
+        },
+        "keywords": [],
+        "author": "",
+        "license": "ISC",
+        "dependencies": {
+          "tinybench": "^5.0.0",
+          "uri-js": "^4.4.1"
+        }
+      }
+    },
+    "node_modules/fast-uri/package.json": {
+      "sha256": "e634f3848a2c6c7e1cdc28b119b16e072e10dada8a3ca3f175a2372d0dd83360",
+      "bytes": 1983,
+      "mode": "0o644",
+      "package": {
+        "name": "fast-uri",
+        "description": "Dependency-free RFC 3986 URI toolbox",
+        "version": "3.1.7",
+        "main": "index.js",
+        "type": "commonjs",
+        "types": "types/index.d.ts",
+        "license": "BSD-3-Clause",
+        "author": "Vincent Le Goff <vince.legoff@gmail.com> (https://github.com/zekth)",
+        "contributors": [
+          {
+            "name": "Matteo Collina",
+            "email": "hello@matteocollina.com"
+          },
+          {
+            "name": "G\u00fcrg\u00fcn Day\u0131o\u011flu",
+            "email": "hey@gurgun.day",
+            "url": "https://heyhey.to/G"
+          },
+          {
+            "name": "Aras Abbasi",
+            "email": "aras.abbasi@gmail.com"
+          },
+          {
+            "name": "Frazer Smith",
+            "email": "frazer.dev@icloud.com",
+            "url": "https://github.com/fdawgs"
+          }
+        ],
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/fastify/fast-uri.git"
+        },
+        "bugs": {
+          "url": "https://github.com/fastify/fast-uri/issues"
+        },
+        "homepage": "https://github.com/fastify/fast-uri",
+        "funding": [
+          {
+            "type": "github",
+            "url": "https://github.com/sponsors/fastify"
+          },
+          {
+            "type": "opencollective",
+            "url": "https://opencollective.com/fastify"
+          }
+        ],
+        "scripts": {
+          "lint": "eslint",
+          "lint:fix": "eslint --fix",
+          "test": "npm run test:unit && npm run test:typescript",
+          "test:browser:chromium": "playwright-test ./test/* --runner tape --browser=chromium",
+          "test:browser:firefox": "playwright-test ./test/* --runner tape --browser=firefox",
+          "test:browser:webkit": "playwright-test ./test/* --runner tape --browser=webkit",
+          "test:browser": "npm run test:browser:chromium && npm run test:browser:firefox && npm run test:browser:webkit",
+          "test:unit": "tape test/**/*.js",
+          "test:unit:dev": "npm run test:unit -- --coverage-report=html",
+          "test:typescript": "tsd"
+        },
+        "devDependencies": {
+          "ajv": "^8.16.0",
+          "eslint": "^9.17.0",
+          "neostandard": "^0.13.0",
+          "playwright-test": "^14.1.12",
+          "tape": "^5.8.1",
+          "tsd": "^0.33.0"
+        }
+      }
+    },
+    "node_modules/json-schema-traverse/package.json": {
+      "sha256": "156fb24af02845c190701360d06dfda35ef04282e34a734289ea9535ad9819ae",
+      "bytes": 1004,
+      "mode": "0o644",
+      "package": {
+        "name": "json-schema-traverse",
+        "version": "1.0.0",
+        "description": "Traverse JSON Schema passing each schema object to callback",
+        "main": "index.js",
+        "types": "index.d.ts",
+        "scripts": {
+          "eslint": "eslint index.js spec",
+          "test-spec": "mocha spec -R spec",
+          "test": "npm run eslint && nyc npm run test-spec"
+        },
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/epoberezkin/json-schema-traverse.git"
+        },
+        "keywords": [
+          "JSON-Schema",
+          "traverse",
+          "iterate"
+        ],
+        "author": "Evgeny Poberezkin",
+        "license": "MIT",
+        "bugs": {
+          "url": "https://github.com/epoberezkin/json-schema-traverse/issues"
+        },
+        "homepage": "https://github.com/epoberezkin/json-schema-traverse#readme",
+        "devDependencies": {
+          "eslint": "^7.3.1",
+          "mocha": "^8.0.1",
+          "nyc": "^15.0.0",
+          "pre-commit": "^1.2.2"
+        },
+        "nyc": {
+          "exclude": [
+            "**/spec/**",
+            "node_modules"
+          ],
+          "reporter": [
+            "lcov",
+            "text-summary"
+          ]
+        }
+      }
+    },
+    "node_modules/jsonc-parser/package.json": {
+      "sha256": "a7a9192caaac00d9330592f4fd572908bee037518128a0fc3db96d2cd652e2b5",
+      "bytes": 1180,
+      "mode": "0o644",
+      "package": {
+        "name": "jsonc-parser",
+        "version": "3.3.1",
+        "description": "Scanner and parser for JSON with comments.",
+        "main": "./lib/umd/main.js",
+        "typings": "./lib/umd/main.d.ts",
+        "module": "./lib/esm/main.js",
+        "author": "Microsoft Corporation",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/microsoft/node-jsonc-parser"
+        },
+        "license": "MIT",
+        "bugs": {
+          "url": "https://github.com/microsoft/node-jsonc-parser/issues"
+        },
+        "devDependencies": {
+          "@types/mocha": "^10.0.7",
+          "@types/node": "^18.x",
+          "@typescript-eslint/eslint-plugin": "^7.13.1",
+          "@typescript-eslint/parser": "^7.13.1",
+          "eslint": "^8.57.0",
+          "mocha": "^10.4.0",
+          "rimraf": "^5.0.7",
+          "typescript": "^5.4.2"
+        },
+        "scripts": {
+          "prepack": "npm run clean && npm run compile-esm && npm run test && npm run remove-sourcemap-refs",
+          "compile": "tsc -p ./src && npm run lint",
+          "compile-esm": "tsc -p ./src/tsconfig.esm.json",
+          "remove-sourcemap-refs": "node ./build/remove-sourcemap-refs.js",
+          "clean": "rimraf lib",
+          "watch": "tsc -w -p ./src",
+          "test": "npm run compile && mocha ./lib/umd/test",
+          "lint": "eslint src/**/*.ts"
+        }
+      }
+    },
+    "node_modules/pure-rand/lib/esm/package.json": {
+      "sha256": "3ca9d4afd21425087cf31893b8f9f63c81b0b8408db5e343ca76e5f8aa26ab9a",
+      "bytes": 23,
+      "mode": "0o644",
+      "package": {
+        "type": "module"
+      }
+    },
+    "node_modules/pure-rand/package.json": {
+      "sha256": "e1a7720a77fd356d282ac02a5fdeae6428b5e622ea5eb46c5ab367d28b099143",
+      "bytes": 2406,
+      "mode": "0o644",
+      "package": {
+        "name": "pure-rand",
+        "version": "6.1.0",
+        "description": " Pure random number generator written in TypeScript",
+        "type": "commonjs",
+        "main": "lib/pure-rand.js",
+        "exports": {
+          "./package.json": "./package.json",
+          ".": {
+            "require": {
+              "types": "./lib/types/pure-rand.d.ts",
+              "default": "./lib/pure-rand.js"
+            },
+            "import": {
+              "types": "./lib/esm/types/pure-rand.d.ts",
+              "default": "./lib/esm/pure-rand.js"
+            }
+          }
+        },
+        "module": "lib/esm/pure-rand.js",
+        "types": "lib/types/pure-rand.d.ts",
+        "files": [
+          "lib"
+        ],
+        "sideEffects": false,
+        "packageManager": "yarn@4.1.1",
+        "scripts": {
+          "format:check": "prettier --list-different .",
+          "format": "prettier --write .",
+          "build": "tsc && tsc -p ./tsconfig.declaration.json",
+          "build:esm": "tsc --module es2015 --outDir lib/esm --moduleResolution node && tsc -p ./tsconfig.declaration.json --outDir lib/esm/types && cp package.esm-template.json lib/esm/package.json",
+          "build:prod": "yarn build && yarn build:esm && node postbuild/main.cjs",
+          "build:prod-ci": "cross-env EXPECT_GITHUB_SHA=true yarn build:prod",
+          "test": "jest --config jest.config.js --coverage",
+          "build:bench:old": "tsc --outDir lib-reference/",
+          "build:bench:new": "tsc --outDir lib-test/",
+          "bench": "node perf/benchmark.cjs"
+        },
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/dubzzz/pure-rand.git"
+        },
+        "author": "Nicolas DUBIEN <github@dubien.org>",
+        "license": "MIT",
+        "bugs": {
+          "url": "https://github.com/dubzzz/pure-rand/issues"
+        },
+        "homepage": "https://github.com/dubzzz/pure-rand#readme",
+        "devDependencies": {
+          "@types/jest": "^29.5.12",
+          "@types/node": "^20.11.30",
+          "cross-env": "^7.0.3",
+          "fast-check": "^3.16.0",
+          "jest": "^29.7.0",
+          "prettier": "3.2.5",
+          "replace-in-file": "^7.1.0",
+          "source-map-support": "^0.5.21",
+          "tinybench": "^2.6.0",
+          "ts-jest": "^29.1.2",
+          "ts-node": "^10.9.2",
+          "typescript": "^5.4.2"
+        },
+        "keywords": [
+          "seed",
+          "random",
+          "prng",
+          "generator",
+          "pure",
+          "rand",
+          "mersenne",
+          "random number generator",
+          "fastest",
+          "fast"
+        ],
+        "funding": [
+          {
+            "type": "individual",
+            "url": "https://github.com/sponsors/dubzzz"
+          },
+          {
+            "type": "opencollective",
+            "url": "https://opencollective.com/fast-check"
+          }
+        ]
+      }
+    },
+    "node_modules/require-from-string/package.json": {
+      "sha256": "c0002f7d4c7d7e2a885cf0f97226344902417c3a0980f2beca41962d2bc1f6d8",
+      "bytes": 511,
+      "mode": "0o644",
+      "package": {
+        "name": "require-from-string",
+        "version": "2.0.2",
+        "description": "Require module from string",
+        "license": "MIT",
+        "repository": "floatdrop/require-from-string",
+        "author": {
+          "name": "Vsevolod Strukchinsky",
+          "email": "floatdrop@gmail.com",
+          "url": "github.com/floatdrop"
+        },
+        "engines": {
+          "node": ">=0.10.0"
+        },
+        "scripts": {
+          "test": "mocha"
+        },
+        "files": [
+          "index.js"
+        ],
+        "keywords": [
+          ""
+        ],
+        "dependencies": {},
+        "devDependencies": {
+          "mocha": "*"
+        }
+      }
+    },
+    "node_modules/valibot/package.json": {
+      "sha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb",
+      "bytes": 1914,
+      "mode": "0o644",
+      "package": {
+        "name": "valibot",
+        "description": "The modular and type safe schema library for validating structural data",
+        "version": "1.4.2",
+        "license": "MIT",
+        "author": "Fabian Hiller",
+        "homepage": "https://valibot.dev",
+        "repository": {
+          "type": "git",
+          "url": "https://github.com/open-circle/valibot"
+        },
+        "keywords": [
+          "modular",
+          "typescript",
+          "schema",
+          "validation",
+          "parsing",
+          "bundle-size",
+          "type-safe",
+          "runtime"
+        ],
+        "type": "module",
+        "main": "./dist/index.mjs",
+        "types": "./dist/index.d.mts",
+        "exports": {
+          ".": {
+            "import": {
+              "types": "./dist/index.d.mts",
+              "default": "./dist/index.mjs"
+            },
+            "require": {
+              "types": "./dist/index.d.cts",
+              "default": "./dist/index.cjs"
+            }
+          }
+        },
+        "sideEffects": false,
+        "files": [
+          "dist"
+        ],
+        "publishConfig": {
+          "access": "public"
+        },
+        "scripts": {
+          "play": "tsm ./playground.ts",
+          "test": "vitest --typecheck",
+          "coverage": "vitest run --coverage --isolate",
+          "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit && deno check ./src/index.ts",
+          "lint.fix": "eslint \"src/**/*.ts*\" --fix",
+          "format": "prettier --write ./src",
+          "format.check": "prettier --check ./src",
+          "build": "tsdown"
+        },
+        "devDependencies": {
+          "@eslint/js": "^9.39.1",
+          "@vitest/coverage-v8": "^4.1.8",
+          "eslint": "^9.39.1",
+          "eslint-plugin-import": "^2.32.0",
+          "eslint-plugin-jsdoc": "^61.4.0",
+          "eslint-plugin-redos-detector": "^3.1.1",
+          "eslint-plugin-regexp": "^2.10.0",
+          "eslint-plugin-security": "^3.0.1",
+          "jsdom": "^27.2.0",
+          "tsdown": "^0.16.6",
+          "tsm": "^2.3.0",
+          "typescript": "^5.9.3",
+          "typescript-eslint": "^8.47.0",
+          "vite": "^7.2.4",
+          "vitest": "4.1.8"
+        },
+        "peerDependencies": {
+          "typescript": ">=5"
+        },
+        "peerDependenciesMeta": {
+          "typescript": {
+            "optional": true
+          }
+        }
+      }
+    },
+    "package.json": {
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "bytes": 9744,
+      "mode": "0o644",
+      "package": {
+        "name": "@abiogenesis/typescript-tenant",
+        "version": "5.0.0-rc.1",
+        "description": "ABIogenesis 5 direct-GTL TypeScript product",
+        "private": true,
+        "type": "module",
+        "packageManager": "npm@11.5.1",
+        "engines": {
+          "node": ">=20"
+        },
+        "bin": {
+          "abg.cli": "./build/code/src/public/cli.js",
+          "abg.codex": "./build/code/src/public/codex_cli.js"
+        },
+        "exports": {
+          ".": {
+            "types": "./build/code/src/index.d.ts",
+            "import": "./build/code/src/index.js"
+          },
+          "./product": {
+            "types": "./build/code/src/product/index.d.ts",
+            "import": "./build/code/src/product/index.js"
+          },
+          "./abg": {
+            "types": "./build/code/src/abg/index.d.ts",
+            "import": "./build/code/src/abg/index.js"
+          },
+          "./gtl": {
+            "types": "./build/code/src/gtl/index.d.ts",
+            "import": "./build/code/src/gtl/index.js"
+          },
+          "./hog": {
+            "types": "./build/code/src/hog/index.d.ts",
+            "import": "./build/code/src/hog/index.js"
+          },
+          "./public": {
+            "types": "./build/code/src/public/index.d.ts",
+            "import": "./build/code/src/public/index.js"
+          },
+          "./validator": {
+            "types": "./build/code/src/validator/index.d.ts",
+            "import": "./build/code/src/validator/index.js"
+          },
+          "./gtl/m01": {
+            "types": "./build/code/src/gtl/m01.d.ts",
+            "import": "./build/code/src/gtl/m01.js"
+          },
+          "./gtl/m02": {
+            "types": "./build/code/src/gtl/m02.d.ts",
+            "import": "./build/code/src/gtl/m02.js"
+          },
+          "./gtl/requirements": {
+            "types": "./build/code/src/gtl/requirements.d.ts",
+            "import": "./build/code/src/gtl/requirements.js"
+          },
+          "./abg/requirements": {
+            "types": "./build/code/src/abg/requirements.d.ts",
+            "import": "./build/code/src/abg/requirements.js"
+          },
+          "./abg/m03": {
+            "types": "./build/code/src/abg/m03.d.ts",
+            "import": "./build/code/src/abg/m03.js"
+          },
+          "./abg/m03/transport": {
+            "types": "./build/code/src/abg/m03/transport.d.ts",
+            "import": "./build/code/src/abg/m03/transport.js"
+          },
+          "./app/m04": {
+            "types": "./build/code/src/app/m04.d.ts",
+            "import": "./build/code/src/app/m04.js"
+          },
+          "./qualification/m05": {
+            "types": "./build/code/src/qualification/m05.d.ts",
+            "import": "./build/code/src/qualification/m05.js"
+          }
+        },
+        "files": [
+          "build/**",
+          "contracts/**",
+          "product-toolchain-manifest.json"
+        ],
+        "dependencies": {
+          "@valibot/to-json-schema": "1.7.1",
+          "effect": "3.22.1",
+          "jsonc-parser": "3.3.1",
+          "valibot": "1.4.2",
+          "ajv": "8.20.0",
+          "ajv-formats": "3.0.1"
+        },
+        "bundleDependencies": [
+          "@valibot/to-json-schema",
+          "effect",
+          "jsonc-parser",
+          "valibot",
+          "ajv",
+          "ajv-formats"
+        ],
+        "scripts": {
+          "lint": "node scripts/lint-verification.mjs",
+          "clean": "node scripts/clean.mjs",
+          "build": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
+          "prepack": "npm run build",
+          "test:r1": "npm run build && node --experimental-vm-modules --test test_env/tests/r1-packed-artifact.test.mjs",
+          "test:r2": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs",
+          "test:r3": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs",
+          "test:r4": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs",
+          "test:r5": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs",
+          "test:r6": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs",
+          "test:r7": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs",
+          "test:r8": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs",
+          "test:r9": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs",
+          "test:m4": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/rival-authority-mutations.test.mjs test_env/tests/runtime-scope-regressions.test.mjs",
+          "test:m5:gtl": "npm run build && node --experimental-vm-modules --test test_env/tests/m5-c-algebra-validation.test.mjs",
+          "test:m5:graph-edge": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-installed-graph-edge.test.mjs",
+          "test:m5:reopen": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-event-store-reopen.test.mjs",
+          "test:m5:event-calculus": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-event-calculus-runtime.test.mjs",
+          "test:m5:s03-unit": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-s03-authority.test.mjs",
+          "test:m5:consensus-unit": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-consensus-module.test.mjs",
+          "test:m5:s06-prime": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-s06-prime.test.mjs",
+          "test:m5:portability": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-installed-portability.test.mjs",
+          "test:m5:conservation": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-calculus-state-transfer.test.mjs",
+          "test:m5": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/m5-installed-graph-edge.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/m5-event-store-reopen.test.mjs test_env/tests/m5-event-calculus-runtime.test.mjs test_env/tests/m5-retry-lifecycle-authority.test.mjs test_env/tests/m5-s03-authority.test.mjs test_env/tests/m5-consensus-module.test.mjs test_env/tests/m5-s06-prime.test.mjs test_env/tests/m5-installed-portability.test.mjs test_env/tests/m5-terminal-quiescence-owner.test.mjs test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+          "test:unit": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+          "test:installed:language": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/installed-language-smoke.test.mjs",
+          "test:boundary": "node --test test_env/tests/hello-product-boundary.test.mjs",
+          "test:public-groups": "node --test test_env/tests/t287-public-groups.test.mjs",
+          "test:uat:harness": "node --test test_env/uat/harness.test.mjs",
+          "test:uat:list": "node scripts/sandbox-uat.mjs list",
+          "test:uat:preflight": "node scripts/sandbox-uat.mjs preflight",
+          "test:uat:prepare": "node scripts/sandbox-uat.mjs prepare",
+          "test:uat:run": "node scripts/sandbox-uat.mjs run",
+          "test": "npm run test:unit && npm run test:uat:harness"
+        },
+        "devDependencies": {
+          "@types/node": "24.3.0",
+          "typescript": "5.9.2"
+        }
+      }
+    }
+  }
+}

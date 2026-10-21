@@ -1,0 +1,79 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "lane": "public-preparation",
+  "activation": "L4-P1-CANDIDATE-01",
+  "artifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "18d80743d9b431445ce50d2acf47971554e1cce6ce14057175da8aa32c901f4e"
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "2935813eaa6a49d2fec0139fa240a36132801efbfab353a4c467ec4005c9b142"
+  },
+  "requiredFrozenP2Inputs": {
+    "preparationResult": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/result.json",
+      "sha256": "82a457f53f99d37723bf6cd78d381637579a00b01165968b4cb4def78e3836f4",
+      "bytes": 1767
+    },
+    "preparationSetup": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/p1-owner-state.json",
+      "sha256": "1f76ba95dee4e5594336bd586a5162beb8842447b26b5e3cee9883c3a3fa3af1",
+      "bytes": 41971083
+    },
+    "verificationCall": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/calls/product-verify-0.request.jsonl",
+      "sha256": "d317a045d215f64ebd4407392539a32d225881f3ee0ab1cbebb0eb60a666371f",
+      "bytes": 28344247
+    },
+    "verificationOutcome": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/calls/product-verify-0.outcome.json",
+      "sha256": "af9609acc2595aee50b6f70cdf76d021af5f4125043ebcabc1999f05eeed4ac5",
+      "bytes": 257219
+    }
+  },
+  "actualCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:2dd3d145cf3af7330614719b988df6f101d7b18c12575af07dac826ebe69bbb3",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:92b64d99d675e6c6f12d940d1141d0338b21c435581bf2c1bb6261ef000e8a0d",
+      "prefixLength": 3113299,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 473931616
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:e50a397e6adadd658deda92b38b5de2abd1b03083d6e3e317fee056dfab128cb",
+      "device": 16777231,
+      "durableByteLength": 3113299,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:92b64d99d675e6c6f12d940d1141d0338b21c435581bf2c1bb6261ef000e8a0d",
+      "eventLogPath": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/resources/events/runtime.events.jsonl",
+      "inode": 473931616,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "resolvedLockIdentity": {
+    "lockId": "product-lock://abiogenesis/e816aacd72e91703db65ff0de0a8da9ca15d442f1c62d649640b5c5f49f3504e",
+    "lockDigest": "sha256:e816aacd72e91703db65ff0de0a8da9ca15d442f1c62d649640b5c5f49f3504e",
+    "nativeContractClosureDigest": "sha256:ee2b219cf585f70d4431abc51662737672d0e4dd7df5844c7d7c70e32c90cc00"
+  },
+  "originalInstallInvocation": {
+    "label": "product-install-0",
+    "exitCode": 0,
+    "definitionKey": {
+      "operationId": "abg.operation.product.install",
+      "memberKey": "install"
+    },
+    "outcomeKind": "result",
+    "invocationRef": "invocation://abiogenesis/bc1930a2d085ab2d5266771a604b5521dd7899a0c4eec17669d6d1957806a806"
+  },
+  "P2Status": "not activated; requires new exact configuration/grant, distinct physical host/install invocation, original installation preservation and actual returned successor-prefix oracle",
+  "liveResourceSemantics": "Event store and physical roots are retained at this cut. Any later admitted successor may grow the live event resource; this original handoff and events.jsonl prefix copy remain exact historical evidence."
+}

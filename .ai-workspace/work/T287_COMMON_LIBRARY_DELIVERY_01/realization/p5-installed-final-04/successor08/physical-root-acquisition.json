@@ -1,0 +1,9 @@
+{
+  "physical": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6",
+  "scratchParent": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/scratch",
+  "evidenceRoot": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/evidence",
+  "cache": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/cache",
+  "cacheInitiallyEmpty": true,
+  "evidenceInitiallyAbsent": true,
+  "retained": true
+}

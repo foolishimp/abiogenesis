@@ -1,0 +1,8 @@
+{
+  "activation": "N3-IMPORTER-ACCOUNTING-01",
+  "importers": 9,
+  "without_opt_in": 8,
+  "conditional_with_legacy_default": 1,
+  "links_checked": 75,
+  "Product_execution": false
+}

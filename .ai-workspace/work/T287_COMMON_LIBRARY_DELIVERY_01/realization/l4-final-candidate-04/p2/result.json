@@ -1,0 +1,105 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "lane": "partial-install",
+  "actualResult": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/result.json",
+    "sha256": "c3988696097ae0f8c17678ec092a561625e05a510e3b0bbb3bf43388ffccb5c3",
+    "bytes": 1909,
+    "mode": "0o644"
+  },
+  "portableResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/result.json",
+    "sha256": "c3988696097ae0f8c17678ec092a561625e05a510e3b0bbb3bf43388ffccb5c3",
+    "bytes": 1909,
+    "mode": "0o644"
+  },
+  "oracle": {
+    "predicate": "P2 physical success and admission refusal",
+    "satisfied": true,
+    "prefixEquality": true,
+    "prefixRule": "Equality is an observation of actual owner coordinates, never inferred from target_failure."
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:4022c510b170808cf38fc7894b1d30d041704852d8333e0b6021eb91a4f78fe7",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:fd32ad0ba5da46843d90610ea2fed1c46d2c3f025403e067428cdcc39f11a930",
+      "prefixLength": 3113245,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 474626658
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:032c84b48a453b1c09b54e54736a94843365fc968ff42fa1d0f4778470d83e55",
+      "device": 16777231,
+      "durableByteLength": 3113245,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:fd32ad0ba5da46843d90610ea2fed1c46d2c3f025403e067428cdcc39f11a930",
+      "eventLogPath": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/resources/events/runtime.events.jsonl",
+      "inode": 474626658,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "nativeCalls": 0,
+  "retryCount": 0,
+  "receipt": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/calls/second-install.outcome.json",
+    "sha256": "0d2ae9764f7084b958148e2afa85dccb32b8067969e477bc645a07c0608d9df3",
+    "bytes": 4290,
+    "mode": "0o644"
+  },
+  "physicalCandidate": {
+    "digest": "sha256:66bcda4b757d183cd0c768f824f4b5a9c7bcc965c4f3a6ba09ae78b9b26546e6",
+    "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214/21c043526fabf5fa40bc14664d9a0817e544b367a266263eb1c1b1e83916b877"
+  },
+  "secondAdmission": null,
+  "secondPhysicalInventory": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/second-physical-inventory.json",
+    "sha256": "577dd0314bc60d4686102b2b64e2bd7726118f402b73f5fd243c2d9255c6dc25",
+    "bytes": 988006,
+    "mode": "0o644"
+  },
+  "originalPhysicalInventory": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/original-physical-inventory.json",
+    "sha256": "8735c5aec050ec840850d63db1e19889875e5a866aa4c0a56ddb73c692c318fc",
+    "bytes": 988023,
+    "mode": "0o644"
+  },
+  "afterOwnerProjection": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/after-owner-projection.json",
+    "sha256": "3268db2c6081ed688d606e147e4a152a6eeeb5a7214e0c1f54d89578d86f4cfd",
+    "bytes": 28727957,
+    "mode": "0o644"
+  },
+  "returnedHandoff": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/actual-returned-handoff.json",
+    "sha256": "65ec759e9d5b168c65e2a0f5f39ec8768940a3efa3bf4019dac10f8735acc8af",
+    "bytes": 1230,
+    "mode": "0o644"
+  },
+  "processResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/process-result.json",
+    "sha256": "5f628c05e08d4e8dedd0e422d5561704d09c6ff50632b33592bfc09652504495",
+    "bytes": 311,
+    "mode": "0o644"
+  },
+  "physicalInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/physical-resources.json",
+    "sha256": "5eae1d9f78dbad53d8a1b1f8b35c05ba4d0c1190b75ee38ecb4d928b7ad916c0",
+    "bytes": 4646142,
+    "mode": "0o644"
+  },
+  "retainedFootprints": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/retained-footprints.json",
+    "sha256": "cec10c770ec75b6bbe1872f1528449bb475ab16c90e14cef63f1e8ac27b34cd2",
+    "bytes": 3305,
+    "mode": "0o644"
+  },
+  "claims": "Actual physical duplicate and admission refusal retained. Prefix equality is observed, not inferred from refusal. No L5/release acceptance."
+}

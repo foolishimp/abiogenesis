@@ -1,0 +1,65 @@
+{
+  "note": "acquired exact deciding sources beyond the initial activation snapshot; parallel Writer targets excluded",
+  "files": [
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+      "bytes": 7870,
+      "sha256": "2a0fc5559673a860c2b7ff16091ba2ba37da3b1fe1337141c2faa639d6ca1e64"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "bytes": 2952,
+      "sha256": "c58539026886596543c3ec6c2e6fd010f1220c6031bb68df8fff22e1e6ed50c6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/exact_match.ts",
+      "bytes": 621,
+      "sha256": "85587c79d3139ee6c082a8e957179cce0a07fd18a4c7ac8d64990f5b7295f2eb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "bytes": 3558,
+      "sha256": "80800880af82e935584dfe62ec1c9f826336f280a01c482cfa25f20f57ad17d4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "bytes": 1709,
+      "sha256": "df472b160de488183ecb1f472070886e4f5c011b6062f54efa00cb6ad98091c9"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "bytes": 34648,
+      "sha256": "c52e9ab413dc31a0f356c579b623c3a00d6f5f0a1f9615a6fbce0ed7c7fdf244"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts",
+      "bytes": 27743,
+      "sha256": "517ea5ea869d876ec6c91b3f1d1e43c79d538dade9af7ce8ac2b4e4a574ccdd8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 205774,
+      "sha256": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+      "bytes": 83085,
+      "sha256": "aafb1bf63e7928c9a21c4fe4982e4a4cdefa32b931a256e56543eb7cf629d7cd"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md",
+      "bytes": 139919,
+      "sha256": "7ad7b69b5ad8ec20678b3ef866a26fb328f2fa6f60c4d1d06ca0b926845b89bf"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md",
+      "bytes": 174432,
+      "sha256": "50e70c797c93718e85192aaf2de39596f62f53030507ca8242c1af7e8f0ebcbe"
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md",
+      "bytes": 147671,
+      "sha256": "c7b83b2b7e8c9a301d2e535fc3752c08f718d9fc679e32f8a91c15c285976e8e"
+    }
+  ]
+}

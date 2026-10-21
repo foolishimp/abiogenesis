@@ -1,0 +1,31 @@
+{
+  "priorCuts": [
+    {
+      "freezePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/freeze.json",
+      "freezeSha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+      "recordsVerified": 8623,
+      "physicalInventorySha256": "170c052687bc5fcba4d9882ef952b9094e2d7434cd82a33e15097d13df8f9d6d",
+      "physicalRecordsVerified": 5866
+    },
+    {
+      "freezePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-04/freeze.json",
+      "freezeSha256": "e5f71d9556cece8fb43eff69ad2f069de861fe90ac3de62b2f5060e1b3223bce",
+      "recordsVerified": 28,
+      "physicalInventorySha256": "8ffb0dcd5af3d13b47ad4a7299d417c681940844d76e49be9d1637bac98b21b6",
+      "physicalRecordsVerified": 5869
+    }
+  ],
+  "mainSelectedSourceDelta": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "beforeSha256": "556f3904e05edc5c9a4c7237a2ca494da9c061ba8f7f37a794f05fdeac634ada",
+      "afterSha256": "39d78f136b8cfcb5b70de7799859f08853d5d081a0fff190d5fe72c2d04a587a"
+    }
+  ],
+  "other11SelectedFilesUnchanged": true,
+  "main936GeneratedUnchanged": true,
+  "allOverlaySupportBytesUnchanged": true,
+  "linkedBuildDependencyInputsUnchanged": true,
+  "wholeCandidateCopies": 0,
+  "reusedArchiveSha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5"
+}

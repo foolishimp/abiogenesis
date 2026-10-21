@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^native Design command budget retains",
+    "test_env/tests/t287-native-semantic-job.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+  "exitCode": 0,
+  "seconds": 0.5169603750109673,
+  "startedAt": "2026-10-20T23:35:39.876124+00:00",
+  "inputsSha256": "a563bd1262390b9e57285cb6d0c1585df572052ce37a033bacbfbfcff9aff1eb",
+  "scope": "controlled source component; no provider or installed Public"
+}

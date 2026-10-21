@@ -1,0 +1,49 @@
+{
+  "activation": "C0-DEPENDENCY-CONSERVATION-06",
+  "actor": "/root/stdo3_c0_currentness_writer",
+  "operation": "realization_refactor",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "conjoinedFrame": "#f-end-to-end-interface-integration",
+  "stdoBasis": "stdo://releases/v3.0.0-rc.1/",
+  "stdoManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "source_paths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs"
+  ],
+  "physical_root": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06",
+  "selectedEdits": [
+    "unique C0 fibre + existing strict dependencies in indexed failure wrapper",
+    "canonical input/output/failure/refusal selected implementation contracts",
+    "digest-closed alternate output contract negative and authentic positive",
+    "full/index/cold failure authenticator equality"
+  ],
+  "limits": {
+    "compile": 1,
+    "generate": 1,
+    "packIgnoreScripts": 1,
+    "principalC0Calls": 4,
+    "readonlyReopenChildrenPerCase": 2,
+    "commandTimeoutMs": 600000,
+    "additionalLogicalBytes": 2147483648,
+    "aggregateLogicalBytes": 10737418240,
+    "nativeProviderCalls": 0
+  },
+  "order": [
+    "detached retained05 input check after emit",
+    "unavailable",
+    "sunny",
+    "append",
+    "prepublication",
+    "existing component physical-scope cases"
+  ],
+  "stop": "First unexpected selected precondition, compilation, integration, assertion or physical uncertainty returns before repair/retry/next. Ordinary discovery remains discovery.",
+  "exclusions": [
+    "Git",
+    "main generated mutation",
+    "prior cut mutation",
+    "continuation-17",
+    "Reviewer activation",
+    "F6 Result-history hardening"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "lane": "public-preparation",
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/diagnostic-configuration.json",
+    "sha256": "42e2db8521772a3fff5f8c461bbc249f0a893181d3b99724278c2855d5a91e96",
+    "bytes": 8262,
+    "mode": "0o644"
+  },
+  "workloadResult": {
+    "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/result.json",
+    "sha256": "a313a40e021f9dce4ea8a5013ab6beaae29b294e6fe642336e33a04f90e6dcf0",
+    "bytes": 1771,
+    "mode": "0o644"
+  },
+  "summary": {
+    "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/diagnostic/diagnostic-summary.json",
+    "sha256": "5900bf7bf9ce20a8fca70d850a1cc6cf20330940c05349d6bc38e600a5604ead",
+    "bytes": 227873,
+    "mode": "0o644"
+  },
+  "processCount": 16,
+  "traceFileCount": 16,
+  "observedHistoryOwners": 10,
+  "loadedMembers": [
+    "build/code/src/abg/event_prefix.js",
+    "build/code/src/abg/runtime_history.js",
+    "build/code/src/shared/canonical_json.js"
+  ],
+  "observedCounterNames": [
+    "JSON.stringify.outputUtf8Bytes",
+    "RuntimeEventIndex.causalCount.advancedRows",
+    "RuntimeEventIndex.count.advancedRows",
+    "RuntimeEventIndex.ordinalCount.advancedRows",
+    "RuntimeEventIndex.profileCount.advancedRows",
+    "RuntimeHistory.indices.returnedRows",
+    "fs.writeFileSync.successfulUtf8InputBytes",
+    "hash.update.inputBytes",
+    "writeCanonicalJson.deliveredUtf8Bytes"
+  ],
+  "instrumentedChildEdges": 15,
+  "externalChildEdges": 68,
+  "outputCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/observed-output-correspondence.json",
+    "sha256": "62838eeaaa7a2d52e0c00db52a9e52205828fbeb53d195bd3eb0952972aa5662",
+    "bytes": 3636,
+    "mode": "0o644"
+  },
+  "nativeCalls": 0,
+  "limits": "External tar/du per-PID CPU/memory/IO unobserved; spawn return is not exit status. Native trace and JS byte channels overlap; unsized is not zero. No summed maxima or OS-wide total.",
+  "scope": "Original exact workload oracle plus bounded passive observation coverage; no acceptance or inferred missing counters"
+}

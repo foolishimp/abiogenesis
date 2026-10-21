@@ -1,0 +1,9 @@
+{
+  "scope": "read-only record/link preflight",
+  "initial_assertion": "all nine importing test files omit ownedProcessProof",
+  "outcome": "too strong; command test has a conditional configured owned route and default legacy route",
+  "response": "inspected exact source, recorded nuance and informed Root; no contradiction of selected no-block rationale",
+  "effects_before_detection": "new authorized record files only; ticket not yet changed",
+  "Product_execution": false,
+  "integration_retry": false
+}

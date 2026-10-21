@@ -1,0 +1,57 @@
+{
+  "status": "granted_local_preflight",
+  "activation": "P3-FIXTURE-DEPENDENCY-REPAIR-01",
+  "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript",
+  "abiArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "path": "/opt/homebrew/bin/npm",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "typescript": {
+      "version": "5.9.2",
+      "lockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    }
+  },
+  "stageInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage-inventory.json",
+    "sha256": "854e4595452b83356dee1d832de49e767d68fe6824c5445f915f7c991dea7e3c",
+    "bytes": 1782556,
+    "mode": "0o644"
+  },
+  "outputCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/output-correspondence.json",
+    "sha256": "bbd934b8bad5fa8c957bfb71d7841a8a0e9d300099c471df7e0e8cfaf9ef1baf",
+    "bytes": 2601,
+    "mode": "0o644"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/preflight.mjs",
+    "sha256": "f3266f612e1d11c9395b6bf39a1c8a2bf304d177ebb84fa06b67b26588d46ba4",
+    "bytes": 4585,
+    "mode": "0o644"
+  },
+  "maxInstallCalls": 0,
+  "maxPublicStartCalls": 0,
+  "maxNativeCalls": 0,
+  "cleanup": false,
+  "retryCount": 0
+}

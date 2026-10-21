@@ -1,0 +1,157 @@
+{
+  "kind": "E04_exact_evidence_archive",
+  "copies": [
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/DEST-HARDLINK-01.json",
+      "archive": "evidence/DEST-HARDLINK-01.json",
+      "bytes": 3288,
+      "sha256": "cf8ba65fdbc6bb236d7c7000e9ef568731862f52925103c80bcad501d2daa9d9"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/DEST-HARDLINK-passed.json",
+      "archive": "evidence/DEST-HARDLINK-passed.json",
+      "bytes": 95,
+      "sha256": "19a654aef4d1f0cf0f45574dedadcd3aec9045fb9d77595e40a96bf194b11fc3"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/DEST-SYMLINK-01.json",
+      "archive": "evidence/DEST-SYMLINK-01.json",
+      "bytes": 3084,
+      "sha256": "8f37607a09895f4c52febfe5d47afa31bff215423bccb71476335979277e138b"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/DEST-SYMLINK-passed.json",
+      "archive": "evidence/DEST-SYMLINK-passed.json",
+      "bytes": 94,
+      "sha256": "2bfb3aed6b52e8f8f61df25034f6c30e04a626d10b3319077859866e25bcc222"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PERSIST-01.json",
+      "archive": "evidence/PERSIST-01.json",
+      "bytes": 908,
+      "sha256": "e6d3fac45b35f6b25ff803ba3ff717b6394ec045fe59be88cc5035b710c34f33"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PERSIST-02.json",
+      "archive": "evidence/PERSIST-02.json",
+      "bytes": 907,
+      "sha256": "2c2eb8081d840b0a3e1afadca2109b1e5e9f895ad02ad91521487a0f35df0da7"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PERSIST-03.json",
+      "archive": "evidence/PERSIST-03.json",
+      "bytes": 908,
+      "sha256": "737917bae29f17e5a7a8bb556fa2b4cdf05752c7b8a05ab6b613a4ba17cc88fe"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PERSIST-passed.json",
+      "archive": "evidence/PERSIST-passed.json",
+      "bytes": 89,
+      "sha256": "c92dad3a76af199d7e0554a620e0a097cb0156f208a57d388eb2208f42eac907"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PUBLISH-01.json",
+      "archive": "evidence/PUBLISH-01.json",
+      "bytes": 746,
+      "sha256": "f7634c8e849618c0ad9ae56f1435a0a25f32d660411a4ecec800c4109ec1f002"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PUBLISH-02.json",
+      "archive": "evidence/PUBLISH-02.json",
+      "bytes": 2169,
+      "sha256": "5e4f8b6ed3153ea410624ed0887ddf5ad28a491cd06cfb2f73287f88d671400b"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/PUBLISH-passed.json",
+      "archive": "evidence/PUBLISH-passed.json",
+      "bytes": 89,
+      "sha256": "af58788111ca63cfd84f40aa4a44d1d0d6641afef228fc6d8374a6582653881c"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/RACE-01.json",
+      "archive": "evidence/RACE-01.json",
+      "bytes": 5733,
+      "sha256": "8f24fe9e0dee0ef36784fbfb5b1511feec355962778024bf3c4b59fe6b8b4a19"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/RACE-passed.json",
+      "archive": "evidence/RACE-passed.json",
+      "bytes": 86,
+      "sha256": "75d38f26d5c3d2e4c53e5616fa30abbc51a1bad19dde4b86b0db88e39c3ab903"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-01.json",
+      "archive": "evidence/SNAPSHOT-01.json",
+      "bytes": 19180,
+      "sha256": "33b5dfb53463e459fffaddc2d13085bd0fd70e9253d211e5a4116813ed84778c"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-DIRECTORY-01.json",
+      "archive": "evidence/SNAPSHOT-DIRECTORY-01.json",
+      "bytes": 15105,
+      "sha256": "87cb20b54681065850a0850eeb6f62f10916cc5f9d9e6ff2e21210046d8c612c"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-DIRECTORY-passed.json",
+      "archive": "evidence/SNAPSHOT-DIRECTORY-passed.json",
+      "bytes": 100,
+      "sha256": "c11c3a5e15f6621e18f8e6394d418d88fe74a5c03574ea398b3087b1db06ad24"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-STALE-01.json",
+      "archive": "evidence/SNAPSHOT-STALE-01.json",
+      "bytes": 18207,
+      "sha256": "d2e5dc2f66b1d60b07077358ff6d7d8dce8fd3cd4c74fb7364af814b437298ab"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-STALE-passed.json",
+      "archive": "evidence/SNAPSHOT-STALE-passed.json",
+      "bytes": 96,
+      "sha256": "22337c040432f2b29edc81f9907b69c6fa2cdb9a15120c0305c49ef4cf45ce3f"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-SYMLINK-01.json",
+      "archive": "evidence/SNAPSHOT-SYMLINK-01.json",
+      "bytes": 15936,
+      "sha256": "beefba5901f3f918a1a00cb569bfe4294ed9914a3190a5cf9d8e095e370b15f0"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-SYMLINK-passed.json",
+      "archive": "evidence/SNAPSHOT-SYMLINK-passed.json",
+      "bytes": 98,
+      "sha256": "f4b438108ba23fd43844e4517c9ea5760f8fed3ad6d3baaa4cbef64c9f738d41"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/SNAPSHOT-passed.json",
+      "archive": "evidence/SNAPSHOT-passed.json",
+      "bytes": 90,
+      "sha256": "417989d0cdf4c4403610da480cf72e9de112e1ce24f3649e6a3eef086ee1a658"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/TEMP-PARTIAL-01.json",
+      "archive": "evidence/TEMP-PARTIAL-01.json",
+      "bytes": 1579,
+      "sha256": "fa3ec22b5c9bea9fac26a9b5769cce7c5c24c373e248f1c496e04c03807255e3"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/TEMP-PARTIAL-passed.json",
+      "archive": "evidence/TEMP-PARTIAL-passed.json",
+      "bytes": 94,
+      "sha256": "b3043f249cc896d68e29bf5704266b8719e529f24ee9ab489535fae474833b84"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/activation.json",
+      "archive": "evidence/activation.json",
+      "bytes": 4679,
+      "sha256": "1d232b6de3ad8070c2a8f0f6c4a077a8e399873614fee3832849888e2be0904d"
+    },
+    {
+      "source": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f/result.json",
+      "archive": "evidence/result.json",
+      "bytes": 10366,
+      "sha256": "ec7c6966fc9bf9b04deabf0efd56a0761e27720c38a092d3d287f35f90d8eef0"
+    }
+  ],
+  "allByteEqual": true,
+  "sourceRootsRetained": true
+}

@@ -1,0 +1,50 @@
+{
+  "acquisitionKind": "eventless",
+  "kind": "installed_definition_call_transport_result",
+  "receipt": {
+    "definitionKey": {
+      "memberKey": "verify",
+      "operationId": "abg.operation.product.verify"
+    },
+    "exitCode": 0,
+    "failure": null,
+    "invocationRef": "invocation://abiogenesis/5f4b4bcac6cfe919d39c81e8a1a96e053832c918cdb0e130603529a7bdf33db1",
+    "kind": "definition_host_receipt",
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "definitionContractCoordinates": null,
+        "disposition": "locally_verified",
+        "localNativeEvidence": {
+          "digest": "sha256:7dbad95fbc251b51b0abb4bcb5033e1629529075be00287d6aa3750d0b7cb5e6",
+          "ref": "local-native-evidence://abiogenesis/product-verification/7dbad95fbc251b51b0abb4bcb5033e1629529075be00287d6aa3750d0b7cb5e6"
+        },
+        "pendingExternalSelectors": [],
+        "provenance": [
+          {
+            "digest": "sha256:5decd019774ce2eaf2a130f48df9ccb7fc9e12f78c456fa17c9a2df0b1281675",
+            "ref": "provenance://abiogenesis/product-verification/5decd019774ce2eaf2a130f48df9ccb7fc9e12f78c456fa17c9a2df0b1281675"
+          }
+        ],
+        "residuals": [],
+        "targetKind": "packed_artifact",
+        "verifiedArtifact": {
+          "digest": "sha256:b49d0e564653e1c61e52ee37586438e3173d7674f79fbebf067aa4d39d1fd64b",
+          "ref": "product-verification://abiogenesis/b49d0e564653e1c61e52ee37586438e3173d7674f79fbebf067aa4d39d1fd64b"
+        }
+      }
+    },
+    "resources": {
+      "disposition": "read_only_unchanged",
+      "kind": "product_verification_resource_disposition",
+      "packedArtifact": {
+        "digest": "sha256:538ed071545a64c4db6b234d2f5f9e2b05d8621921e5bed9dfa651f666f0f541",
+        "ref": "file:///private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+      },
+      "schemaVersion": "5.0.0",
+      "targetKind": "packed_artifact"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "schemaVersion": "5.0.0"
+}

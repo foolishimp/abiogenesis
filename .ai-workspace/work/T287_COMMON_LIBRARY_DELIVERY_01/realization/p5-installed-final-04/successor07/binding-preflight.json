@@ -1,0 +1,50 @@
+{
+  "changedTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    "bytes": 56673,
+    "sha256": "8005d9b488b86deae56758b9241d0226a634207c7996ed24d146bfd53095cc75"
+  },
+  "priorFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/failure-freeze.json",
+    "bytes": 1828084,
+    "sha256": "3c2726cf25041e6e50a734f72d85dda01776d00cccdce68b73447d6a2a9ef6b1"
+  },
+  "priorHostPreservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/installed-host-preservation.json",
+    "bytes": 1018,
+    "sha256": "059b78f258cda34d2dea77c52a00d0374a69f320ebdbb39ee28cea2777b63a07"
+  },
+  "sourceSupportPinsReused": 11,
+  "copiedTest": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 56673,
+      "sha256": "8005d9b488b86deae56758b9241d0226a634207c7996ed24d146bfd53095cc75"
+    },
+    "destination": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/proof/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 56673,
+      "sha256": "8005d9b488b86deae56758b9241d0226a634207c7996ed24d146bfd53095cc75"
+    }
+  },
+  "readonlyLinks": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/proof/build_tenants/abiogenesis/typescript/build",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build",
+      "readOnlyByGrant": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/proof/build_tenants/abiogenesis/typescript/node_modules",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules",
+      "readOnlyByGrant": true
+    }
+  ],
+  "proofPackageRootCanonical": true,
+  "physicalRootInitiallyAbsent": true,
+  "sameArchiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "sameBootstrapReadOnly": true,
+  "bootstrapSelectedPinsVerified": 9,
+  "newBootstrapInstall": false,
+  "wholeStageDependencyMainScanRepeated": false,
+  "npmrcDistinctEmpty": true
+}

@@ -83,7 +83,9 @@ export async function cloneEventPrefixResource(
           admitted = abg.admitProductInstall(
             acquired.store,
             sourceInstall?.candidate ?? structuredClone(payload.artifact),
-            basis,
+            // The hydrated install is owner input; its stored lock-body cause
+            // is reconstructed by the owner from the exact cloned predecessor.
+            sourceInstall === null ? basis : { ...basis, causationEventRefs: [] },
             sourceInstall?.resolvedLock ?? structuredClone(payload.resolvedLock),
           );
         } else if (payload.operationId === "abg.operation.workspace.bind") {

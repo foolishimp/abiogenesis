@@ -1,0 +1,404 @@
+{
+  "kind": "COMBINED-FINAL-02_closed_build_package_handoff",
+  "id": "candidate",
+  "status": "ready_for_separately_granted_L4",
+  "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+  "sourceUnion": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source-union-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 668704,
+    "sha256": "311ae0287daefeef3f32b160e4f86e80b27087b6641f31935d34a31c06b014a1"
+  },
+  "sourcePrecedence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/precedence-ledger.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 11249,
+    "sha256": "4ec3a316b8fe2e1cde90374c4be2d6938b4e3fc9ed99b20e82a285a8706bc68e"
+  },
+  "prebuildFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/prebuild-freeze.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 4014,
+    "sha256": "e64d6794e1bf124b69cbb3ae6c23fe098e1a33b336d09c820354a90d8bf446f7"
+  },
+  "HOW": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/HOW.md",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 6125,
+    "sha256": "741b4be03d2d52c1c94145774ded573578e100f90aa7fe7f78c476eb73176314"
+  },
+  "structuralSuccessorHOW": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/HOW-structure-successor-02.md",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 6063,
+    "sha256": "8b514d133010d065fb6d4eb412a2921bc6d0eb877011a02c389d0a8f56c03c23"
+  },
+  "structuralReentry": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/structure-reentry.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3105,
+    "sha256": "e046286bd3aa69e6d6ca86dbb6eabab45fcf706389a9e19f8470791b1640c424"
+  },
+  "package": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/package.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 9744,
+    "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9"
+  },
+  "packageLock": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/package-lock.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 8001,
+    "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+  },
+  "manifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3189620,
+    "sha256": "9a23c6ff5aa27c334a872f6ee2fb81b675c95d84fb71b19cc2ea3cb74da98ee6"
+  },
+  "archive": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 10680461,
+    "sha256": "151ad625652dc426d46a210559afde50f40b93acdf216b5ca9d64969e5eb8e54"
+  },
+  "archiveMembers": 5271,
+  "unpackedBytes": 70679265,
+  "npmIntegrity": "sha512-cM/CJTR1GPXEtEV3J71IMmUC93pgdNTq2N1Dpt0Ss4+lZsawaqT2b7OuWnItn2YLtKC+mG+QqVJx8iSntnr1fw==",
+  "npmShasum": "88302ced252defe277ecb54685fc3e330828678b",
+  "productContentDigest": "sha256:c2eb35981ce23ba805acc8adbb74ddd15b919d1b01540364b8d941c09569df6c",
+  "payloadOwnerResult": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/archive-payload-owner-result.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 829,
+    "sha256": "ae34da85ac15a8c42b93e0cf3bfb1777cc95cb21094649138eb68709da02f0dd"
+  },
+  "generatedInventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/generated-inventory.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 249264,
+    "sha256": "5c661e183628e7c718885a2efa955d997dde78e020914b97f660565ddcca9795"
+  },
+  "emittedCorrespondence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/emitted-correspondence.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3866,
+    "sha256": "71a087f212831f39b8c133dc8b62b58891564ec0be0cccfdccb90f09626fdbf1"
+  },
+  "supportManifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/support-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 207596,
+    "sha256": "b9a494389384796c3bb162d62992e1640ca703c5437fcb5c9f4118383441edbf"
+  },
+  "runnerInputs": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/runner-inputs.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 5116,
+    "sha256": "57f0307258b80ebc3f6601f1c733f0e7c216149319a769b22d90923c421fc7ba"
+  },
+  "metadataCorrespondence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/metadata-correspondence.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 43685,
+    "sha256": "95d01cab056272083cb93eab8cb01a393f3c93c8f0efa8d3cb18d90e62b5bede"
+  },
+  "structuralCorrespondence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/structural-correspondence-successor-02.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 64168,
+    "sha256": "03eaace028930310a909be0a402b8979e362957f11e35c583937e9ba11c387f3"
+  },
+  "preservation": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/preservation.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 9988,
+    "sha256": "1ff594017fcc34133cb840aef2022c14236dd2ad29492d0033e73c230f2fd502"
+  },
+  "commandReceipts": {
+    "tsc": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/tsc.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1386,
+        "sha256": "07b6f229469b8b8eb4aebf71f8708a954f67a78ad46b022cc41f18e0bafdaf30"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/tsc.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 356,
+        "sha256": "00a74d161242310d1eefce1d79256c8182e1bacd00a8b25beed1dfc70373d9bc"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "executions": 1,
+      "wallMs": 6288.3180000353605,
+      "credit": "one scoped successful execution"
+    },
+    "generate": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/generate.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1366,
+        "sha256": "c7027921a8aa5b96c450c850fe158ce4b91b5d59a4a46bdc1d069df2430898a3"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/generate.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 361,
+        "sha256": "df3071c1c4b166037d5da23a1c43d69a6b8724538d8a301325d0c41907312c81"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "executions": 1,
+      "wallMs": 25030.281125102192,
+      "credit": "one scoped successful execution"
+    },
+    "material": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/material.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1561,
+        "sha256": "0f2e69d130cd7914d8323b6ce5011e00241e802d21c963e17d89dee0dd30b0e1"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/material.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 363,
+        "sha256": "ddbf78af48fbe52fc58dbba3f1d1d737b0d1ae358adc4d140d8a9d52434fbafa"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/verify-metadata.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "executions": 1,
+      "wallMs": 3629.6409589704126,
+      "credit": "one scoped successful execution"
+    },
+    "pack": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/pack.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1503,
+        "sha256": "3f4a5c85fd562998f5f54324f3921448877db399ad9f0adffd81784669d98453"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/pack.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 361,
+        "sha256": "8c0eb964b159b15f029da946dd3c77c80812763d18f7d69375df81ed4c220077"
+      },
+      "argv": [
+        "/opt/homebrew/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/artifacts"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "executions": 1,
+      "wallMs": 3258.406624896452,
+      "credit": "one scoped successful execution"
+    },
+    "payload": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/payload.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1559,
+        "sha256": "6b99a37151b9c002145f44bc812d2fbb8b9b8e698dbbc5c1eb3a763113e6dfd3"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/payload.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 362,
+        "sha256": "221f13ee0ab9e84b6f318fd57fb53294ed7d67d30efc6ff4d98339ec84777b84"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/verify-payload.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "executions": 1,
+      "wallMs": 292.21308301202953,
+      "credit": "one scoped successful execution"
+    },
+    "structure": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/structure.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1563,
+        "sha256": "82a806768781028ccedb2904ea4fc92c8e7587a42857afc4c08a4e391ffb7d51"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/structure.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 363,
+        "sha256": "6c7dc9413bb9f8716ba4f600d7b9dbe10135333018905f959b2f977ef63fd8cd"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/verify-structure.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+      "exitCode": 1,
+      "executions": 1,
+      "wallMs": 304.6254999935627,
+      "credit": "historical failed assertion, no successful proof credit"
+    },
+    "structure-successor-02": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/structure-successor-02.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1874,
+        "sha256": "95a265a9e5e8af1095ff4091d3f8ba0c8d1cfe58a25d2067bf2e9528c8d0dee5"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/structure-successor-02.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 396,
+        "sha256": "402468c341da719e436a7d5dfe8cff1db59ee0ba21ce78e93f9c34dadd90ce81"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/verify-structure-successor-02.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "executions": 1,
+      "wallMs": 371.13612494431436,
+      "credit": "one scoped successful execution"
+    },
+    "generation-correspondence": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/generation-correspondence.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 250,
+        "sha256": "c86f27d0924667fa0ece6aa5ec1b53ff13c574a6f10023e417b7ea1af05a4829"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/generation-correspondence.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 132,
+        "sha256": "ff5c80c18639a436e0fc2da6f4a44f2cf35745279af93d2a7e5efd7dce37b743"
+      },
+      "script": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/verify-generation.py",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 4493,
+        "sha256": "f3a6b69da878b4c9a0b9038bdc9c6bc2eb7fff64006456dd6fba2c4c8279f20c"
+      },
+      "exitCode": 0,
+      "executions": 1,
+      "wallMs": 1250.530167017132,
+      "reexecutedDuringSuccessor": false
+    },
+    "archive-correspondence": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/archive-correspondence.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 185,
+        "sha256": "3358c6ac4e94c62c004f6e31ffaf72b0881b7c6785802194c9c996cc1b549cc3"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/archive-correspondence.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 409,
+        "sha256": "7b7acd0cf3dcc5ee9e6653e89e1249274a994d8e5331605be9cad28d0ae1d978"
+      },
+      "script": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/verify-archive.py",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 4597,
+        "sha256": "2d081c03bae74f318a47dc0589fe8d80e2db4f024f95938a7ba302611d035c13"
+      },
+      "exitCode": 0,
+      "executions": 1,
+      "wallMs": 824.6565829031169,
+      "reexecutedDuringSuccessor": false
+    }
+  },
+  "originalStructuralFailure": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/first-cause.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 2153,
+    "sha256": "a054de724d00abbdf8f1efe9438a6da9d342c55bde02cb8d858510e5856b08c9"
+  },
+  "effects": {
+    "compilerExecutions": 1,
+    "generatorExecutions": 1,
+    "archivePackExecutions": 1,
+    "generatorInternalPackDryRun": "existing producer path projection only",
+    "historicalFailedStructuralExecutions": 1,
+    "successfulStructuralSuccessorExecutions": 1,
+    "testExecutions": 0,
+    "installedWorkloads": 0,
+    "nativeWorkloads": 0,
+    "endpointWorkloads": 0,
+    "GitOperations": 0,
+    "networkInstallations": 0,
+    "sourceSemanticChangesByThisActivation": 0
+  },
+  "newUnexpectedFailure": null,
+  "limits": [
+    "No independent acceptance or L5 claim.",
+    "No installed reachability or combined behavioral proof.",
+    "Earlier candidate P1 evidence does not transfer to this archive.",
+    "Closed component behavioral evidence remains separately scoped; structural successor is not dynamic law.",
+    "Final L4 proof requires separately frozen configuration and fresh resource/effect grants."
+  ]
+}

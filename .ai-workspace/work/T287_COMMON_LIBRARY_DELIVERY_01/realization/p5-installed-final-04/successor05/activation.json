@@ -1,0 +1,21 @@
+{
+  "activation": "P5-INSTALL-CONFIG-05",
+  "executive": "/root",
+  "writer": "/root/stdo3_lifetime_writer",
+  "source": "Root continuation, attributed transcription",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "recordedAt": "2026-10-21T06:58:13.690378+00:00",
+  "priorClosedStop": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/install-stop-closure-freeze.json",
+    "bytes": 26797,
+    "sha256": "097bf41e95cffb571ee3f9f35544114080262e7dec9749feeeff7e85ba5bb215"
+  },
+  "triage": "npm @npmcli/config/lib/index.js569\u2013573 rejects one filename loaded into both user/global roles. This was operator environment identity, before installation, not Product/archive/fixture/lifetime failure.",
+  "selectedCorrection": "Two distinct create-only empty task-owned npmrc files; fresh host/cache/log/scratch; same archive/fixture/oracles; exact one offline install then one original test if install succeeds.",
+  "physicalRoot": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6",
+  "initiallyAbsent": true,
+  "retention": "No cleanup or prior-root mutation; <=3GiB added across task",
+  "n2": "Both fresh child.pid values equal decoded result.processId; HTTP retains fixture PID plus independent PID/group absence and owner-projected termination",
+  "firstFailureStops": true,
+  "productionOrSupportMutations": false
+}

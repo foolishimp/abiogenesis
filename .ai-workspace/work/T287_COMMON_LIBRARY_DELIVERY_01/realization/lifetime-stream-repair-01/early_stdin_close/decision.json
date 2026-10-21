@@ -1,0 +1,8 @@
+{
+  "case": "early_stdin_close",
+  "outcome": "actual_EPIPE_rejected_after_cleanup_host_survived",
+  "observationSha256": "90fdbb76659ad90de7d7100531df51fad16cbb3b0fb7d478eca236b20bd527f5",
+  "scopeAbsent": true,
+  "hostExitCode": 0,
+  "failSafeSignals": []
+}

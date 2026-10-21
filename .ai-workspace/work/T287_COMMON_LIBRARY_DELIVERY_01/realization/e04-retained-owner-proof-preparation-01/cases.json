@@ -1,0 +1,115 @@
+{
+  "kind": "E04_finite_predicate_map",
+  "caseStatus": "NOT_EXECUTED",
+  "governingGap": "final-proof-preparation-01/coverage.json gaps[id=E04-create-only]",
+  "obligation": "proof/L2-report V6 K12 and effects/L2-report E04 distinct domains",
+  "cases": [
+    {
+      "id": "PERSIST",
+      "owner": "persistExactFile",
+      "substrate": "actual OS; three owner invocations",
+      "oracle": "new created; identical preserved; differing collision; exact original bytes and dev/ino/nlink survive",
+      "limit": "nested parent creation; no replacement",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PERSIST"
+    },
+    {
+      "id": "PUBLISH",
+      "owner": "publishCreateOnly",
+      "substrate": "actual OS; two owner invocations",
+      "oracle": "absent succeeds; existing identical returns EEXIST; nlink=1; exact original bytes/inode; no temporary",
+      "limit": "existing always collides unlike PERSIST",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH"
+    },
+    {
+      "id": "RACE",
+      "owner": "publishCreateOnly",
+      "substrate": "actual OS wx/link; explicitly controlled scheduling at link entry",
+      "oracle": "competitor creates destination; real link EEXIST; competitor bytes/node retained; temporary removed",
+      "limit": "one scheduled race; no arbitrary interleavings claim",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/RACE"
+    },
+    {
+      "id": "DEST-SYMLINK",
+      "owner": "publishCreateOnly",
+      "substrate": "actual OS",
+      "oracle": "EEXIST; destination symlink and sentinel unchanged; temporary removed",
+      "limit": "target remains within scratch",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK"
+    },
+    {
+      "id": "DEST-HARDLINK",
+      "owner": "publishCreateOnly",
+      "substrate": "actual OS",
+      "oracle": "EEXIST; existing shared inode/nlink and bytes preserved; temporary removed",
+      "limit": "pre-existing destination alias, not post-publication alias injection",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-HARDLINK"
+    },
+    {
+      "id": "TEMP-PARTIAL",
+      "owner": "publishCreateOnly",
+      "substrate": "controlled write failure after real five-byte prefix creation",
+      "oracle": "same EIO Error object returned; temporary exact prefix remains; destination absent",
+      "limit": "not an observed OS crash or genuine partial write syscall",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/TEMP-PARTIAL"
+    },
+    {
+      "id": "SNAPSHOT",
+      "owner": "materializeSnapshot",
+      "substrate": "actual OS; actual observeWorksiteSubject; canonical observed-file task",
+      "oracle": "two exact copied files; ordered exact members/digest/ref; sources unchanged",
+      "limit": "no ABG admission/currentness assertion",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT"
+    },
+    {
+      "id": "SNAPSHOT-STALE",
+      "owner": "materializeSnapshot",
+      "substrate": "actual OS; after-observation equal-length second-source mutation",
+      "oracle": "snapshot source bytes differ from protected O1; earlier member remains; second absent; no manifest",
+      "limit": "observed partial residue is not rollback",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-STALE"
+    },
+    {
+      "id": "SNAPSHOT-SYMLINK",
+      "owner": "materializeSnapshot",
+      "substrate": "actual OS; selected source replaced by symlink after observation",
+      "oracle": "symlink/alias TypeError; empty created snapshot root; outside-worksite sentinel untouched",
+      "limit": "sentinel is inside scratch; no external path effect",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-SYMLINK"
+    },
+    {
+      "id": "SNAPSHOT-DIRECTORY",
+      "owner": "materializeSnapshot",
+      "substrate": "actual OS; selected source replaced by directory after observation",
+      "oracle": "not one file TypeError; empty created snapshot root; no manifest",
+      "limit": "regular-file vs directory; no FIFO/device/socket population",
+      "scratchCaseRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY"
+    }
+  ],
+  "purePreparationCase": {
+    "source": "constructWorksiteSubject",
+    "input": "../outside.txt",
+    "actualOutcome": "worksite_effect_refusal / invalid_relative_path",
+    "receipt": "callable-preflight.stdout.json",
+    "claim": "canonical malformed source-path rejection only"
+  },
+  "supportedEvidenceReuse": {
+    "sourceCorrespondence": "three retained function bodies exactly equal to baseline; closed E03 emission/toolchain inventories verified",
+    "passingFilesystemReceiptSelected": false,
+    "excludedSubstitutes": [
+      "lifetime controlled-main materializeSnapshot/publishCreateOnly replacement",
+      "C0 file replacement evidence, a distinct owner",
+      "installed C2 happy path as blanket collision/residue proof"
+    ]
+  },
+  "unsupported": [
+    "all race schedules",
+    "actual OS partial-write interruption or power loss",
+    "post-publication hardlink injection",
+    "unlink failure",
+    "snapshot post-read unavailability",
+    "FIFO/socket/device nodes",
+    "Windows matrix",
+    "archive/inventory E04 owners",
+    "installed/Public/native/runtime admission or full Product outcome"
+  ]
+}

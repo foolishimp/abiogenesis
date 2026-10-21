@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "/usr/local/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-04/verify-transport.py",
+    "--repo-root",
+    "/Users/jim/src/apps/abiogenesis"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C.UTF-8",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "startedUtc": "2026-10-21T05:00:10.768421+00:00",
+  "executable": {
+    "path": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+    "sha256": "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539",
+    "bytes": 152096,
+    "mode": "0o775"
+  },
+  "inputBinding": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-04/verification-bind.json",
+    "sha256": "bc6b5de442fff85449fd9eca849f32d41211a74be58aae0dae4277b339999c9a",
+    "bytes": 243,
+    "mode": "0o644"
+  },
+  "purpose": "One corrected repository/archive-only byte-and-coverage verification; no original source addresses opened or Product execution"
+}

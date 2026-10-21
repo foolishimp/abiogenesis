@@ -1,0 +1,7 @@
+# Finite remaining proof08 stopped
+
+Root selected resource-only correction from closed07: create and check the explicitly configured scratch parent before unchanged commands5–8. [Prospective binding](input-binding.json), [preflight](preflight-freeze.json), [actual initial directory identities](resources.json), [owning HOW](HOW-binding.md). No source/test/support/build/archive change. Runtime archive remains `25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079`.
+
+[Measured outcomes](mapped-outcomes.json) retain exact argv, filters, stdout/stderr/status/PID and attribution. First failed command: native-workspace-physical-regression. No repair or retry. Reuse07 reopen18 18/18 and codec14 14/14, and finite04 U1 12/12 plus C18 18/18 without reruns. Route's two retained-native cases remain excluded. D02 retains the actual final04 owner adapter; its fixture wrapper remains controlled lower admission, not new installed acceptance.
+
+[Preservation](preservation-after.json) reuses the closed complete stage/main936/bootstrap chain and checks selected current identities. No whole candidate rescan, repack, rebuild, old log reopening or cleanup. [Surviving physical evidence](physical-inventory.json) includes only bytes still present after original fixture disposal; removed ephemeral logs are not claimed retained. [Process observation](process-observation.json) is limited to the exact supervised groups. New retained bytes remain below3GiB. Return this frozen cut to Root; no independent or release acceptance.

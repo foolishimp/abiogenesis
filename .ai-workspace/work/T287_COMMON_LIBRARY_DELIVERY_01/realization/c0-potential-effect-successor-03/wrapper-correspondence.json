@@ -1,0 +1,11 @@
+{
+  "verbatimReused": [
+    "common.py",
+    "verify-metadata.mjs",
+    "verify-archive.py",
+    "verify-payload.mjs"
+  ],
+  "generationWrapperDelta": "Only report newCompileCount=0 and exact reused successful compile receipt; all semantic predicates retained",
+  "commandWrapperDelta": "Explicit complete effective environment instead of inherited environment; immutable file naming archive-check prevents outer receipt collision with original verifier archive-correspondence receipts. Timeout/failure/supervision semantics unchanged.",
+  "sourceEdits": []
+}

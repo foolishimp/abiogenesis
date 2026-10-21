@@ -1,0 +1,52 @@
+{
+  "acquisitionKind": "eventless",
+  "kind": "installed_definition_call_transport_result",
+  "receipt": {
+    "definitionKey": {
+      "memberKey": "allowlist",
+      "operationId": "abg.operation.catalog.view"
+    },
+    "exitCode": 0,
+    "failure": null,
+    "invocationRef": "invocation://abiogenesis/9371043a54b0c75444c55aac1fb5031c801f6d8680a53ed0cde623696dceba2e",
+    "kind": "definition_host_receipt",
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "effectiveHandles": [
+          "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+          "graph-function://abi5-tests/sandbox-uat/executive@5",
+          "graph-function://abiogenesis/default-library/construction@5",
+          "graph-function://abiogenesis/default-library/design@5",
+          "graph-function://abiogenesis/default-library/induction@5",
+          "graph-function://abiogenesis/default-library/specification@5",
+          "graph-function://abiogenesis/default-library/testing@5",
+          "graph-function://abiogenesis/default-library/uat@5",
+          "graph-function://abiogenesis/worksite/command-execution@5",
+          "graph-function://abiogenesis/worksite/native-work/assessment@5",
+          "graph-function://abiogenesis/worksite/native-work@5"
+        ],
+        "residuals": [],
+        "view": {
+          "digest": "sha256:28c58fda7905ab3ef7da9afc5100142ce09a4a57d3feab0c492b07bdde21fc5a",
+          "ref": "graph-function-catalog-view://abiogenesis/28c58fda7905ab3ef7da9afc5100142ce09a4a57d3feab0c492b07bdde21fc5a"
+        }
+      }
+    },
+    "resources": {
+      "catalog": {
+        "digest": "sha256:81960e34d865f1e6875254851428ff66b5aedca4b482057f02c248dc6fb89731",
+        "ref": "graph-function-catalog://abiogenesis/81960e34d865f1e6875254851428ff66b5aedca4b482057f02c248dc6fb89731"
+      },
+      "disposition": "read_only_unchanged",
+      "kind": "catalog_view_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "view": {
+        "digest": "sha256:28c58fda7905ab3ef7da9afc5100142ce09a4a57d3feab0c492b07bdde21fc5a",
+        "ref": "graph-function-catalog-view://abiogenesis/28c58fda7905ab3ef7da9afc5100142ce09a4a57d3feab0c492b07bdde21fc5a"
+      }
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "schemaVersion": "5.0.0"
+}

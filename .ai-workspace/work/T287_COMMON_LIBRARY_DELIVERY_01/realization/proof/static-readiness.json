@@ -1,0 +1,168 @@
+{
+  "status": "passed bounded preparation checks",
+  "createdUtc": "2026-10-20T23:43:41.126863+00:00",
+  "commands": [
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle-sensitivity.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/configuration.template.json",
+        "--lane",
+        "public-preparation"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "{\"status\":\"stopped\",\"lane\":\"public-preparation\",\"subjectId\":null,\"error\":{\"name\":\"AssertionError\",\"message\":\"template is not an execution grant\\n+ actual - expected\\n\\n+ 'not_activated'\\n- 'activated'\\n\",\"stack\":\"AssertionError [ERR_ASSERTION]: template is not an execution grant\\n+ actual - expected\\n\\n+ 'not_activated'\\n- 'activated'\\n\\n    at preflight (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs:55:10)\\n    at async main (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs:454:31)\\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs:476:6\",\"code\":\"ERR_ASSERTION\",\"stage\":null,\"observation\":null},\"retainedRoots\":[],\"retention\":\"No retry, teardown, rollback, resource repair or migration performed; inspect all allocated physical roots and actual receipt handoffs.\",\"measures\":[],\"commands\":[]}\n",
+      "expected": "nonzero template refusal before runtime resource creation"
+    }
+  ],
+  "supportClosure": {
+    "files": 13,
+    "staticRelativeEdges": [
+      {
+        "from": "test_env/uat/public-setup.mjs",
+        "to": "test_env/uat/consumer.mjs"
+      },
+      {
+        "from": "test_env/support/installed-language-test.mjs",
+        "to": "test_env/support/root-installed-environment.mjs"
+      },
+      {
+        "from": "test_env/support/installed-language-test.mjs",
+        "to": "test_env/support/language-smoke-fixture.mjs"
+      },
+      {
+        "from": "test_env/support/installed-language-test.mjs",
+        "to": "test_env/support/registered-graph-selection.mjs"
+      },
+      {
+        "from": "test_env/support/root-installed-environment.mjs",
+        "to": "test_env/support/candidate-basis.mjs"
+      },
+      {
+        "from": "test_env/support/root-installed-environment.mjs",
+        "to": "test_env/support/language-smoke-fixture.mjs"
+      },
+      {
+        "from": "test_env/support/language-smoke-fixture.mjs",
+        "to": "test_env/fixtures/language-smoke/program.mjs"
+      },
+      {
+        "from": "test_env/support/language-smoke-fixture.mjs",
+        "to": "test_env/fixtures/language-smoke/program.mjs"
+      },
+      {
+        "from": "test_env/support/language-smoke-fixture.mjs",
+        "to": "test_env/fixtures/language-smoke/program.mjs"
+      },
+      {
+        "from": "test_env/support/registered-graph-selection.mjs",
+        "to": "test_env/fixtures/registered-selection-product/index.mjs"
+      },
+      {
+        "from": "test_env/fixtures/language-smoke/leaf.mjs",
+        "to": "test_env/fixtures/language-smoke/program.mjs"
+      },
+      {
+        "from": "test_env/fixtures/registered-selection-product/native.mjs",
+        "to": "test_env/fixtures/registered-selection-product/index.mjs"
+      },
+      {
+        "from": "test_env/support/stdo3-run-environment.mjs",
+        "to": "test_env/fixtures/registered-selection-product/index.mjs"
+      }
+    ],
+    "ambientSelfPackageImport": "native fixture declarations import the selected stage self-package; its runtime import belongs to the independently packaged installed fixture",
+    "historicalCompanionHelper": false
+  },
+  "oracleSensitivity": {
+    "commandEvidence": "tool chunk 2dccc1, exit 0",
+    "cases": 8,
+    "scope": "synthetic proof-tool discrimination only, not runtime evidence"
+  },
+  "notPerformed": [
+    "installed declaration consumer compilation",
+    "baseline/candidate runtime/install",
+    "native provider",
+    "P5 integration",
+    "whole-path counters",
+    "independent assessment"
+  ],
+  "stageBoundary": "no combined stage acquired; only preserved baseline archive and closed pure support bytes inspected",
+  "finalByteChecks": {
+    "utc": "2026-10-20T23:47:43.087593+00:00",
+    "head": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+    "acceptedInputPinsVerified": 7,
+    "commands": [
+      {
+        "argv": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "--check",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "",
+        "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164"
+      },
+      {
+        "argv": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "--check",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "",
+        "sha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc"
+      },
+      {
+        "argv": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "--check",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle-sensitivity.mjs"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "",
+        "sha256": "dab5416ff8c8bfe5776d97192f0cb1cf27772198d41b3bcde4bfb607cafbf339"
+      }
+    ],
+    "limits": "syntax only; no installed/runtime/package/native execution"
+  }
+}

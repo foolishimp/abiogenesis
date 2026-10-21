@@ -1,0 +1,224 @@
+{
+  "measures": [
+    {
+      "name": "bootstrap-install",
+      "wallMs": 5970.478542,
+      "cpuUs": {
+        "user": 231990,
+        "system": 261485
+      },
+      "memoryBefore": {
+        "rss": 274415616,
+        "heapTotal": 15564800,
+        "heapUsed": 5337216,
+        "external": 30930011,
+        "arrayBuffers": 28652432
+      },
+      "memoryAfter": {
+        "rss": 291078144,
+        "heapTotal": 26787840,
+        "heapUsed": 7615160,
+        "external": 3283859,
+        "arrayBuffers": 1006240
+      },
+      "resourceUsage": {
+        "userCPUTime": 571386,
+        "systemCPUTime": 635742,
+        "maxRSS": 285216,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 18386,
+        "majorPageFault": 79,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 1,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 59,
+        "involuntaryContextSwitches": 136012
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "second-physical-install-and-admission",
+      "wallMs": 48889.523958000005,
+      "cpuUs": {
+        "user": 149744,
+        "system": 14702
+      },
+      "memoryBefore": {
+        "rss": 2226978816,
+        "heapTotal": 1768849408,
+        "heapUsed": 1642759632,
+        "external": 84686372,
+        "arrayBuffers": 82268994
+      },
+      "memoryAfter": {
+        "rss": 2420490240,
+        "heapTotal": 1961918464,
+        "heapUsed": 1815679528,
+        "external": 116161472,
+        "arrayBuffers": 113745894
+      },
+      "resourceUsage": {
+        "userCPUTime": 26166542,
+        "systemCPUTime": 1195070,
+        "maxRSS": 2363760,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 301624,
+        "majorPageFault": 84,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4012,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 75,
+        "involuntaryContextSwitches": 161866
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "whole-lane",
+      "wallMs": 72578.13958300001,
+      "cpuUs": {
+        "user": 26364848,
+        "system": 1217792
+      },
+      "memoryBefore": {
+        "rss": 291078144,
+        "heapTotal": 26787840,
+        "heapUsed": 7638976,
+        "external": 3283859,
+        "arrayBuffers": 1006240
+      },
+      "memoryAfter": {
+        "rss": 1813905408,
+        "heapTotal": 599375872,
+        "heapUsed": 220089600,
+        "external": 20082139,
+        "arrayBuffers": 17666561
+      },
+      "resourceUsage": {
+        "userCPUTime": 26936278,
+        "systemCPUTime": 1853543,
+        "maxRSS": 2403904,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 315618,
+        "majorPageFault": 84,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4012,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 3719,
+        "involuntaryContextSwitches": 285665
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    }
+  ],
+  "commands": [
+    {
+      "label": "bootstrap-offline-install",
+      "executable": "/opt/homebrew/bin/npm",
+      "args": [
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--bin-links=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/host",
+      "exitCode": 0,
+      "wallMs": 2311.35175
+    },
+    {
+      "label": "installed-declaration-consumer",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "--target",
+        "ES2022",
+        "--strict",
+        "--skipLibCheck",
+        "false",
+        "--typeRoots",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/@types",
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/host/external-consumer.mts"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/host",
+      "exitCode": 0,
+      "wallMs": 3232.4293749999997
+    },
+    {
+      "label": "second-install",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/calls/second-install.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence",
+      "exitCode": 1,
+      "wallMs": 48731.275582999995
+    }
+  ],
+  "footprints": [
+    {
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence",
+      "files": 15,
+      "logicalBytes": 95009046,
+      "symlinks": 0,
+      "allocatedKiB": 92824,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/host",
+      "files": 5275,
+      "logicalBytes": 70701029,
+      "symlinks": 0,
+      "allocatedKiB": 82992,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/scratchParent",
+      "files": 586,
+      "logicalBytes": 2857200,
+      "symlinks": 0,
+      "allocatedKiB": 4160,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/secondInstall",
+      "files": 5274,
+      "logicalBytes": 70700214,
+      "symlinks": 0,
+      "allocatedKiB": 82988,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    }
+  ],
+  "archiveBytes": 10681844,
+  "overhead": "hash/inventory checks, evidence writes and footprint walks measured in parent whole-process scope; no diagnostic instrumentation injected",
+  "unobserved": [
+    "internal read/hash/encode/write byte counters",
+    "RuntimeHistorySelection body/selector/suffix/cause counters not exposed by selected caller",
+    "child CPU and peak memory for helper-internal subprocesses",
+    "native-provider token cost unless reported by retained transcript",
+    "OS-wide allocation peaks"
+  ],
+  "restrictions": "No speedup or heap-limit claim; sampled memory is not a peak; P4 is a capability witness, not a baseline timing ratio."
+}

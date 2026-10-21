@@ -1,0 +1,112 @@
+{
+  "kind": "t287_installed_proof_configuration",
+  "status": "activated",
+  "activationFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/effect-grant.json",
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "retryCount": 0,
+  "cleanup": false,
+  "subject": {
+    "id": "baseline",
+    "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee"
+    },
+    "packageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-package-inventory.json",
+      "sha256": "7fceeafce866ff9df84dc33568e247583badcf9021ac592e8e3f6e765b7531b4"
+    },
+    "supportManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/support-manifest.json",
+      "sha256": "922a85040acf61df1ce0e9ad9380df55e8a162acbf42a41e04b88787cf8c4a6c"
+    },
+    "inventories": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/source-after.json",
+        "sha256": "81491d917f9c481dad6dae6729c4ad98b4885c9a46f9309368b95347dfa0d0cd",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-generated-inventory.json",
+        "sha256": "92f861c654cd96e2578c00d5d588047d72caf6ccea85a4794f79942645c467f2",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-dependency-inventory.json",
+        "sha256": "22b00870648c52acf9941cf67993c2c98a42b81ac4339d7e68ccf587e071782f",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript"
+      }
+    ]
+  },
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "path": "/opt/homebrew/bin/npm",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "typescript": {
+      "version": "5.9.2",
+      "lockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    }
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "requiredEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/result.json",
+      "sha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+      "obligations": [
+        "P1"
+      ]
+    }
+  ],
+  "provider": {
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.303",
+    "sha256": "d2da3b003dc08b88b7230469014fe3e1dc6fe94bc8f648e89b34175d30269370",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "inactivityTimeoutMs": 120000,
+    "absoluteTimeoutMs": 600000,
+    "terminationGraceMs": 1000
+  },
+  "sourceRoot": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1",
+  "sourceManifest": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/manifest.json",
+    "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+  },
+  "lanes": {
+    "declared-execution": {
+      "runId": "t287-baseline-p3-support-801ba4e594e94919",
+      "roots": {
+        "evidence": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence",
+        "host": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/host",
+        "scratchParent": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/worksite"
+      }
+    }
+  },
+  "externalConsumer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/external-consumer.mts",
+    "sha256": "6821ee75b2e9392246dcf121940f9c953dad19984756bd964164e40ee4487ce7"
+  }
+}

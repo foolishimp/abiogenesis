@@ -1,4 +1,5 @@
 import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
+import { resolveExactMatch } from "./exact_match.js";
 import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";
@@ -276,10 +277,10 @@ function refusal(
 function exact<T>(values: readonly T[], predicate: (value: T) => boolean):
   | Readonly<{ kind: "one"; value: T }>
   | Readonly<{ kind: "absent" | "ambiguous" }> {
-  const matches = values.filter(predicate);
-  return matches.length === 1
-    ? { kind: "one", value: matches[0]! }
-    : { kind: matches.length === 0 ? "absent" : "ambiguous" };
+  const selected = resolveExactMatch(values, predicate);
+  return selected.kind === "one"
+    ? { kind: "one", value: selected.value }
+    : { kind: selected.kind === "absent" ? "absent" : "ambiguous" };
 }
 
 function candidateFromInstall(

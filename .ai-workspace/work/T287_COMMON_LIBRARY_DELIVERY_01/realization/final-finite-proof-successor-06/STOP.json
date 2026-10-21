@@ -1,0 +1,45 @@
+{
+  "kind": "first unexpected selected command failure",
+  "command": "reopen18",
+  "request": {
+    "label": "reopen18",
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/m5-event-store-reopen.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-06/overlay",
+    "effectiveEnvironment": {
+      "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "HOME": "/Users/jim",
+      "LANG": "en_AU.UTF-8",
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-06-6bf37a128940ead5/03-reopen18/tmp/",
+      "npm_config_offline": "true",
+      "npm_config_ignore_scripts": "true",
+      "npm_config_audit": "false",
+      "npm_config_fund": "false",
+      "npm_config_update_notifier": "false",
+      "npm_config_cache": "/private/tmp/abg-stdo3-finite-06-6bf37a128940ead5/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-stdo3-finite-06-6bf37a128940ead5/npm-logs",
+      "NODE_OPTIONS": "",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/host"
+    },
+    "timeoutMs": 600000,
+    "commandFreezeSha256": "106c3101b459bbce7a129ba52e588da5398075f74b13b534c6c59ac3e323ce9c",
+    "runnerSha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "startedUnix": 1792567901.727426
+  },
+  "result": {
+    "pid": 40841,
+    "exitCode": 1,
+    "wallMs": 39481.517624808475,
+    "stdoutSha256": "3f375e033c01bccf710ad10c9ec4e0d929173be87404b0541b9ba91ad1fe859b",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "disposition": "stopped before repair/retry/next case"
+}

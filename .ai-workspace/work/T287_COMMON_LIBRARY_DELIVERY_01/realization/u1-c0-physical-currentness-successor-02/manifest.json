@@ -1,0 +1,225 @@
+{
+  "kind": "bounded_writer_manifest",
+  "activation": "U1-C0-FAILURE-FIXTURE-02",
+  "source_files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "preimage_sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb",
+      "sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb",
+      "bytes": 88506
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "preimage_sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07",
+      "sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07",
+      "bytes": 79887
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "preimage_sha256": "bec0264685b959619fbffbec3dc28adbf98976169669e5f63334b04e6bf9d3fa",
+      "sha256": "bec0264685b959619fbffbec3dc28adbf98976169669e5f63334b04e6bf9d3fa",
+      "bytes": 20558
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "preimage_sha256": "3cdd78601462643b44c30c521f732132b33d2790e994861398c20ca2aece13bd",
+      "sha256": "3cdd78601462643b44c30c521f732132b33d2790e994861398c20ca2aece13bd",
+      "bytes": 39809
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimage_sha256": "6b592c35d2ce2f5d892bf77df46ba264fee1cfa57e13d3d272f2f9213eb603e3",
+      "sha256": "a0247ed1f3d41bc2ba93e8689e7a37906344fa5aea1cb78241633b4720ebe46c",
+      "bytes": 98519
+    }
+  ],
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/L2-supplement.md",
+      "sha256": "48800f72c2186c2f352ef94bb3616fe5253aa9086b884e1ee0120e3954d798a6",
+      "bytes": 5391
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/administrative-note.json",
+      "sha256": "4bf8bd7aa2474d76dee4a5ee8c656c2ed32b086ac058dd0cbc96a0c213cd8e4f",
+      "bytes": 389
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/case-matrix.json",
+      "sha256": "f35003856a9c6c333c0dfb7328fa1d08c1abf3a0b939c0c157e19a8d9e49a2cb",
+      "bytes": 6691
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/fixture.patch",
+      "sha256": "2daf662084ac5277de320ec5753d456a1ad8ed47ed215c4206ceaea940d4041d",
+      "bytes": 7295
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/focused-02.json",
+      "sha256": "fced312817df56ebebffceb1ed80f68733f6de9b2e8910765e9c5c46e4780bcf",
+      "bytes": 1450
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/focused-02.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/focused-02.stdout",
+      "sha256": "ba4a987f0d8967f588e96ea810e53ec29c051654a82a6db9e17820ba47495346",
+      "bytes": 482
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/focused-inputs.json",
+      "sha256": "365ad3bd9b5da22dbf0b42b0d8e7f0229f5fc0f3bb0434cfc1a0ba0eff3bb9f8",
+      "bytes": 1168
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/intake.json",
+      "sha256": "eaa9f2d21822a2cded2a25bf954487eae062b89483990de2107252d29abebb48",
+      "bytes": 882
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/physical-final-inventory.json",
+      "sha256": "d3ca7f3999280fd8317063939500264fc4e70daccbd77da93fb211081fd4bfac",
+      "bytes": 15932
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/preflight-02.json",
+      "sha256": "ae53792317cd4fa941ddca52b4eaaf7c57ae4850bffe010b8104f45db57a09d3",
+      "bytes": 699
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/preflight-02.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/preflight-02.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/preservation.json",
+      "sha256": "a00fed045166a26224f82cf3fd4650df3c98aa531f3cfcd4bedd913ef0477a8b",
+      "bytes": 2360
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/protected-sources-before.json",
+      "sha256": "df4c82dc0ac69e42eed39bbd3ea40c56cfad8589b041194f8ac82e324a795cd3",
+      "bytes": 112451
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/report.md",
+      "sha256": "6286e62eedc651f85609caba7498fb214086e0cb6235a279761aa608e98130ad",
+      "bytes": 9737
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/retained-evidence-check.json",
+      "sha256": "888ca700f54a403bd94094a3d16762eda339086c7789070820e1bcf41fc1dae2",
+      "bytes": 20226
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-correspondence.json",
+      "sha256": "79fe279ce0efdebc230e95aad310f37176aaab7f8ef5a1b5e93b52c242644fb7",
+      "bytes": 4219
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-delta-from-original.diff",
+      "sha256": "b559ee45c2d721e5072a7bacb04691ed292942fce3ff8c290da3f607298890a1",
+      "bytes": 49020
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-inputs.json",
+      "sha256": "9bc423fe6848898756103a02a56e00c9db202f55e5669573605a33df88a56a3d",
+      "bytes": 1467
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-preimages.json",
+      "sha256": "1ab466a1d65bf1f9c70796eae918662a3f084318c6afe74f71e440852887533c",
+      "bytes": 1467
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-copy.json",
+      "sha256": "7e904c710fbf51029e2ea3ff32fa17f75121691173b265566d5da9a1885ce903",
+      "bytes": 663
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-execution-freeze.json",
+      "sha256": "48428b9b10f38fe421b5e04e52562e0ec23d158231c7ca9275b1610e435be4c2",
+      "bytes": 429665
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/artifact_truth.ts",
+      "sha256": "93fc6b319623133a5f7bb5f983296871223ee868948d82ec2534b7b709b2ebd9",
+      "bytes": 34676
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/c_call_outcome.ts",
+      "sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07",
+      "bytes": 79887
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/environment_admission.ts",
+      "sha256": "8203b6dcd15a70f03216d2f5bfe882155de2ab02ee7d7ec8ff1e0b778ea53480",
+      "bytes": 46621
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/event_calculus.ts",
+      "sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb",
+      "bytes": 88506
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/operation_definition_coordinate.ts",
+      "sha256": "68753c2927d2c42aec99355968589273ad52b567bb835b9dab0311d12f137132",
+      "bytes": 4293
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/root-installed-environment.mjs",
+      "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+      "bytes": 40077
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/evidence-02/physical-scope-results.json",
+      "sha256": "15cff8f0a966e0158a7a24edc679d50e399ba421e26b7f3dae9a2ff7b5fe9d49",
+      "bytes": 6696143
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07",
+      "bytes": 79887
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb",
+      "bytes": 88506
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "sha256": "bec0264685b959619fbffbec3dc28adbf98976169669e5f63334b04e6bf9d3fa",
+      "bytes": 20558
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "sha256": "3cdd78601462643b44c30c521f732132b33d2790e994861398c20ca2aece13bd",
+      "bytes": 39809
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "6b592c35d2ce2f5d892bf77df46ba264fee1cfa57e13d3d272f2f9213eb603e3",
+      "bytes": 95706
+    }
+  ],
+  "record_count": 35,
+  "stage_inventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-execution-freeze.json",
+    "sha256": "48428b9b10f38fe421b5e04e52562e0ec23d158231c7ca9275b1610e435be4c2",
+    "entries": 1948
+  },
+  "dependencies": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/dependency-inventory.json",
+    "sha256": "991ddad43eb30a968aeb30e579aabb327a4c2016c1e157c840606c043363ad82",
+    "entries": 4576
+  },
+  "scope": "All carrier records except stage members separately pinned by inventory; no unrelated worktree claim"
+}

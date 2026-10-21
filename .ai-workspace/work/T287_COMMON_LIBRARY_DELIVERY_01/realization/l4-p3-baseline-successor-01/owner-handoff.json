@@ -1,0 +1,198 @@
+{
+  "runnerResult": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/result.json",
+    "sha256": "4b990c00cc0a06931a6faeb9b388dc56e70003e8098308483743f831504a8e69",
+    "bytes": 1996,
+    "mode": "0o644"
+  },
+  "installedEnvironment": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/installed-environment.json",
+    "sha256": "a2064c82f7b5339a88679af9cb228584f0cd881a26f76b8b5a817127664e1c08",
+    "bytes": 52111573,
+    "mode": "0o644"
+  },
+  "start": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/start.json",
+    "sha256": "81e4855dca5dda8852d31e617b46bd1098af73210f67153ca0258438408d4588",
+    "bytes": 28077750,
+    "mode": "0o644"
+  },
+  "actualCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:9f35c94c6107c9011ef76bf6d582879fd934cf44c6c766b8e97c166645e85b30",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:5c04bc8cd9c617e0667543c7b1d0cef51f3575371b1776900b5e50a732a0df58",
+      "prefixLength": 3217928,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 474111636
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:1b8041c070c458d3cf050deec84d3caab3dfec43ea52cfd99da29c65d8fd3dbe",
+      "device": 16777231,
+      "durableByteLength": 3217928,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:5c04bc8cd9c617e0667543c7b1d0cef51f3575371b1776900b5e50a732a0df58",
+      "eventLogPath": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/runtime/events.jsonl",
+      "inode": 474111636,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "eventStore": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/runtime/events.jsonl",
+    "sha256": "5c04bc8cd9c617e0667543c7b1d0cef51f3575371b1776900b5e50a732a0df58",
+    "bytes": 3217928,
+    "mode": "0o644",
+    "device": 16777231,
+    "inode": 474111636,
+    "preservedPrefixCopy": {
+      "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/events.jsonl",
+      "sha256": "5c04bc8cd9c617e0667543c7b1d0cef51f3575371b1776900b5e50a732a0df58",
+      "bytes": 3217928,
+      "mode": "0o644"
+    }
+  },
+  "runRef": "run://abiogenesis/588bfff7ddc11b0fc710295e7d9aa10498d1174dadd8c096f91deb645e542af4",
+  "literalOutput": {
+    "kind": "hello_world_output",
+    "message": "Hello World",
+    "schemaVersion": "5.0.0"
+  },
+  "typedTerminalResult": {
+    "contract": {
+      "digest": "sha256:5ed2b6dfc194c1f03a246f7d484c76bb9f7843ea5ebecd58a3143d7c10ff7ffb",
+      "ref": "contract://abi5-tests/language-smoke/output@5"
+    },
+    "kind": "abg_typed_terminal_result",
+    "producer": {
+      "cCallRef": "c-call:sha256:44d6e72188581d43898e3113b8ae6a5c4434097c4494e6679deabe0cbfeaa8e4",
+      "executionBasis": {
+        "digest": "sha256:2f1806204f0e27115debab2ac11a14d139ec622cc7f115b3529bdb66e28cad57",
+        "ref": "execution-basis://abiogenesis/2f1806204f0e27115debab2ac11a14d139ec622cc7f115b3529bdb66e28cad57"
+      },
+      "graphCallRef": "graph-call://abiogenesis/99de2ed74032d6989af2b30b305f7c5f0b036474fdd666db16fa43b4b9271b0f",
+      "graphFunction": {
+        "digest": "sha256:ba427f6801ee2c21254c7c1db95617a4328e37315baf74a840383e49543704f5",
+        "ref": "graph-function://abi5-tests/language-smoke@5"
+      },
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/ffce832959cf6867dd1ef2cb7977794057c9e7742ac0ff50224acdfd788e4627",
+      "judgmentAdmissionEventRef": "event://abiogenesis/4c3caebb745c6b3c78e407c2c92a1337a48112c684083fdefee6ae9829691b2a",
+      "judgmentRef": "judgment://abiogenesis/bc62ad164f0e383fba488a2eb4916c9fdd4dff209b599150ac8e4ec6558d4374",
+      "program": {
+        "digest": "sha256:db709314223f364446817a5a85d0594eca50f46805692a76af1ec49c327ea3bf",
+        "ref": "program://abi5-tests/language-smoke@5"
+      },
+      "resultAdmissionEventRef": "event://abiogenesis/c2dd43553418592f88840d241fdb0713fa3092852092cc679ab58c9062b8415b",
+      "runRef": "run://abiogenesis/588bfff7ddc11b0fc710295e7d9aa10498d1174dadd8c096f91deb645e542af4",
+      "terminalRoute": {
+        "digest": "sha256:a74f883b37e06b3ad1d4941071c6359c4b5473983dfdead0d4c8ec220f179a97",
+        "ref": "traversal-route://abiogenesis/a74f883b37e06b3ad1d4941071c6359c4b5473983dfdead0d4c8ec220f179a97"
+      }
+    },
+    "projectionBasis": {
+      "digest": "sha256:9f35c94c6107c9011ef76bf6d582879fd934cf44c6c766b8e97c166645e85b30",
+      "ref": "file:///private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/runtime/events.jsonl"
+    },
+    "result": {
+      "digest": "sha256:5d6bacfb53e4a92a596ab54bcabd6b3aa66b224cf81beddd453089802dfd6040",
+      "ref": "result://abiogenesis/5d6bacfb53e4a92a596ab54bcabd6b3aa66b224cf81beddd453089802dfd6040"
+    },
+    "schemaVersion": "5.0.0",
+    "value": {
+      "kind": "hello_world_output",
+      "message": "Hello World",
+      "schemaVersion": "5.0.0"
+    },
+    "valueDigest": "sha256:894e1b8f5c5b3977f21095891434e99660ae72920c8462875dbf2652d96044c0",
+    "valueKind": "hello_world_output"
+  },
+  "freshReads": [
+    {
+      "definitionKey": {
+        "memberKey": "run_replay",
+        "operationId": "abg.operation.project.read"
+      },
+      "execution": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/reads/t287-baseline-p3-support-801ba4e594e94919-run_replay.json",
+        "sha256": "04e38d224041d59d0601e2d165ac8ebdae5ecb59643cae139978699ef753dc0a",
+        "bytes": 8093,
+        "mode": "0o644"
+      },
+      "call": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/reads/t287-baseline-p3-support-801ba4e594e94919-run_replay-call.json",
+        "sha256": "c37a8e306bd496e46ae5b8a7cbd6ffa71a35cf808958f8c5f57a251632b91c09",
+        "bytes": 10152,
+        "mode": "0o644"
+      },
+      "request": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/st4-t287-baseline-p3-support-801ba4e594e94919-run_replay-request.jsonl",
+        "sha256": "c8841da1b54bd06df4cc057de91fe3d583c479eaabb021cf3e722d21950e9c38",
+        "bytes": 9420,
+        "mode": "0o644"
+      },
+      "exitCode": 0,
+      "terminalResultEqualsStart": true,
+      "actualReadCloseHandoffEqualsStart": true,
+      "wallMs": 892.5427920000002
+    },
+    {
+      "definitionKey": {
+        "memberKey": "run_result",
+        "operationId": "abg.operation.project.read"
+      },
+      "execution": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/reads/t287-baseline-p3-support-801ba4e594e94919-run_result.json",
+        "sha256": "c7ee7e2c15e52be2dc5281c886bb619cf7a2282bc720af94b18f8a42f7387ece",
+        "bytes": 8514,
+        "mode": "0o644"
+      },
+      "call": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/reads/t287-baseline-p3-support-801ba4e594e94919-run_result-call.json",
+        "sha256": "2875dc8ccd3640fb868e19bc5199e7c6f3f503fce0550ce9d5a1781e60195c5f",
+        "bytes": 10095,
+        "mode": "0o644"
+      },
+      "request": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/st4-t287-baseline-p3-support-801ba4e594e94919-run_result-request.jsonl",
+        "sha256": "f5d35e1ba2da748a5b0e91ffb7d490e835ebb0c60e123eb4e68cc06ba21fe4b9",
+        "bytes": 9383,
+        "mode": "0o644"
+      },
+      "exitCode": 0,
+      "terminalResultEqualsStart": true,
+      "actualReadCloseHandoffEqualsStart": true,
+      "wallMs": 893.1817500000034
+    }
+  ],
+  "eventCounts": {
+    "basis_admitted": 1,
+    "c_call_evidenced": 1,
+    "c_call_fibre_selected": 1,
+    "c_call_judged": 1,
+    "c_call_opened": 1,
+    "c_call_result_admitted": 1,
+    "frame_closed": 1,
+    "frame_opened": 1,
+    "graph_call_closed": 1,
+    "graph_call_opened": 1,
+    "implementation_admitted": 1,
+    "invocation_admitted": 1,
+    "public_operation_admitted": 1,
+    "public_operation_artifact_admitted": 3,
+    "run_closed": 1,
+    "run_segment_opened": 1,
+    "runtime_activity_probe_observed": 13,
+    "terminal_reached": 1,
+    "traversal_cursor_entered": 1,
+    "traversal_route_admitted": 1
+  },
+  "eventCount": 34,
+  "nativeCalls": 0,
+  "retainedCleanupHooks": 1,
+  "cleanupInvoked": false
+}

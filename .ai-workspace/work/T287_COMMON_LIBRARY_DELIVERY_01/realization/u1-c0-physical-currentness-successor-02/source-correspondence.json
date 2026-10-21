@@ -1,0 +1,74 @@
+{
+  "canonical_producer": "code/src/abg/environment_admission.ts:969-1001",
+  "basis_type": "environment_admission.ts:74-89",
+  "checks": [
+    {
+      "consumer": "Event Calculus artifact fluent",
+      "source": "event_calculus.ts:716-729",
+      "required": "payload.authorityScopeRef nonempty",
+      "fixture": "bindingCarrier.bindingId"
+    },
+    {
+      "consumer": "canonical artifact envelope",
+      "source": "environment_admission.ts:969-1001; artifact_truth.ts:263-290",
+      "required": "aggregateType workspace; aggregateId=basisId=authorityScopeRef; parentAggregateId null; scopeClass workspace; workflowVersion 5.0.0; envelope/payload causation and correlation equal",
+      "fixture": "explicit canonical event fields from supplied ArtifactAdmissionBasis"
+    },
+    {
+      "consumer": "exact operation coordinate",
+      "source": "shared/operation_definition_coordinate.ts; artifact_truth.ts:245-281",
+      "required": "operationId/memberKey/definitionDigest/invocationRef/invocationPayloadDigest/invocationDigest",
+      "fixture": "existing publicOperationBasis helper plus isExactOperationInvocationCoordinate; definition and invocation are supplied lower premises"
+    },
+    {
+      "consumer": "failure authorization binding reconstruction",
+      "source": "c_call_outcome.ts:143-218",
+      "required": "workspace bind operation; artifactRef/digest exactly matches failure authorization; artifact carrier; workspaceAuthorityBasis equals request; earlier binding ordinal",
+      "fixture": "Product-checked workspace_binding_candidate; exact request identity/digest/authority checked before append"
+    },
+    {
+      "consumer": "failure basis/call/implementation reconstruction",
+      "source": "c_call_outcome.ts:157-218",
+      "required": "unique exact basis/opened/fibre/binding/implementation; strict causal order; rawInput digest; selected row/program/graph/binding; constructed authorization equal",
+      "fixture": "unchanged existing test setup and unchanged production authenticator; actual complete join is a required execution assertion"
+    },
+    {
+      "consumer": "failure Result/evidence join",
+      "source": "c_call_outcome.ts:225-263",
+      "required": "existing class/value/contract/digests/ref/context/cause/IO/evidence relation",
+      "fixture": "unchanged production and existing evidence/Result test body"
+    }
+  ],
+  "limits": [
+    "No full Public workspace-bind/install execution",
+    "No full artifact-truth qualification against an installed history",
+    "Storage-level append is distinct from owner semantic admission",
+    "Failure physical owner and post-publication EIO are still actual required execution"
+  ],
+  "authority_sources": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/artifact_truth.ts",
+      "sha256": "93fc6b319623133a5f7bb5f983296871223ee868948d82ec2534b7b709b2ebd9"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/c_call_outcome.ts",
+      "sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/environment_admission.ts",
+      "sha256": "8203b6dcd15a70f03216d2f5bfe882155de2ab02ee7d7ec8ff1e0b778ea53480"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/event_calculus.ts",
+      "sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/operation_definition_coordinate.ts",
+      "sha256": "68753c2927d2c42aec99355968589273ad52b567bb835b9dab0311d12f137132"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/authority/root-installed-environment.mjs",
+      "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e"
+    }
+  ]
+}

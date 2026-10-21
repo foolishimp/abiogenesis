@@ -1,0 +1,50 @@
+{
+  "status": "stopped exact local acquisition attempt",
+  "files": [
+    {
+      "path": "stage-inputs.json",
+      "bytes": 369270,
+      "sha256": "c8049b90347494756f17db0affd998edd5c7fe285228ff7ce6998c439e809268"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 5139,
+      "sha256": "7103540463949f4a6b3083b307cf9d5e36bc6b3b47a45097f05261da9637fd0c"
+    },
+    {
+      "path": "activation.md",
+      "bytes": 2966,
+      "sha256": "b422a3d9218a8f660347f89812dc8dc8f5e4f9ffcd05901f8aca59bd292358ae"
+    },
+    {
+      "path": "status-preconditions.json",
+      "bytes": 401,
+      "sha256": "bf895970c9ff9e4f944787831418beda17c9ce6fdefec987436aa32bdf720501"
+    },
+    {
+      "path": "commands/01-offline-dependencies.json",
+      "bytes": 750,
+      "sha256": "2d96b0d7ac82acadbe26eea5384d581ea99f0581f63a387ac72452044db2abb8"
+    },
+    {
+      "path": "commands/02-typescript.json",
+      "bytes": 734,
+      "sha256": "4a38e87bb8534b786cec9139a56ed2ebb76e59813a74b411b1c1ca456e403907"
+    },
+    {
+      "path": "commands/03-stdo3-acquisition.json",
+      "bytes": 801,
+      "sha256": "294d13f961ab2f3a716e49bb06c493e1865eb945fb88e5cfc285455595c49816"
+    },
+    {
+      "path": "commands/03-stdo3-acquisition.stdout",
+      "bytes": 1542,
+      "sha256": "7fc2a8b49448c992d110283bf8e7cd62bb3ad6a937df24e8ce1a9a401824ab40"
+    },
+    {
+      "path": "first-cause-03.json",
+      "bytes": 1922,
+      "sha256": "0dbf0de648f3991af97c473576d98893ef4ebd9e1a6d9aedf1dc65037cd601b4"
+    }
+  ]
+}

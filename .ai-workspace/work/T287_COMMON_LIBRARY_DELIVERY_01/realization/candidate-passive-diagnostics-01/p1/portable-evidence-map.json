@@ -1,0 +1,1326 @@
+{
+  "files": [
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/activation-preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474818449,
+        "type": "file",
+        "bytes": 8213,
+        "sha256": "978f482934aa3e2e1493a430417e7e89eec548ca864315f5d6391431b7b5092c"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/activation-preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916288,
+        "type": "file",
+        "bytes": 8213,
+        "sha256": "978f482934aa3e2e1493a430417e7e89eec548ca864315f5d6391431b7b5092c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/bootstrap-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474836666,
+        "type": "file",
+        "bytes": 988003,
+        "sha256": "e36949f10c758ff4ecc9a3c3f7fac402bf717928a502c0324ab159fc8779ec88"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/bootstrap-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916289,
+        "type": "file",
+        "bytes": 988003,
+        "sha256": "e36949f10c758ff4ecc9a3c3f7fac402bf717928a502c0324ab159fc8779ec88"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/catalog-admit.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916132,
+        "type": "file",
+        "bytes": 1242,
+        "sha256": "620675957652b45d33456996f3768427bf56761f6d78e41575f8a73620e925be"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/catalog-admit.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916291,
+        "type": "file",
+        "bytes": 1242,
+        "sha256": "620675957652b45d33456996f3768427bf56761f6d78e41575f8a73620e925be"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/catalog-admit.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916131,
+        "type": "file",
+        "bytes": 174034,
+        "sha256": "ffe6e021a649917a03e740cc1d748772d1c76155c58b4819def4ad62d4c4cba2"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/catalog-admit.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916292,
+        "type": "file",
+        "bytes": 174034,
+        "sha256": "ffe6e021a649917a03e740cc1d748772d1c76155c58b4819def4ad62d4c4cba2"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/catalog-admit.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916082,
+        "type": "file",
+        "bytes": 34952105,
+        "sha256": "fcdf8fd55aaa365a0cc83d6dab213125cdd49f8bdb1956e2a7ea68f5c5511f9d"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/catalog-admit.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916293,
+        "type": "file",
+        "bytes": 34952105,
+        "sha256": "fcdf8fd55aaa365a0cc83d6dab213125cdd49f8bdb1956e2a7ea68f5c5511f9d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/catalog-view.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916200,
+        "type": "file",
+        "bytes": 2266,
+        "sha256": "ed053fd77b791333be7c8b4c32d809a534f094b19570cad300c392d47628a5b0"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/catalog-view.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916294,
+        "type": "file",
+        "bytes": 2266,
+        "sha256": "ed053fd77b791333be7c8b4c32d809a534f094b19570cad300c392d47628a5b0"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/catalog-view.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916135,
+        "type": "file",
+        "bytes": 35770388,
+        "sha256": "3934cbe188ff8745510b01a17360db9d975bc7b63bad7a1fbf46053875ee44b7"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/catalog-view.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916295,
+        "type": "file",
+        "bytes": 35770388,
+        "sha256": "3934cbe188ff8745510b01a17360db9d975bc7b63bad7a1fbf46053875ee44b7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-install-0.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474904228,
+        "type": "file",
+        "bytes": 1242,
+        "sha256": "d490158ec0c401fdc5589c595f5cf5e825e368c0eb03334b9d2d3f87ae7bcf71"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-install-0.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916296,
+        "type": "file",
+        "bytes": 1242,
+        "sha256": "d490158ec0c401fdc5589c595f5cf5e825e368c0eb03334b9d2d3f87ae7bcf71"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-install-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474904227,
+        "type": "file",
+        "bytes": 6491,
+        "sha256": "89cd510a32ef49512fcc9e6aeabb7ef33c0a577aba4fedd3e54ba90ca095fdeb"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-install-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916297,
+        "type": "file",
+        "bytes": 6491,
+        "sha256": "89cd510a32ef49512fcc9e6aeabb7ef33c0a577aba4fedd3e54ba90ca095fdeb"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-install-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886615,
+        "type": "file",
+        "bytes": 31448700,
+        "sha256": "3b5c128e479a70e49755fc17d9b83bd86880ef1e593e1d3c8661b4e794587efa"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-install-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916298,
+        "type": "file",
+        "bytes": 31448700,
+        "sha256": "3b5c128e479a70e49755fc17d9b83bd86880ef1e593e1d3c8661b4e794587efa"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-install-1.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916017,
+        "type": "file",
+        "bytes": 1242,
+        "sha256": "81f3d7380237c18b1c499d01910eb91d8093d254452405ebcbbd9f25de52fb4d"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-install-1.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916301,
+        "type": "file",
+        "bytes": 1242,
+        "sha256": "81f3d7380237c18b1c499d01910eb91d8093d254452405ebcbbd9f25de52fb4d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-install-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916016,
+        "type": "file",
+        "bytes": 6425,
+        "sha256": "350966397d35d4101306ef49fff366190876a0a8c2fdfb40b5a3e618b0006211"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-install-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916302,
+        "type": "file",
+        "bytes": 6425,
+        "sha256": "350966397d35d4101306ef49fff366190876a0a8c2fdfb40b5a3e618b0006211"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-install-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474904234,
+        "type": "file",
+        "bytes": 17291938,
+        "sha256": "5572df46695a658dd6326e33682f37873b675c4b742d678c203be28c99074470"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-install-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916303,
+        "type": "file",
+        "bytes": 17291938,
+        "sha256": "5572df46695a658dd6326e33682f37873b675c4b742d678c203be28c99074470"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-resolve.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886612,
+        "type": "file",
+        "bytes": 5354,
+        "sha256": "fec7a3f910b7308e22191fbe5ea0d61fa85c3fe129180bb20ae34d60eb97a37b"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-resolve.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916304,
+        "type": "file",
+        "bytes": 5354,
+        "sha256": "fec7a3f910b7308e22191fbe5ea0d61fa85c3fe129180bb20ae34d60eb97a37b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-resolve.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886565,
+        "type": "file",
+        "bytes": 28498355,
+        "sha256": "4901c25c4f4a8b56d66cc5a7b76ea32f364ce99d376a21567f719c9594e908da"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-resolve.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916305,
+        "type": "file",
+        "bytes": 28498355,
+        "sha256": "4901c25c4f4a8b56d66cc5a7b76ea32f364ce99d376a21567f719c9594e908da"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-verify-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886450,
+        "type": "file",
+        "bytes": 257240,
+        "sha256": "e6fdedf8c5c0318fa4af20cada2be28f4de21b6159c9055940f6f91aa3032eb6"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-verify-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916306,
+        "type": "file",
+        "bytes": 257240,
+        "sha256": "e6fdedf8c5c0318fa4af20cada2be28f4de21b6159c9055940f6f91aa3032eb6"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-verify-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856424,
+        "type": "file",
+        "bytes": 28344382,
+        "sha256": "72b552d00f1de4c290cb86399b8883de26fbcfbab3705e28b06775e57afe36c2"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-verify-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916307,
+        "type": "file",
+        "bytes": 28344382,
+        "sha256": "72b552d00f1de4c290cb86399b8883de26fbcfbab3705e28b06775e57afe36c2"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-verify-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886560,
+        "type": "file",
+        "bytes": 2052,
+        "sha256": "5613a5f1501d1daab69851984607d36bb18b1fe1b937cb4ed7f58ebc33117091"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-verify-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916308,
+        "type": "file",
+        "bytes": 2052,
+        "sha256": "5613a5f1501d1daab69851984607d36bb18b1fe1b937cb4ed7f58ebc33117091"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/product-verify-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886452,
+        "type": "file",
+        "bytes": 14186248,
+        "sha256": "44a157c7fedde9a7c3775b2ba5bd3ca27c7575a1a41690cceed0adea7740483a"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/product-verify-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916309,
+        "type": "file",
+        "bytes": 14186248,
+        "sha256": "44a157c7fedde9a7c3775b2ba5bd3ca27c7575a1a41690cceed0adea7740483a"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/program-conformance.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916239,
+        "type": "file",
+        "bytes": 2477,
+        "sha256": "f29cc472b7868afffe133c56345c302bbdb9bd6132d8aff5f677358c4379e3b6"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/program-conformance.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916310,
+        "type": "file",
+        "bytes": 2477,
+        "sha256": "f29cc472b7868afffe133c56345c302bbdb9bd6132d8aff5f677358c4379e3b6"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/program-conformance.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916205,
+        "type": "file",
+        "bytes": 36323092,
+        "sha256": "526bfccd4cc2a5515c6dc84a975917b400d1d5f4b8be6b6b9d46bc3f8e8a3db1"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/program-conformance.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916311,
+        "type": "file",
+        "bytes": 36323092,
+        "sha256": "526bfccd4cc2a5515c6dc84a975917b400d1d5f4b8be6b6b9d46bc3f8e8a3db1"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/workspace-bind.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916076,
+        "type": "file",
+        "bytes": 1242,
+        "sha256": "620675957652b45d33456996f3768427bf56761f6d78e41575f8a73620e925be"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/workspace-bind.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916312,
+        "type": "file",
+        "bytes": 1242,
+        "sha256": "620675957652b45d33456996f3768427bf56761f6d78e41575f8a73620e925be"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/workspace-bind.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916075,
+        "type": "file",
+        "bytes": 7061,
+        "sha256": "0bede2b4d9f848cbbeafbdd357e2e9453638c2ba33d113d42d840e59be2cd5e6"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/workspace-bind.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916313,
+        "type": "file",
+        "bytes": 7061,
+        "sha256": "0bede2b4d9f848cbbeafbdd357e2e9453638c2ba33d113d42d840e59be2cd5e6"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/workspace-bind.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916027,
+        "type": "file",
+        "bytes": 20392421,
+        "sha256": "49abc20d49efdac60612ce0f43c7d9c2f0a8be1588de88aa13ff3d67e64f5c68"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/workspace-bind.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916314,
+        "type": "file",
+        "bytes": 20392421,
+        "sha256": "49abc20d49efdac60612ce0f43c7d9c2f0a8be1588de88aa13ff3d67e64f5c68"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/workspace-create.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856385,
+        "type": "file",
+        "bytes": 1967,
+        "sha256": "a4d48394569d532f535d11c010acd8f02b50850a2b30119cad9b725670b3d7ce"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/workspace-create.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916315,
+        "type": "file",
+        "bytes": 1967,
+        "sha256": "a4d48394569d532f535d11c010acd8f02b50850a2b30119cad9b725670b3d7ce"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/workspace-create.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474837057,
+        "type": "file",
+        "bytes": 14176993,
+        "sha256": "e9b0a8774db266c886ac2b73d12649a1f688b01c7d55091ec74aea61f6c6d424"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/calls/workspace-create.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916316,
+        "type": "file",
+        "bytes": 14176993,
+        "sha256": "e9b0a8774db266c886ac2b73d12649a1f688b01c7d55091ec74aea61f6c6d424"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/1-bootstrap-offline-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474836661,
+        "type": "file",
+        "bytes": 798,
+        "sha256": "523fe69b11b605012e43016e5961da495e7fa3c48564727dee17b625acf2d763"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/1-bootstrap-offline-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916318,
+        "type": "file",
+        "bytes": 798,
+        "sha256": "523fe69b11b605012e43016e5961da495e7fa3c48564727dee17b625acf2d763"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/10-workspace-bind.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916074,
+        "type": "file",
+        "bytes": 6426,
+        "sha256": "e18fef2f77dca9287c6bafad9b70c5c327a7b942b37b4a4d6d6d49d65e481758"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/10-workspace-bind.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916319,
+        "type": "file",
+        "bytes": 6426,
+        "sha256": "e18fef2f77dca9287c6bafad9b70c5c327a7b942b37b4a4d6d6d49d65e481758"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/11-catalog-admit.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916130,
+        "type": "file",
+        "bytes": 143492,
+        "sha256": "3f905217a1ea8cd7415314e4edab4d0514bf9e0c398e7aef6a25c7900a96b09f"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/11-catalog-admit.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916320,
+        "type": "file",
+        "bytes": 143492,
+        "sha256": "3f905217a1ea8cd7415314e4edab4d0514bf9e0c398e7aef6a25c7900a96b09f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/12-catalog-view.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916199,
+        "type": "file",
+        "bytes": 2508,
+        "sha256": "748ba3bac42d3b6e1d2d1303de693d238ba6fd4284e3350d81b63add3937d0f9"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/12-catalog-view.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916321,
+        "type": "file",
+        "bytes": 2508,
+        "sha256": "748ba3bac42d3b6e1d2d1303de693d238ba6fd4284e3350d81b63add3937d0f9"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/13-program-conformance.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916238,
+        "type": "file",
+        "bytes": 2659,
+        "sha256": "d6ee860a1054b53241b69133384f07ce4d3bb0ad64ea0f750ab339639f767aa3"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/13-program-conformance.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916322,
+        "type": "file",
+        "bytes": 2659,
+        "sha256": "d6ee860a1054b53241b69133384f07ce4d3bb0ad64ea0f750ab339639f767aa3"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/2-installed-declaration-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474836723,
+        "type": "file",
+        "bytes": 965,
+        "sha256": "418145b276149ba17d991e40f28f7bfcbcf1ba9b1ce5ed2f4676d90b836f72cd"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/2-installed-declaration-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916323,
+        "type": "file",
+        "bytes": 965,
+        "sha256": "418145b276149ba17d991e40f28f7bfcbcf1ba9b1ce5ed2f4676d90b836f72cd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/3-workspace-create.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856384,
+        "type": "file",
+        "bytes": 2252,
+        "sha256": "54bfe9f2d0fab8141cf2355f7f79024c77b43b3b443027f4cbcb401fd957ca18"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/3-workspace-create.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916324,
+        "type": "file",
+        "bytes": 2252,
+        "sha256": "54bfe9f2d0fab8141cf2355f7f79024c77b43b3b443027f4cbcb401fd957ca18"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/4-pack-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856419,
+        "type": "file",
+        "bytes": 1798,
+        "sha256": "1b15db496211f139009c52cf03abfda8b6f84400b0b348b5be3dbe545a8910f0"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/4-pack-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916325,
+        "type": "file",
+        "bytes": 1798,
+        "sha256": "1b15db496211f139009c52cf03abfda8b6f84400b0b348b5be3dbe545a8910f0"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/5-product-verify-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886449,
+        "type": "file",
+        "bytes": 158808,
+        "sha256": "556f7ba1ba1080c1d9c64564eb6ce4afc6cbbf676524a625774553ff836f0e07"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/5-product-verify-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916326,
+        "type": "file",
+        "bytes": 158808,
+        "sha256": "556f7ba1ba1080c1d9c64564eb6ce4afc6cbbf676524a625774553ff836f0e07"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/6-product-verify-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886559,
+        "type": "file",
+        "bytes": 2313,
+        "sha256": "5e6eca34a57d26d2ecbc66a4a1641367d7f63af8e8f7c990de1ed162fa61bbe6"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/6-product-verify-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916327,
+        "type": "file",
+        "bytes": 2313,
+        "sha256": "5e6eca34a57d26d2ecbc66a4a1641367d7f63af8e8f7c990de1ed162fa61bbe6"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/7-product-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886611,
+        "type": "file",
+        "bytes": 4741,
+        "sha256": "90e04672fe416331a8a8f9a5c49f65ec29364d1358f90b6bb86caef6d7f1f189"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/7-product-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916328,
+        "type": "file",
+        "bytes": 4741,
+        "sha256": "90e04672fe416331a8a8f9a5c49f65ec29364d1358f90b6bb86caef6d7f1f189"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/8-product-install-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474904226,
+        "type": "file",
+        "bytes": 6161,
+        "sha256": "d71ea5099363a5433e0490982d3846ef599e64668769ec89ce585a2f116d9a8c"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/8-product-install-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916329,
+        "type": "file",
+        "bytes": 6161,
+        "sha256": "d71ea5099363a5433e0490982d3846ef599e64668769ec89ce585a2f116d9a8c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/commands/9-product-install-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916015,
+        "type": "file",
+        "bytes": 6095,
+        "sha256": "b9be2fc3c83e31a1a9e0a4baecf93969d4e670e7c59f53c67dfb0e92a1e998af"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/commands/9-product-install-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916330,
+        "type": "file",
+        "bytes": 6095,
+        "sha256": "b9be2fc3c83e31a1a9e0a4baecf93969d4e670e7c59f53c67dfb0e92a1e998af"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/consumer-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856420,
+        "type": "file",
+        "bytes": 10067,
+        "sha256": "72ee251f8e881b67d33eb4ce200c26b1bfa6c323e423d632c40501a68170c989"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/consumer-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916331,
+        "type": "file",
+        "bytes": 10067,
+        "sha256": "72ee251f8e881b67d33eb4ce200c26b1bfa6c323e423d632c40501a68170c989"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/effective-environment.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474818451,
+        "type": "file",
+        "bytes": 807,
+        "sha256": "b533ac46a16bf78d6775f6e88c2bb90f439657c4ff32022e0efe82d3f787e343"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/effective-environment.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916332,
+        "type": "file",
+        "bytes": 807,
+        "sha256": "b533ac46a16bf78d6775f6e88c2bb90f439657c4ff32022e0efe82d3f787e343"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916254,
+        "type": "file",
+        "bytes": 3113362,
+        "sha256": "f518d558ed35027c21419da5706583da3727fcee115df65f815b3929649e7b45"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916333,
+        "type": "file",
+        "bytes": 3113362,
+        "sha256": "f518d558ed35027c21419da5706583da3727fcee115df65f815b3929649e7b45"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/installed/0/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474904233,
+        "type": "file",
+        "bytes": 4302059,
+        "sha256": "22d9d812db9ac3f6d06fa7a4d723dbe77a651b4f916f8c8dd3f8f9a65979be04"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/installed/0/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916336,
+        "type": "file",
+        "bytes": 4302059,
+        "sha256": "22d9d812db9ac3f6d06fa7a4d723dbe77a651b4f916f8c8dd3f8f9a65979be04"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/installed/0/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474904232,
+        "type": "file",
+        "bytes": 871,
+        "sha256": "bdb1aed8332b60ac61e8ad943795177da5c92faac65a0f0b18bc2ddf1c04fe7a"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/installed/0/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916337,
+        "type": "file",
+        "bytes": 871,
+        "sha256": "bdb1aed8332b60ac61e8ad943795177da5c92faac65a0f0b18bc2ddf1c04fe7a"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/installed/0/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474904231,
+        "type": "file",
+        "bytes": 4314939,
+        "sha256": "761e646107cd45f01fc80b9b25d0b460bbe3afeb382a67d73b9010b3ac90a139"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/installed/0/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916338,
+        "type": "file",
+        "bytes": 4314939,
+        "sha256": "761e646107cd45f01fc80b9b25d0b460bbe3afeb382a67d73b9010b3ac90a139"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/installed/1/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916022,
+        "type": "file",
+        "bytes": 13033,
+        "sha256": "7ab76b8bfbbaca17156e8248707e0a74bf34874f19bcf84263c1f110688cf90e"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/installed/1/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916340,
+        "type": "file",
+        "bytes": 13033,
+        "sha256": "7ab76b8bfbbaca17156e8248707e0a74bf34874f19bcf84263c1f110688cf90e"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/installed/1/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916021,
+        "type": "file",
+        "bytes": 871,
+        "sha256": "6deb0cc955f740a1203d08f93b118c58efee68e2a534094c2bc12ebf0a12308e"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/installed/1/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916341,
+        "type": "file",
+        "bytes": 871,
+        "sha256": "6deb0cc955f740a1203d08f93b118c58efee68e2a534094c2bc12ebf0a12308e"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/installed/1/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916020,
+        "type": "file",
+        "bytes": 5845,
+        "sha256": "3cde6c9a5d2a759c985926a6ed24f8ee36c26402ad8ec6dea875819b68f76bfe"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/installed/1/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916342,
+        "type": "file",
+        "bytes": 5845,
+        "sha256": "3cde6c9a5d2a759c985926a6ed24f8ee36c26402ad8ec6dea875819b68f76bfe"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/measurements.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916255,
+        "type": "file",
+        "bytes": 16549,
+        "sha256": "de650985de030d587d0deb1730f1abbaf4d56d502177f2226435641e2d94f415"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/measurements.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916343,
+        "type": "file",
+        "bytes": 16549,
+        "sha256": "de650985de030d587d0deb1730f1abbaf4d56d502177f2226435641e2d94f415"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/native-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474837048,
+        "type": "file",
+        "bytes": 16411241,
+        "sha256": "2e252062b4bc14bf628ab7baa8dd114562575454f4cdbb9a1c86b642619f9784"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/native-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916344,
+        "type": "file",
+        "bytes": 16411241,
+        "sha256": "2e252062b4bc14bf628ab7baa8dd114562575454f4cdbb9a1c86b642619f9784"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/p1-owner-state.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916253,
+        "type": "file",
+        "bytes": 41971085,
+        "sha256": "96cdd2f4850a0cc8f813601e467d725c5d195ddd6ca747b2f78915fc3c0b8d5b"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/p1-owner-state.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916345,
+        "type": "file",
+        "bytes": 41971085,
+        "sha256": "96cdd2f4850a0cc8f813601e467d725c5d195ddd6ca747b2f78915fc3c0b8d5b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resolution-first.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916248,
+        "type": "file",
+        "bytes": 5461028,
+        "sha256": "a2419205963883f0f78c3959ed5de117c02f24312f42381ad63aa06645c4342c"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/resolution-first.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916346,
+        "type": "file",
+        "bytes": 5461028,
+        "sha256": "a2419205963883f0f78c3959ed5de117c02f24312f42381ad63aa06645c4342c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resolution-negatives.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916252,
+        "type": "file",
+        "bytes": 42046,
+        "sha256": "f6875ff2a1983c04ab7d8efd6103a52b48435dd2e9ab0bc01b7d59252deada60"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/resolution-negatives.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916347,
+        "type": "file",
+        "bytes": 42046,
+        "sha256": "f6875ff2a1983c04ab7d8efd6103a52b48435dd2e9ab0bc01b7d59252deada60"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resolution-warm.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916251,
+        "type": "file",
+        "bytes": 5461028,
+        "sha256": "a2419205963883f0f78c3959ed5de117c02f24312f42381ad63aa06645c4342c"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/resolution-warm.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916348,
+        "type": "file",
+        "bytes": 5461028,
+        "sha256": "a2419205963883f0f78c3959ed5de117c02f24312f42381ad63aa06645c4342c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resources/events/runtime.events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474886643,
+        "type": "file",
+        "bytes": 3113362,
+        "sha256": "f518d558ed35027c21419da5706583da3727fcee115df65f815b3929649e7b45"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/resources/events/runtime.events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916351,
+        "type": "file",
+        "bytes": 3113362,
+        "sha256": "f518d558ed35027c21419da5706583da3727fcee115df65f815b3929649e7b45"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916256,
+        "type": "file",
+        "bytes": 1771,
+        "sha256": "a313a40e021f9dce4ea8a5013ab6beaae29b294e6fe642336e33a04f90e6dcf0"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916352,
+        "type": "file",
+        "bytes": 1771,
+        "sha256": "a313a40e021f9dce4ea8a5013ab6beaae29b294e6fe642336e33a04f90e6dcf0"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856412,
+        "type": "file",
+        "bytes": 6199,
+        "sha256": "538ed071545a64c4db6b234d2f5f9e2b05d8621921e5bed9dfa651f666f0f541"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916355,
+        "type": "file",
+        "bytes": 6199,
+        "sha256": "538ed071545a64c4db6b234d2f5f9e2b05d8621921e5bed9dfa651f666f0f541"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-source/build/publication.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856393,
+        "type": "file",
+        "bytes": 27494,
+        "sha256": "91cd4bafe80f6546c677a925a3b993ba26d30d422afe6fb93743c5c6199aebdd"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/setup/consumer-source/build/publication.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916358,
+        "type": "file",
+        "bytes": 27494,
+        "sha256": "91cd4bafe80f6546c677a925a3b993ba26d30d422afe6fb93743c5c6199aebdd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-source/build/semantics.mjs",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856394,
+        "type": "file",
+        "bytes": 757,
+        "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/setup/consumer-source/build/semantics.mjs",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916359,
+        "type": "file",
+        "bytes": 757,
+        "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-source/contracts/assessment.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856395,
+        "type": "file",
+        "bytes": 462,
+        "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/setup/consumer-source/contracts/assessment.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916361,
+        "type": "file",
+        "bytes": 462,
+        "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-source/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856398,
+        "type": "file",
+        "bytes": 247,
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/setup/consumer-source/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916363,
+        "type": "file",
+        "bytes": 247,
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-source/contracts/public-contract-catalog.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856396,
+        "type": "file",
+        "bytes": 75,
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/setup/consumer-source/contracts/public-contract-catalog.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916364,
+        "type": "file",
+        "bytes": 75,
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-source/package.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856392,
+        "type": "file",
+        "bytes": 584,
+        "sha256": "7cf4988e797aa2edc849ce6ffc7fc0280cd52fd6d83ffc00d620638d481e57a9"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/setup/consumer-source/package.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916365,
+        "type": "file",
+        "bytes": 584,
+        "sha256": "7cf4988e797aa2edc849ce6ffc7fc0280cd52fd6d83ffc00d620638d481e57a9"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-source/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856399,
+        "type": "file",
+        "bytes": 4864,
+        "sha256": "d3bc5492b42e92126b233e3eb9b30916fa11fa103693e2321637af1e91be1816"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/setup/consumer-source/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916366,
+        "type": "file",
+        "bytes": 4864,
+        "sha256": "d3bc5492b42e92126b233e3eb9b30916fa11fa103693e2321637af1e91be1816"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup-identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916240,
+        "type": "file",
+        "bytes": 9277513,
+        "sha256": "ddd7e23bd4a073d8289ae98b971ede69621143e5e681af7dd6753bd77a0651f4"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/setup-identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916367,
+        "type": "file",
+        "bytes": 9277513,
+        "sha256": "ddd7e23bd4a073d8289ae98b971ede69621143e5e681af7dd6753bd77a0651f4"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/workspace-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474856386,
+        "type": "file",
+        "bytes": 1550,
+        "sha256": "9b4a70e1701d1f86dd930362ee696b8de04b005e422997fd13bd08534e23d999"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/evidence/workspace-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474916368,
+        "type": "file",
+        "bytes": 1550,
+        "sha256": "9b4a70e1701d1f86dd930362ee696b8de04b005e422997fd13bd08534e23d999"
+      }
+    }
+  ],
+  "excludedInstalledPayloadFiles": 10555,
+  "relation": "Exact bytes/modes, not inode identity; full installed payload retained and inventoried in original physical roots"
+}

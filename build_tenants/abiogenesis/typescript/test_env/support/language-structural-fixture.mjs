@@ -1,12 +1,20 @@
 // Installs an independently owned finite test package through ordinary Product authority.
+import assert from 'node:assert/strict';
 import {execFile} from 'node:child_process';
 import {cp,mkdir,readFile,writeFile} from 'node:fs/promises';
-import {basename,join} from 'node:path';
+import {basename,isAbsolute,join} from 'node:path';
 import {promisify} from 'node:util';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {STRUCTURAL_FIXTURE_OWNER,STRUCTURAL_IDS,constructStructuralPublication} from '../fixtures/language-structural/program.mjs';
 const execFileAsync=promisify(execFile);
-export async function prepareLanguageStructuralFixture({ scratch, product, gtl, abiPublication, sourceTransform }) {
+export async function prepareLanguageStructuralFixture({ scratch, product, gtl, abiPublication, abiPackageArchivePath, sourceTransform }) {
+  assert.ok(typeof abiPackageArchivePath === "string" && isAbsolute(abiPackageArchivePath),
+    "structural fixture requires an absolute exact ABI package archive path");
+  assert.equal(await product.sha256File(abiPackageArchivePath), abiPublication.artifactDigest,
+    "structural fixture ABI archive differs from its publication");
+  const abiPackageName = abiPublication.productSemanticsBinding.packageName;
+  assert.ok(typeof abiPackageName === "string" && abiPackageName.length > 0,
+    "structural fixture requires its publication's ABI package name");
   const owner = STRUCTURAL_FIXTURE_OWNER;
   const sourceRoot = join(scratch, "language-structural-fixture");
   await mkdir(join(sourceRoot, "build"), { recursive: true });
@@ -20,7 +28,8 @@ export async function prepareLanguageStructuralFixture({ scratch, product, gtl, 
   const preparedProgram=sourceTransform===undefined ? {constructStructuralPublication} :
     await import(pathToFileURL(join(sourceRoot,"build/program.mjs")).href);
   const payload = { "package.json": { name: owner.packageName, version: owner.packageVersion, type: "module",
-    exports: { "./program": "./build/program.mjs" }, files: ["build", "contracts", "product-toolchain-manifest.json"] },
+    exports: { "./program": "./build/program.mjs" }, files: ["build", "contracts", "product-toolchain-manifest.json"],
+    dependencies: { [abiPackageName]: `file:${abiPackageArchivePath}` } },
     "contracts/public-contract-catalog.schema.json": { $schema: "https://json-schema.org/draft/2020-12/schema", type: "object" } };
   for (const [path, value] of Object.entries(payload)) await writeFile(join(sourceRoot, path), `${product.canonicalJson(value)}\n`);
   const capabilityGraph = product.constructCapabilityDefinitionGraph([]);

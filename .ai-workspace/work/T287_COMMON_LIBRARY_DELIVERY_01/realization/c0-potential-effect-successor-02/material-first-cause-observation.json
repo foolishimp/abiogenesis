@@ -1,0 +1,24 @@
+{
+  "firstFailedAssertion": "verify-metadata.mjs:160 addedLocators == []",
+  "addedLocators": [],
+  "removedLocators": [
+    "node_modules/fast-check/CHANGELOG.md",
+    "node_modules/pure-rand/CHANGELOG.md"
+  ],
+  "candidateManifest": {
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3189543,
+    "sha256": "73d02b9bf9ec66fb54d31f53541993a2de7549d4e5fc574db6bb62f3d9b5dda5"
+  },
+  "baselineManifest": {
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3189620,
+    "sha256": "9a23c6ff5aa27c334a872f6ee2fb81b675c95d84fb71b19cc2ea3cb74da98ee6"
+  },
+  "addedDependencyBytes": [],
+  "interpretation": "No substitution or refreshed expected locator list; Root triage required. No archive yet exists."
+}

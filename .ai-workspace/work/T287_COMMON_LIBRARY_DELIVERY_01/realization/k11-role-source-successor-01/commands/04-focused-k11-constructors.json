@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "node",
+    "--test",
+    "--test-name-pattern=^K11 (current public specialization admits exact standalone STDO3 and conserves explicit source identity|every standalone role binds native STDO material while additional generic material remains explicit|explicit corpus construction still requires every source, companion and role-access join)$",
+    "test_env/tests/t287-stdo3-run-environment.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript",
+  "resolved_executable": "/opt/homebrew/bin/node",
+  "started_utc": "2026-10-21T01:27:09.669961+00:00",
+  "environment_overrides": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources",
+    "ABI5_CONTEXT_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources"
+  },
+  "returncode": 0,
+  "wall_seconds": 0.41112845786847174,
+  "completed_utc": "2026-10-21T01:27:10.081218+00:00",
+  "stdout": {
+    "bytes": 467,
+    "sha256": "b45fd5ebc4df3820557c8a8238e7559c392c91745535565687b7cfd8dc75c61e"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

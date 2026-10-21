@@ -1,0 +1,31 @@
+--- preimage/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts
++++ main/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts
+@@ -282,7 +282,11 @@
+       row.programLocusRef === openedPayload.programLocusRef &&
+       row.graphFunctionRef === opened.graphFunctionRef &&
+       row.implementationBindingRef === fibrePayload.implementationBindingRef);
+-    if (selected.length !== 1 || selected[0]!.failureContractRef !== WORKSITE_C0_IDS.failureContractRef) return null;
++    if (selected.length !== 1 ||
++      selected[0]!.inputContractRef !== WORKSITE_C0_IDS.inputContractRef ||
++      selected[0]!.outputContractRef !== WORKSITE_C0_IDS.outputContractRef ||
++      selected[0]!.failureContractRef !== WORKSITE_C0_IDS.failureContractRef ||
++      selected[0]!.refusalContractRef !== WORKSITE_C0_IDS.refusalContractRef) return null;
+     const resolution = selected[0]!;
+     const cCall = { kind: "c_call", schemaVersion: "5.0.0", ...opened.payload, ...fibre.payload,
+       basisId: opened.basisId, runId: opened.runId, graphFunctionRef: opened.graphFunctionRef,
+@@ -1879,8 +1883,11 @@
+   return receipt === null ? null : completePublicOutcome<JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt>(receipt);
+ }
+ 
+-/** @internal Select every original failure-basis population, preserving the exact unique join. */
++/** @internal Reuse the selected occurrence's complete strict support and unique join. */
+ export function projectWorksiteFailureBasisAtPrefix(prefix: RuntimeEventPrefix, cCallRef: string, value: unknown) {
+-  const kinds: readonly RuntimeEvent["kind"][] = ["basis_admitted","c_call_opened","c_call_fibre_selected","public_operation_artifact_admitted","implementation_admitted"];
+-  return projectWorksiteFailureBasis(kinds.flatMap(kind => indexedRuntimeEvents(prefix,"kind:"+kind)), cCallRef,value);
+-}
++  const fibres = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef)
++    .filter(event => event.kind === "c_call_fibre_selected");
++  if (fibres.length !== 1) return null;
++  const fibre = fibres[0]!;
++  return projectWorksiteFailureBasis([...worksiteSelectedOccurrenceDependencies(prefix, fibre), fibre], cCallRef, value);
++}

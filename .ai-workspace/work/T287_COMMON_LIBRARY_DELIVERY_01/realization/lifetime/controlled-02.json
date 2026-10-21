@@ -1,0 +1,12 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^controlled",
+    "test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "exitCode": 0,
+  "seconds": 0.37608250021003187,
+  "scope": "controlled source component; no provider or installed Public"
+}

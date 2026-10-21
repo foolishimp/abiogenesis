@@ -1,0 +1,183 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir,stat} from 'node:fs/promises';
+import {join} from 'node:path';
+import {pathToFileURL,fileURLToPath} from 'node:url';
+import * as f from '../fixtures/t287-s03-automatic-product/index.mjs';
+import {requireRawAdmission,rawProgramInput,setupInstalledRootCatalog} from './root-installed-environment.mjs';
+import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from './registered-graph-selection.mjs';
+export const read=async path=>JSON.parse(await readFile(path,'utf8'));
+export const save=async (dir,name,value)=>{await mkdir(dir,{recursive:true});await writeFile(join(dir,name),JSON.stringify(value,null,2)+'\n');};
+const loadAt=root=>p=>import(pathToFileURL(join(root,`build/code/src/${p}.js`)).href);
+export async function purePreflight({prior,oracle}){
+ const load=loadAt(prior.installedRoot),[gtl,product,validator,traversal,cursorOwner,sourcePath]=await Promise.all(['gtl/index','product/index','validator/index','hog/traversal','abg/traversal_cursor','gtl/source_path'].map(load));
+ assert.equal(await product.sha256File(prior.artifactPaths[0]),'sha256:c061fca61bc180e45b717527dc45f44dbeedcff69d67916d3801b85edb0c8c23');
+ assert.deepEqual(f.DOMAIN_ORACLE.initialDomain,oracle.initialDomain);assert.deepEqual(f.DOMAIN_ORACLE.desiredValues,oracle.desiredValues);assert.equal(f.DOMAIN_ORACLE.targetObligationRef,oracle.targetObligationRef);assert.equal(f.DOMAIN_ORACLE.observationObligationRef,oracle.observationObligationRef);assert.equal(f.DOMAIN_ORACLE.handoff,oracle.negative.expectedHandoff);
+ const d=f.declarations(gtl),placeholder=product.sha256Canonical({scope:'pure declaration check; no Product artifact claim'});
+ const publication=gtl.modulePublication({kind:'module_publication',moduleVersion:'5.0.0',...d,artifactDigest:placeholder,productContentDigest:placeholder,productManifestDigest:placeholder,contributions:d.contributions.map(c=>({...c,provenanceRefs:[placeholder]}))});
+ const raw=requireRawAdmission(validator,publication,'module_publication','contract://abiogenesis/gtl/module-publication@5'),program=raw.value.programs.find(p=>p.programRef===f.ref('program','root'));
+ const programValidation=validator.validateProgram(rawProgramInput(validator,raw,program));assert.equal(programValidation.kind,'program_validation',JSON.stringify(programValidation));
+ const graphFunction=raw.value.graphFunctions.find(g=>g.name===f.ref('graph-function','root')),input=f.fixtureInput({workspaceBinding:prior.workspaceBinding,program});
+ const materializationBasis={invocationAdmissionRef:'invocation-admission://s03-pure/structural',admittedInputRef:'input://s03-pure/structural',admittedInputDigest:product.sha256Canonical(input),admittedInput:input};
+ const graph=gtl.materializeGraph(graphFunction,materializationBasis),graphValidation=validator.validateGraph(graph,programValidation,graphFunction,materializationBasis);assert.equal(graphValidation.kind,'graph_validation',JSON.stringify(graphValidation));
+ const terms=graphFunction.template.nodes[0].term.terms,app=graph.template.applications[0];assert.equal(terms.length,8);assert.equal(app.maxApplications,1);assert.equal(terms[5].outputCarrierRef,app.inputContractRef);assert.equal(terms[0].inputCarrierRef,app.outputContractRef);assert.equal(terms[5].compositionRef,program.constructionComposition.compositionRef);
+ const pairPositive=f.fixtureInput({workspaceBinding:prior.workspaceBinding,program},true),pairNegative=f.fixtureInput({workspaceBinding:prior.workspaceBinding,program},false);assert.deepEqual({...pairPositive,correctionAvailable:false},pairNegative);
+ const results=[];
+ const output=(name,input)=>{const result=f[name](input).resultCandidate,binding=publication.implementationBindings.find(b=>b.namedSymbol===name),contract=publication.contracts.find(c=>c.contractRef===binding.outputContractRef);assert.equal(result.kind,contract.valueKind);return result;};
+ function evaluateCandidate(basis,choice,response){
+  // These are synthetic value candidates only. No runtime events or admissions are made.
+  const action=program.actionCatalog.rows.find(row=>row.actionRef===choice.selectedActionRef);
+  const intent={...action,selectedActionRef:action.actionRef,constructionIntentRef:'construction-intent://s03-pure/'+action.actionRef.split('/').at(-1),targetOutcomeRef:oracle.targetOutcomeRef};
+  const evaluationBasis={basisRef:'action-evaluation-basis://s03-pure/value',basisDigest:placeholder,constructionIntent:intent,nextActionBasis:basis,admittedEvidence:[{responseRef:'result://s03-pure/value',responseValue:response,semanticEvidenceAssetRefs:action.outputAssetRefs}],runtimeEvidenceEventRefs:['intent','result','judgment','terminal','graph-closure'].map(x=>'event://s03-pure/'+x)};
+  const evaluation=output('evaluate',evaluationBasis);
+  const bad=JSON.parse(JSON.stringify(evaluationBasis));bad.admittedEvidence[0].responseValue.domain.target.value=99;assert.throws(()=>f.evaluate(bad),/Actual admitted child result/);
+  return evaluation;
+ }
+ for(const correctionAvailable of [true,false]){
+  const initial=f.fixtureInput({workspaceBinding:prior.workspaceBinding,program},correctionAvailable),basis=output('gap',output('model',initial)),choice=output('next',basis),response=output('consumer',output('producer',basis.targetInput)),evaluation=evaluateCandidate(basis,choice,response),refresh=output('refreshModel',evaluation);
+  assert.equal(choice.selectedActionRef,f.ref('action','observe'));assert.equal(response.observedGap.disposition,'unmet');assert.equal(evaluation.edgeClosureDecision.disposition,'continue_candidate');assert.deepEqual(evaluation.edgeFulfillmentLedger.rows.map(r=>r.obligationRef),[oracle.observationObligationRef]);assert.equal(refresh.disposition,'re_enter');assert.deepEqual(refresh.targetInput.domain,oracle.initialDomain);assert.deepEqual(refresh.targetInput.priorEvaluation,evaluation);
+  const source=sourcePath.resolveCProgramLocus(graph.template,app.sourceProgramLocusRef),target=sourcePath.resolveCProgramLocus(graph.template,app.targetProgramLocusRef),cursor=cursorOwner.constructTraversalCursorCandidate({programRef:program.programRef,executionBasisRef:'execution-basis://s03-pure/structural',traversalScopeRef:'scope://s03-pure/structural',runId:'run://s03-pure/structural',graphCallId:'graph-call://s03-pure/structural',frameId:'frame://s03-pure/structural',graphRef:graph.materializationRef,inputRef:'result://s03-pure/structural',inputDigest:product.sha256Canonical(evaluation),currentNodeRef:source.nodeRef,position:'at_term',termPath:source.termPath,taskOrdinal:null,attempt:1,retryPath:[]});
+  const derived=traversal.deriveGraphSpanReentryCursor(graph,cursor,app,{inputRef:refresh.targetInputRef,inputDigest:refresh.targetInputDigest});assert.equal(derived.kind,'traversal_cursor');assert.deepEqual(derived.termPath,target.termPath);assert.equal(derived.attempt,2);
+  const nextBasis=output('gap',output('model',refresh.targetInput)),next=output('next',nextBasis);
+  assert.deepEqual(nextBasis.admittedActionCatalog,program.actionCatalog);assert.deepEqual(nextBasis.declaredPolicy,program.constructionComposition.closurePolicy);
+  if(correctionAvailable){
+   assert.equal(next.selectedActionRef,f.ref('action','correct'));assert.deepEqual(next.targetObligationRefs,[oracle.targetObligationRef]);
+   const corrected=output('consumer',output('producer',nextBasis.targetInput)),evaluated=evaluateCandidate(nextBasis,next,corrected),refreshed=output('refreshModel',evaluated),gap=output('refreshGap',refreshed),terminal=output('finish',gap);
+   assert.equal(corrected.domain.target.value,oracle.positive.expectedTarget);assert.deepEqual(corrected.domain.unaffected,oracle.initialDomain.unaffected);assert.equal(evaluated.edgeClosureDecision.disposition,'close_candidate');assert.equal(terminal.disposition,'converged');assert.deepEqual(refreshed.state.observationSnapshot.domain,corrected.domain);assert.equal(gap.runtimeFrontier.phase,'post_evidence');
+   results.push({correctionAvailable,observation:response,evaluation,refresh,target:nextBasis.targetInput,corrected,evaluated,refreshed,gap,terminal});
+  }else{
+   assert.equal(next.disposition,'no_action');assert.equal(next.noActionDisposition,'gap_stop');assert.deepEqual(next.targetObligationBindings,[{kind:'target_obligation_binding',disposition:'unbound',obligationRef:oracle.targetObligationRef,eligibleActionRefs:[]}]);assert.deepEqual(next.priorityProjection.orderedActionRefs,[]);assert.equal(nextBasis.runtimeFrontier.phase,'initial');assert.equal(nextBasis.gapProjection.handoff,oracle.negative.expectedHandoff);assert.equal(nextBasis.observationSnapshot.domain.target.value,oracle.negative.expectedTarget);assert.throws(()=>f.producer(nextBasis.targetInput),/Bounded correction/);
+   assert.deepEqual(Object.keys(next).sort(),['disposition','gapRef','kind','lawfulBasisRefs','missingAssetRefs','nextActionBasisDigest','nextActionBasisRef','noActionDisposition','programRef','priorityProjection','projectionDigest','projectionRef','reasonRef','rejectedActionRefs','schemaVersion','targetObligationRefs','targetObligationBindings','targetOutcomeRef'].sort());
+   results.push({correctionAvailable,observation:response,evaluation,refresh,target:nextBasis.targetInput,gap:nextBasis,stop:next});
+  }
+ }
+ return {status:'passed',scope:'Pure declared/candidate correspondence only; no runtime admission, package, install or resource acquisition',program,programValidation,graphValidation,graphFunction,application:app,results};
+}
+
+const eventResource=(product,handoff)=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
+export function assertNativeDomain({rows,run,identity,prepared,oracle,correctionAvailable}){
+ assert.deepEqual(identity.run,run,'existing Run identity projector binds the supplied Run');
+ const local=rows.filter(row=>row.runId===run.ref),intents=local.filter(row=>row.kind==='construction_intent_selected'),deltas=local.filter(row=>row.kind==='construction_delta_observed');
+ assert.deepEqual(intents.map(row=>row.payload.constructionIntent.selectedActionRef),[f.ref('action','observe'),...(correctionAvailable?[f.ref('action','correct')]:[])]);
+ const invocation=rows.find(row=>row.kind==='invocation_admitted'&&row.payload.publicRequestInvocationRef===prepared.call.invocation.invocationRef);assert.ok(invocation,'actual submitted Public invocation admission');
+ assert.equal(invocation.payload.authorityDigest,prepared.workAuthority.authorityDigest);assert.equal(invocation.payload.policyDigest,prepared.capabilityBasis.policy.policyDigest);
+ // Root B is workspace-scoped; the existing Run identity projector owns I/B/Run.
+ const bases=rows.filter(row=>row.kind==='basis_admitted'&&row.payload.basisClass==='root'&&row.payload.basisRef===identity.executionBasis.ref);assert.equal(bases.length,1);const basis=bases[0];assert.equal(basis.scopeClass,'workspace');assert.equal(basis.basisId,identity.executionBasis.ref);assert.equal(basis.payload.basisDigest,identity.executionBasis.digest);assert.equal(basis.payload.invocationAdmissionRef,invocation.payload.invocationAdmissionRef);assert.equal(basis.payload.programDigest,f.hash(prepared.resolution.program));assert.equal(basis.payload.rawInputDigest,f.hash(prepared.call.invocation.request.input.value));assert.deepEqual(basis.payload.rawInputValue,prepared.call.invocation.request.input.value);
+ const joins=intents.map((event,index)=>{
+  // The event envelope retains joins; the nested intent owns its declared work.
+  const envelope=event.payload,intent=envelope.constructionIntent;assert.equal(intent.kind,'construction_intent');
+  const {constructionIntentRef,constructionIntentDigest,...intentBody}=intent;assert.equal(constructionIntentDigest,f.hash(intentBody));assert.equal(constructionIntentRef,`construction-intent://abiogenesis/${constructionIntentDigest.slice(7)}`);
+  for(const field of ['constructionIntentRef','constructionIntentDigest','targetCursorRef','targetCursorDigest','actionCatalogRef','actionCatalogDigest','actionCatalogRowDigest','nextActionBasisRef','nextActionBasisDigest','nextActionProjectionRef','nextActionProjectionDigest'])assert.equal(envelope[field],intent[field],`intent envelope ${field}`);
+  assert.equal(event.basisId,basis.payload.basisRef);assert.equal(intent.executionBasisRef,identity.executionBasis.ref);assert.equal(intent.executionBasisDigest,identity.executionBasis.digest);assert.equal(intent.runId,run.ref);assert.equal(intent.invocationAdmissionRef,invocation.payload.invocationAdmissionRef);assert.equal(intent.programDigest,basis.payload.programDigest);assert.equal(intent.targetInputDigest,f.hash(intent.targetInput));assert.deepEqual(intent.targetInput,envelope.nextActionBasis.targetInput);assert.equal(envelope.nextActionProjection.selectedActionRef,intent.selectedActionRef);
+  const delta=deltas.find(row=>row.payload.constructionIntentRef===intent.constructionIntentRef);assert.ok(delta);assert.equal(delta.payload.constructionIntentDigest,intent.constructionIntentDigest);
+  const evaluation=delta.payload.actionEvaluation,childResult=local.find(row=>row.kind==='c_call_result_admitted'&&row.payload.resultRef===evaluation.admittedEvidenceRefs[0]);assert.ok(childResult);
+  const workflow=local.find(row=>row.kind==='c_call_opened'&&row.payload.cursorRef===intent.targetCursorRef);assert.equal(workflow?.payload.callClass,'workflow');
+  const childBasis=local.find(row=>row.kind==='basis_admitted'&&row.payload.basisClass==='child'&&row.payload.parentCCallRef===workflow.payload.cCallRef);assert.ok(childBasis);assert.equal(childBasis.payload.parentExecutionBasisRef,basis.payload.basisRef);assert.equal(childBasis.payload.invocationAdmissionRef,invocation.payload.invocationAdmissionRef);assert.deepEqual(childBasis.payload.rawInputValue,intent.targetInput);assert.equal(childBasis.payload.rawInputDigest,f.hash(intent.targetInput));
+  const childCalls=local.filter(row=>row.kind==='c_call_opened'&&row.basisId===childBasis.payload.basisRef);assert.deepEqual(childCalls.map(row=>row.payload.programLocusRef),[f.ref('locus','producer'),f.ref('locus','consumer')]);assert.equal(childCalls[1].payload.cCallRef,childResult.payload.cCallRef);assert.equal(childResult.basisId,childBasis.payload.basisRef);
+  const producerResult=local.find(row=>row.kind==='c_call_result_admitted'&&row.payload.cCallRef===childCalls[0].payload.cCallRef);assert.ok(producerResult);assert.deepEqual(producerResult.payload.value.task,intent.targetInput);assert.deepEqual(producerResult.payload.value.result,childResult.payload.value);
+  const evaluationBasis=local.find(row=>row.kind==='c_call_result_admitted'&&row.payload.value?.basisRef===evaluation.actionEvaluationBasisRef);assert.ok(evaluationBasis);assert.equal(evaluationBasis.payload.value.basisDigest,evaluation.actionEvaluationBasisDigest);assert.deepEqual(evaluationBasis.payload.value.constructionIntent,{...intent,admissionEventRef:event.eventId});assert.deepEqual(evaluationBasis.payload.value.admittedEvidence[0].responseValue,childResult.payload.value);assert.equal(evaluationBasis.payload.value.admittedEvidence[0].responseRef,childResult.payload.resultRef);
+  const evaluationResult=local.find(row=>row.kind==='c_call_result_admitted'&&row.payload.resultRef===delta.payload.sourceResultRef);assert.ok(evaluationResult);assert.deepEqual(evaluationResult.payload.value,evaluation);assert.equal(delta.payload.actionEvaluationDigest,evaluation.actionEvaluationDigest);assert.deepEqual(delta.payload.edgeClosureDecision,evaluation.edgeClosureDecision);assert.deepEqual(delta.payload.edgeFulfillmentLedger,evaluation.edgeFulfillmentLedger);
+  assert.deepEqual(childResult.payload.value.domain.unaffected,oracle.initialDomain.unaffected);assert.deepEqual(intent.targetInput.domain.unaffected,oracle.initialDomain.unaffected);
+  const expectedValue=index===0?3:10;assert.equal(childResult.payload.value.domain.target.value,expectedValue);assert.equal(childResult.payload.value.observedGap.actual,expectedValue);assert.equal(childResult.payload.value.observedGap.desired,10);
+  assert.deepEqual(evaluation.edgeFulfillmentLedger.rows.map(row=>row.obligationRef),[index===0?oracle.observationObligationRef:oracle.targetObligationRef]);assert.equal(evaluation.edgeClosureDecision.disposition,index===0?'continue_candidate':'close_candidate');
+  if(index===0){assert.equal(childResult.payload.value.correctionDisposition,'repair');assert.equal(evaluation.edgeClosureDecision.correctionDisposition,'repair');const archive=evaluation.runtimeArchiveInspection.runtimeEvidenceEventRefs.map(ref=>rows.find(row=>row.eventId===ref));assert.equal(archive.length,5);assert.deepEqual(archive.map(row=>row?.kind),['construction_intent_selected','c_call_result_admitted','c_call_judged','terminal_reached','graph_call_closed']);assert.equal(archive[0].eventId,event.eventId);assert.equal(archive[1].eventId,childResult.eventId);}
+  return {intent:event,workflow,childBasis,childCalls,producerResult,childResult,evaluationBasis,evaluationResult,delta};
+ });
+ const reentry=local.filter(row=>row.kind==='traversal_route_admitted'&&row.payload.routeKind==='re_enter');assert.equal(reentry.length,1);
+ const refresh=local.find(row=>row.kind==='c_call_result_admitted'&&row.payload.value?.kind==='graph_span_selection'&&row.payload.value.disposition==='re_enter');assert.ok(refresh);assert.equal(refresh.payload.value.targetInput.priorEvaluation.constructionIntentRef,intents[0].payload.constructionIntentRef);assert.deepEqual(refresh.payload.value.targetInput.domain,oracle.initialDomain);assert.equal(refresh.payload.value.targetInput.observedGap.disposition,'unmet');
+ const rootCalls=local.filter(row=>row.kind==='c_call_opened'&&row.basisId===basis.payload.basisRef),loci=rootCalls.filter(row=>row.payload.callClass!=='workflow').map(row=>row.payload.programLocusRef);
+ assert.deepEqual(loci,['model','gap','next','evaluate','refreshModel','model','gap','next',...(correctionAvailable?['evaluate','refreshModel','refreshGap','finish']:[])].map(name=>f.ref('locus',name)));
+ if(correctionAvailable){
+  const completed=local.find(row=>row.kind==='run_closed');assert.ok(completed);const parent=rows.find(row=>row.eventId===completed.payload.graphCallClosedEventRef);assert.equal(parent?.kind,'graph_call_closed');assert.equal(parent.graphCallId,intents[0].graphCallId);
+  const refreshed=local.find(row=>row.kind==='c_call_result_admitted'&&row.payload.value?.kind==='graph_span_selection'&&row.payload.value.disposition==='continue');assert.ok(refreshed);assert.deepEqual(refreshed.payload.value.state.observationSnapshot.domain,joins[1].childResult.payload.value.domain);assert.equal(refreshed.payload.value.state.evaluation.constructionIntentRef,intents[1].payload.constructionIntentRef);
+  const lastGap=local.find(row=>row.kind==='c_call_result_admitted'&&row.payload.value?.runtimeFrontier?.phase==='post_evidence');assert.ok(lastGap);assert.equal(lastGap.payload.value.gapProjection.actual,10);assert.deepEqual(lastGap.payload.value.observationSnapshot.domain.unaffected,oracle.initialDomain.unaffected);
+  return {status:'passed',invocation,basis,joins,reentry,refresh,refreshed,lastGap,completed,parent};
+ }
+ const stopped=local.find(row=>row.kind==='run_stopped'),gapRoute=local.find(row=>row.kind==='traversal_route_admitted'&&row.payload.routeKind==='gap_stop');assert.ok(stopped);assert.ok(gapRoute);assert.equal(local.some(row=>row.kind==='run_closed'),false);
+ const stop=local.find(row=>row.kind==='c_call_result_admitted'&&row.payload.value?.disposition==='no_action');assert.ok(stop);assert.equal(stop.payload.value.noActionDisposition,'gap_stop');assert.deepEqual(stop.payload.value.targetObligationRefs,[oracle.targetObligationRef]);assert.deepEqual(stop.payload.value.targetObligationBindings,[{kind:'target_obligation_binding',disposition:'unbound',obligationRef:oracle.targetObligationRef,eligibleActionRefs:[]}]);assert.deepEqual(stop.payload.value.priorityProjection.orderedActionRefs,[]);assert.deepEqual(stop.payload.value.missingAssetRefs,[f.ref('asset','correction-capability')]);
+ const gap=local.find(row=>row.kind==='c_call_result_admitted'&&row.payload.value?.basisRef===stop.payload.value.nextActionBasisRef);assert.ok(gap);assert.equal(gap.payload.value.gapProjection.actual,3);assert.equal(gap.payload.value.gapProjection.handoff,oracle.negative.expectedHandoff);assert.deepEqual(gap.payload.value.observationSnapshot.domain,oracle.initialDomain);
+ return {status:'passed',invocation,basis,joins,reentry,refresh,stopped,gapRoute,stop,gap};
+}
+
+// The ordinary caller renders only a supported result. Native events and the
+// independent oracle are used below to check it, never to supply missing data.
+export function renderPublicGapHandoff(output){
+ assert.equal(output.outcomeKind,'result');assert.equal(output.value.caseKey,'run_gaps');
+ const projection=output.value.projection;assert.equal(projection.kind,'run_gap_projection');
+ return projection.frontiers.map(frontier=>{
+  const explanation=frontier.basis.value.gapProjection.handoff;
+  assert.equal(typeof explanation,'string');assert.ok(explanation.length>0);
+  const obligations=frontier.nextAction.value.targetObligationRefs;
+  assert.ok(Array.isArray(obligations)&&obligations.length>0);
+  return `Run ${frontier.run.ref}: ${explanation}\nUnfulfilled obligation: ${obligations.join(', ')}\nAdmitted gap: ${frontier.nextAction.value.projectionRef}\n`;
+ }).join('\n');
+}
+
+export function assertPublicGapDomain({output,identity,boundary,semantic,oracle,correctionAvailable,product}){
+ assert.equal(output.outcomeKind,'result');assert.equal(output.value.caseKey,'run_gaps');
+ assert.deepEqual(output.value.source,identity.run);assert.equal(output.value.projectionBasis.digest,boundary.prefix.coordinateDigest);
+ const projection=output.value.projection;assert.deepEqual(projection.subject,identity.run);
+ const handoff=renderPublicGapHandoff(output);
+ if(correctionAvailable){assert.deepEqual(projection.gaps,[]);assert.deepEqual(projection.frontiers,[]);assert.equal(handoff,'');}
+ else{
+  assert.equal(projection.frontiers.length,1);const frontier=projection.frontiers[0];
+  assert.deepEqual(frontier.run,identity.run);assert.deepEqual(frontier.executionBasis,identity.executionBasis);
+  assert.deepEqual(projection.gaps,[frontier.route]);assert.equal(frontier.basis.value.gapProjection.actual,3);assert.equal(frontier.basis.value.gapProjection.desired,10);
+  assert.deepEqual(frontier.nextAction.value.targetObligationRefs,[oracle.targetObligationRef]);
+  assert.deepEqual(frontier.nextAction.value.missingAssetRefs,[f.ref('asset','correction-capability')]);
+  assert.equal(frontier.basis.value.gapProjection.handoff,oracle.negative.expectedHandoff);assert.ok(handoff.includes(oracle.negative.expectedHandoff));
+  assert.deepEqual(frontier.basis.value,semantic.gap.payload.value);
+  assert.equal(frontier.basis.valueDigest,product.sha256Canonical(frontier.basis.value));assert.ok(frontier.basis.inputEvidence.length>0);
+  for(const [carrier,event] of [[frontier.nextAction,semantic.stop]]){
+   assert.equal(carrier.resultAdmissionEventRef,event.eventId);assert.deepEqual(carrier.value,event.payload.value);
+   assert.equal(carrier.valueDigest,product.sha256Canonical(carrier.value));assert.equal(carrier.result.ref,event.payload.resultRef);
+  }
+  assert.equal(frontier.routeAdmissionEventRef,semantic.gapRoute.eventId);assert.equal(frontier.stop.ref,semantic.stopped.eventId);
+ }
+ return {projection,handoff};
+}
+
+export function assertColdDomain({cold,identity,boundary,semantic,rows,oracle,correctionAvailable,product}){
+ const replayProjection=cold.run_replay.value.projection,status=cold.run_status.value.projection;assert.deepEqual(replayProjection.subject,identity.run);assert.equal(replayProjection.status,correctionAvailable?'closed':'gap_stopped');assert.equal(status.status,replayProjection.status);assert.deepEqual(status.executionBasis,identity.executionBasis);assert.deepEqual(status.replay,replayProjection.replay);assert.equal(cold.run_replay.value.projectionBasis.digest,boundary.prefix.coordinateDigest);
+ if(correctionAvailable){const result=cold.run_result.value.projection;assert.deepEqual(result.terminalResult,replayProjection.terminalResult);assert.equal(result.terminalResult.value.disposition,'converged');assert.equal(result.terminalResult.value.targetOutcomeRef,oracle.targetOutcomeRef);assert.equal(result.terminalResult.value.edgeClosureDecisionRef,semantic.joins[1].delta.payload.edgeClosureDecisionRef);assert.equal(result.terminalResult.valueDigest,product.sha256Canonical(result.terminalResult.value));assert.deepEqual(result.terminalResult.producer.executionBasis,identity.executionBasis);assert.equal(result.terminalResult.producer.invocationAdmissionRef,semantic.invocation.payload.invocationAdmissionRef);assert.deepEqual(rows.find(row=>row.eventId===result.terminalResult.producer.resultAdmissionEventRef).payload.value,result.terminalResult.value);}
+ else{assert.equal(cold.run_result.outcomeKind,'refusal');assert.equal(cold.run_result.value.code,'not_ready');assert.equal(replayProjection.terminalResult,null);assert.ok(status.activeFluents.length>0);}
+ const gap=assertPublicGapDomain({output:cold.run_gaps,identity,boundary,semantic,oracle,correctionAvailable,product});
+ return {status:'passed',replay:replayProjection,statusProjection:status,gapProjection:gap.projection,handoff:gap.handoff};
+}
+
+// Phase B is inert until Root's explicit release is supplied by the caller.
+export async function runInstalledProof({proof,prior,oracle,release}){
+ assert.equal(release,'ROOT_RELEASED_PHASE_B','Phase B requires explicit Root dependency release');
+ assert.equal(process.env.TMPDIR,join(proof,'disposable'),'Native population must remain inside this activation');
+ await mkdir(process.env.TMPDIR,{recursive:true});
+ const frozenArtifact={artifactPath:prior.artifactPaths[0],artifactSha256:'sha256:c061fca61bc180e45b717527dc45f44dbeedcff69d67916d3801b85edb0c8c23',installHost:join(prior.installedRoot,'../../..')};
+ const packageRoot=new URL('../..',import.meta.url).pathname,accounting={wallMs:{}};let environment,handoff;
+ try{
+  environment=await setupInstalledRootCatalog({after:()=>{}},packageRoot,{frozenArtifact,candidateBasisSource:'packed_artifact',workspaceProductIndex:1,programRef:f.ref('program','root'),graphFunctionRef:f.ref('graph-function','root'),setupAccounting:accounting,prepareAdditionalProducts:async basis=>[await prepareRegisteredSelectionProduct({...basis,declarationFactory:f.declarations,fixtureFiles:[{path:'build/index.js',source:new URL('../fixtures/t287-s03-automatic-product/index.mjs',import.meta.url)}]})]});
+  handoff=environment.store.projectReopenAuthorityAndClose();await save(proof,'latest-handoff.json',handoff);
+  const kept=['scratch','installedRoot','installedRoots','artifactPaths','verified','workspaceAuthority','workspaceBinding','admittedInstalls','catalog','catalogView','publication','productSet','lock'];await save(proof,'environment.json',Object.fromEntries(kept.map(k=>[k,environment[k]])));await save(proof,'setup.json',{accounting,artifactDigests:await Promise.all(environment.artifactPaths.map(p=>environment.product.sha256File(p)))});
+  const load=loadAt(environment.installedRoot),[publicApi,eventOwner,replay,reads]=await Promise.all(['public/index','abg/event_store','abg/replay','abg/project_read_operation_contracts'].map(load));
+  async function cli(dir,name,call){
+   await save(dir,name+'-call.json',call);const output=await runInstalledCliRequest({scratch:dir,installedRoot:environment.installedRoot,identity:name,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:{TMPDIR:process.env.TMPDIR}});await save(dir,name+'-receipt.json',output);
+   const receipt=output.output.receipt;assert.ok(receipt);if(receipt.resources?.eventResource?.closeHandoff){handoff=receipt.resources.eventResource.closeHandoff;await save(proof,'latest-handoff.json',handoff);}assert.equal(receipt.failure,null,JSON.stringify(receipt));return receipt;
+  }
+  async function oneCase(name,correctionAvailable){
+   const dir=join(proof,name);await mkdir(dir,{recursive:true});const artifactTruth=environment.abg.projectExactPrefixArtifactTruth(handoff.prefix),resource=eventResource(environment.product,handoff);
+   const prepared=await constructInstalledStartCall({environment:{...environment,artifactTruth},publicApi,eventResource:resource,identity:'s03-'+name,programRef:f.ref('program','root'),rootMode:'supervised',declaredStartRef:f.ref('start','root'),inputFactory:args=>f.fixtureInput(args,correctionAvailable)});
+   const ownerPrepared=await environment.product.ProductRunInvocationPort.prepare({memberKey:'start',invocation:prepared.call.invocation,resources:prepared.call.resources,admittedInstalls:environment.admittedInstalls,workspaceBinding:environment.workspaceBinding,verifyInstallAdmission:i=>environment.abg.hasAdmittedProductInstall(artifactTruth,i),transportResourceAssertion:resource});assert.equal(ownerPrepared.kind,'prepared_product_run_invocation',JSON.stringify(ownerPrepared));assert.deepEqual(ownerPrepared.authority,prepared.workAuthority);
+   await save(dir,'prospective-start.json',{call:prepared.call,workAuthority:prepared.workAuthority,policy:prepared.capabilityBasis.policy,resolution:prepared.resolution.resolution,input:prepared.call.invocation.request.input.value});
+   const receipt=await cli(dir,'start',prepared.call);assert.equal(receipt.ownerOutput.value.disposition,correctionAvailable?'completed':'gap_stop',JSON.stringify(receipt.ownerOutput));
+   const boundary=handoff,rows=eventOwner.readRuntimeEventsAtDurablePrefix(boundary.prefix),prefix=environment.abg.selectValidatedRuntimeEventPrefix(rows),identity=replay.projectRunIdentityAtPrefix(prefix,receipt.resources.run.ref);assert.deepEqual(identity.run,receipt.resources.run);assert.deepEqual(identity.run,receipt.ownerOutput.value.run);
+   const semantic=assertNativeDomain({rows,run:identity.run,identity,prepared,oracle,correctionAvailable});assert.deepEqual(identity.executionBasis,{ref:semantic.basis.payload.basisRef,digest:semantic.basis.payload.basisDigest});
+   const cold={};for(const memberKey of ['run_result','run_replay','run_status','run_gaps']){
+    const made=constructInstalledRunReadCall({environment,publicApi,projectReadContracts:reads,memberKey,selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:2048}:{kind:'none'},source:identity.run,eventResource:eventResource(environment.product,handoff),identity:'s03-'+name+'-'+memberKey});const r=await cli(dir,memberKey,made.call);assert.deepEqual(handoff.prefix,boundary.prefix);cold[memberKey]=r.ownerOutput;
+   }
+   const result=assertColdDomain({cold,identity,boundary,semantic,rows,oracle,correctionAvailable,product:environment.product});
+   if(!correctionAvailable)await writeFile(join(dir,'handoff.txt'),result.handoff);
+   await save(dir,'oracle-result.json',{status:'passed',identity,boundary,semantic,cold});return {name,run:identity.run,prefix:boundary.prefix,status:'passed'};
+  }
+  const positive=await oneCase('positive',true);const noAction=await oneCase('no-action',false);await save(proof,'installed-result.json',{status:'candidate_ready',positive,noAction,accounting,handoff});return {positive,noAction};
+ }catch(error){
+  const physical={};if(handoff){const path=fileURLToPath(handoff.prefix.eventLogRef);const bytes=await readFile(path);await writeFile(join(proof,'failed-native-prefix.jsonl'),bytes);const identity=await stat(path);Object.assign(physical,{path,byteLength:bytes.length,device:identity.dev,inode:identity.ino});const lockPath=join(process.env.TMPDIR,'abiogenesis-event-store-locks-v5',`${identity.dev}-${identity.ino}.lock`);try{physical.lock={path:lockPath,bytesBase64:(await readFile(lockPath)).toString('base64')};}catch(e){if(e.code==='ENOENT')physical.lock={path:lockPath,state:'absent'};else throw e;}}
+  await save(proof,'installed-failure.json',{message:error.message,stack:error.stack,lastGenuineHandoff:handoff??null,scratch:environment?.scratch??null,physical});throw error;
+ }
+}

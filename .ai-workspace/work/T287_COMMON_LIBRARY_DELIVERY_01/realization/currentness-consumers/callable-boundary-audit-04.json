@@ -1,0 +1,403 @@
+{
+  "read_only_receipt_sha256": "84c6d4c25bb8dd66d8958be0c9d604dc0fefa789ae8a87a8fa2c3f786f16a6ec",
+  "imports": 79,
+  "namespace_member_uses": 209,
+  "imported_calls": 333,
+  "factories": [
+    {
+      "path": "abg/default_library",
+      "calls": [
+        {
+          "name": "projectGovernanceNativeTask",
+          "type": "function"
+        },
+        {
+          "name": "projectGovernanceParent",
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "path": "abg/execution_basis",
+      "calls": [
+        {
+          "name": "hasExactWorksiteCommandLeafSourceAtDurablePrefix",
+          "type": "function"
+        },
+        {
+          "name": "authenticateOwnedNativeInstructionAssemblyBasis",
+          "type": "function"
+        },
+        {
+          "name": "rehydrateExecutionBasisAtPrefix",
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "path": "abg/worksite_input_provenance",
+      "calls": [
+        {
+          "name": "projectObservedWorksiteCommandChildAtPrefix",
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "path": "abg/semantic_job",
+      "calls": [
+        {
+          "name": "projectNativeSemanticFold",
+          "type": "function"
+        },
+        {
+          "name": "projectNativeSemanticEvidence",
+          "type": "function"
+        },
+        {
+          "name": "authenticateOwnedSemanticJobBasis",
+          "type": "function"
+        },
+        {
+          "name": "semanticJobRootAtPrefix",
+          "type": "function"
+        },
+        {
+          "name": "semanticJobContextMatches",
+          "type": "function"
+        },
+        {
+          "name": "semanticJobContextCurrent",
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "path": "abg/semantic_revision",
+      "calls": [
+        {
+          "name": "prepareNativeSemanticRevisionIntake",
+          "type": "function"
+        },
+        {
+          "name": "projectOwnedJobRevisionSubject",
+          "type": "function"
+        }
+      ]
+    }
+  ],
+  "semantic_helpers": [
+    {
+      "name": "fixture",
+      "type": "function"
+    },
+    {
+      "name": "author",
+      "type": "function"
+    },
+    {
+      "name": "assess",
+      "type": "function"
+    },
+    {
+      "name": "candidate",
+      "type": "function"
+    },
+    {
+      "name": "verdict",
+      "type": "function"
+    },
+    {
+      "name": "provenance",
+      "type": "function"
+    }
+  ],
+  "vm_loaders": [
+    {
+      "module": "implementation/leaf_invocation_port",
+      "sha256": "679852227cff80b17f62f3cb7106ef2d9024de1188c8bcb5e7b6c8558ea12512",
+      "specifier_forms": [
+        "node",
+        "relative"
+      ],
+      "specifiers": [
+        "../validator/qualification.js",
+        "../product/execution_resolution.js",
+        "../abg/project_read_ports.js",
+        "../abg/native_work_reacquisition.js",
+        "../product/default_library.js",
+        "../gtl/self_conformance.js",
+        "../product/worksite_command_execution.js",
+        "../product/native_workspace_assessment.js",
+        "node:util",
+        "../abg/invocation_admission.js",
+        "../product/native_workspace_work.js",
+        "../shared/admission_predicates.js",
+        "../gtl/self_conformance.js",
+        "../abg/qualification_proof.js",
+        "../validator/self_conformance_semantics.js",
+        "../validator/self_conformance.js",
+        "../validator/self_conformance_basis.js",
+        "../validator/self_conformance_contracts.js",
+        "../gtl/semantic_stage_identity.js",
+        "../product/worksite_construction_recovery.js",
+        "../abg/worksite_construction_recovery.js",
+        "../abg/semantic_stage.js",
+        "../abg/semantic_job.js",
+        "../product/worksite_effect.js",
+        "../gtl/requirement_handoff.js",
+        "../abg/requirement_handoff.js",
+        "../product/worksite_command_execution.js",
+        "../product/worksite_revision.js",
+        "../product/worksite_command_forward_identity.js",
+        "../abg/worksite_command_forward.js",
+        "node:path",
+        "node:url",
+        "../abg/environment_admission.js",
+        "../abg/c_call.js",
+        "../abg/event_calculus.js",
+        "../abg/execution_basis.js",
+        "../abg/event_prefix.js",
+        "../abg/event_store.js",
+        "../product/publication.js",
+        "../product/semantics.js",
+        "../product/worksite_effect.js",
+        "../shared/digests.js",
+        "../abg/event_contract_profiles.js",
+        "../abg/runtime_failure.js",
+        "../shared/i_json.js",
+        "../abg/actor_process.js",
+        "../shared/immutable.js",
+        "./leaf_execution_authority.js"
+      ]
+    },
+    {
+      "module": "abg/default_library",
+      "sha256": "9182e59e2999b9284add081d32e4102fe4195892b89b04593da95e50091e5a03",
+      "specifier_forms": [
+        "node",
+        "relative"
+      ],
+      "specifiers": [
+        "../gtl/stdo_run_environment.js",
+        "../gtl/registered_selection.js",
+        "../product/default_library.js",
+        "node:util",
+        "node:path",
+        "node:url",
+        "./execution_basis.js",
+        "./invocation_execution_truth.js",
+        "./event_prefix.js",
+        "./native_worksite_execution.js",
+        "../product/default_library.js",
+        "../product/worksite_preparation_contracts.js",
+        "../product/native_workspace_work.js",
+        "../product/worksite_command_execution.js",
+        "../product/worksite_effect.js",
+        "../product/worksite_operations.js",
+        "./native_work_reacquisition.js",
+        "../product/default_library_fulfillment.js",
+        "../product/default_library.js"
+      ]
+    },
+    {
+      "module": "abg/execution_basis",
+      "sha256": "655d7e56c4196afb3dc90becd5f66dbfc8fab5aa0fd48f631a9d5cdb660ab020",
+      "specifier_forms": [
+        "node",
+        "relative"
+      ],
+      "specifiers": [
+        "./event_prefix.js",
+        "./event_prefix.js",
+        "./worksite_input_provenance.js",
+        "./native_worksite_execution.js",
+        "../product/worksite_command_execution.js",
+        "./native_worksite_execution.js",
+        "node:util",
+        "../implementation/leaf_invocation_port.js",
+        "./traversal_route.js",
+        "../shared/i_json.js",
+        "./artifact_truth.js",
+        "../product/worksite_revision.js",
+        "./event_prefix.js",
+        "./worksite_revision.js",
+        "../product/worksite_command_forward_identity.js",
+        "../product/worksite_command_forward.js",
+        "./worksite_command_forward.js",
+        "../gtl/semantic_revision_identity.js",
+        "./worksite_input_provenance.js",
+        "./event_calculus.js",
+        "../product/worksite_preparation.js",
+        "../product/publication.js",
+        "../product/execution_resolution.js",
+        "../gtl/source_path.js",
+        "./native_event_time.js",
+        "../product/native_workspace_work.js",
+        "../product/index.js",
+        "../product/implementation_resolution.js",
+        "../product/worksite_effect.js",
+        "../product/worksite_construction.js",
+        "../product/worksite_command_execution.js",
+        "../product/worksite_branch_construction.js",
+        "../shared/canonical_json.js",
+        "../shared/digests.js",
+        "../shared/immutable.js",
+        "../validator/graph.js",
+        "../validator/implementation_resolution.js",
+        "../validator/validation.js",
+        "./invocation_admission.js",
+        "./environment_admission.js",
+        "./c_call.js",
+        "../gtl/materialize.js",
+        "./traversal_cursor.js",
+        "./event_store.js",
+        "./event_prefix.js",
+        "./invocation_execution_truth.js",
+        "./open_call.js",
+        "./construction_continuation.js"
+      ]
+    },
+    {
+      "module": "abg/worksite_input_provenance",
+      "sha256": "bf561d2f820cfc2c4260335b7db8ba434052d06eb89999461188c6ca4f21c883",
+      "specifier_forms": [
+        "relative"
+      ],
+      "specifiers": [
+        "../product/worksite_preparation_contracts.js",
+        "../product/worksite_revision.js",
+        "../product/worksite_preparation_contracts.js",
+        "../gtl/semantic_revision_identity.js",
+        "../gtl/semantic_stage_identity.js",
+        "./semantic_job.js",
+        "./worksite_revision.js",
+        "./event_calculus.js",
+        "../shared/canonical_json.js",
+        "../shared/digests.js",
+        "../validator/raw_admission.js",
+        "../product/worksite_preparation.js",
+        "../product/worksite_construction.js",
+        "./worksite_construction_recovery.js",
+        "../product/worksite_branch_construction.js",
+        "../product/worksite_command_execution.js",
+        "./event_prefix.js",
+        "./invocation_execution_truth.js",
+        "./fan_out_projection.js",
+        "./traversal_cursor.js",
+        "./c_call.js",
+        "./default_library.js",
+        "../product/default_library.js",
+        "../product/worksite_command_execution_identity.js",
+        "./native_worksite_execution.js"
+      ]
+    },
+    {
+      "module": "abg/semantic_job",
+      "sha256": "449359751e0883bba8d656318c71ac56d510d576a3082f463aecbeeea5ae5d88",
+      "specifier_forms": [
+        "node",
+        "relative"
+      ],
+      "specifiers": [
+        "./event_prefix.js",
+        "./event_prefix.js",
+        "../gtl/semantic_stage_identity.js",
+        "../product/worksite_preparation_contracts.js",
+        "../product/native_workspace_work.js",
+        "../product/worksite_command_execution.js",
+        "../product/semantic_job.js",
+        "./native_worksite_execution.js",
+        "../gtl/semantic_stage_identity.js",
+        "../gtl/semantic_job.js",
+        "../product/publication.js",
+        "../product/semantic_job.js",
+        "../product/worksite_effect.js",
+        "../product/worksite_operations.js",
+        "../product/worksite_construction.js",
+        "../product/worksite_command_execution.js",
+        "../product/worksite_preparation.js",
+        "../implementation/worksite_file_replace.js",
+        "./semantic_stage.js",
+        "./execution_basis.js",
+        "./invocation_admission.js",
+        "./event_prefix.js",
+        "../shared/digests.js",
+        "../shared/immutable.js",
+        "node:fs",
+        "node:path",
+        "node:url",
+        "./worksite_revision.js",
+        "../gtl/semantic_revision_identity.js",
+        "../product/semantic_revision.js"
+      ]
+    },
+    {
+      "module": "abg/semantic_revision",
+      "sha256": "91f319686fc2de1d35f2b005036e2a5d9ab35cbc9cb28bbc8308559475a5b682",
+      "specifier_forms": [
+        "node",
+        "relative"
+      ],
+      "specifiers": [
+        "./event_prefix.js",
+        "./worksite_revision.js",
+        "./event_prefix.js",
+        "../product/worksite_revision.js",
+        "../product/worksite_preparation.js",
+        "../product/worksite_command_execution.js",
+        "../gtl/worksite_c0.js",
+        "../product/worksite_command_execution.js",
+        "../product/worksite_construction.js",
+        "../product/worksite_preparation.js",
+        "./semantic_stage.js",
+        "../shared/digests.js",
+        "../shared/immutable.js",
+        "../gtl/semantic_revision_identity.js",
+        "../gtl/semantic_stage_identity.js",
+        "../product/semantic_revision.js",
+        "../product/semantic_stage.js",
+        "./semantic_stage.js",
+        "./execution_basis.js",
+        "./traversal_cursor.js",
+        "./worksite_input_provenance.js",
+        "../gtl/materialize.js",
+        "./invocation_admission.js",
+        "./environment_admission.js",
+        "../product/worksite_effect.js",
+        "node:fs",
+        "node:path",
+        "./semantic_job.js",
+        "./worksite_revision.js",
+        "../product/semantic_job.js",
+        "../product/semantic_revision.js",
+        "../product/semantic_revision.js",
+        "./execution_basis.js",
+        "./event_store.js",
+        "./event_prefix.js",
+        "./replay.js",
+        "./native_worksite_execution.js",
+        "./worksite_revision.js",
+        "../product/native_workspace_work.js",
+        "../product/worksite_command_execution.js",
+        "../product/semantic_job.js",
+        "./semantic_job.js",
+        "../product/worksite_effect.js",
+        "../product/worksite_preparation_contracts.js",
+        "../product/worksite_operations.js",
+        "./runtime_failure.js",
+        "../shared/i_json.js"
+      ]
+    }
+  ],
+  "nonimport_calls_classification": {
+    "component_owner_methods": "actual factories reflected above; unchanged source owner bodies",
+    "createU1Fixture_methods": "return fields source support275-277; runtime checkedHandoff before target consumers",
+    "store_methods": "actual EventStore source readAll/readScope/configuredDurableLogPath/closeDurableLog; runtime checkedHandoff, no mock store",
+    "semantic_fixture_methods": "actual extracted module factories reflected; source-owned fixture returns env/job/envelope/observe; runtime checkedHandoff; author and assess validate their typed Product outputs before return",
+    "port_method": "actual constructAdmittedLeafInvocationPort return verifyProbabilisticResultContractPreimage; unchanged componentNativeAssessment and exact emitted module; actually exercised successfully in attempt03 source admission",
+    "local_methods": "lexical helper function declarations, Map, Array, Buffer, JSON, Object, Promise, URL, Node test-context callbacks, Dirent and VM SyntheticModule methods; no additional owner namespace unresolved"
+  },
+  "constructor_premises": "U1-PROOF-HANDOFF-02-audit.md; actual assessment asset/selection/schema/Ajv/task preflight passed in attempt03; runtime existing Product guards validate semantic constructors before target gates",
+  "errors": []
+}

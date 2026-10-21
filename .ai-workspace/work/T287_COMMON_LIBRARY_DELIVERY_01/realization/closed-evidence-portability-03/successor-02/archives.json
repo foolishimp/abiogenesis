@@ -1,0 +1,241 @@
+{
+  "status": "satisfied",
+  "populationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/population-freeze.json",
+    "sha256": "62f7b25ccd02736f9de96b901eb390a1113d0146be8c44fc9e51ed0e2ac1a996",
+    "bytes": 3765
+  },
+  "startedUtc": "2026-10-21T09:36:28.525811+00:00",
+  "completedUtc": "2026-10-21T09:37:32.290109+00:00",
+  "archives": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-001.tar.gz",
+      "sha256": "e1dade928a966b77399f13233e148ef8a68122793ce6276665ea16bccdd68041",
+      "compressedBytes": 11103964,
+      "uncompressedTarBytes": 67072000,
+      "uncompressedTarSha256": "511e22a24f2f3a7f69ef107d67f46b0503aa3d0e1e46d12e5049fec26aae9df2",
+      "payloadBytes": 67049292,
+      "objects": 28,
+      "wallSeconds": 3.1342706670984626,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-002.tar.gz",
+      "sha256": "e884ab7238ea6ef08f6cb99cbc462d91bddd4fcc1dfd642940886064551420b9",
+      "compressedBytes": 1761995,
+      "uncompressedTarBytes": 31662080,
+      "uncompressedTarSha256": "34a88cea87c534e5728ed8181076b16f97264845a7f638c9b66c65c20681617c",
+      "payloadBytes": 31647447,
+      "objects": 6,
+      "wallSeconds": 0.936153250047937,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-003.tar.gz",
+      "sha256": "db7e90823a44f877e780b49324e0dd76297e75dce189144ef4395e080438db25",
+      "compressedBytes": 2919850,
+      "uncompressedTarBytes": 47257600,
+      "uncompressedTarSha256": "2ab65d9913dc474cdf0a6077b3eb2bf96cf70bc51f349827bb351afc9618d6d7",
+      "payloadBytes": 47250000,
+      "objects": 2,
+      "wallSeconds": 2.474719332996756,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-004.tar.gz",
+      "sha256": "96a5ea6f393e928bc1b88b85ecbd9e5a463e2c138d774f41a6a3765aef4271d0",
+      "compressedBytes": 3156239,
+      "uncompressedTarBytes": 23787520,
+      "uncompressedTarSha256": "28cf7e11835ce4cfe3db91940093cb1f7461903a9d1b67817ca41e9acf46dd4b",
+      "payloadBytes": 23782322,
+      "objects": 5,
+      "wallSeconds": 1.5004912088625133,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-005.tar.gz",
+      "sha256": "264a0d92d48486c2c1090eed1e7c957577abc1581257e1cac2ac09de76d03b24",
+      "compressedBytes": 3272474,
+      "uncompressedTarBytes": 67112960,
+      "uncompressedTarSha256": "916ccea52e3ba1cf25f0b1107314a2ab49c2e64f563e984fe5e40e522e42801a",
+      "payloadBytes": 67108864,
+      "objects": 1,
+      "wallSeconds": 3.3808340409304947,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-006.tar.gz",
+      "sha256": "1862e03c9e7a7166bb9656d0bdeef54930969a4e2e15e83eda02b1982188b035",
+      "compressedBytes": 1556745,
+      "uncompressedTarBytes": 7731200,
+      "uncompressedTarSha256": "da9a5871af6370f4289c7225763ab1a8059b508aa9905931be86b58cfc112f48",
+      "payloadBytes": 7723705,
+      "objects": 7,
+      "wallSeconds": 0.53332499996759,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-007.tar.gz",
+      "sha256": "19e8f097cbef34fad492f3b04262c108af4315d41dd20968b9e2b2e57676ca52",
+      "compressedBytes": 3359526,
+      "uncompressedTarBytes": 66140160,
+      "uncompressedTarSha256": "b003beffa482ef06e9e437c1a674347a0b5b5df5f99ba684244980855230f650",
+      "payloadBytes": 66135864,
+      "objects": 1,
+      "wallSeconds": 2.903739833040163,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-008.tar.gz",
+      "sha256": "8469299e988fb8e45fcd396112a4451b6960ad87b240259cf362d678f0f1c4b0",
+      "compressedBytes": 8604347,
+      "uncompressedTarBytes": 47144960,
+      "uncompressedTarSha256": "16301fb37da86cb9677ec7cc124141a3a8ac24a1c3e17d70ae109e232f676b37",
+      "payloadBytes": 47123947,
+      "objects": 23,
+      "wallSeconds": 3.9409395419061184,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-009.tar.gz",
+      "sha256": "d9d98c57bfa9be6fee9465aed891f06847e95caa303c6d8805cb5b9200fa05d5",
+      "compressedBytes": 3454754,
+      "uncompressedTarBytes": 51773440,
+      "uncompressedTarSha256": "9ddecac6d5438d6897f8c627e9a3c27ee52b59fe0f95578dedbdf8ef5e1a11e1",
+      "payloadBytes": 51760435,
+      "objects": 8,
+      "wallSeconds": 2.119873167015612,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-010.tar.gz",
+      "sha256": "de5427ba1076908fa8df11afc3a7303c309d2badcb399f70cb36206fa4b553a7",
+      "compressedBytes": 8262746,
+      "uncompressedTarBytes": 63498240,
+      "uncompressedTarSha256": "fbb9634c425f305dfff9029187e2ee26f26e1f5e5a6d3faf065978e5b678b18a",
+      "payloadBytes": 63471441,
+      "objects": 21,
+      "wallSeconds": 2.938346292125061,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-011.tar.gz",
+      "sha256": "0ef9f4c2f5ff7b3294d96388303b941890b5a45a4773d534ee9cc55b8f963179",
+      "compressedBytes": 6714981,
+      "uncompressedTarBytes": 47400960,
+      "uncompressedTarSha256": "f2544811b9cc7195fb3db3f46b269eecb0bac68f849af0d52ee24209c7da4014",
+      "payloadBytes": 47379656,
+      "objects": 18,
+      "wallSeconds": 2.101894750026986,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-012.tar.gz",
+      "sha256": "393e5b77892867bbe66cf26c5767fbe3f02cf0212baca2e79bcf8960be2be675",
+      "compressedBytes": 7269998,
+      "uncompressedTarBytes": 54876160,
+      "uncompressedTarSha256": "574c8864452478c717ed83b31a8dc736e9780ab038f68e2fee21c6d5d906137c",
+      "payloadBytes": 54869632,
+      "objects": 6,
+      "wallSeconds": 2.7703915829770267,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-013.tar.gz",
+      "sha256": "6f6098c99d5c692a3533c954dd9830e48510164d4f559de4b520e3af591ce72c",
+      "compressedBytes": 2695967,
+      "uncompressedTarBytes": 47636480,
+      "uncompressedTarSha256": "0204c39df101fcdd27dbd19a2fcdb3b5a46f7019f2837e114309da7bb96c93e5",
+      "payloadBytes": 47626222,
+      "objects": 5,
+      "wallSeconds": 2.034056375036016,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-014.tar.gz",
+      "sha256": "ba8a5f3c5d7e33d93610374e2f18b738f25d17e9e4c3b912ec16bd8b3276de17",
+      "compressedBytes": 5626194,
+      "uncompressedTarBytes": 49295360,
+      "uncompressedTarSha256": "80308c63d08c0af393c0e3a8edc63eb19d61867077a90baa63c8aef681607c3d",
+      "payloadBytes": 49283922,
+      "objects": 6,
+      "wallSeconds": 3.3005423329304904,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-015.tar.gz",
+      "sha256": "2cb2b3fd752717c3f996296d5b119afa9c3e2db29f584b782b8d6f3abc0424b3",
+      "compressedBytes": 9642876,
+      "uncompressedTarBytes": 66631680,
+      "uncompressedTarSha256": "706ceabf086ee5ffe26f4a2abd92f42799e03e322704dbe0eb52fedd5865fbba",
+      "payloadBytes": 66600342,
+      "objects": 38,
+      "wallSeconds": 6.321003874996677,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-016.tar.gz",
+      "sha256": "72ab4178a617ca3ef96398e8b606e88e55b4b423f916ab80af053bc29ff647dc",
+      "compressedBytes": 5198947,
+      "uncompressedTarBytes": 64348160,
+      "uncompressedTarSha256": "61bc7c2c5238cd148ba3892d4bf12983512dac7596edc35ac0b6d8f5d39cb75b",
+      "payloadBytes": 64322674,
+      "objects": 19,
+      "wallSeconds": 3.323577416827902,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-017.tar.gz",
+      "sha256": "2b22f81d583947ccd7ccb0558897cc67b8ce4bb13ca289c72a8511e90ec4097c",
+      "compressedBytes": 11150499,
+      "uncompressedTarBytes": 60600320,
+      "uncompressedTarSha256": "c8d9b4cf96babdc1a31977173e94083b2b64e197bcfde6b6a4aa1995e6749a42",
+      "payloadBytes": 60573879,
+      "objects": 28,
+      "wallSeconds": 4.92770279198885,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-018.tar.gz",
+      "sha256": "ac9b4d81e9c8c35069c54e4567268f91e5e074206f56df262cdf6fadc714056b",
+      "compressedBytes": 9518225,
+      "uncompressedTarBytes": 54097920,
+      "uncompressedTarSha256": "b5f885d9f377e65970b3c884da8755c09e70be556c3975d9722945b0d595e014",
+      "payloadBytes": 54086838,
+      "objects": 11,
+      "wallSeconds": 4.512198458891362,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-019.tar.gz",
+      "sha256": "1e087d02e0edebb530c291a6ce886646d6f634a92c18d5c13c90563b52e71054",
+      "compressedBytes": 7968411,
+      "uncompressedTarBytes": 60805120,
+      "uncompressedTarSha256": "1cddb484781ad20c39c23aab22b4dc658c950d1965927b70636ee0e4758938b4",
+      "payloadBytes": 60779209,
+      "objects": 24,
+      "wallSeconds": 4.649356917012483,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/bytes-020.tar.gz",
+      "sha256": "177bb7e63d46447e3cf50bb5aa995df5884ba03517fa1c4c39c515d143ba92ca",
+      "compressedBytes": 6917981,
+      "uncompressedTarBytes": 29368320,
+      "uncompressedTarSha256": "52ce4eae45fff7190adc3039fa44ad6e0c7d4440b7fdbfe29587f0b8fc8c8422",
+      "payloadBytes": 29358579,
+      "objects": 9,
+      "wallSeconds": 3.797856208169833,
+      "verified": true
+    }
+  ],
+  "totalCompressedBytes": 120156719,
+  "newLogicalPayloadBytes": 1007934270,
+  "authoredBytes": 216049160,
+  "logicalBoundBytes": 1223983430,
+  "compressedLimit": 1073741824,
+  "logicalLimit": 2147483648,
+  "perArchiveTarget": 94371840,
+  "ProductExecutions": 0,
+  "originalOwnerAcquisitions": 0
+}

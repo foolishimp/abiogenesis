@@ -1,0 +1,145 @@
+{
+  "kind": "t287_installed_proof_configuration",
+  "status": "not_activated",
+  "activationFile": "/ABSOLUTE/NEW/effect-grant.json",
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "retryCount": 0,
+  "cleanup": false,
+  "subject": {
+    "id": "candidate",
+    "stageTenant": "/ABSOLUTE/NEW/COMBINED/STAGE/build_tenants/abiogenesis/typescript",
+    "archive": {
+      "path": "/ABSOLUTE/NEW/CANDIDATE.tgz",
+      "sha256": "FILL_FROM_FROZEN_CANDIDATE"
+    },
+    "manifest": {
+      "path": "/ABSOLUTE/NEW/COMBINED/STAGE/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "FILL_FROM_GENERATED_CANDIDATE"
+    },
+    "packageInventory": {
+      "path": "/ABSOLUTE/NEW/candidate-package-inventory.json",
+      "sha256": "FILL_FROM_EXACT_ARCHIVE"
+    },
+    "supportManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/candidate-support-manifest.json",
+      "sha256": "b91dde527670e8fc01301af747298e3aba961a153d9e29e410a07732d9836474"
+    },
+    "inventories": [
+      {
+        "path": "/ABSOLUTE/NEW/combined-source-manifest.json",
+        "sha256": "FILL_AFTER_ALL_STREAMS_CLOSE",
+        "root": "/ABSOLUTE/NEW/COMBINED/STAGE"
+      },
+      {
+        "path": "/ABSOLUTE/NEW/generated-and-dependency-manifest.json",
+        "sha256": "FILL_AFTER_ISOLATED_BUILD",
+        "root": "/ABSOLUTE/NEW/COMBINED/STAGE/build_tenants/abiogenesis/typescript"
+      }
+    ]
+  },
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "path": "/opt/homebrew/bin/npm",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "typescript": {
+      "version": "5.9.2",
+      "lockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    }
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "requiredEvidence": [],
+  "provider": {
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.303",
+    "sha256": "d2da3b003dc08b88b7230469014fe3e1dc6fe94bc8f648e89b34175d30269370",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "inactivityTimeoutMs": 120000,
+    "absoluteTimeoutMs": 600000,
+    "terminationGraceMs": 1000
+  },
+  "sourceRoot": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1",
+  "sourceManifest": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/manifest.json",
+    "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+  },
+  "lanes": {
+    "public-preparation": {
+      "runId": "t287-public-preparation-unique",
+      "roots": {
+        "evidence": "/ABSOLUTE/NEW/public-preparation-evidence",
+        "host": "/ABSOLUTE/NEW/public-preparation-host",
+        "scratchParent": "/ABSOLUTE/NEW/public-preparation-scratch",
+        "worksite": "/ABSOLUTE/NEW/public-preparation-worksite"
+      }
+    },
+    "partial-install": {
+      "runId": "t287-partial-install-unique",
+      "roots": {
+        "evidence": "/ABSOLUTE/NEW/partial-install-evidence",
+        "host": "/ABSOLUTE/NEW/partial-install-host",
+        "scratchParent": "/ABSOLUTE/NEW/partial-install-scratch",
+        "secondInstall": "/ABSOLUTE/NEW/partial-install-second-physical-install"
+      },
+      "preparationResult": {
+        "path": "/ACTUAL/P1/EVIDENCE/result.json",
+        "sha256": "FILL_FROM_P1_ACTUAL"
+      },
+      "preparationSetup": {
+        "path": "/ACTUAL/P1/EVIDENCE/p1-owner-state.json",
+        "sha256": "FILL_FROM_P1_ACTUAL"
+      },
+      "verificationCall": {
+        "path": "/ACTUAL/P1/EVIDENCE/calls/product-verify-0.request.jsonl",
+        "sha256": "FILL_FROM_P1_ACTUAL"
+      },
+      "verificationOutcome": {
+        "path": "/ACTUAL/P1/EVIDENCE/calls/product-verify-0.outcome.json",
+        "sha256": "FILL_FROM_P1_ACTUAL"
+      }
+    },
+    "declared-execution": {
+      "runId": "t287-declared-execution-unique",
+      "roots": {
+        "evidence": "/ABSOLUTE/NEW/declared-execution-evidence",
+        "host": "/ABSOLUTE/NEW/declared-execution-host",
+        "scratchParent": "/ABSOLUTE/NEW/declared-execution-scratch"
+      }
+    },
+    "stdo3-native-selection": {
+      "runId": "t287-stdo3-native-selection-unique",
+      "roots": {
+        "evidence": "/ABSOLUTE/NEW/stdo3-native-selection-evidence",
+        "host": "/ABSOLUTE/NEW/stdo3-native-selection-host",
+        "scratchParent": "/ABSOLUTE/NEW/stdo3-native-selection-scratch",
+        "sourceMirror": "/ABSOLUTE/NEW/stdo3-native-selection-source",
+        "unavailableMirror": "/ABSOLUTE/NEW/stdo3-native-selection-source-unavailable",
+        "recordMirror": "/ABSOLUTE/NEW/stdo3-native-selection-record-source",
+        "memberMirror": "/ABSOLUTE/NEW/stdo3-native-selection-member-source",
+        "missingMemberMirror": "/ABSOLUTE/NEW/stdo3-native-selection-missing-member-source"
+      }
+    }
+  },
+  "externalConsumer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/external-consumer.mts",
+    "sha256": "6821ee75b2e9392246dcf121940f9c953dad19984756bd964164e40ee4487ce7"
+  }
+}

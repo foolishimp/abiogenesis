@@ -1,0 +1,35 @@
+{
+  "label": "unavailable-owner",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--test",
+    "--test-name-pattern",
+    "^B04-02 rename-successor-read: installed owner, ABG admission and fresh replay$",
+    "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/scratch/",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/cache",
+    "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/host",
+    "ABG_C0_POTENTIAL_PROOF": "1",
+    "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/evidence"
+  },
+  "timeoutMs": 600000,
+  "proofFreezeSha256": "b60eca3e6fa641206eda37658b42285cf888a1a42b3cae259be5e2be75a5ce37",
+  "runnerSha256": "e4580260414679e06509260bb2886ff8683bb0398cf97781dc8a67ee5f73ba1b",
+  "startedUnix": 1792564517.5228841
+}

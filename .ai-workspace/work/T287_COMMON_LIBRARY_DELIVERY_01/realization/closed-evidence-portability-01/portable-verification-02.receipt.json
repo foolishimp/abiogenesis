@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python3",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-01/verify-transport.py",
+    "--repo-root",
+    "."
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exit_code": 0,
+  "wall_seconds": 2.253530979156494,
+  "stdout_sha256": "655d683511cf1796e878198873ca5739f4dd89a33ea97b2fcb1598b967c707b3",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

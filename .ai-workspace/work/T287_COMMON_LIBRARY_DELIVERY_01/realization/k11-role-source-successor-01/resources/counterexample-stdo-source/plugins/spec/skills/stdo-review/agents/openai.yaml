@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "STDO Review",
+    "short_description": "Review one exact governed candidate",
+    "default_prompt": "Use $spec:stdo-review to independently evaluate this exact STDO candidate and claim."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

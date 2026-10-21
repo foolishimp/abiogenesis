@@ -1,0 +1,62 @@
+[
+  {
+    "case": 18,
+    "name": "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+    "exitCode": 0,
+    "receiptSha256": "0225baf48fab6151ae1e5faa1a41da3f82480e2e6f43b195be702c3202b9ad7b"
+  },
+  {
+    "case": 19,
+    "name": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+    "exitCode": 0,
+    "receiptSha256": "52968690fdac342ca604b14cf68897f43e0e1945abb76a2e89ab71e4a2e5df49"
+  },
+  {
+    "case": 20,
+    "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+    "exitCode": 0,
+    "receiptSha256": "6f5f584f833ea8fa23cfe1c56ebe29b59df40082588807bfe495e33c9cc0860f"
+  },
+  {
+    "case": 21,
+    "name": "M5 ABG transport does not renew from unacknowledged output",
+    "exitCode": 0,
+    "receiptSha256": "dd47eb91834cca96d913a580353a19f97331b4d9997ad8c5e8e5fd06ae7f6228"
+  },
+  {
+    "case": 22,
+    "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+    "exitCode": 0,
+    "receiptSha256": "77bcfec09d0edb3ad4fe072b45a0bc80c9c3fccd0bdd8c1c6e51e561f7c7823c"
+  },
+  {
+    "case": 23,
+    "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+    "exitCode": 0,
+    "receiptSha256": "a59f8a3694639768abf3fd15dbdd4ed20e1dca181effcf6b3fd1be2195649d9d"
+  },
+  {
+    "case": 24,
+    "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+    "exitCode": 0,
+    "receiptSha256": "ff6a5fe414ba02c1d2349749e3c68c50775a136abe45f63a519ba074b768a5a5"
+  },
+  {
+    "case": 25,
+    "name": "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+    "exitCode": 0,
+    "receiptSha256": "96ac872a3e5c7b89a1891022c25e9523a92455b9ddb2b54a343f88af91f9a9ac"
+  },
+  {
+    "case": 26,
+    "name": "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+    "exitCode": 0,
+    "receiptSha256": "736b8da4a7671d3999a85014ff626d70d9a3eb5e7a1dfba203c767e4b66091ad"
+  },
+  {
+    "case": 27,
+    "name": "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+    "exitCode": 0,
+    "receiptSha256": "4ee1c47da4506204d61e139df379239803f29a113b7d952cf228b978c0584f98"
+  }
+]

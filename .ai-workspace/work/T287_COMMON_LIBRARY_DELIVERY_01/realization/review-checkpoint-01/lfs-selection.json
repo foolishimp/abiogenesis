@@ -1,0 +1,22 @@
+{
+  "authority": "Root accepted exact oversized-file transport extension before broad staging.",
+  "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-owner-carriers.json",
+  "bytes": 109238698,
+  "sha256": "abfaae30a4dc3681c43ddcf5c7e2a444c1d4f1f8120a721c3598df4818b1e49e",
+  "originalFrozenRow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-owner-carriers.json",
+    "sha256": "abfaae30a4dc3681c43ddcf5c7e2a444c1d4f1f8120a721c3598df4818b1e49e",
+    "bytes": 109238698
+  },
+  "exactAttributeRule": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-owner-carriers.json filter=lfs diff=lfs merge=lfs -text",
+  "attributesPreimageSha256": "63b04f2ff425c75d9ab9857be9fa71c15afc5ed2fcbbd8f3f2fca004ab4ee346",
+  "attributesSuccessorSha256": "c3cd3ef62543eb9585485131e650271984348c0635fffebb6ead8dca8211c7e2",
+  "checkAttr": [
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-owner-carriers.json: filter: lfs",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-owner-carriers.json: diff: lfs",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-owner-carriers.json: merge: lfs",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-owner-carriers.json: text: unset"
+  ],
+  "contentUnmodified": true,
+  "stagedPointerVerification": "pending staging; no pointer or push success claimed"
+}

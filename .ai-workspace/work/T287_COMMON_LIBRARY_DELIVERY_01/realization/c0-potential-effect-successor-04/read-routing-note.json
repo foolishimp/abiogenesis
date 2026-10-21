@@ -1,0 +1,6 @@
+{
+  "scope": "Post-stop read-only route discovery, no runtime or precondition execution",
+  "publicToolOutput": "859fce",
+  "error": "sed attempted repository-relative STOP.json while cwd was the tenant stage; no such file",
+  "disposition": "Original command error retained here; no source effect or proof credit. Exact STOP already preserved by supervisor and read using its absolute path for closure."
+}

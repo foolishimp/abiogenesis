@@ -1,0 +1,57 @@
+{
+  "activation": "C2-CANDIDATE-BUILD-01",
+  "executive": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "preparationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/preparation-freeze.json",
+    "sha256": "db3dd88c958d63a03b7f7dc9d19603bb5115b7a0e6831de4a5c544eac10b0d87",
+    "bytes": 3992
+  },
+  "sourceWriterFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/freeze.json",
+    "sha256": "f516cbe3d4121888e52454cafec5b4f83d24c226bd22ee09a734dfca6ee9d0e2",
+    "bytes": 10443
+  },
+  "sourceWriterHow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/HOW-before-effects.md",
+    "sha256": "a28a27bc33207e14c7332330a96834bd56d2df3b6efd4af83611fdbfd4904473",
+    "bytes": 4207
+  },
+  "sourceOutputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 128713,
+      "sha256": "1b3dbf39b6713f575a3456975de76747e06cdcab289c77ba5fee4a05d6b75389"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "bytes": 67023,
+      "sha256": "dfb98d80113aaf150e05a09577d4cc3898b339e33426790f878ed02c90b89d5c"
+    }
+  ],
+  "actions": [
+    "overlay only two exact files with before/copy/after byte checks",
+    "one isolated tsc",
+    "one existing generator",
+    "existing material and emitted/source correspondence",
+    "one npm pack --ignore-scripts",
+    "archive and Product payload verification"
+  ],
+  "excluded": [
+    "main build or generated writes",
+    "C0 or installed runtime/P1/P5/native workload",
+    "broad moving-main overlay",
+    "repair or retry after first failure"
+  ],
+  "expectedDeltas": [
+    "execution_basis emitted JavaScript",
+    "owner-derived source digest/authority metadata"
+  ],
+  "unchanged": [
+    "75 catalog contract rows",
+    "Product/schema/dependencies/exports",
+    "closed06",
+    "main936"
+  ],
+  "additionalByteLimit": 2147483648
+}

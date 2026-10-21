@@ -1,0 +1,73 @@
+{
+  "status": "frozen_before_effects",
+  "activation": "BASELINE-DIAGNOSTICS-01",
+  "subjectId": "baseline",
+  "lane": "public-preparation",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/command.json",
+      "sha256": "2e5bd9e0b9557c591dbac403f028328da5cb96c428b4ce8dbaf87bd05104e1d3",
+      "bytes": 1386,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/coverage-contract.json",
+      "sha256": "e68d72412313a964da781e84a1b6bbfe62183da244cad56bf00199dd9dde43ac",
+      "bytes": 1375,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/diagnostic-configuration.json",
+      "sha256": "5f931f85110eb80c1a2ae35cf82dcdb669c50c26c52e87b01b94e11dcac34e3b",
+      "bytes": 7994,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/diagnostic-effect-grant.json",
+      "sha256": "7165f092a9b5aa8cc142c8153797f4669bba774514842ab57bd9222ffcf0ae77",
+      "bytes": 2957,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/output-correspondence.json",
+      "sha256": "59b5bfa5113ae6e93fb5b0d9ed434e195ce050e6f0334a9e9f69f382c0ee3e0a",
+      "bytes": 4639,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/runtime-configuration.json",
+      "sha256": "e76188451fcc7818fc04a5700e60cf9f00130de7d5d2643c85bfdac62badb672",
+      "bytes": 5324,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/runtime-effect-grant.json",
+      "sha256": "b9e796923b684e542e3852da89e685c5bdd98abe8e722f601d1ee37904577e15",
+      "bytes": 2146,
+      "mode": "0o644"
+    }
+  ],
+  "preconditions": {
+    "inputs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/preflight-basis.json",
+      "sha256": "95633d1f71b6632b040007153a07f6dbf112bb73ca001c8cf2b0f0d52999375e",
+      "bytes": 22381,
+      "mode": "0o644"
+    },
+    "archiveClosure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/archive-closure.json",
+      "sha256": "500076db05114a43578f76410e3546b0bddd5a59360a52ed161a835016b1e2b6",
+      "bytes": 6972,
+      "mode": "0o644"
+    },
+    "method": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/method-status.request.json",
+      "sha256": "59c00735a889c2270cbe497a85bc132bde7a8ce8fce3254df2f282f8a4596f74",
+      "bytes": 397,
+      "mode": "0o644"
+    },
+    "resourcesInitiallyAbsent": true,
+    "canonicalDisjoint": true
+  },
+  "sequence": "P1 once then close all workload/attachment/coverage/preservation obligations before P3"
+}

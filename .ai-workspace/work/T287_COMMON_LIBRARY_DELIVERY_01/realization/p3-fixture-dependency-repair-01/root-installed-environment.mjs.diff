@@ -1,0 +1,17 @@
+--- before/root-installed-environment.mjs
++++ after/root-installed-environment.mjs
+@@ -256,12 +256,13 @@
+   const usesLanguageFixture = options.rootPublicationKind === undefined;
+   const additionalProducts = options.prepareAdditionalProducts === undefined
+     ? usesLanguageFixture ? [await prepareLanguageSmokeFixture({ scratch, product: bootstrapProduct,
+-      gtl: bootstrapGtl, abiPublication: bootstrapRootPublication })] : []
++      gtl: bootstrapGtl, abiPublication: bootstrapRootPublication, abiPackageArchivePath: artifactPath })] : []
+     : await options.prepareAdditionalProducts({
+         scratch,
+         product: bootstrapProduct,
+         gtl: languageTestGtlView(bootstrapGtl),
+         abiPublication: bootstrapRootPublication,
++        abiPackageArchivePath: artifactPath,
+       });
+   assert.equal(
+     Array.isArray(additionalProducts),

@@ -1,0 +1,14 @@
+{
+  "activation": "U1-C0-FAILURE-FIXTURE-02",
+  "actor": "/root/stdo3_c0_currentness_writer",
+  "at": "2026-10-21T02:57:24.709387+00:00",
+  "predecessor_freeze": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/freeze.json",
+  "predecessor_sha256": "c4a9b7100861c5f89b98399076aef7bda002f191bc0e54ab95532d074146b0f5",
+  "only_mutable_source": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+  "four_production_sources_and_emissions_immutable": true,
+  "compile_permitted": false,
+  "focused_retry_budget": 1,
+  "support_change": "none; Root separately froze language-structural-fixture successor 8c0af8cdc2e3ae01d12e05a3baf328ce1637093444659cf0b8540859c241e49b; snapshot retained",
+  "stop": "First unexpected integration failure; no repair/retry",
+  "native_or_command_actors": 0
+}

@@ -1,0 +1,279 @@
+{
+  "caseId": "SNAPSHOT-DIRECTORY",
+  "step": "materialize",
+  "input": {
+    "task": {
+      "kind": "worksite_command_execution_task",
+      "schemaVersion": "5.0.0",
+      "taskRef": "worksite-command-execution-task://abiogenesis/ef3d4666aed2592424345183a50a5d013b8003baf3e5185304b221995d5608de",
+      "taskDigest": "sha256:ef3d4666aed2592424345183a50a5d013b8003baf3e5185304b221995d5608de",
+      "workspaceAuthorityBasis": {
+        "kind": "workspace_authority_basis",
+        "schemaVersion": "5.0.0",
+        "workspaceId": "workspace://e04-owner/cold",
+        "canonicalRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY/worksite",
+        "authorityMode": "trusted_developer",
+        "authorizedActorRef": "actor://e04-owner/cold",
+        "authorityManifestRef": "manifest://e04-owner/cold",
+        "authorityManifestDigest": "sha256:83fb6d9ad2934b923a49e19f2db7423d6f178eb924522c5faf411fd2912afeff",
+        "authorityBasisId": "workspace-authority://abiogenesis/0a2337f4471a7ba54ae0b49a9d40f35bf5383bafcc5c9f7251db1bcd1d8273f2",
+        "authorityBasisDigest": "sha256:0a2337f4471a7ba54ae0b49a9d40f35bf5383bafcc5c9f7251db1bcd1d8273f2"
+      },
+      "workspaceBinding": {
+        "kind": "workspace_binding",
+        "schemaVersion": "5.0.0",
+        "bindingId": "workspace-binding://abiogenesis/0c2fe77f8d8b29321ff40213fa7026dca1dc46849c71d5d555ba290e9092f8db",
+        "bindingDigest": "sha256:0c2fe77f8d8b29321ff40213fa7026dca1dc46849c71d5d555ba290e9092f8db",
+        "workspaceId": "workspace://e04-owner/cold",
+        "authorityBasisId": "workspace-authority://abiogenesis/0a2337f4471a7ba54ae0b49a9d40f35bf5383bafcc5c9f7251db1bcd1d8273f2",
+        "authorityBasisDigest": "sha256:0a2337f4471a7ba54ae0b49a9d40f35bf5383bafcc5c9f7251db1bcd1d8273f2",
+        "authorizedActorRef": "actor://e04-owner/cold",
+        "productSetId": "product-set://e04-owner/cold",
+        "productSetDigest": "sha256:d02a328972b569be2ce780a22dcfbc325d7005d15229633886e4c87d3f3567e6",
+        "lockId": "lock://e04-owner/cold",
+        "lockDigest": "sha256:a4db0612a2e732fd4c76cd77128aa10d1eea041512dfaa988701b9f7178acd5d",
+        "roots": {
+          "toolchainRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY/toolchain",
+          "productRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY/product",
+          "eventLogRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY/eventLog",
+          "runtimeStateRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY/runtimeState",
+          "projectionRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY/projection",
+          "archiveRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY/archive"
+        },
+        "admissionEventRef": "event://e04-owner/controlled-premise-not-admitted"
+      },
+      "capabilityGrant": {
+        "kind": "capability_grant",
+        "schemaVersion": "5.0.0",
+        "grantRef": "capability-grant://abiogenesis/ceb69a43d11ac0212778fb1666f8bfac97ba99237f79f00e6d74a488bfbb6edf",
+        "grantDigest": "sha256:ceb69a43d11ac0212778fb1666f8bfac97ba99237f79f00e6d74a488bfbb6edf",
+        "definitionKey": {
+          "operationId": "abg.operation.run.invoke",
+          "memberKey": "invoke"
+        },
+        "definitionRef": "definition://e04-owner/invoke",
+        "definitionDigest": "sha256:d31cf66f72d02c19fcd422cba97a918050245fb1136792b4f937519599c3e776",
+        "capabilityDefinition": {
+          "graphId": "capability-graph://e04-owner/cold",
+          "graphVersion": "5.0.0",
+          "graphDigest": "sha256:1af5868978345949ad93ded83514fa51fd2262bffbfa4e29bf09b2c1026cd516",
+          "capabilityId": "capability://abiogenesis/run.invoke",
+          "capabilityDefinitionRef": "capability-definition://e04-owner/cold",
+          "capabilityDefinitionDigest": "sha256:7d8457310f3ab1ecb9c5bdecb85debb6e04311e6235c5e4d4c31a4846516a250"
+        },
+        "operationContract": {
+          "contractCatalog": {
+            "productId": "product://e04-owner/cold",
+            "productContentDigest": "sha256:eda38f75521ee0704f5ef981b21be1bda10492edacefe2ceeaa7ce9b8b054a77",
+            "catalogId": "catalog://e04-owner/cold",
+            "catalogVersion": "5.0.0",
+            "catalogDigest": "sha256:30a233707001b5016a6a6ae3711e00988c83632536e551e9fbbde945867ff09c"
+          },
+          "flatRow": {
+            "contractId": "contract://e04-owner/cold",
+            "contractVersion": "5.0.0",
+            "contractDigest": "sha256:5fc482fa3edad068350ab2f413425fa8dfb422772abdd2bb537b828a3b9e6309"
+          },
+          "nestedSelector": {
+            "selectorKind": "flat_contract",
+            "definitionKey": null,
+            "slot": null,
+            "definitionRef": null
+          }
+        },
+        "operationId": "abg.operation.run.invoke",
+        "capabilityRef": "capability://abiogenesis/run.invoke",
+        "actorRef": "actor://e04-owner/cold",
+        "approvalRef": "workspace-authority://abiogenesis/0a2337f4471a7ba54ae0b49a9d40f35bf5383bafcc5c9f7251db1bcd1d8273f2",
+        "approvalDigest": "sha256:0a2337f4471a7ba54ae0b49a9d40f35bf5383bafcc5c9f7251db1bcd1d8273f2",
+        "policyRef": "policy://e04-owner/cold",
+        "policyDigest": "sha256:d0f3d3a8c42f1ce2523bd88c2b63873f6851c482ec81d4db7171a47a63fbcb8e",
+        "scopeRef": "workspace-binding://abiogenesis/0c2fe77f8d8b29321ff40213fa7026dca1dc46849c71d5d555ba290e9092f8db",
+        "scopeDigest": "sha256:0c2fe77f8d8b29321ff40213fa7026dca1dc46849c71d5d555ba290e9092f8db",
+        "authorityBasisRef": "workspace-authority://abiogenesis/0a2337f4471a7ba54ae0b49a9d40f35bf5383bafcc5c9f7251db1bcd1d8273f2",
+        "authorityBasisDigest": "sha256:0a2337f4471a7ba54ae0b49a9d40f35bf5383bafcc5c9f7251db1bcd1d8273f2"
+      },
+      "sourceObservedInput": {
+        "kind": "observed_worksite_input",
+        "sourceSetRef": "observed-worksite-execution-source-set://abiogenesis/713747337d1b2ee5b58f83615a47399149916a4953de3fd2d90690f3600a67b0",
+        "sourceSetDigest": "sha256:713747337d1b2ee5b58f83615a47399149916a4953de3fd2d90690f3600a67b0"
+      },
+      "materializationPlanRef": "prompt-plan://abiogenesis/worksite/command-execution@5",
+      "rendererRef": "renderer://abiogenesis/worksite/command-execution@5",
+      "instructionContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+      "resultContractRef": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+      "workerActorRef": "actor://abiogenesis/worksite/command-execution-worker@5",
+      "workerBindingRef": "worker-binding://abiogenesis/worksite/command-execution-worker@5",
+      "transportLane": "worker_executes",
+      "commands": [
+        {
+          "kind": "worksite_declared_command",
+          "schemaVersion": "5.0.0",
+          "ordinal": 0,
+          "commandId": "command://e04-owner/carrier-only-never-launched",
+          "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "args": [
+            "--version"
+          ],
+          "relativeCwd": ".",
+          "environment": [
+            {
+              "kind": "worksite_command_environment_entry",
+              "schemaVersion": "5.0.0",
+              "name": "HOME",
+              "value": "/Users/jim"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "schemaVersion": "5.0.0",
+              "name": "LANG",
+              "value": "C.UTF-8"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "schemaVersion": "5.0.0",
+              "name": "LC_ALL",
+              "value": "C.UTF-8"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "schemaVersion": "5.0.0",
+              "name": "PATH",
+              "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0-macos/codex-arg0JtPKke:/Users/jim/.codex/tmp/arg0/codex-arg0CDnCoA:/Users/jim/.codex/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0Bb4u1U:/Users/jim/.codex/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0LxzuXl:/Users/jim/.codex/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg03BXQTA:/Users/jim/.codex/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg00N7H4l:/Users/jim/.codex/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0KdMMgl:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "schemaVersion": "5.0.0",
+              "name": "TMPDIR",
+              "value": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/"
+            }
+          ],
+          "timeoutMs": 1000,
+          "terminationGraceMs": 100,
+          "expectedReports": []
+        }
+      ],
+      "outcomePredicates": [],
+      "protectedObservations": [
+        {
+          "kind": "worksite_protected_observation",
+          "schemaVersion": "5.0.0",
+          "ordinal": 0,
+          "sourceMemberRef": "observed-worksite-execution-source://abiogenesis/e10894e5c79d1c82e96ceac508ec0fbff4b3deef4d3a61233faca207a9b894d9",
+          "subject": {
+            "kind": "worksite_subject",
+            "schemaVersion": "5.0.0",
+            "subjectRef": "worksite-subject://abiogenesis/3c9db0c039ccdd94ccc1bd08c3f44a6ea133a71aca7c6a8e71af0a324453e783",
+            "subjectDigest": "sha256:3c9db0c039ccdd94ccc1bd08c3f44a6ea133a71aca7c6a8e71af0a324453e783",
+            "workspaceBindingIdentity": "workspace-binding://abiogenesis/0c2fe77f8d8b29321ff40213fa7026dca1dc46849c71d5d555ba290e9092f8db",
+            "workspaceBindingDigest": "sha256:0c2fe77f8d8b29321ff40213fa7026dca1dc46849c71d5d555ba290e9092f8db",
+            "subjectUri": "file:///private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY/worksite/src/first.txt",
+            "relativePath": "src/first.txt"
+          },
+          "observation": {
+            "kind": "worksite_observation",
+            "schemaVersion": "5.0.0",
+            "observationRef": "worksite-observation://abiogenesis/fa27db66dd016c137231677a9de534d17a7b4218ac5bbd5672d86c9224fbbb37",
+            "observationDigest": "sha256:fa27db66dd016c137231677a9de534d17a7b4218ac5bbd5672d86c9224fbbb37",
+            "workspaceBindingIdentity": "workspace-binding://abiogenesis/0c2fe77f8d8b29321ff40213fa7026dca1dc46849c71d5d555ba290e9092f8db",
+            "subjectRef": "worksite-subject://abiogenesis/3c9db0c039ccdd94ccc1bd08c3f44a6ea133a71aca7c6a8e71af0a324453e783",
+            "subjectDigest": "sha256:3c9db0c039ccdd94ccc1bd08c3f44a6ea133a71aca7c6a8e71af0a324453e783",
+            "state": "file",
+            "fileIdentity": "16777231:474159611",
+            "fileDigest": "sha256:5a5f0febeddda6e3e27883d6419b0356623d3c320230f433b329d5c5577f1b23",
+            "byteLength": 22
+          }
+        }
+      ],
+      "allowedWriteTerritories": []
+    },
+    "snapshotRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-DIRECTORY/snapshot",
+    "before": [
+      {
+        "relativePath": ".",
+        "kind": "directory",
+        "dev": 16777231,
+        "ino": 474159608,
+        "nlink": 3,
+        "byteLength": 96
+      },
+      {
+        "relativePath": "worksite",
+        "kind": "directory",
+        "dev": 16777231,
+        "ino": 474159609,
+        "nlink": 3,
+        "byteLength": 96
+      },
+      {
+        "relativePath": "worksite/src",
+        "kind": "directory",
+        "dev": 16777231,
+        "ino": 474159610,
+        "nlink": 3,
+        "byteLength": 96
+      },
+      {
+        "relativePath": "worksite/src/first.txt",
+        "kind": "directory",
+        "dev": 16777231,
+        "ino": 474159612,
+        "nlink": 2,
+        "byteLength": 64
+      }
+    ]
+  },
+  "disposition": "rejected",
+  "output": null,
+  "error": {
+    "name": "TypeError",
+    "code": null,
+    "message": "worksite path is not one file",
+    "stack": "TypeError: worksite path is not one file\n    at confinedExistingPath (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:170:19)\n    at async Object.materializeSnapshot (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:429:28)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:186:9",
+    "syscall": null,
+    "path": null,
+    "dest": null
+  },
+  "footprint": [
+    {
+      "relativePath": ".",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159608,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "snapshot",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159613,
+      "nlink": 2,
+      "byteLength": 64
+    },
+    {
+      "relativePath": "worksite",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159609,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "worksite/src",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159610,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "worksite/src/first.txt",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159612,
+      "nlink": 2,
+      "byteLength": 64
+    }
+  ]
+}

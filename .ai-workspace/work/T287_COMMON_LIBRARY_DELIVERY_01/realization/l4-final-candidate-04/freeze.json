@@ -1,0 +1,308 @@
+{
+  "kind": "closed_bounded_installed_proof",
+  "activation": "L4-FINAL-CANDIDATE-P1-P3-04",
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "rowBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04",
+  "files": [
+    {
+      "path": "HOW.md",
+      "sha256": "a82eb34b9f4c40f04fb42fafef4e11274fd11ef0b8f00693ddb6405ba5c1a5b4",
+      "bytes": 3749,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "REPORT.md",
+      "sha256": "501a433459764a576b96ae2fe58b3c1e6a1d1cc5a48cf39004b178c659e0771c",
+      "bytes": 3487,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "activation.json",
+      "sha256": "8228f582e5a52d262fe6669a63b2d5165977eabf643fa5c33f7156ef81aa3561",
+      "bytes": 1373,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "bind06.mjs",
+      "sha256": "e340d781c99e071920683fa69875c8f1d3bfa2f4d3bbc0b2ae07fba402a84967",
+      "bytes": 15345,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retained-storage.json",
+      "sha256": "8e2c9cc9bc0b9ae74470d1eba352638652ec67c6e356332dff3f1ff22cdc883a",
+      "bytes": 687,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "return.json",
+      "sha256": "9f655bfdd4c8f0f970b4f189015a1840a7628faff7d7c2641b8499f9024928b6",
+      "bytes": 24245,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/actual-handoff-binding-map.json",
+      "sha256": "2b9fb355776e79329ceddb8e8b1e2a006870b9e387cafbf74a29a8ab38f0587a",
+      "bytes": 4477,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/archive-closure.json",
+      "sha256": "d0b211d48703e9fd14160e91e8beaa004779cdba5c64f5de5d5923287ec4e587",
+      "bytes": 15160,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/artifact-preservation-exit.json",
+      "sha256": "0606dac5958475452d674a789d6862ec5f578135cfce41d35a43a60e3be3f4a3",
+      "bytes": 953,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/binding-result.json",
+      "sha256": "5233f0d99cade6d85ea1613ff7b12f7feddc6eb5d385c838dd5a68adb46e7232",
+      "bytes": 5289,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/binding.request.json",
+      "sha256": "bfd03fb205385373864a182d176f0f7ea5e0acf11556666892f91018115cd27e",
+      "bytes": 641,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/binding.result.json",
+      "sha256": "6adec04d87f7d224d6cd3ce30d454f8acdc2d1c0c7bd15683d66c58d7cbf227e",
+      "bytes": 223,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/binding.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/binding.stdout",
+      "sha256": "27f57eebf0172b9370e7f378f1713b3242cf1aadbe4e9f403ec6191b39643acf",
+      "bytes": 258,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/empty-seed.json",
+      "sha256": "afb84dac6a7aa1cf256a6ff7ed05fa84dfdeaa6748dbb292397343908120c6db",
+      "bytes": 183,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/input-pins.json",
+      "sha256": "20b21e570385a9fc563d5b35ef0996573e0e7cd129f610baccb144f1ca354cbe",
+      "bytes": 26237,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/output-correspondence-inputs.json",
+      "sha256": "4417341949e2946bc3cf6ccee0b2436f24d325a31ddabffffc4fc949f69b6b73",
+      "bytes": 2129,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/owner.configuration.template.json",
+      "sha256": "45642069dfc70bfcb32c6b5cd33d920ae9e1811979a266f40fb1a8ce3c897469",
+      "bytes": 2987,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/owner.grant.template.json",
+      "sha256": "dd3fe850f4435928ed639e3a6f289669b876fca2a951773561d3934cb44bb418",
+      "bytes": 528,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/p1.configuration.template.json",
+      "sha256": "e3638dca6a964ea17c524081185de46bb34a6be6ee62c35b97111e00fb016176",
+      "bytes": 5010,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/p1.grant.template.json",
+      "sha256": "e00c4f5e8e85b5f4d9d21cd4cd598e7f44ec6b1a9c424d8ad3a28ef01c29fa20",
+      "bytes": 1370,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/p2.configuration.template.json",
+      "sha256": "58b337165f702cb68586321bc00ebd28640e50aa21e06c8424cc7f15ab57ecc3",
+      "bytes": 5556,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/p2.grant.template.json",
+      "sha256": "49d5584c2212a9c6cdd48c0921c76655073f122841f3593501a3dd35a79e9592",
+      "bytes": 1449,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/p3.configuration.template.json",
+      "sha256": "0ef990712c775ec3b6c4bd2b77c1200a74dd5bca1ddb410743c3246cd7d66246",
+      "bytes": 5316,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/p3.grant.template.json",
+      "sha256": "d8900fe05d3c0f792b09583c9dbd1e485e8f0c9e1acf31cacce3a18f073e32c5",
+      "bytes": 1445,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/resource-plan.json",
+      "sha256": "d313a419205e17bfed96d4f2bdd64522e22c8b12b92d97c96c8444e5abaef747",
+      "bytes": 1899,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/resource-preconditions.json",
+      "sha256": "26de08f13dade88f2adacb0f49b98e0172ada5211d36356015a6449f63631ecc",
+      "bytes": 1237,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/runtime-condition.json",
+      "sha256": "86626cd9ab7b4c7141f9f3c604952757f5468524bef17a63010bfaf6e82a54f4",
+      "bytes": 1247,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/selected-support.json",
+      "sha256": "00eff68a7329e05420c7669dac48fdbc717acca880a361e865aecb934b549665",
+      "bytes": 3144,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/source-afterimages.json",
+      "sha256": "bf1eb989ea8a3a09782d180675592fe099bd2841e20178559d8e414e5d3a50c1",
+      "bytes": 2227,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/stage-source-inventory.json",
+      "sha256": "1d4d796594268adc906f75f984958adab5a533f01357d5a7fb7e7e1dd4ca12dc",
+      "bytes": 353630,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/successor06-closure-supplement.json",
+      "sha256": "355680a41a766ac81f93520ca48db3ea47bde6cbd6942bbcb736e051880ab011",
+      "bytes": 792,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/syntax.request.json",
+      "sha256": "3318eaeaee36b01cc726f6ece3de04bcceb10f899a512a6afa06a5f7dc4b2742",
+      "bytes": 656,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/syntax.result.json",
+      "sha256": "b5a41d59151f09c65e2ee2a1485f62d7b84267eac4e64bba65878aa27f2874af",
+      "bytes": 224,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/syntax.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "intake/syntax.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644",
+      "kind": "file"
+    }
+  ],
+  "recordCount": 36,
+  "closedCuts": [
+    {
+      "p1": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/freeze.json",
+        "sha256": "4793655ce521c45cc1d2e1cc11378430318b26df6e98e60f1f0eef0c9ed96011",
+        "bytes": 19050,
+        "mode": "0o644"
+      }
+    },
+    {
+      "owner-resolution": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/freeze.json",
+        "sha256": "33ce42d27cc556c6e9688fb5a04abaae5855f390ff28a5d07114a06c06124fc0",
+        "bytes": 4843,
+        "mode": "0o644"
+      }
+    },
+    {
+      "p2": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/freeze.json",
+        "sha256": "912999c42d9ac910f2e5132aaa93284dab5d429034959e32cb10ceb9c4282ed0",
+        "bytes": 7510,
+        "mode": "0o644"
+      }
+    },
+    {
+      "p3": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p3/freeze.json",
+        "sha256": "771c9b7727a9e9554380c49ecfcbddaddf79de09939796f10664b16d58a69e6f",
+        "bytes": 6621,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "closureRule": "Local top-level/intake records plus four exact phase freezes. Each phase freeze declares its own row base and complete immutable local files; physical snapshots are temporal observations.",
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "manifestSha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4",
+  "returnSha256": "9f655bfdd4c8f0f970b4f189015a1840a7628faff7d7c2641b8499f9024928b6",
+  "reportSha256": "501a433459764a576b96ae2fe58b3c1e6a1d1cc5a48cf39004b178c659e0771c",
+  "newRuntimeCommands": 4,
+  "nativeProviderCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "allocatedKiBBeforeCompactClosure": 1858800,
+  "L5Acceptance": false,
+  "completedAt": "2026-10-21T07:06:06.030546+00:00"
+}

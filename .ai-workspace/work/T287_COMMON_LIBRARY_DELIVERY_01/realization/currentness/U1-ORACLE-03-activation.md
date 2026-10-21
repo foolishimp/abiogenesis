@@ -1,0 +1,3 @@
+# Executive U1-ORACLE-03 activation
+
+Root independently verified event_prefix.ts total, gap-free admission order contract. The reversed-array positive assertion selected an invalid unordered carrier domain; null is the correct existing refusal. Grant: change only that assertion to null, preserve causal-order negatives and valid-prefix assertions, do not sort or change production. Preserve focused-02 successful bounded cases and failed source/receipt. Rerun only the changed negative test and remaining preselected regressions, then freeze exact stream with controlled source-verifier premises and C2/provenance evidence separated from installed native credit.

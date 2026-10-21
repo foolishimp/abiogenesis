@@ -1,0 +1,185 @@
+{
+  "status": "proposed successor source data, not a Run declaration or adopted mapping",
+  "rangeConvention": "zero-based UTF-8 byte interval [startByte,endByte), LF source bytes",
+  "oldPackagedMember": {
+    "basisUri": "stdo://releases/v2.5.1-rc.1/",
+    "manifestDigest": "sha256:5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+    "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+    "assetPath": "contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+    "byteCount": 133684,
+    "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d"
+  },
+  "oldPackagedSpans": {
+    "executive": {
+      "heading": "Derived Executive Frame",
+      "startByte": 30700,
+      "endByte": 35546,
+      "spanDigest": "sha256:462f85054e7a000076051c2fc0adb7c9b6c80726057ce4112e6da192e501c485"
+    },
+    "worker": {
+      "heading": "Derived Worker Frame",
+      "startByte": 35546,
+      "endByte": 38401,
+      "spanDigest": "sha256:97fbe3a344cd77dd263495db42e334916e76d50fdf8f075452ecebe56fd58b26"
+    },
+    "reviewer": {
+      "heading": "Derived Reviewer Frame",
+      "startByte": 38401,
+      "endByte": 42638,
+      "spanDigest": "sha256:b5e9f2ac18af32a6586f860b9bfe23826d9b633ac844a880170652e35952791b"
+    },
+    "specialists": {
+      "heading": "Derived Generic Specialist Frame Set",
+      "startByte": 42638,
+      "endByte": 52663,
+      "spanDigest": "sha256:a837522281bdfbaa533e8e9ab048b21c183465e8094a8b43c599be40e1586c2b"
+    },
+    "testing": {
+      "heading": "Derived Product Testing Frame Set",
+      "startByte": 52663,
+      "endByte": 76400,
+      "spanDigest": "sha256:89765aa681593fdcd6fece4bf88960bd8a883d7e15a32d7e7d433b3fbb53ba8b"
+    }
+  },
+  "newBasisUri": "stdo://releases/v3.0.0-rc.1/",
+  "newManifest": {
+    "path": "manifest.json",
+    "assetPath": "contracts/default-library/stdo/manifest.json",
+    "byteCount": 13478,
+    "digest": "sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+  },
+  "newPackagedMembers": {
+    "standards/EXECUTIVE_BASELINE.md": {
+      "path": "standards/EXECUTIVE_BASELINE.md",
+      "assetPath": "contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+      "byteCount": 156797,
+      "memberDigest": "sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e"
+    },
+    "standards/ASSURANCE.md": {
+      "path": "standards/ASSURANCE.md",
+      "assetPath": "contracts/default-library/stdo/standards/ASSURANCE.md",
+      "byteCount": 87324,
+      "memberDigest": "sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
+    }
+  },
+  "newPackagedSpans": {
+    "executive": {
+      "path": "standards/EXECUTIVE_BASELINE.md",
+      "heading": "## 8. Derived Executive frame",
+      "startByte": 83537,
+      "endByte": 89094,
+      "spanDigest": "sha256:beac5c3e7dd7bb8ed27914271b1953bce37e8d83e9f8e082cc30b4f57e190545"
+    },
+    "worker": {
+      "path": "standards/EXECUTIVE_BASELINE.md",
+      "heading": "## 9. Derived Worker frame",
+      "startByte": 89094,
+      "endByte": 92075,
+      "spanDigest": "sha256:41c60108a27d41f3f5dc0f533207973f1d58bfed75e99b4b9016bd7d23f00453"
+    },
+    "reviewer": {
+      "path": "standards/EXECUTIVE_BASELINE.md",
+      "heading": "## 10. Derived Reviewer frame",
+      "startByte": 92075,
+      "endByte": 96708,
+      "spanDigest": "sha256:fc549bf2e55ffaabad86b4fd3b9290d9043f8716f2ed21b28c0410c643c3911c"
+    },
+    "specialists": {
+      "path": "standards/EXECUTIVE_BASELINE.md",
+      "heading": "## 11. Derived generic specialist frame set",
+      "startByte": 96708,
+      "endByte": 109201,
+      "spanDigest": "sha256:6498d934efff03cc742689e12295555928f4f0d975077744b12120f119f53189"
+    },
+    "testing": {
+      "path": "standards/ASSURANCE.md",
+      "heading": "## 7. Product testing frame set",
+      "startByte": 34042,
+      "endByte": 63245,
+      "spanDigest": "sha256:4abfd834bf7bac3273899d417c571bac0795966b0ec41084e6e37a86eaf6d981"
+    }
+  },
+  "roleSpanKeys": {
+    "selector": [
+      "executive"
+    ],
+    "constructor": [
+      "worker",
+      "specialists"
+    ],
+    "assessor": [
+      "reviewer",
+      "testing"
+    ],
+    "command_executor": [
+      "worker",
+      "testing"
+    ]
+  },
+  "nativeSelectorReplacement": {
+    "retiredHelper": "test_env/support/native-registered-selection.mjs",
+    "oldSourceKeys": [
+      "oldPackagedSpans.executive",
+      "legacyReferenceFrameCanonicalCompression"
+    ],
+    "newSourceKeys": [
+      "newPackagedSpans.executive"
+    ],
+    "policyPreserved": {
+      "text": "Under the declared bounded Executive frame, judge whether one permitted registered capability serves the supplied task and recipient requirements. Respect the declared purpose, conditions, input, result and effect contracts. This computation produces a suitability finding and permitted choice or gap; it does not confer operation authority or claim a wider STDO disposition. Supplied observations are current request facts, not independently verified workspace state. A missing suitable capability or required support remains an explicit gap. Do not generate capabilities, repair input, inspect the workspace or treat capability presence as success.",
+      "digest": "sha256:4edda6c26a4fb54b24e005051b96d7457b94b77041557ba1c8a238e96924eeb2"
+    },
+    "contextSelectorsPreserved": [
+      "full_source",
+      "active_binding_semantics"
+    ],
+    "legacyReferenceFrameCanonicalCompression": {
+      "uri": "stdo://releases/v2.5.1-rc.1/standards/REFERENCE_FRAME_METHOD.md#canonical-compression",
+      "memberDigest": "sha256:6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+      "byteCount": 55118,
+      "startByte": 26,
+      "endByte": 1685,
+      "spanDigest": "sha256:73ed593af3d42bb9c3c4e81d7e3ccfa21dbc38588bb8b417cf96092b2cc7d808"
+    },
+    "explicitOmissionDecision": "Retire the old frame-method introductory compression as a supplied selector excerpt; the complete current Derived Executive frame plus unchanged bounded task/policy supplies the successor selector contract. This is a proposed semantic sufficiency decision for independent assessment, not a byte-equivalence claim or automatic adoption."
+  },
+  "p4Unchanged": {
+    "memberPath": "standards/EXECUTIVE_BASELINE.md",
+    "sourceSpans": [
+      {
+        "path": "standards/EXECUTIVE_BASELINE.md",
+        "heading": "### Executive",
+        "startByte": 55240,
+        "endByte": 55942,
+        "spanDigest": "sha256:f570de4d76c017e873f390926698a04c9704c443e602092c4c13985b5eb4cd80"
+      },
+      {
+        "path": "standards/EXECUTIVE_BASELINE.md",
+        "heading": "### The three duties",
+        "startByte": 64650,
+        "endByte": 65910,
+        "spanDigest": "sha256:20ec39085c7dbe19a1b7a06f00d8dcadf7b82e4cb9c163be282e7a3a53b6a68e"
+      }
+    ],
+    "oracle": "A then exact compact JSON {\"service\":\"Atlas\",\"status\":\"healthy\"}",
+    "helperPreflightSha256": "81c51842c1d31366b509324eff717084f9df3cfee05c36d73411c855f10db76e"
+  },
+  "roleBodyByteCounts": {
+    "selector": {
+      "old": 4846,
+      "proposed": 5557
+    },
+    "constructor": {
+      "old": 12880,
+      "proposed": 15474
+    },
+    "assessor": {
+      "old": 27974,
+      "proposed": 33836
+    },
+    "command_executor": {
+      "old": 26592,
+      "proposed": 32184
+    }
+  }
+}

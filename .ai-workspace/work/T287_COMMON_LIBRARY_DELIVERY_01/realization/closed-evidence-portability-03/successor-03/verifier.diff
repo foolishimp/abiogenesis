@@ -1,0 +1,61 @@
+--- successor-02/verify-transport.py
++++ successor-03/verify-transport.py
+@@ -9,9 +9,10 @@
+ parser = argparse.ArgumentParser()
+ parser.add_argument('--repo-root', type=Path)
+ args = parser.parse_args()
+-D = Path(__file__).resolve().parent
+-ROOT = (args.repo_root or D.parents[5]).resolve()
+-assert D.is_relative_to(ROOT)
++E = Path(__file__).resolve().parent
++D = E.parent / 'successor-02'
++ROOT = (args.repo_root or E.parents[5]).resolve()
++assert E.is_relative_to(ROOT) and D.is_relative_to(ROOT)
+ checked = {}
+ 
+ def safe_relative(text):
+@@ -39,6 +40,15 @@
+ def local(name): return read(D / safe_relative(name))
+ def local_pin(row, base): exact(base / safe_relative(row['path']), row['sha256'], row['bytes'])
+ 
++successor = read(E / 'activation.json')
++assert successor['dataRoot'] == str(D.relative_to(ROOT)) and successor['outputRoot'] == str(E.relative_to(ROOT))
++exact(E / 'verification-input.json', read(E / 'verification-bind.json')['inputSha256'])
++for row in read(E / 'verification-input.json')['records']: local_pin(row, E)
++cut = successor['preservedStoppedCut']
++exact(repo(cut['path']), cut['sha256'], cut['bytes'])
++for row in read(repo(cut['path']))['files']: local_pin(row, D)
++authorized_repository_packages = {row['archiveSha256']: row for row in successor['authorizedRepositoryPackages']}
++assert set(authorized_repository_packages) == {'25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079', 'fadd07e06799be957087419527c683ce18650ecf0abfe669c0f28e034d84aef6'}
+ activation = local('activation.json')
+ original_root = activation['repoRoot']
+ def original_repo_relative(text):
+@@ -139,9 +149,19 @@
+ packages, package_members = {}, {}
+ for package in package_specs:
+     t = package['transport']
+-    assert t['kind'] == 'archive_object'
+-    data = object_data(t); h = hashlib.sha256(data).hexdigest()
+-    assert h == package['archive_sha256']; packages[h] = data
++    if t['kind'] == 'archive_object':
++        data = object_data(t)
++        expected_size = objects[(t['archive'], t['member'])][1]
++    elif t['kind'] == 'repository_file':
++        declared = authorized_repository_packages[package['archive_sha256']]
++        assert t == declared['transport'] and package['bytes'] == declared['bytes']
++        expected_size = declared['bytes']
++        exact(repo(t['path']), package['archive_sha256'], expected_size)
++        data = repo(t['path']).read_bytes()
++    else: raise AssertionError('Undeclared package transport representation')
++    h = hashlib.sha256(data).hexdigest()
++    assert h == package['archive_sha256'] and len(data) == expected_size
++    packages[h] = data
+     expected = {row['member']: row for row in package['verified_members']}; seen = set()
+     assert len(expected) == len(package['verified_members'])
+     with tarfile.open(fileobj=io.BytesIO(data), mode='r:gz') as tf:
+@@ -241,4 +261,5 @@
+ assert new['totalCompressedBytes'] <= 1024**3 and new['logicalBoundBytes'] <= 2*1024**3
+ assert all(a['compressedBytes'] < 90*1024**2 for a in new['archives'])
+ result = dict(verified=True, originalSourceAddresses=len(population), originalFrozenMetadataRows=len(metadata_rows), representations=dict(counts), uniqueRepositoryFiles=len(repository_files), newArchives=len(new['archives']), reusedArchives=len(archive_rows)-len(new['archives']), archiveObjects=len(objects), originalPackages=len(packages), packageMembers=len(package_members), chunkedWholeFilesVerified=chunk_files, nativeCoverageRelations=dict(covered), exactExclusionRowsVerified=len(exclusion_rows), declaredFieldAdapters=len(expected_routes), originalAbsoluteSourcePathsOpened=0, originalTreesScanned=0, ProductExecutions=0, originalOwnerAcquisitions=0, copiedBytesConferRuntimeAuthority=False, oldFailedCutsRemainFailed=True)
++result.update(verifierSuccessor=str(E.relative_to(ROOT)), preservedStoppedCut=successor['preservedStoppedCut'], packageRepositoryRoutesVerified=len(authorized_repository_packages), newArchivesCreated=0)
+ print(json.dumps(result, indent=2))

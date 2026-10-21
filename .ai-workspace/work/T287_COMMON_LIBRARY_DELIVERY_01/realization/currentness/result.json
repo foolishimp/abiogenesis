@@ -1,0 +1,16 @@
+{
+  "actor": "/root/stdo3_currentness_writer",
+  "construction_result": "candidate_ready",
+  "local_clause_result": "satisfied",
+  "scope": "exact bounded local currentness implementation and selected local proofs only",
+  "acceptance_claim": false,
+  "report": "report.md",
+  "mandatory_residuals": [
+    "actual admitted prior C0 successful successor retirement",
+    "other named actual currentness consumer gates and same-physical-root binding crossing",
+    "combined integration/installed/native/P5 and V-population closure"
+  ],
+  "source_manifest": "source-final.json",
+  "output_manifest": "stage-output-manifest.json",
+  "stopped_editing_after_freeze": true
+}

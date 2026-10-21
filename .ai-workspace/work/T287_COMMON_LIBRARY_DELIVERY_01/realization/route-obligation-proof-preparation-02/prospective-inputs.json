@@ -1,0 +1,44 @@
+{
+  "kind": "t287_route_obligation_proof_preparation",
+  "status": "NOT_GRANTED",
+  "finalCandidate": null,
+  "finalInstalledRoot": null,
+  "finalArchiveSha256": null,
+  "executionGrant": null,
+  "recipe": "prospective-oracle.md",
+  "nativeCallsAdded": 0,
+  "producerWorkloadsAdded": 0,
+  "p5": {
+    "status": "AWAIT_ACTUAL_REQUIRED_WITNESS",
+    "producer": "test_env/tests/t287-worksite-command-execution.test.mjs",
+    "captures": [
+      "source-completion.json",
+      "source-events.json",
+      "public-outcome.json",
+      "C2-events-and-close.json",
+      "admitted-observation.json",
+      "fresh-proof.json"
+    ],
+    "capturePins": null,
+    "semanticSelection": "Public C2 Run -> exact run_segment_opened.executionBasisRef -> unique basis_admitted; authenticated C1 source Result",
+    "cuts": ["after_C1_Result", "after_C1_advance_judgment", "before_C2_basis", "C2_closed_prefix"]
+  },
+  "p4": {
+    "status": "AWAIT_ACTUAL_REQUIRED_WITNESS",
+    "producer": "proof/run-installed.mjs stdo3-native-selection lane",
+    "captures": ["native-execution.json", "native-handoff.json", "events.jsonl"],
+    "capturePins": null,
+    "semanticSelection": "actual positive Run -> unique registered-selection advance route -> exact non-null registered selection input projection",
+    "controls": ["unrelated_workspace_growth", "duplicate_source_open", "duplicate_source_result", "duplicate_source_judgment", "duplicate_source_cursor_origin", "conflicting_source_cursor_digest", "canonical_semantically_incomplete_exact_route_intent"]
+  },
+  "retainedGraphInput": {
+    "status": "AUTHENTIC_PREMISE_NOT_SUPPLIED",
+    "actualRouteRef": null,
+    "evidence": null,
+    "positiveHistoryMayBeManufactured": false,
+    "option": "Separately select refinement of the planned ordinary deterministic HoG workflow fixture with a genuine retained-input edge and exact owner admission; zero additional native calls."
+  },
+  "mutations": "detached copies only; canonical envelope owner; never admission; no captured evidence edits",
+  "executionResult": null,
+  "acceptance": false
+}

@@ -1,0 +1,208 @@
+{
+  "status": "NOT_GRANTED; driver implementation and exact successor bindings belong to a separate preparation freeze",
+  "ExecutiveSelection": "minimum ordinary owner driver over unchanged authored structural Product; no duplicate registered-selection workload unless needed",
+  "subject": {
+    "id": "candidate",
+    "archive": null,
+    "manifest": null,
+    "stageTenant": null,
+    "requires": "new closed C0 successor combined artifact including structural support SHA 6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+    "historicalReadinessArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+      "bytes": 10679557,
+      "mode": "0o644"
+    }
+  },
+  "roots": {
+    "compose-retry": {
+      "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence",
+      "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/host",
+      "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/worksite"
+    },
+    "workflow-foldback": {
+      "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/evidence",
+      "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/host",
+      "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/worksite"
+    },
+    "fanout-partial": {
+      "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/evidence",
+      "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/host",
+      "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/worksite"
+    }
+  },
+  "minimumInstalledCases": [
+    {
+      "case": "compose-retry",
+      "fixtureSelector": "COMPOSED_IDS",
+      "input": {
+        "kind": "data_input",
+        "schemaVersion": "5.0.0",
+        "subject": "  World  "
+      },
+      "expectedOutput": {
+        "kind": "data_output",
+        "schemaVersion": "5.0.0",
+        "message": "World"
+      },
+      "owners": [
+        "setupInstalledRootExecutionBasis",
+        "openTraversalScope",
+        "hog.executeGraphTraversal",
+        "retry/projectDeclaredCRetryFrontier",
+        "traversal_route admission",
+        "ABG fresh result/replay"
+      ],
+      "relations": [
+        "same actual admitted basis across direct compose/check leaves",
+        "declared C.retry attempt and completed progress are causally joined and consumed by actual route",
+        "input normalization reaches exact final value",
+        "zero actor events"
+      ],
+      "limit": "Default input exercises successful first attempt, not multiple failed attempts or native retry quality."
+    },
+    {
+      "case": "workflow-foldback",
+      "fixtureSelector": "WORKFLOW_IDS",
+      "input": {
+        "kind": "data_input",
+        "schemaVersion": "5.0.0",
+        "subject": "World"
+      },
+      "expectedOutput": {
+        "kind": "data_output",
+        "schemaVersion": "5.0.0",
+        "message": "World"
+      },
+      "owners": [
+        "actual external atomic child",
+        "ABG child basis and graph-call opening",
+        "child_foldback_admitted",
+        "deriveSubTraversalEvidence",
+        "fresh replay/result"
+      ],
+      "relations": [
+        "exact parent CCall to child basis/result/judgment/closure and foldback relation",
+        "parent consumes actual admitted child result",
+        "no native actor"
+      ],
+      "limit": "Deterministic workflow child relation only; no F_P/application recursion claim."
+    },
+    {
+      "case": "fanout-partial",
+      "fixtureSelector": "FAN_OUT_IDS",
+      "inputFactory": "constructMemberVector([\"Ada\",\"Grace\",\"Margaret\"],1)",
+      "expectedCompletion": {
+        "completionKind": "partial_stop",
+        "completedOrdinals": [
+          0
+        ],
+        "stoppingOrdinal": 1,
+        "unstartedOrdinals": [
+          2
+        ],
+        "outputVectorPresent": false
+      },
+      "owners": [
+        "actual typed fan-out materialization",
+        "external deterministic element leaf with declared block flag",
+        "fan_out/admitFanOutCompletion",
+        "fan_out_projection",
+        "workflow_lifecycle",
+        "fresh replay"
+      ],
+      "relations": [
+        "exact first completed child retained",
+        "second authored element returns structural_failure through its ordinary F_D owner",
+        "third independent task remains unstarted",
+        "no reducer GraphCall or manufactured complete vector",
+        "no success Run closure or actor event"
+      ],
+      "limit": "Actual physical install/admission/traversal required; source presence or constructor checks do not close this claim."
+    }
+  ],
+  "supportEvidence": [
+    {
+      "test": "m5-retry-lifecycle-authority.test.mjs",
+      "selected": "all nine self-contained names",
+      "classification": "six source/export ownership checks; supplied bridge dynamic predicate; two actual empty-store refusal/no-append branches",
+      "receipts": "not executed here; not substituted for installed success",
+      "command": [
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs"
+      ]
+    },
+    {
+      "test": "m5-event-calculus-runtime.test.mjs",
+      "selected": [
+        "historical traversal-route projection ignores later construction enrichment and still refuses a forged admission body",
+        "structural retry lineage selects its Run while retaining workspace authority"
+      ],
+      "classification": "actual projection owners over controlled immutable lower history; no installed Run or actor",
+      "command": [
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^(historical traversal-route projection ignores later construction enrichment and still refuses a forged admission body|structural retry lineage selects its Run while retaining workspace authority)$",
+        "test_env/tests/m5-event-calculus-runtime.test.mjs"
+      ]
+    }
+  ],
+  "notNeededByDefault": [
+    {
+      "test": "t287-calculus-state-transfer.test.mjs",
+      "candidateSelection": "ABI5_CALCULUS_CASES=batch,recovery",
+      "covered": "changing/shared input and exact equal-valued producer provenance",
+      "notCovered": "actual retry attempt lineage or batch partial/unstarted; transformed terms remove C.retry",
+      "status": "repair now artifact-ready, but additional installed execution not selected if minimum driver suffices"
+    },
+    {
+      "test": "t287-registered-graph-selection.test.mjs",
+      "candidateSelection": "ABI5_SELECTION_REPEAT_ONLY=1",
+      "covered": "two deterministic Public starts A/B, exact child foldback, next-call resolution and fresh readback",
+      "status": "avoid duplicate run if minimum workflow driver supplies required relation; source-only proposal, not acceptance"
+    }
+  ],
+  "uncredited": [
+    {
+      "relation": "two historical t287-route-reconstruction cases",
+      "reason": "requires exact P0_RETAINED_NATIVE_SCRATCH and predecessor package; no selected material or old-root acquisition"
+    },
+    {
+      "relation": "selected-execution-closure multi-entry/history and conformance-owner-reuse",
+      "reason": "requires exact retained request/history/predecessor/metadata and lower fixture premise mapping; current P1 is not automatic substitution"
+    },
+    {
+      "relation": "multiple failed/native retry attempts",
+      "reason": "default deterministic compose/retry input reaches one successful attempt only; do not invent another fixture or provider"
+    },
+    {
+      "relation": "t287-r4-aba-retry alternate source route",
+      "reason": "its imported test_env/falsifiers/runtime-f09.mjs is absent from closed final01 stage; not selected or executed; not a production failure"
+    }
+  ],
+  "retention": {
+    "contextAfter": "bounded driver captures setup cleanup callbacks; never invokes them before explicit later disposition",
+    "perCase": [
+      "actual setup verification/install/catalog/lock/Program/basis",
+      "typed open/traversal input/output and exact prefix",
+      "raw complete events and physical eventlog identity",
+      "closed handoff, fresh result/replay and no append comparison",
+      "fixture archive/member/dependency inventory and both installed roots",
+      "all process outcomes and physical residue"
+    ],
+    "failure": "first unexpected seam stops dependent branches; exact cause and prefix retained; no retry/repair/cleanup"
+  },
+  "boundary": {
+    "nativeCalls": 0,
+    "installsNow": 0,
+    "workloadsNow": 0,
+    "endpointActivation": "HOLD",
+    "proposedDriver": "not yet authored; separate later support freeze per Executive priority instruction"
+  }
+}

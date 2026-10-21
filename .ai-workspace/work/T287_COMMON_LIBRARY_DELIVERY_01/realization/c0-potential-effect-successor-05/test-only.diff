@@ -1,0 +1,20 @@
+--- build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs before
++++ build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs after
+@@ -230,8 +230,16 @@
+   const catalogView = product.narrowGraphFunctionCatalog(alias.catalog, [gtl.SEMANTIC_STAGE_IDS.graphFunctionRef]);
+   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
+   let worksite;
++  const held = alias.abg.selectHeldEventStoreDurablePrefix(alias.store);
++  const current = alias.abg.projectExactPrefixWorkspaceEnvironment(held, {
++    ref: alias.workspaceBinding.bindingId,
++    digest: alias.workspaceBinding.bindingDigest,
++  });
++  assert.equal(current.kind, "exact_prefix_workspace_environment");
++  assert.deepEqual(current.workspaceBinding, alias.workspaceBinding);
+   const semantic = await setupInstalledRootExecutionBasis(context, root, {
+-    existingEnvironment: { ...alias, publication, publicationAdmission, publicationValidation, programValidation, catalogView },
++    existingEnvironment: { ...alias, artifactTruth: current.artifactTruth, durablePrefix: held,
++      publication, publicationAdmission, publicationValidation, programValidation, catalogView },
+     programRef: gtl.SEMANTIC_STAGE_IDS.programRef, graphFunctionRef: gtl.SEMANTIC_STAGE_IDS.graphFunctionRef,
+     inputContractRef: gtl.SEMANTIC_STAGE_IDS.envelopeContractRef, publicInvocationRef: `invocation://c0-potential/${label}/semantic-input`,
+     inputFactory: async ({ capabilityGrant }) => {

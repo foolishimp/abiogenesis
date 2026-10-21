@@ -1,0 +1,351 @@
+{
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/build/code/src/abg/semantic_job.js",
+  "originalSha256": "449359751e0883bba8d656318c71ac56d510d576a3082f463aecbeeea5ae5d88",
+  "instrumentedSha256": "687194249a28fb22bb60b437cfbed9effc3e98a082c3dac337cfd8190bf3eb18",
+  "sites": [
+    {
+      "line": 39,
+      "original": "            return null;"
+    },
+    {
+      "line": 43,
+      "original": "            return null;"
+    },
+    {
+      "line": 64,
+      "original": "            return null;"
+    },
+    {
+      "line": 67,
+      "original": "            return null;"
+    },
+    {
+      "line": 75,
+      "original": "                return null;"
+    },
+    {
+      "line": 79,
+      "original": "                return null;"
+    },
+    {
+      "line": 84,
+      "original": "                return null;"
+    },
+    {
+      "line": 89,
+      "original": "            return null;"
+    },
+    {
+      "line": 96,
+      "original": "            return null;"
+    },
+    {
+      "line": 108,
+      "original": "            return null;"
+    },
+    {
+      "line": 112,
+      "original": "        return null;"
+    },
+    {
+      "line": 120,
+      "original": "            return null;"
+    },
+    {
+      "line": 135,
+      "original": "            return false;"
+    },
+    {
+      "line": 139,
+      "original": "            return false;"
+    },
+    {
+      "line": 146,
+      "original": "                return false;"
+    },
+    {
+      "line": 153,
+      "original": "                    return false;"
+    },
+    {
+      "line": 159,
+      "original": "        return false;"
+    },
+    {
+      "line": 168,
+      "original": "            return null;"
+    },
+    {
+      "line": 174,
+      "original": "        return null;"
+    },
+    {
+      "line": 184,
+      "original": "        return false;"
+    },
+    {
+      "line": 195,
+      "original": "            return false;"
+    },
+    {
+      "line": 202,
+      "original": "                    return false;"
+    },
+    {
+      "line": 214,
+      "original": "        return false;"
+    },
+    {
+      "line": 220,
+      "original": "        return null;"
+    },
+    {
+      "line": 229,
+      "original": "        return null;"
+    },
+    {
+      "line": 232,
+      "original": "        return null;"
+    },
+    {
+      "line": 263,
+      "original": "            return null;"
+    },
+    {
+      "line": 266,
+      "original": "            return null;"
+    },
+    {
+      "line": 271,
+      "original": "        return null;"
+    },
+    {
+      "line": 277,
+      "original": "            return false;"
+    },
+    {
+      "line": 282,
+      "original": "            return false;"
+    },
+    {
+      "line": 286,
+      "original": "            return false;"
+    },
+    {
+      "line": 290,
+      "original": "            return false;"
+    },
+    {
+      "line": 302,
+      "original": "        return false;"
+    },
+    {
+      "line": 310,
+      "original": "        return null;"
+    },
+    {
+      "line": 318,
+      "original": "        return null;"
+    },
+    {
+      "line": 324,
+      "original": "            return null;"
+    },
+    {
+      "line": 327,
+      "original": "            return null;"
+    },
+    {
+      "line": 330,
+      "original": "            return null;"
+    },
+    {
+      "line": 338,
+      "original": "            return null;"
+    },
+    {
+      "line": 348,
+      "original": "            return null;"
+    },
+    {
+      "line": 353,
+      "original": "        return null;"
+    },
+    {
+      "line": 359,
+      "original": "        return null;"
+    },
+    {
+      "line": 362,
+      "original": "        return null;"
+    },
+    {
+      "line": 365,
+      "original": "            return null;"
+    },
+    {
+      "line": 368,
+      "original": "        return null;"
+    },
+    {
+      "line": 378,
+      "original": "        return null;"
+    },
+    {
+      "line": 387,
+      "original": "            return null;"
+    },
+    {
+      "line": 391,
+      "original": "            return null;"
+    },
+    {
+      "line": 397,
+      "original": "                return null;"
+    },
+    {
+      "line": 402,
+      "original": "                return null;"
+    },
+    {
+      "line": 407,
+      "original": "            return null;"
+    },
+    {
+      "line": 411,
+      "original": "            return null;"
+    },
+    {
+      "line": 414,
+      "original": "            return null;"
+    },
+    {
+      "line": 431,
+      "original": "        return null;"
+    },
+    {
+      "line": 438,
+      "original": "            return false;"
+    },
+    {
+      "line": 451,
+      "original": "            return false;"
+    },
+    {
+      "line": 457,
+      "original": "            return false;"
+    },
+    {
+      "line": 464,
+      "original": "            return false;"
+    },
+    {
+      "line": 469,
+      "original": "        return false;"
+    },
+    {
+      "line": 503,
+      "original": "        return null;"
+    },
+    {
+      "line": 514,
+      "original": "            return null;"
+    },
+    {
+      "line": 521,
+      "original": "            return null;"
+    },
+    {
+      "line": 540,
+      "original": "        return null;"
+    },
+    {
+      "line": 546,
+      "original": "        return null;"
+    },
+    {
+      "line": 554,
+      "original": "        return null;"
+    },
+    {
+      "line": 560,
+      "original": "        return null;"
+    },
+    {
+      "line": 566,
+      "original": "            return null;"
+    },
+    {
+      "line": 569,
+      "original": "        return null;"
+    },
+    {
+      "line": 574,
+      "original": "        return null;"
+    },
+    {
+      "line": 581,
+      "original": "        return null;"
+    },
+    {
+      "line": 587,
+      "original": "            return null;"
+    },
+    {
+      "line": 590,
+      "original": "            return null;"
+    },
+    {
+      "line": 594,
+      "original": "            return null;"
+    },
+    {
+      "line": 600,
+      "original": "        return null;"
+    },
+    {
+      "line": 606,
+      "original": "            return null;"
+    },
+    {
+      "line": 612,
+      "original": "        return null;"
+    },
+    {
+      "line": 618,
+      "original": "        return false;"
+    },
+    {
+      "line": 628,
+      "original": "        return false;"
+    },
+    {
+      "line": 635,
+      "original": "        return false;"
+    },
+    {
+      "line": 646,
+      "original": "            return null;"
+    },
+    {
+      "line": 653,
+      "original": "            return null;"
+    },
+    {
+      "line": 656,
+      "original": "            return null;"
+    },
+    {
+      "line": 659,
+      "original": "            return null;"
+    },
+    {
+      "line": 669,
+      "original": "        return null;"
+    },
+    {
+      "line": 675,
+      "original": "        return null;"
+    }
+  ]
+}

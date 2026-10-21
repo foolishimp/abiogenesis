@@ -1,0 +1,32 @@
+{
+  "label": "seven-C18",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern",
+    "^(?:M5\\ GTL\\ exposes\\ exactly\\ seven\\ direct\\ C\\ constructors|M5\\ C\\.compose\\ is\\ canonical,\\ flat,\\ and\\ identity\\-eliding|M5\\ GraphFunction\\ composition\\ preserves\\ exact\\ left\\ and\\ right\\ identity|M5\\ GraphFunction\\ promotion\\ preserves\\ topology\\ and\\ semantic\\ truth|M5\\ native\\ constructors\\ refuse\\ invalid\\ batch,\\ retry,\\ and\\ F_H\\ realization|M5\\ native\\ GTL\\ constructs\\ all\\ ten\\ graph\\ relations\\ with\\ derived\\ identities|M5\\ same\\-object\\ relation\\ is\\ one\\ validator\\-owned\\ canonical\\ identity\\ witness|M5\\ closure\\ validation\\ distinguishes\\ run\\ and\\ child\\ GraphCall\\ scope|M5\\ whole\\-program\\ validation\\ admits\\ exact\\ recursion\\ law\\ and\\ refuses\\ its\\ substitutes|M5\\ whole\\-program\\ validation\\ binds\\ gate\\ law\\ to\\ published\\ Rule\\ and\\ Evaluator\\ declarations|M5\\ fan\\-out\\ materialization\\ derives\\ one\\ exact\\ task\\ per\\ admitted\\ input\\ member|M5\\ fan\\-out\\ and\\ fan\\-in\\ outer\\ contracts\\ equal\\ their\\ declared\\ vectors|M5\\ native\\ GraphFunction\\ composition\\ materializes\\ source\\ GTL\\ without\\ a\\ second\\ executable\\ carrier|M5\\ native\\ GraphFunction\\ substitution\\ replaces\\ one\\ typed\\ graph\\ vector\\ with\\ visible\\ source\\ GTL|M5\\ whole\\-program\\ validation\\ refuses\\ forged\\ or\\ widened\\ graph\\-edge\\ declarations|M5\\ raw\\ admission\\ and\\ validator\\ reject\\ invented\\ or\\ contradictory\\ C\\ data|M4\\ independently\\ authored\\ data\\ fixture\\ remains\\ one\\ valid\\ direct\\ C\\.of\\ Program|M5\\ whole\\-root\\ validation\\ keeps\\ F_H\\ interaction\\ keys\\ out\\ of\\ executable\\ resolution)$",
+    "test_env/tests/m5-c-algebra-validation.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/02-seven-C18/tmp/",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-cache",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "timeoutMs": 600000,
+  "commandFreezeSha256": "230a060e37e02fb49c4d80f88b00ba9bf7352652a1f84281129a4a5f16f14674",
+  "runnerSha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+  "startedUnix": 1792565218.039638
+}

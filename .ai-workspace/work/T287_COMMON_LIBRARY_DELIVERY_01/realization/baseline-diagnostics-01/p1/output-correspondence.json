@@ -1,0 +1,80 @@
+{
+  "status": "frozen_before_output",
+  "policy": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/output-correspondence.json",
+    "sha256": "3b13c71b9c9940fcf51b33db74966f1ae416909a8a1648cd5122d52d1f05de01",
+    "bytes": 5609,
+    "mode": "0o644"
+  },
+  "referenceEndpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/result.json",
+    "sha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+    "bytes": 6684,
+    "mode": "0o644"
+  },
+  "referenceConfiguration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/configuration.json",
+    "sha256": "ced6277452bf1d58f0339505e74419089fb7ce4618777258e7338bbdca24a766",
+    "bytes": 5203,
+    "mode": "0o644"
+  },
+  "referenceMeasurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/measurement-return.json",
+    "sha256": "edd74b069ed0caf2c11bb2e7cca1de3e998d036d493656123211bac16ae74317",
+    "bytes": 2377,
+    "mode": "0o644"
+  },
+  "diagnosticConfiguration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/diagnostic-configuration.json",
+    "sha256": "5f931f85110eb80c1a2ae35cf82dcdb669c50c26c52e87b01b94e11dcac34e3b",
+    "bytes": 7994,
+    "mode": "0o644"
+  },
+  "sameSubject": {
+    "id": "baseline",
+    "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee"
+    },
+    "packageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-package-inventory.json",
+      "sha256": "7fceeafce866ff9df84dc33568e247583badcf9021ac592e8e3f6e765b7531b4"
+    },
+    "supportManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-support-manifest.json",
+      "sha256": "c1910cf1b755d01192392914aa10262f68c4062792c66944ec622639f2307693"
+    },
+    "inventories": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source-manifest.json",
+        "sha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-generated-inventory.json",
+        "sha256": "92f861c654cd96e2578c00d5d588047d72caf6ccea85a4794f79942645c467f2",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-dependency-inventory.json",
+        "sha256": "22b00870648c52acf9941cf67993c2c98a42b81ac4339d7e68ccf587e071782f",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+      }
+    ]
+  },
+  "effectDerivedDifferences": [
+    "fresh physical roots/runId/invocation identities and actual event prefixes",
+    "fresh empty task npm cache versus original uninstrumented baseline ambient-cache scope",
+    "explicit diagnostic preload/tracing and npm Node launch; same original application arguments"
+  ],
+  "forbidden": [
+    "global digest/ref/path/currentness stripping",
+    "statistical speedup or clean causal overhead subtraction",
+    "observer counts as runtime truth or semantic acceptance"
+  ]
+}

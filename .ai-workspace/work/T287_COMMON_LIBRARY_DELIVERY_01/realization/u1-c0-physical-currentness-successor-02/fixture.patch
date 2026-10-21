@@ -1,0 +1,72 @@
+--- stopped/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs
++++ successor/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs
+@@ -5,6 +5,7 @@
+ import { dirname, join } from 'node:path';
+ import { pathToFileURL } from 'node:url';
+ import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers, componentNativeAssessment } from '../support/t287-native-work-currentness-consumers.mjs';
++import { publicOperationBasis } from '../support/root-installed-environment.mjs';
+ import * as p from '../../build/code/src/product/index.js';
+ import * as g from '../../build/code/src/gtl/index.js';
+ import * as calculus from '../../build/code/src/abg/event_calculus.js';
+@@ -20,6 +21,7 @@
+ import { selectHeldEventStoreDurablePrefix, appendCheckedArtifactEvent } from '../../build/code/src/abg/event_store.js';
+ import { projectWorksiteFailureBasis, projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from '../../build/code/src/abg/c_call_outcome.js';
+ import { deepFreeze } from '../../build/code/src/shared/immutable.js';
++import { isExactOperationInvocationCoordinate } from '../../build/code/src/shared/operation_definition_coordinate.js';
+ 
+ const results = [], fixtures = [], attempts = [], physicalFacts = [], gateTraces = [], gateOutputs = [], handoffChecks = [], contextChecks = [];
+ const CASE_NAMES = ['c0', 'observed', 'governance', 'semanticFold', 'revisionIntake', 'revisionEvidence'];
+@@ -779,12 +781,38 @@
+     const establishedLockPremise = { lockId: bindingCarrier.lockId, lockDigest: bindingCarrier.lockDigest };
+     assert.equal(product.isWorkspaceBindingCandidateInResolvedLock(bindingCarrier, establishedLockPremise,
+       undefined, env.workspaceAuthorityBasis), true);
+-    const artifactCandidate = { ...f.common, kind: 'public_operation_artifact_admitted', scopeClass: 'workspace',
+-      aggregateType: 'workspace', aggregateId: bindingCarrier.bindingId, basisId: env.workspaceAuthorityBasis.authorityBasisId,
+-      payload: { operationId: 'abg.operation.workspace.bind', artifactRef: bindingCarrier.bindingId,
+-        artifactDigest: bindingCarrier.bindingDigest, artifact: bindingCarrier, workspaceAuthorityBasis: env.workspaceAuthorityBasis } };
+-    for (const key of ['runId', 'graphCallId', 'frameId']) delete artifactCandidate[key];
+-    const bindingAppend = appendCheckedArtifactEvent(f.store, selectHeldEventStoreDurablePrefix(f.store), deepFreeze(artifactCandidate));
++    // ArtifactAdmissionBasis and envelope/payload correspondence mirror the
++    // canonical producer in environment_admission.ts. The definition and
++    // invocation remain supplied lower premises; storage append is not Public
++    // workspace-bind execution or full artifact-truth qualification.
++    const artifactBasis = deepFreeze({ ...publicOperationBasis(product, 'abg.operation.workspace.bind',
++      bindingCarrier.bindingId, bindingCarrier.bindingDigest, 'invocation://u1/controlled-c0-binding'),
++      eventTime: f.common.eventTime, correlationId: f.common.correlationId,
++      predecessorPrefix: selectHeldEventStoreDurablePrefix(f.store) });
++    const { operationId, memberKey, definitionDigest, invocationRef, invocationPayloadDigest, invocationDigest } = artifactBasis;
++    assert.equal(isExactOperationInvocationCoordinate({ operationId, memberKey, definitionDigest,
++      invocationRef, invocationPayloadDigest, invocationDigest }), true);
++    const artifactCandidate = deepFreeze({ kind: 'public_operation_artifact_admitted', eventTime: artifactBasis.eventTime,
++      aggregateType: 'workspace', aggregateId: artifactBasis.authorityScopeRef, parentAggregateId: null,
++      causationEventRefs: artifactBasis.causationEventRefs, correlationId: artifactBasis.correlationId,
++      workflowVersion: '5.0.0', scopeClass: 'workspace', basisId: artifactBasis.authorityScopeRef,
++      payload: { operationId, memberKey, definitionDigest, authorityScopeRef: artifactBasis.authorityScopeRef,
++        authorityScopeDigest: artifactBasis.authorityScopeDigest, invocationRef, invocationPayloadDigest, invocationDigest,
++        ownerAdmittedDisposition: 'admitted', artifactRef: bindingCarrier.bindingId, artifactDigest: bindingCarrier.bindingDigest,
++        artifact: bindingCarrier, workspaceAuthorityBasis: env.workspaceAuthorityBasis,
++        causationEventRefs: artifactBasis.causationEventRefs, correlationId: artifactBasis.correlationId } });
++    assert.equal(artifactCandidate.aggregateId, artifactCandidate.payload.authorityScopeRef);
++    assert.equal(artifactCandidate.basisId, artifactCandidate.payload.authorityScopeRef);
++    assert.equal(artifactCandidate.payload.authorityScopeRef, request.workspaceBindingIdentity);
++    assert.equal(artifactCandidate.payload.authorityScopeDigest, request.workspaceBindingDigest);
++    assert.equal(artifactCandidate.payload.artifactRef, request.workspaceBindingIdentity);
++    assert.equal(artifactCandidate.payload.artifactDigest, request.workspaceBindingDigest);
++    assert.equal(hash(artifactCandidate.payload.workspaceAuthorityBasis), hash(request.workspaceAuthorityBasis));
++    assert.deepEqual(artifactCandidate.payload.causationEventRefs, artifactCandidate.causationEventRefs);
++    assert.equal(artifactCandidate.payload.correlationId, artifactCandidate.correlationId);
++    await capture(label + ' controlled artifact lower premise audit', { artifactBasis, artifactCandidate,
++      premise: 'Canonical owner coordinate shape supplied through checked artifact storage; no performed Public operation or full artifact qualification.' });
++    const bindingAppend = appendCheckedArtifactEvent(f.store, artifactBasis.predecessorPrefix, artifactCandidate);
+     assert.ok(bindingAppend.event, JSON.stringify(bindingAppend));
+     assert.equal(bindingAppend.event.payloadDigest, hash(artifactCandidate.payload));
+     const parts = g.constructWorksiteC0PublicationParts({ productId: 'product://u1/controlled-c0',
+@@ -847,7 +875,7 @@
+     physicalEffects.push({ label, owner: 'replaceWorksiteFile', input, physical, fault });
+     await capture(label + ' actual owner failure', { bindingCarrier, establishedLockPremise, bindingEvent: bindingAppend.event,
+       implementationEvent, occurrence, input, physical, fault,
+-      lowerPremises: 'Supplied Public binding/install/implementation selection and graph occurrence; actual Product carriers, physical rename, injected substrate EIO, checked ABG append. No performed Public binding or installed workflow.' });
++      lowerPremises: 'Supplied Public binding/install/definition/invocation/implementation selection and graph occurrence; actual Product carrier checks, checked artifact storage append, physical rename, injected substrate EIO and checked runtime evidence/Result append. No performed Public binding, full artifact qualification or installed workflow.' });
+     assert.equal(fault.published, true); assert.equal(fault.injected, 1);
+     assert.equal(product.isWorksitePostPublicationFailure(physical), true, JSON.stringify(physical));
+     assert.equal(physical.code, 'filesystem_refused'); assert.equal(physical.substrateCode, 'EIO');

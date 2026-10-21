@@ -1,0 +1,13 @@
+{
+  "status": "satisfied",
+  "changedEntries": 37160,
+  "initialVisibleEntriesPreserved": 37051,
+  "newCheckpointEntries": 109,
+  "stagedDependenciesVerified": 2347,
+  "uniqueGitBlobs": 2337,
+  "lfsPayloadsVerified": 2,
+  "bothExactPackageRoutesStaged": true,
+  "sourceDrift": 0,
+  "mismatches": 0,
+  "wallSeconds": 4.601546542020515
+}

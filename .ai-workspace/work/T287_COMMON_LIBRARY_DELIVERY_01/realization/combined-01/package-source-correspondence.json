@@ -1,0 +1,40 @@
+{
+  "scope": "independent tar bytes, staged source/emission and declared manifest identities; no installed proof",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "18d80743d9b431445ce50d2acf47971554e1cce6ce14057175da8aa32c901f4e",
+    "bytes": 10679115,
+    "npmIntegrity": "sha512-jWNsCCOPFXRSoKWX4qRmtlSoRXiregNdZzGTt9SsPtAaxUZMcdGPF+xLDms3v5nRlbDOR0lDbT3TAx6EyNX5+A==",
+    "entryCount": 5271,
+    "unpackedBytes": 70674302,
+    "bundled": [
+      "fast-uri",
+      "@standard-schema/spec",
+      "ajv-formats",
+      "ajv",
+      "effect",
+      "fast-check",
+      "fast-deep-equal",
+      "json-schema-traverse",
+      "pure-rand",
+      "require-from-string",
+      "@valibot/to-json-schema",
+      "valibot",
+      "jsonc-parser"
+    ]
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "2935813eaa6a49d2fec0139fa240a36132801efbfab353a4c467ec4005c9b142",
+    "productContentDigest": "sha256:28d36ad13e5ce1712dc92c365ee96cd944142c1d8ae78329e87afac42d59e2f9",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "payloadLocators": 5269
+  },
+  "everyArchiveMemberMatchesStage": true,
+  "payloadDigestIndependentlyRecomputed": true,
+  "capabilityGraphMemberDigestMatched": true,
+  "sourceGeneratedDependencyInventoriesUnchangedAfterPack": true,
+  "priorFailureFreezeAllRowsPreserved": true,
+  "protectedMainEntriesUnchanged": 936,
+  "baseline": "existing archive unchanged; not rebuilt"
+}

@@ -1,0 +1,35 @@
+{
+  "archive": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 10681835,
+    "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5"
+  },
+  "archiveMembersRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/archive-members.json",
+  "archiveMembersSha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034",
+  "packageBin": {
+    "abg.cli": "./build/code/src/public/cli.js",
+    "abg.codex": "./build/code/src/public/codex_cli.js"
+  },
+  "normalizedBinPaths": {
+    "abg.cli": "build/code/src/public/cli.js",
+    "abg.codex": "build/code/src/public/codex_cli.js"
+  },
+  "normalizationSources": [
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/pacote/lib/file.js",
+      "bytes": 2547,
+      "sha256": "e56e384ee34175b52b960bbb52e0f4127978cca1df3d5e7b1edaff5a24d1fba4"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/pacote/lib/fetcher.js",
+      "bytes": 16849,
+      "sha256": "1a385341f75d6c77496d30e7751012ad91489bb8c4e4e4db5e4568d2b9432a79"
+    }
+  ],
+  "expectedMode": "For only the two exact declared archive bin target paths: archiveMode | 0o111; every other mode exact",
+  "mechanism": "Pinned pacote file extraction #exeBins / fetcher entry mode; --bin-links=false does not select symlink creation and is not cited as chmod mechanism",
+  "predecessorStopSha256": "2621378fc2f01beb6751ea1d33d1290a1835d2389254f558219f04000228833c",
+  "predecessorFailureDisposition": "Original unconditional equality assertion remains failed; no retroactive pass"
+}

@@ -1,0 +1,26 @@
+{
+  "activation": "P5-C2-RESOURCE-SUCCESSOR-07",
+  "files": [
+    {
+      "path": "HOW-before-effects.md",
+      "bytes": 4314,
+      "sha256": "06f101f70f988c0f37706b398c1f560c20a16d14c2867e0e22046d64341a6143"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 2294,
+      "sha256": "f32f4a4cbd23f73ee2108ace2402624efe7a29a7843d18698184fa446e5664cc"
+    },
+    {
+      "path": "owner-source-pins.json",
+      "bytes": 4774,
+      "sha256": "c5a2a1f4432be94ce203fae2f411e13ea1479691bbcb5367d9191e6433a8c3d1"
+    },
+    {
+      "path": "preimages/t287-worksite-command-execution.test.mjs",
+      "bytes": 54114,
+      "sha256": "a9a11a3e666f8303cfed31fb9525df8b60277c27bc7edc5360da6b147ef5ed6a"
+    }
+  ],
+  "physicalRootInitiallyAbsent": true
+}

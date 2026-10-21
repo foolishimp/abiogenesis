@@ -1,0 +1,20 @@
+{
+  "request": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+    "expectedArtifactDigest": "sha256:245683fe0449b089232f02d07bfb254c2ce2b496eb4bdf88980d612b89ca7118",
+    "expectedProductContentDigest": "sha256:d965581e7301ceb685e509346c1ef7ed6014ec13e0ca7d7df4f27592987ead0d",
+    "expectedManifestDigest": "sha256:0b728b2dac90797a9f555ef764d767e81b6f0f8ca49afab08cb58ed1bcf56dd5",
+    "expectedProductId": "product://abi5-tests/sandbox-uat@5.0.0",
+    "expectedPackageName": "@abi5-tests/sandbox-uat",
+    "expectedPackageVersion": "5.0.0"
+  },
+  "verification": {
+    "kind": "product_verification_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "refused",
+    "code": "identity_mismatch",
+    "message": "package metadata and product manifest disagree",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+  }
+}

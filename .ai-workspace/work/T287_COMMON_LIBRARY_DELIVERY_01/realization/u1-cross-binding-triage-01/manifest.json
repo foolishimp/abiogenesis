@@ -1,0 +1,144 @@
+{
+  "kind": "bounded_writer_intake_manifest",
+  "activation": "U1-CROSS-BINDING-TRIAGE-01",
+  "scope": "New triage records, one proof script, read-only support appendix and retained disposable physical/log bytes only. Closed prior stages/sources are external pinned inputs.",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/E1-negative-design.md",
+      "sha256": "26b9bd7cc7bf7c4c4ea6f88e33581397776d0c8aaa760ca346d40fe53ab9dd7d",
+      "bytes": 3387
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/E2-support-correspondence.json",
+      "sha256": "19734c5e4e5794d4b99f554ebfbbf6d4dc2fb850d4cd713843718a55dde0142e",
+      "bytes": 39862
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/HOW-proposal.md",
+      "sha256": "307154e78c65f8a91004a39870cb2e740584889f2fcc52e584de6aac8a7d85df",
+      "bytes": 8464
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/activation.md",
+      "sha256": "5e972b3b91fb29b78e789b3eec281b2b18c0d6ae1bc88830db92d30bb529048f",
+      "bytes": 3655
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/after-cause.json",
+      "sha256": "0e06f211a57b4998b1f2d61b36553b2c82fbb398f86d3f559d2a506032528619",
+      "bytes": 723265
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/append-support-correspondence.mjs",
+      "sha256": "c41315a7b76dcae9f187cf24594622d21c36010f64db199b72aae03efd6373e8",
+      "bytes": 3615
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/before-cause.json",
+      "sha256": "d85a279bca8fafee9242188c9f7aa1e1a55c58f1da9eb83f0a4f00812374eb92",
+      "bytes": 704325
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/callable-preflight.json",
+      "sha256": "db40fc876c9ddf76536585e99ca9ed7fdd5d6e500e413a01f5a9c3f9f6740311",
+      "bytes": 1081
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/constructed-inputs.json",
+      "sha256": "ddb4a7e6027764dc76dad66eb1d7e4a81d2a3f1add093b9aeafc1993152b1a3d",
+      "bytes": 569313
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/discriminator.mjs",
+      "sha256": "3f00d7b6ff6e59b1ad7b2b72c392f98dc1af00f93b017c62f66cc9bf015e608b",
+      "bytes": 12453
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/execution-01.json",
+      "sha256": "8d3fc194a7924ebe3888135710d328a5718f9cf36cccff614427a32f15c0b1eb",
+      "bytes": 927
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/execution-01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/execution-01.stdout",
+      "sha256": "cc4f1f66ab193074afeb31d84b3323d11bd773675013e204d9d1f1fdd3385313",
+      "bytes": 826
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/execution-inputs.json",
+      "sha256": "bee75c2bb9532eaa7a00d794d85baafd69a914f60fa8f945f957049f579dbc6c",
+      "bytes": 8682
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/owner-source-correspondence.json",
+      "sha256": "6ebe16fac2516fa090dadad7bc956ddbf950d6802fdf5d166b70ce20ebee8852",
+      "bytes": 11530
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/physical/abi5-generic-worksite-fixture-JKZ4cc/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/physical/abi5-generic-worksite-fixture-RrWaTK/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/physical/abi5-generic-worksite-fixture-RrWaTK/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/physical/abi5-generic-worksite-fixture-RrWaTK/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/physical/abi5-generic-worksite-fixture-RrWaTK/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/physical/abi5-u1-oxJOfn/events.jsonl",
+      "sha256": "5c9ecb2a0e679688b039ea056045a22835a302eae46f109a43de00b0a43acee1",
+      "bytes": 125835
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/post-execution-physical.json",
+      "sha256": "e204c64c9234c19a084475f65203836eb30a2715e2d9fc43826f6dba3de18eb7",
+      "bytes": 3028
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/preconditions.json",
+      "sha256": "bb2c958d1c193a6a36546284ff38baa09d7bb3e61bec56c9737bd292498fb964",
+      "bytes": 1842
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/preservation.json",
+      "sha256": "1300f3653e7ce550d6f55bb5f95fc1f16048439039ac757d2cf02ba3ba434f1b",
+      "bytes": 781
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/report.md",
+      "sha256": "1e9853acbb804de6918039963d03a6770b1e256d5f4dddb850d206c1ded35667",
+      "bytes": 7704
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/result.json",
+      "sha256": "8ee707cfdf6fec652a24870dcd6f48ad7beb3f411a9b55630cbf93835515637c",
+      "bytes": 723457
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/review-summary.md",
+      "sha256": "de4a16d4ba38b3b75b34990c8da9d63d840e1ab726e4cd2ae6a99c22228fe19c",
+      "bytes": 3458
+    }
+  ],
+  "record_count": 27,
+  "total_bytes": 2957524
+}

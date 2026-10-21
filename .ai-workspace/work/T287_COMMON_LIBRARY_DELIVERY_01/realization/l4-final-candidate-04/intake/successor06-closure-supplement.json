@@ -1,0 +1,11 @@
+{
+  "role": "supplemental closed owner-proof evidence; active P1 configuration unchanged",
+  "freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+    "sha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+    "bytes": 1994729,
+    "mode": "0o644"
+  },
+  "rootAttributedSummary": "All four principal owner cases, eight fresh reopens and selected component controls passed. Archive 25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079 and manifest a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4 unchanged.",
+  "verificationScope": "Exact freeze bytes reacquired; no repeat component or runtime execution, no all-row rescan."
+}

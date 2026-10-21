@@ -1,0 +1,60 @@
+{
+  "utc": "2026-10-21T07:20:52.593400+00:00",
+  "load": [
+    12.06982421875,
+    10.18603515625,
+    8.73291015625
+  ],
+  "processRows": [
+    [
+      "29038",
+      "29036",
+      "07:41",
+      "0.0",
+      "51792",
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    ],
+    [
+      "29054",
+      "29038",
+      "07:41",
+      "0.0",
+      "1248",
+      "/usr/bin/time"
+    ],
+    [
+      "29055",
+      "29054",
+      "07:41",
+      "0.0",
+      "565520",
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    ],
+    [
+      "33958",
+      "29055",
+      "00:02",
+      "150.3",
+      "786368",
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+    ]
+  ],
+  "columns": [
+    "pid",
+    "ppid",
+    "elapsed",
+    "pcpu",
+    "rssKiB",
+    "executable"
+  ],
+  "commands": [
+    "1-bootstrap-offline-install.json",
+    "2-installed-declaration-consumer.json",
+    "3-workspace-create.json",
+    "4-pack-consumer.json",
+    "5-product-verify-0.json"
+  ],
+  "completedObservers": 5,
+  "resultPresent": false,
+  "scope": "Read-only progress snapshot; CPU/RSS are samples and no cause inferred"
+}

@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/usr/bin/du",
+    "-sk",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04"
+  ],
+  "stdout": "919832\t/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc\n486952\t/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04\n",
+  "stderr": "",
+  "exitCode": 0,
+  "allocatedKiB": 1406784,
+  "boundBytes": 10737418240,
+  "scope": "owned parent plus new record carrier before P3, no old roots scanned; CoW allocation may overlap"
+}

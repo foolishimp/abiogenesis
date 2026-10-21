@@ -1,0 +1,85 @@
+{
+  "utc": "2026-10-21T06:49:50.298743+00:00",
+  "lane": "owner-resolution",
+  "roots": {
+    "evidence": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution"
+  },
+  "files": [
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474693283,
+      "type": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/actual-owner-results.json",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474693289,
+      "type": "file",
+      "bytes": 91086,
+      "sha256": "d0a7ae8b0b90bdd72380d49dc619daf0a5d07c2369fc9b1d5ce7d2a4a7c7dd71"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/calls",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474693291,
+      "type": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/calls/preparation-resolve.json",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474693292,
+      "type": "file",
+      "bytes": 33843695,
+      "sha256": "70299b7965b7402c3923b814ca3f36a0b1699c31aa66d5e35a03d911a99d123d"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/immutable-family-domain.json",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474693290,
+      "type": "file",
+      "bytes": 5294,
+      "sha256": "f230ea9a3c2c9df37815760ae6e63b1942cc9f48acfbbe07a2de3cf2dd299e67"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/preconditions.json",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474693284,
+      "type": "file",
+      "bytes": 1597,
+      "sha256": "4619460ff44ddbcdfe3a4e9402bc58b83b6a8e923c24b1ca386fab85dc00519e"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/receipts",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474693293,
+      "type": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/receipts/preparation-resolve.json",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474693294,
+      "type": "file",
+      "bytes": 5354,
+      "sha256": "e9a4490213d1d6d46de38540c62e53885ea3aeda5d769449a01049e3995a64a9"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/result.json",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474693295,
+      "type": "file",
+      "bytes": 467,
+      "sha256": "89422d9d36b75700ad938f9f6505d389cbf5aad56186abf1490f3556f87ec490"
+    }
+  ],
+  "scope": "Actual retained resource observation; later explicitly granted P2 may append P1 runtime event store. This record is immutable; original physical roots are not asserted eternally unchanged."
+}

@@ -1,0 +1,62 @@
+{
+  "ownedOutputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "bytes": 7076,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/language-structural-fixture.mjs"
+    }
+  ],
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/preimage/language-structural-fixture.mjs",
+    "sha256": "f840e413bf53b7cffec616e3147ba7d461c5858e2b6da4d248dc2d799e81decd",
+    "bytes": 6369,
+    "mode": "0o644"
+  },
+  "readinessCopies": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+        "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+        "bytes": 7076,
+        "mode": "0o644"
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support/test_env/support/language-structural-fixture.mjs",
+        "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+        "bytes": 7076,
+        "mode": "0o644"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+        "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+        "bytes": 22919,
+        "mode": "0o644"
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support/test_env/fixtures/language-structural/program.mjs",
+        "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+        "bytes": 22919,
+        "mode": "0o644"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+        "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+        "bytes": 10669,
+        "mode": "0o644"
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support/test_env/fixtures/language-structural/leaf.mjs",
+        "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+        "bytes": 10669,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "scope": "single fixture producer repair; exact two unchanged authored fixture files; no compiled or production edit"
+}

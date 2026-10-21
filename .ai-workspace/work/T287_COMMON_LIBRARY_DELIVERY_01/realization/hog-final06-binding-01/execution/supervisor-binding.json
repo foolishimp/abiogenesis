@@ -1,0 +1,27 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/run-command.py",
+    "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "bytes": 2571
+  },
+  "derived": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/run-command.py",
+    "sha256": "270a6cd23729666dc788f2b89473f2d9be27003905d94146ab994d45f7f347d1",
+    "bytes": 2521
+  },
+  "changes": [
+    "Outer timeout only: 600000 ms -> 1800000 ms / wait 600 -> 1800 s",
+    "Captured stdout/stderr paths only: command label paths -> exact planned driver.stdout/driver.stderr"
+  ],
+  "executionMechanism": "Existing finite subprocess supervisor, same start_new_session process group and stop behavior",
+  "driverUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs",
+    "sha256": "ac3ce1aa03a9b7b47184a25d9338300be87b5a4a606573a3e364a53a7376c7c7",
+    "bytes": 20862
+  },
+  "oracleUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/oracle.mjs",
+    "sha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+    "bytes": 9679
+  }
+}

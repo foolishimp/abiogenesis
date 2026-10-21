@@ -1,0 +1,9 @@
+{
+  "exitCode": 0,
+  "wallMs": 44497.78991704807,
+  "completedUtc": "2026-10-21T00:55:54.244100+00:00",
+  "stdoutSha256": "ccf769dd5aa7a3e1d420e666aaae03c623eebf25c772fef2bca8de51f03adb3c",
+  "stderrSha256": "bf0f2b075e5afda4893a5127fb722897618cc326e7319e138177116537736bf7",
+  "timeScope": "/usr/bin/time -l around entire frozen runner invocation including child waits and proof overhead; raw counters retained",
+  "retryCount": 0
+}

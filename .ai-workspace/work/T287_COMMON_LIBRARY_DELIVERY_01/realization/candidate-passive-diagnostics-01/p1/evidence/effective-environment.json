@@ -1,0 +1,13 @@
+{
+  "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "HOME": "/Users/jim",
+  "LANG": "en_AU.UTF-8",
+  "npm_config_offline": "true",
+  "npm_config_ignore_scripts": "true",
+  "npm_config_audit": "false",
+  "npm_config_fund": "false",
+  "npm_config_cache": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/caches/p1",
+  "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/user.npmrc",
+  "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/global.npmrc",
+  "TMPDIR": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/scratchParent"
+}

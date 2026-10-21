@@ -1,0 +1,26 @@
+[
+  {
+    "case": 13,
+    "name": "physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed",
+    "exitCode": 0,
+    "receiptSha256": "97c6f91b98fee318e90b84560747082af80970d2aae5b5926a0b055867bfd46b"
+  },
+  {
+    "case": 14,
+    "name": "physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize",
+    "exitCode": 0,
+    "receiptSha256": "030775ed688bcaec93438889e61c7fd26fde7198dd6b5501752267624b84ea84"
+  },
+  {
+    "case": 15,
+    "name": "physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result",
+    "exitCode": 0,
+    "receiptSha256": "b1c268d61e1fe18695b63543351fb6d1024fa147bced2a27c284e43b52912fab"
+  },
+  {
+    "case": 17,
+    "name": "physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded",
+    "exitCode": 0,
+    "receiptSha256": "f93398c8e43aa1497f0f13330cca943f8b1e1829e0f2d46d0b1ce2bf244f3fe1"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "executable": "/opt/homebrew/bin/npm",
+  "args": [
+    "--version"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/preflight/2026-10-06T00-44-43-112Z-6c801218-10c1-44f7-8a94-f5068c693f79",
+  "started": "2026-10-06T00:44:43.139Z",
+  "environmentKeys": [
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 20000
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "uri": "stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+    "resolved": "{\n  \"path\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/frames/bootstrap.md\",\n  \"uri\": \"stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md\"\n}"
+  },
+  {
+    "uri": "stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md",
+    "resolved": "{\n  \"path\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ACTIVATION.md\",\n  \"uri\": \"stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md\"\n}"
+  },
+  {
+    "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+    "resolved": "{\n  \"path\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md\",\n  \"uri\": \"stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md\"\n}"
+  },
+  {
+    "uri": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+    "resolved": "{\n  \"path\": \"/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ASSURANCE.md\",\n  \"uri\": \"stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md\"\n}"
+  }
+]

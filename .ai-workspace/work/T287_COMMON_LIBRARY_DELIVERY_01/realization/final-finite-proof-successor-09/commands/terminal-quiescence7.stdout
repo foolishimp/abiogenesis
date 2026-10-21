@@ -1,0 +1,15 @@
+✔ CCall opening is one atomic open-and-fibre transition (22.800625ms)
+✔ timeout and termination-unconfirmed never prove a started process absent (10.904333ms)
+✔ preterminal Process exit is the single cleanup confirmation (0.643417ms)
+✔ duplicate Process terminality and Actor terminal before confirmation fail closed (0.801625ms)
+✔ cold leader exit preserves unknown group cleanup across ordinary Run failure (4.705209ms)
+✔ owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes (167.5715ms)
+✔ unjoined process uncertainty preserves cleanup without claiming a native write scope (0.580375ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2628.837792

@@ -1,0 +1,11 @@
+# Baseline P1 installed return
+
+`L4-P1-BASELINE-01` completed successfully against preserved archive `192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5`. The identical frozen runner and authored P1 oracle returned `satisfied`, process exit 0 and zero native calls. No other lane started.
+
+Installed declarations compiled with `skipLibCheck:false`. All ten selected Public calls returned results, and first/warm resolution with copied/mutated/crossed-lock cases passed. Actual requests, receipts, two installations and all physical residue remain in the granted baseline roots. The actual closed prefix is 3,113,281 bytes with digest `sha256:4f599bc7e80bb1aea9e67b855f7b19de84d910daddf36b9aefe5f4edc754ca8c`; its file size, device/inode and bytes match the genuine owner handoff. The exact historical prefix copy remains in `events.jsonl`.
+
+The command reported 310.07 seconds real, 360.32 user and 15.26 system under `/usr/bin/time -l`; raw memory/platform counters and scoped runner intervals/footprints are retained. Candidate01's observed wall time was 311.86 seconds. These are single observations under the same frozen workload, with no speedup, repeated-sample or isolated-host claim. Full owner/digest/path/currentness coordinates remain distinct and retained under the pre-frozen producer correspondence. Internal read/hash/encode/write/runtime-selection work counters and individual helper child costs remain unobserved.
+
+After execution, all 1,311 baseline source entries, 936 generated entries, 4,576 dependency entries, the preserved baseline snapshot/archive/manifest/toolchains and all 936 protected main files remain exact. Candidate P1's sixteen closed proof records and actual event prefix remain unchanged. No rebuild, source/runner/oracle edit, main generated effect, native provider, Git, historical-runtime operation, retry or cleanup occurred.
+
+`owner-handoff.json` and `paired-P1-observation.json` retain the exact support and comparison scope. Candidate01 proof is not assigned to a later repaired artifact; future identities require correspondence and affected reproof. Other proof lanes, complete V7 internal measurements and independent semantic acceptance remain open. `freeze.json` binds this closed return and the at-cut physical resource inventory. This Writer stops here.

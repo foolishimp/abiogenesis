@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-20T23:15:24.116580+00:00",
+  "disposition": "Executive K11-FIXTURE-01",
+  "admitted_change": "chmod only newly copied disposable standards/EXECUTIVE_BASELINE.md to 0600 before selected changed-byte falsifier",
+  "first_attempt_preserved": "failed-attempt-03/test_env/tests/t287-stdo3-run-environment.test.mjs",
+  "original_tmp_root_removed": true,
+  "source_release_unchanged_required": true,
+  "production_edits_permitted": false,
+  "next": "fresh mirror K11 then preselected pure local regression on pass; no native or installed lane"
+}

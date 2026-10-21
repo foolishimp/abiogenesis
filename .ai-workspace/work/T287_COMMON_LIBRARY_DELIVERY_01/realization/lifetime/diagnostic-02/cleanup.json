@@ -1,0 +1,19 @@
+{
+  "observedAt": "2026-10-20T23:31:05.923678+00:00",
+  "temporaryRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T",
+  "creationWindows": [
+    {
+      "case": "current-case",
+      "fromUnixSeconds": 1792538814.0123518,
+      "toUnixSeconds": 1792538816.4530542
+    },
+    {
+      "case": "baseline-case",
+      "fromUnixSeconds": 1792538845.7091823,
+      "toUnixSeconds": 1792538848.1732252
+    }
+  ],
+  "remainingNewPrefixMatches": [],
+  "sourceHook": "test_env/tests/t287-native-semantic-job.test.mjs:22 registers t.after rm(env.scratch,{recursive:true,force:true}) for both fixtures; both completed logs have no cleanup-hook failure",
+  "limit": "Exact generated scratch names were not printed by the unchanged selected case; absence check is limited to its creation windows and fixture prefix. No unrelated temporary roots removed; no physical subprocess fixtures launched."
+}

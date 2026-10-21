@@ -1,0 +1,499 @@
+{
+  "at": "2026-10-21T01:37:28.484469+00:00",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-8wjJ7I/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129626
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-8wjJ7I/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129625
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-8wjJ7I/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129627
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-8wjJ7I/worksite/target.txt",
+      "sha256": "1e81270f1a47dce22a2e4985250c74b2e3374443734f1492b03ea2cd2af4ec48",
+      "bytes": 10,
+      "device": 16777231,
+      "inode": 474129634
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-96C7jg/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6,
+      "device": 16777231,
+      "inode": 474129594
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-DbkLJn/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129592
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-DbkLJn/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129591
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-DbkLJn/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129593
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-DbkLJn/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129590
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EFKnwk/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129673
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EFKnwk/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129672
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EFKnwk/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129674
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EFKnwk/worksite/target.txt",
+      "sha256": "6e54d64dcefa6e734070adc72c1e29a67b369cd0d0a6a588578139c2672479cd",
+      "bytes": 10001,
+      "device": 16777231,
+      "inode": 474129671
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EL7Fwo/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129610
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EL7Fwo/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129609
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EL7Fwo/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129611
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EL7Fwo/worksite/target.txt",
+      "sha256": "1e81270f1a47dce22a2e4985250c74b2e3374443734f1492b03ea2cd2af4ec48",
+      "bytes": 10,
+      "device": 16777231,
+      "inode": 474129618
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-HideBa/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129658
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-HideBa/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129657
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-HideBa/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129659
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-HideBa/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129656
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-Lb2MTz/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6,
+      "device": 16777231,
+      "inode": 474129675
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-RuXReD/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129703
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-RuXReD/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129702
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-RuXReD/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129704
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-RuXReD/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129701
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-TB6bIC/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6,
+      "device": 16777231,
+      "inode": 474129645
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-W27mJQ/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6,
+      "device": 16777231,
+      "inode": 474129690
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-ZtdPjs/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6,
+      "device": 16777231,
+      "inode": 474129612
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-h5z9xF/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6,
+      "device": 16777231,
+      "inode": 474129705
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-jbSswf/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6,
+      "device": 16777231,
+      "inode": 474129660
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-jfdyK2/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6,
+      "device": 16777231,
+      "inode": 474129628
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-mmK2mG/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129688
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-mmK2mG/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129687
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-mmK2mG/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129689
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-mmK2mG/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129686
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-wgUTnZ/worksite/keep.txt",
+      "sha256": "50070263dfc61d098c37465e9b8ef5e18a8afdd4d7175a97f44e5d529870eb1c",
+      "bytes": 35,
+      "device": 16777231,
+      "inode": 474129643
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-wgUTnZ/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129642
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-wgUTnZ/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129644
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-wgUTnZ/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7,
+      "device": 16777231,
+      "inode": 474129641
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-YcbOSx/events.jsonl",
+      "sha256": "a032870aec5c1c8820fe42c9f716e580303c436a4d1bf543be07faafcaf0e2a3",
+      "bytes": 152017,
+      "device": 16777231,
+      "inode": 474129614
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-a5Oh1O/events.jsonl",
+      "sha256": "007febd1f5778a2366f35f3c75cea22e957a9ffa032e80b989c374bc44fef0a0",
+      "bytes": 151613,
+      "device": 16777231,
+      "inode": 474129647
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-bYD0a7/events.jsonl",
+      "sha256": "63fee4510c98695d01ca95bb11a2dc61462ae8b692170afc7d69f23351ff259c",
+      "bytes": 149857,
+      "device": 16777231,
+      "inode": 474129677
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-dXwd1O/events.jsonl",
+      "sha256": "89c0ef2b57770177e997347504f7d0d84fdaac2f66e2822f3fb0010f66429e7e",
+      "bytes": 105425,
+      "device": 16777231,
+      "inode": 474129692
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-i8jdLh/events.jsonl",
+      "sha256": "002d5d26efab67cad0212972842063300a4c64c0b28f589558da87bc397aacb7",
+      "bytes": 105428,
+      "device": 16777231,
+      "inode": 474129707
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-rtPi7Q/events.jsonl",
+      "sha256": "cd8641b29e9124d25a9ebddf6fda87046b23273c9628000daaf8af9e67454e29",
+      "bytes": 151985,
+      "device": 16777231,
+      "inode": 474129630
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-yRV0UB/events.jsonl",
+      "sha256": "d0cb5f1d3ba2ba51dcf1ccc7bf1a02d435710a947f3fe875651f7dd02c2a8837",
+      "bytes": 125959,
+      "device": 16777231,
+      "inode": 474129596
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-yqdUWz/events.jsonl",
+      "sha256": "d920c239c5f25dd4c2ba1c8619d8fc51523dbbf8dc040dfc5f75d018e465cde7",
+      "bytes": 151700,
+      "device": 16777231,
+      "inode": 474129662
+    }
+  ],
+  "fixture_roots_retained": true,
+  "append_owners_closed_after_evidence": true,
+  "journals": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-yRV0UB/events.jsonl",
+      "coordinate": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-yRV0UB/events.jsonl",
+        "prefixLength": 125959,
+        "prefixDigest": "sha256:d0cb5f1d3ba2ba51dcf1ccc7bf1a02d435710a947f3fe875651f7dd02c2a8837",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 474129596,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:ab03b48cdc646f6b81eef3513dfa9b2e2c70980eb6e6e5c15773ea9b5205e799"
+      },
+      "bytes": 125959,
+      "sha256": "d0cb5f1d3ba2ba51dcf1ccc7bf1a02d435710a947f3fe875651f7dd02c2a8837",
+      "admitted_rows": 23
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-YcbOSx/events.jsonl",
+      "coordinate": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-YcbOSx/events.jsonl",
+        "prefixLength": 152017,
+        "prefixDigest": "sha256:a032870aec5c1c8820fe42c9f716e580303c436a4d1bf543be07faafcaf0e2a3",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 474129614,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:7bdc34f4410e033abb5676dbae0fa481fbe644c087e5ac4effa6b4172d6f7d03"
+      },
+      "bytes": 152017,
+      "sha256": "a032870aec5c1c8820fe42c9f716e580303c436a4d1bf543be07faafcaf0e2a3",
+      "admitted_rows": 29
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-rtPi7Q/events.jsonl",
+      "coordinate": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-rtPi7Q/events.jsonl",
+        "prefixLength": 151985,
+        "prefixDigest": "sha256:cd8641b29e9124d25a9ebddf6fda87046b23273c9628000daaf8af9e67454e29",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 474129630,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:6f48760192b2a43aead2e12e6898dc23bca95f6667e2e4899851c501ab0ff67f"
+      },
+      "bytes": 151985,
+      "sha256": "cd8641b29e9124d25a9ebddf6fda87046b23273c9628000daaf8af9e67454e29",
+      "admitted_rows": 29
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-a5Oh1O/events.jsonl",
+      "coordinate": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-a5Oh1O/events.jsonl",
+        "prefixLength": 151613,
+        "prefixDigest": "sha256:007febd1f5778a2366f35f3c75cea22e957a9ffa032e80b989c374bc44fef0a0",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 474129647,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:998ffbc3bb69fec317725a532fa5bb2d571e80f8d7d0a87170e625ff913186d9"
+      },
+      "bytes": 151613,
+      "sha256": "007febd1f5778a2366f35f3c75cea22e957a9ffa032e80b989c374bc44fef0a0",
+      "admitted_rows": 26
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-yqdUWz/events.jsonl",
+      "coordinate": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-yqdUWz/events.jsonl",
+        "prefixLength": 151700,
+        "prefixDigest": "sha256:d920c239c5f25dd4c2ba1c8619d8fc51523dbbf8dc040dfc5f75d018e465cde7",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 474129662,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:7bfe8ef8bfe5c83e5069c0c37235726892c97ff4cf48e500083cb20f0d0fbc5e"
+      },
+      "bytes": 151700,
+      "sha256": "d920c239c5f25dd4c2ba1c8619d8fc51523dbbf8dc040dfc5f75d018e465cde7",
+      "admitted_rows": 26
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-bYD0a7/events.jsonl",
+      "coordinate": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-bYD0a7/events.jsonl",
+        "prefixLength": 149857,
+        "prefixDigest": "sha256:63fee4510c98695d01ca95bb11a2dc61462ae8b692170afc7d69f23351ff259c",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 474129677,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:080f91d9fb8a408007859a45e45e54cb4c1fcdb92e8f23fe2b21d79c510586c8"
+      },
+      "bytes": 149857,
+      "sha256": "63fee4510c98695d01ca95bb11a2dc61462ae8b692170afc7d69f23351ff259c",
+      "admitted_rows": 26
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-dXwd1O/events.jsonl",
+      "coordinate": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-dXwd1O/events.jsonl",
+        "prefixLength": 105425,
+        "prefixDigest": "sha256:89c0ef2b57770177e997347504f7d0d84fdaac2f66e2822f3fb0010f66429e7e",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 474129692,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:16255e712d9084f94691bc0773947d3a47f25b08463c910b4f093c8fef3e0c46"
+      },
+      "bytes": 105425,
+      "sha256": "89c0ef2b57770177e997347504f7d0d84fdaac2f66e2822f3fb0010f66429e7e",
+      "admitted_rows": 20
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-i8jdLh/events.jsonl",
+      "coordinate": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-i8jdLh/events.jsonl",
+        "prefixLength": 105428,
+        "prefixDigest": "sha256:002d5d26efab67cad0212972842063300a4c64c0b28f589558da87bc397aacb7",
+        "storeIdentity": {
+          "device": 16777231,
+          "inode": 474129707,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+        },
+        "coordinateDigest": "sha256:b284ac4ff835095abd1a35e105faa89d944d294a815f6d8117725043410e8ea3"
+      },
+      "bytes": 105428,
+      "sha256": "002d5d26efab67cad0212972842063300a4c64c0b28f589558da87bc397aacb7",
+      "admitted_rows": 20
+    }
+  ],
+  "native_or_command_actors": 0,
+  "note": "Pre-close lock snapshots remain in evidence; owner close releases locks, not worksite/log bytes."
+}

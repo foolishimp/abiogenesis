@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "STDO Status",
+    "short_description": "Report evidence-backed project status",
+    "default_prompt": "Use $spec:stdo-status to give an evidence-backed STDO project status update."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

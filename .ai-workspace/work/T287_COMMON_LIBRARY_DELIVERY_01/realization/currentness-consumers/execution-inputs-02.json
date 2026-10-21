@@ -1,0 +1,22 @@
+{
+  "root_triage": "U1-PROOF-TRACE-01",
+  "changed_test": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "before_sha256": "6d30b7b69a8e74b0ae54f1f8543d8b4987f2b5b65353869d0bedf49ce0849ea3",
+    "after_sha256": "784524463a639af28ff485ec87ec10773a3345e8beb6c40aaa02327c2bd6d6d6"
+  },
+  "unchanged_support_sha256": "52d1912370b464cbda91b60e155f1f08d78463dbd1fe77d2b44b26740aa1e41d",
+  "compiled_outputs_manifest_sha256": "5d4c0fb42e89d0b700a5f1bba8586975445c01c16138f4d6c4ac96756b38684c",
+  "selected_cases": [
+    "observed",
+    "governance",
+    "semanticFold",
+    "revisionIntake",
+    "revisionEvidence"
+  ],
+  "omitted_cases": [
+    "c0"
+  ],
+  "reused_C0_evidence_sha256": "5c2e2c4d6b1ba44f0c7b421472676ed3df2b84735fa5537dfb17511ec257f76d",
+  "instrumentation_audit": "U1-PROOF-TRACE-01-activation.md"
+}

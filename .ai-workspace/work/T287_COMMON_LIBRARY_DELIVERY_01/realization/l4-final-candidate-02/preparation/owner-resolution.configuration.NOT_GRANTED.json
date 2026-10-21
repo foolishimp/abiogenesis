@@ -1,0 +1,55 @@
+{
+  "kind": "t287_final_owner_resolution_configuration",
+  "status": "NOT_GRANTED",
+  "activationFile": null,
+  "subjectId": "candidate",
+  "installedRoot": null,
+  "installedInventory": null,
+  "outputRoot": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/owner-resolution",
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "requiredPins": [
+    {
+      "path": null,
+      "sha256": null,
+      "pendingRole": "final archive"
+    },
+    {
+      "path": null,
+      "sha256": null,
+      "pendingRole": "translated package inventory"
+    },
+    {
+      "path": null,
+      "sha256": null,
+      "pendingRole": "selected support"
+    },
+    {
+      "path": null,
+      "sha256": null,
+      "pendingRole": "closed combined freeze"
+    },
+    {
+      "path": null,
+      "sha256": null,
+      "pendingRole": "P1 proof freeze"
+    }
+  ],
+  "p1": {
+    "result": null,
+    "ownerState": null,
+    "catalogCall": null,
+    "catalogOutcome": null,
+    "viewCall": null,
+    "resolveCall": null,
+    "resolveOutcome": null
+  },
+  "bindingRule": "Select exact final P1 result/owner-state and calls/catalog-admit.request.jsonl, calls/catalog-admit.outcome.json, calls/catalog-view.request.jsonl, calls/product-resolve.request.jsonl and calls/product-resolve.outcome.json from the actual P1 output. Verify actual resolve label from owner-state calls before pinning; no guessed or reconstructed admission. New canonical /private/tmp outputRoot only. Required pins include final archive, package inventory, support and original P1 freeze. Schedule this read-only check before P2 or any later append: it requires the complete physical log to remain the exact retained P1 prefix and never acquires that owner."
+}

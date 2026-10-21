@@ -1,0 +1,90 @@
+{
+  "activation": "PORTABILITY-OPTIONAL-PROVIDER-03",
+  "issuedBy": "/root",
+  "status": "granted",
+  "writer": "/root/stdo3_proof_writer",
+  "returnTo": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "purpose": "Transport selected closed historical evidence only; copied bytes are not original runtime authority",
+  "methodManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "selectedFreezes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/freeze.json",
+      "sha256": "f0643a3c7916acf534d7f90115d4019a29604a5539db472443ce162b57b68cb2",
+      "bytes": 48203,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/freeze.json",
+      "sha256": "0270d388acf82cc8555edb6e38e148686288e949931498b87300ed2fe162560c",
+      "bytes": 5513,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/freeze.json",
+      "sha256": "eaefd2bc14601f4d2e71a67e1df572f4c2082be7ec33c0d6451c87c256b50fef",
+      "bytes": 30320,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+      "sha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+      "bytes": 3048274,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/freeze.json",
+      "sha256": "8b8ddc4bdd2627704fe9c51bc2a55e9ea9474d07870796b23fcbeac1ad265cc6",
+      "bytes": 37904,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/freeze.json",
+      "sha256": "561c8178702fed08d8800f1b31253a6ecd9f4ff08158475e40b44c6f65c49af8",
+      "bytes": 6773,
+      "mode": "0o644"
+    }
+  ],
+  "priorCarrier": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-01/freeze.json",
+    "sha256": "cc2fa82adf85c24d8f6c09fa419053985cdf28243e62af8d9c2424c635c43977",
+    "bytes": 4157,
+    "mode": "0o644"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03",
+  "logicalCarrierLimit": 2147483648,
+  "compressedArchiveLimit": 1073741824,
+  "archiveTargetBytes": 94371840,
+  "effects": "Read selected exact source/inventory/package/resource bytes. Write new inert archive mappings and verifier only. No Product/build/pack/install/provider/Git/cleanup/owner acquisition.",
+  "stops": "First actual selected hash/preservation/coverage/archive failure stops without retry or redefinition. Exceeding size bounds returns repricing.",
+  "issuedAt": "2026-10-21T04:45:31.359417+00:00",
+  "predecessorStop": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/stopped-freeze.json",
+    "sha256": "d06a7a2890b1abd0cb90fa19770a909ac5f7c8a764db031ba7c54a74280aa5df",
+    "bytes": 1067,
+    "mode": "0o644"
+  },
+  "predecessorManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/stopped-manifest.json",
+    "sha256": "ae4b1d9dde868346504da63f0560700e992d58b59aa97027a2755d9706dce6ab",
+    "bytes": 4684,
+    "mode": "0o644"
+  },
+  "predecessorReader": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/select-population.py",
+    "sha256": "5a59f5bf6ce3a451f3430c12a566d8df6e517ecc773d4e4a4afc217a191f764a",
+    "bytes": 15244,
+    "mode": "0o644"
+  },
+  "priorVerificationReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/prior-carrier-verification.receipt.json",
+    "sha256": "3732d24f41984da530b2f411b905e35a4681860e63841ceef1c6fb7e9e6970c5",
+    "bytes": 292,
+    "mode": "0o644"
+  },
+  "rootTriage": "Optional provider applies only to native selection; final02 P1 legitimately absent. Completed population inputs are frozen before archives; process streams bound only after completion. Original failure remains stopped.",
+  "nativeCalls": 0,
+  "ProductExecutions": 0
+}

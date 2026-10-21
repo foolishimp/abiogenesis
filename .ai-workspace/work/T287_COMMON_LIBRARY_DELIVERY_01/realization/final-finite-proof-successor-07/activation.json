@@ -1,0 +1,26 @@
+{
+  "activation": "REOPEN18-OWNER-CLONE-SUCCESSOR-07",
+  "executive": "/root",
+  "writer": "/root/stdo3_c0_currentness_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "stdoBasis": "stdo://releases/v3.0.0-rc.1/",
+  "stdoManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "predecessorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-06/freeze.json",
+    "sha256": "b4e11378c241054005d02138f0c2396a0a3c0d6a5242036c33cc4369caa61de1"
+  },
+  "supportPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+    "sha256": "0d13d5d882d3d30ab8af2cc613b9d9540db4b4aa001349811726f0983d4f9a02"
+  },
+  "unchangedTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "sha256": "2f47abc4d95073f9f4528e01db3a0e90a7f543e10cc331f7ecc3a4e114ac3e69"
+  },
+  "physicalRoot": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b",
+  "physicalRootInitiallyAbsent": true,
+  "effects": "Only selected hydrated-install owner-input cause correction; minimal copied support/test overlay; one full reopen18 then original commands4-8 only after each predecessor passes; no runtime/build/archive/stage edits",
+  "stop": "First selected preflight/integration/oracle or physical uncertainty failure; no retry/repair/next command",
+  "limitBytes": 3221225472
+}

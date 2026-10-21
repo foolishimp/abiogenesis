@@ -1,0 +1,35 @@
+{
+  "failedVerifierSha256": "842d5218872ebca8afa59b158d1056c158b46d07b75721763d706c359a51faa0",
+  "failedStatement": "line 11: archive/stage mode equals installed host mode",
+  "originalFailureRetained": true,
+  "classification": "Observed downstream host material difference for Executive triage; failed selected check is not retried, waived or retroactively passed",
+  "archiveSha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+  "hostRoot": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-03/sunny/host/node_modules/@abiogenesis/typescript-tenant",
+  "observedArchiveMembers": 5271,
+  "observedHostFiles": 5271,
+  "allObservedDeltas": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "changes": {
+        "mode": {
+          "archive": "0o644",
+          "host": "0o755"
+        }
+      }
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "changes": {
+        "mode": {
+          "archive": "0o644",
+          "host": "0o755"
+        }
+      }
+    }
+  ],
+  "packageBin": {
+    "abg.cli": "./build/code/src/public/cli.js",
+    "abg.codex": "./build/code/src/public/codex_cli.js"
+  },
+  "claim": "Actual offline host installation occurred. Product fixture setup, owner C0 execution/admission and fresh reopen proof did not occur."
+}

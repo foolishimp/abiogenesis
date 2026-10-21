@@ -1,0 +1,85 @@
+--- preimage/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs
++++ main/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs
+@@ -300,7 +300,11 @@
+ 
+ function deepOccurrenceNegatives(admission, product, events, selectedRef) {
+   const hash = value => product.sha256Canonical(value), records = [];
+-  for (const name of ["authorization grant", "implementation selection", "strict support order", "basis actor"]) {
++  const authenticFibre = events.find(row => row.eventId === selectedRef);
++  const authentic = admission.projectWorksiteSelectedOccurrence(authenticFibre,
++    events.filter(row => row.admissionOrdinal < authenticFibre.admissionOrdinal));
++  assert.ok(authentic, "unchanged authentic occurrence is the positive control");
++  for (const name of ["authorization grant", "implementation selection", "alternate output contract", "strict support order", "basis actor"]) {
+     let rows = structuredClone(events), fibre = rows.find(row => row.eventId === selectedRef);
+     const opened = rows.find(row => row.kind === "c_call_opened" && row.aggregateId === fibre.aggregateId);
+     const basis = rows.find(row => row.kind === "basis_admitted" && row.basisId === fibre.basisId);
+@@ -322,6 +326,24 @@
+       const d = hash(invocationBody), ref = `invocation-admission://abiogenesis/${d.slice(7)}`;
+       invocation.payload.invocationAdmissionDigest = d; rewrite(invocationAdmissionRef, ref);
+     } else if (name === "implementation selection") fibre.payload.implementationRequirementKey += "/crossed";
++    else if (name === "alternate output contract") {
++      const set = implementation.payload.implementationSet;
++      const selected = set.rows.find(row => row.requirementKey === fibre.payload.implementationRequirementKey);
++      selected.outputContractRef = "contract://c0-potential/alternate-output@5";
++      const { kind, schemaVersion, disposition, leafResolutionCandidateRef, leafResolutionCandidateDigest, ...rowBody } = selected;
++      const rd = hash(rowBody);
++      selected.leafResolutionCandidateDigest = rd;
++      selected.leafResolutionCandidateRef = `leaf-resolution-candidate://abiogenesis/${rd.slice(7)}`;
++      const { implementationSetRef, implementationSetDigest, ...setBody } = set;
++      const sd = hash(setBody);
++      rewrite(implementationSetRef, `implementation-set://abiogenesis/${sd.slice(7)}`);
++      rewrite(implementationSetDigest, sd);
++      const nextSet = rows.find(row => row.eventId === implementation.eventId).payload.implementationSet;
++      rows.find(row => row.eventId === basis.eventId).payload.localImplementationSubsetDigest = hash({
++        rootImplementationSetRef: nextSet.implementationSetRef, rootImplementationSetDigest: nextSet.implementationSetDigest,
++        executableLeafKeys: nextSet.executableLeafKeys, rows: nextSet.rows,
++      });
++    }
+     else if (name === "strict support order") {
+       const ordinal = implementation.admissionOrdinal; implementation.admissionOrdinal = basis.admissionOrdinal;
+       basis.admissionOrdinal = ordinal;
+@@ -341,6 +363,19 @@
+     for (const row of rows) row.payloadDigest = hash(row.payload);
+     fibre = rows.find(row => row.eventId === selectedRef);
+     const prior = rows.filter(row => row.admissionOrdinal < fibre.admissionOrdinal);
++    if (name === "alternate output contract") {
++      const nextBasis = rows.find(row => row.eventId === basis.eventId);
++      const nextOpened = rows.find(row => row.eventId === opened.eventId);
++      const nextSet = rows.find(row => row.eventId === implementation.eventId).payload.implementationSet;
++      const selected = nextSet.rows.find(row => row.requirementKey === fibre.payload.implementationRequirementKey);
++      const structural = product.constructWorksiteEffectAuthorization({ ...authentic,
++        executionBasis: { ...authentic.executionBasis, ...nextBasis.payload },
++        implementationSet: { ...authentic.implementationSet, ...nextSet },
++        cCall: { ...authentic.cCall, ...nextOpened.payload, ...fibre.payload, basisId: nextOpened.basisId,
++          outputContractRef: selected.outputContractRef },
++      });
++      assert.equal(structural.kind, "worksite_effect_authorization", "alternate contract has closed row/set/basis/call digests");
++    }
+     assert.equal(admission.projectWorksiteSelectedOccurrence(fibre, prior), null, name);
+     records.push({ name, fibre, prior, premise: "consistently re-digested controlled semantic crossing; no admitted runtime claim" });
+   }
+@@ -542,7 +577,14 @@
+       assert.equal(ownerOutcome.substrateCode, "EBADF");
+       assert.match(ownerOutcome.message, /LATER_CLOSE_EBADF/u);
+     }
+-    assert.ok(admission.projectWorksiteFailureBasis(events, capturedCall.occurrence.cCallRef, ownerOutcome));
++    const fullFailureBasis = admission.projectWorksiteFailureBasis(events, capturedCall.occurrence.cCallRef, ownerOutcome);
++    assert.ok(fullFailureBasis);
++    const failurePrefix = abg.selectHeldEventStoreDurablePrefix(store);
++    const failurePrefixes = [prefixes.selectValidatedRuntimeEventPrefix(immutableCopy(events)),
++      prefixes.projectOwnedRuntimeEventPrefixAtDurablePrefix(failurePrefix),
++      prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(immutableCopy(failurePrefix), { requireCurrent: true })];
++    for (const prefix of failurePrefixes) assert.deepEqual(
++      admission.projectWorksiteFailureBasisAtPrefix(prefix, capturedCall.occurrence.cCallRef, ownerOutcome), fullFailureBasis);
+     if (physical.kind === "publication_only") {
+       assert.equal(physical.publication.method, state.method);
+       assert.equal(physical.publication.writtenDigest, product.sha256Bytes(replacement));
+@@ -626,7 +668,7 @@
+     assert.deepEqual(after.facts.map(row => row.current), [false, false]);
+     assert.ok(after.facts.every(row => row.invalidated.every(Boolean)));
+     potentialFacts.push({ ...after, retainedOriginViews: originViews(env, prefixes, retained, false) });
+-    if (prepublication) potentialFacts.push({ label: "four deep semantic negatives", coordinate: after.coordinate,
++    if (prepublication) potentialFacts.push({ label: "five deep semantic negatives", coordinate: after.coordinate,
+       negatives: deepOccurrenceNegatives(admission, product, store.readAll(), capturedCall.occurrence.executionAuthority.cCall.fibreSelectedEventRef) });
+     const aliasReplay = abg.projectRuntimeTruthAtDurablePrefix(abg.selectHeldEventStoreDurablePrefix(store), aliasOpened.scope.runId).replayState;
+     assert.deepEqual(aliasReplay.currentWorksiteObservations, []);

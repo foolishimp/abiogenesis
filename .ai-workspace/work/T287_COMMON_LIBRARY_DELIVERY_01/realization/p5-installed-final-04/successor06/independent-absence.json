@@ -1,0 +1,41 @@
+{
+  "observedAt": "2026-10-21T07:31:41.699380+00:00",
+  "rows": [
+    {
+      "label": "test-host",
+      "pidOrGroupId": 31363,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "test-host",
+      "pidOrGroupId": 31363,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "test-supervisor",
+      "pidOrGroupId": 31360,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "construction",
+      "pidOrGroupId": 33509,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "construction",
+      "pidOrGroupId": 33509,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    }
+  ],
+  "scope": "Only actually recorded owned/fixture identities; no invented command PID and no universal descendant claim"
+}

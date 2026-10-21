@@ -1,0 +1,161 @@
+{
+  "case": "early_stdin_close",
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/diagnostic-host.mjs",
+    "early_stdin_close",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/early_stdin_close",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript"
+  ],
+  "startedAt": "2026-10-21T00:46:09.540989+00:00",
+  "elapsedSeconds": 0.07762070908211172,
+  "hostPid": 87157,
+  "hostExitCode": 0,
+  "hostDeadlineExpired": false,
+  "hostStdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "hostStderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "childIdentity": {
+    "pid": 87158,
+    "ppid": 87157,
+    "pgid": 87158,
+    "recordedAt": "1375439746046375",
+    "mode": "early_stdin_close"
+  },
+  "childStartedObservation": 87158,
+  "childStdinClosed": {
+    "pid": 87158,
+    "at": "1375439746216208"
+  },
+  "childFiniteExit": null,
+  "childControlRead": null,
+  "hostEvents": [
+    {
+      "at": "1375439700621541",
+      "event": "host-start",
+      "mode": "early_stdin_close",
+      "pid": 87157,
+      "node": "v24.7.0",
+      "contract": {
+        "kind": "worker_transport_contract",
+        "schemaVersion": "5.0.0",
+        "agentKey": "claude",
+        "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "prefixArgs": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/fixture-child.mjs",
+          "early_stdin_close",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/early_stdin_close"
+        ],
+        "argsTemplate": [
+          "-p",
+          "--disable-slash-commands",
+          "--no-session-persistence",
+          "--output-format",
+          "stream-json",
+          "--include-partial-messages",
+          "--verbose",
+          "--permission-mode",
+          "bypassPermissions"
+        ],
+        "parser": "claude_stream_json",
+        "promptTransport": "stdin",
+        "sanitizedEnvironmentPrefixes": [
+          "CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL",
+          "CLAUDE_CODE_SSE_",
+          "CLAUDE_CODE_ENTRYPOINT",
+          "CLAUDE_CODE_EXECPATH"
+        ]
+      },
+      "promptBytes": 8388608
+    },
+    {
+      "at": "1375439727576833",
+      "event": "child-started",
+      "pid": 87158
+    },
+    {
+      "at": "1375439746788916",
+      "event": "os-signal",
+      "pid": -87158,
+      "signal": 0
+    },
+    {
+      "at": "1375439746879166",
+      "event": "os-signal",
+      "pid": -87158,
+      "signal": 0
+    },
+    {
+      "at": "1375439746932333",
+      "event": "os-signal",
+      "pid": -87158,
+      "signal": "SIGKILL"
+    },
+    {
+      "at": "1375439746994958",
+      "event": "os-signal",
+      "pid": -87158,
+      "signal": 0
+    },
+    {
+      "at": "1375439747041083",
+      "event": "os-signal-error",
+      "pid": -87158,
+      "signal": 0,
+      "code": "EPERM"
+    },
+    {
+      "at": "1375439748212666",
+      "event": "os-signal",
+      "pid": -87158,
+      "signal": 0
+    },
+    {
+      "at": "1375439748250666",
+      "event": "os-signal-error",
+      "pid": -87158,
+      "signal": 0,
+      "code": "ESRCH"
+    },
+    {
+      "at": "1375439748476875",
+      "event": "owner-rejection",
+      "name": "Error",
+      "code": "EPIPE",
+      "message": "write EPIPE"
+    },
+    {
+      "at": "1375439748509333",
+      "event": "host-survived-owner-settlement",
+      "pid": 87157
+    },
+    {
+      "at": "1375439748552125",
+      "event": "host-exit",
+      "code": 0,
+      "pid": 87157
+    }
+  ],
+  "ownerReturn": null,
+  "ownerRejection": {
+    "name": "Error",
+    "code": "EPIPE",
+    "errno": -32,
+    "syscall": "write",
+    "message": "write EPIPE",
+    "stack": "Error: write EPIPE\n    at WriteWrap.onWriteComplete [as oncomplete] (node:internal/stream_base_commons:87:19)"
+  },
+  "independentScopeSamples": [
+    {
+      "elapsedSeconds": 0.07758125010877848,
+      "group": "absent",
+      "directPid": "absent"
+    }
+  ],
+  "independentScopeAbsent": true,
+  "failSafeSignals": [],
+  "archiveFiles": [
+    "stdin-probe-prompt.txt",
+    "stdin-probe-stderr.log",
+    "stdin-probe-stdout.log"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "label": "structure-successor-02",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/verify-structure-successor-02.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/tmp",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/npm-logs",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/npm-cache"
+  },
+  "grant": "COMBINED-FINAL-STRUCTURE-02",
+  "prebuild_freeze_sha256": "e64d6794e1bf124b69cbb3ae6c23fe098e1a33b336d09c820354a90d8bf446f7",
+  "runner_sha256": "a818a0ca5c000fb3db05e1bf77293a398d93d74c98a7266778923ae9ad2266cd",
+  "startedUtc": "2026-10-21T03:30:04.649148+00:00",
+  "verification_script_sha256": "0dfa06dcf32f0977c9442df935c0c44b494b8944121c75f6f53e44989a8d75a1",
+  "HOW_sha256": "8b514d133010d065fb6d4eb412a2921bc6d0eb877011a02c389d0a8f56c03c23",
+  "reentry_sha256": "e046286bd3aa69e6d6ca86dbb6eabab45fcf706389a9e19f8470791b1640c424",
+  "historical_first_cause_sha256": "a054de724d00abbdf8f1efe9438a6da9d342c55bde02cb8d858510e5856b08c9"
+}

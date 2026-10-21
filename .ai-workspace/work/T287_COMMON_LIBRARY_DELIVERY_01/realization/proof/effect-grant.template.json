@@ -1,0 +1,13 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "not_granted",
+  "configurationSha256": "SHA_OF_FINAL_CONFIG_BYTES",
+  "runnerSha256": "SHA_OF_FROZEN_RUNNER",
+  "oracleSha256": "SHA_OF_FROZEN_ORACLE",
+  "subjectId": "candidate",
+  "lanes": [],
+  "maxNativePositiveCalls": 0,
+  "resources": {},
+  "issuedBy": "/root",
+  "requiredEvidence": "Executive records exact closed prerequisite results and authorizes only dependency-ready lanes."
+}

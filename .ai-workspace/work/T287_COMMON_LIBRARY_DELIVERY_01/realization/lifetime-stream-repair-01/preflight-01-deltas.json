@@ -1,0 +1,26 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "c99f518ef399a238d553fd32fb118d68c01f7aa0f6f8bd87776465749104e304"
+    },
+    "after": {
+      "sha256": "48133651b22fafb0cdcfa3b2781759146e52490626011d6831ae86661d54b757",
+      "bytes": 197474
+    }
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+    "before": {
+      "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+      "bytes": 255,
+      "sha256": "876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7"
+    },
+    "after": {
+      "sha256": "f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+      "bytes": 255
+    }
+  }
+]

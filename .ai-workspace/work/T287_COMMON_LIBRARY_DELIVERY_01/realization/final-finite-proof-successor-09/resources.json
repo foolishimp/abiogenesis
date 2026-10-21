@@ -1,0 +1,69 @@
+{
+  "root": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d",
+  "initiallyAbsent": true,
+  "directories": [
+    {
+      "command": "native-workspace-physical-regression",
+      "path": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/06-native-workspace-physical-regression",
+      "canonical": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/06-native-workspace-physical-regression",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475094749,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "native-workspace-physical-regression",
+      "path": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/06-native-workspace-physical-regression/tmp",
+      "canonical": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/06-native-workspace-physical-regression/tmp",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475094750,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "terminal-quiescence7",
+      "path": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/07-terminal-quiescence7",
+      "canonical": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/07-terminal-quiescence7",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475094751,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "terminal-quiescence7",
+      "path": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/07-terminal-quiescence7/tmp",
+      "canonical": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/07-terminal-quiescence7/tmp",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475094752,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "D02-preparation-owner-case",
+      "path": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/08-D02-preparation-owner-case",
+      "canonical": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/08-D02-preparation-owner-case",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475094753,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    },
+    {
+      "command": "D02-preparation-owner-case",
+      "path": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/08-D02-preparation-owner-case/tmp",
+      "canonical": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/08-D02-preparation-owner-case/tmp",
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 475094754,
+      "mode": "0o755",
+      "createdFromAbsent": true
+    }
+  ],
+  "routeScratchNotSelected": true,
+  "limitBytes": 3221225472,
+  "oldRootsWritable": false
+}

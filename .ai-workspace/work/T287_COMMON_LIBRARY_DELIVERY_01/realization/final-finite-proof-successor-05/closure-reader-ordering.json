@@ -1,0 +1,19 @@
+{
+  "kind": "administrative_inventory_ordering",
+  "originalScriptSha256": "ec7a777f3f7e37b677f2f8552618569ad5e84315209921f85c223446f0df509b",
+  "originalError": "close-subject.py line29: assert inventory(S/'stage')==expected; AssertionError",
+  "originalTraceProvenance": "Public tool return for the first closure command; no standalone stderr file was produced.",
+  "actualReadOnlyDifference": {
+    "expectedCount": 6642,
+    "actualCount": 6642,
+    "extraPaths": [],
+    "missingPaths": [],
+    "allExpectedPerFileHashBytesModeLinkChecksPassed": true,
+    "firstDifferentIndex": 63,
+    "actual": "build_tenants/abiogenesis/typescript/build/code/src/abg/m03.d.ts",
+    "expected": "build_tenants/abiogenesis/typescript/build/code/src/abg/m03/transport.d.ts",
+    "sameOrderAfterCanonicalSort": true
+  },
+  "correction": "Normalize expected and actual row ordering by exact path for list comparison only. Preserve all per-row identity checks.",
+  "credit": "Original failed closure assertion remains failed. No production or workload retry; corrected reader closes the already-stopped subject."
+}

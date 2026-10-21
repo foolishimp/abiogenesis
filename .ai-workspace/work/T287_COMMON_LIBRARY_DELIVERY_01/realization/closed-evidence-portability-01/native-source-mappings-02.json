@@ -1,0 +1,38 @@
+[
+  {
+    "carrier": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/retained-resource-inventory.json",
+    "sha256": "4857ba7e53d1cf361f38f14d151405c099eb5278023ae39b51e4409de3240d8a",
+    "variant": "P1 rootFootprints + files",
+    "kind": null,
+    "file_count": 16475,
+    "summary_count": 4,
+    "selection": "files path/sha256/bytes/mode only; summaries do not select sources"
+  },
+  {
+    "carrier": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-candidate-01/retained-resource-inventory.json",
+    "sha256": "542d6e69540af81dd6c83d66b3f9123ec8596a55b78e26b0e50c1292c113722f",
+    "variant": "P1 rootFootprints + files",
+    "kind": null,
+    "file_count": 16487,
+    "summary_count": 4,
+    "selection": "files path/sha256/bytes/mode only; summaries do not select sources"
+  },
+  {
+    "carrier": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/retained-resource-inventory.json",
+    "sha256": "d6ab5ed039b7b824a80df34d674711edc3c64508a02c19fbcf4f4cf48e9e2bc4",
+    "variant": "P3 summaries + files",
+    "kind": "read_only_failure_residue_at_closed_cut",
+    "file_count": 11153,
+    "summary_count": 4,
+    "selection": "files path/sha256/bytes/mode only; summaries do not select sources"
+  },
+  {
+    "carrier": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/retained-resource-inventory.json",
+    "sha256": "f69fb68a7b3fea70d2fc15bfe9981af36a55fdd310bbd31f9573ce143d27747d",
+    "variant": "P3 summaries + files",
+    "kind": "closed_installed_lane_resource_cut",
+    "file_count": 16434,
+    "summary_count": 4,
+    "selection": "files path/sha256/bytes/mode only; summaries do not select sources"
+  }
+]

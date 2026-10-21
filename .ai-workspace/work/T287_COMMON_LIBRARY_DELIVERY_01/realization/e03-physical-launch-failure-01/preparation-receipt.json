@@ -1,0 +1,39 @@
+{
+  "activation": "E03-PHYSICAL-LAUNCH-FAILURE-01",
+  "status": "ready_for_one_finite_failed_spawn_population",
+  "preparedUtc": "2026-10-21T02:18:11.408679+00:00",
+  "definitionPreparation": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/prepare.mjs"
+    ],
+    "exitCode": 0,
+    "result": "prepared_no_spawn"
+  },
+  "hostSyntax": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/host.mjs"
+    ],
+    "exitCode": 0
+  },
+  "preflight": {
+    "argv": [
+      "python3",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/preflight.py"
+    ],
+    "exitCode": 0,
+    "counts": {
+      "closedRecords": 183,
+      "frozenOutputCopies": 4,
+      "stage": 1946,
+      "dependencies": 4576,
+      "emitted": 743,
+      "protectedMain": 936
+    }
+  },
+  "oracleRefinement": "Executive confirmed public worker failureClass=transport_failure plus actual onSpawnFailed, not nonexistent public launchError. Direct common attempt supplies only its own facts.",
+  "physicalRootsCreated": false,
+  "failedSpawnWorkloadPerformed": false
+}

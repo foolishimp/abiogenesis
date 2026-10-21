@@ -1,0 +1,97 @@
+{
+  "kind": "stopped_writer_freeze",
+  "activation": "U1-C0-PHYSICAL-CURRENTNESS-01",
+  "expanded_activation": "U1-C0-FAILURE-GATE-SUCCESSOR-01",
+  "actor": "/root/stdo3_c0_currentness_writer",
+  "at": "2026-10-21T02:53:01.430396+00:00",
+  "method_release": "stdo://releases/v3.0.0-rc.1/",
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "construction_result": "re_entry_requested",
+  "return_owner": "/root",
+  "source_files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "preimage_sha256": "2fb146d5dd8c869eec147c08effa6688fea918493274a93d00bfafc4ade7e93c",
+      "sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb",
+      "bytes": 88506
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "preimage_sha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07",
+      "bytes": 79887
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "preimage_sha256": "6a332fe393db54a876b761eb0f8d494a1db4356b799b19f78e143d5420c4a1b8",
+      "sha256": "bec0264685b959619fbffbec3dc28adbf98976169669e5f63334b04e6bf9d3fa",
+      "bytes": 20558
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "preimage_sha256": "f75417d472354cdc474c32cecf17f5a7bc2426c4dc5534e447afe3ad5d635567",
+      "sha256": "3cdd78601462643b44c30c521f732132b33d2790e994861398c20ca2aece13bd",
+      "bytes": 39809
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimage_sha256": "f46908c1598ddc8a7a21a5a890dc2a1af5fe75089160e15054824cfcb59ddca3",
+      "sha256": "6b592c35d2ce2f5d892bf77df46ba264fee1cfa57e13d3d272f2f9213eb603e3",
+      "bytes": 95706
+    }
+  ],
+  "emitted_files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.d.ts",
+      "preimage_sha256": "e5e9c0dd2c59705e38385ae659ec6f7b1568621e1c847be9d59de05d901dff51",
+      "sha256": "b9f22c070103c23a60e309ca3b4cfa84a2cb0b9352973371c3afaee192ccf948"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "preimage_sha256": "48d938c86d9a27538dcdaf5a6cea82acc48808ad1fb6b6847c6a58adbe91182e",
+      "sha256": "b501f094602054ada71ecc853218bf36045c45bdc6442d8f99cb00736c2027dc"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "preimage_sha256": "fa680e2fffb2faeac2376c58288a8dccb4a7526db941ee918e86bee2f9a8cd19",
+      "sha256": "b6ce21dea12f1f247fe2903fa99e7c60f814cc8131637b80fba6904583517953"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/native_worksite_execution.js",
+      "preimage_sha256": "dc2334bac09095e6ba0d804c3b490f5a333272fd986f9848313307827149d46b",
+      "sha256": "f339e61977d18033993a81c6e895b6e369eaa01bfc484bf01221c5255caea87b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+      "preimage_sha256": "58a7bddc352cdaa29a7456214fa8c1b760994e8fd7627ded80ff2cced782734e",
+      "sha256": "6a13656f990b3036c56ca456728a1b36898a0d11b192c4017468dff26e715cdb"
+    }
+  ],
+  "manifest_sha256": "793c2976b8760c9ae83b9f3567115c4f62ed340efe29d611ab4d232fa4e30997",
+  "report_sha256": "13d0c7c8f2a28b8abbfbe1101c9f884a89af31446f9a834eea4095391237ecef",
+  "HOW_sha256": "c4ddc40c27de54a6bcb7cab2b68b79cf195d7106e65569daa84e9b7c4911af31",
+  "stop_sha256": "b2f9e821dbeaec5c1989223d6f5582440bcbff27bde5602db09bd6be933144b5",
+  "focused_receipt_sha256": "348e16d8abe4229f08b3a3cfa7ffb2d4dc7658a0f3cfa51b9d585da0cbcf1900",
+  "evidence_sha256": "38cc12cd6320c53f23be4bae98ccb12ffc8d385d9e49ffff4f07503b55e38674",
+  "falsifier_receipt_sha256": "715be0f701a37e94e2921e5e51ce15087f04d656f0cc92f02f59f3e57c4e8131",
+  "falsifier_evidence_sha256": "f6fbdf7dc90dac2ab3689aa73828fafd50a86f66b35e127f507b11aea38050f6",
+  "stage_execution_sha256": "f800ca54592e23a699d06e3a5a8733958a150cba1168b9f58060c3b9e1ff0670",
+  "source_inputs_sha256": "1ab466a1d65bf1f9c70796eae918662a3f084318c6afe74f71e440852887533c",
+  "compile_attempts": 1,
+  "successor_execution_attempts": 1,
+  "completed_vectors": 9,
+  "selected_vectors": 10,
+  "overall_test_exit_code": 1,
+  "first_unexpected_failure": "artifact admission requires one authority-scope fluent identity",
+  "failure_physical_effect_started": false,
+  "candidate_edits_after_failure": 0,
+  "native_or_command_actors": 0,
+  "acceptance": false,
+  "stopped_editing": true,
+  "remaining": [
+    "C0 failure owner/admission EC and native gate parity and negatives",
+    "combined artifact, full unknown-effect and consumer aggregate, actual native-workspace and terminal regression",
+    "independent review and Executive acceptance"
+  ]
+}

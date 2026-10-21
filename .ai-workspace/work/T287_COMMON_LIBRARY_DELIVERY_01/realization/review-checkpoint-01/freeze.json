@@ -1,0 +1,15 @@
+{
+  "status": "closed_ready_for_git_checkpoint",
+  "createdUtc": "2026-10-21T09:59:05.589809+00:00",
+  "manifest": {
+    "path": "manifest.json",
+    "sha256": "6b55cb365f4009fe728f85e2cc5107eb4c91aa3fb27feb245f4f26c134720878",
+    "bytes": 6299
+  },
+  "records": 38,
+  "bytes": 32959903,
+  "deliveryAccepted": false,
+  "releaseGate": "closed",
+  "newProductExecutions": 0,
+  "sourceEditsByCheckpointWriter": 0
+}

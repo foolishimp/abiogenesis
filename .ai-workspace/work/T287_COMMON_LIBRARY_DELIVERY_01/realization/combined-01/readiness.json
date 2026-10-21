@@ -1,0 +1,148 @@
+{
+  "kind": "combined_mechanical_construction_readiness",
+  "status": "built_and_packed",
+  "activation": "COMBINED-L3-01",
+  "reentry": "COMBINED-DERIVATION-01",
+  "closedUtc": "2026-10-21T00:00:52.912031+00:00",
+  "source": {
+    "manifestSha256": "5e90b135c3db3092a5621a21d0f456a36c4994badc8db829ff99a75f22cae9a7",
+    "files": 1318,
+    "bytes": 60587126,
+    "baselineFiles": 1311,
+    "overlayFiles": 27,
+    "disjointStreams": 3,
+    "allPrebuildSourcePreserved": true,
+    "derivedSuccessors": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "predecessorSha256": "c99f518ef399a238d553fd32fb118d68c01f7aa0f6f8bd87776465749104e304",
+        "successorSha256": "e8e26ca915e5bee5d803ec650b974efcd1290c7de9ba2b5377ae19674c15e244",
+        "producer": "scripts/generate-product-manifest.mjs",
+        "producerSourceSha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+        "producerCommand": "commands/generate.request.json",
+        "producerReceipt": "commands/generate.result.json",
+        "grant": "COMBINED-DERIVATION-01"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+        "predecessorSha256": "876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7",
+        "successorSha256": "f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+        "producer": "scripts/generate-product-manifest.mjs",
+        "producerSourceSha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+        "producerCommand": "commands/generate.request.json",
+        "producerReceipt": "commands/generate.result.json",
+        "grant": "COMBINED-DERIVATION-01"
+      }
+    ]
+  },
+  "executionSourceManifestSha256": "39b1b42132c9fd547ecd0545be19284f89ebaab1eee748f1ab0f93f9966261db",
+  "generated": {
+    "files": 940,
+    "manifestSha256": "e3830c658396c730882e7b14e08f8ce363209310f7b4c1998e86c7d83cab353f"
+  },
+  "dependencies": {
+    "packages": 16,
+    "entries": 4576,
+    "manifestSha256": "78d16a09d6660d104a5799f25833c82117926477aa671d6024f2a1c96e371341",
+    "lockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "18d80743d9b431445ce50d2acf47971554e1cce6ce14057175da8aa32c901f4e",
+    "bytes": 10679115,
+    "npmIntegrity": "sha512-jWNsCCOPFXRSoKWX4qRmtlSoRXiregNdZzGTt9SsPtAaxUZMcdGPF+xLDms3v5nRlbDOR0lDbT3TAx6EyNX5+A==",
+    "entryCount": 5271,
+    "unpackedBytes": 70674302,
+    "bundled": [
+      "fast-uri",
+      "@standard-schema/spec",
+      "ajv-formats",
+      "ajv",
+      "effect",
+      "fast-check",
+      "fast-deep-equal",
+      "json-schema-traverse",
+      "pure-rand",
+      "require-from-string",
+      "@valibot/to-json-schema",
+      "valibot",
+      "jsonc-parser"
+    ]
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "2935813eaa6a49d2fec0139fa240a36132801efbfab353a4c467ec4005c9b142",
+    "productContentDigest": "sha256:28d36ad13e5ce1712dc92c365ee96cd944142c1d8ae78329e87afac42d59e2f9",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "payloadLocators": 5269
+  },
+  "commands": {
+    "dependencies": {
+      "exitCode": 0,
+      "wallMs": 690.3885409701616,
+      "completedUtc": "2026-10-20T23:52:51.193572+00:00",
+      "stdoutSha256": "8b1a83b294e0657115fa3ea30332f0edce41f9c243a8f9d5cdb089d093e79270",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tsc": {
+      "exitCode": 0,
+      "wallMs": 6887.775124981999,
+      "completedUtc": "2026-10-20T23:53:13.587386+00:00",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "generate": {
+      "exitCode": 0,
+      "wallMs": 24850.197083083913,
+      "completedUtc": "2026-10-20T23:53:46.021792+00:00",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "pack": {
+      "exitCode": 0,
+      "wallMs": 3236.6955410689116,
+      "completedUtc": "2026-10-20T23:56:45.780418+00:00",
+      "stdoutSha256": "345005ea51c37423622ee508e4f82c4dc58d347620b4a5834ece9bbbc9eea012",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "material-check": {
+      "exitCode": 0,
+      "wallMs": 281.860165996477,
+      "stdoutSha256": "c0a5e6a318c550a77b5bf7ac6062bed196ccd21086198bb63b3ee02694fc426f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "protectedMainEntriesPreserved": 936,
+  "failure": {
+    "status": "preserved old predicate and evidence; new derived relation explicitly admitted",
+    "freezeSha256": "f509d0eeb997d32f32f9f87673cc1dc745c161e8ba0d8febff243b8ad55d3bb1",
+    "firstCauseSha256": "e2a3e383e74f7774f90ecdc9fd7044b71284c8a3138f5657d6bcc5fc491ab4c6",
+    "triageSha256": "125402ac7fca59ed740d2da0bec7b08ddaf6fae7d08bc6a3079b541a5cf9eb3c"
+  },
+  "draftConfigurations": {
+    "candidate": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/candidate-p1.configuration.draft.json",
+      "sha256": "428471e2e177b419a3712913bb3791896ebbfeb79577679a57fb0905a7000c2b"
+    },
+    "baseline": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-p1.configuration.draft.json",
+      "sha256": "1750bd50b560404a2853d991aeb453ce0734a22937642f947c22d0847155bdd9"
+    }
+  },
+  "claims": {
+    "L3": "combined deterministic compile/generator/package construction ready",
+    "L4": "not activated",
+    "L5": "not claimed"
+  },
+  "notPerformed": [
+    "installed declaration compilation",
+    "Public P1/P2/P3/P5",
+    "Product native P4",
+    "runtime source reacquisition",
+    "new owning tests",
+    "baseline rebuild",
+    "main-tree build",
+    "Git mutation",
+    "cleanup or migration"
+  ]
+}

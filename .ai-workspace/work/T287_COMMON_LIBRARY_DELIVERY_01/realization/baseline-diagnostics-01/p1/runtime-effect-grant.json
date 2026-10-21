@@ -1,0 +1,55 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "configurationSha256": "e76188451fcc7818fc04a5700e60cf9f00130de7d5d2643c85bfdac62badb672",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "subjectId": "baseline",
+  "lanes": [
+    "public-preparation"
+  ],
+  "maxNativePositiveCalls": 0,
+  "resources": {
+    "public-preparation": {
+      "evidence": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "host": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host",
+      "scratchParent": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite"
+    }
+  },
+  "issuedBy": "/root",
+  "requiredEvidence": {
+    "activation": "L4-P1-BASELINE-01",
+    "prerequisitesSha256": "35083302bacdc7384d2bb16793c6876edcea7d2934981351e989e6277e7b4c15",
+    "outputCorrespondenceSha256": "d58ad94f2f73a06e2f538ac70ace046a57d64208d1c052b969331bcf0b48aa4a",
+    "configurationChangeScope": [
+      "status",
+      "activationFile"
+    ]
+  },
+  "activation": "BASELINE-DIAGNOSTICS-01",
+  "retryCount": 0,
+  "cleanup": false,
+  "npmCache": {
+    "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p1",
+    "seed": {
+      "kind": "explicit_empty_seed",
+      "files": []
+    },
+    "closure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/archive-closure.json",
+      "sha256": "500076db05114a43578f76410e3546b0bddd5a59360a52ed161a835016b1e2b6",
+      "bytes": 6972,
+      "mode": "0o644"
+    },
+    "effects": [
+      "create empty owned root",
+      "offline npm content/index/tmp/log writes"
+    ],
+    "globalCacheRead": false,
+    "globalCacheWrite": false,
+    "networkFallback": false,
+    "retain": true
+  },
+  "diagnosticGrant": "Explicit frozen passive preload/tracing under BASELINE-DIAGNOSTICS-01; original application args/runner/oracle remain unchanged."
+}

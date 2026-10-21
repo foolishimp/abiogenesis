@@ -1,0 +1,34 @@
+{
+  "verified": true,
+  "finalFreezePresent": false,
+  "originalSourceAddresses": 69428,
+  "metadataRows": 74736,
+  "representations": {
+    "repository_file": 7736,
+    "package_member": 61340,
+    "archive_object": 351,
+    "archive_chunks": 1
+  },
+  "uniqueRepositoryFiles": 1651,
+  "newArchives": 10,
+  "reusedArchives": 4,
+  "archiveObjects": 389,
+  "originalPackages": 6,
+  "packageMembers": 15829,
+  "chunkedWholeFilesVerified": 1,
+  "nativeCoverageRelations": {
+    "file": 76741,
+    "symlink": 8,
+    "explicit_v8_metadata_only": 2353,
+    "directory": 5302
+  },
+  "providerApplicabilityVerified": true,
+  "exactExclusionRowsVerified": 2353,
+  "dataRoot": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03",
+  "outputRoot": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-04",
+  "archivesCreatedThisSuccessor": 0,
+  "originalAbsoluteSourcePathsOpened": 0,
+  "ProductExecutions": 0,
+  "originalOwnerAcquisitions": 0,
+  "copiedBytesConferRuntimeAuthority": false
+}

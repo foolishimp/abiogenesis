@@ -1,0 +1,217 @@
+{
+  "activation": "T287_SANDBOX_UAT_WORKLOADS_01",
+  "donor": {
+    "repository": "odd_glc",
+    "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+    "sourcePath": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+    "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2"
+  },
+  "acquisition": [
+    {
+      "path": "basic-cli/oracle.json",
+      "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "byteCount": 1112,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/basic-cli.oracle.json",
+        "wholeFileDigest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+      }
+    },
+    {
+      "path": "basic-cli/source.original.txt",
+      "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "byteCount": 4325,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 7589,
+        "endByte": 11914,
+        "selectedDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+      }
+    },
+    {
+      "path": "js-tenant-test/oracle.json",
+      "digest": "sha256:55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e",
+      "byteCount": 1782,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/js-tenant-test.oracle.json",
+        "wholeFileDigest": "sha256:55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e"
+      }
+    },
+    {
+      "path": "js-tenant-test/source.original.txt",
+      "digest": "sha256:3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9",
+      "byteCount": 3655,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 11915,
+        "endByte": 15570,
+        "selectedDigest": "sha256:3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9"
+      }
+    },
+    {
+      "path": "js-sdlc-bootstrap/oracle.json",
+      "digest": "sha256:a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f",
+      "byteCount": 1890,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/js-sdlc-bootstrap.oracle.json",
+        "wholeFileDigest": "sha256:a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f"
+      }
+    },
+    {
+      "path": "js-sdlc-bootstrap/source.original.txt",
+      "digest": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+      "byteCount": 6120,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 15571,
+        "endByte": 21691,
+        "selectedDigest": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4"
+      }
+    },
+    {
+      "path": "rust-cli/oracle.json",
+      "digest": "sha256:fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e",
+      "byteCount": 1877,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/rust-cli.oracle.json",
+        "wholeFileDigest": "sha256:fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e"
+      }
+    },
+    {
+      "path": "rust-cli/source.original.txt",
+      "digest": "sha256:d6f2ffff4e3ae4889be374367208a575664eb9b094c442d7ca303ebaa9ad6a81",
+      "byteCount": 3816,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 21692,
+        "endByte": 25508,
+        "selectedDigest": "sha256:d6f2ffff4e3ae4889be374367208a575664eb9b094c442d7ca303ebaa9ad6a81"
+      }
+    },
+    {
+      "path": "rust-service/oracle.json",
+      "digest": "sha256:eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+      "byteCount": 1966,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/rust-service.oracle.json",
+        "wholeFileDigest": "sha256:eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c"
+      }
+    },
+    {
+      "path": "rust-service/source.original.txt",
+      "digest": "sha256:a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+      "byteCount": 4175,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 25509,
+        "endByte": 29684,
+        "selectedDigest": "sha256:a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d"
+      }
+    },
+    {
+      "path": "parallel-js/oracle.json",
+      "digest": "sha256:82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c",
+      "byteCount": 2335,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/parallel-js.oracle.json",
+        "wholeFileDigest": "sha256:82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c"
+      }
+    },
+    {
+      "path": "parallel-js/source.original.txt",
+      "digest": "sha256:d8cc8105e4d16eea10fa8f908656a2c82e5690fc145cfb91e70ed00f84aa6053",
+      "byteCount": 4285,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 29685,
+        "endByte": 33970,
+        "selectedDigest": "sha256:d8cc8105e4d16eea10fa8f908656a2c82e5690fc145cfb91e70ed00f84aa6053"
+      }
+    },
+    {
+      "path": "data-mapper-full/supporting-constants.original.txt",
+      "digest": "sha256:5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+      "byteCount": 3713,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 2501,
+        "endByte": 6214,
+        "selectedDigest": "sha256:5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70"
+      }
+    },
+    {
+      "path": "data-mapper-full/observable-contract.original.json",
+      "digest": "sha256:2c268e449c296e74ef4abf0ea309b65a0b7303f017b4c05692dc5d86e6a7a0e1",
+      "byteCount": 21201,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-workflow-scenarios.json",
+        "wholeFileDigest": "sha256:47e0abb7964063c839f9b239010b1ae498239fdb0507bc8ba7a10521eccc88e4",
+        "startByte": 22135,
+        "endByte": 43336,
+        "selectedDigest": "sha256:2c268e449c296e74ef4abf0ea309b65a0b7303f017b4c05692dc5d86e6a7a0e1"
+      },
+      "interpretation": "Independent observable contract only. Does not replace the complete28 original or impose supplemental fixed API choices."
+    },
+    {
+      "path": "data-mapper-full/source.original.txt",
+      "digest": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+      "byteCount": 41158,
+      "donor": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 40028,
+        "endByte": 81186,
+        "selectedDigest": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324"
+      }
+    }
+  ],
+  "sourceResolution": {
+    "dataMapper": "All source dependencies in the selected declaration are its inline8 requirement matrix,28 inline stage bodies and the locally acquired7 supporting data constants. Scala/spec/config/test paths name required FUTURE outputs, never donor read dependencies. Donor graph/type/evidence-shape IDs are historical meaning labels only.",
+    "hello": "Each selected exact source has all8 inline stage meanings; js-sdlc-bootstrap historical witness run path is provenance only. No witness run files are needed."
+  },
+  "limits": "No donor runtime, Program/controller implementation, receipts, node_modules, supplied output solution, paid execution or UAT/release pass acquired."
+}

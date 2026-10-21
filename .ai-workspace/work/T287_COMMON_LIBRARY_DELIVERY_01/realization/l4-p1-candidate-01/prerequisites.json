@@ -1,0 +1,48 @@
+{
+  "status": "verified",
+  "rootIndependentlyVerified": "combined freeze 8009 regular files plus 2 confined dependency symlinks, zero mismatch",
+  "writerFreshVerification": {
+    "combinedRows": 8011,
+    "protectedMainRows": 936,
+    "allMatched": true,
+    "exactSelectedRootsAbsent": true
+  },
+  "subject": {
+    "id": "candidate",
+    "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "18d80743d9b431445ce50d2acf47971554e1cce6ce14057175da8aa32c901f4e"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "2935813eaa6a49d2fec0139fa240a36132801efbfab353a4c467ec4005c9b142"
+    },
+    "packageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/package-inventory.json",
+      "sha256": "4c916ae8c0e44f195be0ac03b9005a5028752cbcfd3d668a1d72fd94177e64d3"
+    },
+    "supportManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/candidate-support-manifest.json",
+      "sha256": "b91dde527670e8fc01301af747298e3aba961a153d9e29e410a07732d9836474"
+    },
+    "inventories": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/execution-source-manifest.json",
+        "sha256": "39b1b42132c9fd547ecd0545be19284f89ebaab1eee748f1ab0f93f9966261db",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/generated-inventory.json",
+        "sha256": "e3830c658396c730882e7b14e08f8ce363209310f7b4c1998e86c7d83cab353f",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/dependency-inventory.json",
+        "sha256": "78d16a09d6660d104a5799f25833c82117926477aa671d6024f2a1c96e371341",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript"
+      }
+    ]
+  },
+  "sourceGrant": "L4-P1-CANDIDATE-01"
+}

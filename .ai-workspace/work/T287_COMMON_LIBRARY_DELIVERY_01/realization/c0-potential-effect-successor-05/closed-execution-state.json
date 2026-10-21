@@ -1,0 +1,56 @@
+{
+  "commands": [
+    {
+      "path": "commands/sunny-owner.result.json",
+      "pid": 88880,
+      "exitCode": 0,
+      "wallMs": 48911.11870785244,
+      "stdoutSha256": "57f2cd585f2fde96af1869df8aae915d1db070cf2d77d328bf102f8c73724f30",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/syntax.result.json",
+      "pid": 88742,
+      "exitCode": 0,
+      "wallMs": 39.63700006715953,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/unavailable-host-check.result.json",
+      "pid": 90012,
+      "exitCode": 0,
+      "wallMs": 501.2389582116157,
+      "stdoutSha256": "1858036ec6bd467f7930313e57deedd64dba58f2c4fbeb37a91d3db45383b47b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/unavailable-install.result.json",
+      "pid": 89710,
+      "exitCode": 0,
+      "wallMs": 2252.2916670423,
+      "stdoutSha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/unavailable-owner.result.json",
+      "pid": 90080,
+      "exitCode": 1,
+      "wallMs": 45352.68179187551,
+      "stdoutSha256": "9813a226506f271c560a0dbfd2972db3ca8e9fe79d72cabf4e5fd7e91f834e18",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "newCompileGeneratorPackSunnyHostInstall": 0,
+  "newOtherCaseHostInstalls": 1,
+  "actualProductFixtureInstalls": 2,
+  "principalOwnerTests": 2,
+  "principalC0PhysicalAttempts": 2,
+  "principalPassed": 1,
+  "principalFailed": 1,
+  "freshReadonlyChildren": 2,
+  "newNativeProviderActors": 0,
+  "componentTestExecuted": false,
+  "status": "stopped at first unexpected post-publication owner-admission/oracle failure",
+  "noRetryOrCleanup": true
+}

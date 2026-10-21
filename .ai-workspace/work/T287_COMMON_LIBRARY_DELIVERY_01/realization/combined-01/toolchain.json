@@ -1,0 +1,33 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--version"
+      ],
+      "exitCode": 0,
+      "stdout": "v24.7.0\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/npm",
+        "--version"
+      ],
+      "exitCode": 0,
+      "stdout": "11.5.1\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "--version"
+      ],
+      "exitCode": 0,
+      "stdout": "Version 5.9.2\n",
+      "stderr": ""
+    }
+  ],
+  "allPrebuildSourcePreserved": true
+}

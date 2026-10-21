@@ -1,0 +1,15 @@
+{
+  "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "HOME": "/Users/jim",
+  "LANG": "en_AU.UTF-8",
+  "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/tmp",
+  "npm_config_offline": "true",
+  "npm_config_ignore_scripts": "true",
+  "npm_config_audit": "false",
+  "npm_config_fund": "false",
+  "npm_config_update_notifier": "false",
+  "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-cache",
+  "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-logs",
+  "NODE_OPTIONS": "",
+  "PYTHONDONTWRITEBYTECODE": "1"
+}

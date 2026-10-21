@@ -1,0 +1,7 @@
+{
+  "authority": "E03-STREAM-DERIVATION-02",
+  "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+  "beforeSha256": "83d30732f2f29ea7c08c8519e1ea2865285ee4e332871b0d8de6620395f6f5dc",
+  "afterSha256": "78fc4541bcf29df031ae5486394f61c724ac913c9799422c77ffa683100b0d2e",
+  "relation": "one event-loop turn after stream error and before controlled exit/close; no production/compiled/package input changed"
+}

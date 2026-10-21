@@ -1,0 +1,34 @@
+{
+  "status": "verified",
+  "repairFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/freeze.json",
+    "sha256": "5bcbfbfa14151ad35126431bd9ee4a2930c62d797cdcece59b147a46f2e9b933",
+    "bytes": 2532688,
+    "mode": "0o644"
+  },
+  "repairRegularFilesVerified": 6671,
+  "ownedSupportOutputsVerified": 3,
+  "internalSymlinksVerified": 2,
+  "sourceRows": 1311,
+  "generatedRows": 936,
+  "dependencyRows": 4576,
+  "baselineOriginalInputsPreserved": true,
+  "baselineImmutableSourceRowsVerified": 1311,
+  "protectedMainRowsVerified": 936,
+  "originalFailureRecordsVerified": 29,
+  "originalFailureResidueFilesVerified": 11153,
+  "baselineP1Result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/result.json",
+    "sha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+    "obligations": [
+      "P1"
+    ]
+  },
+  "newRootsAbsent": {
+    "evidence": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence",
+    "host": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/host",
+    "scratchParent": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent",
+    "worksite": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/worksite"
+  },
+  "sourceToolchainArchiveSupportRunnerOracleMethodPinsMatched": true
+}

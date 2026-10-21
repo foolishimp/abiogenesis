@@ -1,0 +1,233 @@
+[
+  {
+    "path": "/private/tmp/abg-u1-c0-cx1-g3q8nmnt/abi5-u1-COPnnZ/events.jsonl",
+    "bytes": 147492,
+    "sha256": "fb003e02b9e8d07ba6edb4cf1f03bae44f48a8f1306b4e12465d4af93983a6f8",
+    "device": 16777231,
+    "inode": 474150584,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-cx1-g3q8nmnt/abi5-u1-COPnnZ/events.jsonl",
+      "prefixLength": 147492,
+      "prefixDigest": "sha256:fb003e02b9e8d07ba6edb4cf1f03bae44f48a8f1306b4e12465d4af93983a6f8",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474150584,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:ecd2387d5e8eecc03fae515f95b85533f9b1e22a75ddf2c0e931f7849880594f"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-LAd8o0/events.jsonl",
+    "bytes": 123076,
+    "sha256": "4a63ee154359f293460271d73a773a09fbb5045ec085aae2a0106aa9b20cdf5f",
+    "device": 16777231,
+    "inode": 474151703,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-LAd8o0/events.jsonl",
+      "prefixLength": 123076,
+      "prefixDigest": "sha256:4a63ee154359f293460271d73a773a09fbb5045ec085aae2a0106aa9b20cdf5f",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151703,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:45756dad855c8d567fcdf2f7f85cd0f726b95c9d36f5bcce001d104d55bae4a0"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-yc6Eb9/events.jsonl",
+    "bytes": 148855,
+    "sha256": "a14524e98bf9917efa12ef07f157f6321cfdc76fd093977ff6ed5073a2707a5d",
+    "device": 16777231,
+    "inode": 474151720,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-yc6Eb9/events.jsonl",
+      "prefixLength": 148855,
+      "prefixDigest": "sha256:a14524e98bf9917efa12ef07f157f6321cfdc76fd093977ff6ed5073a2707a5d",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151720,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:27c259914b1d9cd459e015c00bf4a1d25b468895f87cbefd6567bd64f0b0809e"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-JAS1HB/events.jsonl",
+    "bytes": 148823,
+    "sha256": "703de34f3037fbdd45d25e2f07020b137ce1ddc1fc132997ca4947f035a88e4d",
+    "device": 16777231,
+    "inode": 474151737,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-JAS1HB/events.jsonl",
+      "prefixLength": 148823,
+      "prefixDigest": "sha256:703de34f3037fbdd45d25e2f07020b137ce1ddc1fc132997ca4947f035a88e4d",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151737,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:54a6b274b8ad8ba7f4cd5d87e1d4479233842739ed8c43e560ff3f323bcfdd35"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-3n0ka2/events.jsonl",
+    "bytes": 147800,
+    "sha256": "db2840c9030e2d89ffdae768de44efaf73b3a3be4ba12aa416e1a6c1bcc5a7b3",
+    "device": 16777231,
+    "inode": 474151753,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-3n0ka2/events.jsonl",
+      "prefixLength": 147800,
+      "prefixDigest": "sha256:db2840c9030e2d89ffdae768de44efaf73b3a3be4ba12aa416e1a6c1bcc5a7b3",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151753,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:651a3e1d5dd0f115d61c11525b30912d84a0ed20cbf0da058510a9a2e14990fd"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-ldvoVA/events.jsonl",
+    "bytes": 147887,
+    "sha256": "9c08644fd0136a2d00a7d3e7b58f3d539590f1cb63c4448daad73070b703f996",
+    "device": 16777231,
+    "inode": 474151768,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-ldvoVA/events.jsonl",
+      "prefixLength": 147887,
+      "prefixDigest": "sha256:9c08644fd0136a2d00a7d3e7b58f3d539590f1cb63c4448daad73070b703f996",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151768,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:d2addec77c8b7c2a08da581525b0123427d846d16d7d6989a3d67982cb521287"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-4mQ0tv/events.jsonl",
+    "bytes": 146044,
+    "sha256": "cea7bb37c87ede77527aed6af161b2d221d9acb04800ae0c5806152c35e232c5",
+    "device": 16777231,
+    "inode": 474151783,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-4mQ0tv/events.jsonl",
+      "prefixLength": 146044,
+      "prefixDigest": "sha256:cea7bb37c87ede77527aed6af161b2d221d9acb04800ae0c5806152c35e232c5",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151783,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:8268bae2fccc9781a96f2b7c7b19773d6bcbf07bbe440a31157c28ed58dba29e"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-kRTugu/events.jsonl",
+    "bytes": 102821,
+    "sha256": "a223d25a39c8a0b7ba293bca22617caec4e3c51cb17087f0d0480a6f87c81a41",
+    "device": 16777231,
+    "inode": 474151798,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-kRTugu/events.jsonl",
+      "prefixLength": 102821,
+      "prefixDigest": "sha256:a223d25a39c8a0b7ba293bca22617caec4e3c51cb17087f0d0480a6f87c81a41",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151798,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:bb733203b13ef58bad30e27bd0fa8e1da16741d3e65665d7bded788d76138502"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-hRxpE4/events.jsonl",
+    "bytes": 102824,
+    "sha256": "7639c639be8707fb836e7ed1bf613d9f02ead75f78cb004ac59c2ab821aa95b6",
+    "device": 16777231,
+    "inode": 474151813,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-hRxpE4/events.jsonl",
+      "prefixLength": 102824,
+      "prefixDigest": "sha256:7639c639be8707fb836e7ed1bf613d9f02ead75f78cb004ac59c2ab821aa95b6",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151813,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:6b6b1b4791ef8e660fc7d60e50d7703b894c3891464b9b789110c715cc76fcce"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-pReMTf/events.jsonl",
+    "bytes": 178800,
+    "sha256": "9ab92537d4bb940467791c81d166e57ddd80ba0d0069c972bccd64dece6c88ed",
+    "device": 16777231,
+    "inode": 474151828,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-pReMTf/events.jsonl",
+      "prefixLength": 178800,
+      "prefixDigest": "sha256:9ab92537d4bb940467791c81d166e57ddd80ba0d0069c972bccd64dece6c88ed",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151828,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:62fb387f004fee1121c85b346884a748c7a6909d626c8d1beed19ae04a127a83"
+    },
+    "same_recorded_bytes": true
+  },
+  {
+    "path": "/private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-pT8HsX/events.jsonl",
+    "bytes": 134939,
+    "sha256": "839391fabfb344697505e0cf6b67a89a18e85f9c98c1bde33b63545d2330ce8e",
+    "device": 16777231,
+    "inode": 474151847,
+    "recorded_prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-u1-c0-successor-uly0wqi4/abi5-u1-pT8HsX/events.jsonl",
+      "prefixLength": 134939,
+      "prefixDigest": "sha256:839391fabfb344697505e0cf6b67a89a18e85f9c98c1bde33b63545d2330ce8e",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474151847,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:d8ac7072648d678fac6bb25ed9fdb37b31a38875516fa3e3570c32a2405b92ae"
+    },
+    "same_recorded_bytes": true
+  }
+]

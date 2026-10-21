@@ -1,0 +1,30 @@
+{
+  "verified_utc": "2026-10-21T01:28:58.504381+00:00",
+  "pure_freeze_and_report_pins_preserved": true,
+  "accepted_library_design_and_L2_preserved": true,
+  "pre_edit_how_preserved": true,
+  "preimages_verified": 21,
+  "old_pure_stage_entries_unchanged": 6632,
+  "old_records_and_unaffected_owned_rows_unchanged": 71,
+  "authorized_main_preimages_preserved": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs"
+  ],
+  "main_generated_bytes_and_modes_unchanged": 936,
+  "new_stage_dependency_entries_unchanged": 4576,
+  "new_stage_entries": 6632,
+  "new_stage_only_changes": [
+    "build_tenants/abiogenesis/typescript/build/code/src/gtl/stdo_run_environment.js",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs"
+  ],
+  "focused_temporary_mirror_removed": true,
+  "all_execution_receipts_exit_zero": 5,
+  "unexpected_integration_failures": 0,
+  "runtime_admissions": 0,
+  "native_dispatches": 0,
+  "installed_workloads": 0,
+  "corpus_tool_launches": 0,
+  "unconfirmed_physical_effects": [],
+  "git_operations": 0
+}

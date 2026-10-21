@@ -1,0 +1,182 @@
+{
+  "activation": "E03-PHYSICAL-LAUNCH-FAILURE-01",
+  "closedUtc": "2026-10-21T02:20:12.577701+00:00",
+  "unchangedCounts": {
+    "closedRecords": 183,
+    "frozenOutputCopies": 4,
+    "stage": 1946,
+    "dependencies": 4576,
+    "emitted": 743,
+    "protectedMain": 936,
+    "frozenBeforeExecutionInputs": 10
+  },
+  "protectedMainMemberSetUnchanged": true,
+  "mismatches": [],
+  "perCaseSummary": [
+    {
+      "case": "worker",
+      "pidWasUndefined": true,
+      "childErrorCount": 1,
+      "streamErrorCount": 0,
+      "spawnEvents": 0,
+      "directExitEvents": 0,
+      "childCloseEvents": 1,
+      "stdinEndByteArguments": [
+        8388608
+      ],
+      "stdinAfterEndWritableLengths": [
+        0
+      ],
+      "actualOutputDataBytes": 0,
+      "returnStatus": null,
+      "firstError": "not exposed by this owner",
+      "closeObserved": "not exposed by this owner",
+      "commandDiagnosticBytes": null
+    },
+    {
+      "case": "command",
+      "pidWasUndefined": true,
+      "childErrorCount": 1,
+      "streamErrorCount": 0,
+      "spawnEvents": 0,
+      "directExitEvents": 0,
+      "childCloseEvents": 1,
+      "stdinEndByteArguments": [],
+      "stdinAfterEndWritableLengths": [],
+      "actualOutputDataBytes": 0,
+      "returnStatus": 127,
+      "firstError": "not exposed by this owner",
+      "closeObserved": "not exposed by this owner",
+      "commandDiagnosticBytes": 107
+    },
+    {
+      "case": "direct",
+      "pidWasUndefined": true,
+      "childErrorCount": 1,
+      "streamErrorCount": 0,
+      "spawnEvents": 0,
+      "directExitEvents": 0,
+      "childCloseEvents": 1,
+      "stdinEndByteArguments": [
+        8388608
+      ],
+      "stdinAfterEndWritableLengths": [
+        0
+      ],
+      "actualOutputDataBytes": 0,
+      "returnStatus": null,
+      "firstError": null,
+      "closeObserved": true,
+      "commandDiagnosticBytes": null
+    }
+  ],
+  "physicalEvidence": {
+    "files": 15,
+    "bytes": 8480107,
+    "inventory": [
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/command-actual.json",
+        "bytes": 14137,
+        "sha256": "33b621989053a9495d8fd4493feac1d4f43ccec6789eb743b3f33db6be992cf7"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/command-decision.json",
+        "bytes": 109,
+        "sha256": "235e0dfecbd62f121439232d52169d1a17138cb33dc324f00f2fe6d6d27290da"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/direct-actual.json",
+        "bytes": 21075,
+        "sha256": "df939a905ed6d3ef69ed5c025afba709d8795d072a2b374dfaa9a3703e864b52"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/direct-decision.json",
+        "bytes": 107,
+        "sha256": "6555b282205ebe749ea079d92b50576ad8802bf5d781a7db5160199d16f0ba97"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/events.jsonl",
+        "bytes": 31543,
+        "sha256": "c61041a2aacc89875c3961b1ea4fc0f5cc871e52ca9dbe4b56a70be57fa793a4"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/host-result.json",
+        "bytes": 780,
+        "sha256": "6d75d5111821c330eaeeb30d516d39f9937e7444ffabdba7f205e7896e07c5ad"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/host.stderr",
+        "bytes": 173,
+        "sha256": "3fb02207e1157f64d7d4e79fbb80ecc2879a9f9d3577907907c415322e119bf6"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/host.stdout",
+        "bytes": 90,
+        "sha256": "230cb7257c0d14ec6e7827086bcc07c308fc8f2e56c6e634787fbb0c7784c330"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-actual.json",
+        "bytes": 21682,
+        "sha256": "e39e5078786fe8066de371604c253714da6d73f9425d832b300146ab7ab49068"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-output.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-prompt.txt",
+        "bytes": 8388608,
+        "sha256": "0c77bc0a0795a93612d45256897456d0fcb24f151c44c150d07ecd03f4ef5168"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-transport.json",
+        "bytes": 1696,
+        "sha256": "e2e4d740712a71729ae9735a4893e523d7536cfa37f7b3500489714940aeef63"
+      },
+      {
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-decision.json",
+        "bytes": 107,
+        "sha256": "b8caf33048202b7c8ae3012a0eed2b5ffd1d348a01e1311777957acce3834641"
+      }
+    ]
+  },
+  "scratchFiles": [],
+  "scratchDirectories": [
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/command-cwd",
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/direct-cwd",
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/worker-cwd"
+  ],
+  "rootsRetained": [
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63",
+    "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63"
+  ],
+  "absentExecutableStillAbsent": true,
+  "hostAbsenceAtParentReceipt": {
+    "directPid": {
+      "state": "absent",
+      "errno": "ESRCH"
+    },
+    "processGroup": {
+      "state": "absent",
+      "errno": "ESRCH"
+    }
+  },
+  "hostWatchdogSignals": [],
+  "notMeasured": [
+    "host CPU/RSS peak",
+    "internal worker and command common-lifetime fact objects",
+    "universal Node/platform event interleavings"
+  ],
+  "preservationScope": "Named immutable stage/record/dependency and 936 main generated files only; no whole moving-worktree claim."
+}

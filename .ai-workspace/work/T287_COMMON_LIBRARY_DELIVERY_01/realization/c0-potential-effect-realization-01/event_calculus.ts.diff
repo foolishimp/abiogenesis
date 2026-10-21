@@ -1,0 +1,245 @@
+--- before/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts
+@@ -32,11 +32,13 @@
+ import { isRuntimeProbeObservation, isRuntimeSystemProbeContract,
+   type RuntimeInvocationScope, type RuntimeProbeObservation, type RuntimeSystemProbeContract } from "./runtime_liveness_contracts.js";
+ import { createRuntimeLivenessEventValidator } from "./runtime_liveness.js";
+-import { projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from "./c_call_outcome.js";
++import { projectWorksiteBasisObservation, projectWorksiteSelectedOccurrence, worksiteSelectedOccurrenceDependencies, projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from "./c_call_outcome.js";
+ import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
+ import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkObservation,
+   isNativeWorkspaceWorkFailure,
+   nativeWorkspacePathWithin, type NativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
++import { worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
++import type { CCall } from "./c_call.js";
+ import { nativeWorkUnknownEffectDependencies, projectNativeWorkUnknownEffectTask } from "./native_work_effect.js";
+ 
+ interface EventCalculusEffectRefs {
+@@ -439,73 +441,6 @@
+   });
+ }
+ 
+-function worksiteBasisObservation(
+-  event: RuntimeEvent,
+-  priorEvents: readonly RuntimeEvent[],
+-): string | null {
+-  const payload = isRecord(event.payload) ? event.payload : null;
+-  const request = payload?.rawInputValue ?? null;
+-  if (!isWorksiteFileReplaceRequest(request) || payload === null) {
+-    return null;
+-  }
+-  const invocationAdmissionRef = payload.invocationAdmissionRef;
+-  const admissionRows = typeof invocationAdmissionRef !== "string"
+-    ? []
+-    : priorEvents.filter((row) =>
+-        row.kind === "invocation_admitted" &&
+-        isRecord(row.payload) &&
+-        row.payload.invocationAdmissionRef === invocationAdmissionRef
+-      );
+-  if (admissionRows.length !== 1 || !isRecord(admissionRows[0]!.payload)) {
+-    return null;
+-  }
+-  const admission = admissionRows[0]!.payload;
+-  const grants = admission.capabilityGrants;
+-  const admittedGrant = Array.isArray(grants) && grants.length === 1
+-    ? grants[0]
+-    : null;
+-  const basisClass = payload.basisClass;
+-  const graphFunctionAuthorized = basisClass === "root"
+-    ? payload.graphFunctionRef === admission.graphFunctionRef
+-    : basisClass === "child" &&
+-      typeof payload.parentExecutionBasisRef === "string" &&
+-      typeof payload.parentCCallRef === "string" &&
+-      priorEvents.filter((row) =>
+-        row.kind === "basis_admitted" &&
+-        isRecord(row.payload) &&
+-        row.payload.basisRef === payload.parentExecutionBasisRef &&
+-        row.payload.invocationAdmissionRef === invocationAdmissionRef &&
+-        row.payload.programRef === payload.programRef &&
+-        row.payload.workspaceBindingId === payload.workspaceBindingId &&
+-        row.payload.workspaceBindingDigest ===
+-          payload.workspaceBindingDigest &&
+-        row.payload.actorRef === payload.actorRef
+-      ).length === 1 &&
+-      priorEvents.filter((row) =>
+-        row.kind === "c_call_opened" &&
+-        row.basisId === payload.parentExecutionBasisRef &&
+-        isRecord(row.payload) &&
+-        row.payload.cCallRef === payload.parentCCallRef &&
+-        row.payload.callClass === "workflow" &&
+-        row.payload.childGraphFunctionRef === payload.graphFunctionRef
+-      ).length === 1;
+-  return admittedGrant !== null && isRecord(admittedGrant) &&
+-      sha256Canonical(admittedGrant) ===
+-        sha256Canonical(request.capabilityGrant as unknown as JsonValue) &&
+-      request.capabilityGrant.grantRef ===
+-        admittedGrant.grantRef &&
+-      request.capabilityGrant.grantDigest ===
+-        admittedGrant.grantDigest &&
+-      request.workspaceBindingIdentity === payload.workspaceBindingId &&
+-      request.workspaceBindingDigest === payload.workspaceBindingDigest &&
+-      request.capabilityGrant.actorRef === payload.actorRef &&
+-      request.capabilityGrant.scopeRef === payload.workspaceBindingId &&
+-      request.capabilityGrant.scopeDigest === payload.workspaceBindingDigest &&
+-      payload.programRef === admission.programRef &&
+-      graphFunctionAuthorized
+-    ? request.predecessorObservation.observationRef
+-    : null;
+-}
+ 
+ export function projectWorksiteTransitionForResult(
+   event: RuntimeEvent,
+@@ -578,15 +513,21 @@
+ /** @internal */
+ export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): readonly string[];
+ export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): readonly string[] {
++  const scope = nativeWorkPhysicalScope(event, priorEvents, ownedPrefix);
++  return scope === null ? [] : retiredWorksiteObservations(scope.canonicalRoot, scope.affectsPath, priorEvents);
++}
++function nativeWorkPhysicalScope(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix):
++  { canonicalRoot: string; affectsPath: (path: string) => boolean } | null {
+   if (event.kind === "actor_invocation_failed" || event.kind === "actor_process_termination_unconfirmed") {
+     const task = projectNativeWorkUnknownEffectTask(event, priorEvents, ownedPrefix);
+-    return task === null ? [] : retiredNativeWorkObservations(task, null, priorEvents);
+-  }
+-  if (event.kind !== "c_call_result_admitted" || !isRecord(event.payload)) return [];
++    return task === null ? null : { canonicalRoot: task.workspaceAuthorityBasis.canonicalRoot,
++      affectsPath: path => nativeWorkspacePathWithin(path, task.writeRoots) };
++  }
++  if (event.kind !== "c_call_result_admitted" || !isRecord(event.payload)) return null;
+   const value = event.payload.value;
+   if (!(isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) ||
+     value.provenance.cCallRef !== event.aggregateId ||
+-    event.payload.contractRef !== (value.kind === "native_workspace_work_observation" ? nativeIds.observationContractRef : nativeIds.failureContractRef)) return [];
++    event.payload.contractRef !== (value.kind === "native_workspace_work_observation" ? nativeIds.observationContractRef : nativeIds.failureContractRef)) return null;
+   const evidenceRefs = stringArrayField(event, "evidenceRefs");
+   // Existing retry failure admission adds signal/source coordinates while
+   // preserving the original owner candidate digest cited by transport evidence.
+@@ -595,15 +536,36 @@
+   if (!priorEvents.some(row => row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId && isRecord(row.payload) &&
+     evidenceRefs.includes(row.payload.evidenceRef as string) && row.payload.evidenceClass === "probabilistic_transport" &&
+     row.payload.implementationRef === nativeIds.implementationRef && row.payload.transportDigest === value.provenance.transportDigest &&
+-    row.payload.outputDigest === valueDigest)) return [];
++    row.payload.outputDigest === valueDigest)) return null;
+   const changed = value.after === null || value.changedPaths === null ? null : new Set(value.changedPaths);
+-  return retiredNativeWorkObservations(value.task, changed, priorEvents);
+-}
+-
+-function retiredNativeWorkObservations(task: NativeWorkspaceWorkTask, changed: ReadonlySet<string> | null,
+-  priorEvents: readonly RuntimeEvent[]): readonly string[] {
+-  return retiredWorksiteObservations(task.workspaceAuthorityBasis.canonicalRoot,
+-    path => changed === null ? nativeWorkspacePathWithin(path, task.writeRoots) : changed.has(path), priorEvents);
++  return { canonicalRoot: value.task.workspaceAuthorityBasis.canonicalRoot,
++    affectsPath: path => changed === null ? nativeWorkspacePathWithin(path, value.task.writeRoots) : changed.has(path) };
++}
++
++/** A raw basis carries a value, not a new physical observation occurrence. */
++function worksiteBasisMayEstablish(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): boolean {
++  if (!isRecord(event.payload) || !isWorksiteFileReplaceRequest(event.payload.rawInputValue)) return false;
++  const request = event.payload.rawInputValue;
++  let lastCause = 0, lastEstablishment = 0;
++  for (const cause of priorEvents) {
++    if (cause.kind !== "c_call_result_admitted" && cause.kind !== "c_call_fibre_selected" &&
++      cause.kind !== "actor_invocation_failed" && cause.kind !== "actor_process_termination_unconfirmed") continue;
++    const before = priorEvents.filter(row => row.admissionOrdinal < cause.admissionOrdinal);
++    const transition = cause.kind === "c_call_result_admitted" ? worksiteTransitionForResult(cause, before) : null;
++    const selected = cause.kind === "c_call_fibre_selected" ? projectWorksiteSelectedOccurrence(cause, before) : null;
++    const causeRequest = transition?.request ?? selected?.request;
++    if (causeRequest !== undefined && causeRequest.workspaceAuthorityBasis.canonicalRoot === request.workspaceAuthorityBasis.canonicalRoot &&
++      causeRequest.subject.relativePath === request.subject.relativePath) {
++      lastCause = Math.max(lastCause, cause.admissionOrdinal);
++      if (transition?.after === request.predecessorObservation.observationRef && transition.successorObservation !== null)
++        lastEstablishment = Math.max(lastEstablishment, cause.admissionOrdinal);
++    }
++    const native = nativeWorkPhysicalScope(cause, before, ownedPrefix === undefined ? undefined :
++      validatedRuntimeEventPrefixBeforeEvent(ownedPrefix, cause.eventId));
++    if (native?.canonicalRoot === request.workspaceAuthorityBasis.canonicalRoot && native.affectsPath(request.subject.relativePath))
++      lastCause = Math.max(lastCause, cause.admissionOrdinal);
++  }
++  return lastCause === 0 || lastEstablishment >= lastCause;
+ }
+ 
+ /** Physical target selection is shared; each caller retains its authenticated
+@@ -702,7 +664,8 @@
+   const event = eventOrKind as RuntimeEvent;
+   switch (event.kind) {
+     case "basis_admitted": {
+-      const observationRef = worksiteBasisObservation(event, priorEvents);
++      const observationRef = worksiteBasisMayEstablish(event, priorEvents, history?.prefix)
++        ? projectWorksiteBasisObservation(event, priorEvents) : null;
+       return {
+         initiates: [
+           fluent("basis_admitted", event.basisId ?? event.eventId),
+@@ -824,13 +787,17 @@
+         clips: [],
+         declips: [],
+       };
+-    case "c_call_fibre_selected":
++    case "c_call_fibre_selected": {
++      const selected = projectWorksiteSelectedOccurrence(event, priorEvents);
+       return {
+         initiates: [fluent("c_call_fibre_admitted", event.aggregateId)],
+-        terminates: [],
+-        clips: [],
+-        declips: [],
+-      };
++        terminates: selected === null ? [] : retiredWorksiteObservations(
++          selected.request.workspaceAuthorityBasis.canonicalRoot,
++          path => path === selected.request.subject.relativePath, priorEvents)
++          .map(ref => fluent("worksite_observation_current", ref)),
++        clips: [], declips: [],
++      };
++    }
+     case "actor_transport_binding_admitted":
+       return {
+         initiates: [fluent("actor_transport_binding_admitted", event.aggregateId)],
+@@ -1779,11 +1746,28 @@
+   const before = validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
+   const selected = new Map<string, RuntimeEvent>();
+   const add = (key: string) => { for (const row of indexedRuntimeEvents(before, key)) selected.set(row.eventId, row); };
++  const addPhysicalDependencies = () => {
++    add("worksite-observation-dependency");
++    for (const cause of indexedRuntimeEvents(before, "worksite-observation-dependency")) {
++      if (cause.kind === "c_call_fibre_selected")
++        for (const row of worksiteSelectedOccurrenceDependencies(before, cause)) selected.set(row.eventId, row);
++      if (cause.kind === "c_call_result_admitted") {
++        add("aggregate:c_call:" + cause.aggregateId);
++        for (const row of worksiteFailureResultDependencies(before, cause)) selected.set(row.eventId, row);
++      }
++      if (cause.kind === "actor_invocation_failed" || cause.kind === "actor_process_termination_unconfirmed")
++        for (const row of nativeWorkUnknownEffectDependencies(before, cause)) selected.set(row.eventId, row);
++    }
++  };
+   const payload = isRecord(event.payload) ? event.payload : null;
+   if (event.kind === "basis_admitted" && payload !== null) {
++    if (isWorksiteFileReplaceRequest(payload.rawInputValue)) addPhysicalDependencies();
+     if (typeof payload.invocationAdmissionRef === "string") add("payload:invocationAdmissionRef:" + payload.invocationAdmissionRef);
+     if (typeof payload.parentExecutionBasisRef === "string") add("basis:" + payload.parentExecutionBasisRef);
+     if (typeof payload.parentCCallRef === "string") add("aggregate:c_call:" + payload.parentCCallRef);
++  } else if (event.kind === "c_call_fibre_selected") {
++    for (const row of worksiteSelectedOccurrenceDependencies(prefix, event)) selected.set(row.eventId, row);
++    add("worksite-observation-dependency");
+   } else if (event.kind === "c_call_result_admitted") {
+     add("aggregate:c_call:" + event.aggregateId);
+     if (payload?.contractRef === WORKSITE_C0_IDS.outputContractRef)
+@@ -2148,3 +2132,20 @@
+   const key = runtimeFluentKey(fluent);
+   return projection.holds.some((candidate) => runtimeFluentKey(candidate) === key);
+ }
++
++/** @internal Eligibility of this selected C0 occurrence, never public currentness.
++ * The three current owners retain their own exact prefix/phase/authority checks. */
++export function worksiteSelectedOccurrenceInputCurrent(authorityPrefix: RuntimeEventPrefix,
++  cCall: CCall, request: WorksiteFileReplaceRequest): boolean {
++  const fibre = runtimeEventAtPrefix(authorityPrefix, cCall.fibreSelectedEventRef);
++  if (fibre === undefined) return false;
++  const occurrence = projectWorksiteSelectedOccurrence(fibre, worksiteSelectedOccurrenceDependencies(authorityPrefix, fibre));
++  if (occurrence === null || occurrence.cCall.cCallRef !== cCall.cCallRef ||
++    occurrence.cCall.cCallDigest !== cCall.cCallDigest || occurrence.cCall.openedEventRef !== cCall.openedEventRef ||
++    sha256Canonical(occurrence.request as unknown as JsonValue) !== sha256Canonical(request as unknown as JsonValue)) return false;
++  const before = validatedRuntimeEventPrefixBeforeEvent(authorityPrefix, fibre.eventId);
++  return holdsAt(deriveRuntimeHeldFluentProjection(before),
++    constructWorksiteObservationCurrentFluent(request.predecessorObservation.observationRef)) &&
++    !worksiteCommandSourcesInvalidatedAfter(authorityPrefix, fibre.admissionOrdinal,
++      request.workspaceAuthorityBasis.canonicalRoot, [request.subject.relativePath]);
++}

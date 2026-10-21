@@ -1,0 +1,10 @@
+{
+  "failedDraft": "support-only successor preflight before F2 launch",
+  "decidingExpression": "raw hex file hashes supplied to payloadInventoryDigest correspondence",
+  "actualDraftDigest": "sha256:a05840cce57d51be7cae89b29ef6d86b94966f01491c3db11cd9dc8d1e8cee74",
+  "producerDigest": "sha256:8c0521d15ade43c503c56d46c8b7a10a42d6e172a8841443de9ad6980ed0cf21",
+  "ownerConvention": "shared/digests.ts sha256File returns Sha256Digest with sha256: prefix; generator stores that exact value in each payload row",
+  "allAsciiPaths": true,
+  "noFixtureLaunch": true,
+  "sourceChecksBeforeFailure": "1311 non-generated input rows, 4576 dependency entries, main936, emitted Product/member/span, C2 inventory and graph asset digest passed"
+}

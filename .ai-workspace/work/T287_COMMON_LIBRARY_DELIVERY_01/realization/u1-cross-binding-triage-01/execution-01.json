@@ -1,0 +1,19 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/discriminator.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "environment_overrides": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01/physical",
+    "ABG_WORKSITE_BUILD_ROOT": null
+  },
+  "started": "2026-10-21T01:10:38.031217+00:00",
+  "ended": "2026-10-21T01:10:38.441370+00:00",
+  "exit_code": 0,
+  "inputs_sha256": "bee75c2bb9532eaa7a00d794d85baafd69a914f60fa8f945f957049f579dbc6c",
+  "stdout_sha256": "cc4f1f66ab193074afeb31d84b3323d11bd773675013e204d9d1f1fdd3385313",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exit_zero_means_observation_completed_not_Product_predicate_pass": true
+}

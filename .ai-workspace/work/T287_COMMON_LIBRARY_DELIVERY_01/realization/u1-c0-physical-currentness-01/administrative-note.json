@@ -1,0 +1,5 @@
+{
+  "precompile_metadata_display_error": "A final print tried .keys() on the list-shaped main generated inventory after source-inputs, source-delta and auth-correspondence had been written. No compilation or integration had run in that helper. Subsequent read-only inventory inspection recognized the actual list shape. This was not the selected integration retry.",
+  "candidate_edits_after_unexpected_integration_failure": 0,
+  "integration_retries": 0
+}

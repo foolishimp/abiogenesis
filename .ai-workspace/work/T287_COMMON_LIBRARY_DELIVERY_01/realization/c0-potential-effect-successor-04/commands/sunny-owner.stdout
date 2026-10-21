@@ -1,0 +1,35 @@
+✖ B04-06 replace: installed owner, ABG admission and fresh replay (38342.687041ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 38415.575
+
+✖ failing tests:
+
+test at test_env/tests/t287-c0-post-publication-failure.test.mjs:705:38
+✖ B04-06 replace: installed owner, ABG admission and fresh replay (38342.687041ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"invocation_admission_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"authority_mismatch","message":"invocation admission requires the exact held artifact-truth predecessor prefix"}
+  + actual - expected
+  
+  + 'invocation_admission_refusal'
+  - 'invocation_admission_receipt'
+                            ^
+  
+      at setupInstalledRootInvocation (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:805:10)
+      at async setupInstalledRootResolution (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:838:23)
+      at async setupInstalledRootExecutionBasis (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:999:23)
+      at async retainedInputOrigin (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs:233:20)
+      at async runCase (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs:398:44)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'invocation_admission_refusal',
+    expected: 'invocation_admission_receipt',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

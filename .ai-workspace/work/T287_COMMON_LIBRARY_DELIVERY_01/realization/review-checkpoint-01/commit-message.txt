@@ -1,0 +1,9 @@
+wip: checkpoint STDO 3 common-library retirement and review
+
+Preserve the complete visible source and retained evidence for review on another
+machine. Record the retirement correction, open E03 source defect, P5 timeout,
+and independently reviewed role/source and lifetime design dispositions.
+
+Include the bounded portable evidence carrier, exact LFS byte routes, failed
+transport cuts and explicit retained-evidence whitespace exception. Common-library
+delivery, L5 and the 5.0 release gate remain open or blocked as recorded.

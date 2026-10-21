@@ -1,0 +1,13 @@
+--- closed-preimage/event_calculus.ts
++++ successor/event_calculus.ts
+@@ -619,8 +619,8 @@
+     if (!isRecord(row.payload)) continue;
+     const request = row.kind === "basis_admitted" ? row.payload.rawInputValue :
+       row.kind === "c_call_evidenced" && row.payload.evidenceClass === "worksite_file_replace" ? row.payload.request : null;
+-    if (!isWorksiteFileReplaceRequest(request) || request.workspaceBindingIdentity !== task.workspaceBinding.bindingId ||
+-      request.workspaceBindingDigest !== task.workspaceBinding.bindingDigest ||
++    if (!isWorksiteFileReplaceRequest(request) ||
++      request.workspaceAuthorityBasis.canonicalRoot !== task.workspaceAuthorityBasis.canonicalRoot ||
+       !(changed === null ? nativeWorkspacePathWithin(request.subject.relativePath, task.writeRoots) :
+         changed.has(request.subject.relativePath))) continue;
+     retired.add(request.predecessorObservation.observationRef);

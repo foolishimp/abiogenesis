@@ -1,0 +1,153 @@
+{
+  "scope": "Selected source and compact closed-record identities only; no nested inventory rescan or new runtime evidence. Root full-subject verification remains attributed.",
+  "inputs": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "bytes": 11923,
+      "comparison": "current read-only source pin"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146,
+      "comparison": "current read-only source pin"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "bytes": 97498,
+      "comparison": "current read-only source pin"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853,
+      "comparison": "current read-only source pin"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+      "bytes": 63515,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "bytes": 26888,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/freeze.json",
+      "sha256": "96b9ce2062ab04f1a456ba28d3122160e1093d8b6ecdfb88ae1cd8b6f0338ee8",
+      "bytes": 1981007,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/return.json",
+      "sha256": "0549b321c430fe72a6403f867fdd2524f06d850d8ad7c32298319f8e3eea2c8b",
+      "bytes": 3815,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/freeze.json",
+      "sha256": "ef5880b819921df5e34c5f974e75f0d34dff07496ca84a571fda97a577be3991",
+      "bytes": 27969,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/return.json",
+      "sha256": "71f8ccbec35673543b556517b4ff870045d8297fcba59e5842944408d105beac",
+      "bytes": 2809,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/remaining-lane-legacy-dependencies.json",
+      "sha256": "93170f4bd8e118e67db2b6122684d9a4ccb50ff093f38940d7f56971415f24fc",
+      "bytes": 15821,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01/freeze.json",
+      "sha256": "7dfed3a37aa0aab857fddbf24933917c5457ce03e5bba796322bc953a87a2f84",
+      "bytes": 2213,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/failure-freeze.json",
+      "sha256": "c54099a297ac9fb7f0ec979dd8d61cfaaa370f5485ffcff7c8f1bfaabdca8a9f",
+      "bytes": 26511,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/failure-report.md",
+      "sha256": "4ef2c61bdfae2f832b440fa231f5b10872f83b1881f4562e30510e10cc427fb5",
+      "bytes": 2577,
+      "comparison": "current read-only source pin"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/clock-phase-evidence.json",
+      "sha256": "721b524c4af49545a0ad0d8250a05931bb27a41544367510175094cdd665e6c2",
+      "bytes": 12426,
+      "comparison": "current read-only source pin"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/freeze.json",
+      "sha256": "305ee8fa9a5bf84f5151a0699e0d51d9e534424304f5920bf1d3fdeca66536c5",
+      "bytes": 11549,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/freeze.json",
+      "sha256": "04c6e9dbdf22eb68ec3024240c7e7e64b951b9fa85f2aa849080e2f0fc09bd89",
+      "bytes": 11784,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/freeze.json",
+      "sha256": "6d6aff5c485bf77e4ee8dd62dd093e9aa3a92966738d84f0b8267e675c5e1326",
+      "bytes": 7410,
+      "comparison": "exact supplied pin matched"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-09/freeze.json",
+      "sha256": "14712630fe37b553682071d344ff3bd3817b2280e0dda819a16ea5d2a3d3ac33",
+      "bytes": 9987,
+      "comparison": "exact supplied pin matched"
+    }
+  ],
+  "methodDocuments": [
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+      "resolvedPath": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+      "sha256": "aafb1bf63e7928c9a21c4fe4982e4a4cdefa32b931a256e56543eb7cf629d7cd",
+      "bytes": 83085
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "resolvedPath": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "bytes": 156797
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md",
+      "resolvedPath": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ACTIVATION.md",
+      "sha256": "7ad7b69b5ad8ec20678b3ef866a26fb328f2fa6f60c4d1d06ca0b926845b89bf",
+      "bytes": 139919
+    }
+  ],
+  "methodVerification": {
+    "command": [
+      "/Users/jim/.local/bin/stdo",
+      "verify",
+      "v3.0.0-rc.1",
+      "--manifest-sha256",
+      "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+    ],
+    "observation": "tool return transcription, not saved raw stdout",
+    "exitCode": 0,
+    "valid": true,
+    "failures": [],
+    "composition": []
+  }
+}

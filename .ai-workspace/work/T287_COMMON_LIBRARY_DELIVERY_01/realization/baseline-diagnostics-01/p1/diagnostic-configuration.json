@@ -1,0 +1,164 @@
+{
+  "kind": "t287_passive_diagnostic_configuration",
+  "status": "activated",
+  "activationFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/diagnostic-effect-grant.json",
+  "subjectId": "baseline",
+  "lane": "public-preparation",
+  "diagnosticRoot": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic",
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "version": "v24.7.0"
+  },
+  "preload": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-preload.mjs",
+    "sha256": "5420045ebd31cb00bb27ab408e623cd141b3a8691d4a2e8b24f058c821c90852",
+    "bytes": 7531,
+    "mode": "0o644"
+  },
+  "probes": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-probes.mjs",
+    "sha256": "b54dc5c3b1da3016c4113a0edfc9929f433491c095445939c0e98cdd2731da01",
+    "bytes": 6035,
+    "mode": "0o644"
+  },
+  "originalRunner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+    "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+    "bytes": 48889,
+    "mode": "0o644"
+  },
+  "originalOracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs",
+    "sha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+    "bytes": 6907,
+    "mode": "0o644"
+  },
+  "originalConfiguration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/runtime-configuration.json",
+    "sha256": "e76188451fcc7818fc04a5700e60cf9f00130de7d5d2643c85bfdac62badb672",
+    "bytes": 5324,
+    "mode": "0o644"
+  },
+  "originalGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/runtime-effect-grant.json",
+    "sha256": "b9e796923b684e542e3852da89e685c5bdd98abe8e722f601d1ee37904577e15",
+    "bytes": 2146,
+    "mode": "0o644"
+  },
+  "referenceEndpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/result.json",
+    "sha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+    "bytes": 6684,
+    "mode": "0o644"
+  },
+  "requiredPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/freeze.json",
+      "sha256": "5af8841ae028de12ec51f6e02402ebbe1f53fdc4b1b45e388ef3127857e8a816",
+      "bytes": 6228,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/archive-closure.json",
+      "sha256": "500076db05114a43578f76410e3546b0bddd5a59360a52ed161a835016b1e2b6",
+      "bytes": 6972,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/preflight-basis.json",
+      "sha256": "95633d1f71b6632b040007153a07f6dbf112bb73ca001c8cf2b0f0d52999375e",
+      "bytes": 22381,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/output-correspondence.json",
+      "sha256": "3b13c71b9c9940fcf51b33db74966f1ae416909a8a1648cd5122d52d1f05de01",
+      "bytes": 5609,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-package-inventory.json",
+      "sha256": "7fceeafce866ff9df84dc33568e247583badcf9021ac592e8e3f6e765b7531b4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-support-manifest.json",
+      "sha256": "c1910cf1b755d01192392914aa10262f68c4062792c66944ec622639f2307693"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source-manifest.json",
+      "sha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-generated-inventory.json",
+      "sha256": "92f861c654cd96e2578c00d5d588047d72caf6ccea85a4794f79942645c467f2",
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-dependency-inventory.json",
+      "sha256": "22b00870648c52acf9941cf67993c2c98a42b81ac4339d7e68ccf587e071782f",
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+    }
+  ],
+  "moduleRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/scratchParent",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite"
+  ],
+  "emittedModules": [
+    {
+      "member": "build/code/src/abg/runtime_history.js",
+      "sha256": "d0a07ea31a7020c3012fdb9723383fe60e3971b811f9a7a7e80356b1e7f13378"
+    },
+    {
+      "member": "build/code/src/abg/event_prefix.js",
+      "sha256": "b1c9b5239df3b20308415a2f24b3ae1c77587a88c208d0b399369abd783f5a43"
+    },
+    {
+      "member": "build/code/src/shared/canonical_json.js",
+      "sha256": "9558f48b80c7192cb3068da1ff14c19d6af3288f6583de749ef3b86dcf4c2f53"
+    }
+  ],
+  "childCommands": [
+    {
+      "file": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "kind": "node"
+    },
+    {
+      "file": "node",
+      "kind": "node"
+    },
+    {
+      "file": "/opt/homebrew/bin/npm",
+      "kind": "npm-node-script",
+      "script": {
+        "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+        "bytes": 54,
+        "mode": "0o755"
+      }
+    },
+    {
+      "file": "npm",
+      "kind": "npm-node-script",
+      "script": {
+        "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+        "bytes": 54,
+        "mode": "0o755"
+      }
+    }
+  ],
+  "bindingRule": "Exact baseline P1 stage/package/support; all emitted attachments checked in actual declared parent and child module identities; explicit Node/npm edges only."
+}

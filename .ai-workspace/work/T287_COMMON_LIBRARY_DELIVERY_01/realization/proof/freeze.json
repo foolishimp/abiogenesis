@@ -1,0 +1,148 @@
+{
+  "kind": "bounded_writer_preparation_freeze",
+  "status": "CLOSED_PREPARATION_READY",
+  "executionStatus": "not_activated",
+  "writer": "/root/stdo3_proof_writer",
+  "returnTo": "/root",
+  "utc": "2026-10-20T23:47:43.089292+00:00",
+  "head": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basisPins": {
+    "L2-execution-contract.md": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    "L2-candidate-freeze-02.json": "4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae",
+    "acceptance/freeze.json": "6196a6b7c05442ceb8f79d4733b9796c639d34c7500106153fbe0a22edd28f8f",
+    "proof/L2-report.md": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+    "realization/pure/report.md": "1f2cd5fa046cf39ea42de3ed5022c2b874f814627176664c962143e6ca784b7c",
+    "realization/pure/freeze.json": "ce01cdb084f5b0c3827ac9cce481d12e63193a24a1467c9409c9be9a768acca4",
+    "proof/baseline/source-manifest.json": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9"
+  },
+  "recordCount": 19,
+  "ownedOutputs": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+      "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+      "bytes": 48889,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/README.md",
+      "sha256": "f1a230e0e6b39fb81098a648e32dd8c66e60bcd58ca6ffeb972924211cdb4c38",
+      "bytes": 7755,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/activation.json",
+      "sha256": "25c6ca139234352b80e9f902e62f45ff40a7ca9487eb25711128d311a0d175b1",
+      "bytes": 2188,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-configuration-inputs.json",
+      "sha256": "087ce9529d0e413edbbea41179a98d83183b1b773c2b6e73bc544b05272b03de",
+      "bytes": 2175,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-package-inventory.json",
+      "sha256": "7fceeafce866ff9df84dc33568e247583badcf9021ac592e8e3f6e765b7531b4",
+      "bytes": 987427,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-support-manifest.json",
+      "sha256": "c1910cf1b755d01192392914aa10262f68c4062792c66944ec622639f2307693",
+      "bytes": 2495,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/candidate-support-manifest.json",
+      "sha256": "b91dde527670e8fc01301af747298e3aba961a153d9e29e410a07732d9836474",
+      "bytes": 2674,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/comparison.json",
+      "sha256": "f614f45ef5941fc7fcef5e3ceb692426134f70af042e0d6cfda881392160771e",
+      "bytes": 3161,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/configuration.template.json",
+      "sha256": "932d713439df6c07bb2cda7a2eb3f7d1f59feadbcaa2e23a2400f36fcdbb61c7",
+      "bytes": 5680,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/coverage.json",
+      "sha256": "ab72f3eea10eb18c0c544c5b4e67c18c9142aa16dc3f4245c69f5f78c84f6ee2",
+      "bytes": 16486,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/effect-grant.template.json",
+      "sha256": "2ccea4026bb04140d2613315ca05d318ac2ea7c64480590209e5d307bba88f11",
+      "bytes": 452,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/external-consumer.mts",
+      "sha256": "6821ee75b2e9392246dcf121940f9c953dad19984756bd964164e40ee4487ce7",
+      "bytes": 907,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/measurement.md",
+      "sha256": "a1fa5d38d81efc21c9929e05559b298020869c93894de95340e09d5039cbd87b",
+      "bytes": 4339,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/method-status.json",
+      "sha256": "9baa3c42bb1502c57857e5762020411a1e23603de89166e716cf6b31e146e477",
+      "bytes": 272,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle-sensitivity.mjs",
+      "sha256": "dab5416ff8c8bfe5776d97192f0cb1cf27772198d41b3bcde4bfb607cafbf339",
+      "bytes": 2756,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs",
+      "sha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+      "bytes": 6907,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/retirement.json",
+      "sha256": "1eb4840c4380661b5af2f345ad68ef62d084891812bde9c212ba47b4a6fc9c86",
+      "bytes": 3608,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/return.md",
+      "sha256": "d43751e47a908283501cd8eeade2ff7744e555b4c841dd45690ed3d7354adf00",
+      "bytes": 5138,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/static-readiness.json",
+      "sha256": "dfd31d3f9990aae97a38118cb741b833b92421da323fa94fe7af3f52804fcc8d",
+      "bytes": 7240,
+      "mode": "0o644"
+    }
+  ],
+  "requiredLater": [
+    "closed combined candidate source and isolated generated/package/dependency inventories",
+    "separate exact Executive effect grant",
+    "installed declaration consumer compilation and P1-P5 actual evidence",
+    "actual prior admitted C0 successor U1 relation and downstream consumer gates",
+    "unobserved V7 internal work counters through separately admitted passive observation"
+  ],
+  "claims": {
+    "L3": "bounded proof preparation closed",
+    "L4": "not activated",
+    "L5": "not claimed"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "finalProofPreparationRows": 29,
+  "mainGeneratedFiles": 936,
+  "mismatches": [],
+  "protectedMainInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-generated.json",
+    "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96",
+    "bytes": 248218,
+    "mode": "0o644"
+  },
+  "futureRootsAbsent": true,
+  "exactInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+      "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+      "bytes": 48889,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs",
+      "sha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+      "bytes": 6907,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+      "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa",
+      "bytes": 8903,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs",
+      "sha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+      "bytes": 7231,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "bytes": 26888,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/L2-report.md",
+      "sha256": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+      "bytes": 29197,
+      "mode": "0o644"
+    }
+  ]
+}

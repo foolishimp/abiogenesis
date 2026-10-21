@@ -1,0 +1,13 @@
+{
+  "exitCode": 0,
+  "wallMs": 34744.12633292377,
+  "stageRows": 6642,
+  "sourceRows": 1320,
+  "dependencyRows": 4576,
+  "dependencyDirectories": 499,
+  "allDirectories": 679,
+  "stageLogicalBytes": 148583725,
+  "donorUnchanged": true,
+  "main936Unchanged": true,
+  "noSourceOverlayCompileGeneratorPackOrRuntime": true
+}

@@ -1,0 +1,6 @@
+{
+  "case": "command",
+  "status": "passed",
+  "observedEvents": 21,
+  "actualFile": "command-actual.json"
+}

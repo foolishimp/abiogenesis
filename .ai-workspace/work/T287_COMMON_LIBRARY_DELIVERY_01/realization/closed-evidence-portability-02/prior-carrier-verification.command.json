@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-01/verify-transport.py",
+    "--repo-root",
+    "/Users/jim/src/apps/abiogenesis"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "priorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-01/freeze.json",
+    "sha256": "cc2fa82adf85c24d8f6c09fa419053985cdf28243e62af8d9c2424c635c43977",
+    "bytes": 4157,
+    "mode": "0o644"
+  },
+  "purpose": "Verify exact earlier carrier from repository/archive bytes, never original absolute paths"
+}

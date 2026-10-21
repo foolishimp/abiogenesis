@@ -1,0 +1,10 @@
+{
+  "chunk_id": "e3d41c",
+  "wall_time_seconds": 0.093614208,
+  "exit_code": 1,
+  "original_token_count": 72,
+  "output": "Traceback (most recent call last):\n  File \"<stdin>\", line 11, in <module>\nAssertionError: ('/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/node_modules/.bin/tsc', 'nonregular')\n",
+  "channelNote": "exec_command returned combined output. preflight.stderr is its traceback transcription; no independent stderr capture is claimed.",
+  "executionCount": 1,
+  "retryCount": 0
+}

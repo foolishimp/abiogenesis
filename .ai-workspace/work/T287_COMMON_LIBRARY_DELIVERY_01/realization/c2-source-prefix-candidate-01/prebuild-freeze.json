@@ -1,0 +1,179 @@
+{
+  "activation": "C2-CANDIDATE-BUILD-01",
+  "sourceWriterFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/freeze.json",
+    "sha256": "f516cbe3d4121888e52454cafec5b4f83d24c226bd22ee09a734dfca6ee9d0e2",
+    "bytes": 10443
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/activation.json",
+      "sha256": "71c944c4ea2acb4af5d341de77f7db2c3bece7c18d84a1f48a6b750ff360083f",
+      "bytes": 1048
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/build-activation.json",
+      "sha256": "9f24ce372b369ac5adc12f70b5b3f80e0cd68d96e83c63f5d3e3a6c8c61ac675",
+      "bytes": 2365
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/preparation-freeze.json",
+      "sha256": "db3dd88c958d63a03b7f7dc9d19603bb5115b7a0e6831de4a5c544eac10b0d87",
+      "bytes": 3992
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/PREPARATION.md",
+      "sha256": "09c7c5efe16f00d7f5ec95cd3e164aa557916a90f00904dd5dda84d64bb7f784",
+      "bytes": 2414
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/prepare-build.py",
+      "sha256": "53858ccfbac8a028b57748042d7d4adfa2dfb33ed0fdc3bb4bcf80a0beb6f2d1",
+      "bytes": 6675
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/source-inputs.json",
+      "sha256": "a578e655082e56b51ab2f48a7afbbc2d5846ee37757fe00aaf074717baf5d970",
+      "bytes": 357072
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/dependency-inputs.json",
+      "sha256": "c2729a5ce7459c4a4661f128498558ed4fc58068316bc1056cbfd2c01020691e",
+      "bytes": 1006510
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/dependency-directory-metadata.json",
+      "sha256": "fc7319aaaa3e4b6345912b0257a459f2146d839c9483e868132170e1bc9a72d5",
+      "bytes": 166206
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage-prepared-inventory.json",
+      "sha256": "a600bf3cf3b30b533666483e72e3cee586c75ffd4512342a03684c5e9a9be273",
+      "bytes": 1784716
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/main-generated-protection.json",
+      "sha256": "9f99e4cb7147f0cdd9a38bd315b9512a6566e8acdd53576ec7d697503083634c",
+      "bytes": 382
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/tool-pins.json",
+      "sha256": "ab094efe21a0e8042a7c3b2ba40856f34ad0c530e7ecbc25b79afbbf2e4dc604",
+      "bytes": 2770
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/effective-producer-binding.json",
+      "sha256": "271109289b01747d57d40457d32d6797f22342130e863a3ac25dbab4cf10cdd4",
+      "bytes": 4533
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/commands-config.json",
+      "sha256": "a5235828778aafed9bdc471a0fb04026a1c03c9af33773010d01eaedc96dd403",
+      "bytes": 1547
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/command-environment.json",
+      "sha256": "71969551db52df8f2eb5407ce50027a63f0f81400a5f97ed353291ec53663c48",
+      "bytes": 845
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/common.py",
+      "sha256": "9dc09a38bf640105bb73844ede8f100e3b3271932e004108166da5693bba6bdf",
+      "bytes": 1373
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/run-command.py",
+      "sha256": "01c1fe6f20bf881a6a5456069e9135f2f779086028ae900515e8bfb00f58f2f9",
+      "bytes": 2349
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-generation.py",
+      "sha256": "bad8690a2dbb9ef7bfdbce9593a5d4efab997c1de7918ce5ed945f4e47863b43",
+      "bytes": 2204
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-metadata.mjs",
+      "sha256": "bd421b546bf17cc73293ffac21ec9912029645f22ac912218551d76869044d8d",
+      "bytes": 13561
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-archive.py",
+      "sha256": "2d081c03bae74f318a47dc0589fe8d80e2db4f024f95938a7ba302611d035c13",
+      "bytes": 4597
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-payload.mjs",
+      "sha256": "894f2030400b8c9fc1b5cc47271bd50855daa92c7b136e2bcb2a643bb17c2268",
+      "bytes": 1937
+    }
+  ],
+  "selectedSources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "sha256": "1b3dbf39b6713f575a3456975de76747e06cdcab289c77ba5fee4a05d6b75389",
+      "bytes": 128713
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "dfb98d80113aaf150e05a09577d4cc3898b339e33426790f878ed02c90b89d5c",
+      "bytes": 67023
+    }
+  ],
+  "tools": [
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "bytes": 86104016
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "bytes": 54
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/package.json",
+      "sha256": "e14cc7eeb538420c8f6f2a05fbcd7d748ee7dd2bb0e3bec07cb7355f16e5b484",
+      "bytes": 6603
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-actual.js",
+      "sha256": "20c74c9704dc94f656fb8e2f64ff9a89039437e70ad2fb69d13dcead814dcecd",
+      "bytes": 14873
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/load-virtual.js",
+      "sha256": "7c0cfc479b1d2104ebfdeab437641166f5fb535240be8760b4949f4cecc170eb",
+      "bytes": 9884
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/shrinkwrap.js",
+      "sha256": "783828176377372b3641ee41169ce561f5cdcda03d4f10da615b9a0e3a2eb94c",
+      "bytes": 38053
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/npm-packlist/lib/index.js",
+      "sha256": "e77f7128b7f6a0b5f6a4e5e52de4ada0c3fdaad1542c98957185576ae1d99e35",
+      "bytes": 15879
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/node_modules/pacote/lib/dir.js",
+      "sha256": "185f5bc3ec548b1a6adfe963e4ed2275159e3654b6ca0d136a45671bf642c0df",
+      "bytes": 3086
+    }
+  ],
+  "order": [
+    "tsc",
+    "generate",
+    "material",
+    "generation-correspondence",
+    "pack",
+    "archive-check",
+    "payload"
+  ],
+  "expectedEmittedDelta": "execution_basis.js only; all declarations and public exports exact",
+  "derivedMetadata": "Existing Product manifest/capability graph producers, exact locator population, 75 unchanged catalog contract rows",
+  "main936Protected": true,
+  "runtimeOrInstalledWorkload": false,
+  "perCommandBoundMs": 600000,
+  "additionalByteLimit": 2147483648
+}

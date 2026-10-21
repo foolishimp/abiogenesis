@@ -1,0 +1,70 @@
+{
+  "status": "NOT_GRANTED",
+  "subject": {
+    "id": "candidate",
+    "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "bytes": 10681835,
+      "mode": "0o644"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "2960e5dddf8959de4ff269a3aac92dce2a8dd27bb79dee308b5fa394a3bf9920",
+      "bytes": 3189620,
+      "mode": "0o644"
+    },
+    "packageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/archive-members.json",
+      "sha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034",
+      "bytes": 1262495,
+      "mode": "0o644"
+    },
+    "supportManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/selected-support.json",
+      "sha256": "00eff68a7329e05420c7669dac48fdbc717acca880a361e865aecb934b549665"
+    },
+    "inventories": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/stage-source-inventory.json",
+        "sha256": "82661b8a6dc1f4fc8593d8fcca9a29c3956fdc6a2dbe118a295d43cf025d1723",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/generated-inventory.json",
+        "sha256": "5e60b19b9779bdd0a2169e4d82ed499800d4f29d35031350a7b9c15040d6a810",
+        "bytes": 249264,
+        "mode": "0o644",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/dependency-inputs.json",
+        "sha256": "b65e98ccd69e8473d4c33872b67760b4f18ac84e2b22de3ea0df6da8ab453185",
+        "bytes": 1006601,
+        "mode": "0o644",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/node_modules"
+      }
+    ]
+  },
+  "closedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/freeze.json",
+    "sha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+    "bytes": 2343069,
+    "mode": "0o644"
+  },
+  "closedStatus": "stopped_first_host_preservation_mode_assertion",
+  "productContentDigest": "sha256:78912aa5b7f9956b51075aefc52367a6f36b75cb711b105926c5f4a42b47dd9e",
+  "sourceAfterimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/source-afterimages.json",
+    "sha256": "80704c80e912323ea86d8b62a00d576cfd8c6518f581cff349772e8a67b7fc5d"
+  },
+  "counts": {
+    "source": 1319,
+    "generated": 940,
+    "dependencies": 4576,
+    "support": 14,
+    "packageMembers": 5271
+  },
+  "gate": "Root-selected C0 actual owner proof remains separate and pending; see ROOT-proof-status.md for attributed temporal steering; no candidate or L5 acceptance"
+}

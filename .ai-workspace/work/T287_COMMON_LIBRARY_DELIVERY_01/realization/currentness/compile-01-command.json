@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.json",
+    "--pretty",
+    "false"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript",
+  "overlay_sha256": "cd5a7f3d887d5ff9f602325aecc4cf4bd91e0497c5b116194784abdc720d6831"
+}

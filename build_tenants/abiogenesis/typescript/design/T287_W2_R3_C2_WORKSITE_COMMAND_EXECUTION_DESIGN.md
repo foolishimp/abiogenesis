@@ -196,6 +196,19 @@ without canonical body equality is insufficient. Missing, ambiguous, stale,
 crossed, or tampered authority, binding, prefix, source environment, Program
 owner, or install refuses before the first archive or Worker effect.
 
+At the C1-root/C3-reducer source closure, `exactC2SourceEnvironment` compares
+the complete logical event prefix returned by the durable reader with
+`runtimeEventBodiesAtPrefix(sourcePrefix).materialize()`, using the existing
+canonical equality. `RuntimeEventBodyView` is a selection carrier, so its own
+object representation is not the logical event array. Physical JSONL codec
+records and their byte extent/digest authenticate the durable coordinate;
+they are distinct from the decoded event bodies compared here. This explicit
+whole-prefix equality requires transient work proportional to the selected
+source-prefix bodies, not a retained cache, a currentness surrogate, or
+whole-history expansion at unrelated handoffs. Both root execution-basis
+admission and pre-effect C2 leaf source authentication consume this same
+predicate and preserve every source, prefix, environment and authority guard.
+
 The admitted `ExecutionBasis B` binds the exact canonical C2 task as its raw
 input. HoG may invoke the C2 leaf only after that basis and scope are admitted.
 The retained eight-key C2 `LeafExecutionOccurrence` remains authority-free
@@ -712,15 +725,19 @@ actor/driver envelope; acceptance of a scalar timer value does not establish
 execution, quality or closure.
 
 The configured actor inactivity timeout must exceed the closed sum of command
-and probe timeout/grace budgets plus helper overhead. Each declared command
-contributes its timeout and two termination-grace terms: TERM waiting and KILL
-confirmation. The canonical Product budget projection supplies these same
-terms to semantic Design validation/actor contracts and C2 preparation; the
-existing 5,000ms owner allowance includes the bounded drain of at most 250ms.
-HTTP-probe terms are unchanged. The absolute timeout must exceed both. Helper
-heartbeats are diagnostic only; liveness does not depend on
-nested tool output forwarding. Helper and command processes use process-group
-termination on supported hosts.
+and probe budgets plus the separate 5,000ms owner allowance. Each declared
+command and HTTP launch contributes its timeout, two termination-grace terms
+(TERM waiting and KILL confirmation), and its own bounded drain of
+`min(terminationGraceMs, 250)`. Each HTTP probe additionally contributes its
+request timeout. The canonical Product budget projection supplies these same
+terms to semantic Design validation/actor contracts and C2 preparation. The
+required budget is strictly below each enclosing limit, and the absolute
+limit is strictly greater than the inactivity limit. The owner allowance does
+not hide per-operation cleanup. These current common-library L2 terms
+supersede the earlier Run02 budget accounting without changing that historical
+evidence. Helper heartbeats remain diagnostic only; liveness does not depend
+on nested tool output forwarding. Helper and command processes use
+process-group termination on supported hosts.
 
 For RC2 crosscut R01, a leader's exit/stdio close is only that process fact.
 On POSIX the existing invocation owns its detached process group: normal exit
@@ -731,6 +748,17 @@ unconfirmed, with the actual leader status/signal preserved. Windows retains
 its existing child-process boundary; this adds no descendant containment
 promise there. Cleanup signals are retained even when the leader exited before
 a timeout; cleanup does not manufacture `timedOut` or application failure.
+
+Current common-library E03 continuation: if a command or HTTP probe cannot
+confirm its owned physical scope absent within the declared bounds, the helper
+stops before expected-report filesystem observations, any later command or
+predicate, after snapshot or publication.
+It uses the existing thrown/non-admitted helper failure route, retaining the
+exact task/attempt relation and observed command/probe, exit/signal/timeout,
+signal sequence and physical uncertainty in diagnostics. The complete helper
+artifact contract cannot be replaced by a partial successful artifact. A
+failed but physically confirmed inner command may still be a truthful
+observation. Outer actor termination does not certify the inner owned group.
 
 ## 7. Mechanical Predicate Surface
 

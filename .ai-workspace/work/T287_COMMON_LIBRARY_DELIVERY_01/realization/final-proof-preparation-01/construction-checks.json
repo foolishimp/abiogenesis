@@ -1,0 +1,146 @@
+{
+  "status": "passed",
+  "receipts": [
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/construction-check.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "syntax",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-analyse.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "syntax",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-preload.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "syntax",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-probes.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "syntax",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-runner.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "syntax",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "syntax",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "--input-type=module"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "unchanged-baseline-emitted-body-plus-attachment-parse",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdinSha256": "4523b0bb46d6134d2ab6d9af876c515580c4b211d69425777a077931ae710ca2",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+        "sha256": "d0a07ea31a7020c3012fdb9723383fe60e3971b811f9a7a7e80356b1e7f13378"
+      },
+      "attachment": "globalThis[Symbol.for(\"t287.passive.diagnostic\")].instrumentHistory(RuntimeHistory,RuntimeHistorySelection,import.meta.url);"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "--input-type=module"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "unchanged-baseline-emitted-body-plus-attachment-parse",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdinSha256": "77fed9433cc9b1965b8a71897504d58542f8a8659d9b12e8d6a1ddb983cb55e6",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.js",
+        "sha256": "b1c9b5239df3b20308415a2f24b3ae1c77587a88c208d0b399369abd783f5a43"
+      },
+      "attachment": "globalThis[Symbol.for(\"t287.passive.diagnostic\")].instrumentIndex(RuntimeEventIndex,import.meta.url);"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "--input-type=module"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "unchanged-baseline-emitted-body-plus-attachment-parse",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "stdinSha256": "1c6f3785c01d42d3c85f0bb2161e5ed6ba4d2510516fc3d7495e5475c57096a1",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js",
+        "sha256": "9558f48b80c7192cb3068da1ff14c19d6af3288f6583de749ef3b86dcf4c2f53"
+      },
+      "attachment": "writeCanonicalJson = globalThis[Symbol.for(\"t287.passive.diagnostic\")].canonical(writeCanonicalJson);"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/construction-check.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+      "label": "pure-observer-construction-no-owners",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"pure_construction_checks_passed\",\"scope\":\"delegation identity, throw identity, observer failure isolation, exact output byte lengths, synthetic existing-counter samples, trace missing/error channels\",\"productOwnersLoaded\":0,\"fixtures\":0,\"workloads\":0,\"nativeCalls\":0}\n",
+      "stderr": ""
+    }
+  ],
+  "installedWorkloads": 0,
+  "ProductOwnerImports": 0,
+  "providerCalls": 0,
+  "scope": "Syntax and pure synthetic observer delegation checks only; no diagnostic preload or actual endpoint activated."
+}

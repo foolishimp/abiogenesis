@@ -1,0 +1,438 @@
+{
+  "kind": "finite_proof_preparation",
+  "authority": "L2-execution-contract.md sections 5-7 and proof/L2-report.md; Product/requirements remain owners",
+  "cases": [
+    {
+      "id": "V1",
+      "claimKind": "module law and actual consumer",
+      "cases": [
+        "I-JSON malformed/unsafe/nonfinite/Unicode",
+        "missing/extra/NUL keys",
+        "sparse/dense",
+        "frozen shell and alias",
+        "canonical encoding refusal",
+        "equal/unequal text and ref+digest",
+        "zero/one/multiple/duplicate matches",
+        "throwing predicate/sink"
+      ],
+      "owners": [
+        "K01",
+        "K02",
+        "K03",
+        "K04"
+      ],
+      "lanes": [
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "status": "pure closed local evidence eligible only on exact supporting hashes; installed consumers pending"
+    },
+    {
+      "id": "V2",
+      "claimKind": "module law and installed join",
+      "cases": [
+        "all three static binders",
+        "exact/wrong packet/resource/receipt",
+        "one owner call",
+        "unchanged read",
+        "held completion",
+        "owner refusal/fault/interruption",
+        "malformed output after effect",
+        "same-store successor"
+      ],
+      "owners": [
+        "K05"
+      ],
+      "lanes": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "status": "pending exact execution or unchanged-support matching"
+    },
+    {
+      "id": "V3",
+      "claimKind": "constructor and traversal laws",
+      "cases": [
+        "all seven C constructors through their owning proofs",
+        "all retained graph relations",
+        "partition identity/ancestor/descendant/lateral",
+        "all five partition refusal codes",
+        "retry bound and attempt lineage",
+        "child result/foldback",
+        "batch partial and unstarted"
+      ],
+      "owners": [
+        "K06",
+        "HoG"
+      ],
+      "lanes": [
+        "P3",
+        "P4"
+      ],
+      "status": "unchanged-support reuse candidate; no all-seven-workload gate and no source-presence credit"
+    },
+    {
+      "id": "V4",
+      "claimKind": "Product resolution",
+      "cases": [
+        "empty/multi Program",
+        "absent/ambiguous/wrong owner/missing dependency",
+        "immutable same-input validation reuse",
+        "copied cold input",
+        "mutated input and crossed lock",
+        "call-local acquisition and next-call fresh acquisition"
+      ],
+      "owners": [
+        "K07"
+      ],
+      "lanes": [
+        "P1",
+        "P4"
+      ],
+      "status": "pending exact execution or unchanged-support matching"
+    },
+    {
+      "id": "V5",
+      "claimKind": "history/resource/codec",
+      "cases": [
+        "held/warm/copied/cold",
+        "current/historical/foreign/profile prefix",
+        "relevant/unrelated growth",
+        "prospective/committed/rollback",
+        "complete/selected bodies",
+        "raw/v1/v2",
+        "inline/reference missing/forward/foreign/chained/mixed",
+        "close/reopen/abandon/poison/failed append"
+      ],
+      "owners": [
+        "K08",
+        "K09",
+        "K10"
+      ],
+      "lanes": [
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "status": "pending exact execution or unchanged-support matching"
+    },
+    {
+      "id": "V6-K11",
+      "claimKind": "source/native context",
+      "cases": [
+        "current producer input versus graph entry",
+        "source inventory and exact spans",
+        "role/locus/policy qualification",
+        "missing resources",
+        "crossed permission/authority",
+        "changed record/member/span",
+        "absent selected member",
+        "wrong role/locus",
+        "unexpected Python/companion",
+        "unselected co-located file exclusion",
+        "prompt under-bound refusal",
+        "native success/invalid output/timeout/unavailable",
+        "retained producer with failed consumer preparation"
+      ],
+      "owners": [
+        "K11"
+      ],
+      "lanes": [
+        "P4"
+      ],
+      "status": "pure constructor/acquisition evidence is local only; runner adds exact installed-owner negative population and one actual P4; all execution pending"
+    },
+    {
+      "id": "V6-K12",
+      "claimKind": "physical materialization",
+      "cases": [
+        "P2 fresh physical success with ABG refusal and actual returned prefix",
+        "path/link/node kind/collision",
+        "partial-write residue",
+        "post-observation unavailable",
+        "POSIX group versus Windows child distinctions"
+      ],
+      "owners": [
+        "K12",
+        "retained E04 owners"
+      ],
+      "lanes": [
+        "P1",
+        "P2",
+        "P5"
+      ],
+      "status": "pending exact execution or unchanged-support matching"
+    },
+    {
+      "id": "V7",
+      "claimKind": "whole path",
+      "cases": [
+        "P1/P2/P3 actual installed joins",
+        "one native P4 task with declared F_D child",
+        "retained source-unavailable readback",
+        "P5 changed consumer joins",
+        "whole-path cost and overhead",
+        "two-sided retirement"
+      ],
+      "owners": [
+        "K01-K12"
+      ],
+      "lanes": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5"
+      ],
+      "status": "endpoint, full measurements, retirement and independent assessment all pending"
+    },
+    {
+      "id": "P5-E03-worker_transport.runProcess",
+      "claimKind": "physical process plus exact installed owner when claimed",
+      "cases": [
+        "normal exit",
+        "spawn error/no PID",
+        "timeout",
+        "observer throw and earliest error",
+        "probe error/EPERM",
+        "launcher exits with surviving owned-group descendant",
+        "inherited pipe",
+        "ignored TERM",
+        "bounded KILL confirmation",
+        "direct exit versus stdio-close capture",
+        "final bounded drain/disposal",
+        "unknown completion stops dependent work"
+      ],
+      "owners": [
+        "worker_transport.runProcess",
+        "shared/owned_process_lifetime"
+      ],
+      "lanes": [
+        "P5"
+      ],
+      "status": "pending exact execution or unchanged-support matching"
+    },
+    {
+      "id": "P5-E03-installed worksite command",
+      "claimKind": "physical process plus exact installed owner when claimed",
+      "cases": [
+        "normal exit",
+        "spawn error/no PID",
+        "timeout",
+        "observer throw and earliest error",
+        "probe error/EPERM",
+        "launcher exits with surviving owned-group descendant",
+        "inherited pipe",
+        "ignored TERM",
+        "bounded KILL confirmation",
+        "direct exit versus stdio-close capture",
+        "final bounded drain/disposal",
+        "unknown completion stops dependent work"
+      ],
+      "owners": [
+        "installed worksite command",
+        "shared/owned_process_lifetime"
+      ],
+      "lanes": [
+        "P5"
+      ],
+      "status": "pending exact execution or unchanged-support matching"
+    },
+    {
+      "id": "P5-E03-installed HTTP probe",
+      "claimKind": "physical process plus exact installed owner when claimed",
+      "cases": [
+        "normal exit",
+        "spawn error/no PID",
+        "timeout",
+        "observer throw and earliest error",
+        "probe error/EPERM",
+        "launcher exits with surviving owned-group descendant",
+        "inherited pipe",
+        "ignored TERM",
+        "bounded KILL confirmation",
+        "direct exit versus stdio-close capture",
+        "final bounded drain/disposal",
+        "unknown completion stops dependent work"
+      ],
+      "owners": [
+        "installed HTTP probe",
+        "shared/owned_process_lifetime"
+      ],
+      "lanes": [
+        "P5"
+      ],
+      "status": "pending exact execution or unchanged-support matching"
+    },
+    {
+      "id": "P5-R-L2-001",
+      "claimKind": "controlled timing law",
+      "cases": [
+        "host max-1/max/max+1",
+        "large admitted safe integer/positive finite wakeup",
+        "positive fractional wakeup",
+        "premature chunk callback",
+        "cancel before/between chunks",
+        "renew/reschedule with stale callback",
+        "absolute independence",
+        "strengthen before/during confirmation",
+        "no early action/no host overflow",
+        "exactly once and no final-bound extension",
+        "per command and HTTP two grace phases plus min(grace,250) drain",
+        "required<inactivity and required<absolute; exact fit/one below/above/multiple operations/large grace"
+      ],
+      "owners": [
+        "shared cancellable monotonic remaining-time mechanic",
+        "worker owner policies",
+        "command/HTTP policies"
+      ],
+      "lanes": [
+        "P5"
+      ],
+      "status": "lifetime Writer unclosed; no timing-law credit yet"
+    },
+    {
+      "id": "P5-Windows",
+      "claimKind": "controlled direct-child branch",
+      "cases": [
+        "direct-child exit/close/termination semantics only"
+      ],
+      "owners": [
+        "owned lifetime Windows branch"
+      ],
+      "lanes": [
+        "P5"
+      ],
+      "status": "controlled branch pending; macOS physical evidence cannot become live Windows evidence"
+    },
+    {
+      "id": "P5-U1-authentication",
+      "claimKind": "authenticated cause and scope",
+      "cases": [
+        "transport_exception and termination_unconfirmed",
+        "exact selected native F_P task",
+        "actor/process/call/binding/basis/invocation/grant",
+        "cause belongs to selected prefix",
+        "strictly prior prerequisites",
+        "foreign/missing/ambiguous/after-prefix prerequisites",
+        "substituted cause/altered digest",
+        "no started child",
+        "read-only empty writes"
+      ],
+      "owners": [
+        "projectNativeWorkUnknownEffectTask",
+        "runtime_history selection",
+        "Event Calculus",
+        "native-source invalidation"
+      ],
+      "lanes": [
+        "P5"
+      ],
+      "status": "currentness Writer active; only exact closed local result may later be conjoined"
+    },
+    {
+      "id": "P5-U1-population",
+      "claimKind": "actual owner projections and downstream gates",
+      "cases": [
+        "affected file",
+        "sibling path",
+        "other workspace",
+        "absent-file observation",
+        "root/subtree",
+        "empty writes",
+        "overlap",
+        "exited/unconfirmed order",
+        "warm/full/indexed/incremental/cold agreement",
+        "C2/provenance source gate",
+        "admitted C0 c_call_evidenced successor then uncertainty",
+        "every affected actual downstream currentness consumer"
+      ],
+      "owners": [
+        "REQ-R-ABG3-PROJECTION-026",
+        "Event Calculus/holdsAt",
+        "C0/C2 and other named downstream owners"
+      ],
+      "lanes": [
+        "P5"
+      ],
+      "status": "mandatory residual: an edited file observed afresh as predecessor is NOT an admitted prior C0-success successor; source presence and C2-only evidence do not close other gates"
+    }
+  ],
+  "unchangedProofCandidates": [
+    {
+      "path": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "sha256": "eea1089a08001120f8d71d5ad0c487d1914473c2404893d0c9448f8833a929b6",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    },
+    {
+      "path": "test_env/tests/t287-static-declaration-closure.test.mjs",
+      "sha256": "9253df5cf9182acb19f8fce99b95d4e05f1d482fbdce385001ae304bbf377ef4",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    },
+    {
+      "path": "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+      "sha256": "28105f9e1073609907ed984664551723c0d40fe024bef74bc29fb1c1e62050a2",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    },
+    {
+      "path": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "sha256": "729625109b9f6160c80b933618fd67ffe407aa3b8808a94e9f54de8c7ebf76bc",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    },
+    {
+      "path": "test_env/tests/t287-event-body-encoding.test.mjs",
+      "sha256": "151a764429dc5f57abaf894d74e8abe0ac206af8807922ab549be6df83a2d6fc",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    },
+    {
+      "path": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "sha256": "524c4e603099fd0532acfa99cd1059beeb8228d9fc2591c2bc87e8158958d68e",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    },
+    {
+      "path": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "sha256": "6c381a883f4b57bc5a66f5fa88cfca0acc88d703d9ffca47b455e3b185eb08fd",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    },
+    {
+      "path": "test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "68f87f608b0086891127dc6640280e95b7da3cc2b06a51a1e9af9cb489be0543",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    },
+    {
+      "path": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "49294a67008612a1000853293dec3c17d9f17e56ecb0f4771063aa9a9763a391",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    },
+    {
+      "path": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "sha256": "d6090750306ce5a58d1071a14cee7deb11616446ab635684924c8d3e7fa7f1a6",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "evidenceStatus": "not executed here; complete source/import/runtime-support match required before evidence reuse",
+      "skipCredit": false
+    }
+  ],
+  "aggregationRule": "each mandatory case needs its actual outcome or exact unchanged-support evidence; counts/skips/file presence supply no closure",
+  "currentResult": "preparation only; no P1-P5 executed"
+}

@@ -1,0 +1,56 @@
+{
+  "id": "native-workspace-physical-regression",
+  "configuration": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:post\\-effect\\ channel\\ conflict\\ retains\\ admitted\\ native\\ failure\\ scope\\ without\\ a\\ fabricated\\ exchange)$",
+      "test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/06-native-workspace-physical-regression/tmp/"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 6
+  },
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/06-native-workspace-physical-regression/tmp/",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-cache",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/run-command.py",
+    "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "bytes": 2571
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/preflight-freeze.json",
+    "sha256": "8afa05f86e73921949297a93043c0dfb45c2352fc46e5dc8928212919edb9de8",
+    "bytes": 2388
+  },
+  "testPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384",
+      "bytes": 86994
+    }
+  ],
+  "resourceBinding": "resources.json",
+  "timeoutMs": 600000,
+  "order": "Only after all earlier selected command exit0; first failure stops later commands"
+}

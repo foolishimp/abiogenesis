@@ -1,0 +1,92 @@
+{
+  "at": "2026-10-21T03:02:58.048055+00:00",
+  "checks": [
+    {
+      "scope": "936 main generated files",
+      "checked": 936,
+      "mismatches": []
+    },
+    {
+      "scope": "currentness closed records",
+      "checked": 47,
+      "mismatches": []
+    },
+    {
+      "scope": "currentness-consumers closed records",
+      "checked": 61,
+      "mismatches": []
+    },
+    {
+      "scope": "u1-cross-binding-triage-01 closed records",
+      "checked": 27,
+      "mismatches": []
+    },
+    {
+      "scope": "u1-physical-scope-successor-01 closed records",
+      "checked": 73,
+      "mismatches": []
+    },
+    {
+      "scope": "u1-c0-physical-currentness-01 closed records",
+      "checked": 47,
+      "mismatches": []
+    },
+    {
+      "scope": "prior physical-scope stage",
+      "checked": 1948,
+      "mismatches": []
+    },
+    {
+      "scope": "stopped C0 stage",
+      "checked": 1948,
+      "mismatches": []
+    },
+    {
+      "scope": "fixture02 execution stage",
+      "checked": 1948,
+      "mismatches": []
+    },
+    {
+      "scope": "prior physical-scope dependencies",
+      "checked": 4576,
+      "mismatches": []
+    },
+    {
+      "scope": "stopped C0 dependencies",
+      "checked": 4576,
+      "mismatches": []
+    },
+    {
+      "scope": "fixture02 dependencies",
+      "checked": 4576,
+      "mismatches": []
+    },
+    {
+      "scope": "all 543 main sources/tests/support except authorized test",
+      "checked": 543,
+      "mismatches": []
+    },
+    {
+      "scope": "five exact owned source inputs",
+      "checked": 5,
+      "mismatches": []
+    },
+    {
+      "scope": "all stopped five emitted outputs",
+      "checked": 5,
+      "mismatches": []
+    }
+  ],
+  "shared_dependency_writable_inodes": [],
+  "fixture_only_delta": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimage_sha256": "6b592c35d2ce2f5d892bf77df46ba264fee1cfa57e13d3d272f2f9213eb603e3",
+      "sha256": "a0247ed1f3d41bc2ba93e8689e7a37906344fa5aea1cb78241633b4720ebe46c"
+    }
+  ],
+  "no_compile": true,
+  "continuation17": "never opened or mutated",
+  "ambient_support_delta": "Root-owned historical language-structural-fixture successor remains unchanged; isolated stage retains stopped preimage",
+  "scope": "finite bound inventories, not whole moving worktree"
+}

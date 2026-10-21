@@ -1,0 +1,115 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/HOW.md",
+      "sha256": "42190bfa42d14fcb8602e177dbb3116356a16bb09b9312582363e371eb6e1bb9",
+      "bytes": 1916
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/activation.json",
+      "sha256": "b85f9f2a6defc0897d9f4fd06448918f5156fe12d6ff4e5372a5e0ba2bbd5c23",
+      "bytes": 6717
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/bind.py",
+      "sha256": "0c74bfcf6f00664e0a4975053b5815430529d2d53343600a43b15cbf630bc955",
+      "bytes": 13401
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/coverage-contract.json",
+      "sha256": "e12a26fd7061b67a38b30561df0f50b9b62f8ed74234129e99a7eae841034492",
+      "bytes": 1625
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/diagnostic-configuration.json",
+      "sha256": "42e2db8521772a3fff5f8c461bbc249f0a893181d3b99724278c2855d5a91e96",
+      "bytes": 8262
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/diagnostic-effect-grant.json",
+      "sha256": "ea493320f2d368730fe7b896a6ac674638ccf7c87b76ab2766eccb07985dba9a",
+      "bytes": 1590
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/global.npmrc",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/input-freeze.json",
+      "sha256": "c56fa733fb081b9711b96ea7b49c301c2c8c550dae59655f0ce00ea984569359",
+      "bytes": 7002
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/reference-endpoint.json",
+      "sha256": "77a00af5d2141c242abd4870322cadd059050644470bba76ea51242f33863920",
+      "bytes": 1917
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/runtime-configuration.json",
+      "sha256": "4832a4522939bf3208f58d0b2b313f1a03f60dae96905440fd60b5db51af096a",
+      "bytes": 5551
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/runtime-effect-grant.json",
+      "sha256": "aa0df1445519cff39d9a301d58e907083c2792568e2143b4ae80455ca4e20493",
+      "bytes": 1671
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/user.npmrc",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/coverage-contract.json",
+      "sha256": "bfe364d23c6020b22d8c417611b90fed4780cf466e4882a3d6f2fb6fe4201dff",
+      "bytes": 1625
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/diagnostic-configuration.json",
+      "sha256": "7722fc632f387266bc69a328803900adb51649dca4b157a92ac75a509d7c86cd",
+      "bytes": 8261
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/diagnostic-effect-grant.json",
+      "sha256": "9be09dfdba42f6a8a65bc22f96aadbb6d39d158829e2d948587edbb075d8c40a",
+      "bytes": 1590
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/global.npmrc",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/input-freeze.json",
+      "sha256": "d2853b5a10456104eb146192a5e90127672a625eb02cdb0d69976e94f38bbef8",
+      "bytes": 7001
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/reference-endpoint.json",
+      "sha256": "f14a983d6f4e2bdca0b239164473c0f21085d4a23e85e694ab2d7bb4c1937739",
+      "bytes": 1672
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/runtime-configuration.json",
+      "sha256": "55103459bc15c537f11afdbe7c8498105b967798dc6a43b9ecf2e33c52c5d478",
+      "bytes": 6389
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/runtime-effect-grant.json",
+      "sha256": "f1cdc98b1947e5980fa353af1a6e79c87d95d4694418fadb245c1b7452c2b434",
+      "bytes": 1671
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/user.npmrc",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/preflight.json",
+      "sha256": "3335dca6099527a7b423113c99405b30264454471863ebcd441ea81cac5f9aa3",
+      "bytes": 5478
+    }
+  ],
+  "scope": "All compact activation/configuration/coverage bindings before first lane. External dependencies pinned in original records; no stage inventory rerun."
+}

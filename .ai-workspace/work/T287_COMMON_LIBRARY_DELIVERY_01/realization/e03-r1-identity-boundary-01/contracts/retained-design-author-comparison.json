@@ -1,0 +1,33 @@
+{
+  "mode": "retained",
+  "cut": "design-author",
+  "stageRef": "stage://generic-job-mechanics.example/design@5",
+  "role": "author",
+  "inputCanonicalDigest": "sha256:d1dedb83c0f69c14c5a8628f3d401e1c91c545a1534631ef4cdbbb0311392052",
+  "baselineContractDigest": "sha256:f042615bfb98c0feb080b26310b0650fc7d3489062ce8df3dd12df618f562c90",
+  "successorContractDigest": "sha256:63056225aebe20dd532f66cb1ef2429bbbcc2e98c656314a61527b2e774eb0ed",
+  "exactAcrossCuts": false,
+  "differences": [
+    {
+      "path": "$.contractDigest",
+      "baseline": "sha256:f042615bfb98c0feb080b26310b0650fc7d3489062ce8df3dd12df618f562c90",
+      "successor": "sha256:63056225aebe20dd532f66cb1ef2429bbbcc2e98c656314a61527b2e774eb0ed"
+    },
+    {
+      "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+      "baselineAbsent": true,
+      "successor": "terminationGraceMs"
+    },
+    {
+      "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+      "baselineAbsent": true,
+      "successor": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      }
+    }
+  ],
+  "deterministicWithinEachCut": true,
+  "status": "passed"
+}

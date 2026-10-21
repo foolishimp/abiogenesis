@@ -1,0 +1,26 @@
+[
+  {
+    "path": "code/src/shared/owned_process_lifetime.ts",
+    "sha256": "731fff53aa6b908dbfc6711e21c9934a36db59c37bd5b0aadabb672fe48df7a3"
+  },
+  {
+    "path": "code/src/abg/worker_transport.ts",
+    "sha256": "8f04a97ee6bf99fbdd18a4bd6a9816048dfa08c83c9a2d0704e86f3fb683e51e"
+  },
+  {
+    "path": "code/src/implementation/worksite_command_helper.ts",
+    "sha256": "4e8bfa1e2a746821d02cc4fbdbca361a822992e816e226efaad9515965e7c0fd"
+  },
+  {
+    "path": "code/src/product/worksite_command_execution.ts",
+    "sha256": "7532aadf7fc497a5a4da3ccdf51fb9d1989832958e0f0baf424b3a6df68f32af"
+  },
+  {
+    "path": "code/src/gtl/worksite_command_execution.ts",
+    "sha256": "38b9c67b6c1f415b5bc6549d705b0fe234bcc9ee69c0843d12000f17a6810f43"
+  },
+  {
+    "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+    "sha256": "368f925c5b1d8f79ff0548f581fc524a89327ce7494758f55b730e31feee2d58"
+  }
+]

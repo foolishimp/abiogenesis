@@ -1,0 +1,96 @@
+{
+  "kind": "closed_transport_reader_stop_manifest",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/HOW.md",
+      "sha256": "12572462c5620f2ad650be6bcc0a3868d09026ff1344d4c54531ce202a268f8c",
+      "bytes": 2006,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/STOP-population.json",
+      "sha256": "3b33170c52bf0a41158637d1aaa4711b95ba1df19d0ff6340dd8ed67de5c9be1",
+      "bytes": 622,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/activation.json",
+      "sha256": "37332c7cded98f19e2a78f55d92c059ed339f8022967010e796a40ba9c822bfd",
+      "bytes": 3342,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/population.command.json",
+      "sha256": "cb37ff65f9f38f528770ac39583387053b9475364f98f06c9430f60036b662f2",
+      "bytes": 404,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/population.receipt.json",
+      "sha256": "3faf49275dee0eb28681d5ebd14a3f991ad5e40f7370b714ec9e6b48ea0bf446",
+      "bytes": 292,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/population.stderr",
+      "sha256": "87554bb40aa979584ee88b2fc7c8cfce36d938164abbe1812d23837aa1b32244",
+      "bytes": 434,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/population.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/prior-carrier-verification.command.json",
+      "sha256": "5e8e9ab5f8e04e123ce5ad4ed8106f2c96e5a1faf4a59e5110d3ca5a17ec1475",
+      "bytes": 693,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/prior-carrier-verification.receipt.json",
+      "sha256": "3732d24f41984da530b2f411b905e35a4681860e63841ceef1c6fb7e9e6970c5",
+      "bytes": 292,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/prior-carrier-verification.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/prior-carrier-verification.stdout",
+      "sha256": "9414f05d12f8e0895f4b260aaa967e39c1e0b791f5f0d3ec8712028b669245d5",
+      "bytes": 456,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/reader-localization.json",
+      "sha256": "35bd1ae37cd492f190d5d5cd891e538dc1a89c6e921bb2ba7eff3f3cc6cc6f44",
+      "bytes": 2280,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/return.md",
+      "sha256": "8aa1b2aa3bff2e7cadfc260e86de88ff1e0a0f78f55d9abd0da8c045400f5cda",
+      "bytes": 1092,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/select-population.py",
+      "sha256": "5a59f5bf6ce3a451f3430c12a566d8df6e517ecc773d4e4a4afc217a191f764a",
+      "bytes": 15244,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/stop-preservation.json",
+      "sha256": "502ee827dfc82cd830e01dc602034acd602a94cd3299c4ba0b2ebf1cfef5d499",
+      "bytes": 2655,
+      "mode": "0o644"
+    }
+  ],
+  "logicalBytes": 29812
+}

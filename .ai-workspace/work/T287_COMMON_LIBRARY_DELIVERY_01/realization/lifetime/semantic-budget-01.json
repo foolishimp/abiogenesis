@@ -1,0 +1,12 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=native Design command budget|command cleanup budget|command budget shares HTTP",
+    "test_env/tests/t287-native-semantic-job.test.mjs"
+  ],
+  "exitCode": 1,
+  "seconds": 0.5498307910747826,
+  "scope": "controlled source component; no provider or installed Public"
+}

@@ -1,0 +1,13 @@
+{
+  "subjectFreezeSha256": "88dbc5d6bb6315c067f0d9d40b956d559be675ccb54962ae2123c88f6bbf7f5b",
+  "originalTestSha256": "acaa70ab481093a3349e5cd9f3131ec7189e39cf7ed711659e8c6d441e45a309",
+  "diagnosticTestSha256": "ea42536d56aac7d8c2b4073354804d9f002afe8f6fc400fbe6d3fd4b0ef7199e",
+  "compiledHelperSha256": "28c0cd8895b9aeec8bdfa1279da0b22d11c142bef09eadc9d83b8e351d375274",
+  "compiledLifetimeSha256": "54b656422329f2a916e0bde7bb55435cdc7123b2087871f60228d8dff6cb1eb1",
+  "dependencyInventorySha256": "41e2ecd082f55421e7005959b8ac5328d1df616e5dd67f3aa43299e52cf23f9c",
+  "toolchain": {
+    "node": "v24.7.0",
+    "npm": "11.5.1",
+    "typescript": "Version 5.9.2"
+  }
+}

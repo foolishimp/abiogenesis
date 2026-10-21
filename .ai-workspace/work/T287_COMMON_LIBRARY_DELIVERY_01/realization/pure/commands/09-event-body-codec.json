@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript",
+  "resolved_executable": "/opt/homebrew/bin/node",
+  "started_utc": "2026-10-20T23:17:27.993140+00:00",
+  "environment_overrides": {},
+  "returncode": 0,
+  "wall_seconds": 12.344250832917169,
+  "completed_utc": "2026-10-20T23:17:40.337467+00:00",
+  "stdout": {
+    "bytes": 2654,
+    "sha256": "ccb7285fd503d7ac4426a16081a8c2d1ac7ce6e0508e061ce81dbdec662432a4"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

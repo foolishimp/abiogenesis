@@ -1,0 +1,35 @@
+{
+  "id": "REVIEW-CHECKPOINT-PORTABILITY-03-SUCCESSOR-03",
+  "writer": "/root/stdo3_final_proof_writer",
+  "returnTo": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#governed-outcome-and-workspace",
+  "scope": "Verifier-only package transport consumer correction; no population, archive, source or runtime effects",
+  "dataRoot": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02",
+  "outputRoot": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03",
+  "preservedStoppedCut": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/stopped-freeze.json",
+    "sha256": "6ee9057a2f82daf8a54263bbcacf747fdfb8b7ca1326c13219aab8a3fa06f1a1",
+    "bytes": 10002
+  },
+  "authorizedRepositoryPackages": [
+    {
+      "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+      "bytes": 10681844,
+      "transport": {
+        "kind": "repository_file",
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/npm-cache/_cacache/content-v2/sha512/c3/51/4729f94c2bfdd6cf4f4640252fc788edaf2511a5dddfd4e3df2fb6dc0a489e66a77e07d4c5938c0170df13d9fddac1ed006a7f72acb90dc22be734c8b698"
+      }
+    },
+    {
+      "archiveSha256": "fadd07e06799be957087419527c683ce18650ecf0abfe669c0f28e034d84aef6",
+      "bytes": 10681875,
+      "transport": {
+        "kind": "repository_file",
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/npm-cache/_cacache/content-v2/sha512/14/3a/efd7d9ce56004d20718d68ea92f3301cb975ac9a8b66a59bea6105c97ad1457bfd79000cc27522c53181a63df945e36520154d3375ecf45f8e883e75eba4"
+      }
+    }
+  ],
+  "grant": "Root verified all63 stopped02 files and authorized one complete portable verification, then standing full-tree checkpoint/push",
+  "undeclaredTransportKinds": "rejected",
+  "originalPathFallback": false
+}

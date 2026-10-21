@@ -1,0 +1,13 @@
+{
+  "supervisedRootProcessGroups": [
+    66293,
+    66813,
+    68718,
+    69227,
+    69424,
+    70141,
+    70277
+  ],
+  "observedMembers": [],
+  "limit": "One read-only group snapshot; not proof of absence of escaped descendants. No custom cleanup or signals."
+}

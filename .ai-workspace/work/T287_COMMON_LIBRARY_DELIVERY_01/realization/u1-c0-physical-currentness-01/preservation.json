@@ -1,0 +1,147 @@
+{
+  "at": "2026-10-21T02:50:13.772209+00:00",
+  "checks": [
+    {
+      "scope": "936 protected main generated files",
+      "checked": 936,
+      "mismatches": []
+    },
+    {
+      "scope": "preserved currentness closed records",
+      "checked": 47,
+      "mismatches": []
+    },
+    {
+      "scope": "preserved currentness-consumers closed records",
+      "checked": 61,
+      "mismatches": []
+    },
+    {
+      "scope": "preserved u1-cross-binding-triage-01 closed records",
+      "checked": 27,
+      "mismatches": []
+    },
+    {
+      "scope": "preserved u1-physical-scope-successor-01 closed records",
+      "checked": 73,
+      "mismatches": []
+    },
+    {
+      "scope": "predecessor stage",
+      "checked": 1948,
+      "mismatches": []
+    },
+    {
+      "scope": "predecessor dependencies",
+      "checked": 4576,
+      "mismatches": []
+    },
+    {
+      "scope": "copied dependencies",
+      "checked": 4576,
+      "mismatches": []
+    },
+    {
+      "scope": "stopped successor stage",
+      "checked": 1948,
+      "mismatches": []
+    },
+    {
+      "scope": "all other main sources/tests/support",
+      "checked": 539,
+      "mismatches": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+          "expected": "f840e413bf53b7cffec616e3147ba7d461c5858e2b6da4d248dc2d799e81decd",
+          "actual": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966"
+        }
+      ]
+    },
+    {
+      "scope": "frozen owned sources",
+      "checked": 5,
+      "mismatches": []
+    }
+  ],
+  "dependency_shared_writable_inodes": [],
+  "stage_delta": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.d.ts",
+      "preimage_sha256": "e5e9c0dd2c59705e38385ae659ec6f7b1568621e1c847be9d59de05d901dff51",
+      "sha256": "b9f22c070103c23a60e309ca3b4cfa84a2cb0b9352973371c3afaee192ccf948"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "preimage_sha256": "48d938c86d9a27538dcdaf5a6cea82acc48808ad1fb6b6847c6a58adbe91182e",
+      "sha256": "b501f094602054ada71ecc853218bf36045c45bdc6442d8f99cb00736c2027dc"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "preimage_sha256": "fa680e2fffb2faeac2376c58288a8dccb4a7526db941ee918e86bee2f9a8cd19",
+      "sha256": "b6ce21dea12f1f247fe2903fa99e7c60f814cc8131637b80fba6904583517953"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/native_worksite_execution.js",
+      "preimage_sha256": "dc2334bac09095e6ba0d804c3b490f5a333272fd986f9848313307827149d46b",
+      "sha256": "f339e61977d18033993a81c6e895b6e369eaa01bfc484bf01221c5255caea87b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+      "preimage_sha256": "58a7bddc352cdaa29a7456214fa8c1b760994e8fd7627ded80ff2cced782734e",
+      "sha256": "6a13656f990b3036c56ca456728a1b36898a0d11b192c4017468dff26e715cdb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "preimage_sha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "preimage_sha256": "2fb146d5dd8c869eec147c08effa6688fea918493274a93d00bfafc4ade7e93c",
+      "sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "preimage_sha256": "6a332fe393db54a876b761eb0f8d494a1db4356b799b19f78e143d5420c4a1b8",
+      "sha256": "bec0264685b959619fbffbec3dc28adbf98976169669e5f63334b04e6bf9d3fa"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "preimage_sha256": "f75417d472354cdc474c32cecf17f5a7bc2426c4dc5534e447afe3ad5d635567",
+      "sha256": "3cdd78601462643b44c30c521f732132b33d2790e994861398c20ca2aece13bd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimage_sha256": "f46908c1598ddc8a7a21a5a890dc2a1af5fe75089160e15054824cfcb59ddca3",
+      "sha256": "6b592c35d2ce2f5d892bf77df46ba264fee1cfa57e13d3d272f2f9213eb603e3"
+    }
+  ],
+  "emitted_delta": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.d.ts",
+      "preimage_sha256": "e5e9c0dd2c59705e38385ae659ec6f7b1568621e1c847be9d59de05d901dff51",
+      "sha256": "b9f22c070103c23a60e309ca3b4cfa84a2cb0b9352973371c3afaee192ccf948"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "preimage_sha256": "48d938c86d9a27538dcdaf5a6cea82acc48808ad1fb6b6847c6a58adbe91182e",
+      "sha256": "b501f094602054ada71ecc853218bf36045c45bdc6442d8f99cb00736c2027dc"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "preimage_sha256": "fa680e2fffb2faeac2376c58288a8dccb4a7526db941ee918e86bee2f9a8cd19",
+      "sha256": "b6ce21dea12f1f247fe2903fa99e7c60f814cc8131637b80fba6904583517953"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/native_worksite_execution.js",
+      "preimage_sha256": "dc2334bac09095e6ba0d804c3b490f5a333272fd986f9848313307827149d46b",
+      "sha256": "f339e61977d18033993a81c6e895b6e369eaa01bfc484bf01221c5255caea87b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+      "preimage_sha256": "58a7bddc352cdaa29a7456214fa8c1b760994e8fd7627ded80ff2cced782734e",
+      "sha256": "6a13656f990b3036c56ca456728a1b36898a0d11b192c4017468dff26e715cdb"
+    }
+  ],
+  "scope": "finite protected inventories; no claim to freeze unrelated moving worktree"
+}

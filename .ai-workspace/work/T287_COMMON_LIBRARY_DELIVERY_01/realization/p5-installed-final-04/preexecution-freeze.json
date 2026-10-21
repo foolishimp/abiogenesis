@@ -1,0 +1,181 @@
+{
+  "activation": "P5-INSTALLED-C2-04",
+  "continuation": "CORRECT_BINDING_AND_CONTINUE_GRANTED_P5",
+  "frozenAt": "2026-10-21T06:48:09.015998+00:00",
+  "files": [
+    {
+      "path": "HOW-binding.md",
+      "bytes": 5293,
+      "sha256": "84874f4f3d61b7ee6187e3073ccecb8e3441971e8a36689f62e908d74dc4750c"
+    },
+    {
+      "path": "STOP.json",
+      "bytes": 1818,
+      "sha256": "2fe5cf7fb466e72a285317943681da50bf354353277ce86b3dca1b4e3f3b1fa3"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 2051,
+      "sha256": "95d6edd444d968d3aaff058160a0c130ad807c88a0ed797a4199aedcb58e7de3"
+    },
+    {
+      "path": "bind-successor.py",
+      "bytes": 7446,
+      "sha256": "bf702d7ae272879f2fb0da6722f51a832e3b409670a97f408bef944eb9930e8a"
+    },
+    {
+      "path": "bind.py",
+      "bytes": 8586,
+      "sha256": "c3e479246fa1164e74fbe1b64089b3f40d5dfd654ea26a3875e9f72ae6960077"
+    },
+    {
+      "path": "binding-exec-receipt.json",
+      "bytes": 782,
+      "sha256": "cfa6c26280f4bfa7f07aa3eaa93b76fca6598558801ecc8c29388df6162e8970"
+    },
+    {
+      "path": "binding-failure.json",
+      "bytes": 1020,
+      "sha256": "efcb02be80905d89b03f65c7f63f5d9c592b000579357670163b9ead83f49795"
+    },
+    {
+      "path": "binding-stop-freeze.json",
+      "bytes": 1580,
+      "sha256": "331bab10734d99453aec507afe592b97f56471a87e47f1cf67471163cfcace68"
+    },
+    {
+      "path": "binding-stop-report.md",
+      "bytes": 1404,
+      "sha256": "0fbbb21952b9b7e606a8e3ab14b07c83f836e1897818fa071f107541bf0ab590"
+    },
+    {
+      "path": "binding-successor-inputs.json",
+      "bytes": 12015,
+      "sha256": "1c9f2477887321ce1ae4caafbe8bd2496b2810f721ef5d7ca832ad9cd320a723"
+    },
+    {
+      "path": "binding-successor-result.json",
+      "bytes": 684,
+      "sha256": "d7e8c0b97d9d5bad0b2b3e8b22e583b8eaeebab85af8556124a1a3fe37aa397e"
+    },
+    {
+      "path": "configuration.json",
+      "bytes": 1284,
+      "sha256": "74108dc4b677e91f1cf570318443c43b5437699f94617681107594d865dad496"
+    },
+    {
+      "path": "environment.json",
+      "bytes": 825,
+      "sha256": "7692a28126a2eff059bc9ba890410d0e13f71c539db6269e3e5cf17c6b9d1a67"
+    },
+    {
+      "path": "failed-setup-subject.mjs",
+      "bytes": 39995,
+      "sha256": "a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0"
+    },
+    {
+      "path": "launches.json",
+      "bytes": 1583,
+      "sha256": "0a1df9a3ba432d8633c30977359d55cc0f300d570f24c46d7f808257853b8688"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/package-lock.json",
+      "bytes": 8001,
+      "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 9744,
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3189620,
+      "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "bytes": 2282,
+      "sha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 521,
+      "sha256": "359a6a21bd40382ac1ae71dfa235a74ebf2a2389375fc548e685ee22cfbbde5e"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/installed-public-definition-call.mjs",
+      "bytes": 99,
+      "sha256": "e17e8fe15cc061708ae0a69520e5b46195549762f9ca2c7f8ed2f2d086cea633"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 40077,
+      "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 54074,
+      "sha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329"
+    },
+    {
+      "path": "proof-copy-inventory.json",
+      "bytes": 5243,
+      "sha256": "f774d3f564e470127ab35673a2ee13a4497418ae3f8f5b0531e0d23bd09a98b5"
+    },
+    {
+      "path": "run-host.mjs",
+      "bytes": 5799,
+      "sha256": "cc5b9eb731600e7cc69b667ef2159852611e70f3c1f49004f45776ff61d96a20"
+    },
+    {
+      "path": "source-route-triage-02.json",
+      "bytes": 1344,
+      "sha256": "650948c743f034037e5e2ef63fabeacccf88dd70f12be3f7160ba3cc53613123"
+    },
+    {
+      "path": "verify-host.py",
+      "bytes": 2552,
+      "sha256": "7c4648a29ad734aa978ae0cc7280b7cf02d59e140cc7bb8536b0ab97e3c81375"
+    }
+  ],
+  "effectGrant": "P5_INSTALLED_EXECUTION_GRANTED_BY_EXECUTIVE",
+  "newPhysicalRoot": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6",
+  "selectedTest": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "--test",
+      "--test-name-pattern",
+      "^T-287 C2 compact acknowledgment preserves installed large-log observation and replay$",
+      "test_env/tests/t287-worksite-command-execution.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/proof/build_tenants/abiogenesis/typescript",
+    "timeoutMs": 630000,
+    "terminationGraceMs": 1000,
+    "lifetimeModule": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/owned_process_lifetime.js"
+  },
+  "runtimeLaunchesSoFar": 0,
+  "priorStopFrozenAndPreserved": true,
+  "noFurtherEffectsAfterFirstGenuineFailure": true,
+  "resourceCapBytes": 3221225472
+}

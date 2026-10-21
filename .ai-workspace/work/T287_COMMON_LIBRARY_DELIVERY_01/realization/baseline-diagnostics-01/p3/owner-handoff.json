@@ -1,0 +1,96 @@
+{
+  "status": "satisfied",
+  "subjectId": "baseline",
+  "lane": "declared-execution",
+  "workloadResult": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence/result.json",
+    "sha256": "98f024b42d1bd8ac00894b2923969038e45dee9314509d967b7486e66930c08d",
+    "bytes": 1978,
+    "mode": "0o644"
+  },
+  "start": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence/start.json",
+    "sha256": "85d9934829fe1818d250dab3337ef0410cd68e0f00b34bf392764f8de3d6f90c",
+    "bytes": 28077582,
+    "mode": "0o644"
+  },
+  "installedEnvironment": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence/installed-environment.json",
+    "sha256": "5a417ff021ce54185813274349c596b1c69fe32d85dbf296a78cac8d2101c9e8",
+    "bytes": 52111441,
+    "mode": "0o644"
+  },
+  "actualCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:ec4cd0f69dfcc3a7d49c69dd67e676e1f21f297d26987fc0df038705e7e91adf",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:f3388b702fbacc2d167d86cf420673a0df1601cd439fa81a962cd99e819f0014",
+      "prefixLength": 3217781,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 474317687
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:9d9fbb219283469009cf418ec53756c09d8f68b79989ae133c85c06ece6664e7",
+      "device": 16777231,
+      "durableByteLength": 3217781,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:f3388b702fbacc2d167d86cf420673a0df1601cd439fa81a962cd99e819f0014",
+      "eventLogPath": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/runtime/events.jsonl",
+      "inode": 474317687,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "eventLog": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/runtime/events.jsonl",
+    "sha256": "f3388b702fbacc2d167d86cf420673a0df1601cd439fa81a962cd99e819f0014",
+    "bytes": 3217781,
+    "mode": "0o644",
+    "device": 16777231,
+    "inode": 474317687
+  },
+  "freshReads": [
+    {
+      "memberKey": "run_result",
+      "execution": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence/reads/t287-baseline-diag-p3-aa3f6c60f8d944cb-run_result.json",
+        "sha256": "44d22b4f32ba672050f87c4ffee4b6a6b27d1f6f15a81c29aa9893b0ec18ea54",
+        "bytes": 8470,
+        "mode": "0o644"
+      },
+      "request": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/st4-t287-baseline-diag-p3-aa3f6c60f8d944cb-run_result-request.jsonl",
+        "sha256": "22483934ea59393cf0b1cbded1bdb30c7becbdcb21eece484a43c3b50b270c90",
+        "bytes": 9347,
+        "mode": "0o644"
+      },
+      "actualReturnedHandoffEqualsStart": true,
+      "exitCode": 0
+    },
+    {
+      "memberKey": "run_replay",
+      "execution": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence/reads/t287-baseline-diag-p3-aa3f6c60f8d944cb-run_replay.json",
+        "sha256": "f6e1ad0b15f2157edcb7c04eacc2c04bc4a2e28d54293e3f9d411597cae03f2b",
+        "bytes": 8049,
+        "mode": "0o644"
+      },
+      "request": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/st4-t287-baseline-diag-p3-aa3f6c60f8d944cb-run_replay-request.jsonl",
+        "sha256": "ce45967df12b430ef8041a23eaf7d3dbc36adec584847d8331c3ce0b56b03b40",
+        "bytes": 9384,
+        "mode": "0o644"
+      },
+      "actualReturnedHandoffEqualsStart": true,
+      "exitCode": 0
+    }
+  ],
+  "nativeCalls": 0,
+  "retainedCleanupHooks": 1,
+  "scope": "Actual returned start/read handoffs and physical prefix; no identity normalization or old append-owner acquisition"
+}

@@ -1,0 +1,58 @@
+{
+  "activation": "E03-R1-IDENTITY-BOUNDARY-01",
+  "writer": "/root/stdo3_lifetime_writer",
+  "executive": "/root",
+  "commands": [
+    {
+      "purpose": "exact frozen input preflight",
+      "argv": [
+        "python3",
+        ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/preflight.py"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis",
+      "exitCode": 0,
+      "toolReportedWallSeconds": 2.081909833,
+      "output": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/preflight.json",
+        "bytes": 16898,
+        "sha256": "ea453a7124b758bfe33303ef696c868fe92ea6ef9dbc55865d3756ae8c747515"
+      }
+    },
+    {
+      "purpose": "single pure Product identity discriminator",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/discriminator.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis",
+      "exitCode": 0,
+      "toolReportedWallSeconds": 0.482942625,
+      "programStartedUtc": "2026-10-21T01:44:16.493Z",
+      "programFinishedUtc": "2026-10-21T01:44:17.084Z",
+      "stdout": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/stdout.log",
+        "bytes": 133,
+        "sha256": "075509ea657a00c4677de25cbb54114a933a57771dcc13a3c16b4baaba8c2299"
+      },
+      "stderr": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "output": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/result.json",
+        "bytes": 14690,
+        "sha256": "037388530700d481929d8715ab02d6b82651b1d0b4f944d02940200bc8612dc1"
+      }
+    }
+  ],
+  "outcome": "bounded_pure_identity_discriminator_passed",
+  "actualWorkloadScope": "One host evaluating canonical pure functions. No child/actor/native/command/HTTP/installed/Public/EventStore/replay/historical workload called. Fixture references are inert data.",
+  "failureEvidence": "No preflight or discriminator failure. Preparatory read-only path discovery had an unmatched ticket glob and an assumed source-manifest location that did not exist; corrected paths were acquired before preflight, with no fixture execution or prerequisite bypass.",
+  "cleanup": "No physical fixture, process group or mutable worksite created; no evidence root removed.",
+  "postRunCorrespondence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/post-run-correspondence.json",
+    "bytes": 1081,
+    "sha256": "4d2ebabb8bc51dc06918551596dd56fa827add23ee036c44f67c1719c14a7ef5"
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "kind": "read_only_node_dependency_search_observation",
+  "scope": "Node search paths and physical presence only; no Product import/admission/repair/retry",
+  "targetRoot": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0",
+  "fixtureRoot": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "searchPaths": [
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/node_modules",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/node_modules",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/node_modules",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/node_modules",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/node_modules",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/node_modules",
+    "/private/tmp/node_modules",
+    "/private/node_modules",
+    "/node_modules",
+    "/Users/jim/.node_modules",
+    "/Users/jim/.node_libraries",
+    "/opt/homebrew/Cellar/node/24.7.0/lib/node"
+  ],
+  "candidates": [
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": true,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": true,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": true,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/private/tmp/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/private/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/Users/jim/.node_modules/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/Users/jim/.node_libraries/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/lib/node/@abiogenesis/typescript-tenant",
+      "present": false,
+      "withinTarget": false,
+      "errorCode": "ENOENT"
+    }
+  ],
+  "siblingAbi": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "present": true,
+    "withinTarget": false,
+    "nodeKind": "directory",
+    "realpath": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "package.json": {
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "bytes": 9744,
+      "name": "@abiogenesis/typescript-tenant",
+      "version": "5.0.0-rc.1"
+    },
+    "product-toolchain-manifest.json": {
+      "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee",
+      "bytes": 3189430,
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "productContentDigest": "sha256:6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3"
+    }
+  }
+}

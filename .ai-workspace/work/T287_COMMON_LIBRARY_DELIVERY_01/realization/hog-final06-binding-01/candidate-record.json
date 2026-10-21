@@ -1,0 +1,43 @@
+{
+  "status": "ready_for_separately_granted_L4",
+  "subjectId": "candidate",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844,
+    "mode": "0o644"
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4",
+    "bytes": 3189620,
+    "mode": "0o644"
+  },
+  "productContentDigest": "sha256:7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214",
+  "archiveMembers": 5271,
+  "adapterMeaning": "Driver readiness-coordinate adapter to already closed final06 archive/source and actual finalP1 result; not a new HoG execution result, acceptance or relabelling of prior failure.",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+    "sha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+    "bytes": 1994729,
+    "mode": "0o644"
+  },
+  "actualPrerequisite": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/result.json",
+    "sha256": "231d13b475ac77dd4c1468500aa73a2639233822e7252014105d84ae6acf74fc",
+    "bytes": 1759,
+    "mode": "0o644"
+  },
+  "rawArchiveInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/raw-tar-inventory.json",
+    "sha256": "404c0be5cc48bbc85e5b80685c01072458c720a513aca5465f543d4f47b475fb",
+    "bytes": 1262495,
+    "mode": "0o644"
+  },
+  "installedModeRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/installed-mode-relation.json",
+    "sha256": "b276008f8e9dfe996a3a5e1503e02e95f1edbc1660ad17b5efa47f42750ca9ad",
+    "bytes": 2193,
+    "mode": "0o644"
+  }
+}

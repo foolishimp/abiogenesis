@@ -1,0 +1,7 @@
+{
+  "kind": "first_unexpected_final_preservation_or_freeze_failure",
+  "errorType": "AssertionError",
+  "message": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/finalize.py\", line 75, in <module>\n    count = exact_tree(ROOT / root, expected)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/finalize.py\", line 18, in exact_tree\n    assert actual == sorted(wanted, key=lambda r: Path(r['path'])), str(base)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01\n",
+  "disposition": "Stopped; no repair or retry"
+}

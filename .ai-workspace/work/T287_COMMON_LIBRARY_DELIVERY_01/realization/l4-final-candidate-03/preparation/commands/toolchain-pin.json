@@ -1,0 +1,6 @@
+{
+  "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+  "expectedSha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+  "scope": "exact Node used for syntax and metadata binding only"
+}

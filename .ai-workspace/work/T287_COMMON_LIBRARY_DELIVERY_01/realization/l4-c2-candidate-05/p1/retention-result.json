@@ -1,0 +1,15 @@
+{
+  "exitCode": 0,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/retention.stdout",
+    "sha256": "902ace783b03716391336519d30b5f3fa41af408404e57852fef7ee377fbccb2",
+    "bytes": 488,
+    "mode": "0o644"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/retention.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "mode": "0o644"
+  }
+}

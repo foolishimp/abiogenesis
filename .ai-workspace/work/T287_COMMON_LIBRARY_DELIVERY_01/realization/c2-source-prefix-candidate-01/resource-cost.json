@@ -1,0 +1,24 @@
+{
+  "retainedLogicalBytesBeforeClosure": 193727161,
+  "limit": 2147483648,
+  "stageLogicalBytes": 148584654,
+  "stageRows": 6642,
+  "sourceRows": 1320,
+  "dependencyRows": 4576,
+  "dependencyDirectories": 499,
+  "compileGeneratorPackCounts": [
+    1,
+    1,
+    1
+  ],
+  "wallMsByCommand": {
+    "archive-check": 10006.184499943629,
+    "material": 45450.21412498318,
+    "generate": 194734.783916967,
+    "tsc": 42706.8111251574,
+    "payload": 3555.12237502262,
+    "pack": 41445.33900008537,
+    "generation-correspondence": 9086.949500022456
+  },
+  "noCleanup": true
+}

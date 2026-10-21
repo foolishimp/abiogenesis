@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
 import { chmod, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
@@ -859,11 +860,11 @@ test('owned process groups retain descendant cleanup after normal and TERM leade
 }, async t => {
   const scratch = await realpath(await mkdtemp(join(tmpdir(), 'abi5-owned-group-')));
   t.after(() => rm(scratch, { recursive: true, force: true }));
-  // Expose only the existing compiled private command owner in this test VM.
+  // Expose only the compiled private command/HTTP owners in this component test VM.
   // Its function body and imported owners are unchanged; helper main is not run.
   const modulePath = resolve(import.meta.dirname, '../../build/code/src/implementation/worksite_command_helper.js');
-  const source = (await readFile(modulePath, 'utf8')).replace(/await main\(\);\s*$/u, 'export { runCommand };');
-  assert.match(source, /export \{ runCommand \};$/u);
+  const source = (await readFile(modulePath, 'utf8')).replace(/await main\(\);\s*$/u, 'export { runCommand, runHttpProbe };');
+  assert.match(source, /export \{ runCommand, runHttpProbe \};$/u);
   const priorSignals = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));
   const module = new SourceTextModule(source, { identifier: modulePath });
   await module.link(async specifier => {
@@ -878,11 +879,11 @@ test('owned process groups retain descendant cleanup after normal and TERM leade
   const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) {
     if (error.code === 'ESRCH') return false; throw error;
   } };
-  for (const owner of ['worker', 'command']) for (const mode of ['normal', 'TERM']) {
+  for (const owner of ['worker', 'command', 'http']) for (const mode of ['normal', 'TERM']) {
     const label = `${owner}-${mode}`, ready = join(scratch, `${label}-descendant.json`), leaderFile = join(scratch, `${label}-leader.json`);
     const descendant = join(scratch, `${label}-descendant.mjs`), leader = join(scratch, `${label}-leader.mjs`);
     await writeFile(descendant, `import {writeFileSync} from 'node:fs';\nprocess.on('SIGTERM',()=>{});\nwriteFileSync(${JSON.stringify(ready)},JSON.stringify({pid:process.pid,ppid:process.ppid}));\nsetInterval(()=>{},1000);\n`);
-    await writeFile(leader, `import {spawn} from 'node:child_process';\nimport {existsSync,writeFileSync} from 'node:fs';\nwriteFileSync(${JSON.stringify(leaderFile)},JSON.stringify({pid:process.pid}));\nconst child=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:'ignore'});child.unref();\nconst wait=setInterval(()=>{if(!existsSync(${JSON.stringify(ready)}))return;clearInterval(wait);process.stdout.write('ready\\n');${mode === 'normal' ? 'process.exit(0);' : 'setInterval(()=>{},1000);'}},5);\n`);
+    await writeFile(leader, `import {spawn} from 'node:child_process';\nimport {existsSync,writeFileSync} from 'node:fs';\nwriteFileSync(${JSON.stringify(leaderFile)},JSON.stringify({pid:process.pid}));\nconst child=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:'ignore'});child.unref();\nconst wait=setInterval(()=>{if(!existsSync(${JSON.stringify(ready)}))return;clearInterval(wait);process.stdout.write('ready\\n');${owner === 'http' ? `writeFileSync(${JSON.stringify(join(scratch, `${label}.port`))},'1');` : ''}${mode === 'normal' ? 'process.exit(0);' : 'setInterval(()=>{},1000);'}},5);\n`);
     let leaderPid = null, result, signals = [];
     t.after(async () => { if (leaderPid === null) {
       try { leaderPid = JSON.parse(await readFile(leaderFile, 'utf8')).pid; }
@@ -899,10 +900,22 @@ test('owned process groups retain descendant cleanup after normal and TERM leade
       assert.equal(result.exitObserved, true);
       assert.equal(result.status, mode === 'normal' ? 0 : null);
       assert.equal(result.signal, mode === 'normal' ? null : 'SIGTERM');
-    } else {
+    } else if (owner === 'command') {
       const task = { commands: [{ commandId: `command://fixture/${label}`, executable: process.execPath, args: [leader],
         relativeCwd: '.', environment: [], timeoutMs: 700, terminationGraceMs: 150, expectedReports: [] }] };
       result = await module.namespace.runCommand(task, scratch, 0);
+      leaderPid = JSON.parse(await readFile(leaderFile, 'utf8')).pid;
+      signals = result.signalSequence;
+      assert.equal(result.exitStatus, mode === 'normal' ? 0 : 124);
+      assert.equal(result.processSignal, mode === 'normal' ? null : 'SIGTERM');
+    } else {
+      const { WORKSITE_COMMAND_EXECUTION_IDS } = await import('../../build/code/src/product/worksite_command_execution.js');
+      const probe = await module.namespace.runHttpProbe({}, scratch, {
+        launch: { executable: process.execPath, args: [leader, WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder],
+          relativeCwd: '.', environment: [], timeoutMs: 700, terminationGraceMs: 150, portFile: { relativePath: `${label}.port` } },
+        request: { hostname: '127.0.0.1', method: 'GET', path: '/', timeoutMs: 500 },
+      });
+      result = probe.process;
       leaderPid = JSON.parse(await readFile(leaderFile, 'utf8')).pid;
       signals = result.signalSequence;
       assert.equal(result.exitStatus, mode === 'normal' ? 0 : 124);
@@ -916,7 +929,7 @@ test('owned process groups retain descendant cleanup after normal and TERM leade
     assert.equal(result.terminationConfirmed, !alive(-leaderPid));
     if (alive(child.pid)) { try { process.kill(-leaderPid, 'SIGKILL'); }
       catch (error) { if (error.code !== 'ESRCH') throw error; }
-      t.diagnostic(`${label}: owned group remains probe-visible; result correctly retains unconfirmed cleanup.`); }
+      assert.fail(`${label}: owned group remains probe-visible; stop dependent process cases with the unconfirmed residue retained`); }
   }
 });
 
@@ -982,4 +995,110 @@ test("M5 ABG transport excludes descendant output emitted after direct-process e
   assert.equal(result.structuredEventCount, 0);
   assert.doesNotMatch(result.stdout, /late_exit_output/u);
   assert.equal(result.artifacts.output.byteLength, 0);
+});
+
+test('M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts', async t => {
+  const scratch = await mkdtemp(join(tmpdir(), 'abi5-long-process-bounds-'));
+  t.after(() => rm(scratch, { recursive: true, force: true }));
+  const script = join(scratch, 'worker.mjs');
+  await writeFile(script, 'setTimeout(() => process.stdout.write("ordinary-result"), 40);\n');
+  let timeouts = 0;
+  const result = await runWorkerTransport({
+    contract: constructKnownWorkerTransportContract('generic', { command: process.execPath, prefixArgs: [script], environment: {} }),
+    prompt: 'long bounds', lane: 'worker_executes', cwd: scratch, archiveRoot: join(scratch, 'archive'), label: 'long',
+    timeoutMs: 2_147_483_648, absoluteTimeoutMs: Number.MAX_SAFE_INTEGER, terminationGraceMs: 2_147_483_648,
+    environment: {}, observer: { onTimeoutObserved: () => { timeouts++; } },
+  });
+  assert.equal(result.timedOut, false); assert.equal(timeouts, 0); assert.equal(result.exitObserved, true);
+  assert.equal(result.terminationConfirmed, true); assert.equal(result.finalOutput, 'ordinary-result');
+});
+
+test('M5 a finite native wakeup above the host timer domain does not fire before its owner deadline', async t => {
+  const scratch = await mkdtemp(join(tmpdir(), 'abi5-long-native-wakeup-'));
+  t.after(() => rm(scratch, { recursive: true, force: true }));
+  const script = join(scratch, 'worker.mjs');
+  await writeFile(script, 'setTimeout(() => process.stdout.write("ordinary-result"), 100);\n');
+  let wakeups = 0;
+  const result = await runWorkerTransport({
+    contract: constructKnownWorkerTransportContract('generic', { command: process.execPath, prefixArgs: [script], environment: {} }),
+    prompt: 'controlled wakeup projection', lane: 'worker_executes', cwd: scratch, archiveRoot: join(scratch, 'archive'), label: 'wakeup',
+    timeoutMs: 30, absoluteTimeoutMs: 1000, terminationGraceMs: 100, environment: {},
+    observer: { onNativeSupervisionWakeup: () => { wakeups++; return {
+      projection: { disposition: { disposition: 'continue' } }, admittedThresholdEventRef: null,
+      timeoutClass: null, nextWakeDelayMs: Number.MAX_VALUE,
+    }; } },
+  });
+  assert.equal(wakeups, 1); assert.equal(result.timedOut, false); assert.equal(result.terminationConfirmed, true);
+  t.diagnostic('Controlled owner wakeup value with a real local process; no native provider or admitted native threshold claim.');
+});
+
+test('M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive', {
+  skip: process.platform === 'win32', timeout: 10000,
+}, async t => {
+  const root = await realpath(await mkdtemp(join(tmpdir(), 'abi5-owned-stdin-error-')));
+  const childFile = join(root, 'finite-child.mjs'), hostFile = join(root, 'host.mjs');
+  const workerModule = new URL('../../build/code/src/abg/worker_transport.js', import.meta.url).href;
+  const contractModule = new URL('../../build/code/src/abg/transport_contracts.js', import.meta.url).href;
+  await writeFile(childFile, `import {closeSync,writeFileSync} from 'node:fs';import {execFileSync} from 'node:child_process';
+    writeFileSync(${JSON.stringify(join(root, 'child.json'))},JSON.stringify({pid:process.pid,pgid:Number(execFileSync('/bin/ps',['-o','pgid=','-p',String(process.pid)],{encoding:'utf8'}).trim())}));
+    closeSync(0);setTimeout(()=>process.exit(0),300);`);
+  await writeFile(hostFile, `import {writeFileSync} from 'node:fs';
+    import {runWorkerTransport} from ${JSON.stringify(workerModule)};
+    import {constructKnownWorkerTransportContract} from ${JSON.stringify(contractModule)};
+    const record=value=>writeFileSync(${JSON.stringify(join(root, 'owner.json'))},JSON.stringify(value));
+    try {const result=await runWorkerTransport({contract:constructKnownWorkerTransportContract('claude',{command:process.execPath,prefixArgs:[${JSON.stringify(childFile)}],environment:{}}),
+      prompt:'x'.repeat(8388608),lane:'worker_executes',cwd:${JSON.stringify(root)},archiveRoot:${JSON.stringify(join(root, 'archive'))},label:'stdin-error',
+      timeoutMs:1000,absoluteTimeoutMs:2000,terminationGraceMs:100,environment:{},observer:{onProcessStarted:pid=>writeFileSync(${JSON.stringify(join(root, 'started.json'))},JSON.stringify({pid}))}});
+      record({kind:'returned',result});process.exitCode=21;
+    } catch(error) {record({kind:'rejected',name:error.name,code:error.code,errno:error.errno,syscall:error.syscall,message:error.message,stack:error.stack});}
+    writeFileSync(${JSON.stringify(join(root, 'survived.json'))},JSON.stringify({survived:true,pid:process.pid}));`);
+  const host = spawn(process.execPath, [hostFile], { detached: true, stdio: ['ignore', 'pipe', 'pipe'],
+    env: Object.fromEntries(Object.entries(process.env).filter(([key]) => !['NODE_OPTIONS', 'NODE_COMPILE_CACHE'].includes(key))) });
+  const scopeState = pid => { try { process.kill(pid, 0); return 'present'; } catch (error) {
+    if (error.code === 'ESRCH') return 'absent'; return 'unknown';
+  } };
+  const killScope = pid => { try { process.kill(-pid, 'SIGKILL'); } catch (error) { if (error.code !== 'ESRCH') throw error; } };
+  let stdout = '', stderr = '', deadlineExpired = false, identity = null;
+  const cleanupSignals = [];
+  t.after(async () => {
+    for (const pid of [host.pid, identity?.pgid]) if (pid !== undefined && scopeState(-pid) === 'present') {
+      killScope(pid);
+    }
+    await rm(root, { recursive: true, force: true });
+  });
+  host.stdout.on('data', bytes => { stdout += bytes; }); host.stderr.on('data', bytes => { stderr += bytes; });
+  const exit = await new Promise((resolveExit, reject) => {
+    const timer = setTimeout(() => { deadlineExpired = true; killScope(host.pid); }, 5000);
+    host.once('error', error => { clearTimeout(timer); reject(error); });
+    host.once('close', (code, signal) => { clearTimeout(timer); resolveExit({ code, signal }); });
+  });
+  const optionalJson = file => readFile(join(root, file), 'utf8').then(JSON.parse, error => {
+    if (error.code === 'ENOENT') return null; throw error;
+  });
+  identity = await optionalJson('child.json');
+  const started = await optionalJson('started.json');
+  if (identity === null && started !== null) identity = { pid: started.pid, pgid: started.pid };
+  const samples = [];
+  for (let i = 0; identity !== null && i < 120; i++) {
+    const sample = { group: scopeState(-identity.pgid), pid: scopeState(identity.pid) }; samples.push(sample);
+    if (sample.group !== 'present') break;
+    await new Promise(resolveWait => setTimeout(resolveWait, 25));
+  }
+  const observed = { exit, deadlineExpired, hostPid: host.pid, identity, stdout, stderr,
+    owner: await optionalJson('owner.json'), survived: await optionalJson('survived.json'), samples };
+  // Capture the actual failure/owner/physical facts before assertions or cleanup.
+  t.diagnostic(JSON.stringify(observed));
+  if (identity !== null && samples.at(-1)?.group === 'present') {
+    killScope(identity.pgid); cleanupSignals.push('SIGKILL');
+    for (let i = 0; i < 40 && scopeState(-identity.pgid) === 'present'; i++)
+      await new Promise(resolveWait => setTimeout(resolveWait, 25));
+    t.diagnostic(JSON.stringify({ cleanupSignals, groupAfterCleanup: scopeState(-identity.pgid) }));
+  }
+  assert.equal(samples.at(-1)?.group, 'absent', 'known worker group is absent before dependent test work');
+  assert.deepEqual(cleanupSignals, []); assert.equal(deadlineExpired, false);
+  assert.equal(exit.code, 0); assert.equal(exit.signal, null); assert.equal(observed.survived?.survived, true);
+  assert.equal(observed.owner?.kind, 'rejected'); assert.equal(observed.owner.code, 'EPIPE');
+  assert.equal(observed.owner.syscall, 'write'); assert.equal(observed.owner.message, 'write EPIPE');
+  assert.doesNotMatch(stderr, /Unhandled 'error' event/u);
+  assert.equal(await optionalJson('archive/stdin-error-transport.json'), null, 'no fabricated transport result');
 });

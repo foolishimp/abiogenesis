@@ -1,0 +1,1130 @@
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/c_call_outcome.ts.diff:6: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/c_call_outcome.ts.diff:196: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/c_call_outcome.ts.diff:206: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/c_call_outcome.ts.diff:206: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/ccall_lifecycle.ts.diff:4: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/event_calculus.ts.diff:16: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/event_calculus.ts.diff:21: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/event_calculus.ts.diff:89: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/event_calculus.ts.diff:161: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/leaf_invocation_port.ts.diff:26: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:959: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:962: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:976: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:980: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1110: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2388: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:959: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:962: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:976: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:980: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1110: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2388: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-c0-post-publication-failure.test.mjs.diff:6: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-c0-post-publication-failure.test.mjs.diff:11: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-c0-post-publication-failure.test.mjs.diff:20: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-c0-post-publication-failure.test.mjs.diff:26: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-native-work-currentness-consumers.test.mjs.diff:11: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:959: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:962: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:976: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:980: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1110: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2388: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:959: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:962: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:976: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:980: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1110: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2388: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/typed-root.diff:12: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/typed-root.diff:12: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:959: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:962: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:976: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:980: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1110: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2388: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:959: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:962: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:976: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:980: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1110: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2388: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-04/commands/sunny-owner.stdout:17: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-04/commands/sunny-owner.stdout:21: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/commands/unavailable-owner.stdout:17: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/commands/unavailable-owner.stdout:177: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/c_call_outcome.ts.diff:19: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:959: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:962: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:976: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:980: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1110: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2388: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/t287-c0-post-publication-failure.test.mjs.diff:4: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md.diff:20: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:959: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:962: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:976: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:980: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1110: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2388: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-metadata.mjs.diff:5: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-metadata.mjs.diff:14: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/two-file.diff:31: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/verifier.diff:15: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/verifier.diff:20: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff:6: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff:15: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff:21: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff:30: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff:38: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff:44: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff:53: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff:68: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/goals.diff:4: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/goals.diff:9: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/goals.diff:11: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/goals.diff:61: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff:22: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff:52: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff:56: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff:58: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff:69: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff:100: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff:102: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff:166: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout:34: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout:41: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout:85: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout:89: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout:104: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout:106: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/commands/reopen18.stdout:35: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/commands/reopen18.stdout:48: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff:11: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff:59: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff:167: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff:204: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff:300: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff:536: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff:536: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/commands/native-workspace-physical-regression.stdout:16: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/commands/native-workspace-physical-regression.stdout:18: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/owned.diff:24: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/owned.diff:84: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/ACTIVATION.md:197: trailing whitespace.
++further carrier is required. 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/ACTIVATION.md:617: trailing whitespace.
++decision that needs it. 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/SPEC_METHOD.md:1947: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/TICKETS.md:320: trailing whitespace.
++`satisfied` one. 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/ac-task-a.md:1229: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/acceptance-release.md:802: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/binding.md:1272: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/bootstrap.md:1095: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/configuration.md:146: trailing whitespace.
++further carrier is required. 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/configuration.md:312: trailing whitespace.
++decision that needs it. 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/configuration.md:1747: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/dm-task-d.md:1573: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/eb-task-d.md:1544: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/member-build-assess.md:927: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/rf-task-a.md:1413: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/rf-task-b.md:1314: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/stale-summary.md:136: trailing whitespace.
++further carrier is required. 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/stale-summary.md:1239: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/traversal-task-f.md:1578: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch:6: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch:116: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch:163: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch:257: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch:326: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-case.log:19: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-case.log:22: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current-case.log:25: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current-case.log:28: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/case.tap:19: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/case.tap:21: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:284: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:700: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:713: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:914: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:1191: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:1657: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:1808: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:1832: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:1850: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:1852: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch:1852: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/physical-http-03.tap:18: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/physical-http-03.tap:20: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/semantic-budget-01.tap:22: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/semantic-budget-01.tap:25: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/language-smoke-fixture.mjs.diff:13: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/commands/test.stdout:16: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/commands/test.stdout:18: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/commands/test.stdout:16: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/commands/test.stdout:18: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/commands/test.stdout:16: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/commands/test.stdout:18: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch:167: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch:173: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch:189: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch:217: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch:435: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch:545: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch:557: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch:563: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch:692: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:9: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:16: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:57: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:60: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:75: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:99: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:119: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:127: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:140: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:149: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:151: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:153: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:454: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:459: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:461: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:471: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:487: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:529: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:534: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff:540: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/execution-resolution.diff:11: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/execution-resolution.diff:24: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/source-delta.diff:88: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/source-delta.diff:238: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/source-delta.diff:293: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/fixture.patch:16: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-delta-from-original.diff:88: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-delta-from-original.diff:238: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-delta-from-original.diff:298: trailing whitespace.
++ 
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:952: trailing whitespace.
++  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:955: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:969: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:973: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:1103: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts:2381: trailing whitespace.
++    
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts:18: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts:113: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md:101: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md:123: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md:203: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:3: trailing whitespace.
++**Ticket**: T-158  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md:4: trailing whitespace.
++**Change class**: requirement_reprice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md:71: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md:69: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md:110: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:3: trailing whitespace.
++**Status**: Active design surface for T-129 first slice  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md:4: trailing whitespace.
++**Governs**: M03 runtime liveness, actor/process supervision, retry/watchdog disposition  
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md:50: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md:62: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md:52: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md:238: new blank line at EOF.
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs:48: new blank line at EOF.

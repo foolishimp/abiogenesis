@@ -1,0 +1,6 @@
+{
+  "emittedProductSha256": "c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+  "emittedProductBytes": 110016,
+  "gtlSourceSha256": "df39d2e5fbabf7e149099d468c951bd2a3e9b3eaaa9651f5dd53833ff89ad3e9",
+  "relation": "Product and GTL coordinates unchanged from closed lifetime subject; stream repair changes physical implementation only"
+}

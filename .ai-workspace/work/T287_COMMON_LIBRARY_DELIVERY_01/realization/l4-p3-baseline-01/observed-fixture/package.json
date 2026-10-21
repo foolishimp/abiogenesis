@@ -1,0 +1,1 @@
+{"exports":{"./program":"./build/program.mjs"},"files":["build","contracts","product-toolchain-manifest.json"],"name":"@abi5-tests/language-fixtures","type":"module","version":"5.0.0"}

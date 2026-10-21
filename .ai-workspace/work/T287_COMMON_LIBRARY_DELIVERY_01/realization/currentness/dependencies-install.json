@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "npm",
+    "ci",
+    "--offline",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript",
+  "exit_code": 0,
+  "stdout": "\nadded 16 packages in 565ms\n",
+  "stderr": "",
+  "wall_seconds": 0.6549707090016454
+}

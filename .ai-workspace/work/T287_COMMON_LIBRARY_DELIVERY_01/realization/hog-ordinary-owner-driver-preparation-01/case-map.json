@@ -1,0 +1,71 @@
+{
+  "sourceSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/finite-selection.json",
+    "sha256": "733cc96c06b4c6e88e26281073b2154a9428b7bd0a2f1fff429f72a43c50f816",
+    "bytes": 9205,
+    "mode": "0o644"
+  },
+  "cases": [
+    {
+      "id": "compose-retry",
+      "selector": "COMPOSED_IDS",
+      "expectation": {
+        "kind": "data_output",
+        "schemaVersion": "5.0.0",
+        "message": "World"
+      },
+      "ordinaryOwnerRoute": "setupInstalledRootCatalog -> constructInstalledStartCall -> installed Public CLI -> actual ABG returned prefix -> owner historical projections -> fresh installed Public reads",
+      "oracle": "oracle.mjs::outcomeOracle/readOracle",
+      "scope": "Default input exercises successful first attempt, not multiple failed attempts or native retry quality."
+    },
+    {
+      "id": "workflow-foldback",
+      "selector": "WORKFLOW_IDS",
+      "expectation": {
+        "kind": "data_output",
+        "schemaVersion": "5.0.0",
+        "message": "World"
+      },
+      "ordinaryOwnerRoute": "setupInstalledRootCatalog -> constructInstalledStartCall -> installed Public CLI -> actual ABG returned prefix -> owner historical projections -> fresh installed Public reads",
+      "oracle": "oracle.mjs::outcomeOracle/readOracle",
+      "scope": "Deterministic workflow child relation only; no F_P/application recursion claim."
+    },
+    {
+      "id": "fanout-partial",
+      "selector": "FAN_OUT_IDS",
+      "expectation": {
+        "completionKind": "partial_stop",
+        "completedOrdinals": [
+          0
+        ],
+        "stoppingOrdinal": 1,
+        "unstartedOrdinals": [
+          2
+        ],
+        "outputVectorPresent": false
+      },
+      "ordinaryOwnerRoute": "setupInstalledRootCatalog -> constructInstalledStartCall -> installed Public CLI -> actual ABG returned prefix -> owner historical projections -> fresh installed Public reads",
+      "oracle": "oracle.mjs::outcomeOracle/readOracle",
+      "scope": "Actual physical install/admission/traversal required; source presence or constructor checks do not close this claim."
+    }
+  ],
+  "uncredited": [
+    {
+      "relation": "two historical t287-route-reconstruction cases",
+      "reason": "requires exact P0_RETAINED_NATIVE_SCRATCH and predecessor package; no selected material or old-root acquisition"
+    },
+    {
+      "relation": "selected-execution-closure multi-entry/history and conformance-owner-reuse",
+      "reason": "requires exact retained request/history/predecessor/metadata and lower fixture premise mapping; current P1 is not automatic substitution"
+    },
+    {
+      "relation": "multiple failed/native retry attempts",
+      "reason": "default deterministic compose/retry input reaches one successful attempt only; do not invent another fixture or provider"
+    },
+    {
+      "relation": "t287-r4-aba-retry alternate source route",
+      "reason": "its imported test_env/falsifiers/runtime-f09.mjs is absent from closed final01 stage; not selected or executed; not a production failure"
+    }
+  ],
+  "sourceOnlyCorrection": "Leaf-only setupInstalledRootExecutionBasis cannot construct workflow/fan-out root; use existing ordinary Public start for all cases. No source modification."
+}

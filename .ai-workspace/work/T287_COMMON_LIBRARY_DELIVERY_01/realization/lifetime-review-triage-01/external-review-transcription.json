@@ -1,0 +1,82 @@
+{
+  "kind": "attributed_external_review_transcription",
+  "provenance": "Executive message to Writer; original prompt/argv and complete original provider response remain in root tool transcript. This JSON is not the original stdout bytes.",
+  "activation": "E03-SOURCE-REVIEW-01",
+  "externalAssessor": {
+    "directlyActivatedBy": "/root",
+    "writerActivated": false,
+    "cli": "/Users/jim/.local/share/claude/versions/2.1.303",
+    "cliSha256ReportedByExecutive": "d2da3b003dc08b88b7230469014fe3e1dc6fe94bc8f648e89b34175d30269370",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "familyIndependentFromWriter": "Claude versus GPT",
+    "controls": [
+      "safe-mode",
+      "restricted",
+      "read-only Read/Glob/Grep only",
+      "no Bash/edit/MCP/agent",
+      "no-session-persistence",
+      "no custom settings",
+      "no fallback"
+    ],
+    "promptSha256ReportedByExecutive": "352b1c8a1f37c8f9efb7ff0d82e32d71692c3671c406a9253c66053181a2f2ef",
+    "execSession": 28661,
+    "exitCode": 0,
+    "wallSeconds": 808.554767,
+    "originalStdoutSha256ReportedByExecutive": "a4a1d399be207d0b3081b11aeeee0366818a5e7c2b830448e569006485cee1e2",
+    "stderr": "empty",
+    "cliResultSession": "2fc550a1-72f3-484f-bf15-ada099a3b813",
+    "uuid": "5906914c-353c-4536-9d17-27ce0f11ce22",
+    "is_error": false,
+    "stop": "end_turn",
+    "turns": 82,
+    "outsideReadGrepGlobToolCalls": 0,
+    "permissionDenials": [],
+    "displayedCostUSD": 5.4435068,
+    "costLimit": "list basis, not billing",
+    "apiMilliseconds": 774659
+  },
+  "ProductFrame": "Fixed fifteen 5.0 families; GOAL-035 L3 common library; GTL sole language, HoG direct traversal, ABG runtime truth. Physical attempt mechanism is not runtime authority.",
+  "satisfiedPredicates": {
+    "P1": "single physical route across three owners and duplicate retirement",
+    "P2": "distinct facts and first error",
+    "P3": "owner capture cuts and separate projections",
+    "P4": "postlaunch owner-code finalization, subject to F2 stream residual",
+    "P5": "unknown stop before report reads/dependent work",
+    "P6": "two-grace plus drain plus separate 5000 strict budget",
+    "P7": "monotonic positive bounded timing, cancellation/generation, exactly once, no bound extension",
+    "P8": "no authority change; budgetRule field mandated",
+    "P9": "coordinate-only GTL change",
+    "P10": "local oracle/receipt correspondence",
+    "P11": "preserved failures"
+  },
+  "falsifiedPredicate": {
+    "P12": "diagnostic causal attribution by F1"
+  },
+  "reviewConclusion": "No newly introduced production defect found; local readiness P1-P11 only, with F2 uncertain reachability. 38 cases across multiple exact receipts are not a whole green run.",
+  "notPerformed": [
+    "tests",
+    "installed P5",
+    "native P4",
+    "combined pure/U1",
+    "live Windows",
+    "hash verification",
+    "R1 historical continuation"
+  ],
+  "F1": {
+    "severity": "moderate diagnostic attribution/oracle scope",
+    "substance": "HTTP keep-alive is jointly caused by the HTTP owner client and fixture. httpRequest lacks an agent override; actual request header is keep-alive and one connection remains after response finish. Original diagnostic fixture-only attribution and no-different-owner-defect claim omitted client participation. Corrected server Connection: close proves an explicit normally exiting case. Preserved long-running launch policy and actual response/finalization facts remain valid.",
+    "recommendation": "Executive Owner/Effect triage: select client policy change with affected reproof or preserve policy with explicit residual; correct causal record either way."
+  },
+  "F2": {
+    "severity": "indeterminate low-to-moderate; unexecuted race",
+    "substance": "Pre-existing worker stdin pipe/end path has no stdin error listener. Early child stdin closure during a prompt larger than the pipe buffer may emit unhandled EPIPE before exit callback, terminating ABG host without lifetime completion/transport Result. Source path existed in preimage.",
+    "recommendation": "Actual isolated host discriminator before deciding repair."
+  },
+  "residuals": {
+    "R1": "perOperationDrain enters semantic actor contract digest then instruction identities; local current-budget tests do not close historical continuation re-derivation.",
+    "R2": "Pre-existing accepted worker/command direct-exit capture can lose late stdout; no E03 falsification.",
+    "R3": "Preserved socket inactivity timeout permits slow-drip outside-group request work potentially lasting until outer actor limit; no universal per-probe claim.",
+    "R4": "Controlled ns helper repeats production rounding formula; independent visible ceil inspection supports upward rounding, shared oracle caveat retained."
+  }
+}

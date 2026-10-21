@@ -1,0 +1,44 @@
+{
+  "kind": "E04_successor_closing_preservation",
+  "activation": "E04-EVIDENCE-INDEX-02",
+  "checks": [
+    {
+      "subject": "closed preparation",
+      "rows": 74,
+      "mismatches": []
+    },
+    {
+      "subject": "original execution frozen inputs",
+      "rows": 8,
+      "mismatches": []
+    },
+    {
+      "subject": "E03 closed records",
+      "rows": 183,
+      "mismatches": []
+    },
+    {
+      "subject": "E03 frozen output copies",
+      "rows": 4,
+      "mismatches": []
+    },
+    {
+      "subject": "main936",
+      "rows": 936,
+      "mismatches": []
+    },
+    {
+      "subject": "retained scratch nodes and bytes",
+      "rows": 44,
+      "mismatches": []
+    }
+  ],
+  "mainMemberCount": 936,
+  "mainMemberDifference": [],
+  "hostRawAndCompleteCaptureEqual": true,
+  "oldFailureAndDraftRemainPinnedBy": "index-successor-checks-02.json",
+  "physicalRunCountRemains": 1,
+  "newPhysicalExecutions": 0,
+  "cleanup": "none",
+  "failures": []
+}

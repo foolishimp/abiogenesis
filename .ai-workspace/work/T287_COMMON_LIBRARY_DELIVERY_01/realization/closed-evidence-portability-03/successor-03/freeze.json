@@ -1,0 +1,20 @@
+{
+  "status": "closed_verified_review_carrier",
+  "createdUtc": "2026-10-21T09:48:32.469189+00:00",
+  "manifest": {
+    "path": "manifest.json",
+    "sha256": "e60257faeadd0df51bae76796bda2131a3b2ce45c12fc89d7a99fe91f58ad473",
+    "bytes": 2789
+  },
+  "recordCount": 15,
+  "repositoryDependencies": 2345,
+  "verificationReceipt": {
+    "path": "verification.receipt.json",
+    "sha256": "d9ff954ad81eef5a90126431b5fd8102dad5ab7d2100f286b4953ec3bd9a72df",
+    "bytes": 389
+  },
+  "ProductExecutions": 0,
+  "newArchivesCreated": 0,
+  "GitEffectsInTransport": 0,
+  "independentL5": false
+}

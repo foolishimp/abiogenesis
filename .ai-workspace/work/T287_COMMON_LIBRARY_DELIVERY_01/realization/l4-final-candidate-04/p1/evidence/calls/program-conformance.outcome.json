@@ -1,0 +1,61 @@
+{
+  "acquisitionKind": "eventless",
+  "kind": "installed_definition_call_transport_result",
+  "receipt": {
+    "definitionKey": {
+      "memberKey": "gtl_program",
+      "operationId": "abg.operation.conformance.evaluate"
+    },
+    "exitCode": 0,
+    "failure": null,
+    "invocationRef": "invocation://abiogenesis/056669a3d7146eda2efb49d7dd66eef08309e8d263eda100444bf08e603bc503",
+    "kind": "definition_host_receipt",
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "assessment": {
+          "digest": "sha256:b2a5da4d950c4b0645bcfb1d10cf0c63c0aa7876205af87a10a285e612a21445",
+          "ref": "evidence://abiogenesis/conformance/b2a5da4d950c4b0645bcfb1d10cf0c63c0aa7876205af87a10a285e612a21445"
+        },
+        "diagnostics": [],
+        "disposition": "passed",
+        "evidence": [
+          {
+            "digest": "sha256:b2a5da4d950c4b0645bcfb1d10cf0c63c0aa7876205af87a10a285e612a21445",
+            "ref": "evidence://abiogenesis/conformance/b2a5da4d950c4b0645bcfb1d10cf0c63c0aa7876205af87a10a285e612a21445"
+          }
+        ],
+        "inventory": {
+          "digest": "sha256:b6f9127c817ff8e4af06e0dabe2812464ecd125c4474841c43d8e438149e1dc8",
+          "ref": "gtl-inventory://abiogenesis/b6f9127c817ff8e4af06e0dabe2812464ecd125c4474841c43d8e438149e1dc8"
+        },
+        "program": {
+          "digest": "sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2",
+          "ref": "program://abi5-tests/sandbox-uat/lifecycle@5"
+        },
+        "repairAffordances": [],
+        "violatedAuthorities": []
+      }
+    },
+    "resources": {
+      "capabilityGrants": [
+        {
+          "digest": "sha256:e3bfe44dd5d8665c1186bf41569837966c7ee51ca7d8ce791b60cf9dd3a79b13",
+          "ref": "capability-grant://abiogenesis/e3bfe44dd5d8665c1186bf41569837966c7ee51ca7d8ce791b60cf9dd3a79b13"
+        }
+      ],
+      "invocation": {
+        "digest": "sha256:056669a3d7146eda2efb49d7dd66eef08309e8d263eda100444bf08e603bc503",
+        "ref": "invocation://abiogenesis/056669a3d7146eda2efb49d7dd66eef08309e8d263eda100444bf08e603bc503"
+      },
+      "kind": "conformance_evaluation_resource_receipt",
+      "request": {
+        "digest": "sha256:4925368a515debc827ea86b778b0418736eb44c2898ba69c847e13dff1982493",
+        "ref": "request://abi5-tests/sandbox-uat/t287-final04-p1-6f42d9a31e5870bc/9"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "schemaVersion": "5.0.0"
+}

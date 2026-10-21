@@ -1,0 +1,593 @@
+--- build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts:preimage
++++ build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts:successor
+@@ -12,8 +12,8 @@
+   isWorksiteFileReplaceRequest,
+   isWorksiteObservation,
+   isWorksitePostPublicationFailure,
+-  worksiteFailureAuthorization,
+   type WorksiteObservation,
++  type WorksiteFileReplaceRequest,
+ } from "../product/worksite_effect.js";
+ import {
+   runtimeEventsFromValidatedPrefix,
+@@ -32,7 +32,7 @@
+ import { isRuntimeProbeObservation, isRuntimeSystemProbeContract,
+   type RuntimeInvocationScope, type RuntimeProbeObservation, type RuntimeSystemProbeContract } from "./runtime_liveness_contracts.js";
+ import { createRuntimeLivenessEventValidator } from "./runtime_liveness.js";
+-import { projectWorksiteFailureBasis } from "./c_call_outcome.js";
++import { projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from "./c_call_outcome.js";
+ import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
+ import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkObservation,
+   isNativeWorkspaceWorkFailure,
+@@ -515,39 +515,26 @@
+   after: string | null;
+   successorObservation: WorksiteObservation | null;
+ }> | null {
++  const transition = worksiteTransitionForResult(event, priorEvents);
++  if (transition === null) return null;
++  const { request: _request, ...projected } = transition;
++  return projected;
++}
++
++function worksiteTransitionForResult(
++  event: RuntimeEvent,
++  priorEvents: readonly RuntimeEvent[],
++): Readonly<{
++  request: WorksiteFileReplaceRequest;
++  before: string;
++  after: string | null;
++  successorObservation: WorksiteObservation | null;
++}> | null {
+   if (!isRecord(event.payload)) return null;
+   const evidenceRefs = stringArrayField(event, "evidenceRefs");
+   if (event.payload.resultClass === "failure") {
+-    const { resultRef, resultDigest, ...resultBody } = event.payload;
+-    const evidenceRows = priorEvents.filter(row =>
+-      row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId &&
+-      isRecord(row.payload) && evidenceRefs.includes(row.payload.evidenceRef as string));
+-    const evidenceEvent = evidenceRows.length === 1 ? evidenceRows[0]! : null;
+-    if (event.kind !== "c_call_result_admitted" || evidenceRefs.length !== 1 ||
+-      event.payload.cCallRef !== event.aggregateId ||
+-      event.payload.contractRef !== WORKSITE_C0_IDS.failureContractRef ||
+-      event.payload.valueKind !== "worksite_effect_refusal" ||
+-      resultDigest !== sha256Canonical(resultBody) ||
+-      resultRef !== `result://abiogenesis/${String(resultDigest).slice("sha256:".length)}` ||
+-      event.payload.valueDigest !== sha256Canonical(event.payload.value!) ||
+-      evidenceEvent === null || !isRecord(evidenceEvent.payload) ||
+-      evidenceEvent.admissionOrdinal >= event.admissionOrdinal ||
+-      evidenceEvent.basisId !== event.basisId || evidenceEvent.runId !== event.runId ||
+-      evidenceEvent.graphCallId !== event.graphCallId || evidenceEvent.frameId !== event.frameId ||
+-      !event.causationEventRefs.includes(evidenceEvent.eventId)) return null;
+-    const { evidenceRef, evidenceDigest, ...evidenceBody } = evidenceEvent.payload;
+-    const authenticated = projectWorksiteFailureBasis(priorEvents.filter(row =>
+-      row.admissionOrdinal < evidenceEvent.admissionOrdinal), event.aggregateId, event.payload.value);
+-    if (authenticated === null ||
+-      authenticated.executionBasis.basisRef !== event.basisId ||
+-      authenticated.cCall.runId !== event.runId ||
+-      evidenceBody.cCallRef !== event.aggregateId || evidenceBody.evidenceClass !== "deterministic" ||
+-      evidenceBody.implementationRef !== authenticated.authorization.implementationRef ||
+-      evidenceBody.inputDigest !== sha256Canonical(authenticated.request as unknown as JsonValue) ||
+-      evidenceBody.outputDigest !== event.payload.valueDigest ||
+-      evidenceDigest !== sha256Canonical(evidenceBody) ||
+-      evidenceRef !== `evidence://abiogenesis/${String(evidenceDigest).slice("sha256:".length)}`) return null;
+-    return { before: authenticated.request.predecessorObservation.observationRef,
++    const request = projectWorksiteFailureResultRequest(event, priorEvents);
++    return request === null ? null : { request, before: request.predecessorObservation.observationRef,
+       after: null, successorObservation: null };
+   }
+   const evidence = priorEvents.filter((row) =>
+@@ -578,6 +565,7 @@
+     receipt.afterObservationDigest !== successor.observationDigest
+   ) return null;
+   return {
++    request,
+     before: request.predecessorObservation.observationRef,
+     after: successor.observationRef,
+     successorObservation: successor,
+@@ -614,15 +602,22 @@
+ 
+ function retiredNativeWorkObservations(task: NativeWorkspaceWorkTask, changed: ReadonlySet<string> | null,
+   priorEvents: readonly RuntimeEvent[]): readonly string[] {
++  return retiredWorksiteObservations(task.workspaceAuthorityBasis.canonicalRoot,
++    path => changed === null ? nativeWorkspacePathWithin(path, task.writeRoots) : changed.has(path), priorEvents);
++}
++
++/** Physical target selection is shared; each caller retains its authenticated
++ * cause and exact affected scope. Immutable bindings do not partition a file. */
++function retiredWorksiteObservations(canonicalRoot: string, affectsPath: (path: string) => boolean,
++  priorEvents: readonly RuntimeEvent[]): readonly string[] {
+   const retired = new Set<string>();
+   for (const row of priorEvents) {
+     if (!isRecord(row.payload)) continue;
+     const request = row.kind === "basis_admitted" ? row.payload.rawInputValue :
+       row.kind === "c_call_evidenced" && row.payload.evidenceClass === "worksite_file_replace" ? row.payload.request : null;
+     if (!isWorksiteFileReplaceRequest(request) ||
+-      request.workspaceAuthorityBasis.canonicalRoot !== task.workspaceAuthorityBasis.canonicalRoot ||
+-      !(changed === null ? nativeWorkspacePathWithin(request.subject.relativePath, task.writeRoots) :
+-        changed.has(request.subject.relativePath))) continue;
++      request.workspaceAuthorityBasis.canonicalRoot !== canonicalRoot ||
++      !affectsPath(request.subject.relativePath)) continue;
+     retired.add(request.predecessorObservation.observationRef);
+     if (row.kind === "c_call_evidenced" && isWorksiteObservation(row.payload.successorObservation))
+       retired.add(row.payload.successorObservation.observationRef);
+@@ -972,7 +967,12 @@
+     case "c_call_result_admitted": {
+       const resultRef = stringField(event, "resultRef");
+       const evidenceRefs = stringArrayField(event, "evidenceRefs");
+-      const worksite = projectWorksiteTransitionForResult(event, priorEvents);
++      const worksite = worksiteTransitionForResult(event, priorEvents);
++      const retiredWorksite = worksite === null ? [] : retiredWorksiteObservations(
++        worksite.request.workspaceAuthorityBasis.canonicalRoot,
++        path => path === worksite.request.subject.relativePath, priorEvents);
++      // The successful after observation is already carried by the preceding
++      // evidence, but this Result establishes it as current rather than stale.
+       return {
+         initiates: [
+           ...(resultRef === null
+@@ -986,9 +986,8 @@
+           ...evidenceRefs.map((evidenceRef) =>
+             fluent("c_call_evidence_available", evidenceRef)
+           ),
+-          ...(worksite === null
+-            ? []
+-            : [fluent("worksite_observation_current", worksite.before)]),
++          ...(worksite === null ? [] : [...new Set([worksite.before, ...retiredWorksite])]
++            .filter(ref => ref !== worksite.after).map(ref => fluent("worksite_observation_current", ref))),
+           ...projectNativeWorkRetiredObservations(event, priorEvents, history?.prefix).map(ref => fluent("worksite_observation_current", ref)),
+         ],
+         clips: [],
+@@ -1787,13 +1786,10 @@
+     if (typeof payload.parentCCallRef === "string") add("aggregate:c_call:" + payload.parentCCallRef);
+   } else if (event.kind === "c_call_result_admitted") {
+     add("aggregate:c_call:" + event.aggregateId);
++    if (payload?.contractRef === WORKSITE_C0_IDS.outputContractRef)
++      add("worksite-observation-dependency");
+     if (payload?.contractRef === WORKSITE_C0_IDS.failureContractRef && isWorksitePostPublicationFailure(payload.value)) {
+-      const authorization = worksiteFailureAuthorization(payload.value);
+-      add("basis:" + authorization.executionBasisRef);
+-      add("payload:artifactRef:" + authorization.workspaceBindingIdentity);
+-      const basis = [...selected.values()].find(row => row.kind === "basis_admitted" && row.basisId === authorization.executionBasisRef);
+-      if (basis !== undefined && isRecord(basis.payload) && typeof basis.payload.implementationSetRef === "string")
+-        add("payload:implementationSetRef:" + basis.payload.implementationSetRef);
++      for (const row of worksiteFailureResultDependencies(prefix, event)) selected.set(row.eventId, row);
+       add("worksite-observation-dependency");
+     }
+     if (isNativeWorkspaceWorkObservation(payload?.value) || isNativeWorkspaceWorkFailure(payload?.value))
+--- build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts:preimage
++++ build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts:successor
+@@ -1,4 +1,4 @@
+-import { indexedRuntimeEvents } from "./event_prefix.js";
++import { indexedRuntimeEvents, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
+ import type { RuntimeEventPrefix } from "./event_prefix.js";
+ import { GOVERNANCE_IMPLEMENTATION_REFS, governanceRef } from "../product/default_library.js";
+ import { governanceResultMatches } from "./default_library.js";
+@@ -44,6 +44,7 @@
+   constructWorksiteEffectAuthorization,
+   worksiteFailureAuthorization,
+   WORKSITE_FILE_REPLACE_EFFECT_URI,
++  type WorksiteFileReplaceRequest,
+ } from "../product/worksite_effect.js";
+ import type { WorkspaceBinding } from "../product/environment.js";
+ import type { ActorRuntimeBinding } from "./actor_process.js";
+@@ -217,6 +218,67 @@
+   } catch {
+     return null;
+   }
++}
++
++/** @internal The one complete C0 post-publication Result/evidence join. A
++ * selected index row is only a candidate; every existing failure check remains. */
++export function projectWorksiteFailureResultRequest(event: RuntimeEvent,
++  priorEvents: readonly RuntimeEvent[]): WorksiteFileReplaceRequest | null {
++  if (!isJsonRecord(event.payload) || event.payload.resultClass !== "failure") return null;
++  const refs = event.payload.evidenceRefs;
++  const evidenceRefs: readonly string[] = Array.isArray(refs) && refs.every(ref => typeof ref === "string")
++    ? refs as readonly string[] : [];
++  const { resultRef, resultDigest, ...resultBody } = event.payload;
++  const evidenceRows = priorEvents.filter(row =>
++    row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId &&
++    isJsonRecord(row.payload) && evidenceRefs.includes(row.payload.evidenceRef as string));
++  const evidenceEvent = evidenceRows.length === 1 ? evidenceRows[0]! : null;
++  if (event.kind !== "c_call_result_admitted" || evidenceRefs.length !== 1 ||
++    event.payload.cCallRef !== event.aggregateId ||
++    event.payload.contractRef !== WORKSITE_C0_IDS.failureContractRef ||
++    event.payload.valueKind !== "worksite_effect_refusal" ||
++    resultDigest !== sha256Canonical(resultBody) ||
++    resultRef !== `result://abiogenesis/${String(resultDigest).slice("sha256:".length)}` ||
++    event.payload.valueDigest !== sha256Canonical(event.payload.value!) ||
++    evidenceEvent === null || !isJsonRecord(evidenceEvent.payload) ||
++    evidenceEvent.admissionOrdinal >= event.admissionOrdinal ||
++    evidenceEvent.basisId !== event.basisId || evidenceEvent.runId !== event.runId ||
++    evidenceEvent.graphCallId !== event.graphCallId || evidenceEvent.frameId !== event.frameId ||
++    !event.causationEventRefs.includes(evidenceEvent.eventId)) return null;
++  const { evidenceRef, evidenceDigest, ...evidenceBody } = evidenceEvent.payload;
++  const authenticated = projectWorksiteFailureBasis(priorEvents.filter(row =>
++    row.admissionOrdinal < evidenceEvent.admissionOrdinal), event.aggregateId, event.payload.value);
++  if (authenticated === null ||
++    authenticated.executionBasis.basisRef !== event.basisId ||
++    authenticated.cCall.runId !== event.runId ||
++    evidenceBody.cCallRef !== event.aggregateId || evidenceBody.evidenceClass !== "deterministic" ||
++    evidenceBody.implementationRef !== authenticated.authorization.implementationRef ||
++    evidenceBody.inputDigest !== sha256Canonical(authenticated.request as unknown as JsonValue) ||
++    evidenceBody.outputDigest !== event.payload.valueDigest ||
++    evidenceDigest !== sha256Canonical(evidenceBody) ||
++    evidenceRef !== `evidence://abiogenesis/${String(evidenceDigest).slice("sha256:".length)}`) return null;
++  return authenticated.request;
++
++}
++
++/** @internal Only exact pre-event authentication support, not a full projection
++ * or the physical target population. The caller separately authenticates it. */
++export function worksiteFailureResultDependencies(prefix: RuntimeEventPrefix,
++  event: RuntimeEvent): readonly RuntimeEvent[] {
++  if (event.kind !== "c_call_result_admitted" || !isJsonRecord(event.payload) ||
++    event.payload.contractRef !== WORKSITE_C0_IDS.failureContractRef ||
++    !isWorksitePostPublicationFailure(event.payload.value)) return [];
++  const before = validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
++  const authorization = worksiteFailureAuthorization(event.payload.value);
++  const selected = new Map<string, RuntimeEvent>();
++  const add = (key: string) => { for (const row of indexedRuntimeEvents(before, key)) selected.set(row.eventId, row); };
++  add("aggregate:c_call:" + event.aggregateId);
++  add("basis:" + authorization.executionBasisRef);
++  add("payload:artifactRef:" + authorization.workspaceBindingIdentity);
++  const basis = [...selected.values()].find(row => row.kind === "basis_admitted" && row.basisId === authorization.executionBasisRef);
++  if (basis !== undefined && isJsonRecord(basis.payload) && typeof basis.payload.implementationSetRef === "string")
++    add("payload:implementationSetRef:" + basis.payload.implementationSetRef);
++  return [...selected.values()].sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
+ }
+ 
+ function worksiteEvidenceCandidate(
+--- build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts:preimage
++++ build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts:successor
+@@ -1,6 +1,7 @@
+ import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, isValidationRuntimeEventPrefix, runtimeEventAtPrefix, runtimeEventSelectorExtent, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
+ import type { RuntimeEventPrefix } from "./event_prefix.js";
+ import { isDeepStrictEqual } from "node:util";
++import { projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from "./c_call_outcome.js";
+ import { nativeWorkUnknownEffectDependencies, projectNativeWorkUnknownEffectTask } from "./native_work_effect.js";
+ import { projectReacquiredNativeWorkCommandSourceAtPrefix } from "./native_work_reacquisition.js";
+ /** Native-work source alternative at the existing C2 admission boundary. */
+@@ -233,6 +234,12 @@
+     if (e.kind === "c_call_evidenced" && e.payload.evidenceClass === "worksite_file_replace" &&
+       isWorksiteFileReplaceRequest(e.payload.request)) return e.payload.request.workspaceAuthorityBasis.canonicalRoot ===
+         canonicalRoot && invalidates(e.payload.request.subject.relativePath);
++    if (e.kind === "c_call_result_admitted") {
++      const dependencies = worksiteFailureResultDependencies(prefix, e);
++      const request = dependencies.length === 0 ? null : projectWorksiteFailureResultRequest(e, dependencies);
++      if (request !== null) return request.workspaceAuthorityBasis.canonicalRoot === canonicalRoot &&
++        invalidates(request.subject.relativePath);
++    }
+     const value = e.kind === "c_call_result_admitted" ? e.payload.value : null;
+     return (isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) &&
+       e.aggregateId === value.provenance.cCallRef &&
+--- build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts:preimage
++++ build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts:successor
+@@ -557,7 +557,8 @@
+     if (event.kind === "basis_admitted" && record(payload.rawInputValue) && payload.rawInputValue.kind === "worksite_file_replace_request")
+       keys.push("worksite-observation-dependency");
+     if (event.kind === "c_call_result_admitted" && record(payload.value) &&
+-        (payload.value.kind === "native_workspace_work_observation" || payload.value.kind === "native_workspace_work_failure"))
++        (payload.value.kind === "native_workspace_work_observation" || payload.value.kind === "native_workspace_work_failure" ||
++          (payload.value.kind === "worksite_effect_refusal" && payload.value.phase === "post_publication")))
+       keys.push("worksite-observation-dependency");
+     if (event.kind === "c_call_evidenced" && payload.evidenceClass === "worksite_file_replace")
+       keys.push("worksite-observation-dependency");
+--- build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:preimage
++++ build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:successor
+@@ -1,6 +1,7 @@
+ import assert from 'node:assert/strict';
+ import test from 'node:test';
+ import fs from 'node:fs/promises';
++import { syncBuiltinESMExports } from 'node:module';
+ import { dirname, join } from 'node:path';
+ import { pathToFileURL } from 'node:url';
+ import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers, componentNativeAssessment } from '../support/t287-native-work-currentness-consumers.mjs';
+@@ -16,7 +17,8 @@
+ import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
+ import * as assessmentOwner from '../../build/code/src/product/native_workspace_assessment.js';
+ import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';
+-import { selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';
++import { selectHeldEventStoreDurablePrefix, appendCheckedArtifactEvent } from '../../build/code/src/abg/event_store.js';
++import { projectWorksiteFailureBasis, projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from '../../build/code/src/abg/c_call_outcome.js';
+ import { deepFreeze } from '../../build/code/src/shared/immutable.js';
+ 
+ const results = [], fixtures = [], attempts = [], physicalFacts = [], gateTraces = [], gateOutputs = [], handoffChecks = [], contextChecks = [];
+@@ -595,7 +597,7 @@
+     if (!process.env.ABG_U1_EVIDENCE_DIR) return;
+     await fs.mkdir(process.env.ABG_U1_EVIDENCE_DIR, { recursive: true });
+     await fs.writeFile(join(process.env.ABG_U1_EVIDENCE_DIR, 'physical-scope-results.json'), JSON.stringify({
+-      activation: 'U1-PHYSICAL-SCOPE-SUCCESSOR-01', records, physicalEffects,
++      activation: 'U1-C0-PHYSICAL-CURRENTNESS-01', records, physicalEffects,
+       cleanup: 'fixture roots retained; append owners close only after final evidence', nativeOrCommandActorsLaunched: 0,
+       lowerPremises: 'Controlled cold installation/binding/Program and native occurrence facts. Actual Product observations/validation, raw verifier, C0 physical effects and EventStore admission. No installed/native execution claim.',
+       attempts: await Promise.all(localAttempts.map(async a => ({ scratch: a.scratch, canonicalRoot: a.canonicalRoot,
+@@ -656,7 +658,14 @@
+     assert.deepEqual(warm, full); assert.deepEqual(cold, warm);
+     return { prefix, rows, coordinate, projection: warm, facts };
+   };
+-  const causeAfter = async (f, label, selected, expected, before) => {
++  const gateViews = (f, afterOrdinal, selected) => {
++    const warm = f.prefix(), full = prefixes.selectValidatedRuntimeEventPrefix(deepFreeze(clone(f.rows())));
++    const cold = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(deepFreeze(clone(selectHeldEventStoreDurablePrefix(f.store))), { requireCurrent: true });
++    return selected.map(o => ({ label: o.label, indexed: nativeOwner.worksiteCommandSourcesInvalidatedAfter(warm, afterOrdinal, o.root, [o.path]),
++      full: nativeOwner.worksiteCommandSourcesInvalidatedAfter(full, afterOrdinal, o.root, [o.path]),
++      coldLazy: nativeOwner.worksiteCommandSourcesInvalidatedAfter(cold, afterOrdinal, o.root, [o.path]) }));
++  };
++  const causeAfter = async (f, label, selected, expected, before, expectedGates = expected.map(value => !value)) => {
+     const event = f.cause(), dependencies = calculus.eventCalculusDependencies(f.prefix(), event, []);
+     const task = projectNativeWorkUnknownEffectTask(event, dependencies, before.prefix);
+     const after = await views(f, label, selected);
+@@ -666,13 +675,13 @@
+     assert.deepEqual(task, f.task);
+     for (let i = 0; i < selected.length; i++) {
+       assert.equal(after.facts[i].indexed, expected[i], selected[i].label);
+-      assert.equal(gates[i].invalidated, !expected[i], selected[i].label + ' native gate');
++      assert.equal(gates[i].invalidated, expectedGates[i], selected[i].label + ' native gate');
+     }
+     assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(before.prefix), before.projection, 'historical prefix is unchanged');
+     assert.equal(after.rows.length, before.rows.length + 1, 'unknown cause alone creates no Result or observation');
+     return after;
+   };
+-  const commitC0 = async (f, b2, label) => {
++  const commitC0 = async (f, b2, label, expectedBytes = 'candidate\n') => {
+     const request = b2.targets[0].request;
+     const execution = f.atCut(() => f.basisFor(b2.env, b2.invocation, request, {
+       graphFunctionRef: f.executionBasis.graphFunctionRef, graphFunctionDigest: f.executionBasis.graphFunctionDigest,
+@@ -686,12 +695,15 @@
+       implementationSet: f.implementationSet, executionBasis, cCall, request, authorization };
+     await capture(label + ' C0 input', { input });
+     assert.equal(product.isWorksiteFileReplaceInput(input), true, JSON.stringify(authorization));
++    const prior = await views(f, label + ' before physical C0', [observation('b2 predecessor', request), ...controls(f)]);
+     const physicalPrefix = clone(selectHeldEventStoreDurablePrefix(f.store)), physical = await product.replaceWorksiteFile(input);
+     physicalEffects.push({ label, owner: 'replaceWorksiteFile', input, physicalPrefix, physical }); await retention();
+     assert.equal(physical.kind, 'worksite_file_replace_result'); assert.equal(physical.disposition, 'committed');
+-    assert.equal(await fs.readFile(join(f.canonicalRoot, 'target.txt'), 'utf8'), 'candidate\n');
++    assert.equal(await fs.readFile(join(f.canonicalRoot, 'target.txt'), 'utf8'), expectedBytes);
+     assert.deepEqual(selectHeldEventStoreDurablePrefix(f.store), physicalPrefix);
+     assert.equal(current(calculus.deriveRuntimeEventCalculusProjection(f.prefix()), physical.successorObservation), false);
++    assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(f.prefix()), prior.projection,
++      'physical effect alone does not author projection truth');
+     const scope = { basisId: execution.basisRef, graphFunctionRef: execution.graphFunctionRef,
+       graphCallId: callBody.graphCallId, frameId: callBody.frameId };
+     const output = { kind: 'worksite_file_replace_output', schemaVersion: '5.0.0', authorization,
+@@ -710,7 +722,11 @@
+       return f.append('c_call_evidenced', 'c_call', cCall.cCallRef, { ...body, evidenceRef: identity('evidence', digest), evidenceDigest: digest },
+         { ...scope, causationEventRefs: [fibre.eventId] });
+     });
+-    await capture(label + ' C0 evidence admitted', { physical, evidence });
++    await capture(label + ' C0 evidence admitted', { physical, evidence,
++      b1Current: current(calculus.deriveRuntimeEventCalculusProjection(f.prefix()), controls(f)[0].value),
++      b1Gate: nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), prior.rows.at(-1).admissionOrdinal, f.canonicalRoot, ['target.txt']) });
++    assert.equal(current(calculus.deriveRuntimeEventCalculusProjection(f.prefix()), controls(f)[0].value), prior.facts[1].indexed,
++      'evidence alone preserves the pre-Result currentness coordinate');
+     assert.equal(current(calculus.deriveRuntimeEventCalculusProjection(f.prefix()), physical.successorObservation), false);
+     const admitted = admittedResult(f, output, { callRef: cCall.cCallRef, contractRef: g.WORKSITE_C0_IDS.outputContractRef,
+       evidenceRefs: [evidence.payload.evidenceRef], scope: { ...scope, causationEventRefs: [evidence.eventId] } });
+@@ -720,7 +736,20 @@
+       before: request.predecessorObservation.observationRef, after: physical.successorObservation.observationRef,
+       successorObservation: physical.successorObservation });
+     assert.equal(current(calculus.deriveRuntimeEventCalculusProjection(f.prefix()), request.predecessorObservation), false);
+-    return { physical, admitted };
++    const selected = [{ label: 'own successful after', value: physical.successorObservation, root: f.canonicalRoot, path: 'target.txt' }, ...controls(f)];
++    const after = await views(f, label + ' after admitted C0', selected);
++    const gates = controls(f).map(o => nativeOwner.worksiteCommandSourcesInvalidatedAfter(
++      f.prefix(), prior.rows.at(-1).admissionOrdinal, o.root, [o.path]));
++    assert.deepEqual(after.facts.map(row => row.indexed), [true, false, true, true]);
++    assert.deepEqual(gates, [true, false, false]);
++    assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(prior.prefix), prior.projection);
++    const dependencies = calculus.eventCalculusDependencies(f.prefix(), admitted.event, []);
++    const priorResultRows = f.rows().filter(row => row.admissionOrdinal < admitted.event.admissionOrdinal);
++    assert.ok(dependencies.every(row => row.admissionOrdinal < admitted.event.admissionOrdinal));
++    assert.ok(dependencies.some(row => row.kind === 'basis_admitted' && row.payload.rawInputValue?.predecessorObservation?.observationRef === controls(f)[0].value.observationRef));
++    await capture(label + ' C0 physical withdrawal', { gates, dependencies: dependencies.map(row => row.eventId),
++      resultEvent: admitted.event, after: after.facts, strictPriorRows: priorResultRows.length });
++    return { physical, admitted, prior, after };
+   };
+   const nativeResult = async (f, label, value, report) => {
+     const valid = value.kind === 'native_workspace_work_observation' ? isNativeWorkspaceWorkObservation(value) : isNativeWorkspaceWorkFailure(value);
+@@ -740,6 +769,161 @@
+     await capture(label + ' actual evidence/Result', { evidence, admitted });
+     return admitted.event;
+   };
++  const failC0AfterPublication = async () => {
++    const label = 'actual C0 post-publication unavailable', f = await make([]), b2 = await addTargets(f, ['target.txt']);
++    const request = b2.targets[0].request, env = b2.env;
++    // Supplied lower binding/lock/install premises, not a performed Public bind.
++    // The existing Product carrier predicate and checked ABG ingress stay real.
++    const { kind: bindingKind, admissionEventRef, ...bindingBody } = env.workspaceBinding;
++    const bindingCarrier = { kind: 'workspace_binding_candidate', ...bindingBody };
++    const establishedLockPremise = { lockId: bindingCarrier.lockId, lockDigest: bindingCarrier.lockDigest };
++    assert.equal(product.isWorkspaceBindingCandidateInResolvedLock(bindingCarrier, establishedLockPremise,
++      undefined, env.workspaceAuthorityBasis), true);
++    const artifactCandidate = { ...f.common, kind: 'public_operation_artifact_admitted', scopeClass: 'workspace',
++      aggregateType: 'workspace', aggregateId: bindingCarrier.bindingId, basisId: env.workspaceAuthorityBasis.authorityBasisId,
++      payload: { operationId: 'abg.operation.workspace.bind', artifactRef: bindingCarrier.bindingId,
++        artifactDigest: bindingCarrier.bindingDigest, artifact: bindingCarrier, workspaceAuthorityBasis: env.workspaceAuthorityBasis } };
++    for (const key of ['runId', 'graphCallId', 'frameId']) delete artifactCandidate[key];
++    const bindingAppend = appendCheckedArtifactEvent(f.store, selectHeldEventStoreDurablePrefix(f.store), deepFreeze(artifactCandidate));
++    assert.ok(bindingAppend.event, JSON.stringify(bindingAppend));
++    assert.equal(bindingAppend.event.payloadDigest, hash(artifactCandidate.payload));
++    const parts = g.constructWorksiteC0PublicationParts({ productId: 'product://u1/controlled-c0',
++      artifactDigest: hash('controlled-c0-artifact'), productContentDigest: hash('controlled-c0-content'),
++      productManifestDigest: hash('controlled-c0-manifest'), packageName: '@abiogenesis/typescript-tenant',
++      packageVersion: '5.0.0-dev.286' }, g.WORKSITE_C0_IDS.moduleRef);
++    const graph = parts.graphFunctions[0], declaredBinding = parts.implementationBindings[0];
++    const { kind, schemaVersion, disposition, leafResolutionCandidateRef, leafResolutionCandidateDigest, ...priorRow } = f.implementationSet.rows[0];
++    const { kind: declaredKind, bindingRef, ...bindingFields } = declaredBinding;
++    const rowBody = { ...priorRow, ...bindingFields, graphFunctionRef: graph.name, graphFunctionDigest: hash(graph),
++      nodeRef: graph.template.startNodeRef, programLocusRef: graph.template.startNodeRef, implementationBindingRef: bindingRef };
++    const rowDigest = hash(rowBody), row = { kind, schemaVersion, disposition,
++      leafResolutionCandidateRef: identity('leaf-resolution-candidate', rowDigest), leafResolutionCandidateDigest: rowDigest, ...rowBody };
++    const setDigest = hash({ rows: [row] }), set = { implementationSetRef: identity('implementation-set', setDigest),
++      implementationSetDigest: setDigest, rows: [row] };
++    const implementationEvent = f.atCut(() => f.append('implementation_admitted', 'workspace', bindingCarrier.bindingId,
++      { implementationSetRef: set.implementationSetRef, implementationSetDigest: setDigest, implementationSet: set, interactionSetRef: 'interaction-set://u1/c0', interactionSetDigest: hash('c0-interactions') },
++      { scopeClass: 'workspace' }));
++    const implementationSet = { kind: 'admitted_implementation_set', schemaVersion: '5.0.0', disposition: 'admitted',
++      ...set, admissionEventRef: implementationEvent.eventId };
++    const execution = f.atCut(() => f.basisFor(env, b2.invocation, request, { graphFunctionRef: graph.name,
++      graphFunctionDigest: hash(graph), implementationSetRef: set.implementationSetRef, implementationSetDigest: setDigest }));
++    const executionBasis = { kind: 'execution_basis', schemaVersion: '5.0.0', disposition: 'admitted', ...execution };
++    const callBody = { basisId: execution.basisRef, graphCallId: 'graph-call://u1/c0-failure', frameId: 'frame://u1/c0-failure',
++      vectorIndex: 0, stageRole: 'file-replace', taskOrdinal: null, attempt: 1, programLocusRef: row.programLocusRef, retryPath: [] };
++    const cCallDigest = hash(callBody), callRef = `c-call:${cCallDigest}`;
++    const scope = { basisId: execution.basisRef, graphFunctionRef: graph.name, graphCallId: callBody.graphCallId, frameId: callBody.frameId };
++    const occurrence = f.atCut(() => {
++      const opened = f.append('c_call_opened', 'c_call', callRef, { ...callBody, cCallRef: callRef, cCallDigest, callClass: 'leaf' }, scope);
++      const fibre = f.append('c_call_fibre_selected', 'c_call', callRef, { cCallRef: callRef, callClass: 'leaf', armId: g.WORKSITE_C0_IDS.armId,
++        regime: 'F_D', implementationRef: row.implementationRef, implementationBindingRef: row.implementationBindingRef,
++        implementationRequirementKey: row.requirementKey, implementationSetRef: set.implementationSetRef },
++        { ...scope, causationEventRefs: [opened.eventId] });
++      return { opened, fibre };
++    });
++    const cCall = { ...f.cCall, ...callBody, cCallRef: callRef, cCallDigest, graphFunctionRef: graph.name,
++      implementationSetRef: set.implementationSetRef, implementationRequirementKey: row.requirementKey,
++      implementationRef: row.implementationRef, implementationBindingRef: row.implementationBindingRef,
++      inputContractRef: row.inputContractRef, outputContractRef: row.outputContractRef,
++      failureContractRef: row.failureContractRef, refusalContractRef: row.refusalContractRef,
++      openedEventRef: occurrence.opened.eventId, fibreSelectedEventRef: occurrence.fibre.eventId, runId: f.common.runId };
++    const authorization = product.constructWorksiteEffectAuthorization({ ...env, request, executionBasis, cCall, implementationSet });
++    const input = { ...env, request, executionBasis, cCall, implementationSet, authorization };
++    assert.equal(product.isWorksiteFileReplaceInput(input), true, JSON.stringify(authorization));
++    const selected = [observation('b2 failed C0 predecessor', request), ...controls(f)];
++    const before = await views(f, label + ' before physical effect', selected);
++    assert.ok(before.facts.every(row => row.indexed));
++    const target = join(f.canonicalRoot, 'target.txt'), original = { rename: fs.rename, open: fs.open };
++    const fault = { published: false, injected: 0, kind: 'controlled EIO on target open after actual rename' };
++    fs.rename = async (source, destination) => { const result = await original.rename(source, destination);
++      if (destination === target) fault.published = true; return result; };
++    fs.open = async (path, ...args) => {
++      if (fault.published && path === target) { fault.injected += 1; throw Object.assign(new Error('U1 selected post-publication EIO'), { code: 'EIO' }); }
++      return original.open(path, ...args);
++    };
++    syncBuiltinESMExports();
++    let physical;
++    try { physical = await product.replaceWorksiteFile(input); }
++    finally { Object.assign(fs, original); syncBuiltinESMExports(); }
++    physicalEffects.push({ label, owner: 'replaceWorksiteFile', input, physical, fault });
++    await capture(label + ' actual owner failure', { bindingCarrier, establishedLockPremise, bindingEvent: bindingAppend.event,
++      implementationEvent, occurrence, input, physical, fault,
++      lowerPremises: 'Supplied Public binding/install/implementation selection and graph occurrence; actual Product carriers, physical rename, injected substrate EIO, checked ABG append. No performed Public binding or installed workflow.' });
++    assert.equal(fault.published, true); assert.equal(fault.injected, 1);
++    assert.equal(product.isWorksitePostPublicationFailure(physical), true, JSON.stringify(physical));
++    assert.equal(physical.code, 'filesystem_refused'); assert.equal(physical.substrateCode, 'EIO');
++    assert.equal(physical.physicalOutcome.postPublicationObservation, null);
++    assert.equal(physical.physicalOutcome.publication.committed, true);
++    assert.equal(await fs.readFile(target, 'utf8'), 'candidate\n');
++    assert.deepEqual(selectHeldEventStoreDurablePrefix(f.store), before.coordinate);
++    assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(f.prefix()), before.projection);
++    const authenticated = projectWorksiteFailureBasis(f.rows(), callRef, physical);
++    assert.ok(authenticated, 'unchanged failure owner authenticates supplied lower premises and actual failure');
++    assert.deepEqual(authenticated.authorization, authorization);
++    const evidence = f.atCut(() => {
++      const body = { cCallRef: callRef, contractRef: g.WORKSITE_C0_IDS.failureContractRef, evidenceClass: 'deterministic',
++        implementationRef: row.implementationRef, inputDigest: hash(request), outputDigest: hash(physical) };
++      const digest = hash(body);
++      return f.append('c_call_evidenced', 'c_call', callRef, { ...body, evidenceRef: identity('evidence', digest), evidenceDigest: digest },
++        { ...scope, causationEventRefs: [occurrence.fibre.eventId] });
++    });
++    const evidenced = await views(f, label + ' evidence only', selected);
++    assert.ok(evidenced.facts.every(row => row.indexed));
++    assert.equal(nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), before.rows.at(-1).admissionOrdinal,
++      f.canonicalRoot, ['target.txt']), false, 'failure evidence alone is not an authenticated Result');
++    const event = f.atCut(() => {
++      const body = { cCallRef: callRef, resultClass: 'failure', contractRef: g.WORKSITE_C0_IDS.failureContractRef,
++        valueKind: 'worksite_effect_refusal', value: physical, valueDigest: hash(physical), evidenceRefs: [evidence.payload.evidenceRef] };
++      const digest = hash(body);
++      return f.append('c_call_result_admitted', 'c_call', callRef, { ...body, resultRef: identity('result', digest), resultDigest: digest },
++        { ...scope, causationEventRefs: [evidence.eventId] });
++    });
++    const prior = f.rows().filter(row => row.admissionOrdinal < event.admissionOrdinal);
++    assert.deepEqual(calculus.projectWorksiteTransitionForResult(event, prior), {
++      before: request.predecessorObservation.observationRef, after: null, successorObservation: null });
++    assert.equal(calculus.projectWorksiteTransitionForResult({ ...event, payload: { ...event.payload, valueDigest: hash('wrong') } }, prior), null);
++    assert.equal(calculus.projectWorksiteTransitionForResult(event, prior.filter(row => row.eventId !== evidence.eventId)), null);
++    const after = await views(f, label + ' Result admitted', selected);
++    assert.deepEqual(after.facts.map(row => row.indexed), [false, false, true, true]);
++    assert.deepEqual(event.payload.value, physical);
++    assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(before.prefix), before.projection);
++    assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(evidenced.prefix), evidenced.projection);
++    const dependencies = calculus.eventCalculusDependencies(f.prefix(), event, []);
++    assert.ok(dependencies.every(row => row.admissionOrdinal < event.admissionOrdinal));
++    for (const required of [bindingAppend.event, implementationEvent, evidence]) assert.ok(dependencies.some(row => row.eventId === required.eventId));
++    assert.ok(dependencies.some(row => row.kind === 'basis_admitted' && row.payload.rawInputValue?.predecessorObservation?.observationRef === controls(f)[0].value.observationRef));
++    const authDependencies = worksiteFailureResultDependencies(f.prefix(), event);
++    assert.ok(authDependencies.every(row => row.admissionOrdinal < event.admissionOrdinal));
++    assert.deepEqual(projectWorksiteFailureResultRequest(event, authDependencies), request);
++    assert.ok(!authDependencies.some(row => row.kind === 'basis_admitted' && row.payload.rawInputValue?.predecessorObservation?.observationRef === controls(f)[0].value.observationRef),
++      'gate authentication does not acquire unrelated observation targets');
++    const gates = gateViews(f, before.rows.at(-1).admissionOrdinal, selected);
++    for (const [index, row] of gates.entries()) for (const mode of ['indexed', 'full', 'coldLazy'])
++      assert.equal(row[mode], index < 2, row.label + ' ' + mode);
++    assert.equal(nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), before.rows.at(-1).admissionOrdinal,
++      f.canonicalRoot, [], ['.']), true, 'existing read-root interpretation includes the exact target');
++    assert.equal(nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), before.rows.at(-1).admissionOrdinal,
++      f.canonicalRoot, [], ['keep.txt']), false);
++    const negatives = [];
++    for (const [name, mutate] of [
++      ['altered failure value', rows => { rows.at(-1).payload.value.physicalOutcome.authorization.authorizationDigest = hash('foreign-authorization'); }],
++      ['altered Result digest', rows => { rows.at(-1).payload.resultDigest = hash('foreign-result'); }],
++      ['altered evidence digest', rows => { rows.find(row => row.eventId === evidence.eventId).payload.evidenceDigest = hash('foreign-evidence'); }],
++      ['missing Result cause', rows => { rows.at(-1).causationEventRefs = []; }],
++      ['wrong binding support', rows => { rows.find(row => row.eventId === bindingAppend.event.eventId).payload.artifactDigest = hash('foreign-binding'); }],
++    ]) {
++      const rows = clone(f.rows()); mutate(rows);
++      for (const row of rows) row.payloadDigest = hash(row.payload);
++      const negativePrefix = prefixes.selectValidatedRuntimeEventPrefix(deepFreeze(rows));
++      const invalidated = nativeOwner.worksiteCommandSourcesInvalidatedAfter(negativePrefix,
++        before.rows.at(-1).admissionOrdinal, f.canonicalRoot, ['target.txt']);
++      assert.equal(invalidated, false, name);
++      negatives.push({ name, invalidated, premise: 'controlled corrupted copy; not admitted history' });
++    }
++    await capture(label + ' authenticated transition and dependency closure', { event, evidence, authenticated,
++      dependencies: dependencies.map(row => row.eventId), authDependencies: authDependencies.map(row => row.eventId),
++      currentness: after.facts, gates, negatives, prefixRows: f.rows().length,
++      authenticationExtent: 'aggregate:c_call, exact basis, binding artifact and implementation only; no full fold or target population' });
++  };
+   try {
+     for (const callable of [isCapabilityGrantValue, constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask,
+       isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure, nativeWorkspaceChangedPaths,
+@@ -755,10 +939,11 @@
+     for (const roots of [['target.txt'], []]) {
+       const label = roots.length ? 'cross-binding C0 successor' : 'empty-write C0 successor';
+       const f = await make(roots), b2 = await addTargets(f, ['target.txt']), committed = await commitC0(f, b2, label.replaceAll(' ', '-'));
+-      const selected = [{ label: 'b2 admitted successor', value: committed.physical.successorObservation, root: f.canonicalRoot, path: 'target.txt' }, ...controls(f).slice(1)];
++      const selected = [{ label: 'b2 admitted successor', value: committed.physical.successorObservation, root: f.canonicalRoot, path: 'target.txt' }, ...controls(f)];
+       const before = await views(f, label + ' before', selected);
+-      assert.ok(before.facts.every(row => row.indexed));
+-      await causeAfter(f, label + ' after', selected, [roots.length === 0, true, true], before);
++      assert.deepEqual(before.facts.map(row => row.indexed), [true, false, true, true]);
++      await causeAfter(f, label + ' after', selected, [roots.length === 0, false, true, true], before,
++        [roots.length !== 0, roots.length !== 0, false, false]);
+       assert.deepEqual(f.rows().find(row => row.eventId === committed.admitted.event.eventId), committed.admitted.event);
+       assert.equal(await fs.readFile(join(f.canonicalRoot, 'target.txt'), 'utf8'), 'candidate\n', 'retirement does not roll back physical bytes');
+     }
+@@ -829,9 +1014,26 @@
+       if (crossed) assert.equal(task, null); else assert.deepEqual(task, f.task);
+       assert.deepEqual(after.facts.map(row => row.indexed), [crossed, true, true]); assert.deepEqual(gates, [!crossed, false, false]);
+     }
++    {
++      const label = 'next C0 successor', f = await make([]), b2 = await addTargets(f, ['target.txt']);
++      const first = await commitC0(f, b2, 'next-successor-first');
++      const oldAfter = first.physical.successorObservation;
++      const nextRequest = product.constructWorksiteFileReplaceRequest({ ...b2.env, ...b2.targets[0].request,
++        predecessorObservation: oldAfter, replacementBytes: Buffer.from('next candidate\n') });
++      assert.equal(product.isWorksiteFileReplaceRequest(nextRequest), true);
++      const next = await commitC0(f, { ...b2, targets: [{ request: nextRequest }] }, 'next-successor-second', 'next candidate\n');
++      assert.equal(current(next.after.projection, oldAfter), false);
++      assert.equal(current(next.after.projection, next.physical.successorObservation), true);
++      assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(first.after.prefix), first.after.projection);
++      assert.deepEqual(f.rows().find(row => row.eventId === first.admitted.event.eventId), first.admitted.event);
++      await capture(label + ' conserved history', { oldAfter, newAfter: next.physical.successorObservation,
++        oldCurrent: false, newCurrent: true, firstResult: first.admitted.event, secondResult: next.admitted.event });
++    }
++    await failC0AfterPublication();
+     await capture('selected proof complete', { cases: ['cross-binding predecessor', 'actual C0 successor', 'empty-write C0 successor',
+-      'known-off-scope', 'known-empty', 'after-unavailable', 'E1 matched G1', 'E1 re-signed G2'], result: 'satisfied under declared premises' });
+-    t.diagnostic('Eight selected physical-scope cases completed; no native/command actor, no installed claim.');
++      'known-off-scope', 'known-empty', 'after-unavailable', 'E1 matched G1', 'E1 re-signed G2', 'next C0 successor',
++      'actual C0 post-publication unavailable'], result: 'satisfied under declared premises' });
++    t.diagnostic('Ten selected physical-scope/C0 cases completed; no native/command actor, no installed claim.');
+   } catch (error) {
+     await capture('first unexpected failure', { error: { name: error.name, message: error.message, stack: error.stack }, dependentCasesStopped: true }); throw error;
+   } finally {

@@ -1,0 +1,13 @@
+{
+  "mode": "null",
+  "cut": "intent-assessor",
+  "stageRef": "stage://generic-job-mechanics.example/intent@5",
+  "role": "assessor",
+  "inputCanonicalDigest": "sha256:adb39d3906a3c2b2c4a20050f9c5da35d8a30e34064d389722c6a894fd2bb35a",
+  "baselineContractDigest": "sha256:12de2f4a0b3f0a066561bf7fda1f0f1472ab0f313f1a760bf93d6a674bbfa9bd",
+  "successorContractDigest": "sha256:12de2f4a0b3f0a066561bf7fda1f0f1472ab0f313f1a760bf93d6a674bbfa9bd",
+  "exactAcrossCuts": true,
+  "differences": [],
+  "deterministicWithinEachCut": true,
+  "status": "passed"
+}

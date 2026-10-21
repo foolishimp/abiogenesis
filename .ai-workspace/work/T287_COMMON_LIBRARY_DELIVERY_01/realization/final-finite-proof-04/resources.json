@@ -1,0 +1,73 @@
+{
+  "root": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6",
+  "initiallyAbsent": true,
+  "canonical": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6",
+  "cases": [
+    {
+      "id": "U1-full-combined",
+      "root": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined",
+      "tmp": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined/tmp",
+      "newAbsentBeforeCreation": true,
+      "canonical": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined",
+      "conditionalUnbound": false
+    },
+    {
+      "id": "seven-C18",
+      "root": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/02-seven-C18",
+      "tmp": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/02-seven-C18/tmp",
+      "newAbsentBeforeCreation": true,
+      "canonical": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/02-seven-C18",
+      "conditionalUnbound": false
+    },
+    {
+      "id": "reopen18",
+      "root": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/03-reopen18",
+      "tmp": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/03-reopen18/tmp",
+      "newAbsentBeforeCreation": true,
+      "canonical": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/03-reopen18",
+      "conditionalUnbound": false
+    },
+    {
+      "id": "codec14",
+      "root": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/04-codec14",
+      "tmp": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/04-codec14/tmp",
+      "newAbsentBeforeCreation": true,
+      "canonical": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/04-codec14",
+      "conditionalUnbound": false
+    },
+    {
+      "id": "route-self-contained",
+      "root": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/05-route-self-contained",
+      "tmp": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/05-route-self-contained/tmp",
+      "newAbsentBeforeCreation": true,
+      "canonical": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/05-route-self-contained",
+      "conditionalUnbound": false
+    },
+    {
+      "id": "native-workspace-physical-regression",
+      "root": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/06-native-workspace-physical-regression",
+      "tmp": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/06-native-workspace-physical-regression/tmp",
+      "newAbsentBeforeCreation": true,
+      "canonical": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/06-native-workspace-physical-regression",
+      "conditionalUnbound": false
+    },
+    {
+      "id": "terminal-quiescence7",
+      "root": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/07-terminal-quiescence7",
+      "tmp": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/07-terminal-quiescence7/tmp",
+      "newAbsentBeforeCreation": true,
+      "canonical": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/07-terminal-quiescence7",
+      "conditionalUnbound": false
+    },
+    {
+      "id": "D02-preparation-owner-case",
+      "root": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/08-D02-preparation-owner-case",
+      "tmp": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/08-D02-preparation-owner-case/tmp",
+      "newAbsentBeforeCreation": true,
+      "canonical": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/08-D02-preparation-owner-case",
+      "conditionalUnbound": true
+    }
+  ],
+  "retainedBound": 3221225472,
+  "claim": "Existing test cleanup may remove ephemeral resources. Only existing retained channels and actual remaining bytes receive retained-prefix claims."
+}

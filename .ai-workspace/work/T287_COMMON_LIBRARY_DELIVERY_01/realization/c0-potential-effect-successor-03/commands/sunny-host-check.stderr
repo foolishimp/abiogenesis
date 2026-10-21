@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/verify-installed-host.py", line 11, in <module>
+    assert oct(stat.S_IMODE(p.stat().st_mode))==x['mode'],str(p)
+AssertionError: /private/tmp/abg-c0-potential-25ac62e990e141ce/successor-03/sunny/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js

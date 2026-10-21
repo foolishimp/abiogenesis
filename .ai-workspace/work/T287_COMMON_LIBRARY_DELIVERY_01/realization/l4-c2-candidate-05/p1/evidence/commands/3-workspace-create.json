@@ -1,0 +1,14 @@
+{
+  "label": "workspace-create",
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/evidence/calls/workspace-create.request.jsonl"
+  ],
+  "cwd": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/evidence",
+  "wallMs": 187473.72129199997,
+  "stdout": "{\"acquisitionKind\":\"eventless\",\"kind\":\"installed_definition_call_transport_result\",\"receipt\":{\"definitionKey\":{\"memberKey\":\"clean\",\"operationId\":\"abg.operation.workspace.create\"},\"exitCode\":0,\"failure\":null,\"invocationRef\":\"invocation://abiogenesis/dca33f3ae09f2646657387e532ff1bc0fbd0f2989a4a7200d7ba9fb3af0f53cf\",\"kind\":\"definition_host_receipt\",\"ownerOutput\":{\"outcomeKind\":\"result\",\"value\":{\"authorityMode\":\"clean\",\"createPolicy\":\"clean\",\"creationManifest\":{\"digest\":\"sha256:c5c8dad4b6f82a46e2142c9a5ddd072087574ea9e2fc2a7e1383c263bf4996fa\",\"ref\":\"workspace-creation://abiogenesis/c5c8dad4b6f82a46e2142c9a5ddd072087574ea9e2fc2a7e1383c263bf4996fa\"},\"provenance\":[{\"digest\":\"sha256:c5c8dad4b6f82a46e2142c9a5ddd072087574ea9e2fc2a7e1383c263bf4996fa\",\"ref\":\"workspace-creation://abiogenesis/c5c8dad4b6f82a46e2142c9a5ddd072087574ea9e2fc2a7e1383c263bf4996fa\"}],\"scaffoldState\":\"none\",\"workspace\":{\"digest\":\"sha256:6ff94976fe65fe0057f8ab088e34dcc457b56ed96df07038b6392632effa48c8\",\"ref\":\"workspace://abiogenesis/6ff94976fe65fe0057f8ab088e34dcc457b56ed96df07038b6392632effa48c8\"}}},\"resources\":{\"kind\":\"workspace_resource_receipt\",\"manifest\":{\"locator\":\"/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/worksite/.abiogenesis/workspace-manifest.json\",\"valueDigest\":\"sha256:dbba81115d28beb9ed0e7c197dfcc4d7816096ed4e121cc0fe7c1ed612ced802\"},\"schemaVersion\":\"5.0.0\",\"targetRoot\":\"/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/worksite\",\"targetRootDigest\":\"sha256:acda700d2c1d0839f81e73a17a10d039138a2cd8b26f26ffcf05c29f3f69c1f7\"},\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"}\n",
+  "stderr": "",
+  "exitCode": 0
+}

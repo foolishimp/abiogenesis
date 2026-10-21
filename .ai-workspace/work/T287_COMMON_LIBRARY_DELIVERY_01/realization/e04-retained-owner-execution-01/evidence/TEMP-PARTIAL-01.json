@@ -1,0 +1,51 @@
+{
+  "caseId": "TEMP-PARTIAL",
+  "step": "partial-temporary",
+  "input": {
+    "destination": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/TEMP-PARTIAL/result.json",
+    "temporaryPath": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/TEMP-PARTIAL/result.json.tmp-68865",
+    "prefixBase64": "ZXhhY3Q=",
+    "trace": [
+      {
+        "event": "actual-five-byte-prefix-created",
+        "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/TEMP-PARTIAL/result.json.tmp-68865",
+        "throwsDeclaredFault": true
+      },
+      {
+        "event": "owner-rejected",
+        "sameErrorObject": true
+      }
+    ]
+  },
+  "disposition": "rejected",
+  "output": null,
+  "error": {
+    "name": "Error",
+    "code": "EIO",
+    "message": "E04 controlled temporary write interruption",
+    "stack": "Error: E04 controlled temporary write interruption\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:162:37",
+    "syscall": null,
+    "path": null,
+    "dest": null
+  },
+  "footprint": [
+    {
+      "relativePath": ".",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159574,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "result.json.tmp-68865",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159575,
+      "nlink": 1,
+      "byteLength": 5,
+      "sha256": "fa79d4746c21cd960a17b92db8976ddef95a7e20b590721f8e0fa7847a05e486",
+      "base64": "ZXhhY3Q="
+    }
+  ]
+}

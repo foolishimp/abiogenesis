@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/bind-produced-archive.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3",
+  "scriptSha256": "0a81c3822a84c609eec578242e32da41a5378a0fe094792708ed0c6cf0fe3e58",
+  "scope": "Read-only instantiation of pre-output frozen producer rule"
+}

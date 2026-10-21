@@ -1,0 +1,62 @@
+{
+  "kind": "bounded_preparation_stopped_freeze",
+  "activation": "ROUTE-OBLIGATION-PROOF-PREPARATION-01",
+  "status": "STOPPED_ON_FIRST_SELECTED_PRESERVATION_FAILURE",
+  "closedAt": "2026-10-21T04:48:16.544951+00:00",
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/activation.md",
+      "sha256": "c1a86eca640fef398b284e8a7563d079bdb5f45cda6071c879762355f2e0f24c",
+      "bytes": 2636,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/failed-preflight.py",
+      "sha256": "1065cce634b99fd79abf14ff6a3de57658b8698dbbba3d08510236f06a2c0633",
+      "bytes": 2559,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/first-cause.json",
+      "sha256": "93e090eca14db67a2876232d04a81937cefd74e2c6eebf42a9dded25cb02ce4d",
+      "bytes": 1824,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/preflight.request.json",
+      "sha256": "e73a3a80e5899a1eaee9847ee1c7181ec4f995fed6ee62ed1fbadfa1b2a5b2df",
+      "bytes": 2813,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/preflight.result.json",
+      "sha256": "ed1376cdb11cd1bd7a940c1ee86b2c13a45d4d0d72e9ee518d0c45ea4df673ff",
+      "bytes": 610,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/preflight.stderr",
+      "sha256": "d229675bc0cc83b2d0f907fdcffd1f71482a667318c9852886fa988b372280ac",
+      "bytes": 286,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/preflight.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/return-stopped.md",
+      "sha256": "cbd27d64588bad2dace544533c77e6b6895edb3152980dbdc7d1ddba055fca1c",
+      "bytes": 2013,
+      "mode": "0o644"
+    }
+  ],
+  "recordCount": 8,
+  "runtimeGrant": "NOT_GRANTED",
+  "runtimeExecutions": 0,
+  "main936Verified": false,
+  "noCandidateBinding": true,
+  "noL5Claim": true
+}

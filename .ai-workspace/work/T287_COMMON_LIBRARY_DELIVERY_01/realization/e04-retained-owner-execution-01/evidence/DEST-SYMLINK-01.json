@@ -1,0 +1,76 @@
+{
+  "caseId": "DEST-SYMLINK",
+  "step": "existing-link-collision",
+  "input": {
+    "destination": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json",
+    "before": [
+      {
+        "relativePath": ".",
+        "kind": "directory",
+        "dev": 16777231,
+        "ino": 474159561,
+        "nlink": 4,
+        "byteLength": 128
+      },
+      {
+        "relativePath": "result.json",
+        "kind": "symlink",
+        "dev": 16777231,
+        "ino": 474159563,
+        "nlink": 1,
+        "byteLength": 12,
+        "target": "sentinel.txt"
+      },
+      {
+        "relativePath": "sentinel.txt",
+        "kind": "file",
+        "dev": 16777231,
+        "ino": 474159562,
+        "nlink": 1,
+        "byteLength": 19,
+        "sha256": "64487c314c1045e1a21e213d1c87351c3fcbf3c2255ad2809295f5210ea79777",
+        "base64": "dW50b3VjaGVkIHNlbnRpbmVsCg=="
+      }
+    ]
+  },
+  "disposition": "rejected",
+  "output": null,
+  "error": {
+    "name": "Error",
+    "code": "EEXIST",
+    "message": "EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json'",
+    "stack": "Error: EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json'\n    at async link (node:internal/fs/promises:1060:10)\n    at async Object.publishCreateOnly (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:1137:9)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:156:9",
+    "syscall": "link",
+    "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json.tmp-68865",
+    "dest": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/result.json"
+  },
+  "footprint": [
+    {
+      "relativePath": ".",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159561,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "result.json",
+      "kind": "symlink",
+      "dev": 16777231,
+      "ino": 474159563,
+      "nlink": 1,
+      "byteLength": 12,
+      "target": "sentinel.txt"
+    },
+    {
+      "relativePath": "sentinel.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159562,
+      "nlink": 1,
+      "byteLength": 19,
+      "sha256": "64487c314c1045e1a21e213d1c87351c3fcbf3c2255ad2809295f5210ea79777",
+      "base64": "dW50b3VjaGVkIHNlbnRpbmVsCg=="
+    }
+  ]
+}

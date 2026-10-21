@@ -1,0 +1,23 @@
+{
+  "status": "satisfied",
+  "source": "Root notification plus exact actual command receipt",
+  "result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/commands/unavailable-owner.result.json",
+    "sha256": "19b74436cfc8d3adf8e1254e6ed5a138f26eea3b62e429bc531dbab2d524fd9b",
+    "bytes": 238,
+    "mode": "0o644"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/commands/unavailable-owner.stdout",
+    "sha256": "04ada63c3a96306d7c92bfe29801d4900334c756ff5d543bdb68ef10e709d8c4",
+    "bytes": 216,
+    "mode": "0o644"
+  },
+  "proofFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/proof-freeze.json",
+    "sha256": "b60eca3e6fa641206eda37658b42285cf888a1a42b3cae259be5e2be75a5ce37",
+    "bytes": 10923,
+    "mode": "0o644"
+  },
+  "claim": "Root/06 Writer reports genuine unavailable-owner admitted failure, full/index/cold currentness, anti-revival, origin and fresh-replay assertions passed; exact selected test exit0, no rerun here"
+}

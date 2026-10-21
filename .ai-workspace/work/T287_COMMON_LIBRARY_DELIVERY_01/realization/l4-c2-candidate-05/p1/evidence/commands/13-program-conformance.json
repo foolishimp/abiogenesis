@@ -1,0 +1,14 @@
+{
+  "label": "program-conformance",
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/evidence/calls/program-conformance.request.jsonl"
+  ],
+  "cwd": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/evidence",
+  "wallMs": 23735.555667000008,
+  "stdout": "{\"acquisitionKind\":\"eventless\",\"kind\":\"installed_definition_call_transport_result\",\"receipt\":{\"definitionKey\":{\"memberKey\":\"gtl_program\",\"operationId\":\"abg.operation.conformance.evaluate\"},\"exitCode\":0,\"failure\":null,\"invocationRef\":\"invocation://abiogenesis/b8cb37130b43cf99b315a915a0502576e1e63e32a14bee08fee708848357e6c3\",\"kind\":\"definition_host_receipt\",\"ownerOutput\":{\"outcomeKind\":\"result\",\"value\":{\"assessment\":{\"digest\":\"sha256:b0d535bccf7219382b8e3b9841f3078a177e6da27b30114ea8ad2600c7c4e9bc\",\"ref\":\"evidence://abiogenesis/conformance/b0d535bccf7219382b8e3b9841f3078a177e6da27b30114ea8ad2600c7c4e9bc\"},\"diagnostics\":[],\"disposition\":\"passed\",\"evidence\":[{\"digest\":\"sha256:b0d535bccf7219382b8e3b9841f3078a177e6da27b30114ea8ad2600c7c4e9bc\",\"ref\":\"evidence://abiogenesis/conformance/b0d535bccf7219382b8e3b9841f3078a177e6da27b30114ea8ad2600c7c4e9bc\"}],\"inventory\":{\"digest\":\"sha256:5b92b307b04cad0aa4f4a164b1ae1d8875a9feac7dc0a6959f38b34b87a75ea7\",\"ref\":\"gtl-inventory://abiogenesis/5b92b307b04cad0aa4f4a164b1ae1d8875a9feac7dc0a6959f38b34b87a75ea7\"},\"program\":{\"digest\":\"sha256:804754973e3c8cc6ff1dd91eb59824aa3d4bdf7ac7be8820c17d8e71c33bd8e2\",\"ref\":\"program://abi5-tests/sandbox-uat/lifecycle@5\"},\"repairAffordances\":[],\"violatedAuthorities\":[]}},\"resources\":{\"capabilityGrants\":[{\"digest\":\"sha256:e19a4f597f509b6352ff323690a9ae1035bd99bab0360601692c0ce53b729d46\",\"ref\":\"capability-grant://abiogenesis/e19a4f597f509b6352ff323690a9ae1035bd99bab0360601692c0ce53b729d46\"}],\"invocation\":{\"digest\":\"sha256:b8cb37130b43cf99b315a915a0502576e1e63e32a14bee08fee708848357e6c3\",\"ref\":\"invocation://abiogenesis/b8cb37130b43cf99b315a915a0502576e1e63e32a14bee08fee708848357e6c3\"},\"kind\":\"conformance_evaluation_resource_receipt\",\"request\":{\"digest\":\"sha256:0398e3c724c524e2bb3f92dec8b3a3e02730525c366d303838e5fbac41f0afbf\",\"ref\":\"request://abi5-tests/sandbox-uat/t287-c2-05-p1-2a945e70cf0d6b81/9\"},\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"}\n",
+  "stderr": "",
+  "exitCode": 0
+}

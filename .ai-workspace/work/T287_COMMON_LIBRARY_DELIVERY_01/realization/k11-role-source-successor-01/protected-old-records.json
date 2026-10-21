@@ -1,0 +1,501 @@
+{
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "kind": "file",
+      "bytes": 10643,
+      "sha256": "034731a8ad5b2cd7a9a73ba2607a97cd1612acca06147073bf07f13bbb105bd9",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "kind": "file",
+      "bytes": 29702,
+      "sha256": "15eb23a25b59d9c1eab9b95e5e6dbf6e56a749550b7c51f6924684a89d36e5c8",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "kind": "file",
+      "bytes": 47155,
+      "sha256": "b09aa6b0c69dbb56a49a7c7f3c8cd707c214232db7a5c4694de3de9e5cb3a32b",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+      "kind": "file",
+      "bytes": 16841,
+      "sha256": "cf843a25f5aa87b59035dd7d9909c0c5f6d79cd4e89f99e56b296f8eb76d7a73",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "kind": "file",
+      "bytes": 14150,
+      "sha256": "0f8a4dc64164371ba6c474c09927b8bc79cd582c661a567a2a1917f3fb3f3dc3",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+      "kind": "file",
+      "bytes": 7360,
+      "sha256": "7a81be1607908a143c62e76703ee270cccd0f154b468af03a4b6a69d9e79bf13",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+      "kind": "file",
+      "bytes": 5214,
+      "sha256": "81c51842c1d31366b509324eff717084f9df3cfee05c36d73411c855f10db76e",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-common-computational-library.test.mjs",
+      "kind": "file",
+      "bytes": 4830,
+      "sha256": "60d42f27c6cc20e9f512d1e25024b42620a807115481ac22a7ac5660b12aa71c",
+      "mode": "0o644"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "kind": "file",
+      "bytes": 78328,
+      "sha256": "6b0830c2e21a7337ada78569fa9d1f2df50c9b432916eaf3cb296d89dbdf6f89",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "kind": "file",
+      "bytes": 533349,
+      "sha256": "4a6bd62f5ef62b901369dcd22094fb0cf85e0f67d2f13f7a167908c987f1a79e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/activation.md",
+      "kind": "file",
+      "bytes": 1713,
+      "sha256": "24e18ac2e74b88590cad44bd57542e359f062c4ec3d9b2a4dd8092f0d03e08e8",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/activation.md",
+      "kind": "file",
+      "bytes": 2966,
+      "sha256": "b422a3d9218a8f660347f89812dc8dc8f5e4f9ffcd05901f8aca59bd292358ae",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/additional-source-routes.json",
+      "kind": "file",
+      "bytes": 2498,
+      "sha256": "32b762601efa3f89e9808d8efca39377f4564560a6c007d8659c9f166d133f4a",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/01-offline-dependencies.json",
+      "kind": "file",
+      "bytes": 750,
+      "sha256": "2d96b0d7ac82acadbe26eea5384d581ea99f0581f63a387ac72452044db2abb8",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/01-offline-dependencies.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/01-offline-dependencies.stdout",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "51cceb726963c0d7a2311fef1f3c4cd39b25eeb0e3ad1bf156e98d63d517822e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/02-typescript.json",
+      "kind": "file",
+      "bytes": 734,
+      "sha256": "4a38e87bb8534b786cec9139a56ed2ebb76e59813a74b411b1c1ca456e403907",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/02-typescript.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/02-typescript.stdout",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/03-stdo3-acquisition.json",
+      "kind": "file",
+      "bytes": 801,
+      "sha256": "294d13f961ab2f3a716e49bb06c493e1865eb945fb88e5cfc285455595c49816",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/03-stdo3-acquisition.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/03-stdo3-acquisition.stdout",
+      "kind": "file",
+      "bytes": 1542,
+      "sha256": "7fc2a8b49448c992d110283bf8e7cd62bb3ad6a937df24e8ce1a9a401824ab40",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/04-stdo3-acquisition-after-fixture-reentry.json",
+      "kind": "file",
+      "bytes": 800,
+      "sha256": "4f0cdaeeedd8db6933e9fd987654a8022e04829f19081fb18d3f40af74f1ac60",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/04-stdo3-acquisition-after-fixture-reentry.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/04-stdo3-acquisition-after-fixture-reentry.stdout",
+      "kind": "file",
+      "bytes": 475,
+      "sha256": "742e9e620af1d5d6cf248958b176f5fb0aee93eb982d2331193d5a631fff3dc6",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/05-common-computations.json",
+      "kind": "file",
+      "bytes": 931,
+      "sha256": "e2c4438e45aa793f711f7c4e6d771cd305b94f03efb204b6c5a713616728ed22",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/05-common-computations.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/05-common-computations.stdout",
+      "kind": "file",
+      "bytes": 1258,
+      "sha256": "e69b238f796276f8de3b356e914a0892bb986f7a93e2bdc3abb4d908701f8af8",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/06-owner-selection.json",
+      "kind": "file",
+      "bytes": 1267,
+      "sha256": "47494a3661a4afe10bf290c29c9bdb359fe57732dcd87ff459a059b3c65576bf",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/06-owner-selection.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/06-owner-selection.stdout",
+      "kind": "file",
+      "bytes": 3366,
+      "sha256": "1577c6feff3cbce5d6d973c8288cdfb949ff8905836363000197804bb7ee0c3f",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/07-isolated-generator.json",
+      "kind": "file",
+      "bytes": 710,
+      "sha256": "c52ea15fb2a91b417cc10e91bd77a058f0ab2ed342e7e74c7bef794ee0dfa43b",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/07-isolated-generator.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/07-isolated-generator.stdout",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/08-owner-selection-generated-input.json",
+      "kind": "file",
+      "bytes": 886,
+      "sha256": "498e6a45a8bf1418618a5955fb9eba1156b4f7606db38d1799dfe9c18c9ca372",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/08-owner-selection-generated-input.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/08-owner-selection-generated-input.stdout",
+      "kind": "file",
+      "bytes": 366,
+      "sha256": "639909047b9b8db6509634c3118a9ac89edcd329a9049565b7ec4bb93d8e3c1f",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/09-event-body-codec.json",
+      "kind": "file",
+      "bytes": 799,
+      "sha256": "f28c1a5852709e41272d774e45dc067fdb1ed1ff497a4b66e8bea467b8f0c8d1",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/09-event-body-codec.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/09-event-body-codec.stdout",
+      "kind": "file",
+      "bytes": 2654,
+      "sha256": "ccb7285fd503d7ac4426a16081a8c2d1ac7ce6e0508e061ce81dbdec662432a4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/failed-attempt-03/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "kind": "file",
+      "bytes": 10008,
+      "sha256": "90111ddeb3234c71c39303c25dc3f03cd6f530a432a3762e6f6f93bb5293e0c2",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/failure-03-freeze.json",
+      "kind": "file",
+      "bytes": 1507,
+      "sha256": "b2bf3ce28806fb166fd3e6cf61c3bb05c6cce1bec36524ac4c83ac068cb28c0a",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/failure-06-freeze.json",
+      "kind": "file",
+      "bytes": 716,
+      "sha256": "8f0ee24d920f28738ea81f2eda6885275e2f8e8074f4628ec5217e113383ebdb",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/first-cause-03.json",
+      "kind": "file",
+      "bytes": 1922,
+      "sha256": "0dbf0de648f3991af97c473576d98893ef4ebd9e1a6d9aedf1dc65037cd601b4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/first-cause-06.json",
+      "kind": "file",
+      "bytes": 1370,
+      "sha256": "4ddb97fe9d4bb9ee34472e63b88f5c486f107a7c7441089e5c308989361382a6",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/fixture-reentry-01.json",
+      "kind": "file",
+      "bytes": 567,
+      "sha256": "1466a26de7413b3c0dfaf1ab64593756d10488fb6275995480e89432f5725c9e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/generated-output-inventory.json",
+      "kind": "file",
+      "bytes": 227715,
+      "sha256": "de5ecdadaace175cf96bdc5809f7d83e2f50b329ea632da9be9581760e9705c3",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/inputs.json",
+      "kind": "file",
+      "bytes": 5139,
+      "sha256": "7103540463949f4a6b3083b307cf9d5e36bc6b3b47a45097f05261da9637fd0c",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "kind": "file",
+      "bytes": 44555,
+      "sha256": "a8d846dbc02708980d1f71b0c6bf17d1f5029c526920a74cc9fe0f0e3ef655a0",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "kind": "file",
+      "bytes": 533127,
+      "sha256": "59a3c4f8aa3d409c97bca93d728f6e60abc86e67d34dd19c46ce0831791de11d",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "kind": "file",
+      "bytes": 10804,
+      "sha256": "c9d5bdfb2581115724d48b995a8cc734ae58dd8a1baa7663db99a9428e6f6e49",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "kind": "file",
+      "bytes": 25241,
+      "sha256": "0e1d112eea7d0184ea37b3edcc20b9d425d3eaf1d95e8edc34ae0a52fd0f2f3b",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "kind": "file",
+      "bytes": 30014,
+      "sha256": "1825b0b1674c81d89dc591cfb7a643ddca0baca68733dc8b52a367c088877ea6",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "kind": "file",
+      "bytes": 47076,
+      "sha256": "91f8fdcc661acb9e9610f04e980eb96a42a7b430ef0bf4f2315ddaac02294859",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+      "kind": "file",
+      "bytes": 16975,
+      "sha256": "e96a40d675c0c024f8c55f6769842947a12a94bf1140a2799af0cdb5a8336614",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "kind": "file",
+      "bytes": 14069,
+      "sha256": "9243177bfc5618f2cd84ff270b9acbdd2b81bee27d4f41323a4103a90c3596a9",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+      "kind": "file",
+      "bytes": 7482,
+      "sha256": "318e20e2e7c3827df6914d8d477a48badcfe309fb118003ae15548200a1714ca",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/specification/GOALS.md",
+      "kind": "file",
+      "bytes": 78297,
+      "sha256": "e9eb82809ce171cb4bd6e58ed31576e4f3075fab75b74f629343593d71cedbae",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/protected-main-generated.json",
+      "kind": "file",
+      "bytes": 206098,
+      "sha256": "033bc8359427d2b3b02f54057b05f5b9f66d86be33e5bff0982a19d7f38690a6",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/readiness.json",
+      "kind": "file",
+      "bytes": 1443,
+      "sha256": "b053dd583de0bfec1c0b96cc5a15adb34b45894617285036af4e7419f99d09d4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/report.md",
+      "kind": "file",
+      "bytes": 10739,
+      "sha256": "1f2cd5fa046cf39ea42de3ed5022c2b874f814627176664c962143e6ca784b7c",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/retirement-audit.json",
+      "kind": "file",
+      "bytes": 2469,
+      "sha256": "a5c006c40230abb3e112078ca69153f46d6dccdb1b86510f3b62eeead2645ff7",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/run-command.py",
+      "kind": "file",
+      "bytes": 1277,
+      "sha256": "480f2d0e11350535c156f2ff58d1340724bae8efcb422cd91421190a24f229d2",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/source-generated-correspondence.json",
+      "kind": "file",
+      "bytes": 1206,
+      "sha256": "64507a61b146126d7e4dffc903797796447ba1645ef5dae272bc67cd58484ce2",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage-inputs-02.json",
+      "kind": "file",
+      "bytes": 369360,
+      "sha256": "8c1cba9c5afc1def0de40d5f73c6359b726313fee975133ecc71c9d7f007422e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage-inputs.json",
+      "kind": "file",
+      "bytes": 369270,
+      "sha256": "c8049b90347494756f17db0affd998edd5c7fe285228ff7ce6998c439e809268",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage-reentry-02.json",
+      "kind": "file",
+      "bytes": 496,
+      "sha256": "d32b35d8c504e653d5f19374d52d096ac1b1c94d7cf4bfa06106c9e51a0ad2de",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/status-preconditions.json",
+      "kind": "file",
+      "bytes": 401,
+      "sha256": "bf895970c9ff9e4f944787831418beda17c9ce6fdefec987436aa32bdf720501",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stdo-status.json",
+      "kind": "file",
+      "bytes": 10805,
+      "sha256": "be61c6fb497f70f5347fae578d95b10ccb61e0b1b99dc28f8ae42f61b3bb877e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stdo3-source-spans.json",
+      "kind": "file",
+      "bytes": 908,
+      "sha256": "45796bfca3dea5b8cbde1171f413c95992f76eeb7b1acba3d4d0c71a2411b78e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/toolchain-and-dependencies.json",
+      "kind": "file",
+      "bytes": 1067127,
+      "sha256": "9231881151587fb781c854c675c1e9163ce9da40ae5a267133810d540d6dc67f",
+      "mode": "0o644"
+    }
+  ]
+}

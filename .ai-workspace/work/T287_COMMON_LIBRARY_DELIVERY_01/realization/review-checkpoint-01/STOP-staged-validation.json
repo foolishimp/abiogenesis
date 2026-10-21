@@ -1,0 +1,5 @@
+{
+  "firstCause": "KeyError('content')",
+  "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\nKeyError: 'content'\n",
+  "stop": "Return Root before repair or commit"
+}

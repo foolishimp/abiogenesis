@@ -1,0 +1,21 @@
+{
+  "selectedFreezeRows": "files, except the exact preparation freeze uses records; stopped predecessor manifest uses files; prior carrier manifest uses records",
+  "physicalInventories": "roots + files; type, mode, device, inode; directories and symlinks retain metadata only",
+  "subjectInventories": "files, relative to the explicit original root; package/support files relative to original stageTenant",
+  "provider": "Require provider only when stdo3-native-selection is present in lanes; preserve present unused metadata or absent/not-applicable explicitly for these P1/P3 configurations",
+  "fixturePackages": [
+    {
+      "route": "baseline-diagnostics-01/p1-coverage-successor-02/fixture-package-inventory.json",
+      "shape": "archive + files with source pins; producerCommand + acquisition"
+    },
+    {
+      "route": "baseline-diagnostics-01/p3/coverage-instance/fixture-package-inventory.json",
+      "shape": "archive + files with source pins; producer/actualEnvironment/artifactReceipt remain original metadata"
+    },
+    {
+      "route": "final02 P1 actual consumer-acquisition + commands/4-pack-consumer",
+      "shape": "request artifactPath/digest + verified artifact; successful pack stdout files with mode/size; exact source hashes from selected physical inventory"
+    }
+  ],
+  "scope": "Schema discovery only; no material substitution, missing-row defaults, workload or fixture execution"
+}

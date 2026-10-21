@@ -1,0 +1,174 @@
+{
+  "activation": "FINAL-CANDIDATE-03-BINDING",
+  "writer": "/root/stdo3_k11_successor_writer",
+  "returnTo": "/root",
+  "status": "BOUND_NOT_GRANTED",
+  "selectedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/freeze.json",
+    "sha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+    "bytes": 2343069,
+    "mode": "0o644"
+  },
+  "selectedClosedStatus": "stopped_first_host_preservation_mode_assertion",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+    "bytes": 10681835,
+    "mode": "0o644"
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "2960e5dddf8959de4ff269a3aac92dce2a8dd27bb79dee308b5fa394a3bf9920",
+    "bytes": 3189620,
+    "mode": "0o644"
+  },
+  "productContentDigest": "sha256:78912aa5b7f9956b51075aefc52367a6f36b75cb711b105926c5f4a42b47dd9e",
+  "configs": {
+    "p1": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/p1.configuration.NOT_GRANTED.json",
+      "sha256": "676f27bcfa64cd532bbf72da6193efc9c6ef67bd9b0d03bd51f74eb32ada2f51"
+    },
+    "p2": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/p2.configuration.NOT_GRANTED.json",
+      "sha256": "26b11c9acdaa85ede02aa2810f5961084a1313b6f1aba72886623aad559b77a3"
+    },
+    "p3": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/p3.configuration.NOT_GRANTED.json",
+      "sha256": "c950be8091934f908f973847540556cba6993356d4175114d3fdd9294a570849"
+    }
+  },
+  "ownerConfiguration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/owner-resolution.configuration.NOT_GRANTED.json",
+    "sha256": "6f43de674edd3257a63720a182a6a922a77bbde03d7bdbf1c97b27d71c817384"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+    "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+    "bytes": 48889,
+    "mode": "0o644"
+  },
+  "oracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs",
+    "sha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+    "bytes": 6907,
+    "mode": "0o644"
+  },
+  "counts": {
+    "source": 1319,
+    "generated": 940,
+    "dependencies": 4576,
+    "support": 14,
+    "packageMembers": 5271
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/subject.NOT_GRANTED.json",
+    "sha256": "4c4316e74047114a45484e24aa4587db2ca059c5191731aa04827a05d1064921",
+    "bytes": 4121,
+    "mode": "0o644"
+  },
+  "support": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/selected-support.json",
+    "sha256": "00eff68a7329e05420c7669dac48fdbc717acca880a361e865aecb934b549665",
+    "bytes": 3144,
+    "mode": "0o644"
+  },
+  "sourceAfterimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/source-afterimages.json",
+    "sha256": "80704c80e912323ea86d8b62a00d576cfd8c6518f581cff349772e8a67b7fc5d",
+    "bytes": 3338,
+    "mode": "0o644"
+  },
+  "inputPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/binding-input-pins.json",
+    "sha256": "7400007d3c3740574ee663edc53fa319178d375a012c9c879a7363b2462b3c20",
+    "bytes": 21995,
+    "mode": "0o644"
+  },
+  "handoffMap": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/actual-handoff-binding-map.json",
+    "sha256": "b578420d8395095de375b1b68391a293f7fb809e03f1a06bc6f2374e5e43a69b",
+    "bytes": 4473,
+    "mode": "0o644"
+  },
+  "correspondencePolicy": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/output-correspondence-inputs.json",
+    "sha256": "f16157f6418f40e4c7fe0ddc01d7b5b1484cf4c7993a9ebb6ac9f84355baa4a8",
+    "bytes": 2173,
+    "mode": "0o644"
+  },
+  "resourcePlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/resource-plan.json",
+    "sha256": "1c1eec997b388fb425f24f67f380bccb2fe486879e31110808d5471d4425ff2c",
+    "bytes": 3181,
+    "mode": "0o644"
+  },
+  "cachePlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/cache-plan.NOT_GRANTED.json",
+    "sha256": "6091fa49de7e793ef20931f19f28651e17a5dbd686a115b426d7a9820167afa3",
+    "bytes": 2163,
+    "mode": "0o644"
+  },
+  "offlineClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/offline-closure.NOT_GRANTED.json",
+    "sha256": "6c78c0b4ed9970d9153f0df5349384bd07e65be53e268ef3920c0fe8e84a5aee",
+    "bytes": 1161,
+    "mode": "0o644"
+  },
+  "checks": {
+    "syntax": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/commands/syntax.result.json",
+      "sha256": "1df5d59c9a956ecc79ce64affb3708311344393f858fa7a1ac21b0ec84ac0773",
+      "bytes": 787,
+      "mode": "0o644"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/commands/binding.result.json",
+      "sha256": "d2bda31a3d6ae6330f05a38cfcd8f4a9ccf587fb3d18741bfcf8149bb4a66acf",
+      "bytes": 790,
+      "mode": "0o644"
+    }
+  },
+  "checkExitCodes": {
+    "syntax": 0,
+    "binding": 0
+  },
+  "executions": {
+    "syntax": 1,
+    "metadataBinding": 1,
+    "installedRunner": 0,
+    "ownerResolution": 0,
+    "native": 0,
+    "build": 0,
+    "generate": 0,
+    "pack": 0,
+    "install": 0
+  },
+  "resourceProposal": {
+    "parent": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab",
+    "pathsCheckedAbsent": 17,
+    "allocated": 0,
+    "seedSelected": false
+  },
+  "pending": [
+    "Root C0 corrected actual owner proof and separately linked test-only delta",
+    "Root exact offline seed selection and execution grant",
+    "actual P1 installedRoot/result/owner-state/call/prefix pins",
+    "owner-resolution before P2 or any append",
+    "actual P2/P3 evidence and original correspondence oracle"
+  ],
+  "preservationScope": "Writes confined to this preparation. Finite selected input identities verified once. No main generated, old cut, source, dependency, build, package or Git writes. No fresh broad main/prior-cut preservation scan was selected or claimed.",
+  "limits": [
+    "preparation only, no L4/L5/candidate or release acceptance",
+    "historical subject host-check stop retained",
+    "Root-attributed C0 proof status is not a raw runtime receipt",
+    "no final02 endpoint receipt transferred",
+    "all configurations, grants, cache and seed templates NOT_GRANTED",
+    "scope stops if archive/source identity changes"
+  ],
+  "rootProofStatus": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/ROOT-proof-status.md",
+    "sha256": "b71d23ce918a7ad259be698a4455451c7a611011ac1166e307649e9b55f79079",
+    "bytes": 1448,
+    "mode": "0o644"
+  }
+}

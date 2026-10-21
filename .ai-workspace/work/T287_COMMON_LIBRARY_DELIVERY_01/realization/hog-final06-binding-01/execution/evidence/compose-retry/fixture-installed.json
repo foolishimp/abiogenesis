@@ -1,0 +1,49 @@
+{
+  "root": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent/abi5-root-env-RKlxaR/consumer-additional-0/node_modules/@abi5-tests/structural-fixtures",
+  "files": [
+    {
+      "path": "build/leaf.mjs",
+      "type": "file",
+      "mode": 420,
+      "bytes": 10669,
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a"
+    },
+    {
+      "path": "build/program.mjs",
+      "type": "file",
+      "mode": 420,
+      "bytes": 22919,
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218"
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "type": "file",
+      "mode": 420,
+      "bytes": 247,
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+    },
+    {
+      "path": "contracts/public-contract-catalog.schema.json",
+      "type": "file",
+      "mode": 420,
+      "bytes": 75,
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb"
+    },
+    {
+      "path": "package.json",
+      "type": "file",
+      "mode": 420,
+      "bytes": 427,
+      "sha256": "83565242cfaa5735ee595ddf18ac85cabd750f3b00a9a11e8284502fa857b9c7"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "type": "file",
+      "mode": 420,
+      "bytes": 12727,
+      "sha256": "ad4739e22cc001f51bd25b29183035e81753447cad2f6d6f266e3162656e1db3"
+    }
+  ],
+  "logicalFileBytes": 47064,
+  "fileCount": 6
+}

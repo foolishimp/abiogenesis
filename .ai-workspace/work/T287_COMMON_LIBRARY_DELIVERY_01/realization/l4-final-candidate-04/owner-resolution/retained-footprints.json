@@ -1,0 +1,23 @@
+{
+  "footprints": [
+    {
+      "role": "evidence",
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution",
+      "files": 6,
+      "logicalBytes": 33947493,
+      "symlinks": 0,
+      "allocatedKiB": 33168,
+      "duArgv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution"
+      ],
+      "duStdout": "33168\t/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution\n",
+      "duStderr": "",
+      "scope": "post-endpoint retained root, not an allocation peak; logical bytes count names; CoW allocation may overlap"
+    }
+  ],
+  "portableEvidenceFiles": 6,
+  "portableEvidenceLogicalBytes": 33947493,
+  "measurement": "Post-endpoint inventory/copy overhead outside timed original endpoint. Original runner evidence overhead remains included in original endpoint. Cache measured separately. Internal counters unobserved, not zero."
+}

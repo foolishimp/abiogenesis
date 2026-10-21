@@ -1,0 +1,52 @@
+{
+  "resolution": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1",
+    "uri": "stdo://releases/v3.0.0-rc.1/"
+  },
+  "manifestDigest": "sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "sourceMembersVerified": 81,
+  "acquired": [
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+      "bytes": 83085,
+      "sha256": "sha256:aafb1bf63e7928c9a21c4fe4982e4a4cdefa32b931a256e56543eb7cf629d7cd",
+      "mode": "0o444",
+      "manifestMember": {
+        "path": "standards/frames/bootstrap.md",
+        "digest": "sha256:aafb1bf63e7928c9a21c4fe4982e4a4cdefa32b931a256e56543eb7cf629d7cd",
+        "type": "file",
+        "target": null
+      }
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "bytes": 156797,
+      "sha256": "sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "mode": "0o444",
+      "manifestMember": {
+        "path": "standards/EXECUTIVE_BASELINE.md",
+        "digest": "sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+        "type": "file",
+        "target": null
+      }
+    },
+    {
+      "uri": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+      "bytes": 87324,
+      "sha256": "sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "mode": "0o444",
+      "manifestMember": {
+        "path": "standards/ASSURANCE.md",
+        "digest": "sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+        "type": "file",
+        "target": null
+      }
+    }
+  ],
+  "mirror": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source",
+  "installed": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1",
+  "distinct": true
+}

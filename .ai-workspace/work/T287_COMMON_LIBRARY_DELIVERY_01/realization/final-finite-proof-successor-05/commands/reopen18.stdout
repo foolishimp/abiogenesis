@@ -1,0 +1,77 @@
+✔ M5 new-empty acquisition returns one genuine readable zero prefix (104.0505ms)
+✔ M5 EventStore batch factory interruption leaves the exact prefix unchanged (47.838375ms)
+✔ owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence (154.775292ms)
+✖ owned causation lookup grows with causal references in live admission and cold reconstruction (184.0595ms)
+✔ held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback (122.191583ms)
+✔ M5 effectful truth rejects a mechanically valid forged Product install for every query (19.707208ms)
+✔ M5 effectful truth rejects forged artifact operation identity before query selection (114731.277208ms)
+✖ M5 exact owner projections preserve valid facts, conflicts, and whole-prefix masking (0.56675ms)
+✔ M5 reopens one exact durable prefix without restamping and appends at max ordinal plus one (66.523125ms)
+✔ M5 rolls back an incomplete atomic F_H hold admission without a replay-visible prefix (21.2935ms)
+✔ M5 exact-prefix two-stage transaction rolls back its first stage when second staging fails (16.110583ms)
+✔ M5 durable reopen refuses changed prefix bytes without changing replay truth (15.956833ms)
+✔ M5 durable reopen refuses a second active append owner (21.028ms)
+✔ M5 durable reopen refuses a modified authority carrier (10.740709ms)
+✔ M5 durable reopen does not steal ownership from an abandoned lock (16.11425ms)
+✔ M5 event contract refuses blank history and malformed kind/scope/payload variants (17.533167ms)
+{"kind":"trusted_desktop_owned_history","events":5,"ownedHistoricalReadBytes":0,"explicitOutputReadBytes":45583,"coldReadBytes":4315,"unattributedReadBytes":0,"eventLogBytes":4315,"reads":[{"kind":"owned_coordinate_or_transition","label":"stale, foreign, profile and malformed coordinates","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"immutable predecessor","bytes":851,"expectedBytes":851},{"kind":"explicit_complete_output","label":"held output 0","bytes":851,"expectedBytes":851},{"kind":"explicit_complete_output","label":"complete comparison 0","bytes":851,"expectedBytes":851},{"kind":"owned_coordinate_or_transition","label":"held coordinate 0","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"callback predecessor 0","bytes":851,"expectedBytes":851},{"kind":"explicit_complete_output","label":"callback complete comparison 0","bytes":851,"expectedBytes":851},{"kind":"owned_coordinate_or_transition","label":"durable append 0","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"held output 1","bytes":1717,"expectedBytes":1717},{"kind":"explicit_complete_output","label":"complete comparison 1","bytes":1717,"expectedBytes":1717},{"kind":"owned_coordinate_or_transition","label":"held coordinate 1","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"callback predecessor 1","bytes":1717,"expectedBytes":1717},{"kind":"explicit_complete_output","label":"callback complete comparison 1","bytes":1717,"expectedBytes":1717},{"kind":"owned_coordinate_or_transition","label":"durable append 1","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"held output 2","bytes":2583,"expectedBytes":2583},{"kind":"explicit_complete_output","label":"complete comparison 2","bytes":2583,"expectedBytes":2583},{"kind":"owned_coordinate_or_transition","label":"held coordinate 2","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"callback predecessor 2","bytes":2583,"expectedBytes":2583},{"kind":"explicit_complete_output","label":"callback complete comparison 2","bytes":2583,"expectedBytes":2583},{"kind":"owned_coordinate_or_transition","label":"durable append 2","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"held output 3","bytes":3449,"expectedBytes":3449},{"kind":"explicit_complete_output","label":"complete comparison 3","bytes":3449,"expectedBytes":3449},{"kind":"owned_coordinate_or_transition","label":"held coordinate 3","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"callback predecessor 3","bytes":3449,"expectedBytes":3449},{"kind":"explicit_complete_output","label":"callback complete comparison 3","bytes":3449,"expectedBytes":3449},{"kind":"owned_coordinate_or_transition","label":"durable append 3","bytes":0,"expectedBytes":0},{"kind":"owned_coordinate_or_transition","label":"current selection and stale-current refusal","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"historical output","bytes":851,"expectedBytes":851},{"kind":"owned_coordinate_or_transition","label":"historical reidentification","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"reidentified historical output","bytes":851,"expectedBytes":851},{"kind":"owned_coordinate_or_transition","label":"ancestry and empty transaction","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"committed comparison value","bytes":4315,"expectedBytes":4315},{"kind":"owned_coordinate_or_transition","label":"committed canonical digest","bytes":0,"expectedBytes":0},{"kind":"owned_coordinate_or_transition","label":"tentative rollback","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"rollback complete output","bytes":4315,"expectedBytes":4315},{"kind":"owned_coordinate_or_transition","label":"close and closed-owner refusal","bytes":0,"expectedBytes":0},{"kind":"cold_recovery","label":"closed coordinate","bytes":4315,"expectedBytes":4315}]}
+✔ trusted owned history conserves currentness, callback publication, rollback and cold reconstruction (551.272166ms)
+✔ owned append I/O failures restore committed bytes and hash or poison admission (106.591083ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 16
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 120114.084041
+
+✖ failing tests:
+
+test at test_env/tests/m5-event-store-reopen.test.mjs:374:1
+✖ owned causation lookup grows with causal references in live admission and cold reconstruction (184.0595ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   admissionCauseLookups: 0,
+  -   admissionCauseLookups: 127,
+      coldCauseLookups: 0,
+      coldEventEntries: 0,
+      historyOrdinalEntries: 128,
+      locationCauseLookups: 127,
+      stagedBodyEntries: 128,
+      stagedEventEntries: 128,
+  +   unattributed: 127
+  -   unattributed: 0
+    }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/overlay/test_env/tests/m5-event-store-reopen.test.mjs:435:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { admissionCauseLookups: 0, locationCauseLookups: 127, historyOrdinalEntries: 128, stagedBodyEntries: 128, stagedEventEntries: 128, coldCauseLookups: 0, coldEventEntries: 0, unattributed: 127 },
+    expected: { admissionCauseLookups: 127, locationCauseLookups: 127, historyOrdinalEntries: 128, stagedBodyEntries: 128, stagedEventEntries: 128, coldCauseLookups: 0, coldEventEntries: 0, unattributed: 0 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-event-store-reopen.test.mjs:574:1
+✖ M5 exact owner projections preserve valid facts, conflicts, and whole-prefix masking (0.56675ms)
+  Error: ENOENT: no such file or directory, open '/private/tmp/abg-stdo3-finite-05-81459ad62ef037bc/03-reopen18/tmp/abi5-root-env-MpDtXo/runtime/events.jsonl'
+      at openSync (node:fs:560:18)
+      at readRuntimeHistoryRowBytes (file:///private/tmp/abg-stdo3-finite-05-81459ad62ef037bc/03-reopen18/tmp/abi5-root-env-MpDtXo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2402:45)
+      at RuntimeHistory.<anonymous> (file:///private/tmp/abg-stdo3-finite-05-81459ad62ef037bc/03-reopen18/tmp/abi5-root-env-MpDtXo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2443:23)
+      at RuntimeHistory.event (file:///private/tmp/abg-stdo3-finite-05-81459ad62ef037bc/03-reopen18/tmp/abi5-root-env-MpDtXo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_history.js:358:35)
+      at RuntimeHistorySelection.event (file:///private/tmp/abg-stdo3-finite-05-81459ad62ef037bc/03-reopen18/tmp/abi5-root-env-MpDtXo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_history.js:471:30)
+      at file:///private/tmp/abg-stdo3-finite-05-81459ad62ef037bc/03-reopen18/tmp/abi5-root-env-MpDtXo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_history.js:577:93
+      at Array.from (<anonymous>)
+      at RuntimeHistorySelection.materialize (file:///private/tmp/abg-stdo3-finite-05-81459ad62ef037bc/03-reopen18/tmp/abi5-root-env-MpDtXo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_history.js:577:44)
+      at AbgEventStore.readAll (file:///private/tmp/abg-stdo3-finite-05-81459ad62ef037bc/03-reopen18/tmp/abi5-root-env-MpDtXo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:1591:118)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/overlay/test_env/tests/m5-event-store-reopen.test.mjs:576:36) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/private/tmp/abg-stdo3-finite-05-81459ad62ef037bc/03-reopen18/tmp/abi5-root-env-MpDtXo/runtime/events.jsonl'
+  }

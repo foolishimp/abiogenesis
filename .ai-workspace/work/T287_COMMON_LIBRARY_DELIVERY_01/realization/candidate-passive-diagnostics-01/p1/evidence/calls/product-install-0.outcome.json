@@ -1,0 +1,118 @@
+{
+  "acquisitionKind": "new",
+  "kind": "installed_definition_call_transport_result",
+  "receipt": {
+    "definitionKey": {
+      "memberKey": "install",
+      "operationId": "abg.operation.product.install"
+    },
+    "exitCode": 0,
+    "failure": null,
+    "invocationRef": "invocation://abiogenesis/33bc948ff5be940e9b39cf731de9b9b0bc60dbdafc3ff348e92ddeb3b20eba51",
+    "kind": "definition_host_receipt",
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "disposition": "materialized",
+        "installManifest": {
+          "digest": "sha256:7583f222df2e125728a80dacee2412e1e805bbf4f0a1e2c9636b00955b331949",
+          "ref": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json"
+        },
+        "installedProduct": {
+          "digest": "sha256:3cf6b62b1f46eab1038d97c8f9ddf4becf64e0bdc0ae2fb56ff19e23175524f9",
+          "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214/21c043526fabf5fa40bc14664d9a0817e544b367a266263eb1c1b1e83916b877"
+        },
+        "installerManifest": {
+          "digest": "sha256:acdb4ffb0603e39ef916e4c6605c2e9c4f975e9382dd6987233563c6f89c7874",
+          "ref": "artifact-truth-projection://abiogenesis/acdb4ffb0603e39ef916e4c6605c2e9c4f975e9382dd6987233563c6f89c7874"
+        },
+        "provenance": [
+          {
+            "digest": "sha256:acdb4ffb0603e39ef916e4c6605c2e9c4f975e9382dd6987233563c6f89c7874",
+            "ref": "artifact-truth-projection://abiogenesis/acdb4ffb0603e39ef916e4c6605c2e9c4f975e9382dd6987233563c6f89c7874"
+          }
+        ],
+        "resolvedLock": {
+          "digest": "sha256:21c043526fabf5fa40bc14664d9a0817e544b367a266263eb1c1b1e83916b877",
+          "ref": "product-lock://abiogenesis/21c043526fabf5fa40bc14664d9a0817e544b367a266263eb1c1b1e83916b877"
+        }
+      }
+    },
+    "resources": {
+      "eventResource": {
+        "acquisitionKind": "new",
+        "closeHandoff": {
+          "prefix": {
+            "coordinateDigest": "sha256:b3cca175053495caac70947f2223cc89181f65860373a630556617118155444f",
+            "eventLogRef": "file:///private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resources/events/runtime.events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:b9ff2de66583ead79f8f9bef6034685779a70b88f4f86cb7bcf076bfdb11b1ee",
+            "prefixLength": 3105206,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777231,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "inode": 474886643
+            }
+          },
+          "reopenAuthority": {
+            "authorityDigest": "sha256:45a41088080d20a9de05059360b5d340dd4b33385c78fea2a6182142cb354208",
+            "device": 16777231,
+            "durableByteLength": 3105206,
+            "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+            "eventLogDigest": "sha256:b9ff2de66583ead79f8f9bef6034685779a70b88f4f86cb7bcf076bfdb11b1ee",
+            "eventLogPath": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resources/events/runtime.events.jsonl",
+            "inode": 474886643,
+            "kind": "event_store_reopen_authority",
+            "schemaVersion": "5.0.0"
+          }
+        },
+        "entryPrefix": {
+          "coordinateDigest": "sha256:091cd5b09f16035a4db466557077b40761d92b160a05513db79fa62dbc0ba1fd",
+          "eventLogRef": "file:///private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resources/events/runtime.events.jsonl",
+          "kind": "durable_prefix_coordinate",
+          "prefixDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "prefixLength": 0,
+          "schemaVersion": "5.0.0",
+          "storeIdentity": {
+            "device": 16777231,
+            "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+            "inode": 474886643
+          }
+        },
+        "kind": "abg_event_resource_receipt",
+        "receiptDigest": "sha256:456687deeca76e00f5b9761df76ec2c902d53eca054dae3998dde8036777ff21",
+        "schemaVersion": "5.0.0"
+      },
+      "installCandidate": {
+        "digest": "sha256:3cf6b62b1f46eab1038d97c8f9ddf4becf64e0bdc0ae2fb56ff19e23175524f9",
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214/21c043526fabf5fa40bc14664d9a0817e544b367a266263eb1c1b1e83916b877"
+      },
+      "installManifest": {
+        "digest": "sha256:7583f222df2e125728a80dacee2412e1e805bbf4f0a1e2c9636b00955b331949",
+        "ref": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json"
+      },
+      "installedProduct": {
+        "digest": "sha256:3cf6b62b1f46eab1038d97c8f9ddf4becf64e0bdc0ae2fb56ff19e23175524f9",
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214/21c043526fabf5fa40bc14664d9a0817e544b367a266263eb1c1b1e83916b877"
+      },
+      "installerManifest": {
+        "digest": "sha256:acdb4ffb0603e39ef916e4c6605c2e9c4f975e9382dd6987233563c6f89c7874",
+        "ref": "artifact-truth-projection://abiogenesis/acdb4ffb0603e39ef916e4c6605c2e9c4f975e9382dd6987233563c6f89c7874"
+      },
+      "kind": "product_install_resource_receipt",
+      "packedArtifact": {
+        "digest": "sha256:25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+        "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      },
+      "resolvedLock": {
+        "digest": "sha256:21c043526fabf5fa40bc14664d9a0817e544b367a266263eb1c1b1e83916b877",
+        "ref": "product-lock://abiogenesis/21c043526fabf5fa40bc14664d9a0817e544b367a266263eb1c1b1e83916b877"
+      },
+      "schemaVersion": "5.0.0",
+      "targetRoot": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/sandbox/installed/abg"
+    },
+    "schemaVersion": "5.0.0"
+  },
+  "schemaVersion": "5.0.0"
+}

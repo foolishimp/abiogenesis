@@ -1,0 +1,75 @@
+{
+  "head": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+  "current": [
+    {
+      "path": "code/src/abg/semantic_job.ts",
+      "sha256": "15038d792fcad98bbf7af20f68984d02bc12e714c32578fe2551142ea2793f77"
+    },
+    {
+      "path": "code/src/implementation/semantic_stage.ts",
+      "sha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3"
+    },
+    {
+      "path": "code/src/product/worksite_command_execution.ts",
+      "sha256": "7532aadf7fc497a5a4da3ccdf51fb9d1989832958e0f0baf424b3a6df68f32af"
+    },
+    {
+      "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+      "sha256": "368f925c5b1d8f79ff0548f581fc524a89327ce7494758f55b730e31feee2d58"
+    },
+    {
+      "path": "package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e"
+    }
+  ],
+  "baseline": [
+    {
+      "path": "code/src/abg/semantic_job.ts",
+      "sha256": "15038d792fcad98bbf7af20f68984d02bc12e714c32578fe2551142ea2793f77"
+    },
+    {
+      "path": "code/src/implementation/semantic_stage.ts",
+      "sha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3"
+    },
+    {
+      "path": "code/src/product/worksite_command_execution.ts",
+      "sha256": "afaff3804c0644583e92de1527746342a60f9f3f2b8ad0c8832dbb634631d2d2"
+    },
+    {
+      "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+      "sha256": "9d1d59cf2a031dc0d5b46b162e8ab349f05a72938fa2508999d1131ddae37070"
+    },
+    {
+      "path": "package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e"
+    }
+  ],
+  "toolchain": {
+    "node": "v24.7.0",
+    "npm": "11.5.1",
+    "typescript": "Version 5.9.2"
+  },
+  "selectedEnvironment": {
+    "ABG_TS_FP_TIMEOUT_MS": null,
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": null,
+    "NODE_OPTIONS": null
+  },
+  "dependencyInventorySha256": "41e2ecd082f55421e7005959b8ac5328d1df616e5dd67f3aa43299e52cf23f9c",
+  "subjectFreeze": "2afebdbf3d5fba012af0edb96f4820a3dac54db60ec0de28bd08e0b2a5e428ef"
+}

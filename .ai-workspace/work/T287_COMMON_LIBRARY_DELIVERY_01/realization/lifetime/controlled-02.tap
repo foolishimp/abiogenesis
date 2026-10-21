@@ -1,0 +1,17 @@
+✔ controlled timing: host boundaries, finite huge and fractional delays never become early actions (0.855834ms)
+✔ controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit (0.115208ms)
+✔ controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure (0.929042ms)
+✔ controlled lifetime: callback errors stop ordinary observations and retain the first error (0.767708ms)
+✔ controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct (0.363959ms)
+(node:35251) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication (296.572708ms)
+✔ controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds (0.20575ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 347.04925

@@ -1,0 +1,5 @@
+{
+  "status": "satisfied",
+  "nativeCalls": 0,
+  "importsBeforePreflight": "Node builtins and frozen pure oracle only"
+}

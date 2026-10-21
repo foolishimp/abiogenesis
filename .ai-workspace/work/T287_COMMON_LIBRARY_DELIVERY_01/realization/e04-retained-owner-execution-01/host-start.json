@@ -1,0 +1,28 @@
+{
+  "launcherPid": 68864,
+  "hostPid": 68865,
+  "groupId": 68865,
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs",
+    "run",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/configuration-not-granted.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/grant.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "launchConfigurationSha256": "b818b6e5bb316624eea53738169e909fb3156136a12c595bc70cc3eeaa4151fa",
+  "stageCommonLifetimeSha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f",
+  "bounds": {
+    "owner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    },
+    "terminationGraceMs": 1000,
+    "normalWorkDeadlineMs": 27750,
+    "cleanupAllowanceMs": 2250,
+    "enclosingBudgetMs": 30000
+  },
+  "fixtureChildCount": 0
+}

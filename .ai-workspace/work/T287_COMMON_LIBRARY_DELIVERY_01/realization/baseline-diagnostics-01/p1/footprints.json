@@ -1,0 +1,101 @@
+{
+  "roots": [
+    {
+      "label": "evidence",
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "files": 10613,
+      "logicalBytes": 498115945,
+      "links": 0,
+      "allocatedKiB": 515512,
+      "argv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence"
+      ],
+      "stdout": "515512\t/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence\n",
+      "stderr": "",
+      "scope": "Retained exit root; no peak, unique-data or CoW-exclusive allocation claim"
+    },
+    {
+      "label": "host",
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host",
+      "files": 5271,
+      "logicalBytes": 70673851,
+      "links": 0,
+      "allocatedKiB": 82956,
+      "argv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host"
+      ],
+      "stdout": "82956\t/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host\n",
+      "stderr": "",
+      "scope": "Retained exit root; no peak, unique-data or CoW-exclusive allocation claim"
+    },
+    {
+      "label": "scratchParent",
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/scratchParent",
+      "files": 590,
+      "logicalBytes": 2863248,
+      "links": 0,
+      "allocatedKiB": 4176,
+      "argv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/scratchParent"
+      ],
+      "stdout": "4176\t/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/scratchParent\n",
+      "stderr": "",
+      "scope": "Retained exit root; no peak, unique-data or CoW-exclusive allocation claim"
+    },
+    {
+      "label": "worksite",
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite",
+      "files": 1,
+      "logicalBytes": 1402,
+      "links": 0,
+      "allocatedKiB": 4,
+      "argv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite"
+      ],
+      "stdout": "4\t/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite\n",
+      "stderr": "",
+      "scope": "Retained exit root; no peak, unique-data or CoW-exclusive allocation claim"
+    },
+    {
+      "label": "diagnostic",
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic",
+      "files": 37,
+      "logicalBytes": 255504689,
+      "links": 0,
+      "allocatedKiB": 250628,
+      "argv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic"
+      ],
+      "stdout": "250628\t/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic\n",
+      "stderr": "",
+      "scope": "Retained exit root; no peak, unique-data or CoW-exclusive allocation claim"
+    },
+    {
+      "label": "cache",
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p1",
+      "files": 13,
+      "logicalBytes": 10694491,
+      "links": 0,
+      "allocatedKiB": 10476,
+      "argv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p1"
+      ],
+      "stdout": "10476\t/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p1\n",
+      "stderr": "",
+      "scope": "Retained exit root; no peak, unique-data or CoW-exclusive allocation claim"
+    }
+  ],
+  "scope": "After original workload and passive analysis; includes retained observer trace and result overhead. Post-run inventory/du work is outside the timed workload."
+}

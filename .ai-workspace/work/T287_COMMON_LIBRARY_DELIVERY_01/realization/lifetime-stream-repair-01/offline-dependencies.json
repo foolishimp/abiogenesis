@@ -1,0 +1,17 @@
+{
+  "command": [
+    "npm",
+    "ci",
+    "--offline",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript",
+  "startedAt": "2026-10-21T00:31:59.161464+00:00",
+  "elapsedSeconds": 0.5340439998544753,
+  "exitCode": 0,
+  "sourceInventorySha256": "96b5f247b13941329da26eb0337bb2d2fba91fa390ec42a76b7ccc9baa9ea683",
+  "stdoutSha256": "bcb22dc9c4b0dc899c359e31561e368a20f65595a85c85d7e09eb8ace1687763",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

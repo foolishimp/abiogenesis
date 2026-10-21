@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/execution-intake-01/verify-preservation.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/execution-intake-01/preservation-scope.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/execution-intake-01/preservation-before-p1.json"
+  ],
+  "exitCode": 0,
+  "stdout": "{\"status\": \"satisfied\", \"scopeCounts\": [8640, 22, 29, 936], \"exactPins\": 4}\n",
+  "stderr": ""
+}

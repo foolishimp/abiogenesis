@@ -1,0 +1,18 @@
+{
+  "activation": "N3-IMPORTER-ACCOUNTING-01",
+  "command": [
+    "/usr/local/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/verify-n3-successor.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "environment_overrides": {},
+  "script_sha256": "5bb9ceef7f0eeaacb82ee4ff145e8bf18cf4e0b4eff4db939344668dd99fdf03",
+  "scope": "Only corrected N3 source routing and authored record/ticket-link preflight",
+  "pretriage_corrected_check_credit": false,
+  "Product_execution": false,
+  "at": "2026-10-21T03:23:53.990601+00:00",
+  "exit_code": 0,
+  "wall_seconds": 0.041951894760131836,
+  "stdout_sha256": "bb90ab00389730e7ff548dadd13291f64a49ef3c365eb132239bf84ca1613b5c",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

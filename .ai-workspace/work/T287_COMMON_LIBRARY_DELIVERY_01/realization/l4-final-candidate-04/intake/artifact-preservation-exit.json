@@ -1,0 +1,20 @@
+{
+  "status": "satisfied",
+  "files": [
+    {
+      "role": "archive",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+      "bytes": 10681844,
+      "mode": "0o644"
+    },
+    {
+      "role": "manifest",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4",
+      "bytes": 3189620,
+      "mode": "0o644"
+    }
+  ],
+  "scope": "Only exact archive and manifest bytes/size/mode rechecked at exit. No full candidate, main, prior-cut or physical-root inventory rerun."
+}

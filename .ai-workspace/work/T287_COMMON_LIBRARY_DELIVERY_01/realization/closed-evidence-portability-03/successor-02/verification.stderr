@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/verify-transport.py", line 142, in <module>
+    assert t['kind'] == 'archive_object'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

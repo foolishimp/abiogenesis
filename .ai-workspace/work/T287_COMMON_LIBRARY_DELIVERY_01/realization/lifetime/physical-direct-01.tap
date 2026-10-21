@@ -1,0 +1,10 @@
+✔ physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed (22.330458ms)
+ℹ {"scope":"posix_process_group","probes":1,"signals":0,"cleanupMs":0.179708,"closeObserved":true,"bufferedBytes":13}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56.952458

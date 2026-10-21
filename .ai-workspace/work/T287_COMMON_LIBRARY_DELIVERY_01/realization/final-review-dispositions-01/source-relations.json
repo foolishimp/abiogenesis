@@ -1,0 +1,115 @@
+{
+  "frame_anchor": {
+    "requested": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+    "resolved": true,
+    "heading": "F-WORKSITE-CAUSALITY",
+    "line": 96,
+    "fallback_used": false
+  },
+  "pins": [
+    {
+      "cut": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/freeze.json",
+      "sha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155",
+      "current_owned_files_match": 4
+    },
+    {
+      "cut": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/freeze.json",
+      "sha256": "a1fe796ac076672cc2b8835f66b68c007ee1a41c374a62a6455ab75975ad446d",
+      "current_owned_files_match": 2
+    },
+    {
+      "cut": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json",
+      "sha256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a",
+      "current_owned_files_match": 5
+    }
+  ],
+  "source_domain_checks": [
+    {
+      "id": "K11-R1",
+      "relation": "Generic schema has no adoption marker; specialized constructor performs explicit STDO source/role check; generic route remains generic.",
+      "source": "gtl/stdo_run_environment.ts:166-231"
+    },
+    {
+      "id": "K11-R2",
+      "relation": "deepFreeze returns early for already-frozen object; accepted K03 explicitly states this domain.",
+      "source": "shared/immutable.ts:1-9; library design K03"
+    },
+    {
+      "id": "U1-M1",
+      "relation": "Physical target collector retains exact canonicalRoot equality.",
+      "source": "abg/event_calculus.ts:611-625"
+    },
+    {
+      "id": "U1-M2",
+      "relation": "changedPaths compares observed context entries; prose disclaims off-scope absence.",
+      "source": "product/native_workspace_work.ts:83,132-137"
+    },
+    {
+      "id": "U1-F3",
+      "relation": "Unknown-effect authentication catch returns null; no admitted throwing case acquired or executed.",
+      "source": "abg/native_work_effect.ts:129"
+    },
+    {
+      "id": "E03-R1",
+      "relation": "Whole instruction assembly remains matched by semanticInstructionResultMatches, not by pure actor-contract identity alone.",
+      "source": "abg/instruction_assembly.ts:1094 onward"
+    }
+  ],
+  "legacy_fresh_helper": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+    "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2",
+    "selection": "ownedProcessProof undefined chooses legacy runFreshWorker; provided option chooses runOwnedFreshWorker",
+    "callers": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+        "sha256": "1b35403af5532bf5b04bd3c101a9c2bfdfcbaf4f37db0ffeaccb84e7996a3cbb",
+        "ownedProcessProof_mentioned": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/r9-causal-result-closure.test.mjs",
+        "sha256": "8371976777c2f66f8372d14caacafcc76313b85559c225eef6026b11c1ca94e4",
+        "ownedProcessProof_mentioned": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+        "sha256": "b20690f776ad0cc913c8e6ed3332b61b039fed5ce73216467583ed613c8dec5a",
+        "ownedProcessProof_mentioned": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+        "sha256": "a6cc614c027f884b76b17203915c961c9e25f667849c714d14b7401d6d45ac2c",
+        "ownedProcessProof_mentioned": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+        "sha256": "0f7bff5aad53c4f240325d2b212a8e2e8c7e046060a0bd51183bb6fcac0071e2",
+        "ownedProcessProof_mentioned": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+        "sha256": "9c7f9969ab07d01276396b0a75b743cd4dcf42a10260966a5733ac24e13846fd",
+        "ownedProcessProof_mentioned": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+        "sha256": "3905e3d3304f208cb663ad3a9b4725dca88527291302a05c1fea17ea14e6f5d0",
+        "ownedProcessProof_mentioned": false
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "sha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329",
+        "ownedProcessProof_mentioned": true
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+        "sha256": "e01cbd8b03ce5cd84b6f7982551b39bac7804a6395b298245033b129b6f9be47",
+        "ownedProcessProof_mentioned": false
+      }
+    ],
+    "conditional_command_test": "line744 supplies ownedProcessProof only when separate proof configuration is non-null; the default is legacy",
+    "proof_limit": "Source routing only; no caller execution or owned-group proof claimed"
+  },
+  "contrary_current_source_found": false,
+  "fresh_independent_acceptance": false,
+  "tests_executed": 0
+}

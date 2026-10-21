@@ -1,0 +1,39 @@
+{
+  "status": "matched",
+  "baselineInventories": [
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source-manifest.json",
+        "sha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build"
+      },
+      "entries": 1311,
+      "allMatched": true
+    },
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-generated-inventory.json",
+        "sha256": "92f861c654cd96e2578c00d5d588047d72caf6ccea85a4794f79942645c467f2",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+      },
+      "entries": 936,
+      "allMatched": true
+    },
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-dependency-inventory.json",
+        "sha256": "22b00870648c52acf9941cf67993c2c98a42b81ac4339d7e68ccf587e071782f",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+      },
+      "entries": 4576,
+      "allMatched": true
+    }
+  ],
+  "immutableBaselineSourceEntriesVerified": 1311,
+  "protectedMainRowsVerified": 936,
+  "closedBaselineP1RecordsPreserved": 18,
+  "finiteSupportFilesVerified": 12,
+  "baselineArchiveManifestToolchainConsumerRunnerOracleAndAuthorityPinsPreserved": true,
+  "oldP1RuntimeAcquired": false,
+  "noRetryOrCleanup": true
+}

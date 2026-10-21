@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs",
+    "prepare",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/configuration-not-granted.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 0,
+  "timeout": false,
+  "wallSeconds": 0.8365071672014892,
+  "stdoutBytes": 15447,
+  "stdoutSha256": "1146531b7d39c447f8a3f8215fb6778a8d0a4bd2ef3064b2622be32bbb52bfb3",
+  "stderrBytes": 173,
+  "stderrSha256": "c9b7c1743631352030b095db1f0b5ae175cf80f93050b708f2ce4d9334a2ae89",
+  "ownerPhysicalCaseExecutions": 0
+}

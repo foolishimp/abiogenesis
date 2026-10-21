@@ -1,0 +1,208 @@
+{
+  "timestamp": "2026-10-06T00:44:53.200Z",
+  "scenario": {
+    "key": "basic-cli",
+    "title": "JavaScript Hello World CLI",
+    "scenarioId": "SCN-GLC-HELLO-WORLD-CLI-BASIC",
+    "sourceFile": "basic-cli/source.original.txt",
+    "sourceFiles": [
+      "basic-cli/source.original.txt",
+      "basic-cli/obligations.json"
+    ],
+    "requestFile": "basic-cli/request.json",
+    "oracleFile": "basic-cli/oracle.json",
+    "oracleFiles": [
+      "basic-cli/oracle.json"
+    ],
+    "oracleModule": "independent-oracle.mjs",
+    "toolchainObligations": {
+      "requiredExecutables": [
+        "node"
+      ],
+      "commands": [
+        {
+          "commandId": "command://abiogenesis-sandbox-uat/basic-cli/cli",
+          "executable": "node",
+          "args": [
+            "generated/hello-world.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 60000,
+          "terminationGraceMs": 5000,
+          "expectedReports": []
+        },
+        {
+          "commandId": "command://abiogenesis-sandbox-uat/basic-cli/tests",
+          "executable": "node",
+          "args": [
+            "--test",
+            "test/component/hello-cli.test.mjs",
+            "test/uat/hello-cli.uat.test.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 120000,
+          "terminationGraceMs": 5000,
+          "expectedReports": []
+        }
+      ],
+      "loopbackSocketsRequired": false,
+      "noSolvedWorkSeed": true
+    },
+    "acquisitionDigests": [
+      {
+        "path": "basic-cli/source.original.txt",
+        "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+        "byteCount": 4325
+      },
+      {
+        "path": "basic-cli/obligations.json",
+        "digest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+        "byteCount": 4916
+      },
+      {
+        "path": "basic-cli/oracle.json",
+        "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+        "byteCount": 1112
+      },
+      {
+        "path": "basic-cli/request.json",
+        "digest": "sha256:481aad19106047377f1b25fb0b8847e5a2cee00a36964db3bacd3688bb6c980f",
+        "byteCount": 21323
+      },
+      {
+        "path": "independent-oracle.mjs",
+        "digest": "sha256:8dcfdd00230644f1458f1fe19304c8ba8e830426b8f7ea4f2343dc301883c342",
+        "byteCount": 21338
+      }
+    ],
+    "provenance": {
+      "repository": "odd_glc",
+      "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+      "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+      "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+      "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+      "startByte": 7589,
+      "endByte": 11914,
+      "selectedDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "oracleAcquisition": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/basic-cli.oracle.json",
+        "wholeFileDigest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+      }
+    },
+    "legacyInterpretation": {
+      "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+      "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+      "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+      "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+    },
+    "oracleModuleDigest": "sha256:8dcfdd00230644f1458f1fe19304c8ba8e830426b8f7ea4f2343dc301883c342"
+  },
+  "runId": "2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a",
+  "sourceCommit": "55a8a452141caf180ea6cee6365d2a1bfb9da34e (dirty source; immutable package SHA-256 selects the candidate)",
+  "interpreter": {
+    "executable": "/opt/homebrew/bin/node",
+    "version": "v24.7.0"
+  },
+  "configuration": {
+    "package": {
+      "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_HELLO_EXPUNCTION_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "sha256:89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52"
+    },
+    "sourceCommit": "55a8a452141caf180ea6cee6365d2a1bfb9da34e (dirty source; immutable package SHA-256 selects the candidate)",
+    "archiveRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs",
+    "nodePath": "/opt/homebrew/bin/node",
+    "recursionBound": 12,
+    "processTimeoutMs": 3600000,
+    "maxProcessOutputBytes": 16777216,
+    "inheritEnvironment": [
+      "HOME",
+      "PATH",
+      "TMPDIR",
+      "LANG",
+      "LC_ALL"
+    ],
+    "toolchainEnvironment": {
+      "JAVA_HOME": "/opt/homebrew/opt/openjdk@11"
+    },
+    "toolchains": {
+      "node": {
+        "executable": "/opt/homebrew/bin/node",
+        "versionArgs": [
+          "--version"
+        ]
+      },
+      "npm": {
+        "executable": "/opt/homebrew/bin/npm",
+        "versionArgs": [
+          "--version"
+        ]
+      },
+      "rustc": {
+        "executable": "/Users/jim/.cargo/bin/rustc",
+        "versionArgs": [
+          "--version"
+        ]
+      },
+      "cargo": {
+        "executable": "/Users/jim/.cargo/bin/cargo",
+        "versionArgs": [
+          "--version"
+        ]
+      },
+      "sbt": {
+        "executable": "/opt/homebrew/bin/sbt",
+        "versionArgs": [
+          "--script-version"
+        ],
+        "environment": {
+          "JAVA_HOME": "/opt/homebrew/opt/openjdk@11",
+          "PATH_PREFIX": "/opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin"
+        }
+      },
+      "java": {
+        "executable": "/opt/homebrew/opt/openjdk@11/bin/java",
+        "versionArgs": [
+          "-version"
+        ],
+        "environment": {
+          "JAVA_HOME": "/opt/homebrew/opt/openjdk@11"
+        }
+      }
+    },
+    "provider": {
+      "enabled": false,
+      "agent": "claude",
+      "command": "/Users/jim/.local/bin/claude",
+      "versionArgs": [
+        "--version"
+      ],
+      "model": "SET_SELECTED_MODEL",
+      "maxTurns": 24,
+      "maxBudgetUsd": 5,
+      "inactivityTimeoutMs": 120000,
+      "absoluteTimeoutMs": 600000,
+      "appendArgs": [],
+      "inheritEnvironment": [
+        "ANTHROPIC_API_KEY",
+        "CLAUDE_CONFIG_DIR"
+      ]
+    },
+    "fixtureRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+    "configPath": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json"
+  },
+  "mode": "prepare",
+  "invokedCommand": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/sandbox-uat.mjs",
+    "prepare",
+    "--config",
+    "test_env/uat/config.example.json",
+    "--case",
+    "basic-cli"
+  ],
+  "classification": "ABG-owned test workload and oracle; no ABG Product scenario implementation"
+}

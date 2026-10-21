@@ -1,0 +1,11 @@
+✔ C2 explicit zero write territory preserves array, report and HTTP port authorization (15.678958ms)
+✔ C2 finite host timer schema and constructor share bounds without changing grace (24.656333ms)
+✔ C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries (0.398375ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 338.986

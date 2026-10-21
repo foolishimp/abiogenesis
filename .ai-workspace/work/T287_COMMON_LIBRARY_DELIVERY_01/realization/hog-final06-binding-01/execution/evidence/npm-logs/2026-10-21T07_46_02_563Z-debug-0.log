@@ -1,0 +1,25 @@
+0 verbose cli /opt/homebrew/Cellar/node/24.7.0/bin/node /opt/homebrew/Cellar/node/24.7.0/bin/npm
+1 info using npm@11.5.1
+2 info using node@v24.7.0
+3 silly config load:file:/opt/homebrew/lib/node_modules/npm/npmrc
+4 silly config load:file:/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent/abi5-root-env-RKlxaR/consumer/.npmrc
+5 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/user.npmrc
+6 silly config load:file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/global.npmrc
+7 verbose title npm install /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+8 verbose argv "install" "--bin-links" "false" "--ignore-scripts" "--no-audit" "--no-fund" "--offline" "--package-lock" "true" "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+9 verbose logfile logs-max:10 dir:/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache/_logs/2026-10-21T07_46_02_563Z-
+10 verbose logfile /private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache/_logs/2026-10-21T07_46_02_563Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly idealTree buildDeps
+14 silly fetch manifest @abiogenesis/typescript-tenant@file:../../../../../../../Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+15 silly placeDep ROOT @abiogenesis/typescript-tenant@5.0.0-rc.1 OK for: abiogenesis-installed-product-consumer@0.0.0 want: file:../../../../../../../Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+16 silly reify moves {}
+17 http cache @abiogenesis/typescript-tenant@file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz 0ms (cache hit)
+18 silly ADD node_modules/@abiogenesis/typescript-tenant
+19 verbose cwd /private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent/abi5-root-env-RKlxaR/consumer
+20 verbose os Darwin 25.6.0
+21 verbose node v24.7.0
+22 verbose npm  v11.5.1
+23 verbose exit 0
+24 info ok

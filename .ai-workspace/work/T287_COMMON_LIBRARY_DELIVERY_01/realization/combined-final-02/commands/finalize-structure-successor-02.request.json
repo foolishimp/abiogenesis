@@ -1,0 +1,28 @@
+{
+  "label": "finalize-structure-successor-02",
+  "grant": "COMBINED-FINAL-STRUCTURE-02",
+  "argv": [
+    "python3",
+    "-B",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/finalize-structure-successor-02.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "scriptSha256": "9d10a618ce37114be4c909cd38495d038eb75d6ac12433a8a7401cdecbf0ef3a",
+  "prebuildFreezeSha256": "e64d6794e1bf124b69cbb3ae6c23fe098e1a33b336d09c820354a90d8bf446f7",
+  "structuralSuccessorRequest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/structure-successor-02.request.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1874,
+    "sha256": "95a265a9e5e8af1095ff4091d3f8ba0c8d1cfe58a25d2067bf2e9528c8d0dee5"
+  },
+  "structuralSuccessorResult": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/structure-successor-02.result.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 396,
+    "sha256": "402468c341da719e436a7d5dfe8cff1db59ee0ba21ce78e93f9c34dadd90ce81"
+  },
+  "startedUtc": "2026-10-21T03:34:36.830936+00:00",
+  "scope": "Existing receipt and exact preservation comparisons; new support/runner/candidate/report/freeze records only"
+}

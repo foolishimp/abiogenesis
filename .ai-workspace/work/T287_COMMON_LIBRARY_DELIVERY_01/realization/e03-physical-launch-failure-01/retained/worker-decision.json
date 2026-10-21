@@ -1,0 +1,6 @@
+{
+  "case": "worker",
+  "status": "passed",
+  "observedEvents": 27,
+  "actualFile": "worker-actual.json"
+}

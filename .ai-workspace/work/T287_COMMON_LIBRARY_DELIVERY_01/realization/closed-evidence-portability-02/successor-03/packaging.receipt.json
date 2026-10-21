@@ -1,0 +1,18 @@
+{
+  "exitCode": 0,
+  "wallSeconds": 11.218634749995545,
+  "completedUtc": "2026-10-21T04:48:19.333807+00:00",
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/packaging.stdout",
+    "sha256": "83bcaefe661e84c751ab801121e991a3a5d0943a02f6d10ab816a0e60b408400",
+    "bytes": 145,
+    "mode": "0o644"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/packaging.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "mode": "0o644"
+  },
+  "streamsClosedBeforePinning": true
+}

@@ -1,0 +1,9 @@
+{
+  "source": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+  "previous_sha256": "d31c461853eb65211a7234d16f777cc42344cc0dd511eae53c7d524e2ee4f5ad",
+  "corrected_sha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384",
+  "grant": "Executive U1-REGRESSION-05",
+  "production_bytes_changed": false,
+  "audit": "U1-REGRESSION-05-activation.md",
+  "audit_sha256": "7e7fb272a689e89b5c7067b89009eb2c32a777e463bc19ee371949a4da324168"
+}

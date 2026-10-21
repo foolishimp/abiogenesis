@@ -1,0 +1,7 @@
+# P5 final04 binding stop
+
+Before any proof copy, installation or fixture process, bind.py selected the earlier E03 stage support root for the frozen P5 transitive support inventory. Its setup file was 39,995 bytes / a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0, whereas the accepted P5 support is 40,077 bytes / 18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e. The source-root choice was not supported by exact correspondence. This is a new proof-binding defect; it does not establish a final06 owner defect or mutation of the earlier stage.
+
+The first failed predicate, input script and actual selected file are preserved. Earlier predicates verified the P5 preparation57 records and2 outputs, final06 proof records, finite stage6642, dependencies4576, protected main936, archive5271 members, actual manifest and six E03 source/emitted pairs plus renderer span. They are partial binding evidence only; the complete P5 execution preflight did not pass.
+
+The named /private/tmp root and proof copy are still absent. No process, installation, native provider, cleanup or source edit occurred. Root has received the exact cause and is the owner of any support-route correction. No retry is authorized by this stopped return. Root's subsequent notification that final06 fully closed is supplemental candidate support and does not repair this separate binding selection.

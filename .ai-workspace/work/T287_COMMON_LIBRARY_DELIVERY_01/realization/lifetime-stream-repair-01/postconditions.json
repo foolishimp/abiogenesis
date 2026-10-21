@@ -1,0 +1,34 @@
+{
+  "verifiedAt": "2026-10-21T00:52:38.234855+00:00",
+  "ownedOutputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 62395,
+      "sha256": "d8bddd8487e78babc8b1ee6df86215c112973cb9b093e7a4242c4684b7a56e3f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 38837,
+      "sha256": "78fc4541bcf29df031ae5486394f61c724ac913c9799422c77ffa683100b0d2e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 56852,
+      "sha256": "5c84d3280f147544b5152bde7e068e88dec8a050731888354935df1c1cde0b6b"
+    }
+  ],
+  "oldClosedOwnedCopiesUnchanged": 10,
+  "oldClosedEvidenceUnchanged": 188,
+  "oldStageUnchanged": 1338,
+  "triageRowsUnchanged": 47,
+  "newStagePostGenerationRowsUnchanged": 1946,
+  "mainGeneratedRowsUnchanged": 936,
+  "mainGeneratedAddedOrDeleted": [],
+  "cleanupSha256": "fefa247356efe4f9bc6a09053450562b8595f0c65ff926d11d89ce7218335c3a",
+  "scope": "Four successor source/test files; no moving-tree or combined pure/U1 completeness claim"
+}

@@ -1,0 +1,10 @@
+{
+  "oldArtifactFreezeSha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+  "oldArtifactRecordsVerified": 8623,
+  "reusedSunnyHostCorrespondenceSha256": "ca77f2c5fc9bdadbdb52968d523073cf8cd11cdfde1707714d1f6e4f45e68fb9",
+  "hostMemberBytesUnchanged": 5271,
+  "targetedDiff": "Exactly one selected retainedInputOrigin replacement; all other test bytes preserved",
+  "syntax": "pending commands/syntax.result.json",
+  "sourceAfterSha256": "39d78f136b8cfcb5b70de7799859f08853d5d081a0fff190d5fe72c2d04a587a",
+  "originalBinaryArchiveSha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5"
+}

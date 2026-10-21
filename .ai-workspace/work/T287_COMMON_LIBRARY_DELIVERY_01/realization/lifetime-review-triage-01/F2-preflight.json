@@ -1,0 +1,16 @@
+{
+  "compiledMembersVerified": 743,
+  "dependencyEntriesVerified": 4576,
+  "mismatches": [],
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "nodeSha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+  "workerModule": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+  "workerModuleSha256": "93f10c172f44646cf8ea910114dd3e99011893c782fa7d84aee1e2e5f265dccc",
+  "sharedLifetimeSha256": "54b656422329f2a916e0bde7bb55435cdc7123b2087871f60228d8dff6cb1eb1",
+  "promptBytes": 8388608,
+  "cases": [
+    "draining_control",
+    "early_stdin_close"
+  ],
+  "productionMutation": false
+}

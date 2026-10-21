@@ -1,0 +1,65 @@
+{
+  "fixtureRoot": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures",
+  "targetRoot": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "candidates": [
+    {
+      "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abiogenesis/typescript-tenant",
+      "present": true,
+      "directory": true,
+      "symlink": false,
+      "realpath": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abiogenesis/typescript-tenant"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/private/tmp/node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/private/node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/Users/jim/.node_modules/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/Users/jim/.node_libraries/@abiogenesis/typescript-tenant",
+      "present": false
+    },
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/lib/node/@abiogenesis/typescript-tenant",
+      "present": false
+    }
+  ],
+  "firstActualPackageRoot": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abiogenesis/typescript-tenant",
+  "manifestSha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee",
+  "ownerOperations": 0
+}

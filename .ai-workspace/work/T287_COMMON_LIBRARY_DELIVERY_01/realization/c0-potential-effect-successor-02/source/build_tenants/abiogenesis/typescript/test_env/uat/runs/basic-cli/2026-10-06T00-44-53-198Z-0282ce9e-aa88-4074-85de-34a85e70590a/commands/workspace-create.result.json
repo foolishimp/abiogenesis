@@ -1,0 +1,27 @@
+{
+  "executable": "/opt/homebrew/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/bootstrap/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/calls/workspace-create.request.jsonl"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a",
+  "started": "2026-10-06T00:45:15.215Z",
+  "environmentKeys": [
+    "HOME",
+    "JAVA_HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "timeoutMs": 3600000,
+  "exitCode": 0,
+  "signal": null,
+  "wallMs": 21966.525125000004,
+  "timedOut": false,
+  "truncated": false,
+  "failure": null,
+  "stdout": "{\"acquisitionKind\":\"eventless\",\"kind\":\"installed_definition_call_transport_result\",\"receipt\":{\"definitionKey\":{\"memberKey\":\"clean\",\"operationId\":\"abg.operation.workspace.create\"},\"exitCode\":0,\"failure\":null,\"invocationRef\":\"invocation://abiogenesis/10b396c350d4775448cd2cc7434b378d68c9db5670d722028c44a34ff3842c88\",\"kind\":\"definition_host_receipt\",\"ownerOutput\":{\"outcomeKind\":\"result\",\"value\":{\"authorityMode\":\"clean\",\"createPolicy\":\"clean\",\"creationManifest\":{\"digest\":\"sha256:07df08d9d40583b51558bba61642a036f62aae6fc92491224ea66ac6e132d7ae\",\"ref\":\"workspace-creation://abiogenesis/07df08d9d40583b51558bba61642a036f62aae6fc92491224ea66ac6e132d7ae\"},\"provenance\":[{\"digest\":\"sha256:07df08d9d40583b51558bba61642a036f62aae6fc92491224ea66ac6e132d7ae\",\"ref\":\"workspace-creation://abiogenesis/07df08d9d40583b51558bba61642a036f62aae6fc92491224ea66ac6e132d7ae\"}],\"scaffoldState\":\"none\",\"workspace\":{\"digest\":\"sha256:494e1505788ffdf1d8d67d1e65ea59fec3d68ee7d5d30d62b590edc8191c32a6\",\"ref\":\"workspace://abiogenesis/494e1505788ffdf1d8d67d1e65ea59fec3d68ee7d5d30d62b590edc8191c32a6\"}}},\"resources\":{\"kind\":\"workspace_resource_receipt\",\"manifest\":{\"locator\":\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/sandbox/worksite/.abiogenesis/workspace-manifest.json\",\"valueDigest\":\"sha256:433df92f4e52f5d44fff63fbc1d8c3b6f84bc58268228228d36b4f19aec9842e\"},\"schemaVersion\":\"5.0.0\",\"targetRoot\":\"/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/sandbox/worksite\",\"targetRootDigest\":\"sha256:76abbb9b5e847621dadf47445abb3522348ead12a7f0e8c515f9b06b7ae81848\"},\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"}\n",
+  "stderr": ""
+}

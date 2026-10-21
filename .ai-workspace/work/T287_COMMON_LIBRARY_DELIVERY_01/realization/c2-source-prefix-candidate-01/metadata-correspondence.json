@@ -1,0 +1,831 @@
+{
+  "scope": "pure construction and emitted member metadata only; no runtime, endpoint, installed or test workload",
+  "stableManifestFields": [
+    "kind",
+    "schemaVersion",
+    "productId",
+    "packageName",
+    "packageVersion",
+    "publisherNamespace",
+    "compatibilityRefs",
+    "declaredCapabilityRefs",
+    "declaredDependencies"
+  ],
+  "ownerChecks": [
+    {
+      "label": "baseline",
+      "payloadRows": 5269,
+      "productContentDigest": "sha256:7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214",
+      "catalogDigest": "sha256:f9df933ca68b6ca4cd5d072e3392e6219d6a4317e004d7b640bb04ca67230715",
+      "graphDigest": "sha256:bd5a31c8678f4ef8c27ff1b947dae93ef636696bd2bbd89f402318384eeb8dae",
+      "contributionManifestDigest": "sha256:54d57fa266f812fe2836931b5fcaf0da409e83dcc03b86eaee39c2f499584e0c"
+    },
+    {
+      "label": "candidate",
+      "payloadRows": 5269,
+      "productContentDigest": "sha256:349c24b4c4cc15431d92a5d6f46f48420367f56a8d25dc1fb2cbb97f44a3e5d3",
+      "catalogDigest": "sha256:f9df933ca68b6ca4cd5d072e3392e6219d6a4317e004d7b640bb04ca67230715",
+      "graphDigest": "sha256:2b819dfb69839e9887fb91154c0420689de6e1569d7cd53025b7c57694601af7",
+      "contributionManifestDigest": "sha256:c08a94a699bc648788aa5904bc66c541b5c43f11a6200367a2f3d7a04e54d755"
+    }
+  ],
+  "catalogRows": [
+    {
+      "contractId": "abg.asset.gtl.language-conformance-corpus",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:76fdce484d14ec9d9fc743cded9e330db89f5b1fcdf96ed3607fb801071b96e1",
+      "afterDigest": "sha256:76fdce484d14ec9d9fc743cded9e330db89f5b1fcdf96ed3607fb801071b96e1",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.asset.qualification.rule-catalog",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:02ce01aa9d233433d547570ab36a28a5b7fca107f21bb8043386431164209f40",
+      "afterDigest": "sha256:02ce01aa9d233433d547570ab36a28a5b7fca107f21bb8043386431164209f40",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.abg.c-call-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.abg.environment-admission",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.abg.execution-basis-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.abg.invocation-root-admission",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.abg.m03",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:7a27eedd1c54dca8d81cc433285ef7c45f17f6a5a0077e0cc0fedaf6398de653",
+      "afterDigest": "sha256:7a27eedd1c54dca8d81cc433285ef7c45f17f6a5a0077e0cc0fedaf6398de653",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.abg.open-call-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.abg.replay-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.abg.requirements",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:5dbbaf27d59d8350fb3ba828c8b18deca4e9d2976d6519eaf0e2f14bed8111d5",
+      "afterDigest": "sha256:5dbbaf27d59d8350fb3ba828c8b18deca4e9d2976d6519eaf0e2f14bed8111d5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.abg.transport",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:f0dd4083b4b811e83be1ef789825cd576964a402b00ce345e505af9b39fb7907",
+      "afterDigest": "sha256:f0dd4083b4b811e83be1ef789825cd576964a402b00ce345e505af9b39fb7907",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.app.m04",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:696aca6a9c8703fd36cfb08fce6bb6ae51cf5eaab4156bfcd4dcac002bc1289b",
+      "afterDigest": "sha256:696aca6a9c8703fd36cfb08fce6bb6ae51cf5eaab4156bfcd4dcac002bc1289b",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.gtl.m01",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:31dce19d8a49b3c7fa9126db7e5adfc9acb9596dd5cbd3af2d921baa47cb2baa",
+      "afterDigest": "sha256:31dce19d8a49b3c7fa9126db7e5adfc9acb9596dd5cbd3af2d921baa47cb2baa",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.gtl.m02",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:a14b1602559e033a520c55565f8900883aa378a438192e0b4bb447efae412bd4",
+      "afterDigest": "sha256:a14b1602559e033a520c55565f8900883aa378a438192e0b4bb447efae412bd4",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.gtl.materialization-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:1149dcf7e59ee46bfd9792debd1b40a39896effcf19aa4619df1bf82572e3465",
+      "afterDigest": "sha256:1149dcf7e59ee46bfd9792debd1b40a39896effcf19aa4619df1bf82572e3465",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.gtl.requirements",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e8c40b34d6be0cba0c68e14d86aeb7f653ff4aabef98ad45a1912d64818765e2",
+      "afterDigest": "sha256:e8c40b34d6be0cba0c68e14d86aeb7f653ff4aabef98ad45a1912d64818765e2",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.gtl.root-declaration",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:1149dcf7e59ee46bfd9792debd1b40a39896effcf19aa4619df1bf82572e3465",
+      "afterDigest": "sha256:1149dcf7e59ee46bfd9792debd1b40a39896effcf19aa4619df1bf82572e3465",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.gtl.validation-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:44be54bd2f96bd7233a3e2a24018bdd1423656f61c51665dce5513de60005862",
+      "afterDigest": "sha256:44be54bd2f96bd7233a3e2a24018bdd1423656f61c51665dce5513de60005862",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.hog.graph-function-catalog",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "afterDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.hog.judgment-transition-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:b8e01a1e22677abe4ab030db5b4d009f9fcb90c191517e43960c0def95b51cf5",
+      "afterDigest": "sha256:b8e01a1e22677abe4ab030db5b4d009f9fcb90c191517e43960c0def95b51cf5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.hog.traversal-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:b8e01a1e22677abe4ab030db5b4d009f9fcb90c191517e43960c0def95b51cf5",
+      "afterDigest": "sha256:b8e01a1e22677abe4ab030db5b4d009f9fcb90c191517e43960c0def95b51cf5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.product.implementation-resolution-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "afterDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.product.invocation-root",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "afterDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.product.verification",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "afterDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.qualification.m05",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:8be933339a9e80c0d686336bda73a9e560f4ac2abc823e93d17ed6102235ba2f",
+      "afterDigest": "sha256:8be933339a9e80c0d686336bda73a9e560f4ac2abc823e93d17ed6102235ba2f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.catalog.admit",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:c022118c8189fe07b4e829fb5ccbd876769befb0c81c73e0851c305b23b14f3d",
+      "afterDigest": "sha256:c022118c8189fe07b4e829fb5ccbd876769befb0c81c73e0851c305b23b14f3d",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.catalog.apply",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:f4dc3ad28e84b0711ef9ea688258a5f3399a3717db9c0f24eedfd306d4cbdf34",
+      "afterDigest": "sha256:f4dc3ad28e84b0711ef9ea688258a5f3399a3717db9c0f24eedfd306d4cbdf34",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.catalog.view",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:377a53a01104d73d42d7ee73e1fe9d4a57d28297e6366946c8162285fbae0588",
+      "afterDigest": "sha256:377a53a01104d73d42d7ee73e1fe9d4a57d28297e6366946c8162285fbae0588",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.conformance.evaluate",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:ee685515282773c3cb2c800c5004957d6c28e7d824a0c40ccbc4211b9482ac11",
+      "afterDigest": "sha256:ee685515282773c3cb2c800c5004957d6c28e7d824a0c40ccbc4211b9482ac11",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.interaction.respond",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:d8bbc41624e89eed499d94d4e7de1dbc51ebd803cfc87ca2940d825179c4148b",
+      "afterDigest": "sha256:d8bbc41624e89eed499d94d4e7de1dbc51ebd803cfc87ca2940d825179c4148b",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.product.install",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:ff085e75b2f67dab456ddf48ca45ceb024ecbef4db14426c0c8998c43f836ef7",
+      "afterDigest": "sha256:ff085e75b2f67dab456ddf48ca45ceb024ecbef4db14426c0c8998c43f836ef7",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.product.materialize",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:2f8dfffbff61433adcee28f54150a5392a8129db940e57f1ef457b96312bdc84",
+      "afterDigest": "sha256:2f8dfffbff61433adcee28f54150a5392a8129db940e57f1ef457b96312bdc84",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.product.resolve",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:393c7131803d2c5904e3cdc225069b3f3caf5077ed69fa8e7e7a35b2910b3343",
+      "afterDigest": "sha256:393c7131803d2c5904e3cdc225069b3f3caf5077ed69fa8e7e7a35b2910b3343",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.product.verify",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:31ffc94baf0e57eaa2736b0d8b1d50360a7f5ec0741cd72070ad52136cb8db09",
+      "afterDigest": "sha256:31ffc94baf0e57eaa2736b0d8b1d50360a7f5ec0741cd72070ad52136cb8db09",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.project.read",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:2e9442424738757573d46ead494730b066c862b331ca56c9b2ebba161331676b",
+      "afterDigest": "sha256:2e9442424738757573d46ead494730b066c862b331ca56c9b2ebba161331676b",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.release.snapshot",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:02b1e92e9826bf8db3061b244c94055e5a78a9657fa5c996692a2f442c69f97a",
+      "afterDigest": "sha256:02b1e92e9826bf8db3061b244c94055e5a78a9657fa5c996692a2f442c69f97a",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.result.assess",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e5191353f20297ba27bd7bd96458bb941f7ae98ba40c569d6f4637c56e44babd",
+      "afterDigest": "sha256:e5191353f20297ba27bd7bd96458bb941f7ae98ba40c569d6f4637c56e44babd",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.run.continue",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e681a25aa523bc5cfd0de5e3eedc6af8be2f21fcca1e715b8a55e3bfc8862c17",
+      "afterDigest": "sha256:e681a25aa523bc5cfd0de5e3eedc6af8be2f21fcca1e715b8a55e3bfc8862c17",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.run.invoke",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:5d17ade444768f2ee5b5226795bc4a33f1ebcb1c44894d63e9c99d978e41fbc7",
+      "afterDigest": "sha256:5d17ade444768f2ee5b5226795bc4a33f1ebcb1c44894d63e9c99d978e41fbc7",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.witness.admit",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:9dfafea7a95ac9e59a240ca7b4cdc174b7a7b798cdbadeef8e24b6deaccbbd8c",
+      "afterDigest": "sha256:9dfafea7a95ac9e59a240ca7b4cdc174b7a7b798cdbadeef8e24b6deaccbbd8c",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.workspace.bind",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e1595386f9d09672262aa05368a5daf0cdcf448def8300095a82dbb78d5eb716",
+      "afterDigest": "sha256:e1595386f9d09672262aa05368a5daf0cdcf448def8300095a82dbb78d5eb716",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.workspace.create",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:d7f3240ad64b6254f8b98f9cc7326da0246c04c4c21c60f00935dc315b8988b0",
+      "afterDigest": "sha256:d7f3240ad64b6254f8b98f9cc7326da0246c04c4c21c60f00935dc315b8988b0",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.operation.workspace.open",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e684c4b88f0492120402d50e06000be50278c0b17dde8f55ec6bf96ffe5224c5",
+      "afterDigest": "sha256:e684c4b88f0492120402d50e06000be50278c0b17dde8f55ec6bf96ffe5224c5",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-escalation-decision",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-panel",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-result",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-reviewer-profile",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-round-outcome",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-round-policy",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-ruling-overlay",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-subject",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-submitter-profile",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-submitter-response",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.exact-candidate-qualification",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.gtl-c-program",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "afterDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.gtl-graph-function",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "afterDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.gtl-module",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "afterDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.gtl-program-conformance-input",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "afterDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.product-toolchain-manifest",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:c61e0db09ea7d5b0bf182dd802cdac4ea27abe4899cfc8897c563b2dddc356ca",
+      "afterDigest": "sha256:c61e0db09ea7d5b0bf182dd802cdac4ea27abe4899cfc8897c563b2dddc356ca",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.public-contract-catalog",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:b8bc5a722f6a216e03cfe0a91bc606a7986c1bee6c2dbbd437f16d7a75af18de",
+      "afterDigest": "sha256:b8bc5a722f6a216e03cfe0a91bc606a7986c1bee6c2dbbd437f16d7a75af18de",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.public-operation-contract",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "afterDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.public-operation-invocation",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "afterDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.public-operation-outcome",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "afterDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.qualification-law-basis",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.review-findings",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.review-rulings",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.self-conformance-input",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.self-conformance-result",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.tenant-conformance-manifest",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.ticket-consensus-projection",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.vocabulary.consensus-fh-decision",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:8a21a0da4558242013186667e42487373c1584340bbb9b6ccd4abe2a5b9ae809",
+      "afterDigest": "sha256:8a21a0da4558242013186667e42487373c1584340bbb9b6ccd4abe2a5b9ae809",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.vocabulary.consensus-round-outcome",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:1ce4c83aecc57abb7c0b2367d9b3e7b9e9dc0b2bfa9c0e5e1f74ceeb35f7f0c1",
+      "afterDigest": "sha256:1ce4c83aecc57abb7c0b2367d9b3e7b9e9dc0b2bfa9c0e5e1f74ceeb35f7f0c1",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.vocabulary.gtl-program-diagnostic-id",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:d27861fdfc318ceb7abb74249318b66207f2efe382626a9d2dd0e7f56e51c03b",
+      "afterDigest": "sha256:d27861fdfc318ceb7abb74249318b66207f2efe382626a9d2dd0e7f56e51c03b",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.vocabulary.review-ruling-kind",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:5acf0968ee02689ff4ce3fb77deb69e6bfab5a16e5045c0415cb6887342ee738",
+      "afterDigest": "sha256:5acf0968ee02689ff4ce3fb77deb69e6bfab5a16e5045c0415cb6887342ee738",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "contract://abiogenesis/semantic-stage/native-assessment@5",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:90d3300edd3c77c3259ce1ba54684e78c490af5e4f20978dcd38be0dd865519b",
+      "afterDigest": "sha256:90d3300edd3c77c3259ce1ba54684e78c490af5e4f20978dcd38be0dd865519b",
+      "relation": "exact equality"
+    }
+  ],
+  "declarationChanges": [],
+  "graphRows": [
+    {
+      "capabilityId": "abg.capability.catalog.apply-node-type@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.catalog.apply-overlay@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.catalog.contribute@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.catalog.invoke-graph-function@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.graph-function.consensus@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.gtl.admit@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.gtl.declare@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.gtl.serialize@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.gtl.typecheck@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.install.bind-products@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.module.publish@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.operator.public-contract@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.qualification.self-conformance@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.runtime.admit-fp-result@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.runtime.execute-seven-term-c@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.runtime.replay-continuation@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    }
+  ],
+  "publicationChecks": [
+    {
+      "label": "baseline",
+      "bindings": [
+        {
+          "moduleRef": "module://abg/consensus@5",
+          "publicationDigest": "sha256:e88355de2608d2f6ee9f4152bf90073db1ca55cc144bf43d1ad78dd43c19ad37"
+        },
+        {
+          "moduleRef": "module://abiogenesis/default-library/default@5",
+          "publicationDigest": "sha256:f5f39ffe02fca8e9294a6a65e32862e684b8cc3b7770d47ff4cdb45cff9c8d6b"
+        },
+        {
+          "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+          "publicationDigest": "sha256:97721932cc07002a0a17380df8e17cc0e744fde941f57a45667cc06aefd70066"
+        },
+        {
+          "moduleRef": "module://abiogenesis/requirement-handoff@5",
+          "publicationDigest": "sha256:9b2a6ac36cf4c5cc0035a02de87f47dd064f206cf0c7f5f5d8c0f983408058ec"
+        },
+        {
+          "moduleRef": "module://abiogenesis/semantic-revision@5",
+          "publicationDigest": "sha256:421bcc940a4223d1f20a3c75fad581381d246cbdaec484acf7b8b2e940f4d144"
+        },
+        {
+          "moduleRef": "module://abiogenesis/semantic-stage@5",
+          "publicationDigest": "sha256:adbe3dce1ed18231d2f96f660ad269f8f71ce371367cdcec83a5e9a6c43e531a"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+          "publicationDigest": "sha256:28096ee3a5a01d3ea59be925c0c229d35c95779b3a828f3ed8fdf3e04bb6aef6"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+          "publicationDigest": "sha256:387d0e9a6caa9bb1e7c83e2a73a16224e37bb7c1b8bae5f41ed74f74132b22db"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/construction@5",
+          "publicationDigest": "sha256:01a7e52ee3d7d756469bbb49d4828bf4614aad76cc0473278686dd0a166f1491"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/native-work@5",
+          "publicationDigest": "sha256:8f2606278fb3a6cfdf841933dce36c1312adbba09b98fca3cec7415508a7456a"
+        }
+      ]
+    },
+    {
+      "label": "candidate",
+      "bindings": [
+        {
+          "moduleRef": "module://abg/consensus@5",
+          "publicationDigest": "sha256:c8834fd985bcafb989863b92e1ed083c2fb665238ee33b8a7a383064f0e322d8"
+        },
+        {
+          "moduleRef": "module://abiogenesis/default-library/default@5",
+          "publicationDigest": "sha256:e9c4838b7496816043efe1bc0832ad36117924471baf831f4b51523644dd7a7a"
+        },
+        {
+          "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+          "publicationDigest": "sha256:d5f0140977dfb855959ca521462df9aa8421d55813474130919e969d9b850435"
+        },
+        {
+          "moduleRef": "module://abiogenesis/requirement-handoff@5",
+          "publicationDigest": "sha256:95adb7ac8a8019a83038d19c11444ce2f003522cc7a5f17042bd0ff470968317"
+        },
+        {
+          "moduleRef": "module://abiogenesis/semantic-revision@5",
+          "publicationDigest": "sha256:47cb0d43dd1215942bb41c4fc0e430c9adfafb2172c39d8b73e735d2ed0ec882"
+        },
+        {
+          "moduleRef": "module://abiogenesis/semantic-stage@5",
+          "publicationDigest": "sha256:e2c4a21e04e02116274a29997ed92e268672c5296c2b524cdfbaf6fffdc609e9"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+          "publicationDigest": "sha256:cc7a94276632a1c73b42cd4bae5b329c2e393fb2d3ad2d0402b9effe1ac61bfc"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+          "publicationDigest": "sha256:e50137be8f5f842b0a7e6c2e9b3cc17011bcc30a0a21d224513becdc4e9032dd"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/construction@5",
+          "publicationDigest": "sha256:490828c77f52cb9b6e8637070800126ea784b2e865caa5bf6104e1202d6cbae4"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/native-work@5",
+          "publicationDigest": "sha256:dee1fd40b4ba45e0d0562484499c0e4a2052be27e16bc8b2270168bb5589147c"
+        }
+      ]
+    }
+  ],
+  "unchangedContributionRowsExceptExactProducerProvenance": 47,
+  "material": [
+    {
+      "member": {
+        "byteCount": 110016,
+        "digest": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+        "memberRef": "source-member://abiogenesis/worksite/command-execution/renderer@5",
+        "path": "build/code/src/product/worksite_command_execution.js"
+      },
+      "span": {
+        "contextRef": "context://abiogenesis/worksite/command-execution/renderer@5",
+        "endByte": 102379,
+        "memberDigest": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+        "memberRef": "source-member://abiogenesis/worksite/command-execution/renderer@5",
+        "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+        "startByte": 100071
+      },
+      "rendererMatches": true
+    }
+  ],
+  "addedLocators": [],
+  "noGlobalIdentityStripping": true
+}

@@ -1,0 +1,100 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "issuedBy": "/root",
+  "activation": "DIAGNOSTIC-EXTERNAL-ARCHIVE-02",
+  "configurationSha256": "fb6ff2dad6f19f0342b89d63261bf42d7de451bfbdf9e10bb75d5f1e112a6696",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "subjectId": "baseline",
+  "lanes": [
+    "declared-execution"
+  ],
+  "maxNativePositiveCalls": 0,
+  "resources": {
+    "declared-execution": {
+      "evidence": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence",
+      "host": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/host",
+      "scratchParent": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/worksite"
+    }
+  },
+  "npmCache": {
+    "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p3",
+    "seed": {
+      "kind": "explicit_empty_seed",
+      "files": []
+    },
+    "closure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/archive-closure.json",
+      "sha256": "500076db05114a43578f76410e3546b0bddd5a59360a52ed161a835016b1e2b6",
+      "bytes": 6972,
+      "mode": "0o644"
+    },
+    "effects": [
+      "create empty owned root",
+      "offline npm content/index/tmp/log writes"
+    ],
+    "globalCacheRead": false,
+    "globalCacheWrite": false,
+    "networkFallback": false,
+    "retain": true
+  },
+  "retryCount": 0,
+  "cleanup": false,
+  "sourceStage": {
+    "id": "baseline",
+    "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee"
+    },
+    "packageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-package-inventory.json",
+      "sha256": "7fceeafce866ff9df84dc33568e247583badcf9021ac592e8e3f6e765b7531b4"
+    },
+    "supportManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/support-manifest.json",
+      "sha256": "922a85040acf61df1ce0e9ad9380df55e8a162acbf42a41e04b88787cf8c4a6c"
+    },
+    "inventories": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/source-after.json",
+        "sha256": "81491d917f9c481dad6dae6729c4ad98b4885c9a46f9309368b95347dfa0d0cd",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-generated-inventory.json",
+        "sha256": "92f861c654cd96e2578c00d5d588047d72caf6ccea85a4794f79942645c467f2",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-dependency-inventory.json",
+        "sha256": "22b00870648c52acf9941cf67993c2c98a42b81ac4339d7e68ccf587e071782f",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript"
+      }
+    ]
+  },
+  "P1CoverageSuccessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/freeze.json",
+    "sha256": "0270d388acf82cc8555edb6e38e148686288e949931498b87300ed2fe162560c",
+    "bytes": 5513,
+    "mode": "0o644"
+  },
+  "referenceP3": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/result.json",
+    "sha256": "d32254c2f3b96e2728abf786d73ee0f19841ae9823771c27ce7c772b1bcda037",
+    "bytes": 10775,
+    "mode": "0o644"
+  },
+  "frozenArtifactRoute": {
+    "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+    "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/host"
+  },
+  "resourceNote": "Exact support creates its actual worksite inside scratchParent; reserved worksite sibling may remain absent."
+}

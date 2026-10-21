@@ -1,0 +1,146 @@
+{
+  "scope": "two exact successful P1 observations under pre-frozen producer correspondence; one run per subject, no repeated-sample or isolated-host benchmark claim",
+  "outputCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/output-correspondence.json",
+    "sha256": "d58ad94f2f73a06e2f538ac70ace046a57d64208d1c052b969331bcf0b48aa4a",
+    "bytes": 6608
+  },
+  "baseline": {
+    "result": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/result.json",
+      "sha256": "9b3ad5953a5bcdbfba21694962a65161bae4c678d935a9210860b865a6a5f421",
+      "bytes": 1764
+    },
+    "ownerState": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/p1-owner-state.json",
+      "sha256": "addc993e2cc370b43d018de1c9b3d74c29bbcaa3a4ebfcc898914ee9c5ff664f",
+      "bytes": 41969673
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/measurement-return.json",
+      "sha256": "edd74b069ed0caf2c11bb2e7cca1de3e998d036d493656123211bac16ae74317",
+      "bytes": 2377
+    },
+    "artifact": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+    }
+  },
+  "candidate01": {
+    "result": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/result.json",
+      "sha256": "82a457f53f99d37723bf6cd78d381637579a00b01165968b4cb4def78e3836f4",
+      "bytes": 1767
+    },
+    "ownerState": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/p1-owner-state.json",
+      "sha256": "1f76ba95dee4e5594336bd586a5162beb8842447b26b5e3cee9883c3a3fa3af1",
+      "bytes": 41971083
+    },
+    "measurement": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-candidate-01/measurement-return.json",
+      "sha256": "5cd260da20b3275f3f944f7504e24b650983dd8c00f6ac15b1d64cc0605a0079",
+      "bytes": 2403
+    },
+    "artifact": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "18d80743d9b431445ce50d2acf47971554e1cce6ce14057175da8aa32c901f4e"
+    }
+  },
+  "samePublicCallLabelsContractsAndResultKinds": [
+    {
+      "label": "workspace-create",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "clean"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "label": "product-verify-0",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "label": "product-verify-1",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "label": "product-resolve",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "label": "product-install-0",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "label": "product-install-1",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "label": "workspace-bind",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "label": "catalog-admit",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "label": "catalog-view",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "label": "program-conformance",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "outcomeKind": "result"
+    }
+  ],
+  "sameFrozenP1OraclePassed": true,
+  "reportedWallSeconds": {
+    "baseline": 310.07,
+    "candidate01": 311.86
+  },
+  "identityRelation": "Full actual artifacts, locks, catalogs, bindings, event prefixes and currentness coordinates remain in their own records. No cross-resource equality or normalized runtime identity is asserted.",
+  "candidateScope": "candidate01 only; later repaired package identities require exact correspondence and affected reproof",
+  "claimsNotMade": [
+    "speedup",
+    "resource improvement",
+    "all V7 counters complete",
+    "native capability quality",
+    "independent semantic acceptance"
+  ]
+}

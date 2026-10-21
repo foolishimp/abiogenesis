@@ -1,4 +1,5 @@
 import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from "./admission_predicates.js";
+import { resolveExactMatch } from "../product/exact_match.js";
 import * as v from "valibot";
 
 import { canonicalJson, type JsonValue } from
@@ -118,10 +119,10 @@ export function validatedOwnerOutput<
 function selectedDefinition(
   packet: OwnerContractSourceDeclaration,
 ): IntrinsicPublicFunctionDefinition | null {
-  const matches = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.filter(
+  const selected = resolveExactMatch(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions,
     (definition) => sameJson(definition.definitionKey, packet.definitionKey),
   );
-  return matches.length === 1 ? matches[0]! : null;
+  return selected.kind === "one" ? selected.value : null;
 }
 
 function valueAtPath(value: unknown, path: readonly string[]): unknown {

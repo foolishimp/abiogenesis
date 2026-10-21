@@ -1,0 +1,11 @@
+{
+  "physicalRoot": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-03",
+  "absentBeforeCreation": true,
+  "initialChildren": [],
+  "predecessorsLogicalBytes": 410372372,
+  "stageFiles": 6641,
+  "sourceFiles": 1319,
+  "dependencies": 4576,
+  "dependencyDirectories": 499,
+  "limitBytes": 10737418240
+}

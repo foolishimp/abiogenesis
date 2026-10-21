@@ -1,0 +1,260 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-JS-TENANT-TEST",
+  "taskRef": "task://abiogenesis-sandbox-uat/js-tenant-test/original",
+  "task": "Implement the COMPLETE unchanged selected original test workload below. It is ABG-owned test data outside the Product package. Preserve all original outcomes and unresolved source obligations. Use only the installed generic lifecycle. The adaptation notes govern interpretation of legacy mechanisms, not weakening of original application outcomes.\n\n  sdlcComplianceScenario({\n    key: \"js-tenant-test\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-JS-TENANT-TEST\",\n    kind: \"node_test\",\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare a JavaScript module plus node:test Hello World traversal.\",\n          \"Name implementation design, source, test design, component test source, UAT test source, test execution plan, and test execution result as separate lifecycle surfaces.\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Define a private type:module package with src/hello.mjs exporting helloWorld().\",\n          \"helloWorld() must return exactly \\\"Hello, world!\\\".\",\n          \"The component and UAT tests must import helloWorld and assert the exact return value.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"package.json\", \"src/hello.mjs\"],\n        instructions: [\n          \"Write only package.json and src/hello.mjs.\",\n          \"package.json must be private:true and type:module.\",\n          \"src/hello.mjs must export helloWorld() returning exactly \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Specify component and UAT validation obligations over the exported helloWorld function.\",\n          \"Both validations must assert the exact return value \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/hello.test.mjs\"],\n        instructions: [\n          \"Write only test/component/hello.test.mjs.\",\n          \"Use node:test and node:assert/strict.\",\n          \"Import the named export exactly as: import { helloWorld } from \\\"../../src/hello.mjs\\\".\",\n          \"Assert helloWorld() returns exactly \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/hello.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/hello.uat.test.mjs.\",\n          \"Use node:test and node:assert/strict.\",\n          \"Import the named export exactly as: import { helloWorld } from \\\"../../src/hello.mjs\\\".\",\n          \"Assert the user-visible greeting contract is exactly \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        filesToProduce: [\"test-execution-plan.json\"],\n        instructions: [\n          \"Write only test-execution-plan.json.\",\n          \"The JSON command must be node.\",\n          \"The args must be [\\\"--test\\\", \\\"test/component/hello.test.mjs\\\", \\\"test/uat/hello.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Accept only if both component and UAT tests passed, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\"\n        ]\n      }\n    ]\n  }),\n\nINTERPRETATION\n{\n  \"runtimeAuthority\": \"Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.\",\n  \"executionEvidence\": \"Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.\",\n  \"sourcePreservation\": \"Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.\",\n  \"legacyTraversal\": \"The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.\"\n}",
+  "sourceMembers": [
+    {
+      "path": "source/js-tenant-test/source.original.txt",
+      "fixtureFile": "js-tenant-test/source.original.txt",
+      "digest": "sha256:3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9"
+    },
+    {
+      "path": "source/js-tenant-test/obligations.json",
+      "fixtureFile": "js-tenant-test/obligations.json",
+      "digest": "sha256:28c0f522f6050076c3b94b2f2d98464f5cd0d70ba77309053ec640f3d1274544"
+    },
+    {
+      "path": "source/js-tenant-test/oracle.json",
+      "fixtureFile": "js-tenant-test/oracle.json",
+      "digest": "sha256:55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e"
+    }
+  ],
+  "requiredSupportRefs": [
+    "support://abiogenesis-sandbox-uat/js-tenant-test/complete-original-outcome"
+  ],
+  "authorityRefs": [
+    "authority://abiogenesis-sandbox-uat/js-tenant-test/test-workload"
+  ],
+  "readRoots": [
+    "source/js-tenant-test/source.original.txt",
+    "source/js-tenant-test/obligations.json",
+    "source/js-tenant-test/oracle.json",
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "package.json",
+    "src/hello.mjs",
+    "design/test-design.md",
+    "test/component/hello.test.mjs",
+    "test/uat/hello.uat.test.mjs",
+    "test-execution-plan.json"
+  ],
+  "maxContextFiles": 256,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "workOrders": {
+    "induction": {
+      "outcome": "Establish and preserve the complete original outcome, source obligations and unresolved meaning.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Both component and UAT tests must import helloWorld and assert its exact return value. Preserve a private type:module package and all eight original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-tenant-test/source.original.txt",
+        "source/js-tenant-test/obligations.json",
+        "source/js-tenant-test/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "design/test-design.md",
+        "test/component/hello.test.mjs",
+        "test/uat/hello.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "specification": {
+      "outcome": "Author every source-grounded governing, requirement, UAT and qualification surface required by the original source.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Both component and UAT tests must import helloWorld and assert its exact return value. Preserve a private type:module package and all eight original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-tenant-test/source.original.txt",
+        "source/js-tenant-test/obligations.json",
+        "source/js-tenant-test/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "design/test-design.md",
+        "test/component/hello.test.mjs",
+        "test/uat/hello.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "design": {
+      "outcome": "Author the complete source-grounded design and genuine executable proof plan, retaining all original dependencies.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Both component and UAT tests must import helloWorld and assert its exact return value. Preserve a private type:module package and all eight original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-tenant-test/source.original.txt",
+        "source/js-tenant-test/obligations.json",
+        "source/js-tenant-test/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "design/test-design.md",
+        "test/component/hello.test.mjs",
+        "test/uat/hello.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "construction": {
+      "outcome": "Construct the missing original application/test/lifecycle assets and repair observed failures without weakening any obligation.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Both component and UAT tests must import helloWorld and assert its exact return value. Preserve a private type:module package and all eight original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-tenant-test/source.original.txt",
+        "source/js-tenant-test/obligations.json",
+        "source/js-tenant-test/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "design/test-design.md",
+        "test/component/hello.test.mjs",
+        "test/uat/hello.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "testing": {
+      "outcome": "Execute the exact original proof commands against the real application. Preserve native observations, failing evidence, authentic depth and mutation evidence where required.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Both component and UAT tests must import helloWorld and assert its exact return value. Preserve a private type:module package and all eight original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-tenant-test/source.original.txt",
+        "source/js-tenant-test/obligations.json",
+        "source/js-tenant-test/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "node --test test/component/hello.test.mjs test/uat/hello.uat.test.mjs"
+      ]
+    },
+    "uat": {
+      "outcome": "Independently assess the full original source against every oracle obligation and actual admitted execution evidence. Preserve unmet and indeterminate outcomes.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Both component and UAT tests must import helloWorld and assert its exact return value. Preserve a private type:module package and all eight original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-tenant-test/source.original.txt",
+        "source/js-tenant-test/obligations.json",
+        "source/js-tenant-test/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "Both component and UAT tests must import helloWorld and assert its exact return value. Preserve a private type:module package and all eight original lifecycle surfaces. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ]
+    }
+  },
+  "testing": {
+    "selectedPaths": [
+      "specification/project-conformance.md",
+      "design/implementation-design.md",
+      "package.json",
+      "src/hello.mjs",
+      "design/test-design.md",
+      "test/component/hello.test.mjs",
+      "test/uat/hello.uat.test.mjs",
+      "test-execution-plan.json",
+      "source/js-tenant-test/source.original.txt",
+      "source/js-tenant-test/obligations.json",
+      "source/js-tenant-test/oracle.json"
+    ],
+    "commands": [
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/js-tenant-test/tests",
+        "executable": "node",
+        "args": [
+          "--test",
+          "test/component/hello.test.mjs",
+          "test/uat/hello.uat.test.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 120000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/js-tenant-test/tests-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/js-tenant-test/tests",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/js-tenant-test/test-count",
+        "predicateKind": "test_pass_count",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/js-tenant-test/tests",
+          "greaterThanOrEqual": 2
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/js-tenant-test/module-0",
+        "predicateKind": "module_export_return_exact",
+        "declaration": {
+          "path": "src/hello.mjs",
+          "export": "helloWorld",
+          "equals": "Hello, world!"
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "pathKind": "subtree",
+        "relativePath": "execution-evidence"
+      }
+    ]
+  },
+  "assessment": {
+    "sources": [
+      "source/js-tenant-test/source.original.txt",
+      "source/js-tenant-test/obligations.json"
+    ],
+    "candidatePath": "src/hello.mjs",
+    "rubricPath": "source/js-tenant-test/oracle.json"
+  },
+  "legacyInterpretation": {
+    "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+    "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+    "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+    "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+  }
+}

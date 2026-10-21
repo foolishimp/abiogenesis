@@ -1,0 +1,553 @@
+--- before/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts
+@@ -1,5 +1,5 @@
+ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+-import { isRecord, isJsonRecordShape } from "../shared/admission_predicates.js";
++import { isRecord, isJsonRecordShape, hasExactKeys } from "../shared/admission_predicates.js";
+ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+ import type { RuntimeEvent, RuntimeEventCandidate } from "./event_store.js";
+ 
+@@ -22,8 +22,6 @@
+   : kind === "c_call_result_admitted" ? "c_call_result_value"
+   : kind === "actor_transport_binding_admitted" ? "native_definition_material" : null;
+ const fieldFor = (slot: Exclude<BodySlot, "native_definition_material">): "rawInputValue" | "value" => slot === "basis_input" ? "rawInputValue" : "value";
+-const exactKeys = (value: Record<string, unknown>, keys: readonly string[]): boolean =>
+-  Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key));
+ 
+ function nativeParts(payload: unknown) {
+   if (!isJsonRecordShape(payload) || !isJsonRecordShape(payload.instructionAssembly)) return null;
+@@ -160,8 +158,8 @@
+ } {
+   if (!isRecord(record) || record.kind !== REFERENCE_RECORD) return { event: record, physicallyInline: true };
+   const reference = record.bodyReference, event = record.event;
+-  if (!exactKeys(record, ["kind", "codecVersion", "event", "bodyReference"]) || (record.codecVersion !== 1 && record.codecVersion !== 2) ||
+-      !isRecord(reference) || !exactKeys(reference, ["sourceEventRef", "sourcePayloadDigest", "sourceSlot", "bodyDigest"]) ||
++  if (!hasExactKeys(record, ["kind", "codecVersion", "event", "bodyReference"]) || (record.codecVersion !== 1 && record.codecVersion !== 2) ||
++      !isRecord(reference) || !hasExactKeys(reference, ["sourceEventRef", "sourcePayloadDigest", "sourceSlot", "bodyDigest"]) ||
+       typeof reference.sourceEventRef !== "string" || !isRecord(event) || !isJsonRecordShape(event.payload)) {
+     throw new TypeError("durable body reference record is malformed");
+   }
+--- before/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts
+@@ -218,10 +218,12 @@
+ /** STDO specialization constrains data; generic declarations have no STDO release allowlist. */
+ export function constructStdoRunEnvironmentDeclaration(value: RunEnvironmentDeclaration): Readonly<RunEnvironmentDeclaration> {
+   const d = constructRunEnvironmentDeclaration(value), a = d.corpusAccess;
+-  if (a === null || !d.dependencies.some(x => x.dependencyRef === a.sourceDependencyRef &&
+-    /^stdo:\/\/releases\/[^/]+\/$/u.test(x.basisRef) && x.recordFormat === "stdo_source_manifest@1") ||
++  const sources = d.dependencies.filter(x =>
++    /^stdo:\/\/releases\/[^/]+\/$/u.test(x.basisRef) && x.recordFormat === "stdo_source_manifest@1");
++  if (sources.length === 0 || (a !== null && (
++    !sources.some(x => x.dependencyRef === a.sourceDependencyRef) ||
+     ![a.representationDependencyRef, a.axiomDependencyRef].every(ref => d.dependencies.some(x => x.dependencyRef === ref && x.recordFormat === "release_record@1")) ||
+-    d.roles.some(r => r.accessRefs.length === 0)) throw new TypeError("STDO requires exact source, companions and actual corpus access");
++    d.roles.some(r => r.accessRefs.length === 0)))) throw new TypeError("STDO requires exact source and every explicitly selected corpus dependency and access");
+   return d;
+ }
+ export function runEnvironmentForProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>) {
+--- before/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts
+@@ -3,7 +3,7 @@
+ import { readFileSync } from "node:fs";
+ import { join } from "node:path";
+ import { reconstructWorkspaceManifest, type WorkspaceManifest } from "./workspace_operations.js";
+-import { admitExactDefinitionCall, definitionFault as callAdmissionFault } from "../shared/definition_binding_mechanics.js";
++import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate, sameJson } from "../shared/definition_binding_mechanics.js";
+ import * as Effect from "effect/Effect";
+ 
+ import {
+@@ -124,18 +124,6 @@
+ 
+ type ResolveRefusalCode = OwnerRefusalOf<ResolvePacket>["code"];
+ type BindRefusalCode = OwnerRefusalOf<BindPacket>["code"];
+-
+-function sameJson(left: unknown, right: unknown): boolean {
+-  try {
+-    return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
+-  } catch {
+-    return false;
+-  }
+-}
+-
+-function sameCoordinate(left: ReferenceDigest, right: ReferenceDigest): boolean {
+-  return left.ref === right.ref && left.digest === right.digest;
+-}
+ 
+ function fault<K extends ResolvePacket["definitionKey"] | BindPacket["definitionKey"]>(
+   definitionKey: K,
+--- before/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts
+@@ -1,4 +1,5 @@
+ import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
++import { resolveExactMatch } from "./exact_match.js";
+ import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
+ import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+ import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";
+@@ -276,10 +277,10 @@
+ function exact<T>(values: readonly T[], predicate: (value: T) => boolean):
+   | Readonly<{ kind: "one"; value: T }>
+   | Readonly<{ kind: "absent" | "ambiguous" }> {
+-  const matches = values.filter(predicate);
+-  return matches.length === 1
+-    ? { kind: "one", value: matches[0]! }
+-    : { kind: matches.length === 0 ? "absent" : "ambiguous" };
++  const selected = resolveExactMatch(values, predicate);
++  return selected.kind === "one"
++    ? { kind: "one", value: selected.value }
++    : { kind: selected.kind === "absent" ? "absent" : "ambiguous" };
+ }
+ 
+ function candidateFromInstall(
+--- before/build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts
+@@ -1,5 +1,5 @@
+ import { withAdmissionAuthority } from "./admission_authority.js";
+-import { admitExactDefinitionCall, definitionFault as callAdmissionFault } from "../shared/definition_binding_mechanics.js";
++import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate } from "../shared/definition_binding_mechanics.js";
+ import { join } from "node:path";
+ import * as Effect from "effect/Effect";
+ import * as v from "valibot";
+@@ -87,10 +87,6 @@
+     message,
+     evidence: {},
+   });
+-}
+-
+-function sameCoordinate(left: ReferenceDigest, right: ReferenceDigest): boolean {
+-  return left.ref === right.ref && left.digest === right.digest;
+ }
+ 
+ function artifactMatchesRequest(
+--- before/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts
+@@ -1,4 +1,5 @@
+ import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from "./admission_predicates.js";
++import { resolveExactMatch } from "../product/exact_match.js";
+ import * as v from "valibot";
+ 
+ import { canonicalJson, type JsonValue } from
+@@ -118,10 +119,10 @@
+ function selectedDefinition(
+   packet: OwnerContractSourceDeclaration,
+ ): IntrinsicPublicFunctionDefinition | null {
+-  const matches = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.filter(
++  const selected = resolveExactMatch(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions,
+     (definition) => sameJson(definition.definitionKey, packet.definitionKey),
+   );
+-  return matches.length === 1 ? matches[0]! : null;
++  return selected.kind === "one" ? selected.value : null;
+ }
+ 
+ function valueAtPath(value: unknown, path: readonly string[]): unknown {
+--- before/build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts
+@@ -1,4 +1,5 @@
+ import { isSha256Digest, type Sha256Digest } from "./digests.js";
++import { hasExactKeys } from "./admission_predicates.js";
+ import { deepFreeze } from "./immutable.js";
+ import { isNonBlankRef } from "./references.js";
+ 
+@@ -64,12 +65,6 @@
+ 
+ const SEGMENT_KEYS = Object.freeze(["parentRef", "segmentRef"]);
+ 
+-function hasExactKeys(value: object, keys: readonly string[]): boolean {
+-  const actual = Object.keys(value).sort();
+-  return actual.length === keys.length &&
+-    actual.every((key, index) => key === keys[index]);
+-}
+-
+ function validateCanonicalRootedTopologyWitness(
+   value: unknown,
+   label: "source" | "target",
+@@ -78,7 +73,7 @@
+     typeof value !== "object" ||
+     value === null ||
+     Array.isArray(value) ||
+-    !hasExactKeys(value, WITNESS_KEYS)
++    !hasExactKeys(value as Readonly<Record<string, unknown>>, WITNESS_KEYS)
+   ) {
+     return {
+       valid: false,
+--- before/build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs
++++ after/build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs
+@@ -0,0 +1,67 @@
++import assert from 'node:assert/strict';
++import { mkdir, readFile, realpath } from 'node:fs/promises';
++import { join } from 'node:path';
++import { ref } from '../fixtures/registered-selection-product/index.mjs';
++
++export const STDO3_SOURCE = Object.freeze({
++  basisRef: 'stdo://releases/v3.0.0-rc.1/',
++  manifestDigest: 'sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232',
++  memberPath: 'standards/EXECUTIVE_BASELINE.md',
++  memberDigest: 'sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e',
++});
++
++const policyText = 'Under the declared bounded Executive frame, select only a permitted registered renderer satisfying the supplied task and recipient requirements, or preserve an explicit gap. Respect each declared purpose, conditions, input, result and effect contract. Supplied observations are current request facts, not independently verified workspace state. Do not generate capabilities, inspect or mutate the workspace, repair input, confer operation authority or claim wider acceptance.';
++
++/** Current P4 data for the existing owners. The caller supplies a disposable
++ * exact source mirror; this factory never selects an ambient install. */
++export async function stdo3RunEnvironment({ gtl, product, sourceRoot }) {
++  const root = await realpath(sourceRoot), recordPath = join(root, 'manifest.json');
++  const recordBytes = await readFile(recordPath);
++  assert.equal(product.sha256Bytes(recordBytes), STDO3_SOURCE.manifestDigest, 'exact STDO3 manifest');
++  const members = product.runEnvironmentRecordMembers('stdo_source_manifest@1', recordBytes);
++  assert.ok(members, 'manifest-owned source inventory');
++  const bytes = await readFile(join(root, STDO3_SOURCE.memberPath));
++  assert.equal(product.sha256Bytes(bytes), STDO3_SOURCE.memberDigest, 'exact Executive member');
++  assert.ok(members.some(m => m.path === STDO3_SOURCE.memberPath && m.type === 'file' &&
++    m.digest === STDO3_SOURCE.memberDigest), 'member belongs to the exact manifest');
++  const contextRef = ref('context', 'stdo3-executive'), memberRef = ref('member', STDO3_SOURCE.memberPath);
++  const contextMembers = [{ memberRef, path: STDO3_SOURCE.memberPath,
++    byteCount: bytes.length, digest: STDO3_SOURCE.memberDigest }];
++  const headings = ['Executive', 'The three duties'];
++  const sourceBindings = headings.map(heading => {
++    const marker = Buffer.from(`### ${heading}\n`), startByte = bytes.indexOf(marker);
++    assert.ok(startByte >= 0 && bytes.indexOf(marker, startByte + marker.length) < 0, `unique ${heading} heading`);
++    const next = bytes.indexOf(Buffer.from('\n### '), startByte + marker.length);
++    const endByte = next < 0 ? bytes.length : next + 1;
++    return { contextRef, memberRef, memberDigest: STDO3_SOURCE.memberDigest, startByte, endByte,
++      spanDigest: product.sha256Bytes(bytes.subarray(startByte, endByte)) };
++  });
++  const dependency = { dependencyRef: ref('dependency', 'stdo3-source'), basisRef: STDO3_SOURCE.basisRef,
++    recordRef: STDO3_SOURCE.basisRef + 'manifest.json', recordDigest: STDO3_SOURCE.manifestDigest,
++    recordFormat: 'stdo_source_manifest@1', inventoryDigest: gtl.stdoInventoryDigest(members), members };
++  const declaration = gtl.constructStdoRunEnvironmentDeclaration({
++    kind: 'run_environment_declaration', schemaVersion: '5.0.0',
++    declarationRef: ref('declaration', 'stdo3-native-environment'), dependencies: [dependency],
++    contexts: [{ contextRef, sourceLocator: STDO3_SOURCE.basisRef,
++      inventoryDigest: product.sha256Canonical(contextMembers), members: contextMembers }],
++    corpusAccess: null, accesses: [],
++    roles: [{ graphFunctionRef: ref('graph-function', 'root'), programLocusRef: ref('node', 'select'), role: 'selector',
++      frameRefs: headings.map(heading => STDO3_SOURCE.basisRef + STDO3_SOURCE.memberPath + '#' + heading.toLowerCase().replaceAll(' ', '-')).sort(),
++      policy: { policyRef: ref('policy', 'stdo3-native-suitability'), text: policyText,
++        digest: product.sha256Bytes(Buffer.from(policyText)) },
++      contextPolicy: { policyRef: ref('policy', 'stdo3-native-context'), selectors: ['full_source', 'active_binding_semantics'] },
++      accessRefs: [], sourceBindings }],
++  });
++  const physicalDependencies = [{ dependencyRef: dependency.dependencyRef, root, recordPath }];
++  return { declaration, physicalDependencies, pythonPath: null,
++    async resources({ authority, program, workspaceBinding, product: resourceProduct = product }) {
++      const path = join(workspaceBinding.roots.archiveRoot, 'stdo3-selection-context');
++      await mkdir(path, { recursive: true });
++      const coordinates = { dependencies: physicalDependencies, pythonPath: null, temporaryRoot: await realpath(path) };
++      return resourceProduct.constructRunEnvironmentResources({ kind: 'run_environment_resources', schemaVersion: '5.0.0', ...coordinates,
++        permission: { authorityRef: authority.authorityRef, authorityDigest: authority.authorityDigest, actorRef: authority.actorRef,
++          programRef: program.programRef, environmentRef: declaration.declarationRef,
++          environmentDigest: resourceProduct.sha256Canonical(declaration), operations: ['read_context'], ...coordinates } });
++    },
++  };
++}
+--- before/build_tenants/abiogenesis/typescript/test_env/tests/t287-common-computational-library.test.mjs
++++ after/build_tenants/abiogenesis/typescript/test_env/tests/t287-common-computational-library.test.mjs
+@@ -0,0 +1,72 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import { sameCoordinate, sameJson } from '../../build/code/src/shared/definition_binding_mechanics.js';
++import { resolveExactMatch } from '../../build/code/src/product/exact_match.js';
++import { hasExactKeys, hasUnicodeNulJoinedKeys } from '../../build/code/src/shared/admission_predicates.js';
++import { decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
++
++test('D02 shared canonical-text equality conserves values and encoding failures without an identity shortcut', () => {
++  assert.equal(sameJson({ z: [-0, 2], a: { x: 'value' } }, { a: { x: 'value' }, z: [0, 2] }), true);
++  assert.equal(sameJson({ x: [1, 2] }, { x: [2, 1] }), false);
++  assert.equal(sameJson({ x: { value: 1 } }, { x: { value: 2 } }), false);
++  assert.equal(sameJson(Array(1), []), true, 'retains the source-supported sparse-array encoding');
++  assert.equal(sameJson(Array(2), []), false);
++  assert.equal(sameJson(Number.MAX_SAFE_INTEGER + 1, 9007199254740992), true, 'does not introduce I-JSON admission');
++  for (const value of [NaN, Infinity, -Infinity, undefined, { x: undefined }, { x: [Infinity] }]) {
++    assert.equal(sameJson(value, value), false);
++  }
++  const cycle = {}; cycle.self = cycle;
++  assert.equal(sameJson(cycle, cycle), false);
++  const trace = [];
++  const left = { get x() { trace.push('left'); throw new Error('encoding failed'); } };
++  const right = { get x() { trace.push('right'); return 1; } };
++  assert.equal(sameJson(left, right), false);
++  assert.deepEqual(trace, ['left'], 'left failure does not acquire the right value');
++});
++
++test('D02 coordinate equality retains both strict coordinates and property faults', () => {
++  const original = { ref: 'coordinate:one', digest: 'sha256:' + '1'.repeat(64) };
++  assert.equal(sameCoordinate(original, { ...original }), true);
++  assert.equal(sameCoordinate(original, { ...original, ref: 'coordinate:two' }), false);
++  assert.equal(sameCoordinate(original, { ...original, digest: 'sha256:' + '2'.repeat(64) }), false);
++  const failure = new Error('coordinate access');
++  assert.throws(() => sameCoordinate({ get ref() { throw failure; } }, original), error => error === failure);
++});
++
++test('D03 finite selection preserves duplicate occurrences, identities, total scan and thrown predicates', () => {
++  const first = { key: 'one' }, equal = { key: 'one' }, other = { key: 'other' };
++  assert.deepEqual(resolveExactMatch([], () => true), { kind: 'absent' });
++  assert.deepEqual(resolveExactMatch([other], value => value.key === 'one'), { kind: 'absent' });
++  const one = resolveExactMatch([other, first], value => value.key === 'one');
++  assert.equal(one.kind, 'one'); assert.strictEqual(one.value, first);
++  for (const values of [[first, first], [first, equal]]) {
++    const trace = [], selected = resolveExactMatch([other, ...values], value => { trace.push(value); return value.key === 'one'; });
++    assert.equal(selected.kind, 'many'); assert.deepEqual(trace, [other, ...values]);
++    assert.equal(selected.values.length, 2);
++    selected.values.forEach((value, index) => assert.strictEqual(value, values[index]));
++    assert.ok(Object.isFrozen(selected)); assert.ok(Object.isFrozen(selected.values));
++    assert.equal(Object.isFrozen(first), false, 'candidate values are not captured or frozen');
++  }
++  const failure = new Error('predicate failure'), trace = [];
++  assert.throws(() => resolveExactMatch([first, equal, other], value => {
++    trace.push(value); if (value === equal) throw failure; return true;
++  }), error => error === failure);
++  assert.deepEqual(trace, [first, equal]);
++});
++
++test('D04 fixed JSON key domains retain exact names while E01 keeps its distinct legacy relation', () => {
++  for (const keys of [['kind', 'codecVersion', 'event', 'bodyReference'],
++    ['sourceEventRef', 'sourcePayloadDigest', 'sourceSlot', 'bodyDigest']]) {
++    const valid = JSON.parse(JSON.stringify(Object.fromEntries([...keys].reverse().map(key => [key, null]))));
++    assert.equal(hasExactKeys(valid, keys), true);
++    for (const key of keys) { const missing = { ...valid }; delete missing[key]; assert.equal(hasExactKeys(missing, keys), false); }
++    assert.equal(hasExactKeys({ ...valid, extra: 0 }, keys), false);
++  }
++  assert.equal(hasUnicodeNulJoinedKeys({ 'a\0b': 0 }, ['a', 'b']), true);
++  assert.equal(hasExactKeys({ 'a\0b': 0 }, ['a', 'b']), false);
++  for (const record of [
++    { kind: 'abg_admitted_body_reference_record', codecVersion: 1, event: {}, bodyReference: {}, extra: 0 },
++    { kind: 'abg_admitted_body_reference_record', codecVersion: 2, event: {}, bodyReference: { sourceEventRef: 'event:one' } },
++  ]) assert.throws(() => decodeEventBody(JSON.parse(JSON.stringify(record)), new Map()),
++    { name: 'TypeError', message: 'durable body reference record is malformed' });
++});
+--- before/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs
++++ after/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs
+@@ -0,0 +1,131 @@
++import assert from 'node:assert/strict';
++import { execFileSync } from 'node:child_process';
++import { chmod, copyFile, mkdir, mkdtemp, readFile, realpath, rename, rm, writeFile } from 'node:fs/promises';
++import { tmpdir } from 'node:os';
++import { dirname, join } from 'node:path';
++import test, { after, before } from 'node:test';
++import * as gtl from '../../build/code/src/gtl/index.js';
++import * as product from '../../build/code/src/product/index.js';
++import { isRunEnvironmentEvidence } from '../../build/code/src/abg/stdo_environment.js';
++import { declarations } from '../fixtures/registered-selection-product/native.mjs';
++import { STDO3_SOURCE, stdo3RunEnvironment } from '../support/stdo3-run-environment.mjs';
++
++let root, sourceRoot, environment;
++before(async () => {
++  // The method manager selects only the exact pinned release. Tests mutate its
++  // disposable inventory copy, never the installed source or a historical Run.
++  const installed = JSON.parse(execFileSync('stdo', ['resolve', STDO3_SOURCE.basisRef], { encoding: 'utf8' })).path;
++  root = await realpath(await mkdtemp(join(tmpdir(), 't287-stdo3-')));
++  sourceRoot = join(root, 'source'); await mkdir(sourceRoot);
++  const manifest = await readFile(join(installed, 'manifest.json'));
++  assert.equal(product.sha256Bytes(manifest), STDO3_SOURCE.manifestDigest);
++  await writeFile(join(sourceRoot, 'manifest.json'), manifest);
++  for (const member of product.runEnvironmentRecordMembers('stdo_source_manifest@1', manifest)) {
++    assert.equal(member.type, 'file');
++    const target = join(sourceRoot, member.path); await mkdir(dirname(target), { recursive: true });
++    await copyFile(join(installed, member.path), target);
++    // This owned mirror alone is the changed-byte falsifier's write target.
++    if (member.path === STDO3_SOURCE.memberPath) await chmod(target, 0o600);
++  }
++  environment = await stdo3RunEnvironment({ gtl, product, sourceRoot });
++});
++after(async () => { if (root) await rm(root, { recursive: true, force: true }); });
++
++test('K11 current public specialization admits exact standalone STDO3 and conserves explicit source identity', () => {
++  const d = environment.declaration;
++  assert.strictEqual(gtl.constructStdoRunEnvironmentDeclaration(d), d);
++  assert.ok(Object.isFrozen(d)); assert.equal(d.dependencies.length, 1);
++  assert.equal(d.dependencies[0].recordDigest, STDO3_SOURCE.manifestDigest);
++  assert.equal(d.corpusAccess, null); assert.deepEqual(d.accesses, []);
++  assert.deepEqual(d.roles[0].accessRefs, []); assert.equal(environment.pythonPath, null);
++  assert.deepEqual(d.roles[0].contextPolicy.selectors, ['full_source', 'active_binding_semantics']);
++  assert.equal(d.contexts[0].members[0].digest, STDO3_SOURCE.memberDigest);
++  assert.deepEqual(d.roles[0].frameRefs, ['executive', 'the-three-duties'].map(anchor =>
++    STDO3_SOURCE.basisRef + STDO3_SOURCE.memberPath + '#' + anchor));
++  const additional = structuredClone(d);
++  additional.dependencies.push({ ...structuredClone(d.dependencies[0]), dependencyRef: 'dependency:second-explicit-source',
++    basisRef: 'stdo://releases/v3.0.0-rc.2/' });
++  assert.equal(gtl.constructStdoRunEnvironmentDeclaration(additional).dependencies.length, 2,
++    'constructor preserves explicit additional dependencies; actual record acquisition remains separate');
++  const generic = structuredClone(d);
++  generic.dependencies[0].basisRef = generic.contexts[0].sourceLocator = 'generic://declared-source/';
++  assert.strictEqual(gtl.constructRunEnvironmentDeclaration(generic), generic);
++  assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(generic), /STDO requires exact source/);
++  for (const mutate of [
++    x => { x.dependencies = []; },
++    x => { x.dependencies.push(structuredClone(x.dependencies[0])); },
++    x => { x.dependencies[0].basisRef = x.contexts[0].sourceLocator = 'stdo://releases/v3.0.0-rc.1'; },
++    x => { x.dependencies[0].recordFormat = 'member_inventory@1'; },
++    x => { x.contexts[0].members[0].digest = product.sha256Canonical('wrong member'); },
++    x => { x.roles[0].sourceBindings[0].endByte = x.contexts[0].members[0].byteCount + 1; },
++    x => { x.roles[0].accessRefs = ['access:undeclared']; },
++    x => { x.accesses = [{ accessRef: 'access:unexpected', operation: 'validate', mode: 'validation', frameIndexRefs: [], maxOutputBytes: 1000, timeoutMs: 100 }]; },
++  ]) { const changed = structuredClone(d); mutate(changed); assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(changed), TypeError); }
++});
++
++test('K11 explicit corpus construction still requires every source, companion and role-access join', () => {
++  // Declaration-only corpus fixture: this test performs no Python/tool access.
++  const d = structuredClone(environment.declaration), digest = product.sha256Canonical('declared companion bytes');
++  for (const [name, paths] of [['representation', ['map.json', 'program.json']], ['tool', ['ac.py', 'contract.md']]]) {
++    const members = paths.map(path => ({ path, type: 'file', digest, target: null }));
++    d.dependencies.push({ dependencyRef: `dependency:${name}`, basisRef: `${name}://explicit/`, recordRef: `record:${name}`,
++      recordDigest: digest, recordFormat: 'release_record@1', inventoryDigest: gtl.stdoInventoryDigest(members), members });
++  }
++  d.corpusAccess = { kind: 'axiom_indexer', sourceDependencyRef: d.dependencies[0].dependencyRef,
++    representationDependencyRef: 'dependency:representation', axiomDependencyRef: 'dependency:tool',
++    program: { path: 'program.json', uri: 'program:explicit', byteDigest: digest, canonicalDigest: digest },
++    map: { path: 'map.json', uri: 'map:explicit', byteDigest: digest, canonicalDigest: digest },
++    executablePath: 'ac.py', outputContractPath: 'contract.md', pythonExecutableDigest: digest, pythonVersion: 'Python declared' };
++  d.accesses = [{ accessRef: 'access:declared', operation: 'validate', mode: 'validation', frameIndexRefs: [], maxOutputBytes: 1000, timeoutMs: 100 }];
++  d.roles[0].accessRefs = ['access:declared'];
++  assert.strictEqual(gtl.constructStdoRunEnvironmentDeclaration(d), d);
++  for (const mutate of [
++    x => { x.roles[0].accessRefs = []; },
++    x => { x.corpusAccess.sourceDependencyRef = 'dependency:representation'; },
++    x => { x.dependencies[1].recordFormat = 'member_inventory@1'; },
++    x => { x.dependencies.pop(); },
++    x => { x.corpusAccess.program.byteDigest = product.sha256Canonical('crossed'); },
++    x => { x.corpusAccess.executablePath = 'missing.py'; },
++    x => { x.roles[0].accessRefs = ['access:missing']; },
++  ]) { const changed = structuredClone(d); mutate(changed); assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(changed), TypeError); }
++});
++
++test('K11 actual Product acquisition checks manifest, complete source inventory, spans and permission without Python', async () => {
++  const publication = declarations(gtl, environment.declaration), program = publication.programs[0];
++  const authority = { authorityRef: 'authority:stdo3-test', authorityDigest: product.sha256Canonical('authority'), actorRef: 'actor:stdo3-test' };
++  const archiveRoot = join(root, 'archive'); await mkdir(archiveRoot);
++  const resources = await environment.resources({ authority, program, workspaceBinding: { roots: { archiveRoot } } });
++  assert.deepEqual(resources.permission.operations, ['read_context']); assert.equal(resources.pythonPath, null);
++  const input = { publication, program, authority, graphFunctions: publication.graphFunctions, archiveRoot, resources };
++  const observed = await product.observeRunEnvironment(input);
++  assert.equal(observed.kind, 'run_environment_observed', JSON.stringify(observed));
++  assert.ok(isRunEnvironmentEvidence(observed.evidence));
++  assert.equal(observed.evidence.corpusDocuments, null); assert.deepEqual(observed.evidence.accesses, []);
++  const bytes = await readFile(join(sourceRoot, STDO3_SOURCE.memberPath));
++  for (const [index, heading] of ['Executive', 'The three duties'].entries()) {
++    const span = environment.declaration.roles[0].sourceBindings[index];
++    const marker = Buffer.from(`### ${heading}\n`), start = bytes.indexOf(marker);
++    const next = bytes.indexOf(Buffer.from('\n### '), start + marker.length), end = next < 0 ? bytes.length : next + 1;
++    assert.equal(span.startByte, start); assert.equal(span.endByte, end);
++    assert.equal(span.spanDigest, product.sha256Bytes(bytes.subarray(start, end)));
++  }
++  await writeFile(join(sourceRoot, 'unselected.txt'), 'No dependency or context identity is inferred from co-location.');
++  assert.deepEqual(await product.observeRunEnvironment(input), observed);
++  const wrongPermission = structuredClone(resources); wrongPermission.permission.authorityRef = 'authority:crossed';
++  assert.equal((await product.observeRunEnvironment({ ...input, resources: wrongPermission })).cause, 'access_not_permitted');
++  const wrongPython = structuredClone(resources);
++  wrongPython.pythonPath = wrongPython.permission.pythonPath = resources.dependencies[0].recordPath;
++  assert.equal((await product.observeRunEnvironment({ ...input, resources: wrongPython })).cause, 'access_not_permitted');
++  const wrongDeclaration = structuredClone(environment.declaration);
++  wrongDeclaration.roles[0].sourceBindings[0].spanDigest = product.sha256Canonical('wrong span');
++  const rebound = structuredClone(resources); rebound.permission.environmentDigest = product.sha256Canonical(wrongDeclaration);
++  assert.equal((await product.observeRunEnvironment({ ...input, publication: { ...publication, runEnvironments: [wrongDeclaration] }, resources: rebound })).cause, 'identity_mismatch');
++  const memberPath = join(sourceRoot, STDO3_SOURCE.memberPath);
++  await writeFile(memberPath, Buffer.concat([bytes, Buffer.from('\nchanged required bytes')]));
++  assert.equal((await product.observeRunEnvironment(input)).cause, 'identity_mismatch');
++  await writeFile(memberPath, bytes);
++  await rename(memberPath, memberPath + '.unavailable');
++  try { assert.equal((await product.observeRunEnvironment(input)).cause, 'access_unavailable'); }
++  finally { await rename(memberPath + '.unavailable', memberPath); }
++  assert.deepEqual(await product.observeRunEnvironment(input), observed);
++});
+--- before/specification/GOALS.md
++++ after/specification/GOALS.md
+@@ -15,7 +15,7 @@
+ 
+ | Goal ID | Goal | Success signal | Status |
+ |---|---|---|---|
+-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The [common computational library deliverable](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable) must be implemented, evidenced and accepted before remaining 5.0 release work resumes. L1 and exact L2 design are accepted; L3–L5 remain pending and library delivery is open. The user selects a full-tree checkpoint before implementation; no L3 activation is current. Existing accepted evidence retains its original subjects. Current-candidate lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
++| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The [common computational library deliverable](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable) must be implemented, evidenced and accepted before remaining 5.0 release work resumes. L1 and exact L2 design are accepted; the full-tree checkpoint is completed and bounded L3 realization is active. L4–L5 remain pending and library delivery is open. Existing accepted evidence retains its original subjects. Current-candidate lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
+ 
+ ## Current Selection
+ 
+@@ -34,18 +34,17 @@
+ are accepted. L2 binds D02–D04 contraction, K11 standalone STDO3 context,
+ E03 shared physical lifetime/timing, U1 scoped unknown-effect currentness,
+ E01/E02/E04 retained domains, and frozen P1–P5 proof. Independent review 02
+-closed the bounded timer-domain design finding; implementation and execution
+-remain pending. The isolated baseline built and packed, which establishes
++closed the bounded timer-domain design finding; implementation is active and
++execution evidence remains pending. The isolated baseline built and packed, which establishes
+ mechanical readiness only.
+ 
+-The user now selects a [full-tree commit/push checkpoint](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md),
+-including other-session commentary and analysis, before implementation.
+-No L3 source or runtime activation is current. After that checkpoint, a
+-separate bounded activation may realize the accepted scope, execute its
+-obligations and seek L5 independent delivery acceptance under
+-[T-287's library milestones](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable).
+-Design acceptance does not establish observed contraction, delivery or
+-release readiness; the release-resumption gate remains closed.
++The [full-tree commit/push checkpoint](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
++is completed. The owner's resumed instruction activates [bounded L3 realization](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/activation.md)
++in three streams: pure D02–D04/K11, E03 lifetime/timing, and U1 scoped
++currentness. L4 proof and L5 independent delivery acceptance remain pending
++under [T-287's library milestones](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable).
++Design acceptance and source realization do not establish observed delivery
++or release readiness; the release-resumption gate remains closed.
+ 
+ The intended asset is a reusable computational basis from which feature
+ behaviour is composed. The calculus identifies common structure, contracts
+--- before/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ after/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -9,9 +9,9 @@
+ - current_method_basis: stdo://releases/v3.0.0-rc.1/
+ - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
+ - current_activation: T287_COMMON_LIBRARY_DELIVERY_01
+-- current_activation_status: L1_L2_design_ACCEPTED_user_checkpoint_SELECTED_L3_L5_PENDING_library_delivery_OPEN
+-- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
+-- current_next_work: full_tree_commit_push_checkpoint_before_separate_L3_activation_then_L4_proof_L5_acceptance
++- current_activation_status: L1_L2_design_ACCEPTED_checkpoint_COMPLETED_L3_ACTIVE_L4_L5_PENDING_library_delivery_OPEN
++- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/activation.md
++- current_next_work: bounded_L3_pure_K11_lifetime_timing_U1_realization_then_L4_proof_L5_acceptance
+ - current_prerequisite_deliverable: common_computational_capability_library
+ - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
+ - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
+@@ -26,9 +26,9 @@
+ The owner's 2026-10-21 instruction selects **delivery of the common computational
+ capability library before resuming the 5.0 release**. L1 and the exact L2
+ delivery design are accepted; implementation, consumer adoption, executed
+-obligations and delivery acceptance remain open. The user now selects a
+-full-tree commit/push checkpoint before implementation; no L3 activation is
+-current. The concrete asset is a library of
++obligations and delivery acceptance remain open. The full-tree checkpoint is
++completed; the owner has resumed bounded L3 realization through three Writer
++streams: pure D02–D04/K11, E03 lifetime/timing and U1 scoped currentness. The concrete asset is a library of
+ reusable computations and lawful compositions that reduces independently
+ invented solutions. Explicit obligations govern each capability and
+ composition; actual execution and assessment determine their outcomes.
+@@ -70,9 +70,10 @@
+ does not establish implementation, observed contraction or successful execution.
+ The [delivery-plan activation](../../work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/activation.md)
+ records this successor selection and preserves the accepted design cut.
+-The [current checkpoint handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
+-records the stop before L3. The isolated baseline built and packed successfully;
+-that is mechanical readiness, with no runtime tests or candidate implementation.
++The [checkpoint handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
++preserves the completed review checkpoint. The [resumed L3 activation](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/activation.md)
++binds the current three realization streams. The isolated baseline built and
++packed successfully; that remains mechanical readiness, without runtime proof.
+ 
+ The method pin does not migrate an admitted Run. The current STDO template
+ binds exact native source/material and only explicitly selected supplementary
+@@ -84,7 +85,7 @@
+ ### Common computational library deliverable
+ 
+ **Owner:** ABIogenesis/T-287. **Status:** open; L1 and L2 design accepted,
+-L3–L5 pending; user checkpoint selected before implementation.
++checkpoint completed; L3 active and L4–L5 pending.
+ **Release-resumption gate:** closed until L5 acceptance is recorded against
+ the exact delivered subject.
+ 
+@@ -163,9 +164,9 @@
+ |---|---|---|---|
+ | Reconciliation — accepted | Retain the exact STDO 3 Product/requirement destination and calculus binding from the preceding accepted document subject. | Independent assessment and recorded disposition in `T287_STDO3_RECONCILIATION_01`. | Retain evidence within its original scope; the owner-selected library prerequisite supersedes the earlier next-work order. |
+ | L1 library design baseline — accepted | Retain the source-grounded K01–K12 contracts, D01–D11 dispositions, compositions and obligations. | [Accepted exact design](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md), including corrected owner/effect views and explicit E01–E04 stops. | Retain this accepted design; L2 now supplies the selected material decisions. Library delivery remains open. |
+-| L2 delivery scope and material design — accepted | Retain [successor 02 execution contract](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md): D02–D04/K11/E03/U1, E01/E02/E04 retained domains, finite P1–P5 proof, independent oracles and measurement basis. | [Executive acceptance](../../work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md) conjoins independent review 01's ten scoped predicates and review 02's timer-domain correction on exact freeze 02. | Stop at the user-selected full-tree checkpoint. No L3 implementation activation follows automatically from design acceptance. |
+-| User checkpoint — selected | Preserve and commit/push the full visible tree, including other-session commentary/analysis and exact failed/accepted design evidence, under the separate checkpoint Writer. | The logical checkpoint and remote transport are verified; oversized evidence retains exact bytes through the selected transport. | No source implementation or native/runtime work. A later bounded L3 activation binds the accepted contract. |
+-| L3 realization and consumer adoption — pending | After the checkpoint and separate activation, implement D02–D04, K11, E03 timing/lifetime and U1 within the accepted territories; adopt selected consumers and retire equivalent implementations. Preserve semantic owners and inventoried evidence. | Exact source changes show usable common implementations and real consumer adoption; focused contract and integration checks pass. Every retained separate responsibility has a concrete justification. | Freeze the candidate for L4. No claimed savings, delivery or release resumption follows from source edits alone. |
++| L2 delivery scope and material design — accepted | Retain [successor 02 execution contract](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md): D02–D04/K11/E03/U1, E01/E02/E04 retained domains, finite P1–P5 proof, independent oracles and measurement basis. | [Executive acceptance](../../work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md) conjoins independent review 01's ten scoped predicates and review 02's timer-domain correction on exact freeze 02. | The checkpoint is completed; the owner has separately resumed bounded L3. Design acceptance alone provides no execution result. |
++| User checkpoint — completed | Preserve and commit/push the full visible tree, including other-session commentary/analysis and exact failed/accepted design evidence, under the separate checkpoint Writer. | The logical checkpoint and remote transport are verified; oversized evidence retains exact bytes through the selected transport. | The completed checkpoint is preserved. The separately admitted L3 activation now binds source realization; native/installed proof remains later. |
++| L3 realization and consumer adoption — active | Under the resumed three-stream activation, implement D02–D04, K11, E03 timing/lifetime and U1 within the accepted territories; adopt selected consumers and retire equivalent implementations. Preserve semantic owners and inventoried evidence. | Exact source changes show usable common implementations and real consumer adoption; focused contract and integration checks pass. Every retained separate responsibility has a concrete justification. | Freeze the candidate for L4. No claimed savings, delivery or release resumption follows from source edits alone. |
+ | L4 execution and independent evidence — pending | Execute the applicable V1–V7 partitions and earliest selected installed composition discriminator. Preserve physical effects/admission distinctions, retained work, exact identities and fresh readback. Measure complete-path work and actual contraction on the declared basis. | Actual results discharge required selected obligations; source/package correspondence and an independent assessment bind equivalence, consumer use, retirement and observed cost. | A failed join returns its exact causal relation for bounded repair and affected reproof. No blind retry, claimed success from missing evidence or wider release campaign. |
+ | L5 library delivery acceptance — pending | Conjoin the accepted design, exact implementation/consumer/retirement record, L4 evidence and independent result. | T-287 Executive records acceptance of the delivered library subject with no unresolved required in-scope obligation, identifies reusable evidence and explicitly opens the release-resumption gate. | Only this recorded delivery acceptance permits the remaining 5.0 release sequence. L1/L2 design acceptance cannot open it. |
+ | D1/D4 remaining release integration — waiting for L5 | After library acceptance, compare current source to the accepted design and frozen Source44; reuse valid library evidence and implement only remaining admitted release deltas. | Focused checks plus exact installed producer/consumer composition establish the changed release relations. Source/package correspondence and authentic setup evidence are retained or renewed only where invalidated. | Return a failed join to its owning boundary; no blind clean restart or extra controller. |

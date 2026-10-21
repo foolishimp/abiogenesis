@@ -1,0 +1,64 @@
+{
+  "activation": "E03-STREAM-DERIVATION-02",
+  "preGenerationInventorySha256": "359ff82f1a07bfe8d440404ca2ae32ab677fc98eb75118c755b517b5d4ba03a8",
+  "firstFailureDeltasSha256": "1e0a08aa6b6515aa41f9ff7b243044b171044527f61eb5850a46ed3b5c3f3f55",
+  "unchangedInputRows": 1311,
+  "generatedSuccessors": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "c99f518ef399a238d553fd32fb118d68c01f7aa0f6f8bd87776465749104e304"
+      },
+      "after": {
+        "sha256": "48133651b22fafb0cdcfa3b2781759146e52490626011d6831ae86661d54b757",
+        "bytes": 197474
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+        "bytes": 255,
+        "sha256": "876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7"
+      },
+      "after": {
+        "sha256": "f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+        "bytes": 255
+      }
+    }
+  ],
+  "generatorSha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+  "generatorOwnerLines": {
+    "C2Inventory": [
+      114,
+      115
+    ],
+    "payloadIdentity": [
+      461,
+      488
+    ],
+    "catalogBinding": [
+      1011,
+      1055
+    ],
+    "capabilityGraph": [
+      1097,
+      1116
+    ]
+  },
+  "typedPayloadCorrespondenceSha256": "55f7c117e413eb572f32f39798e368e0a8e5fa92d271359bfef9963ce14ab017",
+  "payloadInventorySha256": "04c2574b618f6e4e5a4899561a716245253efc34cdb5879dbbd5bbd7b51399ec",
+  "productContentDigest": "sha256:8c0521d15ade43c503c56d46c8b7a10a42d6e172a8841443de9ad6980ed0cf21",
+  "C2": {
+    "C2InventorySha256": "sha256:f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+    "memberSha256": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+    "memberBytes": 110016,
+    "rendererStart": 100071,
+    "rendererEnd": 102379,
+    "rendererSha256": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345"
+  },
+  "mainUnchanged": 936,
+  "dependencyEntriesVerified": 4576
+}

@@ -1,0 +1,310 @@
+{
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript",
+  "publicationInput": {
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1",
+    "artifactDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "productContentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "productManifestDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "declaration": {
+    "kind": "semantic_job_lifecycle_declaration",
+    "schemaVersion": "5.0.0",
+    "declarationRef": "declaration://generic-job-mechanics.example/lifecycle@5",
+    "intakeGraphFunctionRef": "graph-function://generic-job-mechanics.example/intake@5",
+    "sourceRoleRef": "context-role://abiogenesis/semantic-stage/job-source@5",
+    "bounds": {
+      "maxSourceMembers": 20,
+      "maxSourceBytes": 1048576,
+      "maxContextFiles": 50,
+      "maxContextBytes": 1048576,
+      "maxTargets": 20,
+      "maxCommands": 5
+    },
+    "proofTemplates": [
+      {
+        "templateRef": "proof-template://generic-job-mechanics.example/native-check@5",
+        "realizationContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+        "proofContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+        "requiredEvidenceRoles": [
+          "realization",
+          "verifier_artifact",
+          "verifier_execution",
+          "semantic_assessment"
+        ],
+        "sharedBasis": [],
+        "requiredContent": []
+      }
+    ],
+    "stages": [
+      {
+        "declarationRef": "stage://generic-job-mechanics.example/intent@5",
+        "graphFunctionRef": "graph-function://generic-job-mechanics.example/intent@5",
+        "authorLocusRef": "locus://generic-job-mechanics.example/intent-author@5",
+        "assessorLocusRef": "locus://generic-job-mechanics.example/intent-assessor@5",
+        "predecessorStageRefs": [],
+        "assetSurface": {
+          "kind": "ordinary_job_intent",
+          "requiredContexts": [
+            "context-role://abiogenesis/semantic-stage/job-source@5"
+          ],
+          "standardsRefs": [],
+          "outputContractRefs": [
+            "contract://abiogenesis/semantic-stage/worker-result@5"
+          ],
+          "constructorRef": "constructor://abiogenesis/semantic-stage/asset@5",
+          "rendererRef": "renderer://abiogenesis/semantic-stage/full-source@5",
+          "proofObligationRefs": [],
+          "authoritySlots": []
+        },
+        "purpose": "Derive and assess the intent carrier from complete ordinary source and native predecessors.",
+        "requiredContent": [
+          "Source-grounded intent and unresolved pressure"
+        ],
+        "rubric": [
+          {
+            "criterionRef": "criterion://generic-job-mechanics.example/source@5",
+            "instruction": "Assess source grounding and retain unresolved pressure."
+          }
+        ],
+        "bodyCapabilities": [],
+        "assembly": {
+          "ruleRef": "rule://generic-job-mechanics.example/intent@5",
+          "graphFunctionRef": "graph-function://generic-job-mechanics.example/intent@5",
+          "sectionOrder": [
+            "role",
+            "source",
+            "obligations",
+            "predecessors",
+            "worksite",
+            "evidence",
+            "task",
+            "response"
+          ],
+          "contentPolicy": "full_source_and_predecessors",
+          "proportionalityPolicy": "declared_semantic_assessment",
+          "maxPromptBytes": 1048576
+        }
+      },
+      {
+        "declarationRef": "stage://generic-job-mechanics.example/product@5",
+        "graphFunctionRef": "graph-function://generic-job-mechanics.example/product@5",
+        "authorLocusRef": "locus://generic-job-mechanics.example/product-author@5",
+        "assessorLocusRef": "locus://generic-job-mechanics.example/product-assessor@5",
+        "predecessorStageRefs": [
+          "stage://generic-job-mechanics.example/intent@5"
+        ],
+        "assetSurface": {
+          "kind": "ordinary_job_product",
+          "requiredContexts": [
+            "context-role://abiogenesis/semantic-stage/job-source@5"
+          ],
+          "standardsRefs": [],
+          "outputContractRefs": [
+            "contract://abiogenesis/semantic-stage/worker-result@5"
+          ],
+          "constructorRef": "constructor://abiogenesis/semantic-stage/asset@5",
+          "rendererRef": "renderer://abiogenesis/semantic-stage/full-source@5",
+          "proofObligationRefs": [],
+          "authoritySlots": []
+        },
+        "purpose": "Derive and assess the product carrier from complete ordinary source and native predecessors.",
+        "requiredContent": [
+          "Source-grounded intent and unresolved pressure"
+        ],
+        "rubric": [
+          {
+            "criterionRef": "criterion://generic-job-mechanics.example/source@5",
+            "instruction": "Assess source grounding and retain unresolved pressure."
+          }
+        ],
+        "bodyCapabilities": [],
+        "assembly": {
+          "ruleRef": "rule://generic-job-mechanics.example/product@5",
+          "graphFunctionRef": "graph-function://generic-job-mechanics.example/product@5",
+          "sectionOrder": [
+            "role",
+            "source",
+            "obligations",
+            "predecessors",
+            "worksite",
+            "evidence",
+            "task",
+            "response"
+          ],
+          "contentPolicy": "full_source_and_predecessors",
+          "proportionalityPolicy": "declared_semantic_assessment",
+          "maxPromptBytes": 1048576
+        }
+      },
+      {
+        "declarationRef": "stage://generic-job-mechanics.example/requirements@5",
+        "graphFunctionRef": "graph-function://generic-job-mechanics.example/requirements@5",
+        "authorLocusRef": "locus://generic-job-mechanics.example/requirements-author@5",
+        "assessorLocusRef": "locus://generic-job-mechanics.example/requirements-assessor@5",
+        "predecessorStageRefs": [
+          "stage://generic-job-mechanics.example/intent@5",
+          "stage://generic-job-mechanics.example/product@5"
+        ],
+        "assetSurface": {
+          "kind": "ordinary_job_requirements",
+          "requiredContexts": [
+            "context-role://abiogenesis/semantic-stage/job-source@5"
+          ],
+          "standardsRefs": [],
+          "outputContractRefs": [
+            "contract://abiogenesis/semantic-stage/worker-result@5"
+          ],
+          "constructorRef": "constructor://abiogenesis/semantic-stage/asset@5",
+          "rendererRef": "renderer://abiogenesis/semantic-stage/full-source@5",
+          "proofObligationRefs": [],
+          "authoritySlots": []
+        },
+        "purpose": "Derive and assess the requirements carrier from complete ordinary source and native predecessors.",
+        "requiredContent": [
+          "Source-grounded intent and unresolved pressure"
+        ],
+        "rubric": [
+          {
+            "criterionRef": "criterion://generic-job-mechanics.example/source@5",
+            "instruction": "Assess source grounding and retain unresolved pressure."
+          }
+        ],
+        "bodyCapabilities": [
+          "requirement_refinement"
+        ],
+        "assembly": {
+          "ruleRef": "rule://generic-job-mechanics.example/requirements@5",
+          "graphFunctionRef": "graph-function://generic-job-mechanics.example/requirements@5",
+          "sectionOrder": [
+            "role",
+            "source",
+            "obligations",
+            "predecessors",
+            "worksite",
+            "evidence",
+            "task",
+            "response"
+          ],
+          "contentPolicy": "full_source_and_predecessors",
+          "proportionalityPolicy": "declared_semantic_assessment",
+          "maxPromptBytes": 1048576
+        }
+      },
+      {
+        "declarationRef": "stage://generic-job-mechanics.example/design@5",
+        "graphFunctionRef": "graph-function://generic-job-mechanics.example/design@5",
+        "authorLocusRef": "locus://generic-job-mechanics.example/design-author@5",
+        "assessorLocusRef": "locus://generic-job-mechanics.example/design-assessor@5",
+        "predecessorStageRefs": [
+          "stage://generic-job-mechanics.example/intent@5",
+          "stage://generic-job-mechanics.example/product@5",
+          "stage://generic-job-mechanics.example/requirements@5"
+        ],
+        "assetSurface": {
+          "kind": "ordinary_job_design",
+          "requiredContexts": [
+            "context-role://abiogenesis/semantic-stage/job-source@5"
+          ],
+          "standardsRefs": [],
+          "outputContractRefs": [
+            "contract://abiogenesis/semantic-stage/worker-result@5"
+          ],
+          "constructorRef": "constructor://abiogenesis/semantic-stage/asset@5",
+          "rendererRef": "renderer://abiogenesis/semantic-stage/full-source@5",
+          "proofObligationRefs": [],
+          "authoritySlots": []
+        },
+        "purpose": "Derive and assess the design carrier from complete ordinary source and native predecessors.",
+        "requiredContent": [
+          "Source-grounded intent and unresolved pressure"
+        ],
+        "rubric": [
+          {
+            "criterionRef": "criterion://generic-job-mechanics.example/source@5",
+            "instruction": "Assess source grounding and retain unresolved pressure."
+          }
+        ],
+        "bodyCapabilities": [
+          "worksite_design"
+        ],
+        "assembly": {
+          "ruleRef": "rule://generic-job-mechanics.example/design@5",
+          "graphFunctionRef": "graph-function://generic-job-mechanics.example/design@5",
+          "sectionOrder": [
+            "role",
+            "source",
+            "obligations",
+            "predecessors",
+            "worksite",
+            "evidence",
+            "task",
+            "response"
+          ],
+          "contentPolicy": "full_source_and_predecessors",
+          "proportionalityPolicy": "declared_semantic_assessment",
+          "maxPromptBytes": 1048576
+        }
+      },
+      {
+        "declarationRef": "stage://generic-job-mechanics.example/evidence@5",
+        "graphFunctionRef": "graph-function://generic-job-mechanics.example/evidence@5",
+        "authorLocusRef": "locus://generic-job-mechanics.example/evidence-author@5",
+        "assessorLocusRef": "locus://generic-job-mechanics.example/evidence-assessor@5",
+        "predecessorStageRefs": [
+          "stage://generic-job-mechanics.example/intent@5",
+          "stage://generic-job-mechanics.example/product@5",
+          "stage://generic-job-mechanics.example/requirements@5",
+          "stage://generic-job-mechanics.example/design@5"
+        ],
+        "assetSurface": {
+          "kind": "ordinary_job_evidence",
+          "requiredContexts": [
+            "context-role://abiogenesis/semantic-stage/job-source@5"
+          ],
+          "standardsRefs": [],
+          "outputContractRefs": [
+            "contract://abiogenesis/semantic-stage/worker-result@5"
+          ],
+          "constructorRef": "constructor://abiogenesis/semantic-stage/asset@5",
+          "rendererRef": "renderer://abiogenesis/semantic-stage/full-source@5",
+          "proofObligationRefs": [],
+          "authoritySlots": []
+        },
+        "purpose": "Derive and assess the evidence carrier from complete ordinary source and native predecessors.",
+        "requiredContent": [
+          "Source-grounded intent and unresolved pressure"
+        ],
+        "rubric": [
+          {
+            "criterionRef": "criterion://generic-job-mechanics.example/source@5",
+            "instruction": "Assess source grounding and retain unresolved pressure."
+          }
+        ],
+        "bodyCapabilities": [
+          "application_assessment"
+        ],
+        "assembly": {
+          "ruleRef": "rule://generic-job-mechanics.example/evidence@5",
+          "graphFunctionRef": "graph-function://generic-job-mechanics.example/evidence@5",
+          "sectionOrder": [
+            "role",
+            "source",
+            "obligations",
+            "predecessors",
+            "worksite",
+            "evidence",
+            "task",
+            "response"
+          ],
+          "contentPolicy": "full_source_and_predecessors",
+          "proportionalityPolicy": "declared_semantic_assessment",
+          "maxPromptBytes": 1048576
+        }
+      }
+    ]
+  },
+  "declarationDigest": "sha256:3ffda42e0db99b84d5d3a8e48980d7e810773cf44aadda7a95119e4c66da14de",
+  "claim": "Component definition inputs only; zero publication coordinates are not an installed identity."
+}

@@ -1,0 +1,332 @@
+{
+  "status": "read_only_localized",
+  "failureFrontier": "additional language Product install at root-installed-environment.mjs:323",
+  "targetRoot": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0",
+  "fixtureInstalledRoot": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures",
+  "abiSiblingInstalledRoot": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "fixtureArchive": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+    "sha256": "01a4059c50b0479e3c0922ac7fcb17a058f45db5cda1d6431352b628b30b4510",
+    "bytes": 4267,
+    "mode": "0o644",
+    "npmIntegrity": "sha512-RBnDuW+xvVcl0nwseuW9L/czrbsuG7oS6GpGvs1HlV+9nGPgnU9gqUYfVrZ0tUL+Cxps82dqYsZr2rJh255vHQ=="
+  },
+  "archiveMemberCount": 6,
+  "archiveMembers": [
+    {
+      "path": "package/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "bytes": 247,
+      "tarMode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/language-smoke-fixture/contracts/capabilities/capability-definition-graph.json",
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+        "bytes": 247,
+        "mode": "0o644"
+      },
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/contracts/capabilities/capability-definition-graph.json",
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+        "bytes": 247,
+        "mode": "0o644"
+      },
+      "sourceAndInstalledBytesMatch": true
+    },
+    {
+      "path": "package/package.json",
+      "sha256": "07bc37dae0e4ef9963d5d2382bd93dfd2c5dfaa297225138d0fda50c46ef4d44",
+      "bytes": 185,
+      "tarMode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/language-smoke-fixture/package.json",
+        "sha256": "07bc37dae0e4ef9963d5d2382bd93dfd2c5dfaa297225138d0fda50c46ef4d44",
+        "bytes": 185,
+        "mode": "0o644"
+      },
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/package.json",
+        "sha256": "07bc37dae0e4ef9963d5d2382bd93dfd2c5dfaa297225138d0fda50c46ef4d44",
+        "bytes": 185,
+        "mode": "0o644"
+      },
+      "sourceAndInstalledBytesMatch": true
+    },
+    {
+      "path": "package/product-toolchain-manifest.json",
+      "sha256": "2f2b13d835a4714f3053a18b44da8a22c257a42e8bcdb75eac97c13c082cd7cf",
+      "bytes": 4119,
+      "tarMode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/language-smoke-fixture/product-toolchain-manifest.json",
+        "sha256": "2f2b13d835a4714f3053a18b44da8a22c257a42e8bcdb75eac97c13c082cd7cf",
+        "bytes": 4119,
+        "mode": "0o644"
+      },
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/product-toolchain-manifest.json",
+        "sha256": "2f2b13d835a4714f3053a18b44da8a22c257a42e8bcdb75eac97c13c082cd7cf",
+        "bytes": 4119,
+        "mode": "0o644"
+      },
+      "sourceAndInstalledBytesMatch": true
+    },
+    {
+      "path": "package/contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "bytes": 75,
+      "tarMode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/language-smoke-fixture/contracts/public-contract-catalog.schema.json",
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+        "bytes": 75,
+        "mode": "0o644"
+      },
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/contracts/public-contract-catalog.schema.json",
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+        "bytes": 75,
+        "mode": "0o644"
+      },
+      "sourceAndInstalledBytesMatch": true
+    },
+    {
+      "path": "package/build/leaf.mjs",
+      "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+      "bytes": 3059,
+      "tarMode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/language-smoke-fixture/build/leaf.mjs",
+        "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+        "bytes": 3059,
+        "mode": "0o644"
+      },
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/build/leaf.mjs",
+        "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+        "bytes": 3059,
+        "mode": "0o644"
+      },
+      "sourceAndInstalledBytesMatch": true
+    },
+    {
+      "path": "package/build/program.mjs",
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "bytes": 8359,
+      "tarMode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/language-smoke-fixture/build/program.mjs",
+        "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+        "bytes": 8359,
+        "mode": "0o644"
+      },
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/build/program.mjs",
+        "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+        "bytes": 8359,
+        "mode": "0o644"
+      },
+      "sourceAndInstalledBytesMatch": true
+    }
+  ],
+  "retainedExactFixtureFiles": [
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/package.json",
+        "sha256": "07bc37dae0e4ef9963d5d2382bd93dfd2c5dfaa297225138d0fda50c46ef4d44",
+        "bytes": 185,
+        "mode": "0o644"
+      },
+      "retainedCopy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/observed-fixture/package.json",
+        "sha256": "07bc37dae0e4ef9963d5d2382bd93dfd2c5dfaa297225138d0fda50c46ef4d44",
+        "bytes": 185,
+        "mode": "0o644"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/product-toolchain-manifest.json",
+        "sha256": "2f2b13d835a4714f3053a18b44da8a22c257a42e8bcdb75eac97c13c082cd7cf",
+        "bytes": 4119,
+        "mode": "0o644"
+      },
+      "retainedCopy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/observed-fixture/product-toolchain-manifest.json",
+        "sha256": "2f2b13d835a4714f3053a18b44da8a22c257a42e8bcdb75eac97c13c082cd7cf",
+        "bytes": 4119,
+        "mode": "0o644"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/package.json",
+        "sha256": "67370c89b93ffa882fbb4212e4bf150c7a7c582171347e6329c4cbb4b2ed698a",
+        "bytes": 229,
+        "mode": "0o644"
+      },
+      "retainedCopy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/observed-fixture/consumer-package.json",
+        "sha256": "67370c89b93ffa882fbb4212e4bf150c7a7c582171347e6329c4cbb4b2ed698a",
+        "bytes": 229,
+        "mode": "0o644"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/package-lock.json",
+        "sha256": "34cbb275adf369cf7debedea59c13989d5c3d441302e6f55d6066431828c57c0",
+        "bytes": 698,
+        "mode": "0o644"
+      },
+      "retainedCopy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/observed-fixture/consumer-package-lock.json",
+        "sha256": "34cbb275adf369cf7debedea59c13989d5c3d441302e6f55d6066431828c57c0",
+        "bytes": 698,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "fixtureIdentity": {
+    "productId": "product://abi5-tests/language-fixtures@5.0.0",
+    "productContentDigest": "sha256:66fea459412f05acfb935d4f06a735e2da4891634c2c3ead4c44ee8cbca16b17",
+    "packageName": "@abi5-tests/language-fixtures",
+    "packageVersion": "5.0.0"
+  },
+  "fixtureNpmDependencies": null,
+  "fixtureDeclaredProductDependencies": [
+    {
+      "compatibilityRef": "compatibility://abiogenesis/major/5",
+      "kind": "requires",
+      "packageVersion": "5.0.0-rc.1",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "requiredCapabilityRefs": [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.gtl.declare@5"
+      ],
+      "requiredContractRefs": [
+        "abg.contract.gtl.root-declaration",
+        "abg.schema.public-operation-invocation"
+      ]
+    }
+  ],
+  "physicalNpmLock": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0/package-lock.json",
+    "sha256": "34cbb275adf369cf7debedea59c13989d5c3d441302e6f55d6066431828c57c0",
+    "bytes": 698,
+    "mode": "0o644"
+  },
+  "selectedPhysicalLockEntry": {
+    "version": "5.0.0",
+    "resolved": "file:../language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+    "integrity": "sha512-RBnDuW+xvVcl0nwseuW9L/czrbsuG7oS6GpGvs1HlV+9nGPgnU9gqUYfVrZ0tUL+Cxps82dqYsZr2rJh255vHQ=="
+  },
+  "siblingAbiPackage": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer/node_modules/@abiogenesis/typescript-tenant/package.json",
+    "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+    "bytes": 9744,
+    "mode": "0o644"
+  },
+  "siblingAbiManifest": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee",
+    "bytes": 3189430,
+    "mode": "0o644"
+  },
+  "siblingAbiManifestMatchesSelectedBaseline": true,
+  "siblingNpmLock": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer/package-lock.json",
+    "sha256": "eb0573b0d24b52ac588832e458efa4f34724ce3bd71be0e148da4d52d250f484",
+    "bytes": 5346,
+    "mode": "0o644"
+  },
+  "nodeSearchProbe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/node-search-probe.stdout",
+    "sha256": "c8f8ddbf2f94f5c40a126b1db75fb99f8eb6fa4d7f9fab58b29e9703022004bb",
+    "bytes": 5278,
+    "mode": "0o644"
+  },
+  "nodeSearchProbeExecution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/node-search-probe.result.json",
+    "sha256": "f6eca7c55b52b77d9aba32911101fb7ecf6de095ebfb89b0da66d420833d1d36",
+    "bytes": 223,
+    "mode": "0o644"
+  },
+  "interpretation": "The declared ABI Product dependency is absent from every actual Node search location of the fixture and specifically from the three locations inside the failed target. The separately installed ABI sibling is outside the selected target and is not a substitute. The fixture archive has no npm dependency declaration, while its Product manifest requires ABI. All fixture archive member bytes agree with producer and installed bytes; this is an omitted physical dependency closure, not observed crossed fixture bytes.",
+  "sourceEvidence": [
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "sha256": "a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0",
+        "bytes": 39995,
+        "mode": "0o644"
+      },
+      "spans": [
+        {
+          "firstLine": 257,
+          "lastLine": 265,
+          "text": "  const additionalProducts = options.prepareAdditionalProducts === undefined\n    ? usesLanguageFixture ? [await prepareLanguageSmokeFixture({ scratch, product: bootstrapProduct,\n      gtl: bootstrapGtl, abiPublication: bootstrapRootPublication })] : []\n    : await options.prepareAdditionalProducts({\n        scratch,\n        product: bootstrapProduct,\n        gtl: languageTestGtlView(bootstrapGtl),\n        abiPublication: bootstrapRootPublication,\n      });"
+        },
+        {
+          "firstLine": 273,
+          "lastLine": 323,
+          "text": "  const verified = await bootstrapProduct.verifyProduct({\n    artifactPath,\n    artifactRef: basename(artifactPath),\n    ...expectedVerificationIdentity(candidateBasis),\n  });\n  assert.equal(verified.disposition, \"verified\", JSON.stringify(verified));\n  const additionalVerified = [];\n  for (const prepared of additionalProducts) {\n    const value = await bootstrapProduct.verifyProduct({\n      artifactPath: prepared.artifactPath,\n      artifactRef: prepared.artifactRef,\n      ...expectedVerificationIdentity(prepared.basis),\n    });\n    assert.equal(value.disposition, \"verified\", JSON.stringify(value));\n    additionalVerified.push(value);\n  }\n  const verifiedProducts = [verified, ...additionalVerified];\n  const lock = bootstrapProduct.constructResolvedProductLock(verifiedProducts);\n  assert.equal(lock.kind, \"resolved_product_lock\", JSON.stringify(lock));\n  accountSetupPhase(options, \"provisioning_verify_artifact\", phaseStarted);\n  phaseStarted = performance.now();\n  const installCandidate = await bootstrapProduct.installProduct({\n    artifactPath,\n    targetRoot: consumerRoot,\n    verifiedArtifact: verified,\n    resolvedLock: lock,\n  });\n  assert.equal(installCandidate.disposition, \"materialized\", JSON.stringify(installCandidate));\n  accountSetupPhase(options, \"provisioning_install\", phaseStarted);\n  phaseStarted = performance.now();\n  assert.equal(\n    bootstrapProduct.isProductInstallCandidate(installCandidate, lock),\n    true,\n    \"frozen installed root does not satisfy the Product install carrier\",\n  );\n  assert.equal(\n    await bootstrapProduct.installedProductContentMatches(installCandidate),\n    true,\n    \"frozen installed root bytes differ from the verified Product\",\n  );\n  accountSetupPhase(options, \"provisioning_installed_content_check\", phaseStarted);\n  phaseStarted = performance.now();\n  const additionalInstallCandidates = [];\n  for (const [index, prepared] of additionalProducts.entries()) {\n    const candidate = await bootstrapProduct.installProduct({\n      artifactPath: prepared.artifactPath,\n      targetRoot: join(scratch, `consumer-additional-${index}`),\n      verifiedArtifact: additionalVerified[index],\n      resolvedLock: lock,\n    });\n    assert.equal(candidate.disposition, \"materialized\", JSON.stringify(candidate));"
+        },
+        {
+          "firstLine": 357,
+          "lastLine": 363,
+          "text": "  const acquired = abg.createNewEmptyAppendSink({\n    kind: \"new_empty_append_sink_request\",\n    schemaVersion: \"5.0.0\",\n    eventLogPath: join(scratch, \"runtime\", \"events.jsonl\"),\n  });\n  assert.equal(acquired.disposition, undefined, JSON.stringify(acquired));\n  const store = acquired.store;"
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+        "sha256": "d8071fcc110fd27bfe10140ccf6163180ff3ca280b33ebdda6b3c9ef0086c781",
+        "bytes": 6574,
+        "mode": "0o644"
+      },
+      "spans": [
+        {
+          "firstLine": 17,
+          "lastLine": 26,
+          "text": "export async function prepareLanguageSmokeFixture({ scratch, product, gtl, abiPublication }) {\n  const owner = LANGUAGE_FIXTURE_OWNER;\n  const sourceRoot = join(scratch, \"language-smoke-fixture\");\n  await mkdir(join(sourceRoot, \"build\"), { recursive: true });\n  await mkdir(join(sourceRoot, \"contracts/capabilities\"), { recursive: true });\n  for (const name of [\"program.mjs\", \"leaf.mjs\"]) await cp(fileURLToPath(new URL(`../fixtures/language-smoke/${name}`, import.meta.url)), join(sourceRoot, \"build\", name));\n  const payload = { \"package.json\": { name: owner.packageName, version: owner.packageVersion, type: \"module\",\n    exports: { \"./program\": \"./build/program.mjs\" }, files: [\"build\", \"contracts\", \"product-toolchain-manifest.json\"] },\n    \"contracts/public-contract-catalog.schema.json\": { $schema: \"https://json-schema.org/draft/2020-12/schema\", type: \"object\" } };\n  for (const [path, value] of Object.entries(payload)) await writeFile(join(sourceRoot, path), `${product.canonicalJson(value)}\\n`);"
+        },
+        {
+          "firstLine": 47,
+          "lastLine": 62,
+          "text": "  const manifest = { kind: \"abg_product_toolchain_manifest\", schemaVersion: \"5.0.0\", ...owner, productContentDigest,\n    productRelativeLocators, descriptorRef: draft.descriptorRef, publisherNamespace: \"abi5-tests\",\n    contributionManifestRef: draft.contributionManifestRef, contributionManifestDigest: product.sha256Canonical(contributionManifest),\n    contributionManifest, compatibilityRefs: [\"compatibility://abiogenesis/major/5\"],\n    declaredDependencies: [{ kind: \"requires\", productId: abiPublication.owningProductId,\n      packageVersion: abiPublication.productSemanticsBinding.packageVersion, compatibilityRef: \"compatibility://abiogenesis/major/5\",\n      requiredContractRefs: [\"abg.contract.gtl.root-declaration\", \"abg.schema.public-operation-invocation\"],\n      requiredCapabilityRefs: [\"abg.capability.catalog.invoke-graph-function@5\", \"abg.capability.gtl.declare@5\"] }],\n    provenanceRef, declaredCapabilityRefs: [], capabilityDefinitionGraph: { ...graphCoordinate,\n      assetLocator: { path: product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH, mediaType: \"application/json\", schemaVersion: \"5.0.0\", contentDigest: product.sha256Bytes(graphBytes) } },\n    publicContractCatalog };\n  await writeFile(join(sourceRoot, \"product-toolchain-manifest.json\"), `${product.canonicalJson(manifest)}\\n`);\n  const artifacts = join(sourceRoot, \"artifacts\"); await mkdir(artifacts);\n  const { stdout } = await execFileAsync(\"npm\", [\"pack\", \"--ignore-scripts\", \"--json\", \"--pack-destination\", artifacts], { cwd: sourceRoot, maxBuffer: 10 * 1024 * 1024 });\n  const [packed] = JSON.parse(stdout); const artifactPath = join(artifacts, packed.filename);\n  const basis = { ...owner, productContentDigest, artifactDigest: await product.sha256File(artifactPath), manifestDigest: product.sha256Canonical(manifest) };"
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+        "sha256": "a0a4e7a8adaa246ce9784c36354848dc0627e94a4838770a9a08cc4fac233005",
+        "bytes": 18760,
+        "mode": "0o644"
+      },
+      "spans": [
+        {
+          "firstLine": 204,
+          "lastLine": 223,
+          "text": "async function managedDependencyRoot(\n  importerRoot: string,\n  packageName: string,\n  targetRoot: string,\n): Promise<string | null> {\n  const packagePaths = createRequire(join(importerRoot, \"package.json\"))\n    .resolve.paths(packageName);\n  for (const path of packagePaths ?? []) {\n    const candidate = join(path, ...packageName.split(\"/\"));\n    if (!await exists(candidate)) continue;\n    // Match the first actual Node package location, never substitute an ambient\n    // or later search-path copy for a missing/crossed selected managed Product.\n    const relation = relative(resolve(targetRoot), candidate);\n    const stat = await lstat(candidate);\n    return !isAbsolute(relation) && relation !== \"..\" && !relation.startsWith(`..${sep}`) &&\n        !stat.isSymbolicLink() && stat.isDirectory()\n      ? candidate\n      : null;\n  }\n  return null;"
+        },
+        {
+          "firstLine": 253,
+          "lastLine": 280,
+          "text": "async function managedDependenciesMatchResolvedLock(\n  request: InstallProductRequest,\n  installedRoot: string,\n): Promise<boolean> {\n  const pending = [{\n    installedRoot,\n    dependencies: request.verifiedArtifact.declaredDependencies,\n  }];\n  // Call-local readback reuse only; no receipt or authority is created here.\n  const checked = new Set<string>();\n  try {\n    for (const importer of pending) {\n      for (const dependency of importer.dependencies) {\n        const rows = request.resolvedLock.rows.filter(\n          (row) => row.productId === dependency.productId,\n        );\n        const row = rows.length === 1 ? rows[0] : undefined;\n        if (row === undefined) return false;\n        const dependencyRoot = await managedDependencyRoot(\n          importer.installedRoot,\n          row.packageName,\n          request.targetRoot,\n        );\n        if (dependencyRoot === null) return false;\n        const key = `${dependencyRoot}\\0${row.productId}\\0${row.manifestDigest}`;\n        if (checked.has(key)) continue;\n        if (!await installedDependencyMatchesLockRow(dependencyRoot, row)) {\n          return false;"
+        },
+        {
+          "firstLine": 420,
+          "lastLine": 430,
+          "text": "  const prohibitedPaths = [\"code\", \"scripts\", \"test_env\", \"tsconfig.json\"];\n  for (const path of prohibitedPaths) {\n    if (await exists(join(installedRoot, path))) {\n      return refusal(\"unexpected_source_surface\", `installed package contains source-only path: ${path}`);\n    }\n  }\n  if (!await managedDependenciesMatchResolvedLock(request, installedRoot)) {\n    return refusal(\n      \"dependency_lock_mismatch\",\n      \"materialized managed Product dependencies differ from the selected resolved lock\",\n    );"
+        }
+      ]
+    }
+  ],
+  "unobserved": [
+    "Original in-memory Product resolved lock carrier/digest and verify/install requests were not persisted by the helper before it threw. They have not been reconstructed by replaying owner operations. Physical npm locks, exact archives, raw refusal and source control flow are retained."
+  ],
+  "ownerOperationsDuringDiagnosis": 0,
+  "repairPerformed": false
+}

@@ -1,0 +1,367 @@
+{
+  "kind": "closed_stopped_writer_subject",
+  "activation": "REOPEN18-OWNER-CLONE-SUCCESSOR-07",
+  "status": "incomplete",
+  "sourceFreezeSha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "supportSha256": "0dcec2afd65c3d525a87057892d8a65a9a91df2ffc5be5e5ec42601a7fabbfaf",
+  "testSha256": "2f47abc4d95073f9f4528e01db3a0e90a7f543e10cc331f7ecc3a4e114ac3e69",
+  "preflightFreezeSha256": "659b76ad08cc411b91485d26296ef91cdd18dd0da144a187dae7d7265f70cd65",
+  "stopSha256": "acf1aa797bd3b0cc5fa49944764bd92ef89db3390ad4aa3e392e257b4083ae4d",
+  "reportSha256": "0e223579f3dba942354f1aede88e5fb2bfc6056b014daa844f7933db551a2743",
+  "files": [
+    {
+      "path": "HOW-binding.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3775,
+      "sha256": "c5f9c5044aca40f37b3017282340af06ac966aaa1a33befbb8df0d04b7b103cc"
+    },
+    {
+      "path": "REPORT.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2400,
+      "sha256": "0e223579f3dba942354f1aede88e5fb2bfc6056b014daa844f7933db551a2743"
+    },
+    {
+      "path": "STOP.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3313,
+      "sha256": "acf1aa797bd3b0cc5fa49944764bd92ef89db3390ad4aa3e392e257b4083ae4d"
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1651,
+      "sha256": "ea9c503771ce2c956ee9437abc2c6eb8f9330385a1a3b164d52e2689c47e7500"
+    },
+    {
+      "path": "close-subject.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 9271,
+      "sha256": "f389c2f59188ca475b2a0b107c58cc2584c1a9f9a29f8700ef39cd0ac94e0cd9"
+    },
+    {
+      "path": "command-environment.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1066,
+      "sha256": "65075b4a115a46c36a5ac4f1793084059e8587762180b282be6d86f2c05cd644"
+    },
+    {
+      "path": "command-freezes/D02-preparation-owner-case.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4360,
+      "sha256": "732c7f78064982dc0b1a993590004cf08934a02d8024200814f507ab56d5986b"
+    },
+    {
+      "path": "command-freezes/codec14.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3407,
+      "sha256": "90b350e6a83cae2f6ec1e9fa1436689f959a296e25e79d04108e3c26eb6e2016"
+    },
+    {
+      "path": "command-freezes/native-workspace-physical-regression.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3663,
+      "sha256": "a6be6e04840c6682f4ca1cc30bc102c94ef55eab400ac8bea7e1553a823eb037"
+    },
+    {
+      "path": "command-freezes/reopen18.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3332,
+      "sha256": "56c89d4164acc3ebfc54e4013f10db393ed1624335af6877bd3c6a460082cb1f"
+    },
+    {
+      "path": "command-freezes/route-self-contained.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4777,
+      "sha256": "02ba260851a0e18edb3f3f627b38275e8f08f6e34d14f326575acbf9a61317a7"
+    },
+    {
+      "path": "command-freezes/terminal-quiescence7.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3454,
+      "sha256": "ec9a8391f25497f1fedffac72dfddc7fe6d980ae6e77f39462980b5f643f4771"
+    },
+    {
+      "path": "commands-config.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 5590,
+      "sha256": "8f6fd4c5271e4185619bb7c115c23d1299cb23b4426d5e8909203f361e6e2548"
+    },
+    {
+      "path": "commands/codec14.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1784,
+      "sha256": "24a02a7b17a83e871e3c9cba26972dd4be06ed3913d6d94f4a6cd3b7eea60b35"
+    },
+    {
+      "path": "commands/codec14.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 240,
+      "sha256": "7237759d444e57401672a683137ac8562f8f34f1c44da22ac10792a19f4f4a6b"
+    },
+    {
+      "path": "commands/codec14.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/codec14.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2653,
+      "sha256": "9dcf0dfcd37a8fbdda9db71d28288b32f6370c971e156d125ca1d060652886db"
+    },
+    {
+      "path": "commands/reopen18.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1746,
+      "sha256": "a59d0822bf9e1078f2ee6491e4ea9fd94f5fe14add3f383406a9a22556e8106d"
+    },
+    {
+      "path": "commands/reopen18.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 239,
+      "sha256": "b386f405d957be075953d34ddc108bd42a2a556efd40dbb21ee974fdd720c61a"
+    },
+    {
+      "path": "commands/reopen18.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/reopen18.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 6939,
+      "sha256": "6f4eecd6892b2c60e305726cd3f1842b71d1c55cda4ddaf20a5c64a27b27d6e0"
+    },
+    {
+      "path": "commands/route-self-contained.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2810,
+      "sha256": "c9e7afd380d295952d66fe34b0ab0549e5775c366d739bbf07a74bfe2d571f89"
+    },
+    {
+      "path": "commands/route-self-contained.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 239,
+      "sha256": "51376eb93bef70d1d6fca3fedae96c26cf6ec114425919ff04ca45d805689b16"
+    },
+    {
+      "path": "commands/route-self-contained.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/route-self-contained.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 11029,
+      "sha256": "c2b3e3f99a6df54bb923a0b39a807fe12e117dcc5e88770b83679ab416df55eb"
+    },
+    {
+      "path": "commands/syntax.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1387,
+      "sha256": "3808eb00e7f407e7f673b3c9372ea7ef6def5f513b2d7bbde40e970828832fb2"
+    },
+    {
+      "path": "commands/syntax.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 239,
+      "sha256": "830a9de0e876d80fd428dc79887553a9229ac215a9fe82cc93acd480551b9f14"
+    },
+    {
+      "path": "commands/syntax.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/syntax.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "failure-summary.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 10576,
+      "sha256": "1f49b9fb3eeff4efb757c5aed83bc0f0df6f17b9457ddcb3f463161f53acaaa1"
+    },
+    {
+      "path": "first-cause.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3785,
+      "sha256": "5dcc5c61825854618c512c0b3c43b61884e8e8eacbbaf077dc68273eeed35634"
+    },
+    {
+      "path": "mapped-outcomes.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 6255,
+      "sha256": "e2be2ce59f0b8ba249e84db8197e4c9fde33e890e1f498041dccf254ee5111ee"
+    },
+    {
+      "path": "overlay-binding.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 9496,
+      "sha256": "11fc7ffe82afbb04dad1e5bbd44800ad42f6e0300249dd4e892f43a7b92a05d5"
+    },
+    {
+      "path": "overlay/build",
+      "kind": "symlink",
+      "mode": "0o755",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build"
+    },
+    {
+      "path": "overlay/node_modules",
+      "kind": "symlink",
+      "mode": "0o755",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules"
+    },
+    {
+      "path": "overlay/test_env/support/new-empty-append-sink.mjs",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4966,
+      "sha256": "0dcec2afd65c3d525a87057892d8a65a9a91df2ffc5be5e5ec42601a7fabbfaf"
+    },
+    {
+      "path": "overlay/test_env/support/root-installed-environment.mjs",
+      "kind": "symlink",
+      "mode": "0o755",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+    },
+    {
+      "path": "overlay/test_env/support/t287-entry212-reopen-worker.mjs",
+      "kind": "symlink",
+      "mode": "0o755",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/t287-entry212-reopen-worker.mjs"
+    },
+    {
+      "path": "overlay/test_env/tests/m5-event-store-reopen.test.mjs",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 65127,
+      "sha256": "2f47abc4d95073f9f4528e01db3a0e90a7f543e10cc331f7ecc3a4e114ac3e69"
+    },
+    {
+      "path": "physical-inventory.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 213672,
+      "sha256": "ec04171db03515f62ee8bb18c2ce5838f62c8352fb1c73a7b03f5e8df09a982e"
+    },
+    {
+      "path": "preflight-freeze.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3070,
+      "sha256": "659b76ad08cc411b91485d26296ef91cdd18dd0da144a187dae7d7265f70cd65"
+    },
+    {
+      "path": "preimages/new-empty-append-sink.mjs",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4743,
+      "sha256": "0d13d5d882d3d30ab8af2cc613b9d9540db4b4aa001349811726f0983d4f9a02"
+    },
+    {
+      "path": "prepare-proof.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 7072,
+      "sha256": "d58137e829774f7f29b6ff13eade9c69fe3fd4388b4f5cdaf985b003723d66f9"
+    },
+    {
+      "path": "preservation-after.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3927,
+      "sha256": "0716c78e942ddfffc2518fda459dc4241912988623b84212a2cd40703bab73fb"
+    },
+    {
+      "path": "process-observation.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 296,
+      "sha256": "a5895949230898d34f333a2e2cd49787f2c92d88dcca6821b71fb7eb6968755e"
+    },
+    {
+      "path": "resource-cost.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 165,
+      "sha256": "a9420da104b4c120d730df9c7ed9c75d7c4a3ff246b019ead7d968d6063cc434"
+    },
+    {
+      "path": "resources.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2161,
+      "sha256": "756b7dc6f0b7d5617afbd810b3b5082ed7184968091f00e077f0158c300e7b1d"
+    },
+    {
+      "path": "run-command.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2571,
+      "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec"
+    },
+    {
+      "path": "support.diff",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 656,
+      "sha256": "6712ad7a765668d82fb8e65a065d0bcb807d47ba76ae7bb0eaabee082274ba18"
+    }
+  ],
+  "recordCount": 49,
+  "logicalBytes": 417902,
+  "physicalInventorySha256": "ec04171db03515f62ee8bb18c2ce5838f62c8352fb1c73a7b03f5e8df09a982e",
+  "physicalRows": 599,
+  "physicalLogicalBytes": 12200669,
+  "completedCommands": 3,
+  "failedCommands": [
+    "route-self-contained"
+  ],
+  "unexecutedCommands": [
+    "native-workspace-physical-regression",
+    "terminal-quiescence7",
+    "D02-preparation-owner-case"
+  ]
+}

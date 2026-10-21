@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-21T01:21:37.073566+00:00",
+  "phase": "final static fixture-to-helper physical input trace after passed bounded preflight",
+  "cause": "materializeSnapshot creates only parents of protected files. The sole protected source c2-source/service.mjs creates c2-source/. Neither unchanged command creates evidence/. runHttpProbe requires evidence/ to exist before spawning. Declared write permission does not create the directory.",
+  "owningClauses": [
+    "worksite_command_helper.ts:584-600 materializeSnapshot",
+    "worksite_command_helper.ts:1011-1015 existing port parent precondition"
+  ],
+  "evidenceLimit": "All syntax/callable/pure constructor receipts passed but do not establish snapshot directory existence. No actual HTTP, command, installed, actor or Public execution.",
+  "proposedSmallestReentry": "Use c2-source/evidence-http-port.txt and one additional exact file write territory, preserving original commands, source target and evidence subtree. The existing protected source materializes c2-source. No production edit.",
+  "status": "returned before correction",
+  "files": [
+    {
+      "source": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "copy": "t287-worksite-command-execution.test.mjs",
+      "bytes": 53963,
+      "sha256": "c966852fbe5d03a02055f8c4316093b293865f276f3b39d34cc8e879939512e5"
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "copy": "fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "copy": "worksite_command_helper.ts",
+      "bytes": 62395,
+      "sha256": "d8bddd8487e78babc8b1ee6df86215c112973cb9b093e7a4242c4684b7a56e3f"
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "copy": "worksite_command_execution.ts",
+      "bytes": 132724,
+      "sha256": "7532aadf7fc497a5a4da3ccdf51fb9d1989832958e0f0baf424b3a6df68f32af"
+    }
+  ],
+  "preservedPassReceipts": [
+    {
+      "path": "syntax-test.json",
+      "sha256": "00c3452113b0d733207e62a6481018c3188b7ee841958f436f23b3f5ef06a653"
+    },
+    {
+      "path": "syntax-support.json",
+      "sha256": "59da14e830016311cc9c466411b1a3b1046dff7bc886674a2823162fb14665c3"
+    },
+    {
+      "path": "syntax-preflight.json",
+      "sha256": "618478c04d9fa7bed34281afc64dd0a35627f67c193f63fd7249957e900c1294"
+    },
+    {
+      "path": "constructor-callable.json",
+      "sha256": "b090e2c6f9948e1fc37665acd4ab61e5f1eb83109c8589d5ed4540f022796e2c"
+    },
+    {
+      "path": "syntax-http-fixture.json",
+      "sha256": "4e6dd4a001331ea8fa5ff24bcfa3ffd45ac81c77208a6a75472b87db478a185e"
+    }
+  ]
+}

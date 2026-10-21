@@ -1,0 +1,199 @@
+{
+  "archive": {
+    "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+    "sha256": "2199101b74ac36c6df203bdd36c8994e03b5bc666c49cafc155a57302058984d",
+    "bytes": 4381,
+    "mode": "0o644"
+  },
+  "sourceRoot": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture",
+  "files": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "bytes": 247,
+      "mode": "0o644"
+    },
+    {
+      "path": "package.json",
+      "sha256": "36cb9448fd347669e601a404c8fb6c6226b5df8c931bc6a0d1d2e1506a39d3c5",
+      "bytes": 425,
+      "mode": "0o644"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "sha256": "326f33ad6f58a2689475749a3cf202d3e9b8ac3bc2d2169847ac69492786a3ff",
+      "bytes": 4119,
+      "mode": "0o644"
+    },
+    {
+      "path": "contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "bytes": 75,
+      "mode": "0o644"
+    },
+    {
+      "path": "build/leaf.mjs",
+      "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+      "bytes": 3059,
+      "mode": "0o644"
+    },
+    {
+      "path": "build/program.mjs",
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "bytes": 8359,
+      "mode": "0o644"
+    }
+  ],
+  "owner": {
+    "kind": "verified_product_artifact",
+    "schemaVersion": "5.0.0",
+    "disposition": "verified",
+    "artifactRef": "abi5-tests-language-fixtures-5.0.0.tgz",
+    "artifactDigest": "sha256:2199101b74ac36c6df203bdd36c8994e03b5bc666c49cafc155a57302058984d",
+    "artifactByteLength": 4381,
+    "productId": "product://abi5-tests/language-fixtures@5.0.0",
+    "packageName": "@abi5-tests/language-fixtures",
+    "packageVersion": "5.0.0",
+    "productContentDigest": "sha256:2222c4cd0f7dd2e51ad09087e76e971c94ee753fd6a2086297350a2feee76c4d",
+    "manifestDigest": "sha256:a3198b092930c7b929a05b96378ab4ca03c73f447300d69333d12caec96105a1",
+    "descriptorRef": "descriptor://abi5-tests/language-fixtures@5",
+    "publisherNamespace": "abi5-tests",
+    "contributionManifestRef": "contribution-manifest://abi5-tests/language-fixtures@5",
+    "contributionManifestDigest": "sha256:d8ef70fd2dd08c4e0d87b2fa9b73384c21893b1445c3f6c418184ff5a02bc50a",
+    "contributionManifest": {
+      "capabilityDefinitionGraph": {
+        "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0"
+      },
+      "contributionManifestRef": "contribution-manifest://abi5-tests/language-fixtures@5",
+      "descriptorRef": "descriptor://abi5-tests/language-fixtures@5",
+      "kind": "product_contribution_manifest",
+      "productContentDigest": "sha256:2222c4cd0f7dd2e51ad09087e76e971c94ee753fd6a2086297350a2feee76c4d",
+      "productId": "product://abi5-tests/language-fixtures@5.0.0",
+      "productVersion": "5.0.0",
+      "publicContractCatalogDigest": "sha256:b8b3c70d90d520f25c04434a2e047527e3747b01717db7b10c4934ae1405523b",
+      "publicContractCatalogId": "catalog://abi5-tests/language-fixtures@5",
+      "publicationBindings": [
+        {
+          "moduleRef": "module://abi5-tests/language-smoke@5",
+          "publicationDigest": "sha256:c25af144063fe09a732594eeb5a61e0e73e3e0dec26bbe1cdd53072d4e16ab6f"
+        }
+      ],
+      "rows": [
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://abi5-tests/language-smoke@5",
+          "handle": "graph-function://abi5-tests/language-smoke@5",
+          "kind": "graph_function",
+          "moduleRef": "module://abi5-tests/language-smoke@5",
+          "owningProductId": "product://abi5-tests/language-fixtures@5.0.0",
+          "programMembershipRefs": [
+            "program://abi5-tests/language-smoke@5"
+          ],
+          "provenanceRef": "provenance://abi5-tests/language-fixtures@5",
+          "readinessPrerequisiteRefs": [
+            "program://abi5-tests/language-smoke@5"
+          ]
+        },
+        {
+          "compatibilityRefs": [
+            "compatibility://abiogenesis/major/5"
+          ],
+          "declarationOrContractRef": "graph-function://abi5-tests/language-smoke@5",
+          "handle": "gtl://abi5-tests/language-smoke/direct@5",
+          "kind": "graph_function",
+          "moduleRef": "module://abi5-tests/language-smoke@5",
+          "owningProductId": "product://abi5-tests/language-fixtures@5.0.0",
+          "programMembershipRefs": [
+            "program://abi5-tests/language-smoke/direct@5"
+          ],
+          "provenanceRef": "provenance://abi5-tests/language-fixtures@5",
+          "readinessPrerequisiteRefs": [
+            "program://abi5-tests/language-smoke/direct@5"
+          ]
+        }
+      ],
+      "schemaVersion": "5.0.0"
+    },
+    "compatibilityRefs": [
+      "compatibility://abiogenesis/major/5"
+    ],
+    "declaredDependencies": [
+      {
+        "compatibilityRef": "compatibility://abiogenesis/major/5",
+        "kind": "requires",
+        "packageVersion": "5.0.0-rc.1",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "requiredCapabilityRefs": [
+          "abg.capability.catalog.invoke-graph-function@5",
+          "abg.capability.gtl.declare@5"
+        ],
+        "requiredContractRefs": [
+          "abg.contract.gtl.root-declaration",
+          "abg.schema.public-operation-invocation"
+        ]
+      }
+    ],
+    "provenanceRef": "provenance://abi5-tests/language-fixtures@5",
+    "declaredCapabilityRefs": [],
+    "catalogId": "catalog://abi5-tests/language-fixtures@5",
+    "catalogDigest": "sha256:b8b3c70d90d520f25c04434a2e047527e3747b01717db7b10c4934ae1405523b",
+    "capabilityDefinitionGraph": {
+      "graphDigest": "sha256:0cddc310af8fbc1a02b3982e5fef67407d1bfa4a18544d18db88d89b09e39b9d",
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0",
+      "kind": "abg_capability_definition_graph",
+      "rows": [],
+      "schemaVersion": "5.0.0"
+    },
+    "capabilityDefinitionGraphAsset": {
+      "contentDigest": "sha256:f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "mediaType": "application/json",
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "schemaVersion": "5.0.0"
+    },
+    "publicContracts": [],
+    "publicContractRefs": [],
+    "publicCapabilityRefs": [],
+    "definitionContractCoordinates": null,
+    "checkedPayloadFiles": 4,
+    "nativeDeclarationEvidence": {
+      "productId": "product://abi5-tests/language-fixtures@5.0.0",
+      "productContentDigest": "sha256:2222c4cd0f7dd2e51ad09087e76e971c94ee753fd6a2086297350a2feee76c4d",
+      "packageName": "@abi5-tests/language-fixtures",
+      "packageType": "module",
+      "packageMetadata": [
+        {
+          "declarationPath": "package.json",
+          "declarationDigest": "sha256:36cb9448fd347669e601a404c8fb6c6226b5df8c931bc6a0d1d2e1506a39d3c5",
+          "sourceText": "{\"dependencies\":{\"@abiogenesis/typescript-tenant\":\"file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz\"},\"exports\":{\"./program\":\"./build/program.mjs\"},\"files\":[\"build\",\"contracts\",\"product-toolchain-manifest.json\"],\"name\":\"@abi5-tests/language-fixtures\",\"type\":\"module\",\"version\":\"5.0.0\"}\n"
+        }
+      ],
+      "sources": [],
+      "closures": [],
+      "contracts": []
+    },
+    "verificationRef": "product-verification://abiogenesis/c6f0a188f684366f18b72de723a137cad09c937ef352681555b5d063b2f53b44",
+    "verificationDigest": "sha256:c6f0a188f684366f18b72de723a137cad09c937ef352681555b5d063b2f53b44"
+  },
+  "producerReceipt": {
+    "literalHelloWorld": {
+      "kind": "hello_world_output",
+      "schemaVersion": "5.0.0",
+      "message": "Hello World"
+    },
+    "start": {
+      "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/evidence/start.json",
+      "sha256": "269ef2af585eb9f94531184c660598427fcc4ffffa151b8b4d2a3c5511370a0f",
+      "bytes": 28078286,
+      "mode": "0o644"
+    },
+    "freshReadOracle": {
+      "predicate": "closed result and fresh owner reads",
+      "satisfied": true
+    }
+  }
+}

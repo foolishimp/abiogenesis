@@ -1,0 +1,25 @@
+{
+  "label": "installed-declaration-consumer",
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+    "--noEmit",
+    "--module",
+    "NodeNext",
+    "--moduleResolution",
+    "NodeNext",
+    "--target",
+    "ES2022",
+    "--strict",
+    "--skipLibCheck",
+    "false",
+    "--typeRoots",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/node_modules/@types",
+    "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/host/external-consumer.mts"
+  ],
+  "cwd": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/host",
+  "wallMs": 3006.8464169999997,
+  "stdout": "",
+  "stderr": "",
+  "exitCode": 0
+}

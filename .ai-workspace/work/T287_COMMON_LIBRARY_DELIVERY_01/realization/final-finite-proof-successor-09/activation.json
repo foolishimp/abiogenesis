@@ -1,0 +1,32 @@
+{
+  "activation": "FINITE-REST-09",
+  "executive": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "stdoBasis": "stdo://releases/v3.0.0-rc.1/",
+  "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "predecessorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/freeze.json",
+    "sha256": "6d6aff5c485bf77e4ee8dd62dd093e9aa3a92966738d84f0b8267e675c5e1326"
+  },
+  "selectedSourceEffect": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "preimageSha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384",
+    "change": "Add rawInputDigest computed by actual product.sha256Canonical(rawInputValue) in the existing three-request C0 basis loop only"
+  },
+  "physicalRoot": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d",
+  "initiallyAbsent": true,
+  "commands": [
+    6,
+    7,
+    8
+  ],
+  "reuse": [
+    "route7 successor08",
+    "reopen18 and codec14 successor07",
+    "U1 and C18 finite04"
+  ],
+  "timeoutMs": 600000,
+  "retainedByteLimit": 3221225472,
+  "stop": "First selected failure or physical uncertainty, before repair/retry/next command"
+}

@@ -1,0 +1,71 @@
+{
+  "activation": "L4-P3-BASELINE-SUCCESSOR-01",
+  "role": "Writer/operator",
+  "writer": "/root/stdo3_proof_writer",
+  "issuedBy": "/root",
+  "utc": "2026-10-21T00:54:42.403052+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "purpose": "One actual installed external F_D HelloWorld and fresh Public result/replay on preserved baseline with repaired physical fixture dependency handoff.",
+  "basis": {
+    "repairFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/freeze.json",
+      "sha256": "5bcbfbfa14151ad35126431bd9ee4a2930c62d797cdcece59b147a46f2e9b933",
+      "bytes": 2532688,
+      "mode": "0o644"
+    },
+    "configurationDraft": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/baseline-p3-configuration.draft.json",
+      "sha256": "1a502664df056ac44d6b99e0abd89fdc757ef07c977f475f3378e00e9dff8307",
+      "bytes": 5728,
+      "mode": "0o644"
+    },
+    "effectGrantDraft": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/baseline-p3-effect-grant.draft.json",
+      "sha256": "f253b108be9119e694d475fdd35753a6aecfa98744a0f3725ba9f42c69fe5462",
+      "bytes": 2959,
+      "mode": "0o644"
+    },
+    "originalFailureFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/freeze.json",
+      "sha256": "8e0d5de565bb94670b81e09a0251755e6d53b90e8d11fa4d943272116d4cb30b",
+      "bytes": 9589,
+      "mode": "0o644"
+    },
+    "contract": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "bytes": 26888,
+      "mode": "0o644"
+    },
+    "proofReport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/L2-report.md",
+      "sha256": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+      "bytes": 29197,
+      "mode": "0o644"
+    },
+    "method": {
+      "basis": "stdo://releases/v3.0.0-rc.1/",
+      "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+      "composition": []
+    }
+  },
+  "writeGrant": {
+    "newRecords": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01",
+    "resources": {
+      "evidence": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence",
+      "host": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/host",
+      "scratchParent": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/worksite"
+    }
+  },
+  "permittedEffects": [
+    "exact offline ABI bootstrap and declaration consumer",
+    "independent external fixture construction/pack/install",
+    "one declared F_D Public start",
+    "fresh CLI result/replay and closed-prefix conservation"
+  ],
+  "maxNativeCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "stop": "First genuine prerequisite/effect failure or unknown completion preserves actual frontier/residue and returns to Executive. No source repair, next lane, old resource acquisition or Git."
+}

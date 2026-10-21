@@ -1,0 +1,101 @@
+{
+  "config": {
+    "kind": "E04_retained_owner_proof_configuration",
+    "status": "NOT_GRANTED",
+    "activation": "E04-RETAINED-OWNER-PROOF-PREPARATION-01",
+    "stageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript",
+    "stageFreezeSha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155",
+    "inputsSha256": "f51907147a270bd16c0a4eb6cbcc1e67b48e34c2060f02e28b99766872a499a7",
+    "node": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "nodeSha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "scratchRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f",
+    "evidenceRoot": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f",
+    "caseIds": [
+      "PERSIST",
+      "PUBLISH",
+      "RACE",
+      "DEST-SYMLINK",
+      "DEST-HARDLINK",
+      "TEMP-PARTIAL",
+      "SNAPSHOT",
+      "SNAPSHOT-STALE",
+      "SNAPSHOT-SYMLINK",
+      "SNAPSHOT-DIRECTORY"
+    ],
+    "hostBudgetMs": 30000,
+    "maxFixtureNodes": 256,
+    "maxFixtureBytes": 1048576,
+    "cleanup": "retain_all_roots_on_success_or_failure",
+    "fixtureChildCount": 0,
+    "network": false,
+    "nativeOrInstalledCredit": false,
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs",
+      "run",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/configuration-not-granted.json",
+      "<NEW_EXECUTIVE_EXECUTION_GRANT_JSON>"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis",
+    "requiredGrant": {
+      "kind": "E04_retained_owner_execution_grant",
+      "status": "GRANTED",
+      "configurationSha256": "<sha256 of this immutable configuration>",
+      "preparationFreezeSha256": "<closed preparation freeze>",
+      "executiveActivation": "<new exact Executive activation>",
+      "stageFreezeSha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155",
+      "scratchRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f",
+      "evidenceRoot": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f",
+      "caseIds": "exact configuration caseIds",
+      "hostBudgetMs": 30000,
+      "retention": "all roots and first failure; no retry or deletion"
+    }
+  },
+  "grant": {
+    "kind": "E04_retained_owner_execution_grant",
+    "status": "GRANTED",
+    "configurationSha256": "15310f3d54b8aa44cececa6be5484bd4427316e1b9337e6126328f28a42e9332",
+    "preparationFreezeSha256": "c8ef87c3f4476d43836417468291feefe709c1edb5e6654fc0d5b9dcd5252d3c",
+    "executiveActivation": "E04-RETAINED-OWNER-EXECUTION-01",
+    "stageFreezeSha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155",
+    "scratchRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f",
+    "evidenceRoot": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f",
+    "caseIds": [
+      "PERSIST",
+      "PUBLISH",
+      "RACE",
+      "DEST-SYMLINK",
+      "DEST-HARDLINK",
+      "TEMP-PARTIAL",
+      "SNAPSHOT",
+      "SNAPSHOT-STALE",
+      "SNAPSHOT-SYMLINK",
+      "SNAPSHOT-DIRECTORY"
+    ],
+    "hostBudgetMs": 30000,
+    "retention": "all roots and first failure; no retry or deletion",
+    "authority": "Root Executive activation in this task; attributed transcription, not original message bytes",
+    "scope": "one finite private-owner substrate proof; no installed/ABG/native/library acceptance",
+    "supervisor": {
+      "owner": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js",
+        "bytes": 11604,
+        "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+      },
+      "terminationGraceMs": 1000,
+      "normalWorkDeadlineMs": 27750,
+      "cleanupAllowanceMs": 2250,
+      "enclosingBudgetMs": 30000
+    }
+  },
+  "configurationSha256": "15310f3d54b8aa44cececa6be5484bd4427316e1b9337e6126328f28a42e9332",
+  "grantSha256": "a7e157c716dce1afc98ec2ff6fc49fb90a6f0284b5c75f4f176d22041f29339c",
+  "host": {
+    "pid": 68865,
+    "ppid": 68864,
+    "execPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "version": "v24.7.0"
+  },
+  "closure": "Host exit must be observed by the enclosing executor; this file is not exit evidence."
+}

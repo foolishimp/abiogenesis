@@ -1,0 +1,21 @@
+{
+  "closedSupportRowsChecked": 42,
+  "protectedMainFilesChecked": 936,
+  "selectedSupportAndOwnerSourceRowsChecked": 21,
+  "mismatches": [],
+  "futureResourcesParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9",
+  "futureResourcesAbsent": true,
+  "closedSupportFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/freeze.json",
+    "sha256": "8c0af8cdc2e3ae01d12e05a3baf328ce1637093444659cf0b8540859c241e49b",
+    "bytes": 13936,
+    "mode": "0o644"
+  },
+  "previousFinalFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/freeze.json",
+    "sha256": "d30c05423aaa3b837bc19cee427b74f4031f3e6fef48db6bf21ddad5416af821",
+    "bytes": 3065985,
+    "mode": "0o644"
+  },
+  "comparisonScope": "exact selected rows and protected936; no whole moving-tree snapshot"
+}

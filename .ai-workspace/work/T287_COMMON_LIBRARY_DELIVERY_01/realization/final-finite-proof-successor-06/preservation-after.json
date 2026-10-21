@@ -1,0 +1,47 @@
+{
+  "reusedCompletePreservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/preservation-after.json",
+    "sha256": "29b9d5709fd5f36341bf6543d606b6da1053415f49aa805902a961ecaa9b02f1",
+    "bytes": 506
+  },
+  "reusedPredecessorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/freeze.json",
+    "sha256": "c886e40487ecc4a653bfbc7d2e00b7e62c02b68fbfae18d77f8b95b747d3359b",
+    "bytes": 10207
+  },
+  "stageInventorySha256": "eb41de1242486d6bcfe5cec7b902bd25092cc91ddda6dfe513448c6dbbd83d37",
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "focusedCurrentPinsExact": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "sha256": "f2d26d09be893d6076ca588c169000502b15ccce7805f22356454328e5143e4b",
+      "bytes": 190613
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+      "sha256": "f629017c4fb024891f9d30c36b708148bba36ecad7e3892b611fd75b7a1ae500",
+      "bytes": 37889
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "e7bcbfd831e1e710c6b4c0cee6eeeb1bf3d245b4409cc9cc4089ead21d0239d3",
+      "bytes": 40294
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+      "sha256": "0d13d5d882d3d30ab8af2cc613b9d9540db4b4aa001349811726f0983d4f9a02",
+      "bytes": 4743
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/t287-entry212-reopen-worker.mjs",
+      "sha256": "9d997bff795751550b14dfe1af36fb2316b9fa42c420b33eec056aa32115ab66",
+      "bytes": 1318
+    }
+  ],
+  "mainTestSha256": "2f47abc4d95073f9f4528e01db3a0e90a7f543e10cc331f7ecc3a4e114ac3e69",
+  "overlayExact": true,
+  "fullScansRepeated": 0,
+  "productionSupportBuildPackageChanges": false,
+  "scope": "Prior closed05 complete stage/main936/bootstrap preservation is reused as explicitly selected; current commands have no writable grant to those immutable subjects. Current focused bytes, archive and proof overlay verified.",
+  "sourceEffect": "Only main m5-event-store-reopen.test.mjs exact selection hook and file-scope cleanup"
+}

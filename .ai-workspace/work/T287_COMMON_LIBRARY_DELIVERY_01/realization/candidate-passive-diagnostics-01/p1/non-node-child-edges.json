@@ -1,0 +1,1325 @@
+{
+  "edges": [
+    {
+      "parentPid": 29055,
+      "pid": 29870,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 29878,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 29895,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 31884,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 33377,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 33380,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 33383,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 33386,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 36637,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 36638,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/host"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/host"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 36639,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/scratchParent"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/scratchParent"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 29055,
+      "pid": 36640,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/worksite"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/worksite"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 31933,
+      "pid": 32013,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 31933,
+      "pid": 32023,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 31933,
+      "pid": 32041,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 31933,
+      "pid": 33352,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33388,
+      "pid": 33392,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33388,
+      "pid": 33395,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33388,
+      "pid": 33412,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33388,
+      "pid": 33722,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33388,
+      "pid": 33726,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33388,
+      "pid": 33729,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33388,
+      "pid": 33732,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33388,
+      "pid": 33950,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33958,
+      "pid": 33976,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33958,
+      "pid": 33979,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33958,
+      "pid": 33982,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33958,
+      "pid": 34192,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33958,
+      "pid": 34209,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33958,
+      "pid": 34212,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33958,
+      "pid": 34215,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 33958,
+      "pid": 34218,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34255,
+      "pid": 34265,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34255,
+      "pid": 34268,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34255,
+      "pid": 34271,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34255,
+      "pid": 34495,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34534,
+      "pid": 34557,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34534,
+      "pid": 34560,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34534,
+      "pid": 34563,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34534,
+      "pid": 34790,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34534,
+      "pid": 34795,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34534,
+      "pid": 34798,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34534,
+      "pid": 34801,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 34534,
+      "pid": 35027,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35072,
+      "pid": 35089,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35072,
+      "pid": 35092,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35072,
+      "pid": 35095,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35072,
+      "pid": 35301,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35072,
+      "pid": 35325,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35072,
+      "pid": 35328,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35072,
+      "pid": 35331,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35072,
+      "pid": 35334,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35375,
+      "pid": 35378,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35375,
+      "pid": 35381,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35375,
+      "pid": 35384,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35375,
+      "pid": 35609,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35674,
+      "pid": 35699,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35674,
+      "pid": 35702,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35674,
+      "pid": 35705,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 35674,
+      "pid": 35941,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 36042,
+      "pid": 36066,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 36042,
+      "pid": 36070,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 36042,
+      "pid": 36073,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 36042,
+      "pid": 36293,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 36330,
+      "pid": 36341,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 36330,
+      "pid": 36344,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 36330,
+      "pid": 36347,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 36330,
+      "pid": 36573,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    }
+  ],
+  "limits": "External tar/du per-PID CPU/memory/IO unobserved; spawn return is not exit status. Native trace and JS byte channels overlap; unsized is not zero. No summed maxima or OS-wide total."
+}

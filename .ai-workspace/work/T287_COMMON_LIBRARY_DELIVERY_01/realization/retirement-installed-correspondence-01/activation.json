@@ -1,0 +1,21 @@
+{
+  "activation": "RETIREMENT-INSTALLED-CORRESPONDENCE-01",
+  "issuedBy": "/root",
+  "writer": "/root/stdo3_final_proof_writer",
+  "returnTo": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "productFrame": "Fixed fifteen-family ABI5.0, T287 common-library prerequisite; exact owners and ABG truth retained. L2 section 7 two-sided retirement applies only to the seven named pure bodies.",
+  "method": "stdo://releases/v3.0.0-rc.1/",
+  "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "effects": "Read selected source/emission/archive members and retained receipts/installed members; write compact audit records only.",
+  "extension": "Root authorized exact P5 successor07 C1 codec evidence and accepted actual readAll producer correction.",
+  "exclusions": [
+    "No new runtime, tests, mutation probes or instrumentation",
+    "No whole filesystem inventories",
+    "E03/E04 separately retained",
+    "No main936, continuation17 or Git effects",
+    "No L5 acceptance"
+  ],
+  "successor": "Private C2 repair is expected to leave these members unchanged; new candidate package correspondence remains pending explicit rebinding."
+}

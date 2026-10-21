@@ -1,0 +1,26 @@
+{
+  "id": "C0-DISPOSITION-ARRAY-02",
+  "decisionAuthority": "/root",
+  "attribution": "Executive successor activation and concurrency clarification",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "firstCauseSHA256": "0cb89e2f718d078997c349317014f54e5e07600f4df235519345b6c38cfdd9bb",
+  "originalValidatorSHA256": "115c736c017f28a67a228d84db7bd26162d8636071e2513dae3395824264625e",
+  "origin": "The record validator compared the frozen actualPublicCalls array directly with integer 10.",
+  "classification": "Record-validation shape omission; no Product, application oracle or P1 execution failure.",
+  "sourceOwnedP1Shape": {
+    "status": "satisfied",
+    "actualPublicCallsType": "array",
+    "actualPublicCallsLength": 10,
+    "labels": ["workspace-create", "product-verify-0", "product-verify-1", "product-resolve", "product-install-0", "product-install-1", "workspace-bind", "catalog-admit", "catalog-view", "program-conformance"],
+    "everyRow": {"exitCode": 0, "outcomeKind": "result"},
+    "nativeCalls": 0,
+    "retryCount": 0
+  },
+  "effectGrant": "New successor validation and finalization records only in c0-review-disposition-01. Preserve all original failed and historical records; run the corrected record check once and finish the existing link/preservation/freeze work only on success.",
+  "runtimeOrP1RerunGranted": false,
+  "productionSourceTestOrGitChangesGranted": false,
+  "concurrentSourceBoundary": "A separate C0 realization Writer now owns nine main sources and two tests. The exact review subject remains closed final02/source and the C0 successor freeze. Do not use moving main production files as the review subject or claim a moving whole-tree freeze.",
+  "sourceRelationRecord": "frozen-source-relations-02.json",
+  "temporalNote": "temporal-note-02.md",
+  "stop": "Any genuine subsequent mismatch returns to Root without repair or retry."
+}

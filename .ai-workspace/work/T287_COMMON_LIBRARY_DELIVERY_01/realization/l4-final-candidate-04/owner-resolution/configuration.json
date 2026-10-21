@@ -1,0 +1,98 @@
+{
+  "kind": "t287_final_owner_resolution_configuration",
+  "status": "activated",
+  "activationFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/effect-grant.json",
+  "subjectId": "candidate",
+  "installedRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "installedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/archive-members.json",
+    "sha256": "404c0be5cc48bbc85e5b80685c01072458c720a513aca5465f543d4f47b475fb",
+    "bytes": 1262495,
+    "mode": "0o644"
+  },
+  "outputRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution",
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "requiredPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+      "bytes": 10681844,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/archive-members.json",
+      "sha256": "404c0be5cc48bbc85e5b80685c01072458c720a513aca5465f543d4f47b475fb",
+      "bytes": 1262495,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/selected-support.json",
+      "sha256": "00eff68a7329e05420c7669dac48fdbc717acca880a361e865aecb934b549665"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/proof-freeze.json",
+      "sha256": "b60eca3e6fa641206eda37658b42285cf888a1a42b3cae259be5e2be75a5ce37",
+      "bytes": 10923,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/freeze.json",
+      "sha256": "4793655ce521c45cc1d2e1cc11378430318b26df6e98e60f1f0eef0c9ed96011",
+      "bytes": 19050,
+      "mode": "0o644"
+    }
+  ],
+  "p1": {
+    "result": {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/result.json",
+      "sha256": "231d13b475ac77dd4c1468500aa73a2639233822e7252014105d84ae6acf74fc",
+      "bytes": 1759,
+      "mode": "0o644"
+    },
+    "ownerState": {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/p1-owner-state.json",
+      "sha256": "506cc1088d44acd3fd981d6518d85b3f94760a379889ddeebe1c8b2b3004ccf1",
+      "bytes": 41971061,
+      "mode": "0o644"
+    },
+    "catalogCall": {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/calls/catalog-admit.request.jsonl",
+      "sha256": "346bb34fe15e07929be15ae94c3310d448088cfa94f56a53252041473d3a28a3",
+      "bytes": 34951903,
+      "mode": "0o644"
+    },
+    "catalogOutcome": {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/calls/catalog-admit.outcome.json",
+      "sha256": "d507317554ed4de789897e7908c798037c4ca8fca1aa8f8350ed4828671b6794",
+      "bytes": 174016,
+      "mode": "0o644"
+    },
+    "viewCall": {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/calls/catalog-view.request.jsonl",
+      "sha256": "6e614a9552e74714f5f5562cdc73932ae3c3679664ba17d73dd6e9a8b07bc760",
+      "bytes": 35770210,
+      "mode": "0o644"
+    },
+    "resolveCall": {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/calls/product-resolve.request.jsonl",
+      "sha256": "e8a73b8458cf15f72b422ed6291391e1033d867321f2e3955797d325cb1ec485",
+      "bytes": 28498266,
+      "mode": "0o644"
+    },
+    "resolveOutcome": {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/calls/product-resolve.outcome.json",
+      "sha256": "e9a4490213d1d6d46de38540c62e53885ea3aeda5d769449a01049e3995a64a9",
+      "bytes": 5354,
+      "mode": "0o644"
+    }
+  },
+  "bindingRule": "Select exact final P1 result/owner-state and calls/catalog-admit.request.jsonl, calls/catalog-admit.outcome.json, calls/catalog-view.request.jsonl, calls/product-resolve.request.jsonl and calls/product-resolve.outcome.json from the actual P1 output. Verify actual resolve label from owner-state calls before pinning; no guessed or reconstructed admission. New canonical /private/tmp outputRoot only. Required pins include final archive, package inventory, support and original P1 freeze. Schedule this read-only check before P2 or any later append: it requires the complete physical log to remain the exact retained P1 prefix and never acquires that owner."
+}

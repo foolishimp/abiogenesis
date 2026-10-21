@@ -1,0 +1,8 @@
+{
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "nodeSha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+  "npmEntry": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+  "npmEntrySha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+  "typescriptSha256": "2cffde0b8c6760dfb0b5b0382bbb7e00ba6a8b2d981b9205b256a700a481d983",
+  "dependencyInventorySha256": "a702f9c9a2b152357eaed7c9def1c453e2ab8e874738f892125cce749eb5b380"
+}

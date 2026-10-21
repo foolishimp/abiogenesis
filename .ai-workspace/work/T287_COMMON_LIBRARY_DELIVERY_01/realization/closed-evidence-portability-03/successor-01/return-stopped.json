@@ -1,0 +1,14 @@
+{
+  "status": "stopped_before_archives_or_staging",
+  "firstCause": "Finite P5 successor07 freeze has an explicitly named symlinks field whose rows omit kind/type; selector defaulted that declared symlink row to file and required a digest/length.",
+  "owner": "This new transport population adapter, not Product, source, package, runtime evidence or the frozen P5 cut.",
+  "actualCommand": "population.command.json",
+  "actualReceipt": "population.receipt.json",
+  "failure": "STOP-population.json",
+  "sourceRoute": "p5-installed-final-04/successor07/failure-freeze.json#symlinks",
+  "repairNotPerformed": "Use the declared field owner to classify its two link observations, preserving exact row and target without opening target bytes.",
+  "additionalStaticConcern": "Current population-freeze construction would include the in-flight population.stdout/stderr before process completion; any later re-entry should freeze stable control/data records inside the selector and bind final streams separately after completion. This concern was found before that boundary ran.",
+  "effects": "No archives, extraction, Git staging/commit/push, runtime/source/build/test effect. Prior LFS attribute selection is separately authorized and remains. Original failed command and evidence are preserved.",
+  "returnTo": "/root",
+  "stop": "No repair or retry without Root disposition."
+}

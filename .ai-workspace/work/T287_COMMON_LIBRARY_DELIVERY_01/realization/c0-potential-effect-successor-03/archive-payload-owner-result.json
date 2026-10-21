@@ -1,0 +1,12 @@
+{
+  "kind": "archive_payload_correspondence_via_existing_Product_owner",
+  "inputSha256": "sha256:13e8d432ec28205aa9050ff907963ea1b16446be1708601c34f593440c475163",
+  "payloadRows": 5269,
+  "actualProductContentDigest": "sha256:78912aa5b7f9956b51075aefc52367a6f36b75cb711b105926c5f4a42b47dd9e",
+  "expectedProductContentDigest": "sha256:78912aa5b7f9956b51075aefc52367a6f36b75cb711b105926c5f4a42b47dd9e",
+  "graphByteDigest": "sha256:5ff808849b0e7173101512dbe7ab56f73ef3a66ad3017752319a77ba4c89d68d",
+  "manifestByteSha256": "2960e5dddf8959de4ff269a3aac92dce2a8dd27bb79dee308b5fa394a3bf9920",
+  "owner": "Product export of build/code/src/shared/digests.js::payloadInventoryDigest",
+  "status": "satisfied",
+  "scope": "Pure digest calculation over rows derived from actual archive member bytes; no installed or native workload"
+}

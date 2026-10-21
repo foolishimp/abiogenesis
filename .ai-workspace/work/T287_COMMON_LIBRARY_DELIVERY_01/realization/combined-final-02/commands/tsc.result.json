@@ -1,0 +1,14 @@
+{
+  "label": "tsc",
+  "exitCode": 0,
+  "wallMs": 6288.3180000353605,
+  "completedUtc": "2026-10-21T03:14:04.279976+00:00",
+  "stdout": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

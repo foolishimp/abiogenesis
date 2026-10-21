@@ -1,0 +1,38 @@
+{
+  "id": "L4-P1-CANDIDATE-01",
+  "writer": "/root/stdo3_proof_writer",
+  "issuedBy": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "additionalFrames": [
+    "Install",
+    "Proof"
+  ],
+  "utc": "2026-10-21T00:03:38.199745+00:00",
+  "basisPins": {
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/freeze.json": "7e4bb4f77a933120198800d6177a7e7154a66e29577db7dd7ee5a84fc483a514",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/candidate-p1.configuration.draft.json": "428471e2e177b419a3712913bb3791896ebbfeb79577679a57fb0905a7000c2b",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/L2-report.md": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487"
+  },
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "permittedEffects": "Only frozen public-preparation lane: fresh offline exact-package host, declaration-only installed consumer compilation with skipLibCheck false, actual Public preparation/resolution and frozen negatives, exact retained evidence/measurements",
+  "maxNativePositiveCalls": 0,
+  "prohibited": [
+    "other lanes",
+    "provider dispatch",
+    "source/runner/oracle changes",
+    "main build/test aliases",
+    "Git",
+    "old runtime or continuation17 effects",
+    "cleanup",
+    "retry"
+  ],
+  "stop": "first seam failure returns exact evidence and multi-frame cause before any repair/retry",
+  "independence": "construction/installed mechanical evidence only; no independent semantic acceptance"
+}

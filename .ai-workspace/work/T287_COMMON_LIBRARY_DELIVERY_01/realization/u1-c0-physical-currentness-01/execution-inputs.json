@@ -1,0 +1,13 @@
+{
+  "activation": "U1-C0-PHYSICAL-CURRENTNESS-01 + U1-C0-FAILURE-GATE-SUCCESSOR-01",
+  "source_inputs_sha256": "1ab466a1d65bf1f9c70796eae918662a3f084318c6afe74f71e440852887533c",
+  "how_sha256": "c4ddc40c27de54a6bcb7cab2b68b79cf195d7106e65569daa84e9b7c4911af31",
+  "auth_correspondence_sha256": "db1bcf57010885c0eb37f97428a1f377daff24ac09de1684e877497804648fea",
+  "stage_copy_sha256": "32b688ac6260973c8f07550b292bbf8c17614f9c1a0f61e401570f90ef5756bc",
+  "compile_limit": 1,
+  "selected_test": "^U1 physical target scope successor",
+  "selected_cases": 10,
+  "native_or_command_actors": 0,
+  "scope": "copied prior U1 emitted complement plus four source overlays and consumer test; no pure/E03 aggregate or installed package claim",
+  "node": "v24.7.0"
+}

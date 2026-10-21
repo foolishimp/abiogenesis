@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "/usr/bin/time",
+    "-l",
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+    "--configuration",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/configuration.json",
+    "--lane",
+    "partial-install"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2",
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_cache": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p2"
+  },
+  "configurationSha256": "b62fb2bfe5dd1e4310ba9eab8937b6bb874686272e6a8d1de1827a0ea7535f03",
+  "grantSha256": "dc2b87da13bdac816f4db1f1687f7a7d2a5b0a2a34d3ef6342c7a2250d69a0e9",
+  "startedAt": "2026-10-21T06:51:19.265997+00:00",
+  "retryCount": 0,
+  "timeouts": "original unchanged runner/support bounds"
+}

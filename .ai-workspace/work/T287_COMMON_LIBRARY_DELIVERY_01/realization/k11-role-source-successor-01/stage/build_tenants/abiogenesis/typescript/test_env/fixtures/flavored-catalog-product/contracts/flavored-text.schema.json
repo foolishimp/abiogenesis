@@ -1,0 +1,59 @@
+{
+  "$id": "schema://flavor.example/text@5",
+  "oneOf": [
+    {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "flavored_text_input"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "text": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tone": {
+          "enum": [
+            "bright",
+            "plain"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "text",
+        "tone"
+      ],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "flavored_text_output"
+        },
+        "rendered": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "styleRef": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "rendered",
+        "schemaVersion",
+        "styleRef"
+      ],
+      "type": "object"
+    }
+  ]
+}

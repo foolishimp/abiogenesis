@@ -1,0 +1,12 @@
+{
+  "retainedLogicalBytesBeforeClosure": 255171,
+  "limit": 3221225472,
+  "physicalRows": 0,
+  "physicalLogicalBytes": 0,
+  "newArchiveStageOrOverlayCopies": false,
+  "wallMsByCommand": {
+    "terminal-quiescence7": 2914.5753339398652,
+    "D02-preparation-owner-case": 87846.83454106562,
+    "native-workspace-physical-regression": 4856.656459160149
+  }
+}

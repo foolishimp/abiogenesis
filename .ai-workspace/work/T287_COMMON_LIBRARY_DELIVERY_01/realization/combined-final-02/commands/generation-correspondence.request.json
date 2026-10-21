@@ -1,0 +1,5 @@
+{
+  "scriptSha256": "f3a6b69da878b4c9a0b9038bdc9c6bc2eb7fff64006456dd6fba2c4c8279f20c",
+  "prebuildFreezeSha256": "e64d6794e1bf124b69cbb3ae6c23fe098e1a33b336d09c820354a90d8bf446f7",
+  "scope": "File correspondence only; no build or owner workload"
+}

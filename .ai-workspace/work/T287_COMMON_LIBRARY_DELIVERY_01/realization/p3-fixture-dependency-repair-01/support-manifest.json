@@ -1,0 +1,85 @@
+{
+  "kind": "finite_proof_support_manifest",
+  "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript",
+  "scope": "selected frozen runner support plus three repaired producer/consumer support files",
+  "files": [
+    {
+      "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "sha256": "359a6a21bd40382ac1ae71dfa235a74ebf2a2389375fc548e685ee22cfbbde5e",
+      "bytes": 521,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/leaf.mjs",
+      "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+      "bytes": 3059,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/program.mjs",
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "bytes": 8359,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/index.mjs",
+      "sha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+      "bytes": 10076,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/native.mjs",
+      "sha256": "963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6",
+      "bytes": 6294,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/support/candidate-basis.mjs",
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd",
+      "bytes": 1177,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/support/installed-language-test.mjs",
+      "sha256": "34d91efdba0602ad47d375fb46a85015eabd7d816a63eba68b3f113559986f95",
+      "bytes": 4500,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "bytes": 21826,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/support/root-cli-environment.mjs",
+      "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+      "bytes": 9963,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+      "bytes": 40077,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/uat/consumer.mjs",
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "bytes": 11420,
+      "mode": "0o644"
+    },
+    {
+      "path": "test_env/uat/public-setup.mjs",
+      "sha256": "29abada25c16efff12bbd7bf995645e3aa68bb043eb59d67c988311a705aac18",
+      "bytes": 27984,
+      "mode": "0o644"
+    }
+  ]
+}

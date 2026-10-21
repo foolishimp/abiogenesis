@@ -1,0 +1,30 @@
+{
+  "records": [
+    {
+      "path": "HOW.md",
+      "sha256": "1fb90c7a4002e32cc5b27ee369379b9fe95a08c4776817eb8d7b991234337713",
+      "bytes": 1226
+    },
+    {
+      "path": "activation.json",
+      "sha256": "d18606c4045e4b38be4dc345cf9b3d37fe62afda74aeeb42affa3626727c4cd0",
+      "bytes": 2120
+    },
+    {
+      "path": "verifier-reuse.json",
+      "sha256": "6c74e382e12e580a528353258cf7da4bfd50412ee1408f3e9af337c61a1b7da0",
+      "bytes": 850
+    },
+    {
+      "path": "verifier.diff",
+      "sha256": "dfc246dd935915dbd2d821120181b682d48905a97d750edc380de892ac45f73c",
+      "bytes": 3993
+    },
+    {
+      "path": "verify-transport.py",
+      "sha256": "db23e068d2495e7ed67c012334c33ad9a5872fe028d5da043f3aa96923b30125",
+      "bytes": 16105
+    }
+  ],
+  "scope": "One verification-only attempt against frozen successor02"
+}

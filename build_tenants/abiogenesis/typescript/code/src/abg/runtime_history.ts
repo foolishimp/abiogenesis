@@ -557,9 +557,16 @@ export function runtimeHistorySelectorKeys(event: RuntimeEvent): readonly string
     if (event.kind === "basis_admitted" && record(payload.rawInputValue) && payload.rawInputValue.kind === "worksite_file_replace_request")
       keys.push("worksite-observation-dependency");
     if (event.kind === "c_call_result_admitted" && record(payload.value) &&
-        (payload.value.kind === "native_workspace_work_observation" || payload.value.kind === "native_workspace_work_failure"))
+        (payload.value.kind === "worksite_file_replace_output" || payload.value.kind === "native_workspace_work_observation" || payload.value.kind === "native_workspace_work_failure" ||
+          (payload.value.kind === "worksite_effect_refusal" && payload.value.phase === "post_publication")))
+      keys.push("worksite-observation-dependency");
+    if (event.kind === "c_call_fibre_selected" &&
+        payload.callClass === "leaf" && payload.regime === "F_D")
       keys.push("worksite-observation-dependency");
     if (event.kind === "c_call_evidenced" && payload.evidenceClass === "worksite_file_replace")
+      keys.push("worksite-observation-dependency");
+    if (event.kind === "actor_process_termination_unconfirmed" ||
+        (event.kind === "actor_invocation_failed" && payload.failureClass === "transport_exception"))
       keys.push("worksite-observation-dependency");
     const cursorRef = event.kind === "traversal_cursor_entered" ? payload.cursorRef
       : event.kind === "traversal_route_admitted" ? payload.targetCursorRef

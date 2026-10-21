@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.json",
+    "--pretty",
+    "false"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript",
+  "exit_code": 0,
+  "wall_seconds": 6.328227996826172,
+  "stdout": "",
+  "stderr": "",
+  "execution_inputs_sha256": "c9c5d7fac7bdf2024ae69c56079f5d864195c3dcaab5dac3d76941883c75fc4b",
+  "handoff_audit_sha256": "c55de6e7fb404ad7cafaecb9990be5cde7aceab27264086dc02ff4884c0f7331"
+}

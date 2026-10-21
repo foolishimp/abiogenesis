@@ -1,0 +1,25 @@
+{
+  "initial_stage_inputs_sha256": "aa7077892302aece271fb5d84783764f13a5126f0c51aef699132a99fb88593d",
+  "successors": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "preimage_sha256": "c99f518ef399a238d553fd32fb118d68c01f7aa0f6f8bd87776465749104e304",
+      "successor_sha256": "45fb620afa811c07f0f99f339b365faa028ed12cab04a290bc93d78698fae65d",
+      "producer": "generate-01.json"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimage_sha256": "6d30b7b69a8e74b0ae54f1f8543d8b4987f2b5b65353869d0bedf49ce0849ea3",
+      "successor_sha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61",
+      "producer": "Executive bounded proof re-entry records"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "preimage_sha256": "52d1912370b464cbda91b60e155f1f08d78463dbd1fe77d2b44b26740aa1e41d",
+      "successor_sha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1",
+      "producer": "Executive bounded proof re-entry records"
+    }
+  ],
+  "capability_graph_note": "Original inventoried preimage remains preserved in baseline/source. Stage generator derives the explicit successor; main graph is untouched. This successor matches the previously closed currentness stage; no source authority is silently replaced.",
+  "unchanged_other_input_count": 1312
+}

@@ -1,0 +1,312 @@
+{
+  "rows": [
+    {
+      "id": "R1",
+      "original": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "retired_local": "sameJson",
+        "shared": "../shared/definition_binding_mechanics.js",
+        "preserved_call_count": 8,
+        "source_and_emission_retired": true
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "sha256": "1825b0b1674c81d89dc591cfb7a643ddca0baca68733dc8b52a367c088877ea6",
+        "bytes": 30014,
+        "mode": "0o644"
+      },
+      "priorSelectedBody": {
+        "line": 128,
+        "text": "function sameJson(left: unknown, right: unknown): boolean {\n  try {\n    return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n  } catch {\n    return false;\n  }\n}"
+      },
+      "currentSelectedBody": null,
+      "sourceAndEmissionStaticCallSiteCounts": [
+        8,
+        8
+      ],
+      "retirement": "Selected local function definition absent; existing call sites import the common function.",
+      "imports": [
+        {
+          "line": 1,
+          "text": "import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from \"../shared/admission_predicates.js\";"
+        },
+        {
+          "line": 6,
+          "text": "import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate, sameJson } from \"../shared/definition_binding_mechanics.js\";"
+        }
+      ],
+      "selectedImport": {
+        "specifier": "../shared/definition_binding_mechanics.js",
+        "targetEmission": "build/code/src/shared/definition_binding_mechanics.js",
+        "targetSha256": "7aa36a980b73a67a3b6adfe0f8694cc983cebfd12b1f32ce60186f0fcb65e686",
+        "actualInstalledTargetPaths": [
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/definition_binding_mechanics.js",
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/definition_binding_mechanics.js"
+        ]
+      },
+      "packageAndInstalledConclusion": "Identical emitted bytes carry this same absence/delegation/import relation into tar and both actual P1 roots."
+    },
+    {
+      "id": "R2",
+      "original": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "retired_local": "sameCoordinate",
+        "shared": "../shared/definition_binding_mechanics.js",
+        "preserved_call_count": 3,
+        "source_and_emission_retired": true
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "sha256": "1825b0b1674c81d89dc591cfb7a643ddca0baca68733dc8b52a367c088877ea6",
+        "bytes": 30014,
+        "mode": "0o644"
+      },
+      "priorSelectedBody": {
+        "line": 136,
+        "text": "function sameCoordinate(left: ReferenceDigest, right: ReferenceDigest): boolean {\n  return left.ref === right.ref && left.digest === right.digest;\n}"
+      },
+      "currentSelectedBody": null,
+      "sourceAndEmissionStaticCallSiteCounts": [
+        3,
+        3
+      ],
+      "retirement": "Selected local function definition absent; existing call sites import the common function.",
+      "imports": [
+        {
+          "line": 1,
+          "text": "import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from \"../shared/admission_predicates.js\";"
+        },
+        {
+          "line": 6,
+          "text": "import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate, sameJson } from \"../shared/definition_binding_mechanics.js\";"
+        }
+      ],
+      "selectedImport": {
+        "specifier": "../shared/definition_binding_mechanics.js",
+        "targetEmission": "build/code/src/shared/definition_binding_mechanics.js",
+        "targetSha256": "7aa36a980b73a67a3b6adfe0f8694cc983cebfd12b1f32ce60186f0fcb65e686",
+        "actualInstalledTargetPaths": [
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/definition_binding_mechanics.js",
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/definition_binding_mechanics.js"
+        ]
+      },
+      "packageAndInstalledConclusion": "Identical emitted bytes carry this same absence/delegation/import relation into tar and both actual P1 roots."
+    },
+    {
+      "id": "R3",
+      "original": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+        "retired_local": "sameCoordinate",
+        "shared": "../shared/definition_binding_mechanics.js",
+        "preserved_call_count": 8,
+        "source_and_emission_retired": true
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+        "sha256": "e96a40d675c0c024f8c55f6769842947a12a94bf1140a2799af0cdb5a8336614",
+        "bytes": 16975,
+        "mode": "0o644"
+      },
+      "priorSelectedBody": {
+        "line": 92,
+        "text": "function sameCoordinate(left: ReferenceDigest, right: ReferenceDigest): boolean {\n  return left.ref === right.ref && left.digest === right.digest;\n}"
+      },
+      "currentSelectedBody": null,
+      "sourceAndEmissionStaticCallSiteCounts": [
+        8,
+        8
+      ],
+      "retirement": "Selected local function definition absent; existing call sites import the common function.",
+      "imports": [
+        {
+          "line": 2,
+          "text": "import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate } from \"../shared/definition_binding_mechanics.js\";"
+        }
+      ],
+      "selectedImport": {
+        "specifier": "../shared/definition_binding_mechanics.js",
+        "targetEmission": "build/code/src/shared/definition_binding_mechanics.js",
+        "targetSha256": "7aa36a980b73a67a3b6adfe0f8694cc983cebfd12b1f32ce60186f0fcb65e686",
+        "actualInstalledTargetPaths": [
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/definition_binding_mechanics.js",
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/definition_binding_mechanics.js"
+        ]
+      },
+      "packageAndInstalledConclusion": "Identical emitted bytes carry this same absence/delegation/import relation into tar and both actual P1 roots."
+    },
+    {
+      "id": "R4",
+      "original": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+        "retired_local": "hasExactKeys",
+        "shared": "./admission_predicates.js",
+        "preserved_call_count": 2,
+        "source_and_emission_retired": true
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+        "sha256": "318e20e2e7c3827df6914d8d477a48badcfe309fb118003ae15548200a1714ca",
+        "bytes": 7482,
+        "mode": "0o644"
+      },
+      "priorSelectedBody": {
+        "line": 67,
+        "text": "function hasExactKeys(value: object, keys: readonly string[]): boolean {\n  const actual = Object.keys(value).sort();\n  return actual.length === keys.length &&\n    actual.every((key, index) => key === keys[index]);\n}"
+      },
+      "currentSelectedBody": null,
+      "sourceAndEmissionStaticCallSiteCounts": [
+        2,
+        2
+      ],
+      "retirement": "Selected local function definition absent; existing call sites import the common function.",
+      "imports": [
+        {
+          "line": 2,
+          "text": "import { hasExactKeys } from \"./admission_predicates.js\";"
+        }
+      ],
+      "selectedImport": {
+        "specifier": "./admission_predicates.js",
+        "targetEmission": "build/code/src/shared/admission_predicates.js",
+        "targetSha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+        "actualInstalledTargetPaths": [
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admission_predicates.js",
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admission_predicates.js"
+        ]
+      },
+      "packageAndInstalledConclusion": "Identical emitted bytes carry this same absence/delegation/import relation into tar and both actual P1 roots."
+    },
+    {
+      "id": "R5",
+      "original": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "retired_local": "exactKeys",
+        "shared": "../shared/admission_predicates.js",
+        "preserved_call_count": 2,
+        "source_and_emission_retired": true
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "sha256": "c9d5bdfb2581115724d48b995a8cc734ae58dd8a1baa7663db99a9428e6f6e49",
+        "bytes": 10804,
+        "mode": "0o644"
+      },
+      "priorSelectedBody": {
+        "line": 25,
+        "text": "const exactKeys = (value: Record<string, unknown>, keys: readonly string[]): boolean =>\n  Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key));"
+      },
+      "currentSelectedBody": null,
+      "sourceAndEmissionStaticCallSiteCounts": [
+        2,
+        2
+      ],
+      "retirement": "Selected local function definition absent; existing call sites import the common function.",
+      "imports": [
+        {
+          "line": 2,
+          "text": "import { isRecord, isJsonRecordShape, hasExactKeys } from \"../shared/admission_predicates.js\";"
+        }
+      ],
+      "selectedImport": {
+        "specifier": "../shared/admission_predicates.js",
+        "targetEmission": "build/code/src/shared/admission_predicates.js",
+        "targetSha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+        "actualInstalledTargetPaths": [
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admission_predicates.js",
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admission_predicates.js"
+        ]
+      },
+      "packageAndInstalledConclusion": "Identical emitted bytes carry this same absence/delegation/import relation into tar and both actual P1 roots."
+    },
+    {
+      "id": "R6",
+      "original": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "retained_projection": "exact",
+        "retired_private_filter_cardinality": true,
+        "shared": "product/exact_match.ts::resolveExactMatch",
+        "source_and_emission_route": true
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "sha256": "91f8fdcc661acb9e9610f04e980eb96a42a7b430ef0bf4f2315ddaac02294859",
+        "bytes": 47076,
+        "mode": "0o644"
+      },
+      "priorSelectedBody": {
+        "line": 276,
+        "text": "function exact<T>(values: readonly T[], predicate: (value: T) => boolean):\n  | Readonly<{ kind: \"one\"; value: T }>\n  | Readonly<{ kind: \"absent\" | \"ambiguous\" }> {\n  const matches = values.filter(predicate);\n  return matches.length === 1\n    ? { kind: \"one\", value: matches[0]! }\n    : { kind: matches.length === 0 ? \"absent\" : \"ambiguous\" };\n}"
+      },
+      "currentSelectedBody": {
+        "line": 277,
+        "text": "function exact<T>(values: readonly T[], predicate: (value: T) => boolean):\n  | Readonly<{ kind: \"one\"; value: T }>\n  | Readonly<{ kind: \"absent\" | \"ambiguous\" }> {\n  const selected = resolveExactMatch(values, predicate);\n  return selected.kind === \"one\"\n    ? { kind: \"one\", value: selected.value }\n    : { kind: selected.kind === \"absent\" ? \"absent\" : \"ambiguous\" };\n}"
+      },
+      "sourceAndEmissionStaticCallSiteCounts": null,
+      "retirement": "Private filter/cardinality body absent; owner projection remains and delegates to common resolveExactMatch.",
+      "imports": [
+        {
+          "line": 2,
+          "text": "import { resolveExactMatch } from \"./exact_match.js\";"
+        }
+      ],
+      "selectedImport": {
+        "specifier": "./exact_match.js",
+        "targetEmission": "build/code/src/product/exact_match.js",
+        "targetSha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1",
+        "actualInstalledTargetPaths": [
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/exact_match.js",
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/exact_match.js"
+        ]
+      },
+      "packageAndInstalledConclusion": "Identical emitted bytes carry this same absence/delegation/import relation into tar and both actual P1 roots."
+    },
+    {
+      "id": "R7",
+      "original": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+        "retained_projection": "selectedDefinition",
+        "retired_private_filter_cardinality": true,
+        "shared": "product/exact_match.ts::resolveExactMatch",
+        "source_and_emission_route": true
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/preimages/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+        "sha256": "9243177bfc5618f2cd84ff270b9acbdd2b81bee27d4f41323a4103a90c3596a9",
+        "bytes": 14069,
+        "mode": "0o644"
+      },
+      "priorSelectedBody": {
+        "line": 118,
+        "text": "function selectedDefinition(\n  packet: OwnerContractSourceDeclaration,\n): IntrinsicPublicFunctionDefinition | null {\n  const matches = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.filter(\n    (definition) => sameJson(definition.definitionKey, packet.definitionKey),\n  );\n  return matches.length === 1 ? matches[0]! : null;\n}"
+      },
+      "currentSelectedBody": {
+        "line": 119,
+        "text": "function selectedDefinition(\n  packet: OwnerContractSourceDeclaration,\n): IntrinsicPublicFunctionDefinition | null {\n  const selected = resolveExactMatch(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions,\n    (definition) => sameJson(definition.definitionKey, packet.definitionKey),\n  );\n  return selected.kind === \"one\" ? selected.value : null;\n}"
+      },
+      "sourceAndEmissionStaticCallSiteCounts": null,
+      "retirement": "Private filter/cardinality body absent; owner projection remains and delegates to common resolveExactMatch.",
+      "imports": [
+        {
+          "line": 1,
+          "text": "import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from \"./admission_predicates.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import { resolveExactMatch } from \"../product/exact_match.js\";"
+        }
+      ],
+      "selectedImport": {
+        "specifier": "../product/exact_match.js",
+        "targetEmission": "build/code/src/product/exact_match.js",
+        "targetSha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1",
+        "actualInstalledTargetPaths": [
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/exact_match.js",
+          "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/exact_match.js"
+        ]
+      },
+      "packageAndInstalledConclusion": "Identical emitted bytes carry this same absence/delegation/import relation into tar and both actual P1 roots."
+    }
+  ],
+  "sourceBodyCount": 7,
+  "staticNotRuntimeCounts": true
+}

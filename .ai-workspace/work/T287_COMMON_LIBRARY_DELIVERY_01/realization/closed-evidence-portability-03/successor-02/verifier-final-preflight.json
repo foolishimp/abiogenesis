@@ -1,0 +1,9 @@
+{
+  "syntax": "ast.parse passed",
+  "verifier": {
+    "path": "verify-transport.py",
+    "sha256": "2a1e28a5c3c3edd2765e6a9ca9bb0430638ee98e15ff8f42c943ddfd87f82476",
+    "bytes": 14533
+  },
+  "preflightRefinement": "Pin the six reused prior archive controls from the closed prior manifest dependency rows; no prior full population run"
+}

@@ -1,0 +1,43 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "issuedBy": "/root",
+  "activation": "FINAL-CANDIDATE-DIAGNOSTICS-01",
+  "subjectId": "candidate",
+  "configurationSha256": "55103459bc15c537f11afdbe7c8498105b967798dc6a43b9ecf2e33c52c5d478",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "lanes": [
+    "declared-execution"
+  ],
+  "resources": {
+    "declared-execution": {
+      "evidence": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/evidence",
+      "host": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/host",
+      "scratchParent": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/worksite"
+    }
+  },
+  "maxNativePositiveCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "npmCache": {
+    "root": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/caches/p3",
+    "seed": {
+      "kind": "explicit_empty_seed",
+      "files": []
+    },
+    "closure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/archive-closure.json",
+      "sha256": "d0b211d48703e9fd14160e91e8beaa004779cdba5c64f5de5d5923287ec4e587",
+      "bytes": 15160,
+      "mode": "0o644"
+    },
+    "globalCacheRead": false,
+    "globalCacheWrite": false,
+    "networkFallback": false,
+    "effects": "offline npm content/index/tmp/log writes only",
+    "retain": true
+  },
+  "maxAdditionalRetainedBytes": 10737418240
+}

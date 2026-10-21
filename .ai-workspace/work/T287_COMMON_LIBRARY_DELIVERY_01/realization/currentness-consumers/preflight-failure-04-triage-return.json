@@ -1,0 +1,14 @@
+{
+  "activation": "U1-P5-02",
+  "triage": "U1-PROOF-ROUTE-03 preflight",
+  "first_failure": "semanticFixtureHelpers SourceTextModule dynamic import hook treats an absolute file: URL as a relative filesystem path",
+  "support_owner": "new support semanticFixtureHelpers importModuleDynamically at line364; source-owned helper load() intentionally passes pathToFileURL(...).href",
+  "actual_error": "ERR_MODULE_NOT_FOUND with test_env/tests/file:/Users/.../build/code/src/product/index.js",
+  "effects": "read-only import/reflection preflight only; no new fixture, event append, worksite write, target gate or process launch",
+  "audit_receipt_sha256": "6706cd9f4919cf8dcd136420a63baf81840988462afd9df81f7aab028ae55efc",
+  "test_sha256": "f96f815975dab8d2aa0b02dbe31cfd50190059887c678793b4b60eca5d8af930",
+  "support_sha256": "52d1912370b464cbda91b60e155f1f08d78463dbd1fe77d2b44b26740aa1e41d",
+  "prior_attempt_03_retained": true,
+  "repair_or_retry_performed": false,
+  "proposal": "new support dynamic import resolver must preserve node: and file: specifiers, resolving only relative specifiers against exact source module path; audit all link/import resolvers and rerun read-only complete callable preflight before any consumer fixture"
+}

@@ -1,0 +1,88 @@
+  sdlcComplianceScenario({
+    key: "parallel-js",
+    scenarioId: "SCN-GLC-HELLO-WORLD-PARALLEL-JS",
+    kind: "parallel_js",
+    expectedStdout: null,
+    expectedReturnValue: "Hello, world!",
+    stagePlan: [
+      {
+        stage: "conformance_project",
+        filesToProduce: ["specification/project-conformance.md"],
+        instructions: [
+          "Write only specification/project-conformance.md.",
+          "Declare a JavaScript Hello World product with parallel branch implementation pressure.",
+          "The source surface must have a hello branch, a world branch, and a fan-in module that composes the greeting.",
+          "The execution proof must prove branch behavior and composed behavior."
+        ]
+      },
+      {
+        stage: "implementation_design",
+        filesToProduce: ["design/implementation-design.md"],
+        instructions: [
+          "Write only design/implementation-design.md.",
+          "Define a type:module package with src/hello.mjs exporting helloPart(), src/world.mjs exporting worldPart(), and src/index.mjs exporting helloWorld().",
+          "helloWorld() must compose the branch functions and return exactly \"Hello, world!\".",
+          "State that this scenario proves product-level parallel branch shape inside the reusable SDLC graph; it does not claim ABG branch-frontier traversal."
+        ]
+      },
+      {
+        stage: "source",
+        filesToProduce: ["package.json", "src/hello.mjs", "src/world.mjs", "src/index.mjs"],
+        instructions: [
+          "Write only package.json, src/hello.mjs, src/world.mjs, and src/index.mjs.",
+          "package.json must be private:true and type:module.",
+          "src/hello.mjs must export helloPart() returning \"Hello\".",
+          "src/world.mjs must export worldPart() returning \"world\".",
+          "src/index.mjs must export helloWorld() returning exactly \"Hello, world!\" by composing helloPart and worldPart."
+        ]
+      },
+      {
+        stage: "test_design",
+        filesToProduce: ["design/test-design.md"],
+        instructions: [
+          "Write only design/test-design.md.",
+          "Specify separate component checks for helloPart and worldPart plus a UAT check for helloWorld.",
+          "The UAT check must prove the composed exported behavior returns exactly \"Hello, world!\"."
+        ]
+      },
+      {
+        stage: "component_test_source",
+        filesToProduce: ["test/component/parallel-branches.test.mjs"],
+        instructions: [
+          "Write only test/component/parallel-branches.test.mjs.",
+          "Use node:test and node:assert/strict.",
+          "Import helloPart from ../../src/hello.mjs and worldPart from ../../src/world.mjs.",
+          "Assert helloPart() returns \"Hello\" and worldPart() returns \"world\" in separate test() blocks."
+        ]
+      },
+      {
+        stage: "uat_test_source",
+        filesToProduce: ["test/uat/parallel-fanin.uat.test.mjs"],
+        instructions: [
+          "Write only test/uat/parallel-fanin.uat.test.mjs.",
+          "Use node:test and node:assert/strict.",
+          "Import the named export exactly as: import { helloWorld } from \"../../src/index.mjs\".",
+          "Assert helloWorld() returns exactly \"Hello, world!\"."
+        ]
+      },
+      {
+        stage: "test_execution_plan",
+        filesToProduce: ["test-execution-plan.json"],
+        instructions: [
+          "Write only test-execution-plan.json.",
+          "The JSON command must be node.",
+          "The args must be [\"--test\", \"test/component/parallel-branches.test.mjs\", \"test/uat/parallel-fanin.uat.test.mjs\"].",
+          "expectedTestPassCount must be at least 3, matching the admitted branch and fan-in coverage floor.",
+          "expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.",
+          "assertedReturnValue must be \"Hello, world!\"."
+        ]
+      },
+      {
+        stage: "test_execution_result",
+        instructions: [
+          "Produce no files.",
+          "Accept only if the branch and fan-in tests passed, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true."
+        ]
+      }
+    ]
+  }),

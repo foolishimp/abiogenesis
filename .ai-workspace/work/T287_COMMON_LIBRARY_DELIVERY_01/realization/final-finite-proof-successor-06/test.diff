@@ -1,0 +1,61 @@
+--- stopped05
++++ successor06
+@@ -45,7 +45,7 @@
+ import {
+   selectValidatedRuntimeEventPrefix,
+ } from "../../build/code/src/abg/event_prefix.js";
+-import { RuntimeHistory } from "../../build/code/src/abg/runtime_history.js";
++import { RuntimeHistory, RuntimeHistorySelection } from "../../build/code/src/abg/runtime_history.js";
+ import {
+   canonicalJson,
+   sha256Canonical,
+@@ -64,11 +64,21 @@
+   "../../build/code/src/abg/event_store.js",
+ ))), "../../../..");
+ let artifactOwnerEnvironment;
++const artifactOwnerCleanups = [];
++// Register at module evaluation, so this hook belongs to the file rather than
++// whichever test first acquires the shared fixture.
++test.after(async () => {
++  const failures = [];
++  for (const cleanup of artifactOwnerCleanups.splice(0)) {
++    try { await cleanup(); } catch (error) { failures.push(error); }
++  }
++  if (failures.length !== 0) throw new AggregateError(failures, "shared artifact owner cleanup failed");
++});
+ async function installedArtifactOwnerEnvironment() {
+   // These two tests consume one unchanged owner history. Its ordinary cleanup
+   // runs after both consumers, rather than after the first consumer.
+   artifactOwnerEnvironment ??= setupInstalledRootInvocation(
+-    { after: cleanup => test.after(cleanup) }, packageRoot,
++    { after: cleanup => artifactOwnerCleanups.push(cleanup) }, packageRoot,
+   );
+   return artifactOwnerEnvironment;
+ }
+@@ -378,6 +388,7 @@
+   const measure = (lane, action) => {
+     const originalGet = Map.prototype.get, originalSet = Map.prototype.set;
+     const originalRow = RuntimeHistory.prototype.rowById;
++    const originalSelectionRow = RuntimeHistorySelection.prototype.rowById;
+     const originalAppend = RuntimeHistory.prototype.appendValidated;
+     const counts = { admissionCauseLookups: 0, locationCauseLookups: 0,
+       historyOrdinalEntries: 0, stagedBodyEntries: 0, stagedEventEntries: 0,
+@@ -391,6 +402,10 @@
+     RuntimeHistory.prototype.rowById = function(...args) {
+       const prior = lookupOwner; lookupOwner = inserting ? "locationCauseLookups" : "admissionCauseLookups";
+       try { return originalRow.apply(this, args); } finally { lookupOwner = prior; }
++    };
++    RuntimeHistorySelection.prototype.rowById = function(...args) {
++      const prior = lookupOwner; lookupOwner = "admissionCauseLookups";
++      try { return originalSelectionRow.apply(this, args); } finally { lookupOwner = prior; }
+     };
+     Map.prototype.get = function(key) {
+       if (typeof key === "string" && key.startsWith("event://abiogenesis/"))
+@@ -414,6 +429,7 @@
+     finally {
+       Map.prototype.get = originalGet; Map.prototype.set = originalSet;
+       RuntimeHistory.prototype.rowById = originalRow;
++      RuntimeHistorySelection.prototype.rowById = originalSelectionRow;
+       RuntimeHistory.prototype.appendValidated = originalAppend;
+     }
+   };

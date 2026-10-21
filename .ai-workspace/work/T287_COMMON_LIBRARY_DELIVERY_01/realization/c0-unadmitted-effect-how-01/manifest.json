@@ -1,0 +1,85 @@
+{
+  "kind": "C0_UNADMITTED_EFFECT_HOW_01_record_manifest",
+  "members": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md",
+      "bytes": 13631,
+      "sha256": "2e2aafcb4db0423eb079a552dca218e09a7592ee2f970296631e9abfb3fa6df8"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/activation.md",
+      "bytes": 2384,
+      "sha256": "8366c5221f35a16618336c4513ede73a8492286d0f6322cbe90636238131baed"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/main-generated-936-preservation.json",
+      "bytes": 206615,
+      "sha256": "740bdf512d18bd78302820c7bfaf3b3ef807a1ea3d95d8c14740819081e83756"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/main-generated-before.json",
+      "bytes": 153717,
+      "sha256": "9b93546de648b3bfc06442ade9a01e9131f83e4ac89e15d27f0f316e8b8dea42"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/method-resolution.json",
+      "bytes": 1134,
+      "sha256": "b44b27917140b34616e0d595e933cd0e7a39321e4333032d70051eb17270cef7"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/method-status.json",
+      "bytes": 10805,
+      "sha256": "be61c6fb497f70f5347fae578d95b10ccb61e0b1b99dc28f8ae42f61b3bb877e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/method-status.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/prospective-grant-and-proof.md",
+      "bytes": 11570,
+      "sha256": "eb7c1f1038cf46a5841290ea18d344410d36057031bea863c0dbbad9e2e84b26"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/report.md",
+      "bytes": 3618,
+      "sha256": "b600a84d9b36d3834be9214f324db15b8abcf8b041ecb7203dc27eafb0fcce1b"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md",
+      "bytes": 7946,
+      "sha256": "0b58bf5bb2841ac5b4747f74ad7b329398c86190bc38b00e520f23e843a2b54a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/role-authority-routes.json",
+      "bytes": 351,
+      "sha256": "3732d57dd810209d4f0e6ae647ff459ca9cc6f7c44e139d09104dee1f36c9232"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/selected-method-files.json",
+      "bytes": 1151,
+      "sha256": "c847e177953ded94bb882fbd62987e274d6abe9e6fe6bf9e008f77159a18ead0"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/source-pins.json",
+      "bytes": 8845,
+      "sha256": "a61434e821206f4babe5083a3f2bdd93a613c39278bb8fddec6fc1be5f7ac867"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/source-preconditions.json",
+      "bytes": 1332,
+      "sha256": "c402233e9fba104957a9d0754b1d77a223f4ddafa0f0ecf55f1aa13ece7357ac"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/verification.json",
+      "bytes": 8842,
+      "sha256": "ca972bf021ff411d00c0123010011f1af71769bb5bca7cb27441ed3bca005242"
+    }
+  ],
+  "excluded": [
+    "manifest.json",
+    "freeze.json"
+  ],
+  "scope": "New proposal records only; source-pins identify read-only basis."
+}

@@ -1,0 +1,371 @@
+{
+  "status": "retained",
+  "root": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/caches/p1",
+  "initialSeed": {
+    "kind": "explicit_empty_seed",
+    "files": []
+  },
+  "closure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/execution-intake-01/archive-closure.json",
+    "sha256": "cc17b7b62187fc270db339b3d5d36db70d677eb514728d6d96080b84cec0772e",
+    "bytes": 6976,
+    "mode": "0o644"
+  },
+  "files": [
+    {
+      "path": ".",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172518,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172533,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/content-v2",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172553,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/content-v2/sha512",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172555,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/content-v2/sha512/41",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474190744,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/content-v2/sha512/41/82",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474190745,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/content-v2/sha512/41/82/004d8cfeff9308cef3ed1a32421ae50045444dee30149e6275d0d39e750fff5e03971a0bde6a6ed587c209f2a995ab3069c97e6229dac92ad793930bfca4",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474190743,
+      "type": "file",
+      "bytes": 6191,
+      "sha256": "96eafd6bfe556697191a05ea2e150b702ef661baadce8ef29c2c64bb482b810d"
+    },
+    {
+      "path": "_cacache/content-v2/sha512/70",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172556,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/content-v2/sha512/70/cf",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172558,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/content-v2/sha512/70/cf/c225347518f5c4b4457727bd48326502f77a6074d4ead8dd43a6dd12b38fa566c6b06aa4f66fb3ae5a722d9f660bb4a0be986f90a95271f224a7b67af57f",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474172537,
+      "type": "file",
+      "bytes": 10680461,
+      "sha256": "151ad625652dc426d46a210559afde50f40b93acdf216b5ca9d64969e5eb8e54"
+    },
+    {
+      "path": "_cacache/index-v5",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172565,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/0f",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474196776,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/0f/0c",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474196778,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/0f/0c/2950861a79fa663327a16f0c321cbe817a6efc0078bd442a267ee7c72138",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474196779,
+      "type": "file",
+      "bytes": 409,
+      "sha256": "8765a758e0fb67b6f6975c5c9618b4cec238503fa8ea88d86c3f9dc98e964309"
+    },
+    {
+      "path": "_cacache/index-v5/53",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172566,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/53/bf",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172567,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/53/bf/e56b1aaaf2ac91f310a8bf7a3618ddf59cd13d1d576fb94886af47f7846e",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474172569,
+      "type": "file",
+      "bytes": 1158,
+      "sha256": "55b65af7bd69b70cf3cebeddbc39c6e2b1f01508ca2c436d7e09543eb1e604a1"
+    },
+    {
+      "path": "_cacache/index-v5/67",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474178402,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/67/08",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474178404,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/67/08/83270787c6064068d996bae1317dbe75f7997c642ec7a398b86cf9484d06",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474178406,
+      "type": "file",
+      "bytes": 400,
+      "sha256": "1266b223349eb5322fc975da7c24bf62857c7f79bf18ab12b6285e3479411594"
+    },
+    {
+      "path": "_cacache/index-v5/70",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474208496,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/70/80",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474208497,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/70/80/74d4c3e414caf11c239f1bb8cf62c63686e9c65a5ef68072ee8abf7e09a6",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474208499,
+      "type": "file",
+      "bytes": 333,
+      "sha256": "3f3ff7725b8a6ac42c0bbeaf97c2cbcdb7a8698abef341f74d014b60431943d9"
+    },
+    {
+      "path": "_cacache/index-v5/ab",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474208511,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/ab/85",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474208512,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/ab/85/f8892560703abe21c671d1767cabccbe987ac567a2df6cfcc13ebb2b21b3",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474208514,
+      "type": "file",
+      "bytes": 281,
+      "sha256": "97611d19c272e6cf88468505876169a58437cb5637c51209b5e608f530a13fdf"
+    },
+    {
+      "path": "_cacache/index-v5/bd",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474190746,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/bd/2d",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474190747,
+      "type": "directory"
+    },
+    {
+      "path": "_cacache/index-v5/bd/2d/05c6551c8085f15f5bd2294d9580935597e3e4138f7da4a1fdb1a8da0839",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474190748,
+      "type": "file",
+      "bytes": 297,
+      "sha256": "8be7f942f4b0bf590f3855f5f0a6d9a8e548752bd473a89248e063fa8d297f85"
+    },
+    {
+      "path": "_cacache/tmp",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172534,
+      "type": "directory"
+    },
+    {
+      "path": "_logs",
+      "mode": "0o755",
+      "device": 16777231,
+      "inode": 474172530,
+      "type": "directory"
+    },
+    {
+      "path": "_logs/2026-10-21T03_45_30_877Z-debug-0.log",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474172531,
+      "type": "file",
+      "bytes": 2575,
+      "sha256": "d9a3ea3b0d3fa2473ed0d4a257550be8d7ac0c5d66cc1ccb150311f5a5d736be"
+    },
+    {
+      "path": "_logs/2026-10-21T03_46_19_644Z-debug-0.log",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474190742,
+      "type": "file",
+      "bytes": 1157,
+      "sha256": "66e4793d83cb06e300f064cb16192b3e28399bf2e73a8cdc8ef8fd98a5d5cb5e"
+    },
+    {
+      "path": "_logs/2026-10-21T03_48_34_952Z-debug-0.log",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474190908,
+      "type": "file",
+      "bytes": 2400,
+      "sha256": "480b75ab23704f1b266ff7b73836d9746cceb1d7eeb8f8b26b45ec97ec1d0fb7"
+    },
+    {
+      "path": "_logs/2026-10-21T03_49_00_367Z-debug-0.log",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474208484,
+      "type": "file",
+      "bytes": 2793,
+      "sha256": "46e0d2e93b4ff4d53cd92507339cd095848bb7f48580a3343c9788f9530f42b7"
+    },
+    {
+      "path": "_update-notifier-last-checked",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474172532,
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "fileCount": 13,
+  "futureSeedEligibleFiles": [
+    {
+      "path": "_cacache/content-v2/sha512/41/82/004d8cfeff9308cef3ed1a32421ae50045444dee30149e6275d0d39e750fff5e03971a0bde6a6ed587c209f2a995ab3069c97e6229dac92ad793930bfca4",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474190743,
+      "type": "file",
+      "bytes": 6191,
+      "sha256": "96eafd6bfe556697191a05ea2e150b702ef661baadce8ef29c2c64bb482b810d"
+    },
+    {
+      "path": "_cacache/content-v2/sha512/70/cf/c225347518f5c4b4457727bd48326502f77a6074d4ead8dd43a6dd12b38fa566c6b06aa4f66fb3ae5a722d9f660bb4a0be986f90a95271f224a7b67af57f",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474172537,
+      "type": "file",
+      "bytes": 10680461,
+      "sha256": "151ad625652dc426d46a210559afde50f40b93acdf216b5ca9d64969e5eb8e54"
+    },
+    {
+      "path": "_cacache/index-v5/0f/0c/2950861a79fa663327a16f0c321cbe817a6efc0078bd442a267ee7c72138",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474196779,
+      "type": "file",
+      "bytes": 409,
+      "sha256": "8765a758e0fb67b6f6975c5c9618b4cec238503fa8ea88d86c3f9dc98e964309"
+    },
+    {
+      "path": "_cacache/index-v5/53/bf/e56b1aaaf2ac91f310a8bf7a3618ddf59cd13d1d576fb94886af47f7846e",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474172569,
+      "type": "file",
+      "bytes": 1158,
+      "sha256": "55b65af7bd69b70cf3cebeddbc39c6e2b1f01508ca2c436d7e09543eb1e604a1"
+    },
+    {
+      "path": "_cacache/index-v5/67/08/83270787c6064068d996bae1317dbe75f7997c642ec7a398b86cf9484d06",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474178406,
+      "type": "file",
+      "bytes": 400,
+      "sha256": "1266b223349eb5322fc975da7c24bf62857c7f79bf18ab12b6285e3479411594"
+    },
+    {
+      "path": "_cacache/index-v5/70/80/74d4c3e414caf11c239f1bb8cf62c63686e9c65a5ef68072ee8abf7e09a6",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474208499,
+      "type": "file",
+      "bytes": 333,
+      "sha256": "3f3ff7725b8a6ac42c0bbeaf97c2cbcdb7a8698abef341f74d014b60431943d9"
+    },
+    {
+      "path": "_cacache/index-v5/ab/85/f8892560703abe21c671d1767cabccbe987ac567a2df6cfcc13ebb2b21b3",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474208514,
+      "type": "file",
+      "bytes": 281,
+      "sha256": "97611d19c272e6cf88468505876169a58437cb5637c51209b5e608f530a13fdf"
+    },
+    {
+      "path": "_cacache/index-v5/bd/2d/05c6551c8085f15f5bd2294d9580935597e3e4138f7da4a1fdb1a8da0839",
+      "mode": "0o644",
+      "device": 16777231,
+      "inode": 474190748,
+      "type": "file",
+      "bytes": 297,
+      "sha256": "8be7f942f4b0bf590f3855f5f0a6d9a8e548752bd473a89248e063fa8d297f85"
+    }
+  ],
+  "futureUse": "inventory only; no seed copy or future workload granted",
+  "sourceIdentity": "Exact post-P1 files/modes/bytes/hashes and actual device/inode observation; copies would be new carriers."
+}

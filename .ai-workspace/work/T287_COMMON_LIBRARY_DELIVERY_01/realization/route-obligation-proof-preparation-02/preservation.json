@@ -1,0 +1,231 @@
+{
+  "status": "satisfied",
+  "activation": "ROUTE-TYPED-INVENTORY-02",
+  "originalSevenPins": 7,
+  "additionalStoppedCutPins": 2,
+  "pins": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "kind": "file",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "bytes": 26888,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/L2-report.md",
+      "kind": "file",
+      "sha256": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+      "bytes": 29197,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+      "kind": "file",
+      "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa",
+      "bytes": 8903,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/freeze.json",
+      "kind": "file",
+      "sha256": "b8859cda37f284ef928360059664b14b4304c131b23e21f453cdc4cf135e92b6",
+      "bytes": 10828,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/freeze.json",
+      "kind": "file",
+      "sha256": "12239d043ac3ad63f65f844be2691601b5119ff0a90110bb273ed73a7f9c2243",
+      "bytes": 5356,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+      "kind": "file",
+      "sha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+      "bytes": 3048274,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/protected-main-generated.json",
+      "kind": "file",
+      "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96",
+      "bytes": 248218,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/freeze-stopped-01.json",
+      "kind": "file",
+      "sha256": "1b199141a606886883536badffa53435719e2e8a7e39ad277468cebe9a313b14",
+      "bytes": 2604,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/first-cause.json",
+      "kind": "file",
+      "sha256": "93e090eca14db67a2876232d04a81937cefd74e2c6eebf42a9dded25cb02ce4d",
+      "bytes": 1824,
+      "mode": "0o644"
+    }
+  ],
+  "inventories": [
+    {
+      "manifest": "final-proof-preparation-01/freeze.json",
+      "rowKey": "records",
+      "rowBase": "/Users/jim/src/apps/abiogenesis",
+      "records": 29,
+      "kinds": {
+        "file": 29,
+        "symlink": 0
+      },
+      "mismatches": 0,
+      "observedModesNotPreviouslyDeclared": {}
+    },
+    {
+      "manifest": "p5-installed-preparation-01/freeze.json",
+      "rowKey": "files",
+      "rowBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01",
+      "records": 57,
+      "kinds": {
+        "file": 57,
+        "symlink": 0
+      },
+      "mismatches": 0,
+      "observedModesNotPreviouslyDeclared": {
+        "HOW.md": "0o644",
+        "callable-draft-failure-01/failure.json": "0o644",
+        "callable-draft-failure-01/fresh-process-runtime-proof.mjs": "0o644",
+        "callable-draft-failure-01/index.ts": "0o644",
+        "callable-draft-failure-01/t287-worksite-command-execution.test.mjs": "0o644",
+        "callable-triage-01.md": "0o644",
+        "constructor-02-inputs.json": "0o644",
+        "constructor-02.json": "0o644",
+        "constructor-02.mjs": "0o644",
+        "constructor-02.stderr": "0o644",
+        "constructor-02.stdout": "0o644",
+        "constructor-callable.json": "0o644",
+        "constructor-callable.stderr": "0o644",
+        "constructor-callable.stdout": "0o644",
+        "design-before-effects.json": "0o644",
+        "emitted-source-requirements.json": "0o644",
+        "handoff.md": "0o644",
+        "inputs.json": "0o644",
+        "installed-configuration.NOT-GRANTED.json": "0o644",
+        "owned-output-manifest.json": "0o644",
+        "owned-successor.patch": "0o644",
+        "port-parent-failure-02/failure.json": "0o644",
+        "port-parent-failure-02/fresh-process-runtime-proof.mjs": "0o644",
+        "port-parent-failure-02/t287-worksite-command-execution.test.mjs": "0o644",
+        "port-parent-failure-02/worksite_command_execution.ts": "0o644",
+        "port-parent-failure-02/worksite_command_helper.ts": "0o644",
+        "postconditions.json": "0o644",
+        "preflight/callables.json": "0o644",
+        "preflight/command-provider.cjs": "0o644",
+        "preflight/construction-provider.cjs": "0o644",
+        "preflight/constructor.json": "0o644",
+        "preflight/result.json": "0o644",
+        "preflight/service.mjs": "0o644",
+        "preflight-02/constructor.json": "0o644",
+        "preflight-02/result.json": "0o644",
+        "preflight-inputs.json": "0o644",
+        "preflight.mjs": "0o644",
+        "preimages/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs": "0o644",
+        "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs": "0o644",
+        "preservation.json": "0o644",
+        "report.md": "0o644",
+        "snapshot-parent-triage-01.md": "0o644",
+        "source-support-dependencies.json": "0o644",
+        "subject-final/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs": "0o644",
+        "subject-final/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs": "0o644",
+        "syntax-http-fixture.json": "0o644",
+        "syntax-http-fixture.stderr": "0o644",
+        "syntax-http-fixture.stdout": "0o644",
+        "syntax-preflight.json": "0o644",
+        "syntax-preflight.stderr": "0o644",
+        "syntax-preflight.stdout": "0o644",
+        "syntax-support.json": "0o644",
+        "syntax-support.stderr": "0o644",
+        "syntax-support.stdout": "0o644",
+        "syntax-test.json": "0o644",
+        "syntax-test.stderr": "0o644",
+        "syntax-test.stdout": "0o644"
+      }
+    },
+    {
+      "manifest": "hog-ordinary-owner-driver-preparation-01/freeze.json",
+      "rowKey": "records",
+      "rowBase": "/Users/jim/src/apps/abiogenesis",
+      "records": 17,
+      "kinds": {
+        "file": 17,
+        "symlink": 0
+      },
+      "mismatches": 0,
+      "observedModesNotPreviouslyDeclared": {}
+    },
+    {
+      "manifest": "combined-final-02/freeze.json",
+      "rowKey": "files",
+      "rowBase": "/Users/jim/src/apps/abiogenesis",
+      "records": 8640,
+      "kinds": {
+        "file": 8638,
+        "symlink": 2
+      },
+      "mismatches": 0,
+      "observedModesNotPreviouslyDeclared": {}
+    },
+    {
+      "manifest": "route-obligation-proof-preparation-01/freeze-stopped-01.json",
+      "rowKey": "records",
+      "rowBase": "/Users/jim/src/apps/abiogenesis",
+      "records": 8,
+      "kinds": {
+        "file": 8,
+        "symlink": 0
+      },
+      "mismatches": 0,
+      "observedModesNotPreviouslyDeclared": {}
+    },
+    {
+      "manifest": "combined-final-02/protected-main-generated.json",
+      "rowKey": "files",
+      "rowBase": "/Users/jim/src/apps/abiogenesis",
+      "records": 936,
+      "kinds": {
+        "file": 936,
+        "symlink": 0
+      },
+      "mismatches": 0,
+      "observedModesNotPreviouslyDeclared": {}
+    }
+  ],
+  "p5OwnedOutputFrozenCopyRelations": [
+    {
+      "originalPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "frozenCopy": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "kind": "file",
+        "sha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329",
+        "bytes": 54074,
+        "mode": "0o644"
+      }
+    },
+    {
+      "originalPath": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "frozenCopy": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+        "kind": "file",
+        "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2",
+        "bytes": 9845,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "mainGeneratedRecords": 936,
+  "runtimeImports": 0,
+  "nativeCalls": 0,
+  "correctedPreservationExecutionCount": 1,
+  "retryCount": 0,
+  "limit": "Declared rows verified; no moving-tree completeness or undeclared prior P5 mode claim."
+}

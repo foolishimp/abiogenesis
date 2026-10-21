@@ -1,0 +1,19 @@
+{
+  "P1Command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/commands/p1.request.json",
+    "sha256": "a229a49c91b998308558fab3640acb83b30467c02b80c4aa6a5290a745cc923d",
+    "bytes": 1544,
+    "mode": "0o644"
+  },
+  "P1Result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/commands/p1.result.json",
+    "sha256": "6ef7db2718ee6c12b61f2429b871ae2a4a82d13d2574a575bb625cc4ad8c5da9",
+    "bytes": 238,
+    "mode": "0o644"
+  },
+  "wallMs": 954636.476415908,
+  "overlap": "Root reported separate P5 successor08 active during this P1 run and later reported its 600 s test / 630 s outer timeout. No host isolation/control experiment was performed.",
+  "P1ObservedPhaseProgress": "Bootstrap/declarations, workspace create, verification, resolve, installations, binding, catalog and conformance advanced under unchanged original endpoint and existing 1800 s outer ceiling.",
+  "interpretation": "Actual elapsed/CPU/resource records are observations; no causal speed ratio, regression attribution, or performance threshold conclusion.",
+  "internalCounters": "Unobserved; not zero."
+}

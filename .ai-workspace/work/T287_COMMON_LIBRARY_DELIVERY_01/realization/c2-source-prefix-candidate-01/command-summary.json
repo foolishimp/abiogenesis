@@ -1,0 +1,120 @@
+{
+  "commands": [
+    {
+      "id": "tsc",
+      "status": "passed",
+      "result": {
+        "pid": 66293,
+        "exitCode": 0,
+        "wallMs": 42706.8111251574,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ]
+    },
+    {
+      "id": "generate",
+      "status": "passed",
+      "result": {
+        "pid": 66813,
+        "exitCode": 0,
+        "wallMs": 194734.783916967,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ]
+    },
+    {
+      "id": "material",
+      "status": "passed",
+      "result": {
+        "pid": 68718,
+        "exitCode": 0,
+        "wallMs": 45450.21412498318,
+        "stdoutSha256": "1c28abfa685243e7d78e9cb9e2bd12a6009c5b07c263196b535f90430a169364",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-metadata.mjs"
+      ]
+    },
+    {
+      "id": "generation-correspondence",
+      "status": "passed",
+      "result": {
+        "pid": 69227,
+        "exitCode": 0,
+        "wallMs": 9086.949500022456,
+        "stdoutSha256": "9d4ddd6bd1cf6bc094c975b22bc4752b3f9c1da460b8c434bc7cc6170c838a55",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-generation.py"
+      ]
+    },
+    {
+      "id": "pack",
+      "status": "passed",
+      "result": {
+        "pid": 69424,
+        "exitCode": 0,
+        "wallMs": 41445.33900008537,
+        "stdoutSha256": "a69c943aefa6d308f6fb626961d91a244befae88e704c5988928f50c77751979",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "argv": [
+        "/opt/homebrew/bin/npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/artifacts"
+      ]
+    },
+    {
+      "id": "archive-check",
+      "status": "passed",
+      "result": {
+        "pid": 70141,
+        "exitCode": 0,
+        "wallMs": 10006.184499943629,
+        "stdoutSha256": "c43bcaa5046eef7f098d40ab1431f64e7dfddcd5563d2e4f44f198866cc7c3b1",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "argv": [
+        "/usr/bin/python3",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-archive.py"
+      ]
+    },
+    {
+      "id": "payload",
+      "status": "passed",
+      "result": {
+        "pid": 70277,
+        "exitCode": 0,
+        "wallMs": 3555.12237502262,
+        "stdoutSha256": "0168521822513a73770d43343b8c4c1c06595a106930ea1b0bb32d9e9b05be19",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-payload.mjs"
+      ]
+    }
+  ],
+  "tscCount": 1,
+  "generatorCount": 1,
+  "packCount": 1,
+  "installedOrRuntimeWorkloads": 0,
+  "nativeProviderCalls": 0
+}

@@ -1,0 +1,90 @@
+{
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/overlay",
+  "test": {
+    "path": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "sha256": "39d78f136b8cfcb5b70de7799859f08853d5d081a0fff190d5fe72c2d04a587a",
+    "bytes": 53418
+  },
+  "supportFiles": [
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "e7bcbfd831e1e710c6b4c0cee6eeeb1bf3d245b4409cc9cc4089ead21d0239d3",
+      "bytes": 40294,
+      "unchanged": true
+    },
+    {
+      "path": "test_env/support/fresh-process-runtime-proof.mjs",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2",
+      "bytes": 9845,
+      "unchanged": true
+    },
+    {
+      "path": "test_env/support/d2-frame-fixture.mjs",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/d2-frame-fixture.mjs",
+      "sha256": "376825850bccbd8abf47405f18e624a7a7cf8f8f168476c535b68bb60fb7d197",
+      "bytes": 35165,
+      "unchanged": true
+    },
+    {
+      "path": "test_env/support/candidate-basis.mjs",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd",
+      "bytes": 1177,
+      "unchanged": true
+    },
+    {
+      "path": "test_env/support/language-smoke-fixture.mjs",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276,
+      "unchanged": true
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/program.mjs",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "bytes": 8359,
+      "unchanged": true
+    },
+    {
+      "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "sha256": "359a6a21bd40382ac1ae71dfa235a74ebf2a2389375fc548e685ee22cfbbde5e",
+      "bytes": 521,
+      "unchanged": true
+    },
+    {
+      "path": "package.json",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "bytes": 9744,
+      "unchanged": true
+    },
+    {
+      "path": "test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "sha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e",
+      "bytes": 2282,
+      "unchanged": true,
+      "sourceScope": "Existing read-only reopen worker absent from closed stage inventory; needed transitive proof support copied without changes under current grant."
+    }
+  ],
+  "links": [
+    {
+      "path": "build",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/build",
+      "writableThroughLink": false,
+      "scope": "Read-only existing compiled/dependency inputs; no command writes these paths"
+    },
+    {
+      "path": "node_modules",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/node_modules",
+      "writableThroughLink": false,
+      "scope": "Read-only existing compiled/dependency inputs; no command writes these paths"
+    }
+  ],
+  "supportSourceEdits": [],
+  "productionSourceOrPackageDelta": []
+}

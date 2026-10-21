@@ -1,0 +1,11 @@
+{
+  "disposition": "passed",
+  "testSha256": "c966852fbe5d03a02055f8c4316093b293865f276f3b39d34cc8e879939512e5",
+  "stage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript",
+  "callableChecks": 19,
+  "constructionOnly": true,
+  "fixtureProcessesLaunched": 0,
+  "installedOrPublicCalls": 0,
+  "generatedFixtureSyntax": "CJS providers parsed without execution; ESM service checked separately with node --check",
+  "nativeSemanticCredit": false
+}

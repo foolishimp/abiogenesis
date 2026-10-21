@@ -56,10 +56,10 @@ test('native Design command budget retains exact capacity through both roles, re
  const stage=declaration.stages[3],base=candidate(current,3),over=structuredClone(base);
  over.design.commands=Array.from({length:7},(_,i)=>({...base.design.commands[0],commandId:'component:budget-'+i,timeoutMs:60000,terminationGraceMs:1000}));
  const budget=c2.projectWorksiteCommandExecutionBudget(over.design);
- assert.equal(budget.commandBudgetMs,434000);assert.equal(budget.httpProbeBudgetMs,0);assert.equal(budget.requiredExecutionBudgetMs,439000);
+ assert.equal(budget.commandBudgetMs,435750);assert.equal(budget.httpProbeBudgetMs,0);assert.equal(budget.requiredExecutionBudgetMs,440750);
  assert.equal(c2.worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs,limits),false);
  assert.equal(m.semanticJobDesignIssues(current,over.design).at(-1).rule,'enclosing_execution_capacity');
- const boundary=structuredClone(over);boundary.design.commands=boundary.design.commands.slice(0,5).map(c=>({...c,timeoutMs:57000}));
+ const boundary=structuredClone(over);boundary.design.commands=boundary.design.commands.slice(0,5).map(c=>({...c,timeoutMs:56750}));
  assert.equal(c2.projectWorksiteCommandExecutionBudget(boundary.design).requiredExecutionBudgetMs,300000);
  assert.equal(m.semanticJobDesignMatches(current,boundary.design),false,'equality fails the existing strict guard');
  boundary.design.commands[0].timeoutMs--;
@@ -69,7 +69,7 @@ test('native Design command budget retains exact capacity through both roles, re
  await writeFile(join(env.canonicalRoot,'assets/3.json'),JSON.stringify(over)+'\n');
  const observation=n.constructNativeWorkspaceWorkObservation(task,await env.observe(),{summary:'over-budget component candidate',gaps:[]},provenance('author-3'));
  let issues;assert.equal(m.deriveNativeSemanticAsset(current,stage.declarationRef,observation,adapter('author-3',{}),value=>{issues=value;}),null);
- assert.equal(issues.at(-1).actual.requiredExecutionBudgetMs,439000);
+ assert.equal(issues.at(-1).actual.requiredExecutionBudgetMs,440750);
  const unknown=structuredClone(over);unknown.design.dependencyDisposition='unknown';
  assert.equal(m.semanticJobDesignMatches(current,unknown.design),true,'insufficient capacity can remain non-executable pressure');
  await rm(join(env.canonicalRoot,'assets/3.json'));
@@ -123,8 +123,11 @@ test('native Design command budget retains exact capacity through both roles, re
     contributionManifest:{publicationBindings:[{moduleRef:selectedPublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(selectedPublication)}]}}]}};
  predecessors.set('component:current',previous(a.authored,ids.nativeAuthorFoldImplementationRef));
  const basis={publication:selectedPublication,graphFunction:{declarations:{'abg.semantic_native_stage':stage.declarationRef}}};
+ // Component-only lower premises: owned authentication and its exact prefix event bodies
+ // are supplied explicitly; this does not claim production authentication or runtime admission.
  const abg=await component('abg/semantic_job',{
-  './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>native,rehydrateExecutionBasisAtPrefix:()=>execution},
+  './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>native,rehydrateExecutionBasisAtPrefix:()=>execution},
+  './event_prefix.js':{runtimeEventBodiesAtPrefix:()=>native.events},
   './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})},
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},
   './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_pub,ref)=>predecessors.get(ref)??null},
@@ -157,19 +160,19 @@ test('native Design command budget retains exact capacity through both roles, re
 test('command cleanup budget rejects the old one-grace envelope through the semantic owner',async t=>{
  const c2=await load('product/worksite_command_execution');
  for(const [limits,expected]of [[{inactivityTimeoutMs:95001,absoluteTimeoutMs:95002},false],
-   [{inactivityTimeoutMs:125001,absoluteTimeoutMs:125002},true]]){
+   [{inactivityTimeoutMs:125251,absoluteTimeoutMs:125252},true]]){
   const env=await fixture(t,limits,30000);let current=env.envelope;
   for(let i=0;i<3;i++){const a=await author(env,current,i);current=assess(env,a.authored,i).assessed;}
   const value=candidate(current,3);
   value.design.commands=[{...value.design.commands[0],timeoutMs:60000,terminationGraceMs:30000}];
   const budget=c2.projectWorksiteCommandExecutionBudget(value.design);
-  assert.equal(budget.commandBudgetMs,120000);assert.equal(budget.requiredExecutionBudgetMs,125000);
+  assert.equal(budget.commandBudgetMs,120250);assert.equal(budget.requiredExecutionBudgetMs,125250);
   assert.equal(c2.worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs,limits),expected);
   assert.equal(m.semanticJobDesignMatches(current,value.design),expected);
   if(!expected){
    assert.equal(c2.worksiteCommandExecutionBudgetFits(95000,limits),true,'the old one-grace total admitted this envelope');
    const issue=m.semanticJobDesignIssues(current,value.design).find(row=>row.rule==='enclosing_execution_capacity');
-   assert.equal(issue.actual.requiredExecutionBudgetMs,125000);
+   assert.equal(issue.actual.requiredExecutionBudgetMs,125250);
    assert.deepEqual(issue.expected.selectedLimits,limits);
   }
   const contract=m.projectSemanticJobActorContract(current,declaration.stages[3].declarationRef,'author');
@@ -184,10 +187,10 @@ test('command budget shares HTTP terms and exact existing C2 selector behavior',
  const budget=c2.projectWorksiteCommandExecutionBudget({commands:[{timeoutMs:1000,terminationGraceMs:100}],outcomePredicates:[
   {predicateKind:'http_response_exact',declaration:{launch:{timeoutMs:40000,terminationGraceMs:1000},request:{timeoutMs:20000}}},
   {predicateKind:'process_exit',declaration:{equals:0}}]});
- assert.equal(budget.commandBudgetMs,1200);assert.equal(budget.httpProbeBudgetMs,61000);assert.equal(budget.requiredExecutionBudgetMs,67200);
- assert.equal(c2.worksiteCommandExecutionBudgetFits(67200,{inactivityTimeoutMs:67200,absoluteTimeoutMs:900000}),false);
- assert.equal(c2.worksiteCommandExecutionBudgetFits(67200,{inactivityTimeoutMs:67201,absoluteTimeoutMs:67202}),true);
- assert.equal(c2.worksiteCommandExecutionBudgetFits(67200,{inactivityTimeoutMs:67201,absoluteTimeoutMs:67201}),false);
+ assert.equal(budget.commandBudgetMs,1300);assert.equal(budget.httpProbeBudgetMs,62250);assert.equal(budget.requiredExecutionBudgetMs,68550);
+ assert.equal(c2.worksiteCommandExecutionBudgetFits(68550,{inactivityTimeoutMs:68550,absoluteTimeoutMs:900000}),false);
+ assert.equal(c2.worksiteCommandExecutionBudgetFits(68550,{inactivityTimeoutMs:68551,absoluteTimeoutMs:68552}),true);
+ assert.equal(c2.worksiteCommandExecutionBudgetFits(68550,{inactivityTimeoutMs:68551,absoluteTimeoutMs:68551}),false);
  const before=[process.env.ABG_TS_FP_TIMEOUT_MS,process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS];
  try{delete process.env.ABG_TS_FP_TIMEOUT_MS;delete process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS;
   assert.deepEqual(implementation.selectedWorksiteCommandExecutionLimits(),{inactivityTimeoutMs:60000,absoluteTimeoutMs:3600000});

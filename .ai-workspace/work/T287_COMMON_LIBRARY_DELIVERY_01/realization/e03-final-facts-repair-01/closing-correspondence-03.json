@@ -1,0 +1,53 @@
+{
+  "activation": "E03-L5-01-CLOSING-CORRESPONDENCE-03",
+  "recordedAt": "2026-10-21T09:13:04.388435+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "selectedBy": "/root Executive",
+  "disposition": "READY_FOR_INDEPENDENT_ASSESSMENT_ONLY",
+  "rootDisposition": "The second GOALS change is also expected concurrent current-status coordination, now closed by final_proof_writer. Both GOALS/T287 observations are time-scoped coordination evidence and excluded from the unchanged substantive input assertion. Do not chase or refresh original pins.",
+  "documentationFreeze": {
+    "sha256": "15374395a9e52fee56cee371948f8209371ec3914e1059d19dc12f3c9e0f3346",
+    "attribution": "Exact documentation freeze supplied by Root in this closing disposition; its inventory was not reacquired or reverified here."
+  },
+  "reviewSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/stopped-preparation-freeze.json",
+    "sha256": "dd8681bcbc842995026c5b9068faa172d3b8e3a2cf073da3348ec531e90ec12f",
+    "records": 8,
+    "unchangedSubstantiveInputPins": 58,
+    "immutable": true
+  },
+  "currentStatusCorrespondenceObservedOnce": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 80826,
+      "sha256": "3145e64971cd2a0bbdd48e1dba8422e4b4ecd44a15177a53404d414e37b46c6d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 544429,
+      "sha256": "4f7dc3ee8a03f7d41b61a12f2f9706eee61b40d65e64316ac65c159cd2edc1c5"
+    }
+  ],
+  "unchangedPremises": [
+    "Product",
+    "requirements",
+    "accepted L2",
+    "STDO release/composition",
+    "production source inputs and seven candidate-source correspondence pairs"
+  ],
+  "evidenceBasis": "Reuse the preserved 58 passing substantive input comparisons and Root conjunction. Current status reads identify this time-scoped correspondence only; they do not replace original pins or create an ongoing currentness assertion.",
+  "preserved": [
+    "input-pins.json",
+    "closing-preservation-failure.json",
+    "closing-status-successor-failure-02.json",
+    "stopped-preparation-freeze.json",
+    "all prior proposal and timeout-triage records"
+  ],
+  "limits": [
+    "HOW preparation readiness only; no independent assessment or acceptance result.",
+    "No implementation, source/test/support mutation, runtime effect, build/package, Git, cleanup or retry.",
+    "No P5 pass or permission to ignore test cancellation; later P5 driver obligation remains separate.",
+    "No status recheck loop or original pin refresh."
+  ],
+  "return": "Return this compact closing record hash and stop."
+}

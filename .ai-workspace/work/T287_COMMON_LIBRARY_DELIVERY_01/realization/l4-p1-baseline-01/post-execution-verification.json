@@ -1,0 +1,51 @@
+{
+  "status": "matched",
+  "baselineInventories": [
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source-manifest.json",
+        "sha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build"
+      },
+      "entries": 1311,
+      "allMatched": true
+    },
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-generated-inventory.json",
+        "sha256": "92f861c654cd96e2578c00d5d588047d72caf6ccea85a4794f79942645c467f2",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+      },
+      "entries": 936,
+      "allMatched": true
+    },
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-dependency-inventory.json",
+        "sha256": "22b00870648c52acf9941cf67993c2c98a42b81ac4339d7e68ccf587e071782f",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+      },
+      "entries": 4576,
+      "allMatched": true
+    }
+  ],
+  "immutableBaselineSourceEntriesVerified": 1311,
+  "protectedMainRowsVerified": 936,
+  "candidateP1ProofRecordsPreserved": 16,
+  "candidateP1LiveEventPrefixPreserved": true,
+  "baselineArchiveManifestToolchainsConsumerPinsPreserved": true,
+  "eventStore": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 473980953,
+    "bytes": 3113281,
+    "sha256": "4f599bc7e80bb1aea9e67b855f7b19de84d910daddf36b9aefe5f4edc754ca8c",
+    "actualHandoffMatches": true,
+    "preservedPrefixCopy": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/events.jsonl",
+      "sha256": "4f599bc7e80bb1aea9e67b855f7b19de84d910daddf36b9aefe5f4edc754ca8c",
+      "bytes": 3113281
+    }
+  },
+  "noRetryOrCleanup": true
+}

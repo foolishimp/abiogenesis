@@ -1,0 +1,195 @@
+{
+  "kind": "observed_in_progress_to_closed_sibling_delta",
+  "territory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+  "historicalSnapshotCount": 16,
+  "closedFileCount": 30,
+  "changed": [
+    {
+      "before": {
+        "path": "HOW.md",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 4686,
+        "sha256": "ff23565d6e3dd23520a9227063b6704d401b399ddad9be9ade3a101b5eb72192"
+      },
+      "after": {
+        "path": "HOW.md",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 4757,
+        "sha256": "ef2aafee9f406f30be470810a76fe8aae3d085454641c37b9d30f6c6d5b49c65"
+      }
+    },
+    {
+      "before": {
+        "path": "diagnostic-preload.mjs",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 7356,
+        "sha256": "c41c0b58397b5c3d4f7a9a50bb78945fb1a3b363f37335af7bb06bcfd3de389a"
+      },
+      "after": {
+        "path": "diagnostic-preload.mjs",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 7531,
+        "sha256": "5420045ebd31cb00bb27ab408e623cd141b3a8691d4a2e8b24f058c821c90852"
+      }
+    },
+    {
+      "before": {
+        "path": "diagnostic-probes.mjs",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 5990,
+        "sha256": "a3d1a729ba08b231a308219f1e20708a0087bd3cb42414bf7ffbeeede514041d"
+      },
+      "after": {
+        "path": "diagnostic-probes.mjs",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 6035,
+        "sha256": "b54dc5c3b1da3016c4113a0edfc9929f433491c095445939c0e98cdd2731da01"
+      }
+    },
+    {
+      "before": {
+        "path": "owner-resolution.configuration.template.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 953,
+        "sha256": "c5e31a6394aab1863cd16523afcd702b6cd477d1cc1741607ade100b313c1f15"
+      },
+      "after": {
+        "path": "owner-resolution.configuration.template.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1122,
+        "sha256": "3dbc57d4d8ab20bb42ae955968b6e3f8176b542e19b2d4d0d6d2c546e541b510"
+      }
+    }
+  ],
+  "added": [
+    {
+      "path": "authority.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3428,
+      "sha256": "c52ee6f730bbe13d0dfb4e50ce496676d035658a83cc084c862ebdc2a439fc23"
+    },
+    {
+      "path": "construction-check.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 4259,
+      "sha256": "ae961e4eb0c9c1f0bad3360e501ae8bf1c191765c385751e812ddd722a1e00d2"
+    },
+    {
+      "path": "construction-checks-02.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1833,
+      "sha256": "ce82ed5fadb5b0cb6d516b67f61c930f5ad4c67e072a9ef66c0dce48c5cecb95"
+    },
+    {
+      "path": "construction-checks.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 6883,
+      "sha256": "0e827dc46f1cc3e3ac409d15c32d00cb746dc4bb569797b9f25f51972f6d68e1"
+    },
+    {
+      "path": "coverage.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3825,
+      "sha256": "ffc516bbd1276c4a09838aee716468b7b0f1e901fb9d1600625ee03908025559"
+    },
+    {
+      "path": "freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 8903,
+      "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa"
+    },
+    {
+      "path": "measurement.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5831,
+      "sha256": "c27a88c2f78f8d5795ceadb376cdd8e8b573259080d22df608c4244b3cf8cdc6"
+    },
+    {
+      "path": "method-status.request.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 225,
+      "sha256": "4c1789ca62a6e748358a6b18874c77ba424b297f25e5aa2383c1d4efc697d6eb"
+    },
+    {
+      "path": "method-status.stderr",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "method-status.stdout",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 10805,
+      "sha256": "be61c6fb497f70f5347fae578d95b10ccb61e0b1b99dc28f8ae42f61b3bb877e"
+    },
+    {
+      "path": "preservation.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 690,
+      "sha256": "e8c60e71ba901d075437899108fd77eb973759373c7152c605fe3f0f6bae3812"
+    },
+    {
+      "path": "readiness.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2771,
+      "sha256": "773fde141ab035e4843efe028db885dfa472251090bb9f8b4f35b6108d0c967b"
+    },
+    {
+      "path": "remaining-execution.template.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 7136,
+      "sha256": "25a6573b7fe685e7af9cf571befcec91354f12d7a7453618924cf96621804142"
+    },
+    {
+      "path": "return.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2843,
+      "sha256": "c7ef97efb6cde9061142ec5fab770196a263117a536af81a041a8b9661d0e6f2"
+    }
+  ],
+  "removed": [],
+  "unchangedHistoricalFiles": [
+    "D03-OWNER-ORACLE-TRIAGE-01.json",
+    "D03-admissible-domain.json",
+    "HOW-stopped-D03-01.md",
+    "activation.json",
+    "coverage.json",
+    "diagnostic-analyse.mjs",
+    "diagnostic-runner.mjs",
+    "diagnostic.configuration.template.json",
+    "inputs.json",
+    "output-correspondence.json",
+    "owner-resolution.mjs",
+    "prepare-records.py"
+  ],
+  "closedFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 8903,
+    "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa"
+  },
+  "classification": "Separately authorized concurrent Writer output; old snapshot retained as historical in-progress evidence"
+}

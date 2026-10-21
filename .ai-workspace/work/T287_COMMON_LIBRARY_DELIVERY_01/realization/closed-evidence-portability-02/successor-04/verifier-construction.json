@@ -1,0 +1,49 @@
+{
+  "status": "syntax_checked_not_run",
+  "predecessor": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/verify-transport.py",
+    "sha256": "cbcde857ad3df922ded6e16b95831d0995b1b9d43626801903acb936f9e98910",
+    "bytes": 12608,
+    "mode": "0o644"
+  },
+  "successor": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-04/verify-transport.py",
+    "sha256": "69654b2ca79499c98934b652c36194f05a6175f1891b66efa4f2ffd3da07b2b9",
+    "bytes": 14807,
+    "mode": "0o644"
+  },
+  "changes": [
+    "Explicit immutable dataRoot and separate new outputRoot",
+    "Exact source-row/route/reason exclusion key with declared base normalization",
+    "Route passed through each existing finite coverage join",
+    "Every retained V8 exclusion must match its owning coverage relation"
+  ],
+  "preservedChecks": "All archive/object/package/source-byte, provider applicability, finite population and budget predicates retained",
+  "selectedExclusionRoutes": [
+    {
+      "suffix": "combined-final-02/freeze.json",
+      "base": "historical repository root",
+      "pathDomain": "relative",
+      "rows": 577
+    },
+    {
+      "suffix": "baseline-diagnostics-01/p1/physical-resources.json",
+      "base": "historical repository root",
+      "pathDomain": "absolute",
+      "rows": 592
+    },
+    {
+      "suffix": "baseline-diagnostics-01/p3/physical-resources.json",
+      "base": "historical repository root",
+      "pathDomain": "absolute",
+      "rows": 592
+    },
+    {
+      "suffix": "l4-final-candidate-02/p1/physical-resources.json",
+      "base": "historical repository root",
+      "pathDomain": "absolute",
+      "rows": 592
+    }
+  ],
+  "noReselectionOrRepack": true
+}

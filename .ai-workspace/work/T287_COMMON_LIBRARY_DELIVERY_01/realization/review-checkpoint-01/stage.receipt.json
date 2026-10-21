@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "git",
+    "add",
+    "-A"
+  ],
+  "exitCode": 0,
+  "pid": 34787,
+  "wallSeconds": 49.057764125056565,
+  "scope": "Entire user-authorized visible tracked/untracked tree; no filtering or trimming"
+}

@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "test_env/tests/t287-common-computational-library.test.mjs",
+    "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+    "test_env/tests/t288-admission-predicates.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript",
+  "resolved_executable": "/opt/homebrew/bin/node",
+  "started_utc": "2026-10-20T23:15:36.534660+00:00",
+  "environment_overrides": {},
+  "returncode": 0,
+  "wall_seconds": 0.7985922079533339,
+  "completed_utc": "2026-10-20T23:15:37.333425+00:00",
+  "stdout": {
+    "bytes": 1258,
+    "sha256": "e69b238f796276f8de3b356e914a0892bb986f7a93e2bdc3abb4d908701f8af8"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

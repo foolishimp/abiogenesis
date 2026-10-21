@@ -1,0 +1,9 @@
+# Minimum retained-law proposal
+
+Executive selects three ordinary deterministic owner paths over the existing structural Product: compose/retry with normalized `World`; workflow to its atomic child and actual foldback; fan-out `[Ada, Grace, Margaret]` with the existing block flag at ordinal 1. The last must preserve completed ordinal 0, stopping ordinal 1 and unstarted ordinal 2, with no output vector or reducer execution. Default compose/retry exercises one successful attempt; it cannot establish multiple failed/native retries.
+
+`finite-selection.json` fixes the inputs, owner relations, fresh external roots and retention rules. All execution remains NOT_GRANTED and waits for the C0 successor plus a separate frozen bounded driver. Root explicitly prioritized this support freeze so the combined build need not wait for driver preparation. The driver must use existing setup/admission/traversal/read owners, retain actual typed handoffs and complete prefixes, and capture cleanup callbacks without running them.
+
+The nine retry-lifecycle cases and two selected event-calculus cases are complementary source/controlled-owner evidence. They are not installed retries. Existing calculus `batch,recovery` checks changing-input and equal-producer provenance, but replaces C.retry and has no partial/unstarted branch. Registered-selection repeat-only A/B can supply deterministic Public child/foldback/fresh-read evidence; avoid duplicating it if the three-case driver already covers the relation.
+
+The two historical route cases and selected K07 historical closure/reuse cases remain uncredited: their exact predecessor/request/history support has not been selected. No P0 or continuation17 resource was acquired. An alternate R4 test imports a falsifier absent from this closed stage; it was not selected or executed. No passing result is inferred from source presence or skip counts.

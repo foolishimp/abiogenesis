@@ -1,0 +1,41 @@
+{
+  "exitCode": 0,
+  "files": [
+    {
+      "path": "packaging-input.json",
+      "sha256": "17e1fdeea98928911894f575752e7bf3ed96b18cf7e1d900f772403581c63c95",
+      "bytes": 1211
+    },
+    {
+      "path": "packaging.command.json",
+      "sha256": "fda8ef71e91623ec9caa75e59d1944f9b053c5f12e7ab9295939a01ea753dbfe",
+      "bytes": 883
+    },
+    {
+      "path": "packaging.stdout",
+      "sha256": "80e95acc5a12b3c5f9088a67299e4fd73f7cddf468e2c3e97dcc8c4fc1ac4bac",
+      "bytes": 154
+    },
+    {
+      "path": "packaging.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "packaging.receipt.json",
+      "sha256": "33c83132ba4972ad004126b0e826eec665b46af655051c71aef825c29ac589ae",
+      "bytes": 382
+    },
+    {
+      "path": "archives.json",
+      "sha256": "220dcec0fef3b8c9cd4b7fb45ce80bafde3a1eec8a485ca144d25bec7cac6060",
+      "bytes": 11290
+    },
+    {
+      "path": "preservation-after-packaging.json",
+      "sha256": "b2a58492f241e80036ca23ef46b1228680d59184191d142fa488181def781445",
+      "bytes": 360
+    }
+  ],
+  "closure": "All streams were closed and child termination observed before hashing"
+}

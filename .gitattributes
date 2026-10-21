@@ -33,3 +33,5 @@
 .ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final/candidate-files.json filter=lfs diff=lfs merge=lfs -text
 .ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/excluded-unproved-files.json filter=lfs diff=lfs merge=lfs -text
 .ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/unlink-ledger.jsonl filter=lfs diff=lfs merge=lfs -text
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-owner-carriers.json filter=lfs diff=lfs merge=lfs -text
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/population.json filter=lfs diff=lfs merge=lfs -text

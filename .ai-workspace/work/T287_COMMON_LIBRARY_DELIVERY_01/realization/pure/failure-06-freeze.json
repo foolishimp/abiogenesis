@@ -1,0 +1,25 @@
+{
+  "status": "stopped exact local owner attempt",
+  "files": [
+    {
+      "path": "stage-inputs-02.json",
+      "bytes": 369360,
+      "sha256": "8c1cba9c5afc1def0de40d5f73c6359b726313fee975133ecc71c9d7f007422e"
+    },
+    {
+      "path": "first-cause-06.json",
+      "bytes": 1370,
+      "sha256": "4ddb97fe9d4bb9ee34472e63b88f5c486f107a7c7441089e5c308989361382a6"
+    },
+    {
+      "path": "commands/06-owner-selection.json",
+      "bytes": 1267,
+      "sha256": "47494a3661a4afe10bf290c29c9bdb359fe57732dcd87ff459a059b3c65576bf"
+    },
+    {
+      "path": "commands/06-owner-selection.stdout",
+      "bytes": 3366,
+      "sha256": "1577c6feff3cbce5d6d973c8288cdfb949ff8905836363000197804bb7ee0c3f"
+    }
+  ]
+}

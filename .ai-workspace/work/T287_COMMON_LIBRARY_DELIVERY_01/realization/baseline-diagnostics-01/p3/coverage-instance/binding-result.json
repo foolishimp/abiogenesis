@@ -1,0 +1,26 @@
+{
+  "status": "satisfied",
+  "subjectId": "baseline",
+  "lane": "declared-execution",
+  "frozenRule": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/coverage-contract.json",
+    "sha256": "68469863089c4298c360008a355cd40f6ca168f70d29948e28adf7efa8941bc2",
+    "bytes": 8868,
+    "mode": "0o644"
+  },
+  "actualContract": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/coverage-instance/coverage-contract.json",
+    "sha256": "ab9c9f7c3f1757596204dadcbfe3e94fdc7d9c40db18c00e0affc3c28dae1008",
+    "bytes": 10176,
+    "mode": "0o644"
+  },
+  "fixture": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+    "sha256": "b889b98e96967098c91dcac6fc1cc76922b94ec6451c2772aabc31f59b09215e",
+    "bytes": 4368,
+    "mode": "0o644"
+  },
+  "files": 6,
+  "nativeCalls": 0,
+  "scope": "Read-only actual producer/member binding; no workload or classifier rerun"
+}

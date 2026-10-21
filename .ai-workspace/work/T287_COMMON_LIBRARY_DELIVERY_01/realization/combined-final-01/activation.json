@@ -1,0 +1,95 @@
+{
+  "id": "COMBINED-FINAL-BUILD-01",
+  "writer": "/root/stdo3_k11_successor_writer",
+  "return_to": "/root",
+  "frozen_before_build_utc": "2026-10-21T01:52:07.327212+00:00",
+  "method": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+  },
+  "composition": [],
+  "closed_freezes": {
+    "pure": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 19946,
+      "sha256": "ce01cdb084f5b0c3827ac9cce481d12e63193a24a1467c9409c9be9a768acca4"
+    },
+    "k11-role-source-successor-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 20568,
+      "sha256": "a1fe796ac076672cc2b8835f66b68c007ee1a41c374a62a6455ab75975ad446d"
+    },
+    "lifetime": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 35940,
+      "sha256": "5c7311ac1041a0ba766c89fc18c315cd3277ea3ebc2425a40e7ffff896764c4c"
+    },
+    "lifetime-stream-repair-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 31209,
+      "sha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155"
+    },
+    "currentness": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 14092,
+      "sha256": "433107b89d8eb01cc5a67ad6c8543e18d37575d5f89ba490c3795108955e788d"
+    },
+    "currentness-consumers": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2782,
+      "sha256": "31912a68550eefc19e88c64bbc45a6c8db674a86e2c90dec16ecf53b674a1371"
+    },
+    "u1-physical-scope-successor-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2992,
+      "sha256": "1d8ec427aa2486c31763bf3d40ac1afc0f0cf9dafa3032165cd996096ed868ce"
+    },
+    "p3-fixture-dependency-repair-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2532688,
+      "sha256": "5bcbfbfa14151ad35126431bd9ee4a2930c62d797cdcece59b147a46f2e9b933"
+    },
+    "p5-installed-preparation-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 10828,
+      "sha256": "b8859cda37f284ef928360059664b14b4304c131b23e21f453cdc4cf135e92b6"
+    }
+  },
+  "HOW": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/HOW.md",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 5538,
+    "sha256": "22274037d241f8a85880df8b0d99fc41b21bd20f95a8610fac0208b23c45555a"
+  },
+  "write_territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01",
+  "compile_limit": 1,
+  "generator_limit": 1,
+  "archive_pack_limit": 1,
+  "corrected_derived_source_paths": [
+    "contracts/capabilities/capability-definition-graph.json",
+    "contracts/worksite/command-execution-context.inventory.json"
+  ],
+  "test_workloads": false,
+  "installed_or_native_workloads": false,
+  "source_mutation": false,
+  "git": false
+}

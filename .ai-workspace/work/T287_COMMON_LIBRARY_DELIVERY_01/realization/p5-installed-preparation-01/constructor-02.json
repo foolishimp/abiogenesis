@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/constructor-02.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 0,
+  "wallSeconds": 0.2892888749483973,
+  "stdoutSha256": "3f733465e87e5a1ebe9e582a2815c686615293817f233d86e07a760919219d5d",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "scope": "affected pure constructor and static parent relation only; no fixture effect"
+}

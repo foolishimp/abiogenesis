@@ -1,0 +1,469 @@
+{
+  "measures": [
+    {
+      "name": "bootstrap-install",
+      "wallMs": 6202.066417,
+      "cpuUs": {
+        "user": 248140,
+        "system": 269172
+      },
+      "memoryBefore": {
+        "rss": 238845952,
+        "heapTotal": 15564800,
+        "heapUsed": 5350256,
+        "external": 2366133,
+        "arrayBuffers": 35123
+      },
+      "memoryAfter": {
+        "rss": 299630592,
+        "heapTotal": 28311552,
+        "heapUsed": 8779616,
+        "external": 3344733,
+        "arrayBuffers": 1013723
+      },
+      "resourceUsage": {
+        "userCPUTime": 654761,
+        "systemCPUTime": 663688,
+        "maxRSS": 292608,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 18805,
+        "majorPageFault": 79,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 2,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 1,
+        "involuntaryContextSwitches": 132962
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "cold-installed-owner-acquisition",
+      "wallMs": 311.60350000000017,
+      "cpuUs": {
+        "user": 400287,
+        "system": 37385
+      },
+      "memoryBefore": {
+        "rss": 299712512,
+        "heapTotal": 28311552,
+        "heapUsed": 8965176,
+        "external": 3384137,
+        "arrayBuffers": 1053127
+      },
+      "memoryAfter": {
+        "rss": 456523776,
+        "heapTotal": 188039168,
+        "heapUsed": 86932936,
+        "external": 2467640,
+        "arrayBuffers": 51431
+      },
+      "resourceUsage": {
+        "userCPUTime": 1056057,
+        "systemCPUTime": 701209,
+        "maxRSS": 462592,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 29908,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 2,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 1,
+        "involuntaryContextSwitches": 133543
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "public-preparation",
+      "wallMs": 297234.52604200004,
+      "cpuUs": {
+        "user": 13875182,
+        "system": 288751
+      },
+      "memoryBefore": {
+        "rss": 2159067136,
+        "heapTotal": 1696169984,
+        "heapUsed": 1547705480,
+        "external": 97880377,
+        "arrayBuffers": 95466985
+      },
+      "memoryAfter": {
+        "rss": 2052341760,
+        "heapTotal": 536444928,
+        "heapUsed": 398908376,
+        "external": 48077361,
+        "arrayBuffers": 45663969
+      },
+      "resourceUsage": {
+        "userCPUTime": 38961646,
+        "systemCPUTime": 1419323,
+        "maxRSS": 2160896,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 453546,
+        "majorPageFault": 85,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4130,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 137,
+        "involuntaryContextSwitches": 166016
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "execution-resolution-first",
+      "wallMs": 2382.399792000011,
+      "cpuUs": {
+        "user": 2463668,
+        "system": 381624
+      },
+      "memoryBefore": {
+        "rss": 2052341760,
+        "heapTotal": 536444928,
+        "heapUsed": 398913096,
+        "external": 48077361,
+        "arrayBuffers": 45663969
+      },
+      "memoryAfter": {
+        "rss": 1868103680,
+        "heapTotal": 312393728,
+        "heapUsed": 179420272,
+        "external": 6495849,
+        "arrayBuffers": 4082457
+      },
+      "resourceUsage": {
+        "userCPUTime": 41425368,
+        "systemCPUTime": 1800954,
+        "maxRSS": 2160896,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 468123,
+        "majorPageFault": 85,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4130,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 142,
+        "involuntaryContextSwitches": 227868
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "execution-resolution-warm",
+      "wallMs": 1468.0192079999833,
+      "cpuUs": {
+        "user": 1256481,
+        "system": 320617
+      },
+      "memoryBefore": {
+        "rss": 1869234176,
+        "heapTotal": 315621376,
+        "heapUsed": 162579264,
+        "external": 7912061,
+        "arrayBuffers": 5498669
+      },
+      "memoryAfter": {
+        "rss": 1702445056,
+        "heapTotal": 353583104,
+        "heapUsed": 268387296,
+        "external": 8150013,
+        "arrayBuffers": 5736621
+      },
+      "resourceUsage": {
+        "userCPUTime": 42743548,
+        "systemCPUTime": 2124122,
+        "maxRSS": 2160896,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 478105,
+        "majorPageFault": 85,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4130,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 152,
+        "involuntaryContextSwitches": 289376
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "whole-lane",
+      "wallMs": 322146.758917,
+      "cpuUs": {
+        "user": 42307169,
+        "system": 1480150
+      },
+      "memoryBefore": {
+        "rss": 299630592,
+        "heapTotal": 28311552,
+        "heapUsed": 8781184,
+        "external": 3344733,
+        "arrayBuffers": 1013723
+      },
+      "memoryAfter": {
+        "rss": 2081488896,
+        "heapTotal": 521977856,
+        "heapUsed": 383223416,
+        "external": 53218352,
+        "arrayBuffers": 50804960
+      },
+      "resourceUsage": {
+        "userCPUTime": 42961954,
+        "systemCPUTime": 2143850,
+        "maxRSS": 2160896,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 502170,
+        "majorPageFault": 85,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4130,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 175,
+        "involuntaryContextSwitches": 289777
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    }
+  ],
+  "commands": [
+    {
+      "label": "bootstrap-offline-install",
+      "executable": "/opt/homebrew/bin/npm",
+      "args": [
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--bin-links=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host",
+      "exitCode": 0,
+      "wallMs": 2639.4397919999997
+    },
+    {
+      "label": "installed-declaration-consumer",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "--target",
+        "ES2022",
+        "--strict",
+        "--skipLibCheck",
+        "false",
+        "--typeRoots",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/node_modules/@types",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/external-consumer.mts"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host",
+      "exitCode": 0,
+      "wallMs": 3109.580042
+    },
+    {
+      "label": "workspace-create",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/workspace-create.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 20999.602042000002
+    },
+    {
+      "label": "pack-consumer",
+      "executable": "/opt/homebrew/bin/npm",
+      "args": [
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-artifacts"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source",
+      "exitCode": 0,
+      "wallMs": 264.27904200000194
+    },
+    {
+      "label": "product-verify-0",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-verify-0.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 42514.317541
+    },
+    {
+      "label": "product-verify-1",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-verify-1.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 21707.228000000003
+    },
+    {
+      "label": "product-resolve",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-resolve.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 25836.478499999983
+    },
+    {
+      "label": "product-install-0",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-install-0.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 47212.64850000001
+    },
+    {
+      "label": "product-install-1",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-install-1.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 24907.821292000008
+    },
+    {
+      "label": "workspace-bind",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/workspace-bind.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 24103.49675000002
+    },
+    {
+      "label": "catalog-admit",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/catalog-admit.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 30395.99583400003
+    },
+    {
+      "label": "catalog-view",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/catalog-view.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 23465.03012500005
+    },
+    {
+      "label": "program-conformance",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/program-conformance.request.jsonl"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "exitCode": 0,
+      "wallMs": 24322.130041999975
+    }
+  ],
+  "footprints": [
+    {
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+      "files": 10611,
+      "logicalBytes": 498097752,
+      "symlinks": 0,
+      "allocatedKiB": 515488,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host",
+      "files": 5271,
+      "logicalBytes": 70673851,
+      "symlinks": 0,
+      "allocatedKiB": 82956,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/scratchParent",
+      "files": 590,
+      "logicalBytes": 2863248,
+      "symlinks": 0,
+      "allocatedKiB": 4176,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite",
+      "files": 1,
+      "logicalBytes": 1402,
+      "symlinks": 0,
+      "allocatedKiB": 4,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    }
+  ],
+  "archiveBytes": 10676374,
+  "overhead": "hash/inventory checks, evidence writes and footprint walks measured in parent whole-process scope; no diagnostic instrumentation injected",
+  "unobserved": [
+    "internal read/hash/encode/write byte counters",
+    "RuntimeHistorySelection body/selector/suffix/cause counters not exposed by selected caller",
+    "child CPU and peak memory for helper-internal subprocesses",
+    "native-provider token cost unless reported by retained transcript",
+    "OS-wide allocation peaks"
+  ],
+  "restrictions": "No speedup or heap-limit claim; sampled memory is not a peak; P4 is a capability witness, not a baseline timing ratio."
+}

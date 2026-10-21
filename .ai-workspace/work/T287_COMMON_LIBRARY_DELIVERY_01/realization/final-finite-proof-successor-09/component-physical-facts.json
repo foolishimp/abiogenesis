@@ -1,0 +1,72 @@
+{
+  "sourceStdoutSha256": "7f494759197cd3aab6c2af55384744768f4ce8789fee9b31573b1688360662fd",
+  "facts": [
+    {
+      "kind": "u1_local_process_retained_facts",
+      "worker": "/private/tmp/abg-stdo3-finite-09-62eaf731c98b405d/06-native-workspace-physical-regression/tmp/abi5-generic-worksite-fixture-yHxY8W/conflicting-native.mjs",
+      "processFacts": [
+        {
+          "eventId": "event://native-tail/12",
+          "admissionOrdinal": 12,
+          "kind": "actor_process_started",
+          "payload": {
+            "actorInvocationRef": "actor-invocation://abiogenesis/48091f52944ef03d5afa1a04dc0a49441c3b44dbc6bbec5e51824a248781b9e1",
+            "processRef": "process://abiogenesis/ad760403810225ba7a48b29b258ed31ad340f50f7859022975ad6c5e798c8c0f",
+            "processId": 58042,
+            "cCallRef": "c-call:sha256:f957697f719d1c89429d8f33ea9e23e3df887fa16e82f924009387aea57c91f1"
+          }
+        },
+        {
+          "eventId": "event://native-tail/13",
+          "admissionOrdinal": 13,
+          "kind": "actor_process_stdout_observed",
+          "payload": {
+            "actorInvocationRef": "actor-invocation://abiogenesis/48091f52944ef03d5afa1a04dc0a49441c3b44dbc6bbec5e51824a248781b9e1",
+            "processRef": "process://abiogenesis/ad760403810225ba7a48b29b258ed31ad340f50f7859022975ad6c5e798c8c0f",
+            "streamOrdinal": 1,
+            "byteLength": 114,
+            "chunkDigest": "sha256:2908a96d196eb0c062a1ed65620a19b92317be16f003b795b9be02692f361cc2"
+          }
+        },
+        {
+          "eventId": "event://native-tail/14",
+          "admissionOrdinal": 14,
+          "kind": "actor_process_exited",
+          "payload": {
+            "actorInvocationRef": "actor-invocation://abiogenesis/48091f52944ef03d5afa1a04dc0a49441c3b44dbc6bbec5e51824a248781b9e1",
+            "processRef": "process://abiogenesis/ad760403810225ba7a48b29b258ed31ad340f50f7859022975ad6c5e798c8c0f",
+            "status": 0,
+            "signal": null
+          }
+        },
+        {
+          "eventId": "event://native-tail/15",
+          "admissionOrdinal": 15,
+          "kind": "actor_invocation_failed",
+          "payload": {
+            "actorInvocationRef": "actor-invocation://abiogenesis/48091f52944ef03d5afa1a04dc0a49441c3b44dbc6bbec5e51824a248781b9e1",
+            "processRef": "process://abiogenesis/ad760403810225ba7a48b29b258ed31ad340f50f7859022975ad6c5e798c8c0f",
+            "cCallRef": "c-call:sha256:f957697f719d1c89429d8f33ea9e23e3df887fa16e82f924009387aea57c91f1",
+            "disposition": "failure",
+            "failureClass": "transport_exception",
+            "transportBindingRef": "transport-binding://abiogenesis/2ca3087da341bf11322acafa22a8a4658e25b5822d498f0a193da32aa07c9556",
+            "transportBindingDigest": "sha256:2ca3087da341bf11322acafa22a8a4658e25b5822d498f0a193da32aa07c9556",
+            "diagnosticDigest": "sha256:24cd9e3b31b46d76f70d2cb28d927a48ef9ae5071a29a2461c3d3a6da87446c3"
+          }
+        }
+      ],
+      "currentProcesses": [
+        {
+          "pid": 58042,
+          "leader": "absent",
+          "group": "absent"
+        }
+      ],
+      "targetContent": "partial native work\n",
+      "groupConfirmedBeforeConflict": true,
+      "actorDisposition": "actor_process_effect_refusal",
+      "actorMessage": "distinct worker output channels disagree; no first/last result selection"
+    }
+  ],
+  "attribution": "Extracted unchanged test reporter facts; actual controlled local process/filesystem effects. Lower installation/admission recording, prefix access and liveness are controlled doubles, not a durable full-ABG admission or installed Public/native Run claim. Original fixture cleanup may have removed the reported physical paths."
+}

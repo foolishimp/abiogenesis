@@ -1,0 +1,213 @@
+{
+  "triage": "P5-08-TIMEOUT-ROOT-CLARIFICATION",
+  "status": "SEPARATE_PROOF_DRIVER_OBLIGATION_NO_EXECUTION_OR_REPAIR",
+  "attribution": "Executive findings transcribed, original physical evidence mtimes independently read here; event/host facts reuse frozen successor08. These are no new runtime observations.",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/failure-freeze.json",
+    "bytes": 26511,
+    "sha256": "c54099a297ac9fb7f0ec979dd8d61cfaaa370f5485ffcff7c8f1bfaabdca8a9f"
+  },
+  "testStart": "2026-10-21T08:25:26.008Z",
+  "declaredTestTimeoutMs": 600000,
+  "reportedCancellationMs": 600001.950708,
+  "outerDeadlineMs": 630000,
+  "physicalEvidenceMtimes": [
+    {
+      "path": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/evidence/environment.json",
+      "bytes": 20230906,
+      "sha256": "766c31d705bfee60f3e52e0f97cdc132f15b7363f8c2f98bc8dd648aa337df6a",
+      "mtimeNs": 1792571449095910812,
+      "mtimeUtc": "2026-10-21T08:30:49.095911+00:00",
+      "carrier": "original retained physical evidence file, not portable copy",
+      "portableCopy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/archive/test-evidence/environment.json",
+        "bytes": 20230906,
+        "sha256": "766c31d705bfee60f3e52e0f97cdc132f15b7363f8c2f98bc8dd648aa337df6a"
+      }
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/evidence/source-completion.json",
+      "bytes": 121686,
+      "sha256": "570e85530506be442b483c6eb628cc69dfc353ad9650858cc12db7bf23bf16a4",
+      "mtimeNs": 1792571742570442862,
+      "mtimeUtc": "2026-10-21T08:35:42.570443+00:00",
+      "carrier": "original retained physical evidence file, not portable copy",
+      "portableCopy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/archive/test-evidence/source-completion.json",
+        "bytes": 121686,
+        "sha256": "570e85530506be442b483c6eb628cc69dfc353ad9650858cc12db7bf23bf16a4"
+      }
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/evidence/definition-call.json",
+      "bytes": 27457613,
+      "sha256": "0d4ef4c60e160758a00af82540c76d6793002eab63b84b3477c2e1d0f286175e",
+      "mtimeNs": 1792571745297292767,
+      "mtimeUtc": "2026-10-21T08:35:45.297293+00:00",
+      "carrier": "original retained physical evidence file, not portable copy",
+      "portableCopy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/archive/test-evidence/definition-call.json",
+        "bytes": 27457613,
+        "sha256": "0d4ef4c60e160758a00af82540c76d6793002eab63b84b3477c2e1d0f286175e"
+      }
+    }
+  ],
+  "rootPhaseObservations": {
+    "setupEnvironmentUtc": "2026-10-21T08:30:49.095911Z",
+    "setupFromTestStartSecondsApprox": 323.088,
+    "sourceCompletionUtc": "2026-10-21T08:35:42.570443Z",
+    "sourceCompletionAfterEnvironmentSecondsApprox": 293.475,
+    "c2InvocationUtc": "2026-10-21T08:35:50.198Z",
+    "c2ScopeOpenUtc": "2026-10-21T08:35:52.018Z",
+    "c2FibreUtc": "2026-10-21T08:35:53.588Z",
+    "outerHostCompletionUtc": "2026-10-21T08:35:56.006Z"
+  },
+  "observedSequencing": "Node cancelled the selected test at 600s. Its pending async body subsequently retained C1 completion and began a new C2 Public invocation before the outer 630s stop. The existing first-failure stop rule was not enforced between those owner operations by this proof driver.",
+  "subsequentSelectionRequired": "Before any later P5 re-entry, consume the existing node:test cancellation signal/contract at the inter-operation boundary so a cancelled test cannot launch C2 or another dependent owner operation. No new harness, retry, timeout increase or test edit is selected here.",
+  "C1": {
+    "actualClosedResult": "worksite_construction_result",
+    "logicalEventCount": 185,
+    "pid": 78207,
+    "absence": {
+      "label": "construction",
+      "pid": 78207,
+      "groupId": 78207,
+      "directChildPresence": "absent",
+      "ownedGroupPresence": "absent",
+      "observedAt": "2026-10-21T08:35:42.725Z",
+      "physicalAbsenceIsNotAdmission": true
+    }
+  },
+  "C2": {
+    "actualRootBasisAdmitted": true,
+    "actualCallOpened": true,
+    "actualFibreSelected": true,
+    "actorStarted": false,
+    "commandOrHttpExecuted": false,
+    "helperAckOrAdmittedObservation": false,
+    "freshReplayOrN2": false,
+    "returnedPublicOutcome": false,
+    "terminalClosure": false,
+    "credit": "No passing P5 oracle; post-cancellation admission is a retained effect, not passing proof."
+  },
+  "lastPhysicalRecord": {
+    "eventId": "event://abiogenesis/fbbf50d66471fff5dc2905ad89b85aab562dc759c4de6632ab34f7bbfc83985b",
+    "kind": "runtime_activity_probe_observed",
+    "eventTime": "2026-10-21T08:35:53.588Z",
+    "admissionOrdinal": 197,
+    "runId": "run://abiogenesis/5111c7c4685061a835608fce687b3ee3f9bfc49ec91234f0540a48560293a5f2",
+    "basisId": "execution-basis://abiogenesis/f698d75a78a5e96f7e436859d6f373e7f1b667767c19596255daeb516f8cece8"
+  },
+  "physicalHostCompletion": {
+    "key": "test",
+    "startedAt": "2026-10-21T08:25:26.008Z",
+    "completedAt": "2026-10-21T08:35:56.006Z",
+    "wallMs": 630048.51375,
+    "pid": 74749,
+    "groupId": 74749,
+    "supervisorPid": 74747,
+    "timedOut": true,
+    "events": [
+      {
+        "kind": "spawn",
+        "pid": 74749,
+        "atMs": 7.155792000000005
+      },
+      {
+        "kind": "signal_requested",
+        "signal": "SIGTERM",
+        "atMs": 630009.573125
+      },
+      {
+        "kind": "exit",
+        "status": 1,
+        "signal": null,
+        "atMs": 630015.857084
+      },
+      {
+        "kind": "close",
+        "status": 1,
+        "signal": null,
+        "atMs": 630016.0624170001
+      }
+    ],
+    "facts": {
+      "directExit": {
+        "status": 1,
+        "signal": null
+      },
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "scopeKind": "posix_process_group",
+      "scopeAbsence": "absent",
+      "closeObserved": true,
+      "streamsDisposed": true,
+      "drainExpired": false,
+      "firstError": null,
+      "cleanupDeadlineNs": "1403628579834166",
+      "cleanupElapsedMs": 38.468917,
+      "probeCount": 7,
+      "signalAttempts": 1
+    },
+    "stdout": {
+      "bytes": 762,
+      "sha256": "4ab2025c63b72567c0f6604970d49931c04adf748166af360851c7585e8cb7ea"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "success": false,
+    "physicalAbsenceIsNotAdmission": true
+  },
+  "knownScopeAbsence": {
+    "observedAt": "2026-10-21T08:36:50.237718+00:00",
+    "rows": [
+      {
+        "label": "host",
+        "pidOrGroupId": 74749,
+        "groupProbe": false,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "host-group",
+        "pidOrGroupId": 74749,
+        "groupProbe": true,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "supervisor",
+        "pidOrGroupId": 74747,
+        "groupProbe": false,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "construction",
+        "pidOrGroupId": 78207,
+        "groupProbe": false,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "construction-group",
+        "pidOrGroupId": 78207,
+        "groupProbe": true,
+        "presence": "absent",
+        "errno": 3
+      }
+    ],
+    "allRecordedScopesAbsent": true,
+    "limit": "Only exact physically recorded identities; raw runtime records are not replayed logical history."
+  },
+  "limits": [
+    "Archive copy mtimes are not phase evidence.",
+    "Concurrency was observed; no causal attribution of setup/traversal elapsed time is established.",
+    "This is the test framework and enclosing host deadline, not evidence that C1/C2 actor policy timed out.",
+    "No P5 pass, no new execution, no budget change, no cleanup or historical Run access.",
+    "Outer host physical absence does not terminalize the open C2 runtime cut."
+  ],
+  "timeCarrierDistinction": "definition-call.json mtime 08:35:45.297293 is pre-call request evidence creation. Actual C2 invocation admission is 08:35:50.198 in the recorded runtime event. Neither is inferred from portable-copy time."
+}

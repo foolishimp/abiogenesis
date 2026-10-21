@@ -1,0 +1,17 @@
+--- closed06-tooling/verify-generation.py
++++ C2-bound-tooling/verify-generation.py
+@@ -2,11 +2,11 @@
+ from common import ROOT,WORK,TENANT,digest,inventory,row,verify,write
+ try:
+  assert not (WORK/'STOP.json').exists()
+- old=WORK.parent/'c0-potential-effect-successor-03';stage=WORK/'stage'
++ old=WORK.parent/'c0-potential-effect-successor-06';stage=WORK/'stage'
+  source=json.loads((WORK/'source-inputs.json').read_text())['files'];deps=json.loads((WORK/'dependency-inputs.json').read_text())['files']
+  generated=json.loads((old/'generated-inventory.json').read_text())['files']
+- allowed_code={str(TENANT/'build/code/src/abg/c_call_outcome')+ext for ext in ['.js','.d.ts','.js.map']}
+- derived=[];allowed_generated={str(TENANT/p) for p in ['product-toolchain-manifest.json','contracts/capabilities/capability-definition-graph.json','contracts/worksite/command-execution-context.inventory.json']}
++ allowed_code={str(TENANT/'build/code/src/abg/execution_basis.js')}
++ derived=[];allowed_generated={str(TENANT/p) for p in ['product-toolchain-manifest.json','contracts/capabilities/capability-definition-graph.json']}
+  for x in source:
+   a=row(stage/x['path'],x['path'])
+   if a!=x:assert x['path'] in allowed_generated,x['path'];derived.append({'before':x,'after':a})

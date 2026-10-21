@@ -1,0 +1,184 @@
+{
+  "activation": "P5-INSTALL-CONFIG-05",
+  "status": "STOPPED at first C1 failure; no C2/HTTP/replay credit",
+  "firstAssertion": {
+    "file": "t287-worksite-command-execution.test.mjs",
+    "line": 522,
+    "phase": "C1 construction",
+    "expected": "closed",
+    "actual": "failed"
+  },
+  "sourceCompletion": {
+    "cCallRef": "c-call:sha256:f9c2057a4dc59eb016b0a226325d601118d7fb6bd55cbee495d4cc0e9230dc7d",
+    "resultRef": "result://abiogenesis/33b2d32355da4d03c89de4c20197147d410d501658c131284c6c6abd9e46bb9b",
+    "judgmentRef": "judgment://abiogenesis/b4153185f79637ccf736b58ef2fe87b6bc3099e3f3788227066ea35b8c242424",
+    "diagnosticRef": "diagnostic://abiogenesis/worksite/construction/result-contract-failure@5",
+    "resultValue": {
+      "diagnosticRef": "diagnostic://abiogenesis/worksite/construction/result-contract-failure@5",
+      "failureClass": "result_contract_failure",
+      "kind": "worksite_construction_failure",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "admittedRuntime": {
+    "status": "failed",
+    "eventCount": 42,
+    "prefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/scratch/abi5-root-env-VG2l8S/runtime/events.jsonl",
+      "prefixLength": 3267133,
+      "prefixDigest": "sha256:8d018f43fe69b394d49f7536cd2e352209cd05f3e3f34aaa6b238d1cd11203b7",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474817157,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:b22e5b31ef18983a2290434535849094912e3aeff7c71f48eb896874975f8bbe"
+    }
+  },
+  "observedTransport": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/10627e579e509b985dc3d3fabcc9301ad1ae1c6b1e2366d87b36606374f81686",
+    "actorRef": "actor://abiogenesis/worksite/construction-worker@5",
+    "apiRetryCount": 0,
+    "artifactDigests": {
+      "output": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "prompt": "sha256:2755c09d55becadd424d368f0a23b1390f203254a1b26d2bbabdec100be7cee8",
+      "stderr": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "sha256:38e232cb3ca2f619d133a814814c8505ed1a8b863dd9db8498d5935c06254922",
+      "transport": "sha256:16e98964dfab16e6aa35d54a816d479394cba6728506eeab0f461cc03be30085"
+    },
+    "cCallRef": "c-call:sha256:f9c2057a4dc59eb016b0a226325d601118d7fb6bd55cbee495d4cc0e9230dc7d",
+    "disposition": "failure",
+    "exitObserved": true,
+    "failureClass": "no_output",
+    "finalOutput": "",
+    "implementationRef": "implementation://abiogenesis/worksite/construction-candidate-fp@5",
+    "inputDigest": "sha256:339bc806977ed6727494a0ec3ec218c5f462744d3b77691739977673fb8763dc",
+    "instructionContractRef": "contract://abiogenesis/worksite/construction-task@5",
+    "materializationPlanRef": "prompt-plan://abiogenesis/worksite/construction@5",
+    "nativeResultAssessment": {
+      "disposition": "absent",
+      "inputDigest": "sha256:339bc806977ed6727494a0ec3ec218c5f462744d3b77691739977673fb8763dc",
+      "kind": "native_worker_result_assessment",
+      "rawOutputDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "resultContractRef": "contract://abiogenesis/worksite/construction-worker-result@5",
+      "schemaVersion": "5.0.0",
+      "verification": null
+    },
+    "observedOutputDigest": "sha256:12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+    "processRef": "process://abiogenesis/93c348d9d1d3fc2ad6cff586b2521b45eadb62d45ed52dcdfb46b243562da5fb",
+    "processSignal": null,
+    "processStatus": 0,
+    "progressEventCount": 0,
+    "promptDigest": "sha256:e00ee3ea399f6b75bae049e52b5c749466bda1a97fa4250a2bc0148629f10c4c",
+    "rendererRef": "renderer://abiogenesis/worksite/construction@5",
+    "requestDigest": "sha256:d49973215e86d17d0ced19b93a32542702dcc24f487b36cca557674bc747094d",
+    "requestRef": "probabilistic-request://abiogenesis/d49973215e86d17d0ced19b93a32542702dcc24f487b36cca557674bc747094d",
+    "resultContractRef": "contract://abiogenesis/worksite/construction-worker-result@5",
+    "signalSequence": [],
+    "stderrByteLength": 0,
+    "stdoutByteLength": 1621,
+    "structuredEventCount": 2,
+    "terminationConfirmed": true,
+    "timedOut": false,
+    "timeoutClass": null,
+    "toolCallCount": 0,
+    "toolInvocations": [],
+    "transportBindingDigest": "sha256:955d446b5566285eb7275bcea8085f82f29190f6a9ea4cd9c941ad244c2c5828",
+    "transportBindingRef": "transport-binding://abiogenesis/955d446b5566285eb7275bcea8085f82f29190f6a9ea4cd9c941ad244c2c5828",
+    "transportDigest": "sha256:16e98964dfab16e6aa35d54a816d479394cba6728506eeab0f461cc03be30085",
+    "transportLane": "closed_prompt_proof",
+    "workerBindingRef": "worker-binding://abiogenesis/worksite/construction-worker@5"
+  },
+  "testHost": {
+    "key": "test",
+    "startedAt": "2026-10-21T06:59:17.773Z",
+    "completedAt": "2026-10-21T07:04:14.902Z",
+    "wallMs": 297125.453125,
+    "pid": 20133,
+    "groupId": 20133,
+    "supervisorPid": 20131,
+    "timedOut": false,
+    "events": [
+      {
+        "kind": "spawn",
+        "pid": 20133,
+        "atMs": 19.263499999999993
+      },
+      {
+        "kind": "exit",
+        "status": 1,
+        "signal": null,
+        "atMs": 297122.05
+      },
+      {
+        "kind": "close",
+        "status": 1,
+        "signal": null,
+        "atMs": 297123.73487499997
+      }
+    ],
+    "facts": {
+      "directExit": {
+        "status": 1,
+        "signal": null
+      },
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "scopeKind": "posix_process_group",
+      "scopeAbsence": "absent",
+      "closeObserved": true,
+      "streamsDisposed": true,
+      "drainExpired": false,
+      "firstError": null,
+      "cleanupDeadlineNs": "1398127253906500",
+      "cleanupElapsedMs": 1.488041,
+      "probeCount": 1,
+      "signalAttempts": 0
+    },
+    "stdout": {
+      "bytes": 17685,
+      "sha256": "160e2f6aa0f3a4207adc172edf1d5fd8e0e64c2064b97539bb23669b347d8951"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "success": false,
+    "physicalAbsenceIsNotAdmission": true
+  },
+  "cleanup": {
+    "deferredCleanupHookCount": 1,
+    "deferredCleanupHooksInvoked": 0,
+    "originalStoreCloseAttempted": true,
+    "closeError": null,
+    "replayStoreCloseAttempted": false
+  },
+  "notReached": [
+    "C2 DefinitionCall",
+    "C2 command helper",
+    "HTTP probe",
+    "two fresh replay children",
+    "owner-local negatives",
+    "N2 child/result PID equality"
+  ],
+  "actualRuns": {
+    "offlineInstall": 1,
+    "selectedTest": 1,
+    "controlledConstruction": 1,
+    "C2": 0,
+    "HTTP": 0,
+    "freshReplay": 0
+  },
+  "physicalInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/retained-physical-inventory.json",
+    "bytes": 4709471,
+    "sha256": "41ca3eac4d8dc9eb7abbfeb22dc45f6d982fdfa14d4c84c41767ebed72ba79d4"
+  },
+  "preservedPortableFiles": 16,
+  "newRootRegularBytes": 182330937,
+  "allRootsRetained": true,
+  "noRetry": true,
+  "productionDefectEstablished": false
+}

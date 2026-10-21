@@ -1,0 +1,110 @@
+{
+  "reopen18": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/m5-event-store-reopen.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/overlay",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/03-reopen18/tmp/"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 3
+  },
+  "codec14": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/t287-event-body-encoding.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/04-codec14/tmp/"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 4
+  },
+  "route-self-contained": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--expose-gc",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:terminal\\ route\\-only\\ projection\\ preserves\\ complete\\ replay\\ and\\ avoids\\ nonreturned\\ populations|terminal\\ route\\-only\\ retains\\ cold\\ and\\ hot\\ malformed\\-history\\ refusals|owned\\ deferred\\ recursion\\ restores\\ and\\ begins\\ at\\ the\\ exact\\ cut\\ while\\ Public\\ wrappers\\ keep\\ complete\\ values|selected\\ replay\\ guard\\ streams\\ the\\ exact\\ complete\\ Result,\\ route\\ and\\ replay\\ digest|finite\\ pure\\ candidate\\ plan\\ equals\\ complete\\-array\\ construction\\ without\\ advancing\\ the\\ accepted\\ base|ordinary\\ selected\\ route\\ and\\ scoped\\ extent\\ avoid\\ growing\\ historical\\ bodies;\\ explicit\\ snapshots\\ have\\ their\\ own\\ lifetime|drop\\ complete\\ output\\ then\\ selected\\ route\\ does\\ not\\ retain\\ decoded\\ historical\\ bodies)$",
+      "test_env/tests/t287-route-reconstruction.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/tmp/",
+      "ABI5_ROUTE_PROJECTION_SCRATCH": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch"
+    },
+    "noCredit": [
+      "retained native outputs and exact pre-basis historical owner facts are conserved",
+      "route facts ignore unrelated growth and preserve relevant source, cursor and intent changes"
+    ],
+    "condition": null,
+    "templateOrdinal": 5
+  },
+  "native-workspace-physical-regression": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:post\\-effect\\ channel\\ conflict\\ retains\\ admitted\\ native\\ failure\\ scope\\ without\\ a\\ fabricated\\ exchange)$",
+      "test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/06-native-workspace-physical-regression/tmp/"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 6
+  },
+  "terminal-quiescence7": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/m5-terminal-quiescence-owner.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/07-terminal-quiescence7/tmp/"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 7
+  },
+  "D02-preparation-owner-case": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:preparation\\ resolution\\ retains\\ its\\ established\\ native\\ link\\ and\\ raw\\ lock\\ refusals)$",
+      "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/08-D02-preparation-owner-case/tmp/",
+      "ABI5_PREPARATION_RESOLVE_CALL": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/calls/preparation-resolve.json"
+    },
+    "noCredit": [],
+    "condition": "Successful final P1 and owner-resolution.mjs on its exact prefix before P2/later writes. Same staged source and dependencies as final artifact. Actual external admission remains P1; test explicitly supplies controlled lower admission wrapper.",
+    "templateOrdinal": 8
+  }
+}

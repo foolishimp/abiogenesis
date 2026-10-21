@@ -1,0 +1,17 @@
+{
+  "created_utc": "2026-10-20T23:07:46.687976+00:00",
+  "status": "L3_ACTIVE",
+  "checkpoint": "completed_per_current_owner_and_executive",
+  "L4": "PENDING",
+  "L5": "PENDING",
+  "library_delivery": "OPEN",
+  "release_resumption_gate": "CLOSED",
+  "streams": [
+    "pure/K11",
+    "E03/R-L2-001",
+    "U1"
+  ],
+  "basis_verified": true,
+  "owned_preimages_preserved": true,
+  "native_launches": 0
+}

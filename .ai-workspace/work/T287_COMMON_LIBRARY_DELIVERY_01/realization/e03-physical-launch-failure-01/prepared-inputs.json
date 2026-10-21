@@ -1,0 +1,85 @@
+{
+  "activation": "E03-PHYSICAL-LAUNCH-FAILURE-01",
+  "contract": {
+    "kind": "worker_transport_contract",
+    "schemaVersion": "5.0.0",
+    "agentKey": "claude",
+    "command": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+    "prefixArgs": [],
+    "argsTemplate": [
+      "-p",
+      "--disable-slash-commands",
+      "--no-session-persistence",
+      "--output-format",
+      "stream-json",
+      "--include-partial-messages",
+      "--verbose",
+      "--permission-mode",
+      "bypassPermissions"
+    ],
+    "parser": "claude_stream_json",
+    "promptTransport": "stdin",
+    "sanitizedEnvironmentPrefixes": [
+      "CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL",
+      "CLAUDE_CODE_SSE_",
+      "CLAUDE_CODE_ENTRYPOINT",
+      "CLAUDE_CODE_EXECPATH"
+    ]
+  },
+  "prompt": {
+    "character": "x",
+    "bytes": 8388608,
+    "sha256": "0c77bc0a0795a93612d45256897456d0fcb24f151c44c150d07ecd03f4ef5168"
+  },
+  "worker": {
+    "lane": "worker_executes",
+    "cwd": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/worker-cwd",
+    "archiveRoot": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive",
+    "label": "failed-spawn",
+    "timeoutMs": 1000,
+    "absoluteTimeoutMs": 2000,
+    "terminationGraceMs": 100,
+    "environment": {}
+  },
+  "command": {
+    "task": {
+      "commands": [
+        {
+          "commandId": "command://e03-physical-launch-failure",
+          "executable": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "args": [],
+          "relativeCwd": ".",
+          "environment": [],
+          "timeoutMs": 1000,
+          "terminationGraceMs": 100,
+          "expectedReports": []
+        }
+      ]
+    },
+    "executionRoot": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/command-cwd",
+    "ordinal": 0,
+    "attemptRef": "attempt://component/e03-no-launch"
+  },
+  "direct": {
+    "command": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+    "args": [],
+    "options": {
+      "cwd": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/direct-cwd",
+      "env": {},
+      "detached": true,
+      "stdio": [
+        "pipe",
+        "pipe",
+        "pipe"
+      ]
+    },
+    "terminationGraceMs": 100
+  },
+  "sourceScope": "Exact frozen exported worker and private command owner plus separate actual common-lifetime attempt; no Product task or ABG admission assertion.",
+  "node": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "version": "v24.7.0",
+    "platform": "darwin"
+  },
+  "physicalWorkPerformed": false
+}

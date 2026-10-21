@@ -1,0 +1,83 @@
+{
+  "activation": "L4-FINAL-CANDIDATE-P1-P3-02",
+  "status": "Executive effects granted subject to sequential actual preconditions",
+  "issuedBy": "/root",
+  "writer": "/root/stdo3_proof_writer",
+  "recordedUtc": "2026-10-21T03:39:24.692614+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "closedSubject": {
+    "freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+      "sha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+      "bytes": 3048274,
+      "mode": "0o644"
+    },
+    "candidate.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/candidate.json",
+      "sha256": "8c0664b3ca405f48dece7c41791bf06478207896c1a7d7e7bd96b54eda89860b",
+      "bytes": 17704,
+      "mode": "0o644"
+    },
+    "report.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/report.md",
+      "sha256": "cb6861b6142314a3243db0ec1335d2fb263df86308bf9826f5b1779234542646",
+      "bytes": 7419,
+      "mode": "0o644"
+    }
+  },
+  "preparationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/freeze.json",
+    "sha256": "561c8178702fed08d8800f1b31253a6ecd9f4ff08158475e40b44c6f65c49af8",
+    "bytes": 6773,
+    "mode": "0o644"
+  },
+  "subjectId": "candidate",
+  "sequence": [
+    "P1 once",
+    "read-only exact P1 owner-resolution once before append",
+    "P2 once using actual P1 handoff",
+    "P3 once fresh roots"
+  ],
+  "resources": {
+    "parent": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141",
+    "public-preparation": {
+      "evidence": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence",
+      "host": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/worksite"
+    },
+    "partial-install": {
+      "evidence": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p2/evidence",
+      "host": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p2/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p2/scratchParent",
+      "secondInstall": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p2/secondInstall"
+    },
+    "declared-execution": {
+      "evidence": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p3/evidence",
+      "host": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p3/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p3/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p3/worksite"
+    },
+    "ownerResolution": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/owner-resolution",
+    "npmCaches": {
+      "p1": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/caches/p1",
+      "p2": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/caches/p2",
+      "p3": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/caches/p3"
+    }
+  },
+  "cache": "Explicit empty seed only after exact archive bundled closure; fresh task cache metadata/content/log writes retained; no global cache acquisition",
+  "nativeCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "stops": "first unexpected selected input/hash/effect/owner/oracle/preservation failure; preserve original cause and actual prefix/residue before returning to Root",
+  "prohibited": [
+    "P4/P5/HoG/diagnostics",
+    "source/support/runner/oracle/old evidence edits",
+    "main build/generator/pack/test alias",
+    "network fallback or script enabled npm",
+    "Git or continuation17"
+  ]
+}

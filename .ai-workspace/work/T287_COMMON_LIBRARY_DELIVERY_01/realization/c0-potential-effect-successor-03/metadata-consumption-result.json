@@ -1,0 +1,19 @@
+{
+  "all499CopiedDirectoryModesAndMtimesPreservedAfterGeneratorAndPack": true,
+  "hiddenLockSha256": "4de25c4643692482146e4307a4829cbe0d9702e25143723b792d827a744f73e1",
+  "logs": [
+    {
+      "path": "npm-logs/2026-10-21T05_23_17_574Z-debug-0.log",
+      "sha256": "29d623bccba70cb4271fca3128e22a1a4557e529340b289d39b0c4296b39dfea",
+      "bytes": 1399
+    },
+    {
+      "path": "npm-logs/2026-10-21T05_24_06_929Z-debug-0.log",
+      "sha256": "4bbc0ed99370cb34bdecadb261a889b19d0308620e28eb456b81ae470d112a7d",
+      "bytes": 1529
+    }
+  ],
+  "hiddenLockRejectionLogEntries": 0,
+  "materialLocatorAssertionResult": "zero additions and zero removals; both CHANGELOG paths present",
+  "payloadOwnerResultSha256": "35e6e2e5a39fb976b2d724c31427ab164b4757205509826288e9c6f769906a2d"
+}

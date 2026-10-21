@@ -1,0 +1,64 @@
+{
+  "id": "U1-full-combined",
+  "configuration": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined/tmp/",
+      "ABG_U1_FIRST_CASE": "c0",
+      "ABG_U1_EVIDENCE_DIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined/evidence"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 1
+  },
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined/tmp/",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-cache",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "ABG_U1_FIRST_CASE": "c0",
+    "ABG_U1_EVIDENCE_DIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined/evidence"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/run-command.py",
+    "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "bytes": 2571
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/preflight-freeze.json",
+    "sha256": "8afa05f86e73921949297a93043c0dfb45c2352fc46e5dc8928212919edb9de8",
+    "bytes": 2388
+  },
+  "testPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "sha256": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546",
+      "bytes": 37664
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "76751820ec9aeda35174a59c5551a97499541161e4a230703e71e17b8cc9a62c",
+      "bytes": 99481
+    }
+  ],
+  "resourceBinding": "resources.json",
+  "timeoutMs": 600000,
+  "condition": "successful06 closure verified; first full two-file aggregate, no name filter"
+}

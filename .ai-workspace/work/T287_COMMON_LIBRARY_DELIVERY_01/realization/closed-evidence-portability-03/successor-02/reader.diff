@@ -1,0 +1,35 @@
+--- .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-01/select-population.py
++++ .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/select-population.py
+@@ -25,11 +25,11 @@
+     p = Path(row['path'])
+     assert p.is_file() and not p.is_symlink(), str(p)
+     assert p.stat().st_size == row['bytes'] and digest(p) == row['sha256'], str(p)
+-def add(row, base, route):
++def add(row, base, route, declared_kind=None):
+     native = dict(row); p = Path(row['path']); p = p if p.is_absolute() else Path(base) / p
+     assert '..' not in p.parts and 'continuation-17' not in p.parts, str(p)
+     key = str(p)
+-    kind = row.get('kind', row.get('type', 'file'))
++    kind = declared_kind or row.get('kind', row.get('type', 'file'))
+     if kind == 'regular': kind = 'file'
+     if 'node-compile-cache' in p.parts:
+         exclusions.append(dict(path=key, source=native, route=route, reason='Exact frozen V8 cache row; recomputable bytes excluded, original observation retained.')); return
+@@ -56,7 +56,7 @@
+         for field in s['fields']:
+             assert isinstance(f[field], list), (s['path'], field)
+             routes.append(dict(index=s, field=field, base=s['base'], rows=len(f[field])))
+-            for row in f[field]: add(row, s['base'], s['path'] + '#' + field)
++            for row in f[field]: add(row, s['base'], s['path'] + '#' + field, 'symlink' if field == 'symlinks' else None)
+     for s in A['physicalIndexes']:
+         exact(s); add(s, R, 'selected physical inventory'); f = read(s['path'])
+         base = f[s['baseField']] if s['baseField'] else str(R)
+@@ -146,7 +146,8 @@
+     assert payload + authored + 16 * 1024**2 <= A['limits']['newLogicalPayloadPlusMetadata'], (payload, authored)
+     result = dict(status='satisfied', selectedAddresses=len(selected), frozenMetadataRows=len(metadata), explicitExclusions=len(exclusions), newUniqueObjects=len(objects), newObjectPayloadBytes=payload, authoredBytesAtPreflight=authored, logicalCarrierUpperBoundWithoutSmallReceipts=payload + authored, logicalLimit=A['limits']['newLogicalPayloadPlusMetadata'], archiveCount=number, representations=dict(collections.Counter(r['transport']['kind'] for r in selected.values())), packages=len(packages), originalTreesScanned=0, originalObjectSourcesRead=len(source_states), repositorySourcesVerified=len(checked_repo), archivesWritten=0, ProductExecutions=0)
+     write('population-preflight.json', result)
+-    write('population-freeze.json', dict(status='frozen_before_archives', files=[pin(p) for p in sorted(D.iterdir()) if p.is_file()]))
++    closed_names = ['activation.json', 'HOW.md', 'adapter-inspection.json', 'script-reuse.json', 'select-population.py', 'population.command.json', 'population.json', 'source-routes.json', 'original-metadata.json', 'object-source-states.json', 'exclusions.json', 'package-members.json', 'object-plan.json', 'population-preflight.json']
++    write('population-freeze.json', dict(status='frozen_before_archives', commandStreams='Bound only by the enclosing freeze after process completion.', files=[pin(D / name) for name in closed_names]))
+     print(json.dumps(result))
+ except Exception as error:
+     write('STOP-population.json', dict(status='stopped', firstCause=repr(error), traceback=traceback.format_exc(), selectedSoFar=len(selected), archivesWritten=0, stop='Return Root before repair or retry.'))

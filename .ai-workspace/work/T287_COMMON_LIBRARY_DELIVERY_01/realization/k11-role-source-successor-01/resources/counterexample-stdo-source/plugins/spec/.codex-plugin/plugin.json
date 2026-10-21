@@ -1,0 +1,39 @@
+{
+  "name": "spec",
+  "version": "3.0.0-rc.1",
+  "description": "STDO help, ticket, work, review, and status skills.",
+  "author": {
+    "name": "foolishimp",
+    "url": "https://github.com/foolishimp"
+  },
+  "homepage": "https://github.com/foolishimp/specification_methodology",
+  "repository": "https://github.com/foolishimp/specification_methodology",
+  "license": "Apache-2.0",
+  "keywords": [
+    "stdo",
+    "methodology",
+    "specification",
+    "requirements",
+    "review",
+    "ticketing"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "STDO Specification Method",
+    "shortDescription": "Govern requirements, work, review, and status",
+    "longDescription": "Use an exact STDO basis to enter work, ticket requests, iterate requirements, develop and test, review candidates, and report status.",
+    "developerName": "foolishimp",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use $spec:stdo-help to establish this project's exact work basis.",
+      "Use $spec:stdo-ticket to turn this request into governed work.",
+      "Use $spec:stdo-status to report current Product progress."
+    ],
+    "brandColor": "#334155"
+  }
+}

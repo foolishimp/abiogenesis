@@ -1,0 +1,13 @@
+{
+  "status": "exact selected inputs bound",
+  "sourceFiles": 12,
+  "requiredSetup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/proof/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "bytes": 40077,
+    "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e"
+  },
+  "proofPackageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/proof/build_tenants/abiogenesis/typescript",
+  "sourceEffects": 0,
+  "runtimeLaunchCount": 0,
+  "priorFailurePreserved": true
+}

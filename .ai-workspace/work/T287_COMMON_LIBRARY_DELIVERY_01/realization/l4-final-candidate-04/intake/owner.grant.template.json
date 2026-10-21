@@ -1,0 +1,12 @@
+{
+  "kind": "t287_final_owner_resolution_effect_grant",
+  "status": "NOT_GRANTED",
+  "issuedBy": "/root",
+  "configurationSha256": null,
+  "scriptSha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+  "subjectId": "candidate",
+  "nativeCalls": 0,
+  "outputRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution",
+  "effect": "read-only exact actual P1 owner/material resolution; no EventStore acquisition or append",
+  "ordering": "after satisfied P1, before P2 or any later append"
+}

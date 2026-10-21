@@ -1,0 +1,152 @@
+{
+  "status": "completed_selected_baseline_P3_endpoint",
+  "command": {
+    "rawTimeEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/execution.stderr",
+      "sha256": "bf0f2b075e5afda4893a5127fb722897618cc326e7319e138177116537736bf7",
+      "bytes": 777,
+      "mode": "0o644"
+    },
+    "reportedWallSeconds": 44.49,
+    "reportedUserSeconds": 51.18,
+    "reportedSystemSeconds": 9.29,
+    "reportedMaximumResidentSetSize": 3055960064,
+    "reportedPeakMemoryFootprint": 3064181920,
+    "externalWrapperWallMs": 44497.78991704807,
+    "scope": "Exact /usr/bin/time -l accounting over runner and awaited children plus proof overhead. Platform memory counters retained as reported, without attribution to any particular helper child."
+  },
+  "runnerMeasurements": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/measurements.json",
+    "sha256": "0057ee62e18d3fee78e2dd2a51ea347adfa108fe172ecba668f54addd159e702",
+    "bytes": 9166,
+    "mode": "0o644"
+  },
+  "observedIntervals": [
+    {
+      "name": "bootstrap-install",
+      "wallMs": 5586.618959,
+      "cpuUs": {
+        "user": 226132,
+        "system": 245003
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "language-setup-and-start",
+      "wallMs": 35867.714542,
+      "cpuUs": {
+        "user": 33871873,
+        "system": 1476728
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "fresh-run_result",
+      "wallMs": 893.4223750000019,
+      "cpuUs": {
+        "user": 574,
+        "system": 354
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "fresh-run_replay",
+      "wallMs": 892.8364580000052,
+      "cpuUs": {
+        "user": 41501,
+        "system": 1815
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "whole-lane",
+      "wallMs": 38000.856791,
+      "cpuUs": {
+        "user": 34277634,
+        "system": 1511135
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    }
+  ],
+  "intervalRelations": "language-setup-and-start combines provisioning and the Public start. whole-lane excludes bootstrap and includes fresh reads/evidence work; whole-command additionally includes bootstrap/preflight/footprints. Fresh read intervals include CLI process startup and close/reopen work. No unobserved internal split is inferred.",
+  "retainedFootprintsAtClosedCut": [
+    {
+      "rootLabel": "evidence",
+      "root": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence",
+      "present": true,
+      "files": 16,
+      "symlinks": 0,
+      "logicalBytes": 84455457,
+      "allocatedFileBytes": 84496384,
+      "duAllocatedKiB": 82516,
+      "duCommand": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence"
+      ],
+      "duStdout": "82516\t/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence\n",
+      "duStderr": "",
+      "duExitCode": 0
+    },
+    {
+      "rootLabel": "host",
+      "root": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/host",
+      "present": true,
+      "files": 5271,
+      "symlinks": 0,
+      "logicalBytes": 70673851,
+      "allocatedFileBytes": 84946944,
+      "duAllocatedKiB": 82956,
+      "duCommand": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/host"
+      ],
+      "duStdout": "82956\t/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/host\n",
+      "duStderr": "",
+      "duExitCode": 0
+    },
+    {
+      "rootLabel": "scratchParent",
+      "root": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent",
+      "present": true,
+      "files": 11147,
+      "symlinks": 0,
+      "logicalBytes": 168108790,
+      "allocatedFileBytes": 199049216,
+      "duAllocatedKiB": 194384,
+      "duCommand": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent"
+      ],
+      "duStdout": "194384\t/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent\n",
+      "duStderr": "",
+      "duExitCode": 0
+    },
+    {
+      "rootLabel": "worksite",
+      "root": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/worksite",
+      "present": false,
+      "files": 0,
+      "symlinks": 0,
+      "logicalBytes": 0,
+      "allocatedFileBytes": 0
+    }
+  ],
+  "footprintScope": "Only newly granted roots. Logical file sizes, allocated file st_blocks times 512 and raw du -sk are retained-cut observations, not allocation peaks; copy-on-write/shared blocks may overlap. npm cache/log activity outside these roots is not inventoried.",
+  "eventBytes": 3217928,
+  "events": 34,
+  "nativeCalls": 0,
+  "unobserved": [
+    "internal read/hash/encode/write byte counters",
+    "RuntimeHistorySelection body/selector/suffix/cause counters not exposed by selected caller",
+    "child CPU and peak memory for helper-internal subprocesses",
+    "native-provider token cost unless reported by retained transcript",
+    "OS-wide allocation peaks",
+    "separate internal provisioning/start/close/reopen phase timings",
+    "helper-internal read/hash/encode/write work and physical cleanup counters not exposed by the selected caller"
+  ],
+  "comparison": "Prepared for comparison only to an equivalent candidate P3 with the same repaired support, workload, runner and toolchain. Original failed P3 setup remains separate failure evidence; no speedup claim.",
+  "L5": "not claimed"
+}

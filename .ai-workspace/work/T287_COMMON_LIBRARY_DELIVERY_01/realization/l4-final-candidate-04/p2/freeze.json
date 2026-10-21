@@ -1,0 +1,249 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "lane": "partial-install",
+  "rowBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2",
+  "files": [
+    {
+      "path": "cache-allocation.json",
+      "sha256": "42ea29dd96ea07da0cc711d076d48eab9f3571e8f31380579d687e3aba738a7d",
+      "bytes": 140,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "command.json",
+      "sha256": "f28ebcc084d8c97360a668413c6e1a97fe7431ba8f1cd2946b5d81b01b385b8d",
+      "bytes": 1259,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "configuration.json",
+      "sha256": "b62fb2bfe5dd1e4310ba9eab8937b6bb874686272e6a8d1de1827a0ea7535f03",
+      "bytes": 6832,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "effect-grant.json",
+      "sha256": "dc2b87da13bdac816f4db1f1687f7a7d2a5b0a2a34d3ef6342c7a2250d69a0e9",
+      "bytes": 1902,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/activation-preconditions.json",
+      "sha256": "af905af0650ef68d7aca0d314fd888407611be805e9b9331c5d5a3c87969714c",
+      "bytes": 10859,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/actual-returned-handoff.json",
+      "sha256": "65ec759e9d5b168c65e2a0f5f39ec8768940a3efa3bf4019dac10f8735acc8af",
+      "bytes": 1230,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/after-owner-projection.json",
+      "sha256": "3268db2c6081ed688d606e147e4a152a6eeeb5a7214e0c1f54d89578d86f4cfd",
+      "bytes": 28727957,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/before-owner-projection.json",
+      "sha256": "af622bcc448a6624e72ce3c9d960e22a9694842d8ba5707b3ab33b17d763f4f9",
+      "bytes": 28729231,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/bootstrap-inventory.json",
+      "sha256": "e73460983e690ababf8e5cc83e636e2835161faf91cb5fa44e8becca3244a9ad",
+      "bytes": 987997,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/calls/second-install.close.json",
+      "sha256": "65ec759e9d5b168c65e2a0f5f39ec8768940a3efa3bf4019dac10f8735acc8af",
+      "bytes": 1230,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/calls/second-install.outcome.json",
+      "sha256": "0d2ae9764f7084b958148e2afa85dccb32b8067969e477bc645a07c0608d9df3",
+      "bytes": 4290,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/calls/second-install.request.jsonl",
+      "sha256": "dac9d5092546d19cefaf32399f7efce623a21ab8c53e241410fe26dac3f2bfc7",
+      "bytes": 31450515,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/commands/1-bootstrap-offline-install.json",
+      "sha256": "5869d37b62d6888f74792bbbbd4932e1cd758c404cda401ab5bf7273e02bf773",
+      "bytes": 573,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/commands/2-installed-declaration-consumer.json",
+      "sha256": "7d21081c014860d0ec0af4891a122b3e236bcb894469755dabddffa3073a4bb9",
+      "bytes": 959,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/commands/3-second-install.json",
+      "sha256": "e6e0a367446457eebb524db50d8ece0da5d9e4c95a35e3fb197c9bd2c3f5bfc0",
+      "bytes": 4484,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/effective-environment.json",
+      "sha256": "e985a3309257aa89b532da278838644a2149600ac82e9f453ff71eafaaa98d52",
+      "bytes": 447,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/events.jsonl",
+      "sha256": "fd32ad0ba5da46843d90610ea2fed1c46d2c3f025403e067428cdcc39f11a930",
+      "bytes": 3113245,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/measurements.json",
+      "sha256": "eb3b0e87f46ab5259eb4b3a5bb929fe55628188ebaa3a9c208f9111f2186e24b",
+      "bytes": 7551,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/original-physical-inventory.json",
+      "sha256": "8735c5aec050ec840850d63db1e19889875e5a866aa4c0a56ddb73c692c318fc",
+      "bytes": 988023,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/result.json",
+      "sha256": "c3988696097ae0f8c17678ec092a561625e05a510e3b0bbb3bf43388ffccb5c3",
+      "bytes": 1909,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/second-physical-inventory.json",
+      "sha256": "577dd0314bc60d4686102b2b64e2bd7726118f402b73f5fd243c2d9255c6dc25",
+      "bytes": 988006,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "input-freeze.json",
+      "sha256": "e0ea44b9ca57f19c51ab35d04860e704e2b56f59dba13cdcbb66c7d588d88adc",
+      "bytes": 1697,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "launch.json",
+      "sha256": "83ecf9c7171c2061dd6b4180cec256d2d4f8f9783f4cd571a8c66e8f2becbc94",
+      "bytes": 486,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "physical-resources.json",
+      "sha256": "5eae1d9f78dbad53d8a1b1f8b35c05ba4d0c1190b75ee38ecb4d928b7ad916c0",
+      "bytes": 4646142,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "portable-evidence-map.json",
+      "sha256": "57b869270ac7d13a65b2d45902e19aae0c617598453435b3d99d8bc167d7a818",
+      "bytes": 15339,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "process-result.json",
+      "sha256": "5f628c05e08d4e8dedd0e422d5561704d09c6ff50632b33592bfc09652504495",
+      "bytes": 311,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "result.json",
+      "sha256": "35c22b1340159572b45b6fe5146df7301f7bc45f7e8a757a8b3d7ee0e3bdf6f4",
+      "bytes": 4938,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retained-footprints.json",
+      "sha256": "cec10c770ec75b6bbe1872f1528449bb475ab16c90e14cef63f1e8ac27b34cd2",
+      "bytes": 3305,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retention-command.json",
+      "sha256": "17fa4c2c8e6677f472d236ed64b72c518e5bb0e11bb90a49d8545d7fc2c9ceb3",
+      "bytes": 669,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retention-result.json",
+      "sha256": "7c90cec3b9a28474e1531acfb3407bec1f4a115153e52ed21c800907cedbc0d5",
+      "bytes": 223,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retention.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retention.stdout",
+      "sha256": "2f2808a614841529e9ac96fcc79438e928c220e3e726370b0d7a2c2ec9ead162",
+      "bytes": 498,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "stderr-time.txt",
+      "sha256": "0c172777e1a43f0e50f5bbd1f2717cc7ca2b705f4e49449f8aa6b7ea8be48a25",
+      "bytes": 777,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "stdout.txt",
+      "sha256": "a02d68f7c86ac081e7cecb7b44cfddfe2a090b6ccbf46eea5dda2bc2db610f4d",
+      "bytes": 122,
+      "mode": "0o644",
+      "kind": "file"
+    }
+  ],
+  "recordCount": 34,
+  "resultSha256": "35c22b1340159572b45b6fe5146df7301f7bc45f7e8a757a8b3d7ee0e3bdf6f4",
+  "physicalRule": "Retained physical state is an observed cut; frozen local carriers are immutable."
+}

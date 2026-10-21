@@ -1,0 +1,8 @@
+{"at":"1375439614377791","event":"host-start","mode":"draining_control","pid":87139,"node":"v24.7.0","contract":{"kind":"worker_transport_contract","schemaVersion":"5.0.0","agentKey":"claude","command":"/opt/homebrew/Cellar/node/24.7.0/bin/node","prefixArgs":["/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/fixture-child.mjs","draining_control","/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/draining_control"],"argsTemplate":["-p","--disable-slash-commands","--no-session-persistence","--output-format","stream-json","--include-partial-messages","--verbose","--permission-mode","bypassPermissions"],"parser":"claude_stream_json","promptTransport":"stdin","sanitizedEnvironmentPrefixes":["CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL","CLAUDE_CODE_SSE_","CLAUDE_CODE_ENTRYPOINT","CLAUDE_CODE_EXECPATH"]},"promptBytes":8388608}
+{"at":"1375439642704250","event":"child-started","pid":87155}
+{"at":"1375439665975000","event":"child-exit","status":0,"signal":null}
+{"at":"1375439666092458","event":"os-signal","pid":-87155,"signal":0}
+{"at":"1375439666166916","event":"os-signal-error","pid":-87155,"signal":0,"code":"ESRCH"}
+{"at":"1375439669990500","event":"owner-return","disposition":"success"}
+{"at":"1375439670027500","event":"host-survived-owner-settlement","pid":87139}
+{"at":"1375439670079833","event":"host-exit","code":0,"pid":87139}

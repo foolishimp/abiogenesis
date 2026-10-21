@@ -1,0 +1,18 @@
+{
+  "kind": "t287_closed_candidate_inventory_binding",
+  "status": "NOT_BOUND",
+  "subjectId": "candidate",
+  "repoRoot": "/Users/jim/src/apps/abiogenesis",
+  "closedRoot": null,
+  "freeze": {
+    "path": null,
+    "sha256": null
+  },
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/bound-subject-01",
+  "requirements": [
+    "Root supplies exact ready_for_separately_granted_L4 combined-final-02 freeze and verifies actual rows",
+    "set closedRoot and freeze from that return, never from active directory name or historical final01",
+    "select closed_candidate_selected only after actual closed-subject intake; this status grants no runtime effects",
+    "output is only runner-shaped inventories and subject.NOT_GRANTED.json; no active lane or grant is produced"
+  ]
+}

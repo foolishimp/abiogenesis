@@ -1,0 +1,15 @@
+{
+  "exitCode": 0,
+  "pid": 36718,
+  "wallMs": 2712.7227501478046,
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/operations/p1/retain.stdout",
+    "sha256": "0a4bd50cc99bf26a9022fe992c85709319fcc73017b016bfa202d1030eac1586",
+    "bytes": 2869
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/operations/p1/retain.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  }
+}

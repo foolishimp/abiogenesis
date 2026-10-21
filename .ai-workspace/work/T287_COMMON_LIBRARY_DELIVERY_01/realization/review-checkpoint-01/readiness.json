@@ -1,0 +1,53 @@
+{
+  "status": "ready_for_authorized_unfinished_review_commit_and_push",
+  "baseCommit": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+  "branch": "main",
+  "origin": "https://github.com/foolishimp/abiogenesis.git",
+  "transportFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/freeze.json",
+    "sha256": "1960949ace97eb1a8ee5eb30994379f8cc7c5ef81066b3c73fe9a68898a660cb"
+  },
+  "stagedValidation": {
+    "path": "staged-validation.json",
+    "sha256": "ca48fcf054f737b32aa98f7e588904b59a74fafbe8c8bba446de0e040328611e",
+    "bytes": 336
+  },
+  "whitespaceDisposition": {
+    "path": "whitespace-custody-disposition.json",
+    "sha256": "df0b790d78f594011be6ceefa0b4a795cb02c1c01cd74d1704b5d287f87a090f",
+    "bytes": 1849
+  },
+  "credentialMarkerCheck": {
+    "path": "credential-marker-check.json",
+    "sha256": "81361eae497a4e56d724551438c9bb266b7b7d7703fcd235f42fdeb968092235",
+    "bytes": 522
+  },
+  "fetchAndParity": {
+    "path": "fetch-and-parity.json",
+    "sha256": "f42bf6fdf3f923996aea443f10f0d7654b086e47af41a2b54430fb13b69661d7",
+    "bytes": 285
+  },
+  "publicReviews": [
+    {
+      "path": "review-disposition-supplement.md",
+      "sha256": "a89c723fb0d7a164f6f04bf19df5acfadddfc81bd5eaa558af9feba9dc51844f",
+      "bytes": 7166
+    },
+    {
+      "path": "review-disposition-supplement-02.md",
+      "sha256": "c60296c7566ee9caae6963c9759d884b48eee2712589e5e481299e6a3843eed8",
+      "bytes": 5960
+    }
+  ],
+  "method": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "validation": "Exact carrier/source correspondence and staged dependency/LFS checks passed. Full staged whitespace check exit2 remains explicit nonblocking retained-evidence exception; tracked-source check exit0. No new Product proof, build or test run.",
+  "remainingGit": "Stage only final checkpoint records, inspect final stat, commit, push without force, verify direct remote HEAD/tracking0/0/clean. Do not write own commit SHA into this tree afterward.",
+  "deliveryAccepted": false,
+  "releaseGate": "closed",
+  "sourceImplementationHeldUntilCheckpointPushed": true,
+  "protectedContinuation17Accessed": false
+}

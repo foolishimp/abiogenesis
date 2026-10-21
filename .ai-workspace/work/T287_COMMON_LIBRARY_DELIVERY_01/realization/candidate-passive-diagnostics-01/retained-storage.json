@@ -1,0 +1,22 @@
+{
+  "roots": [
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01",
+      "files": 182,
+      "logicalBytes": 471099416,
+      "allocatedKiB": 460476,
+      "scope": "Pre-return/final-freeze retained roots, excluding only these final small metadata records; no unique/CoW-exclusive allocation claim"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0",
+      "files": 33019,
+      "logicalBytes": 1384033746,
+      "allocatedKiB": 1448576,
+      "scope": "Pre-return/final-freeze retained roots, excluding only these final small metadata records; no unique/CoW-exclusive allocation claim"
+    }
+  ],
+  "totalLogicalBytes": 1855133162,
+  "maximumAdditionalRetainedBytes": 10737418240,
+  "cleanup": false,
+  "selectedOriginalStageAndArchivesReferencedNotCopied": true
+}

@@ -12,6 +12,7 @@ import {
 } from "../../build/code/src/abg/c_call.js";
 import {
   deriveRuntimeEventCalculusProjection,
+  eventCalculusEffect,
   holdsAt,
   constructRuntimeFluent,
 } from "../../build/code/src/abg/event_calculus.js";
@@ -200,4 +201,15 @@ test('owned actor selection preserves complete lifecycle truth across unrelated 
     assert.throws(()=>readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate,{requireCurrent:true}),e=>e.code==='prefix_digest_mismatch');
     await writeFile(path,bytes);
   }finally{acquired.store.closeDurableLog();await rm(scratch,{recursive:true,force:true});}
+});
+
+
+test('unjoined process uncertainty preserves cleanup without claiming a native write scope', () => {
+  const unknown = event('actor_process_termination_unconfirmed', 2, 'process', processRef, actorRef,
+    { actorInvocationRef: actorRef, processRef });
+  const effect = eventCalculusEffect(unknown, [event('actor_process_started', 1, 'process', processRef, actorRef,
+    { actorInvocationRef: actorRef, processRef, processId: 17 })]);
+  assert.deepEqual(effect.terminates, []);
+  assert.deepEqual(effect.clips, []);
+  assert.equal(effect.initiates.some(f => f.name === 'actor_cleanup_pending'), true);
 });

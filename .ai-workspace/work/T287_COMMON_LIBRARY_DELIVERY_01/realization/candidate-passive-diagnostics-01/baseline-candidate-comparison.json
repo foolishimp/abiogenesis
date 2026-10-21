@@ -1,0 +1,517 @@
+{
+  "status": "bounded_correspondence_and_observations",
+  "lanes": [
+    {
+      "lane": "p1",
+      "candidateEndpoint": {
+        "raw": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/stderr-time.txt",
+          "sha256": "5fbdc03970581b0f2ed68421f4e73e63461712110947a17eb166aa43aa9542f5",
+          "bytes": 777,
+          "mode": "0o644"
+        },
+        "wallSeconds": 318.26,
+        "userSeconds": 369.47,
+        "systemSeconds": 15.63,
+        "maximumResidentSetSizeBytes": 2986868736,
+        "peakMemoryFootprintBytes": 1968664592,
+        "scope": "macOS time -l whole command, original runner plus awaited children and passive instrumentation. No per-external-child attribution or summed memory maxima."
+      },
+      "candidateDiagnostic": {
+        "raw": {
+          "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/diagnostic/execution.stderr",
+          "sha256": "1f8e46fd0f8511d0bbc755c2b38293512227fd16ee520f21c28fde639af47145",
+          "bytes": 777,
+          "mode": "0o644"
+        },
+        "wallSeconds": 709.58,
+        "userSeconds": 631.3,
+        "systemSeconds": 45.02,
+        "maximumResidentSetSizeBytes": 2982789120,
+        "peakMemoryFootprintBytes": 2006641160,
+        "scope": "macOS time -l whole command, original runner plus awaited children and passive instrumentation. No per-external-child attribution or summed memory maxima."
+      },
+      "baselineDiagnostic": {
+        "raw": {
+          "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic/execution.stderr",
+          "sha256": "5723beb445b67cedc5fa2f2869953b588e17426b82925981458eae535037d301",
+          "bytes": 777,
+          "mode": "0o644"
+        },
+        "wallSeconds": 329.43,
+        "userSeconds": 382.08,
+        "systemSeconds": 16.66,
+        "maximumResidentSetSizeBytes": 2981330944,
+        "peakMemoryFootprintBytes": 2279814800,
+        "scope": "macOS time -l whole command, original runner plus awaited children and passive instrumentation. No per-external-child attribution or summed memory maxima."
+      },
+      "candidateWork": {
+        "api": {
+          "hash.update.inputBytes": {
+            "calls": 120266481,
+            "total": 8497290075
+          },
+          "JSON.stringify.outputUtf8Bytes": {
+            "calls": 107793163,
+            "total": 5046257890
+          },
+          "writeCanonicalJson.deliveredUtf8Bytes": {
+            "calls": 254026239,
+            "total": 5095602595
+          },
+          "RuntimeEventIndex.count.advancedRows": {
+            "calls": 37,
+            "total": 14
+          },
+          "RuntimeEventIndex.ordinalCount.advancedRows": {
+            "calls": 5,
+            "total": 6
+          },
+          "RuntimeEventIndex.profileCount.advancedRows": {
+            "calls": 5,
+            "total": 6
+          },
+          "RuntimeEventIndex.causalCount.advancedRows": {
+            "calls": 2,
+            "total": 3
+          },
+          "RuntimeHistory.indices.returnedRows": {
+            "calls": 10,
+            "total": 27
+          },
+          "fs.writeFileSync.successfulUtf8InputBytes": {
+            "calls": 5,
+            "total": 496
+          }
+        },
+        "runtimeHistoryCumulativeWork": {
+          "bodyRows": 68,
+          "scopeRows": 0,
+          "membershipComparisons": 0,
+          "selectorRows": 0
+        },
+        "runtimeHistoryMethodCalls": {
+          "select": 107,
+          "appendValidated": 27,
+          "selection.rowById": 79,
+          "event": 68,
+          "indices": 10,
+          "selection.select": 10,
+          "selection.materialize": 23
+        },
+        "runtimeHistoryScopeObservations": {
+          "calls": 0,
+          "newScopeRows": 0,
+          "returnedRows": 0
+        },
+        "historyOwnerCount": 10,
+        "nativeTraceChannels": {
+          "asyncRead": {
+            "calls": 36964,
+            "bytes": 1289460539,
+            "errors": 0,
+            "unsized": 0
+          },
+          "asyncWrite": {
+            "calls": 76818,
+            "bytes": 972721377,
+            "errors": 0,
+            "unsized": 0
+          },
+          "syncRead": {
+            "calls": 20367,
+            "bytes": 1776875804,
+            "errors": 0,
+            "unsized": 79
+          },
+          "syncWrite": {
+            "calls": 125,
+            "bytes": 3310634,
+            "errors": 0,
+            "unsized": 5
+          }
+        },
+        "scope": "Each same-named channel summed across actual observed PIDs/owner identities. Distinct channels overlap and are never summed together. History counters count repeated work, not unique facts. Maxima are kept per PID."
+      },
+      "baselineWork": {
+        "api": {
+          "hash.update.inputBytes": {
+            "calls": 120233834,
+            "total": 8495623813
+          },
+          "writeCanonicalJson.deliveredUtf8Bytes": {
+            "calls": 253961179,
+            "total": 5094497789
+          },
+          "JSON.stringify.outputUtf8Bytes": {
+            "calls": 107765049,
+            "total": 5045186073
+          },
+          "fs.writeFileSync.successfulUtf8InputBytes": {
+            "calls": 5,
+            "total": 496
+          },
+          "RuntimeEventIndex.count.advancedRows": {
+            "calls": 37,
+            "total": 14
+          },
+          "RuntimeEventIndex.ordinalCount.advancedRows": {
+            "calls": 5,
+            "total": 6
+          },
+          "RuntimeEventIndex.profileCount.advancedRows": {
+            "calls": 5,
+            "total": 6
+          },
+          "RuntimeHistory.indices.returnedRows": {
+            "calls": 10,
+            "total": 27
+          },
+          "RuntimeEventIndex.causalCount.advancedRows": {
+            "calls": 2,
+            "total": 3
+          }
+        },
+        "runtimeHistoryCumulativeWork": {
+          "bodyRows": 68,
+          "scopeRows": 0,
+          "membershipComparisons": 0,
+          "selectorRows": 0
+        },
+        "runtimeHistoryMethodCalls": {
+          "select": 107,
+          "selection.materialize": 23,
+          "appendValidated": 27,
+          "event": 68,
+          "selection.rowById": 79,
+          "indices": 10,
+          "selection.select": 10
+        },
+        "runtimeHistoryScopeObservations": {
+          "calls": 0,
+          "newScopeRows": 0,
+          "returnedRows": 0
+        },
+        "historyOwnerCount": 10,
+        "nativeTraceChannels": {
+          "asyncRead": {
+            "calls": 36920,
+            "bytes": 1288461601,
+            "errors": 0,
+            "unsized": 0
+          },
+          "asyncWrite": {
+            "calls": 76754,
+            "bytes": 972461411,
+            "errors": 0,
+            "unsized": 0
+          },
+          "syncRead": {
+            "calls": 20309,
+            "bytes": 2004748498,
+            "errors": 0,
+            "unsized": 79
+          },
+          "syncWrite": {
+            "calls": 125,
+            "bytes": 3306591,
+            "errors": 0,
+            "unsized": 5
+          }
+        },
+        "scope": "Each same-named channel summed across actual observed PIDs/owner identities. Distinct channels overlap and are never summed together. History counters count repeated work, not unique facts. Maxima are kept per PID."
+      },
+      "candidateFootprints": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/footprints.json",
+        "sha256": "e6af72249022758d81bc349f47054d65a644c7b1dde77a5c684f1e91d861ef3b",
+        "bytes": 3605,
+        "mode": "0o644"
+      },
+      "baselineFootprints": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/footprints.json",
+        "sha256": "b4dd662c9e208ca04e9c864e79ab8d2950f19fdee9763b589f528f8c54e7c77f",
+        "bytes": 3587,
+        "mode": "0o644"
+      }
+    },
+    {
+      "lane": "p3",
+      "candidateEndpoint": {
+        "raw": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p3/stderr-time.txt",
+          "sha256": "b8b1dddc3c3ab105183285b630cb4ea32270e68e6efac369def18e24f11b58e2",
+          "bytes": 777,
+          "mode": "0o644"
+        },
+        "wallSeconds": 417.85,
+        "userSeconds": 257.11,
+        "systemSeconds": 49.0,
+        "maximumResidentSetSizeBytes": 1660354560,
+        "peakMemoryFootprintBytes": 1668538976,
+        "scope": "macOS time -l whole command, original runner plus awaited children and passive instrumentation. No per-external-child attribution or summed memory maxima."
+      },
+      "candidateDiagnostic": {
+        "raw": {
+          "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/diagnostic/execution.stderr",
+          "sha256": "9e4698b7e65db8443886cbda1a1badfa582280d48d10776bd30cb6620557e789",
+          "bytes": 777,
+          "mode": "0o644"
+        },
+        "wallSeconds": 57.14,
+        "userSeconds": 66.16,
+        "systemSeconds": 10.91,
+        "maximumResidentSetSizeBytes": 3093102592,
+        "peakMemoryFootprintBytes": 3097619168,
+        "scope": "macOS time -l whole command, original runner plus awaited children and passive instrumentation. No per-external-child attribution or summed memory maxima."
+      },
+      "baselineDiagnostic": {
+        "raw": {
+          "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/diagnostic/execution.stderr",
+          "sha256": "04de5223c4ca12cf5310b0e4590ce68f2c73f993b7da0634f58fe5b0d0c72bc4",
+          "bytes": 777,
+          "mode": "0o644"
+        },
+        "wallSeconds": 52.57,
+        "userSeconds": 60.75,
+        "systemSeconds": 10.33,
+        "maximumResidentSetSizeBytes": 3276521472,
+        "peakMemoryFootprintBytes": 3285732392,
+        "scope": "macOS time -l whole command, original runner plus awaited children and passive instrumentation. No per-external-child attribution or summed memory maxima."
+      },
+      "candidateWork": {
+        "api": {
+          "hash.update.inputBytes": {
+            "calls": 44893762,
+            "total": 1932135679
+          },
+          "JSON.stringify.outputUtf8Bytes": {
+            "calls": 43739024,
+            "total": 1512933142
+          },
+          "writeCanonicalJson.deliveredUtf8Bytes": {
+            "calls": 102211349,
+            "total": 1400140851
+          },
+          "fs.writeFileSync.successfulUtf8InputBytes": {
+            "calls": 5,
+            "total": 496
+          },
+          "RuntimeEventIndex.count.advancedRows": {
+            "calls": 2639,
+            "total": 604
+          },
+          "RuntimeEventIndex.ordinalCount.advancedRows": {
+            "calls": 54,
+            "total": 438
+          },
+          "RuntimeEventIndex.profileCount.advancedRows": {
+            "calls": 54,
+            "total": 438
+          },
+          "RuntimeHistory.indices.returnedRows": {
+            "calls": 414,
+            "total": 465
+          },
+          "RuntimeEventIndex.causalCount.advancedRows": {
+            "calls": 27,
+            "total": 424
+          }
+        },
+        "runtimeHistoryCumulativeWork": {
+          "bodyRows": 1844,
+          "scopeRows": 31,
+          "membershipComparisons": 1880,
+          "selectorRows": 31
+        },
+        "runtimeHistoryMethodCalls": {
+          "select": 1043,
+          "selection.materialize": 307,
+          "appendValidated": 105,
+          "event": 2317,
+          "selection.rowById": 2104,
+          "indices": 414,
+          "selection.select": 407,
+          "commitLocation": 31,
+          "scope": 13,
+          "scopedSelectorExtent": 11,
+          "selection.selectorExtent": 20,
+          "scopedCanonicalDigest": 8,
+          "selectorExtent": 8
+        },
+        "runtimeHistoryScopeObservations": {
+          "calls": 13,
+          "newScopeRows": 31,
+          "returnedRows": 285
+        },
+        "historyOwnerCount": 17,
+        "nativeTraceChannels": {
+          "asyncRead": {
+            "calls": 29011,
+            "bytes": 739023890,
+            "errors": 0,
+            "unsized": 0
+          },
+          "asyncWrite": {
+            "calls": 76304,
+            "bytes": 724134064,
+            "errors": 0,
+            "unsized": 0
+          },
+          "syncRead": {
+            "calls": 8584,
+            "bytes": 1061058703,
+            "errors": 0,
+            "unsized": 69
+          },
+          "syncWrite": {
+            "calls": 149,
+            "bytes": 3318695,
+            "errors": 0,
+            "unsized": 5
+          }
+        },
+        "scope": "Each same-named channel summed across actual observed PIDs/owner identities. Distinct channels overlap and are never summed together. History counters count repeated work, not unique facts. Maxima are kept per PID."
+      },
+      "baselineWork": {
+        "api": {
+          "hash.update.inputBytes": {
+            "calls": 44563072,
+            "total": 1923678614
+          },
+          "JSON.stringify.outputUtf8Bytes": {
+            "calls": 43475459,
+            "total": 1504905986
+          },
+          "writeCanonicalJson.deliveredUtf8Bytes": {
+            "calls": 101613081,
+            "total": 1391805831
+          },
+          "fs.writeFileSync.successfulUtf8InputBytes": {
+            "calls": 5,
+            "total": 496
+          },
+          "RuntimeEventIndex.count.advancedRows": {
+            "calls": 1970,
+            "total": 604
+          },
+          "RuntimeEventIndex.ordinalCount.advancedRows": {
+            "calls": 51,
+            "total": 438
+          },
+          "RuntimeEventIndex.profileCount.advancedRows": {
+            "calls": 51,
+            "total": 438
+          },
+          "RuntimeHistory.indices.returnedRows": {
+            "calls": 410,
+            "total": 461
+          },
+          "RuntimeEventIndex.causalCount.advancedRows": {
+            "calls": 24,
+            "total": 424
+          }
+        },
+        "runtimeHistoryCumulativeWork": {
+          "bodyRows": 1660,
+          "scopeRows": 31,
+          "membershipComparisons": 1880,
+          "selectorRows": 31
+        },
+        "runtimeHistoryMethodCalls": {
+          "select": 933,
+          "selection.materialize": 303,
+          "appendValidated": 105,
+          "event": 2133,
+          "selection.rowById": 1869,
+          "indices": 410,
+          "selection.select": 403,
+          "commitLocation": 31,
+          "scope": 13,
+          "scopedSelectorExtent": 11,
+          "selection.selectorExtent": 20,
+          "scopedCanonicalDigest": 8,
+          "selectorExtent": 8
+        },
+        "runtimeHistoryScopeObservations": {
+          "calls": 13,
+          "newScopeRows": 31,
+          "returnedRows": 285
+        },
+        "historyOwnerCount": 17,
+        "nativeTraceChannels": {
+          "asyncRead": {
+            "calls": 28968,
+            "bytes": 738194847,
+            "errors": 0,
+            "unsized": 0
+          },
+          "asyncWrite": {
+            "calls": 76240,
+            "bytes": 723888799,
+            "errors": 0,
+            "unsized": 0
+          },
+          "syncRead": {
+            "calls": 8458,
+            "bytes": 1186530674,
+            "errors": 0,
+            "unsized": 69
+          },
+          "syncWrite": {
+            "calls": 149,
+            "bytes": 3316868,
+            "errors": 0,
+            "unsized": 5
+          }
+        },
+        "scope": "Each same-named channel summed across actual observed PIDs/owner identities. Distinct channels overlap and are never summed together. History counters count repeated work, not unique facts. Maxima are kept per PID."
+      },
+      "candidateFootprints": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/footprints.json",
+        "sha256": "568488511aa75d5cdb69f0b5436bcd965ee56ffd6bd5d8476f28b799be5faea0",
+        "bytes": 3198,
+        "mode": "0o644"
+      },
+      "baselineFootprints": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/footprints.json",
+        "sha256": "fdb67f253a3e4ccfa974190dce37e28df9e6a31c0f3f993870c9ef61f05bfca5",
+        "bytes": 3182,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "exactCrossSubject": {
+    "P1FullProgram": true,
+    "P1TenOperationContractsAndOutcomes": true,
+    "P3LiteralHelloWorld": true,
+    "P3FixtureLogicalIds": true
+  },
+  "producerBoundIdentities": "Archive, fixture, install, event, prefix and physical identities retain actual producer relations and differ by subject. No global normalization.",
+  "baselineClosure": {
+    "P1OriginalWorkload": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/result.json",
+      "sha256": "060f3298a1db69f6e9778f8bc38165b78999e61a12059d6c907f59f148627248",
+      "bytes": 5440,
+      "mode": "0o644"
+    },
+    "P1CoverageSuccessor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/freeze.json",
+      "sha256": "0270d388acf82cc8555edb6e38e148686288e949931498b87300ed2fe162560c",
+      "bytes": 5513,
+      "mode": "0o644"
+    },
+    "P3": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/freeze.json",
+      "sha256": "eaefd2bc14601f4d2e71a67e1df572f4c2082be7ec33c0d6451c87c256b50fef",
+      "bytes": 30320,
+      "mode": "0o644"
+    }
+  },
+  "limits": [
+    "Single endpoint and passive repetition per lane; no isolated overhead, statistical comparison, speed ratio or regression attribution",
+    "Host workloads, scheduling and original baseline cache boundary are not controlled",
+    "Byte/API/history channels retain individual scope and overlap; zeros in a measured channel do not represent unobserved channels",
+    "External tar/du CPU/memory/IO, unsized native bytes and cold-scope internal iterations remain unobserved",
+    "No native or semantic-quality comparison; no acceptance decision"
+  ]
+}

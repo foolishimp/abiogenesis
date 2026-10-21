@@ -1,0 +1,26 @@
+{
+  "observedAt": "2026-10-21T08:25:12.299943+00:00",
+  "rows": [
+    {
+      "label": "install",
+      "pidOrGroupId": 73770,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "install-group",
+      "pidOrGroupId": 73770,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "supervisor",
+      "pidOrGroupId": 73748,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    }
+  ]
+}

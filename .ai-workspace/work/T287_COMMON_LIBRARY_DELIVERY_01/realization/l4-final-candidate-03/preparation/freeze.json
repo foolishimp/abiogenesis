@@ -1,0 +1,265 @@
+{
+  "kind": "closed_proof_preparation",
+  "activation": "FINAL-CANDIDATE-03-BINDING",
+  "status": "BOUND_NOT_GRANTED",
+  "createdAt": "2026-10-21T06:12:34.030112+00:00",
+  "rowBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation",
+  "files": [
+    {
+      "path": "HOW-binding.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3876,
+      "sha256": "ad2cd885ab5ef80d52b552ac407ea8c55d00815795cff90df4dd45c8ceb4c993"
+    },
+    {
+      "path": "REPORT.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3310,
+      "sha256": "b8a50d3507ed0e8bb2d4e57410066ac9729319652eb4d6574d81278aaa6c7c9a"
+    },
+    {
+      "path": "ROOT-proof-status.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1448,
+      "sha256": "b71d23ce918a7ad259be698a4455451c7a611011ac1166e307649e9b55f79079"
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1536,
+      "sha256": "beb02bad76bfb7c5d116ff92b89ce3625e4b0391c78064434d5ce22694b1edf2"
+    },
+    {
+      "path": "actual-handoff-binding-map.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4473,
+      "sha256": "b578420d8395095de375b1b68391a293f7fb809e03f1a06bc6f2374e5e43a69b"
+    },
+    {
+      "path": "bind-successor03.mjs",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 16000,
+      "sha256": "44b8e46045140882c354c1aef753098637624e58435477c01d4f47653c22c619"
+    },
+    {
+      "path": "binding-input-pins.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 21995,
+      "sha256": "7400007d3c3740574ee663edc53fa319178d375a012c9c879a7363b2462b3c20"
+    },
+    {
+      "path": "binding-result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3912,
+      "sha256": "64fb818dce95d1f3415fed534674509ef4e521438879c61d01ddff289e39e0c4"
+    },
+    {
+      "path": "cache-plan.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2163,
+      "sha256": "6091fa49de7e793ef20931f19f28651e17a5dbd686a115b426d7a9820167afa3"
+    },
+    {
+      "path": "commands/binding.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 848,
+      "sha256": "fbfe545646bd303cc94c983d66f1f712a5eb65addafbc8f9d77edf061d92fe87"
+    },
+    {
+      "path": "commands/binding.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 790,
+      "sha256": "d2bda31a3d6ae6330f05a38cfcd8f4a9ccf587fb3d18741bfcf8149bb4a66acf"
+    },
+    {
+      "path": "commands/binding.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/binding.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 331,
+      "sha256": "74d1b18ae4cff89f95bbceff26e19c210581ba825f6c5ac17dff2d87b01d3470"
+    },
+    {
+      "path": "commands/syntax.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 823,
+      "sha256": "4168b993507e753fe5427c91771413a25cb1883248dfae55f16ba4be22cf1c65"
+    },
+    {
+      "path": "commands/syntax.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 787,
+      "sha256": "1df5d59c9a956ecc79ce64affb3708311344393f858fa7a1ac21b0ec84ac0773"
+    },
+    {
+      "path": "commands/syntax.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/syntax.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/toolchain-pin.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 293,
+      "sha256": "e731730c20b80dedeee55ede537da724bfef10707183318d49edc1ea8feaa9ff"
+    },
+    {
+      "path": "commands.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1298,
+      "sha256": "6eea3af049a239b9c29784fb257ee0d834d2f41331115eaf3600b187892b1a50"
+    },
+    {
+      "path": "offline-closure.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1161,
+      "sha256": "6c78c0b4ed9970d9153f0df5349384bd07e65be53e268ef3920c0fe8e84a5aee"
+    },
+    {
+      "path": "output-correspondence-inputs.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2173,
+      "sha256": "f16157f6418f40e4c7fe0ddc01d7b5b1484cf4c7993a9ebb6ac9f84355baa4a8"
+    },
+    {
+      "path": "owner-resolution.configuration.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3089,
+      "sha256": "6f43de674edd3257a63720a182a6a922a77bbde03d7bdbf1c97b27d71c817384"
+    },
+    {
+      "path": "owner-resolution.effect-grant.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 835,
+      "sha256": "dce2ac48dc6978ada62d89c564af98774337e1c046875939f20bb8303a367f41"
+    },
+    {
+      "path": "p1.configuration.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 5020,
+      "sha256": "676f27bcfa64cd532bbf72da6193efc9c6ef67bd9b0d03bd51f74eb32ada2f51"
+    },
+    {
+      "path": "p1.effect-grant.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1663,
+      "sha256": "36ef61e8beb878f0cd63ba8f87024db9e95cd0941b4cef88872f52fb629c70aa"
+    },
+    {
+      "path": "p2.configuration.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 5566,
+      "sha256": "26b11c9acdaa85ede02aa2810f5961084a1313b6f1aba72886623aad559b77a3"
+    },
+    {
+      "path": "p2.effect-grant.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1742,
+      "sha256": "87b0a71cb2585d6fe942c82f3c1e19383af192748a215252bdf3200d62f95507"
+    },
+    {
+      "path": "p3.configuration.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 5326,
+      "sha256": "c950be8091934f908f973847540556cba6993356d4175114d3fdd9294a570849"
+    },
+    {
+      "path": "p3.effect-grant.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1738,
+      "sha256": "837162c5d728aea8cf03aa930422f27e85e073d03b5207d8affa1853abdf39ab"
+    },
+    {
+      "path": "resource-plan.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3181,
+      "sha256": "1c1eec997b388fb425f24f67f380bccb2fe486879e31110808d5471d4425ff2c"
+    },
+    {
+      "path": "return.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 8416,
+      "sha256": "a66dbb80d6f22794923006acb52507974b0cd788780a99a791c8ae72edef770d"
+    },
+    {
+      "path": "selected-support.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3144,
+      "sha256": "00eff68a7329e05420c7669dac48fdbc717acca880a361e865aecb934b549665"
+    },
+    {
+      "path": "source-afterimages.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3338,
+      "sha256": "80704c80e912323ea86d8b62a00d576cfd8c6518f581cff349772e8a67b7fc5d"
+    },
+    {
+      "path": "stage-source-inventory.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 353354,
+      "sha256": "82661b8a6dc1f4fc8593d8fcca9a29c3956fdc6a2dbe118a295d43cf025d1723"
+    },
+    {
+      "path": "subject.NOT_GRANTED.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4121,
+      "sha256": "4c4316e74047114a45484e24aa4587db2ca059c5191731aa04827a05d1064921"
+    }
+  ],
+  "recordCount": 35,
+  "logicalBytes": 467750,
+  "reportSha256": "b8a50d3507ed0e8bb2d4e57410066ac9729319652eb4d6574d81278aaa6c7c9a",
+  "returnSha256": "a66dbb80d6f22794923006acb52507974b0cd788780a99a791c8ae72edef770d",
+  "archiveSha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+  "selectedFreezeSha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+  "priorPreparationFreezeSha256": "561c8178702fed08d8800f1b31253a6ecd9f4ff08158475e40b44c6f65c49af8",
+  "executionGranted": false,
+  "runtimeAttempts": 0,
+  "allocatedRoots": 0,
+  "scope": "Local preparation file inventory only; no broad candidate/main preservation rescan"
+}

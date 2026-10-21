@@ -45,6 +45,7 @@ import {
 import {
   selectValidatedRuntimeEventPrefix,
 } from "../../build/code/src/abg/event_prefix.js";
+import { RuntimeHistory, RuntimeHistorySelection } from "../../build/code/src/abg/runtime_history.js";
 import {
   canonicalJson,
   sha256Canonical,
@@ -58,7 +59,35 @@ import {
   setupInstalledRootInvocation,
 } from "../support/root-installed-environment.mjs";
 
-const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// Follow the actual runtime in a minimal proof overlay as well as in-tree.
+const packageRoot = resolve(dirname(fileURLToPath(import.meta.resolve(
+  "../../build/code/src/abg/event_store.js",
+))), "../../../..");
+let artifactOwnerEnvironment;
+const artifactOwnerCleanups = [];
+// Register at module evaluation, so this hook belongs to the file rather than
+// whichever test first acquires the shared fixture.
+test.after(async () => {
+  const failures = [];
+  for (const cleanup of artifactOwnerCleanups.splice(0)) {
+    try { await cleanup(); } catch (error) { failures.push(error); }
+  }
+  if (failures.length !== 0) throw new AggregateError(failures, "shared artifact owner cleanup failed");
+});
+async function installedArtifactOwnerEnvironment() {
+  // These two tests consume one unchanged owner history. Its ordinary cleanup
+  // runs after both consumers, rather than after the first consumer.
+  artifactOwnerEnvironment ??= setupInstalledRootInvocation(
+    { after: cleanup => artifactOwnerCleanups.push(cleanup) }, packageRoot,
+  );
+  return artifactOwnerEnvironment;
+}
+
+function exactEvent(events, predicate) {
+  const selected = events.filter(predicate);
+  assert.equal(selected.length, 1, "one exact owner event is required");
+  return selected[0];
+}
 const entry212ReopenWorker = resolve(
   dirname(fileURLToPath(import.meta.url)),
   "../support/t287-entry212-reopen-worker.mjs",
@@ -97,9 +126,11 @@ function runEntry212ReopenProbe(input) {
 function redigestPublicBasis(product, basis, overrides) {
   const candidate = { ...basis, ...overrides };
   candidate.invocationDigest = product.sha256Canonical({
+    definitionDigest: candidate.definitionDigest,
     invocationRef: candidate.invocationRef,
+    invocationPayloadDigest: candidate.invocationPayloadDigest,
+    memberKey: candidate.memberKey,
     operationId: candidate.operationId,
-    payloadDigest: candidate.invocationPayloadDigest,
   });
   return candidate;
 }
@@ -235,7 +266,7 @@ function forgedArtifactEventCandidate({
       causationEventRefs,
       correlationId,
       definitionDigest,
-      definitionKey: operationId,
+      memberKey: operationId === "abg.operation.product.install" ? "install" : "bind",
       invocationDigest,
       invocationPayloadDigest,
       invocationRef,
@@ -251,6 +282,7 @@ function runtimeEventCandidate(event) {
   delete candidate.admissionOrdinal;
   delete candidate.eventId;
   delete candidate.payloadDigest;
+  delete candidate.eventContractDigest;
   return candidate;
 }
 
@@ -350,27 +382,62 @@ test("owned causation lookup conserves batch and transaction rollback, reappend 
 });
 
 test("owned causation lookup grows with causal references in live admission and cold reconstruction", async context => {
-  // Count only event-reference Map operations, not wall time or total owner
-  // allocations. Dense immutable snapshot copies remain a separate cost.
-  const measure = action => {
+  // Attribute event-reference Maps to their source-owned computations. Live
+  // admission and history-location insertion each check a causal edge; cold
+  // decoding checks it once. Three live maps are not one cold decoded index.
+  const measure = (lane, action) => {
     const originalGet = Map.prototype.get, originalSet = Map.prototype.set;
-    const counts = { lookups: 0, entries: 0 };
+    const originalRow = RuntimeHistory.prototype.rowById;
+    const originalSelectionRow = RuntimeHistorySelection.prototype.rowById;
+    const originalAppend = RuntimeHistory.prototype.appendValidated;
+    const counts = { admissionCauseLookups: 0, locationCauseLookups: 0,
+      historyOrdinalEntries: 0, stagedBodyEntries: 0, stagedEventEntries: 0,
+      coldCauseLookups: 0, coldEventEntries: 0, unattributed: 0 };
+    let inserting = false, lookupOwner = null;
+    const stagingMaps = [];
+    RuntimeHistory.prototype.appendValidated = function(...args) {
+      const prior = inserting; inserting = true;
+      try { return originalAppend.apply(this, args); } finally { inserting = prior; }
+    };
+    RuntimeHistory.prototype.rowById = function(...args) {
+      const prior = lookupOwner; lookupOwner = inserting ? "locationCauseLookups" : "admissionCauseLookups";
+      try { return originalRow.apply(this, args); } finally { lookupOwner = prior; }
+    };
+    RuntimeHistorySelection.prototype.rowById = function(...args) {
+      const prior = lookupOwner; lookupOwner = "admissionCauseLookups";
+      try { return originalSelectionRow.apply(this, args); } finally { lookupOwner = prior; }
+    };
     Map.prototype.get = function(key) {
-      if (typeof key === "string" && key.startsWith("event://abiogenesis/")) counts.lookups++;
+      if (typeof key === "string" && key.startsWith("event://abiogenesis/"))
+        counts[lane === "cold" ? "coldCauseLookups" : lookupOwner ?? "unattributed"]++;
       return originalGet.call(this, key);
     };
     Map.prototype.set = function(key, value) {
-      if (typeof key === "string" && key.startsWith("event://abiogenesis/")) counts.entries++;
+      if (typeof key === "string" && key.startsWith("event://abiogenesis/")) {
+        if (lane === "cold") counts.coldEventEntries++;
+        else if (inserting && typeof value === "number") counts.historyOrdinalEntries++;
+        else {
+          // event_store.stageRuntimeEvent inserts into the tentative-body map
+          // and then its staged-event lookup map, in this exact order.
+          if (!stagingMaps.includes(this)) stagingMaps.push(this);
+          counts[["stagedBodyEntries", "stagedEventEntries"][stagingMaps.indexOf(this)] ?? "unattributed"]++;
+        }
+      }
       return originalSet.call(this, key, value);
     };
-    try { return { value: action(), counts }; }
-    finally { Map.prototype.get = originalGet; Map.prototype.set = originalSet; }
+    try { return { value: action(), counts, stagingMapCount: stagingMaps.length }; }
+    finally {
+      Map.prototype.get = originalGet; Map.prototype.set = originalSet;
+      RuntimeHistory.prototype.rowById = originalRow;
+      RuntimeHistorySelection.prototype.rowById = originalSelectionRow;
+      RuntimeHistory.prototype.appendValidated = originalAppend;
+    }
   };
   const measurements = [];
   for (const count of [128, 256]) {
     const { store } = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-cause-growth-");
     const candidates = [];
-    const live = measure(() => admitRuntimeEventTransaction(store, () => {
+    const live = measure("live", () => admitRuntimeEventTransaction(store, () => {
       let previous;
       for (let index = 0; index < count; index++) {
         const candidate = workspaceEvent({ correlationId: `correlation://growth/${index}`,
@@ -380,9 +447,16 @@ test("owned causation lookup grows with causal references in live admission and 
       }
     }));
     const events = store.readAll(), bytes = await readFile(store.configuredDurableLogPath());
-    const cold = measure(() => validateHistoricalEvents(bytes));
-    assert.deepEqual(live.counts, { lookups: count - 1, entries: count });
-    assert.deepEqual(cold.counts, live.counts);
+    const cold = measure("cold", () => validateHistoricalEvents(bytes));
+    assert.deepEqual(live.counts, { admissionCauseLookups: count - 1,
+      locationCauseLookups: count - 1, historyOrdinalEntries: count,
+      stagedBodyEntries: count, stagedEventEntries: count,
+      coldCauseLookups: 0, coldEventEntries: 0, unattributed: 0 });
+    assert.equal(live.stagingMapCount, 2);
+    assert.deepEqual(cold.counts, { admissionCauseLookups: 0,
+      locationCauseLookups: 0, historyOrdinalEntries: 0,
+      stagedBodyEntries: 0, stagedEventEntries: 0,
+      coldCauseLookups: count - 1, coldEventEntries: count, unattributed: 0 });
     assert.deepEqual(cold.value, events);
     assert.equal(bytes.toString(), events.map(row => canonicalJson(row) + "\n").join(""));
     for (let index = 0; index < count; index++) {
@@ -390,6 +464,9 @@ test("owned causation lookup grows with causal references in live admission and 
     }
     measurements.push({ events: count, causalReferences: count - 1, live: live.counts, cold: cold.counts });
   }
+  for (const key of ["admissionCauseLookups", "locationCauseLookups"])
+    assert.equal(measurements[1].live[key] - measurements[0].live[key], 128);
+  assert.equal(measurements[1].cold.coldCauseLookups - measurements[0].cold.coldCauseLookups, 128);
   console.log(JSON.stringify({ kind: "owned_causation_lookup_growth", measurements,
     limit: "lookup and index-entry counts only; immutable array copying and end-to-end latency unmeasured" }));
 });
@@ -446,6 +523,7 @@ test("M5 effectful truth rejects a mechanically valid forged Product install for
   const invocationPayloadDigest = sha256Canonical({ invocationRef });
   const definitionDigest = sha256Canonical({
     operationId,
+    memberKey: "install",
     schemaVersion: "5.0.0",
   });
   const scopeRef = "product-install://m5/forged-install/carrier";
@@ -455,9 +533,11 @@ test("M5 effectful truth rejects a mechanically valid forged Product install for
       artifact: {},
       definitionDigest,
       invocationDigest: sha256Canonical({
+        definitionDigest,
         invocationRef,
+        invocationPayloadDigest,
+        memberKey: "install",
         operationId,
-        payloadDigest: invocationPayloadDigest,
       }),
       invocationPayloadDigest,
       invocationRef,
@@ -478,24 +558,23 @@ test("M5 effectful truth rejects a mechanically valid forged Product install for
   }
 });
 
-test("M5 effectful truth rejects forged artifact operation identity before query selection", () => {
-  const operationId = "abg.operation.product.install";
-  const invocationRef = "invocation://m5/forged-install/identity";
-  const invocationPayloadDigest = sha256Canonical({ forged: "payload" });
-  const scopeRef = "product-install://m5/forged-install/identity";
+test("M5 effectful truth rejects forged artifact operation identity before query selection", async () => {
+  const environment = await installedArtifactOwnerEnvironment();
+  const install = exactEvent(environment.store.readAll(), event =>
+    event.eventId === environment.admittedInstall.admissionEventRef &&
+    event.kind === "public_operation_artifact_admitted" &&
+    event.payload.operationId === "abg.operation.product.install");
+  const invocationRef = install.payload.invocationRef;
+  const validPrefix = selectValidatedRuntimeEventPrefix(Object.freeze([install]));
+  assert.equal(projectEffectfulPublicInvocationTruthAtPrefix(validPrefix, invocationRef).disposition, "duplicate");
+  // Retain genuine owner material/lock/scope; only the operation coordinate is
+  // crossed. This is controlled malformed history, never an owner admission.
+  const candidate = runtimeEventCandidate(install);
+  candidate.payload.definitionDigest = sha256Canonical({ forged: "definition" });
+  candidate.payload.invocationDigest = sha256Canonical({ forged: "invocation" });
   const forged = projectRuntimeEventFromValidatedHistory(
     [],
-    forgedArtifactEventCandidate({
-      artifact: {},
-      definitionDigest: sha256Canonical({ forged: "definition" }),
-      invocationDigest: sha256Canonical({ forged: "invocation" }),
-      invocationPayloadDigest,
-      invocationRef,
-      operationId,
-      resolvedLock: {},
-      scopeDigest: sha256Canonical({ scopeRef }),
-      scopeRef,
-    }),
+    candidate,
   );
   const prefix = selectValidatedRuntimeEventPrefix(Object.freeze([forged]));
   for (const queryRef of [
@@ -509,14 +588,20 @@ test("M5 effectful truth rejects forged artifact operation identity before query
 });
 
 test("M5 exact owner projections preserve valid facts, conflicts, and whole-prefix masking", async (context) => {
-  const environment = await setupInstalledRootInvocation(context, packageRoot);
+  const environment = await installedArtifactOwnerEnvironment();
   const events = environment.store.readAll();
-  const [
-    installEvent,
-    bindingEvent,
-    publicRunEvent,
-    invocationOwnerEvent,
-  ] = events;
+  const installEvent = exactEvent(events, event => event.eventId === environment.admittedInstall.admissionEventRef &&
+    event.kind === "public_operation_artifact_admitted" && event.payload.operationId === "abg.operation.product.install");
+  const bindingEvent = exactEvent(events, event => event.eventId === environment.workspaceBinding.admissionEventRef &&
+    event.kind === "public_operation_artifact_admitted" && event.payload.operationId === "abg.operation.workspace.bind");
+  const publicRunEvent = exactEvent(events, event => event.eventId === environment.invocationAdmission.publicOperationEventRef &&
+    event.kind === "public_operation_admitted" && event.payload.operationId === "abg.operation.run.invoke");
+  const invocationOwnerEvent = exactEvent(events, event => event.eventId === environment.invocationAdmission.admissionEventRef &&
+    event.kind === "invocation_admitted");
+  const beforeBinding = events.slice(0, bindingEvent.admissionOrdinal - 1);
+  const beforeRun = events.slice(0, publicRunEvent.admissionOrdinal - 1);
+  const beforeInvocationOwner = events.slice(0, invocationOwnerEvent.admissionOrdinal - 1);
+  assert.deepEqual(beforeBinding.map(event => event.eventId), environment.admittedInstalls.map(install => install.admissionEventRef));
   assert.equal(
     installEvent?.payload.operationId,
     "abg.operation.product.install",
@@ -551,7 +636,7 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
     {
       label: "bind malformed digest",
       operationId: "abg.operation.workspace.bind",
-      startingEvents: [installEvent],
+      startingEvents: beforeBinding,
       mutate: (basis) => redigestPublicBasis(environment.product, basis, {
         invocationPayloadDigest: "x",
       }),
@@ -559,7 +644,7 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
     {
       label: "bind empty identity",
       operationId: "abg.operation.workspace.bind",
-      startingEvents: [installEvent],
+      startingEvents: beforeBinding,
       mutate: (basis) => ({ ...basis, authorityScopeRef: "" }),
     },
   ];
@@ -576,6 +661,7 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
           { admitRuntimeEvent },
           basisCase.startingEvents,
           `abi5-entry212-${basisCase.label.replaceAll(" ", "-")}-`,
+          environment.artifactTruth,
         );
     const predecessorPrefix = environment.abg
       .selectHeldEventStoreDurablePrefix(acquired.store);
@@ -591,7 +677,7 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
         isInstall ? candidate.installId : candidate.bindingId,
         isInstall ? candidate.productContentDigest : candidate.bindingDigest,
         `invocation://m5/entry212/${basisCase.label.replaceAll(" ", "-")}`,
-        isInstall ? [] : [environment.admittedInstall.admissionEventRef],
+        isInstall ? [] : bindingEvent.causationEventRefs,
       ),
       predecessorPrefix,
     };
@@ -634,15 +720,22 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
       context,
       environment.abg,
       { admitRuntimeEvent },
-      [installEvent, bindingEvent],
+      beforeRun,
       `abi5-entry212-${runCase.label.replaceAll(" ", "-")}-`,
+      environment.artifactTruth,
     );
+    const clonedEnvironment = environment.abg.projectExactPrefixWorkspaceEnvironment(
+      environment.abg.selectHeldEventStoreDurablePrefix(acquired.store),
+      { ref: environment.workspaceBinding.bindingId, digest: environment.workspaceBinding.bindingDigest },
+    );
+    assert.equal(clonedEnvironment.kind, "exact_prefix_workspace_environment", JSON.stringify(clonedEnvironment));
+    assert.deepEqual(clonedEnvironment.workspaceBinding, environment.workspaceBinding);
     const runBasis = publicOperationBasis(
       environment.product,
       "abg.operation.run.invoke",
       environment.workspaceBinding.bindingId,
       environment.workspaceBinding.bindingDigest,
-      `invocation://m5/entry212/${runCase.label.replaceAll(" ", "-")}`,
+      environment.invocation.publicRequestInvocationRef,
       [environment.workspaceBinding.admissionEventRef],
     );
     await assertPreEffectRefusalConserved({
@@ -656,15 +749,16 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
           invocation: environment.invocation,
           rawRequest: environment.rawRequest,
           rawInput: environment.rawInput,
-          modulePublication: environment.publication,
+          programPublication: environment.executionResolution.programPublication,
+          executionResolution: environment.executionResolution.resolution,
           program: environment.program,
           graphFunction: environment.graphFunction,
-          programValidation: environment.programValidation,
+          programValidation: environment.executionResolution.programValidation,
           workspaceBinding: environment.workspaceBinding,
-          artifactTruth: environment.artifactTruth,
+          artifactTruth: clonedEnvironment.artifactTruth,
           catalogView: environment.catalogView,
           policy: environment.policy,
-          capabilityGrants: [environment.capabilityGrant],
+          capabilityGrants: environment.capabilityGrants,
           authority: environment.invocationAuthority,
         },
         runCase.mutate(runBasis),
@@ -672,7 +766,7 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
     });
   }
 
-  async function projectHistoricalPair(secondEvent) {
+  async function projectHistoricalSequence(historicalEvents) {
     const acquired = await acquireNewEmptyAppendSinkFixture(
       context,
       createNewEmptyAppendSink,
@@ -680,7 +774,7 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
     );
     acquired.store.closeDurableLog();
     const bytes = Buffer.from(
-      `${canonicalJson(installEvent)}\n${canonicalJson(secondEvent)}\n`,
+      historicalEvents.map(event => canonicalJson(event) + "\n").join(""),
       "utf8",
     );
     const eventLogPath = fileURLToPath(acquired.prefix.eventLogRef);
@@ -706,16 +800,18 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
   conflictingBindingCandidate.payload.invocationRef =
     installEvent.payload.invocationRef;
   conflictingBindingCandidate.payload.invocationDigest = sha256Canonical({
+    definitionDigest: conflictingBindingCandidate.payload.definitionDigest,
     invocationRef: conflictingBindingCandidate.payload.invocationRef,
+    invocationPayloadDigest: conflictingBindingCandidate.payload.invocationPayloadDigest,
+    memberKey: conflictingBindingCandidate.payload.memberKey,
     operationId: conflictingBindingCandidate.payload.operationId,
-    payloadDigest: conflictingBindingCandidate.payload.invocationPayloadDigest,
   });
   const conflictingBinding = projectRuntimeEventFromValidatedHistory(
-    [installEvent],
+    beforeBinding,
     conflictingBindingCandidate,
   );
-  const conflict = await projectHistoricalPair(
-    conflictingBinding,
+  const conflict = await projectHistoricalSequence(
+    [...beforeBinding, conflictingBinding],
   );
   assert.equal(
     conflict.kind,
@@ -730,8 +826,8 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
     [installEvent],
     runtimeEventCandidate(installEvent),
   );
-  const duplicate = await projectHistoricalPair(
-    repeatedInstall,
+  const duplicate = await projectHistoricalSequence(
+    [installEvent, repeatedInstall],
   );
   assert.equal(
     duplicate.kind,
@@ -767,19 +863,18 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
     selectedDefinitionDigest: sha256Canonical({ forgedDefinitionRef }),
   });
   const forgedPublicEvent = projectRuntimeEventFromValidatedHistory(
-    [installEvent, bindingEvent],
+    beforeRun,
     forgedPublicCandidate,
   );
   const forgedOwnerCandidate = runtimeEventCandidate(invocationOwnerEvent);
   forgedOwnerCandidate.causationEventRefs = [forgedPublicEvent.eventId];
   const forgedOwnerEvent = projectRuntimeEventFromValidatedHistory(
-    [installEvent, bindingEvent, forgedPublicEvent],
+    [...beforeRun, forgedPublicEvent],
     forgedOwnerCandidate,
   );
   const forgedRunPrefix =
     environment.abg.selectValidatedRuntimeEventPrefix(Object.freeze([
-      installEvent,
-      bindingEvent,
+      ...beforeRun,
       forgedPublicEvent,
       forgedOwnerEvent,
     ]));
@@ -822,14 +917,12 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
   emptyOuterOwnerCandidate.payload.invocationAdmissionRef =
     emptyOuterAdmissionRef;
   const emptyOuterOwnerEvent = projectRuntimeEventFromValidatedHistory(
-    [installEvent, bindingEvent, publicRunEvent],
+    beforeInvocationOwner,
     emptyOuterOwnerCandidate,
   );
   const emptyOuterPrefix =
     environment.abg.selectValidatedRuntimeEventPrefix(Object.freeze([
-      installEvent,
-      bindingEvent,
-      publicRunEvent,
+      ...beforeInvocationOwner,
       emptyOuterOwnerEvent,
     ]));
   assert.equal(
@@ -870,14 +963,12 @@ test("M5 exact owner projections preserve valid facts, conflicts, and whole-pref
   collisionOwnerCandidate.payload.invocationAdmissionRef =
     collisionAdmissionRef;
   const collisionOwnerEvent = projectRuntimeEventFromValidatedHistory(
-    [installEvent, bindingEvent, publicRunEvent],
+    beforeInvocationOwner,
     collisionOwnerCandidate,
   );
   const collisionPrefix =
     environment.abg.selectValidatedRuntimeEventPrefix(Object.freeze([
-      installEvent,
-      bindingEvent,
-      publicRunEvent,
+      ...beforeInvocationOwner,
       collisionOwnerEvent,
     ]));
   assert.ok(
@@ -1256,53 +1347,94 @@ test("trusted owned history conserves currentness, callback publication, rollbac
     () => admitRuntimeEvent(store, event("first")));
   let prefix = first.successorPrefix;
   const originalRead = fs.readSync;
-  let readBytes = 0;
-  fs.readSync = (...args) => { const count = originalRead(...args); readBytes += count; return count; };
+  const reads = [];
+  let selectedRead = null, unattributedReadBytes = 0;
+  fs.readSync = (...args) => {
+    const count = originalRead(...args);
+    if (selectedRead === null) unattributedReadBytes += count;
+    else selectedRead.bytes += count;
+    return count;
+  };
   syncBuiltinESMExports();
-  let handoff;
-  try {
-    for (const stale of [acquired.prefix, foreign.prefix]) {
-      assert.throws(() => admitRuntimeEventTransactionAtDurablePrefix(store, stale,
-        () => assert.fail("inadmissible callback executed")), /held store|durable prefix/);
+  const measured = (kind, label, expectedBytes, action) => {
+    const prior = selectedRead, record = { kind, label, bytes: 0, expectedBytes };
+    selectedRead = record;
+    try { return action(); }
+    finally {
+      selectedRead = prior; reads.push(record);
+      assert.equal(record.bytes, expectedBytes, `${kind}: ${label}`);
     }
-    const wrong = structuredClone(prefix);
-    wrong.storeIdentity.eventContractDigest = LEGACY_ROOT_EVENT_CONTRACT_DIGEST;
-    const { coordinateDigest: ignored, ...body } = wrong;
-    wrong.coordinateDigest = sha256Canonical(body);
-    assert.throws(() => admitRuntimeEventTransactionAtDurablePrefix(store, wrong,
-      () => assert.fail("cross-profile callback executed")), /held store|durable prefix/);
-    assert.throws(() => readHeldRuntimeEventsAtDurablePrefix(store, { ...prefix, prefixLength: -1 }), /invalid/);
-    const beforeCallback = store.readAll();
+  };
+  const owned = (label, action) => measured("owned_coordinate_or_transition", label, 0, action);
+  // This fixture has only complete inline workspace rows: a full output reads
+  // exactly its selected physical extent. It is not retained operational state.
+  const output = (label, selectedPrefix, action) =>
+    measured("explicit_complete_output", label, selectedPrefix.prefixLength, action);
+  let handoff, committed, beforeCallback, coldReadBytes;
+  try {
+    owned("stale, foreign, profile and malformed coordinates", () => {
+      for (const stale of [acquired.prefix, foreign.prefix]) {
+        assert.throws(() => admitRuntimeEventTransactionAtDurablePrefix(store, stale,
+          () => assert.fail("inadmissible callback executed")), /held store|durable prefix/);
+      }
+      const wrong = structuredClone(prefix);
+      wrong.storeIdentity.eventContractDigest = LEGACY_ROOT_EVENT_CONTRACT_DIGEST;
+      const { coordinateDigest: ignored, ...body } = wrong;
+      wrong.coordinateDigest = sha256Canonical(body);
+      assert.throws(() => admitRuntimeEventTransactionAtDurablePrefix(store, wrong,
+        () => assert.fail("cross-profile callback executed")), /held store|durable prefix/);
+      assert.throws(() => readHeldRuntimeEventsAtDurablePrefix(store, { ...prefix, prefixLength: -1 }), /invalid/);
+    });
+    beforeCallback = output("immutable predecessor", prefix, () => store.readAll());
     for (let n = 0; n < 4; n++) {
       const copied = structuredClone(prefix);
-      assert.deepEqual(readHeldRuntimeEventsAtDurablePrefix(store, copied), store.readAll());
-      assertHeldEventStoreAtDurablePrefix(store, copied);
-      const admitted = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, copied, () => {
-        assertDurableRuntimePrefixBytes(prefix);
-        assert.deepEqual(readRuntimeEventsAtDurablePrefix(prefix, { requireCurrent: true }), store.readAll());
-        return admitRuntimeEvent(store, event("callback-" + n));
-      });
+      assert.deepEqual(output(`held output ${n}`, prefix, () => readHeldRuntimeEventsAtDurablePrefix(store, copied)),
+        output(`complete comparison ${n}`, prefix, () => store.readAll()));
+      owned(`held coordinate ${n}`, () => assertHeldEventStoreAtDurablePrefix(store, copied));
+      const admitted = owned(`durable append ${n}`, () =>
+        admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, copied, () => {
+          assertDurableRuntimePrefixBytes(prefix);
+          assert.deepEqual(output(`callback predecessor ${n}`, prefix,
+            () => readRuntimeEventsAtDurablePrefix(prefix, { requireCurrent: true })),
+          output(`callback complete comparison ${n}`, prefix, () => store.readAll()));
+          return admitRuntimeEvent(store, event("callback-" + n));
+        }));
       prefix = admitted.successorPrefix;
     }
     assert.equal(beforeCallback.length, 1, "immutable predecessor never grows");
-    assert.equal(selectHeldEventStoreDurablePrefix(store), prefix);
-    assert.throws(() => readRuntimeEventsAtDurablePrefix(first.successorPrefix, { requireCurrent: true }), /not the current/);
-    assert.deepEqual(readRuntimeEventsAtDurablePrefix(first.successorPrefix), beforeCallback);
-    const historical = reidentifyHistoricalDurablePrefixCoordinate(prefix, structuredClone(first.successorPrefix));
-    assert.deepEqual(readRuntimeEventsAtDurablePrefix(historical), beforeCallback);
-    assert.equal(authenticateRuntimePrefixAncestry(historical, prefix), true);
-    assert.equal(admitRuntimeEventTransactionAtDurablePrefix(store, prefix, () => "unchanged").successorPrefix, null);
-    const committed = store.readAll(), committedDigest = store.digest();
-    assert.throws(() => admitRuntimeEventTransactionAtDurablePrefix(store, prefix, () => {
-      admitRuntimeEvent(store, event("tentative")); throw Error("semantic refusal");
-    }), /semantic refusal/);
-    assert.deepEqual(store.readAll(), committed); assert.equal(store.digest(), committedDigest);
-    assert.equal(selectHeldEventStoreDurablePrefix(store), prefix);
-    handoff = store.projectReopenAuthorityAndClose();
-    assert.equal(readBytes, 0, "ordinary owned operations perform no historical read");
-    assert.throws(() => assertHeldEventStoreAtDurablePrefix(store, prefix), /not open/);
-    assert.deepEqual(readRuntimeEventsAtDurablePrefix(prefix), committed);
-    assert.equal(readBytes, prefix.prefixLength, "closed-session read reconstructs physical history");
+    owned("current selection and stale-current refusal", () => {
+      assert.equal(selectHeldEventStoreDurablePrefix(store), prefix);
+      assert.throws(() => readRuntimeEventsAtDurablePrefix(first.successorPrefix, { requireCurrent: true }), /not the current/);
+    });
+    assert.deepEqual(output("historical output", first.successorPrefix,
+      () => readRuntimeEventsAtDurablePrefix(first.successorPrefix)), beforeCallback);
+    const historical = owned("historical reidentification", () =>
+      reidentifyHistoricalDurablePrefixCoordinate(prefix, structuredClone(first.successorPrefix)));
+    assert.deepEqual(output("reidentified historical output", historical,
+      () => readRuntimeEventsAtDurablePrefix(historical)), beforeCallback);
+    owned("ancestry and empty transaction", () => {
+      assert.equal(authenticateRuntimePrefixAncestry(historical, prefix), true);
+      assert.equal(admitRuntimeEventTransactionAtDurablePrefix(store, prefix, () => "unchanged").successorPrefix, null);
+    });
+    committed = output("committed comparison value", prefix, () => store.readAll());
+    const committedDigest = owned("committed canonical digest", () => store.digest());
+    owned("tentative rollback", () => {
+      assert.throws(() => admitRuntimeEventTransactionAtDurablePrefix(store, prefix, () => {
+        admitRuntimeEvent(store, event("tentative")); throw Error("semantic refusal");
+      }), /semantic refusal/);
+      assert.equal(store.digest(), committedDigest);
+      assert.equal(selectHeldEventStoreDurablePrefix(store), prefix);
+    });
+    assert.deepEqual(output("rollback complete output", prefix, () => store.readAll()), committed);
+    handoff = owned("close and closed-owner refusal", () => {
+      const closed = store.projectReopenAuthorityAndClose();
+      assert.throws(() => assertHeldEventStoreAtDurablePrefix(store, prefix), /not open/);
+      return closed;
+    });
+    const reconstructed = measured("cold_recovery", "closed coordinate", prefix.prefixLength,
+      () => readRuntimeEventsAtDurablePrefix(prefix));
+    assert.deepEqual(reconstructed, committed);
+    coldReadBytes = reads.at(-1).bytes;
   } finally { fs.readSync = originalRead; syncBuiltinESMExports(); }
   const bytes = await readFile(store.configuredDurableLogPath());
   assert.equal(prefix.prefixDigest, `sha256:${createHash("sha256").update(bytes).digest("hex")}`);
@@ -1313,8 +1445,10 @@ test("trusted owned history conserves currentness, callback publication, rollbac
     reopenAuthority: handoff.reopenAuthority, prefix: handoff.prefix });
   assert.deepEqual(fresh.events, store.readAll()); assert.equal(fresh.storeDigest, store.digest());
   assert.deepEqual(fresh.heldPrefix, prefix); assert.equal(fresh.durableByteDigest, prefix.prefixDigest);
-  console.log(JSON.stringify({ kind: "trusted_desktop_owned_history", events: store.readAll().length,
-    liveHistoricalReadBytes: 0, coldReadBytes: readBytes, eventLogBytes: bytes.length }));
+  console.log(JSON.stringify({ kind: "trusted_desktop_owned_history", events: committed.length,
+    ownedHistoricalReadBytes: reads.filter(row => row.kind === "owned_coordinate_or_transition").reduce((sum, row) => sum + row.bytes, 0),
+    explicitOutputReadBytes: reads.filter(row => row.kind === "explicit_complete_output").reduce((sum, row) => sum + row.bytes, 0),
+    coldReadBytes, unattributedReadBytes, eventLogBytes: bytes.length, reads }));
 });
 
 test("owned append I/O failures restore committed bytes and hash or poison admission", async context => {

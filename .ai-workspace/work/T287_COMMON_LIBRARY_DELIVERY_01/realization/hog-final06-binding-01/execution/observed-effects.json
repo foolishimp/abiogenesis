@@ -1,0 +1,101 @@
+{
+  "candidateProductRepacks": 0,
+  "bootstrapInstalls": 1,
+  "setupProductInstalls": 1,
+  "originalStructuralFixturePacks": 1,
+  "setupStructuralFixtureInstalls": 1,
+  "npmReceiptCount": 4,
+  "npmReceipts": [
+    {
+      "source": {
+        "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache/_logs/2026-10-21T07_45_33_633Z-debug-0.log",
+        "sha256": "4b90d3f03c20f2294ac70f13d220787faec31607d84e6f3751b60d05c82eda42",
+        "bytes": 2611
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/npm-logs/2026-10-21T07_45_33_633Z-debug-0.log",
+        "sha256": "4b90d3f03c20f2294ac70f13d220787faec31607d84e6f3751b60d05c82eda42",
+        "bytes": 2611
+      },
+      "selectedReceiptLines": [
+        "7 verbose title npm install /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "8 verbose argv \"install\" \"--offline\" \"--ignore-scripts\" \"--no-audit\" \"--no-fund\" \"--bin-links\" \"false\" \"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz\"",
+        "23 verbose exit 0",
+        "24 info ok"
+      ]
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache/_logs/2026-10-21T07_45_36_790Z-debug-0.log",
+        "sha256": "08e7975d5560a60d90678398e34f3ff7296342b13eeb7864b047ed8988687786",
+        "bytes": 1525
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/npm-logs/2026-10-21T07_45_36_790Z-debug-0.log",
+        "sha256": "08e7975d5560a60d90678398e34f3ff7296342b13eeb7864b047ed8988687786",
+        "bytes": 1525
+      },
+      "selectedReceiptLines": [
+        "7 verbose title npm pack",
+        "8 verbose argv \"pack\" \"--ignore-scripts\" \"--json\" \"--pack-destination\" \"/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent/abi5-root-env-RKlxaR/language-structural-fixture/artifacts\"",
+        "17 verbose exit 0",
+        "18 info ok"
+      ]
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache/_logs/2026-10-21T07_46_02_563Z-debug-0.log",
+        "sha256": "421bb600c4ba3e8ae3d17663e943fd6e487cd5a6fe97c16482dd4234e65afbc0",
+        "bytes": 2735
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/npm-logs/2026-10-21T07_46_02_563Z-debug-0.log",
+        "sha256": "421bb600c4ba3e8ae3d17663e943fd6e487cd5a6fe97c16482dd4234e65afbc0",
+        "bytes": 2735
+      },
+      "selectedReceiptLines": [
+        "7 verbose title npm install /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "8 verbose argv \"install\" \"--bin-links\" \"false\" \"--ignore-scripts\" \"--no-audit\" \"--no-fund\" \"--offline\" \"--package-lock\" \"true\" \"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz\"",
+        "23 verbose exit 0",
+        "24 info ok"
+      ]
+    },
+    {
+      "source": {
+        "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache/_logs/2026-10-21T07_46_05_984Z-debug-0.log",
+        "sha256": "92de25533a645db013101fe5bdf0507d29234b69c9b7a9d019d31514c89d9449",
+        "bytes": 3339
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/npm-logs/2026-10-21T07_46_05_984Z-debug-0.log",
+        "sha256": "92de25533a645db013101fe5bdf0507d29234b69c9b7a9d019d31514c89d9449",
+        "bytes": 3339
+      },
+      "selectedReceiptLines": [
+        "7 verbose title npm install /private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent/abi5-root-env-RKlxaR/language-structural-fixture/artifacts/abi5-tests-structural-fixtures-5.0.0.tgz",
+        "8 verbose argv \"install\" \"--bin-links\" \"false\" \"--ignore-scripts\" \"--no-audit\" \"--no-fund\" \"--offline\" \"--package-lock\" \"true\" \"/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent/abi5-root-env-RKlxaR/language-structural-fixture/artifacts/abi5-tests-structural-fixtures-5.0.0.tgz\"",
+        "27 verbose exit 0",
+        "28 info ok"
+      ]
+    }
+  ],
+  "directDriverCommandReceipts": [
+    {
+      "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence/commands/1-bootstrap.json",
+      "sha256": "e00c2a326ed2aa3994540676d0f8b93bf67ba89d062e2892392461a2f61a6faf",
+      "bytes": 1943
+    }
+  ],
+  "publicStarts": 0,
+  "freshPublicReads": 0,
+  "completedCases": 0,
+  "nativeProviderCalls": 0,
+  "executionRetries": 0,
+  "cleanupHooksCaptured": 1,
+  "cleanupHooksInvoked": 0,
+  "unknown": [
+    "Complete helper-internal child-command census and per-child CPU/memory/IO were not observed.",
+    "Successful helper-internal npm raw stdout/stderr and parent exit receipts are not exposed by existing support; retained npm debug logs report exit 0."
+  ],
+  "basis": "Counts above come from actual retained npm title/argv/exit receipts and original driver evidence. Native/provider zero does not mean zero process execution."
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "closed_transport_reader_stop",
+  "status": "stopped",
+  "activation": "CLOSED-EVIDENCE-PORTABILITY-02",
+  "writer": "/root/stdo3_proof_writer",
+  "returnTo": "/root",
+  "createdUtc": "2026-10-21T04:39:39.760183+00:00",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/stopped-manifest.json",
+    "sha256": "ae4b1d9dde868346504da63f0560700e992d58b59aa97027a2755d9706dce6ab",
+    "bytes": 4684,
+    "mode": "0o644"
+  },
+  "recordCount": 15,
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/STOP-population.json",
+    "sha256": "3b33170c52bf0a41158637d1aaa4711b95ba1df19d0ff6340dd8ed67de5c9be1",
+    "bytes": 622,
+    "mode": "0o644"
+  },
+  "selectedCountAtFailure": 69402,
+  "archives": [],
+  "sourceEdits": 0,
+  "runtimeEffects": 0,
+  "GitEffects": 0,
+  "capacityComplete": false,
+  "stop": "No repair/retry without Executive successor"
+}

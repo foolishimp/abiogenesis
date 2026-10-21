@@ -1,0 +1,8 @@
+{
+  "disposition": "passed",
+  "testSha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329",
+  "pureConstructorOnly": true,
+  "fixtureProcessesLaunched": 0,
+  "installedOrPublicCalls": 0,
+  "physicalParentRelation": "exact port parent equals sole protected source parent materialized by helper; no actual materialization run"
+}

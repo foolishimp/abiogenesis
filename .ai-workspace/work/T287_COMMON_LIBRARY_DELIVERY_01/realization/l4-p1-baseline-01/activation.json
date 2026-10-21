@@ -1,0 +1,41 @@
+{
+  "id": "L4-P1-BASELINE-01",
+  "writer": "/root/stdo3_proof_writer",
+  "issuedBy": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "additionalFrames": [
+    "Install",
+    "Proof",
+    "Identity",
+    "Resource"
+  ],
+  "utc": "2026-10-21T00:18:37.132619+00:00",
+  "basisPins": {
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-p1.configuration.draft.json": "1750bd50b560404a2853d991aeb453ce0734a22937642f947c22d0847155bdd9",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/L2-report.md": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-candidate-01/freeze.json": "a5441d50e282e6e33537c09a5b50102e383091a0dc4e7dbb0bf00fbb406ec0bb"
+  },
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "purpose": "actual preserved baseline P1 endpoint and equivalent uninstrumented workload measurement",
+  "permittedEffects": "Only frozen public-preparation lane and exact new baseline-p1 roots: offline installation, installed external declarations, all ten Public calls and frozen resolution oracle, exact retained evidence/measurements",
+  "maxNativePositiveCalls": 0,
+  "prohibited": [
+    "other lanes",
+    "source edit or rebuild",
+    "provider dispatch",
+    "main generated mutation",
+    "Git",
+    "historical runtime effect",
+    "cleanup",
+    "retry"
+  ],
+  "stop": "first genuine seam or identity drift returns exact evidence before any repair/retry",
+  "independence": "mechanical installed evidence only; semantic independence and L5 acceptance not claimed"
+}

@@ -218,10 +218,15 @@ export function constructRunEnvironmentDeclaration(value: RunEnvironmentDeclarat
 /** STDO specialization constrains data; generic declarations have no STDO release allowlist. */
 export function constructStdoRunEnvironmentDeclaration(value: RunEnvironmentDeclaration): Readonly<RunEnvironmentDeclaration> {
   const d = constructRunEnvironmentDeclaration(value), a = d.corpusAccess;
-  if (a === null || !d.dependencies.some(x => x.dependencyRef === a.sourceDependencyRef &&
-    /^stdo:\/\/releases\/[^/]+\/$/u.test(x.basisRef) && x.recordFormat === "stdo_source_manifest@1") ||
+  const sources = d.dependencies.filter(x =>
+    /^stdo:\/\/releases\/[^/]+\/$/u.test(x.basisRef) && x.recordFormat === "stdo_source_manifest@1");
+  if (sources.length === 0 || d.roles.some(r => !r.sourceBindings.some(b => {
+    const context = d.contexts.find(c => c.contextRef === b.contextRef);
+    return sources.some(source => source.basisRef === context?.sourceLocator);
+  })) || (a !== null && (
+    !sources.some(x => x.dependencyRef === a.sourceDependencyRef) ||
     ![a.representationDependencyRef, a.axiomDependencyRef].every(ref => d.dependencies.some(x => x.dependencyRef === ref && x.recordFormat === "release_record@1")) ||
-    d.roles.some(r => r.accessRefs.length === 0)) throw new TypeError("STDO requires exact source, companions and actual corpus access");
+    d.roles.some(r => r.accessRefs.length === 0)))) throw new TypeError("STDO requires exact source, native source material for every role, and every explicitly selected corpus dependency and access");
   return d;
 }
 export function runEnvironmentForProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>) {

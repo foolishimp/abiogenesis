@@ -1,0 +1,43 @@
+{
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:75a068b80f25f8440b1124fb1882c2e32097f36fc472d50a4ec4de69253fa2a3",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:92aa0ba37633a0538d2067e97a3ff35fac9e5c2fc42677960decd26e78d9b119",
+      "prefixLength": 3217815,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 474964018
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:8e0ee947be6d4d2b67d2e6184d004933138bb0758158e99d75928567ce01eb97",
+      "device": 16777231,
+      "durableByteLength": 3217815,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:92aa0ba37633a0538d2067e97a3ff35fac9e5c2fc42677960decd26e78d9b119",
+      "eventLogPath": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/runtime/events.jsonl",
+      "inode": 474964018,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "actualEventFile": {
+    "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/runtime/events.jsonl",
+    "sha256": "92aa0ba37633a0538d2067e97a3ff35fac9e5c2fc42677960decd26e78d9b119",
+    "bytes": 3217815,
+    "mode": "0o644"
+  },
+  "device": 16777231,
+  "inode": 474964018,
+  "sourceResult": {
+    "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/evidence/result.json",
+    "sha256": "9603bcdde94346b5316590adbf6086b69f479fb9526a5d4d32140029dd75ac46",
+    "bytes": 1982,
+    "mode": "0o644"
+  },
+  "scope": "Actual unchanged closed log identity and bytes after original fresh-read oracle; no new runtime acquisition"
+}

@@ -1,0 +1,16 @@
+{
+  "status": "STOP_STATUS_SUCCESSOR_MOVED_DURING_CLOSING",
+  "priorRootDisposition": "Expected authorized concurrent coordination; only two current status hashes permitted to reread.",
+  "source": "Actual Python assertion from the first of those two reads; no second status or other 58 inputs reread.",
+  "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+  "authorizedSuccessor": {
+    "bytes": 80817,
+    "sha256": "4cb7c8da7c8cf7204c80fdcc8631c48f22c4c395c8726eb0ccf16e1a6065b2b5"
+  },
+  "observedSuccessor": {
+    "bytes": 80826,
+    "sha256": "3145e64971cd2a0bbdd48e1dba8422e4b4ecd44a15177a53404d414e37b46c6d"
+  },
+  "effects": "No correspondence/freeze written; original proposal/source pins unchanged.",
+  "return": "Executive notified; stable or time-scoped status relation needed; no runtime or source change."
+}

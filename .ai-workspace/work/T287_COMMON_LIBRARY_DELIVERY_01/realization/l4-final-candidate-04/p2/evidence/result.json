@@ -1,0 +1,41 @@
+{
+  "status": "satisfied",
+  "lane": "partial-install",
+  "subjectId": "candidate",
+  "configurationSha256": "b62fb2bfe5dd1e4310ba9eab8937b6bb874686272e6a8d1de1827a0ea7535f03",
+  "oracle": {
+    "predicate": "P2 physical success and admission refusal",
+    "satisfied": true,
+    "prefixEquality": true,
+    "prefixRule": "Equality is an observation of actual owner coordinates, never inferred from target_failure."
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:4022c510b170808cf38fc7894b1d30d041704852d8333e0b6021eb91a4f78fe7",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:fd32ad0ba5da46843d90610ea2fed1c46d2c3f025403e067428cdcc39f11a930",
+      "prefixLength": 3113245,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 474626658
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:032c84b48a453b1c09b54e54736a94843365fc968ff42fa1d0f4778470d83e55",
+      "device": 16777231,
+      "durableByteLength": 3113245,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:fd32ad0ba5da46843d90610ea2fed1c46d2c3f025403e067428cdcc39f11a930",
+      "eventLogPath": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/resources/events/runtime.events.jsonl",
+      "inode": 474626658,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "nativeCalls": 0,
+  "claims": "bounded lane predicates only; required omitted measurements and P5 obligations remain separate; no L5 or release acceptance",
+  "retainedCleanupHooks": 0
+}

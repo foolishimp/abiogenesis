@@ -1,0 +1,114 @@
+{
+  "receipts": [
+    {
+      "label": "product-verify-0",
+      "receipt": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/calls/product-verify-0.outcome.json",
+        "sha256": "7c70f8732a8476b4702d6a3a7abc387b49d6b151b8d6c45e682729fb40880753",
+        "bytes": 257240,
+        "mode": "0o644"
+      },
+      "command": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/commands/5-product-verify-0.json",
+        "sha256": "769aac9058f470097173edfc0d91582a9338c2ddec0c28694088fa0d7556cd4f",
+        "bytes": 158790,
+        "mode": "0o644"
+      },
+      "definitionKey": {
+        "memberKey": "verify",
+        "operationId": "abg.operation.product.verify"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "outcomeKind": "result",
+      "disposition": "locally_verified"
+    },
+    {
+      "label": "product-resolve",
+      "receipt": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/calls/product-resolve.outcome.json",
+        "sha256": "e9a4490213d1d6d46de38540c62e53885ea3aeda5d769449a01049e3995a64a9",
+        "bytes": 5354,
+        "mode": "0o644"
+      },
+      "command": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/commands/7-product-resolve.json",
+        "sha256": "a535d68d4e46add3f00f4ad3bd9afc887c6d9ed3e1d77e013b172560506562c6",
+        "bytes": 4723,
+        "mode": "0o644"
+      },
+      "definitionKey": {
+        "memberKey": "resolve",
+        "operationId": "abg.operation.product.resolve"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "outcomeKind": "result",
+      "disposition": null
+    },
+    {
+      "label": "workspace-bind",
+      "receipt": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/calls/workspace-bind.outcome.json",
+        "sha256": "19ea53b658e03061e37fa23ce21c7fad016a22ec6f77170fa5d4ac96cf7372a2",
+        "bytes": 7007,
+        "mode": "0o644"
+      },
+      "command": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/commands/10-workspace-bind.json",
+        "sha256": "c54ad7063549d05730cf7725c949843e4c526ca18c38b452fd99db8c5ab4d991",
+        "bytes": 6354,
+        "mode": "0o644"
+      },
+      "definitionKey": {
+        "memberKey": "bind",
+        "operationId": "abg.operation.workspace.bind"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "outcomeKind": "result",
+      "disposition": null
+    }
+  ],
+  "resolutions": [
+    {
+      "record": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/resolution-first.json",
+        "sha256": "1db334ecd74fea5cdcdf7eb8508bf113ce73995670a4c876e58346e84c18f796",
+        "bytes": 5461010,
+        "mode": "0o644"
+      },
+      "kind": "loaded_product_execution_resolution",
+      "resolutionRef": "product-execution-resolution://abiogenesis/921e2daadda612cce6186888ab8b63f4ab680832305303857a8ae3229d0334ab"
+    },
+    {
+      "record": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/resolution-warm.json",
+        "sha256": "1db334ecd74fea5cdcdf7eb8508bf113ce73995670a4c876e58346e84c18f796",
+        "bytes": 5461010,
+        "mode": "0o644"
+      },
+      "kind": "loaded_product_execution_resolution",
+      "resolutionRef": "product-execution-resolution://abiogenesis/921e2daadda612cce6186888ab8b63f4ab680832305303857a8ae3229d0334ab"
+    }
+  ],
+  "P1": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/result.json",
+    "sha256": "231d13b475ac77dd4c1468500aa73a2639233822e7252014105d84ae6acf74fc",
+    "bytes": 1759,
+    "mode": "0o644"
+  },
+  "P2": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/result.json",
+    "sha256": "c3988696097ae0f8c17678ec092a561625e05a510e3b0bbb3bf43388ffccb5c3",
+    "bytes": 1909,
+    "mode": "0o644"
+  },
+  "P3": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/evidence/result.json",
+    "sha256": "fb9f5208b6cc3396ddeee320a9e89eb3ef7e365f18dddd2cd8c8bcfe0e731aea",
+    "bytes": 1964,
+    "mode": "0o644"
+  },
+  "interpretation": "Successful actual owner receipts plus the exact mandatory owner branches support bounded route reachability. They are not direct function-level traces."
+}

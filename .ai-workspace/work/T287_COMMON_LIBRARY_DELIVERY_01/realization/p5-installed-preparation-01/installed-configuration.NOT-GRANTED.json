@@ -1,0 +1,15 @@
+{
+  "effectGrant": "NOT_GRANTED",
+  "proofPackageRoot": null,
+  "artifactPath": null,
+  "artifactSha256": null,
+  "installHost": null,
+  "hostManifestSha256": null,
+  "scratchParent": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/p5-c2-installed-final-01/scratch",
+  "evidenceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/p5-c2-installed-final-01/evidence",
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "testSha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329",
+  "freshSupportSha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2",
+  "setupSupportSha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+  "replayWorkerSha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e"
+}

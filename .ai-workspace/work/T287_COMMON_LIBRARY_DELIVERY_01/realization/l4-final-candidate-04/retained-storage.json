@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/usr/bin/du",
+    "-sk",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04"
+  ],
+  "stdout": "1289264\t/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc\n569536\t/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04\n",
+  "stderr": "",
+  "exitCode": 0,
+  "allocatedKiB": 1858800,
+  "boundBytes": 10737418240,
+  "scope": "Owned physical parent and new record carrier after finite P3 receipt retention, before compact return/freeze; no file inventory or peak-allocation claim."
+}

@@ -1,0 +1,26 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'node_modules/fast-check/CHANGELOG.md',
++   'node_modules/pure-rand/CHANGELOG.md'
++ ]
+- []
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/verify-metadata.mjs:160:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    'node_modules/fast-check/CHANGELOG.md',
+    'node_modules/pure-rand/CHANGELOG.md'
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

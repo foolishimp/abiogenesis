@@ -1,0 +1,44 @@
+[
+  {
+    "currentPath": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "currentSha256": "9703f5ded2ee7fec0f1f247388a3364d0a2905d51ce0667946e7a0bb8e1ad75d",
+    "snapshot": "source-snapshots/product-semantic_job.ts",
+    "frozenStageComplementSha256": "9703f5ded2ee7fec0f1f247388a3364d0a2905d51ce0667946e7a0bb8e1ad75d",
+    "currentEqualsFrozenStageComplement": true
+  },
+  {
+    "currentPath": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "currentSha256": "7532aadf7fc497a5a4da3ccdf51fb9d1989832958e0f0baf424b3a6df68f32af",
+    "snapshot": "source-snapshots/product-worksite_command_execution.ts",
+    "frozenStageComplementSha256": "7532aadf7fc497a5a4da3ccdf51fb9d1989832958e0f0baf424b3a6df68f32af",
+    "currentEqualsFrozenStageComplement": true
+  },
+  {
+    "currentPath": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "currentSha256": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+    "snapshot": "source-snapshots/abg-instruction_assembly.ts",
+    "frozenStageComplementSha256": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+    "currentEqualsFrozenStageComplement": true
+  },
+  {
+    "currentPath": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "currentSha256": "d7b779a0cbb86059135682ecc63b36ae3f5bd6fdba748bec43d258d8fcd44126",
+    "snapshot": "source-snapshots/abg-actor_process.ts",
+    "frozenStageComplementSha256": "d7b779a0cbb86059135682ecc63b36ae3f5bd6fdba748bec43d258d8fcd44126",
+    "currentEqualsFrozenStageComplement": true
+  },
+  {
+    "currentPath": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "currentSha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+    "snapshot": "source-snapshots/abg-c_call_outcome.ts",
+    "frozenStageComplementSha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+    "currentEqualsFrozenStageComplement": true
+  },
+  {
+    "currentPath": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "currentSha256": "8f04a97ee6bf99fbdd18a4bd6a9816048dfa08c83c9a2d0704e86f3fb683e51e",
+    "snapshot": "source-snapshots/abg-worker_transport.ts",
+    "frozenStageComplementSha256": "8f04a97ee6bf99fbdd18a4bd6a9816048dfa08c83c9a2d0704e86f3fb683e51e",
+    "currentEqualsFrozenStageComplement": true
+  }
+]

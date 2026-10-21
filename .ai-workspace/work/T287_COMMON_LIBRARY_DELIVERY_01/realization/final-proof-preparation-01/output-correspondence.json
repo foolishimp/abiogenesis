@@ -1,0 +1,97 @@
+{
+  "status": "frozen_before_final_candidate_and_diagnostic_outputs",
+  "policy": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/comparison.json",
+    "sha256": "f614f45ef5941fc7fcef5e3ceb692426134f70af042e0d6cfda881392160771e",
+    "bytes": 3161,
+    "mode": "0o644"
+  },
+  "policyContents": {
+    "kind": "pre_observation_output_correspondence",
+    "baseline": "existing exact archive 192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+    "candidate": "not yet selected; all three closed Writer freezes required",
+    "identicalWorkload": {
+      "P1": "sandbox-uat authored consumer Program with recursionBound 3; no application dispatch",
+      "P3": {
+        "input": {
+          "kind": "hello_world_input",
+          "schemaVersion": "5.0.0",
+          "subject": "World"
+        },
+        "output": {
+          "kind": "hello_world_output",
+          "schemaVersion": "5.0.0",
+          "message": "Hello World"
+        }
+      },
+      "P4": "capability comparison only; exact standalone STDO3 constructor refuses in baseline; one candidate native machine task"
+    },
+    "exactWithinEachSubject": [
+      "owner-issued verification and install coordinates",
+      "actual lock, catalog/view and membership",
+      "same immutable Program validation identity for first/warm",
+      "complete resolution and validation values",
+      "closed terminal value and fresh result/replay",
+      "durable prefix and event-file bytes before/after readonly calls",
+      "original admitted install preserved and absence of second admission from actual projections"
+    ],
+    "crossSubjectExact": [
+      "external fixture owner, Program and authored GraphFunction names",
+      "selected operation/member contracts and declared mode",
+      "fixture graph topology, input/result meaning and selected call membership",
+      "literal output values and meaningful refusal domain"
+    ],
+    "producerDerivedCorrespondence": [
+      {
+        "coordinate": "artifact, Product content and manifest digests",
+        "relation": "each exact archive -> independent member inventory -> actual installed owner verification; compare file delta by canonical relative member path and source freeze, never equate digests"
+      },
+      {
+        "coordinate": "external fixture archive/content digests",
+        "relation": "producer package embeds exact ABG archive path/identity where declared; retain full package identity and explain dependency-derived deltas"
+      },
+      {
+        "coordinate": "install/workspace/lock/catalog/view/binding/execution identities",
+        "relation": "each owner result binds its own actual physical resources and artifact; compare declared logical roles through exact paired producer records; equality is not asserted across resources"
+      },
+      {
+        "coordinate": "time/invocation/event/prefix/currentness",
+        "relation": "within-subject causal and fresh-read relations only; no cross-subject identity substitution or normalization"
+      },
+      {
+        "coordinate": "P4 source/environment",
+        "relation": "same exact STDO manifest and declared role spans; baseline specialization refusal vs candidate capability and native one-shot evidence, never a speed ratio"
+      }
+    ],
+    "forbidden": [
+      "global digest/ref/path/currentness removal",
+      "normalizing owner receipts into fictitious equivalent runtime truth",
+      "P1 semantic output equated to native quality",
+      "baseline constructor refusal converted to baseline runtime success"
+    ],
+    "observationsInspected": false
+  },
+  "baselineP1": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/output-correspondence.json",
+    "sha256": "d58ad94f2f73a06e2f538ac70ace046a57d64208d1c052b969331bcf0b48aa4a",
+    "bytes": 6608,
+    "mode": "0o644"
+  },
+  "baselineP3": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/output-correspondence.json",
+    "sha256": "9bd4c176d6813594c84a2fd6bc9138f8c939f172f83c4ec087054fa6f59ad8be",
+    "bytes": 2982,
+    "mode": "0o644"
+  },
+  "finalCandidate": {
+    "archive": null,
+    "manifest": null,
+    "packageInventory": null,
+    "sourceFreeze": null,
+    "status": "pending final combined artifact"
+  },
+  "withinSubject": "All original frozen oracle predicates, full literal Hello World, owning Program/graph contracts, actual resolution/validation values, fresh CLI result/replay, exact close handoff and event-prefix bytes remain. Duplicate-owner glue additionally preserves prefix without acquisition/admission.",
+  "diagnosticRelation": "Use identical original runner and oracle, fresh independent roots and exact same subject archive/support. Owner/digest/path/currentness differences are paired through the actual producer identities; no global stripping. Retain full receipts before asserting comparison. Diagnostic overhead is observed versus its matching uninstrumented endpoint, with intervals/scopes stated and no speed threshold.",
+  "P4": "Capability witness only; one native selector after same-subject prerequisites. Exact literal spans in original runner389\u2013390; sourceMirror\u2192newRoot requires absent path and realpath equality. Final configuration must bind explicit fresh mirror distinct from exact installed STDO root.",
+  "P2": "Use actual returned successor close handoff and prefix for projections. Refusal alone never proves unchanged prefix."
+}

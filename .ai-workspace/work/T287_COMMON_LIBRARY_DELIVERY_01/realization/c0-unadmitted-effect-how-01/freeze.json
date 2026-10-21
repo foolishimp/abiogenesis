@@ -1,0 +1,61 @@
+{
+  "kind": "bounded_writer_HOW_proposal_freeze",
+  "activation": "C0-UNADMITTED-EFFECT-HOW-01",
+  "at": "2026-10-21T04:06:52.053303+00:00",
+  "actor": "/root/stdo3_c0_currentness_writer",
+  "return_owner": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "method_basis": "stdo://releases/v3.0.0-rc.1/",
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "work_result": "candidate_ready",
+  "candidate_kind": "HOW proposal and prospective proof only",
+  "realization_authorized": false,
+  "F1_status": "blocking pending separately selected realization and proof",
+  "proposed_production_files": 9,
+  "pinned_source_files": 38,
+  "protected_generated_files": 936,
+  "manifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/manifest.json",
+    "bytes": 3942,
+    "sha256": "2bd03d2ccc5a4eaaf4052f6c864d5ceeda854c2606ea0b8715aa5bd8f4a2de29"
+  },
+  "HOW": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/HOW-proposal.md",
+    "bytes": 13631,
+    "sha256": "2e2aafcb4db0423eb079a552dca218e09a7592ee2f970296631e9abfb3fa6df8"
+  },
+  "triage": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/review-attribution-and-triage.md",
+    "bytes": 7946,
+    "sha256": "0b58bf5bb2841ac5b4747f74ad7b329398c86190bc38b00e520f23e843a2b54a"
+  },
+  "prospective_grant_and_proof": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/prospective-grant-and-proof.md",
+    "bytes": 11570,
+    "sha256": "eb7c1f1038cf46a5841290ea18d344410d36057031bea863c0dbbad9e2e84b26"
+  },
+  "report": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/report.md",
+    "bytes": 3618,
+    "sha256": "b600a84d9b36d3834be9214f324db15b8abcf8b041ecb7203dc27eafb0fcce1b"
+  },
+  "verification": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/verification.json",
+    "bytes": 8842,
+    "sha256": "ca972bf021ff411d00c0123010011f1af71769bb5bca7cb27441ed3bca005242"
+  },
+  "source_pins": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-unadmitted-effect-how-01/source-pins.json",
+    "bytes": 8845,
+    "sha256": "a61434e821206f4babe5083a3f2bdd93a613c39278bb8fddec6fc1be5f7ac867"
+  },
+  "predecessor_C0_freeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json",
+    "sha256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a"
+  },
+  "final02_freeze_unchanged": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+  "production_or_test_execution_claim": false,
+  "independent_assurance_or_acceptance_claim": false,
+  "stop": "Closed proposal returned to Root; no further effects or activation follow."
+}

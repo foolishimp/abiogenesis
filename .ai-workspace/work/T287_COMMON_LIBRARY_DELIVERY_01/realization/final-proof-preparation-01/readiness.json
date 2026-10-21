@@ -1,0 +1,63 @@
+{
+  "status": "prepared_for_Executive_review_only",
+  "scripts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/construction-check.mjs",
+      "sha256": "ae961e4eb0c9c1f0bad3360e501ae8bf1c191765c385751e812ddd722a1e00d2",
+      "bytes": 4259,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-analyse.mjs",
+      "sha256": "dad5f922ffe6df46bd223774603b24c8c535918d33db1dc66a0254c0af969da0",
+      "bytes": 3317,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-preload.mjs",
+      "sha256": "5420045ebd31cb00bb27ab408e623cd141b3a8691d4a2e8b24f058c821c90852",
+      "bytes": 7531,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-probes.mjs",
+      "sha256": "b54dc5c3b1da3016c4113a0edfc9929f433491c095445939c0e98cdd2731da01",
+      "bytes": 6035,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-runner.mjs",
+      "sha256": "1ee5db3e8640b1c2cd5e4acab4249d710f61415c42fa00ca40a12595674792fa",
+      "bytes": 4771,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs",
+      "sha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+      "bytes": 7231,
+      "mode": "0o644"
+    }
+  ],
+  "syntaxAndPureChecks": [
+    "construction-checks.json",
+    "construction-checks-02.json"
+  ],
+  "inputPins": 30,
+  "caseGroups": 15,
+  "preparedCommands": 8,
+  "templates": [
+    "owner-resolution.configuration.template.json",
+    "diagnostic.configuration.template.json",
+    "remaining-execution.template.json"
+  ],
+  "pending": [
+    "final archive/source/emitted package freeze and exact source support correspondence",
+    "active configurations/effect grants and new external roots",
+    "five gaps enumerated in coverage.json",
+    "actual workload observations and independent acceptance"
+  ],
+  "artifactNowReportedByExecutive": "combined-final-01 compile/generate/pack passed; closed exact handoff pending and not consumed here",
+  "counterResult": "unobserved; no diagnostic or Product workload executed",
+  "originalRunnerUnchanged": true,
+  "originalOracleUnchanged": true
+}

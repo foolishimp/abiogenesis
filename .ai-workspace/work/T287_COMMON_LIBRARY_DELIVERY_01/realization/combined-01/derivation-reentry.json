@@ -1,0 +1,25 @@
+{
+  "activation": "COMBINED-DERIVATION-01",
+  "issuedBy": "/root",
+  "utc": "2026-10-20T23:56:15.528612+00:00",
+  "priorFailureFreezeSha256": "f509d0eeb997d32f32f9f87673cc1dc745c161e8ba0d8febff243b8ad55d3bb1",
+  "firstCauseSha256": "e2a3e383e74f7774f90ecdc9fd7044b71284c8a3138f5657d6bcc5fc491ab4c6",
+  "classification": "proof correspondence omission in Executive grant and selected allowlist; not source/runtime failure",
+  "productIdentity": "C2 context must bind exact emitted Product bytes; accepted L2 section 2 E03 source correspondence requires actual generated material",
+  "designProducer": "generator lines 92-115 verifies member bytecount/hash and renderer span before writing WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY from current GTL",
+  "exactAdditionalSuccessor": {
+    "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+    "predecessorSha256": "876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7",
+    "successorSha256": "f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+    "bytes": 255,
+    "onlySemanticDelta": "member digest 5bdc29e4ccad5c2d33d4ce309e9eab2d70a70c7843bf289b75a087f027f82322 to c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373; path/type/target/schema unchanged"
+  },
+  "grant": "new correspondence may admit exact capability graph and C2 inventory successors; compare every other input; freshly check emitted Product/renderer; reuse unchanged successful compile/generator; resume only pack/member inventories and inactive P1 configurations",
+  "notGranted": [
+    "source repair",
+    "generator weakening",
+    "main mutation",
+    "runtime effect"
+  ],
+  "firstFailedPredicatePreserved": true
+}

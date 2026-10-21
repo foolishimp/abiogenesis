@@ -1,0 +1,14 @@
+{
+  "label": "finalize",
+  "grant": "COMBINED-FINAL-BUILD-01",
+  "argv": [
+    "python3",
+    "-B",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/finalize.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "scriptSha256": "94167ee1397e95ef0818c2e8888c39c23c94513c2a4f575f61c5560413388e62",
+  "prebuildFreezeSha256": "5101b980a04659fda90b07506c40c9620eb2c4f0443ced35e4cbeab727654811",
+  "startedUtc": "2026-10-21T02:10:46.661209+00:00",
+  "scope": "Read exact frozen records, compare file bytes/modes/sets, write bounded support/preservation/report/freeze records only"
+}

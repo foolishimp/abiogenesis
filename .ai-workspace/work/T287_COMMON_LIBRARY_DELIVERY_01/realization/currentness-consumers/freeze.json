@@ -1,0 +1,55 @@
+{
+  "kind": "bounded_writer_proof_freeze",
+  "actor": "/root/stdo3_currentness_writer",
+  "activation": "U1-P5-02",
+  "frozen_at": "2026-10-21T00:37:38.733612+00:00",
+  "root_intake_head": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "method_release": "stdo://releases/v3.0.0-rc.1/",
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "production_subject": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/freeze.json",
+    "sha256": "433107b89d8eb01cc5a67ad6c8543e18d37575d5f89ba490c3795108955e788d",
+    "production_changed": false
+  },
+  "accepted_L2_contract_sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "source_files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61",
+      "bytes": 53780
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1",
+      "bytes": 34273
+    }
+  ],
+  "manifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/manifest.json",
+    "sha256": "c4fab7a7eb9f561c27bf1f0a62dc78ff9a167cdda04abf7bfc81b517d966f476"
+  },
+  "report": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/report.md",
+    "sha256": "2b8fc34b20456e850cecbc96a09a35482ff7bf72f338d8c3597533d6e8930d9c"
+  },
+  "case_matrix_sha256": "a37042c6a7884f1be1370f74346fdea17f12fb923ab30c0824e37e6e111b7912",
+  "completed_support": {
+    "C0": "5c2e2c4d6b1ba44f0c7b421472676ed3df2b84735fa5537dfb17511ec257f76d",
+    "observed_C2_provenance": "d84327dd5127b908a95144791496350376b0ce03493b48c279f2943e13a3b8f6",
+    "governance": "d9c003192eaffe1bc35157ff6ed0496e2468870c72bb98d6d410d28a7444c84c",
+    "semantic_revision": "c0b4054288fae99ec79cad5c8843bf9d2ac2ad259472a884765fcea0b78945e3"
+  },
+  "closure": "finite local proof rows evidenced with declared premises; Executive acceptance and combined package support correspondence are external",
+  "not_claimed": [
+    "installed Public Run",
+    "native provider uncertainty incident",
+    "real native or command process execution",
+    "semantic UAT acceptance",
+    "latest-file full-population aggregate rerun",
+    "whole moving-tree freeze"
+  ],
+  "new_native_installed_run_required_for_this_P5_subject": false,
+  "stopped_editing": true
+}

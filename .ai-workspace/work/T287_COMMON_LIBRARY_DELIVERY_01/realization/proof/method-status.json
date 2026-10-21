@@ -1,0 +1,8 @@
+{
+  "basis": "stdo://releases/v3.0.0-rc.1/",
+  "cut": "v3.0.0-rc.1",
+  "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1",
+  "valid": true,
+  "failures": []
+}

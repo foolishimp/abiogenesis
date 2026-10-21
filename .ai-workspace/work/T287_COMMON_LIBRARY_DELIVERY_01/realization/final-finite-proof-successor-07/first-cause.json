@@ -1,0 +1,96 @@
+{
+  "firstCause": "Writer preparation created each case root and tmp but did not create the configured ABI5_ROUTE_PROJECTION_SCRATCH parent. The frozen route test calls mkdtempSync below that parent.",
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+    "sha256": "524c4e603099fd0532acfa99cd1059beeb8228d9fc2591c2bc87e8158958d68e",
+    "lines": [
+      {
+        "line": 36,
+        "text": ""
+      },
+      {
+        "line": 37,
+        "text": "// Controlled declaration/outcome premises, current canonical event envelopes,"
+      },
+      {
+        "line": 38,
+        "text": "// genuine disposable append owner and the actual replay/route consumers. These"
+      },
+      {
+        "line": 39,
+        "text": "// rows do not claim invocation, installed leaf or scope-closure admission proof."
+      },
+      {
+        "line": 40,
+        "text": "const terminalOptions={};"
+      },
+      {
+        "line": 41,
+        "text": "function terminalOwner(t, history=0){"
+      },
+      {
+        "line": 42,
+        "text": " const scratch=fs.mkdtempSync(join(process.env.ABI5_ROUTE_PROJECTION_SCRATCH??os.tmpdir(),'terminal-route-'));"
+      },
+      {
+        "line": 43,
+        "text": " const acquired=store.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:join(scratch,'events.jsonl')});"
+      },
+      {
+        "line": 44,
+        "text": " assert.ok(acquired.store,JSON.stringify(acquired));"
+      },
+      {
+        "line": 45,
+        "text": " t.after(()=>{acquired.store.closeDurableLog();fs.rmSync(scratch,{recursive:true,force:true});});"
+      },
+      {
+        "line": 46,
+        "text": " const ref=(kind,value)=>`${kind}://component/${sha256Canonical(value).slice('sha256:'.length)}`;"
+      },
+      {
+        "line": 47,
+        "text": " const basisId=ref('execution-basis','terminal'),graphFunctionRef='graph-function://component/terminal',"
+      },
+      {
+        "line": 48,
+        "text": "  materializationRef=ref('materialization','terminal'),runId=ref('run','terminal'),graphCallId=ref('graph-call','terminal'),frameId=ref('frame','terminal');"
+      },
+      {
+        "line": 49,
+        "text": " const common={eventTime:'2026-10-10T00:00:00.000Z',correlationId:'correlation://component/terminal',workflowVersion:'5.0.0',"
+      }
+    ]
+  },
+  "actualResources": [
+    {
+      "path": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained",
+      "exists": true,
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 474996540,
+      "mode": "0o755"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/tmp",
+      "exists": true,
+      "kind": "directory",
+      "dev": 16777231,
+      "inode": 474996541,
+      "mode": "0o755"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch",
+      "exists": false
+    }
+  ],
+  "affectedCommand": "route-self-contained",
+  "actual": "Seven ENOENT mkdtemp refusals before route owner acquisition/assertions; exit1. No repaired or retried command.",
+  "scope": "Resource realization for selected proof; no runtime or route semantic defect established.",
+  "remainingCommands": "6-8 not started",
+  "priorPasses": {
+    "reopen18": 18,
+    "codec14": 14
+  },
+  "prospectiveBoundaryForExecutive": "A separately selected fresh scratch parent with existence/canonical checks; reuse both passes and unchanged runtime/test, then selected route command before commands6-8. No effects authorized by this proposal."
+}

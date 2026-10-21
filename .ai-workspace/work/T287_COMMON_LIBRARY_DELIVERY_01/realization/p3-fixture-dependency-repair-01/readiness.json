@@ -1,0 +1,96 @@
+{
+  "status": "construction_ready_not_installed_executed",
+  "activation": "P3-FIXTURE-DEPENDENCY-REPAIR-01",
+  "changeClass": "realization_refactor",
+  "ownedOutputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+      "bytes": 40077,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/root-installed-environment.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/language-smoke-fixture.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+      "bytes": 9963,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/root-cli-environment.mjs"
+    }
+  ],
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/source-before.json",
+    "sha256": "4abf77ea699c8e0c03478f27cd80b6545ac28fd76f06f523ba88b111c3b6328d",
+    "bytes": 322855,
+    "mode": "0o644"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/source-after.json",
+    "sha256": "81491d917f9c481dad6dae6729c4ad98b4885c9a46f9309368b95347dfa0d0cd",
+    "bytes": 322885,
+    "mode": "0o644"
+  },
+  "stageInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage-inventory.json",
+    "sha256": "854e4595452b83356dee1d832de49e767d68fe6824c5445f915f7c991dea7e3c",
+    "bytes": 1782556,
+    "mode": "0o644"
+  },
+  "supportManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/support-manifest.json",
+    "sha256": "922a85040acf61df1ce0e9ad9380df55e8a162acbf42a41e04b88787cf8c4a6c",
+    "bytes": 2961,
+    "mode": "0o644"
+  },
+  "preservedAbiArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+  },
+  "preservedAbiManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee"
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/preflight-result.json",
+    "sha256": "d6b7d5e6b7e8515da5e9992eac5149cbd0a1e156bbdd807f62488d22cbb28374",
+    "bytes": 3727,
+    "mode": "0o644"
+  },
+  "fixtureCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/fixture-correspondence.json",
+    "sha256": "7de5e8cbd25b0642ac0a10b580a3040e134b4684b5aca08f4510822c016459e5",
+    "bytes": 6810,
+    "mode": "0o644"
+  },
+  "postVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/post-verification.json",
+    "sha256": "2aaffa3e2656b5f1faf35eabccc63d4493f35132f92ba4733d9efe5e3167b28e",
+    "bytes": 1091,
+    "mode": "0o644"
+  },
+  "configurationDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/baseline-p3-configuration.draft.json",
+    "sha256": "1a502664df056ac44d6b99e0abd89fdc757ef07c977f475f3378e00e9dff8307",
+    "bytes": 5728,
+    "mode": "0o644"
+  },
+  "effectGrantDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/baseline-p3-effect-grant.draft.json",
+    "sha256": "f253b108be9119e694d475fdd35753a6aecfa98744a0f3725ba9f42c69fe5462",
+    "bytes": 2959,
+    "mode": "0o644"
+  },
+  "installedP3Granted": false,
+  "runtimeRootsCreated": false,
+  "nativeCalls": 0,
+  "candidateReuse": "Use these exact same three tenant-relative support output bytes as overlays when Executive constructs the next candidate proof stage. They are not ABI package members and do not change the baseline ABI archive.",
+  "requiredNextProof": "Actual installed dependency materialization, declared F_D Public start and fresh result/replay under a separate exact Executive effect grant.",
+  "L5": "not claimed"
+}

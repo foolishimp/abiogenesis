@@ -1,0 +1,1 @@
+{"status": "satisfied", "processCount": 16, "traceFileCount": 16, "observedHistoryOwners": 10, "loadedMembers": ["build/code/src/abg/event_prefix.js", "build/code/src/abg/runtime_history.js", "build/code/src/shared/canonical_json.js"]}

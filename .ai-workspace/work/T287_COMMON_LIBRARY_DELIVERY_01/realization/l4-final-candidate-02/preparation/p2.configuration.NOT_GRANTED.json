@@ -1,0 +1,131 @@
+{
+  "kind": "t287_installed_proof_configuration",
+  "status": "NOT_GRANTED",
+  "activationFile": null,
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "retryCount": 0,
+  "cleanup": false,
+  "subject": {
+    "id": "candidate",
+    "stageTenant": null,
+    "archive": {
+      "path": null,
+      "sha256": null
+    },
+    "manifest": {
+      "path": null,
+      "sha256": null
+    },
+    "packageInventory": {
+      "path": null,
+      "sha256": null
+    },
+    "supportManifest": {
+      "path": null,
+      "sha256": null
+    },
+    "inventories": [
+      {
+        "path": null,
+        "sha256": null,
+        "root": null,
+        "pendingRole": "source"
+      },
+      {
+        "path": null,
+        "sha256": null,
+        "root": null,
+        "pendingRole": "source-context"
+      },
+      {
+        "path": null,
+        "sha256": null,
+        "root": null,
+        "pendingRole": "generated"
+      },
+      {
+        "path": null,
+        "sha256": null,
+        "root": null,
+        "pendingRole": "dependencies"
+      }
+    ]
+  },
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "path": "/opt/homebrew/bin/npm",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "typescript": {
+      "version": "5.9.2",
+      "lockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    }
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_cache": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/caches/p2"
+  },
+  "requiredEvidence": [
+    {
+      "path": null,
+      "sha256": null,
+      "obligations": [
+        "P1"
+      ]
+    },
+    {
+      "path": null,
+      "sha256": null,
+      "obligations": [
+        "D03-owner"
+      ]
+    }
+  ],
+  "lanes": {
+    "partial-install": {
+      "runId": "t287-final02-p2-08c0665f0fed9141",
+      "roots": {
+        "evidence": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p2/evidence",
+        "host": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p2/host",
+        "scratchParent": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p2/scratchParent",
+        "secondInstall": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p2/secondInstall"
+      },
+      "preparationResult": {
+        "path": null,
+        "sha256": null
+      },
+      "preparationSetup": {
+        "path": null,
+        "sha256": null
+      },
+      "verificationCall": {
+        "path": null,
+        "sha256": null
+      },
+      "verificationOutcome": {
+        "path": null,
+        "sha256": null
+      }
+    }
+  },
+  "externalConsumer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/external-consumer.mts",
+    "sha256": "6821ee75b2e9392246dcf121940f9c953dad19984756bd964164e40ee4487ce7"
+  }
+}

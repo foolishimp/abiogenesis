@@ -1,0 +1,173 @@
+{
+  "activation": "C0-POTENTIAL-EFFECT-REALIZATION-01",
+  "status": "one isolated build authorized; no workload started",
+  "records": [
+    {
+      "path": "HOW-binding.md",
+      "sha256": "509c56bd93bddbb34e4e98ed8eb4ecef182439777692034b886559bd210b687e",
+      "bytes": 5589
+    },
+    {
+      "path": "activation.json",
+      "sha256": "07088795386f4fbb5f318b369392c1cf5a4a7a2688e04a37cab0538f3547cc0b",
+      "bytes": 2277
+    },
+    {
+      "path": "c_call_outcome.ts.diff",
+      "sha256": "154dd6a54f901d5e9bb221ca7ca2feda39f5861d919259a3a6b4a7d7d0135ed6",
+      "bytes": 12552
+    },
+    {
+      "path": "ccall_lifecycle.ts.diff",
+      "sha256": "e17231652614d32c7a0f18f6bf288f8bd11f7a068fb4a095cb703f811e29741e",
+      "bytes": 1450
+    },
+    {
+      "path": "command-environment.json",
+      "sha256": "d5a0a47b4e15ef7219e60a352d017fcef74ca992c672f81ee749b5fe0c634a56",
+      "bytes": 802
+    },
+    {
+      "path": "commands-config.json",
+      "sha256": "51b6d32e1bde259a442ed372108f2226f54bd8e302c50aeb35ec00cd675b7ae9",
+      "bytes": 2120
+    },
+    {
+      "path": "common.py",
+      "sha256": "9dc09a38bf640105bb73844ede8f100e3b3271932e004108166da5693bba6bdf",
+      "bytes": 1373
+    },
+    {
+      "path": "dependency-inputs.json",
+      "sha256": "b6b958851d46447d1e1a341a5619c1dd5f30b1437ea962604d69eb8532c697e2",
+      "bytes": 1006450
+    },
+    {
+      "path": "event_calculus.ts.diff",
+      "sha256": "133bdccb4f8fb91ffcbf9d240b46d40f78eb5fd55d2070dc9abc0f18c51206b7",
+      "bytes": 14978
+    },
+    {
+      "path": "leaf_invocation_port.ts.diff",
+      "sha256": "ca550c4a51f77511bc9fac72cd91ff96d8e0fb11666ff867e21bc73c7146eacd",
+      "bytes": 1341
+    },
+    {
+      "path": "main-generated-preservation-before.json",
+      "sha256": "fe871541cfe4b1c85c84cfdde02abb2c60a3fc2f2651e0e4aa105e79bf39ad89",
+      "bytes": 206134
+    },
+    {
+      "path": "native_worksite_execution.ts.diff",
+      "sha256": "d0f30bb66e6e3903803fa337dfa1a232fa20297f1b0fbce7ba0cf92594f3f6f6",
+      "bytes": 1979
+    },
+    {
+      "path": "prepare-build.py",
+      "sha256": "872caab080d50ec5a4b633504e378ea7a9cc14019da5fb4ce3f54011800a82e8",
+      "bytes": 4477
+    },
+    {
+      "path": "replay.ts.diff",
+      "sha256": "f0d371c4160e35bb1f646c541c15b58345b60ef8a09992d63a040ccd7f084604",
+      "bytes": 1632
+    },
+    {
+      "path": "resource-preflight.json",
+      "sha256": "86fada3aa7f5a83a40bb411374c793b35c225516a1fcd06ef1e15bf2b46ca7de",
+      "bytes": 267
+    },
+    {
+      "path": "root-installed-environment.mjs.diff",
+      "sha256": "8bda92e7bc11c5c7b6622a713183d346ce1173abe1e0f3b68797ea428cd17810",
+      "bytes": 1025
+    },
+    {
+      "path": "run-command.py",
+      "sha256": "5ecd87801e9680ff6f733cbcffe6645283bb5f183967265b8116d604646f2d4c",
+      "bytes": 2362
+    },
+    {
+      "path": "runtime_history.ts.diff",
+      "sha256": "bb7b63b7c7d9a576a1b008ccc6b9f608e5c8714cb8770b7c00ecae8d6ca99614",
+      "bytes": 1252
+    },
+    {
+      "path": "source-inputs-initial-preparation.json",
+      "sha256": "0411ee03ceafa1b35c76f1efa18124d5ece70c619e7652f4a8e5c40a7c442d0e",
+      "bytes": 361682
+    },
+    {
+      "path": "source-inputs.json",
+      "sha256": "8723e91842e39009a2106e27fed4d8e83e5e8add78fac197cb4fbae56e928e1d",
+      "bytes": 361914
+    },
+    {
+      "path": "source-preimages.json",
+      "sha256": "d0734079e816b2bae6cb0620acfe9edbfb08024a8f62abd4f044cf0c288c6502",
+      "bytes": 4896
+    },
+    {
+      "path": "t287-c0-post-publication-failure.test.mjs.diff",
+      "sha256": "bb6cbec70534b2270e3190feb2d686b7cd78d475e375feea057ece5ca46338ef",
+      "bytes": 29761
+    },
+    {
+      "path": "t287-native-work-currentness-consumers.test.mjs.diff",
+      "sha256": "e951e2135311d87a526e82596f5bb0684df0fe472ccfa095fef6187b3ef8503e",
+      "bytes": 5752
+    },
+    {
+      "path": "verify-archive.py",
+      "sha256": "2d081c03bae74f318a47dc0589fe8d80e2db4f024f95938a7ba302611d035c13",
+      "bytes": 4597
+    },
+    {
+      "path": "verify-generation.py",
+      "sha256": "31e885d44822e8784b085339d6329b1bffd1bcbcdf1dd7bfa51a6162508b64d5",
+      "bytes": 2333
+    },
+    {
+      "path": "verify-metadata.mjs",
+      "sha256": "f36eb963621bbd0d574bd0fac7c4214d7e78e09f9ab735778fd443a848b7ce13",
+      "bytes": 13718
+    },
+    {
+      "path": "verify-payload.mjs",
+      "sha256": "894f2030400b8c9fc1b5cc47271bd50855daa92c7b136e2bcb2a643bb17c2268",
+      "bytes": 1937
+    },
+    {
+      "path": "worksite_file_replace.ts.diff",
+      "sha256": "ccaacd357f588fb3a253ad9e780ac834b15f259479b5452c4be6efd0b6c1fc08",
+      "bytes": 1158
+    },
+    {
+      "path": "worksite_revision.ts.diff",
+      "sha256": "fae4c489b5f204fbd48e9dd1293ffa33ab8b3f857dce44970fe6ec73116de999",
+      "bytes": 2774
+    }
+  ],
+  "tools": [
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+      "sha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/_tsc.js",
+      "sha256": "a040f97c9d0223f64c8ebc380c5e48eb7945f1142f7c1dc9c3ec4acdb6c1c613"
+    }
+  ],
+  "sourceInputsSha256": "8723e91842e39009a2106e27fed4d8e83e5e8add78fac197cb4fbae56e928e1d",
+  "dependencyInputsSha256": "b6b958851d46447d1e1a341a5619c1dd5f30b1437ea962604d69eb8532c697e2",
+  "methodManifest": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "constraints": "one compile/generator/archive; first unexpected failure stops; no old cuts/main936/Git/continuation17/native"
+}

@@ -1,0 +1,42 @@
+{
+  "activation": "DIAGNOSTIC-EXTERNAL-ARCHIVE-02",
+  "continuingGrant": "BASELINE-DIAGNOSTICS-01",
+  "phase": "one baseline repaired-support P3 diagnostic",
+  "issuedBy": "/root",
+  "status": "granted",
+  "originalStoppedCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/freeze.json",
+    "sha256": "f0643a3c7916acf534d7f90115d4019a29604a5539db472443ce162b57b68cb2",
+    "bytes": 48203,
+    "mode": "0o644"
+  },
+  "P1CoverageSuccessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/freeze.json",
+    "sha256": "0270d388acf82cc8555edb6e38e148686288e949931498b87300ed2fe162560c",
+    "bytes": 5513,
+    "mode": "0o644"
+  },
+  "referenceP3": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/result.json",
+    "sha256": "d32254c2f3b96e2728abf786d73ee0f19841ae9823771c27ce7c772b1bcda037",
+    "bytes": 10775,
+    "mode": "0o644"
+  },
+  "referenceP3Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/freeze.json",
+    "sha256": "5cc9b52989fa0136f850a11dee1f41cda1d6b9de858612bf3209d2c158cfe087",
+    "bytes": 8003,
+    "mode": "0o644"
+  },
+  "effects": "Only fresh declared P3 roots/cache and new local records. Same exact workload and frozen observers. No P1 repeat, candidate/native/Git/cleanup/retry.",
+  "physicalRoots": [
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/diagnostic",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p3",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/host",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/worksite"
+  ],
+  "initiallyAbsent": true,
+  "nativeCalls": 0
+}

@@ -1,0 +1,30 @@
+--- staged-validation-reader.preimage.py
++++ staged-validation-reader.py
+@@ -9,7 +9,7 @@
+   for b in iter(lambda:f.read(1024**2),b''):h.update(b)
+  return h.hexdigest()
+ try:
+- raw=subprocess.check_output(['git','diff','--cached','--name-status','--no-renames','-z'],cwd=R);(C/'staged-name-status.z').write_bytes(raw);bits=raw.decode().split('\0');assert bits.pop()=='';assert len(bits)%2==0;changed=[dict(status=bits[i],path=bits[i+1]) for i in range(0,len(bits),2)];paths={r['path'] for r in changed}
++ raw=(C/'staged-name-status.z').read_bytes();bits=raw.decode().split('\0');assert bits.pop()=='';assert len(bits)%2==0;changed=[dict(status=bits[i],path=bits[i+1]) for i in range(0,len(bits),2)];paths={r['path'] for r in changed}
+  assert all('continuation-17' not in Path(p).parts for p in paths)
+  initial=json.loads((C/'initial-inventory.json').read_text());wanted={r['path'] for r in initial['rows']};missing=sorted(wanted-paths);assert not missing,('Initial visible rows not staged',missing[:10])
+  added=sorted(paths-wanted);cp=str(C.relative_to(R))+'/';tp=str(E.parent.relative_to(R))+'/'
+@@ -17,8 +17,9 @@
+  expected={r['path']:r for r in json.loads((E/'repository-dependencies.json').read_text())['files']}
+  for p in [E/'freeze.json',E/'manifest.json']:
+   rel=str(p.relative_to(R));expected[rel]=dict(path=rel,sha256=digest(p),bytes=p.stat().st_size)
+- for name in ['lfs-selection.json','lfs-selection-02.json']:
+-  row=json.loads((C/name).read_text())['content'];expected[row['path']]=row
++ first=json.loads((C/'lfs-selection.json').read_text());second=json.loads((C/'lfs-selection-02.json').read_text())['content']
++ for native in [first,second]:
++  row={key:native[key] for key in ['path','sha256','bytes']};expected[row['path']]=row
+  index={};requested=sorted(expected)
+  for at in range(0,len(requested),100):
+   data=subprocess.check_output(['git','ls-files','--stage','-z','--',*requested[at:at+100]],cwd=R)
+@@ -51,5 +52,5 @@
+  write('staged-validation.json',dict(status='satisfied',changedEntries=len(changed),initialVisibleEntriesPreserved=len(wanted),newCheckpointEntries=len(added),stagedDependenciesVerified=len(verified),uniqueGitBlobs=len(by_oid),lfsPayloadsVerified=len(lfs),bothExactPackageRoutesStaged=True,sourceDrift=0,mismatches=0,wallSeconds=time.monotonic()-start))
+  print(json.dumps(json.loads((C/'staged-validation.json').read_text())))
+ except Exception as error:
+- write('STOP-staged-validation.json',dict(firstCause=repr(error),traceback=traceback.format_exc(),stop='Return Root before repair or commit'))
++ write('STOP-staged-validation-successor.json',dict(firstCause=repr(error),traceback=traceback.format_exc(),stop='Return Root before repair or commit'))
+  raise

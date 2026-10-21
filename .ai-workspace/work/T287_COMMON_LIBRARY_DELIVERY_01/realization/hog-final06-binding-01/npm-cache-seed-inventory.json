@@ -1,0 +1,68 @@
+{
+  "files": [
+    {
+      "path": "_cacache/content-v2/sha512/99/fd/1b510db7f3572bf37f6603b1c84237d2c77bc67411c1cffd4f3caa7c1ffff0cc905ce9e294a347fb8788b0ccccd648e2ca2d2e6b50040de296dafe671a6c",
+      "mode": "0o644",
+      "bytes": 6199,
+      "sha256": "538ed071545a64c4db6b234d2f5f9e2b05d8621921e5bed9dfa651f666f0f541",
+      "type": "file"
+    },
+    {
+      "path": "_cacache/content-v2/sha512/c3/51/4729f94c2bfdd6cf4f4640252fc788edaf2511a5dddfd4e3df2fb6dc0a489e66a77e07d4c5938c0170df13d9fddac1ed006a7f72acb90dc22be734c8b698",
+      "mode": "0o644",
+      "bytes": 10681844,
+      "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+      "type": "file"
+    },
+    {
+      "path": "_cacache/index-v5/49/3b/0ca5dc16c02e78e62f6aaf937e562d4a888aa13c1749211a28cb70fae639",
+      "mode": "0o644",
+      "bytes": 297,
+      "sha256": "56554b7596926c8bf344dd0d5be31e5de26b9d9ff7d85bdde685ee7c76fa2fa7",
+      "type": "file"
+    },
+    {
+      "path": "_cacache/index-v5/91/8a/ff13638abaa476aaa0065febbf6074dd712dd024dabf4e3da2f960e4e258",
+      "mode": "0o644",
+      "bytes": 424,
+      "sha256": "ee03659cf66850190f8c623e6b6843730d0a468b9e6199ad95e03ac62b92dc78",
+      "type": "file"
+    },
+    {
+      "path": "_cacache/index-v5/9d/73/623cf03a2a2a38a7702ff9ff738fe0cca1330f7210b83ec6a325cfad97ec",
+      "mode": "0o644",
+      "bytes": 415,
+      "sha256": "11d8aba930acf9a7dfc3294440036acc760cb0d969381282da4ef34dcc4a0fdd",
+      "type": "file"
+    },
+    {
+      "path": "_cacache/index-v5/ab/85/f8892560703abe21c671d1767cabccbe987ac567a2df6cfcc13ebb2b21b3",
+      "mode": "0o644",
+      "bytes": 281,
+      "sha256": "064f3078a41465f37c72d2a7aa08923d16d24c2a0f13520ee3f3521c2f72d6f4",
+      "type": "file"
+    },
+    {
+      "path": "_cacache/index-v5/de/d4/7e7dc4b8d7976da4af0e5ef8ae99df34774139bc363b903c62fd4fcf5d48",
+      "mode": "0o644",
+      "bytes": 1203,
+      "sha256": "5186136bdf30b2f1a31b08e609b1bcc88ee2b96a480c4bd5e08cccc8d552a67a",
+      "type": "file"
+    },
+    {
+      "path": "_cacache/index-v5/f4/0e/b94ac98704ccffd4ee75669dae7a065b689a008bad9a6489aeecbe8737a5",
+      "mode": "0o644",
+      "bytes": 333,
+      "sha256": "fc53af9b6feabd95c6f57086e73a950c7b35c2a98205c6bf25d1bd124d822bfc",
+      "type": "file"
+    }
+  ],
+  "sourceRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p1",
+  "actualFinalP1Physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/physical-resources.json",
+    "sha256": "c408959e4751e2d316ec85d02bf217a5547f995c6b272eeadcd72026d170e6eb",
+    "bytes": 7173761,
+    "mode": "0o644"
+  },
+  "selection": "Only finite finalP1 _cacache content-v2 and index-v5 regular files; exclude logs, notifier and temp. No ambient cache or copying in this activation."
+}

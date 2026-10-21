@@ -1,0 +1,17 @@
+[
+  {
+    "path": "fixture-child.mjs",
+    "bytes": 1473,
+    "sha256": "cd187854f6016056751d745bbf385af273039659118858c0fd0b000f01880c82"
+  },
+  {
+    "path": "diagnostic-host.mjs",
+    "bytes": 2584,
+    "sha256": "4b9f1e941a5638e2ac8f2e4d861815ec64bbcd80a680432b9922adaf4f912e5b"
+  },
+  {
+    "path": "run-F2-discriminator.py",
+    "bytes": 5557,
+    "sha256": "ffa3c00b195e223d9b6be21c005df2af1fad80320c8a1b256858e769e89f53e9"
+  }
+]

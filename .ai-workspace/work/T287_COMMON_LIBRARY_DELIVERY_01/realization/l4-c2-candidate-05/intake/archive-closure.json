@@ -1,0 +1,18 @@
+{
+  "status": "satisfied",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "fadd07e06799be957087419527c683ce18650ecf0abfe669c0f28e034d84aef6",
+    "bytes": 10681875,
+    "mode": "0o644"
+  },
+  "predecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/archive-closure.json",
+    "sha256": "d0b211d48703e9fd14160e91e8beaa004779cdba5c64f5de5d5923287ec4e587",
+    "bytes": 15160,
+    "mode": "0o644"
+  },
+  "packageCount": 14,
+  "edgeCount": 17,
+  "relation": "All 14 runtime package metadata bytes and all 17 dependency/peer edges are conserved in the exact closed member inventory; only the three declared non-package-metadata members changed. Empty offline seeds remain sufficient; no runtime receipt transferred."
+}

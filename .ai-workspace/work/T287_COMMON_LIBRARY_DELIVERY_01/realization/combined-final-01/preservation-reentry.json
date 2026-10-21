@@ -1,0 +1,83 @@
+{
+  "activation": "COMBINED-FINAL-PRESERVATION-01",
+  "actor": "/root/stdo3_k11_successor_writer",
+  "executive": "/root",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01",
+  "HOW": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/PRESERVATION-HOW.md",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 2926,
+    "sha256": "d3984b6626543b7aec7ca26e5bdd1136671521efb430e4b2181112cbf7748c06"
+  },
+  "historicalFirstCause": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/first-cause.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1044,
+    "sha256": "8eff9b83a8060a46b8d02897864868d293478a67e483b1336189d30e177c1276"
+  },
+  "originalFinalizer": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/finalize.py",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 17512,
+    "sha256": "94167ee1397e95ef0818c2e8888c39c23c94513c2a4f575f61c5560413388e62"
+  },
+  "originalRequest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/finalize.request.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 647,
+    "sha256": "b37add129d29fdaf3be308a953ac60d368108866f561d76d2b2442241ae97dba"
+  },
+  "originalCapture": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-prior-trees.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 30784727,
+    "sha256": "0c78390eaf136e8d24804d56474d3b31203a066c5fb51feaf7bc931407ea98d9"
+  },
+  "stoppedRecords": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stopped-cut-records.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 16365,
+    "sha256": "55aa7149be3c93607036579c29d862362aaeb180e96aeff6698f09e45ad6bc7c"
+  },
+  "concurrentTerritory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+  "concurrentClosedFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 8903,
+    "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa"
+  },
+  "observedDelta": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/concurrent-preparation-delta.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 5724,
+    "sha256": "15383a2c625bcbc87eff01d78485dc75e24a5f3747313025b2703154b758f7f1"
+  },
+  "requiredOtherPriorRoots": 22,
+  "requiredOtherPriorEntries": 87344,
+  "disposition": "Classify exactly one previously active sibling as separately closed; preserve historical capture and first cause. Require every other originally captured root exactly unchanged.",
+  "allowed": [
+    "Add successor evidence records",
+    "Reverify necessary preservation",
+    "Finish candidate/support/report/freeze"
+  ],
+  "notAuthorized": [
+    "Build",
+    "Generator",
+    "Pack",
+    "Material/payload/structural rerun",
+    "Source mutation",
+    "Test",
+    "Install",
+    "Native workload",
+    "Git",
+    "Network"
+  ]
+}

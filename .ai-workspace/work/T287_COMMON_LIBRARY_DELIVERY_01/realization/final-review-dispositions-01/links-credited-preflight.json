@@ -1,0 +1,683 @@
+{
+  "activation": "N3-IMPORTER-ACCOUNTING-01",
+  "checked": 75,
+  "rows": [
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "Metadata",
+      "target": "review-metadata.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/review-metadata.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "e03-physical-launch-failure-01",
+      "target": "../e03-physical-launch-failure-01/freeze.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/freeze.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "report",
+      "target": "../e03-physical-launch-failure-01/report.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/report.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "Owned lifetime source",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "fresh-process-runtime-proof.mjs",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "resolved": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "E03-R1-SEMANTIC-HISTORICAL-ASSEMBLY",
+      "target": "capsules.md#e03-r1-semantic-historical-assembly",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "e03-r1-semantic-historical-assembly",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "capsule",
+      "target": "../e03-r1-identity-boundary-01/capsule-proposed.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/capsule-proposed.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "freeze",
+      "target": "../e03-r1-identity-boundary-01/freeze.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/freeze.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "semantic_job.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "instruction_assembly.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "c_call_outcome.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "label": "Pending obligations",
+      "target": "pending-obligations.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/pending-obligations.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "label": "K11 successor freeze",
+      "target": "../k11-role-source-successor-01/freeze.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/freeze.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "label": "report",
+      "target": "../k11-role-source-successor-01/report.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/report.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "label": "stdo_run_environment.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "label": "K11-R1-STDO-ADOPTION-ERASURE",
+      "target": "capsules.md#k11-r1-stdo-adoption-erasure",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "k11-r1-stdo-adoption-erasure",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "label": "deepFreeze",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/shared/immutable.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/shared/immutable.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "label": "K03 total domain",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#k03--capturing-and-preserving-immutable-values",
+      "resolved": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "anchor": "k03--capturing-and-preserving-immutable-values",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "label": "K11-R2-SHALLOW-FROZEN-ALIAS",
+      "target": "capsules.md#k11-r2-shallow-frozen-alias",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "k11-r2-shallow-frozen-alias",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "label": "Pending obligations",
+      "target": "pending-obligations.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/pending-obligations.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "F-WORKSITE-CAUSALITY",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+      "resolved": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "anchor": "f-worksite-causality",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "Method evidence",
+      "target": "method-sources.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/method-sources.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "source basis",
+      "target": "source-basis.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/source-basis.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "Review metadata",
+      "target": "review-metadata.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/review-metadata.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "E03 public findings and disposition",
+      "target": "E03-public-summary.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "K11 public findings and disposition",
+      "target": "K11-public-summary.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "U1 public findings and disposition",
+      "target": "U1-public-summary.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "Registered technical debt",
+      "target": "capsules.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "Pending final obligations",
+      "target": "pending-obligations.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/pending-obligations.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "owning-ticket section",
+      "target": "../../../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#final-review-dispositions-01",
+      "resolved": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "anchor": "final-review-dispositions-01",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "label": "N3 administrative failure and process deviation",
+      "target": "N3-preflight-01-failure.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/N3-preflight-01-failure.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "C0 EC/gate/index successor",
+      "target": "../u1-c0-physical-currentness-successor-02/freeze.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "report",
+      "target": "../u1-c0-physical-currentness-successor-02/report.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/report.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "U1-M1-NESTED-CANONICAL-ROOT-CURRENTNESS",
+      "target": "capsules.md#u1-m1-nested-canonical-root-currentness",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "u1-m1-nested-canonical-root-currentness",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "native_workspace_work.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "U1-F2-LIVE-CLEANUP-LATER-MUTATION",
+      "target": "capsules.md#u1-f2-live-cleanup-later-mutation",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "u1-f2-live-cleanup-later-mutation",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "native_work_effect.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "U1-F3-INDETERMINATE-CAUSE-AUTHENTICATION",
+      "target": "capsules.md#u1-f3-indeterminate-cause-authentication",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "u1-f3-indeterminate-cause-authentication",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "event_calculus.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "native_worksite_execution.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "runtime_history.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "c_call_outcome.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "source basis",
+      "target": "source-basis.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/source-basis.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "label": "Pending obligations",
+      "target": "pending-obligations.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/pending-obligations.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "source-basis.json",
+      "target": "source-basis.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/source-basis.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "review-metadata.json",
+      "target": "review-metadata.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/review-metadata.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "worksite frame",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+      "resolved": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "anchor": "f-worksite-causality",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "integration frame",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+      "resolved": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "anchor": "f-end-to-end-interface-integration",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "prepared capsule",
+      "target": "../e03-r1-identity-boundary-01/capsule-proposed.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/capsule-proposed.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "prepared freeze",
+      "target": "../e03-r1-identity-boundary-01/freeze.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/freeze.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "twelve pure pairs",
+      "target": "../e03-r1-identity-boundary-01/result.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/result.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "source trace",
+      "target": "../lifetime-review-triage-01/R1-identity-trace.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-review-triage-01/R1-identity-trace.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "K11 freeze",
+      "target": "../k11-role-source-successor-01/freeze.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/freeze.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "stdo_run_environment.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "immutable.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/shared/immutable.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/shared/immutable.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "K03",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#k03--capturing-and-preserving-immutable-values",
+      "resolved": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "anchor": "k03--capturing-and-preserving-immutable-values",
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "event_calculus.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "native_worksite_execution.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "C0 successor freeze",
+      "target": "../u1-c0-physical-currentness-successor-02/freeze.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "native_work_effect.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "worksite_operations.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "event_calculus.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "Selected C0 proof",
+      "target": "../u1-c0-physical-currentness-successor-02/report.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/report.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "label": "native_work_effect.ts",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "resolved": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/pending-obligations.md",
+      "label": "Accepted L2",
+      "target": "../../L2-execution-contract.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/pending-obligations.md",
+      "label": "library design",
+      "target": "../../../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "resolved": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "anchor": null,
+      "valid": true,
+      "base": "carrier"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "label": "portable public review summaries and dispositions",
+      "target": "../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "anchor": null,
+      "valid": true,
+      "base": "owning ticket"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "label": "Review metadata",
+      "target": "../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/review-metadata.json",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/review-metadata.json",
+      "anchor": null,
+      "valid": true,
+      "base": "owning ticket"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "label": "E03-R1-SEMANTIC-HISTORICAL-ASSEMBLY",
+      "target": "../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md#e03-r1-semantic-historical-assembly",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "e03-r1-semantic-historical-assembly",
+      "valid": true,
+      "base": "owning ticket"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "label": "K11-R1-STDO-ADOPTION-ERASURE",
+      "target": "../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md#k11-r1-stdo-adoption-erasure",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "k11-r1-stdo-adoption-erasure",
+      "valid": true,
+      "base": "owning ticket"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "label": "K11-R2-SHALLOW-FROZEN-ALIAS",
+      "target": "../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md#k11-r2-shallow-frozen-alias",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "k11-r2-shallow-frozen-alias",
+      "valid": true,
+      "base": "owning ticket"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "label": "U1-M1-NESTED-CANONICAL-ROOT-CURRENTNESS",
+      "target": "../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md#u1-m1-nested-canonical-root-currentness",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "u1-m1-nested-canonical-root-currentness",
+      "valid": true,
+      "base": "owning ticket"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "label": "U1-F2-LIVE-CLEANUP-LATER-MUTATION",
+      "target": "../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md#u1-f2-live-cleanup-later-mutation",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "u1-f2-live-cleanup-later-mutation",
+      "valid": true,
+      "base": "owning ticket"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "label": "U1-F3-INDETERMINATE-CAUSE-AUTHENTICATION",
+      "target": "../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md#u1-f3-indeterminate-cause-authentication",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "anchor": "u1-f3-indeterminate-cause-authentication",
+      "valid": true,
+      "base": "owning ticket"
+    },
+    {
+      "from": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "label": "Remaining obligations",
+      "target": "../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/pending-obligations.md",
+      "resolved": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/pending-obligations.md",
+      "anchor": null,
+      "valid": true,
+      "base": "owning ticket"
+    }
+  ],
+  "ticket_anchor": "prospective append verified",
+  "earlier_corrected_check_credit": false
+}

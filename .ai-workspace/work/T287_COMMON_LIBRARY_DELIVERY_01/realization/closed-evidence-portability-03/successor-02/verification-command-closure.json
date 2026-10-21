@@ -1,0 +1,36 @@
+{
+  "exitCode": 1,
+  "files": [
+    {
+      "path": "verification-input.json",
+      "sha256": "7900903ba3704157d123d62aa51f62a0cbcc1f9bf9d6cb45f42b814155a61134",
+      "bytes": 5434
+    },
+    {
+      "path": "verification-bind.json",
+      "sha256": "9832534d0e9a6b7d7823f11bdfbccc0d0a2fd2818780161b19e9910e4e9bce17",
+      "bytes": 88
+    },
+    {
+      "path": "verification.command.json",
+      "sha256": "faadf00973e630fcb52324c2dc00d292a0eaf195c99daaf9e51c58b2055fb8ff",
+      "bytes": 578
+    },
+    {
+      "path": "verification.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "verification.stderr",
+      "sha256": "c29bbfb2987f2c8bbbef127f468678e75649ed8c7d7844abd54a73fb232953e0",
+      "bytes": 323
+    },
+    {
+      "path": "verification.receipt.json",
+      "sha256": "78ce3da72d4e10c7c847596c2c9246475ed2dae93693b5ca22a9a6a51a6990a1",
+      "bytes": 388
+    }
+  ],
+  "closure": "All streams closed and child termination observed before hashing"
+}

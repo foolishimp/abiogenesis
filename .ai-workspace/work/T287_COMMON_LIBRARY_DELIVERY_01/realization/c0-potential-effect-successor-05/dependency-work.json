@@ -1,0 +1,22 @@
+{
+  "observations": [
+    {
+      "case": "sunny",
+      "rows": 29,
+      "strictOccurrenceDependencyRows": 10,
+      "selectedObservationDependencyPopulation": 3,
+      "firstHistoricalEligibilityMs": 2.396667000000889,
+      "reportedRepeatedIntervalMs": 410.28566700000374
+    },
+    {
+      "case": "unavailable",
+      "rows": 29,
+      "strictOccurrenceDependencyRows": 10,
+      "selectedObservationDependencyPopulation": 3,
+      "firstHistoricalEligibilityMs": 2.403542000000016,
+      "reportedRepeatedIntervalMs": 416.5280830000047
+    }
+  ],
+  "extent": "Shared occurrence authenticator consumed 10 selected strict predecessor dependencies at the 29-row cut; EC target-population and other projections separately consume their selected relation. Source collector cost remains as frozen HOW.",
+  "timingLimit": "firstHistoricalEligibilityMs is the first explicit eligibility call in this fixture, not guaranteed process-cold; repeatedHistoricalEligibilityMs includes subsequent full/index/cold projection work before capture and is NOT isolated hot-gate latency. No CPU or general performance acceptance claim."
+}

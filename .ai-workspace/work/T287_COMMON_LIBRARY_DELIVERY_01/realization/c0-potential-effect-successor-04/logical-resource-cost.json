@@ -1,0 +1,28 @@
+{
+  "roots": [
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01",
+      "logicalFileBytes": 186818544
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02",
+      "logicalFileBytes": 227888911
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03",
+      "logicalFileBytes": 257073136
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-04",
+      "logicalFileBytes": 2969242
+    },
+    {
+      "root": "/private/tmp/abg-c0-potential-25ac62e990e141ce",
+      "logicalFileBytes": 168947779
+    }
+  ],
+  "totalBeforeFinalClosureRecords": 843697612,
+  "limit": 10737418240,
+  "scope": "All potential-effect realization01/successor02/03/04 work carriers and their shared granted physical parent, no duplicate reference counting",
+  "noCleanup": true
+}

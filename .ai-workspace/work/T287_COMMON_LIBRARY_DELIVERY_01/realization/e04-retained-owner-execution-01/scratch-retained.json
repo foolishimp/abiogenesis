@@ -1,0 +1,403 @@
+{
+  "kind": "E04_retained_scratch_observation",
+  "scratchRoot": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f",
+  "evidenceRoot": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f",
+  "cleanup": "NONE: original scratch/evidence roots retained",
+  "nodeCountIncludingRoot": 44,
+  "regularFilePaths": 15,
+  "regularBytesSummedByPath": 290,
+  "distinctRegularInodes": 14,
+  "regularBytesSummedByDistinctInode": 271,
+  "symlinkCount": 2,
+  "rows": [
+    {
+      "relativePath": ".",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159540,
+      "nlink": 12,
+      "byteLength": 384
+    },
+    {
+      "relativePath": "DEST-HARDLINK",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159567,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "DEST-HARDLINK/result.json",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159568,
+      "nlink": 2,
+      "byteLength": 19,
+      "sha256": "64487c314c1045e1a21e213d1c87351c3fcbf3c2255ad2809295f5210ea79777",
+      "base64": "dW50b3VjaGVkIHNlbnRpbmVsCg=="
+    },
+    {
+      "relativePath": "DEST-HARDLINK/sentinel.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159568,
+      "nlink": 2,
+      "byteLength": 19,
+      "sha256": "64487c314c1045e1a21e213d1c87351c3fcbf3c2255ad2809295f5210ea79777",
+      "base64": "dW50b3VjaGVkIHNlbnRpbmVsCg=="
+    },
+    {
+      "relativePath": "DEST-SYMLINK",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159561,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "DEST-SYMLINK/result.json",
+      "kind": "symlink",
+      "dev": 16777231,
+      "ino": 474159563,
+      "nlink": 1,
+      "byteLength": 12,
+      "target": "sentinel.txt",
+      "resolvedTarget": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/DEST-SYMLINK/sentinel.txt",
+      "targetWithinScratch": true
+    },
+    {
+      "relativePath": "DEST-SYMLINK/sentinel.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159562,
+      "nlink": 1,
+      "byteLength": 19,
+      "sha256": "64487c314c1045e1a21e213d1c87351c3fcbf3c2255ad2809295f5210ea79777",
+      "base64": "dW50b3VjaGVkIHNlbnRpbmVsCg=="
+    },
+    {
+      "relativePath": "PERSIST",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159541,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "PERSIST/parents",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159542,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "PERSIST/parents/exact.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159543,
+      "nlink": 1,
+      "byteLength": 20,
+      "sha256": "c21200293324618056f2a157b51006751976ae6c035c9a604d3d9520821884ab",
+      "base64": "cGVyc2lzdCBleGFjdCBieXRlcwo="
+    },
+    {
+      "relativePath": "PUBLISH",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159548,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "PUBLISH/result.json",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159549,
+      "nlink": 1,
+      "byteLength": 19,
+      "sha256": "1a33df04200e343a8d4c8a74c0e90d67375ffa5f03371e41cd34a71aeaa96acb",
+      "base64": "ZXhhY3QgaGVscGVyIGJ5dGVzCg=="
+    },
+    {
+      "relativePath": "RACE",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159556,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "RACE/result.json",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159558,
+      "nlink": 1,
+      "byteLength": 15,
+      "sha256": "5ce2a7b2a634c808aba2fc858630f9b6b8c20e2163fb5f9a47ec95370938c447",
+      "base64": "Y29tcGV0aXRvciB3b24K"
+    },
+    {
+      "relativePath": "SNAPSHOT",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159578,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "SNAPSHOT/snapshot",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159583,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "SNAPSHOT/snapshot/src",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159584,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "SNAPSHOT/snapshot/src/first.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159585,
+      "nlink": 1,
+      "byteLength": 22,
+      "sha256": "5a5f0febeddda6e3e27883d6419b0356623d3c320230f433b329d5c5577f1b23",
+      "base64": "Zmlyc3QgcHJvdGVjdGVkIGJ5dGVzCg=="
+    },
+    {
+      "relativePath": "SNAPSHOT/snapshot/src/second.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159586,
+      "nlink": 1,
+      "byteLength": 23,
+      "sha256": "a986c0ac9f55539a2297d886f6ad2c8d545f803e8f5ab4d404bd8bfe8dc16f96",
+      "base64": "c2Vjb25kIHByb3RlY3RlZCBieXRlcwo="
+    },
+    {
+      "relativePath": "SNAPSHOT/worksite",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159579,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "SNAPSHOT/worksite/src",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159580,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "SNAPSHOT/worksite/src/first.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159581,
+      "nlink": 1,
+      "byteLength": 22,
+      "sha256": "5a5f0febeddda6e3e27883d6419b0356623d3c320230f433b329d5c5577f1b23",
+      "base64": "Zmlyc3QgcHJvdGVjdGVkIGJ5dGVzCg=="
+    },
+    {
+      "relativePath": "SNAPSHOT/worksite/src/second.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159582,
+      "nlink": 1,
+      "byteLength": 23,
+      "sha256": "a986c0ac9f55539a2297d886f6ad2c8d545f803e8f5ab4d404bd8bfe8dc16f96",
+      "base64": "c2Vjb25kIHByb3RlY3RlZCBieXRlcwo="
+    },
+    {
+      "relativePath": "SNAPSHOT-DIRECTORY",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159608,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "SNAPSHOT-DIRECTORY/snapshot",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159613,
+      "nlink": 2,
+      "byteLength": 64
+    },
+    {
+      "relativePath": "SNAPSHOT-DIRECTORY/worksite",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159609,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "SNAPSHOT-DIRECTORY/worksite/src",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159610,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "SNAPSHOT-DIRECTORY/worksite/src/first.txt",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159612,
+      "nlink": 2,
+      "byteLength": 64
+    },
+    {
+      "relativePath": "SNAPSHOT-STALE",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159589,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "SNAPSHOT-STALE/snapshot",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159594,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "SNAPSHOT-STALE/snapshot/src",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159595,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "SNAPSHOT-STALE/snapshot/src/first.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159596,
+      "nlink": 1,
+      "byteLength": 22,
+      "sha256": "5a5f0febeddda6e3e27883d6419b0356623d3c320230f433b329d5c5577f1b23",
+      "base64": "Zmlyc3QgcHJvdGVjdGVkIGJ5dGVzCg=="
+    },
+    {
+      "relativePath": "SNAPSHOT-STALE/worksite",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159590,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "SNAPSHOT-STALE/worksite/src",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159591,
+      "nlink": 4,
+      "byteLength": 128
+    },
+    {
+      "relativePath": "SNAPSHOT-STALE/worksite/src/first.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159592,
+      "nlink": 1,
+      "byteLength": 22,
+      "sha256": "5a5f0febeddda6e3e27883d6419b0356623d3c320230f433b329d5c5577f1b23",
+      "base64": "Zmlyc3QgcHJvdGVjdGVkIGJ5dGVzCg=="
+    },
+    {
+      "relativePath": "SNAPSHOT-STALE/worksite/src/second.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159593,
+      "nlink": 1,
+      "byteLength": 23,
+      "sha256": "7baeb8639bb233e0f208b99cf334b93de27e657b28406cad44f89236e834a317",
+      "base64": "U2Vjb25kIHByb3RlY3RlZCBieXRlcwo="
+    },
+    {
+      "relativePath": "SNAPSHOT-SYMLINK",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159599,
+      "nlink": 5,
+      "byteLength": 160
+    },
+    {
+      "relativePath": "SNAPSHOT-SYMLINK/outside.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159603,
+      "nlink": 1,
+      "byteLength": 17,
+      "sha256": "ed4f44c59f7c94a49dd5b17736a117520a8b1daaf185edbd7c8f6e2ea95334d3",
+      "base64": "b3V0c2lkZSBzZW50aW5lbAo="
+    },
+    {
+      "relativePath": "SNAPSHOT-SYMLINK/snapshot",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159605,
+      "nlink": 2,
+      "byteLength": 64
+    },
+    {
+      "relativePath": "SNAPSHOT-SYMLINK/worksite",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159600,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "SNAPSHOT-SYMLINK/worksite/src",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159601,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "SNAPSHOT-SYMLINK/worksite/src/first.txt",
+      "kind": "symlink",
+      "dev": 16777231,
+      "ino": 474159604,
+      "nlink": 1,
+      "byteLength": 89,
+      "target": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-SYMLINK/outside.txt",
+      "resolvedTarget": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/SNAPSHOT-SYMLINK/outside.txt",
+      "targetWithinScratch": true
+    },
+    {
+      "relativePath": "TEMP-PARTIAL",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159574,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "TEMP-PARTIAL/result.json.tmp-68865",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159575,
+      "nlink": 1,
+      "byteLength": 5,
+      "sha256": "fa79d4746c21cd960a17b92db8976ddef95a7e20b590721f8e0fa7847a05e486",
+      "base64": "ZXhhY3Q="
+    }
+  ],
+  "portableRepresentation": "actual stat identities and link targets plus complete regular file base64; no alias topology recreated in archive"
+}

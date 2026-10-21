@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-runner.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/diagnostic-configuration.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01",
+  "outerEnvironmentOverride": {
+    "NODE_OPTIONS": ""
+  },
+  "runtimeEnvironment": "Exact configuration explicit environment; NODE_OPTIONS omitted as original protocol requires",
+  "retry": 0,
+  "P1DiagnosticClosed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/freeze.json",
+    "sha256": "efc512f21cc00af955d505a7a2b5c1d219a4371491397f1955b9c69748027b20",
+    "bytes": 7325885
+  }
+}

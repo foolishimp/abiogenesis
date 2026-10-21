@@ -1,0 +1,890 @@
+import { indexedRuntimeEvents } from "./event_prefix.js";
+import type { RuntimeEventPrefix } from "./event_prefix.js";
+import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
+import type { Sha256Digest } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
+import { sampleNativeEventTime } from "./native_event_time.js";
+import { observeNativeFrameLiveness, retainNativeFrameClock, captureNativeFrameBoundary, type NativeFrameBoundarySample } from "./runtime_liveness.js";
+import {
+  rehydrateExecutionBasisAtPrefix,
+  type ExecutionBasis,
+  type RuntimeAdmissionBasis,
+} from "./execution_basis.js";
+import { projectCurrentChildParentCCallAtPrefix } from "./c_call.js";
+import {
+  constructRunActiveFluent,
+  constructRunClosedFluent,
+  constructRunTerminalFluent,
+  constructRuntimeFluent,
+  deriveRuntimeHeldFluentProjection,
+  holdsAt,
+} from "./event_calculus.js";
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+  admitRuntimeEventTransactionAtExpectedPrefix,
+  readHeldRuntimeEventsAtDurablePrefix,
+  readRuntimeEventsAtDurablePrefix,
+  type DurablePrefixCoordinate,
+  type RuntimeEvent,
+} from "./event_store.js";
+import { runtimeEventPrefixDigest,
+  runtimeEventBodiesAtPrefix,
+  selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
+
+export interface OpenedRun {
+  readonly runId: string;
+  readonly runDigest: Sha256Digest;
+  readonly executionBasisRef: string;
+  readonly executionBasisDigest: Sha256Digest;
+  readonly invocationAdmissionRef: string;
+  readonly invocationRef: string;
+  readonly workspaceBindingId: string;
+  readonly programRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphRef: string;
+  readonly graphDigest: Sha256Digest;
+  readonly openEventRef: string;
+}
+
+export interface OpenedGraphCall {
+  readonly graphCallId: string;
+  readonly graphCallDigest: Sha256Digest;
+  readonly runId: string;
+  readonly executionBasisRef: string;
+  readonly invocationRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: Sha256Digest;
+  readonly graphRef: string;
+  readonly graphDigest: Sha256Digest;
+  readonly parentFrameId?: string;
+  readonly openEventRef: string;
+}
+
+export interface OpenedFrame {
+  readonly frameId: string;
+  readonly frameDigest: Sha256Digest;
+  readonly frameLineageId: string;
+  readonly attempt: number;
+  readonly parentFrameId: string | null;
+  readonly runId: string;
+  readonly graphCallId: string;
+  readonly executionBasisRef: string;
+  readonly invocationRef: string;
+  readonly admittedInputRef: string;
+  readonly admittedInputDigest: Sha256Digest;
+  readonly openEventRef: string;
+}
+
+export interface OpenedTraversalScope {
+  readonly kind: "opened_traversal_scope";
+  readonly schemaVersion: "5.0.0";
+  readonly scopeRef: string;
+  readonly scopeDigest: Sha256Digest;
+  readonly executionBasisRef: string;
+  readonly executionBasisDigest: Sha256Digest;
+  readonly invocationAdmissionRef: string;
+  readonly invocationRef: string;
+  readonly programRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphRef: string;
+  readonly runId: string;
+  readonly runDigest: Sha256Digest;
+  readonly runOpenEventRef: string;
+  readonly graphCallId: string;
+  readonly graphCallDigest: Sha256Digest;
+  readonly graphCallOpenEventRef: string;
+  readonly frameId: string;
+  readonly frameDigest: Sha256Digest;
+  readonly frameLineageId: string;
+  readonly frameOpenEventRef: string;
+}
+
+export interface OpenTraversalScopeAdmission {
+  readonly kind: "traversal_scope_open_admission";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "opened";
+  readonly scopeClass: "root" | "child";
+  readonly run: OpenedRun | null;
+  readonly graphCall: OpenedGraphCall;
+  readonly frame: OpenedFrame;
+  readonly scope: OpenedTraversalScope;
+  readonly successorPrefix: DurablePrefixCoordinate;
+}
+
+export interface OpenTraversalScopeRefusal {
+  readonly kind: "traversal_scope_open_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code:
+    | "execution_basis_already_opened"
+    | "execution_basis_not_admitted"
+    | "child_basis_already_opened"
+    | "child_basis_not_admitted"
+    | "parent_scope_mismatch";
+  readonly message: string;
+}
+
+export type TraversalScopeOpenSubject =
+  | Readonly<{
+      kind: "root";
+      executionBasis: ExecutionBasis;
+    }>
+  | Readonly<{
+      kind: "child";
+      executionBasis: ExecutionBasis;
+      parentScope: OpenedTraversalScope;
+    }>;
+
+export type OpenTraversalScopeResult =
+  | OpenTraversalScopeAdmission
+  | OpenTraversalScopeRefusal;
+
+const openedScopes = new WeakSet<object>();
+
+export function isOpenedTraversalScope(value: object): boolean {
+  return openedScopes.has(value);
+}
+
+function sameCanonicalValue(left: unknown, right: unknown): boolean {
+  try {
+    return sha256Canonical(left as JsonValue) ===
+      sha256Canonical(right as JsonValue);
+  } catch {
+    return false;
+  }
+}
+
+type RunPhase = "not_open" | "active" | "closed" | "stopped" | "failed";
+
+function projectRunPhaseAtPrefix(
+  prefix: RuntimeEventPrefix,
+  input: Readonly<{
+    runId: string;
+    runDigest: Sha256Digest;
+    executionBasisRef: string;
+  }>,
+): RunPhase | null {
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const openEvents = indexedRuntimeEvents(prefix, "related:" + input.runId).filter((event) =>
+    event.kind === "run_segment_opened" && event.aggregateId === input.runId
+  );
+  const failureEvents = indexedRuntimeEvents(prefix, "kind:" + "runtime_failure_observed").filter((event) =>
+    event.kind === "runtime_failure_observed" && event.runId === input.runId
+  );
+  const stoppedEvents = indexedRuntimeEvents(prefix, "kind:" + "run_stopped").filter((event) =>
+    event.kind === "run_stopped" && event.runId === input.runId
+  );
+  const closedEvents = indexedRuntimeEvents(prefix, "kind:" + "run_closed").filter((event) =>
+    event.kind === "run_closed" && event.runId === input.runId
+  );
+  if (openEvents.length === 0) {
+    return failureEvents.length === 0 &&
+        stoppedEvents.length === 0 &&
+        closedEvents.length === 0
+      ? "not_open"
+      : null;
+  }
+  const openEvent = openEvents[0]!;
+  if (
+    openEvents.length !== 1 ||
+    openEvent.aggregateType !== "run" ||
+    openEvent.basisId !== input.executionBasisRef ||
+    !isRecord(openEvent.payload) ||
+    openEvent.payload.runId !== input.runId ||
+    openEvent.payload.runDigest !== input.runDigest ||
+    failureEvents.length > 1 ||
+    stoppedEvents.length > 1 ||
+    closedEvents.length > 1 ||
+    [failureEvents, stoppedEvents, closedEvents]
+      .filter((rows) => rows.length === 1).length > 1
+  ) return null;
+  const calculus = deriveRuntimeHeldFluentProjection(prefix);
+  if (failureEvents.length === 1) return "failed";
+  if (
+    stoppedEvents.length === 1 &&
+    holdsAt(calculus, constructRunTerminalFluent(input.runId))
+  ) return "stopped";
+  if (
+    closedEvents.length === 1 &&
+    holdsAt(calculus, constructRunClosedFluent(input.runId))
+  ) return "closed";
+  return holdsAt(calculus, constructRunActiveFluent(input.runId))
+    ? "active"
+    : null;
+}
+
+type GraphCallPhase = "not_open" | "active" | "closed" | "inactive";
+
+function projectGraphCallPhaseAtPrefix(
+  prefix: RuntimeEventPrefix,
+  input: Readonly<{
+    graphCallId: string;
+    graphCallDigest: Sha256Digest;
+    executionBasisRef: string;
+  }>,
+): GraphCallPhase | null {
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const openEvents = indexedRuntimeEvents(prefix, "related:" + input.graphCallId).filter((event) =>
+    event.kind === "graph_call_opened" &&
+    event.aggregateId === input.graphCallId
+  );
+  const closedEvents = indexedRuntimeEvents(prefix, "graph-call:" + input.graphCallId).filter((event) =>
+    event.kind === "graph_call_closed" &&
+    event.graphCallId === input.graphCallId
+  );
+  if (openEvents.length === 0) {
+    return closedEvents.length === 0 ? "not_open" : null;
+  }
+  const openEvent = openEvents[0]!;
+  if (
+    openEvents.length !== 1 ||
+    closedEvents.length > 1 ||
+    openEvent.aggregateType !== "graph_call" ||
+    openEvent.basisId !== input.executionBasisRef ||
+    !isRecord(openEvent.payload) ||
+    openEvent.payload.graphCallId !== input.graphCallId ||
+    openEvent.payload.graphCallDigest !== input.graphCallDigest
+  ) return null;
+  const calculus = deriveRuntimeHeldFluentProjection(prefix);
+  if (closedEvents.length === 1) {
+    return holdsAt(calculus, constructRuntimeFluent({
+        name: "graph_call_closed",
+        identity: input.graphCallId,
+      }))
+      ? "closed"
+      : null;
+  }
+  return holdsAt(calculus, constructRuntimeFluent({
+      name: "graph_call_active",
+      identity: input.graphCallId,
+    }))
+    ? "active"
+    : "inactive";
+}
+
+export function hasOpenedTraversalScopeAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  scope: OpenedTraversalScope,
+): boolean;
+/** @internal */
+export function hasOpenedTraversalScopeAtPrefix(
+  prefix: RuntimeEventPrefix,
+  scope: OpenedTraversalScope,
+): boolean;
+export function hasOpenedTraversalScopeAtPrefix(
+  prefix: RuntimeEventPrefix,
+  scope: OpenedTraversalScope,
+): boolean {
+  if (!isOpenedTraversalScope(scope)) return false;
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    scopeRef: _scopeRef,
+    scopeDigest: _scopeDigest,
+    ...body
+  } = scope;
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const runEvent = indexedRuntimeEvents(prefix, "id:" + scope.runOpenEventRef).find((event) => event.eventId === scope.runOpenEventRef);
+  const graphCallEvent = indexedRuntimeEvents(prefix, "id:" + scope.graphCallOpenEventRef).find((event) => event.eventId === scope.graphCallOpenEventRef);
+  const frameEvent = indexedRuntimeEvents(prefix, "id:" + scope.frameOpenEventRef).find((event) => event.eventId === scope.frameOpenEventRef);
+  return (
+    sha256Canonical(body as unknown as JsonValue) === scope.scopeDigest &&
+    scope.scopeRef === `traversal-scope://abiogenesis/${scope.scopeDigest.slice("sha256:".length)}` &&
+    runEvent?.kind === "run_segment_opened" &&
+    runEvent.aggregateType === "run" &&
+    runEvent.aggregateId === scope.runId &&
+    isRecord(runEvent.payload) &&
+    runEvent.payload.runDigest === scope.runDigest &&
+    graphCallEvent?.kind === "graph_call_opened" &&
+    graphCallEvent.aggregateType === "graph_call" &&
+    graphCallEvent.aggregateId === scope.graphCallId &&
+    graphCallEvent.causationEventRefs.includes(scope.runOpenEventRef) &&
+    isRecord(graphCallEvent.payload) &&
+    graphCallEvent.payload.graphCallDigest === scope.graphCallDigest &&
+    frameEvent?.kind === "frame_opened" &&
+    frameEvent.aggregateType === "frame" &&
+    frameEvent.aggregateId === scope.frameId &&
+    frameEvent.causationEventRefs.includes(scope.graphCallOpenEventRef) &&
+    isRecord(frameEvent.payload) &&
+    frameEvent.payload.frameDigest === scope.frameDigest
+  );
+}
+
+/**
+ * Projects root/child class only from the exact admitted scope lineage.
+ * Callers cannot select closure scope with an imperative mode flag.
+ */
+export function projectOpenedTraversalScopeClassAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  scope: OpenedTraversalScope,
+): "root" | "child" | null;
+/** @internal */
+export function projectOpenedTraversalScopeClassAtPrefix(
+  prefix: RuntimeEventPrefix,
+  scope: OpenedTraversalScope,
+): "root" | "child" | null;
+export function projectOpenedTraversalScopeClassAtPrefix(
+  prefix: RuntimeEventPrefix,
+  scope: OpenedTraversalScope,
+): "root" | "child" | null {
+  if (!hasOpenedTraversalScopeAtPrefix(prefix, scope)) return null;
+  const basis = rehydrateExecutionBasisAtPrefix(
+    prefix,
+    scope.executionBasisRef,
+  );
+  const events = runtimeEventBodiesAtPrefix(prefix);
+  const graphCallOpen = indexedRuntimeEvents(prefix, "id:" + scope.graphCallOpenEventRef).find((event) =>
+    event.kind === "graph_call_opened" &&
+    event.eventId === scope.graphCallOpenEventRef &&
+    event.aggregateId === scope.graphCallId &&
+    event.basisId === scope.executionBasisRef &&
+    event.runId === scope.runId
+  );
+  const frameOpen = indexedRuntimeEvents(prefix, "id:" + scope.frameOpenEventRef).find((event) =>
+    event.kind === "frame_opened" &&
+    event.eventId === scope.frameOpenEventRef &&
+    event.aggregateId === scope.frameId &&
+    event.graphCallId === scope.graphCallId &&
+    event.basisId === scope.executionBasisRef &&
+    event.runId === scope.runId
+  );
+  if (
+    basis === null ||
+    graphCallOpen === undefined ||
+    frameOpen === undefined ||
+    !isRecord(graphCallOpen.payload) ||
+    !isRecord(frameOpen.payload)
+  ) return null;
+  const graphParentFrameId = typeof graphCallOpen.payload.parentFrameId ===
+      "string"
+    ? graphCallOpen.payload.parentFrameId
+    : null;
+  const frameParentFrameId = typeof frameOpen.payload.parentFrameId ===
+      "string"
+    ? frameOpen.payload.parentFrameId
+    : frameOpen.payload.parentFrameId === null
+    ? null
+    : undefined;
+  if (
+    basis.basisClass === "root" &&
+    basis.parentExecutionBasisRef === null &&
+    basis.parentTraversalScopeRef === null &&
+    basis.parentCCallRef === null &&
+    graphParentFrameId === null &&
+    frameParentFrameId === null
+  ) return "root";
+  if (
+    basis.basisClass === "child" &&
+    basis.parentExecutionBasisRef !== null &&
+    basis.parentTraversalScopeRef !== null &&
+    basis.parentCCallRef !== null &&
+    graphParentFrameId !== null &&
+    frameParentFrameId === graphParentFrameId &&
+    graphCallOpen.causationEventRefs.includes(basis.admissionEventRef) &&
+    graphCallOpen.causationEventRefs.some((eventRef) =>
+      indexedRuntimeEvents(prefix, "id:" + eventRef).some((event) =>
+        event.eventId === eventRef &&
+        event.kind === "frame_opened" &&
+        event.aggregateId === graphParentFrameId &&
+        event.basisId === basis.parentExecutionBasisRef
+      ))
+  ) return "child";
+  return null;
+}
+
+export function projectOpenedTraversalScopeClassAtDurablePrefix(
+  predecessorPrefix: DurablePrefixCoordinate,
+  scope: OpenedTraversalScope,
+): "root" | "child" | null {
+  return projectOpenedTraversalScopeClassAtPrefix(
+    selectValidatedRuntimeEventPrefix(
+      readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+    ),
+    scope,
+  );
+}
+
+export function rehydrateOpenedTraversalScope(
+  store: AbgEventStore,
+  value: Readonly<Record<string, JsonValue>>,
+): OpenedTraversalScope | null {
+  return rehydrateOpenedTraversalScopeAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    value,
+  );
+}
+
+export function rehydrateOpenedTraversalScopeAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  value: Readonly<Record<string, JsonValue>>,
+): OpenedTraversalScope | null;
+/** @internal */
+export function rehydrateOpenedTraversalScopeAtPrefix(
+  prefix: RuntimeEventPrefix,
+  value: Readonly<Record<string, JsonValue>>,
+): OpenedTraversalScope | null;
+export function rehydrateOpenedTraversalScopeAtPrefix(
+  prefix: RuntimeEventPrefix,
+  value: Readonly<Record<string, JsonValue>>,
+): OpenedTraversalScope | null {
+  const scope = deepFreeze({
+    kind: "opened_traversal_scope" as const,
+    schemaVersion: "5.0.0" as const,
+    ...value,
+  }) as unknown as OpenedTraversalScope;
+  openedScopes.add(scope);
+  return hasOpenedTraversalScopeAtPrefix(prefix, scope) ? scope : null;
+}
+
+function scopeOpenRefusal(
+  code: OpenTraversalScopeRefusal["code"],
+  message: string,
+): OpenTraversalScopeRefusal {
+  return deepFreeze({
+    kind: "traversal_scope_open_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code,
+    message,
+  });
+}
+
+type TraversalScopeOpeningContext =
+  | Readonly<{
+      kind: "root";
+      expectedStorePrefixDigest: Sha256Digest;
+      exactBasis: ExecutionBasis;
+      runId: string;
+      runDigest: Sha256Digest;
+      runBody: Readonly<Record<string, JsonValue>>;
+    }>
+  | Readonly<{
+      kind: "child";
+      expectedStorePrefixDigest: Sha256Digest;
+      exactBasis: ExecutionBasis;
+      parentScope: OpenedTraversalScope;
+      parentCCallCausationEventRef: string;
+    }>;
+
+/**
+ * Opens one root or child traversal scope through the single ABG lifecycle
+ * algebra. Root adds Run.open; both variants share the exact GraphCall,
+ * Frame, scope identity, and expected-prefix commit relations.
+ */
+export function openTraversalScope(
+  store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
+  subject: TraversalScopeOpenSubject,
+  basis: RuntimeAdmissionBasis,
+): OpenTraversalScopeResult {
+  let snapshot: readonly import("./event_store.js").RuntimeEvent[];
+  try {
+    snapshot = readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix);
+  } catch {
+    return scopeOpenRefusal(
+      subject.kind === "root"
+        ? "execution_basis_not_admitted"
+        : "child_basis_not_admitted",
+      "scope opening requires one exact durable predecessor prefix",
+    );
+  }
+  let authorityPrefix: ValidatedRuntimeEventPrefix;
+  try {
+    authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+  } catch {
+    return scopeOpenRefusal(
+      subject.kind === "root"
+        ? "execution_basis_not_admitted"
+        : "child_basis_not_admitted",
+      "scope opening requires one valid ABG event prefix",
+    );
+  }
+
+  const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
+  if (store.digest() !== expectedStorePrefixDigest) {
+    return scopeOpenRefusal(
+      subject.kind === "root"
+        ? "execution_basis_not_admitted"
+        : "child_basis_not_admitted",
+      "scope opening requires the held store at its exact durable prefix",
+    );
+  }
+  let context: TraversalScopeOpeningContext;
+  if (subject.kind === "root") {
+    const exactBasis = rehydrateExecutionBasisAtPrefix(
+      authorityPrefix,
+      subject.executionBasis.basisRef,
+    );
+    if (
+      exactBasis === null || exactBasis.basisClass !== "root" ||
+      !sameCanonicalValue(exactBasis, subject.executionBasis)
+    ) {
+      return scopeOpenRefusal(
+        "execution_basis_not_admitted",
+        "root scope opening requires one exact admitted root ExecutionBasis",
+      );
+    }
+    const runBody = {
+      executionBasisRef: exactBasis.basisRef,
+      executionBasisDigest: exactBasis.basisDigest,
+      invocationAdmissionRef: exactBasis.invocationAdmissionRef,
+      invocationRef: exactBasis.invocationRef,
+      workspaceBindingId: exactBasis.workspaceBindingId,
+      programRef: exactBasis.programRef,
+      graphFunctionRef: exactBasis.graphFunctionRef,
+      graphRef: exactBasis.graphRef,
+      graphDigest: exactBasis.graphDigest,
+    };
+    const runDigest = sha256Canonical(runBody as unknown as JsonValue);
+    const runId = `run://abiogenesis/${runDigest.slice("sha256:".length)}`;
+    if (projectRunPhaseAtPrefix(authorityPrefix, {
+      runId,
+      runDigest,
+      executionBasisRef: exactBasis.basisRef,
+    }) !== "not_open") {
+      return scopeOpenRefusal(
+        "execution_basis_already_opened",
+        "one root ExecutionBasis cannot open a second Run",
+      );
+    }
+    context = deepFreeze({
+      kind: "root" as const,
+      expectedStorePrefixDigest,
+      exactBasis,
+      runId,
+      runDigest,
+      runBody: runBody as unknown as Readonly<Record<string, JsonValue>>,
+    });
+  } else {
+    const runPrefix = selectValidatedRuntimeEventPrefix(
+      runtimeEventBodiesAtPrefix(authorityPrefix),
+      { runId: subject.parentScope.runId },
+    );
+    const exactBasis = rehydrateExecutionBasisAtPrefix(
+      authorityPrefix,
+      subject.executionBasis.basisRef,
+    );
+    const exactParentScope = rehydrateOpenedTraversalScopeAtPrefix(
+      runPrefix,
+      subject.parentScope as unknown as Readonly<Record<string, JsonValue>>,
+    );
+    if (
+      exactBasis === null || exactBasis.basisClass !== "child" ||
+      exactParentScope === null || exactBasis.parentCCallRef === null ||
+      exactBasis.parentExecutionBasisRef === null ||
+      !sameCanonicalValue(exactBasis, subject.executionBasis) ||
+      !sameCanonicalValue(exactParentScope, subject.parentScope)
+    ) {
+      return scopeOpenRefusal(
+        "child_basis_not_admitted",
+        "child scope opening requires one exact admitted child ExecutionBasis",
+      );
+    }
+    if (
+      exactBasis.parentExecutionBasisRef !==
+        exactParentScope.executionBasisRef ||
+      exactBasis.parentTraversalScopeRef !== exactParentScope.scopeRef ||
+      exactBasis.invocationAdmissionRef !==
+        exactParentScope.invocationAdmissionRef ||
+      exactBasis.programRef !== exactParentScope.programRef
+    ) {
+      return scopeOpenRefusal(
+        "parent_scope_mismatch",
+        "child ExecutionBasis does not descend from the exact parent scope",
+      );
+    }
+    const parentCCall = projectCurrentChildParentCCallAtPrefix(runPrefix, {
+      parentCCallRef: exactBasis.parentCCallRef,
+      parentExecutionBasisRef: exactBasis.parentExecutionBasisRef,
+      runId: exactParentScope.runId,
+      graphCallId: exactParentScope.graphCallId,
+      frameId: exactParentScope.frameId,
+      childGraphFunctionRef: exactBasis.graphFunctionRef,
+      admittedInputRef: exactBasis.rawInputAdmissionRef,
+      admittedInputDigest: exactBasis.rawInputDigest,
+    });
+    if (parentCCall === null) {
+      return scopeOpenRefusal(
+        "child_basis_not_admitted",
+        "child scope opening requires its exact current parent CCall",
+      );
+    }
+    const graphCallBody = {
+      runId: exactParentScope.runId,
+      executionBasisRef: exactBasis.basisRef,
+      invocationRef: exactBasis.invocationRef,
+      graphFunctionRef: exactBasis.graphFunctionRef,
+      graphFunctionDigest: exactBasis.graphFunctionDigest,
+      graphRef: exactBasis.graphRef,
+      graphDigest: exactBasis.graphDigest,
+      parentFrameId: exactParentScope.frameId,
+    };
+    const graphCallDigest = sha256Canonical(
+      graphCallBody as unknown as JsonValue,
+    );
+    const graphCallId =
+      `graph-call://abiogenesis/${graphCallDigest.slice("sha256:".length)}`;
+    if (projectGraphCallPhaseAtPrefix(runPrefix, {
+      graphCallId,
+      graphCallDigest,
+      executionBasisRef: exactBasis.basisRef,
+    }) !== "not_open") {
+      return scopeOpenRefusal(
+        "child_basis_already_opened",
+        "one child ExecutionBasis cannot open a second GraphCall",
+      );
+    }
+    context = deepFreeze({
+      kind: "child" as const,
+      expectedStorePrefixDigest,
+      exactBasis,
+      parentScope: exactParentScope,
+      parentCCallCausationEventRef: parentCCall.causationEventRef,
+    });
+  }
+
+  let frameClock: Readonly<{ opening: RuntimeEvent; startedAt: NativeFrameBoundarySample }> | null = null;
+  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+    store,
+    context.expectedStorePrefixDigest,
+    () => {
+      const executionBasis = context.exactBasis;
+      const openedRun = context.kind === "root"
+        ? (() => {
+            const runEvent = admitRuntimeEvent(store, {
+              kind: "run_segment_opened",
+              eventTime: sampleNativeEventTime(),
+              aggregateType: "run",
+              aggregateId: context.runId,
+              parentAggregateId: executionBasis.workspaceBindingId,
+              causationEventRefs: [
+                executionBasis.admissionEventRef,
+                ...basis.causationEventRefs,
+              ],
+              correlationId: basis.correlationId,
+              workflowVersion: "5.0.0",
+              scopeClass: "run",
+              basisId: executionBasis.basisRef,
+              runId: context.runId,
+              graphFunctionRef: executionBasis.graphFunctionRef,
+              materializationRef: executionBasis.graphRef,
+              payload: {
+                runId: context.runId,
+                runDigest: context.runDigest,
+                ...context.runBody,
+              },
+            });
+            return deepFreeze({
+              runId: context.runId,
+              runDigest: context.runDigest,
+              ...context.runBody,
+              openEventRef: runEvent.eventId,
+            }) as unknown as OpenedRun;
+          })()
+        : null;
+      const runId = context.kind === "root"
+        ? context.runId
+        : context.parentScope.runId;
+      const runDigest = context.kind === "root"
+        ? context.runDigest
+        : context.parentScope.runDigest;
+      const runOpenEventRef = context.kind === "root"
+        ? openedRun!.openEventRef
+        : context.parentScope.runOpenEventRef;
+      const parentFrameId = context.kind === "child"
+        ? context.parentScope.frameId
+        : null;
+      const graphCallBody = {
+        runId,
+        executionBasisRef: executionBasis.basisRef,
+        invocationRef: executionBasis.invocationRef,
+        graphFunctionRef: executionBasis.graphFunctionRef,
+        graphFunctionDigest: executionBasis.graphFunctionDigest,
+        graphRef: executionBasis.graphRef,
+        graphDigest: executionBasis.graphDigest,
+        ...(parentFrameId === null ? {} : { parentFrameId }),
+      };
+      const graphCallDigest = sha256Canonical(
+        graphCallBody as unknown as JsonValue,
+      );
+      const graphCallId =
+        `graph-call://abiogenesis/${graphCallDigest.slice("sha256:".length)}`;
+      const graphCallEvent = admitRuntimeEvent(store, {
+        kind: "graph_call_opened",
+        eventTime: sampleNativeEventTime(),
+        aggregateType: "graph_call",
+        aggregateId: graphCallId,
+        parentAggregateId: runId,
+        causationEventRefs: context.kind === "root"
+          ? [runOpenEventRef]
+          : [
+              context.parentCCallCausationEventRef,
+              context.parentScope.runOpenEventRef,
+              context.parentScope.frameOpenEventRef,
+              executionBasis.admissionEventRef,
+              ...basis.causationEventRefs,
+            ],
+        correlationId: basis.correlationId,
+        workflowVersion: "5.0.0",
+        scopeClass: "run",
+        basisId: executionBasis.basisRef,
+        runId,
+        graphFunctionRef: executionBasis.graphFunctionRef,
+        materializationRef: executionBasis.graphRef,
+        graphCallId,
+        payload: { graphCallId, graphCallDigest, ...graphCallBody },
+      });
+      const graphCall = deepFreeze({
+        graphCallId,
+        graphCallDigest,
+        ...graphCallBody,
+        openEventRef: graphCallEvent.eventId,
+      }) as OpenedGraphCall;
+
+      const frameLineageBody = {
+        runId,
+        graphCallId,
+        invocationRef: executionBasis.invocationRef,
+        ...(parentFrameId === null ? {} : { parentFrameId }),
+      };
+      const frameLineageDigest = sha256Canonical(
+        frameLineageBody as unknown as JsonValue,
+      );
+      const frameLineageId =
+        `frame-lineage://abiogenesis/${frameLineageDigest.slice("sha256:".length)}`;
+      const frameBody = {
+        frameLineageId,
+        attempt: 1 as const,
+        parentFrameId,
+        runId,
+        graphCallId,
+        executionBasisRef: executionBasis.basisRef,
+        invocationRef: executionBasis.invocationRef,
+        admittedInputRef: executionBasis.rawInputAdmissionRef,
+        admittedInputDigest: executionBasis.rawInputDigest,
+      };
+      const frameDigest = sha256Canonical(frameBody as unknown as JsonValue);
+      const frameId =
+        `frame://abiogenesis/${frameDigest.slice("sha256:".length)}`;
+      const frameStartedAt = captureNativeFrameBoundary(store);
+      const frameEvent = admitRuntimeEvent(store, {
+        kind: "frame_opened",
+        eventTime: sampleNativeEventTime(),
+        aggregateType: "frame",
+        aggregateId: frameId,
+        parentAggregateId: graphCallId,
+        causationEventRefs: [graphCallEvent.eventId],
+        correlationId: basis.correlationId,
+        workflowVersion: "5.0.0",
+        scopeClass: "run",
+        basisId: executionBasis.basisRef,
+        runId,
+        graphFunctionRef: executionBasis.graphFunctionRef,
+        materializationRef: executionBasis.graphRef,
+        graphCallId,
+        frameId,
+        frameLineageId,
+        payload: { frameId, frameDigest, ...frameBody },
+      });
+      observeNativeFrameLiveness(store, frameEvent, frameStartedAt, frameStartedAt);
+      frameClock = { opening: frameEvent, startedAt: frameStartedAt };
+      const frame = deepFreeze({
+        frameId,
+        frameDigest,
+        ...frameBody,
+        openEventRef: frameEvent.eventId,
+      }) as OpenedFrame;
+
+      const scopeBody = {
+        executionBasisRef: executionBasis.basisRef,
+        executionBasisDigest: executionBasis.basisDigest,
+        invocationAdmissionRef: executionBasis.invocationAdmissionRef,
+        invocationRef: executionBasis.invocationRef,
+        programRef: executionBasis.programRef,
+        graphFunctionRef: executionBasis.graphFunctionRef,
+        graphRef: executionBasis.graphRef,
+        runId,
+        runDigest,
+        runOpenEventRef,
+        graphCallId,
+        graphCallDigest,
+        graphCallOpenEventRef: graphCallEvent.eventId,
+        frameId,
+        frameDigest,
+        frameLineageId,
+        frameOpenEventRef: frameEvent.eventId,
+      };
+      const scopeDigest = sha256Canonical(scopeBody as unknown as JsonValue);
+      const scope = deepFreeze({
+        kind: "opened_traversal_scope" as const,
+        schemaVersion: "5.0.0" as const,
+        scopeRef:
+          `traversal-scope://abiogenesis/${scopeDigest.slice("sha256:".length)}`,
+        scopeDigest,
+        ...scopeBody,
+      }) as OpenedTraversalScope;
+      openedScopes.add(scope);
+      return deepFreeze({
+        kind: "traversal_scope_open_admission" as const,
+        schemaVersion: "5.0.0" as const,
+        disposition: "opened" as const,
+        scopeClass: context.kind,
+        run: openedRun,
+        graphCall,
+        frame,
+        scope,
+      });
+    },
+  );
+  if (committed.successorPrefix === null) {
+    throw new TypeError("scope opening produced no durable successor prefix");
+  }
+  if (frameClock !== null) {
+    const clock = frameClock as Readonly<{ opening: RuntimeEvent; startedAt: NativeFrameBoundarySample }>;
+    retainNativeFrameClock(store, clock.opening, clock.startedAt);
+  }
+  return deepFreeze({
+    ...committed.value,
+    successorPrefix: committed.successorPrefix,
+  }) as OpenTraversalScopeAdmission;
+}
+
+/** Cold selection by an admitted frame, sharing the existing scope validator.
+ * The events remain the carrier; no persisted parent stack is reconstructed. */
+export function projectOpenedTraversalScopeForFrameAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix, frameId: string,
+): OpenedTraversalScope | null;
+/** @internal */
+export function projectOpenedTraversalScopeForFrameAtPrefix(
+  prefix: RuntimeEventPrefix, frameId: string,
+): OpenedTraversalScope | null;
+export function projectOpenedTraversalScopeForFrameAtPrefix(
+  prefix: RuntimeEventPrefix, frameId: string,
+): OpenedTraversalScope | null {
+  const rows = runtimeEventBodiesAtPrefix(prefix);
+  const frames = indexedRuntimeEvents(prefix, "related:" + frameId).filter(e => e.kind === "frame_opened" && e.aggregateId === frameId);
+  const frame = frames.length === 1 ? frames[0] : undefined;
+  if (frame === undefined || !isRecord(frame.payload) || typeof frame.graphCallId !== "string" || typeof frame.runId !== "string") return null;
+  const graphRows = indexedRuntimeEvents(prefix, "related:" + frame.graphCallId).filter(e => e.kind === "graph_call_opened" && e.aggregateId === frame.graphCallId);
+  const runRows = indexedRuntimeEvents(prefix, "related:" + frame.runId).filter(e => e.kind === "run_segment_opened" && e.aggregateId === frame.runId);
+  const graph = graphRows.length === 1 ? graphRows[0] : undefined;
+  const run = runRows.length === 1 ? runRows[0] : undefined;
+  const execution = rehydrateExecutionBasisAtPrefix(prefix, frame.basisId);
+  if (execution === null || graph === undefined || run === undefined || !isRecord(graph.payload) || !isRecord(run.payload) ||
+    typeof graph.payload.graphCallDigest !== "string" || typeof run.payload.runDigest !== "string" ||
+    typeof frame.payload.frameDigest !== "string" || typeof frame.frameLineageId !== "string") return null;
+  const body = { executionBasisRef: execution.basisRef, executionBasisDigest: execution.basisDigest,
+    invocationAdmissionRef: execution.invocationAdmissionRef, invocationRef: execution.invocationRef,
+    programRef: execution.programRef, graphFunctionRef: execution.graphFunctionRef, graphRef: execution.graphRef,
+    runId: frame.runId, runDigest: run.payload.runDigest, runOpenEventRef: run.eventId,
+    graphCallId: frame.graphCallId, graphCallDigest: graph.payload.graphCallDigest, graphCallOpenEventRef: graph.eventId,
+    frameId, frameDigest: frame.payload.frameDigest, frameLineageId: frame.frameLineageId, frameOpenEventRef: frame.eventId };
+  const scopeDigest = sha256Canonical(body);
+  return rehydrateOpenedTraversalScopeAtPrefix(prefix, { ...body, scopeDigest,
+    scopeRef: `traversal-scope://abiogenesis/${scopeDigest.slice(7)}` });
+}

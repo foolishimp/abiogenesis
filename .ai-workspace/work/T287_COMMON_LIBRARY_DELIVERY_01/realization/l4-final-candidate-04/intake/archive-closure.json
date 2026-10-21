@@ -1,0 +1,351 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844,
+    "mode": "0o644"
+  },
+  "packageCount": 14,
+  "edgeCount": 17,
+  "packageRelations": [
+    {
+      "path": "package.json",
+      "oldSha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/package.json",
+        "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+        "bytes": 9744,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/@valibot/to-json-schema/package.json",
+      "oldSha256": "5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/@valibot/to-json-schema/package.json",
+        "sha256": "5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2",
+        "bytes": 1832,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/effect/package.json",
+      "oldSha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/effect/package.json",
+        "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2",
+        "bytes": 40617,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/jsonc-parser/package.json",
+      "oldSha256": "a7a9192caaac00d9330592f4fd572908bee037518128a0fc3db96d2cd652e2b5",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/jsonc-parser/package.json",
+        "sha256": "a7a9192caaac00d9330592f4fd572908bee037518128a0fc3db96d2cd652e2b5",
+        "bytes": 1180,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/valibot/package.json",
+      "oldSha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/valibot/package.json",
+        "sha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb",
+        "bytes": 1914,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/ajv/package.json",
+      "oldSha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/ajv/package.json",
+        "sha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",
+        "bytes": 4405,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/ajv-formats/package.json",
+      "oldSha256": "402fb4bcfa457f0226813f3976ac42839dd619907c075c108efba8600d7edb69",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/ajv-formats/package.json",
+        "sha256": "402fb4bcfa457f0226813f3976ac42839dd619907c075c108efba8600d7edb69",
+        "bytes": 1897,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/@standard-schema/spec/package.json",
+      "oldSha256": "58e5bd75ddd0684c88b07cd799585cc72a37fd6efb8ab0c936d49e230d5164fb",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/@standard-schema/spec/package.json",
+        "sha256": "58e5bd75ddd0684c88b07cd799585cc72a37fd6efb8ab0c936d49e230d5164fb",
+        "bytes": 1146,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/fast-check/package.json",
+      "oldSha256": "b994e87a5691e4edb1eead91c23093b86149bcb73c0af5e55f3593d16e1b35d4",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/fast-check/package.json",
+        "sha256": "b994e87a5691e4edb1eead91c23093b86149bcb73c0af5e55f3593d16e1b35d4",
+        "bytes": 3319,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/fast-deep-equal/package.json",
+      "oldSha256": "a5c63940db0260739be9e2ac67f3aac268df4db5770420ee4e34e493152f97d2",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/fast-deep-equal/package.json",
+        "sha256": "a5c63940db0260739be9e2ac67f3aac268df4db5770420ee4e34e493152f97d2",
+        "bytes": 1496,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/fast-uri/package.json",
+      "oldSha256": "e634f3848a2c6c7e1cdc28b119b16e072e10dada8a3ca3f175a2372d0dd83360",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/fast-uri/package.json",
+        "sha256": "e634f3848a2c6c7e1cdc28b119b16e072e10dada8a3ca3f175a2372d0dd83360",
+        "bytes": 1983,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/json-schema-traverse/package.json",
+      "oldSha256": "156fb24af02845c190701360d06dfda35ef04282e34a734289ea9535ad9819ae",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/json-schema-traverse/package.json",
+        "sha256": "156fb24af02845c190701360d06dfda35ef04282e34a734289ea9535ad9819ae",
+        "bytes": 1004,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/require-from-string/package.json",
+      "oldSha256": "c0002f7d4c7d7e2a885cf0f97226344902417c3a0980f2beca41962d2bc1f6d8",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/require-from-string/package.json",
+        "sha256": "c0002f7d4c7d7e2a885cf0f97226344902417c3a0980f2beca41962d2bc1f6d8",
+        "bytes": 511,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "node_modules/pure-rand/package.json",
+      "oldSha256": "e1a7720a77fd356d282ac02a5fdeae6428b5e622ea5eb46c5ab367d28b099143",
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/pure-rand/package.json",
+        "sha256": "e1a7720a77fd356d282ac02a5fdeae6428b5e622ea5eb46c5ab367d28b099143",
+        "bytes": 2406,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": ".",
+      "relation": "dependencies",
+      "name": "@valibot/to-json-schema",
+      "range": "1.7.1",
+      "optional": false,
+      "target": "node_modules/@valibot/to-json-schema/package.json",
+      "version": "1.7.1",
+      "metadataSha256": "5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2"
+    },
+    {
+      "from": ".",
+      "relation": "dependencies",
+      "name": "effect",
+      "range": "3.22.1",
+      "optional": false,
+      "target": "node_modules/effect/package.json",
+      "version": "3.22.1",
+      "metadataSha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2"
+    },
+    {
+      "from": ".",
+      "relation": "dependencies",
+      "name": "jsonc-parser",
+      "range": "3.3.1",
+      "optional": false,
+      "target": "node_modules/jsonc-parser/package.json",
+      "version": "3.3.1",
+      "metadataSha256": "a7a9192caaac00d9330592f4fd572908bee037518128a0fc3db96d2cd652e2b5"
+    },
+    {
+      "from": ".",
+      "relation": "dependencies",
+      "name": "valibot",
+      "range": "1.4.2",
+      "optional": false,
+      "target": "node_modules/valibot/package.json",
+      "version": "1.4.2",
+      "metadataSha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb"
+    },
+    {
+      "from": ".",
+      "relation": "dependencies",
+      "name": "ajv",
+      "range": "8.20.0",
+      "optional": false,
+      "target": "node_modules/ajv/package.json",
+      "version": "8.20.0",
+      "metadataSha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989"
+    },
+    {
+      "from": ".",
+      "relation": "dependencies",
+      "name": "ajv-formats",
+      "range": "3.0.1",
+      "optional": false,
+      "target": "node_modules/ajv-formats/package.json",
+      "version": "3.0.1",
+      "metadataSha256": "402fb4bcfa457f0226813f3976ac42839dd619907c075c108efba8600d7edb69"
+    },
+    {
+      "from": "node_modules/@valibot/to-json-schema",
+      "relation": "peerDependencies",
+      "name": "valibot",
+      "range": "^1.4.0",
+      "optional": false,
+      "target": "node_modules/valibot/package.json",
+      "version": "1.4.2",
+      "metadataSha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb"
+    },
+    {
+      "from": "node_modules/effect",
+      "relation": "dependencies",
+      "name": "@standard-schema/spec",
+      "range": "^1.0.0",
+      "optional": false,
+      "target": "node_modules/@standard-schema/spec/package.json",
+      "version": "1.1.0",
+      "metadataSha256": "58e5bd75ddd0684c88b07cd799585cc72a37fd6efb8ab0c936d49e230d5164fb"
+    },
+    {
+      "from": "node_modules/effect",
+      "relation": "dependencies",
+      "name": "fast-check",
+      "range": "^3.23.1",
+      "optional": false,
+      "target": "node_modules/fast-check/package.json",
+      "version": "3.23.2",
+      "metadataSha256": "b994e87a5691e4edb1eead91c23093b86149bcb73c0af5e55f3593d16e1b35d4"
+    },
+    {
+      "from": "node_modules/valibot",
+      "relation": "peerDependencies",
+      "name": "typescript",
+      "range": ">=5",
+      "optional": true,
+      "disposition": "absent-optional",
+      "candidates": [
+        "node_modules/valibot/node_modules/typescript/package.json",
+        "node_modules/typescript/package.json"
+      ]
+    },
+    {
+      "from": "node_modules/ajv",
+      "relation": "dependencies",
+      "name": "fast-deep-equal",
+      "range": "^3.1.3",
+      "optional": false,
+      "target": "node_modules/fast-deep-equal/package.json",
+      "version": "3.1.3",
+      "metadataSha256": "a5c63940db0260739be9e2ac67f3aac268df4db5770420ee4e34e493152f97d2"
+    },
+    {
+      "from": "node_modules/ajv",
+      "relation": "dependencies",
+      "name": "fast-uri",
+      "range": "^3.0.1",
+      "optional": false,
+      "target": "node_modules/fast-uri/package.json",
+      "version": "3.1.7",
+      "metadataSha256": "e634f3848a2c6c7e1cdc28b119b16e072e10dada8a3ca3f175a2372d0dd83360"
+    },
+    {
+      "from": "node_modules/ajv",
+      "relation": "dependencies",
+      "name": "json-schema-traverse",
+      "range": "^1.0.0",
+      "optional": false,
+      "target": "node_modules/json-schema-traverse/package.json",
+      "version": "1.0.0",
+      "metadataSha256": "156fb24af02845c190701360d06dfda35ef04282e34a734289ea9535ad9819ae"
+    },
+    {
+      "from": "node_modules/ajv",
+      "relation": "dependencies",
+      "name": "require-from-string",
+      "range": "^2.0.2",
+      "optional": false,
+      "target": "node_modules/require-from-string/package.json",
+      "version": "2.0.2",
+      "metadataSha256": "c0002f7d4c7d7e2a885cf0f97226344902417c3a0980f2beca41962d2bc1f6d8"
+    },
+    {
+      "from": "node_modules/ajv-formats",
+      "relation": "dependencies",
+      "name": "ajv",
+      "range": "^8.0.0",
+      "optional": false,
+      "target": "node_modules/ajv/package.json",
+      "version": "8.20.0",
+      "metadataSha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989"
+    },
+    {
+      "from": "node_modules/ajv-formats",
+      "relation": "peerDependencies",
+      "name": "ajv",
+      "range": "^8.0.0",
+      "optional": true,
+      "target": "node_modules/ajv/package.json",
+      "version": "8.20.0",
+      "metadataSha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989"
+    },
+    {
+      "from": "node_modules/fast-check",
+      "relation": "dependencies",
+      "name": "pure-rand",
+      "range": "^6.1.0",
+      "optional": false,
+      "target": "node_modules/pure-rand/package.json",
+      "version": "6.1.0",
+      "metadataSha256": "e1a7720a77fd356d282ac02a5fdeae6428b5e622ea5eb46c5ab367d28b099143"
+    }
+  ],
+  "oldClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/execution-intake-01/archive-closure.json",
+    "sha256": "cc17b7b62187fc270db339b3d5d36db70d677eb514728d6d96080b84cec0772e",
+    "bytes": 6976,
+    "mode": "0o644"
+  },
+  "oldMetadata": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/execution-intake-01/archive-package-metadata.json",
+    "sha256": "33a764780df7a0797e66c9d35cf6a333618e1cd65877779d87188a28a781f6b0",
+    "bytes": 158990,
+    "mode": "0o644"
+  },
+  "currentClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/offline-closure.json",
+    "sha256": "97d5a9d58af52ac3b535307179ef9f6b3f1b2cb4d97b8304ed19639bd2f0c7dd",
+    "bytes": 5746,
+    "mode": "0o644"
+  },
+  "relation": "Every runtime package metadata byte and optional absent peer is identical; Node 24.7.0 and all 17 declared dependency/peer relations conserved. No old runtime receipt transferred.",
+  "cacheSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/empty-seed.json",
+    "sha256": "afb84dac6a7aa1cf256a6ff7ed05fa84dfdeaa6748dbb292397343908120c6db"
+  }
+}

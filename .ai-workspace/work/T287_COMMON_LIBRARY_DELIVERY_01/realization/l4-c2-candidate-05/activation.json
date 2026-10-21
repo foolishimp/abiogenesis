@@ -1,0 +1,31 @@
+{
+  "activation": "L4-C2-CANDIDATE-INTEGRATION-05",
+  "issuedBy": "/root",
+  "writer": "/root/stdo3_final_proof_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "method": "stdo://releases/v3.0.0-rc.1/",
+  "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/freeze.json",
+    "sha256": "96b9ce2062ab04f1a456ba28d3122160e1093d8b6ecdfb88ae1cd8b6f0338ee8",
+    "bytes": 1981007,
+    "mode": "0o644"
+  },
+  "sequence": [
+    "P1",
+    "owner-resolution",
+    "P2",
+    "P3",
+    "three repaired HoG cases after new P1-P3 success"
+  ],
+  "runtime": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81",
+  "limits": {
+    "maxP1P3RetainedBytes": 4294967296,
+    "maxHoGRetainedBytes": 4294967296,
+    "realNativeProviderCalls": 0,
+    "retries": 0
+  },
+  "authority": "Root explicitly grants dependent binding and execution once when each prior original endpoint passes. Freeze exact config/grant before each effect. Stop first genuine failure. P5 runs separately; P4 and L5 are not granted.",
+  "environment": "Original explicit runtime environment omits NODE_OPTIONS; outer supervisory launch clears ambient NODE_OPTIONS. Distinct empty task npmrc files override user/global configuration; exact offline dependency closure and task caches only."
+}

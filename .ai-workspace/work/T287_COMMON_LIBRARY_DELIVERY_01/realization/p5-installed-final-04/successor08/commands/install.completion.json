@@ -1,0 +1,57 @@
+{
+  "key": "install",
+  "startedAt": "2026-10-21T08:23:55.738Z",
+  "completedAt": "2026-10-21T08:24:46.394Z",
+  "wallMs": 50645.5735,
+  "pid": 73770,
+  "groupId": 73770,
+  "supervisorPid": 73748,
+  "timedOut": false,
+  "events": [
+    {
+      "kind": "spawn",
+      "pid": 73770,
+      "atMs": 22.32987499999996
+    },
+    {
+      "kind": "exit",
+      "status": 0,
+      "signal": null,
+      "atMs": 50578.970709
+    },
+    {
+      "kind": "close",
+      "status": 0,
+      "signal": null,
+      "atMs": 50587.578959
+    }
+  ],
+  "facts": {
+    "directExit": {
+      "status": 0,
+      "signal": null
+    },
+    "launchFailure": null,
+    "noChildEstablished": false,
+    "scopeKind": "posix_process_group",
+    "scopeAbsence": "absent",
+    "closeObserved": true,
+    "streamsDisposed": true,
+    "drainExpired": false,
+    "firstError": null,
+    "cleanupDeadlineNs": "1402958885220416",
+    "cleanupElapsedMs": 8.431875,
+    "probeCount": 1,
+    "signalAttempts": 0
+  },
+  "stdout": {
+    "bytes": 24,
+    "sha256": "e11642737a588f4aeb0609e2db2696530369e4f8485f637caffb896fbe4b43b2"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "success": true,
+  "physicalAbsenceIsNotAdmission": true
+}

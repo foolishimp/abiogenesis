@@ -1,0 +1,174 @@
+{
+  "archiveSha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+  "archiveMembersSha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034",
+  "generatorResultSha256": "6987e8dc3db959ed0334164bf47e62330e6d1c4d90b514cb87cbeeb1d56a4d0f",
+  "packageLockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+  "directDependencies": {
+    "@valibot/to-json-schema": "1.7.1",
+    "effect": "3.22.1",
+    "jsonc-parser": "3.3.1",
+    "valibot": "1.4.2",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1"
+  },
+  "bundledNames": [
+    "@valibot/to-json-schema",
+    "effect",
+    "jsonc-parser",
+    "valibot",
+    "ajv",
+    "ajv-formats"
+  ],
+  "packageManifests": [
+    {
+      "path": "node_modules/@standard-schema/spec/package.json",
+      "bytes": 1146,
+      "sha256": "58e5bd75ddd0684c88b07cd799585cc72a37fd6efb8ab0c936d49e230d5164fb",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/@valibot/to-json-schema/package.json",
+      "bytes": 1832,
+      "sha256": "5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/ajv/package.json",
+      "bytes": 4405,
+      "sha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/ajv-formats/package.json",
+      "bytes": 1897,
+      "sha256": "402fb4bcfa457f0226813f3976ac42839dd619907c075c108efba8600d7edb69",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/effect/package.json",
+      "bytes": 40617,
+      "sha256": "d5aa70267dcb4947c0aef06182e95251a721fd7ce4b5e8fd183676c92d0efea2",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/fast-check/package.json",
+      "bytes": 3319,
+      "sha256": "b994e87a5691e4edb1eead91c23093b86149bcb73c0af5e55f3593d16e1b35d4",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/fast-deep-equal/package.json",
+      "bytes": 1496,
+      "sha256": "a5c63940db0260739be9e2ac67f3aac268df4db5770420ee4e34e493152f97d2",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/fast-uri/package.json",
+      "bytes": 1983,
+      "sha256": "e634f3848a2c6c7e1cdc28b119b16e072e10dada8a3ca3f175a2372d0dd83360",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/json-schema-traverse/package.json",
+      "bytes": 1004,
+      "sha256": "156fb24af02845c190701360d06dfda35ef04282e34a734289ea9535ad9819ae",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/jsonc-parser/package.json",
+      "bytes": 1180,
+      "sha256": "a7a9192caaac00d9330592f4fd572908bee037518128a0fc3db96d2cd652e2b5",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/pure-rand/package.json",
+      "bytes": 2406,
+      "sha256": "e1a7720a77fd356d282ac02a5fdeae6428b5e622ea5eb46c5ab367d28b099143",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/require-from-string/package.json",
+      "bytes": 511,
+      "sha256": "c0002f7d4c7d7e2a885cf0f97226344902417c3a0980f2beca41962d2bc1f6d8",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    },
+    {
+      "path": "node_modules/valibot/package.json",
+      "bytes": 1914,
+      "sha256": "f8c0413b3a5b951c5e3522e0ec0a3b1c4bce6d4d98d87b02bbaff05a2cb4abcb",
+      "mode": "0o644",
+      "stage_mode": "0o644"
+    }
+  ],
+  "requiredEdges": [
+    {
+      "owner": "node_modules/ajv-formats",
+      "dependency": "ajv",
+      "range": "^8.0.0",
+      "resolved": "node_modules/ajv",
+      "version": "8.20.0"
+    },
+    {
+      "owner": "node_modules/ajv",
+      "dependency": "fast-deep-equal",
+      "range": "^3.1.3",
+      "resolved": "node_modules/fast-deep-equal",
+      "version": "3.1.3"
+    },
+    {
+      "owner": "node_modules/ajv",
+      "dependency": "fast-uri",
+      "range": "^3.0.1",
+      "resolved": "node_modules/fast-uri",
+      "version": "3.1.7"
+    },
+    {
+      "owner": "node_modules/ajv",
+      "dependency": "json-schema-traverse",
+      "range": "^1.0.0",
+      "resolved": "node_modules/json-schema-traverse",
+      "version": "1.0.0"
+    },
+    {
+      "owner": "node_modules/ajv",
+      "dependency": "require-from-string",
+      "range": "^2.0.2",
+      "resolved": "node_modules/require-from-string",
+      "version": "2.0.2"
+    },
+    {
+      "owner": "node_modules/effect",
+      "dependency": "@standard-schema/spec",
+      "range": "^1.0.0",
+      "resolved": "node_modules/@standard-schema/spec",
+      "version": "1.1.0"
+    },
+    {
+      "owner": "node_modules/effect",
+      "dependency": "fast-check",
+      "range": "^3.23.1",
+      "resolved": "node_modules/fast-check",
+      "version": "3.23.2"
+    },
+    {
+      "owner": "node_modules/fast-check",
+      "dependency": "pure-rand",
+      "range": "^6.1.0",
+      "resolved": "node_modules/pure-rand",
+      "version": "6.1.0"
+    }
+  ],
+  "scope": "Exact lock and archive package membership; existing successful generator owns transitive resolution validation. No ambient or network source permitted. Empty local per-case caches created only after this closed-membership check."
+}

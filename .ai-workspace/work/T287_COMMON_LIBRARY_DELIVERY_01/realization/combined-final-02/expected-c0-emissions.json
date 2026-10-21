@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.d.ts",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 9084,
+      "sha256": "b9f22c070103c23a60e309ca3b4cfa84a2cb0b9352973371c3afaee192ccf948"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 64213,
+      "sha256": "b501f094602054ada71ecc853218bf36045c45bdc6442d8f99cb00736c2027dc"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 89024,
+      "sha256": "b6ce21dea12f1f247fe2903fa99e7c60f814cc8131637b80fba6904583517953"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/native_worksite_execution.js",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 16031,
+      "sha256": "f339e61977d18033993a81c6e895b6e369eaa01bfc484bf01221c5255caea87b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 37650,
+      "sha256": "6a13656f990b3036c56ca456728a1b36898a0d11b192c4017468dff26e715cdb"
+    }
+  ]
+}

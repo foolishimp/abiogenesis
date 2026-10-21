@@ -1,0 +1,93 @@
+{
+  "status": "satisfied",
+  "counts": [
+    {
+      "scope": "diagnosticPreparation",
+      "rows": 29,
+      "mismatches": 0
+    },
+    {
+      "scope": "baselineP1",
+      "rows": 18,
+      "mismatches": 0
+    },
+    {
+      "scope": "baselineP3",
+      "rows": 23,
+      "mismatches": 0
+    },
+    {
+      "scope": "p1 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source-manifest.json",
+      "rows": 1311,
+      "mismatches": 0
+    },
+    {
+      "scope": "p1 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-generated-inventory.json",
+      "rows": 936,
+      "mismatches": 0
+    },
+    {
+      "scope": "p1 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-dependency-inventory.json",
+      "rows": 4576,
+      "mismatches": 0
+    },
+    {
+      "scope": "p3 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/source-after.json",
+      "rows": 1311,
+      "mismatches": 0
+    },
+    {
+      "scope": "p3 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-generated-inventory.json",
+      "rows": 936,
+      "mismatches": 0
+    },
+    {
+      "scope": "p3 /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-dependency-inventory.json",
+      "rows": 4576,
+      "mismatches": 0
+    },
+    {
+      "scope": "protected main",
+      "rows": 936,
+      "mismatches": 0
+    }
+  ],
+  "originalEndpointPrefixes": [
+    {
+      "subject": "l4-p1-baseline-01",
+      "prefix": {
+        "coordinateDigest": "sha256:836f50923d0619bee0db9a81fdac07e7b40d3b68d524f283a802c7bac79d97ee",
+        "eventLogRef": "file:///private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:4f599bc7e80bb1aea9e67b855f7b19de84d910daddf36b9aefe5f4edc754ca8c",
+        "prefixLength": 3113281,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 473980953
+        }
+      },
+      "unchanged": true
+    },
+    {
+      "subject": "l4-p3-baseline-successor-01",
+      "prefix": {
+        "coordinateDigest": "sha256:9f35c94c6107c9011ef76bf6d582879fd934cf44c6c766b8e97c166645e85b30",
+        "eventLogRef": "file:///private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:5c04bc8cd9c617e0667543c7b1d0cef51f3575371b1776900b5e50a732a0df58",
+        "prefixLength": 3217928,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 474111636
+        }
+      },
+      "unchanged": true
+    }
+  ],
+  "utc": "2026-10-21T04:25:49.147332+00:00",
+  "scope": "Read-only exact preserved stages and old endpoint files; no old EventStore acquisition"
+}

@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/select-population.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "timeoutSeconds": 1800,
+  "purpose": "One authorized successor finite transport population.",
+  "scriptSha256": "34d3856c33984a8d4bd2d68e7c86c174a18f5059dfd3c81acc1ec1cd2840f738"
+}

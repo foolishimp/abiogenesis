@@ -1,0 +1,12 @@
+{
+  "status": "stopped",
+  "firstCauseFile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/verification.stderr",
+    "sha256": "d55cc8d6864d31660a61a2bf9c973596f8630df609e2b00a6dd41a390be6f872",
+    "bytes": 643,
+    "mode": "0o644"
+  },
+  "exitCode": 1,
+  "allArchivesRetained": true,
+  "stop": "Return Root without repair or retry"
+}

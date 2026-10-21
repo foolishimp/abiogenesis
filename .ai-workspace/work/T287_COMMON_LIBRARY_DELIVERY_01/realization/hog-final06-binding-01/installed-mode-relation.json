@@ -1,0 +1,51 @@
+{
+  "status": "root_selected_explicit_binding_correction",
+  "rawTar": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/raw-tar-inventory.json",
+    "sha256": "404c0be5cc48bbc85e5b80685c01072458c720a513aca5465f543d4f47b475fb",
+    "bytes": 1262495,
+    "mode": "0o644"
+  },
+  "installedExpected": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/installed-expected-inventory.json",
+    "sha256": "8adea12fa0fa9ade763993d339a3ca90265014d6ac6db92b6d86c7a020c0a6bc",
+    "bytes": 1227586,
+    "mode": "0o644"
+  },
+  "modeChanges": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "archiveMode": "0o644",
+      "expectedInstalledMode": "0o755",
+      "sha256": "94d13d72e79246f35c12062cc75549da7225639edcc976aca5fa3b16313f4f25",
+      "bytes": 3463,
+      "actualFinalP1": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "mode": "0o755",
+        "device": 16777231,
+        "inode": 474602422,
+        "type": "file",
+        "bytes": 3463,
+        "sha256": "94d13d72e79246f35c12062cc75549da7225639edcc976aca5fa3b16313f4f25"
+      }
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "archiveMode": "0o644",
+      "expectedInstalledMode": "0o755",
+      "sha256": "4fa6e68b171e9858ee0665a535238554ee3fe849b5e48869089f48051126b039",
+      "bytes": 2003,
+      "actualFinalP1": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/codex_cli.js",
+        "mode": "0o755",
+        "device": 16777231,
+        "inode": 474602437,
+        "type": "file",
+        "bytes": 2003,
+        "sha256": "4fa6e68b171e9858ee0665a535238554ee3fe849b5e48869089f48051126b039"
+      }
+    }
+  ],
+  "archiveMembers": 5271,
+  "rule": "Installed metadata is checked against explicit npm-derived installed expectation, not falsely equated to raw tar modes. No chmod, package, runtime or original driver/oracle change."
+}

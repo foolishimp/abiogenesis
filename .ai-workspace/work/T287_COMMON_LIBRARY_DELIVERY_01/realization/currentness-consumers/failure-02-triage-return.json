@@ -1,0 +1,20 @@
+{
+  "activation": "U1-P5-02",
+  "first_failure": "governance fixture passes {...f,context,...order} to strict native task constructor; f includes store/requests/fixture methods outside NativeWorkspaceWorkTask input",
+  "source_owner": "product/native_workspace_work.ts26-51 strictObject and constructor preserves spread fields",
+  "origin": "new test governanceConsumers line250 typed-handoff field bleed",
+  "completed": "observed C2 and preparation-provenance owners: 18 actual invalidator calls; paired affected/sibling/different-binding same-root; foreign-basis cause null and unchanged acceptance",
+  "owner_gate_failure": false,
+  "governance_gate_calls": 0,
+  "source_production_changed": false,
+  "repair_or_retry_performed": false,
+  "evidence_sha256": "d84327dd5127b908a95144791496350376b0ce03493b48c279f2943e13a3b8f6",
+  "test_sha256": "784524463a639af28ff485ec87ec10773a3345e8beb6c40aaa02327c2bd6d6d6",
+  "roots": [
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-PBiGG7",
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-kGbHSv"
+  ],
+  "retained_physical_roots": true,
+  "native_or_command_process_launches": 0,
+  "proposal": "project exactly workspaceAuthorityBasis/workspaceBinding/capabilityGrant/context/order to native constructor; audit every new constructor handoff against its owner before continuing governance onwards; reuse C0 and observed support"
+}

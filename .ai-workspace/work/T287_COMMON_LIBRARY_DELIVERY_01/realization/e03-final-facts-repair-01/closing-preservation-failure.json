@@ -1,0 +1,33 @@
+{
+  "status": "STOP_CLOSING_AUTHORITY_PIN_DRIFT",
+  "observedAt": "2026-10-21T09:05:51.685265+00:00",
+  "origin": "final read-only exact input preservation check before freeze",
+  "checkFailure": "AssertionError for two changed status inputs; all other 58 inputs matched.",
+  "mismatches": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "expected": {
+        "bytes": 78988,
+        "sha256": "df4052e8c4b1c7fa906ccacf47fc4cad641412e9a351c3587a60ac23c5b9590f"
+      },
+      "actual": {
+        "bytes": 80817,
+        "sha256": "4cb7c8da7c8cf7204c80fdcc8631c48f22c4c395c8726eb0ccf16e1a6065b2b5"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "expected": {
+        "bytes": 541019,
+        "sha256": "abb688a28d3121a9868f27cc8f5803e5c5756769df2902d40517f9b7fac7a31b"
+      },
+      "actual": {
+        "bytes": 544399,
+        "sha256": "0f08c48d7a34338033024b04bcc37f62c7cccddd7639b35f7fdc019c908cafe3"
+      }
+    }
+  ],
+  "attribution": "Transcription of the actual local Python assertion output, not original stdout bytes.",
+  "effects": "Only new HOW/triage/handoff records; no source/test/support/runtime changes, no generated output, no prior-cut writes.",
+  "continuation": "Returned to Executive; no authority pin refresh or check retry selected."
+}

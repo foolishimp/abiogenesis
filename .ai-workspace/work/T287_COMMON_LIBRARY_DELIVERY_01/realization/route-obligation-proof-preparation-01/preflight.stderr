@@ -1,0 +1,3 @@
+Traceback (most recent call last):
+  File "<stdin>", line 11, in <module>
+AssertionError: ('/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/node_modules/.bin/tsc', 'nonregular')

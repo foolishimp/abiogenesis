@@ -1,0 +1,54 @@
+{
+  "status": "static_interface_correspondence_satisfied_runtime_unproved",
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/run.mjs",
+    "sha256": "f55fadc04332f2e2f34bb6e8a3bf9161bb59eadec08711f78316ef55a98898bc",
+    "bytes": 22640,
+    "mode": "0o644"
+  },
+  "sources": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/source-inspection.json",
+    "sha256": "1e5b8a8ae7ce926e2eb253ec68b0d9949092022a909adf4ec0a83ad088e179e7",
+    "bytes": 7947,
+    "mode": "0o644"
+  },
+  "methodManifest": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/manifest.json",
+    "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "bytes": 13478,
+    "mode": "0o444"
+  },
+  "methodResolution": {
+    "argv": [
+      "/Users/jim/.local/bin/stdo",
+      "resolve",
+      "stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md"
+    ],
+    "resolvedPath": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/frames/bootstrap.md"
+  },
+  "observations": [
+    {
+      "relation": "Direct-start caller to owning API",
+      "finding": "The successor passes exact programRef and omits declaredStartRef. Existing helper maps absence to next/no startRef/direct. Owner type exposes program policies and resolvedProgramStart kind/targetKind/start fields; every added assertion uses those declared fields."
+    },
+    {
+      "relation": "Decoded setup boundary to outcome event suffix",
+      "finding": "Both setupEvents and final events are returned by the existing exported ABG reader. Its declared return type is readonly RuntimeEvent[]; its cold path authenticates bytes and decodes physical body references before logical envelope validation. Array count/slice and prefix equality retain owner values without adding a codec."
+    },
+    {
+      "relation": "Physical prefix evidence",
+      "finding": "The successor retains setup raw bytes, verifies their handoff length/digest and compares the raw prefix after start. Original fresh-read physical-byte/prefix oracle is untouched."
+    },
+    {
+      "relation": "Three authored cases and original oracle",
+      "finding": "Compose/retry, workflow and fan-out all use the fixture addProgram direct/default declaration. Same ids and unchanged original oracle are used. No fixture transformations or retry cases added."
+    }
+  ],
+  "priorFailure": "Preserved exact original failure; static correspondence is a repair preparation, not relabelled success.",
+  "noExecution": [
+    "No bootstrap/install/npm/fixture/Public CLI",
+    "No ABG/Product owner evaluation",
+    "No generated source build or package",
+    "No old-root reopen, cleanup or Git"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/package.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "outerTimeoutSeconds": 1800,
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/package.py",
+    "sha256": "3f9a733c7c4331e103fede787186f2ec4ed4d06c671e111836a22e98fe09cbd8",
+    "bytes": 7161
+  },
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/packaging-input.json",
+    "sha256": "17e1fdeea98928911894f575752e7bf3ed96b18cf7e1d900f772403581c63c95",
+    "bytes": 1211
+  },
+  "startedAfterClosedPopulation": true
+}

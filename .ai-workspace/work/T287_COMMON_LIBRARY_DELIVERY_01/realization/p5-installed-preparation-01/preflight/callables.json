@@ -1,0 +1,97 @@
+[
+  {
+    "module": "product/index.js",
+    "name": "constructWorkspaceAuthorityBasis",
+    "kind": "function"
+  },
+  {
+    "module": "product/index.js",
+    "name": "constructWorksiteSubject",
+    "kind": "function"
+  },
+  {
+    "module": "product/index.js",
+    "name": "constructWorksiteCommandExecutionTask",
+    "kind": "function"
+  },
+  {
+    "module": "product/index.js",
+    "name": "constructInvocationAuthority",
+    "kind": "function"
+  },
+  {
+    "module": "product/index.js",
+    "name": "worksiteCommandExecutionHelperPlan",
+    "kind": "function"
+  },
+  {
+    "module": "product/worksite_command_execution.js",
+    "name": "constructWorksiteCommandConfiguration",
+    "kind": "function"
+  },
+  {
+    "module": "product/worksite_command_execution.js",
+    "name": "worksiteCommandConfigurationMatches",
+    "kind": "function"
+  },
+  {
+    "module": "product/worksite_command_execution.js",
+    "name": "projectWorksiteCommandExecutionBudget",
+    "kind": "function"
+  },
+  {
+    "module": "product/worksite_command_execution.js",
+    "name": "worksiteCommandExecutionBudgetFits",
+    "kind": "function"
+  },
+  {
+    "module": "public/index.js",
+    "name": "constructInstalledPublicDefinitionCall",
+    "kind": "function"
+  },
+  {
+    "module": "public/index.js",
+    "name": "runInstalledDefinitionCallTransport",
+    "kind": "function"
+  },
+  {
+    "module": "abg/index.js",
+    "name": "reopenEventStore",
+    "kind": "function"
+  },
+  {
+    "module": "abg/index.js",
+    "name": "readRuntimeEventsAtDurablePrefix",
+    "kind": "function"
+  },
+  {
+    "module": "abg/index.js",
+    "name": "projectRuntimeTruthAtDurablePrefix",
+    "kind": "function"
+  },
+  {
+    "module": "hog/index.js",
+    "name": "executeGraphTraversal",
+    "kind": "function"
+  },
+  {
+    "module": "implementation/worksite_command_execution.js",
+    "name": "realizeWorksiteCommandExecution",
+    "kind": "function"
+  },
+  {
+    "module": "shared/owned_process_lifetime.js",
+    "name": "createOwnedProcessLifetime",
+    "kind": "function"
+  },
+  {
+    "module": "shared/owned_process_lifetime.js",
+    "name": "createMonotonicDeadline",
+    "kind": "function"
+  },
+  {
+    "module": "selected fresh-process-runtime-proof.mjs",
+    "name": "proveFreshProcessRuntimeProjectionEquality",
+    "kind": "function"
+  }
+]

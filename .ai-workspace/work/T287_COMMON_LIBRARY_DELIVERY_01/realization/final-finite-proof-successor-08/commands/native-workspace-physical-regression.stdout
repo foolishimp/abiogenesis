@@ -1,0 +1,28 @@
+✖ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (24.452292ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 354.375834
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-workspace-work.test.mjs:37:1
+✖ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (24.452292ms)
+  AssertionError [ERR_ASSERTION]: prior C0 observation is current before the native physical effect
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs:100:40)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

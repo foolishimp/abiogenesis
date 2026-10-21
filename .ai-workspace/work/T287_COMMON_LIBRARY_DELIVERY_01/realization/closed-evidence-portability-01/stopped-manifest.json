@@ -1,0 +1,45 @@
+{
+  "kind": "stopped_portability_record_manifest",
+  "records": [
+    {
+      "path": "HOW.md",
+      "bytes": 3123,
+      "sha256": "248ef8c67cf1bd7412f1badc18c77df1b7f01218871932cfa3c417a930332dc1"
+    },
+    {
+      "path": "STOP.json",
+      "bytes": 3282,
+      "sha256": "8cd26bf398c6b1f4d722de940bace980bde69d45498e444b4bcf998dd0173e68"
+    },
+    {
+      "path": "failed-discovery-command.py",
+      "bytes": 1632,
+      "sha256": "bb44c993200f5568b922f60666407d164e61e7f41218389ffb44782fec8d8a4c"
+    },
+    {
+      "path": "failed-discovery-traceback.txt",
+      "bytes": 101,
+      "sha256": "b2e00550e06a5d901fdc9fb2fa3f526b7260e2c30882238328c37969590e6ddc"
+    },
+    {
+      "path": "method-resolution.json",
+      "bytes": 1134,
+      "sha256": "8658da64d3b75c6256ca01da0094b8662c766789a76564eada968adc8aa0a2af"
+    },
+    {
+      "path": "method-status.json",
+      "bytes": 10805,
+      "sha256": "be61c6fb497f70f5347fae578d95b10ccb61e0b1b99dc28f8ae42f61b3bb877e"
+    },
+    {
+      "path": "method-status.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "return.md",
+      "bytes": 973,
+      "sha256": "c8268081fe7bc6b108d8f1d3a183a5b6f43cc08bfc3dad5cc360ccc5e9a7f9f7"
+    }
+  ]
+}

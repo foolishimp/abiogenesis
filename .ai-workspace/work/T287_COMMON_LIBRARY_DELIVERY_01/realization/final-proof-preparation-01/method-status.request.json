@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/Users/jim/.local/bin/stdo",
+    "status",
+    "--definition",
+    "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "--verify"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 0
+}

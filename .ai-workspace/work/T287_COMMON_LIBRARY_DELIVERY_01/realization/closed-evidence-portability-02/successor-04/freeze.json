@@ -1,0 +1,44 @@
+{
+  "kind": "closed_evidence_transport_freeze",
+  "status": "closed_transport_verified",
+  "activation": "PORTABILITY-EXCLUSION-ADDRESS-04",
+  "writer": "/root/stdo3_proof_writer",
+  "returnTo": "/root",
+  "createdUtc": "2026-10-21T05:03:58.390678+00:00",
+  "manifestSha256": "416f69e1efe4548f9d852ee5fe8f631d488da58a5788acb333213ca63ffba98b",
+  "manifestBytes": 576808,
+  "recordCount": 16,
+  "repositoryDependencyCount": 1750,
+  "verificationReceipt": {
+    "path": "verification.receipt.json",
+    "sha256": "ec76f190839892df343c73329e32e45f3df5445c4b2b351753324564b2d6b99e",
+    "bytes": 709,
+    "mode": "0o644"
+  },
+  "verificationResult": {
+    "path": "verification.stdout",
+    "sha256": "a79452d8f6d9d98401ab54a8a1b3e4313e66870cfddebe2c6d33ba8fca759b24",
+    "bytes": 1088,
+    "mode": "0o644"
+  },
+  "populationFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/population-freeze.json",
+    "sha256": "ebb57ed34ccb49eebd821dab546f6fbd46144bedcd2112c80a46f76cd255d829",
+    "bytes": 3853,
+    "mode": "0o644"
+  },
+  "immutablePredecessorFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/stopped-freeze.json",
+    "sha256": "c89bd914df332cc466662b94229cdb4032825bfcca7a78557a30b25b42840647",
+    "bytes": 2069,
+    "mode": "0o644"
+  },
+  "sourceAddresses": 69428,
+  "exactCacheExclusions": 2353,
+  "archiveCount": 14,
+  "archivesCreatedThisSuccessor": 0,
+  "ProductExecutions": 0,
+  "originalOwnerAcquisitions": 0,
+  "GitEffects": 0,
+  "independentL5": false
+}

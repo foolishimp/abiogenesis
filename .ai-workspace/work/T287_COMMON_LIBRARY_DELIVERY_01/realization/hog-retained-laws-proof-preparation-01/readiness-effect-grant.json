@@ -1,0 +1,25 @@
+{
+  "issuedBy": "/root",
+  "activation": "HOG-FIXTURE-DEPENDENCY-SUCCESSOR-01",
+  "status": "granted",
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-configuration.json",
+    "sha256": "57dc8c298e1eb13bac0a8180616850b4382c8396ae4750df1af449d719e67772",
+    "bytes": 5198,
+    "mode": "0o644"
+  },
+  "roots": {
+    "fixture": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture",
+    "npmCache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-npm-cache"
+  },
+  "effects": [
+    "four expected pre-effect refusals",
+    "one fixture pack and exact member checks",
+    "only task-owned npm cache/log writes"
+  ],
+  "maxPackCalls": 1,
+  "maxInstallCalls": 0,
+  "maxNativeCalls": 0,
+  "originalCache": "not selected; explicit task-owned cache",
+  "retention": "retain all resources; no cleanup/retry"
+}

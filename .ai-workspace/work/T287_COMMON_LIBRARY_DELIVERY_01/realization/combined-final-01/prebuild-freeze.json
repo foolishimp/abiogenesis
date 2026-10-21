@@ -1,0 +1,96 @@
+{
+  "kind": "exact_combined_build_intake",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/HOW.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5538,
+      "sha256": "22274037d241f8a85880df8b0d99fc41b21bd20f95a8610fac0208b23c45555a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/activation.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3839,
+      "sha256": "f6847bd21483dccd9d7467a47f74eff044c7363b76f8512a49ddf28aed29e071"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source-union-manifest.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 402678,
+      "sha256": "be5cc153e4ff8bf21c546274f702afd46fa778174a1104a77c950d8bede9ac64"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/payload-source-manifest.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 328835,
+      "sha256": "70f39b2bb40ef5bb9d5f2b93edd0b9c299f2a3fa64f8b1b5b8bf06958062043b"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/precedence-ledger.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 37019,
+      "sha256": "483aa07eb17e3791280f648af721cb5827ff046530ad62d8cba5a9a6f62f229a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/dependency-inventory.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1006382,
+      "sha256": "97e7666199c6fb3c3ceda39f1e0b4ff0bf952a3631ae8f2c58402d36f49029e5"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/toolchain.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 706,
+      "sha256": "6886dbcbdf250bebfcaf0a55bc600e4107a825a36420bd385af771a6010c820a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage-prebuild-inventory.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1588546,
+      "sha256": "09c4e70a5e5f3f27f83ad2e8d497904c704352ee3750ca92cc6ec71b9bcdb34e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-generated.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 248218,
+      "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-prior-trees.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 30784727,
+      "sha256": "0c78390eaf136e8d24804d56474d3b31203a066c5fb51feaf7bc931407ea98d9"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-inputs.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 353609,
+      "sha256": "d5ecf2114370be271f70eaa13fe671bd11a6c0d3c6dfd6d08ed57dc889d3e1d3"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/prepare.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 11824,
+      "sha256": "555b268895496ab503292602f5699ad5944bb9929549ebcd7dc1bd09ec76ba62"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/common.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1373,
+      "sha256": "9dc09a38bf640105bb73844ede8f100e3b3271932e004108166da5693bba6bdf"
+    }
+  ]
+}

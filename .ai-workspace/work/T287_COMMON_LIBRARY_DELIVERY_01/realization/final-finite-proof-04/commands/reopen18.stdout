@@ -1,0 +1,116 @@
+✔ M5 new-empty acquisition returns one genuine readable zero prefix (12.129875ms)
+✔ M5 EventStore batch factory interruption leaves the exact prefix unchanged (10.547917ms)
+✔ owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence (36.899417ms)
+✖ owned causation lookup grows with causal references in live admission and cold reconstruction (26.150583ms)
+✔ held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback (41.538292ms)
+✖ M5 effectful truth rejects a mechanically valid forged Product install for every query (0.201584ms)
+✖ M5 effectful truth rejects forged artifact operation identity before query selection (0.098791ms)
+✖ M5 exact owner projections preserve valid facts, conflicts, and whole-prefix masking (39269.73075ms)
+✔ M5 reopens one exact durable prefix without restamping and appends at max ordinal plus one (76.824417ms)
+✔ M5 rolls back an incomplete atomic F_H hold admission without a replay-visible prefix (20.541542ms)
+✔ M5 exact-prefix two-stage transaction rolls back its first stage when second staging fails (16.8365ms)
+✔ M5 durable reopen refuses changed prefix bytes without changing replay truth (15.612958ms)
+✔ M5 durable reopen refuses a second active append owner (21.050083ms)
+✔ M5 durable reopen refuses a modified authority carrier (10.791458ms)
+✔ M5 durable reopen does not steal ownership from an abandoned lock (21.28475ms)
+✔ M5 event contract refuses blank history and malformed kind/scope/payload variants (17.185125ms)
+✖ trusted owned history conserves currentness, callback publication, rollback and cold reconstruction (39.656917ms)
+✔ owned append I/O failures restore committed bytes and hash or poison admission (104.799458ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 13
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 40099.80625
+
+✖ failing tests:
+
+test at test_env/tests/m5-event-store-reopen.test.mjs:352:1
+✖ owned causation lookup grows with causal references in live admission and cold reconstruction (26.150583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   entries: 384,
+  +   lookups: 254
+  -   entries: 128,
+  -   lookups: 127
+    }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs:384:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { lookups: 254, entries: 384 },
+    expected: { lookups: 127, entries: 128 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-event-store-reopen.test.mjs:443:1
+✖ M5 effectful truth rejects a mechanically valid forged Product install for every query (0.201584ms)
+  TypeError [Error]: runtime event payload matches no admitted event-contract variant
+      at assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:1811:15)
+      at projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:1506:5)
+      at projectRuntimeEventFromValidatedHistory (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:1474:16)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs:452:18)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/m5-event-store-reopen.test.mjs:481:1
+✖ M5 effectful truth rejects forged artifact operation identity before query selection (0.098791ms)
+  TypeError [Error]: runtime event payload matches no admitted event-contract variant
+      at assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:1811:15)
+      at projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:1506:5)
+      at projectRuntimeEventFromValidatedHistory (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:1474:16)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs:486:18)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/m5-event-store-reopen.test.mjs:511:1
+✖ M5 exact owner projections preserve valid facts, conflicts, and whole-prefix masking (39269.73075ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'abg.operation.product.install'
+  - 'abg.operation.workspace.bind'
+                   ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs:524:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'abg.operation.product.install',
+    expected: 'abg.operation.workspace.bind',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-event-store-reopen.test.mjs:1249:1
+✖ trusted owned history conserves currentness, callback publication, rollback and cold reconstruction (39.656917ms)
+  AssertionError [ERR_ASSERTION]: ordinary owned operations perform no historical read
+  
+  45583 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs:1302:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 45583,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,28 @@
+{
+  "input_manifest": "stage-inputs-02.json",
+  "all_authoritative_stage_source_files_preserved": true,
+  "generator_changed_prior_derived_inputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "before_sha256": "c99f518ef399a238d553fd32fb118d68c01f7aa0f6f8bd87776465749104e304",
+      "after_sha256": "bfea83383f714cef54f15a1034cd8df7832dd1b05ca2b34f91e3cc827370a576",
+      "bytes": 197474
+    }
+  ],
+  "main_generated_protected_count": 936,
+  "main_generated_bytes_preserved": true,
+  "owned_main_equals_staged_inputs": true,
+  "manifest_sha256": "e8d735c302856ac547d87f159a14017b8eeec901bbed9e0d026306ce63e39edb",
+  "manifest_product_content_digest": "sha256:1a56d76ef05efebdc6d6548cbf78fc8e81af909125605f93c4a746afb1083e73",
+  "manifest_locators": 5265,
+  "all_manifest_locators_exist": true,
+  "owned_emission_files": [
+    "abg/event_body_encoding.js",
+    "gtl/stdo_run_environment.js",
+    "product/environment_definition_bindings.js",
+    "product/execution_resolution.js",
+    "product/verification_definition_bindings.js",
+    "shared/definition_binding_mechanics.js",
+    "shared/rooted_topology_partition.js"
+  ]
+}

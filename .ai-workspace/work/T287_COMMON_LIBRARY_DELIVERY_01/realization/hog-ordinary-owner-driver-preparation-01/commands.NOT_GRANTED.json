@@ -1,0 +1,106 @@
+{
+  "status": "NOT_GRANTED",
+  "driver": {
+    "argv": [
+      "/usr/bin/time",
+      "-l",
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/run.mjs",
+      "<new frozen active configuration>"
+    ],
+    "cwd": "<new execution-record directory; never immutable source/stage>",
+    "stdout": "new retained driver.stdout",
+    "stderr": "new retained driver.stderr including time-l",
+    "outputScope": "driver/CLI wall plus parent CPU/resources; no timing ratio claim"
+  },
+  "optionalLawCommands": [
+    {
+      "caseNames": [
+        {
+          "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "line": 21,
+          "name": "declared C.retry frontier is the sole retry-attempt lifecycle owner"
+        },
+        {
+          "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "line": 61,
+          "name": "stopped retry foldback bridge requires the exact consumed causal suffix"
+        },
+        {
+          "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "line": 238,
+          "name": "CCall retry writes require the exact current declared retry frontier"
+        },
+        {
+          "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "line": 281,
+          "name": "production judgment writers remain closed behind the CCall owner"
+        },
+        {
+          "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "line": 304,
+          "name": "runtime package exports expose no raw or candidate-factory event writer"
+        },
+        {
+          "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "line": 323,
+          "name": "raw executor resume remains closed to every retry cursor"
+        },
+        {
+          "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "line": 340,
+          "name": "entry frame runtime is an exact common projection and retry composition stays disjoint"
+        },
+        {
+          "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "line": 420,
+          "name": "projected retry entry consumes only its exact admitted successor prefix without effects"
+        },
+        {
+          "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "line": 533,
+          "name": "F04 payload refusal composes one pure result rejection while authority refusal cannot retry"
+        }
+      ],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs"
+      ],
+      "cwd": "<exact final stageTenant>",
+      "lowerPremises": "source/export checks, supplied immutable bridge history, two empty-store refusal/no-append cases; no installed successful retry",
+      "effectsNote": "Existing empty-store fixture closes/deletes its own scratch via after-hooks; separate explicit execution/retention disposition required before selecting this command."
+    },
+    {
+      "caseNames": [
+        {
+          "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+          "line": 597,
+          "name": "historical traversal-route projection ignores later construction enrichment and still refuses a forged admission body"
+        },
+        {
+          "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+          "line": 711,
+          "name": "structural retry lineage selects its Run while retaining workspace authority"
+        }
+      ],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=^(historical traversal-route projection ignores later construction enrichment and still refuses a forged admission body|structural retry lineage selects its Run while retaining workspace authority)$",
+        "test_env/tests/m5-event-calculus-runtime.test.mjs"
+      ],
+      "cwd": "<exact final stageTenant>",
+      "lowerPremises": "actual projection owners over controlled immutable lower history; not installed admission or workload"
+    }
+  ],
+  "sharedPreconditions": [
+    "pin exact tests/support/source/emitted dependency cone in final stage",
+    "fresh externally bound TMPDIR if command selected",
+    "retain stdout/stderr/argv/env/process result",
+    "no historical P0/continuation17 environment variables",
+    "no run in this activation"
+  ]
+}

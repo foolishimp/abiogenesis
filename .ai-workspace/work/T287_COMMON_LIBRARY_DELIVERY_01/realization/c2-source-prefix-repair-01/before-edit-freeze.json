@@ -1,0 +1,26 @@
+{
+  "activation": "C2-SOURCE-PREFIX-REPAIR-01",
+  "purpose": "Frozen before source/HOW edits and focused diagnostic",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/HOW-before-effects.md",
+      "bytes": 4207,
+      "sha256": "a28a27bc33207e14c7332330a96834bd56d2df3b6efd4af83611fdbfd4904473"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/activation.json",
+      "bytes": 2278,
+      "sha256": "f7f4e9e7a71387ccac2802db36a8f3c65e3a92365d1d1a1ff18c76d5e86def3a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/preimages/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "bytes": 66122,
+      "sha256": "76a7c3da4bf668be65adb182426298d50c51b9408511167b751256c1d6d3ce24"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/preimages/execution_basis.ts",
+      "bytes": 128699,
+      "sha256": "eb32f6535993b608db9fb9aa1f01661acc99b7498c9af92123e628b1e878e371"
+    }
+  ]
+}

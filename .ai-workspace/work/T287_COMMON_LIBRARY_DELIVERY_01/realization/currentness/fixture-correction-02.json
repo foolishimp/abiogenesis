@@ -1,0 +1,20 @@
+{
+  "source": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+  "previous_sha256": "fc21f36dbcd9c311e336829e7e85d404bf4626ab2f430649e6d06538e2575846",
+  "corrected_sha256": "a900b99481bcbd5a51ead74621e981cd1105e2c0582aebeee691f11ca10f85fb",
+  "grant": "Executive U1-FIXTURE-02",
+  "production_bytes_changed": false,
+  "controlled_premises": [
+    "source publication artifact coordinates",
+    "install/readiness and implementation-set admission booleans",
+    "loaded semantics and installed-content authentication"
+  ],
+  "actual_owners": [
+    "native publication constructor",
+    "native validators",
+    "exact admitted leaf port lookup and raw result preimage verification",
+    "EventStore contracts",
+    "exact basis/invocation/implementation projectors",
+    "C0 initial currentness relation"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "predecessor": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-04/verify-transport.py",
+    "sha256": "69654b2ca79499c98934b652c36194f05a6175f1891b66efa4f2ffd3da07b2b9",
+    "bytes": 14807
+  },
+  "successor": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/verify-transport.py",
+    "sha256": "02d8c4307f30925fb6993ac781afcfd4fe39883a3cdf951cf50b36a84cc674d8",
+    "bytes": 14062
+  },
+  "preservedAlgorithms": [
+    "safe repository paths and exact byte pins",
+    "regular inert archive member identity and tar normalization",
+    "whole gzip and compressed byte identities",
+    "original tar member verification",
+    "ordered chunk whole-file reconstruction",
+    "finite native source coverage"
+  ],
+  "adaptation": [
+    "selected declared field/base list replaces old hard-coded source set",
+    "known symlinks container retains native metadata without dereference",
+    "native metadata is a multiset of frozen rows, not fresh lstat claims",
+    "prior closed controls reused; verify referenced archive bytes and current finite population only",
+    "command logs are bound after completion"
+  ],
+  "syntaxCheck": "ast.parse passed; no execution or pycache"
+}

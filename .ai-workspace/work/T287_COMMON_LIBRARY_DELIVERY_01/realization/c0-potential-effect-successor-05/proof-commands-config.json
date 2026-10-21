@@ -1,0 +1,225 @@
+{
+  "sunny-owner": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--test",
+      "--test-name-pattern",
+      "^B04-06 replace: installed owner, ABG admission and fresh replay$",
+      "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+    ],
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/sunny/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/sunny/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/sunny/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-03/sunny/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/sunny/evidence"
+    }
+  },
+  "unavailable-install": {
+    "argv": [
+      "/opt/homebrew/bin/npm",
+      "install",
+      "--bin-links=false",
+      "--offline",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund",
+      "--package-lock=true",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    ],
+    "cwd": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/host",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/evidence"
+    }
+  },
+  "unavailable-host-check": {
+    "argv": [
+      "/usr/bin/python3",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/verify-installed-host.py",
+      "unavailable"
+    ],
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/evidence"
+    }
+  },
+  "unavailable-owner": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--test",
+      "--test-name-pattern",
+      "^B04-02 rename-successor-read: installed owner, ABG admission and fresh replay$",
+      "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+    ],
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/unavailable/evidence"
+    }
+  },
+  "append-install": {
+    "argv": [
+      "/opt/homebrew/bin/npm",
+      "install",
+      "--bin-links=false",
+      "--offline",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund",
+      "--package-lock=true",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    ],
+    "cwd": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/host",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/evidence"
+    }
+  },
+  "append-host-check": {
+    "argv": [
+      "/usr/bin/python3",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/verify-installed-host.py",
+      "append"
+    ],
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/evidence"
+    }
+  },
+  "append-owner": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--test",
+      "--test-name-pattern",
+      "^B04-05 append-complete: installed owner, ABG admission and fresh replay$",
+      "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+    ],
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/append/evidence"
+    }
+  },
+  "prepublication-install": {
+    "argv": [
+      "/opt/homebrew/bin/npm",
+      "install",
+      "--bin-links=false",
+      "--offline",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund",
+      "--package-lock=true",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    ],
+    "cwd": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/host",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/evidence"
+    }
+  },
+  "prepublication-host-check": {
+    "argv": [
+      "/usr/bin/python3",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/verify-installed-host.py",
+      "prepublication"
+    ],
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/evidence"
+    }
+  },
+  "prepublication-owner": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--test",
+      "--test-name-pattern",
+      "^B04-07 failed-rename: installed owner, ABG admission and fresh replay$",
+      "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+    ],
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/npm-logs",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/host",
+      "ABG_C0_POTENTIAL_PROOF": "1",
+      "ABG_C0_PROOF_ROOT": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/prepublication/evidence"
+    }
+  },
+  "component-currentness": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern",
+      "^U1 physical target scope successor across bindings and native Result scopes$",
+      "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+    ],
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/component/scratch/",
+      "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/component/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/component/npm-logs",
+      "ABG_U1_EVIDENCE_DIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05/component/evidence"
+    },
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript"
+  },
+  "syntax": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+    ]
+  }
+}

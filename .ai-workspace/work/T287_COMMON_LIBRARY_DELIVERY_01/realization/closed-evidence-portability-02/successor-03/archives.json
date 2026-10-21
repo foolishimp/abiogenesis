@@ -1,0 +1,132 @@
+{
+  "status": "satisfied",
+  "populationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/population-freeze.json",
+    "sha256": "ebb57ed34ccb49eebd821dab546f6fbd46144bedcd2112c80a46f76cd255d829",
+    "bytes": 3853,
+    "mode": "0o644"
+  },
+  "startedUtc": "2026-10-21T04:48:08.144465+00:00",
+  "completedUtc": "2026-10-21T04:48:19.272245+00:00",
+  "archives": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-001.tar.gz",
+      "sha256": "e6e626577e55a8eff78a541aeb0ceef2429bc127a56cfd9048f1c0ddbd8a0e3e",
+      "compressedBytes": 12315663,
+      "uncompressedTarBytes": 43909120,
+      "uncompressedTarSha256": "886e8f8e1a767cdc2b83d94051f07e272e8f6d104ee27048d526c145c1283018",
+      "payloadBytes": 43892214,
+      "objects": 21,
+      "wallSeconds": 0.3478390830568969,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-002.tar.gz",
+      "sha256": "7e96f27b73ffc08b38c60a8f6dd690973f0fbb826f4ff2d776a4637b11cc18c8",
+      "compressedBytes": 3078654,
+      "uncompressedTarBytes": 53729280,
+      "uncompressedTarSha256": "4f590db05dbb707965aee9c54c40d4b153aeb900729660ac6be088af78fbaf2b",
+      "payloadBytes": 53717494,
+      "objects": 9,
+      "wallSeconds": 0.29533233307302,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-003.tar.gz",
+      "sha256": "daddc17bfd13fd4ec06a827e1f0a88db24b1beec065ea950f829d9f3b814b721",
+      "compressedBytes": 3117998,
+      "uncompressedTarBytes": 51456000,
+      "uncompressedTarSha256": "52c2e68a2525e67df9e5e045e190ef73a0fa7641b3fd14800000dcfb89da617f",
+      "payloadBytes": 51438328,
+      "objects": 20,
+      "wallSeconds": 0.2934670839458704,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-004.tar.gz",
+      "sha256": "980f81c3f7f65bfe3ede06d64cfbf123c8f0611e56e94c7379ea7a4b1bb2e382",
+      "compressedBytes": 3786947,
+      "uncompressedTarBytes": 55336960,
+      "uncompressedTarSha256": "ebef28240647218f57cb5daddd501f619b61ccb50abd879d72e2cb2c50bd7690",
+      "payloadBytes": 55310544,
+      "objects": 21,
+      "wallSeconds": 0.3190342499874532,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-005.tar.gz",
+      "sha256": "55482d2a34278ea0741997a31cce0c0f499419a7a07a1dbf07a4e551fe100dda",
+      "compressedBytes": 2801672,
+      "uncompressedTarBytes": 51302400,
+      "uncompressedTarSha256": "306bc0b332edd478ce2d29c2c45e1afa0fb1ca256433a439927d6dec3c6c856d",
+      "payloadBytes": 51277433,
+      "objects": 23,
+      "wallSeconds": 0.2763629578985274,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-006.tar.gz",
+      "sha256": "ca39df95d8a97aca077c7e3038bab78f22b55ed3ebc750a9f9bb5229f269d8a0",
+      "compressedBytes": 4863618,
+      "uncompressedTarBytes": 58941440,
+      "uncompressedTarSha256": "011db3e3f3badf11d52994254f0bb1c0e912dafb136986fa45ddc81f5a75b979",
+      "payloadBytes": 58916839,
+      "objects": 19,
+      "wallSeconds": 0.4089939999394119,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-007.tar.gz",
+      "sha256": "9e27dca6fb517e4d81852061838e54f8e3860a12094479a3215b19c4aae86a80",
+      "compressedBytes": 3191929,
+      "uncompressedTarBytes": 64983040,
+      "uncompressedTarSha256": "8ba1f66cbf684ee70d74b0ac6a7f3dcbba20027ce9d73ea00bb2a676d12a4a5d",
+      "payloadBytes": 64976033,
+      "objects": 1,
+      "wallSeconds": 0.3276390410028398,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-008.tar.gz",
+      "sha256": "9af5f63f8b4dff7bfaec43203fd980913a19d611dd3cb5b9a041a3341c1db189",
+      "compressedBytes": 15855227,
+      "uncompressedTarBytes": 52408320,
+      "uncompressedTarSha256": "b992266f9776a3b59fcbd637d596f5a7f9abc1494403744a4e8403d0b6362ecf",
+      "payloadBytes": 52367072,
+      "objects": 42,
+      "wallSeconds": 0.52370983408764,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-009.tar.gz",
+      "sha256": "ed270f7396d57052619e5e5dcdf94b6804639802aec419078dc30bf3e495ef92",
+      "compressedBytes": 3257353,
+      "uncompressedTarBytes": 67112960,
+      "uncompressedTarSha256": "6ee88825dade1e2450465fcd0c3e4b0e543b011a91dc849722deb32c24dc0fed",
+      "payloadBytes": 67108864,
+      "objects": 1,
+      "wallSeconds": 0.33386383298784494,
+      "verified": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/bytes-010.tar.gz",
+      "sha256": "eaa14ad380928fa95bc81528e218977c58e9aef3b26ca50ec95050e3192e87ff",
+      "compressedBytes": 3416140,
+      "uncompressedTarBytes": 41297920,
+      "uncompressedTarSha256": "49dec2f83ad75c3d7e22251ce15360715dbafc4e151708181a89660d6c038b84",
+      "payloadBytes": 41284110,
+      "objects": 11,
+      "wallSeconds": 0.2521657089237124,
+      "verified": true
+    }
+  ],
+  "totalCompressedBytes": 55685201,
+  "newLogicalPayloadBytes": 540288931,
+  "authoredBytes": 96607896,
+  "logicalBoundBytes": 636896827,
+  "compressedLimit": 1073741824,
+  "logicalLimit": 2147483648,
+  "perArchiveTarget": 94371840,
+  "ProductExecutions": 0,
+  "originalOwnerAcquisitions": 0
+}

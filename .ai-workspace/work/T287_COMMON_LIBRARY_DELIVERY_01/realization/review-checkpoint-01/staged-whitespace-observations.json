@@ -1,0 +1,3659 @@
+{
+  "rawCheckExitCode": 2,
+  "observations": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/c_call_outcome.ts.diff",
+      "line": 6,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/c_call_outcome.ts.diff",
+      "line": 196,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/c_call_outcome.ts.diff",
+      "line": 206,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/c_call_outcome.ts.diff",
+      "line": 206,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/ccall_lifecycle.ts.diff",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/event_calculus.ts.diff",
+      "line": 16,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/event_calculus.ts.diff",
+      "line": 21,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/event_calculus.ts.diff",
+      "line": 89,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/event_calculus.ts.diff",
+      "line": 161,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/leaf_invocation_port.ts.diff",
+      "line": 26,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 959,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 962,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 976,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 980,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1110,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2388,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 959,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 962,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 976,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 980,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1110,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2388,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-c0-post-publication-failure.test.mjs.diff",
+      "line": 6,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-c0-post-publication-failure.test.mjs.diff",
+      "line": 11,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-c0-post-publication-failure.test.mjs.diff",
+      "line": 20,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-c0-post-publication-failure.test.mjs.diff",
+      "line": 26,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/t287-native-work-currentness-consumers.test.mjs.diff",
+      "line": 11,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 959,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 962,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 976,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 980,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1110,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2388,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 959,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 962,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 976,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 980,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1110,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2388,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/typed-root.diff",
+      "line": 12,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/typed-root.diff",
+      "line": 12,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 959,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 962,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 976,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 980,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1110,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2388,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 959,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 962,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 976,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 980,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1110,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2388,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-04/commands/sunny-owner.stdout",
+      "line": 17,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-04/commands/sunny-owner.stdout",
+      "line": 21,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/commands/unavailable-owner.stdout",
+      "line": 17,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05/commands/unavailable-owner.stdout",
+      "line": 177,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/c_call_outcome.ts.diff",
+      "line": 19,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 959,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 962,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 976,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 980,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1110,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2388,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/t287-c0-post-publication-failure.test.mjs.diff",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md.diff",
+      "line": 20,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 959,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 962,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 976,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 980,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1110,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2388,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-metadata.mjs.diff",
+      "line": 5,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/verify-metadata.mjs.diff",
+      "line": 14,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/two-file.diff",
+      "line": 31,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/verifier.diff",
+      "line": 15,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/verifier.diff",
+      "line": 20,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff",
+      "line": 6,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff",
+      "line": 15,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff",
+      "line": 21,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff",
+      "line": 30,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff",
+      "line": 38,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff",
+      "line": 44,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff",
+      "line": 53,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff",
+      "line": 68,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/goals.diff",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/goals.diff",
+      "line": 9,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/goals.diff",
+      "line": 11,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/goals.diff",
+      "line": 61,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff",
+      "line": 22,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff",
+      "line": 52,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff",
+      "line": 56,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff",
+      "line": 58,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff",
+      "line": 69,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff",
+      "line": 100,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff",
+      "line": 102,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff",
+      "line": 166,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout",
+      "line": 34,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout",
+      "line": 41,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout",
+      "line": 85,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout",
+      "line": 89,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout",
+      "line": 104,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands/reopen18.stdout",
+      "line": 106,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/commands/reopen18.stdout",
+      "line": 35,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/commands/reopen18.stdout",
+      "line": 48,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff",
+      "line": 11,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff",
+      "line": 59,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff",
+      "line": 167,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff",
+      "line": 204,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff",
+      "line": 300,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff",
+      "line": 536,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/test.diff",
+      "line": 536,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/commands/native-workspace-physical-regression.stdout",
+      "line": 16,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/commands/native-workspace-physical-regression.stdout",
+      "line": 18,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/owned.diff",
+      "line": 24,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/owned.diff",
+      "line": 84,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/ACTIVATION.md",
+      "line": 197,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/ACTIVATION.md",
+      "line": 617,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/SPEC_METHOD.md",
+      "line": 1947,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/TICKETS.md",
+      "line": 320,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/ac-task-a.md",
+      "line": 1229,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/acceptance-release.md",
+      "line": 802,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/binding.md",
+      "line": 1272,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/bootstrap.md",
+      "line": 1095,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/configuration.md",
+      "line": 146,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/configuration.md",
+      "line": 312,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/configuration.md",
+      "line": 1747,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/dm-task-d.md",
+      "line": 1573,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/eb-task-d.md",
+      "line": 1544,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/member-build-assess.md",
+      "line": 927,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/rf-task-a.md",
+      "line": 1413,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/rf-task-b.md",
+      "line": 1314,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/stale-summary.md",
+      "line": 136,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/stale-summary.md",
+      "line": 1239,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/frames/traversal-task-f.md",
+      "line": 1578,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch",
+      "line": 6,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch",
+      "line": 116,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch",
+      "line": 163,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch",
+      "line": 257,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/owned-successor.patch",
+      "line": 326,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-case.log",
+      "line": 19,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-case.log",
+      "line": 22,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/baseline-repo/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current-case.log",
+      "line": 25,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current-case.log",
+      "line": 28,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/diagnostic-02/current/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/case.tap",
+      "line": 19,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/case.tap",
+      "line": 21,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 284,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 700,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 713,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 914,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 1191,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 1657,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 1808,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 1832,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 1850,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 1852,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/owned-final.patch",
+      "line": 1852,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/physical-http-03.tap",
+      "line": 18,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/physical-http-03.tap",
+      "line": 20,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/semantic-budget-01.tap",
+      "line": 22,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/semantic-budget-01.tap",
+      "line": 25,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/language-smoke-fixture.mjs.diff",
+      "line": 13,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/commands/test.stdout",
+      "line": 16,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/commands/test.stdout",
+      "line": 18,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/commands/test.stdout",
+      "line": 16,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/commands/test.stdout",
+      "line": 18,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/commands/test.stdout",
+      "line": 16,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/commands/test.stdout",
+      "line": 18,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch",
+      "line": 167,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch",
+      "line": 173,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch",
+      "line": 189,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch",
+      "line": 217,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch",
+      "line": 435,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch",
+      "line": 545,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch",
+      "line": 557,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch",
+      "line": 563,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/owned-successor.patch",
+      "line": 692,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 9,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 16,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 57,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 60,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 75,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 99,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 119,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 127,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 140,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 149,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 151,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 153,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 454,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 459,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 461,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 471,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 487,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 529,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 534,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/owned.diff",
+      "line": 540,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/execution-resolution.diff",
+      "line": 11,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/execution-resolution.diff",
+      "line": 24,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/source-delta.diff",
+      "line": 88,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/source-delta.diff",
+      "line": 238,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/source-delta.diff",
+      "line": 293,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/fixture.patch",
+      "line": 16,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-delta-from-original.diff",
+      "line": 88,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-delta-from-original.diff",
+      "line": 238,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-delta-from-original.diff",
+      "line": 298,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 952,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 955,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 969,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 973,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1103,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2381,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward_identity.ts",
+      "line": 18,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_identity.ts",
+      "line": 113,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 101,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md",
+      "line": 123,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 203,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 71,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md",
+      "line": 69,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 110,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 3,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md",
+      "line": 4,
+      "finding": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md",
+      "line": 50,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md",
+      "line": 62,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md",
+      "line": 52,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "line": 238,
+      "finding": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript/test_env/support/forward-observation-carrier.mjs",
+      "line": 48,
+      "finding": "new blank line at EOF."
+    }
+  ],
+  "distinctPaths": 440,
+  "kindCounts": {
+    "diff": 23,
+    "preimage": 1,
+    "other": 220,
+    "stage": 196
+  },
+  "outsideTaskWork": [],
+  "interpretation": "Observed whitespace findings in the full staged checkpoint; no disposition or content repair performed. Frozen predecessor/diff/source-copy bytes must remain unchanged pending Root classification."
+}

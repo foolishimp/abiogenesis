@@ -1,0 +1,11 @@
+{
+  "sourceFreezeSha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+  "stageInventorySha256": "eb41de1242486d6bcfe5cec7b902bd25092cc91ddda6dfe513448c6dbbd83d37",
+  "stageRows": 6642,
+  "allStageBytesModesLinksExact": true,
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "manifestSha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4",
+  "main936Exact": 936,
+  "selectedMainSourceAndTestExact": true,
+  "sourceEffects": []
+}

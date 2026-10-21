@@ -1,0 +1,45 @@
+{
+  "activation": "E03-PHYSICAL-LAUNCH-FAILURE-01",
+  "status": "passed",
+  "observation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/observation.json",
+    "bytes": 51637,
+    "sha256": "f265bd0c30730377512b3a48b6ee71a6220dbbbe97cce40df3e75a4c3f3e1f88"
+  },
+  "hostExitCode": 0,
+  "hostAbsence": {
+    "directPid": {
+      "state": "absent",
+      "errno": "ESRCH"
+    },
+    "processGroup": {
+      "state": "absent",
+      "errno": "ESRCH"
+    }
+  },
+  "completedCases": [
+    {
+      "case": "worker",
+      "status": "passed",
+      "observedEvents": 27,
+      "actualFile": "worker-actual.json"
+    },
+    {
+      "case": "command",
+      "status": "passed",
+      "observedEvents": 21,
+      "actualFile": "command-actual.json"
+    },
+    {
+      "case": "direct",
+      "status": "passed",
+      "observedEvents": 27,
+      "actualFile": "direct-actual.json"
+    }
+  ],
+  "noRetry": true,
+  "rootsRetained": [
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63",
+    "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63"
+  ]
+}

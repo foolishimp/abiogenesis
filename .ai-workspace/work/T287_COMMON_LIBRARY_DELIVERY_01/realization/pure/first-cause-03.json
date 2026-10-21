@@ -1,0 +1,38 @@
+{
+  "status": "STOPPED_RETURNED_TO_EXECUTIVE",
+  "created_utc": "2026-10-20T23:14:52.556998+00:00",
+  "command_receipt": "commands/03-stdo3-acquisition.json",
+  "first_failure": {
+    "kind": "physical_fixture_precondition",
+    "error": "EACCES",
+    "operation": "writeFile disposable copied source member for changed-member negative",
+    "test": "test_env/tests/t287-stdo3-run-environment.test.mjs:122",
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/t287-stdo3-9OTqwx/source/standards/EXECUTIVE_BASELINE.md"
+  },
+  "observed_source_member": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+    "mode": "0o444",
+    "bytes": 156797,
+    "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e"
+  },
+  "cause": "Fixture copyFile retained source file protection; fixture did not explicitly admit write mode for the selected disposable negative. Destination removed by test after-hook, so its post-failure mode was not directly inventoried. EACCES and source read-only mode support the physical-precondition explanation.",
+  "passed_before_failure": [
+    "isolated TypeScript compilation",
+    "standalone constructor test",
+    "explicit corpus constructor join test",
+    "actual Product observeRunEnvironment positive",
+    "co-located unselected-file conservation",
+    "crossed permission refusal",
+    "non-null Python refusal",
+    "changed declared span refusal"
+  ],
+  "not_executed": [
+    "changed physical member assertion",
+    "missing physical member assertion",
+    "final positive reacquisition",
+    "remaining focused files",
+    "native provider",
+    "installed P1-P5"
+  ],
+  "stop": "No patch or retry before Executive disposition. Proposal: explicitly chmod only copied disposable members 0600 during fixture construction, re-freeze exact owned tests, rerun affected local acquisition."
+}

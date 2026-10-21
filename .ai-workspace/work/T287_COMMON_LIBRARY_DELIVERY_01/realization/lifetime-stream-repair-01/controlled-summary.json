@@ -1,0 +1,80 @@
+[
+  {
+    "case": 1,
+    "name": "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+    "exitCode": 0,
+    "receiptSha256": "48eda6aac74d78faedba204760ffe91959c98c13855d7d9ecd8d64f0d523f973"
+  },
+  {
+    "case": 2,
+    "name": "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+    "exitCode": 0,
+    "receiptSha256": "d092070ba7b98ac93875ac8cbc8cecb35fa8afa180c450c62d3ef8b5df20ce20"
+  },
+  {
+    "case": 3,
+    "name": "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+    "exitCode": 0,
+    "receiptSha256": "6cfd15e1b23bcd65059d22f350eee4558a61d76545ae6ada16a4cbb0e0dd705b"
+  },
+  {
+    "case": 4,
+    "name": "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+    "exitCode": 0,
+    "receiptSha256": "177dc4e3da2cd2a1a54550308fa1579a90632d0b3d5955cc048c920d2e2daaac"
+  },
+  {
+    "case": 5,
+    "name": "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+    "exitCode": 0,
+    "receiptSha256": "c8f936fc37ee2e2c56cb73a60e3358795a60e784aad244f81833a129e4ba88ca"
+  },
+  {
+    "case": 6,
+    "name": "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+    "exitCode": 0,
+    "receiptSha256": "756ae91e8b4d8c5ba3b23e769bde53b14fcfa8cc32f476bbe791a1e0a4d60293"
+  },
+  {
+    "case": 7,
+    "name": "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+    "exitCode": 0,
+    "receiptSha256": "0454970da891c6ce39d9e6a80d4b29dc57220fdd9cca5f2613be719acce9dce7"
+  },
+  {
+    "case": 8,
+    "name": "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+    "exitCode": 0,
+    "receiptSha256": "9d8ada6bfbf06545d9aff551b21419639f79f18a762abd782076726b67183943"
+  },
+  {
+    "case": 9,
+    "name": "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+    "exitCode": 0,
+    "receiptSha256": "9b3aa3cbac80097c2cf5e8317c92cf5970e46a4367166f8cbebee56f602cb94b"
+  },
+  {
+    "case": 10,
+    "name": "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+    "exitCode": 0,
+    "receiptSha256": "e2359a3c69a5849ffe367812cb9ba779254d8fecf7cc97886a917f7d9339df8b"
+  },
+  {
+    "case": 11,
+    "name": "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+    "exitCode": 0,
+    "receiptSha256": "6cf862e5af5681807251bdee0b27f38e3d7a74ab9e3a3fbd896cb5a18d5ccb35"
+  },
+  {
+    "case": 12,
+    "name": "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+    "exitCode": 0,
+    "receiptSha256": "44fe384915aa73c57a38b0bde42bcb4f9aec53b16c5d5b398ed061b80923f845"
+  },
+  {
+    "case": 16,
+    "name": "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+    "exitCode": 0,
+    "receiptSha256": "c20105800539ead5c513433bb8ab597e2c0d85d30856402c060c953c52e5fffa"
+  }
+]

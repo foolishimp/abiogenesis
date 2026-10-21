@@ -1,0 +1,65 @@
+{
+  "verified": true,
+  "links": [
+    {
+      "document": "README.md",
+      "link": "../../../../../build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+    },
+    {
+      "document": "README.md",
+      "link": "HOW.md"
+    },
+    {
+      "document": "README.md",
+      "link": "HOW-successor-02.md"
+    },
+    {
+      "document": "README.md",
+      "link": "whitelist-02.json"
+    },
+    {
+      "document": "README.md",
+      "link": "source-pins-02.json"
+    },
+    {
+      "document": "README.md",
+      "link": "native-source-mappings-02.json"
+    },
+    {
+      "document": "README.md",
+      "link": "original-metadata-02.json"
+    },
+    {
+      "document": "README.md",
+      "link": "package-member-inventory-02.json"
+    },
+    {
+      "document": "README.md",
+      "link": "archives-02.json"
+    },
+    {
+      "document": "README.md",
+      "link": "STOP.json"
+    },
+    {
+      "document": "README.md",
+      "link": "failed-discovery-command.py"
+    },
+    {
+      "document": "README.md",
+      "link": "failed-discovery-traceback.txt"
+    },
+    {
+      "document": "README.md",
+      "link": "stopped-freeze.json"
+    },
+    {
+      "document": "README.md",
+      "link": "explicit-exclusions-02.json"
+    },
+    {
+      "document": "report-02.md",
+      "link": "README.md"
+    }
+  ]
+}

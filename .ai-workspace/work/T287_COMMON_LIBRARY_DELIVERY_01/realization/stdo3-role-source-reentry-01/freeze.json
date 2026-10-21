@@ -1,0 +1,63 @@
+{
+  "status": "candidate_ready; proposed design_reframe, not accepted",
+  "frozenUtc": "2026-10-21T09:07:16.299428+00:00",
+  "writer": "/root/stdo3_role_source_writer",
+  "returnTo": "/root",
+  "root": "repo://abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/",
+  "files": [
+    {
+      "path": "HOW-proposal.md",
+      "sha256": "3f163754f48d72a2b8577c5c425951f8fa0ff5b9cd80da0d4042ad6084179c78",
+      "byteCount": 17119
+    },
+    {
+      "path": "input-evidence/manifest.json",
+      "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+      "byteCount": 13478
+    },
+    {
+      "path": "input-evidence/provenance.json",
+      "sha256": "7ff6f04c964989ea9c153bb9944b6e511ae8e56a57b5d8cf9377a7f8518f074a",
+      "byteCount": 1395
+    },
+    {
+      "path": "input-evidence/standards/ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "byteCount": 87324
+    },
+    {
+      "path": "input-evidence/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "byteCount": 156797
+    },
+    {
+      "path": "preflight.json",
+      "sha256": "097a78b24eb6079cba67a3a0fc9d11e0fadd57c9bc9bd3dea84881c7fef7ea41",
+      "byteCount": 9404
+    },
+    {
+      "path": "readiness.md",
+      "sha256": "8f7371bd220cf5bb83226ec119ba72b21efb2ca8713f7fceff9b8fe3a49bb4d4",
+      "byteCount": 2473
+    },
+    {
+      "path": "source-map.json",
+      "sha256": "a51365e6a46cc73cb4985b2ee373442827b648b533bc9d89f6ddfa0b48fd1406",
+      "byteCount": 7351
+    }
+  ],
+  "repoPreflightRecheck": {
+    "checked": 33,
+    "unchanged": 32,
+    "concurrentDrift": [
+      {
+        "path": "specification/GOALS.md",
+        "preflightSha256": "4cb7c8da7c8cf7204c80fdcc8631c48f22c4c395c8726eb0ccf16e1a6065b2b5",
+        "currentSha256": "3145e64971cd2a0bbdd48e1dba8422e4b4ecd44a15177a53404d414e37b46c6d"
+      }
+    ]
+  },
+  "verification": "record-only exact hashes, source membership and span checks; no build/test/native execution",
+  "nextDecision": "targeted independent assessment of D1-D3; Executive disposition before implementation",
+  "stop": true
+}

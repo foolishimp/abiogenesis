@@ -1,0 +1,47 @@
+{
+  "source": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/evidence/result.json",
+    "sha256": "fb9f5208b6cc3396ddeee320a9e89eb3ef7e365f18dddd2cd8c8bcfe0e731aea",
+    "bytes": 1964,
+    "mode": "0o644"
+  },
+  "start": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/evidence/start.json",
+    "sha256": "6a30b43be007648dbcf347859c43425635f39424997cf9b89dfddefacaf2dacc",
+    "bytes": 28078097,
+    "mode": "0o644"
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:1f2bd29c5f1a68fb766ddbeaf39af8d8dcf81798210a8edd8fb953f2ce71e5a3",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/scratchParent/abi5-root-env-xQOwSx/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:b9324852942af8a96e9a7eadb6e090316d54e5d5ce89920be5e7dcf48cec93df",
+      "prefixLength": 3217551,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 474799364
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:dd14ff632b41ccdc0c1839147f7dcf63acf1ddef76903c1b5a2354ab9e667cf9",
+      "device": 16777231,
+      "durableByteLength": 3217551,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:b9324852942af8a96e9a7eadb6e090316d54e5d5ce89920be5e7dcf48cec93df",
+      "eventLogPath": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/scratchParent/abi5-root-env-xQOwSx/runtime/events.jsonl",
+      "inode": 474799364,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "capturedEvents": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/evidence/events.jsonl",
+    "sha256": "b9324852942af8a96e9a7eadb6e090316d54e5d5ce89920be5e7dcf48cec93df",
+    "bytes": 3217551,
+    "mode": "0o644"
+  },
+  "relation": "Exact actual P3 result/start handoff and retained event bytes; no P1 prefix assumption or coordinate substitution."
+}

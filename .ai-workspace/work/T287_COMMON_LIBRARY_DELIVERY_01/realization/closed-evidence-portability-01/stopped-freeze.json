@@ -1,0 +1,12 @@
+{
+  "kind": "stopped_portability_freeze",
+  "activation": "CLOSED-EVIDENCE-PORTABILITY-01",
+  "construction_result": "re_entry_requested",
+  "return_owner": "/root",
+  "manifest_sha256": "402de0d0d0fac4cde279360041f3843435b7d2553bf68ad3aa4dbc7d7b2bb2a6",
+  "STOP_sha256": "8cd26bf398c6b1f4d722de940bace980bde69d45498e444b4bcf998dd0173e68",
+  "archive_count": 0,
+  "original_effects": 0,
+  "acceptance": false,
+  "stopped_editing": true
+}

@@ -1,0 +1,37 @@
+{
+  "kind": "t287_passive_diagnostic_effect_grant",
+  "status": "granted",
+  "issuedBy": "/root",
+  "activation": "FINAL-CANDIDATE-DIAGNOSTICS-01",
+  "configurationSha256": "7722fc632f387266bc69a328803900adb51649dca4b157a92ac75a509d7c86cd",
+  "launcherSha256": "1ee5db3e8640b1c2cd5e4acab4249d710f61415c42fa00ca40a12595674792fa",
+  "nativeCalls": 0,
+  "diagnosticRoot": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/diagnostic",
+  "runtimeRoots": {
+    "evidence": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/evidence",
+    "host": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/host",
+    "scratchParent": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent",
+    "worksite": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/worksite"
+  },
+  "cache": {
+    "root": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/caches/p3",
+    "seed": {
+      "kind": "explicit_empty_seed",
+      "files": []
+    },
+    "closure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/archive-closure.json",
+      "sha256": "d0b211d48703e9fd14160e91e8beaa004779cdba5c64f5de5d5923287ec4e587",
+      "bytes": 15160,
+      "mode": "0o644"
+    },
+    "globalCacheRead": false,
+    "globalCacheWrite": false,
+    "networkFallback": false,
+    "effects": "offline npm content/index/tmp/log writes only",
+    "retain": true
+  },
+  "retryCount": 0,
+  "cleanup": false,
+  "stop": "First actual failure returns to Root before next lane or repair"
+}

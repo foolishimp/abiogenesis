@@ -1,0 +1,274 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-CLI-BASIC",
+  "taskRef": "task://abiogenesis-sandbox-uat/basic-cli/original",
+  "task": "Implement the COMPLETE unchanged selected original test workload below. It is ABG-owned test data outside the Product package. Preserve all original outcomes and unresolved source obligations. Use only the installed generic lifecycle. The adaptation notes govern interpretation of legacy mechanisms, not weakening of original application outcomes.\n\n  sdlcComplianceScenario({\n    key: \"basic-cli\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-CLI-BASIC\",\n    kind: \"node_cli\",\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare a minimal CLI Hello World software-build traversal.\",\n          \"The source surface must be generated/hello-world.mjs.\",\n          \"The execution proof must run the CLI and observe stdout exactly \\\"Hello, world!\\\\n\\\".\",\n          \"Do not write source, tests, package files, or execution plans in this vector.\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Use the prior conformance_project artifact as authority.\",\n          \"Define a minimal Node CLI script at generated/hello-world.mjs.\",\n          \"The script must print exactly \\\"Hello, world!\\\" followed by one newline.\",\n          \"Name component and UAT test source surfaces that execute the CLI and assert stdout.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"generated/hello-world.mjs\"],\n        instructions: [\n          \"Write only generated/hello-world.mjs.\",\n          \"The script must execute under node without package installation.\",\n          \"It must write exactly \\\"Hello, world!\\\\n\\\" to stdout.\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Specify component and UAT validation of the CLI stdout contract.\",\n          \"Both tests must spawn node generated/hello-world.mjs and assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/hello-cli.test.mjs\"],\n        instructions: [\n          \"Write only test/component/hello-cli.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/hello-cli.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/hello-cli.uat.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert the user-visible CLI output is exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        workerExecutes: true,\n        filesToProduce: [\"test-execution-plan.json\", \"test-execution-result.json\"],\n        instructions: [\n          \"Write test-execution-plan.json and test-execution-result.json only.\",\n          \"The JSON command must be node.\",\n          \"The args must be [\\\"--test\\\", \\\"test/component/hello-cli.test.mjs\\\", \\\"test/uat/hello-cli.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\",\n          \"EXECUTION-DEFAULT LAW: run node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs yourself inside this turn; the framework executes nothing.\",\n          \"Record the truthful observed command, args, integer status, stdout, stderr, expectedTestPassCount, expectedStdoutMatch, assertedReturnValue, cwd, and env in test-execution-result.json.\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Accept only if the execution plan command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\"\n        ]\n      }\n    ]\n  }),\n\nINTERPRETATION\n{\n  \"runtimeAuthority\": \"Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.\",\n  \"executionEvidence\": \"Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.\",\n  \"sourcePreservation\": \"Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.\",\n  \"legacyTraversal\": \"The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.\"\n}",
+  "sourceMembers": [
+    {
+      "path": "source/basic-cli/source.original.txt",
+      "fixtureFile": "basic-cli/source.original.txt",
+      "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+    },
+    {
+      "path": "source/basic-cli/obligations.json",
+      "fixtureFile": "basic-cli/obligations.json",
+      "digest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+    },
+    {
+      "path": "source/basic-cli/oracle.json",
+      "fixtureFile": "basic-cli/oracle.json",
+      "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+    }
+  ],
+  "requiredSupportRefs": [
+    "support://abiogenesis-sandbox-uat/basic-cli/complete-original-outcome"
+  ],
+  "authorityRefs": [
+    "authority://abiogenesis-sandbox-uat/basic-cli/test-workload"
+  ],
+  "readRoots": [
+    "source/basic-cli/source.original.txt",
+    "source/basic-cli/obligations.json",
+    "source/basic-cli/oracle.json",
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "generated/hello-world.mjs",
+    "design/test-design.md",
+    "test/component/hello-cli.test.mjs",
+    "test/uat/hello-cli.uat.test.mjs",
+    "test-execution-plan.json"
+  ],
+  "maxContextFiles": 256,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "workOrders": {
+    "induction": {
+      "outcome": "Establish and preserve the complete original outcome, source obligations and unresolved meaning.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report."
+      ],
+      "readFirst": [
+        "source/basic-cli/source.original.txt",
+        "source/basic-cli/obligations.json",
+        "source/basic-cli/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "generated/hello-world.mjs",
+        "design/test-design.md",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "specification": {
+      "outcome": "Author every source-grounded governing, requirement, UAT and qualification surface required by the original source.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report."
+      ],
+      "readFirst": [
+        "source/basic-cli/source.original.txt",
+        "source/basic-cli/obligations.json",
+        "source/basic-cli/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "generated/hello-world.mjs",
+        "design/test-design.md",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "design": {
+      "outcome": "Author the complete source-grounded design and genuine executable proof plan, retaining all original dependencies.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report."
+      ],
+      "readFirst": [
+        "source/basic-cli/source.original.txt",
+        "source/basic-cli/obligations.json",
+        "source/basic-cli/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "generated/hello-world.mjs",
+        "design/test-design.md",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "construction": {
+      "outcome": "Construct the missing original application/test/lifecycle assets and repair observed failures without weakening any obligation.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report."
+      ],
+      "readFirst": [
+        "source/basic-cli/source.original.txt",
+        "source/basic-cli/obligations.json",
+        "source/basic-cli/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "generated/hello-world.mjs",
+        "design/test-design.md",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "testing": {
+      "outcome": "Execute the exact original proof commands against the real application. Preserve native observations, failing evidence, authentic depth and mutation evidence where required.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report."
+      ],
+      "readFirst": [
+        "source/basic-cli/source.original.txt",
+        "source/basic-cli/obligations.json",
+        "source/basic-cli/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "node generated/hello-world.mjs",
+        "node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs"
+      ]
+    },
+    "uat": {
+      "outcome": "Independently assess the full original source against every oracle obligation and actual admitted execution evidence. Preserve unmet and indeterminate outcomes.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report."
+      ],
+      "readFirst": [
+        "source/basic-cli/source.original.txt",
+        "source/basic-cli/obligations.json",
+        "source/basic-cli/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report."
+      ]
+    }
+  },
+  "testing": {
+    "selectedPaths": [
+      "specification/project-conformance.md",
+      "design/implementation-design.md",
+      "generated/hello-world.mjs",
+      "design/test-design.md",
+      "test/component/hello-cli.test.mjs",
+      "test/uat/hello-cli.uat.test.mjs",
+      "test-execution-plan.json",
+      "source/basic-cli/source.original.txt",
+      "source/basic-cli/obligations.json",
+      "source/basic-cli/oracle.json"
+    ],
+    "commands": [
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/basic-cli/cli",
+        "executable": "node",
+        "args": [
+          "generated/hello-world.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 60000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/basic-cli/tests",
+        "executable": "node",
+        "args": [
+          "--test",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 120000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/basic-cli/cli-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/basic-cli/cli",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/basic-cli/tests-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/basic-cli/tests",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/basic-cli/test-count",
+        "predicateKind": "test_pass_count",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/basic-cli/tests",
+          "greaterThanOrEqual": 2
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/basic-cli/stdout",
+        "predicateKind": "stdout_exact",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/basic-cli/cli",
+          "equals": "Hello, world!\n"
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "pathKind": "subtree",
+        "relativePath": "execution-evidence"
+      }
+    ]
+  },
+  "assessment": {
+    "sources": [
+      "source/basic-cli/source.original.txt",
+      "source/basic-cli/obligations.json"
+    ],
+    "candidatePath": "generated/hello-world.mjs",
+    "rubricPath": "source/basic-cli/oracle.json"
+  },
+  "legacyInterpretation": {
+    "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+    "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+    "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+    "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+  }
+}

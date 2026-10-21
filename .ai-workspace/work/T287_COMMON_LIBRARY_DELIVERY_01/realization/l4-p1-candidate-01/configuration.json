@@ -1,0 +1,104 @@
+{
+  "kind": "t287_installed_proof_configuration",
+  "status": "activated",
+  "activationFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-candidate-01/effect-grant.json",
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "retryCount": 0,
+  "cleanup": false,
+  "subject": {
+    "id": "candidate",
+    "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "18d80743d9b431445ce50d2acf47971554e1cce6ce14057175da8aa32c901f4e"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "2935813eaa6a49d2fec0139fa240a36132801efbfab353a4c467ec4005c9b142"
+    },
+    "packageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/package-inventory.json",
+      "sha256": "4c916ae8c0e44f195be0ac03b9005a5028752cbcfd3d668a1d72fd94177e64d3"
+    },
+    "supportManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/candidate-support-manifest.json",
+      "sha256": "b91dde527670e8fc01301af747298e3aba961a153d9e29e410a07732d9836474"
+    },
+    "inventories": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/execution-source-manifest.json",
+        "sha256": "39b1b42132c9fd547ecd0545be19284f89ebaab1eee748f1ab0f93f9966261db",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/generated-inventory.json",
+        "sha256": "e3830c658396c730882e7b14e08f8ce363209310f7b4c1998e86c7d83cab353f",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/dependency-inventory.json",
+        "sha256": "78d16a09d6660d104a5799f25833c82117926477aa671d6024f2a1c96e371341",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/stage/build_tenants/abiogenesis/typescript"
+      }
+    ]
+  },
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "path": "/opt/homebrew/bin/npm",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "typescript": {
+      "version": "5.9.2",
+      "lockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    }
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "requiredEvidence": [],
+  "provider": {
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.303",
+    "sha256": "d2da3b003dc08b88b7230469014fe3e1dc6fe94bc8f648e89b34175d30269370",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "inactivityTimeoutMs": 120000,
+    "absoluteTimeoutMs": 600000,
+    "terminationGraceMs": 1000
+  },
+  "sourceRoot": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1",
+  "sourceManifest": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/manifest.json",
+    "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+  },
+  "lanes": {
+    "public-preparation": {
+      "runId": "t287-candidate-p1-cb3836ff7660492d",
+      "roots": {
+        "evidence": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence",
+        "host": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/host",
+        "scratchParent": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/worksite"
+      }
+    }
+  },
+  "externalConsumer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/external-consumer.mts",
+    "sha256": "6821ee75b2e9392246dcf121940f9c953dad19984756bd964164e40ee4487ce7"
+  }
+}

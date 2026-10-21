@@ -1,0 +1,4 @@
+{
+  "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+  "uri": "stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md"
+}

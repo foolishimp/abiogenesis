@@ -1,0 +1,28 @@
+{
+  "activation": "CLOSED-EVIDENCE-PORTABILITY-01",
+  "kind": "stopped_administrative_discovery",
+  "at": "2026-10-21T03:33:54.939671+00:00",
+  "first_cause": "Reader assumed rootFootprints on each retained-resource-inventory.json; l4-p3-baseline-01 did not provide this key.",
+  "exec_chunk": "c016fe",
+  "exit_code": 1,
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "command": "python3 - <<'PY'\nimport json,pathlib,collections\nw=pathlib.Path('.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization')\nfor name in ['u1-c0-physical-currentness-01','u1-c0-physical-currentness-successor-02']:\n p=w/name\n for n in ['stage-execution-freeze.json','source-inputs.json','focused-01.json' if name.endswith('-01') else 'focused-02.json']:\n  o=json.loads((p/n).read_text());print(name,n,'KEYS',list(o) if isinstance(o,dict) else 'list'+str(len(o)));print(str(o)[:1500])\nfor name in ['lifetime-stream-repair-01','e04-retained-owner-execution-01']:\n p=w/name\n for n in (['stage-post-generation-inventory.json','emitted-inventory.json','case-results.json','physical-summary.json'] if name.startswith('lifetime') else ['scratch-retained.json','evidence-archive.json']):\n  o=json.loads((p/n).read_text());print(name,n,str(o)[:2000])\nfor name in ['l4-p1-baseline-01','l4-p1-candidate-01','l4-p3-baseline-01','l4-p3-baseline-successor-01']:\n p=w/name;o=json.loads((p/'configuration.json').read_text());print('\\nCONFIG',name,'subject',o['subject']);print('env',o['environment']);print('lanes',o['lanes'])\n inv=json.loads((p/'retained-resource-inventory.json').read_text());groups=collections.defaultdict(lambda:[0,0]);\n for f in inv['files']:\n  s=f['path']; root=next((x for x in inv['rootFootprints'] if s.startswith(x['root']+'/')),None)\n  rel=s[len(root['root'])+1:] if root else s\n  label=(root['rootLabel'] if root else '?')+'/'+('/'.join(rel.split('/')[:2]));groups[label][0]+=1;groups[label][1]+=f.get('bytes',0)\n print('GROUPS',dict(groups)); print('PREFIX',inv.get('immutablePrefixCopy')); print('LIVE',inv.get('liveEventStore'))\nPY",
+  "shell": "zsh",
+  "environment": "inherited tool environment; no task overrides; no environment/account secrets acquired",
+  "original_transcript": "public functions.exec / exec_command result chunk c016fe; full stdout was not saved and tool result was truncated; no raw transcript hash claimed",
+  "actual_prefix": "C0 inventories and receipt metadata, E03 stage/case metadata, E04 scratch/archive metadata, baseline P1/candidate P1 inventory summaries, failed P3 configuration printed; exception at first failed-P3 files iteration; successor P3 loop not reached. A separate subsequent read-only method/receipt/scratch read in the same functions call completed, chunk 239057; no correction/retry occurred.",
+  "effects": {
+    "new_carrier_records_only": true,
+    "archive_files": 0,
+    "physical_evidence_copy": 0,
+    "original_mutation": 0,
+    "Product_execution": 0,
+    "Git_mutation": 0,
+    "continuation17_opened": false
+  },
+  "stopped": true,
+  "return_owner": "/root",
+  "missing_source_observed": false,
+  "changed_frozen_source_observed": false,
+  "triage_required": "Executive authorization of bounded reader-shape successor after reacquiring exact failed-P3 inventory schema. No Product defect inferred."
+}

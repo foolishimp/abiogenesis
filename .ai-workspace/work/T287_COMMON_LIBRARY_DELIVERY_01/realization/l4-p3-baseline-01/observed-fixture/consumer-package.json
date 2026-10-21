@@ -1,0 +1,1 @@
+{"name":"abiogenesis-installed-product-consumer","private":true,"type":"module","version":"0.0.0","dependencies":{"@abi5-tests/language-fixtures":"file:../language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz"}}

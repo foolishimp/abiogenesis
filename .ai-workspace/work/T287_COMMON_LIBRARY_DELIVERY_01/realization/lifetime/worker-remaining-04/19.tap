@@ -1,0 +1,10 @@
+✔ M5 a finite native wakeup above the host timer domain does not fire before its owner deadline (132.639125ms)
+ℹ Controlled owner wakeup value with a real local process; no native provider or admitted native threshold claim.
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 416.958834

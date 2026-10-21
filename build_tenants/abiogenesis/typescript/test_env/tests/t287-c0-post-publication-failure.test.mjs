@@ -7,12 +7,18 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { gzipSync } from "node:zlib";
 import test from "node:test";
 
-import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
+import { setupInstalledRootExecutionBasis, publicOperationBasis, requirePublicationValidations, rawProgramInput } from "../support/root-installed-environment.mjs";
 import { proveFreshProcessRuntimeProjectionEquality } from "../support/fresh-process-runtime-proof.mjs";
+import { constructD2FrameDeclarations, nativePublications } from "../support/d2-frame-fixture.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const eventTime = "2026-09-07T04:00:00.000Z";
 const proofRoot = process.env.ABG_C0_PROOF_ROOT;
+const potentialProof = process.env.ABG_C0_POTENTIAL_PROOF === "1";
+const immutableCopy = value => {
+  const visit = item => { if (item !== null && typeof item === "object") { for (const child of Object.values(item)) visit(child); Object.freeze(item); } return item; };
+  return visit(structuredClone(value));
+};
 
 async function inventory(product, directory) {
   const rows = [];
@@ -154,13 +160,256 @@ function installFaults(env, targetPath, modes, label) {
   } };
 }
 
+// A second actual binding/invocation/basis uses the same installed owner and
+// physical root. It is never a fixture-authored evidence or Result admission.
+async function secondBoundObservation(context, env, label) {
+  const { product, abg, store } = env;
+  const manifest = { workspaceId: env.workspaceAuthority.workspaceId, canonicalRoot: env.workspaceAuthority.canonicalRoot,
+    authorityMode: env.workspaceAuthority.authorityMode, authorizedActorRef: env.workspaceAuthority.authorizedActorRef };
+  const workspaceAuthority = product.constructWorkspaceAuthorityBasis({ ...manifest,
+    authorityManifestRef: `manifest://c0-potential/${label}`, authorityManifestDigest: product.sha256Canonical(manifest) });
+  const candidate = product.constructWorkspaceBinding(workspaceAuthority, env.productSet, env.lock, env.workspaceBinding.roots);
+  const receipt = abg.admitWorkspaceBinding(store, candidate, { ...publicOperationBasis(product, "abg.operation.workspace.bind",
+    candidate.bindingId, candidate.bindingDigest, `invocation://c0-potential/${label}/bind`, env.admittedInstalls.map(row => row.admissionEventRef)),
+    predecessorPrefix: abg.selectHeldEventStoreDurablePrefix(store) }, workspaceAuthority);
+  assert.equal(receipt.kind, "artifact_owner_result", JSON.stringify(receipt));
+  const catalog = product.admitGraphFunctionCatalog({ workspaceBinding: candidate, resolvedLock: env.lock,
+    verifiedProducts: env.verifiedProducts, installedProducts: env.catalogInstalledProducts, publications: env.publications });
+  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+  const catalogView = product.narrowGraphFunctionCatalog(catalog, [env.graphFunction.name]);
+  assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
+  const environment = { ...env, workspaceAuthority, workspaceBinding: receipt.value, bindingCandidate: candidate, catalog, catalogView,
+    artifactTruth: receipt.artifactTruth, durablePrefix: receipt.successorPrefix };
+  const next = await setupInstalledRootExecutionBasis(context, root, { existingEnvironment: environment,
+    candidateBasisSource: "packed_artifact", rootPublicationKind: "worksite_c0", publicInvocationRef: `invocation://c0-potential/${label}/invoke`,
+    programRef: env.program.programRef, graphFunctionRef: env.graphFunction.name, inputContractRef: env.graphFunction.inputs[0],
+    inputFactory: async ({ workspaceBinding, capabilityGrant }) => {
+      const coordinates = { workspaceAuthorityBasis: workspaceAuthority, workspaceBinding };
+      const subject = product.constructWorksiteSubject({ ...coordinates, subjectUri: env.input.subject.subjectUri, relativePath: env.input.subject.relativePath });
+      const territory = product.constructWorksiteTerritory({ ...coordinates, territoryUri: env.input.territory.territoryUri, relativeRoot: env.input.territory.relativeRoot });
+      const predecessorObservation = await product.observeWorksiteSubject(workspaceAuthority, workspaceBinding, subject);
+      assert.equal(predecessorObservation.kind, "worksite_observation", JSON.stringify(predecessorObservation));
+      const request = product.constructWorksiteFileReplaceRequest({ ...coordinates, capabilityGrant, subject, territory,
+        predecessorObservation, replacementBytes: Buffer.from(env.input.replacementBytes, "base64") });
+      assert.equal(request.kind, "worksite_file_replace_request", JSON.stringify(request)); return request;
+    },
+  });
+  assert.notEqual(next.workspaceBinding.bindingId, env.workspaceBinding.bindingId);
+  assert.notEqual(next.input.predecessorObservation.observationRef, env.input.predecessorObservation.observationRef);
+  assert.notDeepEqual(next.workspaceAuthority, env.workspaceAuthority);
+  assert.equal(next.workspaceAuthority.canonicalRoot, env.workspaceAuthority.canonicalRoot);
+  return next;
+}
+
+// Source/handoff semantics are supplied Product constructor premises. The
+// semantic invocation and basis below use the ordinary installed owners and are
+// never dispatched; no F_P actor, fabricated Result, or generic event append.
+async function retainedInputOrigin(context, primary, alias, label) {
+  const { product, gtl, validator } = alias;
+  const load = name => import(pathToFileURL(join(alias.installedRoot, "build/code/src/product", name + ".js")).href);
+  const requirement = await load("requirement_handoff"), semanticProduct = await load("semantic_stage");
+  const manifest = JSON.parse(await fsPromises.readFile(join(alias.installedRoot, "product-toolchain-manifest.json"), "utf8"));
+  const abiArtifact = { ...manifest, artifactDigest: await product.sha256File(alias.artifactPath), manifestDigest: product.sha256Canonical(manifest) };
+  const fixture = constructD2FrameDeclarations({ product, gtl, abiArtifact,
+    abiPublications: nativePublications(gtl, abiArtifact) });
+  const zero = `sha256:${"0".repeat(64)}`;
+  const coordinate = { publicationDigest: zero, declarationDigest: product.sha256Canonical(fixture.source.declaration),
+    executionBasisRef: "fixture://c0-potential/source-basis", executionBasisDigest: zero,
+    programRef: "fixture://c0-potential/source-program", programDigest: zero,
+    graphFunctionRef: "fixture://c0-potential/source-graph", graphFunctionDigest: zero,
+    cCallRef: "fixture://c0-potential/source-call", cCallDigest: zero,
+    implementationResolutionRef: "fixture://c0-potential/source-implementation", implementationResolutionDigest: zero,
+    predecessorPrefixDigest: zero, predecessorEventCount: 1, inputDigest: product.sha256Canonical(fixture.source.input) };
+  const sourceHandoff = requirement.deriveRequirementHandoffCandidate(fixture.source.input, fixture.source.declaration, coordinate);
+  assert.ok(sourceHandoff);
+  const publication = alias.publications.find(value => value.moduleRef === gtl.SEMANTIC_STAGE_IDS.moduleRef);
+  const [{ publicationAdmission, publicationValidation }] = requirePublicationValidations(validator, [publication]);
+  const programValidation = validator.validateProgram(rawProgramInput(validator, publicationAdmission,
+    publication.programs.find(value => value.programRef === gtl.SEMANTIC_STAGE_IDS.programRef)));
+  assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
+  const catalogView = product.narrowGraphFunctionCatalog(alias.catalog, [gtl.SEMANTIC_STAGE_IDS.graphFunctionRef]);
+  assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
+  let worksite;
+  const held = alias.abg.selectHeldEventStoreDurablePrefix(alias.store);
+  const current = alias.abg.projectExactPrefixWorkspaceEnvironment(held, {
+    ref: alias.workspaceBinding.bindingId,
+    digest: alias.workspaceBinding.bindingDigest,
+  });
+  assert.equal(current.kind, "exact_prefix_workspace_environment");
+  assert.deepEqual(current.workspaceBinding, alias.workspaceBinding);
+  const semantic = await setupInstalledRootExecutionBasis(context, root, {
+    existingEnvironment: { ...alias, artifactTruth: current.artifactTruth, durablePrefix: held,
+      publication, publicationAdmission, publicationValidation, programValidation, catalogView },
+    programRef: gtl.SEMANTIC_STAGE_IDS.programRef, graphFunctionRef: gtl.SEMANTIC_STAGE_IDS.graphFunctionRef,
+    inputContractRef: gtl.SEMANTIC_STAGE_IDS.envelopeContractRef, publicInvocationRef: `invocation://c0-potential/${label}/semantic-input`,
+    inputFactory: async ({ capabilityGrant }) => {
+      const { subject, territory, predecessorObservation } = alias.input;
+      const task = product.constructWorksiteConstructionTask({ workspaceAuthorityBasis: alias.workspaceAuthority,
+        workspaceBinding: alias.workspaceBinding, capabilityGrant, targets: [{ subject, territory, predecessorObservation }],
+        prompt: "Pure target constructor for retained input origin; no construction dispatched" });
+      worksite = { workspaceAuthorityBasis: alias.workspaceAuthority, workspaceBinding: alias.workspaceBinding, capabilityGrant,
+        targets: [{ target: task.targets[0], base64: Buffer.from("original\n").toString("base64"), role: "implementation" }],
+        commands: [], outcomePredicates: [], allowedWriteTerritories: [] };
+      assert.equal(semanticProduct.isSemanticWorksiteBasis(worksite), true);
+      return product.constructSemanticStageEnvelope({ sourceHandoff, lifecycle: fixture.lifecycle,
+        taskData: fixture.scenario, evaluationData: fixture.oracle, worksite });
+    },
+  });
+  assert.deepEqual(semantic.input.assets, []); assert.equal(semantic.input.evidence, null);
+  const revision = await import(pathToFileURL(join(alias.installedRoot, "build/code/src/abg/worksite_revision.js")).href);
+  const origin = { kind: "admitted_input", basisAdmissionEventRef: semantic.executionBasis.admissionEventRef,
+    inputAdmissionRef: semantic.executionBasis.rawInputAdmissionRef, inputDigest: semantic.executionBasis.rawInputDigest };
+  const row = { designTargetRef: worksite.targets[0].target.targetRef, subject: alias.input.subject,
+    observation: alias.input.predecessorObservation, origin };
+  assert.equal(revision.worksiteRevisionMeaningMatches(worksite, { ...worksite, workspaceAuthorityBasis: primary.workspaceAuthority }), false);
+  return { revision, worksite, row, basis: semantic.executionBasis, sourceHandoff,
+    premise: "Product-constructed source handoff/lifecycle supplied as ordinary raw semantic input; actual installed invocation and basis admission; no semantic execution or Result" };
+}
+
+function originViews(env, prefixes, retained, expected) {
+  const coordinate = env.abg.selectHeldEventStoreDurablePrefix(env.store);
+  const variants = [prefixes.projectOwnedRuntimeEventPrefixAtDurablePrefix(coordinate),
+    prefixes.selectValidatedRuntimeEventPrefix(immutableCopy(env.store.readAll())),
+    prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(immutableCopy(coordinate), { requireCurrent: true })];
+  return variants.map(prefix => {
+    const survives = retained.revision.worksiteRevisionOriginSurvives(prefix, retained.row);
+    const origins = retained.revision.projectWorksiteRevisionOrigins(prefix, retained.basis, retained.worksite, retained.worksite,
+      [retained.basis.invocationAdmissionRef]);
+    assert.equal(survives, expected); assert.deepEqual(origins, expected ? [retained.row.origin] : null);
+    return { survives, origins };
+  });
+}
+
+async function potentialViews(env, calculus, prefixes, native, requests, label, afterOrdinal) {
+  const { abg, store, product } = env, rows = store.readAll(), coordinate = abg.selectHeldEventStoreDurablePrefix(store);
+  const warmPrefix = prefixes.projectOwnedRuntimeEventPrefixAtDurablePrefix(coordinate);
+  const fullPrefix = prefixes.selectValidatedRuntimeEventPrefix(immutableCopy(rows));
+  const coldPrefix = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(immutableCopy(coordinate), { requireCurrent: true });
+  const warm = calculus.deriveRuntimeEventCalculusProjection(warmPrefix), full = calculus.deriveRuntimeEventCalculusProjection(fullPrefix),
+    cold = calculus.deriveRuntimeEventCalculusProjection(coldPrefix);
+  assert.deepEqual(warm, full); assert.deepEqual(cold, warm);
+  const facts = requests.map(request => ({ observationRef: request.predecessorObservation.observationRef,
+    current: calculus.holdsAt(warm, calculus.constructWorksiteObservationCurrentFluent(request.predecessorObservation.observationRef)),
+    invalidated: [warmPrefix, fullPrefix, coldPrefix].map(prefix => native.worksiteCommandSourcesInvalidatedAfter(prefix,
+      afterOrdinal, request.workspaceAuthorityBasis.canonicalRoot, [request.subject.relativePath])) }));
+  assert.equal(native.worksiteCommandSourcesInvalidatedAfter(warmPrefix, afterOrdinal, env.workspaceAuthority.canonicalRoot, ["untouched-sibling.txt"]), false);
+  assert.equal(native.worksiteCommandSourcesInvalidatedAfter(warmPrefix, afterOrdinal, env.workspaceAuthority.canonicalRoot + "-other-root", [env.input.subject.relativePath]), false);
+  return { label, coordinate, facts, projectionDigest: product.sha256Canonical(warm), rows: rows.length,
+    dependencyPopulation: prefixes.indexedRuntimeEvents(warmPrefix, "worksite-observation-dependency").length };
+}
+
+function deepOccurrenceNegatives(admission, product, events, selectedRef) {
+  const hash = value => product.sha256Canonical(value), records = [];
+  const authenticFibre = events.find(row => row.eventId === selectedRef);
+  const authentic = admission.projectWorksiteSelectedOccurrence(authenticFibre,
+    events.filter(row => row.admissionOrdinal < authenticFibre.admissionOrdinal));
+  assert.ok(authentic, "unchanged authentic occurrence is the positive control");
+  for (const name of ["authorization grant", "implementation selection", "alternate output contract", "strict support order", "basis actor"]) {
+    let rows = structuredClone(events), fibre = rows.find(row => row.eventId === selectedRef);
+    const opened = rows.find(row => row.kind === "c_call_opened" && row.aggregateId === fibre.aggregateId);
+    const basis = rows.find(row => row.kind === "basis_admitted" && row.basisId === fibre.basisId);
+    const invocation = rows.find(row => row.kind === "invocation_admitted" && row.payload.invocationAdmissionRef === basis.payload.invocationAdmissionRef);
+    const implementation = rows.find(row => row.kind === "implementation_admitted" && row.payload.implementationSetRef === basis.payload.implementationSetRef);
+    const rewrite = (oldValue, newValue) => {
+      const walk = value => typeof value === "string" ? value === oldValue ? newValue : value : Array.isArray(value)
+        ? value.map(walk) : value !== null && typeof value === "object" ? Object.fromEntries(Object.entries(value).map(([key, item]) => [key, walk(item)])) : value;
+      rows = rows.map(walk);
+    };
+    if (name === "authorization grant") {
+      const grant = invocation.payload.capabilityGrants[0];
+      const { kind, schemaVersion, grantRef, grantDigest, ...body } = grant;
+      body.policyRef = "policy://c0-potential/crossed"; body.policyDigest = hash("crossed-policy");
+      const digest = hash(body), crossed = { kind, schemaVersion, grantRef: `capability-grant://abiogenesis/${digest.slice(7)}`, grantDigest: digest, ...body };
+      assert.equal(product.isCapabilityGrantValue(crossed), true);
+      invocation.payload.capabilityGrants = [crossed]; invocation.payload.capabilityGrantRefs = [crossed.grantRef];
+      const { invocationAdmissionRef, invocationAdmissionDigest, ...invocationBody } = invocation.payload;
+      const d = hash(invocationBody), ref = `invocation-admission://abiogenesis/${d.slice(7)}`;
+      invocation.payload.invocationAdmissionDigest = d; rewrite(invocationAdmissionRef, ref);
+    } else if (name === "implementation selection") fibre.payload.implementationRequirementKey += "/crossed";
+    else if (name === "alternate output contract") {
+      const set = implementation.payload.implementationSet;
+      const selected = set.rows.find(row => row.requirementKey === fibre.payload.implementationRequirementKey);
+      selected.outputContractRef = "contract://c0-potential/alternate-output@5";
+      const { kind, schemaVersion, disposition, leafResolutionCandidateRef, leafResolutionCandidateDigest, ...rowBody } = selected;
+      const rd = hash(rowBody);
+      selected.leafResolutionCandidateDigest = rd;
+      selected.leafResolutionCandidateRef = `leaf-resolution-candidate://abiogenesis/${rd.slice(7)}`;
+      const { implementationSetRef, implementationSetDigest, ...setBody } = set;
+      const sd = hash(setBody);
+      rewrite(implementationSetRef, `implementation-set://abiogenesis/${sd.slice(7)}`);
+      rewrite(implementationSetDigest, sd);
+      const nextSet = rows.find(row => row.eventId === implementation.eventId).payload.implementationSet;
+      rows.find(row => row.eventId === basis.eventId).payload.localImplementationSubsetDigest = hash({
+        rootImplementationSetRef: nextSet.implementationSetRef, rootImplementationSetDigest: nextSet.implementationSetDigest,
+        executableLeafKeys: nextSet.executableLeafKeys, rows: nextSet.rows,
+      });
+    }
+    else if (name === "strict support order") {
+      const ordinal = implementation.admissionOrdinal; implementation.admissionOrdinal = basis.admissionOrdinal;
+      basis.admissionOrdinal = ordinal;
+    } else basis.payload.actorRef = "actor://c0-potential/crossed";
+    // Re-identify every changed admitted basis and CCall before testing the
+    // semantic join; no stale checksum is used as the rejection oracle.
+    const b = rows.find(row => row.eventId === basis.eventId);
+    const { basisRef, basisDigest, ...basisBody } = b.payload;
+    const bd = hash(basisBody); b.payload.basisDigest = bd; rewrite(basisRef, `execution-basis://abiogenesis/${bd.slice(7)}`);
+    const o = rows.find(row => row.eventId === opened.eventId), f = rows.find(row => row.eventId === selectedRef);
+    const oldCall = f.aggregateId;
+    const identity = Object.fromEntries(["graphCallId", "frameId", "vectorIndex", "stageRole", "taskOrdinal", "attempt", "programLocusRef", "retryPath"].map(key => [key, o.payload[key]]));
+    identity.basisId = o.basisId;
+    const cd = hash(identity); o.payload.cCallDigest = cd;
+    if (Object.hasOwn(f.payload, "cCallDigest")) f.payload.cCallDigest = cd;
+    rewrite(oldCall, `c-call:${cd}`);
+    for (const row of rows) row.payloadDigest = hash(row.payload);
+    fibre = rows.find(row => row.eventId === selectedRef);
+    const prior = rows.filter(row => row.admissionOrdinal < fibre.admissionOrdinal);
+    if (name === "alternate output contract") {
+      const nextBasis = rows.find(row => row.eventId === basis.eventId);
+      const nextOpened = rows.find(row => row.eventId === opened.eventId);
+      const nextSet = rows.find(row => row.eventId === implementation.eventId).payload.implementationSet;
+      const selected = nextSet.rows.find(row => row.requirementKey === fibre.payload.implementationRequirementKey);
+      const structural = product.constructWorksiteEffectAuthorization({ ...authentic,
+        executionBasis: { ...authentic.executionBasis, ...nextBasis.payload },
+        implementationSet: { ...authentic.implementationSet, ...nextSet },
+        cCall: { ...authentic.cCall, ...nextOpened.payload, ...fibre.payload, basisId: nextOpened.basisId,
+          outputContractRef: selected.outputContractRef },
+      });
+      assert.equal(structural.kind, "worksite_effect_authorization", "alternate contract has closed row/set/basis/call digests");
+    }
+    assert.equal(admission.projectWorksiteSelectedOccurrence(fibre, prior), null, name);
+    records.push({ name, fibre, prior, premise: "consistently re-digested controlled semantic crossing; no admitted runtime claim" });
+  }
+  const originalFibre = events.find(row => row.eventId === selectedRef);
+  const originalPrior = events.filter(row => row.admissionOrdinal < originalFibre.admissionOrdinal);
+  for (const name of ["duplicate opening", "missing binding", "later-only implementation"]) {
+    const prior = structuredClone(originalPrior);
+    if (name === "duplicate opening") {
+      const opened = prior.find(row => row.kind === "c_call_opened" && row.aggregateId === originalFibre.aggregateId);
+      prior.push({ ...opened, eventId: opened.eventId + "/duplicate-fixture" });
+    } else if (name === "missing binding") {
+      prior.splice(prior.findIndex(row => row.kind === "public_operation_artifact_admitted" && row.payload.operationId === "abg.operation.workspace.bind" &&
+        row.payload.artifactRef === events.find(row => row.kind === "basis_admitted" && row.basisId === originalFibre.basisId).payload.workspaceBindingId), 1);
+    } else {
+      const basis = prior.find(row => row.kind === "basis_admitted" && row.basisId === originalFibre.basisId);
+      prior.find(row => row.kind === "implementation_admitted" && row.payload.implementationSetRef === basis.payload.implementationSetRef).admissionOrdinal = originalFibre.admissionOrdinal + 1;
+    }
+    assert.equal(admission.projectWorksiteSelectedOccurrence(originalFibre, prior), null, name);
+    records.push({ name, fibre: originalFibre, prior, premise: "controlled support population/order negative; unchanged payload digests; no admitted runtime claim" });
+  }
+  return records;
+}
+
 async function runCase(context, label, options = {}) {
   const modes = options.modes ?? [];
+  if (potentialProof) options = { ...options, replace: true };
+  const setupContext = potentialProof ? { after() {} } : context;
+  const potentialFacts = [];
   const gtl = await import(pathToFileURL(join(root, "build/code/src/gtl/index.js")).href);
   let targetPath;
   const replacement = Buffer.from(`B04 ${label}\n`);
-  const env = await setupInstalledRootExecutionBasis(context, root, {
+  const env = await setupInstalledRootExecutionBasis(setupContext, root, {
     candidateBasisSource: "packed_artifact", rootPublicationKind: "worksite_c0",
+    ...(potentialProof ? { additionalCorePublicationConstructors: ["constructSemanticStageModulePublication"] } : {}),
     programRef: gtl.WORKSITE_C0_IDS.programRef, graphFunctionRef: gtl.WORKSITE_C0_IDS.graphFunctionRef,
     inputContractRef: gtl.WORKSITE_C0_IDS.inputContractRef,
     inputFactory: async ({ product, workspaceAuthority, workspaceBinding, capabilityGrant }) => {
@@ -186,6 +435,19 @@ async function runCase(context, label, options = {}) {
   const carriers = await import(pathToFileURL(join(env.installedRoot, "build/code/src/product/worksite_effect.js")).href);
   const admission = await import(pathToFileURL(join(env.installedRoot, "build/code/src/abg/c_call_outcome.js")).href);
   const calculus = await import(pathToFileURL(join(env.installedRoot, "build/code/src/abg/event_calculus.js")).href);
+  const prefixes = await import(pathToFileURL(join(env.installedRoot, "build/code/src/abg/event_prefix.js")).href);
+  const native = await import(pathToFileURL(join(env.installedRoot, "build/code/src/abg/native_worksite_execution.js")).href);
+  const alias = potentialProof ? await secondBoundObservation(setupContext, env, label + "-alias") : null;
+  const retained = alias === null ? null : await retainedInputOrigin(setupContext, env, alias, label);
+  const aliasOpened = alias === null ? null : abg.openTraversalScope(store, abg.selectHeldEventStoreDurablePrefix(store),
+    { kind: "root", executionBasis: alias.executionBasis }, { eventTime, correlationId: `correlation://c0-potential/${label}/alias`, causationEventRefs: [] });
+  if (aliasOpened !== null) assert.equal(aliasOpened.kind, "traversal_scope_open_admission", JSON.stringify(aliasOpened));
+  if (potentialProof) context.after(async () => {
+    if (proofRoot) await fsPromises.writeFile(join(proofRoot, `${label}-potential-retained.json`),
+      JSON.stringify({ potentialFacts, scratch: env.scratch, aliasBinding: alias.workspaceBinding,
+        prefix: potentialFacts.at(-1)?.coordinate ?? null, root: workspaceAuthority.canonicalRoot }) + "\n");
+    store.closeDurableLog();
+  });
   assert.notEqual(workspaceAuthority.canonicalRoot, workspaceBinding.roots.productRoot);
   assert.equal(workspaceBinding.roots.productRoot, env.admittedInstall.installedRoot);
   const coordinatesBefore = product.canonicalJson({ workspaceAuthority, workspaceBinding, executionBasis });
@@ -196,11 +458,40 @@ async function runCase(context, label, options = {}) {
     eventTime, correlationId: `correlation://c0-b04/${label}/open`, causationEventRefs: [],
   });
   assert.equal(opened.kind, "traversal_scope_open_admission", JSON.stringify(opened));
+  const beforeSelectionRows = potentialProof ? store.readAll() : null;
+  const beforeSelectionPrefix = potentialProof ? prefixes.selectValidatedRuntimeEventPrefix(Object.freeze([...beforeSelectionRows])) : null;
+  const beforeSelectionProjection = potentialProof ? calculus.deriveRuntimeEventCalculusProjection(beforeSelectionPrefix) : null;
+  const beforeSelectionOrdinal = beforeSelectionRows?.at(-1)?.admissionOrdinal ?? 0;
+  if (potentialProof) {
+    const before = await potentialViews(env, calculus, prefixes, native, [env.input, alias.input], "before selection", beforeSelectionOrdinal);
+    assert.deepEqual(before.facts.map(row => row.current), [true, true]);
+    potentialFacts.push({ ...before, retainedInput: { row: retained.row, basis: retained.basis, sourceHandoff: retained.sourceHandoff,
+      premise: retained.premise, views: originViews(env, prefixes, retained, true) } });
+  }
   let ownerOutcome, capturedCall, malformedCopyDigest = null;
   const delegated = delegate(env.leafPort);
   let injection;
   delegated.invoke = async call => {
     capturedCall = call;
+    if (potentialProof) {
+      const currentPrefix = prefixes.projectOwnedRuntimeEventPrefixAtDurablePrefix(abg.selectHeldEventStoreDurablePrefix(store));
+      const fibre = prefixes.runtimeEventAtPrefix(currentPrefix, call.occurrence.executionAuthority.cCall.fibreSelectedEventRef);
+      const dependencies = admission.worksiteSelectedOccurrenceDependencies(currentPrefix, fibre);
+      assert.ok(admission.projectWorksiteSelectedOccurrence(fibre, dependencies));
+      assert.ok(dependencies.every(row => row.admissionOrdinal < fibre.admissionOrdinal));
+      const started = performance.now();
+      assert.equal(calculus.worksiteSelectedOccurrenceInputCurrent(currentPrefix, call.occurrence.executionAuthority.cCall, env.input), true);
+      const firstMs = performance.now() - started, hot = performance.now();
+      assert.equal(calculus.worksiteSelectedOccurrenceInputCurrent(currentPrefix, call.occurrence.executionAuthority.cCall, env.input), true);
+      const selected = await potentialViews(env, calculus, prefixes, native, [env.input, alias.input], "selected potential before physical owner", beforeSelectionOrdinal);
+      assert.deepEqual(selected.facts.map(row => row.current), [false, false]);
+      assert.ok(selected.facts.every(row => row.invalidated.every(Boolean)));
+      potentialFacts.push({ ...selected, dependencyIds: dependencies.map(row => row.eventId), dependencyExtent: dependencies.length,
+        firstHistoricalEligibilityMs: firstMs, repeatedHistoricalEligibilityMs: performance.now() - hot,
+        retainedOriginViews: originViews(env, prefixes, retained, false),
+        relation: "potential selection, before physical effect; exact dependency authentication contains no EC fold" });
+      assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(beforeSelectionPrefix), beforeSelectionProjection);
+    }
     if (options.authorizationControls) {
       const authorization = product.constructWorksiteEffectAuthorization({ workspaceBinding, request: env.input, executionBasis, cCall: call.occurrence.executionAuthority.cCall, implementationSet: env.implementationSet });
       assert.equal(authorization.kind, "worksite_effect_authorization");
@@ -286,7 +577,14 @@ async function runCase(context, label, options = {}) {
       assert.equal(ownerOutcome.substrateCode, "EBADF");
       assert.match(ownerOutcome.message, /LATER_CLOSE_EBADF/u);
     }
-    assert.ok(admission.projectWorksiteFailureBasis(events, capturedCall.occurrence.cCallRef, ownerOutcome));
+    const fullFailureBasis = admission.projectWorksiteFailureBasis(events, capturedCall.occurrence.cCallRef, ownerOutcome);
+    assert.ok(fullFailureBasis);
+    const failurePrefix = abg.selectHeldEventStoreDurablePrefix(store);
+    const failurePrefixes = [prefixes.selectValidatedRuntimeEventPrefix(immutableCopy(events)),
+      prefixes.projectOwnedRuntimeEventPrefixAtDurablePrefix(failurePrefix),
+      prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(immutableCopy(failurePrefix), { requireCurrent: true })];
+    for (const prefix of failurePrefixes) assert.deepEqual(
+      admission.projectWorksiteFailureBasisAtPrefix(prefix, capturedCall.occurrence.cCallRef, ownerOutcome), fullFailureBasis);
     if (physical.kind === "publication_only") {
       assert.equal(physical.publication.method, state.method);
       assert.equal(physical.publication.writtenDigest, product.sha256Bytes(replacement));
@@ -365,14 +663,37 @@ async function runCase(context, label, options = {}) {
     assert.equal(reused.candidate.resultCandidate.phase, undefined);
     assert.deepEqual(await physicalPath(product, targetPath), targetAfter);
   }
+  if (potentialProof) {
+    const after = await potentialViews(env, calculus, prefixes, native, [env.input, alias.input], "outcome cut", beforeSelectionOrdinal);
+    assert.deepEqual(after.facts.map(row => row.current), [false, false]);
+    assert.ok(after.facts.every(row => row.invalidated.every(Boolean)));
+    potentialFacts.push({ ...after, retainedOriginViews: originViews(env, prefixes, retained, false) });
+    if (prepublication) potentialFacts.push({ label: "five deep semantic negatives", coordinate: after.coordinate,
+      negatives: deepOccurrenceNegatives(admission, product, store.readAll(), capturedCall.occurrence.executionAuthority.cCall.fibreSelectedEventRef) });
+    const aliasReplay = abg.projectRuntimeTruthAtDurablePrefix(abg.selectHeldEventStoreDurablePrefix(store), aliasOpened.scope.runId).replayState;
+    assert.deepEqual(aliasReplay.currentWorksiteObservations, []);
+    assert.equal(aliasReplay.activeFluents.some(key => key.includes(alias.input.predecessorObservation.observationRef)), false);
+    if (failure || unadmitted || prepublication) {
+      // The Product really reobserves a new binding value, but its raw basis is
+      // not an admitted observation-occurrence proof and must not restore truth.
+      const rebound = await secondBoundObservation(setupContext, env, label + "-raw-reentry");
+      const replayed = await potentialViews(env, calculus, prefixes, native, [env.input, alias.input, rebound.input], "later raw basis", beforeSelectionOrdinal);
+      assert.deepEqual(replayed.facts.map(row => row.current), [false, false, false]);
+      potentialFacts.push({ ...replayed, rawBasisRef: rebound.executionBasis.basisRef, rawBinding: rebound.workspaceBinding.bindingId,
+        premise: "actual Product read and actual invocation/basis admission; no new admitted observation occurrence" });
+    }
+    assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(beforeSelectionPrefix), beforeSelectionProjection);
+  }
   const durablePrefix = abg.selectHeldEventStoreDurablePrefix(store);
   const logPath = store.configuredDurableLogPath();
   const fresh = await proveFreshProcessRuntimeProjectionEquality({
     abg, product, installedPackageRoot: env.installedRoot, store,
-    requests: [{ rowId: label, owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] }],
+    requests: [{ rowId: label, owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] },
+      ...(aliasOpened === null ? [] : [{ rowId: label + "-alias", owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [aliasOpened.scope.runId] }])],
+    ...(potentialProof ? { ownedProcessProof: { evidenceRoot: join(proofRoot, label + "-fresh-children") } } : {}),
   });
   const replay = fresh.retainedRows[0].projection.replayState;
-  const expectedCurrent = unadmitted || prepublication ? [env.input.predecessorObservation] : failure ? [] : [ownerOutcome.successorObservation];
+  const expectedCurrent = unadmitted || prepublication || failure ? [] : [ownerOutcome.successorObservation];
   assert.deepEqual(replay.currentWorksiteObservations.map(row => row.observation), expectedCurrent);
   if (!unadmitted) assert.deepEqual(replay.cCalls.find(row => row.cCallRef === capturedCall.occurrence.cCallRef).resultValue, ownerOutcome);
   if (proofRoot) {
@@ -389,7 +710,7 @@ async function runCase(context, label, options = {}) {
       manifestDigest: product.sha256Canonical(JSON.parse(await fsPromises.readFile(join(env.installedRoot, "product-toolchain-manifest.json"), "utf8"))),
       sourceProductContentDigest: env.verified.productContentDigest, installedBefore, installedAfter,
       authorityBindingBasisDigest: product.sha256Bytes(Buffer.from(coordinatesBefore)),
-      ownerOutcome, malformedCopyDigest, completion, targetBefore, targetAfter, stagingAfter, state,
+      ownerOutcome, malformedCopyDigest, completion, targetBefore, targetAfter, stagingAfter, state, potentialFacts,
       durablePrefix, rawLogDigest: fresh.eventLogDigest, eventCount: fresh.historicalEventCount,
       freshProcessIds: fresh.freshProcessIds, runId: opened.scope.runId,
       replayStateDigest: product.sha256Canonical(replay), currentObservations: replay.currentWorksiteObservations,

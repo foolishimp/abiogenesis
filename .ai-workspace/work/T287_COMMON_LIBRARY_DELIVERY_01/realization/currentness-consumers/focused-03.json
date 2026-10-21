@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript",
+  "first_case": "governance",
+  "input_freeze_sha256": "5909e9e6267337d0fd196d2dde164348e739382b93500c88d67c534565e85f32",
+  "exit_code": 1,
+  "wall_seconds": 0.5112115419469774,
+  "stdout": "(node:71849) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2716 U1-P5-02 actual C0 successor and every affected currentness consumer (127.920917ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 483.703625\n\n\u2716 failing tests:\n\ntest at test_env/tests/t287-native-work-currentness-consumers.test.mjs:536:1\n\u2716 U1-P5-02 actual C0 successor and every affected currentness consumer (127.920917ms)\n  TypeError [Error]: p.constructNativeWorkspaceWorkObservation is not a function\n      at Object.governanceConsumers [as governance] (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:306:24)\n      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:540:39)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)\n",
+  "stderr": ""
+}

@@ -1,0 +1,798 @@
+{
+  "cases": [
+    {
+      "case": "unavailable",
+      "ownerCommand": {
+        "pid": 4993,
+        "exitCode": 0,
+        "wallMs": 53287.66229189932,
+        "stdoutSha256": "04ada63c3a96306d7c92bfe29801d4900334c756ff5d543bdb68ef10e709d8c4",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "caseRecord": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/evidence/B04-02-rename-successor-read.json",
+        "kind": "file",
+        "mode": "0o644",
+        "bytes": 73715,
+        "sha256": "ea70e54aa5bf4445a88f21611cf972f7d2b8979b02ac0f37cbcc8829cb542005"
+      },
+      "ownerRecord": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/evidence/B04-02-rename-successor-read-owner.json",
+        "kind": "file",
+        "mode": "0o644",
+        "bytes": 29111,
+        "sha256": "99edbc541f74080bd356fdf35be5b0f5973c944fe74c12477fd83f68aa1867e4"
+      },
+      "ownerKind": "worksite_effect_refusal",
+      "phase": "post_publication",
+      "physicalOutcomeKind": "publication_only",
+      "completionKind": "executable_traversal_completion",
+      "completionDisposition": "failed",
+      "resultRef": "result://abiogenesis/c526da0fa723bab1cd040e9b59fdfd47524d5cbd685d193eff5fe638836505d0",
+      "resultValueKind": "worksite_effect_refusal",
+      "faults": [
+        "successor_read"
+      ],
+      "targetBefore": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/scratch/abi5-root-env-5U87A2/workspace/c0-b04/target.txt",
+        "state": "file",
+        "fileIdentity": "16777231:474499998",
+        "nlink": 1,
+        "digest": "sha256:25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218"
+      },
+      "targetAfter": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/scratch/abi5-root-env-5U87A2/workspace/c0-b04/target.txt",
+        "state": "file",
+        "fileIdentity": "16777231:474500014",
+        "nlink": 1,
+        "digest": "sha256:088ac3e1e973545f57ad2b0a2029cec0f31beae0854b6f874925c3405db7e543"
+      },
+      "stagingAfter": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/scratch/abi5-root-env-5U87A2/workspace/c0-b04/.abiogenesis-target.txt-aae42ac6-708f-4aae-ba1b-cacd6cf57fe0.tmp",
+        "state": "absent",
+        "fileIdentity": null,
+        "nlink": null,
+        "digest": null
+      },
+      "eventCount": 47,
+      "freshProcessIds": [
+        5540,
+        5541
+      ],
+      "currentObservationCount": 0,
+      "reopenClaim": "Two real processes reopened the original path and inode before fixture cleanup. Compressed retained bytes are portable event content, not that reopen authority.",
+      "potentialFacts": [
+        {
+          "label": "before selection",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/b380edee05148611bc1f474db1e4ec69f0e34dcdab99e2249f3aebfb45972c96",
+              "current": true,
+              "invalidated": [
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/b9e6c88713630aa8b3fff20cc9c2397a5f513c6a8efe9ada0e6fbc10d89988f4",
+              "current": true,
+              "invalidated": [
+                false,
+                false,
+                false
+              ]
+            }
+          ],
+          "rows": 23,
+          "dependencyPopulation": 2
+        },
+        {
+          "label": "selected potential before physical owner",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/b380edee05148611bc1f474db1e4ec69f0e34dcdab99e2249f3aebfb45972c96",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/b9e6c88713630aa8b3fff20cc9c2397a5f513c6a8efe9ada0e6fbc10d89988f4",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 29,
+          "dependencyPopulation": 3,
+          "dependencyExtent": 10,
+          "firstHistoricalEligibilityMs": 2.277084000001196,
+          "repeatedHistoricalEligibilityMs": 402.1956250000003,
+          "retainedOriginViews": [
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            }
+          ]
+        },
+        {
+          "label": "outcome cut",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/b380edee05148611bc1f474db1e4ec69f0e34dcdab99e2249f3aebfb45972c96",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/b9e6c88713630aa8b3fff20cc9c2397a5f513c6a8efe9ada0e6fbc10d89988f4",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 42,
+          "dependencyPopulation": 4,
+          "retainedOriginViews": [
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            }
+          ]
+        },
+        {
+          "label": "later raw basis",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/b380edee05148611bc1f474db1e4ec69f0e34dcdab99e2249f3aebfb45972c96",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/b9e6c88713630aa8b3fff20cc9c2397a5f513c6a8efe9ada0e6fbc10d89988f4",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/e8a0ffa973582da0b1c662d26b3c4e3efcb42b889db65bada4c6b5ff99dc2ba3",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 47,
+          "dependencyPopulation": 5,
+          "rawBasisRef": "execution-basis://abiogenesis/4098c6805c8b28568db41bc634e53495ef7ef0997ff34bd3ddbc1d6fb2f16e94",
+          "rawBinding": "workspace-binding://abiogenesis/f75f181bb4f98d3b06a447acadc511021884ccf9d6dcd9e93e150b14208e2b26",
+          "premise": "actual Product read and actual invocation/basis admission; no new admitted observation occurrence"
+        }
+      ]
+    },
+    {
+      "case": "sunny",
+      "ownerCommand": {
+        "pid": 6078,
+        "exitCode": 0,
+        "wallMs": 49125.3325000871,
+        "stdoutSha256": "982609f2e2439d7a447793ff783931119ea2978cf667980632892373c1f5a489",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "caseRecord": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/evidence/B04-06-replace.json",
+        "kind": "file",
+        "mode": "0o644",
+        "bytes": 76740,
+        "sha256": "499a2a878a0b03a8c845504f8d825573a2302a5618206609f5b3ccbe791dc38b"
+      },
+      "ownerRecord": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/evidence/B04-06-replace-owner.json",
+        "kind": "file",
+        "mode": "0o644",
+        "bytes": 32977,
+        "sha256": "bb01cf94bdeba98e647b41868494de9b7630a2e8c290d7937cdc96a686456fda"
+      },
+      "ownerKind": "worksite_file_replace_output",
+      "phase": null,
+      "physicalOutcomeKind": null,
+      "completionKind": "executable_traversal_completion",
+      "completionDisposition": "closed",
+      "resultRef": "result://abiogenesis/ea797d215d01e106d2edc8938b04838d5a4e81e2c361b28c83d5d950873211b3",
+      "resultValueKind": "worksite_file_replace_output",
+      "faults": [],
+      "targetBefore": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/scratch/abi5-root-env-sM7oKA/workspace/c0-b04/target.txt",
+        "state": "file",
+        "fileIdentity": "16777231:474535885",
+        "nlink": 1,
+        "digest": "sha256:25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218"
+      },
+      "targetAfter": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/scratch/abi5-root-env-sM7oKA/workspace/c0-b04/target.txt",
+        "state": "file",
+        "fileIdentity": "16777231:474535919",
+        "nlink": 1,
+        "digest": "sha256:46d1216bcf7162b21e3c031d16ee5fd3a873dfa1f739824bea40d232977d0dbf"
+      },
+      "stagingAfter": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/scratch/abi5-root-env-sM7oKA/workspace/c0-b04/.abiogenesis-target.txt-840343c5-f02a-4845-9f0c-4ef2816786fd.tmp",
+        "state": "absent",
+        "fileIdentity": null,
+        "nlink": null,
+        "digest": null
+      },
+      "eventCount": 46,
+      "freshProcessIds": [
+        6546,
+        6568
+      ],
+      "currentObservationCount": 1,
+      "reopenClaim": "Two real processes reopened the original path and inode before fixture cleanup. Compressed retained bytes are portable event content, not that reopen authority.",
+      "potentialFacts": [
+        {
+          "label": "before selection",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/c274e3923cc5b7539d81e0c600330b8d815cbbb12d36b5d4a96d0c252709e8c6",
+              "current": true,
+              "invalidated": [
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/61680f8a6007c4e1a8bed57ed1a41d3f9b0ae9257cd8d1e1ca77f3c66a2aaa46",
+              "current": true,
+              "invalidated": [
+                false,
+                false,
+                false
+              ]
+            }
+          ],
+          "rows": 23,
+          "dependencyPopulation": 2
+        },
+        {
+          "label": "selected potential before physical owner",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/c274e3923cc5b7539d81e0c600330b8d815cbbb12d36b5d4a96d0c252709e8c6",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/61680f8a6007c4e1a8bed57ed1a41d3f9b0ae9257cd8d1e1ca77f3c66a2aaa46",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 29,
+          "dependencyPopulation": 3,
+          "dependencyExtent": 10,
+          "firstHistoricalEligibilityMs": 2.2978339999972377,
+          "repeatedHistoricalEligibilityMs": 412.6373749999984,
+          "retainedOriginViews": [
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            }
+          ]
+        },
+        {
+          "label": "outcome cut",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/c274e3923cc5b7539d81e0c600330b8d815cbbb12d36b5d4a96d0c252709e8c6",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/61680f8a6007c4e1a8bed57ed1a41d3f9b0ae9257cd8d1e1ca77f3c66a2aaa46",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 46,
+          "dependencyPopulation": 5,
+          "retainedOriginViews": [
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "append",
+      "ownerCommand": {
+        "pid": 7858,
+        "exitCode": 0,
+        "wallMs": 53051.95570900105,
+        "stdoutSha256": "3a5328381342da9addd8a9d6419b85047fb315e4c88630f82be7e8c2c6a613c2",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "caseRecord": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/evidence/B04-05-append-complete.json",
+        "kind": "file",
+        "mode": "0o644",
+        "bytes": 66372,
+        "sha256": "2fd9de814acd5977dd7249c37747e96f4c74017db5cd3a7e2b9a2d5bb6be8f20"
+      },
+      "ownerRecord": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/evidence/B04-05-append-complete-owner.json",
+        "kind": "file",
+        "mode": "0o644",
+        "bytes": 21866,
+        "sha256": "69b53b20c3b9bcece5875fbc2bd4104501f554cfc04452f2e75aac14c966bdf7"
+      },
+      "ownerKind": "worksite_file_replace_output",
+      "phase": null,
+      "physicalOutcomeKind": null,
+      "completionKind": "executable_traversal_completion",
+      "completionDisposition": "refused",
+      "resultRef": null,
+      "resultValueKind": "unadmitted_physical_commit",
+      "faults": [
+        "append"
+      ],
+      "targetBefore": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/scratch/abi5-root-env-sxVhgh/workspace/c0-b04/target.txt",
+        "state": "file",
+        "fileIdentity": "16777231:474571958",
+        "nlink": 1,
+        "digest": "sha256:25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218"
+      },
+      "targetAfter": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/scratch/abi5-root-env-sxVhgh/workspace/c0-b04/target.txt",
+        "state": "file",
+        "fileIdentity": "16777231:474572099",
+        "nlink": 1,
+        "digest": "sha256:554cd101d7f3f4a2c5183509e2d5a1ffc441bd9f8ac2bedd128f35674d10ce3f"
+      },
+      "stagingAfter": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/scratch/abi5-root-env-sxVhgh/workspace/c0-b04/.abiogenesis-target.txt-afd044f2-dc2b-4c05-8f67-cd4617c2cf4a.tmp",
+        "state": "absent",
+        "fileIdentity": null,
+        "nlink": null,
+        "digest": null
+      },
+      "eventCount": 34,
+      "freshProcessIds": [
+        8398,
+        8406
+      ],
+      "currentObservationCount": 0,
+      "reopenClaim": "Two real processes reopened the original path and inode before fixture cleanup. Compressed retained bytes are portable event content, not that reopen authority.",
+      "potentialFacts": [
+        {
+          "label": "before selection",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/5b732daccf0cdbeddf5e4363248291f5bde25d5fa5e7e04ab86ebbfc612c7547",
+              "current": true,
+              "invalidated": [
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/6f5f2ea6de953cd064e9e5b915022145fb10cfbdf768e789b7f8fcd40f5ee5d3",
+              "current": true,
+              "invalidated": [
+                false,
+                false,
+                false
+              ]
+            }
+          ],
+          "rows": 23,
+          "dependencyPopulation": 2
+        },
+        {
+          "label": "selected potential before physical owner",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/5b732daccf0cdbeddf5e4363248291f5bde25d5fa5e7e04ab86ebbfc612c7547",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/6f5f2ea6de953cd064e9e5b915022145fb10cfbdf768e789b7f8fcd40f5ee5d3",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 29,
+          "dependencyPopulation": 3,
+          "dependencyExtent": 10,
+          "firstHistoricalEligibilityMs": 2.2785410000069533,
+          "repeatedHistoricalEligibilityMs": 409.96250000000146,
+          "retainedOriginViews": [
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            }
+          ]
+        },
+        {
+          "label": "outcome cut",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/5b732daccf0cdbeddf5e4363248291f5bde25d5fa5e7e04ab86ebbfc612c7547",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/6f5f2ea6de953cd064e9e5b915022145fb10cfbdf768e789b7f8fcd40f5ee5d3",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 29,
+          "dependencyPopulation": 3,
+          "retainedOriginViews": [
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            }
+          ]
+        },
+        {
+          "label": "later raw basis",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/5b732daccf0cdbeddf5e4363248291f5bde25d5fa5e7e04ab86ebbfc612c7547",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/6f5f2ea6de953cd064e9e5b915022145fb10cfbdf768e789b7f8fcd40f5ee5d3",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/5ea0061b81d591716f15f8ff0473ac4dd57d5cd5007d8040f1dc425d1e0529f9",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 34,
+          "dependencyPopulation": 4,
+          "rawBasisRef": "execution-basis://abiogenesis/978fa2e8b851fd96cb2c590bebee458d6d665c0588cdbf84082990ee1dda8051",
+          "rawBinding": "workspace-binding://abiogenesis/3705509685962a2457ca8c153b0c2717633f582cd925552130b8568f0b7dd28b",
+          "premise": "actual Product read and actual invocation/basis admission; no new admitted observation occurrence"
+        }
+      ]
+    },
+    {
+      "case": "prepublication",
+      "ownerCommand": {
+        "pid": 8729,
+        "exitCode": 0,
+        "wallMs": 54809.50558395125,
+        "stdoutSha256": "421958c25e7d7ffe25ae053368c0b567ac46b77422ac13c34aea54ca283a678b",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "caseRecord": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/evidence/B04-07-failed-rename.json",
+        "kind": "file",
+        "mode": "0o644",
+        "bytes": 26138792,
+        "sha256": "479af60abf5dbb4ca834b726a79a315356ed4a079f8de0960ffd9258dcc491b9"
+      },
+      "ownerRecord": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/evidence/B04-07-failed-rename-owner.json",
+        "kind": "file",
+        "mode": "0o644",
+        "bytes": 18861,
+        "sha256": "13e37d3fa89f4efee76ef4780d26eab94abea3b98f7230f9a22da7ee7099f05e"
+      },
+      "ownerKind": "worksite_effect_refusal",
+      "phase": null,
+      "physicalOutcomeKind": null,
+      "completionKind": "executable_traversal_completion",
+      "completionDisposition": "failed",
+      "resultRef": "result://abiogenesis/3af0e3976179fa8f309716df3d34b08cf4abc9c833914bb2c6a3abf0c4e78daa",
+      "resultValueKind": "worksite_effect_refusal",
+      "faults": [
+        "publication_syscall"
+      ],
+      "targetBefore": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/scratch/abi5-root-env-HvuzBS/workspace/c0-b04/target.txt",
+        "state": "file",
+        "fileIdentity": "16777231:474626122",
+        "nlink": 1,
+        "digest": "sha256:25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218"
+      },
+      "targetAfter": {
+        "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/scratch/abi5-root-env-HvuzBS/workspace/c0-b04/target.txt",
+        "state": "file",
+        "fileIdentity": "16777231:474626122",
+        "nlink": 1,
+        "digest": "sha256:25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218"
+      },
+      "stagingAfter": null,
+      "eventCount": 47,
+      "freshProcessIds": [
+        9302,
+        9307
+      ],
+      "currentObservationCount": 0,
+      "reopenClaim": "Two real processes reopened the original path and inode before fixture cleanup. Compressed retained bytes are portable event content, not that reopen authority.",
+      "potentialFacts": [
+        {
+          "label": "before selection",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/08a7081c9b6913b0c39176ba8f1cb095426f68411461154d5f802d0f35f2e9ef",
+              "current": true,
+              "invalidated": [
+                false,
+                false,
+                false
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/8fcd1508a490216f675ef9153e6d14f1fd5bce374cba989d6aff338294ace525",
+              "current": true,
+              "invalidated": [
+                false,
+                false,
+                false
+              ]
+            }
+          ],
+          "rows": 23,
+          "dependencyPopulation": 2
+        },
+        {
+          "label": "selected potential before physical owner",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/08a7081c9b6913b0c39176ba8f1cb095426f68411461154d5f802d0f35f2e9ef",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/8fcd1508a490216f675ef9153e6d14f1fd5bce374cba989d6aff338294ace525",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 29,
+          "dependencyPopulation": 3,
+          "dependencyExtent": 10,
+          "firstHistoricalEligibilityMs": 2.3900419999990845,
+          "repeatedHistoricalEligibilityMs": 420.7269159999996,
+          "retainedOriginViews": [
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            }
+          ]
+        },
+        {
+          "label": "outcome cut",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/08a7081c9b6913b0c39176ba8f1cb095426f68411461154d5f802d0f35f2e9ef",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/8fcd1508a490216f675ef9153e6d14f1fd5bce374cba989d6aff338294ace525",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 42,
+          "dependencyPopulation": 3,
+          "retainedOriginViews": [
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            },
+            {
+              "survives": false,
+              "origins": null
+            }
+          ]
+        },
+        {
+          "label": "five deep semantic negatives"
+        },
+        {
+          "label": "later raw basis",
+          "facts": [
+            {
+              "observationRef": "worksite-observation://abiogenesis/08a7081c9b6913b0c39176ba8f1cb095426f68411461154d5f802d0f35f2e9ef",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/8fcd1508a490216f675ef9153e6d14f1fd5bce374cba989d6aff338294ace525",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            },
+            {
+              "observationRef": "worksite-observation://abiogenesis/aecb5f7ad4d94e5d64ff77e6d00b2f762874a4267c74b76a97c943a9bf17cb2d",
+              "current": false,
+              "invalidated": [
+                true,
+                true,
+                true
+              ]
+            }
+          ],
+          "rows": 47,
+          "dependencyPopulation": 4,
+          "rawBasisRef": "execution-basis://abiogenesis/8d5845617ff24c01d6cf8127f596f5865f0fbe21f239f1ab814b8ec2f73ad25e",
+          "rawBinding": "workspace-binding://abiogenesis/e3837ee5587dd50fe1e8c625c993f69d67baf7db6bb29ce580b4faa7ebedaa55",
+          "premise": "actual Product read and actual invocation/basis admission; no new admitted observation occurrence"
+        }
+      ]
+    }
+  ],
+  "componentCommand": {
+    "pid": 9595,
+    "exitCode": 0,
+    "wallMs": 4537.0427498128265,
+    "stdoutSha256": "b31aff3a33a4134c6fd69579c13e6876fd026b9e2d592191b3302f0e2d61b820",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "claims": "Actual installed owner/admission paths for principal cases; component native/scope rows carry supplied lower premises and no native actor execution; original05 failed admission is not reclassified."
+}

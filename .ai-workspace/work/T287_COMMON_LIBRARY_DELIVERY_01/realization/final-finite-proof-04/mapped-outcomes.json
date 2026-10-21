@@ -1,0 +1,179 @@
+{
+  "commands": [
+    {
+      "id": "U1-full-combined",
+      "templateOrdinal": 1,
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-native-work-unknown-effect.test.mjs",
+        "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+      ],
+      "noCredit": [],
+      "result": {
+        "pid": 11681,
+        "exitCode": 0,
+        "wallMs": 8321.049083955586,
+        "stdoutSha256": "1e71fa840f6673cf24eb7d00ad893440ec5bd9ce4eb3df741ec50a33616dc106",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "status": "passed",
+      "counts": {
+        "tests": 12,
+        "pass": 12,
+        "fail": 0
+      }
+    },
+    {
+      "id": "seven-C18",
+      "templateOrdinal": 2,
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "^(?:M5\\ GTL\\ exposes\\ exactly\\ seven\\ direct\\ C\\ constructors|M5\\ C\\.compose\\ is\\ canonical,\\ flat,\\ and\\ identity\\-eliding|M5\\ GraphFunction\\ composition\\ preserves\\ exact\\ left\\ and\\ right\\ identity|M5\\ GraphFunction\\ promotion\\ preserves\\ topology\\ and\\ semantic\\ truth|M5\\ native\\ constructors\\ refuse\\ invalid\\ batch,\\ retry,\\ and\\ F_H\\ realization|M5\\ native\\ GTL\\ constructs\\ all\\ ten\\ graph\\ relations\\ with\\ derived\\ identities|M5\\ same\\-object\\ relation\\ is\\ one\\ validator\\-owned\\ canonical\\ identity\\ witness|M5\\ closure\\ validation\\ distinguishes\\ run\\ and\\ child\\ GraphCall\\ scope|M5\\ whole\\-program\\ validation\\ admits\\ exact\\ recursion\\ law\\ and\\ refuses\\ its\\ substitutes|M5\\ whole\\-program\\ validation\\ binds\\ gate\\ law\\ to\\ published\\ Rule\\ and\\ Evaluator\\ declarations|M5\\ fan\\-out\\ materialization\\ derives\\ one\\ exact\\ task\\ per\\ admitted\\ input\\ member|M5\\ fan\\-out\\ and\\ fan\\-in\\ outer\\ contracts\\ equal\\ their\\ declared\\ vectors|M5\\ native\\ GraphFunction\\ composition\\ materializes\\ source\\ GTL\\ without\\ a\\ second\\ executable\\ carrier|M5\\ native\\ GraphFunction\\ substitution\\ replaces\\ one\\ typed\\ graph\\ vector\\ with\\ visible\\ source\\ GTL|M5\\ whole\\-program\\ validation\\ refuses\\ forged\\ or\\ widened\\ graph\\-edge\\ declarations|M5\\ raw\\ admission\\ and\\ validator\\ reject\\ invented\\ or\\ contradictory\\ C\\ data|M4\\ independently\\ authored\\ data\\ fixture\\ remains\\ one\\ valid\\ direct\\ C\\.of\\ Program|M5\\ whole\\-root\\ validation\\ keeps\\ F_H\\ interaction\\ keys\\ out\\ of\\ executable\\ resolution)$",
+        "test_env/tests/m5-c-algebra-validation.test.mjs"
+      ],
+      "noCredit": [
+        "M5 resolves and independently validates the complete executable root set",
+        "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+        "M5 F_H-only roots produce one valid empty executable-resolution set"
+      ],
+      "result": {
+        "pid": 12481,
+        "exitCode": 0,
+        "wallMs": 721.4152079541236,
+        "stdoutSha256": "f68d6c3a92bf6d5e9d75a9ab61010de733c40d1eee6fc6e934cc37396ed6d674",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "status": "passed",
+      "counts": {
+        "tests": 18,
+        "pass": 18,
+        "fail": 0
+      }
+    },
+    {
+      "id": "reopen18",
+      "templateOrdinal": 3,
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "noCredit": [],
+      "result": {
+        "pid": 12500,
+        "exitCode": 1,
+        "wallMs": 40129.86720795743,
+        "stdoutSha256": "966591cd567924240d0b44990548c41d81ac19bb4f3a6c93b21640d20d91c316",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "status": "failed",
+      "counts": {
+        "tests": 18,
+        "pass": 13,
+        "fail": 5
+      }
+    },
+    {
+      "id": "codec14",
+      "templateOrdinal": 4,
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-event-body-encoding.test.mjs"
+      ],
+      "noCredit": [],
+      "result": null,
+      "status": "not_executed_after_first_failure",
+      "counts": null
+    },
+    {
+      "id": "route-self-contained",
+      "templateOrdinal": 5,
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--expose-gc",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "^(?:terminal\\ route\\-only\\ projection\\ preserves\\ complete\\ replay\\ and\\ avoids\\ nonreturned\\ populations|terminal\\ route\\-only\\ retains\\ cold\\ and\\ hot\\ malformed\\-history\\ refusals|owned\\ deferred\\ recursion\\ restores\\ and\\ begins\\ at\\ the\\ exact\\ cut\\ while\\ Public\\ wrappers\\ keep\\ complete\\ values|selected\\ replay\\ guard\\ streams\\ the\\ exact\\ complete\\ Result,\\ route\\ and\\ replay\\ digest|finite\\ pure\\ candidate\\ plan\\ equals\\ complete\\-array\\ construction\\ without\\ advancing\\ the\\ accepted\\ base|ordinary\\ selected\\ route\\ and\\ scoped\\ extent\\ avoid\\ growing\\ historical\\ bodies;\\ explicit\\ snapshots\\ have\\ their\\ own\\ lifetime|drop\\ complete\\ output\\ then\\ selected\\ route\\ does\\ not\\ retain\\ decoded\\ historical\\ bodies)$",
+        "test_env/tests/t287-route-reconstruction.test.mjs"
+      ],
+      "noCredit": [
+        "retained native outputs and exact pre-basis historical owner facts are conserved",
+        "route facts ignore unrelated growth and preserve relevant source, cursor and intent changes"
+      ],
+      "result": null,
+      "status": "not_executed_after_first_failure",
+      "counts": null
+    },
+    {
+      "id": "native-workspace-physical-regression",
+      "templateOrdinal": 6,
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "^(?:post\\-effect\\ channel\\ conflict\\ retains\\ admitted\\ native\\ failure\\ scope\\ without\\ a\\ fabricated\\ exchange)$",
+        "test_env/tests/t287-native-workspace-work.test.mjs"
+      ],
+      "noCredit": [],
+      "result": null,
+      "status": "not_executed_after_first_failure",
+      "counts": null
+    },
+    {
+      "id": "terminal-quiescence7",
+      "templateOrdinal": 7,
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/m5-terminal-quiescence-owner.test.mjs"
+      ],
+      "noCredit": [],
+      "result": null,
+      "status": "not_executed_after_first_failure",
+      "counts": null
+    },
+    {
+      "id": "D02-preparation-owner-case",
+      "templateOrdinal": 8,
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "^(?:preparation\\ resolution\\ retains\\ its\\ established\\ native\\ link\\ and\\ raw\\ lock\\ refusals)$",
+        "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+      ],
+      "noCredit": [],
+      "result": null,
+      "status": "not_executed_after_first_failure",
+      "counts": null
+    }
+  ],
+  "U1Claim": "Full two unchanged files once, concurrency1, ABG_U1_FIRST_CASE=c0, no name filter; existing checked lower-premise/currentness controls remain distinct from principal installed C0 owner proof in06.",
+  "C18Exclusions": [
+    "M5 resolves and independently validates the complete executable root set",
+    "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+    "M5 F_H-only roots produce one valid empty executable-resolution set"
+  ],
+  "remaining": "codec14, route7, physical native-workspace process regression, terminal7 and conditional D02 all unexecuted. D02 additionally lacks final04 P1 owner adapter in this stopped cut.",
+  "nativeProviderSemanticCalls": 0
+}

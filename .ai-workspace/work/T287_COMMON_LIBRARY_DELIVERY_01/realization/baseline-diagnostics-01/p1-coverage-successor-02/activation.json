@@ -1,0 +1,15 @@
+{
+  "activation": "DIAGNOSTIC-EXTERNAL-ARCHIVE-02",
+  "issuedBy": "/root",
+  "status": "granted",
+  "phase": "P1 analysis only",
+  "originalStoppedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/freeze.json",
+    "sha256": "f0643a3c7916acf534d7f90115d4019a29604a5539db472443ce162b57b68cb2",
+    "bytes": 48203,
+    "mode": "0o644"
+  },
+  "effects": "New successor records only; reuse unchanged raw observations. No workload/preload/classifier mutation or rerun. P3 separately resumes only after this successor passes.",
+  "triage": "Frozen measurement HOW discloses non-Node descendants; concrete P1 whitelist omitted baseline Product.verify read-only tar operations. Preserve old failed predicate; admit only exact archive/member owner relation.",
+  "nativeCalls": 0
+}

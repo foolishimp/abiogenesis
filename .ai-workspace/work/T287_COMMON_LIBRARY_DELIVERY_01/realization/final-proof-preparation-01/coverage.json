@@ -1,0 +1,1847 @@
+{
+  "kind": "finite_final_case_to_owner_map",
+  "status": "NOT_GRANTED",
+  "groups": [
+    {
+      "id": "V1-pure",
+      "owners": "K01\u2013K04",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-common-computational-library.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-common-computational-library.test.mjs",
+            "sha256": "60d42f27c6cc20e9f512d1e25024b42620a807115481ac22a7ac5660b12aa71c",
+            "bytes": 4830,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 8,
+              "name": "D02 shared canonical-text equality conserves values and encoding failures without an identity shortcut",
+              "dynamic": false
+            },
+            {
+              "line": 27,
+              "name": "D02 coordinate equality retains both strict coordinates and property faults",
+              "dynamic": false
+            },
+            {
+              "line": 36,
+              "name": "D03 finite selection preserves duplicate occurrences, identities, total scan and thrown predicates",
+              "dynamic": false
+            },
+            {
+              "line": 57,
+              "name": "D04 fixed JSON key domains retain exact names while E01 keeps its distinct legacy relation",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        },
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+            "sha256": "29253422da6eacc3be8f13e91ddaf1a687eb30bc79975aa0a82992caf52ebd87",
+            "bytes": 5734,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 38,
+              "name": "all migrated helper classes preserve erased behavior and side-effect order",
+              "dynamic": false
+            },
+            {
+              "line": 50,
+              "name": "different strength and sorting contracts remain visibly different",
+              "dynamic": false
+            },
+            {
+              "line": 67,
+              "name": "each migrated declaration retains the exact caller type and refinement",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        },
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+            "sha256": "28105f9e1073609907ed984664551723c0d40fe024bef74bc29fb1c1e62050a2",
+            "bytes": 6957,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 47,
+              "name": "T-287 TV5 canonical rooted-topology partition is deterministic, detached, and frozen",
+              "dynamic": false
+            },
+            {
+              "line": 67,
+              "name": "T-287 TV5 canonical rooted-topology partition covers ancestor, descendant, lateral, and nested paths",
+              "dynamic": false
+            },
+            {
+              "line": 92,
+              "name": "T-287 TV5 canonical rooted-topology partition returns its closed refusal family without partial output",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/05-common-computations.json",
+          "sha256": "e2c4438e45aa793f711f7c4e6d771cd305b94f03efb204b6c5a713616728ed22",
+          "bytes": 931,
+          "mode": "0o644"
+        }
+      ],
+      "status": "reuse_exact_support",
+      "selection": null,
+      "limits": "Equality, exact-match multiplicity/order, key predicates, canonical algebra and rooted topology; not actual installed resolution closure.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V2-static-and-V4-declaration",
+      "owners": "K05/K07",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs",
+            "sha256": "9253df5cf9182acb19f8fce99b95d4e05f1d482fbdce385001ae304bbf377ef4",
+            "bytes": 19172,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 61,
+              "name": "fixed declaration owner results reuse facts and preserve cold/basis-qualified validation",
+              "dynamic": false
+            },
+            {
+              "line": 90,
+              "name": "compose sources retain exact published owners without callable rows in both closure modes",
+              "dynamic": false
+            },
+            {
+              "line": 116,
+              "name": "substitute source provenance resolves without widening its Program",
+              "dynamic": false
+            },
+            {
+              "line": 127,
+              "name": "unpublished or ambiguous static sources still refuse at their exact declaration owner",
+              "dynamic": false
+            },
+            {
+              "line": 136,
+              "name": "static sources remain dependency-bound and require an exact installed owner",
+              "dynamic": false
+            },
+            {
+              "line": 149,
+              "name": "static sources conserve required contracts and implementation bindings",
+              "dynamic": false
+            },
+            {
+              "line": 162,
+              "name": "runtime use of a private static source refuses before or after static discovery",
+              "dynamic": false
+            },
+            {
+              "line": 184,
+              "name": "existing named workflow, gate, recursion and fan-out owner rows remain required",
+              "dynamic": false
+            },
+            {
+              "line": 200,
+              "name": "registered selection retains strict named-child ownership and whole validation",
+              "dynamic": false
+            },
+            {
+              "line": 221,
+              "name": "borrowed implementation declarations retain dependency, uniqueness and installed-owner guards",
+              "dynamic": false
+            },
+            {
+              "line": 242,
+              "name": "frozen81 unchanged ready basis resolves where its predecessor refused",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        },
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+            "sha256": "eea1089a08001120f8d71d5ad0c487d1914473c2404893d0c9448f8833a929b6",
+            "bytes": 42210,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 264,
+              "name": "W2-05 three-function static binding algebra admits once and fails closed",
+              "dynamic": false
+            },
+            {
+              "line": 648,
+              "name": "native transport delegates one complete admission to the real fixed Run owner and conserves refusal ordering",
+              "dynamic": false
+            },
+            {
+              "line": 770,
+              "name": "preparation resolution retains its established native link and raw lock refusals",
+              "dynamic": false
+            },
+            {
+              "line": 819,
+              "name": "preparation module loading shares one physical basis and reacquires changed content",
+              "dynamic": false
+            },
+            {
+              "line": 855,
+              "name": "native detachment retains only actual immutable verifier bodies and detaches raw copies",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        },
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+            "sha256": "2445c30f9aa12f952fcea79d3f7122e24f8258aeab2997d6c959281e7d2d21fc",
+            "bytes": 66352,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 159,
+              "name": "S06 exact coordinate lookup distinguishes zero, one, and many",
+              "dynamic": false
+            },
+            {
+              "line": 182,
+              "name": "S06 resolved locks require verifier evidence and reject forged cycles",
+              "dynamic": false
+            },
+            {
+              "line": 251,
+              "name": "S06 catalog construction is a pure projection of exact publications",
+              "dynamic": false
+            },
+            {
+              "line": 272,
+              "name": "S06 native export resolution is TypeScript-program derived",
+              "dynamic": false
+            },
+            {
+              "line": 355,
+              "name": "S06 native declaration closure binds package roots and reachable bytes",
+              "dynamic": false
+            },
+            {
+              "line": 484,
+              "name": "Product native analysis preserves exact contract-indexed pending selectors",
+              "dynamic": false
+            },
+            {
+              "line": 666,
+              "name": "S06 native external meaning requires one direct named-symbol contract",
+              "dynamic": false
+            },
+            {
+              "line": 1040,
+              "name": "S06 namespace coverage and augmentation remain owner-relative",
+              "dynamic": false
+            },
+            {
+              "line": 1641,
+              "name": "S06 native applicability preserves complete nested suppliers and exact native boundaries",
+              "dynamic": false
+            },
+            {
+              "line": 1715,
+              "name": "complete nested supplier contributes nothing and preserves native results in either position",
+              "dynamic": false
+            },
+            {
+              "line": 1781,
+              "name": "genuine external direct binding stays native and an empty target cannot supply it",
+              "dynamic": false
+            },
+            {
+              "line": 1792,
+              "name": "unsupported selected native declaration targets still refuse",
+              "dynamic": false
+            },
+            {
+              "line": 1813,
+              "name": "empty Products retain the original multi-Product global boundary",
+              "dynamic": false
+            },
+            {
+              "line": 1821,
+              "name": "S06 installed module loading binds content, confinement, and import once",
+              "dynamic": false
+            },
+            {
+              "line": 1874,
+              "name": "S06 declaration builders preserve Product meaning and reject malformed mechanics",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/06-owner-selection.json",
+          "sha256": "47494a3661a4afe10bf290c29c9bdb359fe57732dcd87ff459a059b3c65576bf",
+          "bytes": 1267,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/08-owner-selection-generated-input.json",
+          "sha256": "498e6a45a8bf1418618a5955fb9eba1156b4f7606db38d1799dfe9c18c9ca372",
+          "bytes": 886,
+          "mode": "0o644"
+        }
+      ],
+      "status": "reuse_only_passing_selected_cases",
+      "selection": [
+        "node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "S06 exact coordinate|S06 resolved locks|S06 catalog construction|fixed declaration owner|compose sources|substitute source|unpublished or ambiguous|static sources|runtime use|existing named workflow|registered selection|borrowed implementation|W2-05 three-function|native transport delegates|preparation module loading",
+        "test_env/tests/m5-s06-prime.test.mjs",
+        "test_env/tests/t287-static-declaration-closure.test.mjs",
+        "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+      ],
+      "limits": "13 passing owner/static cases in command06; m5 module setup failed in that aggregate. Only command08 supplies its 3 actual m5 passes. No skipped case credit. The additional preparation-resolution case needs final actual P1 call/receipt via owner-resolution.mjs.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V3-seven-C",
+      "owners": "K06/HoG",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+            "sha256": "729625109b9f6160c80b933618fd67ffe407aa3b8808a94e9f54de8c7ebf76bc",
+            "bytes": 54648,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 173,
+              "name": "M5 GTL exposes exactly seven direct C constructors",
+              "dynamic": false
+            },
+            {
+              "line": 230,
+              "name": "M5 C.compose is canonical, flat, and identity-eliding",
+              "dynamic": false
+            },
+            {
+              "line": 262,
+              "name": "M5 GraphFunction composition preserves exact left and right identity",
+              "dynamic": false
+            },
+            {
+              "line": 357,
+              "name": "M5 GraphFunction promotion preserves topology and semantic truth",
+              "dynamic": false
+            },
+            {
+              "line": 439,
+              "name": "M5 native constructors refuse invalid batch, retry, and F_H realization",
+              "dynamic": false
+            },
+            {
+              "line": 468,
+              "name": "M5 native GTL constructs all ten graph relations with derived identities",
+              "dynamic": false
+            },
+            {
+              "line": 629,
+              "name": "M5 same-object relation is one validator-owned canonical identity witness",
+              "dynamic": false
+            },
+            {
+              "line": 665,
+              "name": "M5 closure validation distinguishes run and child GraphCall scope",
+              "dynamic": false
+            },
+            {
+              "line": 743,
+              "name": "M5 whole-program validation admits exact recursion law and refuses its substitutes",
+              "dynamic": false
+            },
+            {
+              "line": 825,
+              "name": "M5 whole-program validation binds gate law to published Rule and Evaluator declarations",
+              "dynamic": false
+            },
+            {
+              "line": 911,
+              "name": "M5 fan-out materialization derives one exact task per admitted input member",
+              "dynamic": false
+            },
+            {
+              "line": 975,
+              "name": "M5 fan-out and fan-in outer contracts equal their declared vectors",
+              "dynamic": false
+            },
+            {
+              "line": 1021,
+              "name": "M5 native GraphFunction composition materializes source GTL without a second executable carrier",
+              "dynamic": false
+            },
+            {
+              "line": 1143,
+              "name": "M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL",
+              "dynamic": false
+            },
+            {
+              "line": 1267,
+              "name": "M5 whole-program validation refuses forged or widened graph-edge declarations",
+              "dynamic": false
+            },
+            {
+              "line": 1313,
+              "name": "M5 raw admission and validator reject invented or contradictory C data",
+              "dynamic": false
+            },
+            {
+              "line": 1340,
+              "name": "M4 independently authored data fixture remains one valid direct C.of Program",
+              "dynamic": false
+            },
+            {
+              "line": 1370,
+              "name": "M5 whole-root validation keeps F_H interaction keys out of executable resolution",
+              "dynamic": false
+            },
+            {
+              "line": 1381,
+              "name": "M5 resolves and independently validates the complete executable root set",
+              "dynamic": false
+            },
+            {
+              "line": 1413,
+              "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+              "dynamic": false
+            },
+            {
+              "line": 1465,
+              "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [],
+      "status": "requires_final_selected_execution",
+      "selection": "Exact first 18 named cases only. Last 3 require ABI5_STEEL02_RESOLVER_PROOF_PATH and receive no credit.",
+      "limits": "C constructor and validator laws; no invented all-seven installed workload.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity.",
+      "selectedNames": [
+        "M5 GTL exposes exactly seven direct C constructors",
+        "M5 C.compose is canonical, flat, and identity-eliding",
+        "M5 GraphFunction composition preserves exact left and right identity",
+        "M5 GraphFunction promotion preserves topology and semantic truth",
+        "M5 native constructors refuse invalid batch, retry, and F_H realization",
+        "M5 native GTL constructs all ten graph relations with derived identities",
+        "M5 same-object relation is one validator-owned canonical identity witness",
+        "M5 closure validation distinguishes run and child GraphCall scope",
+        "M5 whole-program validation admits exact recursion law and refuses its substitutes",
+        "M5 whole-program validation binds gate law to published Rule and Evaluator declarations",
+        "M5 fan-out materialization derives one exact task per admitted input member",
+        "M5 fan-out and fan-in outer contracts equal their declared vectors",
+        "M5 native GraphFunction composition materializes source GTL without a second executable carrier",
+        "M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL",
+        "M5 whole-program validation refuses forged or widened graph-edge declarations",
+        "M5 raw admission and validator reject invented or contradictory C data",
+        "M4 independently authored data fixture remains one valid direct C.of Program",
+        "M5 whole-root validation keeps F_H interaction keys out of executable resolution"
+      ],
+      "excludedNames": [
+        "M5 resolves and independently validates the complete executable root set",
+        "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+        "M5 F_H-only roots produce one valid empty executable-resolution set"
+      ]
+    },
+    {
+      "id": "V3-retained-traversal",
+      "owners": "HoG/ABG",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+            "sha256": "f89cf5daf46a4bf5095b0efc1f698358f988502ebae3f1607c186ff5226b718f",
+            "bytes": 24605,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 21,
+              "name": "declared C.retry frontier is the sole retry-attempt lifecycle owner",
+              "dynamic": false
+            },
+            {
+              "line": 61,
+              "name": "stopped retry foldback bridge requires the exact consumed causal suffix",
+              "dynamic": false
+            },
+            {
+              "line": 238,
+              "name": "CCall retry writes require the exact current declared retry frontier",
+              "dynamic": false
+            },
+            {
+              "line": 281,
+              "name": "production judgment writers remain closed behind the CCall owner",
+              "dynamic": false
+            },
+            {
+              "line": 304,
+              "name": "runtime package exports expose no raw or candidate-factory event writer",
+              "dynamic": false
+            },
+            {
+              "line": 323,
+              "name": "raw executor resume remains closed to every retry cursor",
+              "dynamic": false
+            },
+            {
+              "line": 340,
+              "name": "entry frame runtime is an exact common projection and retry composition stays disjoint",
+              "dynamic": false
+            },
+            {
+              "line": 420,
+              "name": "projected retry entry consumes only its exact admitted successor prefix without effects",
+              "dynamic": false
+            },
+            {
+              "line": 533,
+              "name": "F04 payload refusal composes one pure result rejection while authority refusal cannot retry",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        },
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+            "sha256": "bed29af21cb68d093d298e243ed1a6c7bd8ae041ec18112f80083296233c60ab",
+            "bytes": 9245,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 59,
+              "name": "retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs",
+              "dynamic": false
+            },
+            {
+              "line": 92,
+              "name": "retry entry refuses foreign scope and stale source without committing a partial transition",
+              "dynamic": false
+            },
+            {
+              "line": 107,
+              "name": "retry entry retains the failed native scope refusal and refuses an unrelated authority prefix",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        },
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+            "sha256": "ed47d818bcb780251a6f93383e1ae550c5f2efaa64c3936fd52f1d360e939e94",
+            "bytes": 12323,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 10,
+              "name": "actual parent effect is conserved by workflow foldback; downstream projection remains prospective",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [],
+      "status": "source_routed_not_credited",
+      "selection": null,
+      "limits": "Exact prior receipt/support reuse or bounded owner selection still required for retry lineage, child/foldback and batch partial/unstarted relations. These files are candidate routes, not additional broad-suite activation.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V4-actual-owner",
+      "owners": "Product verification/environment/catalog/execution resolution",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+            "sha256": "eea1089a08001120f8d71d5ad0c487d1914473c2404893d0c9448f8833a929b6",
+            "bytes": 42210,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 264,
+              "name": "W2-05 three-function static binding algebra admits once and fails closed",
+              "dynamic": false
+            },
+            {
+              "line": 648,
+              "name": "native transport delegates one complete admission to the real fixed Run owner and conserves refusal ordering",
+              "dynamic": false
+            },
+            {
+              "line": 770,
+              "name": "preparation resolution retains its established native link and raw lock refusals",
+              "dynamic": false
+            },
+            {
+              "line": 819,
+              "name": "preparation module loading shares one physical basis and reacquires changed content",
+              "dynamic": false
+            },
+            {
+              "line": 855,
+              "name": "native detachment retains only actual immutable verifier bodies and detaches raw copies",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/result.json",
+          "sha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+          "bytes": 6684,
+          "mode": "0o644"
+        }
+      ],
+      "status": "final_P1_and_owner_glue_required",
+      "selection": "Original P1 all ten calls + first/warm resolution + copy/mutate/crossed lock; owner-resolution.mjs positive and duplicate collection refusal; exact named preparation resolution test at line770.",
+      "limits": "D03-OWNER-ORACLE-TRIAGE-01 replaces impossible duplicate\u2192ambiguous expectation with actual earlier dependency refusal. Historical selected-execution-closure/conformance-owner-reuse environment is not automatically ready.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V5-codec",
+      "owners": "K10/EventStore",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+            "sha256": "151a764429dc5f57abaf894d74e8abe0ac206af8807922ab549be6df83a2d6fc",
+            "bytes": 39309,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 22,
+              "name": "shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays",
+              "dynamic": false
+            },
+            {
+              "line": 38,
+              "name": "shared canonical traversal preserves captured entries, array length and refusal precedence",
+              "dynamic": false
+            },
+            {
+              "line": 57,
+              "name": "incremental canonical hashes preserve independently declared golden bytes and refusal behavior",
+              "dynamic": false
+            },
+            {
+              "line": 173,
+              "name": "typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact",
+              "dynamic": false
+            },
+            {
+              "line": 205,
+              "name": "native definition references refuse missing, forward, foreign-slot, changed and injected material",
+              "dynamic": false
+            },
+            {
+              "line": 255,
+              "name": "native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append",
+              "dynamic": false
+            },
+            {
+              "line": 309,
+              "name": "physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences",
+              "dynamic": false
+            },
+            {
+              "line": 333,
+              "name": "nearest malformed body references refuse before logical history is exposed",
+              "dynamic": false
+            },
+            {
+              "line": 364,
+              "name": "reused cold bodies still require each new envelope identity, stamp, cause and logical digest",
+              "dynamic": false
+            },
+            {
+              "line": 383,
+              "name": "independently supplied mutable raw input remains detached at event admission",
+              "dynamic": false
+            },
+            {
+              "line": 396,
+              "name": "live body reuse preserves caller isolation, owned prefix and transaction rollback",
+              "dynamic": false
+            },
+            {
+              "line": 430,
+              "name": "literal marker-shaped Product data and small duplicate values remain unambiguous",
+              "dynamic": false
+            },
+            {
+              "line": 445,
+              "name": "failed durable batch discards new inline sources; committed same-batch references survive reopen",
+              "dynamic": false
+            },
+            {
+              "line": 465,
+              "name": "large duplicate Result bodies and complete replay hashing fit a constrained heap",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/09-event-body-codec.json",
+          "sha256": "f28c1a5852709e41272d774e45dc067fdb1ed1ff497a4b66e8bea467b8f0c8d1",
+          "bytes": 799,
+          "mode": "0o644"
+        }
+      ],
+      "status": "requires_final_full_14_case_execution",
+      "selection": null,
+      "limits": "14 actual existing codec cases. Keep heap-constrained subcase at its existing source-owned setting; no new quota.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V5-reopen",
+      "owners": "K08/K09/EventStore/ABG",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+            "sha256": "6c381a883f4b57bc5a66f5fa88cfca0acc88d703d9ffca47b455e3b185eb08fd",
+            "bytes": 56420,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 257,
+              "name": "M5 new-empty acquisition returns one genuine readable zero prefix",
+              "dynamic": false
+            },
+            {
+              "line": 275,
+              "name": "M5 EventStore batch factory interruption leaves the exact prefix unchanged",
+              "dynamic": false
+            },
+            {
+              "line": 298,
+              "name": "owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence",
+              "dynamic": false
+            },
+            {
+              "line": 352,
+              "name": "owned causation lookup grows with causal references in live admission and cold reconstruction",
+              "dynamic": false
+            },
+            {
+              "line": 397,
+              "name": "held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback",
+              "dynamic": false
+            },
+            {
+              "line": 443,
+              "name": "M5 effectful truth rejects a mechanically valid forged Product install for every query",
+              "dynamic": false
+            },
+            {
+              "line": 481,
+              "name": "M5 effectful truth rejects forged artifact operation identity before query selection",
+              "dynamic": false
+            },
+            {
+              "line": 511,
+              "name": "M5 exact owner projections preserve valid facts, conflicts, and whole-prefix masking",
+              "dynamic": false
+            },
+            {
+              "line": 948,
+              "name": "M5 reopens one exact durable prefix without restamping and appends at max ordinal plus one",
+              "dynamic": false
+            },
+            {
+              "line": 979,
+              "name": "M5 rolls back an incomplete atomic F_H hold admission without a replay-visible prefix",
+              "dynamic": false
+            },
+            {
+              "line": 1017,
+              "name": "M5 exact-prefix two-stage transaction rolls back its first stage when second staging fails",
+              "dynamic": false
+            },
+            {
+              "line": 1059,
+              "name": "M5 durable reopen refuses changed prefix bytes without changing replay truth",
+              "dynamic": false
+            },
+            {
+              "line": 1069,
+              "name": "M5 durable reopen refuses a second active append owner",
+              "dynamic": false
+            },
+            {
+              "line": 1080,
+              "name": "M5 durable reopen refuses a modified authority carrier",
+              "dynamic": false
+            },
+            {
+              "line": 1090,
+              "name": "M5 durable reopen does not steal ownership from an abandoned lock",
+              "dynamic": false
+            },
+            {
+              "line": 1116,
+              "name": "M5 event contract refuses blank history and malformed kind/scope/payload variants",
+              "dynamic": false
+            },
+            {
+              "line": 1249,
+              "name": "trusted owned history conserves currentness, callback publication, rollback and cold reconstruction",
+              "dynamic": false
+            },
+            {
+              "line": 1320,
+              "name": "owned append I/O failures restore committed bytes and hash or poison admission",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [],
+      "status": "requires_final_full_18_case_execution",
+      "selection": null,
+      "limits": "Durable new/held/reopen/rollback/reappend/poison/forged/cold owner cases; exact source-selected fixtures, not historical continuation17.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V5-route",
+      "owners": "K08/K09/EventCalculus/HoG",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+            "sha256": "524c4e603099fd0532acfa99cd1059beeb8228d9fc2591c2bc87e8158958d68e",
+            "bytes": 53677,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 146,
+              "name": "terminal route-only projection preserves complete replay and avoids nonreturned populations",
+              "dynamic": false
+            },
+            {
+              "line": 176,
+              "name": "terminal route-only retains cold and hot malformed-history refusals",
+              "dynamic": false
+            },
+            {
+              "line": 217,
+              "name": "retained native outputs and exact pre-basis historical owner facts are conserved",
+              "dynamic": false
+            },
+            {
+              "line": 246,
+              "name": "route facts ignore unrelated growth and preserve relevant source, cursor and intent changes",
+              "dynamic": false
+            },
+            {
+              "line": 331,
+              "name": "owned deferred recursion restores and begins at the exact cut while Public wrappers keep complete values",
+              "dynamic": false
+            },
+            {
+              "line": 419,
+              "name": "selected replay guard streams the exact complete Result, route and replay digest",
+              "dynamic": false
+            },
+            {
+              "line": 436,
+              "name": "finite pure candidate plan equals complete-array construction without advancing the accepted base",
+              "dynamic": false
+            },
+            {
+              "line": 481,
+              "name": "ordinary selected route and scoped extent avoid growing historical bodies; explicit snapshots have their own lifetime",
+              "dynamic": false
+            },
+            {
+              "line": 536,
+              "name": "drop complete output then selected route does not retain decoded historical bodies",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [],
+      "status": "requires_final_self_contained_selection",
+      "selection": "All named tests except the two P0_RETAINED_NATIVE_SCRATCH cases; explicit CLI name pattern excludes them. Pass --experimental-vm-modules and --expose-gc for existing source/GC checks.",
+      "limits": "Two excluded historical rows remain gaps requiring exact supported reuse or owned replacement selected by Executive. No skipped-case closure; no acquisition of continuation17.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity.",
+      "excludedNames": [
+        "retained native outputs and exact pre-basis historical owner facts are conserved",
+        "route facts ignore unrelated growth and preserve relevant source, cursor and intent changes"
+      ],
+      "selectedNames": [
+        "terminal route-only projection preserves complete replay and avoids nonreturned populations",
+        "terminal route-only retains cold and hot malformed-history refusals",
+        "owned deferred recursion restores and begins at the exact cut while Public wrappers keep complete values",
+        "selected replay guard streams the exact complete Result, route and replay digest",
+        "finite pure candidate plan equals complete-array construction without advancing the accepted base",
+        "ordinary selected route and scoped extent avoid growing historical bodies; explicit snapshots have their own lifetime",
+        "drop complete output then selected route does not retain decoded historical bodies"
+      ]
+    },
+    {
+      "id": "V6-K11",
+      "owners": "GTL STDO context/actual Product access/ABG assembly",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+            "sha256": "e45af06ccbf8ef80dda57277b99a849961ac9713641ebdc31a8a5f1a292b6cfa",
+            "bytes": 14629,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 87,
+              "name": "K11 current public specialization admits exact standalone STDO3 and conserves explicit source identity",
+              "dynamic": false
+            },
+            {
+              "line": 119,
+              "name": "K11 every standalone role binds native STDO material while additional generic material remains explicit",
+              "dynamic": false
+            },
+            {
+              "line": 123,
+              "name": "K11 explicit corpus construction still requires every source, companion and role-access join",
+              "dynamic": false
+            },
+            {
+              "line": 151,
+              "name": "K11 actual Product acquisition checks manifest, complete source inventory, spans and permission without Python",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/commands/04-stdo3-acquisition-after-fixture-reentry.json",
+          "sha256": "4f0cdaeeedd8db6933e9fd987654a8022e04829f19081fb18d3f40af74f1ac60",
+          "bytes": 800,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/report.md",
+          "sha256": "b6f06cc1bc86b287a6c953bd8de03138e8538287eadbd5d0ddfe7f532125fd70",
+          "bytes": 8762,
+          "mode": "0o644"
+        }
+      ],
+      "status": "reuse_closed_K11_cases_then_final_installed_P4",
+      "selection": null,
+      "limits": "Original acquisition support is unchanged; successor constructor/management cases supersede affected original source. Final P4 asserts literal spans55240\u201355942 and64650\u201365910 and fresh canonical mirror\u2260installed STDO. Baseline is capability refusal, never native timing ratio.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V6-E03",
+      "owners": "K12 owned process lifetime/command/HTTP/worker",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+            "sha256": "78fc4541bcf29df031ae5486394f61c724ac913c9799422c77ffa683100b0d2e",
+            "bytes": 38837,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 73,
+              "name": "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+              "dynamic": false
+            },
+            {
+              "line": 92,
+              "name": "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+              "dynamic": false
+            },
+            {
+              "line": 110,
+              "name": "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+              "dynamic": false
+            },
+            {
+              "line": 126,
+              "name": "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+              "dynamic": false
+            },
+            {
+              "line": 146,
+              "name": "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+              "dynamic": false
+            },
+            {
+              "line": 177,
+              "name": "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+              "dynamic": false
+            },
+            {
+              "line": 196,
+              "name": "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+              "dynamic": false
+            },
+            {
+              "line": 227,
+              "name": "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+              "dynamic": false
+            },
+            {
+              "line": 246,
+              "name": "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+              "dynamic": false
+            },
+            {
+              "line": 299,
+              "name": "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+              "dynamic": false
+            },
+            {
+              "line": 328,
+              "name": "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+              "dynamic": false
+            },
+            {
+              "line": 387,
+              "name": "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+              "dynamic": false
+            },
+            {
+              "line": 440,
+              "name": "physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed",
+              "dynamic": false
+            },
+            {
+              "line": 453,
+              "name": "physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize",
+              "dynamic": false
+            },
+            {
+              "line": 489,
+              "name": "physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result",
+              "dynamic": false
+            },
+            {
+              "line": 519,
+              "name": "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+              "dynamic": false
+            },
+            {
+              "line": 539,
+              "name": "physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/selected-cases.json",
+          "sha256": "6067f3552a8cdebe8a7965c99fbb414c6b0313c41ed145dea58f587e8a9d6a00",
+          "bytes": 5587,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/case-results.json",
+          "sha256": "8dcc23dee9cef3b67232c5832b976dd9991e0cfa585e7c362289cfb45b4d1df6",
+          "bytes": 11133,
+          "mode": "0o644"
+        }
+      ],
+      "status": "reuse_27_exact_closed_successor_cases",
+      "selection": null,
+      "limits": "13 controlled +4 physical +10 worker, separately scoped. Capture policies and original failed EPIPE receipts remain; E03 event-order regressions below are still required on final combined subject.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity.",
+      "exactClosedCases": [
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled timing: host boundaries, finite huge and fractional delays never become early actions",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled lifetime: callback errors stop ordinary observations and retain the first error",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled owners: command and HTTP reject the original stream error before reports or a dependent request",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed",
+          "group": "physical"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize",
+          "group": "physical"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result",
+          "group": "physical"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds",
+          "group": "controlled"
+        },
+        {
+          "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+          "name": "physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded",
+          "group": "physical"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+          "group": "worker"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+          "group": "worker"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+          "group": "worker"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "M5 ABG transport does not renew from unacknowledged output",
+          "group": "worker"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+          "group": "worker"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+          "group": "worker"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+          "group": "worker"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+          "group": "worker"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+          "group": "worker"
+        },
+        {
+          "file": "test_env/tests/m5-worker-transport.test.mjs",
+          "name": "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+          "group": "worker"
+        }
+      ]
+    },
+    {
+      "id": "V6-U1-full",
+      "owners": "EventCalculus/native join and seven consumers",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+            "sha256": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546",
+            "bytes": 37664,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 274,
+              "name": "U1 fixture event handoffs match the exported owner contracts before effectful proof",
+              "dynamic": false
+            },
+            {
+              "line": 282,
+              "name": "U1 scope, currentness and cleanup agree at full, indexed, incremental and cold prefixes",
+              "dynamic": false
+            },
+            {
+              "line": 327,
+              "name": "U1 both unknown causes share authentication and preserve the transport failure",
+              "dynamic": false
+            },
+            {
+              "line": 337,
+              "name": "U1 rejects absent, ambiguous, foreign, changed or causally late prerequisites and substituted causes",
+              "dynamic": false
+            },
+            {
+              "line": 378,
+              "name": "U1 C2 current-source gate rejects affected input while immutable native provenance remains reusable",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        },
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+            "sha256": "f46908c1598ddc8a7a21a5a890dc2a1af5fe75089160e15054824cfcb59ddca3",
+            "bytes": 76803,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 576,
+              "name": "U1-P5-02 actual C0 successor and every affected currentness consumer",
+              "dynamic": false
+            },
+            {
+              "line": 592,
+              "name": "U1 physical target scope successor across bindings and native Result scopes",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/passing-support-correspondence.json",
+          "sha256": "d4f75acc6aa110900c791e5cb8ad1459145829b4ce5778fc9b255acb8d185e71",
+          "bytes": 1026,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/case-to-owner-results.json",
+          "sha256": "a37042c6a7884f1be1370f74346fdea17f12fb923ab30c0824e37e6e111b7912",
+          "bytes": 9590,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/case-matrix.json",
+          "sha256": "ab4fc79fa8fa33f2b5578afa2232702ca2220d9f0214e2ded6368a52524cbd29",
+          "bytes": 221643,
+          "mode": "0o644"
+        }
+      ],
+      "status": "requires_one_full_combined_aggregate",
+      "selection": "Run both complete files once on final combined source; do not use prior case-selection environment filters.",
+      "limits": "Original U1 26 local tests/subtests, consumer eight owner rows/38 gate calls, successor one test/eight vectors are separate subjects. Latest cross-binding target correction and real C0 successors require this aggregate; same-family reviews are not semantic independence.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V6-E03-event-order",
+      "owners": "native workspace physical transport/ABG terminality",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+            "sha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384",
+            "bytes": 86994,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 37,
+              "name": "post-effect channel conflict retains admitted native failure scope without a fabricated exchange",
+              "dynamic": false
+            },
+            {
+              "line": 232,
+              "name": "native work publishes one ordinary callable effect with run and child closure",
+              "dynamic": false
+            },
+            {
+              "line": 238,
+              "name": "native task conserves read-only scope and refuses malformed or wider input",
+              "dynamic": false
+            },
+            {
+              "line": 247,
+              "name": "owner refuses stale context before assembly/dispatch",
+              "dynamic": false
+            },
+            {
+              "line": 254,
+              "name": "actual observation remains independent of report and consumer judgment",
+              "dynamic": false
+            },
+            {
+              "line": 267,
+              "name": "native ${mode} retains actual partial edit and refuses success",
+              "dynamic": true
+            },
+            {
+              "line": 298,
+              "name": "read-only native assessment returns observed assets and an empty change set",
+              "dynamic": false
+            },
+            {
+              "line": 304,
+              "name": "unavailable after observation retains unknown and original native failure",
+              "dynamic": false
+            },
+            {
+              "line": 312,
+              "name": "unknown native after-state retires only potentially writable C0 facts",
+              "dynamic": false
+            },
+            {
+              "line": 367,
+              "name": "observed partial failure retires touched C0 facts but preserves unchanged and absent paths",
+              "dynamic": false
+            },
+            {
+              "line": 395,
+              "name": "native publication agrees with actual generated artifact manifest identity",
+              "dynamic": false
+            },
+            {
+              "line": 412,
+              "name": "native implementation without physical authority refuses before loading",
+              "dynamic": false
+            },
+            {
+              "line": 430,
+              "name": "admitted pure consumer evaluates a native task as data without physical authority",
+              "dynamic": false
+            },
+            {
+              "line": 576,
+              "name": "native and assessment renders preserve scope and explain observation limits",
+              "dynamic": false
+            },
+            {
+              "line": 594,
+              "name": "assessment declaration selects an independent assessor role; ordinary constructor stays unchanged",
+              "dynamic": false
+            },
+            {
+              "line": 606,
+              "name": "assessment schema must match its unique declared installed owner and immutable schema asset",
+              "dynamic": false
+            },
+            {
+              "line": 621,
+              "name": "assessment schema defaults to fixed 2020 without changing declared validation or accepting conflicting markers",
+              "dynamic": false
+            },
+            {
+              "line": 645,
+              "name": "exact assessment resolution, native completion and result checks share one compilation without accepting changed schema or installed bytes",
+              "dynamic": false
+            },
+            {
+              "line": 688,
+              "name": "typed read-only assessment retains F_P source and exact observed basis, not a work report",
+              "dynamic": false
+            },
+            {
+              "line": 723,
+              "name": "native assessment ${mode} cannot produce semantic success",
+              "dynamic": true
+            },
+            {
+              "line": 760,
+              "name": "assessment accepts a different declared verdict shape without core identity fields",
+              "dynamic": false
+            },
+            {
+              "line": 773,
+              "name": "assessment treats a consumer-declared basisDigest as schema-owned data without rewriting it",
+              "dynamic": false
+            },
+            {
+              "line": 786,
+              "name": "assessment task refuses mutable scope and mismatched source/rubric coordinates before work",
+              "dynamic": false
+            },
+            {
+              "line": 798,
+              "name": "complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        },
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+            "sha256": "011e3fbae5975cd8ffcfd79182e55a5830019a66e2b1aa406bbcca4ff9ba4279",
+            "bytes": 11243,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 62,
+              "name": "CCall opening is one atomic open-and-fibre transition",
+              "dynamic": false
+            },
+            {
+              "line": 82,
+              "name": "timeout and termination-unconfirmed never prove a started process absent",
+              "dynamic": false
+            },
+            {
+              "line": 117,
+              "name": "preterminal Process exit is the single cleanup confirmation",
+              "dynamic": false
+            },
+            {
+              "line": 135,
+              "name": "duplicate Process terminality and Actor terminal before confirmation fail closed",
+              "dynamic": false
+            },
+            {
+              "line": 147,
+              "name": "cold leader exit preserves unknown group cleanup across ordinary Run failure",
+              "dynamic": false
+            },
+            {
+              "line": 171,
+              "name": "owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes",
+              "dynamic": false
+            },
+            {
+              "line": 207,
+              "name": "unjoined process uncertainty preserves cleanup without claiming a native write scope",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/regression-native-work-03.json",
+          "sha256": "2f9b5beabbd4cea3731494d0c5dbf45a78f5067b3a532bde816418b15360e466",
+          "bytes": 4240,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/regression-terminal-01.json",
+          "sha256": "52d9ec17b5a1ef758c9dd236660663dbe9859b0335c975b7bc52d3c3e4ccecde",
+          "bytes": 2240,
+          "mode": "0o644"
+        }
+      ],
+      "status": "requires_final_selected_execution",
+      "selection": "Native-workspace: post-effect channel conflict retains admitted native failure scope without a fabricated exchange; terminal-quiescence: full7.",
+      "limits": "Actual disposable local native-workspace regression, no paid provider. Fixture lower installation/ancestry premises remain disclosed; no historical retained native root.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V6-P5-physical",
+      "owners": "installed C2/HTTP/common lifetime/fresh replay",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+            "sha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329",
+            "bytes": 54074,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 177,
+              "name": "C2 explicit zero write territory preserves array, report and HTTP port authorization",
+              "dynamic": false
+            },
+            {
+              "line": 209,
+              "name": "C2 finite host timer schema and constructor share bounds without changing grace",
+              "dynamic": false
+            },
+            {
+              "line": 407,
+              "name": "T-287 C2 compact acknowledgment preserves installed large-log observation and replay",
+              "dynamic": false
+            },
+            {
+              "line": 895,
+              "name": "C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/report.md",
+          "sha256": "801269ff6559a11355bca7e56f91fba4893ee0d2672bb96700806289712ef31f",
+          "bytes": 5677,
+          "mode": "0o644"
+        }
+      ],
+      "status": "prepared_not_executed",
+      "selection": "Exact P5 draft rebound to final archive plus new canonical /private/tmp roots under separate grant.",
+      "limits": "Actual installed common lifetime; captured cleanup; canonical budget27750, explicit HTTP Connection close. Template roots insideW are placeholders. P4 requires final P5 result.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V6-E04-physical",
+      "owners": "Product C0 observation/replacement/native after-state",
+      "files": [
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-file-replace-owner.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-file-replace-owner.test.mjs",
+            "sha256": "3fa21a2b930733d9d6c3ab0f9e7122bfbace2fcf5bc0e019b8919888fa7e80b9",
+            "bytes": 32015,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 371,
+              "name": "T-287 C0 Product owner atomically replaces one W-bound worksite file and fails closed",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        },
+        {
+          "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+          "selectionSource": {
+            "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+            "sha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384",
+            "bytes": 86994,
+            "mode": "0o644"
+          },
+          "cases": [
+            {
+              "line": 37,
+              "name": "post-effect channel conflict retains admitted native failure scope without a fabricated exchange",
+              "dynamic": false
+            },
+            {
+              "line": 232,
+              "name": "native work publishes one ordinary callable effect with run and child closure",
+              "dynamic": false
+            },
+            {
+              "line": 238,
+              "name": "native task conserves read-only scope and refuses malformed or wider input",
+              "dynamic": false
+            },
+            {
+              "line": 247,
+              "name": "owner refuses stale context before assembly/dispatch",
+              "dynamic": false
+            },
+            {
+              "line": 254,
+              "name": "actual observation remains independent of report and consumer judgment",
+              "dynamic": false
+            },
+            {
+              "line": 267,
+              "name": "native ${mode} retains actual partial edit and refuses success",
+              "dynamic": true
+            },
+            {
+              "line": 298,
+              "name": "read-only native assessment returns observed assets and an empty change set",
+              "dynamic": false
+            },
+            {
+              "line": 304,
+              "name": "unavailable after observation retains unknown and original native failure",
+              "dynamic": false
+            },
+            {
+              "line": 312,
+              "name": "unknown native after-state retires only potentially writable C0 facts",
+              "dynamic": false
+            },
+            {
+              "line": 367,
+              "name": "observed partial failure retires touched C0 facts but preserves unchanged and absent paths",
+              "dynamic": false
+            },
+            {
+              "line": 395,
+              "name": "native publication agrees with actual generated artifact manifest identity",
+              "dynamic": false
+            },
+            {
+              "line": 412,
+              "name": "native implementation without physical authority refuses before loading",
+              "dynamic": false
+            },
+            {
+              "line": 430,
+              "name": "admitted pure consumer evaluates a native task as data without physical authority",
+              "dynamic": false
+            },
+            {
+              "line": 576,
+              "name": "native and assessment renders preserve scope and explain observation limits",
+              "dynamic": false
+            },
+            {
+              "line": 594,
+              "name": "assessment declaration selects an independent assessor role; ordinary constructor stays unchanged",
+              "dynamic": false
+            },
+            {
+              "line": 606,
+              "name": "assessment schema must match its unique declared installed owner and immutable schema asset",
+              "dynamic": false
+            },
+            {
+              "line": 621,
+              "name": "assessment schema defaults to fixed 2020 without changing declared validation or accepting conflicting markers",
+              "dynamic": false
+            },
+            {
+              "line": 645,
+              "name": "exact assessment resolution, native completion and result checks share one compilation without accepting changed schema or installed bytes",
+              "dynamic": false
+            },
+            {
+              "line": 688,
+              "name": "typed read-only assessment retains F_P source and exact observed basis, not a work report",
+              "dynamic": false
+            },
+            {
+              "line": 723,
+              "name": "native assessment ${mode} cannot produce semantic success",
+              "dynamic": true
+            },
+            {
+              "line": 760,
+              "name": "assessment accepts a different declared verdict shape without core identity fields",
+              "dynamic": false
+            },
+            {
+              "line": 773,
+              "name": "assessment treats a consumer-declared basisDigest as schema-owned data without rewriting it",
+              "dynamic": false
+            },
+            {
+              "line": 786,
+              "name": "assessment task refuses mutable scope and mismatched source/rubric coordinates before work",
+              "dynamic": false
+            },
+            {
+              "line": 798,
+              "name": "complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch",
+              "dynamic": false
+            }
+          ],
+          "executionCorrespondence": "Final isolated execution source must match this file or its specifically closed successor; this inventory alone is not an execution receipt."
+        }
+      ],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/case-matrix.json",
+          "sha256": "ab4fc79fa8fa33f2b5578afa2232702ca2220d9f0214e2ded6368a52524cbd29",
+          "bytes": 221643,
+          "mode": "0o644"
+        }
+      ],
+      "status": "owning_cases_identified_not_aggregate_credit",
+      "selection": "C0 named owner case; native unavailable after-observation / observed partial failure / timeout/malformed/read-only-change cases only if separately selected.",
+      "limits": "C0 case covers relative/escape path, symlink, directory, hard-link/physical alias and stale predecessor. Latest U1 supplies real C0 commit plus unavailable-after observation at actual byte bound, but not interrupted publishCreateOnly or persistExactFile collision execution.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    },
+    {
+      "id": "V7-paths-and-cost",
+      "owners": "P1\u2013P5 actual owner paths/cost/retirement",
+      "files": [],
+      "existingEvidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/result.json",
+          "sha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+          "bytes": 6684,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/result.json",
+          "sha256": "d32254c2f3b96e2728abf786d73ee0f19841ae9823771c27ce7c772b1bcda037",
+          "bytes": 10775,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/comparison.json",
+          "sha256": "f614f45ef5941fc7fcef5e3ceb692426134f70af042e0d6cfda881392160771e",
+          "bytes": 3161,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/retirement.json",
+          "sha256": "1eb4840c4380661b5af2f345ad68ef62d084891812bde9c212ba47b4a6fc9c86",
+          "bytes": 3608,
+          "mode": "0o644"
+        }
+      ],
+      "status": "final_artifact_and_effect_grants_required",
+      "selection": null,
+      "limits": "Uninstrumented final P1\u2192P2 actual-returned-prefix\u2192P3; P5 physical/U1; then one native P4 only. Deterministic diagnostic repetitions and complete retirement/package/source checks are separately granted. No original candidate01 evidence as final identity.",
+      "supportPrerequisite": "Compare exact tested source/body, emitted owner and complete imported support cone against final stage and archive. Physical, installed, controlled and native premises remain distinct; reused counts never migrate to a different artifact identity."
+    }
+  ],
+  "gaps": [
+    {
+      "id": "route-history-two",
+      "owner": "route reconstruction",
+      "needed": "Exact reusable historical receipts with full support matching, or separately selected owned replacement; P0 environment placeholders are not proof."
+    },
+    {
+      "id": "HoG-retained-laws",
+      "owner": "HoG/ABG",
+      "needed": "Exact receipt/support selection for retry lineage, child/foldback and batch partial/unstarted beyond constructor checks. No broad-suite launch."
+    },
+    {
+      "id": "E04-create-only",
+      "owner": "implementation/worksite_command_helper.ts publishCreateOnly/materializeSnapshot; product/materialization_operations.ts persistExactFile",
+      "needed": "No standalone exact passing receipt selected here for identical-content collision, concurrent no-clobber/temp partial-write residue, malformed link/node kind across these distinct owners. Root must select exact prior evidence or bounded owner replacement. C0/native partial effect is not substitute."
+    },
+    {
+      "id": "K07-historical-environments",
+      "owner": "selected-execution-closure/conformance-owner-reuse",
+      "needed": "No blanket readiness from source presence; final P1 and new controlled actual-owner glue cover selected admitted domain only. Any additional accepted multi-entry or next-call module-acquisition relation requires exact supported owning receipt."
+    },
+    {
+      "id": "V7-unobserved-channels",
+      "owner": "cost observation",
+      "needed": "Native trace unsized IO, non-Node child IO/CPU, cold-scope causal iteration count and GC-cache retained bytes remain explicit. Observed channels do not create a global byte total."
+    }
+  ],
+  "nativeGate": {
+    "requires": [
+      "P1",
+      "P2",
+      "P3",
+      "P5-physical",
+      "P5-U1"
+    ],
+    "subjectId": "same final candidate identity",
+    "maxCalls": 1,
+    "noExtraNativeForMeasurement": true
+  },
+  "reuseRule": "Only exact tested support correspondence; control/local/physical/installed/native are distinct. No test count, skip or source-presence closure."
+}

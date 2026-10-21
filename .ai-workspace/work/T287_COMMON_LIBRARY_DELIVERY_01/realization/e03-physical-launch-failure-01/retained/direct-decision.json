@@ -1,0 +1,6 @@
+{
+  "case": "direct",
+  "status": "passed",
+  "observedEvents": 27,
+  "actualFile": "direct-actual.json"
+}

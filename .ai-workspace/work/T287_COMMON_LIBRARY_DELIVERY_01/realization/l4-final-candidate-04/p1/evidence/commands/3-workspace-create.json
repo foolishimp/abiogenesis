@@ -1,0 +1,14 @@
+{
+  "label": "workspace-create",
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/calls/workspace-create.request.jsonl"
+  ],
+  "cwd": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence",
+  "wallMs": 21145.045166999997,
+  "stdout": "{\"acquisitionKind\":\"eventless\",\"kind\":\"installed_definition_call_transport_result\",\"receipt\":{\"definitionKey\":{\"memberKey\":\"clean\",\"operationId\":\"abg.operation.workspace.create\"},\"exitCode\":0,\"failure\":null,\"invocationRef\":\"invocation://abiogenesis/844119c7169b40bfcb23ae654ceb7dcb33544a5cac313fe2beaf753bb8ac6af4\",\"kind\":\"definition_host_receipt\",\"ownerOutput\":{\"outcomeKind\":\"result\",\"value\":{\"authorityMode\":\"clean\",\"createPolicy\":\"clean\",\"creationManifest\":{\"digest\":\"sha256:b99738247b8f68f06e11d59749a2af755f84a69e2c043689920a65e42452cdbe\",\"ref\":\"workspace-creation://abiogenesis/b99738247b8f68f06e11d59749a2af755f84a69e2c043689920a65e42452cdbe\"},\"provenance\":[{\"digest\":\"sha256:b99738247b8f68f06e11d59749a2af755f84a69e2c043689920a65e42452cdbe\",\"ref\":\"workspace-creation://abiogenesis/b99738247b8f68f06e11d59749a2af755f84a69e2c043689920a65e42452cdbe\"}],\"scaffoldState\":\"none\",\"workspace\":{\"digest\":\"sha256:fe72099c056c40c753d3bff1cb605545070dee9617a5037fa6d9362b25548c2b\",\"ref\":\"workspace://abiogenesis/fe72099c056c40c753d3bff1cb605545070dee9617a5037fa6d9362b25548c2b\"}}},\"resources\":{\"kind\":\"workspace_resource_receipt\",\"manifest\":{\"locator\":\"/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/worksite/.abiogenesis/workspace-manifest.json\",\"valueDigest\":\"sha256:284aa7e3aeecfd12fe613363fda272aac9e598e26341ebaa67c1ef020cf43c97\"},\"schemaVersion\":\"5.0.0\",\"targetRoot\":\"/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/worksite\",\"targetRootDigest\":\"sha256:c16ad5335a77ad4154b897b1c73b5de0fd8cb3991b33dc00afde27345504cfe5\"},\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"}\n",
+  "stderr": "",
+  "exitCode": 0
+}

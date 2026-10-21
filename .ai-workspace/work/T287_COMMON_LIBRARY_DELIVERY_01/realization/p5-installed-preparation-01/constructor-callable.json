@@ -1,0 +1,13 @@
+{
+  "name": "constructor-callable",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/preflight.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 0,
+  "wallSeconds": 0.2943647080101073,
+  "stdoutSha256": "9a582837bc1f7b126505a5a542449fc8d0eb0aca6f6b493b4c56eeb49fb40168",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "scope": "syntax/callable/pure constructor only; no fixture or installed effect"
+}

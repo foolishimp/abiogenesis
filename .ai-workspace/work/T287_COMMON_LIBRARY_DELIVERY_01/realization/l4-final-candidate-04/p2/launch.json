@@ -1,0 +1,14 @@
+{
+  "pid": 15009,
+  "argv": [
+    "/usr/bin/time",
+    "-l",
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+    "--configuration",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/configuration.json",
+    "--lane",
+    "partial-install"
+  ],
+  "startedAt": "2026-10-21T06:51:19.267932+00:00"
+}

@@ -1,0 +1,10 @@
+{
+  "execPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "version": "v24.7.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "executable_sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+  "typescript_version": "5.9.2",
+  "package_lock_sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+  "at": "2026-10-21T01:40:13.803192+00:00"
+}

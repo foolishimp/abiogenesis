@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-20T23:16:37.461565+00:00",
+  "disposition": "Executive PURE-STAGE-02",
+  "admitted_effect": "node scripts/generate-product-manifest.mjs in pinned isolated pure baseline plus owned overlay tenant only",
+  "prerequisite_inputs": "stage-inputs-02.json",
+  "no_main_generation_or_stale_manifest_copy": true,
+  "source_edits_permitted": false,
+  "next": "rerun affected selected m5-s06 tests only, then previously unperformed event codec cases; existing passes retained"
+}

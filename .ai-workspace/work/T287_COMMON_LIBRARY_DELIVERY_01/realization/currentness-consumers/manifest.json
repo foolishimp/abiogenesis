@@ -1,0 +1,325 @@
+{
+  "scope": "bounded currentness-consumers proof subject only; stage and dependencies separately inventoried; no moving-tree freeze",
+  "source_files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61",
+      "bytes": 53780
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1",
+      "bytes": 34273
+    }
+  ],
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/U1-PROOF-CAPACITY-05-audit.md",
+      "sha256": "56d470313132a9289d8ef30b90276ad4ab2091d379605819d297268d38c2cbd4",
+      "bytes": 2579
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/U1-PROOF-HANDOFF-02-audit.md",
+      "sha256": "b0cc06209e5788998fa86f97b894ce8c92f2560de948150e5d09f19065697cd5",
+      "bytes": 5014
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/U1-PROOF-LOADER-04-activation.md",
+      "sha256": "70d701785ebb4f8872406b52db23ac9366624bb3219edf8d80a43d6112663dae",
+      "bytes": 2420
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/U1-PROOF-TRACE-01-activation.md",
+      "sha256": "0a8d91788071210e4c5d719c6c19c6e7178b975147013381563c7a06e52ca8b6",
+      "bytes": 1857
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/activation.md",
+      "sha256": "a1ffb573c01ca71382903cbe70efcf81eb0defb4e583dc954a6e75cedff95e6d",
+      "bytes": 2487
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/attempt-01/consumer-results.json",
+      "sha256": "5c2e2c4d6b1ba44f0c7b421472676ed3df2b84735fa5537dfb17511ec257f76d",
+      "bytes": 1315516
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/attempt-02/consumer-results.json",
+      "sha256": "d84327dd5127b908a95144791496350376b0ce03493b48c279f2943e13a3b8f6",
+      "bytes": 2106971
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/attempt-03/consumer-results.json",
+      "sha256": "9bd5e160a706167ace2c509f6fbda6fde2bd66c79520916fb12e0c230c1fd279",
+      "bytes": 956511
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/attempt-04/consumer-results.json",
+      "sha256": "d9c003192eaffe1bc35157ff6ed0496e2468870c72bb98d6d410d28a7444c84c",
+      "bytes": 1564487
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/attempt-05/consumer-results.json",
+      "sha256": "c0b4054288fae99ec79cad5c8843bf9d2ac2ad259472a884765fcea0b78945e3",
+      "bytes": 31081293
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/authority-inputs.json",
+      "sha256": "39cb0bb449a8d308a72318a65b7173733941f481a92057c43dedbaa9a0dc4b1d",
+      "bytes": 2500
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/callable-boundary-audit-04.json",
+      "sha256": "8029329d18cec4efc6f26424cc92b7795aac20a3ef8d2c4ea471b057b11257fa",
+      "bytes": 13738
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/callable-preflight-04.json",
+      "sha256": "6706cd9f4919cf8dcd136420a63baf81840988462afd9df81f7aab028ae55efc",
+      "bytes": 2265
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/callable-preflight-04.mjs",
+      "sha256": "24f0e3223fef5550be3a55ef183635a8e7c330765de929c1c6abaf5977e73b69",
+      "bytes": 4763
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/callable-preflight-05.json",
+      "sha256": "84c6d4c25bb8dd66d8958be0c9d604dc0fefa789ae8a87a8fa2c3f786f16a6ec",
+      "bytes": 121054
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/callable-preflight-06.json",
+      "sha256": "fe625a6d5335568e92b5080f89389cd533d35ed5a5772735e8df04a9969c4bcc",
+      "bytes": 123885
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/case-to-owner-results.json",
+      "sha256": "a37042c6a7884f1be1370f74346fdea17f12fb923ab30c0824e37e6e111b7912",
+      "bytes": 9590
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/compile-01.json",
+      "sha256": "c3f0896b31a98667199a71e65ca82b7b9c19635b5699671fbfbdda473f2d7008",
+      "bytes": 396
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/dependencies-install.json",
+      "sha256": "6c647ceb6f35d9f6ecb4c88f34da3abf0e3b156e8769cdd2932d5f6e1e064972",
+      "bytes": 413
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/dependency-inventory.json",
+      "sha256": "991ddad43eb30a968aeb30e579aabb327a4c2016c1e157c840606c043363ad82",
+      "bytes": 859814
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/execution-inputs-01.json",
+      "sha256": "f58972db459cc66529efda4afc5c816ff4073ab3dc002206d9aa2bb2400bafb5",
+      "bytes": 2497
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/execution-inputs-02.json",
+      "sha256": "a6ac92a68fc5b77e4a1bab5624691323c2f85d692119d11d7f7805c98c98aef8",
+      "bytes": 883
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/execution-inputs-03.json",
+      "sha256": "5909e9e6267337d0fd196d2dde164348e739382b93500c88d67c534565e85f32",
+      "bytes": 1087
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/execution-inputs-04.json",
+      "sha256": "1bb55f5bcae4b7ceaf5010b84a2eec93a6a727bef441d6e2c3fec6b78df3e463",
+      "bytes": 1615
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/execution-inputs-05.json",
+      "sha256": "ca94efd433b023e9077261ceca0907b052ddb927ee939d7f6a1bd42111f512b4",
+      "bytes": 1391
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-01/build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "52d1912370b464cbda91b60e155f1f08d78463dbd1fe77d2b44b26740aa1e41d",
+      "bytes": 33763
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "6d30b7b69a8e74b0ae54f1f8543d8b4987f2b5b65353869d0bedf49ce0849ea3",
+      "bytes": 47107
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-02/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "784524463a639af28ff485ec87ec10773a3345e8beb6c40aaa02327c2bd6d6d6",
+      "bytes": 47613
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-03/build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "52d1912370b464cbda91b60e155f1f08d78463dbd1fe77d2b44b26740aa1e41d",
+      "bytes": 33763
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-03/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "cc983d253d2b7aeb69dd8998ab995c30bf4f487c89c062c2fdd6e09cf19cb920",
+      "bytes": 50801
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-04/build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1",
+      "bytes": 34273
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-04/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "f96f815975dab8d2aa0b02dbe31cfd50190059887c678793b4b60eca5d8af930",
+      "bytes": 52146
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failure-01-triage-return.json",
+      "sha256": "438a2aab14cce02d4fee8df23163ddcf82beebf6af25de67c560313cfcd9d9e4",
+      "bytes": 1721
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failure-02-triage-return.json",
+      "sha256": "ef6d5f1d5f41f113b9afd9cfc4c59691b3896a582ca18e9dff3bf4efea182243",
+      "bytes": 1462
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failure-03-triage-return.json",
+      "sha256": "0ca350e522ebdf60adbbbf3005d1ae5652080de2393596a0f4ce158dbbcc2b1b",
+      "bytes": 2542
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failure-04-triage-return.json",
+      "sha256": "37287ee7cbd77ffccc5c8f5f6d5fd8866ea1b5d203b425defec9c21c5631fffb",
+      "bytes": 2702
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/final-verification.json",
+      "sha256": "d6a769c33508af6e134e6a01054c1de2dee3add36ef86a852b178f66c601cac6",
+      "bytes": 704
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/fixture-audit.md",
+      "sha256": "c3063ad8fe258c3108ab8048cb85a832cb40a13a0767e306764e65a8a77d1581",
+      "bytes": 4980
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/focused-01-command.json",
+      "sha256": "e0d16341b8a522020a9e24b00f39a52a36626ada22defc194986eaebad3eee52",
+      "bytes": 612
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/focused-01.json",
+      "sha256": "57cf8d71bc7c244008ef6c264cf291c136f10be5cf1b2a0011bb78e75c5041b0",
+      "bytes": 3486
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/focused-02.json",
+      "sha256": "71e60096277af3b183a1884356b8a88da7e4e3fb57bb46182c5750d803e028f6",
+      "bytes": 2249
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/focused-03.json",
+      "sha256": "0d51d69f82f350de7d641162a12c9c260b61f2f395d38c7b1a7723f082d760d1",
+      "bytes": 1957
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/focused-04.json",
+      "sha256": "78489fe90780cbd5b159df4d1538ff25371de1f5d8d04f9bf9923ff728920b55",
+      "bytes": 3062
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/focused-05.json",
+      "sha256": "16dbd8c9627fb830d65176b6dac9dfa9b7eb45176db7124210db798518157891",
+      "bytes": 2086
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/generate-01.json",
+      "sha256": "6d8d56825557fc2ed08478db7ac2e1ed3fa36583b3468bdaa966bd23a952514f",
+      "bytes": 342
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/main-generated-preimage.json",
+      "sha256": "8838a89cc91b09a64e587294c7ce8c206d26543c099409503bb15e97a0828677",
+      "bytes": 196721
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/namespace-audit-03.json",
+      "sha256": "e13f72b6925affe8e0bd762fa6ba7a2432e2301c887059cf7999ce009000022c",
+      "bytes": 4960
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/physical-retention-and-cleanup.json",
+      "sha256": "57de2c573b38b135b0d953c7fd108dfa76d2e920864febfe1aaaee0ee8232e2c",
+      "bytes": 6747
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/preconditions.json",
+      "sha256": "faf5e25e9a232e6529baea8f2ed17283bb415627760eea656f22f9bbbaee84d0",
+      "bytes": 13540
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/preflight-failed-04/build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "52d1912370b464cbda91b60e155f1f08d78463dbd1fe77d2b44b26740aa1e41d",
+      "bytes": 33763
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/preflight-failed-04/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "f96f815975dab8d2aa0b02dbe31cfd50190059887c678793b4b60eca5d8af930",
+      "bytes": 52146
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/preflight-failure-04-triage-return.json",
+      "sha256": "bb21df662c40cd511c3ba2d34d7011a5914f3707b91fa17b6af2386841c327dd",
+      "bytes": 1240
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/report.md",
+      "sha256": "2b8fc34b20456e850cecbc96a09a35482ff7bf72f338d8c3597533d6e8930d9c",
+      "bytes": 8494
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/reused-support-correspondence.json",
+      "sha256": "2db14155c6dd849cba0b79ad5d6489efc56fa2e6b8fe611281406df4aa7363f1",
+      "bytes": 8835
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/source-derived-correspondence.json",
+      "sha256": "073114dbb037e8f7ec124b1cfca49638e2250bdb0f5f9f1969b229f708f53c96",
+      "bytes": 1542
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-final-inventory.json",
+      "sha256": "67805244f331645108591162e61f7f5203678919796a107aba270db477bdf975",
+      "bytes": 429644
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-inputs.json",
+      "sha256": "aa7077892302aece271fb5d84783764f13a5126f0c51aef699132a99fb88593d",
+      "bytes": 369610
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-output-manifest.json",
+      "sha256": "5d4c0fb42e89d0b700a5f1bba8586975445c01c16138f4d6c4ac96756b38684c",
+      "bytes": 162428
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/support-correspondence-empty-attempt.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/support-correspondence-receipt.json",
+      "sha256": "dd9915905ce9ff9514351ad1ca67c27a53d664422780bc255e5e1fea97ede88f",
+      "bytes": 275
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/syntax-03.json",
+      "sha256": "52d5249e5bfc932137fc463cea3e1ddaf05690c3d727090dd067d3d3fd0ec472",
+      "bytes": 332
+    }
+  ],
+  "stage_inventory_sha256": "67805244f331645108591162e61f7f5203678919796a107aba270db477bdf975",
+  "dependency_inventory_sha256": "991ddad43eb30a968aeb30e579aabb327a4c2016c1e157c840606c043363ad82",
+  "record_count": 61
+}

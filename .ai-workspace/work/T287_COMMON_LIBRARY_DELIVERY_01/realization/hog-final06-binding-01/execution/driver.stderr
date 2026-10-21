@@ -1,0 +1,27 @@
+AssertionError [ERR_ASSERTION]: {"kind":"product_execution_resolution_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"incompatible_or_unproven","stage":"catalog","message":"direct public control requires next or asset target with until converged and no caller-selected start"}
++ actual - expected
+
++ 'product_execution_resolution_refusal'
+- 'loaded_product_execution_resolution'
+
+    at Module.constructInstalledStartCall (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs:264:10)
+    at async runCase (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs:180:27)
+    at async main (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs:224:31)
+       41.91 real        44.58 user        11.02 sys
+          3519954944  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              556107  page reclaims
+                 449  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                5371  messages sent
+                4138  messages received
+                   0  signals received
+                1429  voluntary context switches
+             1147982  involuntary context switches
+        712170659762  instructions retired
+        168409329451  cycles elapsed
+          3534500952  peak memory footprint

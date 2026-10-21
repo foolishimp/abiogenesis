@@ -1,0 +1,36 @@
+{
+  "roots": [
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture",
+      "files": 7,
+      "logicalBytes": 56672,
+      "allocatedFileBytes": 77824,
+      "duKiB": 76,
+      "duStdout": "76\t/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture\n",
+      "duStderr": ""
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-npm-cache",
+      "files": 4,
+      "logicalBytes": 11717,
+      "allocatedFileBytes": 20480,
+      "duKiB": 20,
+      "duStdout": "20\t/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-npm-cache\n",
+      "duStderr": ""
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support",
+      "files": 3,
+      "logicalBytes": 40664,
+      "allocatedFileBytes": 45056,
+      "duKiB": 44,
+      "duStdout": "44\t/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support\n",
+      "duStderr": ""
+    }
+  ],
+  "scope": "retained readiness cuts only; file block counts may overlap on copy-on-write volumes; no peak or timing comparison",
+  "npmCache": "new explicit task-owned cache only; all pack cache/log residue retained",
+  "nativeCalls": 0,
+  "installs": 0,
+  "workloads": 0
+}

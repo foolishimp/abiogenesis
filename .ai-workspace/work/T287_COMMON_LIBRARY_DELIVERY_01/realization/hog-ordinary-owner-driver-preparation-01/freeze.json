@@ -1,0 +1,115 @@
+{
+  "kind": "HOG-ORDINARY-OWNER-DRIVER-PREPARATION-01_closed_preparation_freeze",
+  "status": "preparation_ready; execution_NOT_GRANTED",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "ownedOutputs": [],
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/HOW.md",
+      "sha256": "4e28fa5af3f4d8e4ec0bf0f649d9c9ebc29730cefa2d90b978065c41363a5359",
+      "bytes": 4815,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/activation.json",
+      "sha256": "5b932df49681ded319f71234c8d8f9c76d5b77b1bd15921618d8dd941049b265",
+      "bytes": 2382,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/binding-instructions.json",
+      "sha256": "626bc8bcabbf24693c60aa28da72b8ce5364fca0454d29e2b83ca4af43e864fc",
+      "bytes": 2384,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/case-map.json",
+      "sha256": "4bc62f086b5fad8b9194649fb7e09f252f52d5005fc12f691afb8076752ec031",
+      "bytes": 3331,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/commands.NOT_GRANTED.json",
+      "sha256": "5eb6f6940160a6654e8391278ecc5aed8c8a0bbf1d904784cfed4545bd3d0102",
+      "bytes": 4584,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/configuration.NOT_GRANTED.json",
+      "sha256": "37587ca8d20dbc726d837a002d0dffee4391a56568622db60cdd6abf2c8b7dae",
+      "bytes": 4482,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/effect-grant.NOT_GRANTED.json",
+      "sha256": "4b0f8669eec1f5332fc3cb69d10b1b3a5f28847142ff1559ac6f19d88e60dcef",
+      "bytes": 3189,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/inspected-inputs.json",
+      "sha256": "603969137ea499c886fab2cd9d466ff427290fcaf4c6130e73ad4111c0e2abc5",
+      "bytes": 10964,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/method-verification.json",
+      "sha256": "e8b022801206274b787b133ca325becd1a107b407bdcb15d2e6bfc77127a6925",
+      "bytes": 15416,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/oracle.mjs",
+      "sha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+      "bytes": 9679,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/preservation-after.json",
+      "sha256": "0aee8f28b41a68f26ec4c8cb6d56d9c8826f00d7b870fcaef1ee8120f65026db",
+      "bytes": 889,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/preservation-before.json",
+      "sha256": "5978cbdea4a4eeb0f32033dad283de8b6d4e04010fe48529baaea60bc7af1c7e",
+      "bytes": 718,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/return.json",
+      "sha256": "f10ce63242efef69231306568eda8a5a190aa8076092587b60653220c1658b86",
+      "bytes": 2129,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/return.md",
+      "sha256": "8aba3d43eb26268d71e557fe81e2b78dcc9407b32e0872ccb58bd256ff66c6a8",
+      "bytes": 3031,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/run.mjs",
+      "sha256": "ac3ce1aa03a9b7b47184a25d9338300be87b5a4a606573a3e364a53a7376c7c7",
+      "bytes": 20862,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/static-interface-checks.json",
+      "sha256": "9da510c2f94fc9b8da4326a04fa12aa3c22fcff6ebbe1226906589cfe792a2a6",
+      "bytes": 4359,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/syntax-checks.json",
+      "sha256": "b7a037541ec9ee43d0046e01f29ba9879b19c7b2877c20563f7a8cf00753bb82",
+      "bytes": 1000,
+      "mode": "0o644"
+    }
+  ],
+  "noRuntimeEffects": true,
+  "nativeCalls": 0
+}

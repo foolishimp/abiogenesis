@@ -1,0 +1,151 @@
+{
+  "U1-full-combined": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined/tmp/",
+      "ABG_U1_FIRST_CASE": "c0",
+      "ABG_U1_EVIDENCE_DIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined/evidence"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 1
+  },
+  "seven-C18": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:M5\\ GTL\\ exposes\\ exactly\\ seven\\ direct\\ C\\ constructors|M5\\ C\\.compose\\ is\\ canonical,\\ flat,\\ and\\ identity\\-eliding|M5\\ GraphFunction\\ composition\\ preserves\\ exact\\ left\\ and\\ right\\ identity|M5\\ GraphFunction\\ promotion\\ preserves\\ topology\\ and\\ semantic\\ truth|M5\\ native\\ constructors\\ refuse\\ invalid\\ batch,\\ retry,\\ and\\ F_H\\ realization|M5\\ native\\ GTL\\ constructs\\ all\\ ten\\ graph\\ relations\\ with\\ derived\\ identities|M5\\ same\\-object\\ relation\\ is\\ one\\ validator\\-owned\\ canonical\\ identity\\ witness|M5\\ closure\\ validation\\ distinguishes\\ run\\ and\\ child\\ GraphCall\\ scope|M5\\ whole\\-program\\ validation\\ admits\\ exact\\ recursion\\ law\\ and\\ refuses\\ its\\ substitutes|M5\\ whole\\-program\\ validation\\ binds\\ gate\\ law\\ to\\ published\\ Rule\\ and\\ Evaluator\\ declarations|M5\\ fan\\-out\\ materialization\\ derives\\ one\\ exact\\ task\\ per\\ admitted\\ input\\ member|M5\\ fan\\-out\\ and\\ fan\\-in\\ outer\\ contracts\\ equal\\ their\\ declared\\ vectors|M5\\ native\\ GraphFunction\\ composition\\ materializes\\ source\\ GTL\\ without\\ a\\ second\\ executable\\ carrier|M5\\ native\\ GraphFunction\\ substitution\\ replaces\\ one\\ typed\\ graph\\ vector\\ with\\ visible\\ source\\ GTL|M5\\ whole\\-program\\ validation\\ refuses\\ forged\\ or\\ widened\\ graph\\-edge\\ declarations|M5\\ raw\\ admission\\ and\\ validator\\ reject\\ invented\\ or\\ contradictory\\ C\\ data|M4\\ independently\\ authored\\ data\\ fixture\\ remains\\ one\\ valid\\ direct\\ C\\.of\\ Program|M5\\ whole\\-root\\ validation\\ keeps\\ F_H\\ interaction\\ keys\\ out\\ of\\ executable\\ resolution)$",
+      "test_env/tests/m5-c-algebra-validation.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/02-seven-C18/tmp/"
+    },
+    "noCredit": [
+      "M5 resolves and independently validates the complete executable root set",
+      "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "M5 F_H-only roots produce one valid empty executable-resolution set"
+    ],
+    "condition": null,
+    "templateOrdinal": 2
+  },
+  "reopen18": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/m5-event-store-reopen.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/03-reopen18/tmp/"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 3
+  },
+  "codec14": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/t287-event-body-encoding.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/04-codec14/tmp/"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 4
+  },
+  "route-self-contained": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--expose-gc",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:terminal\\ route\\-only\\ projection\\ preserves\\ complete\\ replay\\ and\\ avoids\\ nonreturned\\ populations|terminal\\ route\\-only\\ retains\\ cold\\ and\\ hot\\ malformed\\-history\\ refusals|owned\\ deferred\\ recursion\\ restores\\ and\\ begins\\ at\\ the\\ exact\\ cut\\ while\\ Public\\ wrappers\\ keep\\ complete\\ values|selected\\ replay\\ guard\\ streams\\ the\\ exact\\ complete\\ Result,\\ route\\ and\\ replay\\ digest|finite\\ pure\\ candidate\\ plan\\ equals\\ complete\\-array\\ construction\\ without\\ advancing\\ the\\ accepted\\ base|ordinary\\ selected\\ route\\ and\\ scoped\\ extent\\ avoid\\ growing\\ historical\\ bodies;\\ explicit\\ snapshots\\ have\\ their\\ own\\ lifetime|drop\\ complete\\ output\\ then\\ selected\\ route\\ does\\ not\\ retain\\ decoded\\ historical\\ bodies)$",
+      "test_env/tests/t287-route-reconstruction.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/05-route-self-contained/tmp/",
+      "ABI5_ROUTE_PROJECTION_SCRATCH": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/05-route-self-contained/route-scratch"
+    },
+    "noCredit": [
+      "retained native outputs and exact pre-basis historical owner facts are conserved",
+      "route facts ignore unrelated growth and preserve relevant source, cursor and intent changes"
+    ],
+    "condition": null,
+    "templateOrdinal": 5
+  },
+  "native-workspace-physical-regression": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:post\\-effect\\ channel\\ conflict\\ retains\\ admitted\\ native\\ failure\\ scope\\ without\\ a\\ fabricated\\ exchange)$",
+      "test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/06-native-workspace-physical-regression/tmp/"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 6
+  },
+  "terminal-quiescence7": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/m5-terminal-quiescence-owner.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/07-terminal-quiescence7/tmp/"
+    },
+    "noCredit": [],
+    "condition": null,
+    "templateOrdinal": 7
+  },
+  "D02-preparation-owner-case": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:preparation\\ resolution\\ retains\\ its\\ established\\ native\\ link\\ and\\ raw\\ lock\\ refusals)$",
+      "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/08-D02-preparation-owner-case/tmp/",
+      "ABI5_PREPARATION_RESOLVE_CALL": "<NEW_OWNER_GLUE_ROOT>/calls/preparation-resolve.json"
+    },
+    "noCredit": [],
+    "condition": "Successful final P1 and owner-resolution.mjs on its exact prefix before P2/later writes. Same staged source and dependencies as final artifact. Actual external admission remains P1; test explicitly supplies controlled lower admission wrapper.",
+    "templateOrdinal": 8
+  }
+}

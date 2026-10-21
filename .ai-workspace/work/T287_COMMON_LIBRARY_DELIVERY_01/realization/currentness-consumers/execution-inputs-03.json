@@ -1,0 +1,25 @@
+{
+  "root_triage": "U1-PROOF-HANDOFF-02",
+  "changed_test": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "before_sha256": "784524463a639af28ff485ec87ec10773a3345e8beb6c40aaa02327c2bd6d6d6",
+    "after_sha256": "cc983d253d2b7aeb69dd8998ab995c30bf4f487c89c062c2fdd6e09cf19cb920"
+  },
+  "unchanged_support_sha256": "52d1912370b464cbda91b60e155f1f08d78463dbd1fe77d2b44b26740aa1e41d",
+  "compiled_outputs_manifest_sha256": "5d4c0fb42e89d0b700a5f1bba8586975445c01c16138f4d6c4ac96756b38684c",
+  "audit_sha256": "b0cc06209e5788998fa86f97b894ce8c92f2560de948150e5d09f19065697cd5",
+  "selected_cases": [
+    "governance",
+    "semanticFold",
+    "revisionIntake",
+    "revisionEvidence"
+  ],
+  "omitted_cases": [
+    "c0",
+    "observed"
+  ],
+  "reused_C0_evidence_sha256": "5c2e2c4d6b1ba44f0c7b421472676ed3df2b84735fa5537dfb17511ec257f76d",
+  "reused_observed_evidence_sha256": "d84327dd5127b908a95144791496350376b0ce03493b48c279f2943e13a3b8f6",
+  "main_generated_reverified": true,
+  "compile_generator_rerun": false
+}

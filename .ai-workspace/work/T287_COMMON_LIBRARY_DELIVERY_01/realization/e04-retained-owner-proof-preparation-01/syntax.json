@@ -1,0 +1,24 @@
+[
+  {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/owner-support.mjs"
+    ],
+    "exitCode": 0,
+    "sourceSha256": "b1c66a318ec263258aad7851c01143c73384cd11fb914dcf4cc93d43a9e22122",
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "command": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs"
+    ],
+    "exitCode": 0,
+    "sourceSha256": "a2b048d65b52baf252b347c994f132992c60e13cc6d539255bbca4da71ef2d73",
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

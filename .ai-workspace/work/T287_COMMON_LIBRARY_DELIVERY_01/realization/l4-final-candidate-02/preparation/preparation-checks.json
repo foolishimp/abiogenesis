@@ -1,0 +1,32 @@
+{
+  "status": "satisfied_in_preparation_scope",
+  "checks": [
+    {
+      "label": "syntax-only",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/translate-inventories.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "pure-synthetic-carrier-construction",
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--input-type=module",
+        "-e",
+        "import assert from 'node:assert/strict';\nimport {rowForRunner,translateSource,SOURCE_SUCCESSORS,SUPPORT} from \"file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/translate-inventories.mjs\";\nconst file=(path,sha)=>({path,kind:'file',mode:'0o644',bytes:7,sha256:sha.repeat(64)});\nconst source=[...SOURCE_SUCCESSORS.map(p=>file(p,'0')),file('specification/PRODUCT.md','a'),file('build_tenants/abiogenesis/typescript/code/example.ts','b')];\nconst post=source.map(r=>({...r}));\nfor(let i=0;i<2;i++)post[i]={...post[i],sha256:String(i+1).repeat(64)};\nconst c={immutable_source_union_preserved:true,all_other_source_inputs_unchanged:true,derived_source_successors:SOURCE_SUCCESSORS.map((p,i)=>({before:source[i],after:post[i],producer:'scripts/generate-product-manifest.mjs',receipt:'commands/generate.result.json'}))};\nconst result=translateSource(source,post,c);\nassert.equal(result.tenant.length,3);assert.equal(result.context.length,1);assert.equal(result.derivations.length,2);\nassert.deepEqual(rowForRunner({path:'.bin/tsc',kind:'symlink',mode:'0o755',target:'../typescript/bin/tsc'},'node_modules/.bin/tsc'),{path:'node_modules/.bin/tsc',type:'symlink',mode:'0o755',target:'../typescript/bin/tsc'});\nassert.equal(SUPPORT.length,14);assert.equal(SUPPORT.some(p=>p.includes('native-registered-selection.mjs')),false);\nprocess.stdout.write(JSON.stringify({status:'pure_synthetic_carriers_constructed',actualCandidateInputs:0,ProductImports:0,externalEffects:0,tenantRows:result.tenant.length,contextRows:result.context.length,sourceSuccessors:result.derivations.length,supportSelection:SUPPORT.length})+'\\n');\n"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis",
+      "exitCode": 0,
+      "stdout": "{\"status\":\"pure_synthetic_carriers_constructed\",\"actualCandidateInputs\":0,\"ProductImports\":0,\"externalEffects\":0,\"tenantRows\":3,\"contextRows\":1,\"sourceSuccessors\":2,\"supportSelection\":14}\n",
+      "stderr": ""
+    }
+  ],
+  "templateStructure": "P1/owner/P2/P3 NOT_GRANTED; pending final coordinates; subjectId candidate",
+  "scope": "syntax and pure synthetic carrier construction only; no source-derived final identity or Product runtime claim"
+}

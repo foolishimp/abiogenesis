@@ -1,0 +1,11 @@
+BASELINE-DIAGNOSTICS-01 is closed at a diagnostic coverage stop. The original baseline P1 workload and frozen oracle completed successfully once (exit 0, result `45ab673952ab969521b1b545abaf9d2a78dc612b9c67045a63bf6a0a4b90155c`); no native call occurred. P3 was never configured, allocated or executed.
+
+The first failed predicate was the concrete external-child whitelist in `p1/coverage-contract.json`: it allowed `/usr/bin/du` but omitted ordinary `tar` archive reads. The frozen preload correctly retained those calls as external-uninstrumented. The unchanged checker and original failure remain in this cut. No workload retry, classifier change or Product failure is claimed.
+
+`p1/non-node-child-edges.json` retains all 68 external calls: 16 tar listings, 48 tar member reads and 4 du calls. Baseline `verify_product.ts` lines 1797–1829 owns the two tar operations. Recorded PATH resolves tar through `/usr/bin/tar` to `/usr/bin/bsdtar`, SHA `1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5`; this is post-run path resolution, not kernel executable attestation. Spawn return values are not child exit statuses. Tar/du per-PID CPU, memory and IO remain unobserved.
+
+The raw summary retains 16 Node process records, 16 traces, separate overlapping byte/work channels, and no analyser failures. `/usr/bin/time -l` reported 329.43 s real, 382.08 s user and 16.66 s system; maximum RSS 2,981,330,944 bytes. Trace overhead is 255,090,229 bytes plus 184,057 observer-record bytes. No speedup, isolated overhead, OS-wide IO or heap-bound claim follows. Exact scopes and raw reference times are in `p1/measurement-return.json`.
+
+The actual close handoff and 3,113,344-byte event prefix are pinned in `p1/owner-handoff.json`. The full physical inventory retains 18,298 entries; 66 portable evidence files preserve bytes/modes without claiming original inode identity. All selected immutable source/generated/dependency inputs, protected main 936 files and both original endpoint prefixes passed the post-run preservation check. All physical roots and raw diagnostic files remain retained.
+
+Return to Root for the already identified measurement-HOW disclosure/coverage successor. No successor or P3 execution is implied by this closed stop.

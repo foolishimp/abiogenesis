@@ -1,0 +1,7 @@
+{
+  "supervisedRootProcessGroups": [
+    40841
+  ],
+  "observedMembers": [],
+  "limit": "One read-only snapshot of the exact supervision groups, not proof of absence of escaped descendants. Setup/fresh-reopen children keep existing test ownership; no new signal/cleanup."
+}

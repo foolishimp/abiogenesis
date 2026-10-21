@@ -1,0 +1,10 @@
+{
+  "newRecordAndStageBytesBeforeClosure": 253469213,
+  "newPhysicalBytes": 1131189178,
+  "additionalLogicalBytesBeforeClosure": 1384658391,
+  "additionalBound": 2147483648,
+  "priorClosed05MeasuredAggregateBytes": 1206494274,
+  "aggregateWith1MiBClosureAllowance": 2592201241,
+  "aggregateBound": 10737418240,
+  "noCleanup": true
+}

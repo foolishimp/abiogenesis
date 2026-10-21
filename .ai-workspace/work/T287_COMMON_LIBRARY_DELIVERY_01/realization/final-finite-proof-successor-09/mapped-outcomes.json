@@ -1,0 +1,113 @@
+{
+  "commands": [
+    {
+      "id": "native-workspace-physical-regression",
+      "status": "passed",
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "result": {
+        "pid": 58004,
+        "exitCode": 0,
+        "wallMs": 4856.656459160149,
+        "stdoutSha256": "7f494759197cd3aab6c2af55384744768f4ce8789fee9b31573b1688360662fd",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "noCredit": [],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "^(?:post\\-effect\\ channel\\ conflict\\ retains\\ admitted\\ native\\ failure\\ scope\\ without\\ a\\ fabricated\\ exchange)$",
+        "test_env/tests/t287-native-workspace-work.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-09/overlay"
+    },
+    {
+      "id": "terminal-quiescence7",
+      "status": "passed",
+      "counts": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "result": {
+        "pid": 58217,
+        "exitCode": 0,
+        "wallMs": 2914.5753339398652,
+        "stdoutSha256": "7a58ff537cebd7ccd2ed74799aa834cddf4874f78e1a624babc3f0dd5b8a8b7a",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "noCredit": [],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/m5-terminal-quiescence-owner.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "id": "D02-preparation-owner-case",
+      "status": "passed",
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "result": {
+        "pid": 58366,
+        "exitCode": 0,
+        "wallMs": 87846.83454106562,
+        "stdoutSha256": "30f0552873fefd1c87e3923f4a3fdb34430b59a7371b23245f72fa5466469680",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "noCredit": [],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "^(?:preparation\\ resolution\\ retains\\ its\\ established\\ native\\ link\\ and\\ raw\\ lock\\ refusals)$",
+        "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+    }
+  ],
+  "reused": {
+    "finite08": {
+      "freezeSha256": "6d6aff5c485bf77e4ee8dd62dd093e9aa3a92966738d84f0b8267e675c5e1326",
+      "route7": 7,
+      "rerun": false
+    },
+    "finite07": {
+      "freezeSha256": "04c6e9dbdf22eb68ec3024240c7e7e64b951b9fa85f2aa849080e2f0fc09bd89",
+      "reopen18": 18,
+      "codec14": 14,
+      "rerun": false
+    },
+    "finite04": {
+      "freezeSha256": "305ee8fa9a5bf84f5151a0699e0d51d9e534424304f5920bf1d3fdeca66536c5",
+      "U1": 12,
+      "C18": 18,
+      "rerun": false
+    }
+  },
+  "nativeProviderSemanticCalls": 0,
+  "independentAcceptance": false
+}

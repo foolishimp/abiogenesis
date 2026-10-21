@@ -1,0 +1,11 @@
+{
+  "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "HOME": "/Users/jim",
+  "LANG": "en_AU.UTF-8",
+  "npm_config_offline": "true",
+  "npm_config_ignore_scripts": "true",
+  "npm_config_audit": "false",
+  "npm_config_fund": "false",
+  "npm_config_cache": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p3",
+  "TMPDIR": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/scratchParent"
+}

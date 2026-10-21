@@ -1,0 +1,32 @@
+{
+  "label": "component-currentness",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern",
+    "^U1 physical target scope successor across bindings and native Result scopes$",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/component/scratch/",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/component/cache",
+    "npm_config_logs_dir": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/component/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "ABG_U1_EVIDENCE_DIR": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/component/evidence"
+  },
+  "timeoutMs": 600000,
+  "proofFreezeSha256": "b60eca3e6fa641206eda37658b42285cf888a1a42b3cae259be5e2be75a5ce37",
+  "runnerSha256": "e4580260414679e06509260bb2886ff8683bb0398cf97781dc8a67ee5f73ba1b",
+  "startedUnix": 1792564948.751293
+}

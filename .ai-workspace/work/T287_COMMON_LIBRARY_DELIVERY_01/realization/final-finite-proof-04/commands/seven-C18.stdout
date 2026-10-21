@@ -1,0 +1,26 @@
+✔ M5 GTL exposes exactly seven direct C constructors (1.0905ms)
+✔ M5 C.compose is canonical, flat, and identity-eliding (0.1265ms)
+✔ M5 GraphFunction composition preserves exact left and right identity (34.99075ms)
+✔ M5 GraphFunction promotion preserves topology and semantic truth (24.366792ms)
+✔ M5 native constructors refuse invalid batch, retry, and F_H realization (0.130584ms)
+✔ M5 native GTL constructs all ten graph relations with derived identities (0.396916ms)
+✔ M5 same-object relation is one validator-owned canonical identity witness (23.879792ms)
+✔ M5 closure validation distinguishes run and child GraphCall scope (41.098958ms)
+✔ M5 whole-program validation admits exact recursion law and refuses its substitutes (53.965834ms)
+✔ M5 whole-program validation binds gate law to published Rule and Evaluator declarations (49.987041ms)
+✔ M5 fan-out materialization derives one exact task per admitted input member (13.947083ms)
+✔ M5 fan-out and fan-in outer contracts equal their declared vectors (32.075125ms)
+✔ M5 native GraphFunction composition materializes source GTL without a second executable carrier (22.103833ms)
+✔ M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL (21.43775ms)
+✔ M5 whole-program validation refuses forged or widened graph-edge declarations (24.103958ms)
+✔ M5 raw admission and validator reject invented or contradictory C data (1.953958ms)
+✔ M4 independently authored data fixture remains one valid direct C.of Program (10.685625ms)
+✔ M5 whole-root validation keeps F_H interaction keys out of executable resolution (12.178958ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 678.929458

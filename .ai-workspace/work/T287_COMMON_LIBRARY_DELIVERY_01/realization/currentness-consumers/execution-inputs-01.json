@@ -1,0 +1,75 @@
+{
+  "kind": "U1-P5-02-first-execution-input-freeze",
+  "records": [
+    {
+      "path": "activation.md",
+      "sha256": "a1ffb573c01ca71382903cbe70efcf81eb0defb4e583dc954a6e75cedff95e6d"
+    },
+    {
+      "path": "preconditions.json",
+      "sha256": "faf5e25e9a232e6529baea8f2ed17283bb415627760eea656f22f9bbbaee84d0"
+    },
+    {
+      "path": "fixture-audit.md",
+      "sha256": "c3063ad8fe258c3108ab8048cb85a832cb40a13a0767e306764e65a8a77d1581"
+    },
+    {
+      "path": "authority-inputs.json",
+      "sha256": "39cb0bb449a8d308a72318a65b7173733941f481a92057c43dedbaa9a0dc4b1d"
+    },
+    {
+      "path": "stage-inputs.json",
+      "sha256": "aa7077892302aece271fb5d84783764f13a5126f0c51aef699132a99fb88593d"
+    },
+    {
+      "path": "dependency-inventory.json",
+      "sha256": "991ddad43eb30a968aeb30e579aabb327a4c2016c1e157c840606c043363ad82"
+    },
+    {
+      "path": "dependencies-install.json",
+      "sha256": "6c647ceb6f35d9f6ecb4c88f34da3abf0e3b156e8769cdd2932d5f6e1e064972"
+    },
+    {
+      "path": "compile-01.json",
+      "sha256": "c3f0896b31a98667199a71e65ca82b7b9c19635b5699671fbfbdda473f2d7008"
+    },
+    {
+      "path": "generate-01.json",
+      "sha256": "6d8d56825557fc2ed08478db7ac2e1ed3fa36583b3468bdaa966bd23a952514f"
+    },
+    {
+      "path": "stage-output-manifest.json",
+      "sha256": "5d4c0fb42e89d0b700a5f1bba8586975445c01c16138f4d6c4ac96756b38684c"
+    },
+    {
+      "path": "main-generated-preimage.json",
+      "sha256": "8838a89cc91b09a64e587294c7ce8c206d26543c099409503bb15e97a0828677"
+    }
+  ],
+  "support": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "6d30b7b69a8e74b0ae54f1f8543d8b4987f2b5b65353869d0bedf49ce0849ea3",
+      "bytes": 47107,
+      "origin": "U1-P5-02 new support"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "52d1912370b464cbda91b60e155f1f08d78463dbd1fe77d2b44b26740aa1e41d",
+      "bytes": 33763,
+      "origin": "U1-P5-02 new support"
+    }
+  ],
+  "production_subject": "433107b89d8eb01cc5a67ad6c8543e18d37575d5f89ba490c3795108955e788d",
+  "compiled_outputs": 745,
+  "main_generated_unchanged": true,
+  "toolchain": {
+    "node": "v24.7.0",
+    "npm": "11.5.1",
+    "typescript": "Version 5.9.2"
+  },
+  "lower_installed_claim": false,
+  "native_launches_planned": 0,
+  "command_launches_planned": 0,
+  "first_failure_stop": true
+}

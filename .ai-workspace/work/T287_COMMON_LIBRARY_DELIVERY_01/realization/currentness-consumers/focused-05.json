@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript",
+  "first_case": "semanticFold",
+  "input_freeze_sha256": "ca94efd433b023e9077261ceca0907b052ddb927ee939d7f6a1bd42111f512b4",
+  "exit_code": 0,
+  "wall_seconds": 2.0114290839992464,
+  "stdout": "(node:77896) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2714 U1-P5-02 actual C0 successor and every affected currentness consumer (1686.403834ms)\n\u2139 [{\"owner\":\"semantic_job.nativeStageSource -> projectNativeSemanticFold\",\"case\":\"affected\",\"before\":\"valid SemanticJobEnvelope\",\"after\":null},{\"owner\":\"semantic_job.nativeStageSource -> projectNativeSemanticFold\",\"case\":\"sibling\",\"before\":\"valid SemanticJobEnvelope\",\"after\":\"same SemanticJobEnvelope\"},{\"owner\":\"semantic_revision.nativeIntakeFacts -> prepareNativeSemanticRevisionIntake\",\"case\":\"affected\",\"before\":\"valid selection input\",\"after\":\"native_revision_source_invalidated\"},{\"owner\":\"semantic_revision.nativeIntakeFacts -> prepareNativeSemanticRevisionIntake\",\"case\":\"sibling\",\"before\":\"valid selection input\",\"after\":\"same selection input\"},{\"owner\":\"semantic_revision.nativeJobRevisionSubject -> projectOwnedJobRevisionSubject\",\"case\":\"affected\",\"before\":\"authenticated retained-evidence subject\",\"after\":null},{\"owner\":\"semantic_revision.nativeJobRevisionSubject -> projectOwnedJobRevisionSubject\",\"case\":\"sibling\",\"before\":\"authenticated retained-evidence subject\",\"after\":\"same retained evidence and acquisition\"}]\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 1\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1986.928958\n",
+  "stderr": ""
+}

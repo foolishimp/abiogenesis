@@ -1,0 +1,48 @@
+{
+  "kind": "exact_lane_activation_freeze",
+  "status": "frozen_before_effects",
+  "lane": "declared-execution",
+  "subjectId": "baseline",
+  "maxNativePositiveCalls": 0,
+  "configurationSha256": "b50f12b741b855dd2a848a26859b622f036f0d3d78733bed7e81cd126b9a3b8b",
+  "effectGrantSha256": "20d849bd77565ba28023498d1c64e8dff679ec21b38110fe7070d1f1c1dc3388",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/activation.json",
+      "sha256": "49174b93c795e75b7b3c40f5960e019de284d1a6cfec39af2ceab7bffdbd88b9",
+      "bytes": 3638,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/configuration.json",
+      "sha256": "b50f12b741b855dd2a848a26859b622f036f0d3d78733bed7e81cd126b9a3b8b",
+      "bytes": 5726,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/effect-grant.json",
+      "sha256": "20d849bd77565ba28023498d1c64e8dff679ec21b38110fe7070d1f1c1dc3388",
+      "bytes": 3625,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/output-correspondence.json",
+      "sha256": "9bd4c176d6813594c84a2fd6bc9138f8c939f172f83c4ec087054fa6f59ad8be",
+      "bytes": 2982,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/prerequisites.json",
+      "sha256": "8eb51726ef51b6225ad4fde1cf48d17306ab04bc45e7000a51972dcaf88a32fa",
+      "bytes": 1474,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/protected-main-before.json",
+      "sha256": "2876b3ba124920c894481f1655aff4b79bb5c0acf3c1be92e63a56719a43c3cb",
+      "bytes": 227626,
+      "mode": "0o644"
+    }
+  ],
+  "runtimeEffectsStarted": false
+}

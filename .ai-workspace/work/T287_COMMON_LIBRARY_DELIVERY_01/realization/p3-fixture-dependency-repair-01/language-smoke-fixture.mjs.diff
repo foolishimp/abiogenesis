@@ -1,0 +1,36 @@
+--- before/language-smoke-fixture.mjs
++++ after/language-smoke-fixture.mjs
+@@ -1,6 +1,7 @@
++import assert from "node:assert/strict";
+ import { execFile } from "node:child_process";
+ import { cp, mkdir, readFile, writeFile } from "node:fs/promises";
+-import { basename, join } from "node:path";
++import { basename, isAbsolute, join } from "node:path";
+ import { promisify } from "node:util";
+ import { fileURLToPath, pathToFileURL } from "node:url";
+ import { LANGUAGE_TEST_IDS, LANGUAGE_FIXTURE_OWNER, constructLanguageTestPublication } from "../fixtures/language-smoke/program.mjs";
+@@ -14,14 +15,22 @@
+ 
+ // This artifact is solely a test-owned container for authored declarations and
+ // a leaf seam. It is never copied into production, exported by ABG or published.
+-export async function prepareLanguageSmokeFixture({ scratch, product, gtl, abiPublication }) {
++export async function prepareLanguageSmokeFixture({ scratch, product, gtl, abiPublication, abiPackageArchivePath }) {
++  assert.ok(typeof abiPackageArchivePath === "string" && isAbsolute(abiPackageArchivePath),
++    "language fixture requires an absolute exact ABI package archive path");
++  assert.equal(await product.sha256File(abiPackageArchivePath), abiPublication.artifactDigest,
++    "language fixture ABI archive differs from its publication");
++  const abiPackageName = abiPublication.productSemanticsBinding.packageName;
++  assert.ok(typeof abiPackageName === "string" && abiPackageName.length > 0,
++    "language fixture requires its publication's ABI package name");
+   const owner = LANGUAGE_FIXTURE_OWNER;
+   const sourceRoot = join(scratch, "language-smoke-fixture");
+   await mkdir(join(sourceRoot, "build"), { recursive: true });
+   await mkdir(join(sourceRoot, "contracts/capabilities"), { recursive: true });
+   for (const name of ["program.mjs", "leaf.mjs"]) await cp(fileURLToPath(new URL(`../fixtures/language-smoke/${name}`, import.meta.url)), join(sourceRoot, "build", name));
+   const payload = { "package.json": { name: owner.packageName, version: owner.packageVersion, type: "module",
+-    exports: { "./program": "./build/program.mjs" }, files: ["build", "contracts", "product-toolchain-manifest.json"] },
++    exports: { "./program": "./build/program.mjs" }, files: ["build", "contracts", "product-toolchain-manifest.json"],
++    dependencies: { [abiPackageName]: `file:${abiPackageArchivePath}` } },
+     "contracts/public-contract-catalog.schema.json": { $schema: "https://json-schema.org/draft/2020-12/schema", type: "object" } };
+   for (const [path, value] of Object.entries(payload)) await writeFile(join(sourceRoot, path), `${product.canonicalJson(value)}\n`);
+   const capabilityGraph = product.constructCapabilityDefinitionGraph([]);

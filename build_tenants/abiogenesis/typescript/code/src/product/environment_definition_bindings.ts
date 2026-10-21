@@ -3,7 +3,7 @@ import { withAdmissionAuthority, type AdmissionDefinitionOwner } from "./admissi
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { reconstructWorkspaceManifest, type WorkspaceManifest } from "./workspace_operations.js";
-import { admitExactDefinitionCall, definitionFault as callAdmissionFault } from "../shared/definition_binding_mechanics.js";
+import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate, sameJson } from "../shared/definition_binding_mechanics.js";
 import * as Effect from "effect/Effect";
 
 import {
@@ -124,18 +124,6 @@ export interface ProductWorkspaceBindingResourceReceipt {
 
 type ResolveRefusalCode = OwnerRefusalOf<ResolvePacket>["code"];
 type BindRefusalCode = OwnerRefusalOf<BindPacket>["code"];
-
-function sameJson(left: unknown, right: unknown): boolean {
-  try {
-    return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-  } catch {
-    return false;
-  }
-}
-
-function sameCoordinate(left: ReferenceDigest, right: ReferenceDigest): boolean {
-  return left.ref === right.ref && left.digest === right.digest;
-}
 
 function fault<K extends ResolvePacket["definitionKey"] | BindPacket["definitionKey"]>(
   definitionKey: K,

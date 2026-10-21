@@ -1,6 +1,8 @@
-import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, isValidationRuntimeEventPrefix, runtimeEventAtPrefix, runtimeEventSelectorExtent } from "./event_prefix.js";
+import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, isValidationRuntimeEventPrefix, runtimeEventAtPrefix, runtimeEventSelectorExtent, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isDeepStrictEqual } from "node:util";
+import { projectWorksiteSelectedOccurrence, worksiteSelectedOccurrenceDependencies, projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from "./c_call_outcome.js";
+import { nativeWorkUnknownEffectDependencies, projectNativeWorkUnknownEffectTask } from "./native_work_effect.js";
 import { projectReacquiredNativeWorkCommandSourceAtPrefix } from "./native_work_reacquisition.js";
 /** Native-work source alternative at the existing C2 admission boundary. */
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
@@ -220,9 +222,29 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
   // before creating manifests and immediately before helper launch.
   return indexedRuntimeEvents(prefix, "worksite-observation-dependency").some(e => {
     if (e.admissionOrdinal <= afterOrdinal || !record(e.payload)) return false;
+    if (e.kind === "actor_process_termination_unconfirmed" || e.kind === "actor_invocation_failed") {
+      const dependencies = nativeWorkUnknownEffectDependencies(prefix, e);
+      if (dependencies.length === 0) return false;
+      const task = projectNativeWorkUnknownEffectTask(e, dependencies, validatedRuntimeEventPrefixBeforeEvent(prefix, e.eventId));
+      if (task === null || task.workspaceAuthorityBasis.canonicalRoot !== canonicalRoot) return false;
+      return readRoots === undefined ? selectedPaths.some(path => nativeWorkspacePathWithin(path, task.writeRoots))
+        : readRoots.some(path => nativeWorkspacePathWithin(path, task.writeRoots) ||
+          task.writeRoots.some(root => nativeWorkspacePathWithin(root, [path])));
+    }
+    if (e.kind === "c_call_fibre_selected") {
+      const selectedOccurrence = projectWorksiteSelectedOccurrence(e, worksiteSelectedOccurrenceDependencies(prefix, e));
+      return selectedOccurrence !== null && selectedOccurrence.request.workspaceAuthorityBasis.canonicalRoot === canonicalRoot &&
+        invalidates(selectedOccurrence.request.subject.relativePath);
+    }
     if (e.kind === "c_call_evidenced" && e.payload.evidenceClass === "worksite_file_replace" &&
       isWorksiteFileReplaceRequest(e.payload.request)) return e.payload.request.workspaceAuthorityBasis.canonicalRoot ===
         canonicalRoot && invalidates(e.payload.request.subject.relativePath);
+    if (e.kind === "c_call_result_admitted") {
+      const dependencies = worksiteFailureResultDependencies(prefix, e);
+      const request = dependencies.length === 0 ? null : projectWorksiteFailureResultRequest(e, dependencies);
+      if (request !== null) return request.workspaceAuthorityBasis.canonicalRoot === canonicalRoot &&
+        invalidates(request.subject.relativePath);
+    }
     const value = e.kind === "c_call_result_admitted" ? e.payload.value : null;
     return (isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) &&
       e.aggregateId === value.provenance.cCallRef &&

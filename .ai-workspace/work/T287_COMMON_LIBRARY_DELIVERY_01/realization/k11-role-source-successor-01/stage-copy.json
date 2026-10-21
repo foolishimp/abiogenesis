@@ -1,0 +1,9 @@
+{
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage",
+  "destination": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage",
+  "copy_mode": "independent files; preserve only declared relative dependency symlinks",
+  "entries": 6632,
+  "dependency_entries": 4576,
+  "copied_exact": true,
+  "physical_root_is_distinct": true
+}

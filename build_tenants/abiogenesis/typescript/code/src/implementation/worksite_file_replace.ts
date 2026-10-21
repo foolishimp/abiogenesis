@@ -7,9 +7,7 @@ import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { projectCCallCarrierPhaseAtPrefix } from "../abg/c_call.js";
 import {
-  constructWorksiteObservationCurrentFluent,
-  deriveRuntimeEventCalculusProjection,
-  holdsAt,
+  worksiteSelectedOccurrenceInputCurrent,
 } from "../abg/event_calculus.js";
 import {
   exactProgramOwnerInstall,
@@ -365,12 +363,7 @@ export async function realizeWorksiteFileReplace(
       runtimePrefix,
       authority.cCall,
     )?.phase ?? null;
-    const observationHeld = holdsAt(
-        deriveRuntimeEventCalculusProjection(runtimePrefix),
-        constructWorksiteObservationCurrentFluent(
-          value.predecessorObservation.observationRef,
-        ),
-      );
+    const observationHeld = worksiteSelectedOccurrenceInputCurrent(authorityPrefix, authority.cCall, value);
     localExecutionBasis = executionBasisHeld ? projectedExecutionBasis : null;
     localImplementationSet = implementationSetHeld
       ? projectedImplementationSet

@@ -1,0 +1,273 @@
+{
+  "scope": "all direct structural producer consumers and their callback carrier, plus sibling smoke/registered producers on the same selected root handoff",
+  "sources": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+        "bytes": 40077,
+        "mode": "0o644"
+      },
+      "matches": [
+        {
+          "line": 257,
+          "text": "  const additionalProducts = options.prepareAdditionalProducts === undefined"
+        },
+        {
+          "line": 259,
+          "text": "      gtl: bootstrapGtl, abiPublication: bootstrapRootPublication, abiPackageArchivePath: artifactPath })] : []"
+        },
+        {
+          "line": 260,
+          "text": "    : await options.prepareAdditionalProducts({"
+        },
+        {
+          "line": 264,
+          "text": "        abiPublication: bootstrapRootPublication,"
+        },
+        {
+          "line": 265,
+          "text": "        abiPackageArchivePath: artifactPath,"
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+        "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+        "bytes": 9963,
+        "mode": "0o644"
+      },
+      "matches": [
+        {
+          "line": 206,
+          "text": "  const prepareFixture = options.prepareFixture ??"
+        },
+        {
+          "line": 208,
+          "text": "  const fixture = prepareFixture === null ? null : await prepareFixture({ scratch, product, gtl, abiPublication: corePublications[0],"
+        },
+        {
+          "line": 209,
+          "text": "    abiPackageArchivePath: artifactPath });"
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+        "sha256": "34d91efdba0602ad47d375fb46a85015eabd7d816a63eba68b3f113559986f95",
+        "bytes": 4500,
+        "mode": "0o644"
+      },
+      "matches": [
+        {
+          "line": 12,
+          "text": "  const prepareFixture = options.prepareFixture ?? prepareLanguageSmokeFixture;"
+        },
+        {
+          "line": 15,
+          "text": "    prepareAdditionalProducts: async basis => [await prepareFixture(basis)],"
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/admitted-graph-execution.mjs",
+        "sha256": "652606f810cba7acb9700192811edb1973ebfe856d7dd91c824345db28958e56",
+        "bytes": 2596,
+        "mode": "0o644"
+      },
+      "matches": []
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+        "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+        "bytes": 7276,
+        "mode": "0o644"
+      },
+      "matches": [
+        {
+          "line": 18,
+          "text": "export async function prepareLanguageSmokeFixture({ scratch, product, gtl, abiPublication, abiPackageArchivePath }) {"
+        },
+        {
+          "line": 19,
+          "text": "  assert.ok(typeof abiPackageArchivePath === \"string\" && isAbsolute(abiPackageArchivePath),"
+        },
+        {
+          "line": 21,
+          "text": "  assert.equal(await product.sha256File(abiPackageArchivePath), abiPublication.artifactDigest,"
+        },
+        {
+          "line": 23,
+          "text": "  const abiPackageName = abiPublication.productSemanticsBinding.packageName;"
+        },
+        {
+          "line": 33,
+          "text": "    dependencies: { [abiPackageName]: `file:${abiPackageArchivePath}` } },"
+        },
+        {
+          "line": 60,
+          "text": "    declaredDependencies: [{ kind: \"requires\", productId: abiPublication.owningProductId,"
+        },
+        {
+          "line": 61,
+          "text": "      packageVersion: abiPublication.productSemanticsBinding.packageVersion, compatibilityRef: \"compatibility://abiogenesis/major/5\","
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+        "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+        "bytes": 21826,
+        "mode": "0o644"
+      },
+      "matches": [
+        {
+          "line": 11,
+          "text": "export async function prepareRegisteredSelectionProduct({scratch, product, gtl, abiPublication,"
+        },
+        {
+          "line": 13,
+          "text": "  abiPackageArchivePath, schemaAssets=[]}) {"
+        },
+        {
+          "line": 34,
+          "text": "    ...(abiPackageArchivePath === undefined ? {} : {dependencies:{'@abiogenesis/typescript-tenant':`file:${abiPackageArchivePath}`}}),"
+        },
+        {
+          "line": 163,
+          "text": "    declaredDependencies: [{"
+        },
+        {
+          "line": 165,
+          "text": "      productId: abiPublication.owningProductId,"
+        },
+        {
+          "line": 166,
+          "text": "      packageVersion: abiPublication.productSemanticsBinding.packageVersion,"
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+        "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+        "bytes": 7076,
+        "mode": "0o644"
+      },
+      "matches": [
+        {
+          "line": 10,
+          "text": "export async function prepareLanguageStructuralFixture({ scratch, product, gtl, abiPublication, abiPackageArchivePath, sourceTransform }) {"
+        },
+        {
+          "line": 11,
+          "text": "  assert.ok(typeof abiPackageArchivePath === \"string\" && isAbsolute(abiPackageArchivePath),"
+        },
+        {
+          "line": 13,
+          "text": "  assert.equal(await product.sha256File(abiPackageArchivePath), abiPublication.artifactDigest,"
+        },
+        {
+          "line": 15,
+          "text": "  const abiPackageName = abiPublication.productSemanticsBinding.packageName;"
+        },
+        {
+          "line": 32,
+          "text": "    dependencies: { [abiPackageName]: `file:${abiPackageArchivePath}` } },"
+        },
+        {
+          "line": 59,
+          "text": "    declaredDependencies: [{ kind: \"requires\", productId: abiPublication.owningProductId,"
+        },
+        {
+          "line": 60,
+          "text": "      packageVersion: abiPublication.productSemanticsBinding.packageVersion, compatibilityRef: \"compatibility://abiogenesis/major/5\","
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+        "sha256": "853fa1cd3de80f8bc8bccf0d248265411340234547c1bb58caa2e8c530ead2da",
+        "bytes": 9352,
+        "mode": "0o644"
+      },
+      "matches": [
+        {
+          "line": 6,
+          "text": "import {prepareLanguageStructuralFixture} from '../support/language-structural-fixture.mjs';"
+        },
+        {
+          "line": 14,
+          "text": "  return shape => async basis => [await prepareLanguageStructuralFixture({...basis,sourceTransform(name,source){"
+        },
+        {
+          "line": 72,
+          "text": "      const prepareAdditionalProducts = artifactFor(shape);"
+        },
+        {
+          "line": 74,
+          "text": "      const run = await executeAdmittedTestGraph(t, root, {candidateBasisSource: 'packed_artifact', prepareAdditionalProducts,"
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+        "sha256": "d2ba205117086793291aa82f63d9b3305682a49bc0bcf8dabd576aaa7f30dc17",
+        "bytes": 3009,
+        "mode": "0o644"
+      },
+      "matches": [
+        {
+          "line": 5,
+          "text": "import { prepareLanguageStructuralFixture } from \"../support/language-structural-fixture.mjs\";"
+        },
+        {
+          "line": 11,
+          "text": "    prepareFixture: prepareLanguageStructuralFixture,"
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "producer": "root-installed-environment.mjs selected frozen artifact",
+      "handoff": "abiPublication + abiPackageArchivePath: artifactPath",
+      "consumer": "prepareAdditionalProducts callback; default smoke producer",
+      "status": "already repaired, unchanged"
+    },
+    {
+      "producer": "installed-language-test.mjs",
+      "handoff": "prepareFixture(basis)",
+      "consumer": "m5-installed-graph-edge selects structural fixture",
+      "status": "same complete basis preserved"
+    },
+    {
+      "producer": "t287-calculus-state-transfer.mjs",
+      "handoff": "prepareLanguageStructuralFixture({...basis,sourceTransform})",
+      "consumer": "structural fixture",
+      "status": "same complete basis preserved; sourceTransform untouched"
+    },
+    {
+      "producer": "root-cli-environment.mjs",
+      "handoff": "prepareFixture({scratch,product,gtl,abiPublication,abiPackageArchivePath})",
+      "consumer": "selected callback/default smoke",
+      "status": "already repaired, unchanged; structural callback would receive complete basis"
+    },
+    {
+      "producer": "registered-graph-selection.mjs",
+      "handoff": "optional explicit archive -> file dependency",
+      "consumer": "selected existing registered preparation receives full basis",
+      "status": "already supports physical dependency; no edit"
+    }
+  ],
+  "otherProducerScope": "d2-frame-fixture accepts abiArtifact in a separate unselected product-preparation cone; no selected structural caller routes there and no repair is inferred. No unrelated helper edited.",
+  "rootCause": "Structural producer dropped an already supplied exact archive while declaring requires ABI. Previous smoke repair omitted this sibling consumer; earlier smoke-only preflight could not expose it.",
+  "noProductionDefectClaim": true
+}

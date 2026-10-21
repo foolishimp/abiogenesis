@@ -1,0 +1,46 @@
+{
+  "status": "frozen_before_repair_preflight_outputs",
+  "unchanged": {
+    "abiArchive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+    },
+    "compiledBaselineMembers": "all 936 existing generated-inventory rows byte-for-byte",
+    "programSource": "test_env/fixtures/language-smoke/program.mjs",
+    "leafSource": "test_env/fixtures/language-smoke/leaf.mjs",
+    "input": {
+      "kind": "hello_world_input",
+      "schemaVersion": "5.0.0",
+      "subject": "World"
+    },
+    "output": {
+      "kind": "hello_world_output",
+      "schemaVersion": "5.0.0",
+      "message": "Hello World"
+    },
+    "owner": "product://abi5-tests/language-fixtures@5.0.0",
+    "ProductDependencies": "retain existing ABI requires Product/version/contract/capability relation",
+    "frozenRunnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+    "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc"
+  },
+  "derivedSuccessors": [
+    "fixture package.json adds exactly productSemanticsBinding.packageName -> file:<explicit absolute archive> dependency",
+    "fixture payload content digest, contribution/publication/manifest digests and archive digest recomputed by existing producers from changed package.json; never strip these identities",
+    "baseline proof stage changes only the three support files; baseline ABI archive identity stays unchanged"
+  ],
+  "preflightPredicates": [
+    "same explicit archive path is forwarded by default and callback installed producers and default CLI producer",
+    "missing archive input refuses before fixture directory creation",
+    "wrong archive digest refuses before fixture directory creation",
+    "valid exact archive digest equals abiPublication.artifactDigest before writing fixture",
+    "npm dependency package key equals actual publication productSemanticsBinding.packageName and value file:<exact archive path>",
+    "Product declared dependency keeps actual owningProductId/packageVersion and existing contract/capability requirements",
+    "generated fixture has exact six members matching source bytes",
+    "generated fixture program/leaf bytes equal frozen baseline authored source"
+  ],
+  "notProved": [
+    "actual installed fixture dependency materialization",
+    "Public start/closed output/fresh result/replay",
+    "complete P3 measurement or L5 acceptance"
+  ]
+}

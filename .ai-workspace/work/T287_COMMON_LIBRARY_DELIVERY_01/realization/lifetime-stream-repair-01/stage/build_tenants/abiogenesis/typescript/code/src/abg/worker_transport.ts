@@ -1,0 +1,802 @@
+import { spawn } from "node:child_process";
+import { appendFileSync } from "node:fs";
+import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
+
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import {
+  sha256Bytes,
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
+import { admitIJsonText } from "../shared/i_json.js";
+import { createMonotonicDeadline, createOwnedProcessLifetime } from "../shared/owned_process_lifetime.js";
+import type { RuntimeLivenessObserverProjection } from "./runtime_liveness_contracts.js";
+import {
+  classifyWorkerTransportFailure,
+  composeWorkerTransportArgs,
+  sanitizeWorkerTransportEnvironment,
+  type TransportCapabilityLane,
+  type WorkerTransportContract,
+  type WorkerTransportFailureClass,
+  type NativeWorkerResultAssessment,
+} from "./transport_contracts.js";
+
+export type { WorkerTransportFailureClass } from "./transport_contracts.js";
+
+export type WorkerTransportTimeoutClass = "absolute" | "inactivity";
+
+export interface WorkerTransportArtifact {
+  readonly path: string;
+  readonly byteLength: number;
+  readonly digest: Sha256Digest;
+}
+
+export interface WorkerTransportRequest {
+  readonly contract: WorkerTransportContract;
+  readonly prompt: string;
+  readonly lane: TransportCapabilityLane;
+  readonly cwd: string;
+  readonly archiveRoot: string;
+  readonly label: string;
+  readonly timeoutMs: number;
+  readonly absoluteTimeoutMs?: number;
+  readonly terminationGraceMs?: number;
+  readonly responseJsonSchema?: unknown;
+  readonly responsePresentation?: "result_text";
+  readonly environment?: Readonly<Record<string, string | undefined>>;
+  readonly explicitAppendArgs?: readonly string[];
+  readonly observer?: WorkerProcessObserver;
+}
+
+export interface WorkerProcessObserver {
+  readonly assessNativeResultArtifact?: (output: string) => NativeWorkerResultAssessment;
+  /** Only the existing native owner supplies this callback. A wakeup is raw;
+   * containment requires the returned already-admitted threshold identity. */
+  readonly onNativeSupervisionWakeup?: () => Readonly<{
+    projection: RuntimeLivenessObserverProjection;
+    admittedThresholdEventRef: string | null;
+    timeoutClass: WorkerTransportTimeoutClass | null;
+    nextWakeDelayMs: number;
+  }>;
+  readonly onProcessStarted?: (pid: number) => void;
+  readonly onStdoutObserved?: (chunk: string) => boolean;
+  readonly onStderrObserved?: (chunk: string) => boolean;
+  readonly onTimeoutObserved?: (
+    timeoutClass: WorkerTransportTimeoutClass,
+  ) => void;
+  readonly onSignalRequested?: (signal: NodeJS.Signals) => void;
+  readonly onProcessExited?: (
+    status: number | null,
+    signal: NodeJS.Signals | null,
+  ) => void;
+  readonly onTerminationUnconfirmed?: () => void;
+  readonly onSpawnFailed?: (message: string) => void;
+}
+
+export interface WorkerTransportResult {
+  readonly nativeResultAssessment?: NativeWorkerResultAssessment;
+  readonly kind: "worker_transport_result_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "failure" | "success";
+  readonly agentKey: WorkerTransportContract["agentKey"];
+  readonly lane: TransportCapabilityLane;
+  readonly command: string;
+  readonly args: readonly string[];
+  readonly status: number | null;
+  readonly signal: NodeJS.Signals | null;
+  readonly timeoutMs: number;
+  readonly absoluteTimeoutMs: number;
+  readonly timedOut: boolean;
+  readonly timeoutClass: WorkerTransportTimeoutClass | null;
+  readonly exitObserved: boolean;
+  readonly terminationConfirmed: boolean;
+  readonly failureClass: WorkerTransportFailureClass | null;
+  readonly structuredEventCount: number;
+  readonly progressEventCount: number;
+  readonly toolCallCount: number;
+  readonly toolInvocations: readonly WorkerToolInvocationEvidence[];
+  readonly apiRetryCount: number;
+  readonly stdout: string;
+  readonly stderr: string;
+  readonly finalOutput: string;
+  readonly artifacts: Readonly<{
+    output: WorkerTransportArtifact;
+    prompt: WorkerTransportArtifact;
+    stderr: WorkerTransportArtifact;
+    stdout: WorkerTransportArtifact;
+    transport: WorkerTransportArtifact;
+  }>;
+}
+
+export interface WorkerToolInvocationEvidence {
+  readonly [key: string]: JsonValue;
+  readonly kind: "worker_tool_invocation_evidence";
+  readonly schemaVersion: "5.0.0";
+  readonly ordinal: number;
+  readonly toolUseRef: string;
+  readonly toolName: string;
+  readonly inputDigest: Sha256Digest;
+  readonly inputByteLength: number;
+}
+
+interface ProcessObservation {
+  readonly status: number | null;
+  readonly signal: NodeJS.Signals | null;
+  readonly timedOut: boolean;
+  readonly timeoutClass: WorkerTransportTimeoutClass | null;
+  readonly exitObserved: boolean;
+  readonly terminationConfirmed: boolean;
+  readonly launchError: string | null;
+  readonly resultBearingStdout: string;
+  readonly stdout: string;
+  readonly stderr: string;
+}
+
+interface StructuredObservation {
+  readonly structuredEventCount: number;
+  readonly progressEventCount: number;
+  readonly toolCallCount: number;
+  readonly toolInvocations: readonly WorkerToolInvocationEvidence[];
+  readonly apiRetryCount: number;
+  readonly finalOutput: string;
+}
+
+function toolUseIdentityInput(toolName: string, input: unknown): JsonValue {
+  if (toolName !== "Bash") return input as JsonValue;
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    throw new TypeError("Bash tool input must be one object");
+  }
+  const record = input as Readonly<Record<string, unknown>>;
+  if (!Object.hasOwn(record, "command") || typeof record.command !== "string") {
+    throw new TypeError("Bash tool input must carry one exact command string");
+  }
+  if (Object.hasOwn(record, "description") && typeof record.description !== "string") {
+    throw new TypeError("Bash tool input description must be a string when present");
+  }
+  return Object.fromEntries(
+    Object.entries(record).filter(([key]) => key !== "description"),
+  ) as JsonValue;
+}
+
+function collectToolUses(
+  value: unknown,
+  structuredOutputExpected: boolean,
+  rows: WorkerToolInvocationEvidence[],
+): void {
+  if (Array.isArray(value)) {
+    for (const entry of value) collectToolUses(entry, structuredOutputExpected, rows);
+    return;
+  }
+  if (typeof value !== "object" || value === null) return;
+  const record = value as Readonly<Record<string, unknown>>;
+  const protocolStructuredOutput = structuredOutputExpected &&
+    record.type === "tool_use" && record.name === "StructuredOutput";
+  if (record.type === "tool_use" && !protocolStructuredOutput &&
+    typeof record.id === "string" && record.id.length > 0 &&
+    typeof record.name === "string" && record.name.length > 0 &&
+    Object.hasOwn(record, "input")) {
+    try {
+      const inputBytes = Buffer.from(
+        canonicalJson(toolUseIdentityInput(record.name, record.input)),
+        "utf8",
+      );
+      rows.push(deepFreeze({
+        kind: "worker_tool_invocation_evidence" as const,
+        schemaVersion: "5.0.0" as const,
+        ordinal: rows.length,
+        toolUseRef: record.id,
+        toolName: record.name,
+        inputDigest: sha256Bytes(inputBytes),
+        inputByteLength: inputBytes.byteLength,
+      }));
+    } catch {
+      // Malformed tool input remains reflected in the count/classification but
+      // cannot become exact invocation evidence.
+    }
+  }
+  for (const entry of Object.values(record)) {
+    collectToolUses(entry, structuredOutputExpected, rows);
+  }
+}
+
+function artifact(path: string, bytes: Uint8Array): WorkerTransportArtifact {
+  return deepFreeze({
+    path,
+    byteLength: bytes.byteLength,
+    digest: sha256Bytes(bytes),
+  });
+}
+
+function assertLabel(label: string): void {
+  if (!/^[a-zA-Z0-9._-]+$/u.test(label)) {
+    throw new TypeError("worker transport label must be one path-safe identity segment");
+  }
+}
+
+function resolveAbsoluteTimeoutMs(
+  timeoutMs: number,
+  absoluteTimeoutMs: number | undefined,
+): number {
+  const resolved = absoluteTimeoutMs ?? timeoutMs * 4;
+  if (!Number.isSafeInteger(resolved) || resolved <= timeoutMs) {
+    throw new TypeError(
+      "worker transport absolute timeout must be one safe integer greater than its inactivity timeout",
+    );
+  }
+  return resolved;
+}
+
+function countToolUses(
+  value: unknown,
+  structuredOutputExpected: boolean,
+): number {
+  if (Array.isArray(value)) {
+    return value.reduce(
+      (count, entry) => count + countToolUses(entry, structuredOutputExpected),
+      0,
+    );
+  }
+  if (typeof value !== "object" || value === null) return 0;
+  const record = value as Readonly<Record<string, unknown>>;
+  // Claude emits this synthetic event to satisfy --json-schema; it has no capability effect.
+  const protocolStructuredOutput = structuredOutputExpected &&
+    record.type === "tool_use" &&
+    record.name === "StructuredOutput";
+  const current = record.type === "tool_use" && !protocolStructuredOutput ? 1 : 0;
+  return Object.values(record).reduce<number>(
+    (count, entry) => count + countToolUses(entry, structuredOutputExpected),
+    current,
+  );
+}
+
+/** One incremental decoder for complete protocol rows. Partial message events
+ * expose received bytes, not unobservable model progress or tool execution. */
+export function createWorkerTransportOutputObserver(structuredOutputExpected: boolean) {
+  let pending = "";
+  let structuredEventCount = 0;
+  let finalOutput = "";
+  let progressEventCount = 0;
+  let rawToolCallCount = 0;
+  const rawToolInvocations: WorkerToolInvocationEvidence[] = [];
+  let apiRetryCount = 0;
+  const observeLine = (line: string): void => {
+    if (line.trim().length === 0) return;
+    let value: unknown;
+    try { value = JSON.parse(line); } catch { return; }
+    structuredEventCount += 1;
+    if (typeof value !== "object" || value === null || Array.isArray(value)) return;
+    const record = value as Readonly<Record<string, unknown>>;
+    const retry = record.type === "api_retry" ||
+      record.type === "system" && record.subtype === "api_retry";
+    if (retry) { apiRetryCount += 1; return; }
+    const streamEvent = record.type === "stream_event" && typeof record.event === "object" && record.event !== null
+      ? record.event as Readonly<Record<string, unknown>> : null;
+    const reportedThinking = record.type === "system" && record.subtype === "thinking_tokens" &&
+      typeof record.estimated_tokens_delta === "number" && record.estimated_tokens_delta > 0;
+    if (record.type === "assistant" || record.type === "user" || record.type === "tool_progress" || reportedThinking ||
+        streamEvent !== null && ["message_start", "content_block_start", "content_block_delta",
+          "content_block_stop", "message_delta", "message_stop"].includes(String(streamEvent.type))) progressEventCount += 1;
+    // Partial tool blocks contain an unfinished input and repeat the complete
+    // assistant tool_use. Only the complete message supplies effect evidence.
+    if (record.type !== "stream_event") {
+      rawToolCallCount += countToolUses(record, structuredOutputExpected);
+      collectToolUses(record, structuredOutputExpected, rawToolInvocations);
+    }
+    if (record.type === "result") {
+      if (structuredOutputExpected) {
+        // Only the successful final host carrier supplies the requested result.
+        // Admit its raw JSON before serializing the selected value, so duplicate
+        // keys or invalid I-JSON cannot disappear through JSON.parse/stringify.
+        finalOutput = "";
+        if (record.subtype !== "success" || record.is_error !== false) return;
+        try {
+          const admitted = admitIJsonText(line, "worker structured result");
+          if (admitted !== null && typeof admitted === "object" && !Array.isArray(admitted) &&
+              Object.hasOwn(admitted, "structured_output")) {
+            finalOutput = canonicalJson((admitted as Readonly<Record<string, JsonValue>>).structured_output!);
+          }
+        } catch { /* retain the raw stream; never repair or fall back */ }
+      } else if (typeof record.result === "string") {
+        finalOutput = record.result;
+      }
+    }
+  };
+  const snapshot = (): StructuredObservation => {
+    const toolInvocations: WorkerToolInvocationEvidence[] = [];
+    let conflictingToolUseRef = false;
+    for (const row of rawToolInvocations) {
+      const prior = toolInvocations.find((candidate) => candidate.toolUseRef === row.toolUseRef);
+      if (prior === undefined) {
+        toolInvocations.push(deepFreeze({ ...row, ordinal: toolInvocations.length }));
+      } else if (prior.toolName !== row.toolName || prior.inputDigest !== row.inputDigest ||
+        prior.inputByteLength !== row.inputByteLength) {
+        conflictingToolUseRef = true;
+      }
+    }
+    const unevidencedToolUse = rawToolCallCount > rawToolInvocations.length;
+    return {
+      structuredEventCount,
+      progressEventCount,
+      toolCallCount: conflictingToolUseRef || unevidencedToolUse
+        ? toolInvocations.length + 1
+        : toolInvocations.length,
+      toolInvocations: deepFreeze(toolInvocations),
+      apiRetryCount,
+      finalOutput,
+    };
+  };
+  return {
+    observe(chunk: string): StructuredObservation {
+      pending += chunk;
+      let newline: number;
+      while ((newline = pending.indexOf("\n")) !== -1) {
+        observeLine(pending.slice(0, newline));
+        pending = pending.slice(newline + 1);
+      }
+      return snapshot();
+    },
+    finish(): StructuredObservation {
+      observeLine(pending); pending = "";
+      return snapshot();
+    },
+  };
+}
+
+function observeStructuredOutput(stdout: string, structuredOutputExpected: boolean): StructuredObservation {
+  const observer = createWorkerTransportOutputObserver(structuredOutputExpected);
+  observer.observe(stdout);
+  return observer.finish();
+}
+
+async function runProcess(input: {
+  readonly command: string;
+  readonly args: readonly string[];
+  readonly cwd: string;
+  readonly env: NodeJS.ProcessEnv;
+  readonly stdin: string | null;
+  readonly timeoutMs: number;
+  readonly absoluteTimeoutMs: number;
+  readonly terminationGraceMs: number;
+  readonly stdoutPath: string;
+  readonly stderrPath: string;
+  readonly observer?: WorkerProcessObserver;
+}): Promise<ProcessObservation> {
+  let stdout = "";
+  let stderr = "";
+  let timedOut = false;
+  let timeoutClass: WorkerTransportTimeoutClass | null = null;
+  let launchError: string | null = null;
+  let resultBearingStdout: string | null = null;
+  let captureOpen = true;
+  const inactivityTimer = createMonotonicDeadline();
+  const absoluteTimer = createMonotonicDeadline();
+  const clearLeaseTimers = (): void => { inactivityTimer.cancel(); absoluteTimer.cancel(); };
+  const snapshotResultBearingStdout = (): void => { resultBearingStdout ??= stdout; };
+  const child = spawn(input.command, input.args, {
+    cwd: input.cwd, env: input.env, detached: process.platform !== "win32",
+    stdio: ["pipe", "pipe", "pipe"],
+  });
+  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: input.terminationGraceMs }, {
+    onSpawn: (pid) => input.observer?.onProcessStarted?.(pid),
+    onError: (error) => {
+      clearLeaseTimers(); snapshotResultBearingStdout(); launchError = error.message;
+      input.observer?.onSpawnFailed?.(error.message);
+    },
+    onExit: (status, signal) => {
+      clearLeaseTimers(); snapshotResultBearingStdout(); captureOpen = false;
+      child.stdout.destroy(); child.stderr.destroy(); child.stdin.destroy();
+      input.observer?.onProcessExited?.(status, signal);
+    },
+    onSignalRequested: (signal) => {
+      clearLeaseTimers(); input.observer?.onSignalRequested?.(signal);
+    },
+    onUnconfirmed: () => { clearLeaseTimers(); input.observer?.onTerminationUnconfirmed?.(); },
+  });
+  const beginTimeout = (observedTimeoutClass: WorkerTransportTimeoutClass): void => {
+    if (timedOut || lifetime.snapshot().cleanupDeadlineNs !== null) return;
+    if (input.observer?.onNativeSupervisionWakeup !== undefined) {
+      const selected = lifetime.observe(() => input.observer!.onNativeSupervisionWakeup!());
+      if (selected === undefined) return;
+      if (!Number.isFinite(selected.nextWakeDelayMs) || selected.nextWakeDelayMs <= 0) {
+        lifetime.fail(new TypeError("native supervision returned no finite declared wakeup")); return;
+      }
+      if (selected.projection.disposition.disposition !== "controlled_terminate") {
+        if (selected.admittedThresholdEventRef !== null || selected.timeoutClass !== null) {
+          lifetime.fail(new TypeError("non-consequential native wakeup claimed a threshold")); return;
+        }
+        inactivityTimer.after(selected.nextWakeDelayMs, () => beginTimeout("inactivity"));
+        return;
+      }
+      if (selected.admittedThresholdEventRef === null || selected.timeoutClass === null) {
+        lifetime.fail(new TypeError("native containment lacks its admitted threshold")); return;
+      }
+      observedTimeoutClass = selected.timeoutClass;
+    }
+    timedOut = true; timeoutClass = observedTimeoutClass;
+    clearLeaseTimers(); snapshotResultBearingStdout();
+    if (input.observer?.onNativeSupervisionWakeup === undefined) {
+      lifetime.observe(() => input.observer?.onTimeoutObserved?.(observedTimeoutClass));
+    }
+    lifetime.requestTermination();
+  };
+  const renewInactivityLease = (): void => {
+    if (timedOut || lifetime.snapshot().cleanupDeadlineNs !== null) return;
+    inactivityTimer.after(input.timeoutMs, () => beginTimeout("inactivity"));
+  };
+  const onStdout = (chunk: string): void => {
+    if (!captureOpen) return;
+    lifetime.observe(() => {
+      appendFileSync(input.stdoutPath, chunk, "utf8"); stdout += chunk;
+      if (input.observer?.onStdoutObserved?.(chunk) === true) renewInactivityLease();
+    });
+  };
+  const onStderr = (chunk: string): void => {
+    if (!captureOpen) return;
+    lifetime.observe(() => {
+      appendFileSync(input.stderrPath, chunk, "utf8"); stderr += chunk;
+      if (input.observer?.onStderrObserved?.(chunk) === true) renewInactivityLease();
+    });
+  };
+  try {
+    renewInactivityLease();
+    absoluteTimer.after(input.absoluteTimeoutMs, () => beginTimeout("absolute"));
+    child.stdout.setEncoding("utf8"); child.stderr.setEncoding("utf8");
+    child.stdout.on("data", onStdout); child.stderr.on("data", onStderr);
+    child.stdin.end(input.stdin ?? undefined);
+  } catch (error) { lifetime.fail(error); }
+  try {
+    const facts = await lifetime.completion;
+    if (facts.firstError !== null) throw facts.firstError;
+    return {
+      status: facts.directExit?.status ?? null, signal: facts.directExit?.signal ?? null,
+      timedOut, timeoutClass, exitObserved: facts.directExit !== null,
+      terminationConfirmed: facts.scopeAbsence === "absent" && facts.directExit !== null,
+      launchError, resultBearingStdout: resultBearingStdout ?? stdout, stdout, stderr,
+    };
+  } finally {
+    clearLeaseTimers(); captureOpen = false;
+    child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
+  }
+}
+
+/** Pure existing protocol parser, shared by the native artifact observer. */
+export function observeWorkerTransportOutput(parser: WorkerTransportContract["parser"], stdout: string, structuredRequested: boolean) {
+  return parser === "claude_stream_json" ? observeStructuredOutput(stdout, structuredRequested) : {
+    structuredEventCount: 0, progressEventCount: stdout.length > 0 ? 1 : 0,
+    toolCallCount: 0, toolInvocations: [] as readonly WorkerToolInvocationEvidence[], apiRetryCount: 0, finalOutput: stdout,
+  };
+}
+
+async function executeWorkerTransport(
+  input: WorkerTransportRequest,
+): Promise<WorkerTransportResult> {
+  assertLabel(input.label);
+  if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
+    throw new TypeError("worker transport timeout must be one positive safe integer");
+  }
+  const terminationGraceMs = input.terminationGraceMs ?? 1_000;
+  if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
+    throw new TypeError("worker transport termination grace must be one positive safe integer");
+  }
+  const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(
+    input.timeoutMs,
+    input.absoluteTimeoutMs,
+  );
+  await mkdir(input.archiveRoot, { recursive: true });
+  const archiveRoot = resolve(input.archiveRoot);
+  const paths = {
+    prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
+    output: resolve(archiveRoot, `${input.label}-output.txt`),
+    stdout: resolve(archiveRoot, `${input.label}-stdout.log`),
+    stderr: resolve(archiveRoot, `${input.label}-stderr.log`),
+    transport: resolve(archiveRoot, `${input.label}-transport.json`),
+  };
+  const environment = input.environment ?? process.env;
+  const args = composeWorkerTransportArgs({
+    contract: input.contract,
+    prompt: input.prompt,
+    outputPath: paths.output,
+    lane: input.lane,
+    environment,
+    ...(input.responseJsonSchema === undefined
+      ? {}
+      : { responseJsonSchema: input.responseJsonSchema }),
+    ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
+    ...(input.explicitAppendArgs === undefined
+      ? {}
+      : { explicitAppendArgs: input.explicitAppendArgs }),
+  });
+  // Establish the archive before a paid process can emit bytes. Refuse reuse
+  // of an existing attempt archive instead of truncating retained evidence.
+  const promptBytes = Buffer.from(input.prompt, "utf8");
+  await writeFile(paths.prompt, promptBytes, { flag: "wx" });
+  await writeFile(paths.stdout, "", { flag: "wx" });
+  await writeFile(paths.stderr, "", { flag: "wx" });
+  const processObservation = await runProcess({
+    command: input.contract.command,
+    args,
+    cwd: input.cwd,
+    env: sanitizeWorkerTransportEnvironment(input.contract, environment) ?? {},
+    stdin: input.contract.promptTransport === "stdin" ? input.prompt : null,
+    timeoutMs: input.timeoutMs,
+    absoluteTimeoutMs,
+    terminationGraceMs,
+    stdoutPath: paths.stdout,
+    stderrPath: paths.stderr,
+    ...(input.observer === undefined ? {} : { observer: input.observer }),
+  });
+  const structuredOutputExpected = input.contract.agentKey === "claude" && args.includes("--json-schema");
+  const observation = input.contract.parser === "claude_stream_json"
+    ? observeStructuredOutput(
+        processObservation.resultBearingStdout,
+        structuredOutputExpected,
+      )
+    : {
+      structuredEventCount: 0,
+      progressEventCount:
+        processObservation.resultBearingStdout.length > 0 ? 1 : 0,
+      toolCallCount: 0,
+      toolInvocations: [],
+      apiRetryCount: 0,
+      finalOutput: processObservation.resultBearingStdout,
+    };
+  let finalOutput = observation.finalOutput;
+  let nativeResultAssessment: NativeWorkerResultAssessment | undefined;
+  if (input.observer?.assessNativeResultArtifact !== undefined) {
+    let fileOutput: string | null = null;
+    try { fileOutput = (await readFile(paths.output)).toString("utf8"); }
+    catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+    if (fileOutput !== null && fileOutput.trim().length > 0) {
+      if (finalOutput.trim().length === 0) {
+        if (!structuredOutputExpected && input.responsePresentation !== "result_text") finalOutput = fileOutput;
+      }
+      else {
+        let sameOutput = fileOutput === finalOutput;
+        try { sameOutput ||= canonicalJson(JSON.parse(fileOutput)) === canonicalJson(JSON.parse(finalOutput)); } catch { /* no parser repair */ }
+        if (!sameOutput) throw new TypeError("distinct worker output channels disagree; no first/last result selection");
+      }
+    }
+    nativeResultAssessment = input.observer.assessNativeResultArtifact(finalOutput);
+  }
+  const failureClass = classifyWorkerTransportFailure({
+    parser: input.contract.parser,
+    lane: input.lane,
+    processStatus: processObservation.status,
+    timedOut: processObservation.timedOut,
+    terminationConfirmed: processObservation.terminationConfirmed,
+    processSpawnFailed: processObservation.launchError !== null,
+    structuredEventCount: observation.structuredEventCount,
+    toolCallCount: observation.toolCallCount,
+    apiRetryCount: observation.apiRetryCount,
+    finalOutput,
+    ...(nativeResultAssessment === undefined ? {} : { nativeResultDisposition: nativeResultAssessment.disposition }),
+  });
+  const outputBytes = Buffer.from(finalOutput, "utf8");
+  const stdoutBytes = Buffer.from(processObservation.stdout, "utf8");
+  const stderrBytes = Buffer.from(processObservation.stderr, "utf8");
+  await writeFile(paths.output, outputBytes);
+  if (sha256Bytes(await readFile(paths.stdout)) !== sha256Bytes(stdoutBytes) ||
+      sha256Bytes(await readFile(paths.stderr)) !== sha256Bytes(stderrBytes)) {
+    throw new TypeError("worker stream archive differs from observed bytes");
+  }
+  const body = {
+    ...(nativeResultAssessment === undefined ? {} : { nativeResultAssessment }),
+    kind: "worker_transport_result_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: failureClass === null ? "success" as const : "failure" as const,
+    agentKey: input.contract.agentKey,
+    lane: input.lane,
+    command: input.contract.command,
+    args,
+    status: processObservation.status,
+    signal: processObservation.signal,
+    timeoutMs: input.timeoutMs,
+    absoluteTimeoutMs,
+    timedOut: processObservation.timedOut,
+    timeoutClass: processObservation.timeoutClass,
+    exitObserved: processObservation.exitObserved,
+    terminationConfirmed: processObservation.terminationConfirmed,
+    failureClass,
+    structuredEventCount: observation.structuredEventCount,
+    progressEventCount: observation.progressEventCount,
+    toolCallCount: observation.toolCallCount,
+    toolInvocations: observation.toolInvocations,
+    apiRetryCount: observation.apiRetryCount,
+    stdout: processObservation.stdout,
+    stderr: processObservation.stderr,
+    finalOutput,
+    artifacts: {
+      prompt: artifact(paths.prompt, promptBytes),
+      output: artifact(paths.output, outputBytes),
+      stdout: artifact(paths.stdout, stdoutBytes),
+      stderr: artifact(paths.stderr, stderrBytes),
+    },
+  };
+  const transportBytes = Buffer.from(`${canonicalJson(body as unknown as JsonValue)}\n`, "utf8");
+  await writeFile(paths.transport, transportBytes);
+  const result = deepFreeze({
+    ...body,
+    artifacts: {
+      ...body.artifacts,
+      transport: artifact(paths.transport, transportBytes),
+    },
+  }) as WorkerTransportResult;
+  const persistedTransport = await readFile(paths.transport);
+  if (sha256Bytes(persistedTransport) !== result.artifacts.transport.digest) {
+    throw new TypeError("worker transport artifact changed after persistence");
+  }
+  return result;
+}
+
+export interface PreparedWorkerTransport {
+  readonly kind: "prepared_worker_transport";
+  readonly schemaVersion: "5.0.0";
+  readonly planDigest: Sha256Digest;
+  readonly contractDigest: Sha256Digest;
+  readonly agentKey: WorkerTransportContract["agentKey"];
+  readonly parser: WorkerTransportContract["parser"];
+  readonly promptTransport: WorkerTransportContract["promptTransport"];
+  readonly lane: TransportCapabilityLane;
+  readonly command: string;
+  readonly args: readonly string[];
+  readonly cwd: string;
+  readonly archiveRoot: string;
+  readonly label: string;
+  readonly timeoutMs: number;
+  readonly absoluteTimeoutMs: number;
+  readonly terminationGraceMs: number;
+  readonly promptDigest: Sha256Digest;
+  readonly responseJsonSchemaDigest: Sha256Digest | null;
+  readonly environmentPolicyDigest: Sha256Digest;
+  readonly environmentDigest: Sha256Digest;
+  readonly paths: Readonly<{
+    prompt: string;
+    output: string;
+    stdout: string;
+    stderr: string;
+    transport: string;
+  }>;
+}
+
+const preparedTransportState = new WeakMap<
+  PreparedWorkerTransport,
+  Omit<WorkerTransportRequest, "observer">
+>();
+
+function exactEnvironment(
+  environment: Readonly<Record<string, string | undefined>>,
+): Readonly<Record<string, string>> {
+  return Object.freeze(Object.fromEntries(
+    Object.entries(environment)
+      .filter((entry): entry is [string, string] => entry[1] !== undefined)
+      .sort(([left], [right]) => left.localeCompare(right)),
+  ));
+}
+
+export async function prepareWorkerTransport(
+  input: WorkerTransportRequest,
+): Promise<PreparedWorkerTransport> {
+  assertLabel(input.label);
+  if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
+    throw new TypeError("worker transport timeout must be one positive safe integer");
+  }
+  const terminationGraceMs = input.terminationGraceMs ?? 1_000;
+  if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
+    throw new TypeError("worker transport termination grace must be one positive safe integer");
+  }
+  const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(
+    input.timeoutMs,
+    input.absoluteTimeoutMs,
+  );
+  const archiveRoot = resolve(input.archiveRoot);
+  const cwd = await realpath(input.cwd);
+  const sourceEnvironment = exactEnvironment(input.environment ?? process.env);
+  const contract = input.contract;
+  const paths = deepFreeze({
+    prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
+    output: resolve(archiveRoot, `${input.label}-output.txt`),
+    stdout: resolve(archiveRoot, `${input.label}-stdout.log`),
+    stderr: resolve(archiveRoot, `${input.label}-stderr.log`),
+    transport: resolve(archiveRoot, `${input.label}-transport.json`),
+  });
+  const args = composeWorkerTransportArgs({
+    contract,
+    prompt: input.prompt,
+    outputPath: paths.output,
+    lane: input.lane,
+    environment: sourceEnvironment,
+    ...(input.responseJsonSchema === undefined
+      ? {}
+      : { responseJsonSchema: input.responseJsonSchema }),
+    ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
+    ...(input.explicitAppendArgs === undefined
+      ? {}
+      : { explicitAppendArgs: input.explicitAppendArgs }),
+  });
+  const sanitizedEnvironment = exactEnvironment(
+    sanitizeWorkerTransportEnvironment(contract, sourceEnvironment) ?? {},
+  );
+  const body = {
+    contractDigest: sha256Canonical(contract as unknown as JsonValue),
+    agentKey: contract.agentKey,
+    parser: contract.parser,
+    promptTransport: contract.promptTransport,
+    lane: input.lane,
+    command: contract.command,
+    args,
+    cwd,
+    archiveRoot,
+    label: input.label,
+    timeoutMs: input.timeoutMs,
+    absoluteTimeoutMs,
+    terminationGraceMs,
+    promptDigest: sha256Canonical(input.prompt),
+    responseJsonSchemaDigest: input.responseJsonSchema === undefined
+      ? null
+      : sha256Canonical(input.responseJsonSchema as JsonValue),
+    environmentPolicyDigest: sha256Canonical({
+      agentKey: contract.agentKey,
+      sanitizedEnvironmentPrefixes: contract.sanitizedEnvironmentPrefixes,
+    }),
+    environmentDigest: sha256Canonical(sanitizedEnvironment as unknown as JsonValue),
+    paths,
+  };
+  const plan = deepFreeze({
+    kind: "prepared_worker_transport" as const,
+    schemaVersion: "5.0.0" as const,
+    planDigest: sha256Canonical(body as unknown as JsonValue),
+    ...body,
+  }) as PreparedWorkerTransport;
+  const request: Omit<WorkerTransportRequest, "observer"> = {
+    contract,
+    prompt: input.prompt,
+    lane: input.lane,
+    cwd,
+    archiveRoot,
+    label: input.label,
+    timeoutMs: input.timeoutMs,
+    absoluteTimeoutMs,
+    terminationGraceMs,
+    ...(input.responseJsonSchema === undefined
+      ? {}
+      : { responseJsonSchema: input.responseJsonSchema }),
+    ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
+    environment: sourceEnvironment,
+    ...(input.explicitAppendArgs === undefined
+      ? {}
+      : { explicitAppendArgs: input.explicitAppendArgs }),
+  };
+  preparedTransportState.set(plan, request);
+  return plan;
+}
+
+export async function runPreparedWorkerTransport(
+  plan: PreparedWorkerTransport,
+  observer?: WorkerProcessObserver,
+): Promise<WorkerTransportResult> {
+  const request = preparedTransportState.get(plan);
+  if (request === undefined) {
+    throw new TypeError("worker transport plan was not prepared by this ABG module");
+  }
+  const result = await executeWorkerTransport({
+    ...request,
+    ...(observer === undefined ? {} : { observer }),
+  });
+  if (
+    result.command !== plan.command ||
+    canonicalJson(result.args as unknown as JsonValue) !==
+      canonicalJson(plan.args as unknown as JsonValue)
+  ) {
+    throw new TypeError("executed worker transport differs from the prepared binding");
+  }
+  return result;
+}
+
+export async function runWorkerTransport(
+  input: WorkerTransportRequest,
+): Promise<WorkerTransportResult> {
+  const plan = await prepareWorkerTransport(input);
+  return runPreparedWorkerTransport(plan, input.observer);
+}

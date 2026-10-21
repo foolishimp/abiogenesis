@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python3",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-01/package-02.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exit_code": 0,
+  "wall_seconds": 12.759896993637085,
+  "stdout_sha256": "ef670361222506ef5c366ae05a9e7665b61f0303519eaaa3257049bbf08ee7fd",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

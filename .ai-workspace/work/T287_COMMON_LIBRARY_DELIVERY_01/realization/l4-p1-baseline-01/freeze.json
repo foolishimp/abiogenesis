@@ -1,0 +1,129 @@
+{
+  "kind": "closed_installed_lane_proof_freeze",
+  "status": "CLOSED_P1_BASELINE_SATISFIED",
+  "writer": "/root/stdo3_proof_writer",
+  "returnTo": "/root",
+  "activation": "L4-P1-BASELINE-01",
+  "utc": "2026-10-21T00:25:56.728686+00:00",
+  "lane": "public-preparation",
+  "subjectId": "baseline",
+  "configurationSha256": "ced6277452bf1d58f0339505e74419089fb7ce4618777258e7338bbdca24a766",
+  "resultSha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+  "runnerResultSha256": "9b3ad5953a5bcdbfba21694962a65161bae4c678d935a9210860b865a6a5f421",
+  "recordCount": 18,
+  "resourceEntryCount": 16475,
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/activation.json",
+      "sha256": "fe700e11a6b046fd00a769a3a5027b9d74561401956aebd91c920ea3e533f71d",
+      "bytes": 2502,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/configuration.json",
+      "sha256": "ced6277452bf1d58f0339505e74419089fb7ce4618777258e7338bbdca24a766",
+      "bytes": 5203,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/effect-grant.json",
+      "sha256": "77a9fc567ddb58967edb609bacc2b2c1ee046fda484a9b28fa32ed2b2af20cec",
+      "bytes": 1203,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/execution.request.json",
+      "sha256": "5a82d2bb49474818113bdadcf3a83e5d449bcdca5883f1d1e22fbc5dc4405849",
+      "bytes": 1043,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/execution.result.json",
+      "sha256": "aab65a034aac597a81c1b4018d2dfbdba62fefab59e24e1834802c8b1f21ccfb",
+      "bytes": 439,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/execution.stderr",
+      "sha256": "c724eecd8955d645d081a10cd653bd21adf13a8eb63ba7d2967d7fabf207cb7f",
+      "bytes": 777,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/execution.stdout",
+      "sha256": "c2c86a79ce6c7c56e95a1230de7990f3c34b8dca5e981d21cf32932507914030",
+      "bytes": 128,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/measurement-return.json",
+      "sha256": "edd74b069ed0caf2c11bb2e7cca1de3e998d036d493656123211bac16ae74317",
+      "bytes": 2377,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/output-correspondence.json",
+      "sha256": "d58ad94f2f73a06e2f538ac70ace046a57d64208d1c052b969331bcf0b48aa4a",
+      "bytes": 6608,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/owner-handoff.json",
+      "sha256": "9b423cd3716cd9eb971628046abc7279e9452d077c22ed5c07df3d863d9bb4ef",
+      "bytes": 6980,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/paired-P1-observation.json",
+      "sha256": "c06084e94114cd22b423c05657a963f0826c550acea8c3b721a1c9cc3d3d89e8",
+      "bytes": 5232,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/post-execution-verification.json",
+      "sha256": "f94478296da4f09ca9ebebe2ec9e2ceea9638050a6ee8405d8789d5f32179dad",
+      "bytes": 2317,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/pre-execution-freeze.json",
+      "sha256": "ee157c4f4c52658c8331d1c2f8d9aa5a622885aba4f6f0daac5510c001beb6d3",
+      "bytes": 2118,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/prerequisites.json",
+      "sha256": "35083302bacdc7384d2bb16793c6876edcea7d2934981351e989e6277e7b4c15",
+      "bytes": 4207,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/protected-main-before.json",
+      "sha256": "2876b3ba124920c894481f1655aff4b79bb5c0acf3c1be92e63a56719a43c3cb",
+      "bytes": 227626,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/result.json",
+      "sha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+      "bytes": 6684,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/retained-resource-inventory.json",
+      "sha256": "4857ba7e53d1cf361f38f14d151405c099eb5278023ae39b51e4409de3240d8a",
+      "bytes": 5483524,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/return.md",
+      "sha256": "f16613273517852c51afde71fc07ea315006ffd286e35fb0ec3cb18fbeb8fe0f",
+      "bytes": 2319,
+      "mode": "0o644"
+    }
+  ],
+  "resourceInventorySha256": "4857ba7e53d1cf361f38f14d151405c099eb5278023ae39b51e4409de3240d8a",
+  "resourceSemantics": "Inventory binds actual closed cut; genuine event store remains an owner resource for separately authorized successors. Historical prefix copy and receipts remain retained.",
+  "nativeCalls": 0,
+  "L5": "not claimed"
+}

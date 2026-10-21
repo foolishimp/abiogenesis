@@ -1,0 +1,8 @@
+{
+  "source": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+  "previous_sha256": "a900b99481bcbd5a51ead74621e981cd1105e2c0582aebeee691f11ca10f85fb",
+  "corrected_sha256": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546",
+  "grant": "Executive U1-ORACLE-03",
+  "production_bytes_changed": false,
+  "changed_case_only": "reversed carrier correctly refuses; no production change"
+}

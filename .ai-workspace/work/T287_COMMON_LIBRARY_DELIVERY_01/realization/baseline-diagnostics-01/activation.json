@@ -1,0 +1,51 @@
+{
+  "activation": "BASELINE-DIAGNOSTICS-01",
+  "issuedBy": "/root",
+  "writer": "/root/stdo3_proof_writer",
+  "recordedUtc": "2026-10-21T03:58:43.479206+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "Product": "Fixed fifteen-family library prerequisite; sole GTL Program/direct HoG/ABG runtime authority; diagnostics are evidence only",
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "subjects": {
+    "diagnosticPreparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+      "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa"
+    },
+    "baselineP1": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/freeze.json",
+      "sha256": "5af8841ae028de12ec51f6e02402ebbe1f53fdc4b1b45e388ef3127857e8a816"
+    },
+    "baselineP3": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/freeze.json",
+      "sha256": "5cc9b52989fa0136f850a11dee1f41cda1d6b9de858612bf3209d2c158cfe087"
+    }
+  },
+  "sequence": [
+    "baseline P1 diagnostic once",
+    "freeze actual result, coverage, resources and passive analysis",
+    "baseline repaired-support P3 diagnostic once only on P1 complete pass"
+  ],
+  "permittedParent": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb",
+  "cache": "Per-lane explicit empty seed only after bundled archive closure; owned offline content/index/tmp/log writes retained",
+  "nativeCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "stop": "First actual selected-input, preflight, attachment, owner, oracle, coverage or execution failure; retain and return before retry/repair/next lane",
+  "notGranted": [
+    "candidate",
+    "P2",
+    "P4",
+    "P5",
+    "HoG",
+    "native/provider",
+    "source/support/observer mutation",
+    "old append owner acquisition",
+    "Git",
+    "review activation"
+  ]
+}

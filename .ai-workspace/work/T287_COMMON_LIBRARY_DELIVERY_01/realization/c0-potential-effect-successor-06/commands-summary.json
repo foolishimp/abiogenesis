@@ -1,0 +1,199 @@
+{
+  "commands": {
+    "append-host-check": {
+      "pid": 7707,
+      "exitCode": 0,
+      "wallMs": 474.89412501454353,
+      "stdoutSha256": "64f02a875dcc269e00c3d40a84d97c1875dc196b011c1656045e2ee68f3647ac",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "append-install": {
+      "pid": 7632,
+      "exitCode": 0,
+      "wallMs": 2201.7681249417365,
+      "stdoutSha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "append-owner": {
+      "pid": 7858,
+      "exitCode": 0,
+      "wallMs": 53051.95570900105,
+      "stdoutSha256": "3a5328381342da9addd8a9d6419b85047fb315e4c88630f82be7e8c2c6a613c2",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "archive-check": {
+      "pid": 3840,
+      "exitCode": 0,
+      "wallMs": 906.7952081095427,
+      "stdoutSha256": "0b39695debc2ca7fccefde7e8886e000c2f892f1e44a1f9000bf21b6c54d71a6",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "archive-correspondence": {
+      "exitCode": 0,
+      "wallMs": 831.619042,
+      "archive": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 10681844,
+        "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079"
+      },
+      "members": 5271,
+      "payloadRows": 5269
+    },
+    "component-currentness": {
+      "pid": 9595,
+      "exitCode": 0,
+      "wallMs": 4537.0427498128265,
+      "stdoutSha256": "b31aff3a33a4134c6fd69579c13e6876fd026b9e2d592191b3302f0e2d61b820",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "detached": {
+      "pid": 3041,
+      "exitCode": 0,
+      "wallMs": 977.1061248611659,
+      "stdoutSha256": "73db25ca90847683e44479126525dd02912b7a0e115cbc888712820de5faf707",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "generate": {
+      "pid": 3152,
+      "exitCode": 0,
+      "wallMs": 25047.70820820704,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "generation-correspondence": {
+      "pid": 3706,
+      "exitCode": 0,
+      "wallMs": 718.778416980058,
+      "stdoutSha256": "9d4ddd6bd1cf6bc094c975b22bc4752b3f9c1da460b8c434bc7cc6170c838a55",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "material": {
+      "pid": 3640,
+      "exitCode": 0,
+      "wallMs": 1412.1817501727492,
+      "stdoutSha256": "1c28abfa685243e7d78e9cb9e2bd12a6009c5b07c263196b535f90430a169364",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "pack": {
+      "pid": 3763,
+      "exitCode": 0,
+      "wallMs": 3300.4551669582725,
+      "stdoutSha256": "debe07f9f9b822b2f84ce8be1c159a5893f8613ad821fe7bb64a545ad8d17b0d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "payload": {
+      "pid": 3879,
+      "exitCode": 0,
+      "wallMs": 365.67141697742045,
+      "stdoutSha256": "c0acef3be01932100a7c793416b7ac471da6bf98082d14a248858041536f9262",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prepublication-host-check": {
+      "pid": 8586,
+      "exitCode": 0,
+      "wallMs": 458.383500110358,
+      "stdoutSha256": "e059d43997a8e18f2b1715974834371bc37965556b5266285ac8cce56c0e6c03",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prepublication-install": {
+      "pid": 8523,
+      "exitCode": 0,
+      "wallMs": 2208.9060831349343,
+      "stdoutSha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "prepublication-owner": {
+      "pid": 8729,
+      "exitCode": 0,
+      "wallMs": 54809.50558395125,
+      "stdoutSha256": "421958c25e7d7ffe25ae053368c0b567ac46b77422ac13c34aea54ca283a678b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sunny-host-check": {
+      "pid": 6038,
+      "exitCode": 0,
+      "wallMs": 480.5041248910129,
+      "stdoutSha256": "16917182ea485a73e2e47c4ad0583728657e107c3d8aeaabad4e8b32c66b677e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sunny-install": {
+      "pid": 5844,
+      "exitCode": 0,
+      "wallMs": 2193.6948329675943,
+      "stdoutSha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sunny-owner": {
+      "pid": 6078,
+      "exitCode": 0,
+      "wallMs": 49125.3325000871,
+      "stdoutSha256": "982609f2e2439d7a447793ff783931119ea2978cf667980632892373c1f5a489",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "syntax": {
+      "pid": 2707,
+      "exitCode": 0,
+      "wallMs": 44.141167076304555,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tsc": {
+      "pid": 2868,
+      "exitCode": 0,
+      "wallMs": 6449.380582896993,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "unavailable-host-check": {
+      "pid": 4876,
+      "exitCode": 0,
+      "wallMs": 437.3330830130726,
+      "stdoutSha256": "87b1ca0bd101452718c833b134b5dd8d25fef2dd27c8a7b930f4b85feff4139f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "unavailable-install": {
+      "pid": 4783,
+      "exitCode": 0,
+      "wallMs": 2224.0823751781136,
+      "stdoutSha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "unavailable-owner": {
+      "pid": 4993,
+      "exitCode": 0,
+      "wallMs": 53287.66229189932,
+      "stdoutSha256": "04ada63c3a96306d7c92bfe29801d4900334c756ff5d543bdb68ef10e709d8c4",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "required": [
+    "syntax",
+    "tsc",
+    "detached",
+    "generate",
+    "material",
+    "generation-correspondence",
+    "pack",
+    "archive-check",
+    "payload",
+    "unavailable-install",
+    "unavailable-host-check",
+    "unavailable-owner",
+    "sunny-install",
+    "sunny-host-check",
+    "sunny-owner",
+    "append-install",
+    "append-host-check",
+    "append-owner",
+    "prepublication-install",
+    "prepublication-host-check",
+    "prepublication-owner",
+    "component-currentness"
+  ],
+  "notExecuted": [],
+  "actualSelectedFailure": null,
+  "timeoutMs": 600000,
+  "nativeProviderCalls": 0
+}

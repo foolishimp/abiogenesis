@@ -1,0 +1,15 @@
+{
+  "test": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "--test",
+      "--test-name-pattern",
+      "^T-287 C2 compact acknowledgment preserves installed large-log observation and replay$",
+      "test_env/tests/t287-worksite-command-execution.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/proof/build_tenants/abiogenesis/typescript",
+    "timeoutMs": 630000,
+    "terminationGraceMs": 1000,
+    "lifetimeModule": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/owned_process_lifetime.js"
+  }
+}

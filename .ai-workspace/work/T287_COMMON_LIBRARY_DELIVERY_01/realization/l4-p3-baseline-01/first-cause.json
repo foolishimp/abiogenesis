@@ -1,0 +1,47 @@
+{
+  "activation": "L4-P3-BASELINE-01",
+  "status": "first_seam_failure_preserved",
+  "actualRefusal": {
+    "kind": "product_install_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "refused",
+    "code": "dependency_lock_mismatch",
+    "message": "materialized managed Product dependencies differ from the selected resolved lock"
+  },
+  "frontier": {
+    "function": "setupInstalledRootCatalog",
+    "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "line": 323,
+    "operation": "bootstrapProduct.installProduct for additional language fixture",
+    "physicalTarget": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/consumer-additional-0",
+    "publicStartReached": false
+  },
+  "frames": {
+    "ProductIdentity": "Product requires a unique selected resolved-lock dependency at its actual Node package location inside this managed target. The observed fixture has a declared ABI requirement but no ABI package at any of its Node search locations. The matching ABI sibling is outside this target. The refusal preserves this identity rule.",
+    "DesignProducer": "The language-smoke fixture producer package.json omits npm dependencies, despite declaring requires ABI in its Product manifest. The setup producer has an already selected ABI artifactPath but does not hand that path to either default language preparation or the prepareAdditionalProducts callback. Exact source spans and physical archive/installation correspondence are retained.",
+    "ResourceEffect": "The bootstrap ABI and separate ABI sibling installation exist; the language fixture is physically present in consumer-additional-0. The failure precedes event-store acquisition. No P3 prefix, reopen authority, Public start, fresh CLI result/replay or provider call was produced. No owner operation was replayed during diagnosis.",
+    "Proof": "Bootstrap offline install and installed declarations passed. P3 output, close handoff and fresh reads remain unproved. Source and preparation checks did not exercise the missing target-local dependency closure. The original refusal, full process output and retained physical residue remain unchanged."
+  },
+  "localization": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/failure-localization.json",
+    "sha256": "2fd02a1474e76a02411ba4401a87da7f446b7d32828c8b29b4f87002d7742809",
+    "bytes": 24002,
+    "mode": "0o644"
+  },
+  "runnerFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/runner-failure.json",
+    "sha256": "98cd8446cee81ac8272cb1919cc3f404c64c20bdb6c98f8c6974ed9e06c17c40",
+    "bytes": 8346,
+    "mode": "0o644"
+  },
+  "executiveTriage": "Root selected fixture dependency closure omission for a later bounded support repair: pass the already verified ABI artifactPath as abiPackageArchivePath to prepareAdditionalProducts/default language preparation; language-smoke-fixture consumes it as an exact file: archive npm dependency. This record documents the disposition only; it does not activate repair.",
+  "limits": [
+    "In-memory Product resolved lock and original verify/install request carriers were not retained before helper throw; exact input archives, physical npm locks, refusal and source control flow are retained.",
+    "No assertion that an event prefix remained unchanged: no P3 event resource existed at this frontier.",
+    "No baseline production defect or successful P3 performance result inferred from this support failure."
+  ],
+  "retryCount": 0,
+  "cleanup": false,
+  "repairPerformed": false,
+  "nextActivation": "Separate Executive repair and successor-stage grant required."
+}

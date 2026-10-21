@@ -1,0 +1,50 @@
+{
+  "activation": "REOPEN18-TEST-SUCCESSOR-05",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/overlay-binding.json",
+    "sha256": "56cc2039c8c38152a12547de996dd2228c78943bd8c7ff791a3cfa9459a8768d",
+    "bytes": 4721
+  },
+  "how": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/HOW-binding.md",
+    "sha256": "48c49f93a1456ace30bd067537cdb3d17a71dd88b97e24341295cda4687b196a",
+    "bytes": 4066
+  },
+  "test": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+    "sha256": "1d107708c662febcc62bf7c4ccfa4f0f2b6d0f0527762b05a224426e8fb68c0d",
+    "bytes": 64242
+  },
+  "syntax": {
+    "pid": 32102,
+    "exitCode": 0,
+    "wallMs": 452.89479196071625,
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/run-command.py",
+    "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "bytes": 2571
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/commands-config.json",
+    "sha256": "b109958c38a2a56402fa4ca1b02f226c1fae298a1a0df2e3a3badab8eeb07613",
+    "bytes": 5590
+  },
+  "environment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/command-environment.json",
+    "sha256": "ee0a363d366a7b79e5c6a5bc82956ab5756ee50b837cb56817d19828a9f40e51",
+    "bytes": 1066
+  },
+  "resources": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/resources.json",
+    "sha256": "da31b3848626865b3a6af96a17e93eb5b5816b8ca5f30d9b7e2f901df9d9fe13",
+    "bytes": 2161
+  },
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/preimages/m5-event-store-reopen.test.mjs",
+    "sha256": "6c381a883f4b57bc5a66f5fa88cfca0acc88d703d9ffca47b455e3b185eb08fd",
+    "bytes": 56420
+  }
+}

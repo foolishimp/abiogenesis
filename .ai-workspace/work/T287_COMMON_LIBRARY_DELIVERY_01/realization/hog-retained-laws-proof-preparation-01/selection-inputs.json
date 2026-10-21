@@ -1,0 +1,107 @@
+{
+  "basis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/freeze.json",
+    "sha256": "d30c05423aaa3b837bc19cee427b74f4031f3e6fef48db6bf21ddad5416af821",
+    "bytes": 3065985,
+    "mode": "0o644"
+  },
+  "supportSuccessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+    "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+    "bytes": 7076,
+    "mode": "0o644"
+  },
+  "sourceStatus": "closed final01 source inspection only; final execution subject pending C0 successor",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "sha256": "f89cf5daf46a4bf5095b0efc1f698358f988502ebae3f1607c186ff5226b718f",
+      "bytes": 24605,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "sha256": "6307010acf298563c235b51c61f086d64563e0f5f65225c3748a5ecd676a2163",
+      "bytes": 79927,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "sha256": "853fa1cd3de80f8bc8bccf0d248265411340234547c1bb58caa2e8c530ead2da",
+      "bytes": 9352,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs",
+      "sha256": "524c4e603099fd0532acfa99cd1059beeb8228d9fc2591c2bc87e8158958d68e",
+      "bytes": 53677,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-execution-closure.test.mjs",
+      "sha256": "dd0292cb6c62452a00cc12bf33cc9db7ecf5aaeed8be2076c1560a91f2c82d21",
+      "bytes": 13442,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "sha256": "4a3f8f766cb6d580370ed0e6615dfe370f1114da1b6d9c92cf374dc2badbdde7",
+      "bytes": 39274,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs",
+      "sha256": "13ea567a5e3c0bdbb36b413671c0ee72794fe8306737e0019c47edada2eb5c6c",
+      "bytes": 13096,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs",
+      "sha256": "0d13d5d882d3d30ab8af2cc613b9d9540db4b4aa001349811726f0983d4f9a02",
+      "bytes": 4743,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+      "bytes": 22919,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "bytes": 10669,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/fan_out.ts",
+      "sha256": "3a7b695dd2fa529c212ba9be14a2587fe6462a367412e4ca51a8acd297576abd",
+      "bytes": 12282,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/fan_out_projection.ts",
+      "sha256": "80f17578df1809c8bae3fb3966e8e2be4418df34a75ea925d8def4de4caa8f50",
+      "bytes": 54972,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "sha256": "bf0cfb0b8f94721625846619f141f3e72910fc0425bcc4cdc954b2633a5b2b3e",
+      "bytes": 40761,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "sha256": "76ce4bc7f8a2c0550020afd3d538b5e8ee3e5ac5e8ac5206ac9a5d28979d31ab",
+      "bytes": 260192,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "sha256": "050b8e8870a62432180857e726905425a2f6d0186a19fac886fb037d480ad872",
+      "bytes": 224638,
+      "mode": "0o644"
+    }
+  ]
+}

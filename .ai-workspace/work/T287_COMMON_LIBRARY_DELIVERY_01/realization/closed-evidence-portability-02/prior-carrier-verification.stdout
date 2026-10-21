@@ -1,0 +1,17 @@
+{
+  "verified": true,
+  "final_freeze_present": true,
+  "selected_source_addresses": 66691,
+  "unique_repository_files_verified": 5786,
+  "representations": {
+    "repository_file": 8196,
+    "archive_object": 367,
+    "package_member": 58128
+  },
+  "archive_count": 4,
+  "archive_objects_verified": 221,
+  "package_members_verified": 10538,
+  "original_absolute_paths_opened": 0,
+  "Product_execution": 0,
+  "copy_identity_is_original_authority": false
+}

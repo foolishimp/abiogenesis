@@ -1,0 +1,42 @@
+{
+  "activation": "U1-P5-02",
+  "first_failure": "semantic fixture default unknown-effect task observes entire supplied semantic environment with hardcoded maxBytes10000; existing rubric.json is17387B, so no complete context can be constructed",
+  "origin": "new support createU1Fixture129 called by semanticData368 uses small generic scaffold context bounds instead of supplied semantic declaration bounds",
+  "source_routes": [
+    "test_env/support/t287-native-work-currentness-consumers.mjs:116",
+    "code/src/product/worksite_operations.ts:1084",
+    "code/src/product/native_workspace_work.ts:32"
+  ],
+  "completed": "both default_library source and parent gates paired affected/sibling; eight real invalidator calls false,false,false,false,true,true,false,false; source null/parent terminalfalse only after affected cause",
+  "governance_evidence_sha256": "d9c003192eaffe1bc35157ff6ed0496e2468870c72bb98d6d410d28a7444c84c",
+  "semantic_target_gate_calls": 0,
+  "semantic_append_sink_acquired": false,
+  "actual_physical_files": {
+    "assets/rubric.json_bytes": 17387,
+    "request.txt_bytes": 106,
+    "generic_files_bytes_each": 7
+  },
+  "roots": [
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-d1CEbc/worksite",
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-iH2ydw/worksite"
+  ],
+  "governance_journal": [
+    {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-O5aXJM/events.jsonl",
+      "prefixLength": 210502,
+      "prefixDigest": "sha256:5d92195386870fa99855ab3bdab22839b5c7f267d3e8bc7e36057d20e1bf27a2",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 474010729,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:939749c137b5adcecc80cec0c4231ceeadac48ac1cca6f371e0e646e502e90ad"
+    }
+  ],
+  "repair_or_retry_performed": false,
+  "native_or_command_process_launches": 0,
+  "prior_checks_limit": "callable/export and schema ownership audit validated routes and Product guards, but did not retain the cross-fixture context capacity relation for a larger supplied environment",
+  "proposal": "use existing taskFactory option only for semanticData, constructing actual unknown-effect native task from explicit operating fields and actual declaration-bounded observation; include target.txt plus semantic read scopes as needed for cause and sibling; preflight returned context/task and preserve cause scopes. Reuse governance support, select semanticFold onward."
+}

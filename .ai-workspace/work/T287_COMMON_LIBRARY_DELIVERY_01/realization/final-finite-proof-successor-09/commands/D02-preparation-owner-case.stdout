@@ -1,0 +1,12 @@
+(node:58367) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ preparation resolution retains its established native link and raw lock refusals (85399.136625ms)
+ℹ Actual native link and owner projection equal retained successful output; external grants/history not reacquired.
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 87421.919583

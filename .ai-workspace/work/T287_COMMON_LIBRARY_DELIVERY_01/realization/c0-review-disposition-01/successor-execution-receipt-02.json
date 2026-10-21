@@ -1,0 +1,14 @@
+{
+  "command": "python3 -B .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/validate-successor-02.py validate",
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "tool": "exec_command",
+  "toolResult": {
+    "chunk_id": "eb0031",
+    "wall_time_seconds": 0.856210667,
+    "exit_code": 0,
+    "original_token_count": 152,
+    "output": "{\"status\": \"successor_validation_satisfied\", \"activation\": \"C0-DISPOSITION-ARRAY-02\", \"validation\": {\"path\": \".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/validation.json\", \"mode\": \"0o644\", \"kind\": \"file\", \"bytes\": 8317, \"sha256\": \"5357c9d04178c293d013d8d0e7b5a0596d93b174af0a08f30fbbe4cee0a357ec\"}, \"P1ArrayRows\": 10, \"P1Labels\": [\"workspace-create\", \"product-verify-0\", \"product-verify-1\", \"product-resolve\", \"product-install-0\", \"product-install-1\", \"workspace-bind\", \"catalog-admit\", \"catalog-view\", \"program-conformance\"], \"nativeCalls\": 0, \"retryCount\": 0}\n"
+  },
+  "executionCount": 1,
+  "runtimeOrP1OperationsRerun": false
+}

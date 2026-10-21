@@ -1,0 +1,20 @@
+{
+  "donorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+    "sha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+    "bytes": 1994729
+  },
+  "donorStageRowsVerified": 6642,
+  "donorDependencyDirectoryRowsVerified": 499,
+  "mainGeneratedManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/main-generated-preimage.json",
+    "sha256": "8838a89cc91b09a64e587294c7ce8c206d26543c099409503bb15e97a0828677",
+    "bytes": 196721
+  },
+  "mainGeneratedRowsVerified": 936,
+  "allExact": true,
+  "sourceWriterOutputsExact": true,
+  "dependencyBytesModesLinksAndDirectoryMetadataExact": true,
+  "sharedWritableInodes": 0,
+  "noMainOrOldStageMutation": true
+}

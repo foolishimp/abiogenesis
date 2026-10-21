@@ -1,0 +1,38 @@
+{
+  "status": "satisfied",
+  "cases": [
+    {
+      "name": "missing-archive",
+      "error": {
+        "name": "AssertionError",
+        "message": "structural fixture requires an absolute exact ABI package archive path"
+      },
+      "fixtureEffects": false
+    },
+    {
+      "name": "relative-archive",
+      "error": {
+        "name": "AssertionError",
+        "message": "structural fixture requires an absolute exact ABI package archive path"
+      },
+      "fixtureEffects": false
+    },
+    {
+      "name": "crossed-archive-digest",
+      "error": {
+        "name": "AssertionError",
+        "message": "structural fixture ABI archive differs from its publication\n+ actual - expected\n\n+ 'sha256:465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06'\n- 'sha256:0000000000000000000000000000000000000000000000000000000000000000'\n"
+      },
+      "fixtureEffects": false
+    },
+    {
+      "name": "missing-package-name",
+      "error": {
+        "name": "AssertionError",
+        "message": "structural fixture requires its publication's ABI package name"
+      },
+      "fixtureEffects": false
+    }
+  ],
+  "scope": "actual support guards before fixture writes; no install or workload"
+}

@@ -1,0 +1,218 @@
+{
+  "status": "stopped",
+  "lane": "declared-execution",
+  "subjectId": "baseline",
+  "error": {
+    "name": "AssertionError",
+    "message": "{\"kind\":\"product_install_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"dependency_lock_mismatch\",\"message\":\"materialized managed Product dependencies differ from the selected resolved lock\"}\n+ actual - expected\n\n+ 'refused'\n- 'materialized'\n",
+    "stack": "AssertionError [ERR_ASSERTION]: {\"kind\":\"product_install_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"dependency_lock_mismatch\",\"message\":\"materialized managed Product dependencies differ from the selected resolved lock\"}\n+ actual - expected\n\n+ 'refused'\n- 'materialized'\n\n    at setupInstalledRootCatalog (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:323:12)\n    at async Module.runInstalledLanguageTest (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs:13:23)\n    at async measure (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs:27:14)\n    at async p3 (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs:233:15)\n    at async measure (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs:27:14)\n    at async main (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs:466:17)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs:476:6",
+    "code": "ERR_ASSERTION",
+    "stage": null,
+    "observation": null
+  },
+  "retainedRoots": [
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence",
+      "present": true,
+      "nodeKind": "directory",
+      "immediateEntries": [
+        "activation-preconditions.json",
+        "bootstrap-inventory.json",
+        "commands",
+        "effective-environment.json"
+      ]
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host",
+      "present": true,
+      "nodeKind": "directory",
+      "immediateEntries": [
+        "external-consumer.mts",
+        "node_modules",
+        "package-lock.json",
+        "package.json"
+      ]
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent",
+      "present": true,
+      "nodeKind": "directory",
+      "immediateEntries": [
+        "abi5-root-env-B6nZk9",
+        "node-compile-cache"
+      ]
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/worksite",
+      "present": false,
+      "error": "Error: ENOENT: no such file or directory, lstat '/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/worksite'"
+    }
+  ],
+  "retention": "No retry, teardown, rollback, resource repair or migration performed; inspect all allocated physical roots and actual receipt handoffs.",
+  "measures": [
+    {
+      "name": "bootstrap-install",
+      "wallMs": 5535.128459,
+      "cpuUs": {
+        "user": 225613,
+        "system": 242863
+      },
+      "memoryBefore": {
+        "rss": 210288640,
+        "heapTotal": 16089088,
+        "heapUsed": 7356352,
+        "external": 93647712,
+        "arrayBuffers": 91370133
+      },
+      "memoryAfter": {
+        "rss": 225296384,
+        "heapTotal": 25526272,
+        "heapUsed": 5386024,
+        "external": 2294862,
+        "arrayBuffers": 17243
+      },
+      "resourceUsage": {
+        "userCPUTime": 542672,
+        "systemCPUTime": 576983,
+        "maxRSS": 221968,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 14381,
+        "majorPageFault": 79,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 1,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 4,
+        "involuntaryContextSwitches": 132263
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "language-setup-and-start",
+      "wallMs": 27395.365916000002,
+      "cpuUs": {
+        "user": 30593053,
+        "system": 1098534
+      },
+      "memoryBefore": {
+        "rss": 225460224,
+        "heapTotal": 25526272,
+        "heapUsed": 5966712,
+        "external": 2386192,
+        "arrayBuffers": 108573
+      },
+      "memoryAfter": {
+        "rss": 2586656768,
+        "heapTotal": 229048320,
+        "heapUsed": 90619664,
+        "external": 3097004,
+        "arrayBuffers": 672762
+      },
+      "resourceUsage": {
+        "userCPUTime": 31138154,
+        "systemCPUTime": 1675807,
+        "maxRSS": 2869008,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 318062,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 3897,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 7,
+        "involuntaryContextSwitches": 279819
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "whole-lane",
+      "wallMs": 27397.438500000004,
+      "cpuUs": {
+        "user": 30595457,
+        "system": 1098824
+      },
+      "memoryBefore": {
+        "rss": 225296384,
+        "heapTotal": 25526272,
+        "heapUsed": 5409840,
+        "external": 2294862,
+        "arrayBuffers": 17243
+      },
+      "memoryAfter": {
+        "rss": 2586656768,
+        "heapTotal": 229048320,
+        "heapUsed": 90621776,
+        "external": 3097004,
+        "arrayBuffers": 672762
+      },
+      "resourceUsage": {
+        "userCPUTime": 31138164,
+        "systemCPUTime": 1675809,
+        "maxRSS": 2869008,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 318062,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 3897,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 7,
+        "involuntaryContextSwitches": 279819
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    }
+  ],
+  "commands": [
+    {
+      "label": "bootstrap-offline-install",
+      "executable": "/opt/homebrew/bin/npm",
+      "args": [
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--bin-links=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host",
+      "exitCode": 0,
+      "wallMs": 2097.7422500000002
+    },
+    {
+      "label": "installed-declaration-consumer",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "--target",
+        "ES2022",
+        "--strict",
+        "--skipLibCheck",
+        "false",
+        "--typeRoots",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/node_modules/@types",
+        "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host/external-consumer.mts"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host",
+      "exitCode": 0,
+      "wallMs": 3036.5612499999997
+    }
+  ]
+}

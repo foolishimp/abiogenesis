@@ -1,0 +1,55 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "issuedBy": "/root",
+  "subjectId": "candidate",
+  "configurationSha256": "ce793f6103e91dbd2fde6950043df2072440b277dfa4e0e810cc97b5ca6eb1d6",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "lanes": [
+    "public-preparation"
+  ],
+  "resources": {
+    "public-preparation": {
+      "evidence": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence",
+      "host": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/worksite"
+    }
+  },
+  "maxNativePositiveCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "npmCache": {
+    "status": "granted",
+    "seed": {
+      "kind": "explicit_empty_seed",
+      "files": []
+    },
+    "closureEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/execution-intake-01/archive-closure.json",
+      "sha256": "cc17b7b62187fc270db339b3d5d36db70d677eb514728d6d96080b84cec0772e",
+      "bytes": 6976,
+      "mode": "0o644"
+    },
+    "newCacheRoot": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/caches/p1",
+    "permittedEffects": [
+      "create initially empty task-owned cache",
+      "offline npm content/index/tmp/log writes"
+    ],
+    "globalCacheRead": false,
+    "globalCacheWrite": false,
+    "networkFallback": false,
+    "retain": true
+  },
+  "prerequisites": "none",
+  "executionOrder": "P1 -> read-only owner-resolution -> P2 -> P3; no later phase after first unexpected failure",
+  "nativeProviderCalls": 0,
+  "activation": "L4-FINAL-CANDIDATE-P1-P3-02",
+  "closedSubjectFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+    "sha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+    "bytes": 3048274,
+    "mode": "0o644"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "programRef": "program://abiogenesis/worksite/command-execution@5",
+  "programDigest": "sha256:452726cf8b748db0edc9dbebbfaa4f1a7c619172dd5aa887fa1ad60619d805dd",
+  "policyKey": "abg.run_environment",
+  "environmentRef": "environment://abiogenesis/worksite/command-execution@5",
+  "declaration": {
+    "accesses": [],
+    "contexts": [
+      {
+        "contextRef": "context://abiogenesis/worksite/command-execution/renderer@5",
+        "inventoryDigest": "sha256:b9d03bf098bb1e3c0502ee45855e99ab961386422cc7d70f37d24b2133c9a068",
+        "members": [
+          {
+            "byteCount": 110016,
+            "digest": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+            "memberRef": "source-member://abiogenesis/worksite/command-execution/renderer@5",
+            "path": "build/code/src/product/worksite_command_execution.js"
+          }
+        ],
+        "sourceLocator": "source://abiogenesis/worksite/command-execution/renderer@5/"
+      }
+    ],
+    "corpusAccess": null,
+    "declarationRef": "environment://abiogenesis/worksite/command-execution@5",
+    "dependencies": [
+      {
+        "basisRef": "source://abiogenesis/worksite/command-execution/renderer@5/",
+        "dependencyRef": "dependency://abiogenesis/worksite/command-execution/renderer@5",
+        "inventoryDigest": "sha256:7078b75cec0665cb825b41d778862b5eb8b26a49edf6a9b84aa3978f31001645",
+        "members": [
+          {
+            "digest": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+            "path": "build/code/src/product/worksite_command_execution.js",
+            "target": null,
+            "type": "file"
+          }
+        ],
+        "recordDigest": "sha256:f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+        "recordFormat": "member_inventory@1",
+        "recordRef": "record://abiogenesis/worksite/command-execution/context-inventory@5"
+      }
+    ],
+    "kind": "run_environment_declaration",
+    "roles": [
+      {
+        "accessRefs": [],
+        "contextPolicy": {
+          "policyRef": "policy://abiogenesis/worksite/command-execution/context@5",
+          "selectors": [
+            "current_worksite",
+            "admitted_execution_evidence"
+          ]
+        },
+        "frameRefs": [
+          "frame://abiogenesis/worksite/command-execution@5"
+        ],
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "policy": {
+          "digest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+          "policyRef": "renderer://abiogenesis/worksite/command-execution@5",
+          "text": "function renderWorksiteCommandExecutionPrompt(task, helperPlan) {\n    if (!isWorksiteExecutionTask(task) ||\n        !isWorksiteCommandExecutionHelperPlan(task, helperPlan)) {\n        throw new TypeError(\"command execution prompt requires one exact admitted task and helper plan\");\n    }\n    return [\n        \"Invoke the Bash tool exactly once with the exact semantic tool-input object below. The ABI-owned helper executes every declared command in order and records its exact argv, cwd, environment, streams, exit status, reports, and protected-file observations.\",\n        canonicalJson({ command: helperPlan.toolCommand }),\n        \"Do not add timeout, run_in_background, or any other operational input field. An optional string description is metadata only. Preserve the command string exactly.\",\n        \"Return the helper's compact task/attempt/artifact acknowledgment unchanged. The helper retains every computed command, stream, and predicate in its full artifact; do not copy, summarize, or compute those rows.\",\n        \"Do not run any declared command directly and do not use another tool call.\",\n        \"A nonzero subject-command exit is an observation, not a transport failure.\",\n        \"Return only the JSON value required by the supplied schema.\",\n        canonicalJson({\n            taskRef: task.taskRef,\n            taskDigest: task.taskDigest,\n            attemptRef: helperPlan.attemptRef,\n            workspaceBindingIdentity: task.workspaceBinding.bindingId,\n            workspaceBindingDigest: task.workspaceBinding.bindingDigest,\n            ...(\"sourceObservedInput\" in task ? { sourceObservedInput: task.sourceObservedInput } : \"sourceNativeWork\" in task ? { sourceNativeWorkRef: task.sourceNativeWork.observationRef,\n                sourceNativeWorkDigest: task.sourceNativeWork.observationDigest } : { sourceConstructionResultRef: task.sourceConstructionResultRef,\n                sourceConstructionResultDigest: task.sourceConstructionResultDigest }),\n            commands: task.commands.map((row) => ({ ordinal: row.ordinal, commandId: row.commandId })),\n            outcomePredicates: task.outcomePredicates.map((row) => ({\n                ordinal: row.ordinal, predicateId: row.predicateId, predicateKind: row.predicateKind,\n            })),\n        }),\n    ].join(\"\\n\\n\");\n}"
+        },
+        "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+        "role": "command_executor",
+        "sourceBindings": [
+          {
+            "contextRef": "context://abiogenesis/worksite/command-execution/renderer@5",
+            "endByte": 102379,
+            "memberDigest": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+            "memberRef": "source-member://abiogenesis/worksite/command-execution/renderer@5",
+            "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+            "startByte": 100071
+          }
+        ]
+      }
+    ],
+    "schemaVersion": "5.0.0"
+  },
+  "resources": {
+    "kind": "run_environment_resources",
+    "schemaVersion": "5.0.0",
+    "dependencies": [
+      {
+        "dependencyRef": "dependency://abiogenesis/worksite/command-execution/renderer@5",
+        "root": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/scratch/abi5-root-env-LY8r8p/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "recordPath": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/scratch/abi5-root-env-LY8r8p/consumer/node_modules/@abiogenesis/typescript-tenant/contracts/worksite/command-execution-context.inventory.json"
+      }
+    ],
+    "pythonPath": null,
+    "temporaryRoot": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/scratch/abi5-root-env-LY8r8p/workspace/.ai-workspace/archive/c2-run-environment-support",
+    "permission": {
+      "authorityRef": "invocation-authority://abiogenesis/6e662d83a56069cf7baef549bcf0f4b2b8a6b99624363f68fe8c34bba6ec3b46",
+      "authorityDigest": "sha256:6e662d83a56069cf7baef549bcf0f4b2b8a6b99624363f68fe8c34bba6ec3b46",
+      "actorRef": "actor://abiogenesis/worksite/construction-worker@5",
+      "programRef": "program://abiogenesis/worksite/command-execution@5",
+      "environmentRef": "environment://abiogenesis/worksite/command-execution@5",
+      "environmentDigest": "sha256:86955b1496d12f6488108a177c44ced7d6c699009353d4f2fbf12b2e2a3897be",
+      "operations": [
+        "read_context"
+      ],
+      "dependencies": [
+        {
+          "dependencyRef": "dependency://abiogenesis/worksite/command-execution/renderer@5",
+          "root": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/scratch/abi5-root-env-LY8r8p/consumer/node_modules/@abiogenesis/typescript-tenant",
+          "recordPath": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/scratch/abi5-root-env-LY8r8p/consumer/node_modules/@abiogenesis/typescript-tenant/contracts/worksite/command-execution-context.inventory.json"
+        }
+      ],
+      "pythonPath": null,
+      "temporaryRoot": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/scratch/abi5-root-env-LY8r8p/workspace/.ai-workspace/archive/c2-run-environment-support"
+    }
+  }
+}

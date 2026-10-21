@@ -1,0 +1,100 @@
+{
+  "at": "2026-10-21T01:18:04.912201+00:00",
+  "rows": [
+    {
+      "path": "physical/abi5-generic-worksite-fixture-JKZ4cc",
+      "device": 16777231,
+      "inode": 474113410,
+      "kind": "directory"
+    },
+    {
+      "path": "physical/abi5-generic-worksite-fixture-JKZ4cc/worksite",
+      "device": 16777231,
+      "inode": 474113411,
+      "kind": "directory"
+    },
+    {
+      "path": "physical/abi5-generic-worksite-fixture-JKZ4cc/worksite/target.txt",
+      "device": 16777231,
+      "inode": 474113417,
+      "kind": "file",
+      "bytes": 6,
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87"
+    },
+    {
+      "path": "physical/abi5-generic-worksite-fixture-RrWaTK",
+      "device": 16777231,
+      "inode": 474113408,
+      "kind": "directory"
+    },
+    {
+      "path": "physical/abi5-generic-worksite-fixture-RrWaTK/worksite",
+      "device": 16777231,
+      "inode": 474113409,
+      "kind": "directory"
+    },
+    {
+      "path": "physical/abi5-generic-worksite-fixture-RrWaTK/worksite/keep.txt",
+      "device": 16777231,
+      "inode": 474113415,
+      "kind": "file",
+      "bytes": 7,
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb"
+    },
+    {
+      "path": "physical/abi5-generic-worksite-fixture-RrWaTK/worksite/nested",
+      "device": 16777231,
+      "inode": 474113412,
+      "kind": "directory"
+    },
+    {
+      "path": "physical/abi5-generic-worksite-fixture-RrWaTK/worksite/nested/file.txt",
+      "device": 16777231,
+      "inode": 474113414,
+      "kind": "file",
+      "bytes": 7,
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb"
+    },
+    {
+      "path": "physical/abi5-generic-worksite-fixture-RrWaTK/worksite/nested-peer.txt",
+      "device": 16777231,
+      "inode": 474113416,
+      "kind": "file",
+      "bytes": 7,
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb"
+    },
+    {
+      "path": "physical/abi5-generic-worksite-fixture-RrWaTK/worksite/target.txt",
+      "device": 16777231,
+      "inode": 474113413,
+      "kind": "file",
+      "bytes": 7,
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb"
+    },
+    {
+      "path": "physical/abi5-u1-oxJOfn",
+      "device": 16777231,
+      "inode": 474113418,
+      "kind": "directory"
+    },
+    {
+      "path": "physical/abi5-u1-oxJOfn/events.jsonl",
+      "device": 16777231,
+      "inode": 474113419,
+      "kind": "file",
+      "bytes": 125835,
+      "sha256": "5c9ecb2a0e679688b039ea056045a22835a302eae46f109a43de00b0a43acee1"
+    },
+    {
+      "path": "physical/abiogenesis-event-store-locks-v5",
+      "device": 16777231,
+      "inode": 474113420,
+      "kind": "directory"
+    }
+  ],
+  "fixture_cleanup_invoked": false,
+  "append_owner_close_called_after_result_retention": true,
+  "journal_preserved": true,
+  "retained_preclose_lock_exists_now": false,
+  "no_process_launch_claim": "Zero native/command actors; Node and Python proof tools executed."
+}

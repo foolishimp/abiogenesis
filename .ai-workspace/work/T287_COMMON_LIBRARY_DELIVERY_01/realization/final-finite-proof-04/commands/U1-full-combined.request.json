@@ -1,0 +1,33 @@
+{
+  "label": "U1-full-combined",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "test_env/tests/t287-native-work-unknown-effect.test.mjs",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined/tmp/",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-cache",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "ABG_U1_FIRST_CASE": "c0",
+    "ABG_U1_EVIDENCE_DIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/01-U1-full-combined/evidence"
+  },
+  "timeoutMs": 600000,
+  "commandFreezeSha256": "5c184da5dc3738c147bdd77d35d89982f230543359d00facd8f1e6fedd9d2b4e",
+  "runnerSha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+  "startedUnix": 1792565140.361609
+}

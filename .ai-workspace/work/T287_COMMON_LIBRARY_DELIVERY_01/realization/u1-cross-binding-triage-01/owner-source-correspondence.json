@@ -1,0 +1,131 @@
+{
+  "owners": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "source_sha256": "937ac47e383e740fb75a8eb367195cb2893681c064fee9f55af92369f5d56189",
+      "current_main_source_sha256": "937ac47e383e740fb75a8eb367195cb2893681c064fee9f55af92369f5d56189",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+      "emitted_sha256": "25ac1a6bc7490fc94d699751ef9d2b8afcc8e11fff7e64f65a4084f411758de1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "source_sha256": "e5847b76b08c0f3ac77d40b5ef8243bbe03df42eff5b36e5d7120ddfa8fafa68",
+      "current_main_source_sha256": "e5847b76b08c0f3ac77d40b5ef8243bbe03df42eff5b36e5d7120ddfa8fafa68",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/native_work_effect.js",
+      "emitted_sha256": "96265eb7c4e862fbcf5049b171d6703051816180221812aa6f1b5b7be8237bb6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "source_sha256": "6a332fe393db54a876b761eb0f8d494a1db4356b799b19f78e143d5420c4a1b8",
+      "current_main_source_sha256": "6a332fe393db54a876b761eb0f8d494a1db4356b799b19f78e143d5420c4a1b8",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/native_worksite_execution.js",
+      "emitted_sha256": "dc2334bac09095e6ba0d804c3b490f5a333272fd986f9848313307827149d46b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "source_sha256": "f75417d472354cdc474c32cecf17f5a7bc2426c4dc5534e447afe3ad5d635567",
+      "current_main_source_sha256": "f75417d472354cdc474c32cecf17f5a7bc2426c4dc5534e447afe3ad5d635567",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+      "emitted_sha256": "58a7bddc352cdaa29a7456214fa8c1b760994e8fd7627ded80ff2cced782734e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "source_sha256": "683adaea9685ab094fd80559230fe1ee7a13cc235f6bc41490869a66c89a47d0",
+      "current_main_source_sha256": "683adaea9685ab094fd80559230fe1ee7a13cc235f6bc41490869a66c89a47d0",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.js",
+      "emitted_sha256": "b1c9b5239df3b20308415a2f24b3ae1c77587a88c208d0b399369abd783f5a43"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "source_sha256": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae",
+      "current_main_source_sha256": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "emitted_sha256": "f2d26d09be893d6076ca588c169000502b15ccce7805f22356454328e5143e4b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "source_sha256": "7d1173cf995c30c71034031c7ef54065c57501438b75a06a6d60fe795ac71ba8",
+      "current_main_source_sha256": "7d1173cf995c30c71034031c7ef54065c57501438b75a06a6d60fe795ac71ba8",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/invocation_execution_truth.js",
+      "emitted_sha256": "73b215d309899cdb33cd4fb96b8ee0de90dff1889fc62273c3774a530d5a8e3f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "source_sha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "current_main_source_sha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "emitted_sha256": "48d938c86d9a27538dcdaf5a6cea82acc48808ad1fb6b6847c6a58adbe91182e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "source_sha256": "028bba5e6b32041eafb5d5cb42ca0007527523b1bfd978e720f2fd904920fc55",
+      "current_main_source_sha256": "028bba5e6b32041eafb5d5cb42ca0007527523b1bfd978e720f2fd904920fc55",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js",
+      "emitted_sha256": "ea8ff540de9a3ffac032823673985c12a6428a69c1386b24be57a961aacd716a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "source_sha256": "1b44e6d82963bcc8f7fc43f5ac68edae4e1cdf0f76ff473d483fbef4b5cf3ef4",
+      "current_main_source_sha256": "1b44e6d82963bcc8f7fc43f5ac68edae4e1cdf0f76ff473d483fbef4b5cf3ef4",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js",
+      "emitted_sha256": "53bea469c92f709d3a5943ce335c23d8ccd885b919e53ee326fc28eb4987528e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "source_sha256": "7f467ecb9186148308bea23e6d4a70f65d51f2a757a4db629bc0fa5383c3a06e",
+      "current_main_source_sha256": "7f467ecb9186148308bea23e6d4a70f65d51f2a757a4db629bc0fa5383c3a06e",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_effect.js",
+      "emitted_sha256": "6cb15d839a56a7ae9b8c3094cc3d060eaa22ebafa451e300551c477f887cb7fd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "source_sha256": "6b73778a52dfd32bf357f7c902798dee3c40ce4bff37c78607492cbf7d7decf5",
+      "current_main_source_sha256": "6b73778a52dfd32bf357f7c902798dee3c40ce4bff37c78607492cbf7d7decf5",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_work.js",
+      "emitted_sha256": "34629cd2b095c629e10d61b4fd660c7d3fb90ac89ffcd7ccc01e01da7834a529"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "source_sha256": "931c3998c103e932215eee4a952e4575db91a20a5e128187054ac62048479c28",
+      "current_main_source_sha256": "931c3998c103e932215eee4a952e4575db91a20a5e128187054ac62048479c28",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/invocation.js",
+      "emitted_sha256": "87d9d39bbf41e2569c2a0af9e1291ff13c5cdc13e5b3a94fe77f32259ddad4b6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "frozen_source_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "source_sha256": "dd7609684b2a83fbbf435a4cff30a8be693d08ff67b022ec512c8b92457df3bc",
+      "current_main_source_sha256": "dd7609684b2a83fbbf435a4cff30a8be693d08ff67b022ec512c8b92457df3bc",
+      "source_equal": true,
+      "frozen_emitted_path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/implementation/native_workspace_work.js",
+      "emitted_sha256": "d9f5917d3adcf3a4729ae84cc5064c3482962a4c9b944fb2f371eee98bf96cb0"
+    }
+  ],
+  "purpose": "Bind source-linked caller audit to exact frozen execution owners; no final combined artifact claim."
+}

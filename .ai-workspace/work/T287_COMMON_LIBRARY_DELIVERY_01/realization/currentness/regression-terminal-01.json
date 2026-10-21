@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "test_env/tests/m5-terminal-quiescence-owner.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript",
+  "source_sha256": "011e3fbae5975cd8ffcfd79182e55a5830019a66e2b1aa406bbcca4ff9ba4279",
+  "exit_code": 0,
+  "stdout": "TAP version 13\n# Subtest: CCall opening is one atomic open-and-fibre transition\nok 1 - CCall opening is one atomic open-and-fibre transition\n  ---\n  duration_ms: 1.062292\n  type: 'test'\n  ...\n# Subtest: timeout and termination-unconfirmed never prove a started process absent\nok 2 - timeout and termination-unconfirmed never prove a started process absent\n  ---\n  duration_ms: 1.643584\n  type: 'test'\n  ...\n# Subtest: preterminal Process exit is the single cleanup confirmation\nok 3 - preterminal Process exit is the single cleanup confirmation\n  ---\n  duration_ms: 0.116667\n  type: 'test'\n  ...\n# Subtest: duplicate Process terminality and Actor terminal before confirmation fail closed\nok 4 - duplicate Process terminality and Actor terminal before confirmation fail closed\n  ---\n  duration_ms: 0.148083\n  type: 'test'\n  ...\n# Subtest: cold leader exit preserves unknown group cleanup across ordinary Run failure\nok 5 - cold leader exit preserves unknown group cleanup across ordinary Run failure\n  ---\n  duration_ms: 0.79575\n  type: 'test'\n  ...\n# Subtest: owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes\nok 6 - owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes\n  ---\n  duration_ms: 36.24975\n  type: 'test'\n  ...\n# Subtest: unjoined process uncertainty preserves cleanup without claiming a native write scope\nok 7 - unjoined process uncertainty preserves cleanup without claiming a native write scope\n  ---\n  duration_ms: 0.130292\n  type: 'test'\n  ...\n1..7\n# tests 7\n# suites 0\n# pass 7\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 333.363583\n",
+  "stderr": "",
+  "wall_seconds": 0.3614245830103755
+}

@@ -1,0 +1,43 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "NOT_GRANTED",
+  "issuedBy": "/root",
+  "subjectId": "candidate",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "lanes": [
+    "declared-execution"
+  ],
+  "resources": {
+    "declared-execution": {
+      "evidence": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p3/evidence",
+      "host": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p3/host",
+      "scratchParent": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p3/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p3/worksite"
+    }
+  },
+  "maxNativePositiveCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "npmCache": {
+    "status": "granted explicit empty seed after lane activation",
+    "seedInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/intake/empty-seed.json",
+      "sha256": "852df8e1ed525f145a477cebb3a4f16cdbbe2e91248349ff29ff7e2bc9554174",
+      "bytes": 478,
+      "mode": "0o644"
+    },
+    "sourceRoot": null,
+    "newCacheRoot": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/caches/p3",
+    "files": [],
+    "globalCacheRead": false,
+    "globalCacheWrite": false,
+    "networkFallback": false,
+    "permittedEffects": "offline npm content/index/tmp/log writes; retained"
+  },
+  "prerequisites": "bind only actual satisfied same-subject predecessor results in requiredEvidence",
+  "executionOrder": "P1 -> read-only owner-resolution -> P2 -> P3; no later phase after first unexpected failure",
+  "nativeProviderCalls": 0,
+  "rootActivation": "L4-C2-CANDIDATE-INTEGRATION-05",
+  "maxAdditionalRetainedBytes": 4294967296
+}

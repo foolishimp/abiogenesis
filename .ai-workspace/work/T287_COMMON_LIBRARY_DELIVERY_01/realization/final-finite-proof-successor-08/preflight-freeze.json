@@ -1,0 +1,34 @@
+{
+  "activation": "FINITE-REST-08",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/input-binding.json",
+    "sha256": "2c10bc0693e63cdf9a7aa461713bd15db3685062f27a0caf04cf8c0a4ee39fa4",
+    "bytes": 4835
+  },
+  "how": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/HOW-binding.md",
+    "sha256": "774e3a528d2b6dd99a025c8dd956da23a63c8609cd1f6f1127deb0d76837efb7",
+    "bytes": 2430
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/run-command.py",
+    "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "bytes": 2571
+  },
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/commands-config.json",
+    "sha256": "4073ebb80d01e59c1e596a82891fa689494e6aacfecb0bd2e6ab36dee3a001ee",
+    "bytes": 4437
+  },
+  "environment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/command-environment.json",
+    "sha256": "fd66b83e2aee83c2fedf7ab8bc701995e725c5f467607d654edbf935e623f3df",
+    "bytes": 1066
+  },
+  "resources": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/resources.json",
+    "sha256": "acdc2c9737c61a02cd53b9af1b791ca4a2a783e1411fe641f89dda001f1c6ab5",
+    "bytes": 3758
+  },
+  "sourceChanges": false
+}

@@ -1,0 +1,55 @@
+{
+  "status": "NOT_GRANTED; all roots remain absent",
+  "resources": {
+    "parent": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab",
+    "public-preparation": {
+      "evidence": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/evidence",
+      "host": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/worksite"
+    },
+    "partial-install": {
+      "evidence": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/evidence",
+      "host": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/scratchParent",
+      "secondInstall": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/secondInstall"
+    },
+    "declared-execution": {
+      "evidence": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/evidence",
+      "host": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/worksite"
+    },
+    "ownerResolution": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/owner-resolution",
+    "npmCaches": {
+      "p1": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/caches/p1",
+      "p2": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/caches/p2",
+      "p3": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/caches/p3"
+    }
+  },
+  "allocationRule": "original runner allocates only lane roots; later explicitly granted cache seed copy occurs in sibling npmCaches before runner preflight; ownerResolution is a read-only follow-up output root",
+  "retention": "no cleanup or continuation17; keep actual prefixes, owner receipts and physical residue",
+  "absenceCheck": {
+    "status": "all_absent",
+    "paths": [
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/owner-resolution",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/caches/p1",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/caches/p2",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/caches/p3",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/evidence",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/host",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/scratchParent",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p1/worksite",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/evidence",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/host",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/scratchParent",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p2/secondInstall",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/evidence",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/host",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/scratchParent",
+      "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/p3/worksite"
+    ],
+    "allocated": false
+  }
+}

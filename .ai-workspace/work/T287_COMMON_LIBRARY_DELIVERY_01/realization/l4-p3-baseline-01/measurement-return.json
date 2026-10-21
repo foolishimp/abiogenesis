@@ -1,0 +1,274 @@
+{
+  "status": "failed_setup_interval_only",
+  "command": {
+    "rawTimeEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/execution.stderr",
+      "sha256": "2be3a870fb2c4ba866f54896f79b779b3013aae0a667a456da67eb7ed8eb07e6",
+      "bytes": 7330,
+      "mode": "0o644"
+    },
+    "reportedWallSeconds": 33.59,
+    "reportedUserSeconds": 40.72,
+    "reportedSystemSeconds": 6.89,
+    "reportedMaximumResidentSetSize": 2937864192,
+    "reportedPeakMemoryFootprint": 2967269488,
+    "externalWrapperWallMs": 33596.60329204053,
+    "scope": "Exact /usr/bin/time -l accounting over the frozen runner plus awaited children and proof overhead; retain platform counters as reported without individual helper-child attribution."
+  },
+  "runnerMeasurements": {
+    "evidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/runner-failure.json",
+      "sha256": "98cd8446cee81ac8272cb1919cc3f404c64c20bdb6c98f8c6974ed9e06c17c40",
+      "bytes": 8346,
+      "mode": "0o644"
+    },
+    "measures": [
+      {
+        "name": "bootstrap-install",
+        "wallMs": 5535.128459,
+        "cpuUs": {
+          "user": 225613,
+          "system": 242863
+        },
+        "memoryBefore": {
+          "rss": 210288640,
+          "heapTotal": 16089088,
+          "heapUsed": 7356352,
+          "external": 93647712,
+          "arrayBuffers": 91370133
+        },
+        "memoryAfter": {
+          "rss": 225296384,
+          "heapTotal": 25526272,
+          "heapUsed": 5386024,
+          "external": 2294862,
+          "arrayBuffers": 17243
+        },
+        "resourceUsage": {
+          "userCPUTime": 542672,
+          "systemCPUTime": 576983,
+          "maxRSS": 221968,
+          "sharedMemorySize": 0,
+          "unsharedDataSize": 0,
+          "unsharedStackSize": 0,
+          "minorPageFault": 14381,
+          "majorPageFault": 79,
+          "swappedOut": 0,
+          "fsRead": 0,
+          "fsWrite": 0,
+          "ipcSent": 0,
+          "ipcReceived": 1,
+          "signalsCount": 0,
+          "voluntaryContextSwitches": 4,
+          "involuntaryContextSwitches": 132263
+        },
+        "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+      },
+      {
+        "name": "language-setup-and-start",
+        "wallMs": 27395.365916000002,
+        "cpuUs": {
+          "user": 30593053,
+          "system": 1098534
+        },
+        "memoryBefore": {
+          "rss": 225460224,
+          "heapTotal": 25526272,
+          "heapUsed": 5966712,
+          "external": 2386192,
+          "arrayBuffers": 108573
+        },
+        "memoryAfter": {
+          "rss": 2586656768,
+          "heapTotal": 229048320,
+          "heapUsed": 90619664,
+          "external": 3097004,
+          "arrayBuffers": 672762
+        },
+        "resourceUsage": {
+          "userCPUTime": 31138154,
+          "systemCPUTime": 1675807,
+          "maxRSS": 2869008,
+          "sharedMemorySize": 0,
+          "unsharedDataSize": 0,
+          "unsharedStackSize": 0,
+          "minorPageFault": 318062,
+          "majorPageFault": 82,
+          "swappedOut": 0,
+          "fsRead": 0,
+          "fsWrite": 0,
+          "ipcSent": 0,
+          "ipcReceived": 3897,
+          "signalsCount": 0,
+          "voluntaryContextSwitches": 7,
+          "involuntaryContextSwitches": 279819
+        },
+        "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+      },
+      {
+        "name": "whole-lane",
+        "wallMs": 27397.438500000004,
+        "cpuUs": {
+          "user": 30595457,
+          "system": 1098824
+        },
+        "memoryBefore": {
+          "rss": 225296384,
+          "heapTotal": 25526272,
+          "heapUsed": 5409840,
+          "external": 2294862,
+          "arrayBuffers": 17243
+        },
+        "memoryAfter": {
+          "rss": 2586656768,
+          "heapTotal": 229048320,
+          "heapUsed": 90621776,
+          "external": 3097004,
+          "arrayBuffers": 672762
+        },
+        "resourceUsage": {
+          "userCPUTime": 31138164,
+          "systemCPUTime": 1675809,
+          "maxRSS": 2869008,
+          "sharedMemorySize": 0,
+          "unsharedDataSize": 0,
+          "unsharedStackSize": 0,
+          "minorPageFault": 318062,
+          "majorPageFault": 82,
+          "swappedOut": 0,
+          "fsRead": 0,
+          "fsWrite": 0,
+          "ipcSent": 0,
+          "ipcReceived": 3897,
+          "signalsCount": 0,
+          "voluntaryContextSwitches": 7,
+          "involuntaryContextSwitches": 279819
+        },
+        "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+      }
+    ],
+    "interpretation": "language-setup-and-start stopped during fixture provisioning; Public start was not reached. whole-lane excludes preceding bootstrap and records a failed interval. Parent CPU/sampled memory do not give child CPU or per-phase memory peaks."
+  },
+  "successfulCommandsBeforeFailure": [
+    {
+      "label": "bootstrap-offline-install",
+      "executable": "/opt/homebrew/bin/npm",
+      "args": [
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--bin-links=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host",
+      "exitCode": 0,
+      "wallMs": 2097.7422500000002
+    },
+    {
+      "label": "installed-declaration-consumer",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "--target",
+        "ES2022",
+        "--strict",
+        "--skipLibCheck",
+        "false",
+        "--typeRoots",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/node_modules/@types",
+        "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host/external-consumer.mts"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host",
+      "exitCode": 0,
+      "wallMs": 3036.5612499999997
+    }
+  ],
+  "retainedFootprintsAtFailureCut": [
+    {
+      "rootLabel": "evidence",
+      "root": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence",
+      "present": true,
+      "files": 6,
+      "symlinks": 0,
+      "logicalBytes": 1005654,
+      "allocatedFileBytes": 1024000,
+      "duAllocatedKiB": 1000,
+      "duCommand": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence"
+      ],
+      "duStdout": "1000\t/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence\n",
+      "duStderr": "",
+      "duExitCode": 0
+    },
+    {
+      "rootLabel": "host",
+      "root": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host",
+      "present": true,
+      "files": 5271,
+      "symlinks": 0,
+      "logicalBytes": 70673851,
+      "allocatedFileBytes": 84946944,
+      "duAllocatedKiB": 82956,
+      "duCommand": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host"
+      ],
+      "duStdout": "82956\t/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host\n",
+      "duStderr": "",
+      "duExitCode": 0
+    },
+    {
+      "rootLabel": "scratchParent",
+      "root": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent",
+      "present": true,
+      "files": 5876,
+      "symlinks": 0,
+      "logicalBytes": 73574026,
+      "allocatedFileBytes": 89313280,
+      "duAllocatedKiB": 87220,
+      "duCommand": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent"
+      ],
+      "duStdout": "87220\t/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent\n",
+      "duStderr": "",
+      "duExitCode": 0
+    },
+    {
+      "rootLabel": "worksite",
+      "root": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/worksite",
+      "present": false,
+      "files": 0,
+      "symlinks": 0,
+      "logicalBytes": 0,
+      "allocatedFileBytes": 0
+    }
+  ],
+  "footprintScope": "Only newly granted baseline-p3 roots; per-file logical bytes and st_blocks times 512 plus raw du -sk. These are retained cut sizes, not peak allocations; shared blocks may be counted more than once. npm cache/log activity outside the granted roots is not inventoried.",
+  "unobserved": [
+    "internal read/hash/encode/write byte counters",
+    "complete internal materialization/selector/suffix/cause counters",
+    "helper-internal child CPU/peak memory and phase durations",
+    "OS-wide allocation peaks",
+    "in-memory Product resolved-lock carrier bytes not persisted before throw"
+  ],
+  "noClaims": [
+    "completed P3 endpoint or fresh result/replay",
+    "baseline/candidate P3 comparison or speedup",
+    "complete V7 internal counters",
+    "individual helper-child peak memory",
+    "L5 acceptance"
+  ],
+  "nativeCalls": 0
+}

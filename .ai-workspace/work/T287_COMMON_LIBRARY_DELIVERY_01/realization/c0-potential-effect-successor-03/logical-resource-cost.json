@@ -1,0 +1,12 @@
+{
+  "priorTwoStoppedCutsLogicalBytes": 410372372,
+  "newWorkRootBytesBeforeFinalClosureRecords": 254726343,
+  "newPhysicalBytes": 82884597,
+  "sumBeforeFinalClosureRecords": 747983312,
+  "maximumBytes": 10737418240,
+  "retainedRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03",
+    "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-03"
+  ],
+  "noCleanup": true
+}

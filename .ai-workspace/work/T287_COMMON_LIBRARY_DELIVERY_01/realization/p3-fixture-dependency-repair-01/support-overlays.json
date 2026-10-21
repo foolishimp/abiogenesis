@@ -1,0 +1,70 @@
+{
+  "files": [
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "sha256": "a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0",
+        "bytes": 39995,
+        "mode": "0o644"
+      },
+      "mainOutput": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+        "bytes": 40077,
+        "mode": "0o644"
+      },
+      "stageOutput": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+        "bytes": 40077,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "test_env/support/language-smoke-fixture.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+        "sha256": "d8071fcc110fd27bfe10140ccf6163180ff3ca280b33ebdda6b3c9ef0086c781",
+        "bytes": 6574,
+        "mode": "0o644"
+      },
+      "mainOutput": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+        "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+        "bytes": 7276,
+        "mode": "0o644"
+      },
+      "stageOutput": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+        "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+        "bytes": 7276,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "test_env/support/root-cli-environment.mjs",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+        "sha256": "4cc34c5ed2e9a898f2ae7fbacc66f5d2933b1f89185cb07ffedf11e7d2ec96a5",
+        "bytes": 9922,
+        "mode": "0o644"
+      },
+      "mainOutput": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+        "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+        "bytes": 9963,
+        "mode": "0o644"
+      },
+      "stageOutput": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+        "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+        "bytes": 9963,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "productionChanges": 0,
+  "generatedChanges": 0,
+  "baselineArchiveRebuilt": false
+}

@@ -1,0 +1,20 @@
+--- preimage/test.mjs
++++ successor/test.mjs
+@@ -273,7 +273,7 @@
+     "    })),",
+     "  };",
+     "  process.stdout.write(`${JSON.stringify({ type: 'system', subtype: 'init', model: 'c2-c1-proof' })}\\n`);",
+-    "  process.stdout.write(`${JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(result) })}\\n`);",
++    "  process.stdout.write(`${JSON.stringify({ type: 'result', subtype: 'success', is_error: false, structured_output: result })}\\n`);",
+     "});",
+     "",
+   ].join("\n"), "utf8");
+@@ -684,7 +684,7 @@
+     ]),
+     "if(helper.status!==0)throw Error(helper.stderr);",
+     `fs.writeFileSync(${JSON.stringify(stdoutPath)},helper.stdout);`,
+-    "console.log(JSON.stringify({type:'result',subtype:'success',result:helper.stdout.trimEnd()}));",
++    "console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,structured_output:JSON.parse(helper.stdout)}));",
+     "});", "",
+   ].join("\n"), "utf8");
+   await chmod(command, 0o755);

@@ -1,0 +1,57 @@
+{
+  "kind": "E04_preparation_preservation",
+  "checks": [
+    {
+      "label": "E03 closed records",
+      "rows": 183,
+      "mismatches": []
+    },
+    {
+      "label": "E03 frozen output copies",
+      "rows": 4,
+      "mismatches": []
+    },
+    {
+      "label": "E03 post-generation source",
+      "rows": 1946,
+      "mismatches": []
+    },
+    {
+      "label": "E03 emitted",
+      "rows": 743,
+      "mismatches": []
+    },
+    {
+      "label": "E03 dependencies",
+      "rows": 4576,
+      "mismatches": []
+    },
+    {
+      "label": "main936",
+      "rows": 936,
+      "mismatches": []
+    }
+  ],
+  "allPinnedInputsUnchanged": true,
+  "inputFileCount": 51,
+  "mainProtectedMemberCount": 936,
+  "mainMemberDifference": [],
+  "fixtureRoots": {
+    "scratchRoot": {
+      "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f",
+      "absent": true
+    },
+    "evidenceRoot": {
+      "path": "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f",
+      "absent": true
+    }
+  },
+  "environmentVariables": {
+    "NODE_OPTIONS": null,
+    "NODE_PATH": null,
+    "NODE_COMPILE_CACHE": null
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01",
+  "physicalCaseExecutions": 0,
+  "failures": []
+}

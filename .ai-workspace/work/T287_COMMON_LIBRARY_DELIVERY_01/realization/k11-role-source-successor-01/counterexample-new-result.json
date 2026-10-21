@@ -1,0 +1,25 @@
+{
+  "kind": "K11-owner-constructor-observation",
+  "mode": "new",
+  "outcomes": [
+    {
+      "name": "null-corpus-generic-only-role",
+      "valueDigest": "sha256:86a4d0e85f73186a92822d9c6dd93a0ba63a4c9601f45965a4080975333786cc",
+      "genericAcceptedSameValue": true,
+      "specialization": "TypeError",
+      "frameRefsStillSTDO": true,
+      "allBoundMaterialGeneric": true
+    },
+    {
+      "name": "explicit-corpus-generic-only-role",
+      "valueDigest": "sha256:6fbea28c29419f8fe7455b2b3721bcadf269b6e179302b46fc346305206283dd",
+      "genericAcceptedSameValue": true,
+      "specialization": "TypeError",
+      "frameRefsStillSTDO": true,
+      "allBoundMaterialGeneric": true
+    }
+  ],
+  "nativeDispatches": 0,
+  "corpusToolLaunches": 0,
+  "runtimeAdmissionClaim": false
+}

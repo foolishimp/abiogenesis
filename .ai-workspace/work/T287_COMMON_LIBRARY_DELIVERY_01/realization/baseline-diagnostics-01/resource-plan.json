@@ -1,0 +1,27 @@
+{
+  "parent": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb",
+  "initiallyAbsent": true,
+  "canonical": true,
+  "lanes": {
+    "p1": {
+      "diagnosticRoot": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic",
+      "runtimeRoots": {
+        "evidence": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+        "host": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host",
+        "scratchParent": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite"
+      },
+      "cacheRoot": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p1"
+    },
+    "p3": {
+      "diagnosticRoot": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/diagnostic",
+      "runtimeRoots": {
+        "evidence": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence",
+        "host": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/host",
+        "scratchParent": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/worksite"
+      },
+      "cacheRoot": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p3"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "commands": [
+    {
+      "path": "commands/sunny-host-check.result.json",
+      "pid": 82206,
+      "exitCode": 0,
+      "wallMs": 501.00062508136034,
+      "stdoutSha256": "8166c54f73d1b40941558921e3694bb367a6cdb44fac06fc3d4f2ee484f6e673",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/sunny-owner.result.json",
+      "pid": 82263,
+      "exitCode": 1,
+      "wallMs": 38491.034584119916,
+      "stdoutSha256": "fa7d613dbe10b9c04dc2a5d4ada628c6ae3274048f684f97a7535697f95a4818",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "newCompiles": 0,
+  "newGenerators": 0,
+  "newPackages": 0,
+  "newSunnyHostInstalls": 0,
+  "otherCaseHostInstalls": 0,
+  "actualProductFixtureInstalls": 1,
+  "principalTestCommands": 1,
+  "principalC0PhysicalAttempts": 0,
+  "freshReadonlyChildren": 0,
+  "nativeProviderActors": 0,
+  "remainingCaseCommandsExecuted": 0,
+  "status": "stopped_first_semantic_input_invocation_admission_refusal"
+}

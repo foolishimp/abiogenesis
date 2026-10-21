@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "/usr/local/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/package.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C.UTF-8",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "startedUtc": "2026-10-21T04:48:08.114548+00:00",
+  "executable": {
+    "path": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+    "sha256": "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539",
+    "bytes": 152096,
+    "mode": "0o775"
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/packaging-input.json",
+    "sha256": "76583fc21370f8a555707fa223f7f6f4329102a3932b858b186049157352ad7e",
+    "bytes": 1314,
+    "mode": "0o644"
+  },
+  "purpose": "One inert evidence archive construction; no Product execution"
+}

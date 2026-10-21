@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/check-preservation.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/preflight-preservation.json"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "scope": "Read-only exact original baseline stages/freezes/prefixes plus protected main before new P3 effects"
+}

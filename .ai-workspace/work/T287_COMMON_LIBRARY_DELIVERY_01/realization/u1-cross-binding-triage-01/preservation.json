@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-21T01:16:31.147306+00:00",
+  "checks": [
+    {
+      "kind": "original_closed_records",
+      "checked": 47,
+      "mismatches": []
+    },
+    {
+      "kind": "original_owned_sources",
+      "checked": 7,
+      "mismatches": []
+    },
+    {
+      "kind": "consumer_closed_records",
+      "checked": 61,
+      "mismatches": []
+    },
+    {
+      "kind": "consumer_owned_sources",
+      "checked": 2,
+      "mismatches": []
+    },
+    {
+      "kind": "stage-final-inventory.json",
+      "checked": 1948,
+      "mismatches": []
+    },
+    {
+      "kind": "dependency-inventory.json",
+      "checked": 4576,
+      "mismatches": []
+    }
+  ],
+  "scope": "Named prior closed records/sources and immutable reused stage/dependencies only. No whole moving-tree claim."
+}

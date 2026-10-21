@@ -1,0 +1,51 @@
+{
+  "status": "frozen_before_owner_resolution",
+  "subjectId": "candidate",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/configuration.json",
+      "sha256": "a9abaf7e7c6b0d53cf89fd32d2a9b0327f65d57e7242546d5fe985da2ba1329d",
+      "bytes": 5225,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/effect-grant.json",
+      "sha256": "349048ca2db84f936e3a244e98c95d672416e2c0bad1526fb04c0dfc9258b1ff",
+      "bytes": 637,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/freeze.json",
+      "sha256": "4793655ce521c45cc1d2e1cc11378430318b26df6e98e60f1f0eef0c9ed96011",
+      "bytes": 19050,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/owner-handoff.json",
+      "sha256": "d5bd48a43d57e50642339c330ff5c35bc74a2764e66069afb75f1d7280b7b8f1",
+      "bytes": 7676,
+      "mode": "0o644"
+    }
+  ],
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs",
+    "sha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+    "bytes": 7231,
+    "mode": "0o644"
+  },
+  "historicalP1Prefix": {
+    "coordinateDigest": "sha256:4022c510b170808cf38fc7894b1d30d041704852d8333e0b6021eb91a4f78fe7",
+    "eventLogRef": "file:///private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:fd32ad0ba5da46843d90610ea2fed1c46d2c3f025403e067428cdcc39f11a930",
+    "prefixLength": 3113245,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 474626658
+    }
+  },
+  "ordering": "before P2 or any append",
+  "nativeCalls": 0
+}

@@ -1,0 +1,31 @@
+{
+  "caseId": "PUBLISH",
+  "step": "created",
+  "input": {
+    "destination": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json",
+    "base64": "ZXhhY3QgaGVscGVyIGJ5dGVzCg=="
+  },
+  "disposition": "fulfilled",
+  "output": null,
+  "error": null,
+  "footprint": [
+    {
+      "relativePath": ".",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159548,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "result.json",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159549,
+      "nlink": 1,
+      "byteLength": 19,
+      "sha256": "1a33df04200e343a8d4c8a74c0e90d67375ffa5f03371e41cd34a71aeaa96acb",
+      "base64": "ZXhhY3QgaGVscGVyIGJ5dGVzCg=="
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "sourceChanges": [
+    "shared/owned_process_lifetime.ts",
+    "implementation/worksite_command_helper.ts"
+  ],
+  "testChangesNotPackaged": [
+    "t287-owned-process-lifetime.test.mjs",
+    "m5-worker-transport.test.mjs"
+  ],
+  "emittedChangedMembers": 2,
+  "emittedUnchangedMembers": 741,
+  "publicDeclarationsUnchanged": true,
+  "payloadPathSetUnchanged": 5267,
+  "payloadMemberChanges": [
+    {
+      "path": "build/code/src/implementation/worksite_command_helper.js",
+      "beforeSha256": "sha256:28c0cd8895b9aeec8bdfa1279da0b22d11c142bef09eadc9d83b8e351d375274",
+      "afterSha256": "sha256:35821199d7045945e1817191421f019cdeb93cca8ac9161e6ea31d61940ad855"
+    },
+    {
+      "path": "build/code/src/shared/owned_process_lifetime.js",
+      "beforeSha256": "sha256:54b656422329f2a916e0bde7bb55435cdc7123b2087871f60228d8dff6cb1eb1",
+      "afterSha256": "sha256:b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    }
+  ],
+  "producerDerivedManifest": {
+    "productContentDigest": {
+      "before": "sha256:bd1f8bb2f55be741d9bdae277b71e8e4e3572bfd6b565703017776a13aec1326",
+      "after": "sha256:8c0521d15ade43c503c56d46c8b7a10a42d6e172a8841443de9ad6980ed0cf21"
+    },
+    "descriptorRef": {
+      "before": "descriptor://abiogenesis/typescript-tenant/bd1f8bb2f55be741d9bdae277b71e8e4e3572bfd6b565703017776a13aec1326",
+      "after": "descriptor://abiogenesis/typescript-tenant/8c0521d15ade43c503c56d46c8b7a10a42d6e172a8841443de9ad6980ed0cf21"
+    },
+    "provenanceRef": {
+      "before": "provenance://abiogenesis/typescript-tenant/bd1f8bb2f55be741d9bdae277b71e8e4e3572bfd6b565703017776a13aec1326",
+      "after": "provenance://abiogenesis/typescript-tenant/8c0521d15ade43c503c56d46c8b7a10a42d6e172a8841443de9ad6980ed0cf21"
+    },
+    "contributionManifestRef": {
+      "before": "contribution-manifest://abiogenesis/conformance/bd1f8bb2f55be741d9bdae277b71e8e4e3572bfd6b565703017776a13aec1326",
+      "after": "contribution-manifest://abiogenesis/conformance/8c0521d15ade43c503c56d46c8b7a10a42d6e172a8841443de9ad6980ed0cf21"
+    },
+    "contributionManifestDigest": {
+      "before": "sha256:887673ccfc9eeea02fbaf14a4d9f948a858ca4dd8b404aba08d15fa6aecad3b6",
+      "after": "sha256:098f50a2b57bc6a8d0d89feb7f6874be1fcd4d015428f8578ae4ce313713d7a1"
+    },
+    "capabilityDefinitionGraph": {
+      "before": {
+        "assetLocator": {
+          "contentDigest": "sha256:27dbffb90ed39d8c0ab44f58ce3b414b0fd56905f3d6b4099bbab59e603f5aa1",
+          "mediaType": "application/json",
+          "path": "contracts/capabilities/capability-definition-graph.json",
+          "schemaVersion": "5.0.0"
+        },
+        "graphDigest": "sha256:4df2223abd9c51e8a031578b777995fbcb0c295d35181c1f027a47af46792d56",
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0"
+      },
+      "after": {
+        "assetLocator": {
+          "contentDigest": "sha256:48133651b22fafb0cdcfa3b2781759146e52490626011d6831ae86661d54b757",
+          "mediaType": "application/json",
+          "path": "contracts/capabilities/capability-definition-graph.json",
+          "schemaVersion": "5.0.0"
+        },
+        "graphDigest": "sha256:6594b4f7955ae052db68f12de4ec93b5a4d0fa3fb4fa49640319175e847652e9",
+        "graphId": "capability-definition-graph://abiogenesis/abg-5",
+        "graphVersion": "5.0.0"
+      }
+    }
+  },
+  "C2": "Exact Product member/span and GTL source unchanged from closed lifetime; C2 generated inventory succeeds original baseline bytes but matches closed lifetime bytes.",
+  "runtimeIdentityLimit": "No installed subject, native instruction, ABG event, continuation or runtime closure was acquired or admitted by this proof. Final combined artifact must be freshly produced from all exact accepted source outputs."
+}

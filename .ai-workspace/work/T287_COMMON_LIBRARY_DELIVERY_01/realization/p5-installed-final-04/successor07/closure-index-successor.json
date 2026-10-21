@@ -1,0 +1,55 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/archive/scratch-evidence/runtime/events.jsonl",
+    "bytes": 3982944,
+    "sha256": "0c89e9e548ffcdb635a20df1cf2e0ebda61808ef05af01eb3afcb3582ff540ba"
+  },
+  "sourceLogicalObservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/archive/test-evidence/source-events.json",
+    "bytes": 5777749,
+    "sha256": "ec9967ade5cdfdd740caa0c75e2799655313ce18aaafc8b028d60f90171be6fa"
+  },
+  "sourceLogicalEventCount": 186,
+  "rawPrefixRecordCount": 186,
+  "rawCloseRecordCount": 189,
+  "entryEqualsActualSourceClose": true,
+  "rawPrefixBytesAndDigestMatch": true,
+  "rawCloseBytesAndDigestMatch": true,
+  "entry": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/runtime/events.jsonl",
+    "prefixLength": 3807437,
+    "prefixDigest": "sha256:2eaf86621ec927e842c9210d924ad23104b00ac73d0e160cc0a4dec71567289e",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 475015374,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:4da9f57040f33f300b1b53ba35e8270b25e1a27c59ff3ab3b7b2b5f4f313ef9a"
+  },
+  "close": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/runtime/events.jsonl",
+    "prefixLength": 3982944,
+    "prefixDigest": "sha256:0c89e9e548ffcdb635a20df1cf2e0ebda61808ef05af01eb3afcb3582ff540ba",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 475015374,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:443daec665b6125d26f31bae78e822362d56eab698fb18bbdcfda426e13aee94"
+  },
+  "preservedFailedDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/close-failure.py",
+    "bytes": 10567,
+    "sha256": "d6494acbd263dd029438557a194a52caa3d826bb661be3e3cbc2c2479b2ca31e"
+  },
+  "preservedFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/closure-index-failure.json",
+    "bytes": 5433,
+    "sha256": "b0e47b42993c30ca4330509826ca765fc6badbbe3007bfcc4bfd71096e62fb68"
+  },
+  "scope": "Raw durable codec records and actual owner-materialized logical events remain distinct; no replay/body expansion or full-carrier equality claim"
+}

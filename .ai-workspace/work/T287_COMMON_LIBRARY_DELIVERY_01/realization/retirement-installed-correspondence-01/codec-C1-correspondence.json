@@ -1,0 +1,233 @@
+{
+  "status": "bounded_codec_common_route_supported_by_recorded_installed_owner",
+  "failedExecutionFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/failure-freeze.json",
+    "sha256": "d0f9dd2979ad4fa57202235cf7f89a01cb7353a1529d8632f4dd5d736f922a56",
+    "bytes": 1829518,
+    "mode": "0o644"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844,
+    "mode": "0o644"
+  },
+  "actualProducer": {
+    "test": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/proof/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "sha256": "8005d9b488b86deae56758b9241d0226a634207c7996ed24d146bfd53095cc75",
+      "bytes": 56673,
+      "mode": "0o644"
+    },
+    "line": 518,
+    "call": "environment.store.readAll()"
+  },
+  "provenanceCorrection": "The archived test producer is readAll, not readRuntimeEventsAtDurablePrefix. Root accepted this correction. No separate later diagnostic is needed or claimed here.",
+  "sourceHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/archive/test-evidence/source-close-handoff.json",
+    "sha256": "f8028b738459c0f0e155ed7c2028090acb11eaf00c98cda4565222ddcf6656db",
+    "bytes": 1224,
+    "mode": "0o644"
+  },
+  "sourceLogicalEvents": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/archive/test-evidence/source-events.json",
+    "sha256": "ec9967ade5cdfdd740caa0c75e2799655313ce18aaafc8b028d60f90171be6fa",
+    "bytes": 5777749,
+    "mode": "0o644"
+  },
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/runtime/events.jsonl",
+    "prefixLength": 3807437,
+    "prefixDigest": "sha256:2eaf86621ec927e842c9210d924ad23104b00ac73d0e160cc0a4dec71567289e",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 475015374,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:4da9f57040f33f300b1b53ba35e8270b25e1a27c59ff3ab3b7b2b5f4f313ef9a"
+  },
+  "rawPrefixRead": {
+    "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/runtime/events.jsonl",
+    "bytesRead": 3807437,
+    "sha256": "2eaf86621ec927e842c9210d924ad23104b00ac73d0e160cc0a4dec71567289e",
+    "device": 16777231,
+    "inode": 475015374,
+    "laterTailBytesExcluded": 175507
+  },
+  "physicalRows": 186,
+  "logicalEvents": 186,
+  "referencePairs": [
+    {
+      "zeroBasedPhysicalIndex": 66,
+      "eventId": "event://abiogenesis/ccd1eb968bc2b7208eef7fe4783801767729cd413abb525d8d51bc041d62f46a",
+      "admissionOrdinal": 67,
+      "physicalKind": "abg_admitted_body_reference_record",
+      "logicalKind": "basis_admitted",
+      "codecVersion": 1,
+      "logicalPayloadFieldsAbsentFromPhysicalPayload": [
+        "rawInputValue"
+      ]
+    },
+    {
+      "zeroBasedPhysicalIndex": 109,
+      "eventId": "event://abiogenesis/dac8e7040e55f3b3094fab4ac2e606098feed02f18bff6051102761a0baa7d40",
+      "admissionOrdinal": 110,
+      "physicalKind": "abg_admitted_body_reference_record",
+      "logicalKind": "c_call_result_admitted",
+      "codecVersion": 1,
+      "logicalPayloadFieldsAbsentFromPhysicalPayload": [
+        "value"
+      ]
+    },
+    {
+      "zeroBasedPhysicalIndex": 154,
+      "eventId": "event://abiogenesis/5fe1c986486b8433cc6346e9e21861f4a03d9a635d558a3107581b8d4f297bb3",
+      "admissionOrdinal": 155,
+      "physicalKind": "abg_admitted_body_reference_record",
+      "logicalKind": "c_call_result_admitted",
+      "codecVersion": 1,
+      "logicalPayloadFieldsAbsentFromPhysicalPayload": [
+        "value"
+      ]
+    },
+    {
+      "zeroBasedPhysicalIndex": 171,
+      "eventId": "event://abiogenesis/2945df0421f75d9617bf7b4fdbf23755b688f104f4cfde351d5470e8ba0773f7",
+      "admissionOrdinal": 172,
+      "physicalKind": "abg_admitted_body_reference_record",
+      "logicalKind": "c_call_result_admitted",
+      "codecVersion": 1,
+      "logicalPayloadFieldsAbsentFromPhysicalPayload": [
+        "value"
+      ]
+    }
+  ],
+  "installedEnvironment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/archive/test-evidence/environment.json",
+    "sha256": "e162640941cc1d6b42d6d9a8b3aa11fafb3a3dd85fae4f255fdc2b77748bf5ff",
+    "bytes": 20230909,
+    "mode": "0o644"
+  },
+  "members": [
+    {
+      "module": "abg/event_body_encoding",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "sha256": "034731a8ad5b2cd7a9a73ba2607a97cd1612acca06147073bf07f13bbb105bd9",
+        "bytes": 10643,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_body_encoding.js",
+        "sha256": "f6852691fe910133be457b30446768d2b408526073be8ec96b795699aab5e2d8",
+        "bytes": 9400,
+        "mode": "0o644"
+      },
+      "actualInstalled": {
+        "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_body_encoding.js",
+        "sha256": "f6852691fe910133be457b30446768d2b408526073be8ec96b795699aab5e2d8",
+        "bytes": 9400,
+        "mode": "0o644"
+      },
+      "archiveMember": "package/build/code/src/abg/event_body_encoding.js",
+      "failureFreezeRow": {
+        "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_body_encoding.js",
+        "bytes": 9400,
+        "sha256": "f6852691fe910133be457b30446768d2b408526073be8ec96b795699aab5e2d8"
+      }
+    },
+    {
+      "module": "shared/admission_predicates",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+        "sha256": "80800880af82e935584dfe62ec1c9f826336f280a01c482cfa25f20f57ad17d4",
+        "bytes": 3558,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/admission_predicates.js",
+        "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+        "bytes": 2710,
+        "mode": "0o644"
+      },
+      "actualInstalled": {
+        "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admission_predicates.js",
+        "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+        "bytes": 2710,
+        "mode": "0o644"
+      },
+      "archiveMember": "package/build/code/src/shared/admission_predicates.js",
+      "failureFreezeRow": {
+        "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admission_predicates.js",
+        "bytes": 2710,
+        "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c"
+      }
+    },
+    {
+      "module": "abg/event_store",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "sha256": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae",
+        "bytes": 205774,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+        "sha256": "f2d26d09be893d6076ca588c169000502b15ccce7805f22356454328e5143e4b",
+        "bytes": 190613,
+        "mode": "0o644"
+      },
+      "actualInstalled": {
+        "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "sha256": "f2d26d09be893d6076ca588c169000502b15ccce7805f22356454328e5143e4b",
+        "bytes": 190613,
+        "mode": "0o644"
+      },
+      "archiveMember": "package/build/code/src/abg/event_store.js",
+      "failureFreezeRow": {
+        "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "bytes": 190613,
+        "sha256": "f2d26d09be893d6076ca588c169000502b15ccce7805f22356454328e5143e4b"
+      }
+    },
+    {
+      "module": "abg/runtime_history",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "sha256": "f8c324120a1ce08354131a2a7ecff43d2c2ad39129045521e96f96f373560286",
+        "bytes": 40034,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js",
+        "sha256": "f629017c4fb024891f9d30c36b708148bba36ecad7e3892b611fd75b7a1ae500",
+        "bytes": 37889,
+        "mode": "0o644"
+      },
+      "actualInstalled": {
+        "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_history.js",
+        "sha256": "f629017c4fb024891f9d30c36b708148bba36ecad7e3892b611fd75b7a1ae500",
+        "bytes": 37889,
+        "mode": "0o644"
+      },
+      "archiveMember": "package/build/code/src/abg/runtime_history.js",
+      "failureFreezeRow": {
+        "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_history.js",
+        "bytes": 37889,
+        "sha256": "f629017c4fb024891f9d30c36b708148bba36ecad7e3892b611fd75b7a1ae500"
+      }
+    }
+  ],
+  "necessaryCallGraph": [
+    "test:518 -> AbgEventStore.readAll (event_store.ts:2470-2473)",
+    "durable store owns RuntimeHistory (event_store.ts:2610-2623)",
+    "readAll -> RuntimeHistorySelection.materialize; fresh selectedBodies map (runtime_history.ts:487-491)",
+    "materialize -> event -> bound durable body reader (runtime_history.ts:302-311)",
+    "durable body reader -> decodeEventBody (event_store.ts:3502-3534)",
+    "body-reference success -> shared hasExactKeys(record) and hasExactKeys(reference) (event_body_encoding.ts:155-166)"
+  ],
+  "claim": "Recorded logical output at the exact C1 source prefix contains the restored fields for four actual physical references. Its mandatory installed owner path reaches the imported common predicate. This is call-graph inference from retained execution, not an instrumented invocation count.",
+  "limits": "No new body expansion or decoder execution; no codec-version-2 or all-refusal coverage claim. Later C2 array/view failure remains failed and uncredited."
+}

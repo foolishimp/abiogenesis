@@ -1,0 +1,79 @@
+{
+  "baseline": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03",
+  "sourceRows": 1320,
+  "dependencyRows": 4576,
+  "stageRows": 6642,
+  "generatedRows": 940,
+  "changes": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 71012,
+        "sha256": "66662ccb69f81e107215e99c2a0ed3c1e0ae9cd9db4fbe55ee80f1789eb428ef"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 71342,
+        "sha256": "a907d291a74af36a2cca884e6fa43d46f19ef22214e898476e80595688ebeb1d"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 197474,
+        "sha256": "5ff808849b0e7173101512dbe7ab56f73ef3a66ad3017752319a77ba4c89d68d"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 197474,
+        "sha256": "f98a9852d82bc9f75dddfbb63e36e35ff4ab3e5f9b4c52dc3436faf1abc3a334"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 3189620,
+        "sha256": "2960e5dddf8959de4ff269a3aac92dce2a8dd27bb79dee308b5fa394a3bf9920"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 3189620,
+        "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4"
+      }
+    }
+  ],
+  "sourceDerivedChanges": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 197474,
+        "sha256": "5ff808849b0e7173101512dbe7ab56f73ef3a66ad3017752319a77ba4c89d68d"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 197474,
+        "sha256": "f98a9852d82bc9f75dddfbb63e36e35ff4ab3e5f9b4c52dc3436faf1abc3a334"
+      }
+    }
+  ],
+  "allOtherEmittedBytesExact": true,
+  "newCompileCount": 1,
+  "generatorCount": 1,
+  "oldGeneratedInventorySha256": "5e60b19b9779bdd0a2169e4d82ed499800d4f29d35031350a7b9c15040d6a810"
+}

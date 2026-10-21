@@ -1,0 +1,38 @@
+{
+  "observedAt": "2026-10-20T23:45:31.027448+00:00",
+  "ownSourceAndStageEqual": true,
+  "ownedOutputs": 10,
+  "finiteStageFiles": 1338,
+  "emittedFiles": 743,
+  "dependencyInventoryEntries": 4576,
+  "dependencyDeltas": {},
+  "mainGeneratedGuardSource": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/protected-main-before.json",
+  "mainGeneratedGuardSha256": "5719405d1c83524500a70c4d4f41f6f1026958830e9c0bd81ea41eea93a386db",
+  "mainGeneratedGuardFiles": 936,
+  "mainGeneratedChanges": [],
+  "acceptedContracts": [
+    {
+      "path": "L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "unchanged": true
+    },
+    {
+      "path": "L2-candidate-freeze-02.json",
+      "sha256": "4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae",
+      "unchanged": true
+    },
+    {
+      "path": "acceptance/freeze.json",
+      "sha256": "6196a6b7c05442ceb8f79d4733b9796c639d34c7500106153fbe0a22edd28f8f",
+      "unchanged": true
+    }
+  ],
+  "actualProduct": {
+    "bytes": 110016,
+    "sha256": "c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+    "spanSha256": "10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+    "coordinatesMatch": true
+  },
+  "mainGeneratedAddedPaths": [],
+  "mainGeneratedMissingPaths": []
+}

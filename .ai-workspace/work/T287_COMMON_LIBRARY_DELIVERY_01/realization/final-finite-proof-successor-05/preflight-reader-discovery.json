@@ -1,0 +1,5 @@
+{
+  "kind": "selected preflight failure",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/prepare-proof.py\", line 17, in <module>\n    for row in main:verify(R/row['path'],row)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-05/prepare-proof.py\", line 11, in verify\n    assert oct(stat.S_IMODE(p.lstat().st_mode))==row['mode'],str(p)\n                                                 ~~~^^^^^^^^\nKeyError: 'mode'\n",
+  "disposition": "stop before repair/retry/runtime"
+}

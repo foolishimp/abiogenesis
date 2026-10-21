@@ -1,0 +1,156 @@
+{
+  "commands": [
+    {
+      "id": "reopen18",
+      "status": "passed",
+      "counts": {
+        "tests": 18,
+        "pass": 18,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "result": {
+        "pid": 48226,
+        "exitCode": 0,
+        "wallMs": 54391.04058290832,
+        "stdoutSha256": "6f4eecd6892b2c60e305726cd3f1842b71d1c55cda4ddaf20a5c64a27b27d6e0",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "noCredit": [],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/overlay"
+    },
+    {
+      "id": "codec14",
+      "status": "passed",
+      "counts": {
+        "tests": 14,
+        "pass": 14,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "result": {
+        "pid": 49015,
+        "exitCode": 0,
+        "wallMs": 13342.106374911964,
+        "stdoutSha256": "9dcf0dfcd37a8fbdda9db71d28288b32f6370c971e156d125ca1d060652886db",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "noCredit": [],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/t287-event-body-encoding.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "id": "route-self-contained",
+      "status": "failed",
+      "counts": {
+        "tests": 7,
+        "pass": 0,
+        "fail": 7,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "result": {
+        "pid": 49226,
+        "exitCode": 1,
+        "wallMs": 383.9917918667197,
+        "stdoutSha256": "c2b3e3f99a6df54bb923a0b39a807fe12e117dcc5e88770b83679ab416df55eb",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "noCredit": [
+        "retained native outputs and exact pre-basis historical owner facts are conserved",
+        "route facts ignore unrelated growth and preserve relevant source, cursor and intent changes"
+      ],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--expose-gc",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "^(?:terminal\\ route\\-only\\ projection\\ preserves\\ complete\\ replay\\ and\\ avoids\\ nonreturned\\ populations|terminal\\ route\\-only\\ retains\\ cold\\ and\\ hot\\ malformed\\-history\\ refusals|owned\\ deferred\\ recursion\\ restores\\ and\\ begins\\ at\\ the\\ exact\\ cut\\ while\\ Public\\ wrappers\\ keep\\ complete\\ values|selected\\ replay\\ guard\\ streams\\ the\\ exact\\ complete\\ Result,\\ route\\ and\\ replay\\ digest|finite\\ pure\\ candidate\\ plan\\ equals\\ complete\\-array\\ construction\\ without\\ advancing\\ the\\ accepted\\ base|ordinary\\ selected\\ route\\ and\\ scoped\\ extent\\ avoid\\ growing\\ historical\\ bodies;\\ explicit\\ snapshots\\ have\\ their\\ own\\ lifetime|drop\\ complete\\ output\\ then\\ selected\\ route\\ does\\ not\\ retain\\ decoded\\ historical\\ bodies)$",
+        "test_env/tests/t287-route-reconstruction.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "id": "native-workspace-physical-regression",
+      "status": "not_executed_after_failure",
+      "counts": {},
+      "result": null,
+      "noCredit": [],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "^(?:post\\-effect\\ channel\\ conflict\\ retains\\ admitted\\ native\\ failure\\ scope\\ without\\ a\\ fabricated\\ exchange)$",
+        "test_env/tests/t287-native-workspace-work.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "id": "terminal-quiescence7",
+      "status": "not_executed_after_failure",
+      "counts": {},
+      "result": null,
+      "noCredit": [],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/m5-terminal-quiescence-owner.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "id": "D02-preparation-owner-case",
+      "status": "not_executed_after_failure",
+      "counts": {},
+      "result": null,
+      "noCredit": [],
+      "argv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern",
+        "^(?:preparation\\ resolution\\ retains\\ its\\ established\\ native\\ link\\ and\\ raw\\ lock\\ refusals)$",
+        "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+    }
+  ],
+  "reusedFinite04": {
+    "freezeSha256": "305ee8fa9a5bf84f5151a0699e0d51d9e534424304f5920bf1d3fdeca66536c5",
+    "U1": {
+      "pass": 12,
+      "rerun": false
+    },
+    "C18": {
+      "pass": 18,
+      "rerun": false
+    }
+  },
+  "nativeProviderSemanticCalls": 0,
+  "independentAcceptance": false
+}

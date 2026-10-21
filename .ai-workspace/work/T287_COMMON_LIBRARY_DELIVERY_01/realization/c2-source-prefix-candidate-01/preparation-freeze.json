@@ -1,0 +1,73 @@
+{
+  "activation": "C2-CANDIDATE-STAGE-01",
+  "status": "prepared_exact_copy",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/PREPARATION.md",
+      "sha256": "09c7c5efe16f00d7f5ec95cd3e164aa557916a90f00904dd5dda84d64bb7f784",
+      "bytes": 2414
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/activation.json",
+      "sha256": "71c944c4ea2acb4af5d341de77f7db2c3bece7c18d84a1f48a6b750ff360083f",
+      "bytes": 1048
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/copy-result.json",
+      "sha256": "27040893894a21a23697ec8e4582c58fdff2f50bf1fa55a5dc5c65e1d9ad4ab0",
+      "bytes": 321
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/dependency-directory-metadata.json",
+      "sha256": "fc7319aaaa3e4b6345912b0257a459f2146d839c9483e868132170e1bc9a72d5",
+      "bytes": 166206
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/dependency-inputs.json",
+      "sha256": "c2729a5ce7459c4a4661f128498558ed4fc58068316bc1056cbfd2c01020691e",
+      "bytes": 1006510
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/donor-pins.json",
+      "sha256": "ab701182b48067de3f9d148d1979baeb985751c8fa9be6e3fcfcb71ccafac85c",
+      "bytes": 4877
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/main-generated-protection.json",
+      "sha256": "9f99e4cb7147f0cdd9a38bd315b9512a6566e8acdd53576ec7d697503083634c",
+      "bytes": 382
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/prepare-stage.py",
+      "sha256": "286690f607495d0c6820251f7f2fde80d3337dbc8b870163a3081e8a7a34ace2",
+      "bytes": 7078
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/prepared-source-inputs.json",
+      "sha256": "616358a73c6c63753dcc89c8b5ce167af36ed5dc99c9ea0e9f4bfa9e49fe5a8b",
+      "bytes": 354593
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage-directory-metadata.json",
+      "sha256": "2bbee0d2cd8a7eab27f19c695f86cb748b02f9796e76cbfd1417661bfae6a9e4",
+      "bytes": 291563
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage-prepared-inventory.json",
+      "sha256": "a600bf3cf3b30b533666483e72e3cee586c75ffd4512342a03684c5e9a9be273",
+      "bytes": 1784716
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/tool-pins.json",
+      "sha256": "ab094efe21a0e8042a7c3b2ba40856f34ad0c530e7ecbc25b79afbbf2e4dc604",
+      "bytes": 2770
+    }
+  ],
+  "stageInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage-prepared-inventory.json",
+    "sha256": "a600bf3cf3b30b533666483e72e3cee586c75ffd4512342a03684c5e9a9be273",
+    "bytes": 1784716
+  },
+  "noBuildExecuted": true,
+  "resourceNextState": "Prepared stage may receive only exact separately authorized source overlay/build; preparation records and immutable donor preserve this copy relation"
+}

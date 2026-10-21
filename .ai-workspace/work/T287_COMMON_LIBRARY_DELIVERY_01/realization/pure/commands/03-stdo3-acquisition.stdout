@@ -1,0 +1,27 @@
+✔ K11 current public specialization admits exact standalone STDO3 and conserves explicit source identity (21.907ms)
+✔ K11 explicit corpus construction still requires every source, companion and role-access join (1.537375ms)
+✖ K11 actual Product acquisition checks manifest, complete source inventory, spans and permission without Python (61.397416ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 514.952958
+
+✖ failing tests:
+
+test at test_env/tests/t287-stdo3-run-environment.test.mjs:91:1
+✖ K11 actual Product acquisition checks manifest, complete source inventory, spans and permission without Python (61.397416ms)
+  Error: EACCES: permission denied, open '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/t287-stdo3-9OTqwx/source/standards/EXECUTIVE_BASELINE.md'
+      at async open (node:internal/fs/promises:642:25)
+      at async writeFile (node:internal/fs/promises:1249:14)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs:122:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -13,
+    code: 'EACCES',
+    syscall: 'open',
+    path: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/t287-stdo3-9OTqwx/source/standards/EXECUTIVE_BASELINE.md'
+  }

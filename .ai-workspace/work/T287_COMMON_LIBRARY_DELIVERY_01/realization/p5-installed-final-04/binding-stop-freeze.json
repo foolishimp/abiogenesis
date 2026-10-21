@@ -1,0 +1,52 @@
+{
+  "activation": "P5-INSTALLED-C2-04",
+  "status": "STOPPED before runtime; exact support-root selection mismatch",
+  "closedAt": "2026-10-21T06:44:48.849283+00:00",
+  "files": [
+    {
+      "path": "HOW-binding.md",
+      "bytes": 5293,
+      "sha256": "84874f4f3d61b7ee6187e3073ccecb8e3441971e8a36689f62e908d74dc4750c"
+    },
+    {
+      "path": "STOP.json",
+      "bytes": 1818,
+      "sha256": "2fe5cf7fb466e72a285317943681da50bf354353277ce86b3dca1b4e3f3b1fa3"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 2051,
+      "sha256": "95d6edd444d968d3aaff058160a0c130ad807c88a0ed797a4199aedcb58e7de3"
+    },
+    {
+      "path": "bind.py",
+      "bytes": 8586,
+      "sha256": "c3e479246fa1164e74fbe1b64089b3f40d5dfd654ea26a3875e9f72ae6960077"
+    },
+    {
+      "path": "binding-exec-receipt.json",
+      "bytes": 782,
+      "sha256": "cfa6c26280f4bfa7f07aa3eaa93b76fca6598558801ecc8c29388df6162e8970"
+    },
+    {
+      "path": "binding-failure.json",
+      "bytes": 1020,
+      "sha256": "efcb02be80905d89b03f65c7f63f5d9c592b000579357670163b9ead83f49795"
+    },
+    {
+      "path": "binding-stop-report.md",
+      "bytes": 1404,
+      "sha256": "0fbbb21952b9b7e606a8e3ab14b07c83f836e1897818fa071f107541bf0ab590"
+    },
+    {
+      "path": "failed-setup-subject.mjs",
+      "bytes": 39995,
+      "sha256": "a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0"
+    }
+  ],
+  "physicalLaunchCount": 0,
+  "installationCount": 0,
+  "proofCopyCreated": false,
+  "runtimeConditionSatisfiedByRoot": true,
+  "furtherEffectsRequireExecutiveDisposition": true
+}

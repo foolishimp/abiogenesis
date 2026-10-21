@@ -1,0 +1,43 @@
+{
+  "priorClosureFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/install-stop-closure-freeze.json",
+    "bytes": 26797,
+    "sha256": "097bf41e95cffb571ee3f9f35544114080262e7dec9749feeeff7e85ba5bb215"
+  },
+  "reusedPreexecutionFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/preexecution-freeze.json",
+    "bytes": 6724,
+    "sha256": "b37eac5f82254c67f6973d128e229f328cc8857122086aa742ce9beb4b63f6ec"
+  },
+  "proofFilesExact": 12,
+  "proofSymlinksExact": 2,
+  "config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/configuration.json",
+    "bytes": 1284,
+    "sha256": "4fac03373ce7b5b28c98765285c7e76754d425e491d69f62e63e71667204b0e3"
+  },
+  "environment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/environment.json",
+    "bytes": 1101,
+    "sha256": "82aeae85da8b0d14193e3bca6c543cd428abb241454d08adb6e5808fb0da4760"
+  },
+  "npmUserConfig": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/npm-user.rc",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "npmGlobalConfig": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/npm-global.rc",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "distinctCanonicalConfigPaths": true,
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10681844,
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079"
+  },
+  "originalSetupSha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+  "fullInventoriesRescanned": false,
+  "runtimeLaunches": 0
+}

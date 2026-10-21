@@ -1,0 +1,94 @@
+{
+  "pids": [
+    {
+      "pid": 87139,
+      "state": "absent"
+    },
+    {
+      "pid": 87155,
+      "state": "absent"
+    },
+    {
+      "pid": 87157,
+      "state": "absent"
+    },
+    {
+      "pid": 87158,
+      "state": "absent"
+    },
+    {
+      "pid": 88340,
+      "state": "absent"
+    },
+    {
+      "pid": 88342,
+      "state": "absent"
+    },
+    {
+      "pid": 88344,
+      "state": "absent"
+    },
+    {
+      "pid": 88353,
+      "state": "absent"
+    },
+    {
+      "pid": 88356,
+      "state": "absent"
+    },
+    {
+      "pid": 88602,
+      "state": "absent"
+    },
+    {
+      "pid": 88603,
+      "state": "absent"
+    }
+  ],
+  "groups": [
+    {
+      "pgid": 87155,
+      "state": "absent"
+    },
+    {
+      "pgid": 87158,
+      "state": "absent"
+    },
+    {
+      "pgid": 88340,
+      "state": "absent"
+    },
+    {
+      "pgid": 88342,
+      "state": "absent"
+    },
+    {
+      "pgid": 88344,
+      "state": "absent"
+    },
+    {
+      "pgid": 88353,
+      "state": "absent"
+    },
+    {
+      "pgid": 88356,
+      "state": "absent"
+    },
+    {
+      "pgid": 88383,
+      "state": "absent"
+    },
+    {
+      "pgid": 88603,
+      "state": "absent"
+    }
+  ],
+  "recordedScratchRoots": [
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-2xD1li",
+      "exists": false
+    }
+  ],
+  "cleanupSignals": [],
+  "limits": "Recorded identities independently probed absent; other existing local tests assert their own scope absence and completed cleanup hooks. No global descendant/process absence claim. Evidence and stage roots retained deliberately."
+}

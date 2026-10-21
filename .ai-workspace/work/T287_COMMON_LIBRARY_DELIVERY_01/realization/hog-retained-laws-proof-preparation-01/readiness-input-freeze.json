@@ -1,0 +1,47 @@
+{
+  "status": "frozen_before_readiness_effects",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/activation.json",
+      "sha256": "5ee29f807235f24a6cbc43f6df309f79dd1e4ecfc48dc348e5b2896e15ecd659",
+      "bytes": 2164,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/HOW.md",
+      "sha256": "8cee590294ce4db7e5a404ce852c046df6d3ae35db28751b275ea2ff232a7ef6",
+      "bytes": 3540,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness.mjs",
+      "sha256": "ec60bbe782582b2563780f676c50d3878528c6c95d3563465a48f9fed615f274",
+      "bytes": 6615,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-configuration.json",
+      "sha256": "57dc8c298e1eb13bac0a8180616850b4382c8396ae4750df1af449d719e67772",
+      "bytes": 5198,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-effect-grant.json",
+      "sha256": "4acfa64bb5c4d7ecbceae3197cd6003e36d8f670b3f7f63fa103f652f99621af",
+      "bytes": 1128,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/support-overlay.json",
+      "sha256": "6db5bfa5018c4e87e00a7d990b1ed1b2ce3a6bce0e08ecddb53bc6d5026245c9",
+      "bytes": 3099,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/preservation-before.json",
+      "sha256": "a7a6f6e3dcba6e019a71094cfdabc22adb924ed240f683e6e3016bf21d7b2d25",
+      "bytes": 727,
+      "mode": "0o644"
+    }
+  ]
+}

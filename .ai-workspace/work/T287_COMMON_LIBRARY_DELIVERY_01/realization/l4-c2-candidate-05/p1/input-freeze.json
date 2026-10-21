@@ -1,0 +1,110 @@
+{
+  "status": "frozen_before_effect",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/activation.json",
+      "sha256": "48f2f96db74b8d452b7ec03bd94beb32457066d0b05c6a5a290a538f875ef22c",
+      "bytes": 1560,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/HOW.md",
+      "sha256": "b2e7ccf2c9b16e6f27fab94547cd3738cd34d189f64a5ff69c03253b3868b7aa",
+      "bytes": 1480,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/bind-c2.mjs",
+      "sha256": "67e9ece42fd863d4e86986a430ce0a0eca86f254952ea9e013c9c6bb958b236f",
+      "bytes": 12782,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/activate-lane.py",
+      "sha256": "e4ddedc4478c40fa33cc08bb8d8c7309bf033417848e4fac4dfde315e6b41eb2",
+      "bytes": 5428,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/intake/binding-result.json",
+      "sha256": "ef9e237ee646b7f5c3480e8767ddd33b060f0c0e5d3e503b2929d605b731bf72",
+      "bytes": 6292,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/intake/input-pins.json",
+      "sha256": "d4082f8510ea3bc76cce811c2d39de91cee692c3279a0219ad8614854e996924",
+      "bytes": 17915,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/intake/npmrc.user",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/intake/npmrc.global",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/configuration.json",
+      "sha256": "f6a48fa2bd789131ec61937dfc0570716cc47a38abaa31624e62ab8343a95b49",
+      "bytes": 5516,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/effect-grant.json",
+      "sha256": "e5cecf04e12f1e17ffe2db3c723511c19f402e3fd13da90f5eadb5ace37b2c1b",
+      "bytes": 1977,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/run-command.py",
+      "sha256": "270a6cd23729666dc788f2b89473f2d9be27003905d94146ab994d45f7f347d1",
+      "bytes": 2521,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/commands-config.json",
+      "sha256": "4d2d7b77143d6759e61d223ea172fc71d9a1510756bae71dad2518f7e2354d98",
+      "bytes": 584,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/command-environment.json",
+      "sha256": "c6225aa606df81de9fc5345b717b5b75d2127c074c775dd6bb9425f5e1975fe7",
+      "bytes": 691,
+      "mode": "0o644"
+    }
+  ],
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/freeze.json",
+    "sha256": "96b9ce2062ab04f1a456ba28d3122160e1093d8b6ecdfb88ae1cd8b6f0338ee8",
+    "bytes": 1981007,
+    "mode": "0o644"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+    "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+    "bytes": 48889,
+    "mode": "0o644"
+  },
+  "oracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs",
+    "sha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+    "bytes": 6907,
+    "mode": "0o644"
+  },
+  "owner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs",
+    "sha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+    "bytes": 7231,
+    "mode": "0o644"
+  },
+  "retryCount": 0,
+  "lane": "p1",
+  "actualPrerequisites": []
+}

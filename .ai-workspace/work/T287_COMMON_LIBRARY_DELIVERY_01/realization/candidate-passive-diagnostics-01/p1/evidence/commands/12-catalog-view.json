@@ -1,0 +1,14 @@
+{
+  "label": "catalog-view",
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/calls/catalog-view.request.jsonl"
+  ],
+  "cwd": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence",
+  "wallMs": 24947.502499999944,
+  "stdout": "{\"acquisitionKind\":\"eventless\",\"kind\":\"installed_definition_call_transport_result\",\"receipt\":{\"definitionKey\":{\"memberKey\":\"allowlist\",\"operationId\":\"abg.operation.catalog.view\"},\"exitCode\":0,\"failure\":null,\"invocationRef\":\"invocation://abiogenesis/062cca5b1f06c59b27a42821d84b0c4faf66a0ff0b61f5f03901058a5581bfbe\",\"kind\":\"definition_host_receipt\",\"ownerOutput\":{\"outcomeKind\":\"result\",\"value\":{\"effectiveHandles\":[\"graph-function://abi5-tests/sandbox-uat/executive-step@5\",\"graph-function://abi5-tests/sandbox-uat/executive@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/induction@5\",\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\",\"graph-function://abiogenesis/worksite/command-execution@5\",\"graph-function://abiogenesis/worksite/native-work/assessment@5\",\"graph-function://abiogenesis/worksite/native-work@5\"],\"residuals\":[],\"view\":{\"digest\":\"sha256:a28cc051bc9a4246f765a624a0af410b86628d8b08e1250b89adabf3ed945211\",\"ref\":\"graph-function-catalog-view://abiogenesis/a28cc051bc9a4246f765a624a0af410b86628d8b08e1250b89adabf3ed945211\"}}},\"resources\":{\"catalog\":{\"digest\":\"sha256:900ae5769143cc9a492b9614bd19c2e55f110664846464d5bb1b1c07e7612185\",\"ref\":\"graph-function-catalog://abiogenesis/900ae5769143cc9a492b9614bd19c2e55f110664846464d5bb1b1c07e7612185\"},\"disposition\":\"read_only_unchanged\",\"kind\":\"catalog_view_resource_receipt\",\"schemaVersion\":\"5.0.0\",\"view\":{\"digest\":\"sha256:a28cc051bc9a4246f765a624a0af410b86628d8b08e1250b89adabf3ed945211\",\"ref\":\"graph-function-catalog-view://abiogenesis/a28cc051bc9a4246f765a624a0af410b86628d8b08e1250b89adabf3ed945211\"}},\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"}\n",
+  "stderr": "",
+  "exitCode": 0
+}

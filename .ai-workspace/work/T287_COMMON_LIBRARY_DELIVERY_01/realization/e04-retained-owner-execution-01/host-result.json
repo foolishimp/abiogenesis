@@ -1,0 +1,116 @@
+{
+  "kind": "E04_proof_host_observation",
+  "launcherPid": 68864,
+  "hostPid": 68865,
+  "groupId": 68865,
+  "elapsedMs": 876.236375,
+  "timedOut": false,
+  "facts": {
+    "directExit": {
+      "status": 0,
+      "signal": null
+    },
+    "launchFailure": null,
+    "noChildEstablished": false,
+    "scopeKind": "posix_process_group",
+    "scopeAbsence": "absent",
+    "closeObserved": true,
+    "streamsDisposed": true,
+    "drainExpired": false,
+    "firstError": null,
+    "cleanupDeadlineNs": "1383324714291125",
+    "cleanupElapsedMs": 0.191916,
+    "probeCount": 1,
+    "signalAttempts": 0
+  },
+  "independentAbsence": {
+    "directPid": {
+      "state": "absent",
+      "coordinate": 68865,
+      "error": {
+        "name": "Error",
+        "code": "ESRCH",
+        "message": "kill ESRCH",
+        "stack": "Error: kill ESRCH\n    at process.kill (node:internal/process/per_thread:277:13)\n    at probe (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/launcher.mjs:89:17)\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/launcher.mjs:92:19"
+      }
+    },
+    "group": {
+      "state": "absent",
+      "coordinate": -68865,
+      "error": {
+        "name": "Error",
+        "code": "ESRCH",
+        "message": "kill ESRCH",
+        "stack": "Error: kill ESRCH\n    at process.kill (node:internal/process/per_thread:277:13)\n    at probe (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/launcher.mjs:89:17)\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/launcher.mjs:92:45"
+      }
+    }
+  },
+  "physicallyClosed": true,
+  "stdout": {
+    "byteLength": 7461,
+    "sha256": "432f4849d389d4a0071bf89bd31c65e8f9a3c190073f29ab4812dc7ad0a1ff1a"
+  },
+  "stderr": {
+    "byteLength": 173,
+    "sha256": "c9c692b47cc4867d0a550a7f1c457bd03da0064259b8c807936d39aa902b0b37"
+  },
+  "trace": [
+    {
+      "ordinal": 0,
+      "event": "owner-spawn",
+      "elapsedMs": 1.64725,
+      "pid": 68865
+    },
+    {
+      "ordinal": 1,
+      "event": "stdin-finish",
+      "elapsedMs": 1.749375
+    },
+    {
+      "ordinal": 2,
+      "event": "stdin-close",
+      "elapsedMs": 1.884417
+    },
+    {
+      "ordinal": 3,
+      "event": "stderr-end",
+      "elapsedMs": 875.419167
+    },
+    {
+      "ordinal": 4,
+      "event": "stdout-end",
+      "elapsedMs": 875.503833
+    },
+    {
+      "ordinal": 5,
+      "event": "stdout-close",
+      "elapsedMs": 875.595
+    },
+    {
+      "ordinal": 6,
+      "event": "stderr-close",
+      "elapsedMs": 875.601
+    },
+    {
+      "ordinal": 7,
+      "event": "owner-direct-exit",
+      "elapsedMs": 875.666333,
+      "status": 0,
+      "signal": null
+    },
+    {
+      "ordinal": 8,
+      "event": "child-close",
+      "elapsedMs": 875.900583,
+      "status": 0,
+      "signal": null
+    },
+    {
+      "ordinal": 9,
+      "event": "owner-completion-published",
+      "elapsedMs": 875.932375
+    }
+  ],
+  "successCandidate": true,
+  "boundary": "physical host completion only; runner case evidence remains separate; no ABG admission"
+}

@@ -1,0 +1,39 @@
+{
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs",
+    "sha256": "ac3ce1aa03a9b7b47184a25d9338300be87b5a4a606573a3e364a53a7376c7c7",
+    "bytes": 20862,
+    "mode": "0o644"
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/run.mjs",
+    "sha256": "f55fadc04332f2e2f34bb6e8a3bf9161bb59eadec08711f78316ef55a98898bc",
+    "bytes": 22640,
+    "mode": "0o644"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/change.diff",
+    "sha256": "d46d5496a861fe441038d51777967ce620a52693cdfdf22ec14ccf185d909473",
+    "bytes": 4288,
+    "mode": "0o644"
+  },
+  "oracleUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/oracle.mjs",
+    "sha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+    "bytes": 9679,
+    "mode": "0o644"
+  },
+  "inspectedInputsUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/inspected-inputs.json",
+    "sha256": "5b7daf7af1e7683798e45177edcd0ac0b332cc83072227f123987f8f75baebb8",
+    "bytes": 12709,
+    "mode": "0o644"
+  },
+  "changes": [
+    "Omit declaredStartRef for direct root and assert owner-selected exact Program/default start/GraphFunction.",
+    "Use existing ABG read owner to capture setup logical event boundary and slice decoded returned events at that boundary.",
+    "Keep physical prefix bytes separate and record physical/logical correspondence; original fresh-read oracle unchanged.",
+    "Use explicit start-call-preparation failure phase for this boundary."
+  ],
+  "unchanged": "All runtime owners, helpers, fixture bytes, three independent oracle cases, original bootstrap/install/retention/preflight and stop behavior."
+}

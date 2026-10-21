@@ -1,0 +1,190 @@
+{
+  "status": "materialized_inside_exact_selected_target",
+  "fixtureTargetRoot": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0",
+  "fixtureInstalledRoot": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures",
+  "actualNodeDependencyRoot": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abiogenesis/typescript-tenant",
+  "nodeResolutionProbe": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/node-dependency-probe.stdout",
+    "sha256": "44d9bb20781b53564548ad95fc46b9691a674030b8533d4e5cfc87b636a9b608",
+    "bytes": 2994,
+    "mode": "0o644"
+  },
+  "abiPackageMembersIndependentlyMatched": 5267,
+  "abiManifest": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee",
+    "bytes": 3189430,
+    "mode": "0o644"
+  },
+  "abiPackageInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-package-inventory.json",
+    "sha256": "7fceeafce866ff9df84dc33568e247583badcf9021ac592e8e3f6e765b7531b4"
+  },
+  "fixtureArchive": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+    "sha256": "b889b98e96967098c91dcac6fc1cc76922b94ec6451c2772aabc31f59b09215e",
+    "bytes": 4368,
+    "mode": "0o644"
+  },
+  "fixtureMembers": [
+    {
+      "path": "package/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 247,
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/contracts/capabilities/capability-definition-graph.json",
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+        "bytes": 247,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "package/package.json",
+      "bytes": 407,
+      "sha256": "75982cd2a34476df5825b1c1363650740d2fb868885341ce09341b6b03b388bd",
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/package.json",
+        "sha256": "75982cd2a34476df5825b1c1363650740d2fb868885341ce09341b6b03b388bd",
+        "bytes": 407,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "package/product-toolchain-manifest.json",
+      "bytes": 4119,
+      "sha256": "7d647b45f557ea66bc6df06fdc4dd198605636634675712ed4b1e3b19fe6faf3",
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/product-toolchain-manifest.json",
+        "sha256": "7d647b45f557ea66bc6df06fdc4dd198605636634675712ed4b1e3b19fe6faf3",
+        "bytes": 4119,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "package/contracts/public-contract-catalog.schema.json",
+      "bytes": 75,
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/contracts/public-contract-catalog.schema.json",
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+        "bytes": 75,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "package/build/leaf.mjs",
+      "bytes": 3059,
+      "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/build/leaf.mjs",
+        "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+        "bytes": 3059,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "package/build/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "installed": {
+        "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures/build/program.mjs",
+        "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+        "bytes": 8359,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "fixturePackageDependencies": {
+    "@abiogenesis/typescript-tenant": "file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+  },
+  "fixtureDeclaredProductDependencies": [
+    {
+      "compatibilityRef": "compatibility://abiogenesis/major/5",
+      "kind": "requires",
+      "packageVersion": "5.0.0-rc.1",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "requiredCapabilityRefs": [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.gtl.declare@5"
+      ],
+      "requiredContractRefs": [
+        "abg.contract.gtl.root-declaration",
+        "abg.schema.public-operation-invocation"
+      ]
+    }
+  ],
+  "physicalNpmLock": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/package-lock.json",
+    "sha256": "7f9e6821702f404a76bc80d50d8abd65d203eb47f773c56533f5548279378f92",
+    "bytes": 5785,
+    "mode": "0o644"
+  },
+  "physicalNativeNpmLockRow": {
+    "version": "5.0.0-rc.1",
+    "resolved": "file:../../../../../../../Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "integrity": "sha512-QayiBXUl1tI2Fyu9YDEy1JYzd25CpdxV4hC7n4wFeUM5TdCjWHC0buL7AIfnzUTPaCXIGRCs3/SofMIbepuKRA==",
+    "bundleDependencies": [
+      "@valibot/to-json-schema",
+      "effect",
+      "jsonc-parser",
+      "valibot",
+      "ajv",
+      "ajv-formats"
+    ],
+    "dependencies": {
+      "@valibot/to-json-schema": "1.7.1",
+      "ajv": "8.20.0",
+      "ajv-formats": "3.0.1",
+      "effect": "3.22.1",
+      "jsonc-parser": "3.3.1",
+      "valibot": "1.4.2"
+    },
+    "bin": {
+      "abg.cli": "build/code/src/public/cli.js",
+      "abg.codex": "build/code/src/public/codex_cli.js"
+    },
+    "engines": {
+      "node": ">=20"
+    }
+  },
+  "physicalFixtureNpmLockRow": {
+    "version": "5.0.0",
+    "resolved": "file:../language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+    "integrity": "sha512-NV/oeognllygqSf+8ha7AUNFB0h0DdcXULbPSmiEsv2J95blApgCUKqUzuM+DaWRSG9FD/JkWVyfg0nmEGr8Ew==",
+    "dependencies": {
+      "@abiogenesis/typescript-tenant": "file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    }
+  },
+  "actualOwnerEnvironment": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence/installed-environment.json",
+    "sha256": "a2064c82f7b5339a88679af9cb228584f0cd881a26f76b8b5a817127664e1c08",
+    "bytes": 52111573,
+    "mode": "0o644"
+  },
+  "actualProductLockId": "product-lock://abiogenesis/928841bd604269700ffcd4569d1072a378dbbd4db26ab14a4f315e3d68e1e803",
+  "actualProductLockDigest": "sha256:928841bd604269700ffcd4569d1072a378dbbd4db26ab14a4f315e3d68e1e803",
+  "admittedInstallIdentities": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3/928841bd604269700ffcd4569d1072a378dbbd4db26ab14a4f315e3d68e1e803",
+      "installedRoot": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "artifactDigest": "sha256:192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+      "productContentDigest": "sha256:6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3",
+      "manifestDigest": "sha256:594097f48942548d303dcb9663f0838bef1066395215f31c194d94eac5e0af14",
+      "resolvedLockDigest": "sha256:928841bd604269700ffcd4569d1072a378dbbd4db26ab14a4f315e3d68e1e803",
+      "admissionEventRef": "event://abiogenesis/7e1d4a036099cdfa8a33c973231fd8b3f62fd1be2cc7878db8ad3be67e6958e3"
+    },
+    {
+      "installId": "product-install://@abi5-tests/language-fixtures/5.0.0/b08148db4f1e8149577599756748efc098884bc8e905fe2f5bd8cb67e990eb37/928841bd604269700ffcd4569d1072a378dbbd4db26ab14a4f315e3d68e1e803",
+      "installedRoot": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/consumer-additional-0/node_modules/@abi5-tests/language-fixtures",
+      "productId": "product://abi5-tests/language-fixtures@5.0.0",
+      "artifactDigest": "sha256:b889b98e96967098c91dcac6fc1cc76922b94ec6451c2772aabc31f59b09215e",
+      "productContentDigest": "sha256:b08148db4f1e8149577599756748efc098884bc8e905fe2f5bd8cb67e990eb37",
+      "manifestDigest": "sha256:cc67e4e048ddc9c85028565fb333d95e8d091f6c2c12070099d31abca89affc9",
+      "resolvedLockDigest": "sha256:928841bd604269700ffcd4569d1072a378dbbd4db26ab14a4f315e3d68e1e803",
+      "admissionEventRef": "event://abiogenesis/8b9be2ad526f9eb3aded6c07e3c228ecbb26e07d2b381a6428c966c93ce35a3b"
+    }
+  ],
+  "localPreflightArchiveIdentityConserved": true,
+  "ownerReplayDuringDiagnosis": false
+}

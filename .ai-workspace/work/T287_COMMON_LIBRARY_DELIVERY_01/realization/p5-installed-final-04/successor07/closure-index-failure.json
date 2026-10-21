@@ -1,0 +1,193 @@
+{
+  "activation": "P5-C2-RESOURCE-SUCCESSOR-07",
+  "observedAt": "2026-10-21T07:47:05.987694+00:00",
+  "stage": "closure-only derived evidence index",
+  "error": {
+    "name": "AssertionError",
+    "file": "close-failure.py",
+    "line": 16,
+    "assertion": "events[:len(sourceEvents)]==sourceEvents",
+    "source": "actual failed exec_command return; not a new runtime attempt"
+  },
+  "diagnosticFirstInvocation": {
+    "error": "SyntaxError: unmatched closing parenthesis",
+    "line": 7,
+    "sourceText": "for i,(a,b) in enumerate(zip(source,raw))):",
+    "effectsBeforeFailure": 0,
+    "nextReadOnlyInvocation": "corrected transcription syntax only; no source/owner/runtime repair"
+  },
+  "subjects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/close-failure.py",
+      "bytes": 10567,
+      "sha256": "d6494acbd263dd029438557a194a52caa3d826bb661be3e3cbc2c2479b2ca31e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/archive/test-evidence/source-events.json",
+      "bytes": 5777749,
+      "sha256": "ec9967ade5cdfdd740caa0c75e2799655313ce18aaafc8b028d60f90171be6fa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/archive/scratch-evidence/runtime/events.jsonl",
+      "bytes": 3982944,
+      "sha256": "0c89e9e548ffcdb635a20df1cf2e0ebda61808ef05af01eb3afcb3582ff540ba"
+    }
+  ],
+  "sourceRows": 186,
+  "durableRows": 189,
+  "differingRows": 4,
+  "differenceSummary": [
+    {
+      "index": 66,
+      "sourceKind": "basis_admitted",
+      "durableKind": "abg_admitted_body_reference_record",
+      "sourceOnly": [
+        "admissionOrdinal",
+        "aggregateId",
+        "aggregateType",
+        "basisId",
+        "causationEventRefs",
+        "correlationId",
+        "eventContractDigest",
+        "eventId",
+        "eventTime",
+        "frameId",
+        "frameLineageId",
+        "graphCallId",
+        "graphFunctionRef",
+        "materializationRef",
+        "parentAggregateId",
+        "payload",
+        "payloadDigest",
+        "runId",
+        "scopeClass",
+        "workflowVersion"
+      ],
+      "durableOnly": [
+        "bodyReference",
+        "codecVersion",
+        "event"
+      ],
+      "differingSharedKeys": [
+        "kind"
+      ],
+      "eventIdSame": false,
+      "payloadDigestSame": false,
+      "payloadSame": false
+    },
+    {
+      "index": 109,
+      "sourceKind": "c_call_result_admitted",
+      "durableKind": "abg_admitted_body_reference_record",
+      "sourceOnly": [
+        "admissionOrdinal",
+        "aggregateId",
+        "aggregateType",
+        "basisId",
+        "causationEventRefs",
+        "correlationId",
+        "eventContractDigest",
+        "eventId",
+        "eventTime",
+        "frameId",
+        "graphCallId",
+        "graphFunctionRef",
+        "parentAggregateId",
+        "payload",
+        "payloadDigest",
+        "runId",
+        "scopeClass",
+        "workflowVersion"
+      ],
+      "durableOnly": [
+        "bodyReference",
+        "codecVersion",
+        "event"
+      ],
+      "differingSharedKeys": [
+        "kind"
+      ],
+      "eventIdSame": false,
+      "payloadDigestSame": false,
+      "payloadSame": false
+    },
+    {
+      "index": 154,
+      "sourceKind": "c_call_result_admitted",
+      "durableKind": "abg_admitted_body_reference_record",
+      "sourceOnly": [
+        "admissionOrdinal",
+        "aggregateId",
+        "aggregateType",
+        "basisId",
+        "causationEventRefs",
+        "correlationId",
+        "eventContractDigest",
+        "eventId",
+        "eventTime",
+        "frameId",
+        "graphCallId",
+        "graphFunctionRef",
+        "parentAggregateId",
+        "payload",
+        "payloadDigest",
+        "runId",
+        "scopeClass",
+        "workflowVersion"
+      ],
+      "durableOnly": [
+        "bodyReference",
+        "codecVersion",
+        "event"
+      ],
+      "differingSharedKeys": [
+        "kind"
+      ],
+      "eventIdSame": false,
+      "payloadDigestSame": false,
+      "payloadSame": false
+    },
+    {
+      "index": 171,
+      "sourceKind": "c_call_result_admitted",
+      "durableKind": "abg_admitted_body_reference_record",
+      "sourceOnly": [
+        "admissionOrdinal",
+        "aggregateId",
+        "aggregateType",
+        "basisId",
+        "causationEventRefs",
+        "correlationId",
+        "eventContractDigest",
+        "eventId",
+        "eventTime",
+        "frameId",
+        "graphCallId",
+        "graphFunctionRef",
+        "parentAggregateId",
+        "payload",
+        "payloadDigest",
+        "runId",
+        "scopeClass",
+        "workflowVersion"
+      ],
+      "durableOnly": [
+        "bodyReference",
+        "codecVersion",
+        "event"
+      ],
+      "differingSharedKeys": [
+        "kind"
+      ],
+      "eventIdSame": false,
+      "payloadDigestSame": false,
+      "payloadSame": false
+    }
+  ],
+  "noRuntimeOrRepair": true,
+  "knownAbsence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/independent-absence.json",
+    "bytes": 912,
+    "sha256": "a9ae76e771f9add543577dff81fa7781c0592a2f158202bf6b3cac024db96ada"
+  }
+}

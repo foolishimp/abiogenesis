@@ -1,0 +1,23 @@
+{
+  "status": "unchanged_except_exact_owned_support",
+  "closedCombinedRowsVerified": 8687,
+  "closedCombinedMismatches": [],
+  "priorPreparationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+    "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa",
+    "bytes": 8903,
+    "mode": "0o644"
+  },
+  "priorPreparationRecordsVerified": 29,
+  "priorPreparationMismatches": [],
+  "protectedMainGeneratedFiles": 936,
+  "protectedMainMismatches": [],
+  "ownedSupport": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+    "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+    "bytes": 7076,
+    "mode": "0o644"
+  },
+  "oldResourceAcquisitions": 0,
+  "GitMutations": 0
+}

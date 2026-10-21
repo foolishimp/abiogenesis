@@ -1,0 +1,108 @@
+--- .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
++++ .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
+@@ -1,23 +1,90 @@
+-# User checkpoint before common-library implementation
++# Current review checkpoint: unfinished common-library refactor
+ 
+-Start with the [current L2 execution contract](L2-execution-contract.md), [review 02](review-L2/review-02.md) and [review 01's preserved support](review-L2/review-01.md#supported-predicates-retained), [L1 library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md), and [current T-287 plan](../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan). [Executive disposition](disposition.md) accepts exact L2 freeze 02 `4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae`.
++Start with the [Executive retirement decision](realization/executive-retirement-reprice-01/decision.md),
++[current plan and exact evidence](realization/executive-retirement-reprice-01/plan.md),
++and [public independent effects-review return](realization/executive-retirement-reprice-01/review-effects.md).
++The [current T-287 operation boundary](../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-operation-boundary)
++owns work sequencing. Accepted [L2](L2-execution-contract.md),
++[design disposition](disposition.md) and [L1 library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
++retain their exact subjects.
+ 
+-**Checkpoint state:** L1/L2 design accepted; L3–L5 pending; common-library delivery open; release-resumption gate closed. No implementation activation is current. The accepted design names source changes and proof obligations; those changes and outcomes have not been performed.
++**Current state:** L1/L2 accepted. L3 implementations exist with active retirement
++and mandatory E03 process-truth correction open. L4 is partial. Interim L5 source
++review has E03-L5-01, severity S2, Root priority P1/current delivery blocker.
++Library delivery is not accepted; the release-resumption gate is closed.
+ 
+-The user explicitly requests **everything committed and pushed**, including visible work from other sessions and repository commentary/analysis. The separate checkpoint Writer owns the logical full-tree Git checkpoint, remote verification and oversized-file LFS transport. Preserve exact bytes and visible work; do not omit unrelated commentary or evidence to make transport easier. This recording Writer performs no Git actions and stops all writes after the handoff. Do not append the eventual commit SHA to repository files afterward.
++Root selects this **unfinished review checkpoint now**, after the durable current
++records, proposed HOW preparation and portable evidence, before further source
++or runtime mutation. The user authorized the logical full visible-tree commit
++and push, including public commentary/analysis from another session. Preserve
++visible unrelated work and exact failed/accepted evidence. The checkpoint must
++make the remaining refactor and blocker reviewable on another machine; it does
++not claim delivery acceptance.
+ 
+-## Preserved evidence and current limits
++The prior remote design checkpoint is `67c3337`; current work is uncommitted,
++as reported by Root. A separate checkpoint Writer owns Git, exact full-tree
++scope, any required oversized-file transport, and direct remote verification.
++This recording activation performs no Git operations. Preserve this exact review
++checkpoint during subsequent implementation. Do not append the eventual commit
++SHA to repository files after committing.
+ 
+-- [Baseline preparation](proof/baseline-preparation/return.md) built and packed the unchanged preserved source in a separate copy. Its exact source, toolchain, archive and correspondence receipts establish mechanical readiness only; runtime tests and installed/native outcomes remain unperformed.
+-- [First rejected cut](review-L2/subject-01/L2-execution-contract.md), [review 01](review-L2/review-01.md), [R-L2-001 correction](correction-L2-001/return.md) and [accepted review 02](review-L2/result-02.json) retain their separate subjects. The timer finding is design-resolved; implementation/proof remains required.
+-- Original source/plan/design records and [status preimages](acceptance/preimages.json) reconstruct prior accepted subjects. Source44, continuation16 and the [stopped continuation17](../T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/return-02.md) retain their exact claims and physical residue. No install retry, relabelled invocation, cleanup or historical-source migration is selected.
+-- The new scope preserves all fifteen Product families and existing semantic owners. Default GraphFunctions and the lower common implementation library remain distinct. No new runtime, registry, public schema, scheduler or package is selected.
++## Proposed HOW and selected retirement
+ 
+-## Next technical work after checkpoint
++The [lifetime HOW preparation](realization/e03-final-facts-repair-01/HOW-proposal.md) addresses
++final physical facts across exceptional worker transport, actor admission and
++affected projections. The [source/role HOW preparation](realization/stdo3-role-source-reentry-01/HOW-proposal.md)
++addresses the current default-library definition and active companion-helper
++consumers. Both are proposed design re-entry, pending independent assessment;
++Root verifies their exact prepared subjects before the checkpoint. Preparation
++is not source repair, acceptance or authority for another native campaign.
+ 
+-1. **Separate L3 activation:** implement the contract's exact territories for D02–D04 contraction, K11 public standalone STDO3 constructor and consumer, E03 common owned-process lifetime plus monotonic host-bounded timing, and U1 authenticated scoped unknown-effect currentness. Preserve the accepted retained domains and owner-specific semantics. Synchronize the existing GTL emitted-member/span coordinates from actual isolated bytes.
+-2. **Freeze realization and proof support:** exact source/package, selected consumer/retirement evidence, bounded P1–P4 runner, P5 process/currentness cases, immutable task/oracle/source spans and prospective provider/toolchain/resource configuration. Preserve main-tree build bytes; build candidate stages separately. A newly discovered material choice returns to its owner.
+-3. **Execute the frozen P1–P5/V1–V7 contract:** P1 ordinary installed preparation first; P2 actual-prefix/partial-install preservation; P3 external deterministic execution and fresh reads; P5 actual process and scoped currentness evidence; then P4's single prospectively bound real native STDO3 selector. Local timing tests cannot substitute for real process/native evidence. Stop at the first failed required seam, preserving actual prefix, first failure, physical residue and uncertainty; no blind retry.
+-4. **L5 independent delivery acceptance:** conjoin actual implementation/adoption/retirement, complete-path measurements, executed obligations and independent exact-subject assessment. Only recorded library delivery acceptance opens the existing release-resumption gate. General lifecycle, qualification and human release acceptance remain subsequent work.
++The owner's purpose is to strip out old fixtures and remove technical debt.
++Root selects retirement of the redundant fresh-process runner/selector,
++consolidation of U1 setup while retaining its changed-file predecessor/successor
++and supplied-context cases, and replacement of in-domain private canonical/hash
++algorithms by the existing common owners. Preserve distinct witness, renderer,
++NUL-domain, authentication, cold-read and structural/HoG/root setup obligations.
++Companion-only factory migration and production default-library v2.5.1 require
++explicit source/role decisions; they are not already retired. Each capability
++needs actual removed/replaced implementations/fixtures/callers, canonical use,
++retained obligations, exceptions with reasons and affected proof.
+ 
+-This is a review checkpoint, not an authorization to start those technical effects. Root Executive owns subsequent activations and disposition.
++## Preserved results and open obligations
++
++- New-candidate P1 passed on archive `fadd07e…` in 954.636 s, with zero native/provider
++  calls. [P1 freeze](realization/l4-c2-candidate-05/p1/freeze.json) is `ef5880…`;
++  Root verified 88 files. Candidate freeze is `96b9ce…`, manifest `51de2e…`.
++- [P5 successor08](realization/p5-installed-final-04/successor08/failure-report.md)
++  remains failed: 600 s test / 630 s outer timeout, freeze `c54099…`, Root verified
++  84 files. C1 completed after cancellation; C2 was admitted/opened. No C2 actor,
++  helper/HTTP outcome, fresh N2 equality or terminal closure was obtained.
++  Subsequent owner effects must stop after cancellation under the existing test
++  contract in future proof re-entry. Post-cancellation effects remain real evidence.
++- Selected finite passes across 04/07/08/09 retain exact subjects and exclusions.
++  The [seven-body audit](realization/retirement-installed-correspondence-01/report.md)
++  retains its final06 correspondence; topology witness and new-package rebind
++  remain open. These narrower results do not prove active fixture retirement.
++- All post-P1 lanes are held: owner-resolution, P2, P3, HoG and P4. E03-L5-01 is
++  a source-established exceptional process-truth defect; no new reproduction is
++  claimed. Existing positive and historical failed cuts retain their scopes.
++- Original P5 physical phases were 323.088 s setup and 293.475 s C1, not archive
++  copy time. Concurrency is observed, not a causal explanation or speed claim.
++  A timeout alone does not establish a source defect.
++
++The portable P1/P5 receipts and existing carriers retain their declared scope;
++external `/private/tmp` origins are not silently relabeled as repository paths.
++The separate checkpoint Writer verifies sufficient portable material and exact
++transport. Previous [handoff/current-status preimages](realization/executive-retirement-reprice-01/preimages.json)
++preserve the superseded current routing. Old cuts, protected main936 and
++continuation17 remain untouched; no cleanup, repeated install or old Run migration
++is selected.
++
++## Work after the checkpoint
++
++After separate activation: retire the selected duplication and repair process
++truth under the owning HOW; produce one final candidate; execute proportionate
++affected current installed/finite proof and the one bound P4 native witness;
++obtain independent conjunction and L5 disposition. Only recorded library delivery
++acceptance opens remaining 5.0 integration, lifecycle, qualification and release
++work. All fifteen families, F11/sole AF22 and actual human release acceptance
++retain their independent obligations.

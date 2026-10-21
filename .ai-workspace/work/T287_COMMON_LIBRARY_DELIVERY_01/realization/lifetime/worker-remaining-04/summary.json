@@ -1,0 +1,306 @@
+[
+  {
+    "case": "M5 B-001 preserves lane-owned Claude execution posture",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ B\\-001\\ preserves\\ lane\\-owned\\ Claude\\ execution\\ posture$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.31273808400146663,
+    "startedAt": "2026-10-20T23:42:52.634096+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 native report keeps its original host schema presentation",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ native\\ report\\ keeps\\ its\\ original\\ host\\ schema\\ presentation$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.30294570908881724,
+    "startedAt": "2026-10-20T23:42:52.947249+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ schema\\ literal\\ placeholders\\ remain\\ opaque\\ while\\ ordinary\\ templates\\ and\\ append\\ positions\\ expand$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.3022442921064794,
+    "startedAt": "2026-10-20T23:42:53.250629+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ requested\\ structured\\ output\\ uses\\ only\\ the\\ final\\ carrier\\ and\\ preserves\\ raw/schema\\ refusal$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.3307108338922262,
+    "startedAt": "2026-10-20T23:42:53.553293+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 B-001 bounds append arguments for all four transport contracts",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ B\\-001\\ bounds\\ append\\ arguments\\ for\\ all\\ four\\ transport\\ contracts$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.3017734589520842,
+    "startedAt": "2026-10-20T23:42:53.884399+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 B-001 gives agent-specific sandbox binding precedence",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ B\\-001\\ gives\\ agent\\-specific\\ sandbox\\ binding\\ precedence$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.30384141602553427,
+    "startedAt": "2026-10-20T23:42:54.186640+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 transport identity changes with parser and prompt-delivery semantics",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ transport\\ identity\\ changes\\ with\\ parser\\ and\\ prompt\\-delivery\\ semantics$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.307742582866922,
+    "startedAt": "2026-10-20T23:42:54.490959+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ B\\-001\\ crosses\\ a\\ real\\ worker\\ process,\\ parser,\\ tool\\ event,\\ and\\ archive$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.33532599988393486,
+    "startedAt": "2026-10-20T23:42:54.799185+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 Bash tool identity ignores only optional string description metadata",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ Bash\\ tool\\ identity\\ ignores\\ only\\ optional\\ string\\ description\\ metadata$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.6573029169812799,
+    "startedAt": "2026-10-20T23:42:55.134973+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 B-001 rejects tool activity only in the closed-prompt lane",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ B\\-001\\ rejects\\ tool\\ activity\\ only\\ in\\ the\\ closed\\-prompt\\ lane$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.3365701250731945,
+    "startedAt": "2026-10-20T23:42:55.792745+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ closed\\-prompt\\ proof\\ does\\ not\\ misclassify\\ declared\\ StructuredOutput\\ as\\ a\\ capability\\ tool$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.4097131658345461,
+    "startedAt": "2026-10-20T23:42:56.129883+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 selected result text cannot admit a valid file without its final carrier",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ selected\\ result\\ text\\ cannot\\ admit\\ a\\ valid\\ file\\ without\\ its\\ final\\ carrier$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.4587721659336239,
+    "startedAt": "2026-10-20T23:42:56.540083+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ ABG\\ transport\\ force\\-terminates\\ a\\ worker\\ that\\ ignores\\ SIGTERM$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.7596520001534373,
+    "startedAt": "2026-10-20T23:42:56.999382+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 ABG transport renews its inactivity lease only from observed progress",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ ABG\\ transport\\ renews\\ its\\ inactivity\\ lease\\ only\\ from\\ observed\\ progress$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.611537666991353,
+    "startedAt": "2026-10-20T23:42:57.759708+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 ABG transport does not renew from unacknowledged output",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ ABG\\ transport\\ does\\ not\\ renew\\ from\\ unacknowledged\\ output$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.4769015000201762,
+    "startedAt": "2026-10-20T23:42:58.371949+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ ABG\\ transport\\ excludes\\ semantic\\ output\\ emitted\\ after\\ its\\ timeout\\ boundary$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.4801861250307411,
+    "startedAt": "2026-10-20T23:42:58.849429+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ ABG\\ transport\\ excludes\\ descendant\\ output\\ emitted\\ after\\ direct\\-process\\ exit$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.40487458393909037,
+    "startedAt": "2026-10-20T23:42:59.330255+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ admitted\\ long\\ inactivity,\\ absolute\\ and\\ grace\\ values\\ do\\ not\\ become\\ one\\-millisecond\\ timeouts$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.3789810840971768,
+    "startedAt": "2026-10-20T23:42:59.735654+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  },
+  {
+    "case": "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=^M5\\ a\\ finite\\ native\\ wakeup\\ above\\ the\\ host\\ timer\\ domain\\ does\\ not\\ fire\\ before\\ its\\ owner\\ deadline$",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "seconds": 0.4430195421446115,
+    "startedAt": "2026-10-20T23:43:00.115153+00:00",
+    "inputsSha256": "0333be1faa5c00f4c238611c2b1f139e6605aa5ba6e5fc69a4d9a769503575bb",
+    "scope": "existing selected worker cases and admitted timer successor; real local Node fixtures only, no native provider"
+  }
+]

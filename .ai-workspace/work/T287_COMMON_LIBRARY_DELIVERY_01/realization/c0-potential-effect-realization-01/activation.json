@@ -1,0 +1,35 @@
+{
+  "activation": "C0-POTENTIAL-EFFECT-REALIZATION-01",
+  "at": "2026-10-21T04:09:55.874392+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "HOW_freeze_sha256": "63ffbc96fef785a6a2e032e168f55827863329eb9fe5e351269bd9cace1ac7c7",
+  "HOW_sha256": "2e2aafcb4db0423eb079a552dca218e09a7592ee2f970296631e9abfb3fa6df8",
+  "proof_sha256": "eb7c1f1038cf46a5841290ea18d344410d36057031bea863c0dbbad9e2e84b26",
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "source_paths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+  ],
+  "physical_root": "/private/tmp/abg-c0-potential-25ac62e990e141ce",
+  "physical_root_initially_absent": true,
+  "limits": {
+    "isolated_compiles": 1,
+    "principal_physical_attempts": 5,
+    "new_retained_bytes": 10737418240,
+    "per_test_timeout_ms": 600000,
+    "native_or_provider_actors": 0
+  },
+  "stop": "First unexpected selected precondition, compile, generator, owner, oracle or preservation failure stops before repair, retry or next case.",
+  "scope": "Nine production files and two tests; last source entry is conditional existing fixture support. No old cuts, main936, Git or continuation17 effects."
+}

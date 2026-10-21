@@ -1,0 +1,21 @@
+{
+  "status": "pending_new_candidate_package_binding",
+  "modules": [
+    "abg/event_body_encoding.ts",
+    "product/environment_definition_bindings.ts",
+    "product/exact_match.ts",
+    "product/execution_resolution.ts",
+    "product/verification_definition_bindings.ts",
+    "shared/admission_predicates.ts",
+    "shared/definition_binding_mechanics.ts",
+    "shared/rooted_topology_partition.ts"
+  ],
+  "steps": [
+    "Bind new exact candidate freeze, archive, manifest and emitted inventory.",
+    "Compare only these eight named source/emitted/package members and their relative import targets with this cut; account for any actual delta explicitly.",
+    "Bind selected actual installed roots and owner-call evidence to that candidate without relabelling old runtime receipts.",
+    "Conserve this actual final06 P5 C1 codec relation separately from the later failed C2 claim.",
+    "Close R4 with selected HoG topology owner witness/call graph and actual returned event cuts; byte correspondence alone is insufficient."
+  ],
+  "notAcceptance": "Executive conjoins applicable results; no L5 or release acceptance here."
+}

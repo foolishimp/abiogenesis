@@ -1,0 +1,5 @@
+CLOSED-EVIDENCE-PORTABILITY-02 stopped before archives. First failure: KeyError('provider') at select-population.py:123 while reading historical final02 P1 configuration. That configuration has only public-preparation and no provider field. The new reader incorrectly imposed another lane's optional metadata shape. This does not invalidate the original P1 evidence.
+
+Prior carrier verification passed using only repository/archive bytes. The reader had selected 69402 source addresses at the stop; this is a partial count, not completed population or capacity validation. No archive was written, no bytes truncated, no runtime/Git/provider effect occurred. All six selected freeze pins, prior carrier pin and protected main 936 files remain unchanged.
+
+The failed script, command, stdout/stderr, first traceback and exact configuration shape are frozen. A not-yet-executed static issue is also recorded: the draft population freeze must not bind still-open command stdout/stderr before they finish. No repair or retry was performed. Return to Root for owning reader/HOW successor selection.

@@ -1,0 +1,148 @@
+import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const here = dirname(fileURLToPath(import.meta.url));
+const worker = resolve(
+  here,
+  "../falsifiers/runtime-retained-projections-worker.mjs",
+);
+
+function observeRetained(abg, product, store, requests, durablePrefix) {
+  return requests.map((request) => {
+    if (request.availability === "blocked_migration") {
+      return {
+        rowId: request.rowId,
+        availability: "unavailable",
+        disposition: "red",
+        reason: request.reason,
+      };
+    }
+    const owner = request.owner === "product" ? product : abg;
+    const projector = owner[request.exportName];
+    assert.equal(
+      typeof projector,
+      "function",
+      `installed ABG export ${request.exportName} is unavailable`,
+    );
+    const projection = request.owner === "product"
+      ? projector(...(request.args ?? []))
+      : request.input === "durable_prefix"
+      ? projector(durablePrefix, ...(request.args ?? []))
+      : request.input === "validated_run_prefix"
+      ? projector(
+          abg.selectValidatedRuntimeEventPrefix(
+            store.readAll(),
+            request.prefixScope,
+          ),
+          ...(request.args ?? []),
+        )
+      : projector(store, ...(request.args ?? []));
+    return {
+      rowId: request.rowId,
+      availability: "available",
+      disposition: "green",
+      projection,
+    };
+  });
+}
+
+function runFreshWorker(input) {
+  return new Promise((resolveResult, reject) => {
+    const child = spawn(process.execPath, [worker], {
+      env: { ...process.env, NODE_OPTIONS: "" },
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+    let stdout = "";
+    let stderr = "";
+    let settled = false;
+    const timeout = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      child.kill("SIGKILL");
+      reject(new Error(
+        `fresh-process runtime projection worker timed out after 30000ms: ${stderr}`,
+      ));
+    }, 30_000);
+    timeout.unref();
+    const settle = (complete) => {
+      if (settled) return false;
+      settled = true;
+      clearTimeout(timeout);
+      complete();
+      return true;
+    };
+    child.stdout.setEncoding("utf8");
+    child.stderr.setEncoding("utf8");
+    child.stdout.on("data", (chunk) => { stdout += chunk; });
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    child.on("error", (error) => settle(() => reject(error)));
+    child.on("close", (code) => {
+      settle(() => {
+        if (code !== 0) {
+          reject(new Error(
+            `fresh-process runtime projection worker failed ${code}: ${stderr}`,
+          ));
+          return;
+        }
+        try {
+          resolveResult(JSON.parse(stdout));
+        } catch (error) {
+          reject(new Error(
+            `fresh-process runtime projection worker returned invalid JSON: ${String(error)}\n${stdout}\n${stderr}`,
+          ));
+        }
+      });
+    });
+    child.stdin.end(JSON.stringify(input));
+  });
+}
+
+export async function proveFreshProcessRuntimeProjectionEquality({
+  abg,
+  product,
+  installedPackageRoot,
+  requests,
+  store,
+}) {
+  const closeHandoff = store.projectReopenAuthorityAndClose();
+  const retainedRows = observeRetained(
+    abg,
+    product,
+    store,
+    requests,
+    closeHandoff.prefix,
+  );
+  const input = {
+    installedPackageRoot,
+    reopenAuthority: closeHandoff.reopenAuthority,
+    prefix: closeHandoff.prefix,
+    requests,
+  };
+  const first = await runFreshWorker(input);
+  const second = await runFreshWorker(input);
+  const transportedRetainedRows = JSON.parse(JSON.stringify(retainedRows));
+
+  assert.notEqual(first.processId, process.pid);
+  assert.notEqual(second.processId, process.pid);
+  assert.notEqual(first.processId, second.processId);
+  assert.equal(
+    first.eventLogDigest,
+    closeHandoff.reopenAuthority.eventLogDigest,
+  );
+  assert.equal(
+    second.eventLogDigest,
+    closeHandoff.reopenAuthority.eventLogDigest,
+  );
+  assert.deepEqual(first.rows, transportedRetainedRows);
+  assert.deepEqual(second.rows, transportedRetainedRows);
+
+  return Object.freeze({
+    kind: "fresh_process_runtime_projection_proof",
+    eventLogDigest: closeHandoff.reopenAuthority.eventLogDigest,
+    historicalEventCount: first.historicalEventCount,
+    retainedRows,
+    freshProcessIds: Object.freeze([first.processId, second.processId]),
+  });
+}

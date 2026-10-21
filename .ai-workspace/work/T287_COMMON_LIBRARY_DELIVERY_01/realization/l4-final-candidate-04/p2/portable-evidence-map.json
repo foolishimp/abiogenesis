@@ -1,0 +1,365 @@
+{
+  "sourceRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence",
+  "portableRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence",
+  "files": [
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/activation-preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474694573,
+        "type": "file",
+        "bytes": 10859,
+        "sha256": "af905af0650ef68d7aca0d314fd888407611be805e9b9331c5d5a3c87969714c"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/activation-preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732751,
+        "type": "file",
+        "bytes": 10859,
+        "sha256": "af905af0650ef68d7aca0d314fd888407611be805e9b9331c5d5a3c87969714c"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/actual-returned-handoff.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474730912,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "65ec759e9d5b168c65e2a0f5f39ec8768940a3efa3bf4019dac10f8735acc8af"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/actual-returned-handoff.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732752,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "65ec759e9d5b168c65e2a0f5f39ec8768940a3efa3bf4019dac10f8735acc8af"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/after-owner-projection.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474730915,
+        "type": "file",
+        "bytes": 28727957,
+        "sha256": "3268db2c6081ed688d606e147e4a152a6eeeb5a7214e0c1f54d89578d86f4cfd"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/after-owner-projection.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732753,
+        "type": "file",
+        "bytes": 28727957,
+        "sha256": "3268db2c6081ed688d606e147e4a152a6eeeb5a7214e0c1f54d89578d86f4cfd"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/before-owner-projection.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474712738,
+        "type": "file",
+        "bytes": 28729231,
+        "sha256": "af622bcc448a6624e72ce3c9d960e22a9694842d8ba5707b3ab33b17d763f4f9"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/before-owner-projection.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732754,
+        "type": "file",
+        "bytes": 28729231,
+        "sha256": "af622bcc448a6624e72ce3c9d960e22a9694842d8ba5707b3ab33b17d763f4f9"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/bootstrap-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474712728,
+        "type": "file",
+        "bytes": 987997,
+        "sha256": "e73460983e690ababf8e5cc83e636e2835161faf91cb5fa44e8becca3244a9ad"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/bootstrap-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732755,
+        "type": "file",
+        "bytes": 987997,
+        "sha256": "e73460983e690ababf8e5cc83e636e2835161faf91cb5fa44e8becca3244a9ad"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/calls/second-install.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474730911,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "65ec759e9d5b168c65e2a0f5f39ec8768940a3efa3bf4019dac10f8735acc8af"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/calls/second-install.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732757,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "65ec759e9d5b168c65e2a0f5f39ec8768940a3efa3bf4019dac10f8735acc8af"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/calls/second-install.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474730910,
+        "type": "file",
+        "bytes": 4290,
+        "sha256": "0d2ae9764f7084b958148e2afa85dccb32b8067969e477bc645a07c0608d9df3"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/calls/second-install.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732758,
+        "type": "file",
+        "bytes": 4290,
+        "sha256": "0d2ae9764f7084b958148e2afa85dccb32b8067969e477bc645a07c0608d9df3"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/calls/second-install.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474712765,
+        "type": "file",
+        "bytes": 31450515,
+        "sha256": "dac9d5092546d19cefaf32399f7efce623a21ab8c53e241410fe26dac3f2bfc7"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/calls/second-install.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732759,
+        "type": "file",
+        "bytes": 31450515,
+        "sha256": "dac9d5092546d19cefaf32399f7efce623a21ab8c53e241410fe26dac3f2bfc7"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/commands/1-bootstrap-offline-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474712727,
+        "type": "file",
+        "bytes": 573,
+        "sha256": "5869d37b62d6888f74792bbbbd4932e1cd758c404cda401ab5bf7273e02bf773"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/commands/1-bootstrap-offline-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732761,
+        "type": "file",
+        "bytes": 573,
+        "sha256": "5869d37b62d6888f74792bbbbd4932e1cd758c404cda401ab5bf7273e02bf773"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/commands/2-installed-declaration-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474712734,
+        "type": "file",
+        "bytes": 959,
+        "sha256": "7d21081c014860d0ec0af4891a122b3e236bcb894469755dabddffa3073a4bb9"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/commands/2-installed-declaration-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732762,
+        "type": "file",
+        "bytes": 959,
+        "sha256": "7d21081c014860d0ec0af4891a122b3e236bcb894469755dabddffa3073a4bb9"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/commands/3-second-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474730909,
+        "type": "file",
+        "bytes": 4484,
+        "sha256": "e6e0a367446457eebb524db50d8ece0da5d9e4c95a35e3fb197c9bd2c3f5bfc0"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/commands/3-second-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732763,
+        "type": "file",
+        "bytes": 4484,
+        "sha256": "e6e0a367446457eebb524db50d8ece0da5d9e4c95a35e3fb197c9bd2c3f5bfc0"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/effective-environment.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474694575,
+        "type": "file",
+        "bytes": 447,
+        "sha256": "e985a3309257aa89b532da278838644a2149600ac82e9f453ff71eafaaa98d52"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/effective-environment.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732764,
+        "type": "file",
+        "bytes": 447,
+        "sha256": "e985a3309257aa89b532da278838644a2149600ac82e9f453ff71eafaaa98d52"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474731761,
+        "type": "file",
+        "bytes": 3113245,
+        "sha256": "fd32ad0ba5da46843d90610ea2fed1c46d2c3f025403e067428cdcc39f11a930"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732765,
+        "type": "file",
+        "bytes": 3113245,
+        "sha256": "fd32ad0ba5da46843d90610ea2fed1c46d2c3f025403e067428cdcc39f11a930"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/measurements.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474731803,
+        "type": "file",
+        "bytes": 7551,
+        "sha256": "eb3b0e87f46ab5259eb4b3a5bb929fe55628188ebaa3a9c208f9111f2186e24b"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/measurements.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732766,
+        "type": "file",
+        "bytes": 7551,
+        "sha256": "eb3b0e87f46ab5259eb4b3a5bb929fe55628188ebaa3a9c208f9111f2186e24b"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/original-physical-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474731760,
+        "type": "file",
+        "bytes": 988023,
+        "sha256": "8735c5aec050ec840850d63db1e19889875e5a866aa4c0a56ddb73c692c318fc"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/original-physical-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732767,
+        "type": "file",
+        "bytes": 988023,
+        "sha256": "8735c5aec050ec840850d63db1e19889875e5a866aa4c0a56ddb73c692c318fc"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474731804,
+        "type": "file",
+        "bytes": 1909,
+        "sha256": "c3988696097ae0f8c17678ec092a561625e05a510e3b0bbb3bf43388ffccb5c3"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732768,
+        "type": "file",
+        "bytes": 1909,
+        "sha256": "c3988696097ae0f8c17678ec092a561625e05a510e3b0bbb3bf43388ffccb5c3"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence/second-physical-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474731291,
+        "type": "file",
+        "bytes": 988006,
+        "sha256": "577dd0314bc60d4686102b2b64e2bd7726118f402b73f5fd243c2d9255c6dc25"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/evidence/second-physical-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474732769,
+        "type": "file",
+        "bytes": 988006,
+        "sha256": "577dd0314bc60d4686102b2b64e2bd7726118f402b73f5fd243c2d9255c6dc25"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    }
+  ],
+  "excludedInstalledPayloadFiles": 0,
+  "selection": "All case evidence except sandbox/installed package payload, which remains in actual root and full physical hash/mode inventory; no package bytes silently discarded."
+}

@@ -1,0 +1,7 @@
+{
+  "status": "parent_absent_before_allocation",
+  "runtime": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81",
+  "realParent": "/private/tmp",
+  "maxAdditionalRetainedBytes": 4294967296,
+  "cleanup": false
+}

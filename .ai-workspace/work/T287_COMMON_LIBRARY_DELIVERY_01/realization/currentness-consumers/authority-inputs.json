@@ -1,0 +1,72 @@
+[
+  {
+    "path": "AGENTS.md",
+    "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+    "bytes": 11923
+  },
+  {
+    "path": "stdo_abiogenesis.json",
+    "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+    "bytes": 3146
+  },
+  {
+    "path": "specification/PRODUCT.md",
+    "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+    "bytes": 97498
+  },
+  {
+    "path": "specification/GOALS.md",
+    "sha256": "6b0830c2e21a7337ada78569fa9d1f2df50c9b432916eaf3cb296d89dbdf6f89",
+    "bytes": 78328
+  },
+  {
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "sha256": "4a6bd62f5ef62b901369dcd22094fb0cf85e0f67d2f13f7a167908c987f1a79e",
+    "bytes": 533349
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+    "sha256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+    "bytes": 6120
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
+    "sha256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+    "bytes": 9354
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+    "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+    "bytes": 16630
+  },
+  {
+    "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+    "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+    "bytes": 10959
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+    "bytes": 26853
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+    "sha256": "d7d8941e831c8d0bee507643ef8904b3b3a3be560181f48f5361b9837edd7082",
+    "bytes": 387254
+  },
+  {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+    "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    "bytes": 26888
+  },
+  {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/effects/L2-report.md",
+    "sha256": "4161ee63119c9b7490f0feb9cabe4c1d03b2c5ce6c040fb610af12737b998e66",
+    "bytes": 42381
+  },
+  {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/L2-report.md",
+    "sha256": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+    "bytes": 29197
+  }
+]

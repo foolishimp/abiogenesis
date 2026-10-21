@@ -1,0 +1,6 @@
+code/src/implementation/worksite_command_helper.ts(2,1): error TS18026: '#!' can only be used at the start of a file.
+code/src/implementation/worksite_command_helper.ts(2,2): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+code/src/implementation/worksite_command_helper.ts(2,3): error TS2872: This kind of expression is always truthy.
+code/src/implementation/worksite_command_helper.ts(2,12): error TS2304: Cannot find name 'env'.
+code/src/implementation/worksite_command_helper.ts(2,16): error TS1005: ';' expected.
+code/src/implementation/worksite_command_helper.ts(2,16): error TS2552: Cannot find name 'node'. Did you mean 'Node'?

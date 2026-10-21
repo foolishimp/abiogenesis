@@ -1,0 +1,15 @@
+{
+  "kind": "attributed_tool_execution_receipt",
+  "source": "exec_command tool return; not a claim of original separate stdout/stderr bytes",
+  "chunkId": "b84eed",
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/bind.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 1,
+  "wallSeconds": 0.572869916,
+  "firstAssertionSource": "bind.py line60 check(src,r), line13 exact hash/byte predicate",
+  "error": "AssertionError: /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+  "physicalLaunchCount": 0
+}

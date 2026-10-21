@@ -1,0 +1,134 @@
+{
+  "sourceRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution",
+  "portableRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/evidence",
+  "files": [
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/actual-owner-results.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474693289,
+        "type": "file",
+        "bytes": 91086,
+        "sha256": "d0a7ae8b0b90bdd72380d49dc619daf0a5d07c2369fc9b1d5ce7d2a4a7c7dd71"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/evidence/actual-owner-results.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474694013,
+        "type": "file",
+        "bytes": 91086,
+        "sha256": "d0a7ae8b0b90bdd72380d49dc619daf0a5d07c2369fc9b1d5ce7d2a4a7c7dd71"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/calls/preparation-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474693292,
+        "type": "file",
+        "bytes": 33843695,
+        "sha256": "70299b7965b7402c3923b814ca3f36a0b1699c31aa66d5e35a03d911a99d123d"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/evidence/calls/preparation-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474694015,
+        "type": "file",
+        "bytes": 33843695,
+        "sha256": "70299b7965b7402c3923b814ca3f36a0b1699c31aa66d5e35a03d911a99d123d"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/immutable-family-domain.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474693290,
+        "type": "file",
+        "bytes": 5294,
+        "sha256": "f230ea9a3c2c9df37815760ae6e63b1942cc9f48acfbbe07a2de3cf2dd299e67"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/evidence/immutable-family-domain.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474694016,
+        "type": "file",
+        "bytes": 5294,
+        "sha256": "f230ea9a3c2c9df37815760ae6e63b1942cc9f48acfbbe07a2de3cf2dd299e67"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474693284,
+        "type": "file",
+        "bytes": 1597,
+        "sha256": "4619460ff44ddbcdfe3a4e9402bc58b83b6a8e923c24b1ca386fab85dc00519e"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/evidence/preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474694017,
+        "type": "file",
+        "bytes": 1597,
+        "sha256": "4619460ff44ddbcdfe3a4e9402bc58b83b6a8e923c24b1ca386fab85dc00519e"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/receipts/preparation-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474693294,
+        "type": "file",
+        "bytes": 5354,
+        "sha256": "e9a4490213d1d6d46de38540c62e53885ea3aeda5d769449a01049e3995a64a9"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/evidence/receipts/preparation-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474694019,
+        "type": "file",
+        "bytes": 5354,
+        "sha256": "e9a4490213d1d6d46de38540c62e53885ea3aeda5d769449a01049e3995a64a9"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474693295,
+        "type": "file",
+        "bytes": 467,
+        "sha256": "89422d9d36b75700ad938f9f6505d389cbf5aad56186abf1490f3556f87ec490"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/evidence/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474694020,
+        "type": "file",
+        "bytes": 467,
+        "sha256": "89422d9d36b75700ad938f9f6505d389cbf5aad56186abf1490f3556f87ec490"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    }
+  ],
+  "excludedInstalledPayloadFiles": 0,
+  "selection": "All case evidence except sandbox/installed package payload, which remains in actual root and full physical hash/mode inventory; no package bytes silently discarded."
+}

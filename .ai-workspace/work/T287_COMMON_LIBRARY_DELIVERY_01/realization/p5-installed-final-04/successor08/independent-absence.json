@@ -1,0 +1,27 @@
+{
+  "observedAt": "2026-10-21T08:37:07.505157+00:00",
+  "rows": [
+    {
+      "label": "test-host",
+      "pidOrGroupId": 74749,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "test-host",
+      "pidOrGroupId": 74749,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "test-supervisor",
+      "pidOrGroupId": 74747,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    }
+  ],
+  "scope": "Only actually recorded owned/fixture identities; no invented command PID and no universal descendant claim"
+}

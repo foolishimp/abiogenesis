@@ -1,0 +1,13 @@
+# Final06 ordinary HoG binding
+
+Product Frame: fixed fifteen-family ABI5.0; active T287 common-library prerequisite. This preparation binds the existing compose/retry, workflow-foldback and fan-out partial-stop proof. GTL declares, HoG traverses, exact owners perform effects, ABG admits, and fresh Public reads project admitted truth. No native actor, optional law suite, release acceptance or new runtime is selected.
+
+Reuse the sequence, three independent oracles and failure boundary in ../hog-ordinary-owner-driver-preparation-01/HOW.md and case-map.json unchanged. Final06 and its actual finalP1 predecessor are the only execution subjects. Source/emitted/dependency/support and protected-main carriers are explicit format/path translations of closed inventories; no broad stage/main scan occurs during binding. The original driver's preflight still checks their actual files before effects.
+
+Root admitted one support binding delta: root-installed-environment.mjs 18dc4b6b… -> e7bcbfd8…. Only setupInstalledRootInvocation's existingEnvironment and invocationRef overrides changed. The unchanged driver calls setupInstalledRootCatalog directly; it never calls the changed helper. The 20 remaining inspected support/owner pairs match exactly. Full attributed delta and raw diff are retained.
+
+The package verifier's installed expectation is explicitly derived from the unchanged raw 5,271-member tar inventory. npm extraction makes the two package.json-declared bin targets executable: cli.js and codex_cli.js, 0644 -> 0755. Every member name, byte identity, byte length and other mode remains exact. FinalP1's actual installed receipts establish this relation. Raw tar metadata remains separately pinned; neither package bytes nor the original driver/oracle changes.
+
+The candidate-record adapter satisfies the original driver's readiness-carrier contract using final06's actual manifest/content/archive and closed finalP1 proof. It makes no HoG result or acceptance claim. The finite seed consists only of the eight actual finalP1 _cacache content/index files. It has been inventoried but not copied. The later granted driver copies it to each new owned cache; offline/no-script settings and distinct empty user/global npmrc files prevent ambient cache/network fallback and npm config aliasing.
+
+The NOT_GRANTED configuration and grant cannot execute. Root receives this exact preparation for independent binding verification and a separate execution activation. All future runtime roots remain absent under /private/tmp/abg-stdo3-hog-fea4398de7a145e9. No current install, traversal, pack, build, provider, Git or cleanup effect occurred.

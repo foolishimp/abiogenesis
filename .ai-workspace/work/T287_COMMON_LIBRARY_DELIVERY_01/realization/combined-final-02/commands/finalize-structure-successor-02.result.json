@@ -1,0 +1,23 @@
+{
+  "label": "finalize-structure-successor-02",
+  "exitCode": 0,
+  "wallMsBeforeFreeze": 22413.8564998284,
+  "completedUtc": "2026-10-21T03:34:59.244026+00:00",
+  "sourceEntries": 1319,
+  "stageEntries": 6641,
+  "dependencyEntries": 4576,
+  "priorPreservedEntries": 109303,
+  "priorRoots": 30,
+  "mainGeneratedPreservedEntries": 936,
+  "mainInputPreservedEntries": 1319,
+  "supportEntries": 416,
+  "selectedRunnerSupportEntries": 415,
+  "originalFailurePreserved": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/first-cause.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 2153,
+    "sha256": "a054de724d00abbdf8f1efe9438a6da9d342c55bde02cb8d858510e5856b08c9"
+  },
+  "newUnexpectedFailure": null
+}

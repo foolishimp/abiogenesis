@@ -1,0 +1,153 @@
+{
+  "kind": "t287_hog_ordinary_owner_configuration",
+  "status": "NOT_GRANTED",
+  "activationFile": null,
+  "method": {
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "subject": {
+    "id": "candidate",
+    "stageTenant": null,
+    "freeze": {
+      "path": null,
+      "sha256": null,
+      "bytes": null,
+      "mode": null
+    },
+    "candidateRecord": {
+      "path": null,
+      "sha256": null,
+      "bytes": null,
+      "mode": null
+    },
+    "archive": {
+      "path": null,
+      "sha256": null,
+      "bytes": null,
+      "mode": null
+    },
+    "manifest": {
+      "path": null,
+      "sha256": null,
+      "bytes": null,
+      "mode": null
+    },
+    "productContentDigest": null,
+    "packageInventory": {
+      "path": null,
+      "sha256": null,
+      "bytes": null,
+      "mode": null
+    },
+    "inventories": [
+      {
+        "role": "source",
+        "path": null,
+        "sha256": null,
+        "bytes": null,
+        "mode": null,
+        "root": null
+      },
+      {
+        "role": "emitted",
+        "path": null,
+        "sha256": null,
+        "bytes": null,
+        "mode": null,
+        "root": null
+      },
+      {
+        "role": "dependencies",
+        "path": null,
+        "sha256": null,
+        "bytes": null,
+        "mode": null,
+        "root": null
+      },
+      {
+        "role": "support",
+        "path": null,
+        "sha256": null,
+        "bytes": null,
+        "mode": null,
+        "root": null
+      }
+    ]
+  },
+  "prerequisites": [
+    {
+      "...": "mandatory exact satisfied final candidate predecessor selected by Executive",
+      "path": null,
+      "sha256": null,
+      "bytes": null,
+      "mode": null
+    }
+  ],
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "bytes": 86104016,
+      "mode": "0o555",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "bytes": 54,
+      "mode": "0o755",
+      "version": "11.5.1"
+    }
+  },
+  "protectedMain": {
+    "path": null,
+    "sha256": null,
+    "bytes": null,
+    "mode": null,
+    "root": "/Users/jim/src/apps/abiogenesis"
+  },
+  "npmCacheSeed": {
+    "path": null,
+    "sha256": null,
+    "bytes": null,
+    "mode": null,
+    "root": null
+  },
+  "resources": {
+    "parent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9",
+    "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/driver-evidence",
+    "cases": {
+      "compose-retry": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache"
+      },
+      "workflow-foldback": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/cache"
+      },
+      "fanout-partial": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/cache"
+      }
+    }
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  }
+}

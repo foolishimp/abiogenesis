@@ -1,0 +1,33 @@
+{
+  "activation": "C0-STAGE-METADATA-03",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifest": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "predecessorFreezeSha256": "7579fe86579c0c90e64cc02c497ae8d3e9c4af2aa90ee360bb3de55fe2c671bd",
+  "dependencyDonorFreezeSha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+  "physical_root": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-03",
+  "newCompiles": 0,
+  "source_paths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+  ],
+  "scope": "new staging metadata preservation and existing generator/material/pack/proof only; old cuts and all main sources/tests/support immutable",
+  "limits": {
+    "principalC0Attempts": 5,
+    "expectedPrincipalC0Attempts": 4,
+    "freshReadonlyChildrenPerCase": 2,
+    "nativeActors": 0,
+    "commandTimeoutMs": 600000,
+    "allNewLogicalBytes": 10737418240
+  },
+  "stop": "first unexpected selected failure stops before repair/retry/next case"
+}

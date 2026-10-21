@@ -1,0 +1,22 @@
+{
+  "status": "matched",
+  "combinedFreezeSha256": "7e4bb4f77a933120198800d6177a7e7154a66e29577db7dd7ee5a84fc483a514",
+  "combinedRowsVerified": 8011,
+  "protectedMainRowsVerified": 936,
+  "allCandidateSourceGeneratedDependencyPackageAndClosedRecordsUnchanged": true,
+  "allProtectedMainBytesUnchanged": true,
+  "eventStore": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 473931616,
+    "bytes": 3113299,
+    "sha256": "92b64d99d675e6c6f12d940d1141d0338b21c435581bf2c1bb6261ef000e8a0d",
+    "actualHandoffMatches": true,
+    "preservedPrefixCopy": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence/events.jsonl",
+      "sha256": "92b64d99d675e6c6f12d940d1141d0338b21c435581bf2c1bb6261ef000e8a0d",
+      "bytes": 3113299
+    }
+  },
+  "noRetryOrCleanup": true
+}

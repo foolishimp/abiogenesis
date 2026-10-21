@@ -1,0 +1,14 @@
+(node:88359) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result (586.271167ms)
+ℹ {"owner":"worker","capturedBytes":14,"lateDiagnosticRetained":false}
+ℹ {"owner":"command","capturedBytes":14,"lateDiagnosticRetained":false}
+ℹ {"owner":"http","capturedBytes":30,"lateDiagnosticRetained":true}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 623.2015

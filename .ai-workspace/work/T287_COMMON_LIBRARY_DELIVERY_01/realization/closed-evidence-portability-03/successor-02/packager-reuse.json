@@ -1,0 +1,11 @@
+{
+  "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/package.py",
+  "sha256": "1bbecfb56e42e6b01a89fd6fbab0c4492bc008a84501b95c28af0c1eb99a3889",
+  "successorSha256": "3f9a733c7c4331e103fede787186f2ec4ed4d06c671e111836a22e98fe09cbd8",
+  "preservedAlgorithm": "Exact64MiB chunk reads, content-addressed inert USTAR members, normalized metadata, gzip, per-archive compressed bound, archive/member/uncompressed-tar verification.",
+  "boundedAdaptation": [
+    "New population object-source states replace the old freshly acquired all-original metadata shape.",
+    "Require closed population command/streams.",
+    "Verify source custody for new object sources only and selected compact closed subjects; no repeated full original/main inventories."
+  ]
+}

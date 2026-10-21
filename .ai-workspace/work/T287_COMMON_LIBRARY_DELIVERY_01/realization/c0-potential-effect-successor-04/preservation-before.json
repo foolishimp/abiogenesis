@@ -1,0 +1,13 @@
+{
+  "predecessorFreezeSha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+  "predecessorRecordsVerified": 8623,
+  "predecessorPhysicalInventorySha256": "170c052687bc5fcba4d9882ef952b9094e2d7434cd82a33e15097d13df8f9d6d",
+  "predecessorPhysicalFileRecordsVerified": 5866,
+  "sourceInputsSha256": "fc95840383cbccd2fc27769d923a12c8c32dfa33adc20a17f3b4b1e4c504def3",
+  "stageInventorySha256": "5ce8d5e7aff9b3be5cd244e120e0a39f28a3f1f49a04e70e2cab5b86085438e7",
+  "dependencyInputsSha256": "b65e98ccd69e8473d4c33872b67760b4f18ac84e2b22de3ea0df6da8ab453185",
+  "generatedInventorySha256": "5e60b19b9779bdd0a2169e4d82ed499800d4f29d35031350a7b9c15040d6a810",
+  "archiveMembersSha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034",
+  "sourceEffects": [],
+  "newWholeCandidateCopies": 0
+}

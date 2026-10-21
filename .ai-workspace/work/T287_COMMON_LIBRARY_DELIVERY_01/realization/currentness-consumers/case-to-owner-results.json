@@ -1,0 +1,198 @@
+{
+  "rows": [
+    {
+      "owner": "Product replaceWorksiteFile -> EventStore evidence/Result -> EventCalculus",
+      "source_routes": [
+        "code/src/product/worksite_operations.ts",
+        "code/src/implementation/worksite_file_replace.ts",
+        "code/src/abg/event_store.ts",
+        "code/src/abg/event_calculus.ts"
+      ],
+      "case": "actual admitted C0 successor",
+      "test_function": "c0Success:74",
+      "evidence": {
+        "path": "attempt-01/consumer-results.json",
+        "sha256": "5c2e2c4d6b1ba44f0c7b421472676ed3df2b84735fa5537dfb17511ec257f76d",
+        "attempt_receipt": "focused-01.json",
+        "aggregate_exit_code": 1
+      },
+      "result": {
+        "owner": "Product replaceWorksiteFile -> EventStore -> EventCalculus",
+        "case": "admitted C0 successor",
+        "physical": {
+          "kind": "worksite_file_replace_result",
+          "schemaVersion": "5.0.0",
+          "disposition": "committed",
+          "effectUri": "effect://abiogenesis/worksite/file.replace/v1",
+          "receipt": {
+            "kind": "worksite_file_replace_receipt",
+            "schemaVersion": "5.0.0",
+            "receiptRef": "worksite-file-replace-receipt://abiogenesis/5158b685dd58bb93a74d9894cb0cdd038b67ba3e4c029fae765901bfe6b79487",
+            "receiptDigest": "sha256:5158b685dd58bb93a74d9894cb0cdd038b67ba3e4c029fae765901bfe6b79487",
+            "authorizationRef": "worksite-effect-authorization://abiogenesis/41e75a53955abe68526d1d7f976ab6a8b6f72fe449f640e2995dacd6d81b2625",
+            "authorizationDigest": "sha256:41e75a53955abe68526d1d7f976ab6a8b6f72fe449f640e2995dacd6d81b2625",
+            "beforeObservationRef": "worksite-observation://abiogenesis/b879c89e3b6bd442dc593b3504e5fdabcce9718b55808384ab12cd740bc51931",
+            "beforeObservationDigest": "sha256:b879c89e3b6bd442dc593b3504e5fdabcce9718b55808384ab12cd740bc51931",
+            "afterObservationRef": "worksite-observation://abiogenesis/ac3d42c36ebe6eedffdcd13f3b84795ed1420d72995e8b98b1ffa9490ca309fe",
+            "afterObservationDigest": "sha256:ac3d42c36ebe6eedffdcd13f3b84795ed1420d72995e8b98b1ffa9490ca309fe",
+            "writtenDigest": "sha256:1e81270f1a47dce22a2e4985250c74b2e3374443734f1492b03ea2cd2af4ec48",
+            "committed": true
+          },
+          "successorObservation": {
+            "kind": "worksite_observation",
+            "schemaVersion": "5.0.0",
+            "observationRef": "worksite-observation://abiogenesis/ac3d42c36ebe6eedffdcd13f3b84795ed1420d72995e8b98b1ffa9490ca309fe",
+            "observationDigest": "sha256:ac3d42c36ebe6eedffdcd13f3b84795ed1420d72995e8b98b1ffa9490ca309fe",
+            "workspaceBindingIdentity": "workspace-binding://abiogenesis/dbe915c7447354abfe183cbfc8e349d9ac6c90c01cc2de472d93f772e0cb5fe8",
+            "subjectRef": "worksite-subject://abiogenesis/eda324d1fe642ba0beb90aa613d40c10f8d6229f163752dc49fa26bce8e92297",
+            "subjectDigest": "sha256:eda324d1fe642ba0beb90aa613d40c10f8d6229f163752dc49fa26bce8e92297",
+            "state": "file",
+            "fileIdentity": "16777231:473961994",
+            "fileDigest": "sha256:1e81270f1a47dce22a2e4985250c74b2e3374443734f1492b03ea2cd2af4ec48",
+            "byteLength": 10
+          }
+        },
+        "evidenceEvent": "event://abiogenesis/7b9bf0f62f34cd252f24e8572e056033249a12405580b4458b2b3f9827155f67",
+        "resultEvent": "event://abiogenesis/a81da081e19deb9d0852b39c722fc5eb12b2a6a8af62c47ae65074b973ff95f2",
+        "causeEvent": "event://abiogenesis/e76252703b2110d2a27ee8fd4b305f42693c3722fc21f7187fff8880c8717f62",
+        "beforeCause": true,
+        "afterCause": false,
+        "siblingCurrent": true,
+        "lowerPremises": "cold installation/binding/implementation coordinates; actual Product effect and EventStore evidence/Result admission; controlled native actor/process facts, no process launch"
+      },
+      "claim": "physical receipt alone and evidence alone do not establish successor currentness; actual success Result does; actual authenticated unknown cause retires successor and preserves sibling and immutable Result/receipt history"
+    },
+    {
+      "owner": "execution_basis.exactC2SourceEnvironment",
+      "source_routes": [
+        "code/src/abg/execution_basis.ts"
+      ],
+      "test_function": "observedConsumers:161",
+      "through_owner": "hasExactWorksiteCommandLeafSourceAtDurablePrefix",
+      "evidence": {
+        "path": "attempt-02/consumer-results.json",
+        "sha256": "d84327dd5127b908a95144791496350376b0ce03493b48c279f2943e13a3b8f6",
+        "attempt_receipt": "focused-02.json",
+        "aggregate_exit_code": 1
+      },
+      "before": true,
+      "affected_after": false,
+      "sibling_after": true,
+      "different_binding_same_root_after": false,
+      "foreign_basis_cause_after": true,
+      "actual_invalidator_calls": 9
+    },
+    {
+      "owner": "worksite_input_provenance.projectObservedWorksiteCommandChildAtPrefix",
+      "source_routes": [
+        "code/src/abg/worksite_input_provenance.ts"
+      ],
+      "test_function": "observedConsumers:161",
+      "evidence": {
+        "path": "attempt-02/consumer-results.json",
+        "sha256": "d84327dd5127b908a95144791496350376b0ce03493b48c279f2943e13a3b8f6",
+        "attempt_receipt": "focused-02.json",
+        "aggregate_exit_code": 1
+      },
+      "before": "exact preparation provenance",
+      "affected_after": null,
+      "sibling_after": "same preparation provenance",
+      "different_binding_same_root_after": null,
+      "foreign_basis_cause_after": "same preparation provenance",
+      "actual_invalidator_calls": 9
+    },
+    {
+      "owner": "default_library.nativeTask source gate187",
+      "source_routes": [
+        "code/src/abg/default_library.ts:187"
+      ],
+      "test_function": "governanceConsumers:255",
+      "through_owner": "projectGovernanceNativeTask",
+      "evidence": {
+        "path": "attempt-04/consumer-results.json",
+        "sha256": "d9c003192eaffe1bc35157ff6ed0496e2468870c72bb98d6d410d28a7444c84c",
+        "attempt_receipt": "focused-04.json",
+        "aggregate_exit_code": 1
+      },
+      "before": "valid native assessment task",
+      "affected_after": null,
+      "sibling_after": "identical valid task",
+      "actual_invalidator_calls": 4
+    },
+    {
+      "owner": "default_library.projectGovernanceParent gate310",
+      "source_routes": [
+        "code/src/abg/default_library.ts:310"
+      ],
+      "test_function": "governanceConsumers:255",
+      "evidence": {
+        "path": "attempt-04/consumer-results.json",
+        "sha256": "d9c003192eaffe1bc35157ff6ed0496e2468870c72bb98d6d410d28a7444c84c",
+        "attempt_receipt": "focused-04.json",
+        "aggregate_exit_code": 1
+      },
+      "before": "terminal true",
+      "affected_after": "terminal false, original unresolved supports and attributed history retained",
+      "sibling_after": "terminal true, no unresolved supports",
+      "actual_invalidator_calls": 4
+    },
+    {
+      "owner": "semantic_job.nativeStageSource",
+      "source_routes": [
+        "code/src/abg/semantic_job.ts:519"
+      ],
+      "test_function": "semanticFoldConsumer:437",
+      "evidence": {
+        "path": "attempt-05/consumer-results.json",
+        "sha256": "c0b4054288fae99ec79cad5c8843bf9d2ac2ad259472a884765fcea0b78945e3",
+        "attempt_receipt": "focused-05.json",
+        "aggregate_exit_code": 0
+      },
+      "before": "valid SemanticJobEnvelope",
+      "affected_after": null,
+      "sibling_after": "same SemanticJobEnvelope",
+      "actual_invalidator_calls": 4
+    },
+    {
+      "owner": "semantic_revision.nativeIntakeFacts",
+      "source_routes": [
+        "code/src/abg/semantic_revision.ts:290"
+      ],
+      "test_function": "revisionIntakeConsumer:460",
+      "evidence": {
+        "path": "attempt-05/consumer-results.json",
+        "sha256": "c0b4054288fae99ec79cad5c8843bf9d2ac2ad259472a884765fcea0b78945e3",
+        "attempt_receipt": "focused-05.json",
+        "aggregate_exit_code": 0
+      },
+      "before": "valid selection input",
+      "affected_after": "native_revision_source_invalidated",
+      "sibling_after": "same selection input",
+      "actual_invalidator_calls": 4
+    },
+    {
+      "owner": "semantic_revision.nativeJobRevisionSubject",
+      "source_routes": [
+        "code/src/abg/semantic_revision.ts:354"
+      ],
+      "test_function": "revisionEvidenceConsumer:503",
+      "evidence": {
+        "path": "attempt-05/consumer-results.json",
+        "sha256": "c0b4054288fae99ec79cad5c8843bf9d2ac2ad259472a884765fcea0b78945e3",
+        "attempt_receipt": "focused-05.json",
+        "aggregate_exit_code": 0
+      },
+      "before": "authenticated retained-evidence subject",
+      "affected_after": null,
+      "sibling_after": "same evidence and acquisition",
+      "actual_invalidator_calls": 4
+    }
+  ],
+  "downstream_gate_count": 7,
+  "actual_invalidator_calls": 38,
+  "actual_unknown_causes_across_completed_cases": 9,
+  "closed_case_result_records": 9,
+  "aggregation": "Completed case functions only; earlier aggregate runs stopped at later prerequisite failures. Final selected semantic-only aggregate passed. No complete latest-file full-population rerun is claimed.",
+  "support_correspondence_sha256": "2db14155c6dd849cba0b79ad5d6489efc56fa2e6b8fe611281406df4aa7363f1",
+  "prefix_mode_support": "Unchanged closed U1 production subject433107b89d8eb01cc5a67ad6c8543e18d37575d5f89ba490c3795108955e788d retains indexed/lazy/full/incremental/cold proof; no closed26 cases repeated. Combined-candidate correspondence remains Executive-owned."
+}

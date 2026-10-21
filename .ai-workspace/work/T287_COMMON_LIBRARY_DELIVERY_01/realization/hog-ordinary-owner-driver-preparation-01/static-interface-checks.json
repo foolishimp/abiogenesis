@@ -1,0 +1,96 @@
+{
+  "status": "satisfied",
+  "exports": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+      "exportedNames": [
+        "setupInstalledRootCatalog"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "exportedNames": [
+        "prepareLanguageStructuralFixture"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "exportedNames": [
+        "constructInstalledStartCall",
+        "constructInstalledRunReadCall"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "sha256": "683adaea9685ab094fd80559230fe1ee7a13cc235f6bc41490869a66c89a47d0",
+      "exportedNames": [
+        "selectValidatedRuntimeEventPrefix",
+        "validatedRuntimeEventPrefixThroughEvent"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "sha256": "050b8e8870a62432180857e726905425a2f6d0186a19fac886fb037d480ad872",
+      "exportedNames": [
+        "projectHistoricalTraversalRouteAtPrefix"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+      "sha256": "67258ae85c34dbc5230e2ccc5cfa161f87c07893023f31beab00442e68736243",
+      "exportedNames": [
+        "projectApplicationChildFoldbackAtPrefix"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/fan_out_projection.ts",
+      "sha256": "80f17578df1809c8bae3fb3966e8e2be4418df34a75ea925d8def4de4caa8f50",
+      "exportedNames": [
+        "projectExactFanOutCompletion"
+      ]
+    }
+  ],
+  "relativeStaticSupportImports": [
+    {
+      "from": "test_env/support/root-installed-environment.mjs",
+      "to": "test_env/support/candidate-basis.mjs"
+    },
+    {
+      "from": "test_env/support/root-installed-environment.mjs",
+      "to": "test_env/support/language-smoke-fixture.mjs"
+    },
+    {
+      "from": "test_env/support/language-smoke-fixture.mjs",
+      "to": "test_env/fixtures/language-smoke/program.mjs"
+    },
+    {
+      "from": "test_env/support/language-smoke-fixture.mjs",
+      "to": "test_env/fixtures/language-smoke/program.mjs"
+    },
+    {
+      "from": "test_env/support/language-smoke-fixture.mjs",
+      "to": "test_env/fixtures/language-smoke/program.mjs"
+    },
+    {
+      "from": "test_env/support/registered-graph-selection.mjs",
+      "to": "test_env/fixtures/registered-selection-product/index.mjs"
+    },
+    {
+      "from": "test_env/fixtures/language-structural/leaf.mjs",
+      "to": "test_env/fixtures/language-structural/program.mjs"
+    },
+    {
+      "from": "test_env/support/language-structural-fixture.mjs",
+      "to": "test_env/fixtures/language-structural/program.mjs"
+    }
+  ],
+  "structuralFixtureDynamicSourceCopy": [
+    "test_env/fixtures/language-structural/program.mjs",
+    "test_env/fixtures/language-structural/leaf.mjs"
+  ],
+  "futureInstalledOwnerClosure": "full package member inventory and source/emitted/dependency inventories mandatory; no imported Product module checked by executing it",
+  "notProved": "runtime carrier construction, installation, Public outcomes, event laws and future final source correspondence remain unexecuted"
+}

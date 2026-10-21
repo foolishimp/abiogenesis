@@ -1,0 +1,31 @@
+{
+  "status": "closed_after_process_completion",
+  "exitCode": 0,
+  "files": [
+    {
+      "path": "population.command.json",
+      "sha256": "5832fea7c80399accffe5f31bb3b5018c405b97f3b310752779bedbffeadba25",
+      "bytes": 395
+    },
+    {
+      "path": "population.stdout",
+      "sha256": "0c7af9da1095aa4b0fc28203d0f53e95cb3f30521d538020bb920efa6cd497d4",
+      "bytes": 592
+    },
+    {
+      "path": "population.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "population.receipt.json",
+      "sha256": "682e67121245873d32aaa1af1bb3769397d2cd596b0ad628268172306fe0c7a7",
+      "bytes": 353
+    },
+    {
+      "path": "population-freeze.json",
+      "sha256": "62f7b25ccd02736f9de96b901eb390a1113d0146be8c44fc9e51ed0e2ac1a996",
+      "bytes": 3765
+    }
+  ]
+}

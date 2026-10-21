@@ -1,0 +1,82 @@
+{
+  "kind": "bounded-diagnostic-freeze",
+  "subject": "E03-DIAG-02",
+  "files": [
+    {
+      "path": "activation.md",
+      "bytes": 581,
+      "sha256": "081256d10b7475497e40e104f721b31fb176196abc350c9ce46ad3634ab4274c"
+    },
+    {
+      "path": "baseline-case.json",
+      "bytes": 433,
+      "sha256": "bdf84026eba76039164d0d3107b4b196a2c6aa9afb7a68a664d74aecb0af135c"
+    },
+    {
+      "path": "baseline-case.log",
+      "bytes": 1333,
+      "sha256": "c3ed2aa1d10e0975ddc6c35ae66d37341aa6245a682e77df630805d2504599c2"
+    },
+    {
+      "path": "baseline-compile.json",
+      "bytes": 334,
+      "sha256": "c09fca2d78f96b54889ca5ff042e9f9b237eb8cb2823cd33ed195cb3f0a903a5"
+    },
+    {
+      "path": "baseline-compile.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "baseline-generate.json",
+      "bytes": 308,
+      "sha256": "9ed730a64f58e04c419a34d909cf7e2353a8f42591d35dc873599b8ddf7cf962"
+    },
+    {
+      "path": "baseline-generate.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "baseline-inventory.json",
+      "bytes": 155980,
+      "sha256": "0e62739a8ced94f4e0800aecadb4469072fe6adfa8dc8c43cb2b769f8aa5eb68"
+    },
+    {
+      "path": "basis.json",
+      "bytes": 2522,
+      "sha256": "24049fc53c7e7a44f81f659121e6ab1afe6c66aaba6eeaee72dbfdbe9abf6fec"
+    },
+    {
+      "path": "cleanup.json",
+      "bytes": 900,
+      "sha256": "ac8661ab522ae2726fd173379c00dd332e39f8d3906d0c273ffca4cd81db513e"
+    },
+    {
+      "path": "current-case.json",
+      "bytes": 390,
+      "sha256": "bdab1cf4b31926b73ee7bdf8d5f9164c3f75cf709a256f52379df99675af340f"
+    },
+    {
+      "path": "current-case.log",
+      "bytes": 1502,
+      "sha256": "f4ba181a31144a220b65885b92a69185aad9ef08f84e2830e4aa53d27ed34b93"
+    },
+    {
+      "path": "current-inventory.json",
+      "bytes": 156494,
+      "sha256": "51822444e1b32e7e6d1e3a53242fd6e302c526ab1b7946c35557488a0bd11045"
+    },
+    {
+      "path": "instrumentation.json",
+      "bytes": 6913,
+      "sha256": "bbbac6dec757183fac2df0ff4a2844726ed560fc49584c6d212f10981f85b3ff"
+    },
+    {
+      "path": "result.md",
+      "bytes": 3488,
+      "sha256": "1b8e28b3a7eb66f1e0c2b3b3dad970add75fa19aebecea870e7e55fa5cb49d57"
+    }
+  ],
+  "decision": "pre_existing_fixture_authentication_mismatch; return to Executive for repair disposition"
+}

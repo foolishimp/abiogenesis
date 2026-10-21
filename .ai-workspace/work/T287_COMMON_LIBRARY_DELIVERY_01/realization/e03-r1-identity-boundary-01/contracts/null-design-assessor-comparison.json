@@ -1,0 +1,13 @@
+{
+  "mode": "null",
+  "cut": "design-assessor",
+  "stageRef": "stage://generic-job-mechanics.example/design@5",
+  "role": "assessor",
+  "inputCanonicalDigest": "sha256:468ee223920ba6701a6bf980027a93b5497e718df893faad7bf17038f3429dc1",
+  "baselineContractDigest": "sha256:7f8f1d0e3937a274ee3f89c5220818d19cd9f397e9528bced45cf77aaece1f3c",
+  "successorContractDigest": "sha256:7f8f1d0e3937a274ee3f89c5220818d19cd9f397e9528bced45cf77aaece1f3c",
+  "exactAcrossCuts": true,
+  "differences": [],
+  "deterministicWithinEachCut": true,
+  "status": "passed"
+}

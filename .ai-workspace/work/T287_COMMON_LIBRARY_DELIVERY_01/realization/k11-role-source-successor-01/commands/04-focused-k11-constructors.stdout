@@ -1,0 +1,11 @@
+✔ K11 current public specialization admits exact standalone STDO3 and conserves explicit source identity (22.697667ms)
+✔ K11 every standalone role binds native STDO material while additional generic material remains explicit (3.123875ms)
+✔ K11 explicit corpus construction still requires every source, companion and role-access join (4.495417ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 386.640833

@@ -1,0 +1,27 @@
+{
+  "activation": "E03-R1-IDENTITY-BOUNDARY-01",
+  "closedUtc": "2026-10-21T01:48:12.159883+00:00",
+  "counts": {
+    "baselineSourceUnchanged": 1311,
+    "baselineArchiveStageUnchanged": 5267,
+    "baselineDependenciesUnchanged": 4576,
+    "successorStageUnchanged": 1946,
+    "successorDependenciesUnchanged": 4576,
+    "successorEmittedUnchanged": 743,
+    "successorRecordsUnchanged": 183
+  },
+  "mismatches": [],
+  "preflight": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/preflight.json",
+    "bytes": 16898,
+    "sha256": "ea453a7124b758bfe33303ef696c868fe92ea6ef9dbc55865d3756ae8c747515"
+  },
+  "result": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/result.json",
+    "bytes": 14690,
+    "sha256": "037388530700d481929d8715ab02d6b82651b1d0b4f944d02940200bc8612dc1"
+  },
+  "preExecutionInputsUnchanged": true,
+  "priorTraceUnchanged": true,
+  "limits": "Finite named inventories only; no claim about the moving combined candidate or whole worktree."
+}

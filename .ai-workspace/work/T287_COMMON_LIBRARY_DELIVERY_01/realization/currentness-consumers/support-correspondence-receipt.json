@@ -1,0 +1,5 @@
+{
+  "exit_code": 0,
+  "stderr": "",
+  "earlier_assembly_error": "Attempted absent redundant failed-02 support copy; execution-inputs-02 binds unchanged exact support retained in failed-01. Empty incomplete output preserved separately. No fixture/test/owner run performed."
+}

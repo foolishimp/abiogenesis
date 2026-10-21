@@ -1,0 +1,142 @@
+{
+  "files": [
+    {
+      "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "mode": "0o644",
+      "bytes": 521,
+      "sha256": "359a6a21bd40382ac1ae71dfa235a74ebf2a2389375fc548e685ee22cfbbde5e",
+      "type": "file"
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/leaf.mjs",
+      "mode": "0o644",
+      "bytes": 3059,
+      "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+      "type": "file"
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/program.mjs",
+      "mode": "0o644",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "type": "file"
+    },
+    {
+      "path": "test_env/fixtures/language-structural/leaf.mjs",
+      "mode": "0o644",
+      "bytes": 10669,
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "type": "file"
+    },
+    {
+      "path": "test_env/fixtures/language-structural/program.mjs",
+      "mode": "0o644",
+      "bytes": 22919,
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+      "type": "file"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/index.mjs",
+      "mode": "0o644",
+      "bytes": 10076,
+      "sha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+      "type": "file"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/native.mjs",
+      "mode": "0o644",
+      "bytes": 6294,
+      "sha256": "963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6",
+      "type": "file"
+    },
+    {
+      "path": "test_env/support/candidate-basis.mjs",
+      "mode": "0o644",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd",
+      "type": "file"
+    },
+    {
+      "path": "test_env/support/installed-language-test.mjs",
+      "mode": "0o644",
+      "bytes": 4500,
+      "sha256": "34d91efdba0602ad47d375fb46a85015eabd7d816a63eba68b3f113559986f95",
+      "type": "file"
+    },
+    {
+      "path": "test_env/support/language-smoke-fixture.mjs",
+      "mode": "0o644",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "type": "file"
+    },
+    {
+      "path": "test_env/support/language-structural-fixture.mjs",
+      "mode": "0o644",
+      "bytes": 7076,
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "type": "file"
+    },
+    {
+      "path": "test_env/support/registered-graph-selection.mjs",
+      "mode": "0o644",
+      "bytes": 21826,
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "type": "file"
+    },
+    {
+      "path": "test_env/support/root-cli-environment.mjs",
+      "mode": "0o644",
+      "bytes": 9963,
+      "sha256": "e9643ad192a7d98b20794d0de732be17e987645e1c45a7e4ba418adf61a9e05c",
+      "type": "file"
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "mode": "0o644",
+      "bytes": 40294,
+      "sha256": "e7bcbfd831e1e710c6b4c0cee6eeeb1bf3d245b4409cc9cc4089ead21d0239d3",
+      "type": "file"
+    },
+    {
+      "path": "test_env/support/stdo3-run-environment.mjs",
+      "mode": "0o644",
+      "bytes": 5214,
+      "sha256": "81c51842c1d31366b509324eff717084f9df3cfee05c36d73411c855f10db76e",
+      "type": "file"
+    },
+    {
+      "path": "test_env/uat/consumer.mjs",
+      "mode": "0o644",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "type": "file"
+    },
+    {
+      "path": "test_env/uat/public-setup.mjs",
+      "mode": "0o644",
+      "bytes": 27984,
+      "sha256": "29abada25c16efff12bbd7bf995645e3aa68bb043eb59d67c988311a705aac18",
+      "type": "file"
+    }
+  ],
+  "sourceCarrier": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/stage-source-inventory.json",
+    "sha256": "1d4d796594268adc906f75f984958adab5a533f01357d5a7fb7e7e1dd4ca12dc",
+    "bytes": 353630,
+    "mode": "0o644"
+  },
+  "selection": "Closed finalP1 support set plus three structural helper/declaration/leaf members required by the original HoG driver",
+  "selectedSupport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/selected-support.json",
+    "sha256": "00eff68a7329e05420c7669dac48fdbc717acca880a361e865aecb934b549665",
+    "bytes": 3144,
+    "mode": "0o644"
+  },
+  "inspectedBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/inspected-inputs.json",
+    "sha256": "5b7daf7af1e7683798e45177edcd0ac0b332cc83072227f123987f8f75baebb8",
+    "bytes": 12709,
+    "mode": "0o644"
+  }
+}

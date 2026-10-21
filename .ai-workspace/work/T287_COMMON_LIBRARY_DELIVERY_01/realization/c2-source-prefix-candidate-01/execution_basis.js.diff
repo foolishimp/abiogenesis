@@ -1,0 +1,11 @@
+--- closed06/build_tenants/abiogenesis/typescript/build/code/src/abg/execution_basis.js
++++ C2-candidate/build_tenants/abiogenesis/typescript/build/code/src/abg/execution_basis.js
+@@ -373,7 +373,7 @@
+     let sourceDurablePrefix;
+     try {
+         sourcePrefix = validatedRuntimeEventPrefixThroughEvent(authorityPrefix, sourceRunClosures[0].eventId);
+-        const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix);
++        const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix).materialize();
+         sourceDurablePrefix = durableRuntimeEventPrefixThroughEvent(durablePrefix, sourceRunClosures[0].eventId);
+         if (!validateDurablePrefixCoordinate(sourceDurablePrefix) ||
+             !sameCanonical(readRuntimeEventsAtDurablePrefix(sourceDurablePrefix), sourceEvents))

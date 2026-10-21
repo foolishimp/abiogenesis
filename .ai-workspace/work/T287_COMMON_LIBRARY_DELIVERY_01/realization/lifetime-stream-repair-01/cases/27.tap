@@ -1,0 +1,10 @@
+✔ M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive (83.121375ms)
+ℹ {"exit":{"code":0,"signal":null},"deadlineExpired":false,"hostPid":88602,"identity":{"pid":88603,"pgid":88603},"stdout":"","stderr":"","owner":{"kind":"rejected","name":"Error","code":"EPIPE","errno":-32,"syscall":"write","message":"write EPIPE","stack":"Error: write EPIPE\n    at WriteWrap.onWriteComplete [as oncomplete] (node:internal/stream_base_commons:87:19)"},"survived":{"survived":true,"pid":88602},"samples":[{"group":"absent","pid":"absent"}]}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 368.839792

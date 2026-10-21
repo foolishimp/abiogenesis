@@ -1,0 +1,81 @@
+{
+  "kind": "executive_disposition_record_freeze",
+  "activation": "FINAL-REVIEW-DISPOSITION-RECORDS-01",
+  "administrative_successor": "N3-IMPORTER-ACCOUNTING-01",
+  "writer": "/root/stdo3_c0_currentness_writer",
+  "return_owner": "/root",
+  "at": "2026-10-21T03:27:03.744635+00:00",
+  "construction_result": "candidate_ready",
+  "claim": "Root-selected public findings/dispositions recorded and six triggered obligations registered; no independent acceptance",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "frame_anchor_exists": true,
+  "fallback_frame_used": false,
+  "method_release": "stdo://releases/v3.0.0-rc.1/",
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "accepted_L2_sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "design_sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+  "manifest_sha256": "802b703a821b39d0ba3d49930dfbd3c36eb183b0ee1e18dbcb9c95bb4b1c6c9c",
+  "report_sha256": "ed79b27e0a79a236b17b8d302460a7288bfe3d2164325a30776d30d150d010c7",
+  "review_metadata_sha256": "06666685f4fcd974781e9f3cc61a01c804b80ba11c56268117d6981b6c5d91de",
+  "summaries": {
+    "E03-public-summary.md": "be190aa74111731f208e36ec674c9cffca033ee9f4b80106bdd75883fa4fccb9",
+    "K11-public-summary.md": "c477a219a2ed26cfa13528954edf034814abff9aeec30538bcf9e0a79be9e5ca",
+    "U1-public-summary.md": "3dfd24434761837e61c94e864ddbdae0978edcf6b19f747b27d3be9889bd543f"
+  },
+  "capsules_sha256": "ca4e1b10dbc83983f335f29b6f76a3cf6422eebdfacffc7a448ec7b4f704c2b6",
+  "capsule_count": 6,
+  "capsule_status": "registered technical debt awaiting trigger",
+  "pending_obligations_sha256": "f986d743add28c68893cbcc5f83147d0df249e35b2bb91e20d87fd1e377eb605",
+  "source_basis_sha256": "17f1acf8d240fcf7c7549224b620888ef4331feb9534bdfca2705e8c3106986c",
+  "ticket": {
+    "activation": "FINAL-REVIEW-DISPOSITION-RECORDS-01",
+    "administrative_successor": "N3-IMPORTER-ACCOUNTING-01",
+    "at": "2026-10-21T03:24:36.048552+00:00",
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "kind": "bounded_additive_append",
+    "preimage": {
+      "path": "ticket-preimage.md",
+      "sha256": "4a6bd62f5ef62b901369dcd22094fb0cf85e0f67d2f13f7a167908c987f1a79e",
+      "bytes": 533349
+    },
+    "addition": {
+      "path": "ticket-addition.md",
+      "sha256": "45850323b5ea3d8e457d13c898febc22ac1c92c802292baa373ad3de3555a7dc",
+      "bytes": 5220
+    },
+    "afterimage": {
+      "path": "ticket-afterimage.md",
+      "sha256": "819c13cda5dff90c79e9fb73f9951bbcd7cbaf4fba28ed2e143ffab90d9b9a45",
+      "bytes": 538569
+    },
+    "exact_preimage_prefix_preserved": true,
+    "after_equals_preimage_plus_addition": true,
+    "section_anchor": "final-review-dispositions-01",
+    "section_start_line": 5045,
+    "later_ticket_updates_expected": true,
+    "whole_worktree_frozen": false
+  },
+  "final_checks_sha256": "3df130d402f50b90165072eca33960a68e51dc45a84fdf5d8c0daa2d8b9e7e8c",
+  "credited_N3_receipt_sha256": "4939ef34f147996e6315571e7b15455df39924580a158fabb807152c028d7ad0",
+  "first_administrative_failure_preserved": true,
+  "first_error": "AssertionError at stdin line16: too-strong no-owned-option assertion",
+  "original_first_script_and_error_provenance": "Writer public tool transcript chunk b96dff; displayed assertion/error copied without invented raw transcript hash",
+  "process_deviation": "Writer failed to return before correcting administrative assumption; pre-triage corrected check not authorized as successor evidence and receives no closure credit",
+  "uncredited_pretriage_check_outputs": [
+    "source-relations.json",
+    "links-preflight.json",
+    "content-checks.json"
+  ],
+  "no_retroactive_authorization": true,
+  "full_review_reports_acquired": false,
+  "hidden_reasoning_accessed": false,
+  "Product_tests_executed": 0,
+  "native_or_command_actors": 0,
+  "code_support_build_Goals_effects": 0,
+  "Git_effects": 0,
+  "continuation17": "not opened or mutated",
+  "acceptance": false,
+  "stopped_editing": true,
+  "remaining": "Combined source/package; P1/P2/P3/P5/U1/P4; HoG/E04; passive diagnostics; independent Product-Frame-first L5; Executive acceptance and checkpoint"
+}

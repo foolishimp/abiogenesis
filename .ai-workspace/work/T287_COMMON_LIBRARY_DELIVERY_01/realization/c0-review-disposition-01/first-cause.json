@@ -1,0 +1,8 @@
+{
+  "activation": "C0-REVIEW-DISPOSITION-01",
+  "mode": "freeze",
+  "errorType": "AssertionError",
+  "message": "",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-review-disposition-01/validate-and-freeze.py\", line 158, in <module>\n    assert p1['status'] == 'satisfied' and p1['actualPublicCalls'] == 10 and p1['nativeCalls'] == 0 and p1['retryCount'] == 0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "disposition": "Stopped; no repair or retry"
+}

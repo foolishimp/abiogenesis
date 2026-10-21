@@ -1,0 +1,48 @@
+{
+  "activation": "HOG-ORDINARY-OWNER-DRIVER-PREPARATION-01",
+  "issuedBy": "/root",
+  "writer": "/root/stdo3_proof_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "acceptedL2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+    "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    "bytes": 26888,
+    "mode": "0o644"
+  },
+  "proofContract": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/L2-report.md",
+    "sha256": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487",
+    "bytes": 29197,
+    "mode": "0o644"
+  },
+  "priorSupportFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/freeze.json",
+    "sha256": "8c0af8cdc2e3ae01d12e05a3baf328ce1637093444659cf0b8540859c241e49b",
+    "bytes": 13936,
+    "mode": "0o644"
+  },
+  "selection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/finite-selection.json",
+    "sha256": "733cc96c06b4c6e88e26281073b2154a9428b7bd0a2f1fff429f72a43c50f816",
+    "bytes": 9205,
+    "mode": "0o644"
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01",
+  "permittedEffects": [
+    "new preparation files",
+    "syntax and pure checks; no Product imports/workloads"
+  ],
+  "prohibited": [
+    "fixture creation/pack",
+    "install/workload/native",
+    "source/support/old-evidence mutation",
+    "Git",
+    "cleanup",
+    "held final endpoint launch"
+  ],
+  "futureResourcesParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9",
+  "historicalInspectionStage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript",
+  "futureCandidate": "requires new closed C0 successor and exact source/emission/support/package pins"
+}

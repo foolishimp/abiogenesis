@@ -1,0 +1,215 @@
+{
+  "kind": "closed_stopped_writer_proof_successor",
+  "activation": "C0-HOST-BIN-MODE-04",
+  "status": "stopped_first_semantic_input_invocation_admission_refusal",
+  "predecessorFreezeSha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+  "proofFreezeSha256": "c77a45e768538de187fbf835cb71202f374f01b637048cc834fcdcbf04e21be8",
+  "stopSha256": "a0ed8f420bfdf2a17d28824ad9f760e4ef5b8639de5de31b295cde4c944deefe",
+  "reportSha256": "0989bfe8aa4042fa235a231b56d2947c9f2c13174901a9f2c170168cf7f9102c",
+  "files": [
+    {
+      "path": "HOW-binding.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2565,
+      "sha256": "93cb6a669c739905514feaf6bd23a5c03f04fbcf985cf7a2d4a8d2b1cded8d85"
+    },
+    {
+      "path": "REPORT.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3109,
+      "sha256": "0989bfe8aa4042fa235a231b56d2947c9f2c13174901a9f2c170168cf7f9102c"
+    },
+    {
+      "path": "STOP.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2497,
+      "sha256": "a0ed8f420bfdf2a17d28824ad9f760e4ef5b8639de5de31b295cde4c944deefe"
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1119,
+      "sha256": "f8166768d68bf78e2135da1d93a4032633fe017b91a096c5c8dff48c26383003"
+    },
+    {
+      "path": "close-stopped.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 10618,
+      "sha256": "0fb8de1b6a4f8ba27ed2c7ef7e3ff037093d0d0fb497bc54df995fea30cd6996"
+    },
+    {
+      "path": "closed-execution-state.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1060,
+      "sha256": "01a16495f0aa2e35c90fadefc7185bdf1a049c8e2ee348f3b402535845868e2f"
+    },
+    {
+      "path": "command-environment.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 854,
+      "sha256": "ca19c6dc3aa0079e3a0862e4a3e1ea19b4882752660c03e64a72023ec61f22a8"
+    },
+    {
+      "path": "commands/sunny-host-check.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1981,
+      "sha256": "b84a1fc1733ccaa6afb4ceb0f25b71f413a96d48f334cf363821cf0d048a3694"
+    },
+    {
+      "path": "commands/sunny-host-check.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 240,
+      "sha256": "97493e68c870c3dd4a9b012b0be0f2efedbee0588524d2d86614667b0efe27dd"
+    },
+    {
+      "path": "commands/sunny-host-check.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/sunny-host-check.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1064,
+      "sha256": "8166c54f73d1b40941558921e3694bb367a6cdb44fac06fc3d4f2ee484f6e673"
+    },
+    {
+      "path": "commands/sunny-owner.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2006,
+      "sha256": "1b04c4daac53f5dedccd25167251f3a12b1f2aceeedeb549d4a9c9f11f3bca36"
+    },
+    {
+      "path": "commands/sunny-owner.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 240,
+      "sha256": "f56ab8d32bf4316264835be4b09db079b47bc722d072138521192aa90ca6bfbd"
+    },
+    {
+      "path": "commands/sunny-owner.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/sunny-owner.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2475,
+      "sha256": "fa7d613dbe10b9c04dc2a5d4ada628c6ae3274048f684f97a7535697f95a4818"
+    },
+    {
+      "path": "first-cause-observation.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3145,
+      "sha256": "4a2c9e174e5821b0bfe36808419747fef56dd151e5e8d221971165f8b59a8d6e"
+    },
+    {
+      "path": "logical-resource-cost.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1156,
+      "sha256": "fb435c2b0dc63ad2c4a3eb08c96cc3f428adc7e9514217f9b6f6f2d3fdede8e0"
+    },
+    {
+      "path": "mode-relation-pins.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1803,
+      "sha256": "2732f3625bab129b166b3cf0d3b149f388d6025ed09dff1cb8edcec8eb23035a"
+    },
+    {
+      "path": "physical-stopped-inventory.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2903424,
+      "sha256": "8ffb0dcd5af3d13b47ad4a7299d417c681940844d76e49be9d1637bac98b21b6"
+    },
+    {
+      "path": "preservation-after.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 675,
+      "sha256": "1240d4b397af32852f1459b1af53fbbc0eee655bc9e54bfab47831576bba61f3"
+    },
+    {
+      "path": "preservation-before.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 825,
+      "sha256": "c032b3d6d3c01bc0d6a127a7d25742120841298499120c6536b6a68071e3a1d2"
+    },
+    {
+      "path": "proof-commands-config.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 15030,
+      "sha256": "c92708421558e1d91cecaec0d7b5f79f96b6b4882a4e362beddad5727f7066e3"
+    },
+    {
+      "path": "proof-freeze.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4206,
+      "sha256": "c77a45e768538de187fbf835cb71202f374f01b637048cc834fcdcbf04e21be8"
+    },
+    {
+      "path": "proof-resources.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 7114,
+      "sha256": "870a9294e191e61ad5facca28541dffd34642aceb2e6e0e4013c1005ee31f8c6"
+    },
+    {
+      "path": "read-routing-note.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 407,
+      "sha256": "9373079dbe22b68c74783565f1515ee3730575311a34f0d7c06bb0c9b1b097fa"
+    },
+    {
+      "path": "run-proof-command.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2389,
+      "sha256": "ba8f9c23b73c240e255c8887e5f8890227642846c31a7284b320bc8230b9e407"
+    },
+    {
+      "path": "sunny-host-correspondence.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1186,
+      "sha256": "ca77f2c5fc9bdadbdb52968d523073cf8cd11cdfde1707714d1f6e4f45e68fb9"
+    },
+    {
+      "path": "verify-installed-host.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2319,
+      "sha256": "a9814a4115c6a1885366e444b86996a2c27fbbc57fe1403f24faec0d3019dc30"
+    }
+  ],
+  "recordCount": 28,
+  "logicalBytes": 2973507,
+  "physicalInventorySha256": "8ffb0dcd5af3d13b47ad4a7299d417c681940844d76e49be9d1637bac98b21b6",
+  "physicalLogicalBytes": 86063182,
+  "archiveSha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+  "sourceMutationCount": 0,
+  "newCompileCount": 0,
+  "principalC0PhysicalAttempts": 0
+}

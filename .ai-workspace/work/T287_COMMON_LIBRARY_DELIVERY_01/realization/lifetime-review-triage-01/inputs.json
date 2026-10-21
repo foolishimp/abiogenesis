@@ -1,0 +1,59 @@
+{
+  "observedAt": "2026-10-21T00:13:40.600733+00:00",
+  "closedFreezeSha256": "5c7311ac1041a0ba766c89fc18c315cd3277ea3ebc2425a40e7ffff896764c4c",
+  "closedHashesReverified": 198,
+  "mismatches": [],
+  "acceptedContractSha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "sources": [
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "bytes": 97498
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
+      "sha256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+      "bytes": 9354
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+      "sha256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+      "bytes": 6120
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "sha256": "9703f5ded2ee7fec0f1f247388a3364d0a2905d51ce0667946e7a0bb8e1ad75d",
+      "bytes": 93617
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+      "bytes": 118854
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "sha256": "d7b779a0cbb86059135682ecc63b36ae3f5bd6fdba748bec43d258d8fcd44126",
+      "bytes": 60131
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "sha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+      "bytes": 75589
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "sha256": "8f04a97ee6bf99fbdd18a4bd6a9816048dfa08c83c9a2d0704e86f3fb683e51e",
+      "bytes": 32848
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "sha256": "f60f6187b88449e688ecdbdc8edf2de4ded6a6cd569c405a089527c1136fd97a",
+      "bytes": 62348
+    }
+  ]
+}

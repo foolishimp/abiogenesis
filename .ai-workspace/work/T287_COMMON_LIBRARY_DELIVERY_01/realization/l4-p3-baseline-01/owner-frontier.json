@@ -1,0 +1,21 @@
+{
+  "eventStoreAcquired": false,
+  "eventLogBytesObserved": false,
+  "actualCloseHandoff": null,
+  "actualPrefix": null,
+  "publicStartCalls": 0,
+  "freshResultReads": 0,
+  "freshReplayReads": 0,
+  "nativeCalls": 0,
+  "pathsAbsent": [
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/runtime",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/runtime/events.jsonl",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence/start.json",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence/events.jsonl",
+    "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence/result.json"
+  ],
+  "evidenceBasis": "Actual failure stack at helper line323 precedes event resource acquisition at lines357-363; physical runtime/event paths absent. No event owner was acquired during diagnosis.",
+  "fixturePhysicalInstallResidueRetained": true,
+  "abiSiblingPhysicalInstallResidueRetained": true,
+  "reservedTopLevelWorksitePresent": false
+}

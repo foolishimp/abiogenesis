@@ -1,0 +1,49 @@
+{
+  "status": "localized_read_only",
+  "firstMissing": {
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+      "sha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+      "bytes": 3048274,
+      "mode": "0o644"
+    },
+    "source": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/tmp/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/00227073",
+      "mode": "0o600",
+      "kind": "file",
+      "bytes": 9380,
+      "sha256": "55a2e8edfb08670c935b91e05bf248fbddca15b44c8bd049f78d0e98fab6af1b"
+    },
+    "originalAddress": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/tmp/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/00227073",
+    "exactMatchingExclusions": [
+      {
+        "source": {
+          "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/tmp/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/00227073",
+          "mode": "0o600",
+          "kind": "file",
+          "bytes": 9380,
+          "sha256": "55a2e8edfb08670c935b91e05bf248fbddca15b44c8bd049f78d0e98fab6af1b"
+        },
+        "route": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+        "reason": "Recomputable V8 compile cache; original inventory retained, bytes not copied"
+      }
+    ]
+  },
+  "sameShapeMissingCount": 577,
+  "verifier": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/verify-transport.py",
+    "sha256": "cbcde857ad3df922ded6e16b95831d0995b1b9d43626801903acb936f9e98910",
+    "bytes": 12608,
+    "mode": "0o644"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/verification.stderr",
+    "sha256": "d55cc8d6864d31660a61a2bf9c973596f8630df609e2b00a6dd41a390be6f872",
+    "bytes": 643,
+    "mode": "0o644"
+  },
+  "firstCause": "Unrebased repository-relative exclusion source.path compared against absolute original address",
+  "scope": "Address-domain join in transport verifier; cache bytes were deliberately excluded and exact source row/route is retained. No Product evidence failure or authority change established.",
+  "priorChecksReached": "Verifier passed archive/object/package-member/source-byte checks before failing first native coverage join; overall verification remains failed",
+  "repairOrRetry": false
+}

@@ -1,0 +1,74 @@
+{
+  "status": "satisfied",
+  "utc": "2026-10-21T03:45:06.941041+00:00",
+  "scopes": [
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/freeze.json",
+        "sha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+        "bytes": 3048274,
+        "mode": "0o644"
+      },
+      "count": 8640,
+      "mismatches": 0
+    },
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/freeze.json",
+        "sha256": "561c8178702fed08d8800f1b31253a6ecd9f4ff08158475e40b44c6f65c49af8",
+        "bytes": 6773,
+        "mode": "0o644"
+      },
+      "count": 22,
+      "mismatches": 0
+    },
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+        "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa",
+        "bytes": 8903,
+        "mode": "0o644"
+      },
+      "count": 29,
+      "mismatches": 0
+    },
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-generated.json",
+        "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96",
+        "bytes": 248218,
+        "mode": "0o644"
+      },
+      "count": 936,
+      "mismatches": 0
+    }
+  ],
+  "exactPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+      "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+      "bytes": 48889,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs",
+      "sha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+      "bytes": 6907,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/external-consumer.mts",
+      "sha256": "6821ee75b2e9392246dcf121940f9c953dad19984756bd964164e40ee4487ce7",
+      "bytes": 907,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/translate-inventories.mjs",
+      "sha256": "05684b0abf2967a7a668a887c2a9c822f1405346145796fba309b33a789774e6",
+      "bytes": 11839,
+      "mode": "0o644"
+    }
+  ],
+  "scopeSha256": "65e93ebc00be3198f14c34496ddf9a3d2a96c47002cc3ea5d0b4a292c2089368",
+  "mismatches": 0
+}

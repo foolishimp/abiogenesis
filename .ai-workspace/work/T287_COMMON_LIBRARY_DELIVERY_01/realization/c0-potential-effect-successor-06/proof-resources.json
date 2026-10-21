@@ -1,0 +1,103 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844
+  },
+  "stageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage",
+  "cases": [
+    {
+      "id": "unavailable",
+      "testName": "B04-02 rename-successor-read: installed owner, ABG admission and fresh replay",
+      "faultModes": [
+        "successor_read"
+      ],
+      "replace": true,
+      "evidence": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/evidence",
+      "host": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/host",
+      "scratch": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/scratch",
+      "cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/cache",
+      "npm-logs": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/npm-logs",
+      "hostManifestSha256": "3729078791596e7b40a4465b044334b838a7013efda627ccdb1fc59d5e792266",
+      "canonicalAndMutuallyDisjointTopLevelRoots": true,
+      "fixtureWorksiteRoute": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/scratch/abi5-root-env-*/workspace",
+      "fixtureConsumerRoute": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/scratch/abi5-root-env-*/consumer",
+      "worksiteAndConsumerRelation": "Existing fixture creates one absent mkdtemp instance and separate workspace/consumer children; assertions preserve canonical worksite distinct from installed Product. No supplied external worksite root.",
+      "hostReusedReadOnly": false,
+      "hostInstallPerformedThisSuccessor": false,
+      "newRootsAbsentBeforeCreation": true
+    },
+    {
+      "id": "sunny",
+      "testName": "B04-06 replace: installed owner, ABG admission and fresh replay",
+      "faultModes": [],
+      "replace": true,
+      "evidence": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/evidence",
+      "host": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/host",
+      "scratch": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/scratch",
+      "cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/cache",
+      "npm-logs": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/npm-logs",
+      "hostManifestSha256": "0a3f4dc7f5a19aa1eb198f2c9cd62249de38cb717bed8bf009907f1a8b928ed8",
+      "canonicalAndMutuallyDisjointTopLevelRoots": true,
+      "fixtureWorksiteRoute": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/scratch/abi5-root-env-*/workspace",
+      "fixtureConsumerRoute": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/sunny/scratch/abi5-root-env-*/consumer",
+      "worksiteAndConsumerRelation": "Existing fixture creates one absent mkdtemp instance and separate workspace/consumer children; assertions preserve canonical worksite distinct from installed Product. No supplied external worksite root.",
+      "hostReusedReadOnly": false,
+      "hostInstallPerformedThisSuccessor": false,
+      "newRootsAbsentBeforeCreation": true
+    },
+    {
+      "id": "append",
+      "testName": "B04-05 append-complete: installed owner, ABG admission and fresh replay",
+      "faultModes": [
+        "append"
+      ],
+      "replace": true,
+      "evidence": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/evidence",
+      "host": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/host",
+      "scratch": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/scratch",
+      "cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/cache",
+      "npm-logs": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/npm-logs",
+      "hostManifestSha256": "b279628d5a70c9e03eb66b85632434043660f48d3a2523d9d5d0f0ee169a77bd",
+      "canonicalAndMutuallyDisjointTopLevelRoots": true,
+      "fixtureWorksiteRoute": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/scratch/abi5-root-env-*/workspace",
+      "fixtureConsumerRoute": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/append/scratch/abi5-root-env-*/consumer",
+      "worksiteAndConsumerRelation": "Existing fixture creates one absent mkdtemp instance and separate workspace/consumer children; assertions preserve canonical worksite distinct from installed Product. No supplied external worksite root.",
+      "hostReusedReadOnly": false,
+      "hostInstallPerformedThisSuccessor": false,
+      "newRootsAbsentBeforeCreation": true
+    },
+    {
+      "id": "prepublication",
+      "testName": "B04-07 failed-rename: installed owner, ABG admission and fresh replay",
+      "faultModes": [
+        "publication_syscall"
+      ],
+      "replace": true,
+      "evidence": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/evidence",
+      "host": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/host",
+      "scratch": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/scratch",
+      "cache": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/cache",
+      "npm-logs": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/npm-logs",
+      "hostManifestSha256": "6cec78e2d782192f3c6e0590e1630d7662e473b5e506510b946b90b8abb38b4a",
+      "canonicalAndMutuallyDisjointTopLevelRoots": true,
+      "fixtureWorksiteRoute": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/scratch/abi5-root-env-*/workspace",
+      "fixtureConsumerRoute": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/prepublication/scratch/abi5-root-env-*/consumer",
+      "worksiteAndConsumerRelation": "Existing fixture creates one absent mkdtemp instance and separate workspace/consumer children; assertions preserve canonical worksite distinct from installed Product. No supplied external worksite root.",
+      "hostReusedReadOnly": false,
+      "hostInstallPerformedThisSuccessor": false,
+      "newRootsAbsentBeforeCreation": true
+    }
+  ],
+  "component": {
+    "root": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/component",
+    "claim": "Existing eight native physical-scope/grant rows and component C0 controls; supplied lower premises, zero native actors, no genuine owned Result credit"
+  },
+  "physicalRoot": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06",
+  "noCleanup": true,
+  "priorRetainedLogicalBytes": 1206494274,
+  "additionalBound": 2147483648,
+  "aggregateBound": 10737418240,
+  "forecastAdditionalBytesUpperBound": 1500000000,
+  "scope": "Fresh absent case roots; per-case empty caches only after exact bundled closure proof; no old host reuse"
+}

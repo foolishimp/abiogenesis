@@ -1,0 +1,21 @@
+{
+  "label": "finalize-successor",
+  "exitCode": 0,
+  "wallMsBeforeFreeze": 16076.063208980486,
+  "completedUtc": "2026-10-21T02:16:12.438828+00:00",
+  "sourceEntries": 1320,
+  "stageEntries": 6642,
+  "dependencyEntries": 4576,
+  "priorPreservedEntries": 87344,
+  "mainGeneratedPreservedEntries": 936,
+  "separatelyClosedConcurrentRecordsVerified": 29,
+  "originalFailurePreserved": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/first-cause.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1044,
+    "sha256": "8eff9b83a8060a46b8d02897864868d293478a67e483b1336189d30e177c1276"
+  },
+  "supportEntries": 416,
+  "newUnexpectedFailure": null
+}

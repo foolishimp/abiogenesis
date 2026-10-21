@@ -1,0 +1,72 @@
+{
+  "scope": "Selected source-component and local process evidence, assembled across named frozen cuts with unchanged affected production correspondence. Not one green whole-tree run.",
+  "uniqueSelectedTopLevelCases": 38,
+  "populations": [
+    {
+      "population": "controlled timing/physical facts",
+      "cases": 6,
+      "receipts": [
+        "controlled-02.tap"
+      ],
+      "sourceRelation": "Shared lifetime final SHA 9d4b6c01ba565534ceb22ed0a49f6df7606a69349fce11f83651dc4ddae1ee5f is unchanged from focused-inputs-02; includes controlled Windows only."
+    },
+    {
+      "population": "helper main and pre-report continuation",
+      "cases": 2,
+      "receipts": [
+        "continuation-03.tap"
+      ],
+      "sourceRelation": "Final production helper SHA f60f6187b88449e688ecdbdc8edf2de4ded6a6cd569c405a089527c1136fd97a; original owner error and diagnostics preserved."
+    },
+    {
+      "population": "real local direct, HTTP, capture and escaped-pipe lifetimes",
+      "cases": 4,
+      "receipts": [
+        "physical-direct-01.tap",
+        "physical-http-04.tap",
+        "physical-capture-04.tap",
+        "physical-escaped-pipe-04.tap"
+      ],
+      "sourceRelation": "Direct case uses final unchanged shared module; remaining receipts use final helper/worker/shared production bytes. HTTP fixture 04 has five modes; capture has three owners; escaped fixture separately observes its outside-scope finite child absent."
+    },
+    {
+      "population": "selected worker transport suite",
+      "cases": 20,
+      "receipts": [
+        "physical-group-04.tap",
+        "worker-remaining-04/summary.json"
+      ],
+      "sourceRelation": "Final worker/shared/helper production bytes; six redirected-descendant owner/mode combinations are one top-level case. Remaining 19 cases execute one at a time with failure stop."
+    },
+    {
+      "population": "selected Product command budget/admission",
+      "cases": 3,
+      "receipts": [
+        "budget-01.tap"
+      ],
+      "sourceRelation": "Final Product/GTL production bytes unchanged since selected budget run."
+    },
+    {
+      "population": "selected semantic command budget",
+      "cases": 3,
+      "receipts": [
+        "semantic-budget-01.tap",
+        "semantic-budget-03.tap"
+      ],
+      "sourceRelation": "Two unchanged cases passed in original failing batch. The selected failed preparation case passed only after authorized test-only owned-auth/prefix premise correction; original batch remains a failure."
+    }
+  ],
+  "historicalFailuresRemainFailures": [
+    "semantic-budget-01.tap",
+    "diagnostic-02/current-case.log",
+    "diagnostic-02/baseline-case.log",
+    "physical-http-03.tap",
+    "http-diagnostic-05/case.tap"
+  ],
+  "notRun": [
+    "native/provider P4",
+    "installed command or HTTP participant P5",
+    "live Windows",
+    "combined pure/U1 source tree"
+  ]
+}

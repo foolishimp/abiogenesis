@@ -1,0 +1,18 @@
+{
+  "closedCombinedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/freeze.json",
+    "sha256": "d30c05423aaa3b837bc19cee427b74f4031f3e6fef48db6bf21ddad5416af821",
+    "bytes": 3065985,
+    "mode": "0o644"
+  },
+  "closedEntriesVerified": 8687,
+  "mismatches": [],
+  "protectedMainBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-generated.json",
+    "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96",
+    "bytes": 248218,
+    "mode": "0o644"
+  },
+  "protectedMainFiles": 936,
+  "protectedMainMismatches": []
+}

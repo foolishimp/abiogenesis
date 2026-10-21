@@ -1,0 +1,297 @@
+{
+  "command": {
+    "rawTimeEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/stderr-time.txt",
+      "sha256": "69ffd7bd5a1d84623b89cd78e8d8caf6c9b8ccf0284f55863b31336407d6fefb",
+      "bytes": 777,
+      "mode": "0o644"
+    },
+    "wallSeconds": 314.35,
+    "userSeconds": 364.09,
+    "systemSeconds": 16.31,
+    "maximumResidentSetSizeBytes": 2378383360,
+    "peakMemoryFootprintBytes": 2104112272,
+    "wrapperWallSeconds": 314.3590068749618,
+    "scope": "/usr/bin/time -l accounting around original runner plus awaited child work and proof overhead; no child-specific attribution or OS-wide peak claim"
+  },
+  "runnerMeasurements": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/measurements.json",
+    "sha256": "19b04bced4c7e9a79722bfa8ac96dba604fdefad4358a3ad3689e9d1372c6dc4",
+    "bytes": 16244,
+    "mode": "0o644"
+  },
+  "retainedFootprints": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/retained-footprints.json",
+    "sha256": "28f35a806401be36899da697777c359c9761e3ade603627d4e75a3579cf1c8bc",
+    "bytes": 3278,
+    "mode": "0o644"
+  },
+  "cacheInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/cache-inventory.json",
+    "sha256": "db2b4656c88cb0608b9187cf31e73fa072d11d56512b95839fba9f22f5f92e25",
+    "bytes": 10966,
+    "mode": "0o644"
+  },
+  "parentSamples": [
+    {
+      "name": "bootstrap-install",
+      "wallMs": 5680.284667,
+      "cpuUs": {
+        "user": 216557,
+        "system": 240247
+      },
+      "memoryBefore": {
+        "rss": 212795392,
+        "heapTotal": 17432576,
+        "heapUsed": 8104024,
+        "external": 91786454,
+        "arrayBuffers": 89508875
+      },
+      "memoryAfter": {
+        "rss": 227590144,
+        "heapTotal": 27787264,
+        "heapUsed": 14171360,
+        "external": 6503475,
+        "arrayBuffers": 4225856
+      },
+      "resourceUsage": {
+        "userCPUTime": 532129,
+        "systemCPUTime": 575002,
+        "maxRSS": 222256,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 14440,
+        "majorPageFault": 79,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 2,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 5,
+        "involuntaryContextSwitches": 132292
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "cold-installed-owner-acquisition",
+      "wallMs": 246.7171670000007,
+      "cpuUs": {
+        "user": 285429,
+        "system": 33293
+      },
+      "memoryBefore": {
+        "rss": 227770368,
+        "heapTotal": 27787264,
+        "heapUsed": 14767960,
+        "external": 6542879,
+        "arrayBuffers": 4265260
+      },
+      "memoryAfter": {
+        "rss": 321454080,
+        "heapTotal": 114655232,
+        "heapUsed": 72357160,
+        "external": 2459449,
+        "arrayBuffers": 43239
+      },
+      "resourceUsage": {
+        "userCPUTime": 819008,
+        "systemCPUTime": 608471,
+        "maxRSS": 336784,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 22090,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 2,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 5,
+        "involuntaryContextSwitches": 132895
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "public-preparation",
+      "wallMs": 283686.112042,
+      "cpuUs": {
+        "user": 10358238,
+        "system": 258976
+      },
+      "memoryBefore": {
+        "rss": 2032779264,
+        "heapTotal": 1635074048,
+        "heapUsed": 1484010160,
+        "external": 97893226,
+        "arrayBuffers": 95477648
+      },
+      "memoryAfter": {
+        "rss": 1861255168,
+        "heapTotal": 428195840,
+        "heapUsed": 264991536,
+        "external": 48070495,
+        "arrayBuffers": 45657103
+      },
+      "resourceUsage": {
+        "userCPUTime": 35721366,
+        "systemCPUTime": 1334316,
+        "maxRSS": 2069504,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 444901,
+        "majorPageFault": 85,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4151,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 230,
+        "involuntaryContextSwitches": 165366
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "execution-resolution-first",
+      "wallMs": 1639.4488750000019,
+      "cpuUs": {
+        "user": 1476237,
+        "system": 342463
+      },
+      "memoryBefore": {
+        "rss": 1861255168,
+        "heapTotal": 428195840,
+        "heapUsed": 264996280,
+        "external": 48070495,
+        "arrayBuffers": 45657103
+      },
+      "memoryAfter": {
+        "rss": 1584152576,
+        "heapTotal": 336740352,
+        "heapUsed": 254077464,
+        "external": 2682996,
+        "arrayBuffers": 269604
+      },
+      "resourceUsage": {
+        "userCPUTime": 37197631,
+        "systemCPUTime": 1676785,
+        "maxRSS": 2069504,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 458968,
+        "majorPageFault": 85,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4151,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 230,
+        "involuntaryContextSwitches": 227314
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "execution-resolution-warm",
+      "wallMs": 964.0704169999808,
+      "cpuUs": {
+        "user": 782115,
+        "system": 260379
+      },
+      "memoryBefore": {
+        "rss": 1581498368,
+        "heapTotal": 329662464,
+        "heapUsed": 199817344,
+        "external": 8146606,
+        "arrayBuffers": 5733214
+      },
+      "memoryAfter": {
+        "rss": 1571995648,
+        "heapTotal": 310444032,
+        "heapUsed": 187182936,
+        "external": 3203083,
+        "arrayBuffers": 789691
+      },
+      "resourceUsage": {
+        "userCPUTime": 37999816,
+        "systemCPUTime": 1939168,
+        "maxRSS": 2069504,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 469234,
+        "majorPageFault": 85,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4151,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 230,
+        "involuntaryContextSwitches": 287463
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "whole-lane",
+      "wallMs": 307710.797083,
+      "cpuUs": {
+        "user": 37640333,
+        "system": 1383359
+      },
+      "memoryBefore": {
+        "rss": 227606528,
+        "heapTotal": 27787264,
+        "heapUsed": 14195176,
+        "external": 6503475,
+        "arrayBuffers": 4225856
+      },
+      "memoryAfter": {
+        "rss": 1938456576,
+        "heapTotal": 478314496,
+        "heapUsed": 319377792,
+        "external": 48272811,
+        "arrayBuffers": 45859419
+      },
+      "resourceUsage": {
+        "userCPUTime": 38172512,
+        "systemCPUTime": 1958369,
+        "maxRSS": 2069504,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 492531,
+        "majorPageFault": 85,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4151,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 252,
+        "involuntaryContextSwitches": 287851
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    }
+  ],
+  "unobserved": [
+    "internal read/hash/encode/write byte counters",
+    "RuntimeHistorySelection body/selector/suffix/cause counters not exposed by selected caller",
+    "child CPU and peak memory for helper-internal subprocesses",
+    "native-provider token cost unless reported by retained transcript",
+    "OS-wide allocation peaks"
+  ],
+  "nativeCalls": 0,
+  "limits": [
+    "No internal byte/work counts or RuntimeHistory body/selector/suffix counts inferred",
+    "No statistical or speed ratio claim",
+    "Portable copy and post-run inventory overhead occurs after timed endpoint",
+    "Baseline cache boundary differs and remains explicit"
+  ]
+}

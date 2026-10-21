@@ -1,0 +1,53 @@
+{
+  "singleChangedSourceLine": true,
+  "allOtherSourceBytesRetained": true,
+  "sourceBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/preimages/execution_basis.ts",
+    "bytes": 128699,
+    "sha256": "eb32f6535993b608db9fb9aa1f01661acc99b7498c9af92123e628b1e878e371"
+  },
+  "sourceAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "bytes": 128713,
+    "sha256": "1b3dbf39b6713f575a3456975de76747e06cdcab289c77ba5fee4a05d6b75389"
+  },
+  "designBefore": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/preimages/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "bytes": 66122,
+    "sha256": "76a7c3da4bf668be65adb182426298d50c51b9408511167b751256c1d6d3ce24"
+  },
+  "designAfter": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "bytes": 67023,
+    "sha256": "dfb98d80113aaf150e05a09577d4cc3898b339e33426790f878ed02c90b89d5c"
+  },
+  "exactOldSourceEmissionRelation": "Closed final06 stage source equals source preimage; emitted module equals actual installed module.",
+  "inMemoryCounterfactualCorrespondsToSourceDelta": true,
+  "adaptedModuleSha256": "867fb7c7ffa42b13761a1a20e3622489fbea0a4606db450dbc621d27705dfaa6",
+  "emissionPerformedForNewSource": false,
+  "sameCanonicalAndGuardsChanged": false,
+  "negativeOracles": {
+    "status": "OPTIONAL_NOT_EXECUTED",
+    "disposition": "Executive critical-path message permits closure using already recorded exact false-to-true discriminator; no material source uncertainty found. The optional six-case diagnostic described before effects was not launched. Its four controlled negative experiments carry no execution credit.",
+    "sourceInspection": "Missing/foreign source basis, source value/digest, unique closure, durable coordinate, rehydration, A/W and owner guards remain byte-for-byte unchanged."
+  },
+  "preservation": {
+    "prior07Freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/failure-freeze.json",
+      "bytes": 1829518,
+      "sha256": "d0f9dd2979ad4fa57202235cf7f89a01cb7353a1529d8632f4dd5d736f922a56"
+    },
+    "actualStore": {
+      "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/runtime/events.jsonl",
+      "bytes": 3982944,
+      "sha256": "0c89e9e548ffcdb635a20df1cf2e0ebda61808ef05af01eb3afcb3582ff540ba"
+    },
+    "installedModule": {
+      "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/execution_basis.js",
+      "bytes": 112088,
+      "sha256": "655d7e56c4196afb3dc90becd5f66dbfc8fab5aa0fd48f631a9d5cdb660ab020"
+    },
+    "main936": "No generated-main writes; inherited preservation binding reused, no repeat full inventory.",
+    "oldStages": "No writes; finite source/emission subject rehashed."
+  }
+}

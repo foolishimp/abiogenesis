@@ -1,0 +1,40 @@
+{
+  "status": "original policy retained; final03 subject bound, no endpoint output",
+  "policy": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/output-correspondence.json",
+    "sha256": "3b13c71b9c9940fcf51b33db74966f1ae416909a8a1648cd5122d52d1f05de01",
+    "bytes": 5609,
+    "mode": "0o644"
+  },
+  "originalComparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/comparison.json",
+    "sha256": "f614f45ef5941fc7fcef5e3ceb692426134f70af042e0d6cfda881392160771e",
+    "bytes": 3161,
+    "mode": "0o644"
+  },
+  "baselineP1ResultSha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+  "baselineP3ResultSha256": "d32254c2f3b96e2728abf786d73ee0f19841ae9823771c27ce7c772b1bcda037",
+  "candidate": {
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "bytes": 10681835,
+      "mode": "0o644"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "2960e5dddf8959de4ff269a3aac92dce2a8dd27bb79dee308b5fa394a3bf9920",
+      "bytes": 3189620,
+      "mode": "0o644"
+    },
+    "productContentDigest": "sha256:78912aa5b7f9956b51075aefc52367a6f36b75cb711b105926c5f4a42b47dd9e"
+  },
+  "retainedRelations": [
+    "exact within each owner subject",
+    "same authored P1 Program/operation population and literal P3 Hello World",
+    "dependency/physical-root-derived identities paired through full producer receipts",
+    "no global stripping of refs/digests/paths/currentness",
+    "P2 actual returned successor prefix, no inference of no effect from refusal"
+  ],
+  "pending": "actual final03 P1, owner-resolution, P2 and P3 receipts"
+}

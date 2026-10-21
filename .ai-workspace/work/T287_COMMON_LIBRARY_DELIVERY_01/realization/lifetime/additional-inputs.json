@@ -1,0 +1,12 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+    "sha256": "b0b537f0ce8fcaa43f51518c6678a95a16d62be6cdc79e0ae1c32ea431b05276",
+    "bytes": 65091
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "sha256": "9d1d59cf2a031dc0d5b46b162e8ab349f05a72938fa2508999d1131ddae37070",
+    "bytes": 39764
+  }
+]

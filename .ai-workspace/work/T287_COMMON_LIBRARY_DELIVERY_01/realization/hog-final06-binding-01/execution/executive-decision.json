@@ -1,0 +1,55 @@
+{
+  "activation": "HOG-FINAL06-EXECUTION-01",
+  "issuedBy": "/root",
+  "writer": "/root/stdo3_final_proof_writer",
+  "returnTo": "/root",
+  "utc": "2026-10-21T07:45:26.421095+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "preparation": {
+    "freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/freeze.json",
+      "sha256": "f2c99f6ec483195c7f0b226dd184bcdb9f166a00aad9f93eb3e0a4c1ad0fa149",
+      "bytes": 16042
+    },
+    "configuration.NOT_GRANTED.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/configuration.NOT_GRANTED.json",
+      "sha256": "14fb2113791748d14da814abf40322290c1d10d4ea0c7064325675bdcf498883",
+      "bytes": 8343
+    },
+    "effect-grant.NOT_GRANTED.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/effect-grant.NOT_GRANTED.json",
+      "sha256": "ea0b9051ba6e05ba25222b7003984dbd366c1424c5ea439fe2008af05820538e",
+      "bytes": 3641
+    },
+    "commands.NOT_GRANTED.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/commands.NOT_GRANTED.json",
+      "sha256": "8b5c64a16039fc4f2ef4797f41fddd120a5676649ff0f2815af5ab4649927bdd",
+      "bytes": 1553
+    }
+  },
+  "rootVerification": "Root independently verified all 24 preparation freeze rows, exact final06 freeze/archive/manifest and actual finalP1 result; all 5271 raw/installed members matched with only the two declared bin modes 0644 -> 0755. Root approved the explicitly unreachable setupInstalledRootInvocation support delta. Runtime parent was absent.",
+  "scope": "Execute original compose-retry, workflow-foldback, fanout-partial once sequentially under the original runner/oracle. Exact finite finalP1 cache seed copies and offline bootstrap/fixture operations only. Retain physical evidence and all original outcomes.",
+  "limits": {
+    "maxAdditionalRetainedBytes": 4294967296,
+    "outerTimeoutMs": 1800000,
+    "maxNativeCalls": 0,
+    "maxProviderCalls": 0,
+    "retryCount": 0,
+    "cleanup": false,
+    "optionalLawTests": false
+  },
+  "stop": "First actual source/precondition/integration/assertion failure stops driver and dependent cases and returns Root before repair or retry.",
+  "prohibitions": [
+    "No stage/main/generated/source mutation",
+    "No build or Product repack",
+    "No Git",
+    "No continuation-17 effects"
+  ],
+  "outerEnvironment": "Explicit configuration environment plus NODE_OPTIONS empty string on launch. Original driver omits NODE_OPTIONS from every actual case environment.",
+  "timeoutMechanism": "Reuse existing finite command supervisor with timeout changed from 600 to 1800 seconds; isolated process group receives SIGTERM then SIGKILL after 5 seconds if the top-level process has not exited. Actual termination and remaining scope are reported if reached; no automatic retry.",
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/configuration.json",
+    "sha256": "48995917e83265514c0e41539a3471992ec7854d63707b2caaa4209bf4e35a5b",
+    "bytes": 8341
+  }
+}

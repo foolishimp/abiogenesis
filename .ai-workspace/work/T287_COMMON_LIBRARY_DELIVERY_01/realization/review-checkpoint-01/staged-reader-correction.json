@@ -1,0 +1,17 @@
+{
+  "authorization": "Root explicit two-owner-shape adapter correction; reuse captured names and passing checks",
+  "preimage": {
+    "path": "staged-validation-reader.preimage.py",
+    "sha256": "1a04037b74fa44c103844d36ba24b36af6a20670e98d46838ae3e8b32cece270"
+  },
+  "successor": {
+    "path": "staged-validation-reader.py",
+    "sha256": "0a153a6b5c767c1d66b4d05dd154ccf81dade9fc1b51f48b5cee84325463638b"
+  },
+  "preservedFailure": {
+    "path": "STOP-staged-validation.json",
+    "sha256": "b50ed366ff92ada8a1189d67793c3c1da17db7f54d7484cfa5e67abdc225e38b"
+  },
+  "provenance": "Preimage is the literal previously executed inline reader; new reader preserves failure and changes only declared shape consumption and reuse of captured names",
+  "syntax": "ast.parse passed"
+}

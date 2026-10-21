@@ -1,0 +1,22 @@
+[
+  {
+    "uri": "stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+    "sha256": "aafb1bf63e7928c9a21c4fe4982e4a4cdefa32b931a256e56543eb7cf629d7cd"
+  },
+  {
+    "uri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+    "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e"
+  },
+  {
+    "uri": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+    "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
+  },
+  {
+    "uri": "stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md",
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/ACTIVATION.md",
+    "sha256": "7ad7b69b5ad8ec20678b3ef866a26fb328f2fa6f60c4d1d06ca0b926845b89bf"
+  }
+]

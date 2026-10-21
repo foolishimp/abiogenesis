@@ -1,0 +1,14 @@
+{
+  "label": "structure",
+  "exitCode": 0,
+  "wallMs": 321.34679215960205,
+  "completedUtc": "2026-10-21T02:07:00.060483+00:00",
+  "stdout": {
+    "bytes": 124,
+    "sha256": "e5567488d72d134b9c6d17db2c97630a0c9e077134afb9240fb0472e069818f7"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

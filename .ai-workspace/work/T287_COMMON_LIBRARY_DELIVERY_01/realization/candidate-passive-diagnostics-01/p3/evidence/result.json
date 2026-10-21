@@ -1,0 +1,40 @@
+{
+  "status": "satisfied",
+  "lane": "declared-execution",
+  "subjectId": "candidate",
+  "configurationSha256": "55103459bc15c537f11afdbe7c8498105b967798dc6a43b9ecf2e33c52c5d478",
+  "oracle": {
+    "predicate": "closed result and fresh owner reads",
+    "satisfied": true
+  },
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:75a068b80f25f8440b1124fb1882c2e32097f36fc472d50a4ec4de69253fa2a3",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:92aa0ba37633a0538d2067e97a3ff35fac9e5c2fc42677960decd26e78d9b119",
+      "prefixLength": 3217815,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 474964018
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:8e0ee947be6d4d2b67d2e6184d004933138bb0758158e99d75928567ce01eb97",
+      "device": 16777231,
+      "durableByteLength": 3217815,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:92aa0ba37633a0538d2067e97a3ff35fac9e5c2fc42677960decd26e78d9b119",
+      "eventLogPath": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/runtime/events.jsonl",
+      "inode": 474964018,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "nativeCalls": 0,
+  "fixtureInstalledRoot": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/consumer-additional-0/node_modules/@abi5-tests/language-fixtures",
+  "claims": "bounded lane predicates only; required omitted measurements and P5 obligations remain separate; no L5 or release acceptance",
+  "retainedCleanupHooks": 1
+}

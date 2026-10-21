@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/check-generated-material.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01",
+  "grant": "COMBINED-DERIVATION-01",
+  "scriptSha256": "d5cab94cb64d202c3c416b4196152403b54feacdb37010bb7eedb553048f0c79"
+}

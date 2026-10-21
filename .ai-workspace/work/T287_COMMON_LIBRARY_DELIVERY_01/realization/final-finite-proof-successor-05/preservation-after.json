@@ -1,0 +1,11 @@
+{
+  "allStageRowsExact": 6642,
+  "stageInventorySha256": "eb41de1242486d6bcfe5cec7b902bd25092cc91ddda6dfe513448c6dbbd83d37",
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "mainGeneratedExact": 936,
+  "bootstrapHostPackageRowsExact": 5271,
+  "mainTestSha256": "1d107708c662febcc62bf7c4ccfa4f0f2b6d0f0527762b05a224426e8fb68c0d",
+  "overlayExact": true,
+  "productionSupportBuildPackageChanges": false,
+  "sourceEffect": "Only main m5-event-store-reopen.test.mjs"
+}

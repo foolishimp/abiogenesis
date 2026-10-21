@@ -1,0 +1,138 @@
+✖ terminal route-only projection preserves complete replay and avoids nonreturned populations (0.635375ms)
+✖ terminal route-only retains cold and hot malformed-history refusals (0.136583ms)
+✖ owned deferred recursion restores and begins at the exact cut while Public wrappers keep complete values (0.219125ms)
+✖ selected replay guard streams the exact complete Result, route and replay digest (0.091792ms)
+✖ finite pure candidate plan equals complete-array construction without advancing the accepted base (0.155667ms)
+✖ ordinary selected route and scoped extent avoid growing historical bodies; explicit snapshots have their own lifetime (0.164958ms)
+✖ drop complete output then selected route does not retain decoded historical bodies (0.099125ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 334.732958
+
+✖ failing tests:
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:146:1
+✖ terminal route-only projection preserves complete replay and avoids nonreturned populations (0.635375ms)
+  Error: ENOENT: no such file or directory, mkdtemp '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+      at Object.mkdtempSync (node:fs:3039:18)
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:42:19)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:147:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'mkdtemp',
+    path: '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+  }
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:176:1
+✖ terminal route-only retains cold and hot malformed-history refusals (0.136583ms)
+  Error: ENOENT: no such file or directory, mkdtemp '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+      at Object.mkdtempSync (node:fs:3039:18)
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:42:19)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:177:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'mkdtemp',
+    path: '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+  }
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:331:1
+✖ owned deferred recursion restores and begins at the exact cut while Public wrappers keep complete values (0.219125ms)
+  Error: ENOENT: no such file or directory, mkdtemp '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+      at Object.mkdtempSync (node:fs:3039:18)
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:42:19)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:332:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'mkdtemp',
+    path: '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+  }
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:419:1
+✖ selected replay guard streams the exact complete Result, route and replay digest (0.091792ms)
+  Error: ENOENT: no such file or directory, mkdtemp '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+      at Object.mkdtempSync (node:fs:3039:18)
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:42:19)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:420:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'mkdtemp',
+    path: '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+  }
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:436:1
+✖ finite pure candidate plan equals complete-array construction without advancing the accepted base (0.155667ms)
+  Error: ENOENT: no such file or directory, mkdtemp '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+      at Object.mkdtempSync (node:fs:3039:18)
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:42:19)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:437:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'mkdtemp',
+    path: '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+  }
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:481:1
+✖ ordinary selected route and scoped extent avoid growing historical bodies; explicit snapshots have their own lifetime (0.164958ms)
+  Error: ENOENT: no such file or directory, mkdtemp '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+      at Object.mkdtempSync (node:fs:3039:18)
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:42:19)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:484:11)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'mkdtemp',
+    path: '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+  }
+
+test at test_env/tests/t287-route-reconstruction.test.mjs:536:1
+✖ drop complete output then selected route does not retain decoded historical bodies (0.099125ms)
+  Error: ENOENT: no such file or directory, mkdtemp '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+      at Object.mkdtempSync (node:fs:3039:18)
+      at terminalOwner (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:42:19)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-route-reconstruction.test.mjs:537:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'mkdtemp',
+    path: '/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained/route-scratch/terminal-route-XXXXXX'
+  }

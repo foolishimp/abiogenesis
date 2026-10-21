@@ -1,0 +1,47 @@
+{
+  "activation": "L4-FINITE-CONSERVATION-04",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/activation.json",
+      "sha256": "699f40f8332e48d206ed33c42f1cf72c9b5eae8ebd34b1548bb5cc4811822de1",
+      "bytes": 2878
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/HOW-binding.md",
+      "sha256": "457623df783bba78cab7dd9b8847549286d5bea1a3a98e0eef97dd4626302c79",
+      "bytes": 1392
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/command-environment.json",
+      "sha256": "c92d034022cc4d4edc0615719a3def4fdc76f40475c3a2239844697605f2f0fd",
+      "bytes": 821
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/commands-config.json",
+      "sha256": "1f8afa2f4016e8a9b399921b22b0346921d4a9945ead299f05b4f6c9b39315ef",
+      "bytes": 9000
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/source-test-pins.json",
+      "sha256": "af738a6004b4b9bc69f4d17e1ce90f7066709caf3ac8cb55cf0f4a67c274e309",
+      "bytes": 4176
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/resources.json",
+      "sha256": "8c7ee79226f6d9c8ab4b893633d3acae0588766f99fcaa93670f6c9d0ccb349f",
+      "bytes": 3519
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/run-command.py",
+      "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+      "bytes": 2571
+    }
+  ],
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+    "sha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+    "bytes": 1994729
+  },
+  "condition06": "candidate_ready, all4 principal and selected component passed",
+  "command8": "unbound; must not execute before exact newP1/owner adapter"
+}

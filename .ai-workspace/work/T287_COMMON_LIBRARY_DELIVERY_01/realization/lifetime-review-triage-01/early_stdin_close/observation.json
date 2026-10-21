@@ -1,0 +1,160 @@
+{
+  "case": "early_stdin_close",
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-review-triage-01/diagnostic-host.mjs",
+    "early_stdin_close",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-review-triage-01/early_stdin_close",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript"
+  ],
+  "startedAt": "2026-10-21T00:17:11.934604+00:00",
+  "elapsedSeconds": 0.4118879169691354,
+  "hostPid": 68968,
+  "hostExitCode": 1,
+  "hostDeadlineExpired": false,
+  "hostStdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "hostStderrSha256": "ab889d1063b343fbef4117b716db97c9a209a5da95922840666b1a0f3e008aa5",
+  "childIdentity": {
+    "pid": 68969,
+    "ppid": 68968,
+    "pgid": 68969,
+    "recordedAt": "1373702128026041",
+    "mode": "early_stdin_close"
+  },
+  "childStartedObservation": 68969,
+  "childStdinClosed": {
+    "pid": 68969,
+    "at": "1373702128174416"
+  },
+  "childFiniteExit": {
+    "pid": 68969,
+    "status": 0,
+    "at": "1373702430509083"
+  },
+  "childControlRead": null,
+  "hostEvents": [
+    {
+      "at": "1373702081566541",
+      "event": "host-start",
+      "mode": "early_stdin_close",
+      "pid": 68968,
+      "node": "v24.7.0",
+      "contract": {
+        "kind": "worker_transport_contract",
+        "schemaVersion": "5.0.0",
+        "agentKey": "claude",
+        "command": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "prefixArgs": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-review-triage-01/fixture-child.mjs",
+          "early_stdin_close",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-review-triage-01/early_stdin_close"
+        ],
+        "argsTemplate": [
+          "-p",
+          "--disable-slash-commands",
+          "--no-session-persistence",
+          "--output-format",
+          "stream-json",
+          "--include-partial-messages",
+          "--verbose",
+          "--permission-mode",
+          "bypassPermissions"
+        ],
+        "parser": "claude_stream_json",
+        "promptTransport": "stdin",
+        "sanitizedEnvironmentPrefixes": [
+          "CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL",
+          "CLAUDE_CODE_SSE_",
+          "CLAUDE_CODE_ENTRYPOINT",
+          "CLAUDE_CODE_EXECPATH"
+        ]
+      },
+      "promptBytes": 8388608
+    },
+    {
+      "at": "1373702109100333",
+      "event": "child-started",
+      "pid": 68969
+    },
+    {
+      "at": "1373702128648541",
+      "event": "uncaughtExceptionMonitor",
+      "origin": "uncaughtException",
+      "name": "Error",
+      "code": "EPIPE",
+      "message": "write EPIPE"
+    },
+    {
+      "at": "1373702128723375",
+      "event": "host-exit",
+      "code": 1,
+      "pid": 68968
+    }
+  ],
+  "ownerReturn": null,
+  "ownerRejection": null,
+  "independentScopeSamples": [
+    {
+      "elapsedSeconds": 0.07658008392900229,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.11162004177458584,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.14613091689534485,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.1811851249076426,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.21475837496109307,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.2497188749257475,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.28476933389902115,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.3198037918191403,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.34982299990952015,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.37664549984037876,
+      "group": "present",
+      "directPid": "present"
+    },
+    {
+      "elapsedSeconds": 0.41172049986198545,
+      "group": "absent",
+      "directPid": "absent"
+    }
+  ],
+  "independentScopeAbsent": true,
+  "failSafeSignals": [],
+  "archiveFiles": [
+    "stdin-probe-prompt.txt",
+    "stdin-probe-stderr.log",
+    "stdin-probe-stdout.log"
+  ]
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "path": "activation.md",
+    "bytes": 2177,
+    "sha256": "4adc8fb3962ad652a02e6514f215e0c382acaeb0d57863454f0537035d70dda8"
+  },
+  {
+    "path": "F2-preflight.json",
+    "bytes": 759,
+    "sha256": "232ea424dd8dff4ecb54389ae6818de4af83ef0e13d163fa1f1cbb0c77d201eb"
+  },
+  {
+    "path": "fixture-child.mjs",
+    "bytes": 1473,
+    "sha256": "cd187854f6016056751d745bbf385af273039659118858c0fd0b000f01880c82"
+  },
+  {
+    "path": "diagnostic-host.mjs",
+    "bytes": 2139,
+    "sha256": "f3f8b218b4722229250801add06a5dbe646020beff1415708b43a2f6e106ea62"
+  },
+  {
+    "path": "run-F2-discriminator.py",
+    "bytes": 5076,
+    "sha256": "251d5d04d9204c983f30336d939fabc38e4aadb304508112e60cca2db0846dad"
+  }
+]

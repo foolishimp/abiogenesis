@@ -1,0 +1,121 @@
+[
+  {
+    "id": "D14-01",
+    "target": "isRecord",
+    "name": "isRecord",
+    "source": "function isRecord(\n  value: unknown,\n): value is Readonly<Record<string, unknown>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+    "members": 36
+  },
+  {
+    "id": "D14-02",
+    "target": "hasNulJoinedKeys",
+    "name": "hasExactKeys",
+    "source": "function hasExactKeys(\n  value: Readonly<Record<string, unknown>>,\n  keys: readonly string[],\n): boolean {\n  return Object.keys(value).sort().join(\"\\0\") === [...keys].sort().join(\"\\0\");\n}",
+    "members": 12
+  },
+  {
+    "id": "D14-03",
+    "target": "isJsonRecord",
+    "name": "isRecord",
+    "source": "function isRecord(\n  value: JsonValue,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+    "members": 8
+  },
+  {
+    "id": "D14-04",
+    "target": "isJsonRecordShape",
+    "name": "isRecord",
+    "source": "function isRecord(\n  value: unknown,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+    "members": 6
+  },
+  {
+    "id": "D14-05",
+    "target": "isOptionalJsonRecord",
+    "name": "isRecord",
+    "source": "function isRecord(\n  value: JsonValue | undefined,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+    "members": 4
+  },
+  {
+    "id": "D14-06",
+    "target": "isNonblankNulFreeString",
+    "name": "nonEmptyString",
+    "source": "function nonEmptyString(value: unknown): value is string {\n  return typeof value === \"string\" && value.trim().length > 0 &&\n    !value.includes(\"\\0\");\n}",
+    "members": 4
+  },
+  {
+    "id": "D14-07",
+    "target": "hasObjectUnicodeNulJoinedKeys",
+    "name": "hasExactKeys",
+    "source": "function hasExactKeys(value: object, keys: readonly string[]): boolean {\n  return Object.keys(value).sort(compareUnicodeCodeUnits).join(\"\\0\") ===\n    [...keys].sort(compareUnicodeCodeUnits).join(\"\\0\");\n}",
+    "members": 4
+  },
+  {
+    "id": "D14-08",
+    "target": "isNonEmptyJsonString",
+    "name": "isNonEmptyString",
+    "source": "function isNonEmptyString(value: JsonValue | undefined): value is string {\n  return typeof value === \"string\" && value.length > 0;\n}",
+    "members": 3
+  },
+  {
+    "id": "D14-09",
+    "target": "hasJsonNulJoinedKeys",
+    "name": "hasExactKeys",
+    "source": "function hasExactKeys(\n  value: Readonly<Record<string, JsonValue>>,\n  keys: readonly string[],\n): boolean {\n  return Object.keys(value).sort().join(\"\\0\") === [...keys].sort().join(\"\\0\");\n}",
+    "members": 2
+  },
+  {
+    "id": "D14-10",
+    "target": "isMutableRecord",
+    "name": "isRecord",
+    "source": "function isRecord(value: unknown): value is Record<string, unknown> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+    "members": 2
+  },
+  {
+    "id": "D14-11",
+    "target": "hasNulJoinedFields",
+    "name": "exactKeys",
+    "source": "function exactKeys(\n  value: Readonly<Record<string, unknown>>,\n  fields: readonly string[],\n): boolean {\n  return Object.keys(value).sort().join(\"\\0\") === [...fields].sort().join(\"\\0\");\n}",
+    "members": 2
+  },
+  {
+    "id": "D14-12",
+    "target": "isNonblankString",
+    "name": "nonEmptyString",
+    "source": "function nonEmptyString(value: unknown): value is string {\n  return typeof value === \"string\" && value.trim().length > 0;\n}",
+    "members": 2
+  },
+  {
+    "id": "D14-13",
+    "target": "hasUnicodeNulJoinedKeys",
+    "name": "hasExactKeys",
+    "source": "function hasExactKeys(\n  value: Readonly<Record<string, unknown>>,\n  keys: readonly string[],\n): boolean {\n  return Object.keys(value).sort(compareUnicodeCodeUnits).join(\"\\0\") ===\n    [...keys].sort(compareUnicodeCodeUnits).join(\"\\0\");\n}",
+    "members": 2
+  },
+  {
+    "id": "D14-14",
+    "target": "hasExactKeys",
+    "name": "hasExactKeys",
+    "source": "function hasExactKeys(\n  value: Readonly<Record<string, unknown>>,\n  expected: readonly string[],\n): boolean {\n  const actual = Object.keys(value).sort();\n  const sortedExpected = [...expected].sort();\n  return actual.length === sortedExpected.length &&\n    actual.every((key, index) => key === sortedExpected[index]);\n}",
+    "members": 2
+  },
+  {
+    "id": "D14-15",
+    "target": "isNonEmptyString",
+    "name": "nonEmptyString",
+    "source": "function nonEmptyString(value: unknown): value is string {\n  return typeof value === \"string\" && value.length > 0;\n}",
+    "members": 2
+  },
+  {
+    "id": "D14-16",
+    "target": "hasExactJsonKeys",
+    "name": "exactKeys",
+    "source": "function exactKeys(\n  value: Readonly<Record<string, JsonValue>>,\n  expected: readonly string[],\n): boolean {\n  return sameStrings(Object.keys(value).sort(), [...expected].sort());\n}",
+    "members": 1
+  },
+  {
+    "id": "D14-17",
+    "target": "hasExactJsonKeys",
+    "name": "hasExactKeys",
+    "source": "function hasExactKeys(\n  value: Readonly<Record<string, JsonValue>>,\n  expected: readonly string[],\n): boolean {\n  const keys = Object.keys(value).sort();\n  const expectedKeys = [...expected].sort();\n  return keys.length === expectedKeys.length &&\n    keys.every((key, index) => key === expectedKeys[index]);\n}",
+    "members": 1
+  }
+]

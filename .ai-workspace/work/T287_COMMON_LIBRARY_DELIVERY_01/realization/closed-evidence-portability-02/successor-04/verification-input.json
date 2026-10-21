@@ -1,0 +1,37 @@
+{
+  "status": "frozen_before_run",
+  "records": [
+    {
+      "path": "activation.json",
+      "sha256": "055807a3b59218c4806b048cdb93dec7b220cca98025566fc83b163d8fa8aa78",
+      "bytes": 2919,
+      "mode": "0o644"
+    },
+    {
+      "path": "HOW.md",
+      "sha256": "53f8b074544ca9c64fd5f7d05c84dc9d8739cccb866dd1f3e92361f8e37d2034",
+      "bytes": 2709,
+      "mode": "0o644"
+    },
+    {
+      "path": "verify-transport.py",
+      "sha256": "69654b2ca79499c98934b652c36194f05a6175f1891b66efa4f2ffd3da07b2b9",
+      "bytes": 14807,
+      "mode": "0o644"
+    },
+    {
+      "path": "verifier-construction.json",
+      "sha256": "44f6fde6d33da2bc3d2308b28a2d125d32bf31a3a6e6ccb51ddff92f44270471",
+      "bytes": 1809,
+      "mode": "0o644"
+    }
+  ],
+  "syntaxAndCallArity": "passed; no verification run",
+  "openStreamsExcluded": [
+    "verification.stdout",
+    "verification.stderr"
+  ],
+  "dataRoot": "../successor-03",
+  "outputRoot": ".",
+  "predecessorStoppedFreezeSha256": "c89bd914df332cc466662b94229cdb4032825bfcca7a78557a30b25b42840647"
+}

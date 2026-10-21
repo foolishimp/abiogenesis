@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/select-population.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "scriptSha256": "5a59f5bf6ce3a451f3430c12a566d8df6e517ecc773d4e4a4afc217a191f764a",
+  "scope": "One selected-population/hash/mode/size preflight before any new archive"
+}

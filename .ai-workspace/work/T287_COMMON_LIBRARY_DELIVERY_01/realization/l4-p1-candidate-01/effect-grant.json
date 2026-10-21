@@ -1,0 +1,30 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "configurationSha256": "c13cfde7ec59cafa75c8f35006915a5a16bec2d55ce0ccdc0d4f2b58d3debc32",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "subjectId": "candidate",
+  "lanes": [
+    "public-preparation"
+  ],
+  "maxNativePositiveCalls": 0,
+  "resources": {
+    "public-preparation": {
+      "evidence": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence",
+      "host": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/host",
+      "scratchParent": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/worksite"
+    }
+  },
+  "issuedBy": "/root",
+  "requiredEvidence": {
+    "activation": "L4-P1-CANDIDATE-01",
+    "combinedFreezeSha256": "7e4bb4f77a933120198800d6177a7e7154a66e29577db7dd7ee5a84fc483a514",
+    "prerequisitesSha256": "d19b495b083e9ae50c61e80341d89b656bbcf24248f5e898e1707ed1ea6532ac",
+    "configurationChangeScope": [
+      "status",
+      "activationFile"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "observedAt": "2026-10-21T06:48:41.873635+00:00",
+  "observations": [
+    {
+      "label": "installer",
+      "pid": 13243,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "installer",
+      "pid": 13243,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "supervisor",
+      "pid": 13241,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    }
+  ],
+  "noFixtureWorkloadLaunched": true,
+  "testLaunchCount": 0
+}

@@ -1,0 +1,233 @@
+{
+  "kind": "bounded-actual-failed-spawn-writer-freeze",
+  "activation": "E03-PHYSICAL-LAUNCH-FAILURE-01",
+  "writer": "/root/stdo3_lifetime_writer",
+  "executive": "/root",
+  "closedUtc": "2026-10-21T02:22:16.019413+00:00",
+  "subjectFreezeSha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155",
+  "stdoManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "files": [
+    {
+      "path": "HOW.md",
+      "bytes": 9558,
+      "sha256": "76889cf2094101fab3972ff33bdbb0410d9017d5c1a7638a80031d6be6461da2"
+    },
+    {
+      "path": "config.json",
+      "bytes": 1639,
+      "sha256": "b337219b5dacf600290f6ccb34981f40a6fc0935c46592e2a3ca1d5aa58a2027"
+    },
+    {
+      "path": "decision.json",
+      "bytes": 1176,
+      "sha256": "414c9498162125ee2b42431c02d96cd8499898ff2003b97d82ae87f20c7fdc05"
+    },
+    {
+      "path": "execution-freeze.json",
+      "bytes": 1991,
+      "sha256": "ff120c86ff826bc812684a93e234762b74ad870c2636e8eb06ed70dfcf182aa5"
+    },
+    {
+      "path": "execution-receipt.json",
+      "bytes": 1680,
+      "sha256": "a2ee1e30ecb4773e9356969c9f7dacabd9438bca55e59d562c2245769c11a36e"
+    },
+    {
+      "path": "exposed-helper.js.txt",
+      "bytes": 59148,
+      "sha256": "b1d0e484f470001ded5ab8e2a2c32233a13e55ad05f978b299a546a26b68d150"
+    },
+    {
+      "path": "host-start.json",
+      "bytes": 670,
+      "sha256": "11f01a6e893752a18193435cf85f35a94e2d08ae63f98ef589983df7a0b22e59"
+    },
+    {
+      "path": "host.mjs",
+      "bytes": 14518,
+      "sha256": "1bfcf1c5400e5322630e5d643d3c82c2a8da1c737e28721a698b54d8f925736e"
+    },
+    {
+      "path": "observation.json",
+      "bytes": 51637,
+      "sha256": "f265bd0c30730377512b3a48b6ee71a6220dbbbe97cce40df3e75a4c3f3e1f88"
+    },
+    {
+      "path": "preflight.json",
+      "bytes": 9564,
+      "sha256": "6a2c71b35479fea54c7b6024c605c30cf66f48c4c1bd0f46c35c58431388c407"
+    },
+    {
+      "path": "preflight.py",
+      "bytes": 4658,
+      "sha256": "865b9f01cb833df21fa6b4fdae97842082a86044f90429c28d4e5f0e6f490d25"
+    },
+    {
+      "path": "preparation-receipt.json",
+      "bytes": 1427,
+      "sha256": "359b39ec62725feb6e00bdb20e4481c65ce61cf0da639cab1a7c2fa5166af610"
+    },
+    {
+      "path": "prepare.mjs",
+      "bytes": 3198,
+      "sha256": "9fdc75f6fc777212e024459461b825e7457a49ddb3ab00d95712220e8e451970"
+    },
+    {
+      "path": "prepared-inputs.json",
+      "bytes": 2729,
+      "sha256": "79e222bd2ad739b2e3b3d4d917fc457de95dcde256e52a02fc20e71855802b91"
+    },
+    {
+      "path": "preservation-and-footprint.json",
+      "bytes": 6623,
+      "sha256": "f009ef98d1b0413e54550563122c614b53a57c3ffa6de1f8acb340d3cdd53f9a"
+    },
+    {
+      "path": "report.md",
+      "bytes": 8306,
+      "sha256": "1ad7f5f1e0c74975827b2c5a075773a765dd17a027224a15b70923949293a85b"
+    },
+    {
+      "path": "retained/command-actual.json",
+      "bytes": 14137,
+      "sha256": "33b621989053a9495d8fd4493feac1d4f43ccec6789eb743b3f33db6be992cf7"
+    },
+    {
+      "path": "retained/command-decision.json",
+      "bytes": 109,
+      "sha256": "235e0dfecbd62f121439232d52169d1a17138cb33dc324f00f2fe6d6d27290da"
+    },
+    {
+      "path": "retained/direct-actual.json",
+      "bytes": 21075,
+      "sha256": "df939a905ed6d3ef69ed5c025afba709d8795d072a2b374dfaa9a3703e864b52"
+    },
+    {
+      "path": "retained/direct-decision.json",
+      "bytes": 107,
+      "sha256": "6555b282205ebe749ea079d92b50576ad8802bf5d781a7db5160199d16f0ba97"
+    },
+    {
+      "path": "retained/events.jsonl",
+      "bytes": 31543,
+      "sha256": "c61041a2aacc89875c3961b1ea4fc0f5cc871e52ca9dbe4b56a70be57fa793a4"
+    },
+    {
+      "path": "retained/host-result.json",
+      "bytes": 780,
+      "sha256": "6d75d5111821c330eaeeb30d516d39f9937e7444ffabdba7f205e7896e07c5ad"
+    },
+    {
+      "path": "retained/host.stderr",
+      "bytes": 173,
+      "sha256": "3fb02207e1157f64d7d4e79fbb80ecc2879a9f9d3577907907c415322e119bf6"
+    },
+    {
+      "path": "retained/host.stdout",
+      "bytes": 90,
+      "sha256": "230cb7257c0d14ec6e7827086bcc07c308fc8f2e56c6e634787fbb0c7784c330"
+    },
+    {
+      "path": "retained/worker-actual.json",
+      "bytes": 21682,
+      "sha256": "e39e5078786fe8066de371604c253714da6d73f9425d832b300146ab7ab49068"
+    },
+    {
+      "path": "retained/worker-decision.json",
+      "bytes": 107,
+      "sha256": "b8caf33048202b7c8ae3012a0eed2b5ffd1d348a01e1311777957acce3834641"
+    },
+    {
+      "path": "run.py",
+      "bytes": 5205,
+      "sha256": "8405c68799fddd30a2c7340ea571b9648144d452d3ffca03a0db919910f0c3ef"
+    }
+  ],
+  "externalFiles": [
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/command-actual.json",
+      "bytes": 14137,
+      "sha256": "33b621989053a9495d8fd4493feac1d4f43ccec6789eb743b3f33db6be992cf7"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/command-decision.json",
+      "bytes": 109,
+      "sha256": "235e0dfecbd62f121439232d52169d1a17138cb33dc324f00f2fe6d6d27290da"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/direct-actual.json",
+      "bytes": 21075,
+      "sha256": "df939a905ed6d3ef69ed5c025afba709d8795d072a2b374dfaa9a3703e864b52"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/direct-decision.json",
+      "bytes": 107,
+      "sha256": "6555b282205ebe749ea079d92b50576ad8802bf5d781a7db5160199d16f0ba97"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/events.jsonl",
+      "bytes": 31543,
+      "sha256": "c61041a2aacc89875c3961b1ea4fc0f5cc871e52ca9dbe4b56a70be57fa793a4"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/host-result.json",
+      "bytes": 780,
+      "sha256": "6d75d5111821c330eaeeb30d516d39f9937e7444ffabdba7f205e7896e07c5ad"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/host.stderr",
+      "bytes": 173,
+      "sha256": "3fb02207e1157f64d7d4e79fbb80ecc2879a9f9d3577907907c415322e119bf6"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/host.stdout",
+      "bytes": 90,
+      "sha256": "230cb7257c0d14ec6e7827086bcc07c308fc8f2e56c6e634787fbb0c7784c330"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-actual.json",
+      "bytes": 21682,
+      "sha256": "e39e5078786fe8066de371604c253714da6d73f9425d832b300146ab7ab49068"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-output.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-prompt.txt",
+      "bytes": 8388608,
+      "sha256": "0c77bc0a0795a93612d45256897456d0fcb24f151c44c150d07ecd03f4ef5168"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-transport.json",
+      "bytes": 1696,
+      "sha256": "e2e4d740712a71729ae9735a4893e523d7536cfa37f7b3500489714940aeef63"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-decision.json",
+      "bytes": 107,
+      "sha256": "b8caf33048202b7c8ae3012a0eed2b5ffd1d348a01e1311777957acce3834641"
+    }
+  ],
+  "retainedRoots": [
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63",
+    "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63"
+  ],
+  "ownedProductionOutputs": [],
+  "ownedExistingSupportOutputs": [],
+  "disposition": "One worker, one command and one separate common-lifetime actual ENOENT attempt passed. No PID/start/direct exit/stream error observed; expected distinct projections preserved. No universal interleaving, installed/native/ABG/currentness or independent acceptance claim.",
+  "writerStoppedAfterFreeze": true
+}

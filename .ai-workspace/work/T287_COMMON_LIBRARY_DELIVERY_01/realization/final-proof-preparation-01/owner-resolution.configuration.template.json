@@ -1,0 +1,21 @@
+{
+  "kind": "t287_final_owner_resolution_configuration",
+  "status": "NOT_GRANTED",
+  "activationFile": null,
+  "subjectId": "candidate",
+  "installedRoot": null,
+  "installedInventory": null,
+  "outputRoot": null,
+  "environment": {},
+  "requiredPins": [],
+  "p1": {
+    "result": null,
+    "ownerState": null,
+    "catalogCall": null,
+    "catalogOutcome": null,
+    "viewCall": null,
+    "resolveCall": null,
+    "resolveOutcome": null
+  },
+  "bindingRule": "Select exact final P1 result/owner-state and calls/catalog-admit.request.jsonl, calls/catalog-admit.outcome.json, calls/catalog-view.request.jsonl, calls/product-resolve.request.jsonl and calls/product-resolve.outcome.json from the actual P1 output. Verify actual resolve label from owner-state calls before pinning; no guessed or reconstructed admission. New canonical /private/tmp outputRoot only. Required pins include final archive, package inventory, support and original P1 freeze. Schedule this read-only check before P2 or any later append: it requires the complete physical log to remain the exact retained P1 prefix and never acquires that owner."
+}

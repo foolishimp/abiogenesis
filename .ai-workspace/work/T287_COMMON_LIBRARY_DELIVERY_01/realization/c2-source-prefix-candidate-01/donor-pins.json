@@ -1,0 +1,89 @@
+{
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage-post-generation-inventory.json",
+      "sha256": "eb41de1242486d6bcfe5cec7b902bd25092cc91ddda6dfe513448c6dbbd83d37",
+      "bytes": 1784333
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/source-inputs.json",
+      "sha256": "4e9f5acc061fc6ffce9fd8620a779a862adcfe509cae4baf7f2c01c065c5967c",
+      "bytes": 355548
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/dependency-inputs.json",
+      "sha256": "1bbaaf2dab1b689cf1540f7f04e27e8ccb9088a5d6d802d786c803a4ef4a9705",
+      "bytes": 1006488
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/dependency-directory-metadata.json",
+      "sha256": "0a81d61cc8a684469a36d2169c3beedc8f261d2f48160797241d06820b437976",
+      "bytes": 165916
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/generated-inventory.json",
+      "sha256": "b0b38bf971f06aaff83889f2f4dd4301b5e08fd8d1f503afc12fcc8b48349d99",
+      "bytes": 249264
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/emitted-correspondence.json",
+      "sha256": "c4a809a41f92cdd98a5f83e1a6799c51638b5f58de246babdda49e4dcc7e187f",
+      "bytes": 2819
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/prebuild-freeze.json",
+      "sha256": "e2defdb06dc7e492a500843e38fabb9a264af370e676b46196cd6b7a2270b0a0",
+      "bytes": 9183
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/commands-config.json",
+      "sha256": "a3852b82f1a635ca56252583fc4943b1691b50ff5364c0638c6f793e0fd6d4fa",
+      "bytes": 1982
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/command-environment.json",
+      "sha256": "f67d688a9dd39d31d68491f96ac61bd032928f666817130f3d333a50078bbc4d",
+      "bytes": 854
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/prepare-stage.py",
+      "sha256": "e6a2355d2a4eb3f8343f495422f25a34d8f32c3d758853217d4cfd4741872e16",
+      "bytes": 5042
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/common.py",
+      "sha256": "9dc09a38bf640105bb73844ede8f100e3b3271932e004108166da5693bba6bdf",
+      "bytes": 1373
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/run-command.py",
+      "sha256": "01c1fe6f20bf881a6a5456069e9135f2f779086028ae900515e8bfb00f58f2f9",
+      "bytes": 2349
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/verify-generation.py",
+      "sha256": "a86893c11f364efe6cb88ed4bcf5adf3297aa505fee12892fe51145eb3592858",
+      "bytes": 2303
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/verify-metadata.mjs",
+      "sha256": "200c817030e7c8e5ba5f3702fc6092ecfaf78f59a698c833c5b4ac068041efd9",
+      "bytes": 13481
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/verify-archive.py",
+      "sha256": "2d081c03bae74f318a47dc0589fe8d80e2db4f024f95938a7ba302611d035c13",
+      "bytes": 4597
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/verify-payload.mjs",
+      "sha256": "894f2030400b8c9fc1b5cc47271bd50855daa92c7b136e2bcb2a643bb17c2268",
+      "bytes": 1937
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/producer-input-predecessor-pins.json",
+      "sha256": "4126bf5608beb2003f21b8e7059711b7b20ac1b51947c5f0fcf9bb8825ed8fb2",
+      "bytes": 3107
+    }
+  ]
+}

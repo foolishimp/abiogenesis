@@ -205,7 +205,8 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
   });
   const prepareFixture = options.prepareFixture ??
     (options.rootPublicationKinds === undefined ? prepareLanguageSmokeFixture : null);
-  const fixture = prepareFixture === null ? null : await prepareFixture({ scratch, product, gtl, abiPublication: corePublications[0] });
+  const fixture = prepareFixture === null ? null : await prepareFixture({ scratch, product, gtl, abiPublication: corePublications[0],
+    abiPackageArchivePath: artifactPath });
   const fixturePublication = fixture === null ? null : await fixture.loadInstalledPublication({
     installedRoot: fixture.sourceRoot, gtl, product,
   });

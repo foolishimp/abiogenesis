@@ -1,0 +1,92 @@
+{
+  "status": "stopped",
+  "subjectId": "baseline",
+  "lane": "declared-execution",
+  "obligations": [],
+  "attemptedObligations": [
+    "P3-baseline"
+  ],
+  "activation": "L4-P3-BASELINE-01",
+  "runnerFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/runner-failure.json",
+    "sha256": "98cd8446cee81ac8272cb1919cc3f404c64c20bdb6c98f8c6974ed9e06c17c40",
+    "bytes": 8346,
+    "mode": "0o644"
+  },
+  "originalRunnerFailure": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence/failure.json",
+    "sha256": "98cd8446cee81ac8272cb1919cc3f404c64c20bdb6c98f8c6974ed9e06c17c40",
+    "bytes": 8346,
+    "mode": "0o644"
+  },
+  "firstCause": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/first-cause.json",
+    "sha256": "3f15b4be2ee7575a7d23b61f90c2846735ab5cc6c22319a27306957ea83482e4",
+    "bytes": 3912,
+    "mode": "0o644"
+  },
+  "failureLocalization": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/failure-localization.json",
+    "sha256": "2fd02a1474e76a02411ba4401a87da7f446b7d32828c8b29b4f87002d7742809",
+    "bytes": 24002,
+    "mode": "0o644"
+  },
+  "actualRefusal": {
+    "kind": "product_install_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "refused",
+    "code": "dependency_lock_mismatch",
+    "message": "materialized managed Product dependencies differ from the selected resolved lock"
+  },
+  "processExitCode": 1,
+  "processCompletionConfirmed": true,
+  "completedPrerequisites": [
+    "exact frozen ABI archive bootstrap offline installation",
+    "installed external declaration consumer compile with skipLibCheck:false"
+  ],
+  "actualPublicStartCalls": 0,
+  "actualCloseHandoff": null,
+  "actualPrefix": null,
+  "eventStoreAcquired": false,
+  "freshResultReadCalls": 0,
+  "freshReplayReadCalls": 0,
+  "nativeCalls": 0,
+  "originalInMemoryProductLock": "not persisted; not reconstructed as observed evidence",
+  "fixtureArchive": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent/abi5-root-env-B6nZk9/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+    "sha256": "01a4059c50b0479e3c0922ac7fcb17a058f45db5cda1d6431352b628b30b4510",
+    "bytes": 4267,
+    "mode": "0o644",
+    "npmIntegrity": "sha512-RBnDuW+xvVcl0nwseuW9L/czrbsuG7oS6GpGvs1HlV+9nGPgnU9gqUYfVrZ0tUL+Cxps82dqYsZr2rJh255vHQ=="
+  },
+  "physicalResidueInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/retained-resource-inventory.json",
+    "sha256": "d6ab5ed039b7b824a80df34d674711edc3c64508a02c19fbcf4f4cf48e9e2bc4",
+    "bytes": 4629966,
+    "mode": "0o644"
+  },
+  "resourceEntryCount": 11153,
+  "postExecutionVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/post-execution-verification.json",
+    "sha256": "db772db14a0d196974456c6c817211c1a5e8baca3f64be961713f14d801cfcd0",
+    "bytes": 1800,
+    "mode": "0o644"
+  },
+  "measurements": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/measurement-return.json",
+    "sha256": "d781f6b38d17670cfd8f2401aa083c9801e0a3a27ede5f76ddb0c0123526f426",
+    "bytes": 9565,
+    "mode": "0o644"
+  },
+  "retryCount": 0,
+  "cleanup": false,
+  "repairPerformed": false,
+  "nextLaneStatus": "not activated",
+  "remaining": [
+    "separate support repair and exact successor support/stage selection",
+    "actual baseline P3 successful declared execution and fresh reads",
+    "exact candidate successor correspondence and affected reproof",
+    "remaining P2/P3/P5/P4 evidence and V7 unobserved internal quantities under later Executive grants",
+    "independent semantic acceptance"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "originalTwoCommandsBytes": true,
+    "originalRawNegativeCasesBytes": true,
+    "unselectedFirstTwoTestsBytes": true,
+    "originalBudgetTestBytes": true,
+    "legacyFreshWorkerBytes": true,
+    "rootSetupUnchanged": true,
+    "freshWorkerUnchanged": true,
+    "selectedFilesAbsentFromFrozenPayload": true
+  },
+  "frozenPayloadMemberCount": 5267,
+  "packageFiles": [
+    "build/**",
+    "contracts/**",
+    "product-toolchain-manifest.json"
+  ],
+  "meaning": "Exact source support matching, not execution or whole-candidate equivalence."
+}

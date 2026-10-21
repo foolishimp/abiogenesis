@@ -1,0 +1,15 @@
+{
+  "label": "structure-successor-02",
+  "exitCode": 0,
+  "executions": 1,
+  "wallMs": 371.13612494431436,
+  "completedUtc": "2026-10-21T03:30:05.020649+00:00",
+  "stdout": {
+    "bytes": 168,
+    "sha256": "a01316d3e367a3906d08bf23a1e6a910f5c0731a00e9be4ecdbc7f9d83afce56"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

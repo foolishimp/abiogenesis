@@ -1,0 +1,355 @@
+{
+  "scenarioId": "SCN-GLC-DATA-MAPPER-FULL-SCALA-SBT",
+  "purpose": "Independent acceptance of complete original Scala/SBT Spark CDME workload; observable test counts alone cannot close it.",
+  "sourceSelection": {
+    "key": "data-mapper-full",
+    "digest": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324"
+  },
+  "minimumTestPasses": 20,
+  "requiredArtifacts": [
+    "specification/intent.md",
+    "specification/product.md",
+    "specification/goals.md",
+    "specification/requirements.md",
+    "specification/uat-testcases.md",
+    "specification/testcase-authority.md",
+    "design/feature-decomposition.md",
+    "design/module-design.md",
+    "specification/scenario.md",
+    "design/implementation-design.md",
+    "design/component-code-surface.md",
+    "proof/component-realization-qualification.md",
+    "build_tenants/scala_spark/build.sbt",
+    "build_tenants/scala_spark/project/plugins.sbt",
+    "build_tenants/scala_spark/project/build.properties",
+    "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+    "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+    "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+    "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+    "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+    "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+    "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+    "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+    "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+    "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+    "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+    "design/test-design.md",
+    "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+    "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+    "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+    "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+    "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+    "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+    "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+    "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala",
+    "test-execution-result.json",
+    "proof/component-test-execution-qualification.md",
+    "repair/component-repair-schedule.md",
+    "repair/component-repair-application.md",
+    "proof/repaired-component-test-execution-qualification.md",
+    "depth-proof-map.json",
+    "mutation-outcomes.json",
+    "archive/test-run-archive.md",
+    "release/release-depth-parity.md",
+    "release/release-preparation.md"
+  ],
+  "requiredTestFiles": [
+    "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+    "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+    "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+    "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+    "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+    "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+    "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+    "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala"
+  ],
+  "requiredStageMeanings": [
+    "derive_intent_surface",
+    "derive_product_surface",
+    "derive_goal_surface",
+    "derive_requirement_surface",
+    "derive_uat_testcases_surface",
+    "derive_testcase_authority_surface",
+    "derive_feature_decomp_surface",
+    "derive_design_surface",
+    "derive_scenario_surface",
+    "derive_implementation_design_surface",
+    "derive_component_code_surface",
+    "qualify_component_realization_surface",
+    "derive_code_surface",
+    "derive_test_design_surface",
+    "derive_component_test_surface",
+    "prepare_test_execution_surface",
+    "derive_test_execution_result_surface",
+    "qualify_component_test_execution_surface",
+    "derive_component_repair_schedule_surface",
+    "apply_component_repair_surface",
+    "prepare_repaired_test_execution_surface",
+    "derive_repaired_test_execution_result_surface",
+    "qualify_repaired_component_test_execution_surface",
+    "derive_depth_proof_map_surface",
+    "derive_mutation_kill_surface",
+    "derive_test_run_archive_surface",
+    "derive_release_depth_parity_surface",
+    "prepare_release_surface"
+  ],
+  "requiredHostTools": [
+    "sbt",
+    "java"
+  ],
+  "toolchain": {
+    "scalaVersion": "2.13",
+    "sbtVersion": "1.11.7",
+    "scalaTestMajorMinor": "3.2",
+    "javaHome": "/opt/homebrew/opt/openjdk@11",
+    "pathPrefix": "/opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin",
+    "apacheSparkSqlRequired": true,
+    "offlineCacheRequired": true,
+    "loopbackSocketsRequired": true
+  },
+  "requiredModules": [
+    "cdme-core",
+    "cdme-compiler",
+    "cdme-executor",
+    "cdme-adjoint",
+    "cdme-accounting",
+    "cdme-assurance",
+    "cdme-fidelity",
+    "cdme-engine"
+  ],
+  "sharedCoreContractTypes": [
+    "CompiledTopology",
+    "ExecutionResult",
+    "StageResult",
+    "AccountingLedger",
+    "LedgerEntry",
+    "DataFrameRef"
+  ],
+  "requiredTestReportPaths": [
+    "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+    "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+    "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+    "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+    "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+    "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+    "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+    "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml"
+  ],
+  "expectedReturnValue": "data_mapper_full_sbt ok",
+  "forbiddenOutputPaths": [
+    "package.json",
+    "src/logical-data-model.mjs",
+    "test/component/logical-data-model.test.mjs",
+    "test/uat/logical-data-model.uat.test.mjs"
+  ],
+  "requirements": [
+    {
+      "requirementId": "REQ-CDME-CORE",
+      "module": "cdme-core",
+      "concern": "typed logical/physical mapping contract DTOs construct and validate",
+      "positiveShapeRef": "evidence-shape://cdme/core/contract-construction-positive",
+      "negativeShapeRef": "evidence-shape://cdme/core/invalid-contract-rejected-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-TOPOLOGY",
+      "module": "cdme-compiler",
+      "concern": "source-to-target mapping topology compiles with type checking",
+      "positiveShapeRef": "evidence-shape://cdme/topology/compiles-positive",
+      "negativeShapeRef": "evidence-shape://cdme/topology/type-mismatch-rejected-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-EXECUTOR",
+      "module": "cdme-executor",
+      "concern": "DataFrame transformation executes with error-sink capture",
+      "positiveShapeRef": "evidence-shape://cdme/executor/transform-positive",
+      "negativeShapeRef": "evidence-shape://cdme/executor/bad-row-to-error-sink-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-ADJOINT",
+      "module": "cdme-adjoint",
+      "concern": "adjoint lineage registers and inverts mapping metadata",
+      "positiveShapeRef": "evidence-shape://cdme/adjoint/lineage-roundtrip-positive",
+      "negativeShapeRef": "evidence-shape://cdme/adjoint/unregistered-lookup-rejected-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-ACCOUNTING",
+      "module": "cdme-accounting",
+      "concern": "accounting partitions balance and imbalances are detected",
+      "positiveShapeRef": "evidence-shape://cdme/accounting/balanced-partitions-positive",
+      "negativeShapeRef": "evidence-shape://cdme/accounting/unbalanced-detected-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-ASSURANCE",
+      "module": "cdme-assurance",
+      "concern": "data-quality assurance checks apply thresholds",
+      "positiveShapeRef": "evidence-shape://cdme/assurance/threshold-pass-positive",
+      "negativeShapeRef": "evidence-shape://cdme/assurance/threshold-breach-flagged-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-FIDELITY",
+      "module": "cdme-fidelity",
+      "concern": "fidelity reconciliation scores computed against source truth",
+      "positiveShapeRef": "evidence-shape://cdme/fidelity/score-computed-positive",
+      "negativeShapeRef": "evidence-shape://cdme/fidelity/divergence-scored-below-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-ENGINE",
+      "module": "cdme-engine",
+      "concern": "engine orchestrates compile-execute-account-assure end to end",
+      "positiveShapeRef": "evidence-shape://cdme/engine/integration-run-positive",
+      "negativeShapeRef": "evidence-shape://cdme/engine/failing-stage-halts-negative"
+    }
+  ],
+  "requiredDepthClassRefs": [
+    "depth-class://positive",
+    "depth-class://negative",
+    "depth-class://boundary",
+    "depth-class://invariant",
+    "depth-class://integration"
+  ],
+  "observablePredicates": [
+    {
+      "id": "predicate://odd-glc/data-mapper-full/test-exit",
+      "kind": "process_exit",
+      "validationCommandId": "validation://odd-glc/data-mapper-full/tests",
+      "equals": 0
+    },
+    {
+      "id": "predicate://odd-glc/data-mapper-full/module-set",
+      "kind": "module_set_exact",
+      "selector": {
+        "source": "protected_paths",
+        "prefix": "build_tenants/scala_spark/",
+        "suffix": ".scala",
+        "segmentIndex": 0
+      },
+      "equals": [
+        "cdme-core",
+        "cdme-compiler",
+        "cdme-executor",
+        "cdme-adjoint",
+        "cdme-accounting",
+        "cdme-assurance",
+        "cdme-fidelity",
+        "cdme-engine"
+      ]
+    },
+    {
+      "id": "predicate://odd-glc/data-mapper-full/config-count",
+      "kind": "file_count",
+      "role": "build_config",
+      "selector": {
+        "source": "protected_paths",
+        "includeSubstrings": [],
+        "includeSuffixes": [
+          "/build.sbt",
+          "/plugins.sbt",
+          "/build.properties"
+        ]
+      },
+      "equals": 3
+    },
+    {
+      "id": "predicate://odd-glc/data-mapper-full/main-count",
+      "kind": "file_count",
+      "role": "scala_main",
+      "selector": {
+        "source": "protected_paths",
+        "includeSubstrings": [
+          "/src/main/scala/"
+        ],
+        "includeSuffixes": []
+      },
+      "equals": 11
+    },
+    {
+      "id": "predicate://odd-glc/data-mapper-full/test-source-count",
+      "kind": "file_count",
+      "role": "scala_test",
+      "selector": {
+        "source": "protected_paths",
+        "includeSubstrings": [
+          "/src/test/scala/"
+        ],
+        "includeSuffixes": []
+      },
+      "equals": 8
+    },
+    {
+      "id": "predicate://odd-glc/data-mapper-full/test-reports",
+      "kind": "test_report_set_exact",
+      "base": "build_tenants/scala_spark",
+      "selector": {
+        "includeSubstrings": [
+          "/target/test-reports/TEST-"
+        ],
+        "includeSuffixes": [
+          ".xml"
+        ]
+      },
+      "equals": [
+        "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+        "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+        "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+        "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+        "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+        "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+        "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+        "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml"
+      ]
+    },
+    {
+      "id": "predicate://odd-glc/data-mapper-full/test-count",
+      "kind": "test_pass_count",
+      "validationCommandId": "validation://odd-glc/data-mapper-full/tests",
+      "greaterThanOrEqual": 20
+    },
+    {
+      "id": "predicate://odd-glc/data-mapper-full/report-failures",
+      "kind": "test_report_failure_count",
+      "equals": 0
+    },
+    {
+      "id": "predicate://odd-glc/data-mapper-full/report-errors",
+      "kind": "test_report_error_count",
+      "equals": 0
+    }
+  ],
+  "depthProof": {
+    "file": "depth-proof-map.json",
+    "allRequirementsAndClassesRequired": true,
+    "exactExecutedXmlTestIdentityRequired": true,
+    "declarationEqualityDoesNotClose": true
+  },
+  "mutationProof": {
+    "file": "mutation-outcomes.json",
+    "requiredDepthClasses": [
+      "depth-class://negative",
+      "depth-class://invariant"
+    ],
+    "greenFullSuiteBaselineRequired": true,
+    "semanticProductionMutationRequired": true,
+    "compiledMutationRequired": true,
+    "nonzeroFullSuiteAndExactFailingXmlNamesRequired": true,
+    "restoredBytesDigestMustEqualBaseline": true,
+    "actualAdmittedCommandAndReportObservationsRequired": true,
+    "survivedOrCompileErrorIsNotKill": true
+  },
+  "legacyInterpretation": {
+    "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+    "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+    "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+    "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.",
+    "sourceCountConflict": "Original release-depth instruction says26, but exact original stagePlan contains28 after earned-depth and mutation additions. Preserve all28 meanings; the obsolete26 count cannot discard either."
+  },
+  "assessment": "Independently require genuine source-grounded Intent/Product/Goals/Requirements/UAT/design/qualification/repair/archive/release-depth artifacts, actual typed Scala and Spark DataFrame behavior across all eight concerns, real compiler refusals and error sinks, balanced accounting, assurance/fidelity, and engine integration. Require actual sbt test exit0, exactly the eight named XML reports, >=20 passes and no failures/errors. Preserve all28 original lifecycle meanings, every requirement across all five executed depth classes and genuine mutation kills/restoration. Preserve failed original and repaired evidence. No Node, hand-rolled collection replacement, fabricated report, count padding or production release claim. Native independent semantic assessment and installed readback are separately necessary.",
+  "declaredBuildCommand": {
+    "executable": "sbt",
+    "args": [
+      "clean",
+      "assembly"
+    ],
+    "relativeCwd": "build_tenants/scala_spark",
+    "interpretation": "The complete original Product/build contract is preserved. Exact current request.testing.commands retain original actual sbt test proof; full native UAT must evaluate build-contract sufficiency without inventing an assembly success claim."
+  }
+}

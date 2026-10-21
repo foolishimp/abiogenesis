@@ -1,0 +1,18 @@
+{
+  "label": "bootstrap-offline-install",
+  "executable": "/opt/homebrew/bin/npm",
+  "args": [
+    "install",
+    "--offline",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund",
+    "--bin-links=false",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+  ],
+  "cwd": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/host",
+  "wallMs": 2280.15175,
+  "stdout": "\nadded 1 package in 2s\n",
+  "stderr": "npm notice\nnpm notice New minor version of npm available! 11.5.1 -> 11.21.1\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.1\nnpm notice To update run: npm install -g npm@11.21.1\nnpm notice\n",
+  "exitCode": 0
+}

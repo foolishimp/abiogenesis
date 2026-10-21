@@ -1,0 +1,178 @@
+{
+  "status": "bounded_observations_with_disclosed_external_omissions",
+  "subjectId": "baseline",
+  "lane": "declared-execution",
+  "command": {
+    "rawTimeEvidence": {
+      "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/diagnostic/execution.stderr",
+      "sha256": "04de5223c4ca12cf5310b0e4590ce68f2c73f993b7da0634f58fe5b0d0c72bc4",
+      "bytes": 777,
+      "mode": "0o644"
+    },
+    "reportedWallSeconds": 52.57,
+    "reportedUserSeconds": 60.75,
+    "reportedSystemSeconds": 10.33,
+    "maximumResidentSetSizeBytes": 3276521472,
+    "peakMemoryFootprintBytes": 3285732392,
+    "scope": "time -l command accounting over unchanged runner, awaited children and passive observer overhead; no per-external-child attribution"
+  },
+  "launcherSamples": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/diagnostic/execution.json",
+    "sha256": "44de59c914497ca2630b47674da60771ad24eead0d0696e55e8b43759134a496",
+    "bytes": 1668,
+    "mode": "0o644"
+  },
+  "referenceMeasurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/measurement-return.json",
+    "sha256": "6013a3a1fada4198bb90bdf839d721b0bd7fcb5057398d8a86e51972edc4935c",
+    "bytes": 6030,
+    "mode": "0o644"
+  },
+  "referenceCommand": {
+    "rawTimeEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01/execution.stderr",
+      "sha256": "bf0f2b075e5afda4893a5127fb722897618cc326e7319e138177116537736bf7",
+      "bytes": 777,
+      "mode": "0o644"
+    },
+    "reportedWallSeconds": 44.49,
+    "reportedUserSeconds": 51.18,
+    "reportedSystemSeconds": 9.29,
+    "reportedMaximumResidentSetSize": 3055960064,
+    "reportedPeakMemoryFootprint": 3064181920,
+    "externalWrapperWallMs": 44497.78991704807,
+    "scope": "Exact /usr/bin/time -l accounting over runner and awaited children plus proof overhead. Platform memory counters retained as reported, without attribution to any particular helper child."
+  },
+  "correspondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/observed-output-correspondence.json",
+    "sha256": "8f49e92bcf6b811f564361af8da860451c3749a0f9e45a989b8d2deffcd760a4",
+    "bytes": 2574,
+    "mode": "0o644"
+  },
+  "summary": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/diagnostic/diagnostic-summary.json",
+    "sha256": "2dbe113ce59fd70caff8bc9d2058e087d9614987d47423654e93d4a29985aacc",
+    "bytes": 112371,
+    "mode": "0o644"
+  },
+  "processCount": 9,
+  "traceCount": 9,
+  "traceBytes": 209214988,
+  "observerRecordBytes": 89591,
+  "perPidSamples": [
+    {
+      "pid": 22408,
+      "ppid": 22407,
+      "wallMs": 52395.416458,
+      "cpuUs": {
+        "user": 38542347,
+        "system": 2407964
+      },
+      "maxRSSKiB": 3199728
+    },
+    {
+      "pid": 22416,
+      "ppid": 22408,
+      "wallMs": 2413.797,
+      "cpuUs": {
+        "user": 2199584,
+        "system": 2668903
+      },
+      "maxRSSKiB": 601296
+    },
+    {
+      "pid": 22458,
+      "ppid": 22408,
+      "wallMs": 3016.06575,
+      "cpuUs": {
+        "user": 5826731,
+        "system": 154518
+      },
+      "maxRSSKiB": 1329136
+    },
+    {
+      "pid": 22489,
+      "ppid": 22408,
+      "wallMs": 191.292125,
+      "cpuUs": {
+        "user": 316224,
+        "system": 45338
+      },
+      "maxRSSKiB": 236912
+    },
+    {
+      "pid": 22752,
+      "ppid": 22408,
+      "wallMs": 2398.2137500000003,
+      "cpuUs": {
+        "user": 2136682,
+        "system": 2707728
+      },
+      "maxRSSKiB": 641232
+    },
+    {
+      "pid": 22789,
+      "ppid": 22408,
+      "wallMs": 1677.421167,
+      "cpuUs": {
+        "user": 1587160,
+        "system": 1675904
+      },
+      "maxRSSKiB": 582736
+    },
+    {
+      "pid": 22864,
+      "ppid": 22408,
+      "wallMs": 5923.423375,
+      "cpuUs": {
+        "user": 6243723,
+        "system": 196757
+      },
+      "maxRSSKiB": 967808
+    },
+    {
+      "pid": 22924,
+      "ppid": 22408,
+      "wallMs": 1372.5282080000002,
+      "cpuUs": {
+        "user": 1546347,
+        "system": 70146
+      },
+      "maxRSSKiB": 511184
+    },
+    {
+      "pid": 22946,
+      "ppid": 22408,
+      "wallMs": 1368.439209,
+      "cpuUs": {
+        "user": 1548298,
+        "system": 67879
+      },
+      "maxRSSKiB": 444800
+    }
+  ],
+  "byteAndWorkChannels": "Separate actual per-PID/API fields in pinned summary; read/write/hash/JSON/canonical and RuntimeHistory channels overlap and are never summed. Native unsized completions and probe limitations are retained.",
+  "footprints": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/footprints.json",
+    "sha256": "fdb67f253a3e4ccfa974190dce37e28df9e6a31c0f3f993870c9ef61f05bfca5",
+    "bytes": 3182,
+    "mode": "0o644"
+  },
+  "externalChildren": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/non-node-child-edges.json",
+    "sha256": "152fcd4ec828ed3458fe962267eedc7fb45a3614976dd5fe8f2651651d72379a",
+    "bytes": 15150,
+    "mode": "0o644"
+  },
+  "observerOverheadScope": "Native fs trace includes preflight/evidence/observer IO; frozen JS observers exclude their own hashing/serialization. Final observer-record and trace bytes are separately counted, not subtracted. Post-exit analysis, retention/copies/inventories lie outside the timed endpoint.",
+  "comparisonLimit": "One baseline endpoint and one diagnostic repetition. Fresh diagnostic empty npm cache versus original ambient cache boundary and run variation prevent isolated causal overhead or statistical speed claims. Raw clocks and memory maxima retain their original scope; maxima are not summed.",
+  "unobserved": [
+    "tar/du per-PID CPU, memory and internal IO",
+    "unsized native read/write completion bytes and unprobed APIs",
+    "cold causal-iteration internal work and later exit-handler work",
+    "OS-wide IO or allocation peaks and CoW-exclusive bytes",
+    "isolated observer cost and statistical performance distribution"
+  ],
+  "unobservedIsZero": false,
+  "nativeCalls": 0
+}

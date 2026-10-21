@@ -1,0 +1,11 @@
+{
+  "retainedLogicalBytesBeforeClosure": 80171,
+  "limit": 3221225472,
+  "physicalRows": 0,
+  "physicalLogicalBytes": 0,
+  "newArchiveStageOrOverlayCopies": false,
+  "wallMsByCommand": {
+    "route-self-contained": 2812.0947498828173,
+    "native-workspace-physical-regression": 416.6576671414077
+  }
+}

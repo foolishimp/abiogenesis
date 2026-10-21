@@ -1,0 +1,19 @@
+{
+  "scenario": "basic-cli",
+  "runId": "2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a",
+  "mode": "prepare",
+  "status": "refused",
+  "uatPass": false,
+  "reason": "Error: consumer-artifact-verification: {\"kind\":\"product_verification_refusal\",\"schemaVersion\":\"5.0.0\",\"disposition\":\"refused\",\"code\":\"identity_mismatch\",\"message\":\"package metadata and product manifest disagree\",\"artifactRef\":\"file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz\"}",
+  "boundary": "consumer-artifact-verification",
+  "observation": {
+    "kind": "product_verification_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "refused",
+    "code": "identity_mismatch",
+    "message": "package metadata and product manifest disagree",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz"
+  },
+  "stop": "First failing composition returned for Product/Design/interface/identity/effects/proof triage; no retry"
+}

@@ -1,0 +1,84 @@
+{
+  "branch": "main",
+  "head": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+  "origin": "https://github.com/foolishimp/abiogenesis.git",
+  "statusHeader": "## main...origin/main",
+  "entryCount": 37051,
+  "statusCounts": {
+    " M": 38,
+    "??": 37013
+  },
+  "visibleChangedFileBytes": 4990826954,
+  "over90MiB": [
+    {
+      "status": "??",
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-owner-carriers.json",
+      "bytes": 109238698,
+      "kind": "file"
+    }
+  ],
+  "sensitiveNameCandidates": [],
+  "largestGroups": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04",
+      "entries": 197,
+      "bytes": 561488635
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01",
+      "entries": 175,
+      "bytes": 453017131
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01",
+      "entries": 199,
+      "bytes": 438625854
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02",
+      "entries": 129,
+      "bytes": 361457243
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05",
+      "entries": 106,
+      "bytes": 349551993
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-01",
+      "entries": 45,
+      "bytes": 252286463
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04",
+      "entries": 340,
+      "bytes": 222762648
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02",
+      "entries": 2740,
+      "bytes": 202087821
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01",
+      "entries": 2787,
+      "bytes": 193593438
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03",
+      "entries": 2724,
+      "bytes": 159776981
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06",
+      "entries": 1471,
+      "bytes": 156818723
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02",
+      "entries": 87,
+      "bytes": 153019540
+    }
+  ],
+  "scope": "One initial Git visible-change inventory; bytes are lstat sizes, not deduplicated Git payload or a content/secret acceptance. Unchanged tracked files remain in HEAD. No protected continuation17 paths opened."
+}

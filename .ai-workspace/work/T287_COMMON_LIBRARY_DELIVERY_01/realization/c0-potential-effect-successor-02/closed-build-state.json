@@ -1,0 +1,17 @@
+{
+  "status": "stopped_first_unexpected_material_validation_failure",
+  "compileAttempts": 1,
+  "compileExitCode": 0,
+  "generatorAttempts": 1,
+  "generatorExitCode": 0,
+  "materialAttempts": 1,
+  "materialExitCode": 1,
+  "archive": null,
+  "packAttempts": 0,
+  "installedProofAttempts": 0,
+  "sourceInputSha256": "9207124aa12570c8966844219c61181de966ddb512bce0bbd0ae663134a68c2f",
+  "dependencyInputSha256": "253ccb2edfca3536103fdcc4cab111797823b96783b59c2de8dff187d62defa0",
+  "stageInventorySha256": "0c596677c8db904f7908b39e82004d828bf59e48c172857ec5d52c140ba3af93",
+  "priorFreezeHashesUnchanged": true,
+  "main936Unchanged": true
+}

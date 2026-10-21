@@ -1,0 +1,22 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "not_granted",
+  "configurationSha256": "428471e2e177b419a3712913bb3791896ebbfeb79577679a57fb0905a7000c2b",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "subjectId": "candidate",
+  "lanes": [
+    "public-preparation"
+  ],
+  "maxNativePositiveCalls": 0,
+  "resources": {
+    "public-preparation": {
+      "evidence": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence",
+      "host": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/host",
+      "scratchParent": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/worksite"
+    }
+  },
+  "issuedBy": "/root",
+  "requiredEvidence": "Draft only. Executive activation must create new configuration/grant bytes; no frozen draft authorizes effects."
+}

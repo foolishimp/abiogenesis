@@ -1,0 +1,54 @@
+{
+  "status": "closed_transport_population_failure",
+  "files": [
+    {
+      "path": "HOW.md",
+      "sha256": "eb9d3557a40a172c105c22bfc8d339aad7cb8d4aa061ae1cc048a3da64b43911",
+      "bytes": 2809
+    },
+    {
+      "path": "STOP-population.json",
+      "sha256": "32808862ab5ee313a053676b2b800368ad48bb2be4a7f14072f16d6b396d5d17",
+      "bytes": 2033
+    },
+    {
+      "path": "activation.json",
+      "sha256": "fdfc249c703724bba414a23ed6bfe9c386df393fb39aa69aaf489a15da87ddf3",
+      "bytes": 16855
+    },
+    {
+      "path": "population.command.json",
+      "sha256": "0e30913d5261e2899188eb445c1c34a67f3996a7da2f15e6610dd70ed5cb4915",
+      "bytes": 403
+    },
+    {
+      "path": "population.receipt.json",
+      "sha256": "fbfdda15561f20a180753775c06bb95cd0dfb36ede6ac6500847225d93d46cfe",
+      "bytes": 352
+    },
+    {
+      "path": "population.stderr",
+      "sha256": "1e791890550622f22b16b1d3740139219623f2f402cf819659c36281a0791bfb",
+      "bytes": 1299
+    },
+    {
+      "path": "population.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "return-stopped.json",
+      "sha256": "a5fd22c2ad90dae0f6a946fdbdb091735d5447d3bbd7cec9a75efd0b342d00d3",
+      "bytes": 1375
+    },
+    {
+      "path": "select-population.py",
+      "sha256": "595b0877455e0e5b56df216f3bd4660bc453de5facd5ea1d0a29c39467985750",
+      "bytes": 10660
+    }
+  ],
+  "fileCount": 9,
+  "archivesWritten": 0,
+  "GitStaged": false,
+  "returnTo": "/root"
+}

@@ -1,0 +1,120 @@
+{
+  "kind": "exact-writer-documentation-freeze",
+  "activation": "EXECUTIVE-RETIREMENT-REPRICE-01",
+  "date": "2026-10-21",
+  "scope": "One coordination subject; current docs and preimages frozen, no independent acceptance.",
+  "basis": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "root": "repo://abiogenesis/",
+  "files": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "4f7dc3ee8a03f7d41b61a12f2f9706eee61b40d65e64316ac65c159cd2edc1c5",
+      "bytes": 544429,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "sha256": "84559ffe8f8fe9a18a80fa19705e61a3d636c27f2026dfb2b86bba357f136659",
+      "bytes": 6069,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/activation.json",
+      "sha256": "e737d300caacc76ff716579c75b87a9169eb2dfd85ed5db698207a884c060a9e",
+      "bytes": 1408,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/checkpoint-handoff.diff",
+      "sha256": "a26c559b364fd1e63fc077c221ede9408114f3b6ea340049067844c859fa939d",
+      "bytes": 11090,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/decision.md",
+      "sha256": "72ccba4f9d6a24875e667c6077ee67d16b7954630171fa8a78c33dea229d2e66",
+      "bytes": 9815,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/goals.diff",
+      "sha256": "eeab7171522cfaa59c567b2b5f3a9c2edf95ece93a2fb1680293c7e56cb4931c",
+      "bytes": 6725,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/input-pins.json",
+      "sha256": "ba94057259866480deb4079eb7fe178075b1b0a6a8a84eef13dfa66796adb891",
+      "bytes": 6770,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/plan.md",
+      "sha256": "66426863f0987c36ee4c7d3326cca089df19704e54ec26286a590eb6b8567e46",
+      "bytes": 8836,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/preimages.json",
+      "sha256": "52cb9a5a5d1ddedbbae1d454568c8415e89fcd4360898acd898f0b79fae4d322",
+      "bytes": 1196,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "abb688a28d3121a9868f27cc8f5803e5c5756769df2902d40517f9b7fac7a31b",
+      "bytes": 541019,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "sha256": "0e6deb951f7c7ceeb7aa9c816e392576bdfa482544c0f0cab5e0223583992f97",
+      "bytes": 4647,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/preimages/specification/GOALS.md",
+      "sha256": "df4052e8c4b1c7fa906ccacf47fc4cad641412e9a351c3587a60ac23c5b9590f",
+      "bytes": 78988,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/readiness.json",
+      "sha256": "b475468e18a6922238878219a38509f8befba0872660ba6daf225a6948394058",
+      "bytes": 3987,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/return.json",
+      "sha256": "78eb5945c39d39c02aee61dd25eaba64310b4ebaa84ed60e07ce8f5f2729dffa",
+      "bytes": 1370,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/review-effects.md",
+      "sha256": "39241870fe8eba2bb762db11f4ae3006824922f80cbb68cd2b5dbd99e7a24d3a",
+      "bytes": 8825,
+      "mode": "0644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/ticket.diff",
+      "sha256": "c3af723b09a4b4cdfd95b85c3bc940b00db573d4402306663f6343919dd5d217",
+      "bytes": 19444,
+      "mode": "0644"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "3145e64971cd2a0bbdd48e1dba8422e4b4ecd44a15177a53404d414e37b46c6d",
+      "bytes": 80826,
+      "mode": "0644"
+    }
+  ],
+  "fileCount": 17,
+  "totalBytes": 1335444,
+  "selfExcluded": true,
+  "stopAfterFreeze": true
+}

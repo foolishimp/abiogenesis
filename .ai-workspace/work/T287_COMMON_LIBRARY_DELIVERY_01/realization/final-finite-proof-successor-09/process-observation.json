@@ -1,0 +1,9 @@
+{
+  "supervisedRootProcessGroups": [
+    58004,
+    58217,
+    58366
+  ],
+  "observedMembers": [],
+  "limit": "One read-only snapshot of exact supervised groups, not proof of absence of escaped descendants. Existing child ownership/disposal unchanged; no new signal or cleanup."
+}

@@ -1,0 +1,242 @@
+{
+  "kind": "closed_stopped_writer_subject",
+  "activation": "FINITE-REST-08",
+  "status": "incomplete",
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "sourceFreezeSha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+  "preflightFreezeSha256": "8ce2689bc731c98e68cf92affd7591c70ed993cc8c70321d75aed60d7ee48eaa",
+  "stopSha256": "99bf23059b9f843e1213fedd84ac2be548d675ce2ab0cb68704db6b7ca5113e1",
+  "reportSha256": "712ebc06779df1201337dc4a51542808ed5d7b0a3a1e8ed93e7e15e3d25686a1",
+  "files": [
+    {
+      "path": "HOW-binding.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2430,
+      "sha256": "774e3a528d2b6dd99a025c8dd956da23a63c8609cd1f6f1127deb0d76837efb7"
+    },
+    {
+      "path": "REPORT.md",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1533,
+      "sha256": "712ebc06779df1201337dc4a51542808ed5d7b0a3a1e8ed93e7e15e3d25686a1"
+    },
+    {
+      "path": "STOP.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2520,
+      "sha256": "99bf23059b9f843e1213fedd84ac2be548d675ce2ab0cb68704db6b7ca5113e1"
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1421,
+      "sha256": "12c41d6221cd6d32bc2e6f34e658a9c0942fe3b540b52b0e3150694bf7edcf5d"
+    },
+    {
+      "path": "close-subject.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 8030,
+      "sha256": "556d14dfbef81f2be08de9f08546f472953778e7f6a83d248a8056feafe7a79c"
+    },
+    {
+      "path": "command-environment.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1066,
+      "sha256": "fd66b83e2aee83c2fedf7ab8bc701995e725c5f467607d654edbf935e623f3df"
+    },
+    {
+      "path": "command-freezes/D02-preparation-owner-case.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4360,
+      "sha256": "40998de1193bd3b401533a5d9e5d335a2316e0d50e7f1e78345320b467ceb0f7"
+    },
+    {
+      "path": "command-freezes/native-workspace-physical-regression.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3663,
+      "sha256": "2563a0f0c781e7389b22fcd3095db8dfc5849ef1edd053b28f1a29bcdec4a9da"
+    },
+    {
+      "path": "command-freezes/route-self-contained.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4777,
+      "sha256": "98bbf7ecfd34a8778594454ab6b24793ff587c7bb533bfdeae2da32026e50851"
+    },
+    {
+      "path": "command-freezes/terminal-quiescence7.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3454,
+      "sha256": "0cd25efb9e5e6dbbcb3ca96591033b88d993f5ad1488a49aeafc3667d911bf09"
+    },
+    {
+      "path": "commands-config.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4437,
+      "sha256": "4073ebb80d01e59c1e596a82891fa689494e6aacfecb0bd2e6ab36dee3a001ee"
+    },
+    {
+      "path": "commands/native-workspace-physical-regression.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2005,
+      "sha256": "72f8caca26403378ca8f71ccc85326967d0df74e10648ff62605c9fb9c534d74"
+    },
+    {
+      "path": "commands/native-workspace-physical-regression.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 239,
+      "sha256": "e3fdc3938fe88637db03dab9f92d7379d321db48cf8f713aa26d1213b036a64d"
+    },
+    {
+      "path": "commands/native-workspace-physical-regression.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/native-workspace-physical-regression.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1121,
+      "sha256": "33a3c855c283960e73249d6ef7f7a51e33fb4e51137db2cba97f17dc27ad23a0"
+    },
+    {
+      "path": "commands/route-self-contained.request.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2809,
+      "sha256": "2b05b1ef3f27b0dba986e9ccc411ef2b7049ccfd81cc7ca6f4068cd0bb60f8e6"
+    },
+    {
+      "path": "commands/route-self-contained.result.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 240,
+      "sha256": "257ac8329132d708179446d346f0ff1f2d22b48f24f0c3d44ac2e07c79067068"
+    },
+    {
+      "path": "commands/route-self-contained.stderr",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/route-self-contained.stdout",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 5897,
+      "sha256": "319db9e83cce7d125003f9825f7178d8fe88c294c6838e073986078f957d5020"
+    },
+    {
+      "path": "failure-summary.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1215,
+      "sha256": "da4a3db9d86c5e525b9866a728b74f395b464f4603eefc1161f18679ad46bab9"
+    },
+    {
+      "path": "first-cause.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3496,
+      "sha256": "1767d1a10b25382199a430d0270ab1f252334965d191f20643c34fa6a23d94ab"
+    },
+    {
+      "path": "input-binding.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4835,
+      "sha256": "2c10bc0693e63cdf9a7aa461713bd15db3685062f27a0caf04cf8c0a4ee39fa4"
+    },
+    {
+      "path": "mapped-outcomes.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4933,
+      "sha256": "6671b313598963e8cefc99f72c64a3cd8b61a4bc1f66d217d19e232629f78412"
+    },
+    {
+      "path": "physical-inventory.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 292,
+      "sha256": "d09d7113494f84fa976465f08063c1f3b23c9199c214966c9226e84ecd935797"
+    },
+    {
+      "path": "preflight-freeze.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 1745,
+      "sha256": "8ce2689bc731c98e68cf92affd7591c70ed993cc8c70321d75aed60d7ee48eaa"
+    },
+    {
+      "path": "prepare-proof.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 4850,
+      "sha256": "321721f0496ab72117279bbcbfe29dd20c436e954b2d42c50d9491495e18bbbd"
+    },
+    {
+      "path": "preservation-after.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3737,
+      "sha256": "9f774d136ed09e138e3dd18af1e88b5134b33bd69367f30dd1bf46ff2e8259fa"
+    },
+    {
+      "path": "process-observation.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 270,
+      "sha256": "cb9c8a231514b8144eecf2a8acbd2fe2c4ee625ba55d9bccfed9c055be24dc4a"
+    },
+    {
+      "path": "resource-cost.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 303,
+      "sha256": "ec04ddbaf91b4ce99747a2543df1af58a163a0a30635026c40560c71699f7910"
+    },
+    {
+      "path": "resources.json",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 3758,
+      "sha256": "acdc2c9737c61a02cd53b9af1b791ca4a2a783e1411fe641f89dda001f1c6ab5"
+    },
+    {
+      "path": "run-command.py",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 2571,
+      "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec"
+    }
+  ],
+  "recordCount": 31,
+  "logicalBytes": 82007,
+  "physicalInventorySha256": "d09d7113494f84fa976465f08063c1f3b23c9199c214966c9226e84ecd935797",
+  "physicalRows": 0,
+  "physicalLogicalBytes": 0,
+  "executedCommands": 2,
+  "failedCommands": [
+    "native-workspace-physical-regression"
+  ],
+  "unexecutedCommands": [
+    "terminal-quiescence7",
+    "D02-preparation-owner-case"
+  ]
+}

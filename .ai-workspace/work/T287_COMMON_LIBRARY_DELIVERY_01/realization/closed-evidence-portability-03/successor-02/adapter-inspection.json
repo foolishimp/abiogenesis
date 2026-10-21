@@ -1,0 +1,292 @@
+{
+  "status": "satisfied",
+  "scope": "Selected field adapters only; no original filesystem inventory/read",
+  "fields": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/freeze.json",
+      "field": "files",
+      "rows": 7305,
+      "declaredKinds": {
+        "file": 7303,
+        "symlink": 2
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+      "field": "files",
+      "rows": 7370,
+      "declaredKinds": {
+        "file": 7368,
+        "symlink": 2
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/freeze.json",
+      "field": "files",
+      "rows": 27,
+      "declaredKinds": {
+        "file": 27
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/freeze.json",
+      "field": "files",
+      "rows": 88,
+      "declaredKinds": {
+        "file": 88
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/freeze.json",
+      "field": "files",
+      "rows": 36,
+      "declaredKinds": {
+        "file": 36
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/freeze.json",
+      "field": "files",
+      "rows": 84,
+      "declaredKinds": {
+        "file": 84
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2/freeze.json",
+      "field": "files",
+      "rows": 34,
+      "declaredKinds": {
+        "file": 34
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p3/freeze.json",
+      "field": "files",
+      "rows": 29,
+      "declaredKinds": {
+        "file": 29
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/failure-freeze.json",
+      "field": "records",
+      "rows": 73,
+      "declaredKinds": {
+        "file": 73
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/failure-freeze.json",
+      "field": "externalPins",
+      "rows": 11,
+      "declaredKinds": {
+        "file": 11
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/failure-freeze.json",
+      "field": "files",
+      "rows": 87,
+      "declaredKinds": {
+        "file": 87
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/failure-freeze.json",
+      "field": "externalFiles",
+      "rows": 5890,
+      "declaredKinds": {
+        "file": 5890
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/failure-freeze.json",
+      "field": "symlinks",
+      "rows": 2,
+      "declaredKinds": {
+        "symlink": 2
+      },
+      "classification": "explicit owning symlinks container"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/freeze.json",
+      "field": "files",
+      "rows": 48,
+      "declaredKinds": {
+        "file": 48
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-07/freeze.json",
+      "field": "files",
+      "rows": 49,
+      "declaredKinds": {
+        "file": 45,
+        "symlink": 4
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-08/freeze.json",
+      "field": "files",
+      "rows": 31,
+      "declaredKinds": {
+        "file": 31
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-successor-09/freeze.json",
+      "field": "files",
+      "rows": 42,
+      "declaredKinds": {
+        "file": 39,
+        "symlink": 3
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/freeze.json",
+      "field": "records",
+      "rows": 14,
+      "declaredKinds": {
+        "file": 14
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/freeze.json",
+      "field": "outputs",
+      "rows": 2,
+      "declaredKinds": {
+        "file": 2
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/freeze.json",
+      "field": "externalPins",
+      "rows": 21,
+      "declaredKinds": {
+        "file": 21
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/freeze.json",
+      "field": "files",
+      "rows": 38,
+      "declaredKinds": {
+        "file": 38
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/freeze.json",
+      "field": "files",
+      "rows": 15,
+      "declaredKinds": {
+        "file": 15
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01/freeze.json",
+      "field": "files",
+      "rows": 12,
+      "declaredKinds": {
+        "file": 12
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/freeze.json",
+      "field": "files",
+      "rows": 48,
+      "declaredKinds": {
+        "file": 48
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/freeze.json",
+      "field": "files",
+      "rows": 94,
+      "declaredKinds": {
+        "file": 94
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/freeze.json",
+      "field": "externalFiles",
+      "rows": 18310,
+      "declaredKinds": {
+        "directory": 1773,
+        "file": 16537
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/freeze.json",
+      "field": "files",
+      "rows": 43,
+      "declaredKinds": {
+        "file": 43
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/freeze.json",
+      "field": "externalFiles",
+      "rows": 18245,
+      "declaredKinds": {
+        "directory": 1763,
+        "file": 16482
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/freeze.json",
+      "field": "files",
+      "rows": 17,
+      "declaredKinds": {
+        "file": 17
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/stopped-preparation-freeze.json",
+      "field": "records",
+      "rows": 8,
+      "declaredKinds": {
+        "file": 8
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/freeze.json",
+      "field": "files",
+      "rows": 8,
+      "declaredKinds": {
+        "file": 8
+      },
+      "classification": "native kind/type, otherwise native file-pin format"
+    }
+  ],
+  "errors": []
+}

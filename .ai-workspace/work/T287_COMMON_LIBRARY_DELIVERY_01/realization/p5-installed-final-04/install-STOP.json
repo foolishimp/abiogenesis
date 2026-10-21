@@ -1,0 +1,26 @@
+{
+  "status": "STOPPED",
+  "activation": "P5-INSTALLED-C2-04",
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/commands/install.completion.json",
+    "bytes": 1266,
+    "sha256": "5b81f1f2207d297904e25c7ad46b069ec273948a59f78ce7e47858b0b808aa77"
+  },
+  "stderr": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/commands/install.stderr",
+    "bytes": 117,
+    "sha256": "250e369d730a46c4d41df37449a5c58c169b4b1d2ab546951a8bed0285805a95"
+  },
+  "cause": "New operator environment aliases npm userconfig and globalconfig to identical /dev/null pathname; npm config loader refuses double source identity before install.",
+  "ownerOrCandidateFailureEstablished": false,
+  "selectedTestLaunches": 0,
+  "installerProcesses": 1,
+  "successfulInstalls": 0,
+  "physicalAbsence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/install-independent-absence.json",
+    "bytes": 539,
+    "sha256": "c2ba474f99131d712fb7962fa1957a091a695405d598f8797cdb2674ae1a3d01"
+  },
+  "retainedPhysicalRoot": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6",
+  "nextStep": "Executive triage only; no retry/repair under stopped subject"
+}

@@ -1,0 +1,10 @@
+✔ physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded (354.59625ms)
+ℹ {"ownedGroupAbsent":true,"escapedGroup":88383,"closeObserved":false,"disposed":true,"cleanupMs":31.640834,"signals":0,"probes":1}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 391.771542

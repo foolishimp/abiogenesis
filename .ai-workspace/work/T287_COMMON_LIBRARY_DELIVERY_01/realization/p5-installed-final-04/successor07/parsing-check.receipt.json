@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/parsing-check.mjs"
+  ],
+  "startedAt": "2026-10-21T07:41:56.704424+00:00",
+  "exitCode": 0,
+  "stdout": {
+    "bytes": 187,
+    "sha256": "a5bd1df6661c9a38f65fb7761d1fe9731f6c666259ed7e6eaf2f0343e1017235"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "syntax or pure parsing only; no installed workload/helper/native launch"
+}

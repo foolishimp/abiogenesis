@@ -1,0 +1,48 @@
+{
+  "status": "not_granted",
+  "selectedNextPriority": "candidate P1 then candidate P2/P3; baseline P1/P3 are comparison lanes under separate grants",
+  "requestedScratchAlias": "/tmp/abg-stdo3-l4-cb3836ff7660492d",
+  "canonicalScratchParent": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d",
+  "canonicalReason": "macOS /tmp resolves to /private/tmp; frozen runner requires exact realpath for newly created resource roots",
+  "resourcesCurrentlyAbsent": true,
+  "noneCreated": true,
+  "configurations": [
+    {
+      "subjectId": "candidate",
+      "configuration": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/candidate-p1.configuration.draft.json",
+        "sha256": "428471e2e177b419a3712913bb3791896ebbfeb79577679a57fb0905a7000c2b"
+      },
+      "draftGrant": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/candidate-p1.effect-grant.draft.json",
+        "sha256": "b28d7ac7f6643c0b0f7bde194042417343b415383cc602af25af281645b8ccbb"
+      },
+      "resources": {
+        "evidence": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/evidence",
+        "host": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/host",
+        "scratchParent": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/candidate-p1/worksite"
+      }
+    },
+    {
+      "subjectId": "baseline",
+      "configuration": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-p1.configuration.draft.json",
+        "sha256": "1750bd50b560404a2853d991aeb453ce0734a22937642f947c22d0847155bdd9"
+      },
+      "draftGrant": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-p1.effect-grant.draft.json",
+        "sha256": "1d1f0baa5fdd63e15eaac61fc79eb04c47bed4a63c18ba4ba3aeb988ea302328"
+      },
+      "resources": {
+        "evidence": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence",
+        "host": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/host",
+        "scratchParent": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/worksite"
+      }
+    }
+  ],
+  "activationProcedure": "Under a new explicit L4 grant, create successor configuration bytes with status activated and a new activationFile, then bind those bytes plus exact frozen runner/oracle and resources in a granted effect record. Preserve these closed drafts.",
+  "partialInstallConfiguration": "Cannot freeze exact P2 handoff until actual P1 receipt, prefix, owner state and verification call/outcome exist. No placeholder is runtime authority.",
+  "installedDeclarationCompilation": "Prepared external consumer will compile against actual newly installed package as first lane bootstrap gate; not performed in this construction."
+}

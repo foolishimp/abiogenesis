@@ -1,0 +1,13 @@
+{
+  "exitCode": 0,
+  "wallMs": 824.6565829031169,
+  "archive": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 10680461,
+    "sha256": "151ad625652dc426d46a210559afde50f40b93acdf216b5ca9d64969e5eb8e54"
+  },
+  "members": 5271,
+  "payloadRows": 5269
+}

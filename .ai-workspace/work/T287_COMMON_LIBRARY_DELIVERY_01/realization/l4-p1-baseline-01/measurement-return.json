@@ -1,0 +1,64 @@
+{
+  "command": {
+    "rawTimeEvidence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/execution.stderr",
+      "sha256": "c724eecd8955d645d081a10cd653bd21adf13a8eb63ba7d2967d7fabf207cb7f",
+      "bytes": 777
+    },
+    "reportedWallSeconds": 310.07,
+    "reportedUserSeconds": 360.32,
+    "reportedSystemSeconds": 15.26,
+    "externalWrapperWallMs": 310074.60924983025,
+    "scope": "exact /usr/bin/time -l command accounting over runner plus awaited children and proof overhead; raw platform counters retained without child-specific attribution"
+  },
+  "runnerMeasurements": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/measurements.json",
+    "sha256": "1e61c04431a79ce4d4f676f7a52a9a3352a445e54a10673c2ccfd9ba079da67b",
+    "bytes": 16326
+  },
+  "retainedFootprintsAtFreeze": [
+    {
+      "rootLabel": "evidence",
+      "root": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence",
+      "files": 10613,
+      "symlinks": 0,
+      "logicalBytes": 498113072
+    },
+    {
+      "rootLabel": "host",
+      "root": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/host",
+      "files": 5271,
+      "symlinks": 0,
+      "logicalBytes": 70673851
+    },
+    {
+      "rootLabel": "scratchParent",
+      "root": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/scratchParent",
+      "files": 590,
+      "symlinks": 0,
+      "logicalBytes": 2863296
+    },
+    {
+      "rootLabel": "worksite",
+      "root": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/worksite",
+      "files": 1,
+      "symlinks": 0,
+      "logicalBytes": 1400
+    }
+  ],
+  "footprintScope": "only granted roots; copied source/package files may share physical blocks; npm cache/log activity outside these roots is not inventoried",
+  "unobserved": [
+    "internal read/hash/encode/write byte counters",
+    "RuntimeHistorySelection body/selector/suffix/cause counters not exposed by selected caller",
+    "child CPU and peak memory for helper-internal subprocesses",
+    "native-provider token cost unless reported by retained transcript",
+    "OS-wide allocation peaks"
+  ],
+  "noClaims": [
+    "internal phase split",
+    "complete internal byte/work counters",
+    "individual helper child CPU/peak",
+    "speedup or heap bound",
+    "L5 acceptance"
+  ]
+}

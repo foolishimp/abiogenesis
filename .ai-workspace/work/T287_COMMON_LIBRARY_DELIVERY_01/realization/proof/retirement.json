@@ -1,0 +1,92 @@
+{
+  "kind": "finite_two_sided_retirement_preparation",
+  "requiredSides": [
+    "actual ordinary consumer reaches shared route",
+    "old equivalent body absent/unreachable in source, emitted production module, exact archive members, installed module and relied-on support"
+  ],
+  "pureClosedEvidence": {
+    "path": "../pure/retirement-audit.json",
+    "scope": "source/emission on pure-only frozen stage; package/installed support pending"
+  },
+  "selectedRoutes": [
+    {
+      "source": "product/environment_definition_bindings.ts",
+      "removed": [
+        "local sameJson",
+        "local sameCoordinate"
+      ],
+      "shared": "shared/definition_binding_mechanics.ts"
+    },
+    {
+      "source": "product/verification_definition_bindings.ts",
+      "removed": [
+        "local sameCoordinate"
+      ],
+      "shared": "shared/definition_binding_mechanics.ts"
+    },
+    {
+      "source": "product/execution_resolution.ts",
+      "removed": [
+        "local filter/cardinality algorithm"
+      ],
+      "retained": "exact owner projection",
+      "shared": "product/exact_match.ts::resolveExactMatch"
+    },
+    {
+      "source": "shared/definition_binding_mechanics.ts",
+      "removed": [
+        "local filter/cardinality in selectedDefinition"
+      ],
+      "retained": "selectedDefinition null/identity projection",
+      "shared": "product/exact_match.ts::resolveExactMatch"
+    },
+    {
+      "source": "shared/rooted_topology_partition.ts",
+      "removed": [
+        "local exact-key algorithm"
+      ],
+      "shared": "shared/admission_predicates.ts::hasExactKeys"
+    },
+    {
+      "source": "abg/event_body_encoding.ts",
+      "removed": [
+        "private exactKeys algorithm"
+      ],
+      "shared": "shared/admission_predicates.ts::hasExactKeys",
+      "domain": "three JSON-parsed canonical physical-row decode joins"
+    },
+    {
+      "source": "abg/worker_transport.ts + implementation/worksite_command_helper.ts",
+      "removed": [
+        "duplicated signal/probe/escalation/confirmation/drain",
+        "obsolete HTTP waitForExit once unreachable"
+      ],
+      "shared": "shared/owned_process_lifetime.ts",
+      "status": "await lifetime freeze"
+    },
+    {
+      "source": "gtl/stdo_run_environment.ts",
+      "required": "current generic standalone declaration with exact manifest dependency",
+      "assurance": "test_env/support/stdo3-run-environment.mjs; historical native-registered-selection.mjs absent from current closure"
+    }
+  ],
+  "retainedDistinct": [
+    "E01 NUL-joined historical domains",
+    "E02 text/digest/native/coordinate/closure/cache identities",
+    "E04 inventory/archive/materialization domains",
+    "owner-specific worker/command/HTTP capture and result policy",
+    "emergency parent-exit best effort"
+  ],
+  "method": "finite rg/import/export/member inventory over closed named files; exact emitted/member source correspondence; no broad moving-tree scan",
+  "disposableMutation": {
+    "grant": "separate later activation",
+    "subject": "new independent copy of exact stage/archive, never accepted package or evidence",
+    "probes": [
+      "disable selected pure shared route and require its declared deterministic consumer discriminator to fail",
+      "disable selected source factory route and require local constructor/acquisition discriminator to fail",
+      "selected E03 controlled/physical test discriminator under its declared safe process envelope"
+    ],
+    "limits": "no hidden fallback; no provider rerun; do not mutate currentness owner to manufacture runtime evidence"
+  },
+  "currentResult": "not executed"
+}

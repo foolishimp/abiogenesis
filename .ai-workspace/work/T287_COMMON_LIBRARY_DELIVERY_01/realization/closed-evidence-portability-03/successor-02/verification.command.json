@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/verify-transport.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "outerTimeoutSeconds": 1800,
+  "script": {
+    "path": "verify-transport.py",
+    "sha256": "2a1e28a5c3c3edd2765e6a9ca9bb0430638ee98e15ff8f42c943ddfd87f82476",
+    "bytes": 14533
+  },
+  "inputSha256": "7900903ba3704157d123d62aa51f62a0cbcc1f9bf9d6cb45f42b814155a61134",
+  "phase": "One repository/archive-only verification attempt"
+}

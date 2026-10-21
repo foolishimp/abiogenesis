@@ -1,0 +1,560 @@
+{
+  "modules": [
+    {
+      "module": "abg/event_body_encoding.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "sha256": "034731a8ad5b2cd7a9a73ba2607a97cd1612acca06147073bf07f13bbb105bd9",
+        "bytes": 10643,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/event_body_encoding.js",
+        "sha256": "f6852691fe910133be457b30446768d2b408526073be8ec96b795699aab5e2d8",
+        "bytes": 9400,
+        "mode": "0o644"
+      },
+      "pureSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "bytes": 10643,
+        "sha256": "034731a8ad5b2cd7a9a73ba2607a97cd1612acca06147073bf07f13bbb105bd9",
+        "mode": "0o644",
+        "origin": "owned_candidate"
+      },
+      "pureEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_body_encoding.js",
+        "bytes": 9400,
+        "sha256": "f6852691fe910133be457b30446768d2b408526073be8ec96b795699aab5e2d8",
+        "mode": "0o644"
+      },
+      "finalSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "034731a8ad5b2cd7a9a73ba2607a97cd1612acca06147073bf07f13bbb105bd9",
+        "bytes": 10643
+      },
+      "finalEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_body_encoding.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 9400,
+        "sha256": "f6852691fe910133be457b30446768d2b408526073be8ec96b795699aab5e2d8"
+      },
+      "archiveMember": {
+        "name": "package/build/code/src/abg/event_body_encoding.js",
+        "sha256": "f6852691fe910133be457b30446768d2b408526073be8ec96b795699aab5e2d8",
+        "bytes": 9400,
+        "mode": "0o644"
+      },
+      "actualInstalled": [
+        {
+          "role": "P1_bootstrap_owner",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_body_encoding.js",
+          "sha256": "f6852691fe910133be457b30446768d2b408526073be8ec96b795699aab5e2d8",
+          "bytes": 9400,
+          "mode": "0o644"
+        },
+        {
+          "role": "P1_admitted_install",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_body_encoding.js",
+          "sha256": "f6852691fe910133be457b30446768d2b408526073be8ec96b795699aab5e2d8",
+          "bytes": 9400,
+          "mode": "0o644"
+        }
+      ],
+      "sourceEmissionRelation": "Same source and emitted bytes as the closed pure compilation/correspondence; no rebuild performed.",
+      "packageScope": "Published JavaScript member; TypeScript source is retained in the frozen source cut and is not a tar member."
+    },
+    {
+      "module": "product/environment_definition_bindings.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "sha256": "15eb23a25b59d9c1eab9b95e5e6dbf6e56a749550b7c51f6924684a89d36e5c8",
+        "bytes": 29702,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/product/environment_definition_bindings.js",
+        "sha256": "ef9292c483e180d7e84856d885f6c6a519ecbbf08d43046579ee7e23ccfbc1fe",
+        "bytes": 24400,
+        "mode": "0o644"
+      },
+      "pureSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "bytes": 29702,
+        "sha256": "15eb23a25b59d9c1eab9b95e5e6dbf6e56a749550b7c51f6924684a89d36e5c8",
+        "mode": "0o644",
+        "origin": "owned_candidate"
+      },
+      "pureEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/product/environment_definition_bindings.js",
+        "bytes": 24400,
+        "sha256": "ef9292c483e180d7e84856d885f6c6a519ecbbf08d43046579ee7e23ccfbc1fe",
+        "mode": "0o644"
+      },
+      "finalSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "15eb23a25b59d9c1eab9b95e5e6dbf6e56a749550b7c51f6924684a89d36e5c8",
+        "bytes": 29702
+      },
+      "finalEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/product/environment_definition_bindings.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 24400,
+        "sha256": "ef9292c483e180d7e84856d885f6c6a519ecbbf08d43046579ee7e23ccfbc1fe"
+      },
+      "archiveMember": {
+        "name": "package/build/code/src/product/environment_definition_bindings.js",
+        "sha256": "ef9292c483e180d7e84856d885f6c6a519ecbbf08d43046579ee7e23ccfbc1fe",
+        "bytes": 24400,
+        "mode": "0o644"
+      },
+      "actualInstalled": [
+        {
+          "role": "P1_bootstrap_owner",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/environment_definition_bindings.js",
+          "sha256": "ef9292c483e180d7e84856d885f6c6a519ecbbf08d43046579ee7e23ccfbc1fe",
+          "bytes": 24400,
+          "mode": "0o644"
+        },
+        {
+          "role": "P1_admitted_install",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/environment_definition_bindings.js",
+          "sha256": "ef9292c483e180d7e84856d885f6c6a519ecbbf08d43046579ee7e23ccfbc1fe",
+          "bytes": 24400,
+          "mode": "0o644"
+        }
+      ],
+      "sourceEmissionRelation": "Same source and emitted bytes as the closed pure compilation/correspondence; no rebuild performed.",
+      "packageScope": "Published JavaScript member; TypeScript source is retained in the frozen source cut and is not a tar member."
+    },
+    {
+      "module": "product/exact_match.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/exact_match.ts",
+        "sha256": "85587c79d3139ee6c082a8e957179cce0a07fd18a4c7ac8d64990f5b7295f2eb",
+        "bytes": 621,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/product/exact_match.js",
+        "sha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1",
+        "bytes": 389,
+        "mode": "0o644"
+      },
+      "pureSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/exact_match.ts",
+        "sha256": "85587c79d3139ee6c082a8e957179cce0a07fd18a4c7ac8d64990f5b7295f2eb",
+        "bytes": 621,
+        "mode": "0o644",
+        "origin": "frozen_baseline"
+      },
+      "pureEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/product/exact_match.js",
+        "bytes": 389,
+        "sha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1",
+        "mode": "0o644"
+      },
+      "finalSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/exact_match.ts",
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "85587c79d3139ee6c082a8e957179cce0a07fd18a4c7ac8d64990f5b7295f2eb",
+        "bytes": 621
+      },
+      "finalEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/product/exact_match.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 389,
+        "sha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1"
+      },
+      "archiveMember": {
+        "name": "package/build/code/src/product/exact_match.js",
+        "sha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1",
+        "bytes": 389,
+        "mode": "0o644"
+      },
+      "actualInstalled": [
+        {
+          "role": "P1_bootstrap_owner",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/exact_match.js",
+          "sha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1",
+          "bytes": 389,
+          "mode": "0o644"
+        },
+        {
+          "role": "P1_admitted_install",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/exact_match.js",
+          "sha256": "e31d33d3975644356f503aac1180e1429ca6dfee61a7f09b9108a513847760e1",
+          "bytes": 389,
+          "mode": "0o644"
+        }
+      ],
+      "sourceEmissionRelation": "Same source and emitted bytes as the closed pure compilation/correspondence; no rebuild performed.",
+      "packageScope": "Published JavaScript member; TypeScript source is retained in the frozen source cut and is not a tar member."
+    },
+    {
+      "module": "product/execution_resolution.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "sha256": "b09aa6b0c69dbb56a49a7c7f3c8cd707c214232db7a5c4694de3de9e5cb3a32b",
+        "bytes": 47155,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js",
+        "sha256": "11406d9132bb1d106b44c97f7118234457b3dddbae0b49daa22cfa4884484cde",
+        "bytes": 38755,
+        "mode": "0o644"
+      },
+      "pureSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "bytes": 47155,
+        "sha256": "b09aa6b0c69dbb56a49a7c7f3c8cd707c214232db7a5c4694de3de9e5cb3a32b",
+        "mode": "0o644",
+        "origin": "owned_candidate"
+      },
+      "pureEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js",
+        "bytes": 38755,
+        "sha256": "11406d9132bb1d106b44c97f7118234457b3dddbae0b49daa22cfa4884484cde",
+        "mode": "0o644"
+      },
+      "finalSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "b09aa6b0c69dbb56a49a7c7f3c8cd707c214232db7a5c4694de3de9e5cb3a32b",
+        "bytes": 47155
+      },
+      "finalEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 38755,
+        "sha256": "11406d9132bb1d106b44c97f7118234457b3dddbae0b49daa22cfa4884484cde"
+      },
+      "archiveMember": {
+        "name": "package/build/code/src/product/execution_resolution.js",
+        "sha256": "11406d9132bb1d106b44c97f7118234457b3dddbae0b49daa22cfa4884484cde",
+        "bytes": 38755,
+        "mode": "0o644"
+      },
+      "actualInstalled": [
+        {
+          "role": "P1_bootstrap_owner",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/execution_resolution.js",
+          "sha256": "11406d9132bb1d106b44c97f7118234457b3dddbae0b49daa22cfa4884484cde",
+          "bytes": 38755,
+          "mode": "0o644"
+        },
+        {
+          "role": "P1_admitted_install",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/execution_resolution.js",
+          "sha256": "11406d9132bb1d106b44c97f7118234457b3dddbae0b49daa22cfa4884484cde",
+          "bytes": 38755,
+          "mode": "0o644"
+        }
+      ],
+      "sourceEmissionRelation": "Same source and emitted bytes as the closed pure compilation/correspondence; no rebuild performed.",
+      "packageScope": "Published JavaScript member; TypeScript source is retained in the frozen source cut and is not a tar member."
+    },
+    {
+      "module": "product/verification_definition_bindings.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+        "sha256": "cf843a25f5aa87b59035dd7d9909c0c5f6d79cd4e89f99e56b296f8eb76d7a73",
+        "bytes": 16841,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/product/verification_definition_bindings.js",
+        "sha256": "65955a761c0800ec244bfc3cf281c9dc6cbd85c2176d0aa4777d2917dc853f25",
+        "bytes": 15047,
+        "mode": "0o644"
+      },
+      "pureSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+        "bytes": 16841,
+        "sha256": "cf843a25f5aa87b59035dd7d9909c0c5f6d79cd4e89f99e56b296f8eb76d7a73",
+        "mode": "0o644",
+        "origin": "owned_candidate"
+      },
+      "pureEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/product/verification_definition_bindings.js",
+        "bytes": 15047,
+        "sha256": "65955a761c0800ec244bfc3cf281c9dc6cbd85c2176d0aa4777d2917dc853f25",
+        "mode": "0o644"
+      },
+      "finalSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "cf843a25f5aa87b59035dd7d9909c0c5f6d79cd4e89f99e56b296f8eb76d7a73",
+        "bytes": 16841
+      },
+      "finalEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/product/verification_definition_bindings.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 15047,
+        "sha256": "65955a761c0800ec244bfc3cf281c9dc6cbd85c2176d0aa4777d2917dc853f25"
+      },
+      "archiveMember": {
+        "name": "package/build/code/src/product/verification_definition_bindings.js",
+        "sha256": "65955a761c0800ec244bfc3cf281c9dc6cbd85c2176d0aa4777d2917dc853f25",
+        "bytes": 15047,
+        "mode": "0o644"
+      },
+      "actualInstalled": [
+        {
+          "role": "P1_bootstrap_owner",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/verification_definition_bindings.js",
+          "sha256": "65955a761c0800ec244bfc3cf281c9dc6cbd85c2176d0aa4777d2917dc853f25",
+          "bytes": 15047,
+          "mode": "0o644"
+        },
+        {
+          "role": "P1_admitted_install",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/verification_definition_bindings.js",
+          "sha256": "65955a761c0800ec244bfc3cf281c9dc6cbd85c2176d0aa4777d2917dc853f25",
+          "bytes": 15047,
+          "mode": "0o644"
+        }
+      ],
+      "sourceEmissionRelation": "Same source and emitted bytes as the closed pure compilation/correspondence; no rebuild performed.",
+      "packageScope": "Published JavaScript member; TypeScript source is retained in the frozen source cut and is not a tar member."
+    },
+    {
+      "module": "shared/admission_predicates.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+        "sha256": "80800880af82e935584dfe62ec1c9f826336f280a01c482cfa25f20f57ad17d4",
+        "bytes": 3558,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/admission_predicates.js",
+        "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+        "bytes": 2710,
+        "mode": "0o644"
+      },
+      "pureSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+        "sha256": "80800880af82e935584dfe62ec1c9f826336f280a01c482cfa25f20f57ad17d4",
+        "bytes": 3558,
+        "mode": "0o644",
+        "origin": "frozen_baseline"
+      },
+      "pureEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/admission_predicates.js",
+        "bytes": 2710,
+        "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+        "mode": "0o644"
+      },
+      "finalSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "80800880af82e935584dfe62ec1c9f826336f280a01c482cfa25f20f57ad17d4",
+        "bytes": 3558
+      },
+      "finalEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/admission_predicates.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 2710,
+        "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c"
+      },
+      "archiveMember": {
+        "name": "package/build/code/src/shared/admission_predicates.js",
+        "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+        "bytes": 2710,
+        "mode": "0o644"
+      },
+      "actualInstalled": [
+        {
+          "role": "P1_bootstrap_owner",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admission_predicates.js",
+          "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+          "bytes": 2710,
+          "mode": "0o644"
+        },
+        {
+          "role": "P1_admitted_install",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/admission_predicates.js",
+          "sha256": "926509776bf8eebf9d5e3b44363af09e4daf0a0950eb420019682ce8f04f6c3c",
+          "bytes": 2710,
+          "mode": "0o644"
+        }
+      ],
+      "sourceEmissionRelation": "Same source and emitted bytes as the closed pure compilation/correspondence; no rebuild performed.",
+      "packageScope": "Published JavaScript member; TypeScript source is retained in the frozen source cut and is not a tar member."
+    },
+    {
+      "module": "shared/definition_binding_mechanics.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+        "sha256": "0f8a4dc64164371ba6c474c09927b8bc79cd582c661a567a2a1917f3fb3f3dc3",
+        "bytes": 14150,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/definition_binding_mechanics.js",
+        "sha256": "7aa36a980b73a67a3b6adfe0f8694cc983cebfd12b1f32ce60186f0fcb65e686",
+        "bytes": 12261,
+        "mode": "0o644"
+      },
+      "pureSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+        "bytes": 14150,
+        "sha256": "0f8a4dc64164371ba6c474c09927b8bc79cd582c661a567a2a1917f3fb3f3dc3",
+        "mode": "0o644",
+        "origin": "owned_candidate"
+      },
+      "pureEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/definition_binding_mechanics.js",
+        "bytes": 12261,
+        "sha256": "7aa36a980b73a67a3b6adfe0f8694cc983cebfd12b1f32ce60186f0fcb65e686",
+        "mode": "0o644"
+      },
+      "finalSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "0f8a4dc64164371ba6c474c09927b8bc79cd582c661a567a2a1917f3fb3f3dc3",
+        "bytes": 14150
+      },
+      "finalEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/definition_binding_mechanics.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 12261,
+        "sha256": "7aa36a980b73a67a3b6adfe0f8694cc983cebfd12b1f32ce60186f0fcb65e686"
+      },
+      "archiveMember": {
+        "name": "package/build/code/src/shared/definition_binding_mechanics.js",
+        "sha256": "7aa36a980b73a67a3b6adfe0f8694cc983cebfd12b1f32ce60186f0fcb65e686",
+        "bytes": 12261,
+        "mode": "0o644"
+      },
+      "actualInstalled": [
+        {
+          "role": "P1_bootstrap_owner",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/definition_binding_mechanics.js",
+          "sha256": "7aa36a980b73a67a3b6adfe0f8694cc983cebfd12b1f32ce60186f0fcb65e686",
+          "bytes": 12261,
+          "mode": "0o644"
+        },
+        {
+          "role": "P1_admitted_install",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/definition_binding_mechanics.js",
+          "sha256": "7aa36a980b73a67a3b6adfe0f8694cc983cebfd12b1f32ce60186f0fcb65e686",
+          "bytes": 12261,
+          "mode": "0o644"
+        }
+      ],
+      "sourceEmissionRelation": "Same source and emitted bytes as the closed pure compilation/correspondence; no rebuild performed.",
+      "packageScope": "Published JavaScript member; TypeScript source is retained in the frozen source cut and is not a tar member."
+    },
+    {
+      "module": "shared/rooted_topology_partition.ts",
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+        "sha256": "7a81be1607908a143c62e76703ee270cccd0f154b468af03a4b6a69d9e79bf13",
+        "bytes": 7360,
+        "mode": "0o644"
+      },
+      "emission": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/rooted_topology_partition.js",
+        "sha256": "4b739ebaf848204c34038ac6df19b7660a4eab30ae7ebc8062bbd08743105d94",
+        "bytes": 5620,
+        "mode": "0o644"
+      },
+      "pureSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+        "bytes": 7360,
+        "sha256": "7a81be1607908a143c62e76703ee270cccd0f154b468af03a4b6a69d9e79bf13",
+        "mode": "0o644",
+        "origin": "owned_candidate"
+      },
+      "pureEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/rooted_topology_partition.js",
+        "bytes": 5620,
+        "sha256": "4b739ebaf848204c34038ac6df19b7660a4eab30ae7ebc8062bbd08743105d94",
+        "mode": "0o644"
+      },
+      "finalSourceRow": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+        "type": "file",
+        "mode": "0o644",
+        "sha256": "7a81be1607908a143c62e76703ee270cccd0f154b468af03a4b6a69d9e79bf13",
+        "bytes": 7360
+      },
+      "finalEmissionRow": {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/rooted_topology_partition.js",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 5620,
+        "sha256": "4b739ebaf848204c34038ac6df19b7660a4eab30ae7ebc8062bbd08743105d94"
+      },
+      "archiveMember": {
+        "name": "package/build/code/src/shared/rooted_topology_partition.js",
+        "sha256": "4b739ebaf848204c34038ac6df19b7660a4eab30ae7ebc8062bbd08743105d94",
+        "bytes": 5620,
+        "mode": "0o644"
+      },
+      "actualInstalled": [
+        {
+          "role": "P1_bootstrap_owner",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/rooted_topology_partition.js",
+          "sha256": "4b739ebaf848204c34038ac6df19b7660a4eab30ae7ebc8062bbd08743105d94",
+          "bytes": 5620,
+          "mode": "0o644"
+        },
+        {
+          "role": "P1_admitted_install",
+          "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+          "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/rooted_topology_partition.js",
+          "sha256": "4b739ebaf848204c34038ac6df19b7660a4eab30ae7ebc8062bbd08743105d94",
+          "bytes": 5620,
+          "mode": "0o644"
+        }
+      ],
+      "sourceEmissionRelation": "Same source and emitted bytes as the closed pure compilation/correspondence; no rebuild performed.",
+      "packageScope": "Published JavaScript member; TypeScript source is retained in the frozen source cut and is not a tar member."
+    }
+  ],
+  "distinctModules": 8,
+  "actualOwnerInstall": {
+    "kind": "product_install",
+    "disposition": "admitted",
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214/21c043526fabf5fa40bc14664d9a0817e544b367a266263eb1c1b1e83916b877",
+    "installedRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "artifactDigest": "sha256:25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "productContentDigest": "sha256:7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214",
+    "admissionEventRef": "event://abiogenesis/7f21747ba1f0dbbf083aa19023175a36707a7c3db62e66a086bbd293b8568ec7"
+  },
+  "actualBootstrapOwnerRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host/node_modules/@abiogenesis/typescript-tenant",
+  "status": "all_selected_bytes_and_modes_correspond"
+}

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/verify-transport.py", line 178, in <module>
+    for row in rows:required(row,original_root)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/verify-transport.py", line 161, in required
+    assert address in v8_excluded;covered['explicit_v8_metadata_only']+=1;return
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

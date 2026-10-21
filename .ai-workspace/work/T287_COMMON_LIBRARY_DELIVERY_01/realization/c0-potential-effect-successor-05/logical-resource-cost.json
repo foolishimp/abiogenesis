@@ -1,0 +1,32 @@
+{
+  "roots": [
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01",
+      "logicalFileBytes": 186818544
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02",
+      "logicalFileBytes": 227888911
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03",
+      "logicalFileBytes": 257073136
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-04",
+      "logicalFileBytes": 2980123
+    },
+    {
+      "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-05",
+      "logicalFileBytes": 8694876
+    },
+    {
+      "root": "/private/tmp/abg-c0-potential-25ac62e990e141ce",
+      "logicalFileBytes": 523038684
+    }
+  ],
+  "totalBeforeFinalClosureRecords": 1206494274,
+  "maximum": 10737418240,
+  "scope": "Potential-effect realization and successors plus granted physical parent, excluding followed read-only links",
+  "noCleanup": true
+}

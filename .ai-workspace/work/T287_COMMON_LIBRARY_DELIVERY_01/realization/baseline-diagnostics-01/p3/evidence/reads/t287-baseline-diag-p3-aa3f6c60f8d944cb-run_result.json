@@ -1,0 +1,151 @@
+{
+  "wallMs": 1448.6303340000013,
+  "cliPath": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "requestPath": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/st4-t287-baseline-diag-p3-aa3f6c60f8d944cb-run_result-request.jsonl",
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "run_result",
+        "operationId": "abg.operation.project.read"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/15b416eb0372e8b8ea7bd93c07e11c7bd52852ae2cf7d71c4cf39f59bb03171f",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "caseKey": "run_result",
+          "projection": {
+            "kind": "run_result_projection",
+            "replay": {
+              "digest": "sha256:11ba87dd1f023e88466d204fd8cf06749ee52a4da6385b14f15ae41e4e9c1666",
+              "ref": "replay://abiogenesis/11ba87dd1f023e88466d204fd8cf06749ee52a4da6385b14f15ae41e4e9c1666"
+            },
+            "result": {
+              "digest": "sha256:b0a32b39f70ae00971d904471e78b6f85ff1f9a5cc298642190d4d8934ce56c1",
+              "ref": "result://abiogenesis/b0a32b39f70ae00971d904471e78b6f85ff1f9a5cc298642190d4d8934ce56c1"
+            },
+            "subject": {
+              "digest": "sha256:4aac9f00ba7d765d3e815b4dc6e3a65cb8ca732c9c503a6c67150692e7451070",
+              "ref": "run://abiogenesis/27f33060a085d00acd030af6afa12d02d86ab52c5ffc266a0785f6a252905785"
+            },
+            "terminalResult": {
+              "contract": {
+                "digest": "sha256:5ed2b6dfc194c1f03a246f7d484c76bb9f7843ea5ebecd58a3143d7c10ff7ffb",
+                "ref": "contract://abi5-tests/language-smoke/output@5"
+              },
+              "kind": "abg_typed_terminal_result",
+              "producer": {
+                "cCallRef": "c-call:sha256:5fd8bf955ff02588a6ce3d3e7f640c56c3e181dffe0eee243e1ae8f8321c28c8",
+                "executionBasis": {
+                  "digest": "sha256:2f3f91713d4709a39f7b7e469bdeeba35297c057a1e722904e90bfcb6b7d756b",
+                  "ref": "execution-basis://abiogenesis/2f3f91713d4709a39f7b7e469bdeeba35297c057a1e722904e90bfcb6b7d756b"
+                },
+                "graphCallRef": "graph-call://abiogenesis/37b267e6b8eff27bacabbf293a5720b0ae9d5700edff5211c555af6e2d012336",
+                "graphFunction": {
+                  "digest": "sha256:ba427f6801ee2c21254c7c1db95617a4328e37315baf74a840383e49543704f5",
+                  "ref": "graph-function://abi5-tests/language-smoke@5"
+                },
+                "invocationAdmissionRef": "invocation-admission://abiogenesis/32815dabb179d6e14f673409b0912947e9238a4f42c4ea93ef8df5f6ffbe7fce",
+                "judgmentAdmissionEventRef": "event://abiogenesis/9710df143764a212a9bf142dca86e5e4fe1c64487ff1e92bfd489bc795c42673",
+                "judgmentRef": "judgment://abiogenesis/49eac8d64118eee940446e94086071844db21067173781046bce3e8981da7182",
+                "program": {
+                  "digest": "sha256:db709314223f364446817a5a85d0594eca50f46805692a76af1ec49c327ea3bf",
+                  "ref": "program://abi5-tests/language-smoke@5"
+                },
+                "resultAdmissionEventRef": "event://abiogenesis/dca2efc50de2ba1a18b335ff3900be2b0cfe1767115f7b353a80cb5330a2d3ed",
+                "runRef": "run://abiogenesis/27f33060a085d00acd030af6afa12d02d86ab52c5ffc266a0785f6a252905785",
+                "terminalRoute": {
+                  "digest": "sha256:e01764335a19a49e28e05557e2f062dd86da4f85c48212da04586638f436810c",
+                  "ref": "traversal-route://abiogenesis/e01764335a19a49e28e05557e2f062dd86da4f85c48212da04586638f436810c"
+                }
+              },
+              "projectionBasis": {
+                "digest": "sha256:ec4cd0f69dfcc3a7d49c69dd67e676e1f21f297d26987fc0df038705e7e91adf",
+                "ref": "file:///private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/runtime/events.jsonl"
+              },
+              "result": {
+                "digest": "sha256:b0a32b39f70ae00971d904471e78b6f85ff1f9a5cc298642190d4d8934ce56c1",
+                "ref": "result://abiogenesis/b0a32b39f70ae00971d904471e78b6f85ff1f9a5cc298642190d4d8934ce56c1"
+              },
+              "schemaVersion": "5.0.0",
+              "value": {
+                "kind": "hello_world_output",
+                "message": "Hello World",
+                "schemaVersion": "5.0.0"
+              },
+              "valueDigest": "sha256:894e1b8f5c5b3977f21095891434e99660ae72920c8462875dbf2652d96044c0",
+              "valueKind": "hello_world_output"
+            },
+            "terminalRoute": {
+              "digest": "sha256:e01764335a19a49e28e05557e2f062dd86da4f85c48212da04586638f436810c",
+              "ref": "traversal-route://abiogenesis/e01764335a19a49e28e05557e2f062dd86da4f85c48212da04586638f436810c"
+            }
+          },
+          "projectionBasis": {
+            "digest": "sha256:ec4cd0f69dfcc3a7d49c69dd67e676e1f21f297d26987fc0df038705e7e91adf",
+            "ref": "file:///private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/runtime/events.jsonl"
+          },
+          "source": {
+            "digest": "sha256:4aac9f00ba7d765d3e815b4dc6e3a65cb8ca732c9c503a6c67150692e7451070",
+            "ref": "run://abiogenesis/27f33060a085d00acd030af6afa12d02d86ab52c5ffc266a0785f6a252905785"
+          }
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:ec4cd0f69dfcc3a7d49c69dd67e676e1f21f297d26987fc0df038705e7e91adf",
+              "eventLogRef": "file:///private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/runtime/events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:f3388b702fbacc2d167d86cf420673a0df1601cd439fa81a962cd99e819f0014",
+              "prefixLength": 3217781,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777231,
+                "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+                "inode": 474317687
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:9d9fbb219283469009cf418ec53756c09d8f68b79989ae133c85c06ece6664e7",
+              "device": 16777231,
+              "durableByteLength": 3217781,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "eventLogDigest": "sha256:f3388b702fbacc2d167d86cf420673a0df1601cd439fa81a962cd99e819f0014",
+              "eventLogPath": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/runtime/events.jsonl",
+              "inode": 474317687,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:ec4cd0f69dfcc3a7d49c69dd67e676e1f21f297d26987fc0df038705e7e91adf",
+            "eventLogRef": "file:///private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/runtime/events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:f3388b702fbacc2d167d86cf420673a0df1601cd439fa81a962cd99e819f0014",
+            "prefixLength": 3217781,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777231,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "inode": 474317687
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:0f55145e2bd31fbaccfa95c4f59b521c774ad58d13a060b1e952cec13396caca",
+          "schemaVersion": "5.0.0"
+        },
+        "kind": "abg_project_read_resource_receipt",
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

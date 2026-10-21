@@ -1,0 +1,72 @@
+{
+  "capsule_ids": [
+    "E03-R1-SEMANTIC-HISTORICAL-ASSEMBLY",
+    "K11-R1-STDO-ADOPTION-ERASURE",
+    "K11-R2-SHALLOW-FROZEN-ALIAS",
+    "U1-M1-NESTED-CANONICAL-ROOT-CURRENTNESS",
+    "U1-F2-LIVE-CLEANUP-LATER-MUTATION",
+    "U1-F3-INDETERMINATE-CAUSE-AUTHENTICATION"
+  ],
+  "required_fields": [
+    "Evidence/source route",
+    "Owning frame",
+    "No-block rationale",
+    "Lawful re-entry",
+    "Trigger",
+    "Dependent steel thread/release boundary",
+    "Closure falsifier",
+    "Closure evidence",
+    "Owner",
+    "Status"
+  ],
+  "every_capsule_complete": true,
+  "attributed_review_metadata": {
+    "kind": "executive_attributed_public_review_metadata",
+    "activation": "FINAL-REVIEW-DISPOSITION-RECORDS-01",
+    "executive": "/root",
+    "recording_writer": "/root/stdo3_c0_currentness_writer",
+    "common": {
+      "provider_model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "tools": [
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "subagents": 0,
+      "permission_denials": 0,
+      "reviewer_execution_or_hash_claim": false,
+      "root_separately_verified_hashes": true,
+      "full_reports_location": "Root public tool transcript only; not acquired by this recording Writer",
+      "representation": "Attributed Executive summary, not verbatim reviewer output or fresh independent acceptance",
+      "hidden_reasoning_accessed": false
+    },
+    "reviews": [
+      {
+        "id": "E03",
+        "session": "fbc371ae-5f37-4915-b7ff-8a0ad91b713c",
+        "uuid": "fb2d6caf-d597-411b-b77c-a52a2d455ed8",
+        "duration_ms": 745591,
+        "turns": 76,
+        "exit_code": 0
+      },
+      {
+        "id": "K11",
+        "session": "22bf3805-f1af-4cdd-a429-a482c384e464",
+        "uuid": "a3c8ee20-a804-4647-8db6-5f36c6a70ecc",
+        "duration_ms": 435185,
+        "turns": 53,
+        "exit_code": 0
+      },
+      {
+        "id": "U1",
+        "session": "0b6ab424-7467-4f8b-8949-d27bafebf165",
+        "uuid": "beca1b20-e4d4-4065-ab3c-3b799f316a2d",
+        "duration_ms": 524504,
+        "turns": 76,
+        "exit_code": 0
+      }
+    ]
+  },
+  "code_or_test_changes": false
+}

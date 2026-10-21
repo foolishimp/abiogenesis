@@ -1,0 +1,29 @@
+{
+  "kind": "first-unexpected-integration-failure",
+  "activation": "U1-P5-02",
+  "input_freeze_sha256": "f58972db459cc66529efda4afc5c816ff4073ab3dc002206d9aa2bb2400bafb5",
+  "failure": "new test trace adapter recursively calls traced instead of traceInvalidator",
+  "origin": "new test line19; broad textual replacement in retention instrumentation rewrote its own initializer",
+  "owner_frame": "proof instrumentation only; no production gate reached in failing case",
+  "effect_frame": "C0 actual committed candidate bytes and EventStore evidence/Result/currentness checks passed; failed observed-consumer fixture newly allocated, no process/provider launch; all scratch and append sinks retained",
+  "proof_frame": "C0 result supported; observed/downstream consumers unexecuted; no null gate result or semantic counterexample",
+  "source_preimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "6d30b7b69a8e74b0ae54f1f8543d8b4987f2b5b65353869d0bedf49ce0849ea3",
+      "bytes": 47107
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "52d1912370b464cbda91b60e155f1f08d78463dbd1fe77d2b44b26740aa1e41d",
+      "bytes": 33763
+    }
+  ],
+  "evidence_sha256": "5c2e2c4d6b1ba44f0c7b421472676ed3df2b84735fa5537dfb17511ec257f76d",
+  "dependent_effects_stopped": true,
+  "repair_or_retry_performed": false,
+  "preserved_roots": [
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-2bOji4",
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-z9azwR"
+  ]
+}

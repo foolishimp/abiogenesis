@@ -1,0 +1,51 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "actualResult": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/result.json",
+    "sha256": "89422d9d36b75700ad938f9f6505d389cbf5aad56186abf1490f3556f87ec490",
+    "bytes": 467,
+    "mode": "0o644"
+  },
+  "portableResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/evidence/result.json",
+    "sha256": "89422d9d36b75700ad938f9f6505d389cbf5aad56186abf1490f3556f87ec490",
+    "bytes": 467,
+    "mode": "0o644"
+  },
+  "actualOwner": true,
+  "nativeCalls": 0,
+  "noNewAdmission": true,
+  "eventBytesUnchanged": true,
+  "adapter": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/calls/preparation-resolve.json",
+    "sha256": "70299b7965b7402c3923b814ca3f36a0b1699c31aa66d5e35a03d911a99d123d",
+    "bytes": 33843695,
+    "mode": "0o644"
+  },
+  "adapterReceipt": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution/receipts/preparation-resolve.json",
+    "sha256": "e9a4490213d1d6d46de38540c62e53885ea3aeda5d769449a01049e3995a64a9",
+    "bytes": 5354,
+    "mode": "0o644"
+  },
+  "processResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution/process-result.json",
+    "sha256": "fd5829cfb575e1b83e7000af2c1a831fb45a9c3bfab21c3637b9ead966d6a2ba",
+    "bytes": 258,
+    "mode": "0o644"
+  },
+  "p1Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/freeze.json",
+    "sha256": "4793655ce521c45cc1d2e1cc11378430318b26df6e98e60f1f0eef0c9ed96011",
+    "bytes": 19050,
+    "mode": "0o644"
+  },
+  "p1Configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p1/configuration.json",
+    "sha256": "3a91cd7e8cfd582d75bb2b364be0a55a3e7abaf17688c984e78be0ffa09e3374",
+    "bytes": 5143,
+    "mode": "0o644"
+  },
+  "limit": "Actual owner projection/resolve-bind-verify and immutable family check; separate D02 fixture command not invoked."
+}

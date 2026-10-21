@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/host.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01",
+  "hostPid": 44593,
+  "hostProcessGroup": 44593,
+  "startedUtc": "2026-10-21T02:18:20.124757+00:00",
+  "watchdogSeconds": 10,
+  "environmentPolicy": "Inherited local host environment except NODE_OPTIONS and NODE_COMPILE_CACHE; all attempted executable environments are explicitly empty."
+}

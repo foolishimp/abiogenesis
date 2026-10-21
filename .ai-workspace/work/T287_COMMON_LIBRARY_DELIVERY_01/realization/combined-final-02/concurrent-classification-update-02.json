@@ -1,0 +1,19 @@
+{
+  "authority": "Executive preservation classification update after the structural successor passed",
+  "noInventoryRefresh": true,
+  "newActiveExcluded": "closed-evidence-portability-01",
+  "notCandidateSourceOrArchiveInput": true,
+  "subsequentlyClosedButStillExcluded": [
+    {
+      "territory": "final-review-dispositions-01",
+      "executiveReportedFreezeSha256": "7431459688b7d57614bc451056195ff84030bc1c78fddb13a7ee81d20592efa5"
+    },
+    {
+      "territory": "l4-final-candidate-02/preparation",
+      "executiveReportedFreezeSha256": "561c8178702fed08d8800f1b31253a6ecd9f4ff08158475e40b44c6f65c49af8"
+    }
+  ],
+  "classification": "These later states do not change the exact originally selected closed-root preservation set",
+  "newContentAcquisition": false,
+  "newCandidateEffect": false
+}

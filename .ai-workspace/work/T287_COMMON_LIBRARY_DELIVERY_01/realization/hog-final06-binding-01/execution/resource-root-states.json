@@ -1,0 +1,87 @@
+[
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9",
+    "exists": true,
+    "realpath": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9"
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/driver-evidence",
+    "exists": true,
+    "realpath": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/driver-evidence"
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence",
+    "exists": true,
+    "realpath": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence"
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/host",
+    "exists": true,
+    "realpath": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/host"
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent",
+    "exists": true,
+    "realpath": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent"
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/worksite",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache",
+    "exists": true,
+    "realpath": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache"
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/evidence",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/host",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/scratchParent",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/worksite",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/cache",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/evidence",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/host",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/scratchParent",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/worksite",
+    "exists": false,
+    "realpath": null
+  },
+  {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/cache",
+    "exists": false,
+    "realpath": null
+  }
+]

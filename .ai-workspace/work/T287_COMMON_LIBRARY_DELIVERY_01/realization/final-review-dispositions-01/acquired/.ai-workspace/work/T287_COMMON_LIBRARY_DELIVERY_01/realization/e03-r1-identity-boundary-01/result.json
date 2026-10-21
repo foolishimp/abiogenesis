@@ -1,0 +1,365 @@
+{
+  "activation": "E03-R1-IDENTITY-BOUNDARY-01",
+  "status": "bounded_pure_identity_discriminator_passed",
+  "started": "2026-10-21T01:44:16.493Z",
+  "finished": "2026-10-21T01:44:17.084Z",
+  "node": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "version": "v24.7.0"
+  },
+  "preflightSha256": "ea453a7124b758bfe33303ef696c868fe92ea6ef9dbc55865d3756ae8c747515",
+  "expectedSha256": "1de5e3bbeb1966ae32519a1b5ec1a5f00bc47d4ebc6527f40a23dc9f1ce77431",
+  "comparisons": [
+    {
+      "mode": "retained",
+      "cut": "intent-author",
+      "stageRef": "stage://generic-job-mechanics.example/intent@5",
+      "role": "author",
+      "inputCanonicalDigest": "sha256:50064947dd2fd9312ae35c783f04ea7f88635b345c27457c1b747719d49f1a8a",
+      "baselineContractDigest": "sha256:1f363ecade13ab5a4d231f0a17355e9959a0344eb36591a7986f52ace84fa2ef",
+      "successorContractDigest": "sha256:4d2bfa3cde99b2d1e5908634036f876d4733d429b3f106671af1582c691ae8e1",
+      "exactAcrossCuts": false,
+      "differences": [
+        {
+          "path": "$.contractDigest",
+          "baseline": "sha256:1f363ecade13ab5a4d231f0a17355e9959a0344eb36591a7986f52ace84fa2ef",
+          "successor": "sha256:4d2bfa3cde99b2d1e5908634036f876d4733d429b3f106671af1582c691ae8e1"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+          "baselineAbsent": true,
+          "successor": "terminationGraceMs"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+          "baselineAbsent": true,
+          "successor": {
+            "field": "terminationGraceMs",
+            "maximumMs": 250,
+            "operation": "minimum"
+          }
+        }
+      ],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "retained",
+      "cut": "intent-assessor",
+      "stageRef": "stage://generic-job-mechanics.example/intent@5",
+      "role": "assessor",
+      "inputCanonicalDigest": "sha256:fb4298bfb9e5d475ce7f0cc67acb35f52ba1db6a7603875b3fada9b8aa88225f",
+      "baselineContractDigest": "sha256:85bda9c780bfd00a433bf61b20f501188888f4577201a00acb8092a857460426",
+      "successorContractDigest": "sha256:d2e898c8ccb7d818d75ff93a87fc1bf15ee3f887992b93b4f9d38f729f99893c",
+      "exactAcrossCuts": false,
+      "differences": [
+        {
+          "path": "$.contractDigest",
+          "baseline": "sha256:85bda9c780bfd00a433bf61b20f501188888f4577201a00acb8092a857460426",
+          "successor": "sha256:d2e898c8ccb7d818d75ff93a87fc1bf15ee3f887992b93b4f9d38f729f99893c"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+          "baselineAbsent": true,
+          "successor": "terminationGraceMs"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+          "baselineAbsent": true,
+          "successor": {
+            "field": "terminationGraceMs",
+            "maximumMs": 250,
+            "operation": "minimum"
+          }
+        }
+      ],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "retained",
+      "cut": "design-author",
+      "stageRef": "stage://generic-job-mechanics.example/design@5",
+      "role": "author",
+      "inputCanonicalDigest": "sha256:d1dedb83c0f69c14c5a8628f3d401e1c91c545a1534631ef4cdbbb0311392052",
+      "baselineContractDigest": "sha256:f042615bfb98c0feb080b26310b0650fc7d3489062ce8df3dd12df618f562c90",
+      "successorContractDigest": "sha256:63056225aebe20dd532f66cb1ef2429bbbcc2e98c656314a61527b2e774eb0ed",
+      "exactAcrossCuts": false,
+      "differences": [
+        {
+          "path": "$.contractDigest",
+          "baseline": "sha256:f042615bfb98c0feb080b26310b0650fc7d3489062ce8df3dd12df618f562c90",
+          "successor": "sha256:63056225aebe20dd532f66cb1ef2429bbbcc2e98c656314a61527b2e774eb0ed"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+          "baselineAbsent": true,
+          "successor": "terminationGraceMs"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+          "baselineAbsent": true,
+          "successor": {
+            "field": "terminationGraceMs",
+            "maximumMs": 250,
+            "operation": "minimum"
+          }
+        }
+      ],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "retained",
+      "cut": "design-assessor",
+      "stageRef": "stage://generic-job-mechanics.example/design@5",
+      "role": "assessor",
+      "inputCanonicalDigest": "sha256:dd7f977d972c595137239febae14e2595e339ccfed346be6840370109b9e2263",
+      "baselineContractDigest": "sha256:b1a1affc8ca43ffef14830cde41e2ae52f9e7422fd8a35fb11ab68d79c9c8f2d",
+      "successorContractDigest": "sha256:648073a74971cf261b686df9c6f0d9d0255468b2cb6e40c4d4b3e305b4f5fe04",
+      "exactAcrossCuts": false,
+      "differences": [
+        {
+          "path": "$.contractDigest",
+          "baseline": "sha256:b1a1affc8ca43ffef14830cde41e2ae52f9e7422fd8a35fb11ab68d79c9c8f2d",
+          "successor": "sha256:648073a74971cf261b686df9c6f0d9d0255468b2cb6e40c4d4b3e305b4f5fe04"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+          "baselineAbsent": true,
+          "successor": "terminationGraceMs"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+          "baselineAbsent": true,
+          "successor": {
+            "field": "terminationGraceMs",
+            "maximumMs": 250,
+            "operation": "minimum"
+          }
+        },
+        {
+          "path": "$.design.executionCapacity.currentCandidate.commandBudgetMs",
+          "baseline": 1200,
+          "successor": 1300
+        },
+        {
+          "path": "$.design.executionCapacity.currentCandidate.requiredExecutionBudgetMs",
+          "baseline": 6200,
+          "successor": 6300
+        }
+      ],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "explicit",
+      "cut": "intent-author",
+      "stageRef": "stage://generic-job-mechanics.example/intent@5",
+      "role": "author",
+      "inputCanonicalDigest": "sha256:a2d51a28cd6d443a67a5a8d44d97a5f27b7344d8cd61e96f73148a1655a9e59f",
+      "baselineContractDigest": "sha256:1f363ecade13ab5a4d231f0a17355e9959a0344eb36591a7986f52ace84fa2ef",
+      "successorContractDigest": "sha256:4d2bfa3cde99b2d1e5908634036f876d4733d429b3f106671af1582c691ae8e1",
+      "exactAcrossCuts": false,
+      "differences": [
+        {
+          "path": "$.contractDigest",
+          "baseline": "sha256:1f363ecade13ab5a4d231f0a17355e9959a0344eb36591a7986f52ace84fa2ef",
+          "successor": "sha256:4d2bfa3cde99b2d1e5908634036f876d4733d429b3f106671af1582c691ae8e1"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+          "baselineAbsent": true,
+          "successor": "terminationGraceMs"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+          "baselineAbsent": true,
+          "successor": {
+            "field": "terminationGraceMs",
+            "maximumMs": 250,
+            "operation": "minimum"
+          }
+        }
+      ],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "explicit",
+      "cut": "intent-assessor",
+      "stageRef": "stage://generic-job-mechanics.example/intent@5",
+      "role": "assessor",
+      "inputCanonicalDigest": "sha256:feccc2954877ffb0cd7a775b913450abe5160f28d4bfd9d64aa34fa114b3f625",
+      "baselineContractDigest": "sha256:73470737bf4aa07ca7a0bf3c1f8c650b06856c2d2900cf56f3fc55718a9910d0",
+      "successorContractDigest": "sha256:53de6bf78294ea75cb218b7c4ae6aee7b7f47eb64d2d5d929d9e9ada09a30f61",
+      "exactAcrossCuts": false,
+      "differences": [
+        {
+          "path": "$.contractDigest",
+          "baseline": "sha256:73470737bf4aa07ca7a0bf3c1f8c650b06856c2d2900cf56f3fc55718a9910d0",
+          "successor": "sha256:53de6bf78294ea75cb218b7c4ae6aee7b7f47eb64d2d5d929d9e9ada09a30f61"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+          "baselineAbsent": true,
+          "successor": "terminationGraceMs"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+          "baselineAbsent": true,
+          "successor": {
+            "field": "terminationGraceMs",
+            "maximumMs": 250,
+            "operation": "minimum"
+          }
+        }
+      ],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "explicit",
+      "cut": "design-author",
+      "stageRef": "stage://generic-job-mechanics.example/design@5",
+      "role": "author",
+      "inputCanonicalDigest": "sha256:7406568c41d211a3ce52bab5051687b98162cf6c832e5f6254166bc83c67f3dd",
+      "baselineContractDigest": "sha256:ba3c0d43c77f6f7134564a5a08df0ec21984e8db5b58de800bc3d3b30eb37d79",
+      "successorContractDigest": "sha256:d874d9a0a200e872a79d0feeb02c6ef111ddbd09f9fc96bb4ffdddb5d0a03d42",
+      "exactAcrossCuts": false,
+      "differences": [
+        {
+          "path": "$.contractDigest",
+          "baseline": "sha256:ba3c0d43c77f6f7134564a5a08df0ec21984e8db5b58de800bc3d3b30eb37d79",
+          "successor": "sha256:d874d9a0a200e872a79d0feeb02c6ef111ddbd09f9fc96bb4ffdddb5d0a03d42"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+          "baselineAbsent": true,
+          "successor": "terminationGraceMs"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+          "baselineAbsent": true,
+          "successor": {
+            "field": "terminationGraceMs",
+            "maximumMs": 250,
+            "operation": "minimum"
+          }
+        }
+      ],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "explicit",
+      "cut": "design-assessor",
+      "stageRef": "stage://generic-job-mechanics.example/design@5",
+      "role": "assessor",
+      "inputCanonicalDigest": "sha256:2cb3e4c88bd67365e660c32c2f577317af9020010c751d6968da2604cf7cb3b7",
+      "baselineContractDigest": "sha256:86f86d2e24d4858ec7b3cc92887f868b4b95bc94861ab6fffbbf1e600b468bc0",
+      "successorContractDigest": "sha256:1d2472db0b4c63ad7b3c1373eae4a06411b12720bc49cc41288e2f7d45e207e1",
+      "exactAcrossCuts": false,
+      "differences": [
+        {
+          "path": "$.contractDigest",
+          "baseline": "sha256:86f86d2e24d4858ec7b3cc92887f868b4b95bc94861ab6fffbbf1e600b468bc0",
+          "successor": "sha256:1d2472db0b4c63ad7b3c1373eae4a06411b12720bc49cc41288e2f7d45e207e1"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.httpResponseFields.launch.2",
+          "baselineAbsent": true,
+          "successor": "terminationGraceMs"
+        },
+        {
+          "path": "$.design.executionCapacity.budgetRule.perOperationDrain",
+          "baselineAbsent": true,
+          "successor": {
+            "field": "terminationGraceMs",
+            "maximumMs": 250,
+            "operation": "minimum"
+          }
+        },
+        {
+          "path": "$.design.executionCapacity.currentCandidate.commandBudgetMs",
+          "baseline": 1200,
+          "successor": 1300
+        },
+        {
+          "path": "$.design.executionCapacity.currentCandidate.requiredExecutionBudgetMs",
+          "baseline": 6200,
+          "successor": 6300
+        }
+      ],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "null",
+      "cut": "intent-author",
+      "stageRef": "stage://generic-job-mechanics.example/intent@5",
+      "role": "author",
+      "inputCanonicalDigest": "sha256:cc17d4ffafd940b072c12adfa4d63f55fc3f0146796cfbca4906438488fad647",
+      "baselineContractDigest": "sha256:71b655d3737fe354d813b2befaf9ef9cc4888a878d9c4c17c9f2f602760c5086",
+      "successorContractDigest": "sha256:71b655d3737fe354d813b2befaf9ef9cc4888a878d9c4c17c9f2f602760c5086",
+      "exactAcrossCuts": true,
+      "differences": [],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "null",
+      "cut": "intent-assessor",
+      "stageRef": "stage://generic-job-mechanics.example/intent@5",
+      "role": "assessor",
+      "inputCanonicalDigest": "sha256:adb39d3906a3c2b2c4a20050f9c5da35d8a30e34064d389722c6a894fd2bb35a",
+      "baselineContractDigest": "sha256:12de2f4a0b3f0a066561bf7fda1f0f1472ab0f313f1a760bf93d6a674bbfa9bd",
+      "successorContractDigest": "sha256:12de2f4a0b3f0a066561bf7fda1f0f1472ab0f313f1a760bf93d6a674bbfa9bd",
+      "exactAcrossCuts": true,
+      "differences": [],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "null",
+      "cut": "design-author",
+      "stageRef": "stage://generic-job-mechanics.example/design@5",
+      "role": "author",
+      "inputCanonicalDigest": "sha256:2b12cd72eb971cd853b3e281cb9dc32132ee505ca2948b60ee41304c619ddc24",
+      "baselineContractDigest": "sha256:293389c133ae38a077d0572c8c0f1ea04ea6d74ceab84ec5ac94bae8c61279bf",
+      "successorContractDigest": "sha256:293389c133ae38a077d0572c8c0f1ea04ea6d74ceab84ec5ac94bae8c61279bf",
+      "exactAcrossCuts": true,
+      "differences": [],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    },
+    {
+      "mode": "null",
+      "cut": "design-assessor",
+      "stageRef": "stage://generic-job-mechanics.example/design@5",
+      "role": "assessor",
+      "inputCanonicalDigest": "sha256:468ee223920ba6701a6bf980027a93b5497e718df893faad7bf17038f3429dc1",
+      "baselineContractDigest": "sha256:7f8f1d0e3937a274ee3f89c5220818d19cd9f397e9528bced45cf77aaece1f3c",
+      "successorContractDigest": "sha256:7f8f1d0e3937a274ee3f89c5220818d19cd9f397e9528bced45cf77aaece1f3c",
+      "exactAcrossCuts": true,
+      "differences": [],
+      "deterministicWithinEachCut": true,
+      "status": "passed"
+    }
+  ],
+  "counts": {
+    "pairs": 12,
+    "nonnullIdentityDeltas": 8,
+    "nullLimitExactEqualities": 4
+  },
+  "exclusions": [
+    "authenticated runtime assembly",
+    "historical continuation or refusal execution",
+    "original-package selection",
+    "EventStore or replay",
+    "child/native/command/HTTP/Public/installed workloads",
+    "combined candidate identity",
+    "independent acceptance"
+  ],
+  "physicalFixture": "none constructed; all worksite and actor coordinates are component data only"
+}

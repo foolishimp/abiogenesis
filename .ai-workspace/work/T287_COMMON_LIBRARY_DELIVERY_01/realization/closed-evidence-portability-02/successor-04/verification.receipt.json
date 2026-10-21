@@ -1,0 +1,18 @@
+{
+  "exitCode": 0,
+  "wallSeconds": 7.271761874901131,
+  "completedUtc": "2026-10-21T05:00:18.040385+00:00",
+  "stdout": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-04/verification.stdout",
+    "sha256": "a79452d8f6d9d98401ab54a8a1b3e4313e66870cfddebe2c6d33ba8fca759b24",
+    "bytes": 1088,
+    "mode": "0o644"
+  },
+  "stderr": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-04/verification.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "mode": "0o644"
+  },
+  "streamsClosedBeforePinning": true
+}

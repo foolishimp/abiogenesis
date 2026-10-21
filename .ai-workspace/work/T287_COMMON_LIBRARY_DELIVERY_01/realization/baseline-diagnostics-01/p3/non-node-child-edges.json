@@ -1,0 +1,370 @@
+{
+  "status": "disclosed",
+  "allEdges": [
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 3,
+      "pid": 22506,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 4,
+      "pid": 22509,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 5,
+      "pid": 22512,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 6,
+      "pid": 22696,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 7,
+      "pid": 22699,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 8,
+      "pid": 22702,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 9,
+      "pid": 22705,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 10,
+      "pid": 22708,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent/abi5-root-env-8t6ptn/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 16,
+      "pid": 22961,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 17,
+      "pid": 22962,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/host"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/host"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 22408,
+      "parentArgv": [
+        "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "--configuration",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/runtime-configuration.json",
+        "--lane",
+        "declared-execution"
+      ],
+      "parentLaunchOrdinal": 18,
+      "pid": 22963,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    }
+  ],
+  "count": 11,
+  "groups": {
+    "tar -tzf": 2,
+    "tar -xOzf": 6,
+    "/usr/bin/du -sk": 3
+  },
+  "executableResolution": [
+    {
+      "requestedFile": "/usr/bin/du",
+      "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "firstExecutable": "/usr/bin/du",
+      "resolvedExecutable": {
+        "path": "/usr/bin/du",
+        "sha256": "8d562b82a669ecb2b4580bbfa43bdd29a29e75205addbaf811526ac1eeac8646",
+        "bytes": 135072,
+        "mode": "0o755"
+      },
+      "scope": "Post-run resolution under frozen PATH, not kernel executable attestation or per-PID child measurement"
+    },
+    {
+      "requestedFile": "tar",
+      "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "firstExecutable": "/usr/bin/tar",
+      "resolvedExecutable": {
+        "path": "/usr/bin/bsdtar",
+        "sha256": "1d2c90ce52b691db5e4a8b566cb162805de0ddc46d2aadff120009260f3a24a5",
+        "bytes": 274448,
+        "mode": "0o755"
+      },
+      "scope": "Post-run resolution under frozen PATH, not kernel executable attestation or per-PID child measurement"
+    }
+  ],
+  "owningSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+    "sha256": "2fcf1a47f5c0760f3fdd38c4caa34b4252b1ad989f1943c098152a60a0387cfc",
+    "bytes": 95404,
+    "mode": "0o644"
+  },
+  "owningEmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/product/verify_product.js",
+    "sha256": "f1998352ac6e08919246a9b3c8b6af59a018e4936e43576b283c4525f6e6de18",
+    "bytes": 91615,
+    "mode": "0o644"
+  },
+  "ownerLines": "1797-1829 listArchiveEntries and readArchiveEntry; exact archive listing/member stdout reads",
+  "archiveBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/coverage-instance/coverage-contract.json",
+    "sha256": "ab9c9f7c3f1757596204dadcbfe3e94fdc7d9c40db18c00e0affc3c28dae1008",
+    "bytes": 10176,
+    "mode": "0o644"
+  },
+  "limits": [
+    "ChildProcess.spawn returnValue is spawn return code, not child exit status",
+    "tar/du per-PID CPU, memory and internal IO unobserved, not zero",
+    "Enclosing owner/oracle exit success is separate evidence; wrapper timing scopes unchanged"
+  ]
+}

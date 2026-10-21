@@ -1,0 +1,82 @@
+{
+  "status": "stopped_before_pack",
+  "activation": "COMBINED-L3-01",
+  "firstFailure": {
+    "toolChunk": "5e8180",
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"<stdin>\", line 12, in <module>\nAssertionError: ('unexpected source change', 'build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json')\n",
+    "failedPredicate": "Only capability-definition-graph.json may differ from prebuild source; first other changed source row triggers stop",
+    "writesBeforeFailure": [],
+    "commandScope": "read-only post-generator source correspondence before inventory write/pack",
+    "utc": "2026-10-20T23:55:26.613822+00:00"
+  },
+  "actualSourceDifferences": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "predecessorSha256": "c99f518ef399a238d553fd32fb118d68c01f7aa0f6f8bd87776465749104e304",
+      "predecessorBytes": 197474,
+      "actualSha256": "e8e26ca915e5bee5d803ec650b974efcd1290c7de9ba2b5377ae19674c15e244",
+      "actualBytes": 197474
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+      "predecessorSha256": "876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7",
+      "predecessorBytes": 255,
+      "actualSha256": "f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+      "actualBytes": 255,
+      "predecessor": {
+        "kind": "run_environment_member_inventory",
+        "members": [
+          {
+            "digest": "sha256:5bdc29e4ccad5c2d33d4ce309e9eab2d70a70c7843bf289b75a087f027f82322",
+            "path": "build/code/src/product/worksite_command_execution.js",
+            "target": null,
+            "type": "file"
+          }
+        ],
+        "schemaVersion": "5.0.0"
+      },
+      "actual": {
+        "kind": "run_environment_member_inventory",
+        "members": [
+          {
+            "digest": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+            "path": "build/code/src/product/worksite_command_execution.js",
+            "target": null,
+            "type": "file"
+          }
+        ],
+        "schemaVersion": "5.0.0"
+      }
+    }
+  ],
+  "unchangedSourceEntries": 1316,
+  "immutablePrebuildSourcePreserved": true,
+  "protectedMainEntriesPreserved": 936,
+  "completedCommands": {
+    "dependencies": {
+      "exitCode": 0,
+      "wallMs": 690.3885409701616,
+      "completedUtc": "2026-10-20T23:52:51.193572+00:00",
+      "stdoutSha256": "8b1a83b294e0657115fa3ea30332f0edce41f9c243a8f9d5cdb089d093e79270",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tsc": {
+      "exitCode": 0,
+      "wallMs": 6887.775124981999,
+      "completedUtc": "2026-10-20T23:53:13.587386+00:00",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "generate": {
+      "exitCode": 0,
+      "wallMs": 24850.197083083913,
+      "completedUtc": "2026-10-20T23:53:46.021792+00:00",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "triageHypothesis": "The worksite context inventory is generated from the emitted GTL declaration and changed Product worksite member. The original correspondence predicate only admitted the capability graph derived successor. Executive must classify this additional generated successor before continuation; no source repair or hash refresh is performed here.",
+  "retention": "All staged source/dependencies/emission and command logs remain; no retry, pack, install, runtime, native or cleanup."
+}

@@ -1,0 +1,170 @@
+{
+  "basis": "Read-only final06 source and exact failed cut; no owner code executed.",
+  "existing21Pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/inspected-inputs.json",
+    "sha256": "5b7daf7af1e7683798e45177edcd0ac0b332cc83072227f123987f8f75baebb8",
+    "bytes": 12709,
+    "mode": "0o644"
+  },
+  "reuse": "Existing 21 rows reused byte-for-byte; original failed execution preflight and failure-preservation already verified their final06 actual subject. No repeat inventory scan.",
+  "relations": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/gtl/public_start.ts",
+        "sha256": "a4d41d413a08e0a14296d9768c4b335ea030ed711d414a0ec1523bdb8e3c86a7",
+        "bytes": 3959,
+        "mode": "0o644",
+        "tenantRelativePath": "code/src/gtl/public_start.ts"
+      },
+      "lines": [
+        45,
+        105
+      ],
+      "relation": "Direct root rejects caller-selected starts; next resolves declared default."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "sha256": "b09aa6b0c69dbb56a49a7c7f3c8cd707c214232db7a5c4694de3de9e5cb3a32b",
+        "bytes": 47155,
+        "mode": "0o644",
+        "tenantRelativePath": "code/src/product/execution_resolution.ts"
+      },
+      "lines": [
+        141,
+        160
+      ],
+      "relation": "LoadedProductExecutionResolution exposes actual resolvedProgramStart and admitted Program."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+        "sha256": "b09aa6b0c69dbb56a49a7c7f3c8cd707c214232db7a5c4694de3de9e5cb3a32b",
+        "bytes": 47155,
+        "mode": "0o644",
+        "tenantRelativePath": "code/src/product/execution_resolution.ts"
+      },
+      "lines": [
+        553,
+        587
+      ],
+      "relation": "Resolution delegates to GTL start owner and selects its exact GraphFunction."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+        "sha256": "8407474570b115b0a9a68a2fdc684236c801be73cd7619781aee9035af71ac82",
+        "bytes": 21887,
+        "mode": "0o644",
+        "tenantRelativePath": "code/src/abg/index.ts"
+      },
+      "lines": [
+        22,
+        35
+      ],
+      "relation": "Public ABG export of readRuntimeEventsAtDurablePrefix."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "sha256": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae",
+        "bytes": 205774,
+        "mode": "0o644",
+        "tenantRelativePath": "code/src/abg/event_store.ts"
+      },
+      "lines": [
+        2055,
+        2070
+      ],
+      "relation": "ABG prefix read returns authenticated decoded readonly RuntimeEvent array."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "sha256": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae",
+        "bytes": 205774,
+        "mode": "0o644",
+        "tenantRelativePath": "code/src/abg/event_store.ts"
+      },
+      "lines": [
+        3286,
+        3346
+      ],
+      "relation": "Historical physical records pass decodeEventBody before logical envelope validation."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "sha256": "034731a8ad5b2cd7a9a73ba2607a97cd1612acca06147073bf07f13bbb105bd9",
+        "bytes": 10643,
+        "mode": "0o644",
+        "tenantRelativePath": "code/src/abg/event_body_encoding.ts"
+      },
+      "lines": [
+        137,
+        175
+      ],
+      "relation": "Physical body-reference representation differs from reconstructed logical events."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+        "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+        "bytes": 21826,
+        "mode": "0o644",
+        "tenantRelativePath": "test_env/support/registered-graph-selection.mjs"
+      },
+      "lines": [
+        246,
+        264
+      ],
+      "relation": "Omitted declaredStartRef produces target next with no startRef."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+        "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+        "bytes": 21826,
+        "mode": "0o644",
+        "tenantRelativePath": "test_env/support/registered-graph-selection.mjs"
+      },
+      "lines": [
+        338,
+        353
+      ],
+      "relation": "Constructed Public request uses next when declaredStartRef absent."
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+        "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+        "bytes": 22919,
+        "mode": "0o644",
+        "tenantRelativePath": "test_env/fixtures/language-structural/program.mjs"
+      },
+      "lines": [
+        66,
+        68
+      ],
+      "relation": "Authored Program direct policy selects its own first declared start."
+    }
+  ],
+  "staticObligations": [
+    {
+      "id": "HOG-DIRECT-START",
+      "source": "LoadedProductExecutionResolution / ResolvedProgramStart",
+      "rule": "Keep exact selected Program. Omit caller start. Assert direct and default policies plus owner targetKind next and exact expected start/GraphFunction before Public transport."
+    },
+    {
+      "id": "HOG-LOGICAL-BOUNDARY",
+      "source": "readRuntimeEventsAtDurablePrefix -> readonly RuntimeEvent[]",
+      "rule": "Read authenticated setup logical events before start. Record event count and final event identity at exact setup prefix. Decode returned prefix through same owner and slice at that count after setup logical prefix equality."
+    },
+    {
+      "id": "HOG-PHYSICAL-CONSERVATION",
+      "source": "Actual returned close handoffs and raw file bytes",
+      "rule": "Retain raw setup/final bytes separately; conserve setup byte prefix and original fresh-read full-byte oracle. Raw storage records never become oracle events."
+    }
+  ],
+  "limits": "Syntax and static interface inspection do not establish successful resolution, traversal, logical decode, projection or fresh-read runtime outcomes."
+}

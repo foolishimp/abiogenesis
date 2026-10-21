@@ -1,0 +1,31 @@
+(node:46526) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize (906.895625ms)
+ℹ {"diagnostic":"E03 response-only original fixture","fixtureRoot":"/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-pRxEz7","pid":46534,"ownedScopeAbsent":true,"events":[{"event":"listening","pid":46534,"at":"1371563624753083","connections":0},{"event":"connection","pid":46534,"at":"1371563646765708","connections":1},{"event":"request","pid":46534,"at":"1371563647415333","connections":1,"connection":"keep-alive"},{"event":"server-close-called","pid":46534,"at":"1371563648572583","connections":1},{"event":"response-finish","pid":46534,"at":"1371563648909666","connections":1}],"observation":{"request":{"hostname":"127.0.0.1","port":54544,"method":"GET","path":"/","timeoutMs":300},"portFile":{"relativePath":"response.port","port":54544,"state":"observed","issue":null,"byteLength":5,"digest":"sha256:75d950aecdc93e2c98c08df5b4981f17b040cf3127d54ca55d64136385e03333"},"response":{"status":200,"body":"actual-http","bodyDigest":"sha256:e5ab4333bf8dcadb488fa653be055c239888ce705142af82536e39db927c44d0","byteLength":11},"process":{"exitStatus":124,"processSignal":"SIGTERM","timedOut":true,"signalSequence":["SIGTERM"],"terminationConfirmed":true,"stdout":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},"stderr":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}}}}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 944.757125
+
+✖ failing tests:
+
+test at test_env/tests/t287-owned-process-lifetime.test.mjs:290:1
+✖ physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize (906.895625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/http-diagnostic-05/current/test_env/tests/t287-owned-process-lifetime.test.mjs:310:71)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

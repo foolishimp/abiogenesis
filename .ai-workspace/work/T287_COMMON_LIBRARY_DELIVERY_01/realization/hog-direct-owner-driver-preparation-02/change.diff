@@ -1,0 +1,47 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/run.mjs
++++ /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/run.mjs
+@@ -176,10 +176,26 @@
+   await save('fixture-installed.json',await tree(e.additionalInstallCandidates[0].installedRoot));
+   const publicApi=await owner(e.installedRoot,'public/index'),contracts=await owner(e.installedRoot,'abg/project_read_operation_contracts');
+   const setupHandoff=e.store.projectReopenAuthorityAndClose();await save('setup-close-handoff.json',setupHandoff);
++  const setupEvents=e.abg.readRuntimeEventsAtDurablePrefix(setupHandoff.prefix);
++  const setupRaw=await readFile(new URL(setupHandoff.prefix.eventLogRef));
++  assert.equal(setupRaw.length,setupHandoff.prefix.prefixLength);
++  assert.equal('sha256:'+sha(setupRaw),setupHandoff.prefix.prefixDigest);
++  await save('setup-events.jsonl',setupRaw,true);
++  const setupLogicalBoundary={prefix:setupHandoff.prefix,eventCount:setupEvents.length,
++    lastEventId:setupEvents.at(-1)?.eventId??null,lastAdmissionOrdinal:setupEvents.at(-1)?.admissionOrdinal??null};
++  await save('setup-logical-boundary.json',setupLogicalBoundary);
+   const resource=h=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:h,handoffDigest:e.product.sha256Canonical(h)});
++  active.phase='start-call-preparation';
+   const {call,resolution}=await calls.constructInstalledStartCall({environment:e,publicApi,eventResource:resource(setupHandoff),input:selected.input,
+-    identity:selected.id,programRef:ids.programRef,declaredStartRef:ids.startRef});
++    identity:selected.id,programRef:ids.programRef});
+   await save('start-call-and-resolution.json',plain({call,resolution}));
++  assert.equal(resolution.program.programRef,ids.programRef,'exact authored Program');
++  assert.equal(resolution.program.policies['abg.root_mode'],'direct');
++  assert.equal(resolution.program.policies['abg.default_start_ref'],ids.startRef);
++  assert.equal(resolution.resolvedProgramStart?.kind,'resolved_program_start');
++  assert.equal(resolution.resolvedProgramStart.targetKind,'next','owner applies declared default');
++  assert.equal(resolution.resolvedProgramStart.start.startRef,ids.startRef);
++  assert.equal(resolution.resolvedProgramStart.start.graphFunctionRef,ids.graphFunctionRef);
+   assert.ok(resolution.programValidation.executableLeafRows.length>0);
+   assert.ok(resolution.programValidation.executableLeafRows.every(x=>x.fibre==='F_D'));
+   assert.equal(resolution.programValidation.interactionLeafRows.length,0);
+@@ -187,9 +203,15 @@
+   const receipt=await cli(e,selected.id,{kind:'reopen',closeHandoff:setupHandoff},call,env);
+   let handoff=receipt.resources?.eventResource?.closeHandoff;assert.ok(handoff);await save('start-close-handoff.json',handoff);
+   const raw=await readFile(new URL(handoff.prefix.eventLogRef));await save('events.jsonl',raw,true);
++  assert.deepEqual(raw.subarray(0,setupRaw.length),setupRaw,'actual setup physical prefix conserved');
+   const events=e.abg.readRuntimeEventsAtDurablePrefix(handoff.prefix);
+-  const slice=raw.subarray(setupHandoff.prefix.prefixLength).toString('utf8').trim().split('\n').filter(Boolean).map(JSON.parse);
++  assert.deepEqual(events.slice(0,setupLogicalBoundary.eventCount),setupEvents,'decoded setup logical prefix conserved');
++  const slice=events.slice(setupLogicalBoundary.eventCount);
+   await save('start-events.json',slice);
++  await save('event-boundary-correspondence.json',{setup:setupLogicalBoundary,returnedPrefix:handoff.prefix,
++    totalLogicalEvents:events.length,startLogicalEvents:slice.length,setupRawBytes:setupRaw.length,
++    returnedRawBytes:raw.length,setupPhysicalPrefixConserved:true,setupLogicalPrefixConserved:true,
++    decodingOwner:'installed ABG readRuntimeEventsAtDurablePrefix; no proof-owned decoding'});
+   const prefixOwner=await owner(e.installedRoot,'abg/event_prefix'),routeOwner=await owner(e.installedRoot,'abg/traversal_route');
+   const foldOwner=await owner(e.installedRoot,'abg/graph_application'),fanOwner=await owner(e.installedRoot,'abg/fan_out_projection');
+   const prefix=prefixOwner.selectValidatedRuntimeEventPrefix(events);

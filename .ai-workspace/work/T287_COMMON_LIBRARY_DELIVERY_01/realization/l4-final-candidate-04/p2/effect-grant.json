@@ -1,0 +1,44 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "issuedBy": "/root",
+  "subjectId": "candidate",
+  "configurationSha256": "b62fb2bfe5dd1e4310ba9eab8937b6bb874686272e6a8d1de1827a0ea7535f03",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "lanes": [
+    "partial-install"
+  ],
+  "resources": {
+    "partial-install": {
+      "evidence": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence",
+      "host": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/scratchParent",
+      "secondInstall": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/secondInstall"
+    }
+  },
+  "maxNativePositiveCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "npmCache": {
+    "status": "granted explicit empty seed",
+    "seedInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/empty-seed.json",
+      "sha256": "afb84dac6a7aa1cf256a6ff7ed05fa84dfdeaa6748dbb292397343908120c6db",
+      "bytes": 183,
+      "mode": "0o644"
+    },
+    "sourceRoot": null,
+    "newCacheRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p2",
+    "files": [],
+    "globalCacheRead": false,
+    "globalCacheWrite": false,
+    "networkFallback": false,
+    "permittedEffects": "offline npm content/index/tmp/log writes; retained"
+  },
+  "prerequisites": "bind only actual satisfied same-subject predecessor results in requiredEvidence",
+  "executionOrder": "P1 -> read-only owner-resolution -> P2 -> P3; no later phase after first unexpected failure",
+  "nativeProviderCalls": 0,
+  "rootActivation": "L4-FINAL-CANDIDATE-P1-P3-04",
+  "maxAdditionalRetainedBytes": 10737418240
+}

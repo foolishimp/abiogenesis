@@ -1,0 +1,39 @@
+{
+  "caseId": "PUBLISH",
+  "step": "identical-collision",
+  "input": {
+    "destination": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json",
+    "base64": "ZXhhY3QgaGVscGVyIGJ5dGVzCg=="
+  },
+  "disposition": "rejected",
+  "output": null,
+  "error": {
+    "name": "Error",
+    "code": "EEXIST",
+    "message": "EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json'",
+    "stack": "Error: EEXIST: file already exists, link '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json.tmp-68865' -> '/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json'\n    at async link (node:internal/fs/promises:1060:10)\n    at async Object.publishCreateOnly (/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js:1137:9)\n    at async step (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:79:19)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-proof-preparation-01/runner.mjs:132:9",
+    "syscall": "link",
+    "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json.tmp-68865",
+    "dest": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PUBLISH/result.json"
+  },
+  "footprint": [
+    {
+      "relativePath": ".",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159548,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "result.json",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159549,
+      "nlink": 1,
+      "byteLength": 19,
+      "sha256": "1a33df04200e343a8d4c8a74c0e90d67375ffa5f03371e41cd34a71aeaa96acb",
+      "base64": "ZXhhY3QgaGVscGVyIGJ5dGVzCg=="
+    }
+  ]
+}

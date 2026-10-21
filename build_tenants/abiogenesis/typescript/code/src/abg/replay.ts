@@ -944,7 +944,14 @@ function deriveReplayPrefixFacts(
       facts.lastGuard.authority === authority && facts.lastGuard.authorityEnd === authorityEnd &&
       facts.lastGuard.profileEnd === profileEnd) return facts.lastGuard.value;
   if (!guardOnly && !owned && facts.last !== undefined && facts.last.runtimeEnd === runtimeEventPrefixLastEnvelope(prefix) && facts.last.authority === authority && facts.last.authorityEnd === authorityEnd && facts.last.profileEnd === profileEnd) return routeOnly === undefined ? facts.last.state : facts.last.state.routes.find(route => route.admissionEventRef === routeOnly);
-  const eventCalculus = deriveRuntimeHeldFluentProjection(prefix);
+  const runCalculus = deriveRuntimeHeldFluentProjection(prefix);
+  const physicalCalculus = authorityPrefix === prefix ? runCalculus : deriveRuntimeHeldFluentProjection(authorityPrefix);
+  // Preserve this Run's fluent/observation population. Other Runs can withdraw
+  // physical currentness, but cannot contribute their results or observations.
+  const eventCalculus = physicalCalculus === runCalculus ? runCalculus : Object.freeze({
+    holds: Object.freeze(runCalculus.holds.filter(fluent => fluent.name !== "worksite_observation_current" ||
+      holdsAt(physicalCalculus, fluent))),
+  });
   const runStoppedRows = indexedRuntimeEvents(prefix, "kind:run_stopped").filter(
     event => stringField(event, "disposition") !== null);
   const runStoppedRouteRefs = new Set(runStoppedRows.map(event => stringField(event, "routeRef")));

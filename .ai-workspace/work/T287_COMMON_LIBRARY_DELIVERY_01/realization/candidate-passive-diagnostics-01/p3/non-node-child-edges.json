@@ -1,0 +1,215 @@
+{
+  "edges": [
+    {
+      "parentPid": 37109,
+      "pid": 37190,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37199,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37202,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37426,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37429,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-tzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37432,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/product-toolchain-manifest.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37435,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/package.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37438,
+      "file": "tar",
+      "args": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "effectiveFile": "tar",
+      "effectiveArgs": [
+        "tar",
+        "-xOzf",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37695,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/evidence"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/evidence"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37696,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/host"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/host"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    },
+    {
+      "parentPid": 37109,
+      "pid": 37697,
+      "file": "/usr/bin/du",
+      "args": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent"
+      ],
+      "effectiveFile": "/usr/bin/du",
+      "effectiveArgs": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent"
+      ],
+      "classification": "external-uninstrumented",
+      "returnValue": 0
+    }
+  ],
+  "limits": "External tar/du per-PID CPU/memory/IO unobserved; spawn return is not exit status. Native trace and JS byte channels overlap; unsized is not zero. No summed maxima or OS-wide total."
+}

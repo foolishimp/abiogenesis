@@ -1,0 +1,55 @@
+{
+  "kind": "E04_closed_writer_handoff",
+  "status": "CLOSED_BOUNDED_E04_EXECUTION_WITH_INDEX_SUCCESSOR",
+  "executiveActivations": [
+    "E04-RETAINED-OWNER-EXECUTION-01",
+    "E04-EVIDENCE-INDEX-02"
+  ],
+  "physicalRunCount": 1,
+  "caseCount": 10,
+  "originalStepReceiptCount": 13,
+  "successorPhysicalExecutionCount": 0,
+  "operativeDerivedIndex": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/case-outcomes-02.json",
+    "bytes": 23896,
+    "sha256": "f8ff73bc62f32dd43864b3b9e72f142b00402ebf34e62b3a950ac220d58224b0"
+  },
+  "originalRuntimeResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/evidence/result.json",
+    "bytes": 10366,
+    "sha256": "ec7c6966fc9bf9b04deabf0efd56a0761e27720c38a092d3d287f35f90d8eef0"
+  },
+  "preservedIncorrectDraft": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/case-outcomes.json",
+    "bytes": 23856,
+    "sha256": "52d5b062d860ff541ad970d88a926502a22a2d0f6613c63e6bc45416fbea54a5"
+  },
+  "preservedFirstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/case-map-first-failure.json",
+    "bytes": 2249,
+    "sha256": "4367de001ba234a2bed6e41c93df32a948c028d6eef6ca50f732560b726d20f7"
+  },
+  "report": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/report.md",
+    "bytes": 7737,
+    "sha256": "30ae75ccde973a363f69fd6b2c77fd7fb2f34178f9e2453aa8e689c7f5524e66"
+  },
+  "indexChecks": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/index-successor-checks-02.json",
+    "bytes": 2678,
+    "sha256": "c569f924f658ce65d004e339654a2c41d25aba32eb4afa992266b943b7423a4f"
+  },
+  "closingPreservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e04-retained-owner-execution-01/closing-preservation-02.json",
+    "bytes": 962,
+    "sha256": "0544698faf638b39fe7b6165bfd43eda3410a54aced8dcaf258c14055212efc5"
+  },
+  "rootsRetained": [
+    "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f",
+    "/private/tmp/abiogenesis-e04-owner-evidence-20261021-8ce2164f"
+  ],
+  "physicalClosure": "host 68865 and supervisor 68864 exited 0, close/scope facts and independent PID/group ESRCH retained",
+  "noAcceptanceClaim": true,
+  "nextOwner": "Root Executive for exact combined owner/dependency correspondence and acceptance",
+  "writerStop": true
+}

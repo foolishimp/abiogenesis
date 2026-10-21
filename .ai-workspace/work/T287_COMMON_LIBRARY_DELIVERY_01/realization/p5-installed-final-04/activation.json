@@ -1,0 +1,43 @@
+{
+  "activation": "P5-INSTALLED-C2-04",
+  "writer": "/root/stdo3_lifetime_writer",
+  "executive": "/root",
+  "recordedAt": "2026-10-21T06:42:40.596801+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "stdo": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": [],
+    "managerVerification": {
+      "valid": true,
+      "failures": []
+    }
+  },
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "preparationFreezeSha256": "b8859cda37f284ef928360059664b14b4304c131b23e21f453cdc4cf135e92b6",
+  "final06ProofFreezeSha256": "b60eca3e6fa641206eda37658b42285cf888a1a42b3cae259be5e2be75a5ce37",
+  "runtimeCondition": {
+    "source": "Root message; attributed transcription, not original stdout",
+    "satisfied": true,
+    "case": "06 genuine unavailable-owner",
+    "exitCode": 0,
+    "wallSeconds": 53.29,
+    "pid": 4993,
+    "stdoutSha256": "04ada63c3a96306d7c92bfe29801d4900334c756ff5d543bdb68ef10e709d8c4"
+  },
+  "pidOracleCorrection": {
+    "source": "Root subsequent correction, superseding HTTP-specific wording",
+    "required": "Each of two fresh replay owned child.pid equals decoded result.processId",
+    "http": "Retain fixture selfreported PID, independent PID/group absence and existing owner-projected termination; no owned HTTP PID carrier invented"
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04",
+    "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6"
+  ],
+  "resourceCapBytes": 3221225472,
+  "retention": "All roots and original evidence retained; no cleanup/retry",
+  "selectedTest": "T-287 C2 compact acknowledgment preserves installed large-log observation and replay",
+  "productionAndSupportEditsGranted": false,
+  "nativeProviderGranted": false,
+  "reviewerGranted": false
+}

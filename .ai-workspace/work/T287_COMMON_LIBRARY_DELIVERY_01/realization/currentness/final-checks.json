@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-10-20T23:37:54.678803+00:00",
+  "production_files_unchanged_since_compile": 4,
+  "stage_source_files": 1311,
+  "stage_owned_overlay_files": 7,
+  "stage_derived_successor_files": 1,
+  "stage_unexplained_source_mismatches": [],
+  "main_generated_files_preserved": 936,
+  "main_generated_mismatches": [],
+  "dependencies_preserved": 4576,
+  "dependency_mismatches": [],
+  "isolated_outputs": 938,
+  "git_diff_check": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "main_tree_build_or_generic_test_alias_run": false,
+  "live_native_provider_or_installed_run": false,
+  "git_mutations": false
+}

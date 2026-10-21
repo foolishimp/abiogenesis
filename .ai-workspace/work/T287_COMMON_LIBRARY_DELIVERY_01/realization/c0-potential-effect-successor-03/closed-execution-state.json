@@ -1,0 +1,95 @@
+{
+  "activation": "C0-STAGE-METADATA-03",
+  "commands": [
+    {
+      "path": "commands/archive-check.result.json",
+      "pid": 60878,
+      "exitCode": 0,
+      "wallMs": 947.0545831136405,
+      "stdoutSha256": "dd112de96c6e7333d693f2c5b8a476351c087df94cf2bd6be5a34a91e42b7714",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/archive-correspondence.result.json",
+      "exitCode": 0,
+      "wallMs": 873.3367499999999,
+      "archive": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 10681835,
+        "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5"
+      },
+      "members": 5271,
+      "payloadRows": 5269
+    },
+    {
+      "path": "commands/generate.result.json",
+      "pid": 60117,
+      "exitCode": 0,
+      "wallMs": 25312.464874936268,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/generation-correspondence.result.json",
+      "pid": 60535,
+      "exitCode": 0,
+      "wallMs": 1007.9742080997676,
+      "stdoutSha256": "d68c97d6109d503eeb5218b87d04951cfcdab8e66eb94425a004760d1c23dd6d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/material.result.json",
+      "pid": 60415,
+      "exitCode": 0,
+      "wallMs": 3819.465624867007,
+      "stdoutSha256": "346d9386dde0086767ea485d816cbbf2986f7e24cad81a4f80a1d10d80b3e0a6",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/pack.result.json",
+      "pid": 60611,
+      "exitCode": 0,
+      "wallMs": 3298.5277499537915,
+      "stdoutSha256": "8422408fe599bc2681902eb241b1476a74e4d9767927a89a6e652bf811c80418",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/payload.result.json",
+      "pid": 60943,
+      "exitCode": 0,
+      "wallMs": 351.25975008122623,
+      "stdoutSha256": "76a49263fb7268ea3b9d168a28fe7ef622803255c9b3472caffdd6a959fe0474",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "commands/sunny-host-check.result.json",
+      "pid": 63038,
+      "exitCode": 1,
+      "wallMs": 76.76262501627207,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "a81bc8b9530654f57ff2e52868f84a369b37f5f17140d2cb9cd2342b65922248"
+    },
+    {
+      "path": "commands/sunny-install.result.json",
+      "pid": 62880,
+      "exitCode": 0,
+      "wallMs": 2419.2402090411633,
+      "stdoutSha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "newCompileCount": 0,
+  "reusedCompileReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/commands/tsc.result.json",
+  "generatorCount": 1,
+  "packCount": 1,
+  "offlineHostInstalls": 1,
+  "ProductFixtureInstalls": 0,
+  "principalC0Attempts": 0,
+  "freshReadonlyChildren": 0,
+  "nativeOrProviderActors": 0,
+  "physicalTargetCreated": false,
+  "noFurtherCaseLaunched": true,
+  "status": "stopped at first host preservation mode assertion"
+}

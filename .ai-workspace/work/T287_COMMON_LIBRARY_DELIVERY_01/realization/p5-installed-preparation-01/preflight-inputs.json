@@ -1,0 +1,33 @@
+{
+  "stageInventoryChecks": [
+    {
+      "scope": "frozen-stage",
+      "count": 1946,
+      "mismatches": 0
+    },
+    {
+      "scope": "main-generated",
+      "count": 936,
+      "mismatches": 0
+    },
+    {
+      "scope": "frozen-stage-dependencies",
+      "count": 4576,
+      "mismatches": 0
+    }
+  ],
+  "sourceInputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 53963,
+      "sha256": "c966852fbe5d03a02055f8c4316093b293865f276f3b39d34cc8e879939512e5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    }
+  ],
+  "driverSha256": "b4c92e443e7f96e34606c2b64ccebb9c47a327ac676fd85c4ed213af85413a1b",
+  "noFixtureExecution": true
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "path": "code/src/shared/owned_process_lifetime.ts",
+    "sha256": "9d4b6c01ba565534ceb22ed0a49f6df7606a69349fce11f83651dc4ddae1ee5f"
+  },
+  {
+    "path": "code/src/abg/worker_transport.ts",
+    "sha256": "8f04a97ee6bf99fbdd18a4bd6a9816048dfa08c83c9a2d0704e86f3fb683e51e"
+  },
+  {
+    "path": "code/src/implementation/worksite_command_helper.ts",
+    "sha256": "4e8bfa1e2a746821d02cc4fbdbca361a822992e816e226efaad9515965e7c0fd"
+  },
+  {
+    "path": "code/src/product/worksite_command_execution.ts",
+    "sha256": "7532aadf7fc497a5a4da3ccdf51fb9d1989832958e0f0baf424b3a6df68f32af"
+  },
+  {
+    "path": "code/src/gtl/worksite_command_execution.ts",
+    "sha256": "df39d2e5fbabf7e149099d468c951bd2a3e9b3eaaa9651f5dd53833ff89ad3e9"
+  },
+  {
+    "path": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "sha256": "a55828e35b05dca6cd797cb6a23d12dfa91eb995fdc0f8b1ba4eb180e149073f"
+  },
+  {
+    "path": "test_env/tests/m5-worker-transport.test.mjs",
+    "sha256": "873bb1b8f31db1ff30578635a310b5650e4ef047928da3d875c9c41d5388c889"
+  },
+  {
+    "path": "test_env/tests/t287-worksite-command-execution.test.mjs",
+    "sha256": "19721571186a09b4277946599d98dc3f2a894bff56fea1985ec56b48463638e4"
+  },
+  {
+    "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+    "sha256": "368f925c5b1d8f79ff0548f581fc524a89327ce7494758f55b730e31feee2d58"
+  }
+]

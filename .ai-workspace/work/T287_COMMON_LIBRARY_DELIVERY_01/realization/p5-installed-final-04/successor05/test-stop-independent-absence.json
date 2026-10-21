@@ -1,0 +1,62 @@
+{
+  "observedAt": "2026-10-21T07:04:55.630438+00:00",
+  "rows": [
+    {
+      "label": "test-host",
+      "pid": 20133,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "test-host",
+      "pid": 20133,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "supervisor",
+      "pid": 20131,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "observed-test-child",
+      "pid": 20135,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "construction",
+      "pid": 23186,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "construction",
+      "pid": 23186,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    }
+  ],
+  "selectedTestOutcome": {
+    "disposition": "failed",
+    "resultValue": {
+      "diagnosticRef": "diagnostic://abiogenesis/worksite/construction/result-contract-failure@5",
+      "failureClass": "result_contract_failure",
+      "kind": "worksite_construction_failure",
+      "schemaVersion": "5.0.0"
+    },
+    "runtimeStatus": "failed",
+    "eventCount": 42,
+    "cCallRef": "c-call:sha256:f9c2057a4dc59eb016b0a226325d601118d7fb6bd55cbee495d4cc0e9230dc7d",
+    "resultRef": "result://abiogenesis/33b2d32355da4d03c89de4c20197147d410d501658c131284c6c6abd9e46bb9b"
+  },
+  "C2NotReached": true,
+  "freshReplayNotReached": true
+}

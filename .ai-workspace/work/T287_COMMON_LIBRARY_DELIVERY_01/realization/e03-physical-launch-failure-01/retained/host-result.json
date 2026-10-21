@@ -1,0 +1,31 @@
+{
+  "status": "bounded_failed_spawn_population_passed",
+  "completed": [
+    {
+      "case": "worker",
+      "status": "passed",
+      "observedEvents": 27,
+      "actualFile": "worker-actual.json"
+    },
+    {
+      "case": "command",
+      "status": "passed",
+      "observedEvents": 21,
+      "actualFile": "command-actual.json"
+    },
+    {
+      "case": "direct",
+      "status": "passed",
+      "observedEvents": 27,
+      "actualFile": "direct-actual.json"
+    }
+  ],
+  "hostPid": 44593,
+  "actualSpawnCalls": 3,
+  "actualChildPids": [
+    null,
+    null,
+    null
+  ],
+  "limit": "Separate direct attempt supplies its own common facts; no internal worker/command facts inferred from outer results. Observed stream errors retained; no every-early-close rejection claim."
+}

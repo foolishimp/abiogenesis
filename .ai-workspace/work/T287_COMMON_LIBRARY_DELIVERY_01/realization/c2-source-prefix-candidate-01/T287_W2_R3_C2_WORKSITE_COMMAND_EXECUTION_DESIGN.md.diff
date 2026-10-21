@@ -1,0 +1,22 @@
+--- closed06/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
++++ C2-selected/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+@@ -195,6 +195,19 @@
+ without canonical body equality is insufficient. Missing, ambiguous, stale,
+ crossed, or tampered authority, binding, prefix, source environment, Program
+ owner, or install refuses before the first archive or Worker effect.
++
++At the C1-root/C3-reducer source closure, `exactC2SourceEnvironment` compares
++the complete logical event prefix returned by the durable reader with
++`runtimeEventBodiesAtPrefix(sourcePrefix).materialize()`, using the existing
++canonical equality. `RuntimeEventBodyView` is a selection carrier, so its own
++object representation is not the logical event array. Physical JSONL codec
++records and their byte extent/digest authenticate the durable coordinate;
++they are distinct from the decoded event bodies compared here. This explicit
++whole-prefix equality requires transient work proportional to the selected
++source-prefix bodies, not a retained cache, a currentness surrogate, or
++whole-history expansion at unrelated handoffs. Both root execution-basis
++admission and pre-effect C2 leaf source authentication consume this same
++predicate and preserve every source, prefix, environment and authority guard.
+ 
+ The admitted `ExecutionBasis B` binds the exact canonical C2 task as its raw
+ input. HoG may invoke the C2 leaf only after that basis and scope are admitted.

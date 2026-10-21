@@ -1,0 +1,62 @@
+{
+  "kind": "t287_final_owner_resolution_configuration",
+  "status": "NOT_GRANTED",
+  "activationFile": null,
+  "subjectId": "candidate",
+  "installedRoot": null,
+  "installedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/archive-members.json",
+    "sha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034",
+    "bytes": 1262495,
+    "mode": "0o644"
+  },
+  "outputRoot": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/owner-resolution",
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "requiredPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "bytes": 10681835,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/archive-members.json",
+      "sha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034",
+      "bytes": 1262495,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/selected-support.json",
+      "sha256": "00eff68a7329e05420c7669dac48fdbc717acca880a361e865aecb934b549665"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/freeze.json",
+      "sha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+      "bytes": 2343069,
+      "mode": "0o644"
+    },
+    {
+      "path": null,
+      "sha256": null,
+      "pendingRole": "actual P1 proof freeze"
+    }
+  ],
+  "p1": {
+    "result": null,
+    "ownerState": null,
+    "catalogCall": null,
+    "catalogOutcome": null,
+    "viewCall": null,
+    "resolveCall": null,
+    "resolveOutcome": null
+  },
+  "bindingRule": "Select exact final P1 result/owner-state and calls/catalog-admit.request.jsonl, calls/catalog-admit.outcome.json, calls/catalog-view.request.jsonl, calls/product-resolve.request.jsonl and calls/product-resolve.outcome.json from the actual P1 output. Verify actual resolve label from owner-state calls before pinning; no guessed or reconstructed admission. New canonical /private/tmp outputRoot only. Required pins include final archive, package inventory, support and original P1 freeze. Schedule this read-only check before P2 or any later append: it requires the complete physical log to remain the exact retained P1 prefix and never acquires that owner."
+}

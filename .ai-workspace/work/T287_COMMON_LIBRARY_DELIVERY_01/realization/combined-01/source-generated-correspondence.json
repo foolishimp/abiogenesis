@@ -1,0 +1,38 @@
+{
+  "sourceFiles": 1318,
+  "immutableSourcePreserved": true,
+  "allOtherStagedSourcePreserved": true,
+  "derivedSuccessors": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "predecessorSha256": "c99f518ef399a238d553fd32fb118d68c01f7aa0f6f8bd87776465749104e304",
+      "successorSha256": "e8e26ca915e5bee5d803ec650b974efcd1290c7de9ba2b5377ae19674c15e244",
+      "producer": "scripts/generate-product-manifest.mjs",
+      "producerSourceSha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+      "producerCommand": "commands/generate.request.json",
+      "producerReceipt": "commands/generate.result.json",
+      "grant": "COMBINED-DERIVATION-01"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+      "predecessorSha256": "876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7",
+      "successorSha256": "f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+      "producer": "scripts/generate-product-manifest.mjs",
+      "producerSourceSha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+      "producerCommand": "commands/generate.request.json",
+      "producerReceipt": "commands/generate.result.json",
+      "grant": "COMBINED-DERIVATION-01"
+    }
+  ],
+  "generatedEntries": 940,
+  "manifestSha256": "2935813eaa6a49d2fec0139fa240a36132801efbfab353a4c467ec4005c9b142",
+  "productContentDigest": "sha256:28d36ad13e5ce1712dc92c365ee96cd944142c1d8ae78329e87afac42d59e2f9",
+  "manifestLocators": 5269,
+  "manifestLocatorsAllPresent": true,
+  "gtlProductMaterialPinCheck": {
+    "receipt": "commands/material-check.result.json",
+    "resultSha256": "c0a5e6a318c550a77b5bf7ac6062bed196ccd21086198bb63b3ee02694fc426f"
+  },
+  "earlierFailure": "commands/correspondence-first.result.json remains valid for its narrower predicate",
+  "runtimeOrInstalledExecution": false
+}

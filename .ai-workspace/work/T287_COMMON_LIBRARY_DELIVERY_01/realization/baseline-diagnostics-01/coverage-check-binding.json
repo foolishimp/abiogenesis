@@ -1,0 +1,9 @@
+{
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/check-coverage.py",
+    "sha256": "f080e85a2de5e140714bf4ee3bdd7b8af29614a6075a0914e21b8f0180fdced7"
+  },
+  "contract": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/coverage-contract.json",
+  "status": "mechanical implementation of pre-frozen coverage contract; no lane output inspected to author these expectations",
+  "recordedUtc": "2026-10-21T04:04:35.427192+00:00"
+}

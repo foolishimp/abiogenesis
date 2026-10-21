@@ -1,0 +1,282 @@
+{
+  "kind": "HOG-FIXTURE-DEPENDENCY-SUCCESSOR-01_closed_support_and_preparation_freeze",
+  "status": "support_ready_for_successor_combined_source; installed_proof_not_granted",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "ownedOutputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "bytes": 7076,
+      "mode": "0o644",
+      "tenantRelativePath": "test_env/support/language-structural-fixture.mjs"
+    }
+  ],
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/HOW.md",
+      "sha256": "8cee590294ce4db7e5a404ce852c046df6d3ae35db28751b275ea2ff232a7ef6",
+      "bytes": 3540,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/activation.json",
+      "sha256": "5ee29f807235f24a6cbc43f6df309f79dd1e4ecfc48dc348e5b2896e15ecd659",
+      "bytes": 2164,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/case-source-index.json",
+      "sha256": "161789f674d22c9cadedd4eccc73b608f10e7399a5df3b4ce3877ba4ca6de585",
+      "bytes": 9761,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/finite-selection.json",
+      "sha256": "733cc96c06b4c6e88e26281073b2154a9428b7bd0a2f1fff429f72a43c50f816",
+      "bytes": 9205,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/finite-selection.md",
+      "sha256": "e1c0d61a94941ca5717369a622286edd5cd9a527086f91b8c25fd2b7fd7cb5b3",
+      "bytes": 1890,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/fixture-causal-cone.json",
+      "sha256": "56ddb2595cc0666417dd08e5bcd13ff0951a624592ba992f1ccf0976b34edb7b",
+      "bytes": 10384,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/fixture-pack.request.json",
+      "sha256": "f407a89ffafe8d97be5e2097d28dba9b1dbc7d9219b801ab773b0430e354c42c",
+      "bytes": 1117,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/fixture-package-correspondence.json",
+      "sha256": "0657b0ad614af8ded13451fd4e208c66b803ae8031cabc830db4759255fa9d18",
+      "bytes": 2805,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/preimage/language-structural-fixture.mjs",
+      "sha256": "f840e413bf53b7cffec616e3147ba7d461c5858e2b6da4d248dc2d799e81decd",
+      "bytes": 6369,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/preservation-after.json",
+      "sha256": "d704a30b2dec9c27fcf3c967de06fd46fbe350e3d3813fc6765071d9cad4fb99",
+      "bytes": 912,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/preservation-before.json",
+      "sha256": "a7a6f6e3dcba6e019a71094cfdabc22adb924ed240f683e6e3016bf21d7b2d25",
+      "bytes": 727,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-configuration.json",
+      "sha256": "57dc8c298e1eb13bac0a8180616850b4382c8396ae4750df1af449d719e67772",
+      "bytes": 5198,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-effect-grant.json",
+      "sha256": "4acfa64bb5c4d7ecbceae3197cd6003e36d8f670b3f7f63fa103f652f99621af",
+      "bytes": 1128,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-execution.request.json",
+      "sha256": "d78c648f14df8e4e2d9b80823e1de2ac2e88749a8a92871da5daa219c0df7ce0",
+      "bytes": 1063,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-execution.result.json",
+      "sha256": "2f20d60c8ecd2596bc7e38dc9862f79936a4fe10adc467f0a864a4606052b4a1",
+      "bytes": 136,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-execution.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-execution.stdout",
+      "sha256": "f876536e1b13cf677feee74e4da33c7afe6e8db5d158fa2330b547cb1af4accb",
+      "bytes": 171,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture/artifacts/abi5-tests-structural-fixtures-5.0.0.tgz",
+      "sha256": "eb5c7c3fd4f1f524f34c8a0a3fb876aa42fd1456cfad24da8012beffaf9b7bea",
+      "bytes": 9623,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture/build/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "bytes": 10669,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture/build/program.mjs",
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+      "bytes": 22919,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "bytes": 247,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture/contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "bytes": 75,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture/package.json",
+      "sha256": "4e5680b4aa54a57d04348d7334ccafd4608fa43013eb6b8aee33fb0d7f1bedb3",
+      "bytes": 412,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture/product-toolchain-manifest.json",
+      "sha256": "32eb3cc7befae224a41d55894717271079a83873dcd4ccdb764eb41a97c90ca6",
+      "bytes": 12727,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-footprint.json",
+      "sha256": "ef2d9ccf8c58688319659b47a73ac2be7011337e159bdc9e989ec89b651550d8",
+      "bytes": 1746,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-input-freeze.json",
+      "sha256": "c46b027dec13ee1f36d81e80aa9b85028a8f0b76b066ad8ab5a883d1f5207864",
+      "bytes": 2243,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-negatives.json",
+      "sha256": "9bfb9affc78daa9e46390a26fa81a81a7f1ba229bafa3c947da719261be1d763",
+      "bytes": 1212,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-npm-cache/_cacache/content-v2/sha512/f1/af/67412edb8d59b793253d114e6d1da4f788432c580fedaba76ab9ddb206e3f37e2a158376c5b7ccfc9650e434a4d1c413e810e234f871cc74b99508a5d5e3",
+      "sha256": "eb5c7c3fd4f1f524f34c8a0a3fb876aa42fd1456cfad24da8012beffaf9b7bea",
+      "bytes": 9623,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-npm-cache/_cacache/index-v5/f5/4a/abb7879d1717c2d91c9207bb7360d28ac1d47296890de8a0b76a8282b094",
+      "sha256": "dc3a151d3e323d3e614592840e98876958b3e5fe3d57758a906f6185731f9005",
+      "bytes": 403,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-npm-cache/_logs/2026-10-21T02_39_19_489Z-debug-0.log",
+      "sha256": "e32b6fee7187da82cb91a64e097d34caee9253273c5ea089966ee5a8e31e72c1",
+      "bytes": 1691,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-npm-cache/_update-notifier-last-checked",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-result.json",
+      "sha256": "b1d08781fb204be57dbba4e79765caa1b4a13d9c9ed0071121a27239c773ea32",
+      "bytes": 102147,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support/test_env/fixtures/language-structural/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "bytes": 10669,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support/test_env/fixtures/language-structural/program.mjs",
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+      "bytes": 22919,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support/test_env/support/language-structural-fixture.mjs",
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "bytes": 7076,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness.mjs",
+      "sha256": "ec60bbe782582b2563780f676c50d3878528c6c95d3563465a48f9fed615f274",
+      "bytes": 6615,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/return.md",
+      "sha256": "d57e4cc0867ec43a6a667ffaee27debd8e106ce5e1a22c416b6694ea9c0dfae2",
+      "bytes": 2586,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/selection-inputs.json",
+      "sha256": "fd04222a37782a3e732fd0a65d8a61d240f2b9bdb43fde8402a39934f6f207bb",
+      "bytes": 6059,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/support-overlay.json",
+      "sha256": "6db5bfa5018c4e87e00a7d990b1ed1b2ce3a6bce0e08ecddb53bc6d5026245c9",
+      "bytes": 3099,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/support.diff",
+      "sha256": "5b38c998282df848b86b5d90be3446a8d1ac2e85f3c50b83ad070dc71efc8bc0",
+      "bytes": 2678,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/syntax-checks.json",
+      "sha256": "1e45c71d3a5eaee330dc33790460e6f4819ee91aa4c76ab76e3b527803c0ac5b",
+      "bytes": 672,
+      "mode": "0o644"
+    }
+  ],
+  "recordCount": 41,
+  "checks": {
+    "syntax": 2,
+    "expectedPreEffectRefusals": 4,
+    "fixturePacks": 1,
+    "tarMembers": 6,
+    "installs": 0,
+    "workloads": 0,
+    "nativeCalls": 0
+  },
+  "pending": [
+    "C0 successor exact final artifact",
+    "separate three-case ordinary owner driver freeze and effect grant",
+    "actual installed retained-law observations",
+    "historical route/K07 evidence selection"
+  ],
+  "exclusion": "freeze.json itself; existing source/record outputs immutable after this handoff; future driver preparation is a separate subject"
+}

@@ -1,0 +1,46 @@
+{
+  "status": "satisfied",
+  "cuts": [
+    {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/freeze.json",
+        "sha256": "f0643a3c7916acf534d7f90115d4019a29604a5539db472443ce162b57b68cb2",
+        "bytes": 48203,
+        "mode": "0o644"
+      },
+      "rows": 159,
+      "mismatches": 0
+    },
+    {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/freeze.json",
+        "sha256": "0270d388acf82cc8555edb6e38e148686288e949931498b87300ed2fe162560c",
+        "bytes": 5513,
+        "mode": "0o644"
+      },
+      "rows": 14,
+      "mismatches": 0
+    },
+    {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/input-freeze.json",
+        "sha256": "573927184a3cb753b44f497cbfab57133c046228b0a7132982258e9666bd402f",
+        "bytes": 8482,
+        "mode": "0o644"
+      },
+      "rows": 23,
+      "mismatches": 0
+    },
+    {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p3/coverage-instance/input-freeze.json",
+        "sha256": "7f274e52f91e3062a23e74e3579f649eae7b30110b4732c3c90177160afe390a",
+        "bytes": 2546,
+        "mode": "0o644"
+      },
+      "rows": 7,
+      "mismatches": 0
+    }
+  ],
+  "scope": "Exact prior stopped/successor and active input rows unchanged; selected source/generated/dependency/main checks separately bound by preservation-after.json"
+}

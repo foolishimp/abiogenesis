@@ -1,0 +1,317 @@
+{
+  "kind": "bounded-installed-P5-preparation-writer-freeze",
+  "closedAt": "2026-10-21T01:27:00.028795+00:00",
+  "writer": "/root/stdo3_lifetime_writer",
+  "executive": "/root",
+  "activation": "E03-P5-INSTALLED-PREPARATION-01",
+  "continuations": [
+    "P5-PROOF-SUPPORT-01",
+    "P5-CALLABLE-TRIAGE-01",
+    "P5-SNAPSHOT-PARENT-TRIAGE-01"
+  ],
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "priorStreamFreezeSha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155",
+  "disposition": "Finite preparation complete; returned for Executive binding and separate installed effect grant. No actual installed proof or independent acceptance.",
+  "ownedOutputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 54074,
+      "sha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    }
+  ],
+  "files": [
+    {
+      "path": "HOW.md",
+      "bytes": 7396,
+      "sha256": "78575bf922a52eb6ffc700ffacfca57ffffe6792d1b0bac07707cf7fe2a66391"
+    },
+    {
+      "path": "callable-draft-failure-01/failure.json",
+      "bytes": 1498,
+      "sha256": "37da7343668b61eb1757d031516178746e79ce4c4e9485dcbca43a3511e66984"
+    },
+    {
+      "path": "callable-draft-failure-01/fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    },
+    {
+      "path": "callable-draft-failure-01/index.ts",
+      "bytes": 25105,
+      "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23"
+    },
+    {
+      "path": "callable-draft-failure-01/t287-worksite-command-execution.test.mjs",
+      "bytes": 53781,
+      "sha256": "23ae07792d6d575a302616d0d62d450800665cd7c9dc5a56946f43e442b22946"
+    },
+    {
+      "path": "callable-triage-01.md",
+      "bytes": 1226,
+      "sha256": "8c900483b72155a6abf630b96eb6d69264c0250b2d1e4bf2f1013dc4a1f716d2"
+    },
+    {
+      "path": "constructor-02-inputs.json",
+      "bytes": 359,
+      "sha256": "e519456488de5570b027a3f57bff7d04efda8a1afa6dac39e7d5e6f651d59eca"
+    },
+    {
+      "path": "constructor-02.json",
+      "bytes": 578,
+      "sha256": "3d0cce1510cd88d4cb93840c2396ef858275a2e364f4e9e7e25ac91e2891deb7"
+    },
+    {
+      "path": "constructor-02.mjs",
+      "bytes": 6639,
+      "sha256": "c2dfeb298a50c8fd5c9cdf5032ce120a4854c41ad11b05ffce08a88a5f458705"
+    },
+    {
+      "path": "constructor-02.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "constructor-02.stdout",
+      "bytes": 85,
+      "sha256": "3f733465e87e5a1ebe9e582a2815c686615293817f233d86e07a760919219d5d"
+    },
+    {
+      "path": "constructor-callable.json",
+      "bytes": 600,
+      "sha256": "b090e2c6f9948e1fc37665acd4ab61e5f1eb83109c8589d5ed4540f022796e2c"
+    },
+    {
+      "path": "constructor-callable.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "constructor-callable.stdout",
+      "bytes": 77,
+      "sha256": "9a582837bc1f7b126505a5a542449fc8d0eb0aca6f6b493b4c56eeb49fb40168"
+    },
+    {
+      "path": "design-before-effects.json",
+      "bytes": 289,
+      "sha256": "1a17cb27abd7a9802ecb756275447e4092d18e6c65eb6026d0cef6857e66bb14"
+    },
+    {
+      "path": "emitted-source-requirements.json",
+      "bytes": 3675,
+      "sha256": "17cb57ff0f586cd8dffeb80f20fad9452f496d1796e7ef5ffd6b874344ca0f8b"
+    },
+    {
+      "path": "handoff.md",
+      "bytes": 4457,
+      "sha256": "6b8b90d4193c0ee2885bbdf14e416e6479062d1c923ea91af260e5d964e7224a"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 4217,
+      "sha256": "e93ce24bc54d48e4e9fc7bdea6cc43de600b4dab22f8bc0eb37cc3d582b0740e"
+    },
+    {
+      "path": "installed-configuration.NOT-GRANTED.json",
+      "bytes": 879,
+      "sha256": "02054aa435b0ea14a25a848b10dd1503d31a655c8602f2d850539626e8a8f8a1"
+    },
+    {
+      "path": "owned-output-manifest.json",
+      "bytes": 431,
+      "sha256": "5c3498c5c10c4534f11b38db30558d4d51b032923eacfaa2181199620cebd278"
+    },
+    {
+      "path": "owned-successor.patch",
+      "bytes": 38363,
+      "sha256": "ee6214556b34e184ee0e2715ee02c8083af14d3f466f4d7a15d75ea3d3f47a85"
+    },
+    {
+      "path": "port-parent-failure-02/failure.json",
+      "bytes": 2921,
+      "sha256": "6685f76566f7dbe186ef9b1d23b6c094fd47dc0baecd63918b9c1bc05c5f94d0"
+    },
+    {
+      "path": "port-parent-failure-02/fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    },
+    {
+      "path": "port-parent-failure-02/t287-worksite-command-execution.test.mjs",
+      "bytes": 53963,
+      "sha256": "c966852fbe5d03a02055f8c4316093b293865f276f3b39d34cc8e879939512e5"
+    },
+    {
+      "path": "port-parent-failure-02/worksite_command_execution.ts",
+      "bytes": 132724,
+      "sha256": "7532aadf7fc497a5a4da3ccdf51fb9d1989832958e0f0baf424b3a6df68f32af"
+    },
+    {
+      "path": "port-parent-failure-02/worksite_command_helper.ts",
+      "bytes": 62395,
+      "sha256": "d8bddd8487e78babc8b1ee6df86215c112973cb9b093e7a4242c4684b7a56e3f"
+    },
+    {
+      "path": "postconditions.json",
+      "bytes": 1266,
+      "sha256": "da0165fddc6b3eb4c609c6d35b701f9c331804b97f4365a7b28589ab91c6d174"
+    },
+    {
+      "path": "preflight/callables.json",
+      "bytes": 2307,
+      "sha256": "be4f0f1402b444bb54d5300ba48a219d0eaf5f9bf2814d4cce6ecf3d3e51acf1"
+    },
+    {
+      "path": "preflight/command-provider.cjs",
+      "bytes": 1594,
+      "sha256": "e922b8471943a6981cdc8590b5a173c925c16e6f72bf351fa32a977efda8bfec"
+    },
+    {
+      "path": "preflight/construction-provider.cjs",
+      "bytes": 2384,
+      "sha256": "6dbaf1b869c94f5e51987075c9e09bdce39bcb42a064ae98562bd249a1defdf0"
+    },
+    {
+      "path": "preflight/constructor.json",
+      "bytes": 18948,
+      "sha256": "dacc53ae969ae817b853a55f22518a161a7995f54cf5f6c276781a9851bdbdd3"
+    },
+    {
+      "path": "preflight/result.json",
+      "bytes": 561,
+      "sha256": "181eb17a41f306def3d7340e95c43b204d528527a5e7b1ba1e7d730e19dd2204"
+    },
+    {
+      "path": "preflight/service.mjs",
+      "bytes": 901,
+      "sha256": "abb013e74413992853b07e0f55632c7b721993f407139b1c7ea680ede49f9f4b"
+    },
+    {
+      "path": "preflight-02/constructor.json",
+      "bytes": 19576,
+      "sha256": "2d89190cc3c176572b25a21b4dab6ebfbf4ed14a7908c91f487c808ea687ef1a"
+    },
+    {
+      "path": "preflight-02/result.json",
+      "bytes": 348,
+      "sha256": "f3f3e27af0c173f20ccef943831e46f261ae03bee149c270401835b366bf65dd"
+    },
+    {
+      "path": "preflight-inputs.json",
+      "bytes": 898,
+      "sha256": "74a94f422a8b1388a8a468af9b08bce8f5485381b9e86603657a675cb2fc26fe"
+    },
+    {
+      "path": "preflight.mjs",
+      "bytes": 9471,
+      "sha256": "b4c92e443e7f96e34606c2b64ccebb9c47a327ac676fd85c4ed213af85413a1b"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 4455,
+      "sha256": "0c81473493e19e1087ffeb3105b20e33641e3ef59c7cac1f5140b01b3e374a3e"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 38266,
+      "sha256": "19721571186a09b4277946599d98dc3f2a894bff56fea1985ec56b48463638e4"
+    },
+    {
+      "path": "preservation.json",
+      "bytes": 561,
+      "sha256": "9fd7f2a5abd247758ac79890fa4a3fad68a7ec254ac69b6c510a675d3f8838e9"
+    },
+    {
+      "path": "report.md",
+      "bytes": 5677,
+      "sha256": "801269ff6559a11355bca7e56f91fba4893ee0d2672bb96700806289712ef31f"
+    },
+    {
+      "path": "snapshot-parent-triage-01.md",
+      "bytes": 1468,
+      "sha256": "d3d70cff57eb5c778302fdd90be687bbbc774756a3fd699b12f29e4e89503304"
+    },
+    {
+      "path": "source-support-dependencies.json",
+      "bytes": 1875,
+      "sha256": "8298452343f6d5a7d99404d8f77c293092ddda187c3baee5b808438ae8627310"
+    },
+    {
+      "path": "subject-final/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    },
+    {
+      "path": "subject-final/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 54074,
+      "sha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329"
+    },
+    {
+      "path": "syntax-http-fixture.json",
+      "bytes": 624,
+      "sha256": "4e6dd4a001331ea8fa5ff24bcfa3ffd45ac81c77208a6a75472b87db478a185e"
+    },
+    {
+      "path": "syntax-http-fixture.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax-http-fixture.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax-preflight.json",
+      "bytes": 613,
+      "sha256": "618478c04d9fa7bed34281afc64dd0a35627f67c193f63fd7249957e900c1294"
+    },
+    {
+      "path": "syntax-preflight.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax-preflight.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax-support.json",
+      "bytes": 592,
+      "sha256": "59da14e830016311cc9c466411b1a3b1046dff7bc886674a2823162fb14665c3"
+    },
+    {
+      "path": "syntax-support.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax-support.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax-test.json",
+      "bytes": 595,
+      "sha256": "00c3452113b0d733207e62a6481018c3188b7ee841958f436f23b3f5ef06a653"
+    },
+    {
+      "path": "syntax-test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax-test.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "installedExecutionGranted": false,
+  "actualFixtureProcessesLaunched": 0,
+  "finalConfiguration": "installed-configuration.NOT-GRANTED.json"
+}

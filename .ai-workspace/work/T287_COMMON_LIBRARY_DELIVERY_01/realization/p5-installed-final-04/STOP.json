@@ -1,0 +1,36 @@
+{
+  "activation": "P5-INSTALLED-C2-04",
+  "stoppedAt": "2026-10-21T06:44:06.094424+00:00",
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/binding-failure.json",
+    "bytes": 1020,
+    "sha256": "efcb02be80905d89b03f65c7f63f5d9c592b000579357670163b9ead83f49795"
+  },
+  "failedScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/bind.py",
+    "bytes": 8586,
+    "sha256": "c3e479246fa1164e74fbe1b64089b3f40d5dfd654ea26a3875e9f72ae6960077"
+  },
+  "expected": {
+    "path": "test_env/support/root-installed-environment.mjs",
+    "bytes": 40077,
+    "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e"
+  },
+  "actual": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+    "bytes": 39995,
+    "sha256": "a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0"
+  },
+  "preservedSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/failed-setup-subject.mjs",
+    "bytes": 39995,
+    "sha256": "a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0"
+  },
+  "cause": "New binding script selected old E03 stage support as original setup source, but it differs from the exact P5 preparation-selected setup. No proof copy or runtime was created before this check.",
+  "physicalRootAbsent": true,
+  "proofRootAbsent": true,
+  "runtimeLaunchCount": 0,
+  "installationCount": 0,
+  "sourceEdits": 0,
+  "noRetryOrRepair": true
+}

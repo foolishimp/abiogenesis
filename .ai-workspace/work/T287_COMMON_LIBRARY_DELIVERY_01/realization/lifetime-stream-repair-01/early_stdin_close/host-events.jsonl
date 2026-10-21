@@ -1,0 +1,12 @@
+{"at":"1375439700621541","event":"host-start","mode":"early_stdin_close","pid":87157,"node":"v24.7.0","contract":{"kind":"worker_transport_contract","schemaVersion":"5.0.0","agentKey":"claude","command":"/opt/homebrew/Cellar/node/24.7.0/bin/node","prefixArgs":["/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/fixture-child.mjs","early_stdin_close","/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/early_stdin_close"],"argsTemplate":["-p","--disable-slash-commands","--no-session-persistence","--output-format","stream-json","--include-partial-messages","--verbose","--permission-mode","bypassPermissions"],"parser":"claude_stream_json","promptTransport":"stdin","sanitizedEnvironmentPrefixes":["CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL","CLAUDE_CODE_SSE_","CLAUDE_CODE_ENTRYPOINT","CLAUDE_CODE_EXECPATH"]},"promptBytes":8388608}
+{"at":"1375439727576833","event":"child-started","pid":87158}
+{"at":"1375439746788916","event":"os-signal","pid":-87158,"signal":0}
+{"at":"1375439746879166","event":"os-signal","pid":-87158,"signal":0}
+{"at":"1375439746932333","event":"os-signal","pid":-87158,"signal":"SIGKILL"}
+{"at":"1375439746994958","event":"os-signal","pid":-87158,"signal":0}
+{"at":"1375439747041083","event":"os-signal-error","pid":-87158,"signal":0,"code":"EPERM"}
+{"at":"1375439748212666","event":"os-signal","pid":-87158,"signal":0}
+{"at":"1375439748250666","event":"os-signal-error","pid":-87158,"signal":0,"code":"ESRCH"}
+{"at":"1375439748476875","event":"owner-rejection","name":"Error","code":"EPIPE","message":"write EPIPE"}
+{"at":"1375439748509333","event":"host-survived-owner-settlement","pid":87157}
+{"at":"1375439748552125","event":"host-exit","code":0,"pid":87157}

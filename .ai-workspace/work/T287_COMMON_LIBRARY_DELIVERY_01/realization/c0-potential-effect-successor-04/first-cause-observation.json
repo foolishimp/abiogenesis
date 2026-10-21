@@ -1,0 +1,60 @@
+{
+  "refusal": {
+    "kind": "invocation_admission_refusal",
+    "code": "authority_mismatch",
+    "message": "invocation admission requires the exact held artifact-truth predecessor prefix"
+  },
+  "originatingAssertion": "unchanged test support root-installed-environment.mjs:805",
+  "handoff": "retainedInputOrigin at t287-c0-post-publication-failure.test.mjs:233, called at runCase:398",
+  "stdoutSha256": "fa7d613dbe10b9c04dc2a5d4ada628c6ae3274048f684f97a7535697f95a4818",
+  "logs": [
+    {
+      "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-04/sunny/scratch/abi5-root-env-3tN0W7/runtime/events.jsonl",
+      "bytes": 3178274,
+      "sha256": "b866a7cbd28ad85b9943248121992c0c1e024b98e43ff8c679fe5c1459d26202",
+      "rows": 11,
+      "kinds": {
+        "public_operation_artifact_admitted": 3,
+        "public_operation_admitted": 2,
+        "invocation_admitted": 2,
+        "implementation_admitted": 2,
+        "basis_admitted": 2
+      },
+      "lastEnvelope": {
+        "admissionOrdinal": 11,
+        "aggregateId": "workspace-binding://abiogenesis/41c85a5a0c41ac59410ffefcf8f80bf54332616c702e678f742f4f340acebe5f",
+        "aggregateType": "workspace",
+        "basisId": "execution-basis://abiogenesis/31705483189672039fe2e2d402942f2a3489d8258242b20f44200ddb161cf573",
+        "causationEventRefs": [
+          "event://abiogenesis/a3e033f7fa2f8209e1a2b0e2c2629149cbb5a9b9d216eb311e5946feeae288e4"
+        ],
+        "correlationId": "correlation://t286/root/execution-basis",
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventId": "event://abiogenesis/4435ed5440eee1043ec79d54176f58f0ee99f4a3c175469ca6ca2a744350720c",
+        "eventTime": "2026-10-21T05:59:49.366Z",
+        "kind": "basis_admitted",
+        "parentAggregateId": "invocation://abiogenesis/eed847783e60159993460ba3a2999affd1e7421bb885045bb5746aede68d8509",
+        "payloadDigest": "sha256:d525b1bf4f123a6cd84835871d8cd52b3b991ecaeeb28f20e348ddc58edace6f",
+        "scopeClass": "workspace",
+        "workflowVersion": "5.0.0"
+      },
+      "claim": "Raw content and last recorded envelope, not a newly selected held durable-prefix authority"
+    }
+  ],
+  "targets": [
+    {
+      "path": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-04/sunny/scratch/abi5-root-env-3tN0W7/workspace/c0-b04/target.txt",
+      "bytes": 9,
+      "sha256": "25718360e05d3c2d0963d1381e9dd4dae5fca789244ee4b9f861adcc0cc96218",
+      "base64": "b3JpZ2luYWwK"
+    }
+  ],
+  "actualBoundary": "Product fixture install and primary/alias invocation and basis admissions completed; semantic invocation refused before C0 scope/occurrence/physical owner dispatch",
+  "principalTestCommands": 1,
+  "C0PhysicalAttempts": 0,
+  "C0EvidenceOrResultAdmitted": 0,
+  "freshReadonlyChildren": 0,
+  "nativeProviderActors": 0,
+  "ownerClose": "No ownership reacquired. Process exited; the test close callback occurs after retainedInputOrigin and was not registered when admission refused. OS process exit closes its descriptors; no explicit EventStore close receipt is claimed.",
+  "noCleanup": true
+}

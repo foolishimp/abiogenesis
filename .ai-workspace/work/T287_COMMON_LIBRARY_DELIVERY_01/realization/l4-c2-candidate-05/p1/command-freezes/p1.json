@@ -1,0 +1,41 @@
+{
+  "inputFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/input-freeze.json",
+    "sha256": "14dc748ec286d620db7cf0d3ce8636c27c10667ebedb13b4482440d2c1d17f49",
+    "bytes": 5015,
+    "mode": "0o644"
+  },
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/configuration.json",
+    "sha256": "f6a48fa2bd789131ec61937dfc0570716cc47a38abaa31624e62ab8343a95b49",
+    "bytes": 5516,
+    "mode": "0o644"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/effect-grant.json",
+    "sha256": "e5cecf04e12f1e17ffe2db3c723511c19f402e3fd13da90f5eadb5ace37b2c1b",
+    "bytes": 1977,
+    "mode": "0o644"
+  },
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/commands-config.json",
+    "sha256": "4d2d7b77143d6759e61d223ea172fc71d9a1510756bae71dad2518f7e2354d98",
+    "bytes": 584,
+    "mode": "0o644"
+  },
+  "environment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/command-environment.json",
+    "sha256": "c6225aa606df81de9fc5345b717b5b75d2127c074c775dd6bb9425f5e1975fe7",
+    "bytes": 691,
+    "mode": "0o644"
+  },
+  "supervisor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/run-command.py",
+    "sha256": "270a6cd23729666dc788f2b89473f2d9be27003905d94146ab994d45f7f347d1",
+    "bytes": 2521,
+    "mode": "0o644"
+  },
+  "outerCeilingMs": 1800000,
+  "originalEndpointCeilings": "unchanged",
+  "outerNodeOptions": "cleared before launch; explicit child environment omits NODE_OPTIONS"
+}

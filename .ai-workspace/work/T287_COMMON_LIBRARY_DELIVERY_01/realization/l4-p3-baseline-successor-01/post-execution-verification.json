@@ -1,0 +1,21 @@
+{
+  "status": "matched",
+  "repairRegularFilesPreserved": 6671,
+  "ownedSupportFilesPreserved": 3,
+  "internalSymlinksPreserved": 2,
+  "baselineOriginalSourceGeneratedDependencyInventoriesPreserved": true,
+  "baselineImmutableSourceRowsPreserved": 1311,
+  "protectedMainRowsPreserved": 936,
+  "originalFailedP3RecordsPreserved": 29,
+  "originalFailedP3ResourceFilesPreserved": 11153,
+  "sourceArchiveToolchainSupportRunnerOracleAndMethodPinsPreserved": true,
+  "actualClosePrefixPreservedAfterFreshReads": true,
+  "eventStoreReadOnlyPostVerification": {
+    "path": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent/abi5-root-env-Ij5YJK/runtime/events.jsonl",
+    "sha256": "5c04bc8cd9c617e0667543c7b1d0cef51f3575371b1776900b5e50a732a0df58",
+    "bytes": 3217928,
+    "device": 16777231,
+    "inode": 474111636
+  },
+  "noRetryOrCleanup": true
+}

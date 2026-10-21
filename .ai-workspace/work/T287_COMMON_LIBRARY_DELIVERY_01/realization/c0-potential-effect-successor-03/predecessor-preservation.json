@@ -1,0 +1,6 @@
+{
+  "successor02FreezeSha256": "7579fe86579c0c90e64cc02c497ae8d3e9c4af2aa90ee360bb3de55fe2c671bd",
+  "successor02RecordsVerified": 8581,
+  "combinedFinal02FreezeSha256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+  "scope": "Exact stopped successor02 full file/link inventory plus combined donor freeze and directory/file identities verified during preparation; no old cut written."
+}

@@ -1,0 +1,104 @@
+{
+  "kind": "t287_installed_proof_subject_inputs",
+  "status": "prepared_not_activated",
+  "subject": {
+    "id": "candidate",
+    "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 10680461,
+      "sha256": "151ad625652dc426d46a210559afde50f40b93acdf216b5ca9d64969e5eb8e54"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3189620,
+      "sha256": "9a23c6ff5aa27c334a872f6ee2fb81b675c95d84fb71b19cc2ea3cb74da98ee6"
+    },
+    "productContentDigest": "sha256:c2eb35981ce23ba805acc8adbb74ddd15b919d1b01540364b8d941c09569df6c",
+    "packageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/runner-package-inventory.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1225266,
+      "sha256": "a62240fc308313d89199e6814a2d542a6dd4dd51f2c2cd20840676b153122041"
+    },
+    "inventories": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/runner-source-inventory.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 353687,
+        "sha256": "0a1ca82089f10f29ed87e7a36542f93cf7a6cb01684d88c7fd49f3018561a252",
+        "role": "source",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/runner-emitted-inventory.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 249597,
+        "sha256": "ece4dabcceae907366889e5288abc556e042b8244b5945a322716126cf4c5bcc",
+        "role": "emitted",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/runner-dependencies-inventory.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1006545,
+        "sha256": "5837cd319a0e1230c8a44f3f4c14d52f5eb6a4d7750d3e7261b20753b381fecb",
+        "role": "dependencies",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/node_modules"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/runner-support-inventory.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 101179,
+        "sha256": "022d9783f20c6eafeb802a4bc1694cfa5dd6cbea12121d4592675f00ed786064",
+        "role": "support",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript"
+      }
+    ],
+    "supportManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/runner-support-manifest.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 101426,
+      "sha256": "9e349c49bc5bbb7ff0fd564ced8046fa24b90f01e91c85670775b76b14f99bc8"
+    }
+  },
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "mode": "0o555",
+      "kind": "file",
+      "bytes": 86104016,
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "mode": "0o755",
+      "kind": "file",
+      "bytes": 54,
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    }
+  },
+  "consumer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 48889,
+    "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164"
+  },
+  "finalFreezeBinding": "Executive must bind the independently supplied final freeze and candidate record in the later configuration",
+  "activation": null,
+  "resourceGrants": null,
+  "limits": "Finite read-only handoff shape for later runner configuration; this file does not authorize any runner lane."
+}

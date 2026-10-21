@@ -1,0 +1,182 @@
+{
+  "kind": "portable_bytes_preverification_manifest",
+  "activation": "PORTABILITY-INVENTORY-READER-02",
+  "records": [
+    {
+      "path": "HOW-successor-02.md",
+      "bytes": 2529,
+      "sha256": "0b4dfe7debb10866d1022733fb36557c2bedc87dff91ba6283841c2e651b05a3"
+    },
+    {
+      "path": "HOW.md",
+      "bytes": 3123,
+      "sha256": "248ef8c67cf1bd7412f1badc18c77df1b7f01218871932cfa3c417a930332dc1"
+    },
+    {
+      "path": "STOP.json",
+      "bytes": 3282,
+      "sha256": "8cd26bf398c6b1f4d722de940bace980bde69d45498e444b4bcf998dd0173e68"
+    },
+    {
+      "path": "archive-object-plan-02.json",
+      "bytes": 85840,
+      "sha256": "f9a15bf2a82285852a2881aa7f396e34a58e4b4f5f7c1ed5d4a82212df6e3922"
+    },
+    {
+      "path": "archives-02.json",
+      "bytes": 2445,
+      "sha256": "98fc1302308f549f7584ce79756c372a229f99bbf08595850832b561852a1a3c"
+    },
+    {
+      "path": "build-whitelist-02.py",
+      "bytes": 19586,
+      "sha256": "cf5e14b9f200611a8cdc096477cd7ab372ce7f31d9919dbbe8f7741500cda4e9"
+    },
+    {
+      "path": "component-bytes.tar.gz",
+      "bytes": 21600360,
+      "sha256": "6e950e6f6063a7aa4c8bc2609524fe6c57130eb15ca4bcee7e579fa0ad2b6b74"
+    },
+    {
+      "path": "explicit-exclusions-02.json",
+      "bytes": 1357583,
+      "sha256": "5ff3f9bc8233bff0072f800355b8fae62ffa676057902f7f6dfdb3f0162898c6"
+    },
+    {
+      "path": "failed-discovery-command.py",
+      "bytes": 1632,
+      "sha256": "bb44c993200f5568b922f60666407d164e61e7f41218389ffb44782fec8d8a4c"
+    },
+    {
+      "path": "failed-discovery-traceback.txt",
+      "bytes": 101,
+      "sha256": "b2e00550e06a5d901fdc9fb2fa3f526b7260e2c30882238328c37969590e6ddc"
+    },
+    {
+      "path": "ignore-routing-02.json",
+      "bytes": 4316,
+      "sha256": "5d959b857ed2f66042a658148d586801aa7fdad0c11259a868e5689dd500a7a7"
+    },
+    {
+      "path": "method-resolution.json",
+      "bytes": 1134,
+      "sha256": "8658da64d3b75c6256ca01da0094b8662c766789a76564eada968adc8aa0a2af"
+    },
+    {
+      "path": "method-status.json",
+      "bytes": 10805,
+      "sha256": "be61c6fb497f70f5347fae578d95b10ccb61e0b1b99dc28f8ae42f61b3bb877e"
+    },
+    {
+      "path": "method-status.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-source-mappings-02.json",
+      "bytes": 1881,
+      "sha256": "4a8c7d03886baa4325ae0ae77ca49411c59de64213797db40082baba70c957e8"
+    },
+    {
+      "path": "original-metadata-02.json",
+      "bytes": 32447274,
+      "sha256": "6fd1c0d777ac06e3bea5849d8ef5f7e929b89f7297986843ea08281669d3fb57"
+    },
+    {
+      "path": "p1-baseline-bytes.tar.gz",
+      "bytes": 49913142,
+      "sha256": "f324add8773aa7e13a4e519df8ba718c49afad8910561d275e70e9100a002c64"
+    },
+    {
+      "path": "p1-candidate-bytes.tar.gz",
+      "bytes": 49893711,
+      "sha256": "aca1f8d9fc418ad42fb1a1370f42d8ff8e71a8d71588767c15bc4dfa085c3cb6"
+    },
+    {
+      "path": "p3-bytes.tar.gz",
+      "bytes": 15080744,
+      "sha256": "399b7452e316cf733bb7e5a476e328ab8f4973e92d10f05df599e05e87f54b2f"
+    },
+    {
+      "path": "package-02.py",
+      "bytes": 4862,
+      "sha256": "207f09b1af89d0092fdfb5410ea82b17763fa041b004d2eea4272a438d674283"
+    },
+    {
+      "path": "package-member-inventory-02.json",
+      "bytes": 5206314,
+      "sha256": "015504e0dff64abb8f27305a540f080e76511eb6cb410d7c75e25c0f6f380c52"
+    },
+    {
+      "path": "packaging-02.receipt.json",
+      "bytes": 426,
+      "sha256": "fb52588b41a94c20dfdceff472b918f48904fb3ca5c0ca2280cc4c22a900eb38"
+    },
+    {
+      "path": "packaging-02.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packaging-02.stdout",
+      "bytes": 1737,
+      "sha256": "ef670361222506ef5c366ae05a9e7665b61f0303519eaaa3257049bbf08ee7fd"
+    },
+    {
+      "path": "return.md",
+      "bytes": 973,
+      "sha256": "c8268081fe7bc6b108d8f1d3a183a5b6f43cc08bfc3dad5cc360ccc5e9a7f9f7"
+    },
+    {
+      "path": "source-pins-02.json",
+      "bytes": 12946,
+      "sha256": "2c06aa0e420ceba26125912dca467af1c4c6324284d55729dd60d93b87782956"
+    },
+    {
+      "path": "stopped-freeze.json",
+      "bytes": 438,
+      "sha256": "3310fe6f140b414ba3daa05176bafd2d9a58e86476ad7e1839421b26fc376fc0"
+    },
+    {
+      "path": "stopped-manifest.json",
+      "bytes": 1288,
+      "sha256": "402de0d0d0fac4cde279360041f3843435b7d2553bf68ad3aa4dbc7d7b2bb2a6"
+    },
+    {
+      "path": "verify-transport.py",
+      "bytes": 5158,
+      "sha256": "f2b1c55ef3d5116da903b965ed3da88cedc61fac3ab9bd1edd2d5c0e05e394b4"
+    },
+    {
+      "path": "whitelist-02.json",
+      "bytes": 76583231,
+      "sha256": "11736794482b7fc7823365a64c4af332f33e92ce2432ab7f07a115ebc371cee2"
+    },
+    {
+      "path": "whitelist-freeze-02.json",
+      "bytes": 1812,
+      "sha256": "6a40b1435e5998efadd947c168bebbc2221c8f3e084a869859190e9a773241ff"
+    },
+    {
+      "path": "whitelist-preflight-02.json",
+      "bytes": 945,
+      "sha256": "663407cfb063896bb520805ba534e69eb75f0cba0dca0931943050a1fcd898e5"
+    },
+    {
+      "path": "whitelist-reader-02.receipt.json",
+      "bytes": 434,
+      "sha256": "a4e78aadacf62ee6a5d9cf3297cbf9487ffa5ca0846a5074dadb807c20f33671"
+    },
+    {
+      "path": "whitelist-reader-02.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "whitelist-reader-02.stdout",
+      "bytes": 878,
+      "sha256": "8b76a3a059ee9c378ba0e9f9d583008c048591478d431f69effb5587b1dc4d60"
+    }
+  ],
+  "purpose": "Inputs to another-machine transport verification; final closed freeze separately binds this manifest and receipt."
+}

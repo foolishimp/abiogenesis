@@ -1,0 +1,11 @@
+--- stopped08-test
++++ successor09-test
+@@ -75,7 +75,7 @@
+   append({kind:'invocation_admitted',aggregateType:'workspace',aggregateId:env.workspaceBinding.bindingId,parentAggregateId:invocation.invocationRef,
+     scopeClass:'workspace',basisId:invRef,causationEventRefs:[pub.eventId],payload:{...invocation,invocationAdmissionRef:invRef,invocationAdmissionDigest:invDigest}});
+   for(const rawInputValue of requests)append({kind:'basis_admitted',aggregateType:'workspace',aggregateId:env.workspaceBinding.bindingId,
+-    payload:{rawInputValue,invocationAdmissionRef:invRef,basisClass:'root',graphFunctionRef:invocation.graphFunctionRef,
++    payload:{rawInputValue,rawInputDigest:product.sha256Canonical(rawInputValue),invocationAdmissionRef:invRef,basisClass:'root',graphFunctionRef:invocation.graphFunctionRef,
+       workspaceBindingId:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest,
+       actorRef:env.capabilityGrant.actorRef,programRef:invocation.programRef}});
+   const {kind:bk,schemaVersion:bs,disposition:bd,basisRef:br,basisDigest:bh,admissionEventRef:be,...basisBody}=authority.executionBasis;

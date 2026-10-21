@@ -1,0 +1,33 @@
+{
+  "root_triage": "U1-PROOF-CAPACITY-05",
+  "test": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+    "before_sha256": "f96f815975dab8d2aa0b02dbe31cfd50190059887c678793b4b60eca5d8af930",
+    "sha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61"
+  },
+  "support": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+    "sha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1",
+    "changed": false
+  },
+  "compiled_outputs_manifest_sha256": "5d4c0fb42e89d0b700a5f1bba8586975445c01c16138f4d6c4ac96756b38684c",
+  "audit_sha256": "56d470313132a9289d8ef30b90276ad4ab2091d379605819d297268d38c2cbd4",
+  "callable_preflight_sha256": "fe625a6d5335568e92b5080f89389cd533d35ed5a5772735e8df04a9969c4bcc",
+  "selected_cases": [
+    "semanticFold",
+    "revisionIntake",
+    "revisionEvidence"
+  ],
+  "omitted_cases": [
+    "c0",
+    "observed",
+    "governance"
+  ],
+  "reused_evidence": {
+    "attempt-01": "5c2e2c4d6b1ba44f0c7b421472676ed3df2b84735fa5537dfb17511ec257f76d",
+    "attempt-02": "d84327dd5127b908a95144791496350376b0ce03493b48c279f2943e13a3b8f6",
+    "attempt-04": "d9c003192eaffe1bc35157ff6ed0496e2468870c72bb98d6d410d28a7444c84c"
+  },
+  "main_generated_reverified": true,
+  "compile_generator_rerun": false
+}

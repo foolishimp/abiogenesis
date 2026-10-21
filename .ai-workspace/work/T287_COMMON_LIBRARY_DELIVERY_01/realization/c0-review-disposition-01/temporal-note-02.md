@@ -1,0 +1,5 @@
+This is a later Root-attributed authority note. The original [Root disposition](root-triage.json) accurately records `C0-UNADMITTED-EFFECT-HOW-01` as a selected proposal without a production grant at that time; those bytes remain unchanged.
+
+Root subsequently selected `C0-POTENTIAL-EFFECT-REALIZATION-01` after HOW freeze SHA-256 `63ffbc96fef785a6a2e032e168f55827863329eb9fe5e351269bd9cace1ac7c7`. Root reports verifying 53 HOW records and source pins. This record Writer has not inspected that separately owned HOW or its moving realization, and does not claim an independent verification of that later freeze.
+
+That separate realization now owns nine main production sources and two tests. This carrier continues to bind the original closed final02 source and C0 successor subjects. It grants this Writer no production edits, runtime effects, acceptance or release authority. The source relations in [the frozen-copy ledger](frozen-source-relations-02.json) preserve the original source observations without asserting that concurrently edited main files remain unchanged.

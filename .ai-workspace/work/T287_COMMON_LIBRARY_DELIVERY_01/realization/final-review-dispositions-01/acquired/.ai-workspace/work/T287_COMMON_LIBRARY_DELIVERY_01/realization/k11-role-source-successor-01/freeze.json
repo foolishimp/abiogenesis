@@ -1,0 +1,425 @@
+{
+  "kind": "bounded_writer_successor_freeze",
+  "closed_utc": "2026-10-21T01:31:49.313720+00:00",
+  "writer": "/root/stdo3_k11_successor_writer",
+  "activation": "K11-ROLE-SOURCE-SUCCESSOR-01",
+  "return_to": "/root",
+  "work_result": "candidate_ready",
+  "scope": "K11 constructor role-native-source join only",
+  "method_basis": "stdo://releases/v3.0.0-rc.1/",
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "not_whole_moving_tree": true,
+  "owning_how": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/L2-supplement.md",
+    "bytes": 8423,
+    "sha256": "56ff3caafa179a51ab180d7ed67e81334be3c0774d88d5cf6236cf2ca4312d76",
+    "mode": "0o644"
+  },
+  "antecedent_pins": {
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/freeze.json": "ce01cdb084f5b0c3827ac9cce481d12e63193a24a1467c9409c9be9a768acca4",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/report.md": "1f2cd5fa046cf39ea42de3ed5022c2b874f814627176664c962143e6ca784b7c"
+  },
+  "owned_outputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "bytes": 25582,
+      "sha256": "91fa46843154ffc6010812e029e9bd86033c195415af9eb44c42348a22d51913",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "bytes": 14629,
+      "sha256": "e45af06ccbf8ef80dda57277b99a849961ac9713641ebdc31a8a5f1a292b6cfa",
+      "mode": "0o644"
+    }
+  ],
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/L2-supplement.md",
+      "bytes": 8423,
+      "sha256": "56ff3caafa179a51ab180d7ed67e81334be3c0774d88d5cf6236cf2ca4312d76",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/activation.md",
+      "bytes": 935,
+      "sha256": "3636d726ccef8428f76aca3d7de9a69f3042763d152c4491e16a36bf9aa96fa9",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/candidate-inputs.json",
+      "bytes": 1781988,
+      "sha256": "e47d825f1f78fca59ae70050f3697c8ffeb72017f9230dce37f1b14ac1a348d0",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/01-old-owner-counterexample.json",
+      "bytes": 1173,
+      "sha256": "0b43c2f6c6cd930ad96545b748a8cba2298bcaad21d8fd06b748e2717642e5c4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/01-old-owner-counterexample.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/01-old-owner-counterexample.stdout",
+      "bytes": 807,
+      "sha256": "17f38ae2b742b3ab6a9c5bf085a155007bfe06ffdfbcd557407ca6419ef9a7a4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/02-isolated-typescript.json",
+      "bytes": 1079,
+      "sha256": "0a9e857c1d7fe32da626371bab7f30bc8823e415dddcf87ccb9e406f29d28ec1",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/02-isolated-typescript.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/02-isolated-typescript.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/03-successor-owner-counterexample.json",
+      "bytes": 1174,
+      "sha256": "fc63c8377bd26e7d44dcd9eb6671c09ed02535ee887052636973b577fbd6f3fc",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/03-successor-owner-counterexample.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/03-successor-owner-counterexample.stdout",
+      "bytes": 787,
+      "sha256": "225f021d117e4065c20eea8f0ef1531d6f06257cdb8c374faf7baa3655842adc",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/04-focused-k11-constructors.json",
+      "bytes": 1408,
+      "sha256": "4948ee5a9597445b1be8bcda6e938d5c7cd1fc28b1db5ea23cc652af1e917819",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/04-focused-k11-constructors.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/04-focused-k11-constructors.stdout",
+      "bytes": 467,
+      "sha256": "b45fd5ebc4df3820557c8a8238e7559c392c91745535565687b7cfd8dc75c61e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/05-management-context-generic-negative.json",
+      "bytes": 1222,
+      "sha256": "da1a2e94c35c712e91384a68e5449fee2ef4be0b683e67c47e014f3147ae5704",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/05-management-context-generic-negative.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/commands/05-management-context-generic-negative.stdout",
+      "bytes": 355,
+      "sha256": "d3cd83ab024003768c3ed839fbb3c60164c00b76739d61c353e43e6ba2768001",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/counterexample-inputs.json",
+      "bytes": 56358,
+      "sha256": "d556f280f90df269246e859060e3d29a7ecf652384075ad97836d10f56cb203d",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/counterexample-new-result.json",
+      "bytes": 787,
+      "sha256": "225f021d117e4065c20eea8f0ef1531d6f06257cdb8c374faf7baa3655842adc",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/counterexample-old-result.json",
+      "bytes": 807,
+      "sha256": "17f38ae2b742b3ab6a9c5bf085a155007bfe06ffdfbcd557407ca6419ef9a7a4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/counterexample.mjs",
+      "bytes": 7003,
+      "sha256": "8d3df0f868d2231e8aaaf7dfaa9432a6729326be07ac19e2f4c48d49277959e1",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/freeze.py",
+      "bytes": 4255,
+      "sha256": "becac5577942ec50e301166937a7e279c697f839fbd32ac74d11e868e7df64e4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/inputs.json",
+      "bytes": 6524,
+      "sha256": "e9cb53983eabb3228f016e012fd2b7647284eec0c08276013cdd8d3776dce525",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/method-sources.json",
+      "bytes": 2233,
+      "sha256": "9130c4369fdc2e3440b24e69e797990b58bf4d46add73ff635a5048e6b59217b",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/old-stage-inventory.json",
+      "bytes": 1781656,
+      "sha256": "739ee850399e3ffd311ea2aca31ead06494c91ff6c60f55eeb101a51d442a108",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/owned.diff",
+      "bytes": 7444,
+      "sha256": "c389fdef561a8174a893599c11d176411aa909ec68564429f483389be24e56b3",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 533349,
+      "sha256": "4a6bd62f5ef62b901369dcd22094fb0cf85e0f67d2f13f7a167908c987f1a79e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "bytes": 26888,
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/freeze.json",
+      "bytes": 19946,
+      "sha256": "ce01cdb084f5b0c3827ac9cce481d12e63193a24a1467c9409c9be9a768acca4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/report.md",
+      "bytes": 10739,
+      "sha256": "1f2cd5fa046cf39ea42de3ed5022c2b874f814627176664c962143e6ca784b7c",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/AGENTS.md",
+      "bytes": 11923,
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "bytes": 25333,
+      "sha256": "12743b59366a2e52c2ed2629065f5644133403db359411ad5e7dc34010164abf",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 63515,
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 26853,
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md",
+      "bytes": 387254,
+      "sha256": "d7d8941e831c8d0bee507643ef8904b3b3a3be560181f48f5361b9837edd7082",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "bytes": 8597,
+      "sha256": "b435665a743c7c7a04f0dae6a59070e521fb798c491e506c28cba8201d2c0fc3",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/test_env/support/native-registered-selection.mjs",
+      "bytes": 6494,
+      "sha256": "c2deb44c845503ea893c6803c2c7d7bc1079e8dbcd05d215a0f2fa9f85901195",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/test_env/support/stdo-environment-pilot.mjs",
+      "bytes": 34301,
+      "sha256": "b1fd20d896dd6384a50adf9e1682beeff04f01b5f8bedc4ace7fb1c8aa225bf7",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+      "bytes": 5214,
+      "sha256": "81c51842c1d31366b509324eff717084f9df3cfee05c36d73411c855f10db76e",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+      "bytes": 42877,
+      "sha256": "7ad29075cdb742c2575bc7edd11a420e90a02cf1a1b957990c69091f40bcb05b",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "bytes": 10169,
+      "sha256": "6dc7005b4c9416e66c8aad89de1558504eceaee6e4966c9c14e720d1ad86c0f9",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/specification/GOALS.md",
+      "bytes": 78328,
+      "sha256": "6b0830c2e21a7337ada78569fa9d1f2df50c9b432916eaf3cb296d89dbdf6f89",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/specification/PRODUCT.md",
+      "bytes": 97498,
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "bytes": 4522,
+      "sha256": "bdc3f6b3a30813c85eb48603ada692cff34222e67debd2413560aaa39a1af8c4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preimages/stdo_abiogenesis.json",
+      "bytes": 3146,
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/prepare.py",
+      "bytes": 5717,
+      "sha256": "4f3c681bb5e771931ddd189bad6abb7909931326beac166843cc9a544a60ca65",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/preservation.json",
+      "bytes": 1267,
+      "sha256": "53b107e84d41138f7f763f4f3377e857c0d0403cbcae892c4cb7250485ed2209",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/protected-main-generated.json",
+      "bytes": 248218,
+      "sha256": "3c086800ac6c76b1dd0bd4f49aeee73a0ad02a066baebc15de8d8ab931084da7",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/protected-old-records.json",
+      "bytes": 20039,
+      "sha256": "73e996b78f63578efeca97bfe8b45fda771af318628dc00fd4e42a0d96890652",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/readiness.json",
+      "bytes": 942,
+      "sha256": "344bf579263951b89f1b7870e73add8b965d1222aa9dbfa08b5e01b7067960f5",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/report.md",
+      "bytes": 8762,
+      "sha256": "b6f06cc1bc86b287a6c953bd8de03138e8538287eadbd5d0ddfe7f532125fd70",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources-inventory.json",
+      "bytes": 21038,
+      "sha256": "0f2f4797c0d633bb03995c62389092970bf8001c664d88120ff1dae1f9e15791",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/run-command.py",
+      "bytes": 1615,
+      "sha256": "410fb54e8aafde43daba7d329e4c5ddd48efcbfe5cbd60a0af1afb9c7f6f8cc7",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/source-generated-correspondence.json",
+      "bytes": 2227,
+      "sha256": "88fa0b7ba6f877ed239d14a9b41c55c737b08b76db8e947fa98b3f9fb7ecaace",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage-copy.json",
+      "bytes": 473,
+      "sha256": "bf29166bda7b8a12bd02ecc0380fcba38176761f7c25c0401ac9dab165eaa514",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage-output-inventory.json",
+      "bytes": 1781656,
+      "sha256": "fd69cb50a3c2519df017ca44a446b4e00579f276a26a082804051c4262be5533",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/toolchain.json",
+      "bytes": 641,
+      "sha256": "0f756b182dda6f733ea55456a31fde321192f222bb4286e04d450a9c28afbdcd",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/verify.py",
+      "bytes": 6600,
+      "sha256": "e41ab039b0b9da6458844eff2f4abd7969205ad00faf6335fca5c381cd682205",
+      "mode": "0o644"
+    }
+  ],
+  "stage_binding": {
+    "source_inputs": "candidate-inputs.json",
+    "outputs": "stage-output-inventory.json",
+    "original": "old-stage-inventory.json",
+    "correspondence": "source-generated-correspondence.json",
+    "dependency_count": 4576,
+    "preservation": "preservation.json",
+    "toolchain": "toolchain.json"
+  },
+  "physical_resources": "resources-inventory.json",
+  "exclusions": [
+    "no generator/package/install identity claim",
+    "no native or corpus-tool execution",
+    "no runtime admission or successor prefix claim",
+    "no final combined proof or P4 semantic sufficiency",
+    "no independent assessment, L5 acceptance or release qualification",
+    "no Git or Reviewer activation"
+  ]
+}

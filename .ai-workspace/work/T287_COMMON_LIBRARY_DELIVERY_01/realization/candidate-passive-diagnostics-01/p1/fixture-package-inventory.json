@@ -1,0 +1,77 @@
+{
+  "archive": {
+    "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+    "sha256": "538ed071545a64c4db6b234d2f5f9e2b05d8621921e5bed9dfa651f666f0f541",
+    "bytes": 6199,
+    "mode": "0o644"
+  },
+  "sourceRoot": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-source",
+  "files": [
+    {
+      "path": "contracts/assessment.schema.json",
+      "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7",
+      "bytes": 462,
+      "mode": "0o644"
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "bytes": 247,
+      "mode": "0o644"
+    },
+    {
+      "path": "package.json",
+      "sha256": "7cf4988e797aa2edc849ce6ffc7fc0280cd52fd6d83ffc00d620638d481e57a9",
+      "bytes": 584,
+      "mode": "0o644"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "sha256": "d3bc5492b42e92126b233e3eb9b30916fa11fa103693e2321637af1e91be1816",
+      "bytes": 4864,
+      "mode": "0o644"
+    },
+    {
+      "path": "contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "bytes": 75,
+      "mode": "0o644"
+    },
+    {
+      "path": "build/publication.json",
+      "sha256": "91cd4bafe80f6546c677a925a3b993ba26d30d422afe6fb93743c5c6199aebdd",
+      "bytes": 27494,
+      "mode": "0o644"
+    },
+    {
+      "path": "build/semantics.mjs",
+      "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3",
+      "bytes": 757,
+      "mode": "0o644"
+    }
+  ],
+  "owner": {
+    "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+    "packageName": "@abi5-tests/sandbox-uat",
+    "packageVersion": "5.0.0",
+    "artifactDigest": "sha256:538ed071545a64c4db6b234d2f5f9e2b05d8621921e5bed9dfa651f666f0f541",
+    "manifestDigest": "sha256:e2edbce1bfce7b977df80ba1cd750714bd6cd21d319101e688cc0ac7629ee4de",
+    "productContentDigest": "sha256:93d241fbeedbafedba3c759099382ddeb17cdeeea7e72587efcda278df370d53"
+  },
+  "producerReceipt": {
+    "exactFullProgram": true,
+    "exactTenOperationOutcomes": true,
+    "referenceOwnerState": {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/p1-owner-state.json",
+      "sha256": "506cc1088d44acd3fd981d6518d85b3f94760a379889ddeebe1c8b2b3004ccf1",
+      "bytes": 41971061,
+      "mode": "0o644"
+    },
+    "diagnosticOwnerState": {
+      "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/p1-owner-state.json",
+      "sha256": "96cdd2f4850a0cc8f813601e467d725c5d195ddd6ca747b2f78915fc3c0b8d5b",
+      "bytes": 41971085,
+      "mode": "0o644"
+    }
+  }
+}

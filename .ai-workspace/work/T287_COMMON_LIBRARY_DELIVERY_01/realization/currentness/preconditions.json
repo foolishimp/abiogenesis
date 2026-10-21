@@ -1,0 +1,46 @@
+{
+  "actor": "/root/stdo3_currentness_writer",
+  "checked_at": "2026-10-20T23:08:59.930772+00:00",
+  "head": "67c33379992b1c0569bc6af5b967cf2a0040d2cb",
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "valid": true,
+    "failures": [],
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1"
+  },
+  "composition": [],
+  "accepted_authority": {
+    "L2-execution-contract.md": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    "L2-candidate-freeze-02.json": "4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae",
+    "acceptance/freeze.json": "6196a6b7c05442ceb8f79d4733b9796c639d34c7500106153fbe0a22edd28f8f",
+    "effects/L2-report.md": "4161ee63119c9b7490f0feb9cabe4c1d03b2c5ce6c040fb610af12737b998e66"
+  },
+  "owned_existing": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "de3294f6d7efebde7224a865d50e0e4791d5f1df4c95551ff02eee5562393320"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "sha256": "4997688e748bd864b352c53213377078d65cc7dc84d852e73cbe243b785dde1a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "sha256": "8cad8924a3820bc572f13f740f48049a7d5b62e8ec01b923c19ab16363832046"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "49294a67008612a1000853293dec3c17d9f17e56ecb0f4771063aa9a9763a391"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "sha256": "d6090750306ce5a58d1071a14cee7deb11616446ab635684924c8d3e7fa7f1a6"
+    }
+  ],
+  "owned_new": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs"
+  ],
+  "expected_parallel_changes": "Other Writers own pure/K11, physical lifetime and live GOALS/T287 status."
+}

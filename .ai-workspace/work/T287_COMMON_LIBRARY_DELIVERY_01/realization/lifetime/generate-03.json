@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "scripts/generate-product-manifest.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+  "exitCode": 0,
+  "seconds": 24.57228383398615,
+  "startedAt": "2026-10-20T23:35:01.056480+00:00",
+  "inputsSha256": "a563bd1262390b9e57285cb6d0c1585df572052ce37a033bacbfbfcff9aff1eb"
+}

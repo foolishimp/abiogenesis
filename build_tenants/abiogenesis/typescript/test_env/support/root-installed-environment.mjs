@@ -256,12 +256,13 @@ export async function setupInstalledRootCatalog(
   const usesLanguageFixture = options.rootPublicationKind === undefined;
   const additionalProducts = options.prepareAdditionalProducts === undefined
     ? usesLanguageFixture ? [await prepareLanguageSmokeFixture({ scratch, product: bootstrapProduct,
-      gtl: bootstrapGtl, abiPublication: bootstrapRootPublication })] : []
+      gtl: bootstrapGtl, abiPublication: bootstrapRootPublication, abiPackageArchivePath: artifactPath })] : []
     : await options.prepareAdditionalProducts({
         scratch,
         product: bootstrapProduct,
         gtl: languageTestGtlView(bootstrapGtl),
         abiPublication: bootstrapRootPublication,
+        abiPackageArchivePath: artifactPath,
       });
   assert.equal(
     Array.isArray(additionalProducts),
@@ -609,7 +610,9 @@ export async function setupInstalledRootInvocation(
   packageRoot,
   options = {},
 ) {
-  const environment = await setupInstalledRootCatalog(
+  // A bounded proof may reuse an already admitted installed environment to
+  // establish another binding/Run through the same ordinary invocation owner.
+  const environment = options.existingEnvironment ?? await setupInstalledRootCatalog(
     context,
     packageRoot,
     options,
@@ -732,7 +735,7 @@ export async function setupInstalledRootInvocation(
       schemaVersion: "5.0.0",
       operationId: "abg.operation.run.invoke",
       variant: supervised ? "start" : "direct",
-      invocationRef: "invocation://t286/support/run-invoke",
+      invocationRef: options.publicInvocationRef ?? "invocation://t286/support/run-invoke",
       eventTime: "2026-07-21T00:00:00.000Z",
       correlationId: "correlation://t286/support/run-invoke",
       payload: {

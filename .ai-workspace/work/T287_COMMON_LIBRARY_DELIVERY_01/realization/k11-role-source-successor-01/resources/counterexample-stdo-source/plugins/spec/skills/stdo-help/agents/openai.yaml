@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "STDO Help",
+    "short_description": "Explain or establish the next STDO step",
+    "default_prompt": "Use $spec:stdo-help to establish the exact basis and next lawful step."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

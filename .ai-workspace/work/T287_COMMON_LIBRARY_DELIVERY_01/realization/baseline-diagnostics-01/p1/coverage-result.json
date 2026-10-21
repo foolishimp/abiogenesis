@@ -1,0 +1,17 @@
+{
+  "status": "stopped",
+  "subjectId": "baseline",
+  "lane": "public-preparation",
+  "firstCause": "AssertionError({'pid': 10397, 'file': 'tar', 'args': ['tar', '-tzf', '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz'], 'effectiveFile': 'tar', 'effectiveArgs': ['tar', '-tzf', '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz'], 'classification': 'external-uninstrumented', 'returnValue': 0})",
+  "summary": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic/diagnostic-summary.json",
+    "sha256": "980b5a3a2c7e64faca55691213ab297d95a7bb2389d8baed57042c7682bc2bf8",
+    "bytes": 225078
+  },
+  "workloadResult": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/result.json",
+    "sha256": "45ab673952ab969521b1b545abaf9d2a78dc612b9c67045a63bf6a0a4b90155c",
+    "bytes": 1768
+  },
+  "stop": "No repair/retry/next lane; return Root."
+}

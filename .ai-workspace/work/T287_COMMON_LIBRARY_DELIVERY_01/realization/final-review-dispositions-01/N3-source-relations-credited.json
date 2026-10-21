@@ -1,0 +1,59 @@
+{
+  "activation": "N3-IMPORTER-ACCOUNTING-01",
+  "classification": "8 importers without opt-in plus 1 conditional command test with legacy default",
+  "helper": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+    "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+  },
+  "callers": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "sha256": "1b35403af5532bf5b04bd3c101a9c2bfdfcbaf4f37db0ffeaccb84e7996a3cbb",
+      "owned_option_mentioned": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r9-causal-result-closure.test.mjs",
+      "sha256": "8371976777c2f66f8372d14caacafcc76313b85559c225eef6026b11c1ca94e4",
+      "owned_option_mentioned": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "sha256": "b20690f776ad0cc913c8e6ed3332b61b039fed5ce73216467583ed613c8dec5a",
+      "owned_option_mentioned": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "sha256": "a6cc614c027f884b76b17203915c961c9e25f667849c714d14b7401d6d45ac2c",
+      "owned_option_mentioned": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+      "sha256": "0f7bff5aad53c4f240325d2b212a8e2e8c7e046060a0bd51183bb6fcac0071e2",
+      "owned_option_mentioned": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+      "sha256": "9c7f9969ab07d01276396b0a75b743cd4dcf42a10260966a5733ac24e13846fd",
+      "owned_option_mentioned": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "sha256": "3905e3d3304f208cb663ad3a9b4725dca88527291302a05c1fea17ea14e6f5d0",
+      "owned_option_mentioned": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "sha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329",
+      "owned_option_mentioned": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "sha256": "e01cbd8b03ce5cd84b6f7982551b39bac7804a6395b298245033b129b6f9be47",
+      "owned_option_mentioned": false
+    }
+  ],
+  "source_routing_check_only": true,
+  "Product_execution": false,
+  "owned_group_execution_claim": false,
+  "earlier_corrected_check_credit": false
+}

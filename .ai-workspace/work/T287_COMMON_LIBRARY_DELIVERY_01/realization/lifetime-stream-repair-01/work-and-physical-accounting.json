@@ -1,0 +1,65 @@
+{
+  "sourceBytesAdded": 1397,
+  "sharedLinesBefore": 267,
+  "sharedLinesAfter": 298,
+  "physicalInputs": {
+    "promptBytesEach": 8388608,
+    "graceMs": 100,
+    "inactivityMs": 1000,
+    "absoluteMs": 2000,
+    "fixtureIdenticalToOriginal": true
+  },
+  "earlyClose": {
+    "hostPid": 87157,
+    "childIdentity": {
+      "pid": 87158,
+      "ppid": 87157,
+      "pgid": 87158,
+      "recordedAt": "1375439746046375",
+      "mode": "early_stdin_close"
+    },
+    "hostExitCode": 0,
+    "hostWallSeconds": 0.07762070908211172,
+    "signalAttempts": 1,
+    "groupProbeCalls": 4,
+    "groupProbeErrorCodes": [
+      "EPERM",
+      "ESRCH"
+    ],
+    "signalToOwnerRejectionMs": 1.544542,
+    "originalError": {
+      "name": "Error",
+      "code": "EPIPE",
+      "errno": -32,
+      "syscall": "write",
+      "message": "write EPIPE",
+      "stack": "Error: write EPIPE\n    at WriteWrap.onWriteComplete [as oncomplete] (node:internal/stream_base_commons:87:19)"
+    },
+    "scopeAbsent": true,
+    "failSafeSignals": [],
+    "observationSha256": "90fdbb76659ad90de7d7100531df51fad16cbb3b0fb7d478eca236b20bd527f5"
+  },
+  "control": {
+    "wallSeconds": 0.0881726669613272,
+    "childIdentity": {
+      "pid": 87155,
+      "ppid": 87139,
+      "pgid": 87155,
+      "recordedAt": "1375439660898375",
+      "mode": "draining_control"
+    },
+    "scopeAbsent": true,
+    "observationSha256": "838e4803677534a22b798722d4965634da24e7b708898708737497a5aef1751c"
+  },
+  "selectedCases": {
+    "topLevelCases": 27,
+    "controlled": 13,
+    "physicalLifetime": 4,
+    "worker": 10,
+    "passed": 27,
+    "failed": 0,
+    "skipped": 0,
+    "executionPolicy": "one selected top-level case per exact command; stop on first nonzero exit"
+  },
+  "limits": "Bounded counts and actual timings, not performance or universal termination/heap bounds. Actual normal owner callbacks stop after firstError; physical signal/probe wrapper is diagnostic, never ABG truth."
+}

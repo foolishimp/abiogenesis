@@ -1,0 +1,18 @@
+{
+  "kind": "source_and_syntax_preflight",
+  "node": "v24.7.0",
+  "syntax_exit_code": 0,
+  "stage_entries": 1948,
+  "stage_delta": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimage_sha256": "6b592c35d2ce2f5d892bf77df46ba264fee1cfa57e13d3d272f2f9213eb603e3",
+      "sha256": "a0247ed1f3d41bc2ba93e8689e7a37906344fa5aea1cb78241633b4720ebe46c"
+    }
+  ],
+  "four_production_sources_unchanged": true,
+  "all_stopped_stage_entries_unchanged": true,
+  "no_compile": true,
+  "no_effect_or_integration_execution": true,
+  "correspondence_sha256": "79fe279ce0efdebc230e95aad310f37176aaab7f8ef5a1b5e93b52c242644fb7"
+}

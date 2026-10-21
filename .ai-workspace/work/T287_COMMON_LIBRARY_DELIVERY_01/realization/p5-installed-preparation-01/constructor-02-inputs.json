@@ -1,0 +1,7 @@
+{
+  "testSha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329",
+  "driverSha256": "c2dfeb298a50c8fd5c9cdf5032ce120a4854c41ad11b05ffce08a88a5f458705",
+  "baseReceipt": "constructor-callable.json",
+  "changedRelation": "HTTP path, exact file grant, matching output oracle and source-parent derivation only",
+  "noProcessExecution": true
+}

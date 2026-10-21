@@ -1,0 +1,14 @@
+{
+  "label": "pack",
+  "exitCode": 0,
+  "wallMs": 3237.1717921923846,
+  "completedUtc": "2026-10-21T01:57:17.381161+00:00",
+  "stdout": {
+    "bytes": 693429,
+    "sha256": "35371788dbe3d0c438a6d5194fb1f0104ec9a827f765bafcf31fb137cf3b8b59"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

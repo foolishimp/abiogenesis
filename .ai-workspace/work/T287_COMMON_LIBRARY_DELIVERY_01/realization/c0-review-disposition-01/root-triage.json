@@ -1,0 +1,86 @@
+{
+  "kind": "C0_REVIEW_DISPOSITION_01_Executive_triage",
+  "decisionAuthority": "/root",
+  "instructionSource": "Executive activation C0-REVIEW-DISPOSITION-01",
+  "recordWriter": "/root/stdo3_k11_successor_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "ProductBoundary": "Fixed fifteen-family Product and active T-287 common-library prerequisite; Product WHAT, provenance authority, ABG admission and pure projection remain distinct and unchanged by this record.",
+  "method": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "subjects": {
+    "C0SuccessorFreezeSHA256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a",
+    "combinedFinal02FreezeSHA256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+    "P1FreezeSHA256": "8b8ddc4bdd2627704fe9c51bc2a55e9ea9474d07870796b23fcbeac1ad265cc6",
+    "sourceUnionSHA256": "311ae0287daefeef3f32b160e4f86e80b27087b6641f31935d34a31c06b014a1",
+    "sourcePinsRecord": "source-pins.json"
+  },
+  "publicAssessment": {
+    "record": "public-assessment.md",
+    "author": "/root/stdo3_k11_successor_writer",
+    "priorActivation": "C0-UNADMITTED-AUTHORITY-01, read-only source-frame assessment",
+    "preservation": "Complete preceding public final response transcribed verbatim, without hidden reasoning or a claim to a retrieved raw transcript.",
+    "independenceLimit": "The assessor did not author the C0 sources but packaged final02. This is independent of C0 source authorship, not independent whole-final02 assurance.",
+    "currentWriterRole": "Separate activation for durable public recording; prior read-only authority did not authorize these writes."
+  },
+  "externalReview": "external-review-root-summary.json",
+  "owningHOW": "C0-UNADMITTED-EFFECT-HOW-01",
+  "owningHOWStatus": "Selected proposal only; moving author output was not inspected by this record Writer.",
+  "productionRepairGranted": false,
+  "findings": [
+    {
+      "id": "F1",
+      "disposition": "Not deferrable. The actual owner effect followed by failed admission requires an owning HOW that closes scoped currentness uncertainty in the admitted event model.",
+      "selectedWork": "C0-UNADMITTED-EFFECT-HOW-01 proposal; no production realization authorized by this carrier."
+    },
+    {
+      "id": "F2",
+      "disposition": "Correct the evidence interpretation and require owner-path proof before L5.",
+      "evidenceRelabel": "The five retained vectors perform real physical C0 operations, then use fixture-produced evidence/Result through generic admitRuntimeEvent. They do not prove admitOwnedCCallResult. Historical records remain unchanged; this carrier supplies the precise limitation.",
+      "requiredProof": "Genuine owner-admitted post-publication failure, a second binding, and full-prefix/indexed/cold-replay/native-gate correspondence."
+    },
+    {
+      "id": "F3",
+      "disposition": "Deep negative proof required before L5.",
+      "requiredProof": "Consistently redigested authorization, implementation, order and basis negatives reaching the intended inner guards; prior outer-digest or missing-selection failures do not establish these guards."
+    },
+    {
+      "id": "F4",
+      "disposition": "Include anti-revival in the same complete causal cone as F1.",
+      "proofLimit": "Later-basis revival is source-derived; no executed witness is claimed."
+    },
+    {
+      "id": "F5",
+      "disposition": "Include affected exact physical-invalidation consumers in the same complete causal cone, while preserving provenance authority.",
+      "relationBoundary": "Same canonical root/path can require withdrawal of an old physical observation across differing valid authority identities. This does not authorize transferring revision provenance between those identities."
+    },
+    {
+      "id": "F6",
+      "disposition": "Nonblocking for the exact current admitted domain; register deferred assurance with an explicit trigger. No production change selected for an owner-impossible wrong-contract history.",
+      "capsule": "F6-capsule.json"
+    }
+  ],
+  "F6CapsuleId": "T287-C0-F6-OWNER-IMPOSSIBLE-WRONG-CONTRACT-01",
+  "P1": {
+    "status": "Passed once on exact combined-final02; later lanes held",
+    "actualPublicCalls": 10,
+    "nativeCalls": 0,
+    "retryCount": 0,
+    "RootVerifiedRecords": 116,
+    "proofLimit": "Retained exact-subject evidence only. It is not proof for a future successor candidate and does not resolve F1-F5."
+  },
+  "heldLanes": ["owner-resolution", "P2", "P3"],
+  "heldLaneExecution": "None started; the hold followed successful final02 P1 and the new finding.",
+  "baselinePassiveDiagnostics": "Independently activated baseline-only passive diagnostics do not authorize C0 effects or constitute C0 acceptance.",
+  "otherCapsules": "Existing nested-root and indeterminate-authorization capsules remain unchanged; this record does not reopen or close them.",
+  "historicalFailures": {
+    "combinedFinal02FirstCauseSHA256": "a054de724d00abbdf8f1efe9438a6da9d342c55bde02cb8d858510e5856b08c9",
+    "preservation": "Original failed checks, their successor evidence and earlier stopped cuts remain immutable; this carrier does not erase or recast them as successful runs."
+  },
+  "workCarrier": "T-287 durable public assessment, Executive disposition, capsule and pending proof/hold record; later final ticket links will route this carrier.",
+  "allC0Closure": false,
+  "L5Acceptance": false,
+  "releaseClaim": false
+}

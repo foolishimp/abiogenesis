@@ -1,0 +1,118 @@
+{
+  "activation": "C0-TYPED-ROOT-02",
+  "predecessorFreezeSha256": "8f19f66fa30a969f4cf00352cde8e1d9cf2b0a18c037e8a22baa076982663563",
+  "sourceInputsSha256": "9207124aa12570c8966844219c61181de966ddb512bce0bbd0ae663134a68c2f",
+  "dependencyInputsSha256": "253ccb2edfca3536103fdcc4cab111797823b96783b59c2de8dff187d62defa0",
+  "records": [
+    {
+      "path": "HOW-binding.md",
+      "bytes": 3194,
+      "sha256": "6ff4beeab91018e9abb3d099baab672540283665f1eb30ac93ebaaf6d35fcbf9"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 2800,
+      "sha256": "1c3397785d93b14bf8aff2fe6bde1d79fc478e8f6834815d6bb8649c2d875a6b"
+    },
+    {
+      "path": "command-environment.json",
+      "bytes": 796,
+      "sha256": "f28edd618f6399212abf251feb1582822ca647023eac04c8bc9fc7602ab5d877"
+    },
+    {
+      "path": "commands-config.json",
+      "bytes": 1571,
+      "sha256": "547a42462c7e9d2ca02443e0ddfa2578afab434b09a4820f19d84358b371ec88"
+    },
+    {
+      "path": "common.py",
+      "bytes": 1373,
+      "sha256": "9dc09a38bf640105bb73844ede8f100e3b3271932e004108166da5693bba6bdf"
+    },
+    {
+      "path": "dependency-inputs.json",
+      "bytes": 1006417,
+      "sha256": "253ccb2edfca3536103fdcc4cab111797823b96783b59c2de8dff187d62defa0"
+    },
+    {
+      "path": "main-generated-preservation-before.json",
+      "bytes": 206134,
+      "sha256": "1dea82f9e553c10dcdd0a124a9366fe6d3910762df924eec205031735b3e8601"
+    },
+    {
+      "path": "preconditions.json",
+      "bytes": 172,
+      "sha256": "d116bcf9121f5269c89832986473f342c249ff42a721f7ff5ad1e35679727bff"
+    },
+    {
+      "path": "prepare-build.py",
+      "bytes": 3628,
+      "sha256": "8fb950e619dcf5c68fd2e03116fc22bde5edcb5f7e41cc396b74c456f43d8844"
+    },
+    {
+      "path": "resource-preflight.json",
+      "bytes": 365,
+      "sha256": "804e90096a1658928dc2e31b0e7313d412e515d5e93ae410ce3a68829560cde4"
+    },
+    {
+      "path": "run-command.py",
+      "bytes": 2362,
+      "sha256": "5ecd87801e9680ff6f733cbcffe6645283bb5f183967265b8116d604646f2d4c"
+    },
+    {
+      "path": "source-inputs.json",
+      "bytes": 353928,
+      "sha256": "9207124aa12570c8966844219c61181de966ddb512bce0bbd0ae663134a68c2f"
+    },
+    {
+      "path": "typed-root.diff",
+      "bytes": 835,
+      "sha256": "af41cd68c268ed9d7f6d2f4502a837150a06342ddb3077c2ce441f042814aa43"
+    },
+    {
+      "path": "verify-archive.py",
+      "bytes": 4597,
+      "sha256": "2d081c03bae74f318a47dc0589fe8d80e2db4f024f95938a7ba302611d035c13"
+    },
+    {
+      "path": "verify-generation.py",
+      "bytes": 2333,
+      "sha256": "31e885d44822e8784b085339d6329b1bffd1bcbcdf1dd7bfa51a6162508b64d5"
+    },
+    {
+      "path": "verify-metadata.mjs",
+      "bytes": 13718,
+      "sha256": "f36eb963621bbd0d574bd0fac7c4214d7e78e09f9ab735778fd443a848b7ce13"
+    },
+    {
+      "path": "verify-payload.mjs",
+      "bytes": 1937,
+      "sha256": "894f2030400b8c9fc1b5cc47271bd50855daa92c7b136e2bcb2a643bb17c2268"
+    },
+    {
+      "path": "worksite_revision.ts.preimage",
+      "bytes": 68992,
+      "sha256": "6060d831e54ec367b20f98e32072f63bbcc78e3708bccc6602ff64fff5542f98"
+    }
+  ],
+  "tools": [
+    {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+      "sha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-02/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/lib/_tsc.js",
+      "sha256": "a040f97c9d0223f64c8ebc380c5e48eb7945f1142f7c1dc9c3ec4acdb6c1c613"
+    }
+  ],
+  "status": "one successor compile authorized; no generator/package/installed workload",
+  "reusedEvidence": "Three predecessor syntax checks remain exact for unchanged test/support bytes; no duplicate credit"
+}

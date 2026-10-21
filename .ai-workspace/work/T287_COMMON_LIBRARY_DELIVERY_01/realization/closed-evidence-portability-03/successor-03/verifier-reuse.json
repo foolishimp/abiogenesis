@@ -1,0 +1,15 @@
+{
+  "predecessor": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/verify-transport.py",
+    "sha256": "2a1e28a5c3c3edd2765e6a9ca9bb0430638ee98e15ff8f42c943ddfd87f82476",
+    "bytes": 14533
+  },
+  "successor": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/verify-transport.py",
+    "sha256": "db23e068d2495e7ed67c012334c33ad9a5872fe028d5da043f3aa96923b30125",
+    "bytes": 16105
+  },
+  "preserved": "All archive, raw package-member, population and native coverage checks; no original-path fallback",
+  "correction": "Two exact declared repository-file package routes use existing safe repo/hash/length resolution; archive-object path retained; other kinds rejected",
+  "syntax": "ast.parse passed"
+}

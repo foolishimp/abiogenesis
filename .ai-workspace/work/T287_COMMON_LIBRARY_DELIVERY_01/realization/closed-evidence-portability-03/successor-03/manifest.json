@@ -1,0 +1,87 @@
+{
+  "kind": "bounded_portable_review_carrier_manifest",
+  "records": [
+    {
+      "path": "HOW.md",
+      "sha256": "1fb90c7a4002e32cc5b27ee369379b9fe95a08c4776817eb8d7b991234337713",
+      "bytes": 1226
+    },
+    {
+      "path": "README.md",
+      "sha256": "442b6ef0f64739bb7c4a4d736192371cfdb786cfa3931dcaa27d01c5587e70e7",
+      "bytes": 4007
+    },
+    {
+      "path": "activation.json",
+      "sha256": "d18606c4045e4b38be4dc345cf9b3d37fe62afda74aeeb42affa3626727c4cd0",
+      "bytes": 2120
+    },
+    {
+      "path": "repository-dependencies.json",
+      "sha256": "87e7385c897184e602559d60c2aec33bfab8319918b2acb97800680052800e26",
+      "bytes": 697011
+    },
+    {
+      "path": "return.json",
+      "sha256": "b5ceac2eca871a17483e528e0533557b686281af860c286ed10389cb677bede6",
+      "bytes": 2370
+    },
+    {
+      "path": "verification-bind.json",
+      "sha256": "8c1ecd5279af87ceb48dcd7ad60c57370cc8885c228ec648d2492e0c77310155",
+      "bytes": 88
+    },
+    {
+      "path": "verification-command-closure.json",
+      "sha256": "8abd8f2205ae1ccc566d82a470d8aebddb286e1d2ddd1bca1e7c2ad3a6b7e8ed",
+      "bytes": 1061
+    },
+    {
+      "path": "verification-input.json",
+      "sha256": "7b4cfbefdaa22995c0bb3d8d78288725a1dd5693bc2c01528067321741deb676",
+      "bytes": 840
+    },
+    {
+      "path": "verification.command.json",
+      "sha256": "d051429db45c1738939e7a4f142f62c167d4764d34848aee3115d9641bd715f6",
+      "bytes": 360
+    },
+    {
+      "path": "verification.receipt.json",
+      "sha256": "d9ff954ad81eef5a90126431b5fd8102dad5ab7d2100f286b4953ec3bd9a72df",
+      "bytes": 389
+    },
+    {
+      "path": "verification.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "verification.stdout",
+      "sha256": "feb3e7c57978c104639cde93f140a54d74c395048dc6d36ea2d51961c2d84e5d",
+      "bytes": 1354
+    },
+    {
+      "path": "verifier-reuse.json",
+      "sha256": "6c74e382e12e580a528353258cf7da4bfd50412ee1408f3e9af337c61a1b7da0",
+      "bytes": 850
+    },
+    {
+      "path": "verifier.diff",
+      "sha256": "dfc246dd935915dbd2d821120181b682d48905a97d750edc380de892ac45f73c",
+      "bytes": 3993
+    },
+    {
+      "path": "verify-transport.py",
+      "sha256": "db23e068d2495e7ed67c012334c33ad9a5872fe028d5da043f3aa96923b30125",
+      "bytes": 16105
+    }
+  ],
+  "repositoryDependencyCarrier": {
+    "path": "repository-dependencies.json",
+    "sha256": "87e7385c897184e602559d60c2aec33bfab8319918b2acb97800680052800e26",
+    "bytes": 697011
+  },
+  "dataRoot": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02",
+  "predecessorStoppedFreeze": "6ee9057a2f82daf8a54263bbcacf747fdfb8b7ca1326c13219aab8a3fa06f1a1"
+}

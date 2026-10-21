@@ -1,0 +1,21 @@
+{
+  "node": "v24.7.0",
+  "npm": "11.5.1",
+  "typescript": "5.9.2",
+  "node_executable": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "mode": "0o555",
+    "kind": "file",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "npm_entrypoint_bytes_sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+  "npm_realpath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+  "package_lock": {
+    "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 8001,
+    "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+  }
+}

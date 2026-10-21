@@ -1,0 +1,50 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "issuedBy": "/root",
+  "subjectId": "candidate",
+  "configurationSha256": "3a91cd7e8cfd582d75bb2b364be0a55a3e7abaf17688c984e78be0ffa09e3374",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "lanes": [
+    "public-preparation"
+  ],
+  "resources": {
+    "public-preparation": {
+      "evidence": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence",
+      "host": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/worksite"
+    }
+  },
+  "maxNativePositiveCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "npmCache": {
+    "status": "granted explicit empty seed",
+    "seedInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/empty-seed.json",
+      "sha256": "afb84dac6a7aa1cf256a6ff7ed05fa84dfdeaa6748dbb292397343908120c6db",
+      "bytes": 183,
+      "mode": "0o644"
+    },
+    "sourceRoot": null,
+    "newCacheRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p1",
+    "files": [],
+    "permittedEffects": "offline npm content/index/tmp/log writes; retained after run",
+    "globalCacheRead": false,
+    "globalCacheWrite": false,
+    "networkFallback": false
+  },
+  "prerequisites": "none",
+  "executionOrder": "P1 -> read-only owner-resolution -> P2 -> P3; no later phase after first unexpected failure",
+  "nativeProviderCalls": 0,
+  "rootActivation": "L4-FINAL-CANDIDATE-P1-P3-04",
+  "runtimeCondition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/runtime-condition.json",
+    "sha256": "86626cd9ab7b4c7141f9f3c604952757f5468524bef17a63010bfaf6e82a54f4",
+    "bytes": 1247,
+    "mode": "0o644"
+  },
+  "maxAdditionalRetainedBytes": 10737418240
+}

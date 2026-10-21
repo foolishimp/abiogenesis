@@ -1,0 +1,21 @@
+{
+  "activation": "P5-CARRIER-SUCCESSOR-06",
+  "files": [
+    {
+      "path": "HOW-before-effects.md",
+      "bytes": 3413,
+      "sha256": "8fb40b0923cdfba589408cc3db0b525eae59cd7767c8ad169f7de7bebeaec5db"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 1458,
+      "sha256": "fa103bc8bf8699a20a201bf0f7509ccc56cd05575c029e4d6ac23d3fca4f41cd"
+    },
+    {
+      "path": "preimages/t287-worksite-command-execution.test.mjs",
+      "bytes": 54074,
+      "sha256": "5ad45c964c5e37d0d19504c8f085c20e0a52b68df8ac4fa9d2fa78a233517329"
+    }
+  ],
+  "mainEffectsBeforeFreeze": 0
+}

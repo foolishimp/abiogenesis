@@ -1,0 +1,618 @@
+{
+  "purpose": "Append omitted test-local support identities to the frozen reused-support correspondence, without changing it or acquiring new execution credit.",
+  "original": "../currentness-consumers/reused-support-correspondence.json",
+  "comparisons": [
+    {
+      "attempt": "01",
+      "historicalFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "historicalSha256": "6d30b7b69a8e74b0ae54f1f8543d8b4987f2b5b65353869d0bedf49ce0849ea3",
+      "finalFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "finalSha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61",
+      "declarations": [
+        {
+          "name": "selected",
+          "beforeSha256": "4e1e123dd17f3d8f4359cabe3cb3f77e62dde67e66d6a877cace3e4f9f372407",
+          "afterSha256": "1fada3875772b5c00b8b4538fe378eb2c7c9e07f699874b1018606d43ea52c13",
+          "byteIdentical": false,
+          "before": "selected = async (t, roots = ['target.txt'], options) => {\n  const f = await createU1Fixture(preserveOnFailure(t), roots, { ...options, onAttempt: attempt => { attempts.push(attempt); } }); fixtures.push(f); return f;\n}",
+          "after": "selected = async (t, roots = ['target.txt'], options) => {\n  const f = await createU1Fixture(preserveOnFailure(t), roots, { ...options, onAttempt: attempt => { attempts.push(attempt); } }); fixtures.push(f);\n  checkedHandoff('createU1Fixture', f, ['cause', 'exit', 'append', 'atCut', 'invocation', 'basisFor', 'prefix', 'rows'],\n    ['workspaceAuthorityBasis', 'workspaceBinding', 'capabilityGrant', 'canonicalRoot', 'task', 'requests', 'store', 'inv', 'set', 'basis', 'common', 'cCall']);\n  checkedHandoff('createU1Fixture.store', f.store, ['readAll', 'readScope', 'configuredDurableLogPath', 'closeDurableLog'], []);\n  return f;\n}"
+        },
+        {
+          "name": "proveCause",
+          "beforeSha256": "4567d5e1e4a17d4edbbe5885ad67dfe51519a286c28702cc1bd658551a1dd204",
+          "afterSha256": "4567d5e1e4a17d4edbbe5885ad67dfe51519a286c28702cc1bd658551a1dd204",
+          "byteIdentical": true
+        },
+        {
+          "name": "traced",
+          "beforeSha256": "fe00eaac10aed71921627d1622aafcde88b1f1265f907597e2e066b424c4fee2",
+          "afterSha256": "da88d2ec54698a95721d8455058eb049cef9d127180ad00f8c61d7c9d01e948f",
+          "byteIdentical": false,
+          "before": "traced = label => { const trace = traced('consumer'); gateTraces.push({ label, calls: trace.calls }); return trace; }",
+          "after": "traced = label => { const trace = traceInvalidator(); gateTraces.push({ label, calls: trace.calls }); return trace; }"
+        },
+        {
+          "name": "observed",
+          "beforeSha256": "03cb738f2f02c6d33c88fdbcd3475d687d21679f3b4f09aa835dd5d74ada08bd",
+          "afterSha256": "03cb738f2f02c6d33c88fdbcd3475d687d21679f3b4f09aa835dd5d74ada08bd",
+          "byteIdentical": true
+        },
+        {
+          "name": "checkedHandoff",
+          "beforeSha256": null,
+          "afterSha256": "e8455f3892dd72003007a2a99a70d9eff7dde731add05d92e13ca34cc4e6efc3",
+          "byteIdentical": false,
+          "before": null,
+          "after": "checkedHandoff = (label, value, callables, fields) => {\n  assert.ok(value && typeof value === 'object', label + ': return object');\n  for (const name of callables) assert.equal(typeof value[name], 'function', label + '.' + name);\n  for (const name of fields) assert.ok(Object.hasOwn(value, name), label + '.' + name);\n  handoffChecks.push({ label, callables, fields, actualKeys: Object.keys(value) }); return value;\n}"
+        },
+        {
+          "name": "assessmentContract",
+          "beforeSha256": "42611acdf84e9b5bfa4d136e909c62350a571e0a4cb4ebd542dd535cfe578a53",
+          "afterSha256": "42611acdf84e9b5bfa4d136e909c62350a571e0a4cb4ebd542dd535cfe578a53",
+          "byteIdentical": true
+        },
+        {
+          "name": "assessmentSchema",
+          "beforeSha256": "964e648a9551a2d8303136cf83dbd7c9e9084a10360f09e165a318032e455425",
+          "afterSha256": "964e648a9551a2d8303136cf83dbd7c9e9084a10360f09e165a318032e455425",
+          "byteIdentical": true
+        },
+        {
+          "name": "preserveOnFailure",
+          "beforeSha256": "366e7d298d28b88e52d601dd28ad8e80adfba2fe5db568cef26ffa834bd3ed8d",
+          "afterSha256": "366e7d298d28b88e52d601dd28ad8e80adfba2fe5db568cef26ffa834bd3ed8d",
+          "byteIdentical": true
+        },
+        {
+          "name": "physicalInventory",
+          "beforeSha256": "21f80d4520ca0cd4e031c5621399ce4ecf0b0187414f739765803aec7416d191",
+          "afterSha256": "21f80d4520ca0cd4e031c5621399ce4ecf0b0187414f739765803aec7416d191",
+          "byteIdentical": true
+        },
+        {
+          "name": "retainedJournal",
+          "beforeSha256": null,
+          "afterSha256": "c78f78c922a09117e43b5eeab32df744a26bdbcb021911410a2c6eaaaffa394d",
+          "byteIdentical": false,
+          "before": null,
+          "after": "async function retainedJournal(store) {\n  if (!store) return null;\n  const coordinate = selectHeldEventStoreDurablePrefix(store);\n  const path = new URL(coordinate.eventLogRef), bytes = await fs.readFile(path), stat = await fs.stat(path);\n  return { coordinate, physical: { device: stat.dev, inode: stat.ino, byteLength: bytes.length,\n    digest: p.sha256Bytes(bytes), base64: bytes.toString('base64') } };\n}"
+        },
+        {
+          "name": "retain",
+          "beforeSha256": "01a85968a2006fb28c41a7727ebbfd576415e9ccad7949c36c4f0bcd9da84736",
+          "afterSha256": "932924630a585dcb10847fb1b70ea63d8375e7a22c24442d246db05deca34006",
+          "byteIdentical": false,
+          "before": "retain = async () => {\n  if (!process.env.ABG_U1_EVIDENCE_DIR) return;\n  await fs.mkdir(process.env.ABG_U1_EVIDENCE_DIR, { recursive: true });\n  await fs.writeFile(join(process.env.ABG_U1_EVIDENCE_DIR, 'consumer-results.json'), JSON.stringify({ results, physicalFacts, gateTraces, gateOutputs, cleanupOnSuccessOnly: true,\n    attempts: await Promise.all(attempts.map(async a => ({ scratch: a.scratch, canonicalRoot: a.canonicalRoot, otherScratch: a.otherScratch,\n      prefix: a.rows ? a.rows() : null, candidates: a.candidates ?? null, physical: await physicalInventory(a.canonicalRoot) }))),\n    fixtures: fixtures.map(f => ({ canonicalRoot: f.canonicalRoot, workspaceBinding: f.workspaceBinding,\n      task: f.task, admittedPrefix: f.rows(), candidates: f.candidates })) }, null, 2) + '\\n');\n}",
+          "after": "retain = async () => {\n  if (!process.env.ABG_U1_EVIDENCE_DIR) return;\n  await fs.mkdir(process.env.ABG_U1_EVIDENCE_DIR, { recursive: true });\n  await fs.writeFile(join(process.env.ABG_U1_EVIDENCE_DIR, 'consumer-results.json'), JSON.stringify({ results, physicalFacts, gateTraces, gateOutputs, handoffChecks, contextChecks, selectedCases, omittedCases, cleanupOnSuccessOnly: true,\n    attempts: await Promise.all(attempts.map(async a => ({ scratch: a.scratch, canonicalRoot: a.canonicalRoot, otherScratch: a.otherScratch,\n      prefix: a.rows ? a.rows() : null, journal: await retainedJournal(a.store), candidates: a.candidates ?? null, physical: await physicalInventory(a.canonicalRoot) }))),\n    fixtures: fixtures.map(f => ({ canonicalRoot: f.canonicalRoot, workspaceBinding: f.workspaceBinding,\n      task: f.task, admittedPrefix: f.rows(), candidates: f.candidates })) }, null, 2) + '\\n');\n}"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "node:assert/strict",
+          "before": "import assert from 'node:assert/strict';",
+          "after": "import assert from 'node:assert/strict';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:test",
+          "before": "import test from 'node:test';",
+          "after": "import test from 'node:test';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:fs/promises",
+          "before": "import fs from 'node:fs/promises';",
+          "after": "import fs from 'node:fs/promises';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:path",
+          "before": "import { dirname, join } from 'node:path';",
+          "after": "import { dirname, join } from 'node:path';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:url",
+          "before": "import { pathToFileURL } from 'node:url';",
+          "after": "import { pathToFileURL } from 'node:url';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../support/t287-native-work-currentness-consumers.mjs",
+          "before": "import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers } from '../support/t287-native-work-currentness-consumers.mjs';",
+          "after": "import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers } from '../support/t287-native-work-currentness-consumers.mjs';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/index.js",
+          "before": "import * as p from '../../build/code/src/product/index.js';",
+          "after": "import * as p from '../../build/code/src/product/index.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/gtl/index.js",
+          "before": "import * as g from '../../build/code/src/gtl/index.js';",
+          "after": "import * as g from '../../build/code/src/gtl/index.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/event_calculus.js",
+          "before": "import * as calculus from '../../build/code/src/abg/event_calculus.js';",
+          "after": "import * as calculus from '../../build/code/src/abg/event_calculus.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/event_prefix.js",
+          "before": "import * as prefixes from '../../build/code/src/abg/event_prefix.js';",
+          "after": "import * as prefixes from '../../build/code/src/abg/event_prefix.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/native_worksite_execution.js",
+          "before": "import * as nativeOwner from '../../build/code/src/abg/native_worksite_execution.js';",
+          "after": "import * as nativeOwner from '../../build/code/src/abg/native_worksite_execution.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/native_work_effect.js",
+          "before": "import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';",
+          "after": "import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/event_store.js",
+          "before": "import { selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';",
+          "after": "import { selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/shared/immutable.js",
+          "before": "import { deepFreeze } from '../../build/code/src/shared/immutable.js';",
+          "after": "import { deepFreeze } from '../../build/code/src/shared/immutable.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/semantic_job.js",
+          "before": "import * as semantic from '../../build/code/src/product/semantic_job.js';",
+          "after": "import * as semantic from '../../build/code/src/product/semantic_job.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/semantic_revision.js",
+          "before": "import * as revisionProduct from '../../build/code/src/product/semantic_revision.js';",
+          "after": "import * as revisionProduct from '../../build/code/src/product/semantic_revision.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/gtl/semantic_revision_identity.js",
+          "before": "import { SEMANTIC_REVISION_IDS as R } from '../../build/code/src/gtl/semantic_revision_identity.js';",
+          "after": "import { SEMANTIC_REVISION_IDS as R } from '../../build/code/src/gtl/semantic_revision_identity.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../support/forward-observation-carrier.mjs",
+          "before": "import { observationFor } from '../support/forward-observation-carrier.mjs';",
+          "after": "import { observationFor } from '../support/forward-observation-carrier.mjs';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/native_workspace_work.js",
+          "before": null,
+          "after": "import { constructNativeWorkspaceWorkObservation } from '../../build/code/src/product/native_workspace_work.js';",
+          "byteIdentical": false
+        },
+        {
+          "specifier": "../../build/code/src/product/native_workspace_assessment.js",
+          "before": null,
+          "after": "import * as assessmentOwner from '../../build/code/src/product/native_workspace_assessment.js';",
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "attempt": "02",
+      "historicalFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-02/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "historicalSha256": "784524463a639af28ff485ec87ec10773a3345e8beb6c40aaa02327c2bd6d6d6",
+      "finalFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "finalSha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61",
+      "declarations": [
+        {
+          "name": "selected",
+          "beforeSha256": "4e1e123dd17f3d8f4359cabe3cb3f77e62dde67e66d6a877cace3e4f9f372407",
+          "afterSha256": "1fada3875772b5c00b8b4538fe378eb2c7c9e07f699874b1018606d43ea52c13",
+          "byteIdentical": false,
+          "before": "selected = async (t, roots = ['target.txt'], options) => {\n  const f = await createU1Fixture(preserveOnFailure(t), roots, { ...options, onAttempt: attempt => { attempts.push(attempt); } }); fixtures.push(f); return f;\n}",
+          "after": "selected = async (t, roots = ['target.txt'], options) => {\n  const f = await createU1Fixture(preserveOnFailure(t), roots, { ...options, onAttempt: attempt => { attempts.push(attempt); } }); fixtures.push(f);\n  checkedHandoff('createU1Fixture', f, ['cause', 'exit', 'append', 'atCut', 'invocation', 'basisFor', 'prefix', 'rows'],\n    ['workspaceAuthorityBasis', 'workspaceBinding', 'capabilityGrant', 'canonicalRoot', 'task', 'requests', 'store', 'inv', 'set', 'basis', 'common', 'cCall']);\n  checkedHandoff('createU1Fixture.store', f.store, ['readAll', 'readScope', 'configuredDurableLogPath', 'closeDurableLog'], []);\n  return f;\n}"
+        },
+        {
+          "name": "proveCause",
+          "beforeSha256": "4567d5e1e4a17d4edbbe5885ad67dfe51519a286c28702cc1bd658551a1dd204",
+          "afterSha256": "4567d5e1e4a17d4edbbe5885ad67dfe51519a286c28702cc1bd658551a1dd204",
+          "byteIdentical": true
+        },
+        {
+          "name": "traced",
+          "beforeSha256": "da88d2ec54698a95721d8455058eb049cef9d127180ad00f8c61d7c9d01e948f",
+          "afterSha256": "da88d2ec54698a95721d8455058eb049cef9d127180ad00f8c61d7c9d01e948f",
+          "byteIdentical": true
+        },
+        {
+          "name": "observed",
+          "beforeSha256": "03cb738f2f02c6d33c88fdbcd3475d687d21679f3b4f09aa835dd5d74ada08bd",
+          "afterSha256": "03cb738f2f02c6d33c88fdbcd3475d687d21679f3b4f09aa835dd5d74ada08bd",
+          "byteIdentical": true
+        },
+        {
+          "name": "checkedHandoff",
+          "beforeSha256": null,
+          "afterSha256": "e8455f3892dd72003007a2a99a70d9eff7dde731add05d92e13ca34cc4e6efc3",
+          "byteIdentical": false,
+          "before": null,
+          "after": "checkedHandoff = (label, value, callables, fields) => {\n  assert.ok(value && typeof value === 'object', label + ': return object');\n  for (const name of callables) assert.equal(typeof value[name], 'function', label + '.' + name);\n  for (const name of fields) assert.ok(Object.hasOwn(value, name), label + '.' + name);\n  handoffChecks.push({ label, callables, fields, actualKeys: Object.keys(value) }); return value;\n}"
+        },
+        {
+          "name": "assessmentContract",
+          "beforeSha256": "42611acdf84e9b5bfa4d136e909c62350a571e0a4cb4ebd542dd535cfe578a53",
+          "afterSha256": "42611acdf84e9b5bfa4d136e909c62350a571e0a4cb4ebd542dd535cfe578a53",
+          "byteIdentical": true
+        },
+        {
+          "name": "assessmentSchema",
+          "beforeSha256": "964e648a9551a2d8303136cf83dbd7c9e9084a10360f09e165a318032e455425",
+          "afterSha256": "964e648a9551a2d8303136cf83dbd7c9e9084a10360f09e165a318032e455425",
+          "byteIdentical": true
+        },
+        {
+          "name": "preserveOnFailure",
+          "beforeSha256": "366e7d298d28b88e52d601dd28ad8e80adfba2fe5db568cef26ffa834bd3ed8d",
+          "afterSha256": "366e7d298d28b88e52d601dd28ad8e80adfba2fe5db568cef26ffa834bd3ed8d",
+          "byteIdentical": true
+        },
+        {
+          "name": "physicalInventory",
+          "beforeSha256": "21f80d4520ca0cd4e031c5621399ce4ecf0b0187414f739765803aec7416d191",
+          "afterSha256": "21f80d4520ca0cd4e031c5621399ce4ecf0b0187414f739765803aec7416d191",
+          "byteIdentical": true
+        },
+        {
+          "name": "retainedJournal",
+          "beforeSha256": null,
+          "afterSha256": "c78f78c922a09117e43b5eeab32df744a26bdbcb021911410a2c6eaaaffa394d",
+          "byteIdentical": false,
+          "before": null,
+          "after": "async function retainedJournal(store) {\n  if (!store) return null;\n  const coordinate = selectHeldEventStoreDurablePrefix(store);\n  const path = new URL(coordinate.eventLogRef), bytes = await fs.readFile(path), stat = await fs.stat(path);\n  return { coordinate, physical: { device: stat.dev, inode: stat.ino, byteLength: bytes.length,\n    digest: p.sha256Bytes(bytes), base64: bytes.toString('base64') } };\n}"
+        },
+        {
+          "name": "retain",
+          "beforeSha256": "2a4cf234ce87334b8fb8948ff77dab24d425f34caa4872919f4a049e70edbbf7",
+          "afterSha256": "932924630a585dcb10847fb1b70ea63d8375e7a22c24442d246db05deca34006",
+          "byteIdentical": false,
+          "before": "retain = async () => {\n  if (!process.env.ABG_U1_EVIDENCE_DIR) return;\n  await fs.mkdir(process.env.ABG_U1_EVIDENCE_DIR, { recursive: true });\n  await fs.writeFile(join(process.env.ABG_U1_EVIDENCE_DIR, 'consumer-results.json'), JSON.stringify({ results, physicalFacts, gateTraces, gateOutputs, selectedCases, omittedCases, cleanupOnSuccessOnly: true,\n    attempts: await Promise.all(attempts.map(async a => ({ scratch: a.scratch, canonicalRoot: a.canonicalRoot, otherScratch: a.otherScratch,\n      prefix: a.rows ? a.rows() : null, candidates: a.candidates ?? null, physical: await physicalInventory(a.canonicalRoot) }))),\n    fixtures: fixtures.map(f => ({ canonicalRoot: f.canonicalRoot, workspaceBinding: f.workspaceBinding,\n      task: f.task, admittedPrefix: f.rows(), candidates: f.candidates })) }, null, 2) + '\\n');\n}",
+          "after": "retain = async () => {\n  if (!process.env.ABG_U1_EVIDENCE_DIR) return;\n  await fs.mkdir(process.env.ABG_U1_EVIDENCE_DIR, { recursive: true });\n  await fs.writeFile(join(process.env.ABG_U1_EVIDENCE_DIR, 'consumer-results.json'), JSON.stringify({ results, physicalFacts, gateTraces, gateOutputs, handoffChecks, contextChecks, selectedCases, omittedCases, cleanupOnSuccessOnly: true,\n    attempts: await Promise.all(attempts.map(async a => ({ scratch: a.scratch, canonicalRoot: a.canonicalRoot, otherScratch: a.otherScratch,\n      prefix: a.rows ? a.rows() : null, journal: await retainedJournal(a.store), candidates: a.candidates ?? null, physical: await physicalInventory(a.canonicalRoot) }))),\n    fixtures: fixtures.map(f => ({ canonicalRoot: f.canonicalRoot, workspaceBinding: f.workspaceBinding,\n      task: f.task, admittedPrefix: f.rows(), candidates: f.candidates })) }, null, 2) + '\\n');\n}"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "node:assert/strict",
+          "before": "import assert from 'node:assert/strict';",
+          "after": "import assert from 'node:assert/strict';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:test",
+          "before": "import test from 'node:test';",
+          "after": "import test from 'node:test';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:fs/promises",
+          "before": "import fs from 'node:fs/promises';",
+          "after": "import fs from 'node:fs/promises';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:path",
+          "before": "import { dirname, join } from 'node:path';",
+          "after": "import { dirname, join } from 'node:path';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:url",
+          "before": "import { pathToFileURL } from 'node:url';",
+          "after": "import { pathToFileURL } from 'node:url';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../support/t287-native-work-currentness-consumers.mjs",
+          "before": "import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers } from '../support/t287-native-work-currentness-consumers.mjs';",
+          "after": "import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers } from '../support/t287-native-work-currentness-consumers.mjs';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/index.js",
+          "before": "import * as p from '../../build/code/src/product/index.js';",
+          "after": "import * as p from '../../build/code/src/product/index.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/gtl/index.js",
+          "before": "import * as g from '../../build/code/src/gtl/index.js';",
+          "after": "import * as g from '../../build/code/src/gtl/index.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/event_calculus.js",
+          "before": "import * as calculus from '../../build/code/src/abg/event_calculus.js';",
+          "after": "import * as calculus from '../../build/code/src/abg/event_calculus.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/event_prefix.js",
+          "before": "import * as prefixes from '../../build/code/src/abg/event_prefix.js';",
+          "after": "import * as prefixes from '../../build/code/src/abg/event_prefix.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/native_worksite_execution.js",
+          "before": "import * as nativeOwner from '../../build/code/src/abg/native_worksite_execution.js';",
+          "after": "import * as nativeOwner from '../../build/code/src/abg/native_worksite_execution.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/native_work_effect.js",
+          "before": "import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';",
+          "after": "import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/event_store.js",
+          "before": "import { selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';",
+          "after": "import { selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/shared/immutable.js",
+          "before": "import { deepFreeze } from '../../build/code/src/shared/immutable.js';",
+          "after": "import { deepFreeze } from '../../build/code/src/shared/immutable.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/semantic_job.js",
+          "before": "import * as semantic from '../../build/code/src/product/semantic_job.js';",
+          "after": "import * as semantic from '../../build/code/src/product/semantic_job.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/semantic_revision.js",
+          "before": "import * as revisionProduct from '../../build/code/src/product/semantic_revision.js';",
+          "after": "import * as revisionProduct from '../../build/code/src/product/semantic_revision.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/gtl/semantic_revision_identity.js",
+          "before": "import { SEMANTIC_REVISION_IDS as R } from '../../build/code/src/gtl/semantic_revision_identity.js';",
+          "after": "import { SEMANTIC_REVISION_IDS as R } from '../../build/code/src/gtl/semantic_revision_identity.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../support/forward-observation-carrier.mjs",
+          "before": "import { observationFor } from '../support/forward-observation-carrier.mjs';",
+          "after": "import { observationFor } from '../support/forward-observation-carrier.mjs';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/native_workspace_work.js",
+          "before": null,
+          "after": "import { constructNativeWorkspaceWorkObservation } from '../../build/code/src/product/native_workspace_work.js';",
+          "byteIdentical": false
+        },
+        {
+          "specifier": "../../build/code/src/product/native_workspace_assessment.js",
+          "before": null,
+          "after": "import * as assessmentOwner from '../../build/code/src/product/native_workspace_assessment.js';",
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "attempt": "04",
+      "historicalFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/failed-04/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "historicalSha256": "f96f815975dab8d2aa0b02dbe31cfd50190059887c678793b4b60eca5d8af930",
+      "finalFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "finalSha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61",
+      "declarations": [
+        {
+          "name": "selected",
+          "beforeSha256": "1fada3875772b5c00b8b4538fe378eb2c7c9e07f699874b1018606d43ea52c13",
+          "afterSha256": "1fada3875772b5c00b8b4538fe378eb2c7c9e07f699874b1018606d43ea52c13",
+          "byteIdentical": true
+        },
+        {
+          "name": "proveCause",
+          "beforeSha256": "4567d5e1e4a17d4edbbe5885ad67dfe51519a286c28702cc1bd658551a1dd204",
+          "afterSha256": "4567d5e1e4a17d4edbbe5885ad67dfe51519a286c28702cc1bd658551a1dd204",
+          "byteIdentical": true
+        },
+        {
+          "name": "traced",
+          "beforeSha256": "da88d2ec54698a95721d8455058eb049cef9d127180ad00f8c61d7c9d01e948f",
+          "afterSha256": "da88d2ec54698a95721d8455058eb049cef9d127180ad00f8c61d7c9d01e948f",
+          "byteIdentical": true
+        },
+        {
+          "name": "observed",
+          "beforeSha256": "03cb738f2f02c6d33c88fdbcd3475d687d21679f3b4f09aa835dd5d74ada08bd",
+          "afterSha256": "03cb738f2f02c6d33c88fdbcd3475d687d21679f3b4f09aa835dd5d74ada08bd",
+          "byteIdentical": true
+        },
+        {
+          "name": "checkedHandoff",
+          "beforeSha256": "e8455f3892dd72003007a2a99a70d9eff7dde731add05d92e13ca34cc4e6efc3",
+          "afterSha256": "e8455f3892dd72003007a2a99a70d9eff7dde731add05d92e13ca34cc4e6efc3",
+          "byteIdentical": true
+        },
+        {
+          "name": "assessmentContract",
+          "beforeSha256": "42611acdf84e9b5bfa4d136e909c62350a571e0a4cb4ebd542dd535cfe578a53",
+          "afterSha256": "42611acdf84e9b5bfa4d136e909c62350a571e0a4cb4ebd542dd535cfe578a53",
+          "byteIdentical": true
+        },
+        {
+          "name": "assessmentSchema",
+          "beforeSha256": "964e648a9551a2d8303136cf83dbd7c9e9084a10360f09e165a318032e455425",
+          "afterSha256": "964e648a9551a2d8303136cf83dbd7c9e9084a10360f09e165a318032e455425",
+          "byteIdentical": true
+        },
+        {
+          "name": "preserveOnFailure",
+          "beforeSha256": "366e7d298d28b88e52d601dd28ad8e80adfba2fe5db568cef26ffa834bd3ed8d",
+          "afterSha256": "366e7d298d28b88e52d601dd28ad8e80adfba2fe5db568cef26ffa834bd3ed8d",
+          "byteIdentical": true
+        },
+        {
+          "name": "physicalInventory",
+          "beforeSha256": "21f80d4520ca0cd4e031c5621399ce4ecf0b0187414f739765803aec7416d191",
+          "afterSha256": "21f80d4520ca0cd4e031c5621399ce4ecf0b0187414f739765803aec7416d191",
+          "byteIdentical": true
+        },
+        {
+          "name": "retainedJournal",
+          "beforeSha256": "c78f78c922a09117e43b5eeab32df744a26bdbcb021911410a2c6eaaaffa394d",
+          "afterSha256": "c78f78c922a09117e43b5eeab32df744a26bdbcb021911410a2c6eaaaffa394d",
+          "byteIdentical": true
+        },
+        {
+          "name": "retain",
+          "beforeSha256": "ef4e2b7c9d21ac8aa99b4554a5b0457ae62f3dafd734bd0ab72700e09b2a7643",
+          "afterSha256": "932924630a585dcb10847fb1b70ea63d8375e7a22c24442d246db05deca34006",
+          "byteIdentical": false,
+          "before": "retain = async () => {\n  if (!process.env.ABG_U1_EVIDENCE_DIR) return;\n  await fs.mkdir(process.env.ABG_U1_EVIDENCE_DIR, { recursive: true });\n  await fs.writeFile(join(process.env.ABG_U1_EVIDENCE_DIR, 'consumer-results.json'), JSON.stringify({ results, physicalFacts, gateTraces, gateOutputs, handoffChecks, selectedCases, omittedCases, cleanupOnSuccessOnly: true,\n    attempts: await Promise.all(attempts.map(async a => ({ scratch: a.scratch, canonicalRoot: a.canonicalRoot, otherScratch: a.otherScratch,\n      prefix: a.rows ? a.rows() : null, journal: await retainedJournal(a.store), candidates: a.candidates ?? null, physical: await physicalInventory(a.canonicalRoot) }))),\n    fixtures: fixtures.map(f => ({ canonicalRoot: f.canonicalRoot, workspaceBinding: f.workspaceBinding,\n      task: f.task, admittedPrefix: f.rows(), candidates: f.candidates })) }, null, 2) + '\\n');\n}",
+          "after": "retain = async () => {\n  if (!process.env.ABG_U1_EVIDENCE_DIR) return;\n  await fs.mkdir(process.env.ABG_U1_EVIDENCE_DIR, { recursive: true });\n  await fs.writeFile(join(process.env.ABG_U1_EVIDENCE_DIR, 'consumer-results.json'), JSON.stringify({ results, physicalFacts, gateTraces, gateOutputs, handoffChecks, contextChecks, selectedCases, omittedCases, cleanupOnSuccessOnly: true,\n    attempts: await Promise.all(attempts.map(async a => ({ scratch: a.scratch, canonicalRoot: a.canonicalRoot, otherScratch: a.otherScratch,\n      prefix: a.rows ? a.rows() : null, journal: await retainedJournal(a.store), candidates: a.candidates ?? null, physical: await physicalInventory(a.canonicalRoot) }))),\n    fixtures: fixtures.map(f => ({ canonicalRoot: f.canonicalRoot, workspaceBinding: f.workspaceBinding,\n      task: f.task, admittedPrefix: f.rows(), candidates: f.candidates })) }, null, 2) + '\\n');\n}"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "node:assert/strict",
+          "before": "import assert from 'node:assert/strict';",
+          "after": "import assert from 'node:assert/strict';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:test",
+          "before": "import test from 'node:test';",
+          "after": "import test from 'node:test';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:fs/promises",
+          "before": "import fs from 'node:fs/promises';",
+          "after": "import fs from 'node:fs/promises';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:path",
+          "before": "import { dirname, join } from 'node:path';",
+          "after": "import { dirname, join } from 'node:path';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "node:url",
+          "before": "import { pathToFileURL } from 'node:url';",
+          "after": "import { pathToFileURL } from 'node:url';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../support/t287-native-work-currentness-consumers.mjs",
+          "before": "import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers } from '../support/t287-native-work-currentness-consumers.mjs';",
+          "after": "import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers } from '../support/t287-native-work-currentness-consumers.mjs';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/index.js",
+          "before": "import * as p from '../../build/code/src/product/index.js';",
+          "after": "import * as p from '../../build/code/src/product/index.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/gtl/index.js",
+          "before": "import * as g from '../../build/code/src/gtl/index.js';",
+          "after": "import * as g from '../../build/code/src/gtl/index.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/event_calculus.js",
+          "before": "import * as calculus from '../../build/code/src/abg/event_calculus.js';",
+          "after": "import * as calculus from '../../build/code/src/abg/event_calculus.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/event_prefix.js",
+          "before": "import * as prefixes from '../../build/code/src/abg/event_prefix.js';",
+          "after": "import * as prefixes from '../../build/code/src/abg/event_prefix.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/native_worksite_execution.js",
+          "before": "import * as nativeOwner from '../../build/code/src/abg/native_worksite_execution.js';",
+          "after": "import * as nativeOwner from '../../build/code/src/abg/native_worksite_execution.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/native_workspace_work.js",
+          "before": "import { constructNativeWorkspaceWorkObservation } from '../../build/code/src/product/native_workspace_work.js';",
+          "after": "import { constructNativeWorkspaceWorkObservation } from '../../build/code/src/product/native_workspace_work.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/native_workspace_assessment.js",
+          "before": "import * as assessmentOwner from '../../build/code/src/product/native_workspace_assessment.js';",
+          "after": "import * as assessmentOwner from '../../build/code/src/product/native_workspace_assessment.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/native_work_effect.js",
+          "before": "import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';",
+          "after": "import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/abg/event_store.js",
+          "before": "import { selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';",
+          "after": "import { selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/shared/immutable.js",
+          "before": "import { deepFreeze } from '../../build/code/src/shared/immutable.js';",
+          "after": "import { deepFreeze } from '../../build/code/src/shared/immutable.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/semantic_job.js",
+          "before": "import * as semantic from '../../build/code/src/product/semantic_job.js';",
+          "after": "import * as semantic from '../../build/code/src/product/semantic_job.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/product/semantic_revision.js",
+          "before": "import * as revisionProduct from '../../build/code/src/product/semantic_revision.js';",
+          "after": "import * as revisionProduct from '../../build/code/src/product/semantic_revision.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../../build/code/src/gtl/semantic_revision_identity.js",
+          "before": "import { SEMANTIC_REVISION_IDS as R } from '../../build/code/src/gtl/semantic_revision_identity.js';",
+          "after": "import { SEMANTIC_REVISION_IDS as R } from '../../build/code/src/gtl/semantic_revision_identity.js';",
+          "byteIdentical": true
+        },
+        {
+          "specifier": "../support/forward-observation-carrier.mjs",
+          "before": "import { observationFor } from '../support/forward-observation-carrier.mjs';",
+          "after": "import { observationFor } from '../support/forward-observation-carrier.mjs';",
+          "byteIdentical": true
+        }
+      ]
+    }
+  ],
+  "qualification": "Unequal declarations are retained verbatim for source inspection. selected adds only checkedHandoff assertions; retain adds diagnostics/journal retention. Attempt01 traced has the already-recorded recursion defect, outside the completed c0Success call path. Actual aggregate rerun remains required on the final combined artifact."
+}

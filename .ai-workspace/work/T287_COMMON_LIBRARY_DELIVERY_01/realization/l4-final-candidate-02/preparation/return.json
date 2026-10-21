@@ -1,0 +1,37 @@
+{
+  "status": "preparation_ready_NOT_GRANTED",
+  "subjectId": "candidate",
+  "helper": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/translate-inventories.mjs",
+    "sha256": "05684b0abf2967a7a668a887c2a9c822f1405346145796fba309b33a789774e6",
+    "bytes": 11839,
+    "mode": "0o644"
+  },
+  "report": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/preparation/return.md",
+    "sha256": "47adb286edaabace3ae7e260aeccb5309ce81a46ea2d8935887ccdf3ced3d6ac",
+    "bytes": 2868,
+    "mode": "0o644"
+  },
+  "governingRunnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "governingOracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "ownerGlueSha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+  "executionOrder": [
+    "P1",
+    "read-only owner-resolution",
+    "P2",
+    "P3"
+  ],
+  "supportSelection": 14,
+  "sourceSuccessors": 2,
+  "candidateInputsRead": 0,
+  "runtimeEffects": 0,
+  "nativeCalls": 0,
+  "pendingPins": [
+    "closed final02 subject/freeze/archive/manifest/content",
+    "producer-derived source/emission/package/support correspondence",
+    "finite existing npm cache seed or explicit final bundled empty-seed proof",
+    "actual P1 result/owner state/catalog/view/resolve/verify receipts/installed root/prefix",
+    "actual owner-resolution and P2 results before P3"
+  ]
+}

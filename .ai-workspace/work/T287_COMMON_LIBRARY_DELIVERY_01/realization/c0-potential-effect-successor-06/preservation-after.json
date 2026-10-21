@@ -1,0 +1,33 @@
+{
+  "stageRows": 6642,
+  "stageInventorySha256": "eb41de1242486d6bcfe5cec7b902bd25092cc91ddda6dfe513448c6dbbd83d37",
+  "allStageBytesModesLinksUnchangedAfterPackage": true,
+  "selectedMainSources": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 86792,
+      "sha256": "059c8ce8750c29fa83cd0aefb06c9782604a51d03f32fff3bb23efea99303d81"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "kind": "file",
+      "mode": "0o644",
+      "bytes": 56627,
+      "sha256": "209a3540fc5a23f1395b6ee21bfa30e63a4571b51cfb38f87c18d2fb4e94f478"
+    }
+  ],
+  "mainGeneratedCount": 936,
+  "mainGeneratedAllExact": true,
+  "mainGeneratedBaselineSha256": "8838a89cc91b09a64e587294c7ce8c206d26543c099409503bb15e97a0828677",
+  "prior03and05FreezeAndArchivePinsUnchanged": true,
+  "original05LogAndOwnerReceiptUnchanged": true,
+  "archive": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 10681844,
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079"
+  }
+}

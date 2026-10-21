@@ -1,0 +1,43 @@
+{
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:ce18d3f79e0f90935d4869a96effef8d45a1049a728debdcc445a54417a33f45",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:f518d558ed35027c21419da5706583da3727fcee115df65f815b3929649e7b45",
+      "prefixLength": 3113362,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 474886643
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:b6074559d6bba289013c291d11de4b551bc25de3ed246c4deac195e80e1fa4be",
+      "device": 16777231,
+      "durableByteLength": 3113362,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:f518d558ed35027c21419da5706583da3727fcee115df65f815b3929649e7b45",
+      "eventLogPath": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resources/events/runtime.events.jsonl",
+      "inode": 474886643,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "actualEventFile": {
+    "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resources/events/runtime.events.jsonl",
+    "sha256": "f518d558ed35027c21419da5706583da3727fcee115df65f815b3929649e7b45",
+    "bytes": 3113362,
+    "mode": "0o644"
+  },
+  "device": 16777231,
+  "inode": 474886643,
+  "sourceResult": {
+    "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/result.json",
+    "sha256": "a313a40e021f9dce4ea8a5013ab6beaae29b294e6fe642336e33a04f90e6dcf0",
+    "bytes": 1771,
+    "mode": "0o644"
+  },
+  "scope": "Actual unchanged closed log identity and bytes after original fresh-read oracle; no new runtime acquisition"
+}

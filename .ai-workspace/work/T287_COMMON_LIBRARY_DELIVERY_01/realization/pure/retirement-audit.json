@@ -1,0 +1,62 @@
+{
+  "retired_pure_bodies": 7,
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "retired_local": "sameJson",
+      "shared": "../shared/definition_binding_mechanics.js",
+      "preserved_call_count": 8,
+      "source_and_emission_retired": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "retired_local": "sameCoordinate",
+      "shared": "../shared/definition_binding_mechanics.js",
+      "preserved_call_count": 3,
+      "source_and_emission_retired": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts",
+      "retired_local": "sameCoordinate",
+      "shared": "../shared/definition_binding_mechanics.js",
+      "preserved_call_count": 8,
+      "source_and_emission_retired": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/rooted_topology_partition.ts",
+      "retired_local": "hasExactKeys",
+      "shared": "./admission_predicates.js",
+      "preserved_call_count": 2,
+      "source_and_emission_retired": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "retired_local": "exactKeys",
+      "shared": "../shared/admission_predicates.js",
+      "preserved_call_count": 2,
+      "source_and_emission_retired": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "retained_projection": "exact",
+      "retired_private_filter_cardinality": true,
+      "shared": "product/exact_match.ts::resolveExactMatch",
+      "source_and_emission_route": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "retained_projection": "selectedDefinition",
+      "retired_private_filter_cardinality": true,
+      "shared": "product/exact_match.ts::resolveExactMatch",
+      "source_and_emission_route": true
+    }
+  ],
+  "event_store_decode_joins": [
+    3324,
+    3518,
+    3599
+  ],
+  "E01": "existing NUL-joined aliases retained; no contract equivalence inferred",
+  "E02": "distinct owner equalities, exact closure/reuse and history mechanisms untouched",
+  "limits": "source and emitted module route/absence plus focused local tests; package and full installed owner reachability remain Proof P1-P5"
+}

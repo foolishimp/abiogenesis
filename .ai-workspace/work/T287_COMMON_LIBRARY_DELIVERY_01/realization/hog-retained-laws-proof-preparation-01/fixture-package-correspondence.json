@@ -1,0 +1,75 @@
+{
+  "status": "satisfied",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture/positive/language-structural-fixture/artifacts/abi5-tests-structural-fixtures-5.0.0.tgz",
+    "sha256": "eb5c7c3fd4f1f524f34c8a0a3fb876aa42fd1456cfad24da8012beffaf9b7bea",
+    "bytes": 9623,
+    "mode": "0o644"
+  },
+  "members": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "bytes": 247,
+      "mode": "0o644"
+    },
+    {
+      "path": "package.json",
+      "sha256": "4e5680b4aa54a57d04348d7334ccafd4608fa43013eb6b8aee33fb0d7f1bedb3",
+      "bytes": 412,
+      "mode": "0o644"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "sha256": "32eb3cc7befae224a41d55894717271079a83873dcd4ccdb764eb41a97c90ca6",
+      "bytes": 12727,
+      "mode": "0o644"
+    },
+    {
+      "path": "contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "bytes": 75,
+      "mode": "0o644"
+    },
+    {
+      "path": "build/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "bytes": 10669,
+      "mode": "0o644"
+    },
+    {
+      "path": "build/program.mjs",
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+      "bytes": 22919,
+      "mode": "0o644"
+    }
+  ],
+  "allBytesAndModesMatchPreparedSource": true,
+  "requires": [
+    {
+      "kind": "requires",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageVersion": "5.0.0-rc.1",
+      "compatibilityRef": "compatibility://abiogenesis/major/5",
+      "requiredContractRefs": [
+        "abg.contract.gtl.root-declaration",
+        "abg.schema.public-operation-invocation"
+      ],
+      "requiredCapabilityRefs": [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.gtl.declare@5"
+      ]
+    }
+  ],
+  "npmDependencies": {
+    "@abiogenesis/typescript-tenant": "file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+  },
+  "abiArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+    "bytes": 10679557,
+    "mode": "0o644"
+  },
+  "installs": 0,
+  "meaning": "actual fixture artifact closure; no installed dependency or HoG execution claim"
+}

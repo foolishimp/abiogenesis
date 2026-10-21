@@ -1,0 +1,316 @@
+{
+  "outer": {
+    "startedAt": "2026-10-21T08:25:26.008Z",
+    "completedAt": "2026-10-21T08:35:56.006Z",
+    "wallMs": 630048.51375,
+    "testDeclaredTimeoutMs": 600000,
+    "testActualCancellationMs": 600001.950708,
+    "outerDeclaredTimeoutMs": 630000,
+    "signalRequestedAtMs": 630009.573125
+  },
+  "operatorStatusSamples": {
+    "attribution": "Transcription of actual read-only tool-return elapsed/file-name observations; not original stdout bytes or exact phase start times.",
+    "samples": [
+      {
+        "elapsedSeconds": 66.550388,
+        "files": [
+          "configuration.json",
+          "identity.json"
+        ]
+      },
+      {
+        "elapsedSeconds": 139.617478,
+        "files": [
+          "configuration.json",
+          "identity.json"
+        ]
+      },
+      {
+        "elapsedSeconds": 193.112041,
+        "files": [
+          "configuration.json",
+          "identity.json"
+        ]
+      },
+      {
+        "elapsedSeconds": 284.981629,
+        "files": [
+          "configuration.json",
+          "identity.json"
+        ]
+      },
+      {
+        "elapsedSeconds": 471.450114,
+        "files": [
+          "configuration.json",
+          "construction-process.json",
+          "environment.json",
+          "identity.json"
+        ]
+      },
+      {
+        "elapsedSeconds": 549.984802,
+        "files": [
+          "configuration.json",
+          "construction-process.json",
+          "environment.json",
+          "identity.json"
+        ]
+      },
+      {
+        "elapsedSeconds": 626.03033,
+        "files": [
+          "configuration.json",
+          "construction-absence.json",
+          "construction-process.json",
+          "definition-call.json",
+          "environment.json",
+          "identity.json",
+          "run-environment-binding.json",
+          "source-close-handoff.json",
+          "source-completion.json",
+          "source-events.json",
+          "task-budget.json",
+          "task.json"
+        ]
+      }
+    ]
+  },
+  "recordedEventTimes": [
+    {
+      "kind": "public_operation_admitted",
+      "eventId": "event://abiogenesis/267ad9a22b3f6e02ff67695e89eb5c1ad5937f991306c7d8295548e1e18e47f7",
+      "eventTime": "2026-10-21T08:30:47.260Z",
+      "admissionOrdinal": 3,
+      "runId": null,
+      "payload": null
+    },
+    {
+      "kind": "invocation_admitted",
+      "eventId": "event://abiogenesis/1fcf4c1f6ccdcd8da8cab847e58557f7b59e88b03d44a47c8e44e15ea66c83fa",
+      "eventTime": "2026-10-21T08:30:47.260Z",
+      "admissionOrdinal": 4,
+      "runId": null,
+      "payload": null
+    },
+    {
+      "kind": "basis_admitted",
+      "eventId": "event://abiogenesis/8183ba832b2e5795d2610dbddadd93561941c7bcad26c915b7b3196f2ec4e0f3",
+      "eventTime": "2026-10-21T08:30:47.944Z",
+      "admissionOrdinal": 6,
+      "runId": null,
+      "payload": null
+    },
+    {
+      "kind": "c_call_opened",
+      "eventId": "event://abiogenesis/7e2d9a026e56131b8139a730af54c342ed906d8cc29f28c8687d65dd20124c32",
+      "eventTime": "2026-10-21T08:30:49.781Z",
+      "admissionOrdinal": 14,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "eventId": "event://abiogenesis/6cfabe1562f411c065eb35fcf4dab279fdf768b2471d365b75c75978c6f2fc8f",
+      "eventTime": "2026-10-21T08:30:49.781Z",
+      "admissionOrdinal": 15,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "actor_process_started",
+      "eventId": "event://abiogenesis/42963b3a8cc0671ad0bf7f5b6d5666bb65e0d8660d303c1366f4dc46e9e3575a",
+      "eventTime": "2026-10-21T08:30:50.751Z",
+      "admissionOrdinal": 19,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/c1637caa1758e6a9433f02e99120313cf6b4a3ab5843cebc95a99d7f6001d8f8",
+        "cCallRef": "c-call:sha256:e9c7e790edfcf56b258d3b836aadfb7fed6f7421965d745c42d658eb57e68bc7",
+        "processId": 78207,
+        "processRef": "process://abiogenesis/14f6508acd2936e969a1a6e6d0917fe78ea29e790e3972bb73bd21877005856f"
+      }
+    },
+    {
+      "kind": "actor_process_exited",
+      "eventId": "event://abiogenesis/40eaa3badb854d4709cab95f9acd5d155e3e627debdff787f5960ec02c7f583c",
+      "eventTime": "2026-10-21T08:30:54.633Z",
+      "admissionOrdinal": 31,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": {
+        "actorInvocationRef": "actor-invocation://abiogenesis/c1637caa1758e6a9433f02e99120313cf6b4a3ab5843cebc95a99d7f6001d8f8",
+        "processRef": "process://abiogenesis/14f6508acd2936e969a1a6e6d0917fe78ea29e790e3972bb73bd21877005856f",
+        "signal": null,
+        "status": 0
+      }
+    },
+    {
+      "kind": "c_call_opened",
+      "eventId": "event://abiogenesis/f468929c28951d1cad327872f2fced50a37bf17c9b742a73f5569ae4d9391ea1",
+      "eventTime": "2026-10-21T08:31:07.661Z",
+      "admissionOrdinal": 44,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "eventId": "event://abiogenesis/5a70aea1ef154592c309def313e87370cbc4429e62cfa98d877377fbb5061ac5",
+      "eventTime": "2026-10-21T08:31:07.662Z",
+      "admissionOrdinal": 45,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_opened",
+      "eventId": "event://abiogenesis/d693af2410fb59bb09bfbbcc37e28ecc018d193497910154966119942e332b25",
+      "eventTime": "2026-10-21T08:31:41.068Z",
+      "admissionOrdinal": 61,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "eventId": "event://abiogenesis/83273b9629c526c38e90718af6e36939a810e10b91567cad03c76a1c62c55fe8",
+      "eventTime": "2026-10-21T08:31:41.068Z",
+      "admissionOrdinal": 62,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "basis_admitted",
+      "eventId": "event://abiogenesis/7fd362056a0c6729b16ba4fb4be2012dcdce981fc75b751617fc71d4dafa2926",
+      "eventTime": "2026-10-21T08:31:55.727Z",
+      "admissionOrdinal": 66,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_opened",
+      "eventId": "event://abiogenesis/167df8dc22c63542db35c227bf03f011792716ed992ce919913329491628cd42",
+      "eventTime": "2026-10-21T08:32:49.714Z",
+      "admissionOrdinal": 75,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "eventId": "event://abiogenesis/309a808a63beca915773e2ece3635597ed1cb711df09e191d1739e65c389b946",
+      "eventTime": "2026-10-21T08:32:49.716Z",
+      "admissionOrdinal": 76,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "basis_admitted",
+      "eventId": "event://abiogenesis/0671c6bc371251d0354ca31f4e2e104fcc4ab9a8b41e865c1c1a1c497347b36a",
+      "eventTime": "2026-10-21T08:33:01.550Z",
+      "admissionOrdinal": 80,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_opened",
+      "eventId": "event://abiogenesis/09a3441f2bc4fd5502dcb101c2703e90ddc1b3e8f405f7b835f043c54d3eab76",
+      "eventTime": "2026-10-21T08:34:12.170Z",
+      "admissionOrdinal": 85,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "eventId": "event://abiogenesis/4d38cdc9ba4a9227c3c3b8bf2ef0a8cd64a1a6b70aa8c090537b8ed85c96517d",
+      "eventTime": "2026-10-21T08:34:12.171Z",
+      "admissionOrdinal": 86,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_opened",
+      "eventId": "event://abiogenesis/77126b4f2c87c16d407efed72b39917f88e2460cef482bef6a001c2f85d7d393",
+      "eventTime": "2026-10-21T08:35:21.206Z",
+      "admissionOrdinal": 120,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "eventId": "event://abiogenesis/776f791c0f6a502f4d9a18d8f3f9983fb7f7b7bb3bcca4f982dd90f226049a5a",
+      "eventTime": "2026-10-21T08:35:21.207Z",
+      "admissionOrdinal": 121,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "basis_admitted",
+      "eventId": "event://abiogenesis/85bb1b8d645236fccb4209fe6259fceb622b947c7cf2a2cb0328badb968a0ac3",
+      "eventTime": "2026-10-21T08:35:23.346Z",
+      "admissionOrdinal": 125,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_opened",
+      "eventId": "event://abiogenesis/284211b915740e3252ed3f935925427f52610bb24615e325365cecede453b5d5",
+      "eventTime": "2026-10-21T08:35:29.007Z",
+      "admissionOrdinal": 130,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "eventId": "event://abiogenesis/aa7fe9a3f2f6d643a5ce5a2e58ee40bbd6ca2669c9a97b62014ce4aea383f484",
+      "eventTime": "2026-10-21T08:35:29.007Z",
+      "admissionOrdinal": 131,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "run_closed",
+      "eventId": "event://abiogenesis/bb2f064b7470d9e80a49b3cabb3f58e48c3576ef49f46c3f51411c98a9f376ec",
+      "eventTime": "2026-10-21T08:35:41.294Z",
+      "admissionOrdinal": 185,
+      "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+      "payload": null
+    },
+    {
+      "kind": "public_operation_admitted",
+      "eventId": "event://abiogenesis/5ba309051184bad755bea266010e6e99bc596c7976e1ab785d25751d808a6705",
+      "eventTime": "2026-10-21T08:35:50.198Z",
+      "admissionOrdinal": 186,
+      "runId": null,
+      "payload": null
+    },
+    {
+      "kind": "invocation_admitted",
+      "eventId": "event://abiogenesis/4f9454e67355be2c5b55164a6a8d0c70b8325a1179ab6ce212e4693d01f3182f",
+      "eventTime": "2026-10-21T08:35:50.198Z",
+      "admissionOrdinal": 187,
+      "runId": null,
+      "payload": null
+    },
+    {
+      "kind": "basis_admitted",
+      "eventId": "event://abiogenesis/c70a4c156ed4b38afd8a5247940d6f2bfd71b500a020dd882bc04c4f29e47816",
+      "eventTime": "2026-10-21T08:35:51.855Z",
+      "admissionOrdinal": 189,
+      "runId": null,
+      "payload": null
+    },
+    {
+      "kind": "c_call_opened",
+      "eventId": "event://abiogenesis/a241d3c352bc5347085c3ab104653c6240018b8ef61e2c6b77dc7ad8da3a8db5",
+      "eventTime": "2026-10-21T08:35:53.588Z",
+      "admissionOrdinal": 195,
+      "runId": "run://abiogenesis/5111c7c4685061a835608fce687b3ee3f9bfc49ec91234f0540a48560293a5f2",
+      "payload": null
+    },
+    {
+      "kind": "c_call_fibre_selected",
+      "eventId": "event://abiogenesis/1b5bbb6999a01bdb2f6c522e0b7444affdfbb72a50ada9954ab2a094fc298a3a",
+      "eventTime": "2026-10-21T08:35:53.588Z",
+      "admissionOrdinal": 196,
+      "runId": "run://abiogenesis/5111c7c4685061a835608fce687b3ee3f9bfc49ec91234f0540a48560293a5f2",
+      "payload": null
+    }
+  ],
+  "observedLimit": "The framework test cancellation did not immediately settle the awaited operation: C1 closure and C2 admission were retained later, before the outer deadline. These effects remain actual, but do not turn the failed test into a pass. No cause for the long elapsed setup/traversal time is established here."
+}

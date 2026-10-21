@@ -1,0 +1,1 @@
+Generic governance source. No STDO or Python dependency.

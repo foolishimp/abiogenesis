@@ -1,0 +1,28 @@
+(node:11682) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ U1-P5-02 actual C0 successor and every affected currentness consumer (2387.658208ms)
+ℹ [{"owner":"Product replaceWorksiteFile -> EventStore -> EventCalculus","case":"admitted C0 successor"},{"owner":"execution_basis.hasExactWorksiteCommandLeafSourceAtDurablePrefix -> exactC2SourceEnvironment; worksite_input_provenance.projectObservedWorksiteCommandChildAtPrefix","case":"paired observed C2 source and preparation provenance","mapping":{"before":[true,"projection"],"affectedAfter":[false,null],"unaffectedAfter":[true,"same preparation projection"]}},{"owner":"default_library source gate 187 and parent gate 310","case":"paired governance dependencies","mapping":{"before":["native task","terminal true"],"affectedAfter":[null,"terminal false with original unresolved supports"],"unaffectedAfter":["same task","terminal true"]}},{"owner":"semantic_job.nativeStageSource -> projectNativeSemanticFold","case":"affected","before":"valid SemanticJobEnvelope","after":null},{"owner":"semantic_job.nativeStageSource -> projectNativeSemanticFold","case":"sibling","before":"valid SemanticJobEnvelope","after":"same SemanticJobEnvelope"},{"owner":"semantic_revision.nativeIntakeFacts -> prepareNativeSemanticRevisionIntake","case":"affected","before":"valid selection input","after":"native_revision_source_invalidated"},{"owner":"semantic_revision.nativeIntakeFacts -> prepareNativeSemanticRevisionIntake","case":"sibling","before":"valid selection input","after":"same selection input"},{"owner":"semantic_revision.nativeJobRevisionSubject -> projectOwnedJobRevisionSubject","case":"affected","before":"authenticated retained-evidence subject","after":null},{"owner":"semantic_revision.nativeJobRevisionSubject -> projectOwnedJobRevisionSubject","case":"sibling","before":"authenticated retained-evidence subject","after":"same retained evidence and acquisition"}]
+✔ U1 physical target scope successor across bindings and native Result scopes (4130.237458ms)
+ℹ Ten selected physical-scope/C0 cases completed; no native/command actor, no installed claim.
+(node:11745) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ U1 fixture event handoffs match the exported owner contracts before effectful proof (44.268209ms)
+ℹ Closed-shape preflight covered 29 candidates across 17 existing event kinds; no runtime outcome credit.
+▶ U1 scope, currentness and cleanup agree at full, indexed, incremental and cold prefixes
+  ✔ ["target.txt"] (178.249667ms)
+  ✔ ["nested"] (163.18ms)
+  ✔ ["."] (162.849125ms)
+  ✔ [] (158.999958ms)
+  ✔ ["target.txt","nested","nested/file.txt"] (160.630875ms)
+✔ U1 scope, currentness and cleanup agree at full, indexed, incremental and cold prefixes (824.492041ms)
+✔ U1 both unknown causes share authentication and preserve the transport failure (61.754375ms)
+✔ U1 rejects absent, ambiguous, foreign, changed or causally late prerequisites and substituted causes (45.953375ms)
+✔ U1 C2 current-source gate rejects affected input while immutable native provenance remains reusable (104.365458ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8243.831209

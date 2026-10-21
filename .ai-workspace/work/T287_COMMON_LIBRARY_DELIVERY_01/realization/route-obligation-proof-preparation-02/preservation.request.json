@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/usr/local/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/verify-preservation.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "scriptSha256": "6f791279ae4294d33729193e5c82bb825621e5b4ea4abbdfe03dd6b23740a11a",
+  "startedAt": "2026-10-21T04:58:50.543965+00:00",
+  "executionCount": 1,
+  "retryCount": 0
+}

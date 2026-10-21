@@ -1,0 +1,42 @@
+{
+  "kind": "first unexpected selected command failure",
+  "command": "reopen18",
+  "request": {
+    "label": "reopen18",
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "test_env/tests/m5-event-store-reopen.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "effectiveEnvironment": {
+      "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "HOME": "/Users/jim",
+      "LANG": "en_AU.UTF-8",
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/03-reopen18/tmp/",
+      "npm_config_offline": "true",
+      "npm_config_ignore_scripts": "true",
+      "npm_config_audit": "false",
+      "npm_config_fund": "false",
+      "npm_config_update_notifier": "false",
+      "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-cache",
+      "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-logs",
+      "NODE_OPTIONS": "",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "timeoutMs": 600000,
+    "commandFreezeSha256": "6b6368801ff3691fd514c0498babbfa7a757f4f6cd0d131410fec50a893c2f97",
+    "runnerSha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "startedUnix": 1792565218.827643
+  },
+  "result": {
+    "pid": 12500,
+    "exitCode": 1,
+    "wallMs": 40129.86720795743,
+    "stdoutSha256": "966591cd567924240d0b44990548c41d81ac19bb4f3a6c93b21640d20d91c316",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "disposition": "stopped before repair/retry/next case"
+}

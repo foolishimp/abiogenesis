@@ -1,0 +1,1394 @@
+{
+  "sourceRoot": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence",
+  "portableRoot": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence",
+  "files": [
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/activation-preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474172523,
+        "type": "file",
+        "bytes": 8482,
+        "sha256": "aeb99e1a07a20cfa2536ec518924486111d23dd48314b2c4193ebb3a5c2a8a31"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/activation-preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220393,
+        "type": "file",
+        "bytes": 8482,
+        "sha256": "aeb99e1a07a20cfa2536ec518924486111d23dd48314b2c4193ebb3a5c2a8a31"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/bootstrap-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190674,
+        "type": "file",
+        "bytes": 987997,
+        "sha256": "065bd35aea4e4c0d4854d1af0b4e13c07b051a7dfb5342ffd848e07c8a777542"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/bootstrap-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220394,
+        "type": "file",
+        "bytes": 987997,
+        "sha256": "065bd35aea4e4c0d4854d1af0b4e13c07b051a7dfb5342ffd848e07c8a777542"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/catalog-admit.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220306,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "a995e0d8090e0df2e7fc80e2b6692b32be2a3100caf697c6afe77eab358db4ff"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/catalog-admit.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220396,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "a995e0d8090e0df2e7fc80e2b6692b32be2a3100caf697c6afe77eab358db4ff"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/catalog-admit.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220305,
+        "type": "file",
+        "bytes": 174016,
+        "sha256": "74fc23309f0c1322c3760cbce0ee56d407a1ccc43e0f841a6f3d7581d7298a36"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/catalog-admit.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220397,
+        "type": "file",
+        "bytes": 174016,
+        "sha256": "74fc23309f0c1322c3760cbce0ee56d407a1ccc43e0f841a6f3d7581d7298a36"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/catalog-admit.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220285,
+        "type": "file",
+        "bytes": 34952002,
+        "sha256": "7bab95f77915bb444ae2e2ac9aecfe84dd7dae6bb7e589dd23b9ad4e5f1da9b1"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/catalog-admit.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220398,
+        "type": "file",
+        "bytes": 34952002,
+        "sha256": "7bab95f77915bb444ae2e2ac9aecfe84dd7dae6bb7e589dd23b9ad4e5f1da9b1"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/catalog-view.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220335,
+        "type": "file",
+        "bytes": 2266,
+        "sha256": "2c34be9b177c7ccc538c36e0babb520eac6379b34a2c7b5aaab41281d00d5288"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/catalog-view.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220399,
+        "type": "file",
+        "bytes": 2266,
+        "sha256": "2c34be9b177c7ccc538c36e0babb520eac6379b34a2c7b5aaab41281d00d5288"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/catalog-view.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220308,
+        "type": "file",
+        "bytes": 35770309,
+        "sha256": "43de3fc5b2708ecb4d6c269d28548fa8056d5cd157c047ab5fa69a325a2b977a"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/catalog-view.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220400,
+        "type": "file",
+        "bytes": 35770309,
+        "sha256": "43de3fc5b2708ecb4d6c269d28548fa8056d5cd157c047ab5fa69a325a2b977a"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-install-0.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474208455,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "48da86e14f2acb1064636976888380c51cdff7a824e401d17d851b5c97bb8d59"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-install-0.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220403,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "48da86e14f2acb1064636976888380c51cdff7a824e401d17d851b5c97bb8d59"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-install-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474208454,
+        "type": "file",
+        "bytes": 6440,
+        "sha256": "68d35405c834ffeee93c9085c144b7a1e22e4532eb9b21cdbd1759e9f945c6df"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-install-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220404,
+        "type": "file",
+        "bytes": 6440,
+        "sha256": "68d35405c834ffeee93c9085c144b7a1e22e4532eb9b21cdbd1759e9f945c6df"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-install-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190875,
+        "type": "file",
+        "bytes": 31448649,
+        "sha256": "7ef7196af5e9afcfffe4a6094da43df97e670c00b0555abdc93c2bad3ec410b4"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-install-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220405,
+        "type": "file",
+        "bytes": 31448649,
+        "sha256": "7ef7196af5e9afcfffe4a6094da43df97e670c00b0555abdc93c2bad3ec410b4"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-install-1.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220225,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "64d8f27423672e6ea8609a24e8d2af8cccf2e5271e0829521693d0cbc32edf10"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-install-1.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220406,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "64d8f27423672e6ea8609a24e8d2af8cccf2e5271e0829521693d0cbc32edf10"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-install-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220224,
+        "type": "file",
+        "bytes": 6383,
+        "sha256": "22124dc3d055e2d3d72acf670a0915173a5ef31da2b04160da323d3c141ff945"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-install-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220407,
+        "type": "file",
+        "bytes": 6383,
+        "sha256": "22124dc3d055e2d3d72acf670a0915173a5ef31da2b04160da323d3c141ff945"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-install-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474208461,
+        "type": "file",
+        "bytes": 17291800,
+        "sha256": "f5b90c6f6842323598a476be357a679293db413dab94e6d870971ae4c9982f65"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-install-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220408,
+        "type": "file",
+        "bytes": 17291800,
+        "sha256": "f5b90c6f6842323598a476be357a679293db413dab94e6d870971ae4c9982f65"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-resolve.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190872,
+        "type": "file",
+        "bytes": 5354,
+        "sha256": "c971363109d124594b31dc392733bc61229eb236f4ce189db0c7e84770b068f7"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-resolve.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220409,
+        "type": "file",
+        "bytes": 5354,
+        "sha256": "c971363109d124594b31dc392733bc61229eb236f4ce189db0c7e84770b068f7"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-resolve.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190848,
+        "type": "file",
+        "bytes": 28498365,
+        "sha256": "a3d6ae4a7f14a00ec2cba5d9064c3d61c2242f9cb8b0b5fd0e6268756fcdc185"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-resolve.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220410,
+        "type": "file",
+        "bytes": 28498365,
+        "sha256": "a3d6ae4a7f14a00ec2cba5d9064c3d61c2242f9cb8b0b5fd0e6268756fcdc185"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-verify-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190807,
+        "type": "file",
+        "bytes": 257225,
+        "sha256": "59cc1689d69106066738f76b64bee6d8a0039c2e287aec9bb2b610dca92944ed"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-verify-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220411,
+        "type": "file",
+        "bytes": 257225,
+        "sha256": "59cc1689d69106066738f76b64bee6d8a0039c2e287aec9bb2b610dca92944ed"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-verify-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190756,
+        "type": "file",
+        "bytes": 28344353,
+        "sha256": "f5e1a17c12ce0dd225b55ba4b340361d483e44f3c7732ea59aa9c03dde906c1e"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-verify-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220412,
+        "type": "file",
+        "bytes": 28344353,
+        "sha256": "f5e1a17c12ce0dd225b55ba4b340361d483e44f3c7732ea59aa9c03dde906c1e"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-verify-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190841,
+        "type": "file",
+        "bytes": 2046,
+        "sha256": "ae530565ba37e6742be02f6facc99f1fad18c10f105a66779a3ddb5c260d2687"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-verify-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220413,
+        "type": "file",
+        "bytes": 2046,
+        "sha256": "ae530565ba37e6742be02f6facc99f1fad18c10f105a66779a3ddb5c260d2687"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/product-verify-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190808,
+        "type": "file",
+        "bytes": 14186162,
+        "sha256": "3e31a1bef13aa8a2cc66c59e18f8309d2c98c7d669a6495ed40a63c35a1b1cce"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/product-verify-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220414,
+        "type": "file",
+        "bytes": 14186162,
+        "sha256": "3e31a1bef13aa8a2cc66c59e18f8309d2c98c7d669a6495ed40a63c35a1b1cce"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/program-conformance.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220347,
+        "type": "file",
+        "bytes": 2470,
+        "sha256": "76c883c837c71716776483018d8482899b8d862a59760dce57ae518122d2b446"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/program-conformance.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220415,
+        "type": "file",
+        "bytes": 2470,
+        "sha256": "76c883c837c71716776483018d8482899b8d862a59760dce57ae518122d2b446"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/program-conformance.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220336,
+        "type": "file",
+        "bytes": 36323013,
+        "sha256": "ff55541e14a8c371bae1502077f4b93c58303e0848b545f92e0606e718e8c8ac"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/program-conformance.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220416,
+        "type": "file",
+        "bytes": 36323013,
+        "sha256": "ff55541e14a8c371bae1502077f4b93c58303e0848b545f92e0606e718e8c8ac"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/workspace-bind.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220283,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "a995e0d8090e0df2e7fc80e2b6692b32be2a3100caf697c6afe77eab358db4ff"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/workspace-bind.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220417,
+        "type": "file",
+        "bytes": 1230,
+        "sha256": "a995e0d8090e0df2e7fc80e2b6692b32be2a3100caf697c6afe77eab358db4ff"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/workspace-bind.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220282,
+        "type": "file",
+        "bytes": 7007,
+        "sha256": "22231308df837b4fa1e6b0fd4fffd9e074678e269ebf96d22a3869cfaa5b441b"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/workspace-bind.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220418,
+        "type": "file",
+        "bytes": 7007,
+        "sha256": "22231308df837b4fa1e6b0fd4fffd9e074678e269ebf96d22a3869cfaa5b441b"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/workspace-bind.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220233,
+        "type": "file",
+        "bytes": 20392182,
+        "sha256": "2cd5442705b3d4fdfa6d3673111bf64aba17b1c469c5ecafc1460da0555c7234"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/workspace-bind.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220419,
+        "type": "file",
+        "bytes": 20392182,
+        "sha256": "2cd5442705b3d4fdfa6d3673111bf64aba17b1c469c5ecafc1460da0555c7234"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/workspace-create.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190727,
+        "type": "file",
+        "bytes": 1955,
+        "sha256": "1d9cdcd005ce69340d2931e45d72a38ae2de7504c890dc2e010e30f5ee121ccf"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/workspace-create.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220420,
+        "type": "file",
+        "bytes": 1955,
+        "sha256": "1d9cdcd005ce69340d2931e45d72a38ae2de7504c890dc2e010e30f5ee121ccf"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/calls/workspace-create.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190712,
+        "type": "file",
+        "bytes": 14176906,
+        "sha256": "078c8616d3e38c732391bc65d13905fb371aee01d22d05dbede48763f360dbdb"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/calls/workspace-create.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220421,
+        "type": "file",
+        "bytes": 14176906,
+        "sha256": "078c8616d3e38c732391bc65d13905fb371aee01d22d05dbede48763f360dbdb"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/1-bootstrap-offline-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190673,
+        "type": "file",
+        "bytes": 774,
+        "sha256": "e7ebe1043a0f324f3493fd48c2f700b4e807d417c4d7fcba97dfcda6624bfcd7"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/1-bootstrap-offline-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220423,
+        "type": "file",
+        "bytes": 774,
+        "sha256": "e7ebe1043a0f324f3493fd48c2f700b4e807d417c4d7fcba97dfcda6624bfcd7"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/10-workspace-bind.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220281,
+        "type": "file",
+        "bytes": 6354,
+        "sha256": "7d786b7677ebf94fba63abd614d4d46d7b94576131453488e93c9e7777946125"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/10-workspace-bind.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220424,
+        "type": "file",
+        "bytes": 6354,
+        "sha256": "7d786b7677ebf94fba63abd614d4d46d7b94576131453488e93c9e7777946125"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/11-catalog-admit.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220304,
+        "type": "file",
+        "bytes": 143456,
+        "sha256": "da78b6dd786fdc0048c3bf5ec65c2c1c6c3c76c42b800303f11493c025123714"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/11-catalog-admit.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220425,
+        "type": "file",
+        "bytes": 143456,
+        "sha256": "da78b6dd786fdc0048c3bf5ec65c2c1c6c3c76c42b800303f11493c025123714"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/12-catalog-view.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220334,
+        "type": "file",
+        "bytes": 2484,
+        "sha256": "62f7628de98d719e1185e0cbbcccd698c5c83f59cafc7c1d5e137ec20fdfd6a7"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/12-catalog-view.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220426,
+        "type": "file",
+        "bytes": 2484,
+        "sha256": "62f7628de98d719e1185e0cbbcccd698c5c83f59cafc7c1d5e137ec20fdfd6a7"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/13-program-conformance.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220346,
+        "type": "file",
+        "bytes": 2634,
+        "sha256": "96d54213a6a6d4008db38ff637d00878f5ccd185afcf35b8266d03ec63029bad"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/13-program-conformance.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220427,
+        "type": "file",
+        "bytes": 2634,
+        "sha256": "96d54213a6a6d4008db38ff637d00878f5ccd185afcf35b8266d03ec63029bad"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/2-installed-declaration-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190685,
+        "type": "file",
+        "bytes": 929,
+        "sha256": "9425bfe9d10b33f8d8fd189f2d0e65b96844e065a8f46456b9904de39c2f1090"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/2-installed-declaration-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220428,
+        "type": "file",
+        "bytes": 929,
+        "sha256": "9425bfe9d10b33f8d8fd189f2d0e65b96844e065a8f46456b9904de39c2f1090"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/3-workspace-create.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190726,
+        "type": "file",
+        "bytes": 2216,
+        "sha256": "becba3a092af8f6827e933a7a434d28de972c1e59d5498e05aeded734777f339"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/3-workspace-create.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220429,
+        "type": "file",
+        "bytes": 2216,
+        "sha256": "becba3a092af8f6827e933a7a434d28de972c1e59d5498e05aeded734777f339"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/4-pack-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190754,
+        "type": "file",
+        "bytes": 1787,
+        "sha256": "54456df57a45975490f2e98038afcccadf74d47c15ca107898021fa8ebaecfe2"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/4-pack-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220430,
+        "type": "file",
+        "bytes": 1787,
+        "sha256": "54456df57a45975490f2e98038afcccadf74d47c15ca107898021fa8ebaecfe2"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/5-product-verify-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190806,
+        "type": "file",
+        "bytes": 158775,
+        "sha256": "49ba8c199f154c9539825b46ec4a0cebf729d228eedde61afad50ce95cb84f8c"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/5-product-verify-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220431,
+        "type": "file",
+        "bytes": 158775,
+        "sha256": "49ba8c199f154c9539825b46ec4a0cebf729d228eedde61afad50ce95cb84f8c"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/6-product-verify-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190840,
+        "type": "file",
+        "bytes": 2295,
+        "sha256": "831eceeb5adde042cae86652ef987f8da227d0dbffbdb1261a82b9b4f6f8a24e"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/6-product-verify-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220432,
+        "type": "file",
+        "bytes": 2295,
+        "sha256": "831eceeb5adde042cae86652ef987f8da227d0dbffbdb1261a82b9b4f6f8a24e"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/7-product-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190871,
+        "type": "file",
+        "bytes": 4723,
+        "sha256": "1f1b15e7f7a972cb0a3ac0a1ab5e1e77575690864d98eb210bc123c5ec24e814"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/7-product-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220433,
+        "type": "file",
+        "bytes": 4723,
+        "sha256": "1f1b15e7f7a972cb0a3ac0a1ab5e1e77575690864d98eb210bc123c5ec24e814"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/8-product-install-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474208453,
+        "type": "file",
+        "bytes": 6087,
+        "sha256": "0ede08cac873d409945a6b638ff9487bf574bf1df95d5ddbd124dfb317fa1132"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/8-product-install-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220434,
+        "type": "file",
+        "bytes": 6087,
+        "sha256": "0ede08cac873d409945a6b638ff9487bf574bf1df95d5ddbd124dfb317fa1132"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/commands/9-product-install-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220223,
+        "type": "file",
+        "bytes": 6030,
+        "sha256": "e4daa4cc8ebd4d09c1360f8c356fc09dc29e0a9a0911f9df9b390159f02d3321"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/commands/9-product-install-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220435,
+        "type": "file",
+        "bytes": 6030,
+        "sha256": "e4daa4cc8ebd4d09c1360f8c356fc09dc29e0a9a0911f9df9b390159f02d3321"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/consumer-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190755,
+        "type": "file",
+        "bytes": 10034,
+        "sha256": "6e3396f7708fbfa0273466af74f66a340eda8b7cb5abcf4426e0fdb86b202bb5"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/consumer-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220436,
+        "type": "file",
+        "bytes": 10034,
+        "sha256": "6e3396f7708fbfa0273466af74f66a340eda8b7cb5abcf4426e0fdb86b202bb5"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/effective-environment.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474172525,
+        "type": "file",
+        "bytes": 447,
+        "sha256": "82bacf2ecef345537868bf2af250bf65167dbdeb5f9295cb427e85bb630ceb1d"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/effective-environment.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220437,
+        "type": "file",
+        "bytes": 447,
+        "sha256": "82bacf2ecef345537868bf2af250bf65167dbdeb5f9295cb427e85bb630ceb1d"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220357,
+        "type": "file",
+        "bytes": 3113245,
+        "sha256": "e55955e19f57b74aa76ad6d1d92cfb08ea567ccf1028b2754425ca8f3c7ee88e"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220438,
+        "type": "file",
+        "bytes": 3113245,
+        "sha256": "e55955e19f57b74aa76ad6d1d92cfb08ea567ccf1028b2754425ca8f3c7ee88e"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/installed/0/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474208460,
+        "type": "file",
+        "bytes": 4302002,
+        "sha256": "fdb24ace021f65ba6a6ede801170238bd26275e975908b2a1b558c85d8dd0bb1"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/installed/0/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220441,
+        "type": "file",
+        "bytes": 4302002,
+        "sha256": "fdb24ace021f65ba6a6ede801170238bd26275e975908b2a1b558c85d8dd0bb1"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/installed/0/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474208459,
+        "type": "file",
+        "bytes": 865,
+        "sha256": "c0a0cc47c3b90dabfdf354943d3f8548480d9bad59498794a5e93e8fbf855be9"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/installed/0/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220442,
+        "type": "file",
+        "bytes": 865,
+        "sha256": "c0a0cc47c3b90dabfdf354943d3f8548480d9bad59498794a5e93e8fbf855be9"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/installed/0/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474208458,
+        "type": "file",
+        "bytes": 4314939,
+        "sha256": "59693e6fd6e95556ceac7c820ba1a05f7e130a82a37bc25614d4d94611ab5b0f"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/installed/0/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220443,
+        "type": "file",
+        "bytes": 4314939,
+        "sha256": "59693e6fd6e95556ceac7c820ba1a05f7e130a82a37bc25614d4d94611ab5b0f"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/installed/1/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220229,
+        "type": "file",
+        "bytes": 12985,
+        "sha256": "4ae111bb804663ace84b14ec821fde23e250c8981ce047ce294758349793f3af"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/installed/1/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220445,
+        "type": "file",
+        "bytes": 12985,
+        "sha256": "4ae111bb804663ace84b14ec821fde23e250c8981ce047ce294758349793f3af"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/installed/1/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220228,
+        "type": "file",
+        "bytes": 865,
+        "sha256": "00652525ce805a9bd9bf9db409ba74a33569f461835924082b7f8c01e7b891d0"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/installed/1/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220446,
+        "type": "file",
+        "bytes": 865,
+        "sha256": "00652525ce805a9bd9bf9db409ba74a33569f461835924082b7f8c01e7b891d0"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/installed/1/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220227,
+        "type": "file",
+        "bytes": 5845,
+        "sha256": "968363dd3ea469e1c8b2da27304cda3c9a483f78ac2720ad9da4634af67214d5"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/installed/1/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220447,
+        "type": "file",
+        "bytes": 5845,
+        "sha256": "968363dd3ea469e1c8b2da27304cda3c9a483f78ac2720ad9da4634af67214d5"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/measurements.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220358,
+        "type": "file",
+        "bytes": 16244,
+        "sha256": "19b04bced4c7e9a79722bfa8ac96dba604fdefad4358a3ad3689e9d1372c6dc4"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/measurements.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220448,
+        "type": "file",
+        "bytes": 16244,
+        "sha256": "19b04bced4c7e9a79722bfa8ac96dba604fdefad4358a3ad3689e9d1372c6dc4"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/native-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190710,
+        "type": "file",
+        "bytes": 16411283,
+        "sha256": "70db8ddbcf902cb7dd0a99945003b4a017d3cb8470f9ac3258fca89268e8a8fa"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/native-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220449,
+        "type": "file",
+        "bytes": 16411283,
+        "sha256": "70db8ddbcf902cb7dd0a99945003b4a017d3cb8470f9ac3258fca89268e8a8fa"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/p1-owner-state.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220356,
+        "type": "file",
+        "bytes": 41971175,
+        "sha256": "2145a317d39daa5615b67569c06a18dd9cd51775d8095c00bda79604cc743c29"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/p1-owner-state.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220450,
+        "type": "file",
+        "bytes": 41971175,
+        "sha256": "2145a317d39daa5615b67569c06a18dd9cd51775d8095c00bda79604cc743c29"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/resolution-first.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220353,
+        "type": "file",
+        "bytes": 5461010,
+        "sha256": "bf09a516b74642823454285a65bf6e7ba5677fc27085d97d132711c26eb246bf"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/resolution-first.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220451,
+        "type": "file",
+        "bytes": 5461010,
+        "sha256": "bf09a516b74642823454285a65bf6e7ba5677fc27085d97d132711c26eb246bf"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/resolution-negatives.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220355,
+        "type": "file",
+        "bytes": 42046,
+        "sha256": "f1d17a0fcee01f411ce02976e4263e3f61c811ffe3a359355d0b59871812346a"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/resolution-negatives.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220452,
+        "type": "file",
+        "bytes": 42046,
+        "sha256": "f1d17a0fcee01f411ce02976e4263e3f61c811ffe3a359355d0b59871812346a"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/resolution-warm.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220354,
+        "type": "file",
+        "bytes": 5461010,
+        "sha256": "bf09a516b74642823454285a65bf6e7ba5677fc27085d97d132711c26eb246bf"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/resolution-warm.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220453,
+        "type": "file",
+        "bytes": 5461010,
+        "sha256": "bf09a516b74642823454285a65bf6e7ba5677fc27085d97d132711c26eb246bf"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/resources/events/runtime.events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190889,
+        "type": "file",
+        "bytes": 3113245,
+        "sha256": "e55955e19f57b74aa76ad6d1d92cfb08ea567ccf1028b2754425ca8f3c7ee88e"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/resources/events/runtime.events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220456,
+        "type": "file",
+        "bytes": 3113245,
+        "sha256": "e55955e19f57b74aa76ad6d1d92cfb08ea567ccf1028b2754425ca8f3c7ee88e"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220359,
+        "type": "file",
+        "bytes": 1759,
+        "sha256": "82f9ad3f34b8c5b63a6130f91a5194cafb7f04ceb4520c093890c5a2d199c50b"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220457,
+        "type": "file",
+        "bytes": 1759,
+        "sha256": "82f9ad3f34b8c5b63a6130f91a5194cafb7f04ceb4520c093890c5a2d199c50b"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190749,
+        "type": "file",
+        "bytes": 6191,
+        "sha256": "96eafd6bfe556697191a05ea2e150b702ef661baadce8ef29c2c64bb482b810d"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220460,
+        "type": "file",
+        "bytes": 6191,
+        "sha256": "96eafd6bfe556697191a05ea2e150b702ef661baadce8ef29c2c64bb482b810d"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/setup/consumer-source/build/publication.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190735,
+        "type": "file",
+        "bytes": 27494,
+        "sha256": "91cd4bafe80f6546c677a925a3b993ba26d30d422afe6fb93743c5c6199aebdd"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/setup/consumer-source/build/publication.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220463,
+        "type": "file",
+        "bytes": 27494,
+        "sha256": "91cd4bafe80f6546c677a925a3b993ba26d30d422afe6fb93743c5c6199aebdd"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/setup/consumer-source/build/semantics.mjs",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190736,
+        "type": "file",
+        "bytes": 757,
+        "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/setup/consumer-source/build/semantics.mjs",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220464,
+        "type": "file",
+        "bytes": 757,
+        "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/setup/consumer-source/contracts/assessment.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190737,
+        "type": "file",
+        "bytes": 462,
+        "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/setup/consumer-source/contracts/assessment.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220466,
+        "type": "file",
+        "bytes": 462,
+        "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/setup/consumer-source/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190740,
+        "type": "file",
+        "bytes": 247,
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/setup/consumer-source/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220468,
+        "type": "file",
+        "bytes": 247,
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/setup/consumer-source/contracts/public-contract-catalog.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190738,
+        "type": "file",
+        "bytes": 75,
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/setup/consumer-source/contracts/public-contract-catalog.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220469,
+        "type": "file",
+        "bytes": 75,
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/setup/consumer-source/package.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190734,
+        "type": "file",
+        "bytes": 569,
+        "sha256": "271bc723af8a76824f3824bed02d3e369ab0855acfb89f6f96336dfb6e2ab50a"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/setup/consumer-source/package.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220470,
+        "type": "file",
+        "bytes": 569,
+        "sha256": "271bc723af8a76824f3824bed02d3e369ab0855acfb89f6f96336dfb6e2ab50a"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/setup/consumer-source/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190741,
+        "type": "file",
+        "bytes": 4864,
+        "sha256": "198afb292fadbbef0e4711c21dde7256d16c03f99a995f5ccddcfc56ace3d71c"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/setup/consumer-source/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220471,
+        "type": "file",
+        "bytes": 4864,
+        "sha256": "198afb292fadbbef0e4711c21dde7256d16c03f99a995f5ccddcfc56ace3d71c"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/setup-identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220348,
+        "type": "file",
+        "bytes": 9277469,
+        "sha256": "162fddf1836077e4f7a36d354e9f7094cba190870358c8658913b53b06c0bdb6"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/setup-identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220472,
+        "type": "file",
+        "bytes": 9277469,
+        "sha256": "162fddf1836077e4f7a36d354e9f7094cba190870358c8658913b53b06c0bdb6"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-final-02-08c0665f0fed9141/p1/evidence/workspace-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474190728,
+        "type": "file",
+        "bytes": 1544,
+        "sha256": "7782092eaa449aae6bf6d613843caddbfb0062721ec185cb07882eb3b300bbe0"
+      },
+      "portable": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/evidence/workspace-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474220473,
+        "type": "file",
+        "bytes": 1544,
+        "sha256": "7782092eaa449aae6bf6d613843caddbfb0062721ec185cb07882eb3b300bbe0"
+      },
+      "relation": "exact bytes and mode copy; distinct carrier, no inode identity claim"
+    }
+  ],
+  "excludedInstalledPayloadFiles": 10555,
+  "selection": "All case evidence except sandbox/installed package payload, which remains in actual root and full physical hash/mode inventory; no package bytes silently discarded."
+}

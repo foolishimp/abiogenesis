@@ -1,0 +1,28 @@
+{
+  "activation": "FINAL-REVIEW-DISPOSITION-RECORDS-01",
+  "administrative_successor": "N3-IMPORTER-ACCOUNTING-01",
+  "at": "2026-10-21T03:24:36.048552+00:00",
+  "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+  "kind": "bounded_additive_append",
+  "preimage": {
+    "path": "ticket-preimage.md",
+    "sha256": "4a6bd62f5ef62b901369dcd22094fb0cf85e0f67d2f13f7a167908c987f1a79e",
+    "bytes": 533349
+  },
+  "addition": {
+    "path": "ticket-addition.md",
+    "sha256": "45850323b5ea3d8e457d13c898febc22ac1c92c802292baa373ad3de3555a7dc",
+    "bytes": 5220
+  },
+  "afterimage": {
+    "path": "ticket-afterimage.md",
+    "sha256": "819c13cda5dff90c79e9fb73f9951bbcd7cbaf4fba28ed2e143ffab90d9b9a45",
+    "bytes": 538569
+  },
+  "exact_preimage_prefix_preserved": true,
+  "after_equals_preimage_plus_addition": true,
+  "section_anchor": "final-review-dispositions-01",
+  "section_start_line": 5045,
+  "later_ticket_updates_expected": true,
+  "whole_worktree_frozen": false
+}

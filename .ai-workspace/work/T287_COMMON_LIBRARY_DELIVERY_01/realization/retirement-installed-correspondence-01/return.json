@@ -1,0 +1,74 @@
+{
+  "activation": "RETIREMENT-INSTALLED-CORRESPONDENCE-01",
+  "status": "bounded_correspondence_closed_with_one_explicit_open",
+  "utc": "2026-10-21T08:21:29.479781+00:00",
+  "sourceBodies": 7,
+  "distinctModules": 8,
+  "sourceEmissionArchiveActualP1Correspondence": "closed for all selected modules and target imports",
+  "supersededAlgorithms": "All seven selected private bodies absent or delegated through retained owner projection; same emission bytes in archive and actual installed roots.",
+  "newRouteReachability": {
+    "supported": 6,
+    "open": [
+      "R4 rooted topology actual installed witness"
+    ]
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01/input-pins.json",
+    "sha256": "2c792eb86a5687e86f202efbb6c6aee84c8f3b2ca55425c9c8c66df88c06d76a",
+    "bytes": 4469,
+    "mode": "0o644"
+  },
+  "modules": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01/module-correspondence.json",
+    "sha256": "df1ad1718ec96e082fb74e736ee93ea2d83f160a528e8f732bd6b2d114b2a81f",
+    "bytes": 29949,
+    "mode": "0o644"
+  },
+  "retirement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01/retirement-checks.json",
+    "sha256": "e7afabbc9f1464df5e05be6e69fdf5b34df5d78dbedf8089b1e8ffc6a6fd752f",
+    "bytes": 17182,
+    "mode": "0o644"
+  },
+  "receipts": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01/owner-receipts.json",
+    "sha256": "837426d453f639f48bd9ffd72ed086d21a8362063305b653a0199205e8ac252e",
+    "bytes": 4287,
+    "mode": "0o644"
+  },
+  "codec": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01/codec-C1-correspondence.json",
+    "sha256": "696b56b8d3f07287245ec6622303f128ef5c8401671b5a01581c05d3df5685d6",
+    "bytes": 12481,
+    "mode": "0o644"
+  },
+  "reachability": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01/reachability.json",
+    "sha256": "1497ccbaf1fe72c0c74540b896f851e7c6b8d1a43b8f3e6f170579451126e015",
+    "bytes": 3488,
+    "mode": "0o644"
+  },
+  "successor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01/successor-rebind.json",
+    "sha256": "a274130d1586c9d47bc980c185a4faac2e36ba8b2a6e5bf6aea6e79048e1c42b",
+    "bytes": 1129,
+    "mode": "0o644"
+  },
+  "limits": [
+    "P5 C1 readAll/body materialization is the actual codec producer; later C2 remains failed.",
+    "Static sites and imports do not establish every branch was dynamically called.",
+    "E03/E04 remain separate; new candidate rebinding pending; no L5 acceptance."
+  ],
+  "effects": "Audit records only; zero runtime/test/install/probe/instrumentation or main/Git changes.",
+  "returnTo": "/root",
+  "report": {
+    "path": "report.md",
+    "sha256": "d8bc70ebf537774cf0c6bf616a545d088dfcd12b43b138a7f23a71d3b652874d",
+    "bytes": 3322
+  },
+  "verification": {
+    "path": "verification.json",
+    "sha256": "b302e55c0fc5910e6824fd4ac1d0a2e60c57b3eeaae437f78823c6507a461b7d",
+    "bytes": 1011
+  }
+}

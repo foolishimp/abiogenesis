@@ -1,0 +1,272 @@
+{
+  "kind": "COMBINED-FINAL-BUILD-01_closed_build_package_handoff",
+  "status": "ready_for_separately_granted_L4",
+  "sourceUnion": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source-union-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 402678,
+    "sha256": "be5cc153e4ff8bf21c546274f702afd46fa778174a1104a77c950d8bede9ac64"
+  },
+  "sourcePrecedence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/precedence-ledger.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 37019,
+    "sha256": "483aa07eb17e3791280f648af721cb5827ff046530ad62d8cba5a9a6f62f229a"
+  },
+  "prebuildFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/prebuild-freeze.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3738,
+    "sha256": "5101b980a04659fda90b07506c40c9620eb2c4f0443ced35e4cbeab727654811"
+  },
+  "HOW": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/HOW.md",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 5538,
+    "sha256": "22274037d241f8a85880df8b0d99fc41b21bd20f95a8610fac0208b23c45555a"
+  },
+  "package": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/package.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 9744,
+    "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9"
+  },
+  "packageLock": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/package-lock.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 8001,
+    "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+  },
+  "manifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3189620,
+    "sha256": "839fa4cb8552b7220984760097e38d064dc7b00a3328c6a07f1fa8c52308254b"
+  },
+  "archive": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 10679557,
+    "sha256": "465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06"
+  },
+  "archiveMembers": 5271,
+  "unpackedBytes": 70675893,
+  "npmIntegrity": "sha512-go1thGyWxc5kS0bhDzWPeQdnPloB+55CGTqg2NlzqrM8ENINSn72gPk9hDYU8WqenMj6hFcH4ZtfL/JQroOuOA==",
+  "npmShasum": "24746a9533bb5c612ce14087ad467aaa34e283b0",
+  "productContentDigest": "sha256:a41fbc3715e011cc5e94440d345a7d55dc58b1c3393d066b4a0c0ca655d4a230",
+  "payloadOwnerResult": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/archive-payload-owner-result.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 829,
+    "sha256": "379fe40e9ad62c99e2f422e3b1a5996e2f5d1fbe3e87bd453576ea703e17d5a0"
+  },
+  "generatedInventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/generated-inventory.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 249264,
+    "sha256": "3c79def76d9f8f4810b86fc046466fb851df965d98ed48e32a9f98f3edff94ff"
+  },
+  "supportManifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/support-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 209501,
+    "sha256": "85c00cf6b5bc76e4b1279b972427e4c04e673b908b4c6c3c62b066d0bda3dc94"
+  },
+  "metadataCorrespondence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/metadata-correspondence.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 44590,
+    "sha256": "2f5939c774427947ead8a0186d651ab6f6e4c5fe193b6fd9ee10214709a835d0"
+  },
+  "structuralCorrespondence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/structural-correspondence.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 41944,
+    "sha256": "7022fa8c682d1750cafc209dff98a3e37bd6755b609c4ec22a0e557bfc2398dc"
+  },
+  "preservation": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/preservation.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 8269,
+    "sha256": "2d2281702932a3e810235c45d96f265fb204dffdd05dfbc3e8472e1f9de31439"
+  },
+  "commandReceipts": {
+    "tsc": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/tsc.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1392,
+        "sha256": "1f9bfa490d815b36bff71791b2bd5050ec8ebd9ab4198339ed762c5c8e3d9dc9"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/tsc.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 355,
+        "sha256": "dedcdab575d979d91394b93a183ad5db78a98fee1a2103c39ea4d68dd45eb22f"
+      },
+      "exitCode": 0,
+      "executions": 1
+    },
+    "generate": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/generate.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1372,
+        "sha256": "b4d4b955a9d669ab387193deed3938c785b51dc931da29aa8429db73bd914586"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/generate.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 361,
+        "sha256": "d1085acaed9cf7b40867e0fd3e3030e9b7a0a842d2a34397fabbda0e9d3e0abc"
+      },
+      "exitCode": 0,
+      "executions": 1
+    },
+    "material": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/material.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1567,
+        "sha256": "600b5f3a233f493032417d340de81a19e0ae20ef89d909b4d2e56caaab09e129"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/material.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 362,
+        "sha256": "bd660319c95dd20ca51f410019d6e34dbf47418343c7a635fbc3a22effea2895"
+      },
+      "exitCode": 0,
+      "executions": 1
+    },
+    "pack": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/pack.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1509,
+        "sha256": "2163d0fd75454a1a399495b2ac651d8bff657e3a1ca6c306125b6806c9e9b47c"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/pack.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 362,
+        "sha256": "4de6186bde4c0595ee5aa9faf5039ac6d0487cc9662cf8f4021ff0085426ca5c"
+      },
+      "exitCode": 0,
+      "executions": 1
+    },
+    "payload": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/payload.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1565,
+        "sha256": "80a7bbe6685ef5c2a61df8288dc033c4fbf5b11521f6b520e94e02ecc6ffacdf"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/payload.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 362,
+        "sha256": "6c72e3365c642ca6f5569abd4d85fef2ee642be9d183523a98046ece05cc1133"
+      },
+      "exitCode": 0,
+      "executions": 1
+    },
+    "structure": {
+      "request": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/structure.request.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 1569,
+        "sha256": "dae7f87d374cca2068a6ba70383db03c2f1c4a2adbab3b3650ce5f772243f551"
+      },
+      "result": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/structure.result.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 364,
+        "sha256": "bb6efa43bf95865b8348a48816c9b4a9a42e9f190d39415cb18b3a8e74216406"
+      },
+      "exitCode": 0,
+      "executions": 1
+    }
+  },
+  "effects": {
+    "compilerExecutions": 1,
+    "generatorExecutions": 1,
+    "archivePackExecutions": 1,
+    "generatorInternalPackDryRun": "existing producer path projection only",
+    "testExecutions": 0,
+    "installedWorkloads": 0,
+    "nativeWorkloads": 0,
+    "endpointWorkloads": 0,
+    "GitOperations": 0,
+    "networkInstallations": 0,
+    "sourceSemanticChangesByThisActivation": 0
+  },
+  "originalFinalizationFailure": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/first-cause.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1044,
+    "sha256": "8eff9b83a8060a46b8d02897864868d293478a67e483b1336189d30e177c1276"
+  },
+  "preservationClassificationCorrection": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/preservation-reentry.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3307,
+    "sha256": "6d58672f14716eb0a6ff093c9f57631fdca4ab99da6f1a2e1485934ebd7632a3"
+  },
+  "concurrentPreparation": {
+    "territory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+    "freeze": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 8903,
+      "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa"
+    },
+    "boundRecordsVerified": 29,
+    "closedFilesVerified": 30,
+    "historicalSnapshotIsNotAnImmutablePriorCut": true,
+    "observedDelta": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/concurrent-preparation-delta.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5724,
+      "sha256": "15383a2c625bcbc87eff01d78485dc75e24a5f3747313025b2703154b758f7f1"
+    }
+  },
+  "newUnexpectedFailure": null,
+  "limits": [
+    "No independent acceptance or L5 claim.",
+    "No installed reachability or combined behavioral proof.",
+    "Earlier candidate-01 P1 evidence does not transfer to this archive.",
+    "Closed source streams are conjoined by exact identity; their prior evidence remains separately scoped.",
+    "Final L4 P1-P5 must exercise actual owners under separately frozen resource/effect grants."
+  ]
+}

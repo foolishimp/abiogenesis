@@ -1,0 +1,29 @@
+{
+  "archive": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 10681844,
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079"
+  },
+  "package_name": "@abiogenesis/typescript-tenant",
+  "package_version": "5.0.0-rc.1",
+  "entry_count": 5271,
+  "unpacked_bytes": 70689499,
+  "npm_integrity": "sha512-w1FHKflMK/3Wz09GQCUvx4jtryURpd3f1OPfL7bcCkieZqd+B9TFk4wBcN8T2f3awe0Aan9yrLkNwivnNMi2mA==",
+  "npm_shasum": "3110224779e546ae8f50ed532dc42c770d34b8b9",
+  "all_archive_member_bytes_match_stage": true,
+  "all_archive_modes_match_npm_projection": true,
+  "mode_normalizations": [],
+  "stage_unchanged_by_pack": true,
+  "proof_support_excluded_from_payload": true,
+  "payload_rows": 5269,
+  "payload_owner_check": "pending commands/payload.result.json",
+  "manifest": {
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3189620,
+    "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4"
+  }
+}

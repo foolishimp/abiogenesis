@@ -1,0 +1,23 @@
+# User checkpoint before common-library implementation
+
+Start with the [current L2 execution contract](L2-execution-contract.md), [review 02](review-L2/review-02.md) and [review 01's preserved support](review-L2/review-01.md#supported-predicates-retained), [L1 library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md), and [current T-287 plan](../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan). [Executive disposition](disposition.md) accepts exact L2 freeze 02 `4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae`.
+
+**Checkpoint state:** L1/L2 design accepted; L3–L5 pending; common-library delivery open; release-resumption gate closed. No implementation activation is current. The accepted design names source changes and proof obligations; those changes and outcomes have not been performed.
+
+The user explicitly requests **everything committed and pushed**, including visible work from other sessions and repository commentary/analysis. The separate checkpoint Writer owns the logical full-tree Git checkpoint, remote verification and oversized-file LFS transport. Preserve exact bytes and visible work; do not omit unrelated commentary or evidence to make transport easier. This recording Writer performs no Git actions and stops all writes after the handoff. Do not append the eventual commit SHA to repository files afterward.
+
+## Preserved evidence and current limits
+
+- [Baseline preparation](proof/baseline-preparation/return.md) built and packed the unchanged preserved source in a separate copy. Its exact source, toolchain, archive and correspondence receipts establish mechanical readiness only; runtime tests and installed/native outcomes remain unperformed.
+- [First rejected cut](review-L2/subject-01/L2-execution-contract.md), [review 01](review-L2/review-01.md), [R-L2-001 correction](correction-L2-001/return.md) and [accepted review 02](review-L2/result-02.json) retain their separate subjects. The timer finding is design-resolved; implementation/proof remains required.
+- Original source/plan/design records and [status preimages](acceptance/preimages.json) reconstruct prior accepted subjects. Source44, continuation16 and the [stopped continuation17](../T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-17/return-02.md) retain their exact claims and physical residue. No install retry, relabelled invocation, cleanup or historical-source migration is selected.
+- The new scope preserves all fifteen Product families and existing semantic owners. Default GraphFunctions and the lower common implementation library remain distinct. No new runtime, registry, public schema, scheduler or package is selected.
+
+## Next technical work after checkpoint
+
+1. **Separate L3 activation:** implement the contract's exact territories for D02–D04 contraction, K11 public standalone STDO3 constructor and consumer, E03 common owned-process lifetime plus monotonic host-bounded timing, and U1 authenticated scoped unknown-effect currentness. Preserve the accepted retained domains and owner-specific semantics. Synchronize the existing GTL emitted-member/span coordinates from actual isolated bytes.
+2. **Freeze realization and proof support:** exact source/package, selected consumer/retirement evidence, bounded P1–P4 runner, P5 process/currentness cases, immutable task/oracle/source spans and prospective provider/toolchain/resource configuration. Preserve main-tree build bytes; build candidate stages separately. A newly discovered material choice returns to its owner.
+3. **Execute the frozen P1–P5/V1–V7 contract:** P1 ordinary installed preparation first; P2 actual-prefix/partial-install preservation; P3 external deterministic execution and fresh reads; P5 actual process and scoped currentness evidence; then P4's single prospectively bound real native STDO3 selector. Local timing tests cannot substitute for real process/native evidence. Stop at the first failed required seam, preserving actual prefix, first failure, physical residue and uncertainty; no blind retry.
+4. **L5 independent delivery acceptance:** conjoin actual implementation/adoption/retirement, complete-path measurements, executed obligations and independent exact-subject assessment. Only recorded library delivery acceptance opens the existing release-resumption gate. General lifecycle, qualification and human release acceptance remain subsequent work.
+
+This is a review checkpoint, not an authorization to start those technical effects. Root Executive owns subsequent activations and disposition.

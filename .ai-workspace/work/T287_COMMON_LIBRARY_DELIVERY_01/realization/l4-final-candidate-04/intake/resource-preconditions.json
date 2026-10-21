@@ -1,0 +1,23 @@
+{
+  "status": "all_absent_before_allocation",
+  "paths": [
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/owner-resolution",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p1",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p2",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p3",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/scratchParent",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/worksite",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/evidence",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/host",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/scratchParent",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p2/secondInstall",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/evidence",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/host",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/scratchParent",
+    "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/worksite"
+  ],
+  "allocated": false
+}

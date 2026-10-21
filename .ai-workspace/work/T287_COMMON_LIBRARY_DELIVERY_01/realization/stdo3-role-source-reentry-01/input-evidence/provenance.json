@@ -1,0 +1,31 @@
+{
+  "status": "inert copies of manager-resolved exact released inputs",
+  "basisUri": "stdo://releases/v3.0.0-rc.1/",
+  "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "files": [
+    {
+      "copyPath": "manifest.json",
+      "sourceUri": "stdo://releases/v3.0.0-rc.1/manifest.json",
+      "sourceMemberPath": "manifest.json",
+      "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+      "byteCount": 13478,
+      "purpose": "inert portable review evidence; not a production asset or runtime installation"
+    },
+    {
+      "copyPath": "standards/EXECUTIVE_BASELINE.md",
+      "sourceUri": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "sourceMemberPath": "standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "byteCount": 156797,
+      "purpose": "inert portable review evidence; not a production asset or runtime installation"
+    },
+    {
+      "copyPath": "standards/ASSURANCE.md",
+      "sourceUri": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+      "sourceMemberPath": "standards/ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "byteCount": 87324,
+      "purpose": "inert portable review evidence; not a production asset or runtime installation"
+    }
+  ]
+}

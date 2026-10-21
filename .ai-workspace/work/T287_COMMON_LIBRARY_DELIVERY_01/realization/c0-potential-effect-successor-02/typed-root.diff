@@ -1,0 +1,12 @@
+--- before/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts
+@@ -333,7 +333,8 @@
+   // Physical invalidation resolves the admitted root and exact path only.
+   const binding = one(projectArtifactTruth(prefix).artifacts, row => row.operationId === "abg.operation.workspace.bind" &&
+     row.authorityScopeRef === subject.workspaceBindingIdentity && row.authorityScopeDigest === subject.workspaceBindingDigest);
+-  const root = binding?.workspaceAuthorityBasis?.canonicalRoot;
++  const authority = binding?.workspaceAuthorityBasis;
++  const root = record(authority) ? authority.canonicalRoot : undefined;
+   return typeof root !== "string" || worksiteCommandSourcesInvalidatedAfter(prefix, ordinal, root, [subject.relativePath]);
+ }
+ 

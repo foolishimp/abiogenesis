@@ -1,0 +1,72 @@
+{
+  "status": "satisfied_local_preflight_only",
+  "cases": [
+    {
+      "name": "missing-archive",
+      "status": "refused_before_fixture_write",
+      "scratch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/preflight/missing-archive"
+    },
+    {
+      "name": "relative-archive",
+      "status": "refused_before_fixture_write",
+      "scratch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/preflight/relative-archive"
+    },
+    {
+      "name": "crossed-archive-digest",
+      "status": "refused_before_fixture_write",
+      "scratch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/preflight/crossed-archive-digest"
+    }
+  ],
+  "abiPublication": {
+    "owningProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "artifactDigest": "sha256:192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+    "productContentDigest": "sha256:6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3",
+    "productManifestDigest": "sha256:594097f48942548d303dcb9663f0838bef1066395215f31c194d94eac5e0af14",
+    "productSemanticsBinding": {
+      "bindingRef": "product-semantics://abiogenesis/conformance@5",
+      "kind": "product_semantics_binding",
+      "modulePath": "build/code/src/product/builtin_semantics.js",
+      "namedSymbol": "ABI5_PRODUCT_SEMANTICS",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "fixture": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/preflight/positive/language-smoke-fixture/artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+    "artifactRef": "abi5-tests-language-fixtures-5.0.0.tgz",
+    "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/preflight/positive/language-smoke-fixture",
+    "basis": {
+      "productId": "product://abi5-tests/language-fixtures@5.0.0",
+      "packageName": "@abi5-tests/language-fixtures",
+      "packageVersion": "5.0.0",
+      "productContentDigest": "sha256:b08148db4f1e8149577599756748efc098884bc8e905fe2f5bd8cb67e990eb37",
+      "artifactDigest": "sha256:b889b98e96967098c91dcac6fc1cc76922b94ec6451c2772aabc31f59b09215e",
+      "manifestDigest": "sha256:cc67e4e048ddc9c85028565fb333d95e8d091f6c2c12070099d31abca89affc9"
+    },
+    "packageDependencies": {
+      "@abiogenesis/typescript-tenant": "file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    },
+    "declaredProductDependencies": [
+      {
+        "kind": "requires",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "packageVersion": "5.0.0-rc.1",
+        "compatibilityRef": "compatibility://abiogenesis/major/5",
+        "requiredContractRefs": [
+          "abg.contract.gtl.root-declaration",
+          "abg.schema.public-operation-invocation"
+        ],
+        "requiredCapabilityRefs": [
+          "abg.capability.catalog.invoke-graph-function@5",
+          "abg.capability.gtl.declare@5"
+        ]
+      }
+    ]
+  },
+  "fixtureProgramAndLeafBytesUnchanged": true,
+  "installCalls": 0,
+  "eventStoreAcquisitions": 0,
+  "publicStartCalls": 0,
+  "nativeCalls": 0,
+  "limit": "Fixture construction and physical package identity only; target dependency materialization and P3 execution remain unobserved."
+}

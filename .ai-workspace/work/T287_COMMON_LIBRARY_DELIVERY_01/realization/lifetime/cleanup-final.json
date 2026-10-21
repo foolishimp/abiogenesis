@@ -1,0 +1,37 @@
+{
+  "observedAt": "2026-10-20T23:47:07.710766+00:00",
+  "temporaryRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T",
+  "prefixes": [
+    "abi5-b001-",
+    "abi5-b001-closed-",
+    "abi5-bash-tool-identity-",
+    "abi5-bounded-timeout-",
+    "abi5-lifetime-",
+    "abi5-long-native-wakeup-",
+    "abi5-long-process-bounds-",
+    "abi5-owned-group-",
+    "abi5-post-exit-output-",
+    "abi5-post-timeout-output-",
+    "abi5-progress-lease-",
+    "abi5-selected-result-carrier-",
+    "abi5-structured-output-",
+    "abi5-transport-identity-",
+    "abi5-unadmitted-progress-"
+  ],
+  "creationWindowUnixSeconds": [
+    1792538468.5882,
+    1792539781.5586836
+  ],
+  "remainingNewFixtureDirectories": [],
+  "perCasePhysicalChecks": "Every new actual lifetime/HTTP/capture/group test asserts declared scope absence before subsequent cases; escaped separate process is independently observed absent before continuation. Corrected HTTP records exact PID/group and root, all absent in physical-http-04-cleanup.json. Diagnostics have separate frozen cleanup records.",
+  "limit": "The original direct/capture/redirected-group cases do not emit every PID/root before teardown; their retained passing assertions and prefix-window check have that explicit evidence limit. No universal descendant absence, live Windows, installed owner or native-provider claim.",
+  "retainedEvidenceRoots": [
+    "stage",
+    "subject-01",
+    "subject-03",
+    "subject-final",
+    "diagnostic-02",
+    "http-diagnostic-05"
+  ],
+  "activeProcessFixtures": 0
+}

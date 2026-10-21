@@ -1,0 +1,96 @@
+{
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/proof/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 56673,
+      "sha256": "8005d9b488b86deae56758b9241d0226a634207c7996ed24d146bfd53095cc75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "bytes": 114607,
+      "sha256": "1ce940846906293365be5c03b9aca1ab37d86a01b9799eff42256cdeee5084cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/product/index.js",
+      "bytes": 13347,
+      "sha256": "d9ee80f110f679fff03dc01b82824297cd85ecc65ef4b02a144b8018cbcd5fcf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+      "bytes": 110016,
+      "sha256": "c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/archive/test-evidence/task.json",
+      "bytes": 17900,
+      "sha256": "86723ad564c7dc4ae2bf906d61d579ff3308fe5a5732156fea2fc6c51e5875f7"
+    }
+  ],
+  "scope": "Pure declared-section formatting and actual Product ownerPrompt only; retained06 task is not replayed or used for07 admission; no helper/process/native assembly executed",
+  "renderCode": "function renderInstructionSections(order, sections) {\n    return order.map(name => `## ${name}\\n${canonicalJson(sections[name])}`).join(\"\\n\\n\");\n}",
+  "parseCode": "const taskSections=prompt.split('\\n\\n').filter(section=>section.startsWith('## task\\n'));\nif(taskSections.length!==1)throw Error('expected one canonical task section');\nconst taskSection=JSON.parse(taskSections[0].slice('## task\\n'.length));\nif(taskSection===null||typeof taskSection!=='object'||Array.isArray(taskSection)||Object.keys(taskSection).length!==1||typeof taskSection.ownerPrompt!=='string')throw Error('expected task ownerPrompt');\nconst input=JSON.parse(taskSection.ownerPrompt.split('\\n\\n')[1]);\nif(input===null||typeof input!=='object'||Array.isArray(input)||Object.keys(input).length!==1||typeof input.command!=='string')throw Error('expected exact semantic command input');",
+  "sectionOrder": [
+    "role",
+    "evidence",
+    "task",
+    "response"
+  ],
+  "sections": {
+    "role": {
+      "scope": "pure formatting operand, not authenticated native role"
+    },
+    "evidence": {
+      "environmentAccess": []
+    },
+    "task": {
+      "ownerPrompt": "Invoke the Bash tool exactly once with the exact semantic tool-input object below. The ABI-owned helper executes every declared command in order and records its exact argv, cwd, environment, streams, exit status, reports, and protected-file observations.\n\n{\"command\":\"'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch/abi5-root-env-FEbHCo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch/abi5-root-env-FEbHCo/workspace/.ai-workspace/archive/worksite-command-execution/5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946/6b6ced519603ecb0dcce47d0dda6411a6bbd31f30812fef1759049451696646b/launch.json'\"}\n\nDo not add timeout, run_in_background, or any other operational input field. An optional string description is metadata only. Preserve the command string exactly.\n\nReturn the helper's compact task/attempt/artifact acknowledgment unchanged. The helper retains every computed command, stream, and predicate in its full artifact; do not copy, summarize, or compute those rows.\n\nDo not run any declared command directly and do not use another tool call.\n\nA nonzero subject-command exit is an observation, not a transport failure.\n\nReturn only the JSON value required by the supplied schema.\n\n{\"attemptRef\":\"worksite-command-attempt://abiogenesis/6c93141ca5322cca34d73284bc15135eb60d53ac811282d1c1c1b745dfedda11\",\"commands\":[{\"commandId\":\"command://c2-ack/large-nonzero\",\"ordinal\":0},{\"commandId\":\"command://c2-ack/small-success\",\"ordinal\":1}],\"outcomePredicates\":[{\"ordinal\":0,\"predicateId\":\"predicate://c2-ack/nonzero\",\"predicateKind\":\"process_exit\"},{\"ordinal\":1,\"predicateId\":\"predicate://c2-ack/stdout\",\"predicateKind\":\"stdout_exact\"},{\"ordinal\":2,\"predicateId\":\"predicate://c2-ack/http\",\"predicateKind\":\"http_response_exact\"}],\"sourceConstructionResultDigest\":\"sha256:12e5ac92f071e3c1a5ff636472073a518fe5e43923e84b0b67dfb78d25501206\",\"sourceConstructionResultRef\":\"worksite-construction-result://abiogenesis/12e5ac92f071e3c1a5ff636472073a518fe5e43923e84b0b67dfb78d25501206\",\"taskDigest\":\"sha256:5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946\",\"taskRef\":\"worksite-command-execution-task://abiogenesis/5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946\",\"workspaceBindingDigest\":\"sha256:006fbc0884901572ed8774c7d9a374a1740890d70277a58f4bd8e47f7c379525\",\"workspaceBindingIdentity\":\"workspace-binding://abiogenesis/006fbc0884901572ed8774c7d9a374a1740890d70277a58f4bd8e47f7c379525\"}"
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "taskRef",
+        "taskDigest",
+        "attemptRef",
+        "helperArtifactRef",
+        "helperArtifactDigest"
+      ],
+      "properties": {
+        "kind": {
+          "const": "worksite_command_execution_worker_result"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "taskRef": {
+          "const": "worksite-command-execution-task://abiogenesis/5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946"
+        },
+        "taskDigest": {
+          "const": "sha256:5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946"
+        },
+        "attemptRef": {
+          "const": "worksite-command-attempt://abiogenesis/6c93141ca5322cca34d73284bc15135eb60d53ac811282d1c1c1b745dfedda11"
+        },
+        "helperArtifactRef": {
+          "type": "string",
+          "pattern": "^worksite-command-helper-artifact://abiogenesis/[a-f0-9]{64}$"
+        },
+        "helperArtifactDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      }
+    }
+  },
+  "prompt": "## role\n{\"scope\":\"pure formatting operand, not authenticated native role\"}\n\n## evidence\n{\"environmentAccess\":[]}\n\n## task\n{\"ownerPrompt\":\"Invoke the Bash tool exactly once with the exact semantic tool-input object below. The ABI-owned helper executes every declared command in order and records its exact argv, cwd, environment, streams, exit status, reports, and protected-file observations.\\n\\n{\\\"command\\\":\\\"'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch/abi5-root-env-FEbHCo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch/abi5-root-env-FEbHCo/workspace/.ai-workspace/archive/worksite-command-execution/5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946/6b6ced519603ecb0dcce47d0dda6411a6bbd31f30812fef1759049451696646b/launch.json'\\\"}\\n\\nDo not add timeout, run_in_background, or any other operational input field. An optional string description is metadata only. Preserve the command string exactly.\\n\\nReturn the helper's compact task/attempt/artifact acknowledgment unchanged. The helper retains every computed command, stream, and predicate in its full artifact; do not copy, summarize, or compute those rows.\\n\\nDo not run any declared command directly and do not use another tool call.\\n\\nA nonzero subject-command exit is an observation, not a transport failure.\\n\\nReturn only the JSON value required by the supplied schema.\\n\\n{\\\"attemptRef\\\":\\\"worksite-command-attempt://abiogenesis/6c93141ca5322cca34d73284bc15135eb60d53ac811282d1c1c1b745dfedda11\\\",\\\"commands\\\":[{\\\"commandId\\\":\\\"command://c2-ack/large-nonzero\\\",\\\"ordinal\\\":0},{\\\"commandId\\\":\\\"command://c2-ack/small-success\\\",\\\"ordinal\\\":1}],\\\"outcomePredicates\\\":[{\\\"ordinal\\\":0,\\\"predicateId\\\":\\\"predicate://c2-ack/nonzero\\\",\\\"predicateKind\\\":\\\"process_exit\\\"},{\\\"ordinal\\\":1,\\\"predicateId\\\":\\\"predicate://c2-ack/stdout\\\",\\\"predicateKind\\\":\\\"stdout_exact\\\"},{\\\"ordinal\\\":2,\\\"predicateId\\\":\\\"predicate://c2-ack/http\\\",\\\"predicateKind\\\":\\\"http_response_exact\\\"}],\\\"sourceConstructionResultDigest\\\":\\\"sha256:12e5ac92f071e3c1a5ff636472073a518fe5e43923e84b0b67dfb78d25501206\\\",\\\"sourceConstructionResultRef\\\":\\\"worksite-construction-result://abiogenesis/12e5ac92f071e3c1a5ff636472073a518fe5e43923e84b0b67dfb78d25501206\\\",\\\"taskDigest\\\":\\\"sha256:5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946\\\",\\\"taskRef\\\":\\\"worksite-command-execution-task://abiogenesis/5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946\\\",\\\"workspaceBindingDigest\\\":\\\"sha256:006fbc0884901572ed8774c7d9a374a1740890d70277a58f4bd8e47f7c379525\\\",\\\"workspaceBindingIdentity\\\":\\\"workspace-binding://abiogenesis/006fbc0884901572ed8774c7d9a374a1740890d70277a58f4bd8e47f7c379525\\\"}\"}\n\n## response\n{\"additionalProperties\":false,\"properties\":{\"attemptRef\":{\"const\":\"worksite-command-attempt://abiogenesis/6c93141ca5322cca34d73284bc15135eb60d53ac811282d1c1c1b745dfedda11\"},\"helperArtifactDigest\":{\"pattern\":\"^sha256:[a-f0-9]{64}$\",\"type\":\"string\"},\"helperArtifactRef\":{\"pattern\":\"^worksite-command-helper-artifact://abiogenesis/[a-f0-9]{64}$\",\"type\":\"string\"},\"kind\":{\"const\":\"worksite_command_execution_worker_result\"},\"schemaVersion\":{\"const\":\"5.0.0\"},\"taskDigest\":{\"const\":\"sha256:5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946\"},\"taskRef\":{\"const\":\"worksite-command-execution-task://abiogenesis/5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946\"}},\"required\":[\"kind\",\"schemaVersion\",\"taskRef\",\"taskDigest\",\"attemptRef\",\"helperArtifactRef\",\"helperArtifactDigest\"],\"type\":\"object\"}",
+  "expectedInput": {
+    "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch/abi5-root-env-FEbHCo/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch/abi5-root-env-FEbHCo/workspace/.ai-workspace/archive/worksite-command-execution/5bc7d989f6ba67682ada0634a58e7d51361298b0fe81a48ef5d293e8d2143946/6b6ced519603ecb0dcce47d0dda6411a6bbd31f30812fef1759049451696646b/launch.json'"
+  },
+  "oracle": {
+    "uniqueTask": "exact command input",
+    "missingTask": "expected one canonical task section",
+    "duplicateTask": "expected one canonical task section"
+  }
+}

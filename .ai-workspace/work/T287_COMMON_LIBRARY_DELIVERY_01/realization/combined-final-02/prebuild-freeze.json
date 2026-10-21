@@ -1,0 +1,103 @@
+{
+  "kind": "COMBINED-FINAL-02_exact_preflight",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/HOW.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 6125,
+      "sha256": "741b4be03d2d52c1c94145774ded573578e100f90aa7fe7f78c476eb73176314"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/common.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1373,
+      "sha256": "9dc09a38bf640105bb73844ede8f100e3b3271932e004108166da5693bba6bdf"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/prepare.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 9094,
+      "sha256": "cf43d5dddd97a8c87e1363b7a44693569c8cd1514157e1d4a804bf9a455bb19e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/run-command.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3620,
+      "sha256": "4ca29713ee8519ceaa399a6e23bb7ead1d28f57f6cfd9134a0f2d981f25edecc"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/activation.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2846,
+      "sha256": "1b0801a419c75729a077230752dadf050d7fff6683060b68d72295b100eb23fb"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source-union-manifest.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 668704,
+      "sha256": "311ae0287daefeef3f32b160e4f86e80b27087b6641f31935d34a31c06b014a1"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/precedence-ledger.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 11249,
+      "sha256": "4ec3a316b8fe2e1cde90374c4be2d6938b4e3fc9ed99b20e82a285a8706bc68e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/expected-c0-emissions.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1303,
+      "sha256": "53c64803a988ecf0c9b448b4ca4b7af0720b4ee1e98fd1867437c097cca4cdfa"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/dependency-inventory.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1006396,
+      "sha256": "fa19b0c0f1448fe0fbcd681a86fb25ca9704fbcf504f5ccf7cefc0da860041a7"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/toolchain.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 706,
+      "sha256": "6886dbcbdf250bebfcaf0a55bc600e4107a825a36420bd385af771a6010c820a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/protected-main-generated.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 248218,
+      "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/protected-main-inputs.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 353457,
+      "sha256": "39f63411679539ba5876575f5428829b72c64ed620defedc9889686ca24dd400"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/protected-prior-trees.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 38814685,
+      "sha256": "693e40ddb38e56e5cdb317a06861964ec3f549b12a604bad3afab36a72b2a834"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage-prebuild-inventory.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1588291,
+      "sha256": "8b910510a4ff0315ef457ac51316ebb325d23fbaf26e0c13194d0b461239c80c"
+    }
+  ]
+}

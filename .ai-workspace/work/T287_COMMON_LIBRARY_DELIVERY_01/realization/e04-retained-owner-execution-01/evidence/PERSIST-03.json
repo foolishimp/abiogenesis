@@ -1,0 +1,39 @@
+{
+  "caseId": "PERSIST",
+  "step": "different",
+  "input": {
+    "path": "/private/tmp/abiogenesis-e04-owner-scratch-20261021-8ce2164f/PERSIST/parents/exact.txt",
+    "text": "different bytes\n"
+  },
+  "disposition": "fulfilled",
+  "output": "collision",
+  "error": null,
+  "footprint": [
+    {
+      "relativePath": ".",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159541,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "parents",
+      "kind": "directory",
+      "dev": 16777231,
+      "ino": 474159542,
+      "nlink": 3,
+      "byteLength": 96
+    },
+    {
+      "relativePath": "parents/exact.txt",
+      "kind": "file",
+      "dev": 16777231,
+      "ino": 474159543,
+      "nlink": 1,
+      "byteLength": 20,
+      "sha256": "c21200293324618056f2a157b51006751976ae6c035c9a604d3d9520821884ab",
+      "base64": "cGVyc2lzdCBleGFjdCBieXRlcwo="
+    }
+  ]
+}

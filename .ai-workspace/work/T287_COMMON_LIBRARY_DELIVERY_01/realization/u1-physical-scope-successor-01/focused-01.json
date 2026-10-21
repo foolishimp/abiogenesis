@@ -1,0 +1,22 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^U1 physical target scope successor",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01/build_tenants/abiogenesis/typescript",
+  "started": "2026-10-21T01:32:53.237135+00:00",
+  "wall_seconds": 2.2653467655181885,
+  "exit_code": 0,
+  "environment_overrides": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical",
+    "ABG_U1_EVIDENCE_DIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/evidence-01",
+    "ABG_WORKSITE_BUILD_ROOT": null,
+    "ABG_U1_FIRST_CASE": null
+  },
+  "stage_execution_freeze_sha256": "14b393f39aa4c9050ca210ea84d8c13ecf3c33e8e6e1ebfe15a179d38eac630f",
+  "stdout_sha256": "3940e190661ce61e461ad3340a8a21bd0d441fc20468e5afcbbebb2e26471534",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

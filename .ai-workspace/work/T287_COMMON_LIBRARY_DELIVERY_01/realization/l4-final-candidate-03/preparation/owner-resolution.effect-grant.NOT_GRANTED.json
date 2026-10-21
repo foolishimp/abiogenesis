@@ -1,0 +1,16 @@
+{
+  "kind": "t287_final_owner_resolution_effect_grant",
+  "status": "NOT_GRANTED",
+  "issuedBy": "/root",
+  "configurationSha256": null,
+  "scriptSha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+  "subjectId": "candidate",
+  "nativeCalls": 0,
+  "outputRoot": "/private/tmp/abg-stdo3-final-03-9d2138e91c6946ab/owner-resolution",
+  "effect": "read-only exact actual P1 owner/material resolution; no EventStore acquisition or append",
+  "ordering": "after satisfied P1, before P2 or any later append",
+  "preparedConfiguration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-03/preparation/owner-resolution.configuration.NOT_GRANTED.json",
+    "sha256": "6f43de674edd3257a63720a182a6a922a77bbde03d7bdbf1c97b27d71c817384"
+  }
+}

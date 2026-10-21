@@ -1,0 +1,97 @@
+{
+  "transportFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/freeze.json",
+    "sha256": "1960949ace97eb1a8ee5eb30994379f8cc7c5ef81066b3c73fe9a68898a660cb"
+  },
+  "manifestRecordsChecked": 15,
+  "mismatches": 0,
+  "relativeLinksChecked": 21,
+  "links": [
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "../executive-retirement-reprice-01/decision.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "../executive-retirement-reprice-01/plan.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "../executive-retirement-reprice-01/review-effects.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "review-disposition-supplement.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "review-disposition-supplement-02.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "../../CHECKPOINT_HANDOFF.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "../../../../../specification/GOALS.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "../l4-c2-candidate-05/return.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "../p5-installed-final-04/successor08/failure-freeze.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "../closed-evidence-portability-03/successor-03/README.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "lfs-selection.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/README.md",
+      "target": "lfs-selection-02.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/review-disposition-supplement-02.md",
+      "target": "review-disposition-supplement.md"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/README.md",
+      "target": "verification.stdout"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/README.md",
+      "target": "verification.receipt.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/README.md",
+      "target": "../successor-02/stopped-freeze.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/README.md",
+      "target": "../successor-01/stopped-freeze.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/README.md",
+      "target": "../successor-02/return-stopped.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/README.md",
+      "target": "verifier.diff"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/README.md",
+      "target": "activation.json"
+    },
+    {
+      "source": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-03/README.md",
+      "target": "../../review-checkpoint-01/README.md"
+    }
+  ],
+  "trackedDiffCheckExitCode": 0,
+  "scope": "Closed record/hash/link check only, no build/test/runtime campaign; failed runtime cuts retain their outcomes"
+}

@@ -1,0 +1,12 @@
+(node:42887) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native Design command budget retains exact capacity through both roles, readiness and historical correspondence (197.87575ms)
+ℹ Component Design/C2 budget and native preparation proof; upstream authentication supplied, no actor or installed execution.
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 492.08175

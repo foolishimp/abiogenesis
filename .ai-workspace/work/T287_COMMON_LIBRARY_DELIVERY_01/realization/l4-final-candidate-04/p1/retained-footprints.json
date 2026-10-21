@@ -1,0 +1,87 @@
+{
+  "footprints": [
+    {
+      "role": "evidence",
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence",
+      "files": 10621,
+      "logicalBytes": 498182521,
+      "symlinks": 0,
+      "allocatedKiB": 515588,
+      "duArgv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence"
+      ],
+      "duStdout": "515588\t/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence\n",
+      "duStderr": "",
+      "scope": "post-endpoint retained root, not an allocation peak; logical bytes count names; CoW allocation may overlap"
+    },
+    {
+      "role": "host",
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host",
+      "files": 5275,
+      "logicalBytes": 70701029,
+      "symlinks": 0,
+      "allocatedKiB": 82992,
+      "duArgv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host"
+      ],
+      "duStdout": "82992\t/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/host\n",
+      "duStderr": "",
+      "scope": "post-endpoint retained root, not an allocation peak; logical bytes count names; CoW allocation may overlap"
+    },
+    {
+      "role": "scratchParent",
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/scratchParent",
+      "files": 590,
+      "logicalBytes": 2863296,
+      "symlinks": 0,
+      "allocatedKiB": 4176,
+      "duArgv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/scratchParent"
+      ],
+      "duStdout": "4176\t/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/scratchParent\n",
+      "duStderr": "",
+      "scope": "post-endpoint retained root, not an allocation peak; logical bytes count names; CoW allocation may overlap"
+    },
+    {
+      "role": "worksite",
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/worksite",
+      "files": 1,
+      "logicalBytes": 1397,
+      "symlinks": 0,
+      "allocatedKiB": 4,
+      "duArgv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/worksite"
+      ],
+      "duStdout": "4\t/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/worksite\n",
+      "duStderr": "",
+      "scope": "post-endpoint retained root, not an allocation peak; logical bytes count names; CoW allocation may overlap"
+    },
+    {
+      "role": "npmCache",
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p1",
+      "files": 13,
+      "logicalBytes": 10700117,
+      "symlinks": 0,
+      "allocatedKiB": 10480,
+      "duArgv": [
+        "/usr/bin/du",
+        "-sk",
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p1"
+      ],
+      "duStdout": "10480\t/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p1\n",
+      "duStderr": "",
+      "scope": "post-endpoint retained root, not an allocation peak; logical bytes count names; CoW allocation may overlap"
+    }
+  ],
+  "portableEvidenceFiles": 66,
+  "portableEvidenceLogicalBytes": 356746722,
+  "measurement": "Post-endpoint inventory/copy overhead outside timed original endpoint. Original runner evidence overhead remains included in original endpoint. Cache measured separately. Internal counters unobserved, not zero."
+}

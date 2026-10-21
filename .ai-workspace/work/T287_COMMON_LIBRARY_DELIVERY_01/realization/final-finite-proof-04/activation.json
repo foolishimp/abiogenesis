@@ -1,0 +1,54 @@
+{
+  "activation": "L4-FINITE-CONSERVATION-04",
+  "authority": "Root explicit separate conditional activation, condition satisfied by successful06 closure",
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+    "#f-end-to-end-interface-integration"
+  ],
+  "stdoManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "scope": "Commands1\u20137 once in exact template order; command8 only after new final04 P1 and owner-resolution pass and exact adapter supplied",
+  "sourceEffects": [],
+  "template": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/remaining-execution.template.json",
+    "sha256": "25a6573b7fe685e7af9cf571befcec91354f12d7a7453618924cf96621804142",
+    "bytes": 7136
+  },
+  "closedSourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+    "sha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+    "bytes": 1994729
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4",
+    "bytes": 3189620
+  },
+  "proofFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/proof-freeze.json",
+    "sha256": "b60eca3e6fa641206eda37658b42285cf888a1a42b3cae259be5e2be75a5ce37",
+    "bytes": 10923
+  },
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "bytes": 86104016
+  },
+  "physicalRoot": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6",
+  "byteLimit": 3221225472,
+  "timeoutMs": 600000,
+  "cleanup": "Only existing test-owned hooks for their new disposable resources; no custom cleanup or oldcut/candidate-stage deletion",
+  "stops": "First selected integration/assertion failure or physical uncertainty; no repair/retry/next",
+  "excluded": [
+    "Git",
+    "source/test/build/dependency changes",
+    "continuation-17",
+    "historical P0 environment",
+    "provider/native semantic calls",
+    "Reviewer activation"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "status": "preserved_before_current_status_edits",
+  "files": [
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "df4052e8c4b1c7fa906ccacf47fc4cad641412e9a351c3587a60ac23c5b9590f",
+      "bytes": 78988,
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/preimages/specification/GOALS.md"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "abb688a28d3121a9868f27cc8f5803e5c5756769df2902d40517f9b7fac7a31b",
+      "bytes": 541019,
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "sha256": "0e6deb951f7c7ceeb7aa9c816e392576bdfa482544c0f0cab5e0223583992f97",
+      "bytes": 4647,
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md"
+    }
+  ]
+}

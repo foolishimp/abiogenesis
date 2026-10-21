@@ -1,0 +1,36 @@
+{
+  "disposition": "Nonblocking retained-evidence whitespace exception for this unfinished full-tree review checkpoint",
+  "authority": "Root independently inspected729 observations/all440 paths and subject grouping",
+  "fullStagedCheck": {
+    "exitCode": 2,
+    "result": {
+      "path": "staged-diff-check.json",
+      "sha256": "083d7c19d545daa5b86950d23ddcde2d9878898a75163daba744bfe257f4d3dd",
+      "bytes": 171
+    },
+    "stdout": {
+      "path": "staged-diff-check.stdout",
+      "sha256": "695a8903f733986cb4bce2975928394daadb03d782455402e1560f6d8d9572bc",
+      "bytes": 146075
+    },
+    "stderr": {
+      "path": "staged-diff-check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "observations": {
+      "path": "staged-whitespace-observations.json",
+      "sha256": "25815b551faa99c88df0c57e366d3918170f830a10a1a7c8ffa3e2c9ac8c171f",
+      "bytes": 185966
+    }
+  },
+  "trackedSourceCheck": {
+    "path": "prestage-validation.json",
+    "sha256": "62769cd65685140958d9bfde8b4d5680d848374a84c1c07a11f70c4c0b3e03a1",
+    "bytes": 4456
+  },
+  "rationale": "Stored patch context, frozen source/preimage/stage/resource copies and command/TAP/log evidence preserve whitespace as historical data, including original STDO material. No current Product/source path outside W has a finding; tracked-source check exited0. Trimming retained bytes would invalidate identity/evidence without improving active code.",
+  "scope": "Exact observed retained evidence and the preserved diagnostic output; not a clean full-check claim or blanket suppression",
+  "action": "Keep all bytes and raw diagnostics unchanged. Do not rerun the full check solely to obtain green. Continue exact staged dependency/LFS validation and authorized checkpoint.",
+  "sourceRepairPerformed": false
+}

@@ -1,0 +1,81 @@
+{
+  "baselineManifestSha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+  "baselineFiles": 1311,
+  "closedOutputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "sha256": "9d4b6c01ba565534ceb22ed0a49f6df7606a69349fce11f83651dc4ddae1ee5f",
+      "bytes": 11283
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "sha256": "8f04a97ee6bf99fbdd18a4bd6a9816048dfa08c83c9a2d0704e86f3fb683e51e",
+      "bytes": 32848
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "sha256": "f60f6187b88449e688ecdbdc8edf2de4ded6a6cd569c405a089527c1136fd97a",
+      "bytes": 62348
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "7532aadf7fc497a5a4da3ccdf51fb9d1989832958e0f0baf424b3a6df68f32af",
+      "bytes": 132724
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "df39d2e5fbabf7e149099d468c951bd2a3e9b3eaaa9651f5dd53833ff89ad3e9",
+      "bytes": 24181
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "sha256": "175cdf5db16566f695eba029c729795108dee71225b6f382b7d2a8441eac5944",
+      "bytes": 28361
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "19cb0f8dc20501d40acf1df02044350d476518cfc38eaa71d748681c429c35de",
+      "bytes": 51313
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "sha256": "19721571186a09b4277946599d98dc3f2a894bff56fea1985ec56b48463638e4",
+      "bytes": 38266
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "sha256": "8fe508e8418b81e88198530022de69fd68d5419150b87a6bbc26db12eea28110",
+      "bytes": 40026
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "76a7c3da4bf668be65adb182426298d50c51b9408511167b751256c1d6d3ce24",
+      "bytes": 66122
+    }
+  ],
+  "repairOutputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+      "bytes": 12633
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "sha256": "d8bddd8487e78babc8b1ee6df86215c112973cb9b093e7a4242c4684b7a56e3f",
+      "bytes": 62395
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "sha256": "83d30732f2f29ea7c08c8519e1ea2865285ee4e332871b0d8de6620395f6f5dc",
+      "bytes": 38457
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "b181fa6da8371b219c60e1a6ec267f5cba047d8a73650ba9f98d8768df140245",
+      "bytes": 56520
+    }
+  ],
+  "sourceFiles": 1313,
+  "sourceBytes": 60536590,
+  "dependencyPolicy": "New offline npm ci --ignore-scripts --no-audit --no-fund; no link to mutable main dependencies"
+}

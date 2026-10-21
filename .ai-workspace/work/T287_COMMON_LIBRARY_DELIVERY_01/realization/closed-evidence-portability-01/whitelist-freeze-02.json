@@ -1,0 +1,58 @@
+{
+  "kind": "exact_portability_whitelist_before_copy",
+  "activation": "PORTABILITY-INVENTORY-READER-02",
+  "at": "2026-10-21T03:40:32.840295+00:00",
+  "records": [
+    {
+      "path": "HOW-successor-02.md",
+      "sha256": "0b4dfe7debb10866d1022733fb36557c2bedc87dff91ba6283841c2e651b05a3",
+      "bytes": 2529
+    },
+    {
+      "path": "build-whitelist-02.py",
+      "sha256": "cf5e14b9f200611a8cdc096477cd7ab372ce7f31d9919dbbe8f7741500cda4e9",
+      "bytes": 19586
+    },
+    {
+      "path": "native-source-mappings-02.json",
+      "sha256": "4a8c7d03886baa4325ae0ae77ca49411c59de64213797db40082baba70c957e8",
+      "bytes": 1881
+    },
+    {
+      "path": "source-pins-02.json",
+      "sha256": "2c06aa0e420ceba26125912dca467af1c4c6324284d55729dd60d93b87782956",
+      "bytes": 12946
+    },
+    {
+      "path": "explicit-exclusions-02.json",
+      "sha256": "5ff3f9bc8233bff0072f800355b8fae62ffa676057902f7f6dfdb3f0162898c6",
+      "bytes": 1357583
+    },
+    {
+      "path": "original-metadata-02.json",
+      "sha256": "6fd1c0d777ac06e3bea5849d8ef5f7e929b89f7297986843ea08281669d3fb57",
+      "bytes": 32447274
+    },
+    {
+      "path": "package-member-inventory-02.json",
+      "sha256": "015504e0dff64abb8f27305a540f080e76511eb6cb410d7c75e25c0f6f380c52",
+      "bytes": 5206314
+    },
+    {
+      "path": "whitelist-02.json",
+      "sha256": "11736794482b7fc7823365a64c4af332f33e92ce2432ab7f07a115ebc371cee2",
+      "bytes": 76583231
+    },
+    {
+      "path": "archive-object-plan-02.json",
+      "sha256": "f9a15bf2a82285852a2881aa7f396e34a58e4b4f5f7c1ed5d4a82212df6e3922",
+      "bytes": 85840
+    },
+    {
+      "path": "whitelist-preflight-02.json",
+      "sha256": "663407cfb063896bb520805ba534e69eb75f0cba0dca0931943050a1fcd898e5",
+      "bytes": 945
+    }
+  ],
+  "archive_count_at_freeze": 0
+}

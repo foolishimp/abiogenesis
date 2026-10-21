@@ -1,0 +1,26 @@
+{
+  "label": "syntax-support",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--check",
+    "test_env/support/root-installed-environment.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/stage/build_tenants/abiogenesis/typescript",
+  "environmentOverrides": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/tmp",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/npm-cache",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/npm-logs",
+    "NODE_OPTIONS": ""
+  },
+  "timeoutMs": 600000,
+  "prebuildFreezeSha256": "fc32e3b5b686996214a4623124372262a0dbbee1bed4358c47012e8966c1c815",
+  "runnerSha256": "5ecd87801e9680ff6f733cbcffe6645283bb5f183967265b8116d604646f2d4c",
+  "startedUnix": 1792557609.949553
+}

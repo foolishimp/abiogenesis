@@ -1,0 +1,10 @@
+{
+  "utc": "2026-10-21T07:25:47.357033+00:00",
+  "loadAverage": [
+    6.0205078125,
+    7.43798828125,
+    7.86328125
+  ],
+  "logicalCPUCount": 16,
+  "scope": "Context only; other host workloads uncontrolled and unidentified; not causal performance attribution"
+}

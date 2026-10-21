@@ -1,0 +1,47 @@
+node:internal/fs/promises:642
+  return new FileHandle(await PromisePrototypeThen(
+                        ^
+
+Error: ENOENT: no such file or directory, open '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json'
+    at async open (node:internal/fs/promises:642:25)
+    at async readFile (node:internal/fs/promises:1279:14)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs:38:3 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json'
+}
+
+Node.js v24.7.0
+✖ test_env/tests/m5-s06-prime.test.mjs (287.721042ms)
+✔ fixed declaration owner results reuse facts and preserve cold/basis-qualified validation (145.958417ms)
+✔ compose sources retain exact published owners without callable rows in both closure modes (406.505334ms)
+✔ substitute source provenance resolves without widening its Program (270.8225ms)
+✔ unpublished or ambiguous static sources still refuse at their exact declaration owner (17.276625ms)
+✔ static sources remain dependency-bound and require an exact installed owner (96.797458ms)
+✔ static sources conserve required contracts and implementation bindings (35.522542ms)
+✔ runtime use of a private static source refuses before or after static discovery (43.557292ms)
+✔ existing named workflow, gate, recursion and fan-out owner rows remain required (469.46775ms)
+✔ registered selection retains strict named-child ownership and whole validation (27.331541ms)
+✔ borrowed implementation declarations retain dependency, uniqueness and installed-owner guards (206.035167ms)
+✔ W2-05 three-function static binding algebra admits once and fails closed (36.022417ms)
+(node:30126) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native transport delegates one complete admission to the real fixed Run owner and conserves refusal ordering (83.681917ms)
+ℹ {"kind":"native_call_admission_conservation","observations":[{"member":"invoke","before":[0,1],"after":[0,1]},{"member":"start","before":[0,1],"after":[0,1]}],"rawCopyReAdmitted":true,"malformedBeforeEffects":true,"ambiguousAdmissionOrderingPreserved":true,"coldAdmissionPreserved":true,"resourceFaultPreserved":true,"copiedForeignStaleReleasedRefused":true,"realOuterClose":true,"limits":"Actual fixed Run owners consume a structurally valid unadmitted Catalog and return setup refusal; no Run or installed successor is claimed."}
+✔ preparation module loading shares one physical basis and reacquires changed content (4.676667ms)
+ℹ Two descriptor projections share one physical result; new acquisition, path, absent module and crossed install refuse.
+ℹ tests 14
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2867.842209
+
+✖ failing tests:
+
+test at test_env/tests/m5-s06-prime.test.mjs:1:1
+✖ test_env/tests/m5-s06-prime.test.mjs (287.721042ms)
+  'test failed'

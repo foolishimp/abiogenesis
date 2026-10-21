@@ -1,0 +1,22 @@
+--- before/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
++++ after/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
+@@ -610,7 +610,9 @@
+   packageRoot,
+   options = {},
+ ) {
+-  const environment = await setupInstalledRootCatalog(
++  // A bounded proof may reuse an already admitted installed environment to
++  // establish another binding/Run through the same ordinary invocation owner.
++  const environment = options.existingEnvironment ?? await setupInstalledRootCatalog(
+     context,
+     packageRoot,
+     options,
+@@ -733,7 +735,7 @@
+       schemaVersion: "5.0.0",
+       operationId: "abg.operation.run.invoke",
+       variant: supervised ? "start" : "direct",
+-      invocationRef: "invocation://t286/support/run-invoke",
++      invocationRef: options.publicInvocationRef ?? "invocation://t286/support/run-invoke",
+       eventTime: "2026-07-21T00:00:00.000Z",
+       correlationId: "correlation://t286/support/run-invoke",
+       payload: {

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "scripts/generate-product-manifest.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript",
+  "startedAt": "2026-10-21T00:33:26.833393+00:00",
+  "elapsedSeconds": 24.079280624864623,
+  "exitCode": 0,
+  "sourceInventorySha256": "1723c6cf133d1664fadaf168c8e603a63ddc5f9640e6feaa7783dfe307ca6f25",
+  "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

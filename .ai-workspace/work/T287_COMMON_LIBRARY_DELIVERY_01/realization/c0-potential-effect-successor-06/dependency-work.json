@@ -1,0 +1,186 @@
+{
+  "detachedStrictDependencies": 10,
+  "cases": [
+    {
+      "case": "unavailable",
+      "selected": {
+        "label": "selected potential before physical owner",
+        "facts": [
+          {
+            "observationRef": "worksite-observation://abiogenesis/b380edee05148611bc1f474db1e4ec69f0e34dcdab99e2249f3aebfb45972c96",
+            "current": false,
+            "invalidated": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "observationRef": "worksite-observation://abiogenesis/b9e6c88713630aa8b3fff20cc9c2397a5f513c6a8efe9ada0e6fbc10d89988f4",
+            "current": false,
+            "invalidated": [
+              true,
+              true,
+              true
+            ]
+          }
+        ],
+        "rows": 29,
+        "dependencyPopulation": 3,
+        "dependencyExtent": 10,
+        "firstHistoricalEligibilityMs": 2.277084000001196,
+        "repeatedHistoricalEligibilityMs": 402.1956250000003,
+        "retainedOriginViews": [
+          {
+            "survives": false,
+            "origins": null
+          },
+          {
+            "survives": false,
+            "origins": null
+          },
+          {
+            "survives": false,
+            "origins": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "sunny",
+      "selected": {
+        "label": "selected potential before physical owner",
+        "facts": [
+          {
+            "observationRef": "worksite-observation://abiogenesis/c274e3923cc5b7539d81e0c600330b8d815cbbb12d36b5d4a96d0c252709e8c6",
+            "current": false,
+            "invalidated": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "observationRef": "worksite-observation://abiogenesis/61680f8a6007c4e1a8bed57ed1a41d3f9b0ae9257cd8d1e1ca77f3c66a2aaa46",
+            "current": false,
+            "invalidated": [
+              true,
+              true,
+              true
+            ]
+          }
+        ],
+        "rows": 29,
+        "dependencyPopulation": 3,
+        "dependencyExtent": 10,
+        "firstHistoricalEligibilityMs": 2.2978339999972377,
+        "repeatedHistoricalEligibilityMs": 412.6373749999984,
+        "retainedOriginViews": [
+          {
+            "survives": false,
+            "origins": null
+          },
+          {
+            "survives": false,
+            "origins": null
+          },
+          {
+            "survives": false,
+            "origins": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "append",
+      "selected": {
+        "label": "selected potential before physical owner",
+        "facts": [
+          {
+            "observationRef": "worksite-observation://abiogenesis/5b732daccf0cdbeddf5e4363248291f5bde25d5fa5e7e04ab86ebbfc612c7547",
+            "current": false,
+            "invalidated": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "observationRef": "worksite-observation://abiogenesis/6f5f2ea6de953cd064e9e5b915022145fb10cfbdf768e789b7f8fcd40f5ee5d3",
+            "current": false,
+            "invalidated": [
+              true,
+              true,
+              true
+            ]
+          }
+        ],
+        "rows": 29,
+        "dependencyPopulation": 3,
+        "dependencyExtent": 10,
+        "firstHistoricalEligibilityMs": 2.2785410000069533,
+        "repeatedHistoricalEligibilityMs": 409.96250000000146,
+        "retainedOriginViews": [
+          {
+            "survives": false,
+            "origins": null
+          },
+          {
+            "survives": false,
+            "origins": null
+          },
+          {
+            "survives": false,
+            "origins": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "prepublication",
+      "selected": {
+        "label": "selected potential before physical owner",
+        "facts": [
+          {
+            "observationRef": "worksite-observation://abiogenesis/08a7081c9b6913b0c39176ba8f1cb095426f68411461154d5f802d0f35f2e9ef",
+            "current": false,
+            "invalidated": [
+              true,
+              true,
+              true
+            ]
+          },
+          {
+            "observationRef": "worksite-observation://abiogenesis/8fcd1508a490216f675ef9153e6d14f1fd5bce374cba989d6aff338294ace525",
+            "current": false,
+            "invalidated": [
+              true,
+              true,
+              true
+            ]
+          }
+        ],
+        "rows": 29,
+        "dependencyPopulation": 3,
+        "dependencyExtent": 10,
+        "firstHistoricalEligibilityMs": 2.3900419999990845,
+        "repeatedHistoricalEligibilityMs": 420.7269159999996,
+        "retainedOriginViews": [
+          {
+            "survives": false,
+            "origins": null
+          },
+          {
+            "survives": false,
+            "origins": null
+          },
+          {
+            "survives": false,
+            "origins": null
+          }
+        ]
+      }
+    }
+  ],
+  "costScope": "Pure occurrence authentication uses strict aggregate/basis/invocation/artifact/implementation dependencies, no EC fold. Historical eligibility uses existing exact-prefix EC. firstHistoricalEligibilityMs is the first explicit test measurement, not guaranteed process-cold. repeatedHistoricalEligibilityMs includes subsequent full/index/cold potentialViews work and is not isolated hot latency."
+}

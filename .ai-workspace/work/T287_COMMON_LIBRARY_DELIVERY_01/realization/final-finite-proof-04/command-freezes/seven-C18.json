@@ -1,0 +1,60 @@
+{
+  "id": "seven-C18",
+  "configuration": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:M5\\ GTL\\ exposes\\ exactly\\ seven\\ direct\\ C\\ constructors|M5\\ C\\.compose\\ is\\ canonical,\\ flat,\\ and\\ identity\\-eliding|M5\\ GraphFunction\\ composition\\ preserves\\ exact\\ left\\ and\\ right\\ identity|M5\\ GraphFunction\\ promotion\\ preserves\\ topology\\ and\\ semantic\\ truth|M5\\ native\\ constructors\\ refuse\\ invalid\\ batch,\\ retry,\\ and\\ F_H\\ realization|M5\\ native\\ GTL\\ constructs\\ all\\ ten\\ graph\\ relations\\ with\\ derived\\ identities|M5\\ same\\-object\\ relation\\ is\\ one\\ validator\\-owned\\ canonical\\ identity\\ witness|M5\\ closure\\ validation\\ distinguishes\\ run\\ and\\ child\\ GraphCall\\ scope|M5\\ whole\\-program\\ validation\\ admits\\ exact\\ recursion\\ law\\ and\\ refuses\\ its\\ substitutes|M5\\ whole\\-program\\ validation\\ binds\\ gate\\ law\\ to\\ published\\ Rule\\ and\\ Evaluator\\ declarations|M5\\ fan\\-out\\ materialization\\ derives\\ one\\ exact\\ task\\ per\\ admitted\\ input\\ member|M5\\ fan\\-out\\ and\\ fan\\-in\\ outer\\ contracts\\ equal\\ their\\ declared\\ vectors|M5\\ native\\ GraphFunction\\ composition\\ materializes\\ source\\ GTL\\ without\\ a\\ second\\ executable\\ carrier|M5\\ native\\ GraphFunction\\ substitution\\ replaces\\ one\\ typed\\ graph\\ vector\\ with\\ visible\\ source\\ GTL|M5\\ whole\\-program\\ validation\\ refuses\\ forged\\ or\\ widened\\ graph\\-edge\\ declarations|M5\\ raw\\ admission\\ and\\ validator\\ reject\\ invented\\ or\\ contradictory\\ C\\ data|M4\\ independently\\ authored\\ data\\ fixture\\ remains\\ one\\ valid\\ direct\\ C\\.of\\ Program|M5\\ whole\\-root\\ validation\\ keeps\\ F_H\\ interaction\\ keys\\ out\\ of\\ executable\\ resolution)$",
+      "test_env/tests/m5-c-algebra-validation.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/02-seven-C18/tmp/"
+    },
+    "noCredit": [
+      "M5 resolves and independently validates the complete executable root set",
+      "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "M5 F_H-only roots produce one valid empty executable-resolution set"
+    ],
+    "condition": null,
+    "templateOrdinal": 2
+  },
+  "effectiveEnvironment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/private/tmp/abg-stdo3-finite-04-548f9e2a7bc031d6/02-seven-C18/tmp/",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-cache",
+    "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/npm-logs",
+    "NODE_OPTIONS": "",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/run-command.py",
+    "sha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "bytes": 2571
+  },
+  "preflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-finite-proof-04/preflight-freeze.json",
+    "sha256": "8afa05f86e73921949297a93043c0dfb45c2352fc46e5dc8928212919edb9de8",
+    "bytes": 2388
+  },
+  "testPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "sha256": "729625109b9f6160c80b933618fd67ffe407aa3b8808a94e9f54de8c7ebf76bc",
+      "bytes": 54648
+    }
+  ],
+  "resourceBinding": "resources.json",
+  "timeoutMs": 600000,
+  "order": "Only after all earlier selected command exit0; first failure stops later commands"
+}

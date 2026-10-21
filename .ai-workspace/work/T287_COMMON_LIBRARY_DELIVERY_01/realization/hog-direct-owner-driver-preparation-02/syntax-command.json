@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/run.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02",
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/usr/bin:/bin",
+    "NODE_OPTIONS": ""
+  },
+  "timeoutMs": 30000,
+  "scope": "Node parser only; no driver module evaluation or imports",
+  "nodeSha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+  "runnerSha256": "f55fadc04332f2e2f34bb6e8a3bf9161bb59eadec08711f78316ef55a98898bc"
+}

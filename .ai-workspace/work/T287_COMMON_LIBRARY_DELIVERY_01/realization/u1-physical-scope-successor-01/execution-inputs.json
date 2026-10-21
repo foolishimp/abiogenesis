@@ -1,0 +1,51 @@
+{
+  "activation": "U1-PHYSICAL-SCOPE-SUCCESSOR-01",
+  "at": "2026-10-21T01:30:08.885541+00:00",
+  "frozen_support_sha256": "31912a68550eefc19e88c64bbc45a6c8db674a86e2c90dec16ecf53b674a1371",
+  "supplement_sha256": "4fa2d49b6148fccd60ff59cc9f76d90a93f9d992e8d8e31e5e8fd2b79a1c6a05",
+  "preimages_sha256": "83cb9d3feb44116b847f80d3e8423e53a97656f1334a150adfa632ef015bbcb3",
+  "stage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-01",
+  "copied": [
+    {
+      "inventory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-final-inventory.json",
+      "sha256": "67805244f331645108591162e61f7f5203678919796a107aba270db477bdf975",
+      "copied_entries": 1948,
+      "symlinks": "only independently inventoried internal dependency executable links"
+    },
+    {
+      "inventory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/dependency-inventory.json",
+      "sha256": "991ddad43eb30a968aeb30e579aabb327a4c2016c1e157c840606c043363ad82",
+      "copied_entries": 4576,
+      "symlinks": "only independently inventoried internal dependency executable links"
+    }
+  ],
+  "overlays": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "preimage_sha256": "937ac47e383e740fb75a8eb367195cb2893681c064fee9f55af92369f5d56189",
+      "sha256": "2fb146d5dd8c869eec147c08effa6688fea918493274a93d00bfafc4ade7e93c",
+      "bytes": 89590
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preimage_sha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61",
+      "sha256": "f46908c1598ddc8a7a21a5a890dc2a1af5fe75089160e15054824cfcb59ddca3",
+      "bytes": 76803
+    }
+  ],
+  "scope": "prior pinned U1/consumer complement; no later pure/E03 overlays",
+  "test_name_pattern": "^U1 physical target scope successor",
+  "selected_cases": [
+    "cross-binding predecessor",
+    "actual C0 successor",
+    "empty-write C0 successor",
+    "known-off-scope",
+    "known-empty",
+    "after-unavailable",
+    "E1 matched G1",
+    "E1 re-signed G2"
+  ],
+  "new_native_or_command_actor_launches": 0,
+  "compile_limit": 1,
+  "old_falsifier_not_rerun": true
+}

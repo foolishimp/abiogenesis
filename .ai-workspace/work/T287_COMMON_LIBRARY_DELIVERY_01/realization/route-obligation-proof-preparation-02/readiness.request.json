@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/usr/local/bin/python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-02/check-preparation.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "scriptSha256": "0b252efad7e916e190c45621eb6117dbf2e7a91ec04c8c82165f4cd94ad1a663",
+  "startedAt": "2026-10-21T05:09:59.150839+00:00",
+  "scope": "metadata/source/link readiness; no application imports",
+  "executionCount": 1,
+  "retryCount": 0
+}

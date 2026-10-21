@@ -1,0 +1,39 @@
+{
+  "firstFailedCommand": "reopen18",
+  "firstFailedTest": "owned causation lookup grows with causal references in live admission and cold reconstruction",
+  "source": "test_env/tests/m5-event-store-reopen.test.mjs:384",
+  "actual": {
+    "lookups": 254,
+    "entries": 384
+  },
+  "expected": {
+    "lookups": 127,
+    "entries": 128
+  },
+  "measuredRelation": "Map.get/set keys beginning event://abiogenesis/ during128-row live admission; test expected one lookup per causal edge and one insertion per event. Cold assertions after this first assertion were not reached for this vector.",
+  "additionalFailuresInAlreadyStartedAggregate": [
+    {
+      "line": 452,
+      "failure": "projectRuntimeEventFromValidatedHistory rejects forged Product-install fixture payload before query tests"
+    },
+    {
+      "line": 486,
+      "failure": "projectRuntimeEventFromValidatedHistory rejects forged artifact-operation fixture payload before query tests"
+    },
+    {
+      "line": 524,
+      "failure": "first artifact operation product.install, expected workspace.bind"
+    },
+    {
+      "line": 1302,
+      "failure": "historical read counter45583, expected0 before closed-session read"
+    }
+  ],
+  "aggregate": {
+    "tests": 18,
+    "pass": 13,
+    "fail": 5
+  },
+  "scope": "Actual failed test oracles on exact06; production-vs-fixture cause remains for Executive multi-frame triage. No new repair or retry. Node executed its already-started18-test aggregate; no subsequent selected command was started.",
+  "stopSha256": "277b8b818c4f512cc43007c54097ec5d02be68d2b8d316bd8619433cffdd0068"
+}

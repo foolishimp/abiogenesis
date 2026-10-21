@@ -1,0 +1,16 @@
+{
+  "status": "stopped at first isolated compile",
+  "compileAttempts": 1,
+  "compileExitCode": 1,
+  "syntaxChecksPassed": 3,
+  "generatorAttempts": 0,
+  "packageAttempts": 0,
+  "archive": null,
+  "installedProofAttempts": 0,
+  "prebuildFreezeSha256": "fc32e3b5b686996214a4623124372262a0dbbee1bed4358c47012e8966c1c815",
+  "stopSha256": "0fb39572cd21d1a27546e936c032c68b0a641f59176af55479a644a0f314236d",
+  "sourceInputSha256": "8723e91842e39009a2106e27fed4d8e83e5e8add78fac197cb4fbae56e928e1d",
+  "dependencyInputSha256": "b6b958851d46447d1e1a341a5619c1dd5f30b1437ea962604d69eb8532c697e2",
+  "stageInventorySha256": "dfde1aa7c13bebe17098c72e361fc099a321d3372f50c28607dc1c14927b5c71",
+  "closedFinal02FreezeUnchanged": true
+}

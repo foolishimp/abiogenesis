@@ -1,0 +1,107 @@
+{
+  "kind": "bounded_structural_fixture_readiness",
+  "status": "activated",
+  "activation": "HOG-FIXTURE-DEPENDENCY-SUCCESSOR-01",
+  "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06",
+    "bytes": 10679557,
+    "mode": "0o644"
+  },
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "839fa4cb8552b7220984760097e38d064dc7b00a3328c6a07f1fa8c52308254b",
+    "bytes": 3189620,
+    "mode": "0o644"
+  },
+  "package": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/package.json",
+    "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+    "bytes": 9744,
+    "mode": "0o644"
+  },
+  "support": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+        "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+        "bytes": 7076,
+        "mode": "0o644"
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support/test_env/support/language-structural-fixture.mjs",
+        "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+        "bytes": 7076,
+        "mode": "0o644"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+        "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+        "bytes": 22919,
+        "mode": "0o644"
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support/test_env/fixtures/language-structural/program.mjs",
+        "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+        "bytes": 22919,
+        "mode": "0o644"
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+        "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+        "bytes": 10669,
+        "mode": "0o644"
+      },
+      "copy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-support/test_env/fixtures/language-structural/leaf.mjs",
+        "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+        "bytes": 10669,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "node": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "bytes": 86104016,
+    "mode": "0o555"
+  },
+  "npm": {
+    "path": "/opt/homebrew/bin/npm",
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+    "bytes": 54,
+    "mode": "0o755"
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-npm-cache"
+  },
+  "roots": {
+    "fixture": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-fixture",
+    "npmCache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/readiness-npm-cache"
+  },
+  "negativeCases": [
+    "missing-archive",
+    "relative-archive",
+    "crossed-archive-digest",
+    "missing-package-name"
+  ],
+  "positivePacks": 1,
+  "installs": 0,
+  "workloads": 0,
+  "nativeCalls": 0,
+  "cleanup": false,
+  "retryCount": 0,
+  "scope": "closed final01 historical artifact for support readiness only; endpoint activation remains HOLD; future workload requires C0 successor artifact"
+}

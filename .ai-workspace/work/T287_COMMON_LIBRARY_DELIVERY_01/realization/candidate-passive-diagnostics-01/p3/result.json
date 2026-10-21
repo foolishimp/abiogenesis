@@ -1,0 +1,44 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "lane": "declared-execution",
+  "workloadResult": {
+    "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/evidence/result.json",
+    "sha256": "9603bcdde94346b5316590adbf6086b69f479fb9526a5d4d32140029dd75ac46",
+    "bytes": 1982,
+    "mode": "0o644"
+  },
+  "coverage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/coverage-result.json",
+    "sha256": "7a4277f0bdc947f39c04da57f2fad601535661eee957f67a37eaf11c00208152",
+    "bytes": 2314,
+    "mode": "0o644"
+  },
+  "measurements": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/measurement-return.json",
+    "sha256": "7b98d6c358d937525e0c2d28ffef4b9b20b5a18a04d37ff12fa21bd1f7f40216",
+    "bytes": 13792,
+    "mode": "0o644"
+  },
+  "ownerHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/owner-handoff.json",
+    "sha256": "6d8081dec98da7847aee612254cade5462cf61726470547b38f3c38b780abd74",
+    "bytes": 2019,
+    "mode": "0o644"
+  },
+  "retention": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/physical-resources.json",
+    "sha256": "5fc5e379031ff8a5e9304f004e69db6dff6d3951bbb89da98d611dd077e93cf4",
+    "bytes": 7445532,
+    "mode": "0o644"
+  },
+  "portableEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/portable-evidence-map.json",
+    "sha256": "388bddccaab180770669addefc51747821f56e452374743209bbe02ae2bffa95",
+    "bytes": 13149,
+    "mode": "0o644"
+  },
+  "scope": "Original deterministic workload and bounded passive coverage; no L5 or release acceptance",
+  "nativeCalls": 0,
+  "retryCount": 0
+}

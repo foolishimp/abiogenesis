@@ -1,0 +1,154 @@
+{
+  "kind": "t287_hog_ordinary_owner_configuration",
+  "status": "activated",
+  "activationFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/effect-grant.json",
+  "method": {
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "subject": {
+    "id": "candidate",
+    "stageTenant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+      "sha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+      "bytes": 1994729,
+      "mode": "0o644"
+    },
+    "candidateRecord": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/candidate-record.json",
+      "sha256": "800ff388b7b416267fdc6980221537ae1489277c8672bfd184047f2958fc5155",
+      "bytes": 2287,
+      "mode": "0o644"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+      "bytes": 10681844,
+      "mode": "0o644"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4",
+      "bytes": 3189620,
+      "mode": "0o644"
+    },
+    "productContentDigest": "sha256:7abf0d27b09fb718a31a0a18d510899a6387da72badc2e10f48cb8f42421d214",
+    "packageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/installed-expected-inventory.json",
+      "sha256": "8adea12fa0fa9ade763993d339a3ca90265014d6ac6db92b6d86c7a020c0a6bc",
+      "bytes": 1227586,
+      "mode": "0o644"
+    },
+    "inventories": [
+      {
+        "role": "source",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/source-inventory.json",
+        "sha256": "a7fbbc1d36996b841468b841ac379f3026619835ffd2612e9f40134c8c6245b6",
+        "bytes": 309364,
+        "mode": "0o644",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+      },
+      {
+        "role": "emitted",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/emitted-inventory.json",
+        "sha256": "d34e1ef0d201cb4a00b1ddc74c7ca7ed6c5110756464a5d2e7635bbd63bf29d7",
+        "bytes": 214897,
+        "mode": "0o644",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+      },
+      {
+        "role": "dependencies",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/dependency-inventory.json",
+        "sha256": "94615b2e56d014f02f14da73c9e4c3f1a72894271f38e84b1f1b824a16c0fea5",
+        "bytes": 1066063,
+        "mode": "0o644",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+      },
+      {
+        "role": "support",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/support-inventory.json",
+        "sha256": "e58b60862f753f9cc6cf651f4e5072a13e26f69309606382e091547ffb787150",
+        "bytes": 4896,
+        "mode": "0o644",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript"
+      }
+    ]
+  },
+  "prerequisites": [
+    {
+      "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/result.json",
+      "sha256": "231d13b475ac77dd4c1468500aa73a2639233822e7252014105d84ae6acf74fc",
+      "bytes": 1759,
+      "mode": "0o644"
+    }
+  ],
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "bytes": 86104016,
+      "mode": "0o555",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "bytes": 54,
+      "mode": "0o755",
+      "version": "11.5.1"
+    }
+  },
+  "protectedMain": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/protected-main-inventory.json",
+    "sha256": "3f70a97f214843676a214957437599509cea76e5a8c4c173da5cf28277fd4c3d",
+    "bytes": 249308,
+    "mode": "0o644",
+    "root": "/Users/jim/src/apps/abiogenesis"
+  },
+  "npmCacheSeed": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/npm-cache-seed-inventory.json",
+    "sha256": "453bf5f7779f3515865996709acda6af32e12ded3dd50c58b8d85d9baa44f092",
+    "bytes": 2839,
+    "mode": "0o644",
+    "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p1"
+  },
+  "resources": {
+    "parent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9",
+    "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/driver-evidence",
+    "cases": {
+      "compose-retry": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/cache"
+      },
+      "workflow-foldback": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/workflow-foldback/cache"
+      },
+      "fanout-partial": {
+        "evidence": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/evidence",
+        "host": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/host",
+        "scratchParent": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/scratchParent",
+        "worksite": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/worksite",
+        "cache": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/fanout-partial/cache"
+      }
+    }
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/user.npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/global.npmrc"
+  }
+}

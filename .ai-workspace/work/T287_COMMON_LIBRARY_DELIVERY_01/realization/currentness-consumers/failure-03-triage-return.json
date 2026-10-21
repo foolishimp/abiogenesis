@@ -1,0 +1,66 @@
+{
+  "activation": "U1-P5-02",
+  "first_failure": "governance source gate pre-cause accepted; fixture then called p.constructNativeWorkspaceWorkObservation, absent from Product index namespace",
+  "origin": "new test line306 import/owner route mismatch; concrete constructor is exported by product/native_workspace_work, already used correctly by support",
+  "source_production_changed": false,
+  "repair_or_retry_performed": false,
+  "evidence_sha256": "9bd5e160a706167ace2c509f6fbda6fde2bd66c79520916fb12e0c230c1fd279",
+  "test_sha256": "cc983d253d2b7aeb69dd8998ab995c30bf4f487c89c062c2fdd6e09cf19cb920",
+  "completed_in_attempt": [],
+  "source_gate_calls": [
+    {
+      "label": "consumer",
+      "calls": [
+        {
+          "afterOrdinal": 24,
+          "canonicalRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-uTVqh3/worksite",
+          "selectedPaths": [
+            "target.txt",
+            "target.txt.rubric",
+            "target.txt.source"
+          ],
+          "readRoots": null,
+          "result": false
+        }
+      ]
+    }
+  ],
+  "gate_outputs": [
+    {
+      "owner": "governance source before",
+      "kind": "native_workspace_work_task"
+    }
+  ],
+  "roots": [
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-uTVqh3/worksite"
+  ],
+  "durable_prefixes": [
+    {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-BK3orb/events.jsonl",
+      "prefixLength": 138260,
+      "prefixDigest": "sha256:b86c7e852824b17bf0dc59bd0a2f48c1d3d28a01e9b140bfe3742e2c5a2669d8",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 473980978,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:f0c2c415da509bdc8e282369543a9efa038c984c4ddc1a603f23dc0b41a83f89"
+    }
+  ],
+  "selected_cases": [
+    "governance",
+    "semanticFold",
+    "revisionIntake",
+    "revisionEvidence"
+  ],
+  "omitted_cases": [
+    "c0",
+    "observed"
+  ],
+  "native_or_command_process_launches": 0,
+  "retained_physical_roots_and_journals": true,
+  "dependent_cases_stopped": true,
+  "proposal": "import exact existing product/native_workspace_work observation constructor in test, audit every named import/callable handoff against emitted owner exports, then resume governance onward with unchanged production/support; no fix performed"
+}

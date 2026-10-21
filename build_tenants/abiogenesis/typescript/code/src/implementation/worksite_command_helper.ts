@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { hasNulJoinedFields as exactKeys } from "../shared/admission_predicates.js";
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
@@ -702,10 +703,19 @@ for (const signal of ["SIGTERM", "SIGINT"] as const) {
   });
 }
 
+function unconfirmedScopeDiagnostic(facts: OwnedProcessFacts): Buffer {
+  return Buffer.from(`\nABI owned process cleanup unresolved: ${canonicalJson({
+    directExit: facts.directExit, scopeKind: facts.scopeKind, scopeAbsence: facts.scopeAbsence,
+    noChildEstablished: facts.noChildEstablished, closeObserved: facts.closeObserved,
+    streamsDisposed: facts.streamsDisposed, drainExpired: facts.drainExpired,
+  } as JsonValue)}\n`, "utf8");
+}
+
 async function runCommand(
   task: WorksiteExecutionTask,
   executionRoot: string,
   ordinal: number,
+  attemptRef: string | null = null,
 ): Promise<WorksiteCommandResult> {
   const command = task.commands[ordinal]!;
   const cwd = await confinedExistingPath(
@@ -714,115 +724,52 @@ async function runCommand(
     "directory",
   );
   const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));
-  const observed = await new Promise<{
-    readonly status: number;
-    readonly signal: string | null;
-    readonly timedOut: boolean;
-    readonly signalSequence: readonly ("SIGTERM" | "SIGKILL")[];
-    readonly terminationConfirmed: boolean;
-    readonly stdout: Buffer;
-    readonly stderr: Buffer;
-  }>((resolveResult) => {
-    const child = spawn(command.executable, [...command.args], {
-      cwd,
-      env: environment,
-      detached: process.platform !== "win32",
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    const stdout: Buffer[] = [];
-    const stderr: Buffer[] = [];
-    let launchFailed = false;
-    let timedOut = false;
-    let settled = false;
-    let closeObserved = false;
-    let observedExit: { status: number | null; signal: NodeJS.Signals | null } | null = null;
-    let cleanupStarted = false;
-    const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
-    let forceTimer: ReturnType<typeof setTimeout> | undefined;
-    let confirmationTimer: ReturnType<typeof setTimeout> | undefined;
-    let groupCheckTimer: ReturnType<typeof setTimeout> | undefined;
-    let drainTimer: ReturnType<typeof setTimeout> | undefined;
-    const ownedGroupGone = () => {
-      if (process.platform === "win32") return observedExit !== null;
-      if (child.pid === undefined) return launchFailed;
-      try { process.kill(-child.pid, 0); return false; }
-      catch (error) { return (error as NodeJS.ErrnoException).code === "ESRCH"; }
-    };
-    const finish = (confirmed: boolean) => {
-      if (settled || drainTimer !== undefined) return;
-      clearTimeout(timeoutTimer);
-      if (forceTimer !== undefined) clearTimeout(forceTimer);
-      if (confirmationTimer !== undefined) clearTimeout(confirmationTimer);
-      if (groupCheckTimer !== undefined) clearTimeout(groupCheckTimer);
-      const complete = () => {
-        if (settled) return;
-        settled = true; activeCommand = null; clearInterval(heartbeat);
-        child.stdout.destroy(); child.stderr.destroy();
-        resolveResult({ status: timedOut ? 124 : launchFailed ? 127 : (observedExit?.status ?? 128),
-          signal: observedExit?.signal ?? null, timedOut,
-          signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: confirmed,
-          stdout: Buffer.concat(stdout), stderr: Buffer.concat(stderr) });
-      };
-      if (closeObserved) complete();
-      else drainTimer = setTimeout(complete, Math.min(command.terminationGraceMs, 250));
-    };
-    const checkOwnedGroup = () => {
-      if (groupCheckTimer !== undefined) clearTimeout(groupCheckTimer);
-      groupCheckTimer = undefined;
-      if (settled || drainTimer !== undefined) return;
-      if (ownedGroupGone() && (observedExit !== null || launchFailed)) { finish(true); return; }
-      groupCheckTimer = setTimeout(checkOwnedGroup, Math.min(command.terminationGraceMs, 10));
-    };
-    const beginCleanup = () => {
-      if (settled || cleanupStarted) return;
-      if (ownedGroupGone() && observedExit !== null) { finish(true); return; }
-      cleanupStarted = true;
-      signalSequence.push("SIGTERM");
-      stderr.push(Buffer.from("\nABI worksite command cleanup: SIGTERM requested\n", "utf8"));
-      signalProcess(child, "SIGTERM");
-      forceTimer = setTimeout(() => {
-        if (settled || drainTimer !== undefined) return;
-        if (ownedGroupGone() && observedExit !== null) { finish(true); return; }
-        signalSequence.push("SIGKILL");
-        stderr.push(Buffer.from("ABI worksite command cleanup: SIGKILL requested\n", "utf8"));
-        signalProcess(child, "SIGKILL");
-        confirmationTimer = setTimeout(() => finish(ownedGroupGone()), command.terminationGraceMs);
-      }, command.terminationGraceMs);
-      checkOwnedGroup();
-    };
-    const timeoutTimer = setTimeout(() => {
-      timedOut = true;
-      beginCleanup();
-    }, command.timeoutMs);
-    activeCommand = child;
-    const heartbeat = setInterval(() => {
-      process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\n`);
-    }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));
-    child.stdout.on("data", (chunk: Buffer) => stdout.push(Buffer.from(chunk)));
-    child.stderr.on("data", (chunk: Buffer) => stderr.push(Buffer.from(chunk)));
-    child.once("error", (error) => {
-      launchFailed = true;
-      stderr.push(Buffer.from(error.message, "utf8"));
-    });
-    child.once("exit", (status, signal) => {
-      observedExit = { status, signal };
-      child.stdout.destroy(); child.stderr.destroy();
-      clearTimeout(timeoutTimer);
-      if (cleanupStarted) checkOwnedGroup();
-      else beginCleanup();
-    });
-    child.once("close", (status, signal) => {
-      closeObserved = true;
-      if (observedExit === null && !launchFailed) observedExit = { status, signal };
-      if (launchFailed && child.pid === undefined) finish(true);
-      else if (cleanupStarted) checkOwnedGroup();
-      else beginCleanup();
-    });
+  const child = spawn(command.executable, [...command.args], {
+    cwd, env: environment, detached: process.platform !== "win32",
+    stdio: ["ignore", "pipe", "pipe"],
   });
-  const reports = await Promise.all(command.expectedReports.map((row) =>
-    reportObservation(executionRoot, command, row)
-  ));
-  const body = {
+  activeCommand = child;
+  const stdout: Buffer[] = [], stderr: Buffer[] = [];
+  const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
+  let timedOut = false;
+  let launchFailed = false;
+  let captureOpen = true;
+  const timeoutTimer = createMonotonicDeadline();
+  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {
+    onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, "utf8")); timeoutTimer.cancel(); },
+    onExit: () => {
+      captureOpen = false; timeoutTimer.cancel(); child.stdout.destroy(); child.stderr.destroy();
+    },
+    onSignalRequested: (signal) => {
+      timeoutTimer.cancel(); signalSequence.push(signal);
+      stderr.push(Buffer.from(`${signal === "SIGTERM" ? "\n" : ""}ABI worksite command cleanup: ${signal} requested\n`, "utf8"));
+    },
+  });
+  const heartbeat = setInterval(() => {
+    lifetime.observe(() => { process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\n`); });
+  }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));
+  const onStdout = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stdout.push(Buffer.from(chunk))); };
+  const onStderr = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stderr.push(Buffer.from(chunk))); };
+  try {
+    child.stdout.on("data", onStdout); child.stderr.on("data", onStderr);
+    timeoutTimer.after(command.timeoutMs, () => { timedOut = true; lifetime.requestTermination(); });
+  } catch (error) { lifetime.fail(error); }
+  let facts: Awaited<typeof lifetime.completion>;
+  try {
+    facts = await lifetime.completion;
+    if (facts.firstError !== null) throw facts.firstError;
+  } finally {
+    timeoutTimer.cancel(); clearInterval(heartbeat); activeCommand = null; captureOpen = false;
+    child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
+  }
+  if (facts.scopeAbsence !== "absent") stderr.push(unconfirmedScopeDiagnostic(facts));
+  const observed = {
+    status: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
+    signal: facts.directExit?.signal ?? null, timedOut,
+    signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: facts.scopeAbsence === "absent",
+    stdout: Buffer.concat(stdout), stderr: Buffer.concat(stderr),
+  };
+  const processObservation = {
     ordinal,
     commandId: command.commandId,
     executable: command.executable,
@@ -838,6 +785,18 @@ async function runCommand(
     terminationConfirmed: observed.terminationConfirmed,
     stdout: stream(observed.stdout),
     stderr: stream(observed.stderr),
+  };
+  if (!observed.terminationConfirmed) {
+    throw new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
+      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
+      command: processObservation, diagnostic: decodeStream(processObservation.stderr),
+    } as unknown as JsonValue)}`);
+  }
+  const reports = await Promise.all(command.expectedReports.map((row) =>
+    reportObservation(executionRoot, command, row)
+  ));
+  const body = {
+    ...processObservation,
     reports,
     reportCount: reports.filter((row) => row.state === "file").length,
   };
@@ -1042,16 +1001,6 @@ async function oneHttpRequest(input: Readonly<{
   });
 }
 
-async function waitForExit<T>(exit: Promise<T>, timeoutMs: number): Promise<T | null> {
-  return new Promise((resolveWait) => {
-    const timer = setTimeout(() => resolveWait(null), timeoutMs);
-    exit.then((value) => {
-      clearTimeout(timer);
-      resolveWait(value);
-    });
-  });
-}
-
 async function runHttpProbe(
   _task: WorksiteExecutionTask,
   executionRoot: string,
@@ -1093,95 +1042,76 @@ async function runHttpProbe(
     stdio: ["ignore", "pipe", "pipe"],
   });
   activeCommand = child;
+  const stdout: Buffer[] = [], stderr: Buffer[] = [];
+  const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
+  const launchTimer = createMonotonicDeadline(), requestTimer = createMonotonicDeadline();
+  let launchFailed = false, launchExpired = false, requestOpen = true, completed = false;
+  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: launch.terminationGraceMs as number }, {
+    onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, "utf8")); launchTimer.cancel(); },
+    onExit: () => { launchTimer.cancel(); },
+    onSignalRequested: (signal) => { signalSequence.push(signal); },
+  });
   const heartbeat = setInterval(() => {
-    process.stderr.write("ABI_WORKSITE_HEARTBEAT http-probe\n");
+    lifetime.observe(() => { process.stderr.write("ABI_WORKSITE_HEARTBEAT http-probe\n"); });
   }, Math.min(15_000, Math.max(1_000, Math.floor((launch.timeoutMs as number) / 4))));
-  const stdout: Buffer[] = [];
-  const stderr: Buffer[] = [];
-  child.stdout.on("data", (chunk: Buffer) => stdout.push(Buffer.from(chunk)));
-  child.stderr.on("data", (chunk: Buffer) => stderr.push(Buffer.from(chunk)));
-  let launchFailed = false;
-  let childClosed = false;
-  child.once("error", (error) => {
-    launchFailed = true;
-    stderr.push(Buffer.from(error.message, "utf8"));
-  });
-  const exit = new Promise<Readonly<{ status: number | null; signal: string | null }>>((resolveExit) => {
-    child.once("close", (status, signal) => {
-      activeCommand = null;
-      childClosed = true;
-      clearInterval(heartbeat);
-      resolveExit({ status, signal });
-    });
-  });
-  const launchDeadline = Date.now() + (launch.timeoutMs as number);
-  const requestDeadline = Math.min(
-    launchDeadline,
-    Date.now() + (request.timeoutMs as number),
-  );
+  const onStdout = (chunk: Buffer): void => { lifetime.observe(() => stdout.push(Buffer.from(chunk))); };
+  const onStderr = (chunk: Buffer): void => { lifetime.observe(() => stderr.push(Buffer.from(chunk))); };
   let selectedPort: number | null = null;
   let portFileBytes: Buffer | null = null;
   let portFileIssue: string | null = null;
-  while (!launchFailed && !childClosed && selectedPort === null && Date.now() < requestDeadline) {
-    try {
-      const observedPath = await confinedExistingPath(
-        executionRoot,
-        portFileRelativePath,
-        "file",
-      );
-      const bytes = await readFile(observedPath);
-      portFileBytes = bytes;
-      const text = bytes.toString("utf8");
-      if (!/^(?:[1-9]\d{0,4})\r?\n?$/u.test(text)) {
-        portFileIssue = "noncanonical_decimal_port";
-        break;
-      }
-      const candidate = Number(text.trim());
-      if (!Number.isSafeInteger(candidate) || candidate < 1 || candidate > 65_535) {
-        portFileIssue = "port_out_of_range";
-        break;
-      }
-      selectedPort = candidate;
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
-        portFileIssue = "port_file_confinement_or_read_failure";
-        break;
-      }
-      await new Promise((resolveWait) => setTimeout(resolveWait, 25));
-    }
-  }
-  if (selectedPort === null && portFileIssue === null) {
-    portFileIssue = childClosed ? "process_exited_before_port" : "port_file_timeout";
-  }
-  const requestInput = selectedPort === null ? null : {
-    hostname: request.hostname as string,
-    port: selectedPort,
-    method: request.method as string,
-    path: request.path as string,
-    timeoutMs: request.timeoutMs as number,
-  };
+  let requestInput: Parameters<typeof oneHttpRequest>[0] | null = null;
   let response: Awaited<ReturnType<typeof oneHttpRequest>> = null;
-  while (!launchFailed && !childClosed && requestInput !== null && response === null &&
-    Date.now() < requestDeadline) {
-    response = await oneHttpRequest(requestInput);
-    if (response === null) await new Promise((resolveWait) => setTimeout(resolveWait, 25));
-  }
-  const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
-  let timedOut = false;
-  let exitValue = portFileIssue !== null && !childClosed
-    ? null
-    : await waitForExit(exit, Math.max(0, launchDeadline - Date.now()));
-  if (exitValue === null) {
-    timedOut = portFileIssue === null;
-    signalSequence.push("SIGTERM");
-    signalProcess(child, "SIGTERM");
-    exitValue = await waitForExit(exit, launch.terminationGraceMs as number);
-    if (exitValue === null) {
-      signalSequence.push("SIGKILL");
-      signalProcess(child, "SIGKILL");
-      exitValue = await exit;
+  let ownerError: Error | null = null;
+  let facts: Awaited<typeof lifetime.completion>;
+  const observing = (): boolean => !launchFailed && !completed && !lifetime.snapshot().closeObserved &&
+    lifetime.snapshot().firstError === null && requestOpen;
+  void lifetime.completion.then(() => { completed = true; });
+  try {
+    child.stdout.on("data", onStdout); child.stderr.on("data", onStderr);
+    launchTimer.after(launch.timeoutMs as number, () => { launchExpired = true; lifetime.requestTermination(); });
+    requestTimer.after(Math.min(launch.timeoutMs as number, request.timeoutMs as number), () => { requestOpen = false; });
+    while (observing() && selectedPort === null) {
+      try {
+        const observedPath = await confinedExistingPath(executionRoot, portFileRelativePath, "file");
+        const bytes = await readFile(observedPath);
+        portFileBytes = bytes;
+        const text = bytes.toString("utf8");
+        if (!/^(?:[1-9]\d{0,4})\r?\n?$/u.test(text)) { portFileIssue = "noncanonical_decimal_port"; break; }
+        const candidate = Number(text.trim());
+        if (!Number.isSafeInteger(candidate) || candidate < 1 || candidate > 65_535) { portFileIssue = "port_out_of_range"; break; }
+        selectedPort = candidate;
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code !== "ENOENT") { portFileIssue = "port_file_confinement_or_read_failure"; break; }
+        await new Promise((resolveWait) => setTimeout(resolveWait, 25));
+      }
+    }
+    if (selectedPort === null && portFileIssue === null) {
+      portFileIssue = lifetime.snapshot().closeObserved ? "process_exited_before_port" : "port_file_timeout";
+    }
+    requestInput = selectedPort === null ? null : {
+      hostname: request.hostname as string, port: selectedPort,
+      method: request.method as string, path: request.path as string, timeoutMs: request.timeoutMs as number,
+    };
+    while (observing() && requestInput !== null && response === null) {
+      response = await oneHttpRequest(requestInput);
+      if (response === null) await new Promise((resolveWait) => setTimeout(resolveWait, 25));
+    }
+    if (portFileIssue !== null) lifetime.requestTermination();
+  } catch (error) {
+    ownerError = error instanceof Error ? error : new TypeError(String(error)); lifetime.fail(ownerError);
+  } finally {
+    // Normal response still allows the declared launch duration. Any exceptional
+    // owner path above has already requested bounded cleanup before this wait.
+    try { facts = await lifetime.completion; }
+    finally {
+      launchTimer.cancel(); requestTimer.cancel(); clearInterval(heartbeat); activeCommand = null;
+      child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
     }
   }
+  if (facts.firstError !== null) throw facts.firstError;
+  if (ownerError !== null) throw ownerError;
+  const timedOut = launchExpired && portFileIssue === null;
+  if (facts.scopeAbsence !== "absent") stderr.push(unconfirmedScopeDiagnostic(facts));
   return {
     request: requestInput,
     portFile: {
@@ -1199,11 +1129,11 @@ async function runHttpProbe(
       byteLength: response.body.byteLength,
     },
     process: {
-      exitStatus: timedOut ? 124 : launchFailed ? 127 : (exitValue.status ?? 128),
-      processSignal: exitValue.signal,
+      exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
+      processSignal: facts.directExit?.signal ?? null,
       timedOut,
       signalSequence,
-      terminationConfirmed: true,
+      terminationConfirmed: facts.scopeAbsence === "absent",
       stdout: stream(Buffer.concat(stdout)),
       stderr: stream(Buffer.concat(stderr)),
     },
@@ -1431,15 +1361,28 @@ async function main(): Promise<void> {
   const inventoryBefore = await filesystemInventory(sandboxRoot);
   if (beforeMatches) {
     for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {
-      commandResults.push(await runCommand(task, sandboxRoot, ordinal));
+      const command = await runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);
+      if (!command.terminationConfirmed) {
+        throw new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
+          taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
+          command, diagnostic: decodeStream(command.stderr),
+        } as unknown as JsonValue)}`);
+      }
+      commandResults.push(command);
     }
     for (let ordinal = 0; ordinal < task.outcomePredicates.length; ordinal += 1) {
-      predicateObservations.push(await predicateObservation(
-        task,
-        sandboxRoot,
-        commandResults,
-        ordinal,
-      ));
+      const observation = await predicateObservation(task, sandboxRoot, commandResults, ordinal);
+      if (observation.predicateKind === "http_response_exact") {
+        const probe = record(observation.observedValue);
+        const processObservation = record(probe.process as JsonValue);
+        if (processObservation.terminationConfirmed !== true) {
+          throw new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({
+            taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
+            observation, diagnostic: decodeStream(processObservation.stderr as unknown as WorksiteObservedStream),
+          } as unknown as JsonValue)}`);
+        }
+      }
+      predicateObservations.push(observation);
     }
   }
   const after = await observations(task);

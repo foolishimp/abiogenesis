@@ -1,0 +1,41 @@
+{
+  "error": "AssertionError('/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs')",
+  "checked": [
+    {
+      "subject": "P5 preparation",
+      "records": 57,
+      "ownedOutputs": 2,
+      "mismatches": 0
+    },
+    {
+      "subject": "final06 frozen proof records",
+      "rows": 32,
+      "mismatches": 0
+    },
+    {
+      "subject": "final06 stage finite inventory",
+      "rows": 6642,
+      "mismatches": 0
+    },
+    {
+      "subject": "final06 dependencies",
+      "rows": 4576,
+      "mismatches": 0
+    },
+    {
+      "subject": "protected main generated",
+      "rows": 936,
+      "mismatches": 0
+    },
+    {
+      "subject": "actual final06 archive",
+      "members": 5271,
+      "bytesModesMembershipExact": true
+    },
+    {
+      "subject": "E03 exact source/emitted owners",
+      "owners": 6,
+      "rendererSpanExact": true
+    }
+  ]
+}

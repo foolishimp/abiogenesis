@@ -1,0 +1,47 @@
+{
+  "kind": "exact_lane_activation_freeze",
+  "lane": "public-preparation",
+  "subjectId": "baseline",
+  "maxNativePositiveCalls": 0,
+  "configurationSha256": "ced6277452bf1d58f0339505e74419089fb7ce4618777258e7338bbdca24a766",
+  "effectGrantSha256": "77a9fc567ddb58967edb609bacc2b2c1ee046fda484a9b28fa32ed2b2af20cec",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/activation.json",
+      "sha256": "fe700e11a6b046fd00a769a3a5027b9d74561401956aebd91c920ea3e533f71d",
+      "bytes": 2502,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/configuration.json",
+      "sha256": "ced6277452bf1d58f0339505e74419089fb7ce4618777258e7338bbdca24a766",
+      "bytes": 5203,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/effect-grant.json",
+      "sha256": "77a9fc567ddb58967edb609bacc2b2c1ee046fda484a9b28fa32ed2b2af20cec",
+      "bytes": 1203,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/output-correspondence.json",
+      "sha256": "d58ad94f2f73a06e2f538ac70ace046a57d64208d1c052b969331bcf0b48aa4a",
+      "bytes": 6608,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/prerequisites.json",
+      "sha256": "35083302bacdc7384d2bb16793c6876edcea7d2934981351e989e6277e7b4c15",
+      "bytes": 4207,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/protected-main-before.json",
+      "sha256": "2876b3ba124920c894481f1655aff4b79bb5c0acf3c1be92e63a56719a43c3cb",
+      "bytes": 227626,
+      "mode": "0o644"
+    }
+  ],
+  "runtimeEffectsStarted": false
+}

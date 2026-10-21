@@ -1,0 +1,26 @@
+{
+  "status": "STOPPED_RETURNED_TO_EXECUTIVE",
+  "created_utc": "2026-10-20T23:16:23.517386+00:00",
+  "command_receipt": "commands/06-owner-selection.json",
+  "first_failure": {
+    "kind": "stage_generated_manifest_precondition",
+    "error": "ENOENT",
+    "operation": "test module top-level readFile before selected tests",
+    "test": "test_env/tests/m5-s06-prime.test.mjs:38",
+    "missing": "stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+  },
+  "cause": "Finite source snapshot excludes generated manifest. Stage ran offline dependency installation and TypeScript emission only; selected existing m5-s06 test requires actual generated manifest at module initialization.",
+  "additional_results_in_same_launched_command": "13 declaration-closure/static-binder checks completed successfully; failing m5 file executed no test case.",
+  "passed_prior_receipts": [
+    "commands/02-typescript.json",
+    "commands/04-stdo3-acquisition-after-fixture-reentry.json",
+    "commands/05-common-computations.json"
+  ],
+  "not_executed": [
+    "selected m5-s06 owner cases",
+    "event-codec cases",
+    "native provider",
+    "installed P1-P5"
+  ],
+  "proposal": "Run existing generator in the exact isolated stage, no source/production changes; retain failed receipt; retry affected m5 cases only if Executive admits prerequisite correction."
+}

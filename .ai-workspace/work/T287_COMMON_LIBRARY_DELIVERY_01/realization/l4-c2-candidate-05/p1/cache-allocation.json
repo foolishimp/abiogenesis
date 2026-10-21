@@ -1,0 +1,18 @@
+{
+  "root": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/caches/p1",
+  "seedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/intake/empty-seed.json",
+    "sha256": "852df8e1ed525f145a477cebb3a4f16cdbbe2e91248349ff29ff7e2bc9554174",
+    "bytes": 478,
+    "mode": "0o644"
+  },
+  "files": [],
+  "globalCacheAccess": false,
+  "networkFallback": false,
+  "allocatedAfterInputFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/p1/input-freeze.json",
+    "sha256": "14dc748ec286d620db7cf0d3ce8636c27c10667ebedb13b4482440d2c1d17f49",
+    "bytes": 5015,
+    "mode": "0o644"
+  }
+}

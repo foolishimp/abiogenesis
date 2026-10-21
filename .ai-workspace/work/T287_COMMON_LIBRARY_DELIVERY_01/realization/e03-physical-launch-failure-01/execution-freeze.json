@@ -1,0 +1,60 @@
+{
+  "kind": "pre_execution_failed_spawn_population_freeze",
+  "activation": "E03-PHYSICAL-LAUNCH-FAILURE-01",
+  "createdUtc": "2026-10-21T02:18:11.409815+00:00",
+  "files": [
+    {
+      "path": "HOW.md",
+      "bytes": 9558,
+      "sha256": "76889cf2094101fab3972ff33bdbb0410d9017d5c1a7638a80031d6be6461da2"
+    },
+    {
+      "path": "config.json",
+      "bytes": 1639,
+      "sha256": "b337219b5dacf600290f6ccb34981f40a6fc0935c46592e2a3ca1d5aa58a2027"
+    },
+    {
+      "path": "exposed-helper.js.txt",
+      "bytes": 59148,
+      "sha256": "b1d0e484f470001ded5ab8e2a2c32233a13e55ad05f978b299a546a26b68d150"
+    },
+    {
+      "path": "host.mjs",
+      "bytes": 14518,
+      "sha256": "1bfcf1c5400e5322630e5d643d3c82c2a8da1c737e28721a698b54d8f925736e"
+    },
+    {
+      "path": "preflight.json",
+      "bytes": 9564,
+      "sha256": "6a2c71b35479fea54c7b6024c605c30cf66f48c4c1bd0f46c35c58431388c407"
+    },
+    {
+      "path": "preflight.py",
+      "bytes": 4658,
+      "sha256": "865b9f01cb833df21fa6b4fdae97842082a86044f90429c28d4e5f0e6f490d25"
+    },
+    {
+      "path": "preparation-receipt.json",
+      "bytes": 1427,
+      "sha256": "359b39ec62725feb6e00bdb20e4481c65ce61cf0da639cab1a7c2fa5166af610"
+    },
+    {
+      "path": "prepare.mjs",
+      "bytes": 3198,
+      "sha256": "9fdc75f6fc777212e024459461b825e7457a49ddb3ab00d95712220e8e451970"
+    },
+    {
+      "path": "prepared-inputs.json",
+      "bytes": 2729,
+      "sha256": "79e222bd2ad739b2e3b3d4d917fc457de95dcde256e52a02fc20e71855802b91"
+    },
+    {
+      "path": "run.py",
+      "bytes": 5205,
+      "sha256": "8405c68799fddd30a2c7340ea571b9648144d452d3ffca03a0db919910f0c3ef"
+    }
+  ],
+  "subjectFreezeSha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155",
+  "scope": "one worker, one command, one separate common no-PID attempt; stop first unexpected failure; no retry",
+  "roots": "exact initial-absence and permitted creation roots in config.json/HOW.md; new roots retained on failure"
+}

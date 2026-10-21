@@ -1,0 +1,755 @@
+{
+  "observedAt": "2026-10-21T06:49:43.161725+00:00",
+  "root": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6",
+  "nodes": [
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6",
+      "mode": "0o755",
+      "inode": 474693130,
+      "device": 16777231,
+      "kind": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/cache",
+      "mode": "0o755",
+      "inode": 474693133,
+      "device": 16777231,
+      "kind": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/host",
+      "mode": "0o755",
+      "inode": 474693131,
+      "device": 16777231,
+      "kind": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/host/package.json",
+      "mode": "0o644",
+      "inode": 474693135,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 85,
+      "sha256": "415b0b9353a971acb9952f51a3363e9498de7c7fa913814e3553a95594955df3"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/npm-logs",
+      "mode": "0o755",
+      "inode": 474693134,
+      "device": 16777231,
+      "kind": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch",
+      "mode": "0o755",
+      "inode": 474693132,
+      "device": 16777231,
+      "kind": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache",
+      "mode": "0o755",
+      "inode": 474693139,
+      "device": 16777231,
+      "kind": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501",
+      "mode": "0o755",
+      "inode": 474693140,
+      "device": 16777231,
+      "kind": "directory"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/0655ecda",
+      "mode": "0o600",
+      "inode": 474693194,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1124,
+      "sha256": "54e09212673bc503ba1b2722c2fd49bf2ed7f50d7faf95e8273d4908c730d29d"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/077122c4",
+      "mode": "0o600",
+      "inode": 474693204,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1332,
+      "sha256": "0b8381245be429f4e3d7f20f74b8cabc13556625f43f4a4f40c6a006151aa161"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/0dfc1d4d",
+      "mode": "0o600",
+      "inode": 474693171,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2276,
+      "sha256": "7d9ea9fc4f64b2a41d86a0fc099fed8c945c8a48ce612f03298fa3fe8fb7d7ae"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/1640165a",
+      "mode": "0o600",
+      "inode": 474693184,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1052,
+      "sha256": "56dbf7db655d3b4724f70f9d6203b8b8acd3b5e0c0e90d016c271c7537c48e4c"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/19f11bee",
+      "mode": "0o600",
+      "inode": 474693185,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 3476,
+      "sha256": "88f25e95774f4acc17519b7a77d7e5c44c97411a694a226f0c5f8c6fa12efe39"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/1b6c267b",
+      "mode": "0o600",
+      "inode": 474693192,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2188,
+      "sha256": "080ba66fe7cf90fdf06be1fd167d023182f9be05d6a90cefc6d473ffcea879b7"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/1b6cfceb",
+      "mode": "0o600",
+      "inode": 474693169,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1412,
+      "sha256": "b2170059effbba96756b9ddca7f42b662c02c748cbf95c7994e1d99ea6e15bd8"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/1c192005",
+      "mode": "0o600",
+      "inode": 474693206,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 916,
+      "sha256": "67bb736f587c44aa64a098ffd088af2e0815236df753fa28e778a326a2d1955a"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/1cf2efb3",
+      "mode": "0o600",
+      "inode": 474693142,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 916,
+      "sha256": "8112b89c8f757c9456524de8fc94acac1c7635587ec155267a7fef1c3d65ef77"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/223fc457",
+      "mode": "0o600",
+      "inode": 474693151,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 7164,
+      "sha256": "c0e586730048a6ff5f845acd7dcc7af417517cabce2d80efdede04311543a5e8"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/2411af24",
+      "mode": "0o600",
+      "inode": 474693164,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 916,
+      "sha256": "5bba1fb4d244c3418b2ce1565e92b1b464d6044d1ac7fec7e1269393c5b880cc"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/246a8652",
+      "mode": "0o600",
+      "inode": 474693153,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 3516,
+      "sha256": "e7be7fe6a748badfd8747385dda6546db8699962690d8a35adcd82bd5ded9e4f"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/248ff18b",
+      "mode": "0o600",
+      "inode": 474693177,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 3764,
+      "sha256": "46344e522ee6085953138f770335fe630a3a4ce4a36adbceb4acd2a4e3aa3f35"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/26d7b246",
+      "mode": "0o600",
+      "inode": 474693188,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 916,
+      "sha256": "c5fb6883266b9f316c868a7f256e0a0e3899dbe2ad98c587011bbc01cd782320"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/2c943337",
+      "mode": "0o600",
+      "inode": 474693152,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1324,
+      "sha256": "ca866726d4a337deeef4e52451c09d085226bed58ae83f62c332c7e2023535ec"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/306554cb",
+      "mode": "0o600",
+      "inode": 474693210,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1108,
+      "sha256": "003b772eac175b6c56a22d3454f81d1dc448886171a9c50747e75052799411fe"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/31bc4b51",
+      "mode": "0o600",
+      "inode": 474693166,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 916,
+      "sha256": "6a76637a68c3384b211ddbf196db934027909dad1a5402391a574c1de0c9ef1c"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/36a5744b",
+      "mode": "0o600",
+      "inode": 474693147,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 5644,
+      "sha256": "56f8447bd729a5489bfc63560b225b1dd98240d7c279765d942836eba76466b9"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/398eb1ef",
+      "mode": "0o600",
+      "inode": 474693186,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1212,
+      "sha256": "3bef98c4f563d2aac68754a25bad7b9dbf7e057a70215e12a41b6fa5f584efa3"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/3998ea18",
+      "mode": "0o600",
+      "inode": 474693174,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 9492,
+      "sha256": "4520876c148f3dcbc3a9fbb06cce610269744c777ef42d8c0f684d3a4e35f658"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/3eecffc1",
+      "mode": "0o600",
+      "inode": 474693141,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 900,
+      "sha256": "2da46ac79b19cec4dc8f4e0622b9fd9a2a1d1e696e014f81432a043949282d52"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/454c08be",
+      "mode": "0o600",
+      "inode": 474693150,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 13004,
+      "sha256": "da7238fec8f80168b94f6db1a65249934bf1de4185df2a9d69a9a955f5bc110e"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/47041e08",
+      "mode": "0o600",
+      "inode": 474693180,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 4404,
+      "sha256": "35ba717132611418d0bf1d28405ad77d89ecddd2c16f3ce8ae2d7d06bf2ed40f"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/487752f8",
+      "mode": "0o600",
+      "inode": 474693146,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2900,
+      "sha256": "738a4131a4b29021e38bee0bc5a0d17cbdce679247cd119ee85d2e2df5a88dfa"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/48b9a2e3",
+      "mode": "0o600",
+      "inode": 474693195,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2572,
+      "sha256": "18f7f705c5f8d8aaf19daeaf1c341ec757b4395608fa4cfd0843fd870f62e4f5"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/49a62087",
+      "mode": "0o600",
+      "inode": 474693196,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2324,
+      "sha256": "82aec2e786712b5e62c1777989b9f6d5acfeb8543fd948b0f4903165fe606252"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/4dbcb496",
+      "mode": "0o600",
+      "inode": 474693178,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1084,
+      "sha256": "2d1ce102b37d2e2dbebee6300d5ceb15501e9e313a98e1b9cf2cf13f0ad69582"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/4de8c1bf",
+      "mode": "0o600",
+      "inode": 474693209,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 948,
+      "sha256": "82bf8b0be1ea49e358ed47138c69fff71ddba55ad21dfd5b9de6e1db8fdae5f5"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/4ed65fe7",
+      "mode": "0o600",
+      "inode": 474693190,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 916,
+      "sha256": "c3604e8438e2d8541a6fbf655b697851c7a4ccd2d575ef82a06e91ddb64c0d4a"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/51078357",
+      "mode": "0o600",
+      "inode": 474693193,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 916,
+      "sha256": "9a2906e649e991028b73d1d3e504719e02cf78ee912fd53e37a886900d30fdfd"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/55cce99e",
+      "mode": "0o600",
+      "inode": 474693143,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2324,
+      "sha256": "9a52b59c0f9b2bbc5037b5b433926b2fd9628ddb9fb46b7c3a212bcbdf80655c"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/5ce3c97b",
+      "mode": "0o600",
+      "inode": 474693165,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 932,
+      "sha256": "52180eee022ab841328d1230fe0574abe1e20621ca43e68088def5f552f3d4fb"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/5db4d748",
+      "mode": "0o600",
+      "inode": 474693183,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1388,
+      "sha256": "322a2cd7332852907da02a6211f946c8cf6bfc4e8c2ce2fcbb7d0b9901553002"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/6ce020bb",
+      "mode": "0o600",
+      "inode": 474693170,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2316,
+      "sha256": "5971dd9fa215e737177dfbdf9dc4ef74867dfbc9f6494cc7b596a914aec0c51d"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/718e1354",
+      "mode": "0o600",
+      "inode": 474693176,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 8748,
+      "sha256": "9de8827600ddecad4fca29bd1b3a949dff6dd86d6545d6d2ecef5b0d6b328c2c"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/7492db49",
+      "mode": "0o600",
+      "inode": 474693217,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2596,
+      "sha256": "31a58e006ca51ff715d2820a01529b8dac4610d46857276f2780e88a14ebdf33"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/847afa15",
+      "mode": "0o600",
+      "inode": 474693149,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2492,
+      "sha256": "8afe9a5ea20fe66951fa68da8db0ec3d37efe378c24025f773ecf77019ee23ec"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/84d4083b",
+      "mode": "0o600",
+      "inode": 474693189,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2380,
+      "sha256": "dc9bd465de17ebb066bdc56a242688ff5854327fc8303a306f3769e6ab1594e1"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/8b37215e",
+      "mode": "0o600",
+      "inode": 474693163,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 980,
+      "sha256": "154b055b08fd95470f9a31beffe7befeca7e05ca3f1a915afb7c554ffd07701d"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/8e31f510",
+      "mode": "0o600",
+      "inode": 474693162,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1220,
+      "sha256": "ac692181e25f26066520aa98c6b7a323e311bd95bd8bda83f43b4c5c01c7565b"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/8fe23731",
+      "mode": "0o600",
+      "inode": 474693187,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1004,
+      "sha256": "90cfc29f4fd926d439dccbac20da76070b7b8d13a46de2c330c7f87854eab812"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/920a4535",
+      "mode": "0o600",
+      "inode": 474693207,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1260,
+      "sha256": "50e17fe51ab9e7d83550297fd75bdc58a304161c27b98d5a788518ecec0b59f9"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/949b5c94",
+      "mode": "0o600",
+      "inode": 474693197,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 8380,
+      "sha256": "9b2781d92b76809a1dfb0843fab646c6e62c9fc7c539f147f0af04d2d94343d7"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/980f2fcd",
+      "mode": "0o600",
+      "inode": 474693167,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 948,
+      "sha256": "c6c633d6c5f5f70eb9bf44965ad47801aaaa9315cbc544e063ec51b19aa08088"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/9dbc92c2",
+      "mode": "0o600",
+      "inode": 474693215,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1388,
+      "sha256": "4647d72b9d7249cf2b7c5aa2a6bc1b3d7a2310d52280a7daac1f1f5a48abcbda"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/9edc30e0",
+      "mode": "0o600",
+      "inode": 474693213,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 3516,
+      "sha256": "fdfdb5f1625509d574e0f89e3d422a3c78cb1b0d5492c53c0a9bf40a425dbbdd"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/a39eb04b",
+      "mode": "0o600",
+      "inode": 474693145,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 884,
+      "sha256": "fd9ba505f8346c1ac1398106f82a7464b70ade2b73c9dcbb7cac9d1dd28ef236"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/a967a5bb",
+      "mode": "0o600",
+      "inode": 474693144,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 884,
+      "sha256": "bc2d403cc4a62e049e8f4071f63264cb804e53d38a0832913bab74df14ba876f"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/aae01ffb",
+      "mode": "0o600",
+      "inode": 474693155,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1932,
+      "sha256": "caea75de0ba34d854c3be29d5ed0b1a9b47d1c063ad700d99880a19d3e8dd02c"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/ab6c4841",
+      "mode": "0o600",
+      "inode": 474693157,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2836,
+      "sha256": "e0a62ad3e863dd2f3cb662d7647b95ed8aad22da0eeb9b9c88cd488cac51f359"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/af2e7c4d",
+      "mode": "0o600",
+      "inode": 474693172,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1508,
+      "sha256": "c909fc615c9cab732d2647c3b93a0d5c5fbd9ae3ae60ab6ebdeb889b0807163a"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/afc3f028",
+      "mode": "0o600",
+      "inode": 474693200,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1076,
+      "sha256": "9fe0a2cc4e562471342c2fde8fc4083cecc6b748684ad976181fcc3127da82ce"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/b49b5c7f",
+      "mode": "0o600",
+      "inode": 474693161,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1988,
+      "sha256": "b01aa6cc85cb9d9408e44d55dab9797993345c58db0e809436c7b5c6bd4e9bc9"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/b624a7b7",
+      "mode": "0o600",
+      "inode": 474693216,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 4308,
+      "sha256": "107e1a79aa7eac7ec1305ab4f68997b99a9febe2dc20e20c89bd327e39288b98"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/b6d0e37a",
+      "mode": "0o600",
+      "inode": 474693198,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 7436,
+      "sha256": "b766e35be8a24e673374cda68990b533fee4e0be716f6f0d251b2e8cc8fd6962"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/c3891229",
+      "mode": "0o600",
+      "inode": 474693212,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 868,
+      "sha256": "94b8f391109720cb1aafb26a5e96677746b8258a2c15e55a0a100952366e827f"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/c889005c",
+      "mode": "0o600",
+      "inode": 474693181,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1508,
+      "sha256": "95e878079055cd65f33cdda6727001fb826f613715c5fa07e6d1b8ac4fe60387"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/ceefbcb8",
+      "mode": "0o600",
+      "inode": 474693203,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1092,
+      "sha256": "e6d1a7528e2cd58240b1606820b8e7a9abea855a90f9adacc21948f98d0e7222"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/d1367827",
+      "mode": "0o600",
+      "inode": 474693182,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 4660,
+      "sha256": "9cd0359939782700d1da033699224da03baa3587630a4d996881c6f59949d99d"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/d381c602",
+      "mode": "0o600",
+      "inode": 474693179,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 3076,
+      "sha256": "3fc9398776cfda63a2f0c28b4c48fcdc0e13ed1f073b7240857b886c2adfadfd"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/d68d97f0",
+      "mode": "0o600",
+      "inode": 474693211,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1060,
+      "sha256": "f5e91950ad30382eaa6eb940006afcefc1dc5ff5a8ad61fca68e3c0a3eb6da04"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/d7988491",
+      "mode": "0o600",
+      "inode": 474693202,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 988,
+      "sha256": "fc40ef2a001bc2c9f9f799faeb71e118c94e2d07b2a829c72e6d0e89141b394e"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/dea5df01",
+      "mode": "0o600",
+      "inode": 474693168,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1028,
+      "sha256": "18234fecec023ce552926a59658b6cec8ebda4a22976c4de3ec6432104c16c7f"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/df704faf",
+      "mode": "0o600",
+      "inode": 474693208,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1268,
+      "sha256": "0ca7a4783ca2d76af30ff0e048f220b4dff9cb441abc49a3d5aeda746f917ac4"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/e1d9c08e",
+      "mode": "0o600",
+      "inode": 474693160,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 2940,
+      "sha256": "c43261d60b29fb044b5795964bb3fe85b4b625abd281a74e69704f5040c9d846"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/e21e283a",
+      "mode": "0o600",
+      "inode": 474693201,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1540,
+      "sha256": "bfc1a561b7f3f8eb91cce85967630d32e60b4556405efaa4c2a5a511ad5ccaf1"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/e71300ea",
+      "mode": "0o600",
+      "inode": 474693148,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1708,
+      "sha256": "95403d7769dcb6f272b22db13c622c919e06a6d91af9f55ebda584723f865e23"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/eb2270d5",
+      "mode": "0o600",
+      "inode": 474693205,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 916,
+      "sha256": "68c572cd37ac2332cec16538b3584ccf7b7ec74641f5d3872bcc597880167531"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/eea756eb",
+      "mode": "0o600",
+      "inode": 474693191,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 948,
+      "sha256": "b0109d15131d9196d19b8f793c6b443e6750b12d3a2a56ba5f4ef6fccdc3cf82"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/eec35fdd",
+      "mode": "0o600",
+      "inode": 474693173,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1140,
+      "sha256": "8e0b1c491ae0014dd0f3f5e80917c40875f50ceeff3fba6967ebc8b71b5d6f19"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/f015c2c7",
+      "mode": "0o600",
+      "inode": 474693154,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1524,
+      "sha256": "58c0027a7419e92b855eb7a585c2d0dc84dc843e9cd8bfcd720bd9670b2a0011"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/f3e92294",
+      "mode": "0o600",
+      "inode": 474693199,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 932,
+      "sha256": "9472a974b9ddc6f7186d34e74e6f0042c827c26fd492a8a615f5c6b41e605173"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/f4f15a9f",
+      "mode": "0o600",
+      "inode": 474693158,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 900,
+      "sha256": "ffd0460a0ac65dc425bf765e3a2e0d1d663ec4963c7fbfbe16f12b187d461cbb"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/f7b19e10",
+      "mode": "0o600",
+      "inode": 474693156,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 73604,
+      "sha256": "b51f08b9f5eb82c66a257888e52ca5641a1a2268a91b58b35e66562c64bf2ad2"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/fa64bb03",
+      "mode": "0o600",
+      "inode": 474693214,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1292,
+      "sha256": "81f123e06d0577339f7280fdeb16edb71a0a5abd0a2bfcd15257591e66d0d741"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/ff793e18",
+      "mode": "0o600",
+      "inode": 474693159,
+      "device": 16777231,
+      "kind": "file",
+      "bytes": 1508,
+      "sha256": "8c27ffef2b1f39b3940fee7d7678e14e684caa7c107fd9e24d5b6f655dfbe371"
+    }
+  ],
+  "regularFileBytes": 249941,
+  "npmCacheEmpty": true,
+  "installedPackageAbsent": true,
+  "testEvidenceAbsent": true,
+  "scratchEmpty": false,
+  "preexecutionRecordsUnchanged": 31,
+  "noCleanup": true
+}

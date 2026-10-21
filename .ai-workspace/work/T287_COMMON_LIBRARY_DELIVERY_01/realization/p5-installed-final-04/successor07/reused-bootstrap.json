@@ -1,0 +1,68 @@
+{
+  "host": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host",
+  "readOnly": true,
+  "sourcePins": [
+    {
+      "path": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 3189620,
+      "sha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "bytes": 9744,
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/owned_process_lifetime.js",
+      "bytes": 11604,
+      "sha256": "b7bc8b9d10114f03f7a8bac20d270852c898a1aca1a327a141a59c747e29636f"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+      "bytes": 27633,
+      "sha256": "93f10c172f44646cf8ea910114dd3e99011893c782fa7d84aee1e2e5f265dccc"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js",
+      "bytes": 59159,
+      "sha256": "35821199d7045945e1817191421f019cdeb93cca8ac9161e6ea31d61940ad855"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_execution.js",
+      "bytes": 35900,
+      "sha256": "59c311c4c785cba1fecf1e4af1172d8333c10d4f8fd7e611d7cb305db3acdc43"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+      "bytes": 110016,
+      "sha256": "c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/worksite_command_execution.js",
+      "bytes": 25002,
+      "sha256": "e9366fd762a1a05d8a7e73a781d97f68d98a8bcbd45c6389b7136f4a0883f459"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/commands/install.completion.json",
+      "bytes": 1272,
+      "sha256": "3cf0130ade50dbb1af2aaddec72d61cf6f9a2ea89b31778ecf75d39917e277e9"
+    }
+  ],
+  "actualCompleteInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/retained-physical-inventory.json",
+    "bytes": 4709471,
+    "sha256": "41ca3eac4d8dc9eb7abbfeb22dc45f6d982fdfa14d4c84c41767ebed72ba79d4"
+  },
+  "hostMemberCount": 5271,
+  "priorInstallReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/commands/install.completion.json",
+    "bytes": 1272,
+    "sha256": "3cf0130ade50dbb1af2aaddec72d61cf6f9a2ea89b31778ecf75d39917e277e9"
+  },
+  "priorHostCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor05/installed-host-correspondence.json",
+    "bytes": 1019,
+    "sha256": "21aa0b3c1db5d480a31da3844a13be8d4e5a315c5db7556e3c535960b4daeca7"
+  },
+  "newBootstrapInstallCount": 0
+}

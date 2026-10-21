@@ -1,0 +1,36 @@
+{
+  "status": "verified_actual_setup_prefix_only",
+  "handoff": {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/evidence/setup-close-handoff.json",
+    "sha256": "7bf3bea43ae7fd1d41fa3c1a1a517cc3f6259e0b2520b14869440a56548805f4",
+    "bytes": 1260
+  },
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent/abi5-root-env-RKlxaR/runtime/events.jsonl",
+    "prefixLength": 3120855,
+    "prefixDigest": "sha256:7fdc7f34d22e2768d43ca0651e91f94c5df5cf276f059ec871aa7216a097022e",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 475092817,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:198b77ef1974167dd445b3369d90dddf0545d8d1699621ef933486e5106389ee"
+  },
+  "physical": {
+    "path": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent/abi5-root-env-RKlxaR/runtime/events.jsonl",
+    "sha256": "7fdc7f34d22e2768d43ca0651e91f94c5df5cf276f059ec871aa7216a097022e",
+    "bytes": 3120855,
+    "realpath": "/private/tmp/abg-stdo3-hog-fea4398de7a145e9/compose-retry/scratchParent/abi5-root-env-RKlxaR/runtime/events.jsonl",
+    "device": 16777231,
+    "inode": 475092817,
+    "mode": "0o644"
+  },
+  "retainedBytes": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/evidence/compose-retry/setup-events.jsonl",
+    "sha256": "7fdc7f34d22e2768d43ca0651e91f94c5df5cf276f059ec871aa7216a097022e",
+    "bytes": 3120855
+  },
+  "scope": "Actual closed setup prefix; no Public start, Run traversal, or fresh Result/replay proof occurred."
+}

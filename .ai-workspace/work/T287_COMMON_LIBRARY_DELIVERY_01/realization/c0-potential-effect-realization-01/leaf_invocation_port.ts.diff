@@ -1,0 +1,28 @@
+--- before/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
++++ after/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+@@ -43,9 +43,7 @@
+ import type { ExactPrefixArtifactTruthProjection } from "../abg/artifact_truth.js";
+ import { projectCCallCarrierPhaseAtPrefix } from "../abg/c_call.js";
+ import {
+-  constructWorksiteObservationCurrentFluent,
+-  deriveRuntimeEventCalculusProjection,
+-  holdsAt,
++  worksiteSelectedOccurrenceInputCurrent,
+ } from "../abg/event_calculus.js";
+ import {
+   authenticateOwnedNativeInstructionAssemblyBasis,
+@@ -1183,12 +1181,8 @@
+     );
+     const observationCurrent = parents
+       ? validateWorksiteFileParentsPlanAtPrefix(authorityPrefix, call.input, executionAuthority.programPublication)
+-      : holdsAt(
+-      deriveRuntimeEventCalculusProjection(runtimePrefix),
+-      constructWorksiteObservationCurrentFluent(
+-        call.input.predecessorObservation.observationRef,
+-      ),
+-    );
++      : isWorksiteFileReplaceRequest(call.input) && worksiteSelectedOccurrenceInputCurrent(
++          authorityPrefix, executionAuthority.cCall, call.input);
+ 
+     return authorization.kind === (parents ? "worksite_file_parents_authorization" : "worksite_effect_authorization") &&
+       phase?.phase === "selected_no_evidence" &&

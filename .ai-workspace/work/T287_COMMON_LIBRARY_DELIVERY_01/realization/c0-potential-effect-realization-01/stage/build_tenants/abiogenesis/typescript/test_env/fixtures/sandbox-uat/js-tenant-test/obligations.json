@@ -1,0 +1,111 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-JS-TENANT-TEST",
+  "kind": "node_test",
+  "expectedReturnValue": "Hello, world!",
+  "stageMeanings": [
+    {
+      "stage": "conformance_project",
+      "filesToProduce": [
+        "specification/project-conformance.md"
+      ],
+      "instructions": [
+        "Write only specification/project-conformance.md.",
+        "Declare a JavaScript module plus node:test Hello World traversal.",
+        "Name implementation design, source, test design, component test source, UAT test source, test execution plan, and test execution result as separate lifecycle surfaces."
+      ]
+    },
+    {
+      "stage": "implementation_design",
+      "filesToProduce": [
+        "design/implementation-design.md"
+      ],
+      "instructions": [
+        "Write only design/implementation-design.md.",
+        "Define a private type:module package with src/hello.mjs exporting helloWorld().",
+        "helloWorld() must return exactly \"Hello, world!\".",
+        "The component and UAT tests must import helloWorld and assert the exact return value."
+      ]
+    },
+    {
+      "stage": "source",
+      "filesToProduce": [
+        "package.json",
+        "src/hello.mjs"
+      ],
+      "instructions": [
+        "Write only package.json and src/hello.mjs.",
+        "package.json must be private:true and type:module.",
+        "src/hello.mjs must export helloWorld() returning exactly \"Hello, world!\"."
+      ]
+    },
+    {
+      "stage": "test_design",
+      "filesToProduce": [
+        "design/test-design.md"
+      ],
+      "instructions": [
+        "Write only design/test-design.md.",
+        "Specify component and UAT validation obligations over the exported helloWorld function.",
+        "Both validations must assert the exact return value \"Hello, world!\"."
+      ]
+    },
+    {
+      "stage": "component_test_source",
+      "filesToProduce": [
+        "test/component/hello.test.mjs"
+      ],
+      "instructions": [
+        "Write only test/component/hello.test.mjs.",
+        "Use node:test and node:assert/strict.",
+        "Import the named export exactly as: import { helloWorld } from \"../../src/hello.mjs\".",
+        "Assert helloWorld() returns exactly \"Hello, world!\"."
+      ]
+    },
+    {
+      "stage": "uat_test_source",
+      "filesToProduce": [
+        "test/uat/hello.uat.test.mjs"
+      ],
+      "instructions": [
+        "Write only test/uat/hello.uat.test.mjs.",
+        "Use node:test and node:assert/strict.",
+        "Import the named export exactly as: import { helloWorld } from \"../../src/hello.mjs\".",
+        "Assert the user-visible greeting contract is exactly \"Hello, world!\"."
+      ]
+    },
+    {
+      "stage": "test_execution_plan",
+      "filesToProduce": [
+        "test-execution-plan.json"
+      ],
+      "instructions": [
+        "Write only test-execution-plan.json.",
+        "The JSON command must be node.",
+        "The args must be [\"--test\", \"test/component/hello.test.mjs\", \"test/uat/hello.uat.test.mjs\"].",
+        "expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.",
+        "expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.",
+        "assertedReturnValue must be \"Hello, world!\"."
+      ]
+    },
+    {
+      "stage": "test_execution_result",
+      "instructions": [
+        "Produce no files.",
+        "Accept only if both component and UAT tests passed, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true."
+      ]
+    }
+  ],
+  "requirements": [],
+  "requirementSpanStageMeanings": [],
+  "requiredDepthClassRefs": [],
+  "sourcePin": {
+    "repository": "odd_glc",
+    "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+    "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+    "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+    "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+    "startByte": 11915,
+    "endByte": 15570,
+    "selectedDigest": "sha256:3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9"
+  }
+}

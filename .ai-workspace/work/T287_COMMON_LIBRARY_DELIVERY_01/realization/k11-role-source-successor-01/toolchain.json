@@ -1,0 +1,20 @@
+{
+  "node": "v24.7.0",
+  "node_executable": {
+    "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "kind": "file",
+    "bytes": 86104016,
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "mode": "0o555"
+  },
+  "typescript": "5.9.2",
+  "package_lock": {
+    "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+    "kind": "file",
+    "bytes": 8001,
+    "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+    "mode": "0o644"
+  },
+  "dependency_entries": 4576,
+  "source": "exact independent copy of pinned pure stage; no installation or network fallback"
+}

@@ -1,0 +1,29 @@
+--- closed06-tooling/verify-metadata.mjs
++++ C2-bound-tooling/verify-metadata.mjs
+@@ -8,7 +8,7 @@
+ import { renderWorksiteCommandExecutionPrompt } from './stage/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js';
+ 
+ const work = import.meta.dirname, tenant = join(work, 'stage/build_tenants/abiogenesis/typescript');
+-const baseline = join(work, '../c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript');
++const baseline = join(work, '../c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript');
+ const read = async path => JSON.parse(await readFile(path, 'utf8'));
+ const a = await read(join(baseline, 'product-toolchain-manifest.json'));
+ const b = await read(join(tenant, 'product-toolchain-manifest.json'));
+@@ -61,6 +61,8 @@
+ }
+ 
+ const oldCatalog = a.publicContractCatalog, newCatalog = b.publicContractCatalog, catalogRows = [], declarationChanges = new Map();
++assert.equal(oldCatalog.rows.length, 75);
++assert.deepEqual(oldCatalog, newCatalog, 'all 75 catalog contracts unchanged');
+ assert.equal(oldCatalog.rows.length, newCatalog.rows.length);
+ for (const key of Object.keys(oldCatalog)) if (!['rows', 'catalogDigest'].includes(key)) assert.deepEqual(oldCatalog[key], newCatalog[key], key);
+ for (let index = 0; index < oldCatalog.rows.length; index += 1) {
+@@ -89,7 +91,7 @@
+     beforeDigest: old.contractDigest, afterDigest: next.contractDigest,
+     relation: changedKeys.length === 0 ? 'exact equality' : 'exact native declaration bytes and owner inventory digest; every other row field equal' });
+ }
+-const ownedDeclarations = new Set(['build/code/src/abg/c_call_outcome.d.ts']);
++const ownedDeclarations = new Set();
+ for (const change of declarationChanges.values()) {
+   const path = change.after.declarationPath; assert.ok(ownedDeclarations.has(path), path);
+   const old = await readFile(join(baseline, path), 'utf8'), next = await readFile(join(tenant, path), 'utf8');

@@ -1,0 +1,142 @@
+{
+  "subject": "Executive exact L2 design acceptance and user full-tree checkpoint handoff",
+  "created_utc": "2026-10-20T19:01:13.859680+00:00",
+  "decision_authority": "/root Executive",
+  "recording_writer": "/root/calculus_assessment",
+  "state": {
+    "L1": "design_accepted",
+    "L2": "exact_design_accepted",
+    "L3": "pending_not_activated",
+    "L4": "pending",
+    "L5": "pending",
+    "library_delivery": "OPEN",
+    "release_resumption_gate": "CLOSED",
+    "checkpoint": "user_selected_before_implementation"
+  },
+  "files": [
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "e9eb82809ce171cb4bd6e58ed31576e4f3075fab75b74f629343593d71cedbae",
+      "bytes": 78297
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "59a3c4f8aa3d409c97bca93d728f6e60abc86e67d34dd19c46ce0831791de11d",
+      "bytes": 533127
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/frontier.md",
+      "sha256": "3d0a874f26600e83d7dac538896a8e047b1a2cbc8eb83a2694f0e840340b5e36",
+      "bytes": 5111
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.json",
+      "sha256": "fce521ae6693ab0bc7ff81df604805f535412d377fdeba3e8366402276966079",
+      "bytes": 4565
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md",
+      "sha256": "96e3d769cab24966acd9af222cb8325b3253c87c357521d4099b4dc41bf3a965",
+      "bytes": 3421
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "sha256": "0e6deb951f7c7ceeb7aa9c816e392576bdfa482544c0f0cab5e0223583992f97",
+      "bytes": 4647
+    }
+  ],
+  "accepted_l2": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-candidate-freeze-02.json",
+      "sha256": "4374bec49bf21833afa2df17dc144c1f118dba581dda952306ca4a44f69aa9ae",
+      "bytes": 9957
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "bytes": 26888
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/review-02.md",
+      "sha256": "ea958de360c4cfc516ebad844bf0e0ebf340f707a437f1c2d11c474607266dba",
+      "bytes": 5276
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/result-02.json",
+      "sha256": "87a4bb41bb14a098146693051077b9b327cbff20e531cfdd4e25856b8abdadec",
+      "bytes": 1604
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/freeze-02.json",
+      "sha256": "dde2f653c8980a2ad317ee50ba83da377a7791c6284fe1ceec091734d86e786c",
+      "bytes": 1686
+    }
+  ],
+  "preserved_failure": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-candidate-freeze.json",
+      "sha256": "94b3517a5e6d9e1b901879058fa39a7c2a7a906de834ae6675434e93916057a9",
+      "bytes": 6693
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/subject-01/L2-execution-contract.md",
+      "sha256": "0c2876519cec2452480eb4e7a86fb26efdd0a0dcfa36a005b6336490e947d24b",
+      "bytes": 21965
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/review-01.md",
+      "sha256": "c862ca6310be883f9311b12b7409a82319151eacbd5e8f5d6062f519b3346c47",
+      "bytes": 11583
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/review-L2/result-01.json",
+      "sha256": "74460d8c2bfa018136755a674d8c11b54fb37380d56cc5a982298a64f9e30517",
+      "bytes": 1763
+    }
+  ],
+  "baseline_readiness": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/return.md",
+    "sha256": "2769e69a7126a041632c22eff39bf0070dbf57d461d9ab788114942a997daaf5",
+    "bytes": 2996
+  },
+  "recording_evidence": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/activation.md",
+      "sha256": "1117c6d9e66c3c476896720d4ceb258f4eb719b87bb69f00950f1516bba0df4c",
+      "bytes": 1848
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages.json",
+      "sha256": "c7b76159bbbe8d5e4a965835359a79520bf4f91d6c572bcd0c36ce459123f858",
+      "bytes": 1721
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/GOALS.md",
+      "sha256": "fd759854a8a4e868513653df7ab8228ecffb49d6beab0096448a0c64b6c059b9",
+      "bytes": 77637
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "f61e3b9e8db7b003165fdb337e6e2d665bb1e11a588f2a841c207501cca65861",
+      "bytes": 532032
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/preimages/frontier.md",
+      "sha256": "f367349551037bb8a69310fd2e6eb3e24e9d2b5d83da8df4d2a04fc35153aba8",
+      "bytes": 4373
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/readiness.json",
+      "sha256": "94090d24d46bf542bcdd42e802f2dd165e2d94a3b0853e1f2d7af3f74d5bdc8e",
+      "bytes": 999975
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/acceptance/acceptance.diff",
+      "sha256": "4b56ba8faf35ecac914504fe29a2ed487e88ca82ce13746742bd9fe9dff7ac46",
+      "bytes": 40077
+    }
+  ],
+  "mechanical_result": "2159/2159 checks pass; historical tails identical; 1309 other basis files and all 264 production TypeScript files unchanged; prior status bytes preserve the two changed basis documents plus frontier; 741 main generated build files unchanged.",
+  "effects": "Current status/handoff documents and own records only. No Product/design/source/test/generated, runtime/install or Git mutation by this Writer. Baseline built+packed earlier is separate mechanical readiness.",
+  "next_owner": "Separate checkpoint Writer performs the explicitly selected all-visible-tree commit/push and exact oversized-file transport. This Writer stops all writes; no L3 activation and no later commit-SHA repository update."
+}

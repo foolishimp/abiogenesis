@@ -1,0 +1,29 @@
+{
+  "phase": "before",
+  "observedAt": "2026-10-21T08:24:58.855142+00:00",
+  "root": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant",
+  "archiveSha256": "fadd07e06799be957087419527c683ce18650ecf0abfe669c0f28e034d84aef6",
+  "archiveMembersSha256": "4623ff7a5c388cd43ffb9726bad5824811ae06cfb3b3d9dfc2920babb2a6c850",
+  "memberCount": 5271,
+  "allMemberBytesExact": true,
+  "fullMembershipExact": true,
+  "noSymlink": true,
+  "nonBinModesExact": true,
+  "normalizations": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "archiveMode": "0o644",
+      "actualInstalledMode": "0o755",
+      "bytes": 3463,
+      "sha256": "94d13d72e79246f35c12062cc75549da7225639edcc976aca5fa3b16313f4f25"
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "archiveMode": "0o644",
+      "actualInstalledMode": "0o755",
+      "bytes": 2003,
+      "sha256": "4fa6e68b171e9858ee0665a535238554ee3fe849b5e48869089f48051126b039"
+    }
+  ],
+  "operatorChmod": false
+}

@@ -1,0 +1,42 @@
+{
+  "observedAt": "2026-10-21T08:36:50.237718+00:00",
+  "rows": [
+    {
+      "label": "host",
+      "pidOrGroupId": 74749,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "host-group",
+      "pidOrGroupId": 74749,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "supervisor",
+      "pidOrGroupId": 74747,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "construction",
+      "pidOrGroupId": 78207,
+      "groupProbe": false,
+      "presence": "absent",
+      "errno": 3
+    },
+    {
+      "label": "construction-group",
+      "pidOrGroupId": 78207,
+      "groupProbe": true,
+      "presence": "absent",
+      "errno": 3
+    }
+  ],
+  "allRecordedScopesAbsent": true,
+  "limit": "Only exact physically recorded identities; raw runtime records are not replayed logical history."
+}

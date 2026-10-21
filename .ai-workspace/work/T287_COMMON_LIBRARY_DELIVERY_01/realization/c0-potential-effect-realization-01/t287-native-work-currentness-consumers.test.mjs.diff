@@ -1,0 +1,63 @@
+--- before/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs
++++ after/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs
+@@ -19,7 +19,7 @@
+ import * as assessmentOwner from '../../build/code/src/product/native_workspace_assessment.js';
+ import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';
+ import { selectHeldEventStoreDurablePrefix, appendCheckedArtifactEvent } from '../../build/code/src/abg/event_store.js';
+-import { projectWorksiteFailureBasis, projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from '../../build/code/src/abg/c_call_outcome.js';
++import { projectWorksiteSelectedOccurrence, worksiteSelectedOccurrenceDependencies, projectWorksiteFailureBasis, projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from '../../build/code/src/abg/c_call_outcome.js';
+ import { deepFreeze } from '../../build/code/src/shared/immutable.js';
+ import { isExactOperationInvocationCoordinate } from '../../build/code/src/shared/operation_definition_coordinate.js';
+ 
+@@ -833,7 +833,8 @@
+       { scopeClass: 'workspace' }));
+     const implementationSet = { kind: 'admitted_implementation_set', schemaVersion: '5.0.0', disposition: 'admitted',
+       ...set, admissionEventRef: implementationEvent.eventId };
+-    const execution = f.atCut(() => f.basisFor(env, b2.invocation, request, { graphFunctionRef: graph.name,
++    const c0Invocation = f.atCut(() => f.invocation(env, { graphFunctionRef: graph.name, graphFunctionDigest: hash(graph) }));
++    const execution = f.atCut(() => f.basisFor(env, c0Invocation, request, { graphFunctionRef: graph.name,
+       graphFunctionDigest: hash(graph), implementationSetRef: set.implementationSetRef, implementationSetDigest: setDigest }));
+     const executionBasis = { kind: 'execution_basis', schemaVersion: '5.0.0', disposition: 'admitted', ...execution };
+     const callBody = { basisId: execution.basisRef, graphCallId: 'graph-call://u1/c0-failure', frameId: 'frame://u1/c0-failure',
+@@ -858,8 +859,9 @@
+     const input = { ...env, request, executionBasis, cCall, implementationSet, authorization };
+     assert.equal(product.isWorksiteFileReplaceInput(input), true, JSON.stringify(authorization));
+     const selected = [observation('b2 failed C0 predecessor', request), ...controls(f)];
+-    const before = await views(f, label + ' before physical effect', selected);
+-    assert.ok(before.facts.every(row => row.indexed));
++    const before = await views(f, label + ' selected potential before physical effect', selected);
++    assert.deepEqual(before.facts.map(row => row.indexed), [false, false, true, true]);
++    assert.ok(projectWorksiteSelectedOccurrence(occurrence.fibre, worksiteSelectedOccurrenceDependencies(f.prefix(), occurrence.fibre)));
+     const target = join(f.canonicalRoot, 'target.txt'), original = { rename: fs.rename, open: fs.open };
+     const fault = { published: false, injected: 0, kind: 'controlled EIO on target open after actual rename' };
+     fs.rename = async (source, destination) => { const result = await original.rename(source, destination);
+@@ -894,8 +896,8 @@
+       return f.append('c_call_evidenced', 'c_call', callRef, { ...body, evidenceRef: identity('evidence', digest), evidenceDigest: digest },
+         { ...scope, causationEventRefs: [occurrence.fibre.eventId] });
+     });
+-    const evidenced = await views(f, label + ' evidence only', selected);
+-    assert.ok(evidenced.facts.every(row => row.indexed));
++    const evidenced = await views(f, label + ' evidence only after selected potential', selected);
++    assert.deepEqual(evidenced.facts.map(row => row.indexed), [false, false, true, true]);
+     assert.equal(nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), before.rows.at(-1).admissionOrdinal,
+       f.canonicalRoot, ['target.txt']), false, 'failure evidence alone is not an authenticated Result');
+     const event = f.atCut(() => {
+@@ -945,12 +947,16 @@
+       const invalidated = nativeOwner.worksiteCommandSourcesInvalidatedAfter(negativePrefix,
+         before.rows.at(-1).admissionOrdinal, f.canonicalRoot, ['target.txt']);
+       assert.equal(invalidated, false, name);
+-      negatives.push({ name, invalidated, premise: 'controlled corrupted copy; not admitted history' });
++      const selectedFibre = rows.find(row => row.eventId === occurrence.fibre.eventId);
++      const potential = projectWorksiteSelectedOccurrence(selectedFibre, rows.filter(row => row.admissionOrdinal < selectedFibre.admissionOrdinal)) !== null;
++      assert.equal(nativeOwner.worksiteCommandSourcesInvalidatedAfter(negativePrefix, selectedFibre.admissionOrdinal - 1,
++        f.canonicalRoot, ['target.txt']), potential, 'bad later Result does not erase a valid earlier potential cause');
++      negatives.push({ name, invalidated, potential, premise: 'controlled corrupted copy; not admitted history' });
+     }
+     await capture(label + ' authenticated transition and dependency closure', { event, evidence, authenticated,
+       dependencies: dependencies.map(row => row.eventId), authDependencies: authDependencies.map(row => row.eventId),
+       currentness: after.facts, gates, negatives, prefixRows: f.rows().length,
+-      authenticationExtent: 'aggregate:c_call, exact basis, binding artifact and implementation only; no full fold or target population' });
++      authenticationExtent: 'aggregate:c_call, exact basis/invocation/parent, binding artifact and implementation; no full fold or target population' });
+   };
+   try {
+     for (const callable of [isCapabilityGrantValue, constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask,

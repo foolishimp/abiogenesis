@@ -797,7 +797,7 @@ function exactC2SourceEnvironment(
       authorityPrefix,
       sourceRunClosures[0]!.eventId,
     );
-    const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix);
+    const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix).materialize();
     sourceDurablePrefix = durableRuntimeEventPrefixThroughEvent(
       durablePrefix, sourceRunClosures[0]!.eventId,
     );

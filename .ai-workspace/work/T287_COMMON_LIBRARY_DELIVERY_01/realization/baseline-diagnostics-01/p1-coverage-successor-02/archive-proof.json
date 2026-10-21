@@ -1,0 +1,30 @@
+{
+  "status": "satisfied",
+  "baselineArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+    "bytes": 10676374,
+    "mode": "0o644"
+  },
+  "baselineInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-package-inventory.json",
+    "sha256": "7fceeafce866ff9df84dc33568e247583badcf9021ac592e8e3f6e765b7531b4",
+    "bytes": 987427,
+    "mode": "0o644"
+  },
+  "baselineMembers": 5267,
+  "fixtureArchive": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+    "sha256": "07bec7de8b50d206f7123b8dbbdb813712bb6cc3d3489b6445a05e7fab73dd48",
+    "bytes": 6184,
+    "mode": "0o644"
+  },
+  "fixtureInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/fixture-package-inventory.json",
+    "sha256": "282a739172a00f653e0359f80f33780d4e6e8d593d9fea9f331f71012d512239",
+    "bytes": 4324,
+    "mode": "0o644"
+  },
+  "fixtureMembers": 7,
+  "scope": "Read-only archive member bytes/size and fixture source/pack-mode correspondence; no extraction or process workload"
+}

@@ -1,0 +1,47 @@
+{
+  "kind": "closed_transport_verifier_stop",
+  "status": "stopped",
+  "activation": "PORTABILITY-OPTIONAL-PROVIDER-03",
+  "writer": "/root/stdo3_proof_writer",
+  "returnTo": "/root",
+  "createdUtc": "2026-10-21T04:53:18.597745+00:00",
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/stopped-manifest.json",
+    "sha256": "cd451fb036771afdec7e396e1122a338b40c546967ffb933d42887a2f953bb6b",
+    "bytes": 8977,
+    "mode": "0o644"
+  },
+  "recordCount": 50,
+  "populationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/population-freeze.json",
+    "sha256": "ebb57ed34ccb49eebd821dab546f6fbd46144bedcd2112c80a46f76cd255d829",
+    "bytes": 3853,
+    "mode": "0o644"
+  },
+  "archiveInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/archives.json",
+    "sha256": "3ac807a2d1a941b09c6cb4c896e20ee8b67b14c850d3074941ca21ca45c46706",
+    "bytes": 6050,
+    "mode": "0o644"
+  },
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/STOP-verification.json",
+    "sha256": "9178fdd36d4376538db8ecd913dd9944ec6149bba1be760cbecd311c5316088f",
+    "bytes": 444,
+    "mode": "0o644"
+  },
+  "localization": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/successor-03/verifier-localization.json",
+    "sha256": "82204dd21776834cf60cf71644d608de940739a7422ff7ddb33097515f961b4e",
+    "bytes": 2709,
+    "mode": "0o644"
+  },
+  "selectedAddresses": 69428,
+  "newArchiveCount": 10,
+  "newCompressedBytes": 55685201,
+  "ProductExecutions": 0,
+  "sourceEdits": 0,
+  "GitEffects": 0,
+  "retries": 0,
+  "coverageComplete": false
+}

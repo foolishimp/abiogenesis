@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^physical HTTP owner:",
+    "test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/stage/build_tenants/abiogenesis/typescript",
+  "exitCode": 1,
+  "seconds": 0.9683667081408203,
+  "startedAt": "2026-10-20T23:36:08.552519+00:00",
+  "inputsSha256": "a563bd1262390b9e57285cb6d0c1585df572052ce37a033bacbfbfcff9aff1eb",
+  "scope": "real disposable local Node/POSIX process; private component exposure, not installed Public or native-provider proof"
+}

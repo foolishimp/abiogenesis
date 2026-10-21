@@ -1,0 +1,73 @@
+{
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/source-inputs.json",
+    "sha256": "fc95840383cbccd2fc27769d923a12c8c32dfa33adc20a17f3b4b1e4c504def3",
+    "bytes": 353610,
+    "mode": "0o644"
+  },
+  "post": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage-post-generation-inventory.json",
+    "sha256": "5ce8d5e7aff9b3be5cd244e120e0a39f28a3f1f49a04e70e2cab5b86085438e7",
+    "bytes": 1784057,
+    "mode": "0o644"
+  },
+  "correspondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/emitted-correspondence.json",
+    "sha256": "92713d5d355dfa3991b3a707f1084f07fdc932851cb548f5595630c4eccaad1e",
+    "bytes": 8498,
+    "mode": "0o644"
+  },
+  "producer": "scripts/generate-product-manifest.mjs",
+  "producerPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+    "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a"
+  },
+  "producerReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/commands/generate.result.json",
+    "sha256": "6987e8dc3db959ed0334164bf47e62330e6d1c4d90b514cb87cbeeb1d56a4d0f",
+    "bytes": 240,
+    "mode": "0o644"
+  },
+  "changes": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 197474,
+        "sha256": "c99f518ef399a238d553fd32fb118d68c01f7aa0f6f8bd87776465749104e304"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 197474,
+        "sha256": "5ff808849b0e7173101512dbe7ab56f73ef3a66ad3017752319a77ba4c89d68d"
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 255,
+        "sha256": "876b4b835266db604ea2248a42c78b463ad0a3943a9bbad9c5aec1759a0302a7"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 255,
+        "sha256": "f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e"
+      }
+    }
+  ],
+  "allOtherSourceRowsExactlyEqual": true,
+  "nativeShapePolicy": "source kind -> runner type; original generated kind=file rows use runner regular-file branch; original dependency type/link rows retained; original archive rows are all regular files, preserving exact mode/stage_mode/bytes/SHA",
+  "reusedInventories": [
+    "generated-inventory.json",
+    "dependency-inputs.json",
+    "archive-members.json"
+  ],
+  "noGlobalIdentityStripping": true
+}

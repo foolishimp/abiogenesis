@@ -1,0 +1,205 @@
+{
+  "kind": "bounded_final_proof_preparation_freeze",
+  "activation": "FINAL-PROOF-PREPARATION-01",
+  "actor": "/root/stdo3_proof_writer",
+  "status": "prepared_not_granted",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "method": {
+    "uri": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "acceptedL2Sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "recordCount": 29,
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/D03-OWNER-ORACLE-TRIAGE-01.json",
+      "sha256": "2fdee0071e201d1d3f8db0ff156ab090fc4c1f8a69b4982954241a99e9c0c5f8",
+      "bytes": 1130,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/D03-admissible-domain.json",
+      "sha256": "645cd4641985a92714494e6e715389206d6a2114e7794e5e76e7be36d91e06dd",
+      "bytes": 4008,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/HOW-stopped-D03-01.md",
+      "sha256": "b127175b678d87afa5c5735079186399e7313d4ebf534dcaefa1f46e4006ebb7",
+      "bytes": 4489,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/HOW.md",
+      "sha256": "ef2aafee9f406f30be470810a76fe8aae3d085454641c37b9d30f6c6d5b49c65",
+      "bytes": 4757,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/activation.json",
+      "sha256": "1f4802809e81829f135c5e5744cb8fef75e8d59a900bb41bdef1034b65d33599",
+      "bytes": 1179,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/authority.json",
+      "sha256": "c52ee6f730bbe13d0dfb4e50ce496676d035658a83cc084c862ebdc2a439fc23",
+      "bytes": 3428,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/construction-check.mjs",
+      "sha256": "ae961e4eb0c9c1f0bad3360e501ae8bf1c191765c385751e812ddd722a1e00d2",
+      "bytes": 4259,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/construction-checks-02.json",
+      "sha256": "ce82ed5fadb5b0cb6d516b67f61c930f5ad4c67e072a9ef66c0dce48c5cecb95",
+      "bytes": 1833,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/construction-checks.json",
+      "sha256": "0e827dc46f1cc3e3ac409d15c32d00cb746dc4bb569797b9f25f51972f6d68e1",
+      "bytes": 6883,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/coverage.json",
+      "sha256": "3b669442fd51c852798fa611aebcb1c6bec7d598c99ee34222639c851642e132",
+      "bytes": 87751,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/coverage.md",
+      "sha256": "ffc516bbd1276c4a09838aee716468b7b0f1e901fb9d1600625ee03908025559",
+      "bytes": 3825,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-analyse.mjs",
+      "sha256": "dad5f922ffe6df46bd223774603b24c8c535918d33db1dc66a0254c0af969da0",
+      "bytes": 3317,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-preload.mjs",
+      "sha256": "5420045ebd31cb00bb27ab408e623cd141b3a8691d4a2e8b24f058c821c90852",
+      "bytes": 7531,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-probes.mjs",
+      "sha256": "b54dc5c3b1da3016c4113a0edfc9929f433491c095445939c0e98cdd2731da01",
+      "bytes": 6035,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-runner.mjs",
+      "sha256": "1ee5db3e8640b1c2cd5e4acab4249d710f61415c42fa00ca40a12595674792fa",
+      "bytes": 4771,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic.configuration.template.json",
+      "sha256": "e397d3aa371616951c3e3200960cc8290339fd48329547d1cf898b0fb805f250",
+      "bytes": 1754,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/inputs.json",
+      "sha256": "a30a69cb18a10dc93f99567fd744dbb873dba128bdeb53d55b764a5feb72a59f",
+      "bytes": 8826,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/measurement.md",
+      "sha256": "c27a88c2f78f8d5795ceadb376cdd8e8b573259080d22df608c4244b3cf8cdc6",
+      "bytes": 5831,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/method-status.request.json",
+      "sha256": "4c1789ca62a6e748358a6b18874c77ba424b297f25e5aa2383c1d4efc697d6eb",
+      "bytes": 225,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/method-status.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/method-status.stdout",
+      "sha256": "be61c6fb497f70f5347fae578d95b10ccb61e0b1b99dc28f8ae42f61b3bb877e",
+      "bytes": 10805,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/output-correspondence.json",
+      "sha256": "3b13c71b9c9940fcf51b33db74966f1ae416909a8a1648cd5122d52d1f05de01",
+      "bytes": 5609,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.configuration.template.json",
+      "sha256": "3dbc57d4d8ab20bb42ae955968b6e3f8176b542e19b2d4d0d6d2c546e541b510",
+      "bytes": 1122,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs",
+      "sha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+      "bytes": 7231,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/prepare-records.py",
+      "sha256": "b48bc06faadb18aa32deaca3d59f73491fe5615c07758de203379a3fb7e7aa1b",
+      "bytes": 19020,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/preservation.json",
+      "sha256": "e8c60e71ba901d075437899108fd77eb973759373c7152c605fe3f0f6bae3812",
+      "bytes": 690,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/readiness.json",
+      "sha256": "773fde141ab035e4843efe028db885dfa472251090bb9f8b4f35b6108d0c967b",
+      "bytes": 2771,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/remaining-execution.template.json",
+      "sha256": "25a6573b7fe685e7af9cf571befcec91354f12d7a7453618924cf96621804142",
+      "bytes": 7136,
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/return.md",
+      "sha256": "c7ef97efb6cde9061142ec5fab770196a263117a536af81a041a8b9661d0e6f2",
+      "bytes": 2843,
+      "mode": "0o644"
+    }
+  ],
+  "scope": {
+    "caseGroups": 15,
+    "preparedCommands": 8,
+    "antecedentPinsVerified": 30,
+    "protectedMainFilesVerified": 936,
+    "installedWorkloads": 0,
+    "nativeCalls": 0,
+    "GitMutations": 0
+  },
+  "exclusions": [
+    "final combined artifact or emitted pins not consumed",
+    "all workload configurations remain NOT_GRANTED",
+    "five explicit coverage gaps retained for Executive selection",
+    "no semantic acceptance, L5, or release qualification"
+  ]
+}

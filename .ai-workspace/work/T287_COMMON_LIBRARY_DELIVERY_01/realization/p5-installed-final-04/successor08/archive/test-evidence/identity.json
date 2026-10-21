@@ -1,0 +1,42 @@
+{
+  "testPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/proof/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+  "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/proof/build_tenants/abiogenesis/typescript",
+  "subjects": [
+    [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/proof/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "8005d9b488b86deae56758b9241d0226a634207c7996ed24d146bfd53095cc75"
+    ],
+    [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/proof/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    ],
+    [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/proof/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e"
+    ],
+    [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/proof/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e"
+    ],
+    [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "fadd07e06799be957087419527c683ce18650ecf0abfe669c0f28e034d84aef6"
+    ],
+    [
+      "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "51de2eb3af366ce1089f074d56258312620266f67759344acc549966447c6a84"
+    ],
+    [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/proof/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "51de2eb3af366ce1089f074d56258312620266f67759344acc549966447c6a84"
+    ]
+  ],
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "controlledProvider": true,
+  "nativeSemanticCredit": false,
+  "testTimeoutMs": 600000,
+  "actorInactivityTimeoutMs": 60000,
+  "actorAbsoluteTimeoutMs": 90000,
+  "replayTimeoutMs": 30000,
+  "replayGraceMs": 1000
+}

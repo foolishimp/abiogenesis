@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/execution-intake-01/retain-lane.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/p2",
+    "partial-install"
+  ],
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/execution-intake-01/retain-lane.py",
+    "sha256": "4e8d7416f01cc3b1a2e70e008ba819bb5275daf5a421b36d4cc2d1979d48ac9c",
+    "bytes": 4055,
+    "mode": "0o644"
+  },
+  "retryCount": 0
+}

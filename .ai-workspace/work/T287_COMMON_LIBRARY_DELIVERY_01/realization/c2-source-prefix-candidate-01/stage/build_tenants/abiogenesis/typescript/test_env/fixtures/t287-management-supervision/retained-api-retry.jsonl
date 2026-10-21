@@ -1,0 +1,6 @@
+{"type":"system","subtype":"api_retry","attempt":1,"max_retries":10,"retry_delay_ms":577,"error_status":null,"error":"unknown","session_id":"0f17e44d-ebdc-4002-aa90-7532a4a7b813","uuid":"c8d1889d-6e0b-4be2-b10f-c462fc0db5d3"}
+{"type":"system","subtype":"api_retry","attempt":2,"max_retries":10,"retry_delay_ms":1033,"error_status":null,"error":"unknown","session_id":"0f17e44d-ebdc-4002-aa90-7532a4a7b813","uuid":"470fe7c8-562e-4139-968d-33a04459a3b7"}
+{"type":"system","subtype":"api_retry","attempt":3,"max_retries":10,"retry_delay_ms":2479,"error_status":null,"error":"unknown","session_id":"0f17e44d-ebdc-4002-aa90-7532a4a7b813","uuid":"341573ec-1f8c-401d-8c1d-07e130362e1e"}
+{"type":"system","subtype":"api_retry","attempt":4,"max_retries":10,"retry_delay_ms":4929,"error_status":null,"error":"unknown","session_id":"0f17e44d-ebdc-4002-aa90-7532a4a7b813","uuid":"67b4614a-580e-4ad7-b84c-70fe8ef75a74"}
+{"type":"system","subtype":"api_retry","attempt":5,"max_retries":10,"retry_delay_ms":9798,"error_status":null,"error":"unknown","session_id":"0f17e44d-ebdc-4002-aa90-7532a4a7b813","uuid":"e2828aac-34c3-4f10-87ea-5923d26874a3"}
+{"type":"system","subtype":"api_retry","attempt":6,"max_retries":10,"retry_delay_ms":17264,"error_status":null,"error":"unknown","session_id":"0f17e44d-ebdc-4002-aa90-7532a4a7b813","uuid":"6b0057c8-b41c-4716-8607-1ac5d7e95d18"}

@@ -1,0 +1,23 @@
+{
+  "status": "frozen_before_output",
+  "subjectId": "baseline",
+  "lane": "public-preparation",
+  "requirements": [
+    "Original runner result satisfied, baseline/public-preparation, nativeCalls 0",
+    "Original full producer-bound Program/operation correspondence with reference endpoint",
+    "Every observed process record has exact config, expected zero exit, no probeErrors",
+    "Every explicitly preloaded successful child PID has a process record and Node fs trace",
+    "Every loaded emitted module has selected byte pin and declared canonical root; history/prefix/canonical modules all observed in aggregate",
+    "RuntimeHistory work/body/selector/scope and RuntimeEventIndex actual counters retain their original meanings; no missing channel is converted to zero",
+    "All trace files parse and each counter channel remains separate",
+    "Physical prefix/owner handoff and immutable inputs retained"
+  ],
+  "allowedUninstrumentedChildren": [
+    {
+      "file": "/usr/bin/du",
+      "purpose": "Original runner post-workload footprint utility; no per-PID JS counters"
+    }
+  ],
+  "unexpectedChildren": "Stop to Root; retain raw edge and do not silently add coverage",
+  "sampling": "Per-PID samples/maxRSS/CPU; no summed maxima or OS-wide IO total. Native trace includes observer/evidence IO; JS observer own operations excluded as frozen design states."
+}

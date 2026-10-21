@@ -1,0 +1,33 @@
+{
+  "authorityBasis": {
+    "authorityDigest": "sha256:5437c2221467ace1868376f6632906236e3dc3e7be29c06ee82796e44d05d3d3",
+    "authorityRef": "workspace-authority://abiogenesis/5437c2221467ace1868376f6632906236e3dc3e7be29c06ee82796e44d05d3d3",
+    "importAuthorityDigest": null,
+    "importAuthorityRef": null,
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "source": "clean_creation"
+  },
+  "authorityMode": "clean",
+  "bindingDigest": null,
+  "bindingRef": null,
+  "canonicalRoot": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite",
+  "configurationDigest": null,
+  "configurationRef": null,
+  "creationManifestDigest": "sha256:aa5a430f3a7a305e4766264431fcbc2e7016cd23f63bced052cea6702ebd7268",
+  "creationManifestRef": "workspace-creation://abiogenesis/aa5a430f3a7a305e4766264431fcbc2e7016cd23f63bced052cea6702ebd7268",
+  "kind": "workspace_manifest",
+  "preservationPolicy": "not_applicable",
+  "preservationState": "not_applicable",
+  "provenance": [
+    {
+      "provenanceDigest": "sha256:aa5a430f3a7a305e4766264431fcbc2e7016cd23f63bced052cea6702ebd7268",
+      "provenanceRef": "workspace-creation://abiogenesis/aa5a430f3a7a305e4766264431fcbc2e7016cd23f63bced052cea6702ebd7268"
+    }
+  ],
+  "scaffoldPolicy": "none",
+  "scaffoldState": "no_project_authority",
+  "schemaVersion": "5.0.0",
+  "workspaceDigest": "sha256:017d1de77bb69e64a4a166867b131539aa4de83c7dbb15094123198958ea7f8f",
+  "workspaceRef": "workspace://abiogenesis/017d1de77bb69e64a4a166867b131539aa4de83c7dbb15094123198958ea7f8f"
+}

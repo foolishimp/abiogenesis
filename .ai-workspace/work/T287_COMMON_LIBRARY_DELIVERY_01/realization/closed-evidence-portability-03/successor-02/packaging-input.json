@@ -1,0 +1,22 @@
+{
+  "activation": "Root authorized successor-02 bounded repair and one packaging attempt",
+  "populationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/population-freeze.json",
+    "sha256": "62f7b25ccd02736f9de96b901eb390a1113d0146be8c44fc9e51ed0e2ac1a996",
+    "bytes": 3765
+  },
+  "populationCommandClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/population-command-closure.json",
+    "sha256": "62669df3aa38cb559c40ed69d087cad82c6e3a1fa87b7f3807785d26fb415f5a",
+    "bytes": 855
+  },
+  "packager": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/package.py",
+    "sha256": "3f9a733c7c4331e103fede787186f2ec4ed4d06c671e111836a22e98fe09cbd8",
+    "bytes": 7161
+  },
+  "effectScope": "Only new inert transport archives and receipts; no Product execution or prior-cut mutation",
+  "compressedLimit": 1073741824,
+  "logicalLimit": 2147483648,
+  "perArchiveLimit": 94371840
+}

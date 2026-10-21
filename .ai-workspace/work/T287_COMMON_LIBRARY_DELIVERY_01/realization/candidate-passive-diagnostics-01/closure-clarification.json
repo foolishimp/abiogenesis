@@ -1,0 +1,135 @@
+{
+  "status": "closed_reporting_clarification",
+  "issuedUnder": "Root evidence-only clarification disposition following FINAL-CANDIDATE-DIAGNOSTICS-01",
+  "frozenReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/return.json",
+    "sha256": "bf5da875004bf632502c9c7130e1a38df3d0008116219243279e2e0cd8f13aa3",
+    "bytes": 8133,
+    "mode": "0o644"
+  },
+  "frozenSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/freeze.json",
+    "sha256": "65d3d7beb8b40af97a76df339edb2a87fa0784246897d4b1509c88563a1bcd4d",
+    "bytes": 15812,
+    "mode": "0o644"
+  },
+  "correctedField": "effects.packs",
+  "correction": {
+    "candidateProductRepacks": 0,
+    "originalWorkloadFixturePackCommandsObserved": 2,
+    "meaning": "Original unchanged diagnostic workloads produced their fixture packages. The original packs=0 field was scoped to candidate Product repack and was too broadly named."
+  },
+  "actualFixturePackaging": [
+    {
+      "lane": "p1",
+      "actualLaunch": {
+        "pid": 33360,
+        "file": "/opt/homebrew/bin/npm",
+        "args": [
+          "/opt/homebrew/bin/npm",
+          "pack",
+          "--ignore-scripts",
+          "--json",
+          "--pack-destination",
+          "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts"
+        ],
+        "effectiveFile": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "effectiveArgs": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "--trace-event-categories=node.fs.sync,node.fs.async",
+          "--trace-event-file-pattern=/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/diagnostic/fs-${pid}-${rotation}.json",
+          "--import",
+          "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-preload.mjs?configuration=%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_COMMON_LIBRARY_DELIVERY_01%2Frealization%2Fcandidate-passive-diagnostics-01%2Fp1%2Fdiagnostic-configuration.json&sha256=42e2db8521772a3fff5f8c461bbc249f0a893181d3b99724278c2855d5a91e96",
+          "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+          "pack",
+          "--ignore-scripts",
+          "--json",
+          "--pack-destination",
+          "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/setup/consumer-artifacts"
+        ],
+        "classification": "npm-explicit-node-preloaded",
+        "returnValue": 0
+      },
+      "parentObserver": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/diagnostic/process-29055.json",
+        "sha256": "2228c40c617fdf1d47c5f38fce29c6ec713ebe00d42ed9edb19afb425340b7ec",
+        "bytes": 45701,
+        "mode": "0o644"
+      },
+      "childObserver": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/diagnostic/process-33360.json",
+        "sha256": "4a2b5bcccb23214a196a6dc25d53acfe9f0c7598fe8ffbad34631550f3af7698",
+        "bytes": 4003,
+        "mode": "0o644"
+      },
+      "observedChildExitCode": 0,
+      "actualFixturePackage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/fixture-package-inventory.json",
+        "sha256": "f800cb21bdb1025765d93476e48ff1f8f47365c95c8e5de4f1cd4d5dde15a0ef",
+        "bytes": 2809,
+        "mode": "0o644"
+      }
+    },
+    {
+      "lane": "p3",
+      "actualLaunch": {
+        "pid": 37186,
+        "file": "npm",
+        "args": [
+          "npm",
+          "pack",
+          "--ignore-scripts",
+          "--json",
+          "--pack-destination",
+          "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts"
+        ],
+        "effectiveFile": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "effectiveArgs": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "--trace-event-categories=node.fs.sync,node.fs.async",
+          "--trace-event-file-pattern=/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/diagnostic/fs-${pid}-${rotation}.json",
+          "--import",
+          "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/diagnostic-preload.mjs?configuration=%2FUsers%2Fjim%2Fsrc%2Fapps%2Fabiogenesis%2F.ai-workspace%2Fwork%2FT287_COMMON_LIBRARY_DELIVERY_01%2Frealization%2Fcandidate-passive-diagnostics-01%2Fp3%2Fdiagnostic-configuration.json&sha256=7722fc632f387266bc69a328803900adb51649dca4b157a92ac75a509d7c86cd",
+          "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+          "pack",
+          "--ignore-scripts",
+          "--json",
+          "--pack-destination",
+          "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/language-smoke-fixture/artifacts"
+        ],
+        "classification": "npm-explicit-node-preloaded",
+        "returnValue": 0
+      },
+      "parentObserver": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/diagnostic/process-37109.json",
+        "sha256": "982228953873b84bb1c6633bcdcd404c1e834df51bfef6cf0e4cd127f7f85506",
+        "bytes": 33261,
+        "mode": "0o644"
+      },
+      "childObserver": {
+        "path": "/private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/diagnostic/process-37186.json",
+        "sha256": "471d09fa1bebffa1ff22857ccb5f33d0b30c77fa53167179a009e35b4afb6575",
+        "bytes": 4040,
+        "mode": "0o644"
+      },
+      "observedChildExitCode": 0,
+      "actualFixturePackage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/fixture-package-inventory.json",
+        "sha256": "a6014da1810fad523d99516a489a819fcfaa1e47056e66d12e2ecd0c369374e6",
+        "bytes": 8671,
+        "mode": "0o644"
+      }
+    }
+  ],
+  "effectDistinction": {
+    "nativeProviderCalls": 0,
+    "observedRuntimeChildLaunchEdges": {
+      "p1": 83,
+      "p3": 19
+    },
+    "scope": "Observed instrumented Node/npm and disclosed tar/du launch edges. These actual runtime commands occurred; zero provider calls does not mean zero child execution. Worker-thread or unobserved external IO coverage is not inferred."
+  },
+  "preservation": "Original root and lane freezes remain byte-identical; no source/runtime/package rebuild, retry or rescan performed for this addendum.",
+  "newEffects": "This clarification record only",
+  "scope": "Reporting precision only; no change to passed workload, original oracle, passive coverage, cost scope, or pending L5 acceptance."
+}

@@ -1,0 +1,19 @@
+{
+  "status": "prepared",
+  "utc": "2026-10-21T00:48:36.151771+00:00",
+  "sourceRows": 1311,
+  "generatedRows": 936,
+  "dependencyRows": 4576,
+  "uniqueStageEntries": 6629,
+  "independentRegularFileCopy": true,
+  "hardlinksOrExternalSymlinks": false,
+  "sourceOverlays": 3,
+  "compileGeneratorPackInstallEffects": 0,
+  "originalBaselineAndMainProtectedRowsVerified": true,
+  "stageInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage-inventory.json",
+    "sha256": "854e4595452b83356dee1d832de49e767d68fe6824c5445f915f7c991dea7e3c",
+    "bytes": 1782556,
+    "mode": "0o644"
+  }
+}

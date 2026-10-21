@@ -1,0 +1,78 @@
+--- validate-and-freeze.py (preserved)
++++ validate-successor-02.py
+@@ -124,7 +124,7 @@
+             'activationRecord': record(WORK / 'activation.md'), 'validator': record(WORK / 'validate-and-freeze.py'),
+             'protected': protected, 'sourcePinCount': len(pins['files']), 'effects': 'Read pins; write new work-carrier records only'})
+         print(json.dumps({'status': 'preflight_satisfied', 'sourcePinCount': len(pins['files']), 'protected': protected}))
+-    elif mode == 'freeze':
++    elif mode == 'validate':
+         assert not (WORK / 'freeze.json').exists()
+         before = read(WORK / 'preflight.json')
+         for key in ['sourcePins', 'activationRecord', 'validator']:
+@@ -155,7 +155,28 @@
+         assert capsule['id'] == triage['F6CapsuleId']
+         assert capsule['status'] == 'registered_deferred_assurance_not_activated'
+         p1 = read(P1 / 'result.json')
+-        assert p1['status'] == 'satisfied' and p1['actualPublicCalls'] == 10 and p1['nativeCalls'] == 0 and p1['retryCount'] == 0
++        assert p1['status'] == 'satisfied' and p1['nativeCalls'] == 0 and p1['retryCount'] == 0
++        calls = p1['actualPublicCalls']
++        expected_labels = ['workspace-create', 'product-verify-0', 'product-verify-1',
++            'product-resolve', 'product-install-0', 'product-install-1', 'workspace-bind',
++            'catalog-admit', 'catalog-view', 'program-conformance']
++        assert isinstance(calls, list) and len(calls) == 10
++        assert all(isinstance(call, dict) for call in calls)
++        assert sorted(call['label'] for call in calls) == sorted(expected_labels)
++        assert all(call['exitCode'] == 0 and call['outcomeKind'] == 'result' for call in calls)
++        request = read(WORK / 'successor-request-02.json')
++        for item in request['originalRecords'] + request['successorRecords']:
++            verify(item)
++        relations = read(WORK / 'frozen-source-relations-02.json')['relations']
++        pin_by_path = {item['path']: item for item in read(WORK / 'source-pins.json')['files']}
++        prefix = str((FINAL / 'source').relative_to(ROOT)) + '/'
++        assert len(relations) == 15
++        for relation in relations:
++            assert relation['frozenCopy'] == prefix + relation['originalRepositoryPath']
++            assert relation['originalPathReadByThisSuccessor'] is False
++            for key in ['sha256', 'bytes', 'mode']:
++                assert relation[key] == pin_by_path[relation['frozenCopy']][key]
++        assert read(WORK / 'root-triage-array-02.json')['id'] == 'C0-DISPOSITION-ARRAY-02'
+         hold = read(P1 / 'hold.json')
+         assert all(hold[key] is False for key in ['ownerResolutionExecuted', 'P2Executed', 'P3Executed'])
+         links = []
+@@ -176,27 +197,20 @@
+             'sourcePinCount': len(read(WORK / 'source-pins.json')['files']), 'links': links,
+             'publicAssessment': record(WORK / 'public-assessment.md'),
+             'verbatimProvenance': 'Transcribed from this actor preceding public final response; no raw transcript retrieval or transcript hash is claimed',
+-            'P1': {'status': 'exact_final02_P1_satisfied', 'actualPublicCalls': 10, 'nativeCalls': 0, 'retryCount': 0,
++            'successor': 'C0-DISPOSITION-ARRAY-02', 'request': record(WORK / 'successor-request-02.json'),
++            'P1': {'status': 'exact_final02_P1_satisfied', 'actualPublicCalls': len(calls), 'callLabels': expected_labels, 'everyRowExitZeroAndResult': True, 'nativeCalls': 0, 'retryCount': 0,
+                 'dependentLanesStarted': False}, 'allC0Closure': False, 'releaseClaim': False,
+             'writeTerritory': str(WORK.relative_to(ROOT)), 'noOtherWritesByThisActivation': True})
+-        files = [record(p) for p in sorted(WORK.iterdir()) if p.is_file()]
+-        write('freeze.json', {'kind': 'C0-REVIEW-DISPOSITION-01_closed_public_record',
+-            'activation': 'C0-REVIEW-DISPOSITION-01', 'writer': '/root/stdo3_k11_successor_writer', 'returnTo': '/root',
+-            'status': 'recorded_pending_owning_HOW_and_required_proof', 'files': files, 'recordCount': len(files),
+-            'assessment': record(WORK / 'public-assessment.md'), 'triage': record(WORK / 'root-triage.json'),
+-            'capsule': record(WORK / 'F6-capsule.json'), 'validation': record(WORK / 'validation.json'),
+-            'return': record(WORK / 'return.md'), 'method': read(WORK / 'source-pins.json')['method'], 'composition': [],
+-            'exclusion': 'freeze.json itself; all listed records immutable after return',
+-            'productionRepairGranted': False, 'allC0Closure': False, 'independentWholeCandidateAssurance': False,
+-            'L5Acceptance': False, 'releaseClaim': False})
+-        print(json.dumps({'status': 'frozen', 'freeze': record(WORK / 'freeze.json'),
+-            'return': record(WORK / 'return.md'), 'assessment': record(WORK / 'public-assessment.md'),
+-            'triage': record(WORK / 'root-triage.json'), 'capsule': record(WORK / 'F6-capsule.json'), 'records': len(files)}))
++        print(json.dumps({'status': 'successor_validation_satisfied',
++            'activation': 'C0-DISPOSITION-ARRAY-02',
++            'validation': record(WORK / 'validation.json'),
++            'P1ArrayRows': len(calls), 'P1Labels': expected_labels,
++            'nativeCalls': p1['nativeCalls'], 'retryCount': p1['retryCount']}))
+     else:
+         raise ValueError('unsupported mode')
+ except BaseException as failure:
+-    if not (WORK / 'first-cause.json').exists():
+-        write('first-cause.json', {'activation': 'C0-REVIEW-DISPOSITION-01', 'mode': mode,
++    if not (WORK / 'first-cause-successor-02.json').exists():
++        write('first-cause-successor-02.json', {'activation': 'C0-REVIEW-DISPOSITION-01', 'mode': mode,
+             'errorType': type(failure).__name__, 'message': str(failure), 'traceback': traceback.format_exc(),
+             'disposition': 'Stopped; no repair or retry'})
+     raise

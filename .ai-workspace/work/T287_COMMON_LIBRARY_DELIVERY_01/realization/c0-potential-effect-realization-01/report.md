@@ -1,0 +1,19 @@
+# Stopped C0 potential-effect realization
+
+The single authorized isolated TypeScript compile failed, and work stopped before repair or retry. No generator, package, install, physical C0 attempt, fresh reopen child or native/provider actor ran. The first genuine owner sunny-day result is unavailable.
+
+The first cause is `code/src/abg/worksite_revision.ts(336,50): TS2339`. The existing artifact projection exposes `workspaceAuthorityBasis` as JSON; the new physical-origin gate accesses `canonicalRoot` without the required TypeScript narrowing. This is a local typed handoff defect in the selected realization, not evidence of an executed Product or physical-currentness failure. Root must triage any successor. The selected F1 Product blocker remains open.
+
+Exact command: `/opt/homebrew/Cellar/node/24.7.0/bin/node node_modules/typescript/bin/tsc -p tsconfig.json` in this carrier's `stage/build_tenants/abiogenesis/typescript`. The command exited 1 after 5066.732 ms; PID 33030. `commands/tsc.request.json`, `commands/tsc.result.json`, stdout/stderr and `STOP.json` preserve actual environment, pins and causal first failure. No automatic repair, retry, hash refresh or later command occurred.
+
+The complete copied input contains 1,319 source records and 4,576 independently inventoried dependency entries. Every copied regular file has a distinct inode from its source; symlinks remain within the copied dependency tree. Three syntax preflights passed. `noEmitOnError` left no isolated build tree; all 5,895 staged source/dependency entries match their precompile bytes. No candidate archive exists. Root cannot adopt this stage as a built combined candidate.
+
+The nine production edits implement one selected-occurrence authentication/dependency relation; prospective withdrawal and anti-revival in EC; the broad history selector; shared historical eligibility in HoG, leaf port and physical owner; global physical currentness intersected with Run-owned population; and root/path invalidation in retained origins while conserving provenance authority equality. Exact changes are in the source diffs and afterimages. Two selected tests and the bounded existingEnvironment/publicInvocationRef support hook are included, but no runtime claim is made for them.
+
+The prospective proof includes the actual second binding/Run with a distinct authority and observation ref, a reconstructed binding-specific Catalog, and ordinary installed semantic invocation/basis admission without F_P execution. Product-constructed handoff coordinates are explicitly supplied raw input, not historical semantic evidence. Root's closed Proof/F5 assessment is attributed in HOW-binding.md; it is not a full independent report or acceptance. This entire route remains unexecuted at this stopped cut.
+
+Anti-revival uses the indexed physical cause population plus strict dependencies, currently filtering that selected population per candidate; O(causes × selected support) is an implementation bound, not a measured runtime result. Historical dispatch reuses existing exact-prefix EC derivation; cold/hot runtime measurements were prepared but not obtained.
+
+All 936 main generated files remain exact. The prior combined-final-02 freeze remains exact. The granted physical parent `/private/tmp/abg-c0-potential-25ac62e990e141ce` is retained empty. No old cut, Git or continuation17 was mutated or opened by this activation. The source worktree intentionally retains the selected uncompiled edits; the afterimage relation is exact at this freeze, not an immutable whole-worktree claim.
+
+F1/F2/F3/F4/F5 execution/review closure, final combined package adoption, P1/P2/P3/P5/U1/P4, HoG/E04, passive diagnostics, independent L5 and Executive acceptance/checkpoint remain separate outstanding work. This is not a completed refactor or release.

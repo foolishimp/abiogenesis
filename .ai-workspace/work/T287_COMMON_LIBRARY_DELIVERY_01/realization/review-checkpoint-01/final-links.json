@@ -1,0 +1,66 @@
+{
+  "links": [
+    {
+      "source": "README.md",
+      "target": "../executive-retirement-reprice-01/decision.md"
+    },
+    {
+      "source": "README.md",
+      "target": "../executive-retirement-reprice-01/plan.md"
+    },
+    {
+      "source": "README.md",
+      "target": "../executive-retirement-reprice-01/review-effects.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review-disposition-supplement.md"
+    },
+    {
+      "source": "README.md",
+      "target": "review-disposition-supplement-02.md"
+    },
+    {
+      "source": "README.md",
+      "target": "../../CHECKPOINT_HANDOFF.md"
+    },
+    {
+      "source": "README.md",
+      "target": "../../../../../specification/GOALS.md"
+    },
+    {
+      "source": "README.md",
+      "target": "../l4-c2-candidate-05/return.json"
+    },
+    {
+      "source": "README.md",
+      "target": "../p5-installed-final-04/successor08/failure-freeze.json"
+    },
+    {
+      "source": "README.md",
+      "target": "../closed-evidence-portability-03/successor-03/README.md"
+    },
+    {
+      "source": "README.md",
+      "target": "lfs-selection.json"
+    },
+    {
+      "source": "README.md",
+      "target": "lfs-selection-02.json"
+    },
+    {
+      "source": "README.md",
+      "target": "whitespace-custody-disposition.json"
+    },
+    {
+      "source": "README.md",
+      "target": "staged-reader-correction.json"
+    },
+    {
+      "source": "review-disposition-supplement-02.md",
+      "target": "review-disposition-supplement.md"
+    }
+  ],
+  "checked": 15,
+  "missing": 0
+}

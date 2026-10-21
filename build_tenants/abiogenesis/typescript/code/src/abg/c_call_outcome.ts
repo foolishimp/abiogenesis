@@ -1,4 +1,4 @@
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { indexedRuntimeEvents, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { GOVERNANCE_IMPLEMENTATION_REFS, governanceRef } from "../product/default_library.js";
 import { governanceResultMatches } from "./default_library.js";
@@ -44,6 +44,7 @@ import {
   constructWorksiteEffectAuthorization,
   worksiteFailureAuthorization,
   WORKSITE_FILE_REPLACE_EFFECT_URI,
+  type WorksiteFileReplaceRequest,
 } from "../product/worksite_effect.js";
 import type { WorkspaceBinding } from "../product/environment.js";
 import type { ActorRuntimeBinding } from "./actor_process.js";
@@ -138,35 +139,116 @@ function isJsonRecord(
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-/** Reconstructs C0's Product-owned failure join from admitted bytes, with no I/O. */
-export function projectWorksiteFailureBasis(
-  events: readonly RuntimeEvent[],
-  cCallRef: string,
-  value: unknown,
+/** @internal Exact admitted request/grant relation, shared by EC and C0 occurrence authentication. */
+export function projectWorksiteBasisObservation(
+  event: RuntimeEvent,
+  priorEvents: readonly RuntimeEvent[],
+): string | null {
+  const payload = isJsonRecord(event.payload) ? event.payload : null;
+  const request = payload?.rawInputValue ?? null;
+  if (!isWorksiteFileReplaceRequest(request) || payload === null) {
+    return null;
+  }
+  const invocationAdmissionRef = payload.invocationAdmissionRef;
+  const admissionRows = typeof invocationAdmissionRef !== "string"
+    ? []
+    : priorEvents.filter((row) =>
+        row.kind === "invocation_admitted" &&
+        isJsonRecord(row.payload) &&
+        row.payload.invocationAdmissionRef === invocationAdmissionRef
+      );
+  if (admissionRows.length !== 1 || !isJsonRecord(admissionRows[0]!.payload) ||
+    admissionRows[0]!.admissionOrdinal >= event.admissionOrdinal ||
+    payload.rawInputDigest !== sha256Canonical(request as unknown as JsonValue) ||
+    sha256Canonical(admissionRows[0]!.payload) !== admissionRows[0]!.payloadDigest) {
+    return null;
+  }
+  const admission = admissionRows[0]!.payload;
+  const grants = admission.capabilityGrants;
+  const admittedGrant = Array.isArray(grants) && grants.length === 1
+    ? grants[0]
+    : null;
+  const basisClass = payload.basisClass;
+  const graphFunctionAuthorized = basisClass === "root"
+    ? payload.graphFunctionRef === admission.graphFunctionRef
+    : basisClass === "child" &&
+      typeof payload.parentExecutionBasisRef === "string" &&
+      typeof payload.parentCCallRef === "string" &&
+      priorEvents.filter((row) =>
+        row.kind === "basis_admitted" &&
+        isJsonRecord(row.payload) &&
+        row.payload.basisRef === payload.parentExecutionBasisRef &&
+        row.payload.invocationAdmissionRef === invocationAdmissionRef &&
+        row.payload.programRef === payload.programRef &&
+        row.payload.workspaceBindingId === payload.workspaceBindingId &&
+        row.payload.workspaceBindingDigest ===
+          payload.workspaceBindingDigest &&
+        row.payload.actorRef === payload.actorRef
+      ).length === 1 &&
+      priorEvents.filter((row) =>
+        row.kind === "c_call_opened" &&
+        row.basisId === payload.parentExecutionBasisRef &&
+        isJsonRecord(row.payload) &&
+        row.payload.cCallRef === payload.parentCCallRef &&
+        row.payload.callClass === "workflow" &&
+        row.payload.childGraphFunctionRef === payload.graphFunctionRef
+      ).length === 1;
+  return admittedGrant !== null && isJsonRecord(admittedGrant) &&
+      sha256Canonical(admittedGrant) ===
+        sha256Canonical(request.capabilityGrant as unknown as JsonValue) &&
+      request.capabilityGrant.grantRef ===
+        admittedGrant.grantRef &&
+      request.capabilityGrant.grantDigest ===
+        admittedGrant.grantDigest &&
+      request.workspaceBindingIdentity === payload.workspaceBindingId &&
+      request.workspaceBindingDigest === payload.workspaceBindingDigest &&
+      request.capabilityGrant.actorRef === payload.actorRef &&
+      request.capabilityGrant.scopeRef === payload.workspaceBindingId &&
+      request.capabilityGrant.scopeDigest === payload.workspaceBindingDigest &&
+      payload.programRef === admission.programRef &&
+      graphFunctionAuthorized
+    ? request.predecessorObservation.observationRef
+    : null;
+}
+
+/** @internal One selected C0 occurrence join. It proves potential authority,
+ * never that an effect occurred, and consumes no projection or target population. */
+export function projectWorksiteSelectedOccurrence(
+  fibreEvent: RuntimeEvent,
+  priorEvents: readonly RuntimeEvent[],
 ) {
-  if (!isWorksitePostPublicationFailure(value)) return null;
-  const authorization = worksiteFailureAuthorization(value);
-  if (authorization.cCallRef !== cCallRef ||
-    authorization.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
-    authorization.implementationBindingRef !== "implementation-binding://abiogenesis/worksite/file-replace-fd@5" ||
-    authorization.implementationRef !== "implementation://abiogenesis/worksite/file-replace-fd@5") return null;
+  if (fibreEvent.kind !== "c_call_fibre_selected" || !isJsonRecord(fibreEvent.payload) ||
+    fibreEvent.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
+    fibreEvent.payload.implementationBindingRef !== "implementation-binding://abiogenesis/worksite/file-replace-fd@5" ||
+    fibreEvent.payload.implementationRef !== "implementation://abiogenesis/worksite/file-replace-fd@5") return null;
+  const cCallRef = fibreEvent.aggregateId;
+  const events = [...priorEvents.filter(row => row.admissionOrdinal < fibreEvent.admissionOrdinal), fibreEvent];
   const one = (kind: RuntimeEvent["kind"], predicate: (row: RuntimeEvent) => boolean) => {
     const rows = events.filter(row => row.kind === kind && predicate(row));
     return rows.length === 1 ? rows[0]! : null;
   };
-  const basisRow = one("basis_admitted", row => row.basisId === authorization.executionBasisRef);
+  const basisRow = one("basis_admitted", row => row.basisId === fibreEvent.basisId);
   const opened = one("c_call_opened", row => row.aggregateId === cCallRef);
   const fibre = one("c_call_fibre_selected", row => row.aggregateId === cCallRef);
+  const basisPayload = basisRow !== null && isJsonRecord(basisRow.payload) ? basisRow.payload : null;
+  const request = basisPayload?.rawInputValue;
+  if (basisPayload === null || !isWorksiteFileReplaceRequest(request)) return null;
   const bindingRow = one("public_operation_artifact_admitted", row =>
     isJsonRecord(row.payload) && row.payload.operationId === "abg.operation.workspace.bind" &&
-    row.payload.artifactRef === authorization.workspaceBindingIdentity &&
-    row.payload.artifactDigest === authorization.workspaceBindingDigest);
+    row.payload.artifactRef === request.workspaceBindingIdentity &&
+    row.payload.artifactDigest === request.workspaceBindingDigest);
   if (basisRow === null || opened === null || fibre === null || bindingRow === null ||
     !isJsonRecord(basisRow.payload) || !isJsonRecord(opened.payload) ||
     !isJsonRecord(fibre.payload) || !isJsonRecord(bindingRow.payload) ||
     !isJsonRecord(bindingRow.payload.artifact) ||
+    bindingRow.aggregateId !== request.workspaceBindingIdentity || bindingRow.basisId !== request.workspaceBindingIdentity ||
+    bindingRow.payload.authorityScopeRef !== request.workspaceBindingIdentity ||
+    bindingRow.payload.authorityScopeDigest !== request.workspaceBindingDigest ||
+    basisPayload.basisRef !== basisRow.basisId || basisPayload.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
+    opened.payload.cCallRef !== cCallRef || fibre.payload.cCallRef !== cCallRef || fibre.eventId !== fibreEvent.eventId ||
+    projectWorksiteBasisObservation(basisRow, events.filter(row => row.admissionOrdinal < basisRow.admissionOrdinal)) === null ||
     opened.basisId !== basisRow.basisId || fibre.basisId !== basisRow.basisId ||
-    opened.graphFunctionRef !== authorization.graphFunctionRef ||
+    opened.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
     fibre.graphFunctionRef !== opened.graphFunctionRef ||
     opened.runId !== fibre.runId || opened.frameId !== fibre.frameId ||
     opened.graphCallId !== fibre.graphCallId ||
@@ -176,8 +258,6 @@ export function projectWorksiteFailureBasis(
     !(bindingRow.admissionOrdinal < basisRow.admissionOrdinal &&
       basisRow.admissionOrdinal < opened.admissionOrdinal &&
       opened.admissionOrdinal < fibre.admissionOrdinal)) return null;
-  const basisPayload = basisRow.payload;
-  const request = basisPayload.rawInputValue;
   const implementationRow = one("implementation_admitted", row =>
     isJsonRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef);
   if (!isWorksiteFileReplaceRequest(request) ||
@@ -186,7 +266,8 @@ export function projectWorksiteFailureBasis(
       sha256Canonical(bindingRow.payload.workspaceAuthorityBasis!) ||
     implementationRow === null || !isJsonRecord(implementationRow.payload) ||
     !isJsonRecord(implementationRow.payload.implementationSet) ||
-    implementationRow.admissionOrdinal >= basisRow.admissionOrdinal) return null;
+    implementationRow.admissionOrdinal >= basisRow.admissionOrdinal ||
+    [basisRow, opened, fibre, bindingRow, implementationRow].some(row => sha256Canonical(row.payload) !== row.payloadDigest)) return null;
   try {
     const workspaceBinding = { ...bindingRow.payload.artifact, kind: "workspace_binding",
       admissionEventRef: bindingRow.eventId } as unknown as WorkspaceBinding;
@@ -201,7 +282,11 @@ export function projectWorksiteFailureBasis(
       row.programLocusRef === openedPayload.programLocusRef &&
       row.graphFunctionRef === opened.graphFunctionRef &&
       row.implementationBindingRef === fibrePayload.implementationBindingRef);
-    if (selected.length !== 1 || selected[0]!.failureContractRef !== WORKSITE_C0_IDS.failureContractRef) return null;
+    if (selected.length !== 1 ||
+      selected[0]!.inputContractRef !== WORKSITE_C0_IDS.inputContractRef ||
+      selected[0]!.outputContractRef !== WORKSITE_C0_IDS.outputContractRef ||
+      selected[0]!.failureContractRef !== WORKSITE_C0_IDS.failureContractRef ||
+      selected[0]!.refusalContractRef !== WORKSITE_C0_IDS.refusalContractRef) return null;
     const resolution = selected[0]!;
     const cCall = { kind: "c_call", schemaVersion: "5.0.0", ...opened.payload, ...fibre.payload,
       basisId: opened.basisId, runId: opened.runId, graphFunctionRef: opened.graphFunctionRef,
@@ -211,12 +296,104 @@ export function projectWorksiteFailureBasis(
       openedEventRef: opened.eventId, fibreSelectedEventRef: fibre.eventId,
     } as unknown as CCall;
     const expected = constructWorksiteEffectAuthorization({ workspaceBinding, request, executionBasis, cCall, implementationSet });
-    if (expected.kind !== "worksite_effect_authorization" ||
-      !worksitePostPublicationFailureMatches(value, request, expected)) return null;
+    if (expected.kind !== "worksite_effect_authorization") return null;
     return { request, authorization: expected, executionBasis, implementationSet, workspaceBinding, cCall };
   } catch {
     return null;
   }
+}
+
+export function projectWorksiteFailureBasis(events: readonly RuntimeEvent[], cCallRef: string, value: unknown) {
+  if (!isWorksitePostPublicationFailure(value)) return null;
+  const fibres = events.filter(row => row.kind === "c_call_fibre_selected" && row.aggregateId === cCallRef);
+  if (fibres.length !== 1) return null;
+  const authenticated = projectWorksiteSelectedOccurrence(fibres[0]!, events);
+  return authenticated !== null && worksitePostPublicationFailureMatches(value, authenticated.request,
+    authenticated.authorization) ? authenticated : null;
+}
+
+/** @internal Strict support for one potential occurrence, shared by all consumers. */
+export function worksiteSelectedOccurrenceDependencies(prefix: RuntimeEventPrefix, event: RuntimeEvent): readonly RuntimeEvent[] {
+  if (event.kind !== "c_call_fibre_selected" || event.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef) return [];
+  const before = validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
+  const selected = new Map<string, RuntimeEvent>();
+  const add = (key: string) => { for (const row of indexedRuntimeEvents(before, key)) selected.set(row.eventId, row); };
+  add("aggregate:c_call:" + event.aggregateId);
+  if (typeof event.basisId === "string") add("basis:" + event.basisId);
+  const bases = [...selected.values()].filter(row => row.kind === "basis_admitted" && row.basisId === event.basisId);
+  for (const basis of bases) {
+    if (!isJsonRecord(basis.payload)) continue;
+    const p = basis.payload;
+    for (const key of ["invocationAdmissionRef", "implementationSetRef"])
+      if (typeof p[key] === "string") add("payload:" + key + ":" + p[key]);
+    if (typeof p.workspaceBindingId === "string") add("payload:artifactRef:" + p.workspaceBindingId);
+    if (typeof p.parentExecutionBasisRef === "string") add("basis:" + p.parentExecutionBasisRef);
+    if (typeof p.parentCCallRef === "string") add("aggregate:c_call:" + p.parentCCallRef);
+  }
+  return [...selected.values()].sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
+}
+
+/** @internal The one complete C0 post-publication Result/evidence join. A
+ * selected index row is only a candidate; every existing failure check remains. */
+export function projectWorksiteFailureResultRequest(event: RuntimeEvent,
+  priorEvents: readonly RuntimeEvent[]): WorksiteFileReplaceRequest | null {
+  if (!isJsonRecord(event.payload) || event.payload.resultClass !== "failure") return null;
+  const refs = event.payload.evidenceRefs;
+  const evidenceRefs: readonly string[] = Array.isArray(refs) && refs.every(ref => typeof ref === "string")
+    ? refs as readonly string[] : [];
+  const { resultRef, resultDigest, ...resultBody } = event.payload;
+  const evidenceRows = priorEvents.filter(row =>
+    row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId &&
+    isJsonRecord(row.payload) && evidenceRefs.includes(row.payload.evidenceRef as string));
+  const evidenceEvent = evidenceRows.length === 1 ? evidenceRows[0]! : null;
+  if (event.kind !== "c_call_result_admitted" || evidenceRefs.length !== 1 ||
+    event.payload.cCallRef !== event.aggregateId ||
+    event.payload.contractRef !== WORKSITE_C0_IDS.failureContractRef ||
+    event.payload.valueKind !== "worksite_effect_refusal" ||
+    resultDigest !== sha256Canonical(resultBody) ||
+    resultRef !== `result://abiogenesis/${String(resultDigest).slice("sha256:".length)}` ||
+    event.payload.valueDigest !== sha256Canonical(event.payload.value!) ||
+    evidenceEvent === null || !isJsonRecord(evidenceEvent.payload) ||
+    evidenceEvent.admissionOrdinal >= event.admissionOrdinal ||
+    evidenceEvent.basisId !== event.basisId || evidenceEvent.runId !== event.runId ||
+    evidenceEvent.graphCallId !== event.graphCallId || evidenceEvent.frameId !== event.frameId ||
+    !event.causationEventRefs.includes(evidenceEvent.eventId)) return null;
+  const { evidenceRef, evidenceDigest, ...evidenceBody } = evidenceEvent.payload;
+  const authenticated = projectWorksiteFailureBasis(priorEvents.filter(row =>
+    row.admissionOrdinal < evidenceEvent.admissionOrdinal), event.aggregateId, event.payload.value);
+  if (authenticated === null ||
+    authenticated.executionBasis.basisRef !== event.basisId ||
+    authenticated.cCall.runId !== event.runId ||
+    evidenceBody.cCallRef !== event.aggregateId || evidenceBody.evidenceClass !== "deterministic" ||
+    evidenceBody.implementationRef !== authenticated.authorization.implementationRef ||
+    evidenceBody.inputDigest !== sha256Canonical(authenticated.request as unknown as JsonValue) ||
+    evidenceBody.outputDigest !== event.payload.valueDigest ||
+    evidenceDigest !== sha256Canonical(evidenceBody) ||
+    evidenceRef !== `evidence://abiogenesis/${String(evidenceDigest).slice("sha256:".length)}`) return null;
+  return authenticated.request;
+
+}
+
+/** @internal Only exact pre-event authentication support, not a full projection
+ * or the physical target population. The caller separately authenticates it. */
+export function worksiteFailureResultDependencies(prefix: RuntimeEventPrefix,
+  event: RuntimeEvent): readonly RuntimeEvent[] {
+  if (event.kind !== "c_call_result_admitted" || !isJsonRecord(event.payload) ||
+    event.payload.contractRef !== WORKSITE_C0_IDS.failureContractRef ||
+    !isWorksitePostPublicationFailure(event.payload.value)) return [];
+  const before = validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
+  const authorization = worksiteFailureAuthorization(event.payload.value);
+  const selected = new Map<string, RuntimeEvent>();
+  const add = (key: string) => { for (const row of indexedRuntimeEvents(before, key)) selected.set(row.eventId, row); };
+  add("aggregate:c_call:" + event.aggregateId);
+  add("basis:" + authorization.executionBasisRef);
+  add("payload:artifactRef:" + authorization.workspaceBindingIdentity);
+  const basis = [...selected.values()].find(row => row.kind === "basis_admitted" && row.basisId === authorization.executionBasisRef);
+  if (basis !== undefined && isJsonRecord(basis.payload) && typeof basis.payload.implementationSetRef === "string")
+    add("payload:implementationSetRef:" + basis.payload.implementationSetRef);
+  for (const fibre of [...selected.values()].filter(row => row.kind === "c_call_fibre_selected"))
+    for (const row of worksiteSelectedOccurrenceDependencies(before, fibre)) selected.set(row.eventId, row);
+  return [...selected.values()].sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
 }
 
 function worksiteEvidenceCandidate(
@@ -1706,8 +1883,11 @@ export function projectCCallOutcomeReceiptAtPrefix(successorPrefix: DurablePrefi
   return receipt === null ? null : completePublicOutcome<JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt>(receipt);
 }
 
-/** @internal Select every original failure-basis population, preserving the exact unique join. */
+/** @internal Reuse the selected occurrence's complete strict support and unique join. */
 export function projectWorksiteFailureBasisAtPrefix(prefix: RuntimeEventPrefix, cCallRef: string, value: unknown) {
-  const kinds: readonly RuntimeEvent["kind"][] = ["basis_admitted","c_call_opened","c_call_fibre_selected","public_operation_artifact_admitted","implementation_admitted"];
-  return projectWorksiteFailureBasis(kinds.flatMap(kind => indexedRuntimeEvents(prefix,"kind:"+kind)), cCallRef,value);
+  const fibres = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef)
+    .filter(event => event.kind === "c_call_fibre_selected");
+  if (fibres.length !== 1) return null;
+  const fibre = fibres[0]!;
+  return projectWorksiteFailureBasis([...worksiteSelectedOccurrenceDependencies(prefix, fibre), fibre], cCallRef, value);
 }

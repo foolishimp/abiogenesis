@@ -1,0 +1,37 @@
+{
+  "activation": "C2-SOURCE-PREFIX-REPAIR-01",
+  "base": "Exact closed final06 stage/package remains the build basis; this Writer performs no build.",
+  "baseArchiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "basePackageManifestSha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4",
+  "selectedOutputs": [
+    {
+      "repositoryPath": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "repositoryPin": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+        "bytes": 128713,
+        "sha256": "1b3dbf39b6713f575a3456975de76747e06cdcab289c77ba5fee4a05d6b75389"
+      },
+      "frozenInput": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/outputs/execution_basis.ts",
+        "bytes": 128713,
+        "sha256": "1b3dbf39b6713f575a3456975de76747e06cdcab289c77ba5fee4a05d6b75389"
+      }
+    },
+    {
+      "repositoryPath": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "repositoryPin": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "bytes": 67023,
+        "sha256": "dfb98d80113aaf150e05a09577d4cc3898b339e33426790f878ed02c90b89d5c"
+      },
+      "frozenInput": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-repair-01/outputs/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "bytes": 67023,
+        "sha256": "dfb98d80113aaf150e05a09577d4cc3898b339e33426790f878ed02c90b89d5c"
+      }
+    }
+  ],
+  "emissionObligation": "Compile from exact successor source in separately selected isolated stage; emitted execution_basis includes only this owner-defined materialize handoff relative to prior source meaning. Re-run owned generator/package correspondence under Executive grant.",
+  "selectedRegression": "Existing full installed P5 C1 -> C2 command and HTTP -> artifact/ack admission -> negative oracles -> independent fresh replays and actual PID correspondence. Not authorized/executed in this activation.",
+  "C3Limit": "Source shares private predicate; no new C3 execution credit."
+}

@@ -1,0 +1,962 @@
+{
+  "scope": "pure construction and emitted member metadata only; no runtime, endpoint, installed or test workload",
+  "stableManifestFields": [
+    "kind",
+    "schemaVersion",
+    "productId",
+    "packageName",
+    "packageVersion",
+    "publisherNamespace",
+    "compatibilityRefs",
+    "declaredCapabilityRefs",
+    "declaredDependencies"
+  ],
+  "ownerChecks": [
+    {
+      "label": "baseline",
+      "payloadRows": 5269,
+      "productContentDigest": "sha256:c2eb35981ce23ba805acc8adbb74ddd15b919d1b01540364b8d941c09569df6c",
+      "catalogDigest": "sha256:c69e75bb30a264ab91d7943060157688a58e57cae261ffef61b64756eb7a539e",
+      "graphDigest": "sha256:f7f14f7ffff9720eef225dfc00b3fb3fcd614302faad4f41d34a719d03e5e226",
+      "contributionManifestDigest": "sha256:3f1d2ab33437b7f4e6462a22d56c698f17526b5a97d4e1ecbe1e46568f1bbb4a"
+    },
+    {
+      "label": "candidate",
+      "payloadRows": 5269,
+      "productContentDigest": "sha256:78912aa5b7f9956b51075aefc52367a6f36b75cb711b105926c5f4a42b47dd9e",
+      "catalogDigest": "sha256:f9df933ca68b6ca4cd5d072e3392e6219d6a4317e004d7b640bb04ca67230715",
+      "graphDigest": "sha256:e3676a25c8ac077e5814c8fb902e8934337d3c3058d53d42bf9e58c42f75f2aa",
+      "contributionManifestDigest": "sha256:1b9b237a89ac192c08c18362963d1756f517452d241caaa7a1d7444fe6bfa8d4"
+    }
+  ],
+  "catalogRows": [
+    {
+      "contractId": "abg.asset.gtl.language-conformance-corpus",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:76fdce484d14ec9d9fc743cded9e330db89f5b1fcdf96ed3607fb801071b96e1",
+      "afterDigest": "sha256:76fdce484d14ec9d9fc743cded9e330db89f5b1fcdf96ed3607fb801071b96e1",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.asset.qualification.rule-catalog",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:02ce01aa9d233433d547570ab36a28a5b7fca107f21bb8043386431164209f40",
+      "afterDigest": "sha256:02ce01aa9d233433d547570ab36a28a5b7fca107f21bb8043386431164209f40",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.abg.c-call-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:be93b6cdf838576097ed05226dd6c9aa3480050d7d41400362a26680a36a7430",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.abg.environment-admission",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:be93b6cdf838576097ed05226dd6c9aa3480050d7d41400362a26680a36a7430",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.abg.execution-basis-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:be93b6cdf838576097ed05226dd6c9aa3480050d7d41400362a26680a36a7430",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.abg.invocation-root-admission",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:be93b6cdf838576097ed05226dd6c9aa3480050d7d41400362a26680a36a7430",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.abg.m03",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:e6f61eb8eb852ad4a9876efc15ebf869576aac8725ea2707fa31912eb1e61fbd",
+      "afterDigest": "sha256:7a27eedd1c54dca8d81cc433285ef7c45f17f6a5a0077e0cc0fedaf6398de653",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.abg.open-call-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:be93b6cdf838576097ed05226dd6c9aa3480050d7d41400362a26680a36a7430",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.abg.replay-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:be93b6cdf838576097ed05226dd6c9aa3480050d7d41400362a26680a36a7430",
+      "afterDigest": "sha256:4d7274f0adafa0cc16437598d784c3b52b120f0eb8b0d3a95d6a35d21ecbc7b5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.abg.requirements",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:3e39fcffd0408fa399aa4ae27f617c54235db18f7cdcceaeebd22e0787369f38",
+      "afterDigest": "sha256:5dbbaf27d59d8350fb3ba828c8b18deca4e9d2976d6519eaf0e2f14bed8111d5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.abg.transport",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:1117f7d4382dc42d14bb4a6f0e3c64186088e1427551a1566d37b6b75b625db2",
+      "afterDigest": "sha256:f0dd4083b4b811e83be1ef789825cd576964a402b00ce345e505af9b39fb7907",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.app.m04",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:ab2ab941820ecb55122b9de89624e4c342ca2f7cc9fc36c63ec475bcccdf8e1e",
+      "afterDigest": "sha256:696aca6a9c8703fd36cfb08fce6bb6ae51cf5eaab4156bfcd4dcac002bc1289b",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.gtl.m01",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:84fde4075368074c59afa52f48557e00770da5b345991ba10daa012b2ec508af",
+      "afterDigest": "sha256:31dce19d8a49b3c7fa9126db7e5adfc9acb9596dd5cbd3af2d921baa47cb2baa",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.gtl.m02",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:a14b1602559e033a520c55565f8900883aa378a438192e0b4bb447efae412bd4",
+      "afterDigest": "sha256:a14b1602559e033a520c55565f8900883aa378a438192e0b4bb447efae412bd4",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.gtl.materialization-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:5379ad83c868a7012d879341f776bd42e4ec0b5b693c1a1b6f609772c2a7fef8",
+      "afterDigest": "sha256:1149dcf7e59ee46bfd9792debd1b40a39896effcf19aa4619df1bf82572e3465",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.gtl.requirements",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e8c40b34d6be0cba0c68e14d86aeb7f653ff4aabef98ad45a1912d64818765e2",
+      "afterDigest": "sha256:e8c40b34d6be0cba0c68e14d86aeb7f653ff4aabef98ad45a1912d64818765e2",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.contract.gtl.root-declaration",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:5379ad83c868a7012d879341f776bd42e4ec0b5b693c1a1b6f609772c2a7fef8",
+      "afterDigest": "sha256:1149dcf7e59ee46bfd9792debd1b40a39896effcf19aa4619df1bf82572e3465",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.gtl.validation-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:b3e93116b911b2c2eae07ec8d064a4abe4e271713d9524e5a61fb02afc9bb993",
+      "afterDigest": "sha256:44be54bd2f96bd7233a3e2a24018bdd1423656f61c51665dce5513de60005862",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.hog.graph-function-catalog",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:4ffe34c26780f499cbe2094b6489177ae5002bc87e5e4661314045348bb3180c",
+      "afterDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.hog.judgment-transition-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:680c0d9ad38cf0cac69dd94124a9e92aa3d136d846655f743563ab643e256510",
+      "afterDigest": "sha256:b8e01a1e22677abe4ab030db5b4d009f9fcb90c191517e43960c0def95b51cf5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.hog.traversal-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:680c0d9ad38cf0cac69dd94124a9e92aa3d136d846655f743563ab643e256510",
+      "afterDigest": "sha256:b8e01a1e22677abe4ab030db5b4d009f9fcb90c191517e43960c0def95b51cf5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.product.implementation-resolution-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:4ffe34c26780f499cbe2094b6489177ae5002bc87e5e4661314045348bb3180c",
+      "afterDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.product.invocation-root",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:4ffe34c26780f499cbe2094b6489177ae5002bc87e5e4661314045348bb3180c",
+      "afterDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.product.verification",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:4ffe34c26780f499cbe2094b6489177ae5002bc87e5e4661314045348bb3180c",
+      "afterDigest": "sha256:b4df7e112c5e26cfddd4a0ddc4f69c6d52c8871448ced53ba40168cb0eddc488",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.contract.qualification.m05",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "contractDigest",
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:29f97abf3adebb2de7f84a00b50de11ce37572c20bec65f543b47db79c63d405",
+      "afterDigest": "sha256:8be933339a9e80c0d686336bda73a9e560f4ac2abc823e93d17ed6102235ba2f",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.catalog.admit",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:c022118c8189fe07b4e829fb5ccbd876769befb0c81c73e0851c305b23b14f3d",
+      "afterDigest": "sha256:c022118c8189fe07b4e829fb5ccbd876769befb0c81c73e0851c305b23b14f3d",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.catalog.apply",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:f4dc3ad28e84b0711ef9ea688258a5f3399a3717db9c0f24eedfd306d4cbdf34",
+      "afterDigest": "sha256:f4dc3ad28e84b0711ef9ea688258a5f3399a3717db9c0f24eedfd306d4cbdf34",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.catalog.view",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:377a53a01104d73d42d7ee73e1fe9d4a57d28297e6366946c8162285fbae0588",
+      "afterDigest": "sha256:377a53a01104d73d42d7ee73e1fe9d4a57d28297e6366946c8162285fbae0588",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.conformance.evaluate",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:ee685515282773c3cb2c800c5004957d6c28e7d824a0c40ccbc4211b9482ac11",
+      "afterDigest": "sha256:ee685515282773c3cb2c800c5004957d6c28e7d824a0c40ccbc4211b9482ac11",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.interaction.respond",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:d8bbc41624e89eed499d94d4e7de1dbc51ebd803cfc87ca2940d825179c4148b",
+      "afterDigest": "sha256:d8bbc41624e89eed499d94d4e7de1dbc51ebd803cfc87ca2940d825179c4148b",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.product.install",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:ff085e75b2f67dab456ddf48ca45ceb024ecbef4db14426c0c8998c43f836ef7",
+      "afterDigest": "sha256:ff085e75b2f67dab456ddf48ca45ceb024ecbef4db14426c0c8998c43f836ef7",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.product.materialize",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:2f8dfffbff61433adcee28f54150a5392a8129db940e57f1ef457b96312bdc84",
+      "afterDigest": "sha256:2f8dfffbff61433adcee28f54150a5392a8129db940e57f1ef457b96312bdc84",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.product.resolve",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:393c7131803d2c5904e3cdc225069b3f3caf5077ed69fa8e7e7a35b2910b3343",
+      "afterDigest": "sha256:393c7131803d2c5904e3cdc225069b3f3caf5077ed69fa8e7e7a35b2910b3343",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.product.verify",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:31ffc94baf0e57eaa2736b0d8b1d50360a7f5ec0741cd72070ad52136cb8db09",
+      "afterDigest": "sha256:31ffc94baf0e57eaa2736b0d8b1d50360a7f5ec0741cd72070ad52136cb8db09",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.project.read",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:2e9442424738757573d46ead494730b066c862b331ca56c9b2ebba161331676b",
+      "afterDigest": "sha256:2e9442424738757573d46ead494730b066c862b331ca56c9b2ebba161331676b",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.release.snapshot",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:02b1e92e9826bf8db3061b244c94055e5a78a9657fa5c996692a2f442c69f97a",
+      "afterDigest": "sha256:02b1e92e9826bf8db3061b244c94055e5a78a9657fa5c996692a2f442c69f97a",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.result.assess",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:e5191353f20297ba27bd7bd96458bb941f7ae98ba40c569d6f4637c56e44babd",
+      "afterDigest": "sha256:e5191353f20297ba27bd7bd96458bb941f7ae98ba40c569d6f4637c56e44babd",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.run.continue",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:e681a25aa523bc5cfd0de5e3eedc6af8be2f21fcca1e715b8a55e3bfc8862c17",
+      "afterDigest": "sha256:e681a25aa523bc5cfd0de5e3eedc6af8be2f21fcca1e715b8a55e3bfc8862c17",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.run.invoke",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:5d17ade444768f2ee5b5226795bc4a33f1ebcb1c44894d63e9c99d978e41fbc7",
+      "afterDigest": "sha256:5d17ade444768f2ee5b5226795bc4a33f1ebcb1c44894d63e9c99d978e41fbc7",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.witness.admit",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:9dfafea7a95ac9e59a240ca7b4cdc174b7a7b798cdbadeef8e24b6deaccbbd8c",
+      "afterDigest": "sha256:9dfafea7a95ac9e59a240ca7b4cdc174b7a7b798cdbadeef8e24b6deaccbbd8c",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.workspace.bind",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:e1595386f9d09672262aa05368a5daf0cdcf448def8300095a82dbb78d5eb716",
+      "afterDigest": "sha256:e1595386f9d09672262aa05368a5daf0cdcf448def8300095a82dbb78d5eb716",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.workspace.create",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:d7f3240ad64b6254f8b98f9cc7326da0246c04c4c21c60f00935dc315b8988b0",
+      "afterDigest": "sha256:d7f3240ad64b6254f8b98f9cc7326da0246c04c4c21c60f00935dc315b8988b0",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.operation.workspace.open",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:e684c4b88f0492120402d50e06000be50278c0b17dde8f55ec6bf96ffe5224c5",
+      "afterDigest": "sha256:e684c4b88f0492120402d50e06000be50278c0b17dde8f55ec6bf96ffe5224c5",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.schema.consensus-escalation-decision",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-panel",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-result",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-reviewer-profile",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-round-outcome",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-round-policy",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-ruling-overlay",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-subject",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-submitter-profile",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.consensus-submitter-response",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.exact-candidate-qualification",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.gtl-c-program",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "afterDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.schema.gtl-graph-function",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "afterDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.schema.gtl-module",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "afterDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.gtl-program-conformance-input",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "afterDigest": "sha256:c9ff37822d89651bccdccf2cd5cf42b795459f38930cc522946431fd5701f672",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.schema.product-toolchain-manifest",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:c61e0db09ea7d5b0bf182dd802cdac4ea27abe4899cfc8897c563b2dddc356ca",
+      "afterDigest": "sha256:c61e0db09ea7d5b0bf182dd802cdac4ea27abe4899cfc8897c563b2dddc356ca",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.public-contract-catalog",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:b8bc5a722f6a216e03cfe0a91bc606a7986c1bee6c2dbbd437f16d7a75af18de",
+      "afterDigest": "sha256:b8bc5a722f6a216e03cfe0a91bc606a7986c1bee6c2dbbd437f16d7a75af18de",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.public-operation-contract",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "afterDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.schema.public-operation-invocation",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "afterDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.schema.public-operation-outcome",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "afterDigest": "sha256:13c610d2dfd30445270c9b00634c08a7f861670bc606d168e27e6a727ab823d6",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.schema.qualification-law-basis",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.review-findings",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.review-rulings",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.self-conformance-input",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.self-conformance-result",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.tenant-conformance-manifest",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "afterDigest": "sha256:28663643e96db9b7ca5ffe1faadde255bd339b1f898ed5db79927aa270ccf446",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.schema.ticket-consensus-projection",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "afterDigest": "sha256:e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.vocabulary.consensus-fh-decision",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:8a21a0da4558242013186667e42487373c1584340bbb9b6ccd4abe2a5b9ae809",
+      "afterDigest": "sha256:8a21a0da4558242013186667e42487373c1584340bbb9b6ccd4abe2a5b9ae809",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.vocabulary.consensus-round-outcome",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:1ce4c83aecc57abb7c0b2367d9b3e7b9e9dc0b2bfa9c0e5e1f74ceeb35f7f0c1",
+      "afterDigest": "sha256:1ce4c83aecc57abb7c0b2367d9b3e7b9e9dc0b2bfa9c0e5e1f74ceeb35f7f0c1",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "abg.vocabulary.gtl-program-diagnostic-id",
+      "unchangedExactly": false,
+      "changedKeys": [
+        "nativeTypedLocator"
+      ],
+      "beforeDigest": "sha256:d27861fdfc318ceb7abb74249318b66207f2efe382626a9d2dd0e7f56e51c03b",
+      "afterDigest": "sha256:d27861fdfc318ceb7abb74249318b66207f2efe382626a9d2dd0e7f56e51c03b",
+      "relation": "exact native declaration bytes and owner inventory digest; every other row field equal"
+    },
+    {
+      "contractId": "abg.vocabulary.review-ruling-kind",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:5acf0968ee02689ff4ce3fb77deb69e6bfab5a16e5045c0415cb6887342ee738",
+      "afterDigest": "sha256:5acf0968ee02689ff4ce3fb77deb69e6bfab5a16e5045c0415cb6887342ee738",
+      "relation": "exact equality"
+    },
+    {
+      "contractId": "contract://abiogenesis/semantic-stage/native-assessment@5",
+      "unchangedExactly": true,
+      "changedKeys": [],
+      "beforeDigest": "sha256:90d3300edd3c77c3259ce1ba54684e78c490af5e4f20978dcd38be0dd865519b",
+      "afterDigest": "sha256:90d3300edd3c77c3259ce1ba54684e78c490af5e4f20978dcd38be0dd865519b",
+      "relation": "exact equality"
+    }
+  ],
+  "declarationChanges": [
+    {
+      "before": {
+        "declarationDigest": "sha256:b9f22c070103c23a60e309ca3b4cfa84a2cb0b9352973371c3afaee192ccf948",
+        "declarationPath": "build/code/src/abg/c_call_outcome.d.ts",
+        "packageExportPath": "./abg/m03"
+      },
+      "after": {
+        "declarationDigest": "sha256:3027fd0e36ec63d6157d7cf4b88c756aa3e4dee5358f5555968578ebe071be41",
+        "declarationPath": "build/code/src/abg/c_call_outcome.d.ts",
+        "packageExportPath": "./abg/m03"
+      },
+      "producer": "single isolated TypeScript compile of the exact selected owning source; internal exports stripped; existing public names conserved",
+      "beforeBytes": 9084,
+      "afterBytes": 8998
+    }
+  ],
+  "graphRows": [
+    {
+      "capabilityId": "abg.capability.catalog.apply-node-type@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.catalog.apply-overlay@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.catalog.contribute@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.catalog.invoke-graph-function@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.graph-function.consensus@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.gtl.admit@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.gtl.declare@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.gtl.serialize@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.gtl.typecheck@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.install.bind-products@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.module.publish@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.operator.public-contract@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.qualification.self-conformance@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.runtime.admit-fp-result@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.runtime.execute-seven-term-c@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    },
+    {
+      "capabilityId": "abg.capability.runtime.replay-continuation@5",
+      "semanticFieldsExactlyEqual": true,
+      "identityRelation": "both complete graphs exactly reconstructed by unchanged capability owner from each actual verified catalog coordinate"
+    }
+  ],
+  "publicationChecks": [
+    {
+      "label": "baseline",
+      "bindings": [
+        {
+          "moduleRef": "module://abg/consensus@5",
+          "publicationDigest": "sha256:dcec8f3aaf357f6e540277e5ce642b782ce935c0185478b9a110827080a13f46"
+        },
+        {
+          "moduleRef": "module://abiogenesis/default-library/default@5",
+          "publicationDigest": "sha256:6614be8863196d1975e5b37db825287e4b2a2615cfd7b4eaefdedd3614e8c0f7"
+        },
+        {
+          "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+          "publicationDigest": "sha256:e9d718fee9083aa25342a8bfc76fbdab01a6ca51169454922d4aa300c83b15aa"
+        },
+        {
+          "moduleRef": "module://abiogenesis/requirement-handoff@5",
+          "publicationDigest": "sha256:bd76772dbe85b3897ff21263cc86610f9098def6d6e5e8332c2f4802ab119f54"
+        },
+        {
+          "moduleRef": "module://abiogenesis/semantic-revision@5",
+          "publicationDigest": "sha256:f5df7415400be13eb51392a3d8401c036257c3ff252d27b5ac747cc699b28b56"
+        },
+        {
+          "moduleRef": "module://abiogenesis/semantic-stage@5",
+          "publicationDigest": "sha256:9cec69c445ede481ad574167cdfe34879c945223eb70dde2a6459c221e170906"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+          "publicationDigest": "sha256:ef52b3247c6fd6a87245bb9cef6bc7597cf4d65332bae1d9ac335e807653fce1"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+          "publicationDigest": "sha256:225774f1c3fb9eb9e9d1b4512055a6bbb7e906ecc6defac93aa8bc6d4f0de6fe"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/construction@5",
+          "publicationDigest": "sha256:7c15c9ddba77d3a0ce04c7937ac7d656cc4043622680184cd7bdf7de23147f07"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/native-work@5",
+          "publicationDigest": "sha256:b01f27be975a992eb579260569f26eee865af703cfd96c7e125200f11ef144b8"
+        }
+      ]
+    },
+    {
+      "label": "candidate",
+      "bindings": [
+        {
+          "moduleRef": "module://abg/consensus@5",
+          "publicationDigest": "sha256:de5bb9a6da9ddcb1851a8316447c4be550e5bf663d6dc85b8694f933aa13b9b7"
+        },
+        {
+          "moduleRef": "module://abiogenesis/default-library/default@5",
+          "publicationDigest": "sha256:7db44a0bc9e15175718d68afd3e8f054b55958cb9812485b509b114295989d22"
+        },
+        {
+          "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+          "publicationDigest": "sha256:2eeb93052808caffa3034a0a24ed68be7dafd654f12adaecf42e8ad6123419a7"
+        },
+        {
+          "moduleRef": "module://abiogenesis/requirement-handoff@5",
+          "publicationDigest": "sha256:fcfcee8d2bed5d4d005fb6dd4beac60c407a8f368164bcd13e1d28fcbf68cd80"
+        },
+        {
+          "moduleRef": "module://abiogenesis/semantic-revision@5",
+          "publicationDigest": "sha256:4c018179bd9641b53e7a73263edcb5a0888bb957179eed1d5eaf8f48f2bb1bdd"
+        },
+        {
+          "moduleRef": "module://abiogenesis/semantic-stage@5",
+          "publicationDigest": "sha256:c2ade5022c9927af0787f206595e376d6b686d988a6e6691b436fe5c0165837a"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+          "publicationDigest": "sha256:6ef1f007ffd20238bd31d09e624c2b5fda2b997031e8326d67253d7a8d0a8d39"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+          "publicationDigest": "sha256:2b29099dbe644743343d34b41f92353e659d5bff4b7fb03031a1a393e05171e2"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/construction@5",
+          "publicationDigest": "sha256:ace01f3d89b0f55c014c147584949f1be57d06308f86724513f00f19cb6f6d56"
+        },
+        {
+          "moduleRef": "module://abiogenesis/worksite/native-work@5",
+          "publicationDigest": "sha256:0094ad4b9c56696fba719728166de9bd128128c073596042dd8399ee2c892d1a"
+        }
+      ]
+    }
+  ],
+  "unchangedContributionRowsExceptExactProducerProvenance": 47,
+  "material": [
+    {
+      "member": {
+        "byteCount": 110016,
+        "digest": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+        "memberRef": "source-member://abiogenesis/worksite/command-execution/renderer@5",
+        "path": "build/code/src/product/worksite_command_execution.js"
+      },
+      "span": {
+        "contextRef": "context://abiogenesis/worksite/command-execution/renderer@5",
+        "endByte": 102379,
+        "memberDigest": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+        "memberRef": "source-member://abiogenesis/worksite/command-execution/renderer@5",
+        "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+        "startByte": 100071
+      },
+      "rendererMatches": true
+    }
+  ],
+  "addedLocators": [],
+  "noGlobalIdentityStripping": true
+}

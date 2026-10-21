@@ -1,0 +1,14 @@
+{
+  "label": "payload",
+  "exitCode": 0,
+  "wallMs": 291.00054199807346,
+  "completedUtc": "2026-10-21T02:02:16.675310+00:00",
+  "stdout": {
+    "bytes": 788,
+    "sha256": "5d7f17336ebb5c7c262a5ea3640493f4ef140bc725418d5190995feea7a6f2d5"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

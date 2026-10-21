@@ -1,0 +1,56 @@
+{
+  "kind": "bounded_writer_successor_freeze",
+  "activation": "U1-PHYSICAL-SCOPE-SUCCESSOR-01",
+  "actor": "/root/stdo3_currentness_writer",
+  "at": "2026-10-21T01:41:48.499799+00:00",
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration"
+  ],
+  "method_release": "stdo://releases/v3.0.0-rc.1/",
+  "method_manifest_sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "L2_contract_sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+  "supplement_sha256": "4fa2d49b6148fccd60ff59cc9f76d90a93f9d992e8d8e31e5e8fd2b79a1c6a05",
+  "predecessor_triage_freeze_sha256": "e33a48502c846c69c9d671460b114498f6e9a99f5e7d4d8cc65eaabd67ca6987",
+  "source_files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "2fb146d5dd8c869eec147c08effa6688fea918493274a93d00bfafc4ade7e93c",
+      "bytes": 89590
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "f46908c1598ddc8a7a21a5a890dc2a1af5fe75089160e15054824cfcb59ddca3",
+      "bytes": 76803
+    }
+  ],
+  "emitted_event_calculus_sha256": "fa680e2fffb2faeac2376c58288a8dccb4a7526db941ee918e86bee2f9a8cd19",
+  "manifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/manifest.json",
+    "sha256": "70b5b2b5bc4d464a92669ca5c142688736ee04dc7181f42d5766914b8dea4fdf"
+  },
+  "report_sha256": "033b6086251d7da1c0fb8fbb75b1b9c77cfd313a62ce0d4f732c10f2fd3f8b36",
+  "focused_receipt_sha256": "848c50b4275b50e889cb209fe17f2772f72fc4cce73a441a620fed5fe6eab8ee",
+  "evidence_sha256": "e60adc8b6feef2c18c623e4b31ce2dec709f40169ebd47a1a52f94dcfc85c9e8",
+  "case_matrix_sha256": "ab4fc79fa8fa33f2b5578afa2232702ca2220d9f0214e2ded6368a52524cbd29",
+  "support_correspondence_sha256": "f3084f164bb124c8239635250e3d52ede71db7e070e69192b4b7b7c3363581bd",
+  "construction_result": "candidate_ready",
+  "selected_proof_result": "satisfied under declared controlled component premises",
+  "focused_tests": 1,
+  "selected_cases": 8,
+  "compile_attempts": 1,
+  "execution_attempts": 1,
+  "native_or_command_actors": 0,
+  "unchanged_original_tests_and_support": true,
+  "combined_artifact_proof": "pending Executive activation",
+  "residuals": [
+    "F2 later observation during cleanup-live",
+    "F3 catch-all-null without admitted throwing counterexample",
+    "wrong-binding/wrong-call semantic isolation not promoted by signed-grant proof",
+    "final combined unknown-effect and consumer aggregate plus actual native-workspace/terminal regressions",
+    "independent review and Executive acceptance"
+  ],
+  "acceptance": false,
+  "stopped_editing": true
+}

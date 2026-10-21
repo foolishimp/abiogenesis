@@ -1,0 +1,15 @@
+{
+  "kind": "explicit_empty_seed",
+  "files": [],
+  "sourceRoot": null,
+  "selectedBy": "/root",
+  "basis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-c2-candidate-05/intake/archive-closure.json",
+    "sha256": "a0bc8da78840e2126b0d73289a38804604abf15d1d8200ce8746ce47033d1735",
+    "bytes": 988,
+    "mode": "0o644"
+  },
+  "globalCacheRead": false,
+  "globalCacheWrite": false,
+  "networkFallback": false
+}

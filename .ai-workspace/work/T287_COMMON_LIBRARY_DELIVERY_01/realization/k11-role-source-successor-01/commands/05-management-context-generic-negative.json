@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "node",
+    "--test",
+    "--test-name-pattern=^generic exact-byte ingress, crossed Public coordinates, source mismatch and source-unavailable evidence replay$",
+    "test_env/tests/t287-management-context.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/stage/build_tenants/abiogenesis/typescript",
+  "resolved_executable": "/opt/homebrew/bin/node",
+  "started_utc": "2026-10-21T01:27:14.852953+00:00",
+  "environment_overrides": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources",
+    "ABI5_CONTEXT_PROOF_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources"
+  },
+  "returncode": 0,
+  "wall_seconds": 0.35373274981975555,
+  "completed_utc": "2026-10-21T01:27:15.206837+00:00",
+  "stdout": {
+    "bytes": 355,
+    "sha256": "d3cd83ab024003768c3ed839fbb3c60164c00b76739d61c353e43e6ba2768001"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

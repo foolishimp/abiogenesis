@@ -1,0 +1,1326 @@
+{
+  "files": [
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/activation-preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474221165,
+        "type": "file",
+        "bytes": 8484,
+        "sha256": "e9eb3e87316cb5304bdc8e42a8647d826cc6d3d8dfd6985e1247896792f6a072"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/activation-preconditions.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269154,
+        "type": "file",
+        "bytes": 8484,
+        "sha256": "e9eb3e87316cb5304bdc8e42a8647d826cc6d3d8dfd6985e1247896792f6a072"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/bootstrap-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239305,
+        "type": "file",
+        "bytes": 987284,
+        "sha256": "32dec0e60c0e090972ad97a3130cd69f15169b431c9c9f7dfcd5962dca22f054"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/bootstrap-inventory.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269155,
+        "type": "file",
+        "bytes": 987284,
+        "sha256": "32dec0e60c0e090972ad97a3130cd69f15169b431c9c9f7dfcd5962dca22f054"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/catalog-admit.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268921,
+        "type": "file",
+        "bytes": 1240,
+        "sha256": "f4a7b42cab02f23238e3289ecb183908a5179479f1b5dc637b433aabbd2f3cf7"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/catalog-admit.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269157,
+        "type": "file",
+        "bytes": 1240,
+        "sha256": "f4a7b42cab02f23238e3289ecb183908a5179479f1b5dc637b433aabbd2f3cf7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/catalog-admit.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268920,
+        "type": "file",
+        "bytes": 174031,
+        "sha256": "df9d4205bf2fc061849209bbd4c22766c618dd8f1d90f7669a28e354bed749b2"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/catalog-admit.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269158,
+        "type": "file",
+        "bytes": 174031,
+        "sha256": "df9d4205bf2fc061849209bbd4c22766c618dd8f1d90f7669a28e354bed749b2"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/catalog-admit.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268882,
+        "type": "file",
+        "bytes": 34950655,
+        "sha256": "1e16c0798fc872b25618b7fcfc5fb31227c02878a0dcb5a690d8a8c1965cba39"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/catalog-admit.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269159,
+        "type": "file",
+        "bytes": 34950655,
+        "sha256": "1e16c0798fc872b25618b7fcfc5fb31227c02878a0dcb5a690d8a8c1965cba39"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/catalog-view.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268961,
+        "type": "file",
+        "bytes": 2266,
+        "sha256": "6488e85e2a39f1bc6bd4b0c59740e8ecac6f17f0a0e5f15a72c5742eee79c6fa"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/catalog-view.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269160,
+        "type": "file",
+        "bytes": 2266,
+        "sha256": "6488e85e2a39f1bc6bd4b0c59740e8ecac6f17f0a0e5f15a72c5742eee79c6fa"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/catalog-view.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268929,
+        "type": "file",
+        "bytes": 35768941,
+        "sha256": "52984db149f5fd76557ff40273ce3b0df61096acae420e1e7ffe9de1841be081"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/catalog-view.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269161,
+        "type": "file",
+        "bytes": 35768941,
+        "sha256": "52984db149f5fd76557ff40273ce3b0df61096acae420e1e7ffe9de1841be081"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-install-0.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474257074,
+        "type": "file",
+        "bytes": 1240,
+        "sha256": "26e89e8b1141db651444762dfc3c9767406c0ad3e0f6b4bafe4d60e0a47ad53b"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-install-0.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269162,
+        "type": "file",
+        "bytes": 1240,
+        "sha256": "26e89e8b1141db651444762dfc3c9767406c0ad3e0f6b4bafe4d60e0a47ad53b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-install-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474257073,
+        "type": "file",
+        "bytes": 6467,
+        "sha256": "d1c83fa054c9327aa53758ea8f5612e43e9cb836350aa962bec6b65a673fbcdd"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-install-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269163,
+        "type": "file",
+        "bytes": 6467,
+        "sha256": "d1c83fa054c9327aa53758ea8f5612e43e9cb836350aa962bec6b65a673fbcdd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-install-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239473,
+        "type": "file",
+        "bytes": 31447244,
+        "sha256": "b563170e431300550f227dbae82136e390f7e743a0afbea3a1c22577edbc2c87"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-install-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269164,
+        "type": "file",
+        "bytes": 31447244,
+        "sha256": "b563170e431300550f227dbae82136e390f7e743a0afbea3a1c22577edbc2c87"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-install-1.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268843,
+        "type": "file",
+        "bytes": 1240,
+        "sha256": "b809662324cd4096f852e2cbd815abb474c36625b61f70bb98b95743de77aefb"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-install-1.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269165,
+        "type": "file",
+        "bytes": 1240,
+        "sha256": "b809662324cd4096f852e2cbd815abb474c36625b61f70bb98b95743de77aefb"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-install-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268842,
+        "type": "file",
+        "bytes": 6418,
+        "sha256": "28b39f828c4a2f06903a89c3386726c2d572821f0888edcb4589316191c0233a"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-install-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269166,
+        "type": "file",
+        "bytes": 6418,
+        "sha256": "28b39f828c4a2f06903a89c3386726c2d572821f0888edcb4589316191c0233a"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-install-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474257080,
+        "type": "file",
+        "bytes": 17291177,
+        "sha256": "9b9492af156fa734263e1f5e2613d42a3fe3432ee08e8e1b94ffa66e012e123c"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-install-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269167,
+        "type": "file",
+        "bytes": 17291177,
+        "sha256": "9b9492af156fa734263e1f5e2613d42a3fe3432ee08e8e1b94ffa66e012e123c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-resolve.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239470,
+        "type": "file",
+        "bytes": 5354,
+        "sha256": "af756df65056a67388410687f8647462059fc12c200e863431742efab29b8a64"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-resolve.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269168,
+        "type": "file",
+        "bytes": 5354,
+        "sha256": "af756df65056a67388410687f8647462059fc12c200e863431742efab29b8a64"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-resolve.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239447,
+        "type": "file",
+        "bytes": 28496924,
+        "sha256": "d3cff9a836cefa4a263470261d36d8ade292080163c85e134dcc9c317c3f89a3"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-resolve.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269169,
+        "type": "file",
+        "bytes": 28496924,
+        "sha256": "d3cff9a836cefa4a263470261d36d8ade292080163c85e134dcc9c317c3f89a3"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-verify-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239418,
+        "type": "file",
+        "bytes": 257222,
+        "sha256": "feb70e64936b341d7ee23fe1424196934fc2582a464baf2e4113ab9ab7042fbf"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-verify-0.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269170,
+        "type": "file",
+        "bytes": 257222,
+        "sha256": "feb70e64936b341d7ee23fe1424196934fc2582a464baf2e4113ab9ab7042fbf"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-verify-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239376,
+        "type": "file",
+        "bytes": 28342898,
+        "sha256": "a7b20de85c83a504b93441afebddd4cf8fa9de29bcd2e2fcb8378c351fc30452"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-verify-0.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269171,
+        "type": "file",
+        "bytes": 28342898,
+        "sha256": "a7b20de85c83a504b93441afebddd4cf8fa9de29bcd2e2fcb8378c351fc30452"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-verify-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239444,
+        "type": "file",
+        "bytes": 2051,
+        "sha256": "e614003bd47fae2ef64c02eef1923b34371e6ad9be498d936203edaa00eee3a6"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-verify-1.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269172,
+        "type": "file",
+        "bytes": 2051,
+        "sha256": "e614003bd47fae2ef64c02eef1923b34371e6ad9be498d936203edaa00eee3a6"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/product-verify-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239419,
+        "type": "file",
+        "bytes": 14185495,
+        "sha256": "7e6b6b5f7fd384454238cb483f777a96c33c1f69e10f3af8f6e94946e9d1be2f"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/product-verify-1.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269173,
+        "type": "file",
+        "bytes": 14185495,
+        "sha256": "7e6b6b5f7fd384454238cb483f777a96c33c1f69e10f3af8f6e94946e9d1be2f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/program-conformance.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269013,
+        "type": "file",
+        "bytes": 2476,
+        "sha256": "88c3e54392bf501c180e6f5ec505af5b8acbdcee9f56cb34ba606b8718e7c466"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/program-conformance.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269174,
+        "type": "file",
+        "bytes": 2476,
+        "sha256": "88c3e54392bf501c180e6f5ec505af5b8acbdcee9f56cb34ba606b8718e7c466"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/program-conformance.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268975,
+        "type": "file",
+        "bytes": 36321644,
+        "sha256": "3b6d9821ccf6c5a1500de4f9c0fbaa5f4655f761e44792f88c1d7b4c40116fa1"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/program-conformance.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269175,
+        "type": "file",
+        "bytes": 36321644,
+        "sha256": "3b6d9821ccf6c5a1500de4f9c0fbaa5f4655f761e44792f88c1d7b4c40116fa1"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/workspace-bind.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268880,
+        "type": "file",
+        "bytes": 1240,
+        "sha256": "f4a7b42cab02f23238e3289ecb183908a5179479f1b5dc637b433aabbd2f3cf7"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/workspace-bind.close.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269176,
+        "type": "file",
+        "bytes": 1240,
+        "sha256": "f4a7b42cab02f23238e3289ecb183908a5179479f1b5dc637b433aabbd2f3cf7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/workspace-bind.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268879,
+        "type": "file",
+        "bytes": 7052,
+        "sha256": "06a1c92c21570b825bee993ea6235680736216d0d81f7057f5f691d4342505a0"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/workspace-bind.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269177,
+        "type": "file",
+        "bytes": 7052,
+        "sha256": "06a1c92c21570b825bee993ea6235680736216d0d81f7057f5f691d4342505a0"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/workspace-bind.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268851,
+        "type": "file",
+        "bytes": 20391659,
+        "sha256": "38460c56a27df017a47f5163a2cd7190869c406b029bec08e87b769a304547e3"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/workspace-bind.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269178,
+        "type": "file",
+        "bytes": 20391659,
+        "sha256": "38460c56a27df017a47f5163a2cd7190869c406b029bec08e87b769a304547e3"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/workspace-create.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239345,
+        "type": "file",
+        "bytes": 1965,
+        "sha256": "cfc84465a763c098ba11a6c31c04a01800ee31b6fad5bbf64e2cb11395e47bf5"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/workspace-create.outcome.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269179,
+        "type": "file",
+        "bytes": 1965,
+        "sha256": "cfc84465a763c098ba11a6c31c04a01800ee31b6fad5bbf64e2cb11395e47bf5"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/calls/workspace-create.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239329,
+        "type": "file",
+        "bytes": 14176256,
+        "sha256": "ba2c635c350256efd6e61e03d9297a382def8d16564ec201aaabeb64a74fba8a"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/calls/workspace-create.request.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269180,
+        "type": "file",
+        "bytes": 14176256,
+        "sha256": "ba2c635c350256efd6e61e03d9297a382def8d16564ec201aaabeb64a74fba8a"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/1-bootstrap-offline-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239304,
+        "type": "file",
+        "bytes": 784,
+        "sha256": "32cd27d6e3ce9e8da4b22e4c3818d253609d58e77aff544ae673b9355a802018"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/1-bootstrap-offline-install.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269182,
+        "type": "file",
+        "bytes": 784,
+        "sha256": "32cd27d6e3ce9e8da4b22e4c3818d253609d58e77aff544ae673b9355a802018"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/10-workspace-bind.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268878,
+        "type": "file",
+        "bytes": 6413,
+        "sha256": "868a386a0cca23b459724ceb843d27585f02307178de714a84729e7b5963c6de"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/10-workspace-bind.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269183,
+        "type": "file",
+        "bytes": 6413,
+        "sha256": "868a386a0cca23b459724ceb843d27585f02307178de714a84729e7b5963c6de"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/11-catalog-admit.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268919,
+        "type": "file",
+        "bytes": 143485,
+        "sha256": "143dc8f76dd56b515cd3af4f5a282c2b5a07cda1d3a6cae397b1ea0174695a3c"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/11-catalog-admit.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269184,
+        "type": "file",
+        "bytes": 143485,
+        "sha256": "143dc8f76dd56b515cd3af4f5a282c2b5a07cda1d3a6cae397b1ea0174695a3c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/12-catalog-view.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268960,
+        "type": "file",
+        "bytes": 2504,
+        "sha256": "cecd209d3c0b4baf9ada0ff2ab4ff4c6e6fc8a8fc013b1ee5535cf23052f081d"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/12-catalog-view.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269185,
+        "type": "file",
+        "bytes": 2504,
+        "sha256": "cecd209d3c0b4baf9ada0ff2ab4ff4c6e6fc8a8fc013b1ee5535cf23052f081d"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/13-program-conformance.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269012,
+        "type": "file",
+        "bytes": 2655,
+        "sha256": "27e86f8ee89b64114ae906b4edfa21e0ff5605306f03822746ddcd344b707ccd"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/13-program-conformance.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269186,
+        "type": "file",
+        "bytes": 2655,
+        "sha256": "27e86f8ee89b64114ae906b4edfa21e0ff5605306f03822746ddcd344b707ccd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/2-installed-declaration-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239312,
+        "type": "file",
+        "bytes": 902,
+        "sha256": "b0dc32eb7f18d0bd73040042893a49004151dfebd4e58c64e41fc36c8718ba22"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/2-installed-declaration-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269187,
+        "type": "file",
+        "bytes": 902,
+        "sha256": "b0dc32eb7f18d0bd73040042893a49004151dfebd4e58c64e41fc36c8718ba22"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/3-workspace-create.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239344,
+        "type": "file",
+        "bytes": 2247,
+        "sha256": "80abc3e7f462069e714c97266c17048d0b2160c2157a26d8483ca1650d012786"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/3-workspace-create.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269188,
+        "type": "file",
+        "bytes": 2247,
+        "sha256": "80abc3e7f462069e714c97266c17048d0b2160c2157a26d8483ca1650d012786"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/4-pack-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239374,
+        "type": "file",
+        "bytes": 1797,
+        "sha256": "828c623d479541d2f7d4d6b37b10ccc5af408562f8ecb57fd070c57b316f3cb8"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/4-pack-consumer.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269189,
+        "type": "file",
+        "bytes": 1797,
+        "sha256": "828c623d479541d2f7d4d6b37b10ccc5af408562f8ecb57fd070c57b316f3cb8"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/5-product-verify-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239417,
+        "type": "file",
+        "bytes": 158782,
+        "sha256": "88a6bdda7e57b4a1da1390417a71df677a6b29ff4ffb69aa10db2ada0e60e9f1"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/5-product-verify-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269190,
+        "type": "file",
+        "bytes": 158782,
+        "sha256": "88a6bdda7e57b4a1da1390417a71df677a6b29ff4ffb69aa10db2ada0e60e9f1"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/6-product-verify-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239443,
+        "type": "file",
+        "bytes": 2315,
+        "sha256": "bea5d7d5c589c4c2569071f7443c3e081a70beff1f818a87125b35131cae0bd7"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/6-product-verify-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269191,
+        "type": "file",
+        "bytes": 2315,
+        "sha256": "bea5d7d5c589c4c2569071f7443c3e081a70beff1f818a87125b35131cae0bd7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/7-product-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239469,
+        "type": "file",
+        "bytes": 4738,
+        "sha256": "acebd70aa42d94cb1ee4ee276b316f73bace24c822a842defef812d5f49aab44"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/7-product-resolve.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269192,
+        "type": "file",
+        "bytes": 4738,
+        "sha256": "acebd70aa42d94cb1ee4ee276b316f73bace24c822a842defef812d5f49aab44"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/8-product-install-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474257072,
+        "type": "file",
+        "bytes": 6134,
+        "sha256": "0d02c498789f5e10516a9191107ed98e436d3509ab1ed714f38ee3a96f61fdac"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/8-product-install-0.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269193,
+        "type": "file",
+        "bytes": 6134,
+        "sha256": "0d02c498789f5e10516a9191107ed98e436d3509ab1ed714f38ee3a96f61fdac"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/9-product-install-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268841,
+        "type": "file",
+        "bytes": 6086,
+        "sha256": "06b08042d7dabbfd82574d2498435d0c3778bc2399a596830e1f9054e5d0fe19"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/commands/9-product-install-1.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269194,
+        "type": "file",
+        "bytes": 6086,
+        "sha256": "06b08042d7dabbfd82574d2498435d0c3778bc2399a596830e1f9054e5d0fe19"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/consumer-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239375,
+        "type": "file",
+        "bytes": 10046,
+        "sha256": "0f90e5d125760cb34dc83da575e5dad72bfd910ecd2f99ad73296942ef1f9b13"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/consumer-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269195,
+        "type": "file",
+        "bytes": 10046,
+        "sha256": "0f90e5d125760cb34dc83da575e5dad72bfd910ecd2f99ad73296942ef1f9b13"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/effective-environment.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474221167,
+        "type": "file",
+        "bytes": 457,
+        "sha256": "aaf5ca9b6fccc16f8418fc0cd41bf2a819cacea8c48283a304ba6a635643c3bd"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/effective-environment.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269196,
+        "type": "file",
+        "bytes": 457,
+        "sha256": "aaf5ca9b6fccc16f8418fc0cd41bf2a819cacea8c48283a304ba6a635643c3bd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269027,
+        "type": "file",
+        "bytes": 3113344,
+        "sha256": "9175c6ec0edbe30a6c91c24e420cc2e4d2a8b44a5ce2194e55bb60f694c14ccd"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269197,
+        "type": "file",
+        "bytes": 3113344,
+        "sha256": "9175c6ec0edbe30a6c91c24e420cc2e4d2a8b44a5ce2194e55bb60f694c14ccd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/installed/0/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474257079,
+        "type": "file",
+        "bytes": 4302034,
+        "sha256": "c3ea4a3c7265446dc637539d36ec885e9378c7a42d2015f2777e8e49d3b87da0"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/installed/0/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269200,
+        "type": "file",
+        "bytes": 4302034,
+        "sha256": "c3ea4a3c7265446dc637539d36ec885e9378c7a42d2015f2777e8e49d3b87da0"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/installed/0/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474257078,
+        "type": "file",
+        "bytes": 870,
+        "sha256": "dfbd164d61e23255c59489e5ae3e5a690511a0cb590bfbbcedb9683c8840878f"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/installed/0/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269201,
+        "type": "file",
+        "bytes": 870,
+        "sha256": "dfbd164d61e23255c59489e5ae3e5a690511a0cb590bfbbcedb9683c8840878f"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/installed/0/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474257077,
+        "type": "file",
+        "bytes": 4314729,
+        "sha256": "e26f6942a893ba626061881b97aeddb7fe6cb06c8625b99ebca5a412e57acebf"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/installed/0/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269202,
+        "type": "file",
+        "bytes": 4314729,
+        "sha256": "e26f6942a893ba626061881b97aeddb7fe6cb06c8625b99ebca5a412e57acebf"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/installed/1/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268847,
+        "type": "file",
+        "bytes": 13025,
+        "sha256": "a8e948eec74a826258d0acb95facd06a8a2cb5afc46cb5270f59ea1708bfaf94"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/installed/1/identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269204,
+        "type": "file",
+        "bytes": 13025,
+        "sha256": "a8e948eec74a826258d0acb95facd06a8a2cb5afc46cb5270f59ea1708bfaf94"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/installed/1/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268846,
+        "type": "file",
+        "bytes": 870,
+        "sha256": "ebe685acb3da41b8b26adf7dd9d05b92687eac354026954c6160c9ad7c593649"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/installed/1/installer-manifest-reference.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269205,
+        "type": "file",
+        "bytes": 870,
+        "sha256": "ebe685acb3da41b8b26adf7dd9d05b92687eac354026954c6160c9ad7c593649"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/installed/1/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474268845,
+        "type": "file",
+        "bytes": 5845,
+        "sha256": "75f059b11499551a5cba48eb014157921d1a4d24ba3eae515f69b3ebdbf7ee7b"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/installed/1/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269206,
+        "type": "file",
+        "bytes": 5845,
+        "sha256": "75f059b11499551a5cba48eb014157921d1a4d24ba3eae515f69b3ebdbf7ee7b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/measurements.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269028,
+        "type": "file",
+        "bytes": 16425,
+        "sha256": "ce0ca8feb979394ff9b8acfabae31670a1e14775068962a1286d6d340329b37b"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/measurements.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269207,
+        "type": "file",
+        "bytes": 16425,
+        "sha256": "ce0ca8feb979394ff9b8acfabae31670a1e14775068962a1286d6d340329b37b"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/native-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239327,
+        "type": "file",
+        "bytes": 16410523,
+        "sha256": "20f0a919d9ed59d4338ad5216492751c56dd37e928b8ae333614822852b33b82"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/native-acquisition.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269208,
+        "type": "file",
+        "bytes": 16410523,
+        "sha256": "20f0a919d9ed59d4338ad5216492751c56dd37e928b8ae333614822852b33b82"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/p1-owner-state.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269026,
+        "type": "file",
+        "bytes": 41969681,
+        "sha256": "55e19fd6b3635e548ae6aaad2b5d7a6824e63fe97e547ec037f173d3f0a7d7c7"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/p1-owner-state.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269209,
+        "type": "file",
+        "bytes": 41969681,
+        "sha256": "55e19fd6b3635e548ae6aaad2b5d7a6824e63fe97e547ec037f173d3f0a7d7c7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/resolution-first.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269021,
+        "type": "file",
+        "bytes": 5461022,
+        "sha256": "9c445057bd76ea853a0d0e61c9330544b27da78224c395f07ae269d5bb723367"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/resolution-first.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269210,
+        "type": "file",
+        "bytes": 5461022,
+        "sha256": "9c445057bd76ea853a0d0e61c9330544b27da78224c395f07ae269d5bb723367"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/resolution-negatives.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269025,
+        "type": "file",
+        "bytes": 42046,
+        "sha256": "6df76f4374491dcd4112dc24b474894506d3e35dc02571d06a333bb9862d5a64"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/resolution-negatives.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269211,
+        "type": "file",
+        "bytes": 42046,
+        "sha256": "6df76f4374491dcd4112dc24b474894506d3e35dc02571d06a333bb9862d5a64"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/resolution-warm.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269024,
+        "type": "file",
+        "bytes": 5461022,
+        "sha256": "9c445057bd76ea853a0d0e61c9330544b27da78224c395f07ae269d5bb723367"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/resolution-warm.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269212,
+        "type": "file",
+        "bytes": 5461022,
+        "sha256": "9c445057bd76ea853a0d0e61c9330544b27da78224c395f07ae269d5bb723367"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/resources/events/runtime.events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239490,
+        "type": "file",
+        "bytes": 3113344,
+        "sha256": "9175c6ec0edbe30a6c91c24e420cc2e4d2a8b44a5ce2194e55bb60f694c14ccd"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/resources/events/runtime.events.jsonl",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269215,
+        "type": "file",
+        "bytes": 3113344,
+        "sha256": "9175c6ec0edbe30a6c91c24e420cc2e4d2a8b44a5ce2194e55bb60f694c14ccd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269029,
+        "type": "file",
+        "bytes": 1768,
+        "sha256": "45ab673952ab969521b1b545abaf9d2a78dc612b9c67045a63bf6a0a4b90155c"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/result.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269216,
+        "type": "file",
+        "bytes": 1768,
+        "sha256": "45ab673952ab969521b1b545abaf9d2a78dc612b9c67045a63bf6a0a4b90155c"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239367,
+        "type": "file",
+        "bytes": 6184,
+        "sha256": "07bec7de8b50d206f7123b8dbbdb813712bb6cc3d3489b6445a05e7fab73dd48"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269219,
+        "type": "file",
+        "bytes": 6184,
+        "sha256": "07bec7de8b50d206f7123b8dbbdb813712bb6cc3d3489b6445a05e7fab73dd48"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/build/publication.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239353,
+        "type": "file",
+        "bytes": 27494,
+        "sha256": "91cd4bafe80f6546c677a925a3b993ba26d30d422afe6fb93743c5c6199aebdd"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/setup/consumer-source/build/publication.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269222,
+        "type": "file",
+        "bytes": 27494,
+        "sha256": "91cd4bafe80f6546c677a925a3b993ba26d30d422afe6fb93743c5c6199aebdd"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/build/semantics.mjs",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239354,
+        "type": "file",
+        "bytes": 757,
+        "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/setup/consumer-source/build/semantics.mjs",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269223,
+        "type": "file",
+        "bytes": 757,
+        "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/contracts/assessment.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239355,
+        "type": "file",
+        "bytes": 462,
+        "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/setup/consumer-source/contracts/assessment.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269225,
+        "type": "file",
+        "bytes": 462,
+        "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239358,
+        "type": "file",
+        "bytes": 247,
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/setup/consumer-source/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269227,
+        "type": "file",
+        "bytes": 247,
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/contracts/public-contract-catalog.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239356,
+        "type": "file",
+        "bytes": 75,
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/setup/consumer-source/contracts/public-contract-catalog.schema.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269228,
+        "type": "file",
+        "bytes": 75,
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/package.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239352,
+        "type": "file",
+        "bytes": 566,
+        "sha256": "9102c922fda84f34e9873fb646537411d39060a8423ba458cb1a8ac3c5c4effe"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/setup/consumer-source/package.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269229,
+        "type": "file",
+        "bytes": 566,
+        "sha256": "9102c922fda84f34e9873fb646537411d39060a8423ba458cb1a8ac3c5c4effe"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239359,
+        "type": "file",
+        "bytes": 4864,
+        "sha256": "56463af63cc08284fc0822c9c85c27d1eace68e3e0e581b067ed78d2d659af48"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/setup/consumer-source/product-toolchain-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269230,
+        "type": "file",
+        "bytes": 4864,
+        "sha256": "56463af63cc08284fc0822c9c85c27d1eace68e3e0e581b067ed78d2d659af48"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup-identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269014,
+        "type": "file",
+        "bytes": 9277506,
+        "sha256": "41ab0b6f2a8df219dac5083019712c6c90c85703b672c7ad9287ad7af4dbd3d3"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/setup-identity.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269231,
+        "type": "file",
+        "bytes": 9277506,
+        "sha256": "41ab0b6f2a8df219dac5083019712c6c90c85703b672c7ad9287ad7af4dbd3d3"
+      }
+    },
+    {
+      "original": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/workspace-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474239346,
+        "type": "file",
+        "bytes": 1549,
+        "sha256": "2544b2f364d16c66244713f140f8f611744a89139053bed65f13d05d6cc9ca75"
+      },
+      "portable": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/evidence/workspace-manifest.json",
+        "mode": "0o644",
+        "device": 16777231,
+        "inode": 474269232,
+        "type": "file",
+        "bytes": 1549,
+        "sha256": "2544b2f364d16c66244713f140f8f611744a89139053bed65f13d05d6cc9ca75"
+      }
+    }
+  ],
+  "excludedInstalledPayloadFiles": 10547,
+  "relation": "Exact bytes/modes, not inode identity; full installed payload retained and inventoried in original physical roots"
+}

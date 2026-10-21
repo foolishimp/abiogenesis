@@ -1,0 +1,18 @@
+{
+  "scope": "Read-only exploratory route lookup, not a selected proof or precondition assertion. No source/effect changed and no closure credit assigned.",
+  "publicTranscriptErrors": [
+    {
+      "callOutput": "6fd7a1",
+      "error": "rg: build/code/src/product/install.js: No such file or directory",
+      "cause": "Guessed source filename during fixture resource-route discovery"
+    },
+    {
+      "callOutput": "0ea6fe",
+      "errors": [
+        "FileNotFoundError for repository-relative package-source-correspondence.json while cwd was stage tenant",
+        "rg: code/src/product/product_install.ts: No such file or directory"
+      ],
+      "cause": "Read routing/cwd mistakes in exploratory source lookup; command continued with independent rg reads. Exact existing install_product.ts and absolute work-root record then read."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "status": "pending Executive final artifact/effect binding",
+  "rules": [
+    "Every null pin is mandatory; NOT_GRANTED cannot execute. Use a new active configuration and grant, never edit this freeze.",
+    "Use source/emitted/dependencies/support inventories from the same new closed candidate. Translate kind to type explicitly and paths relative to final stageTenant; preserve all hashes, bytes, modes and internal link targets.",
+    "The final source/emitted relation includes the two explicitly generator-derived source successors from the combined construction record. No hash refresh after mismatch.",
+    "Selected support and inspected owner sources must match inspected-inputs.json exactly. A changed governing owner source returns for re-entry before execution.",
+    "Use actual final package tar member inventory as files rows with type file/symlink, path relative to package, sha256/bytes/mode or target. Bind candidate.json archive/manifest/content/count.",
+    "Copy only a separately inventoried finite npm _cacache seed into new case-owned cache roots; all cache/log/index effects are granted and retained. No ambient network/cache fallback.",
+    "Require original repaired structural helper SHA 6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966. No sourceTransform or declaration/leaf edit.",
+    "The selected final prerequisite result must be satisfied and subjectId candidate. Historical final01 and baseline receipts are not final subject evidence.",
+    "Root must independently verify final binding, freeze active grant/config and invoke exact recorded argv once. Stop first genuine failure, no repair/retry/cleanup.",
+    "The nine optional owner-law tests include fixture cleanup; their later selection requires an explicit retention disposition. This does not block the ordinary driver."
+  ],
+  "futureRootsAbsent": true,
+  "sourceToEmittedOwners": [
+    "code/src/abg/event_prefix.ts",
+    "code/src/abg/graph_application.ts",
+    "code/src/abg/traversal_route.ts",
+    "code/src/abg/retry.ts",
+    "code/src/abg/fan_out.ts",
+    "code/src/abg/fan_out_projection.ts",
+    "code/src/abg/project_read_ports.ts",
+    "code/src/abg/project_read_operation_contracts.ts",
+    "code/src/product/run_invocation_operation.ts",
+    "code/src/hog/workflow_lifecycle.ts",
+    "code/src/hog/route_proposal.ts",
+    "code/src/public/cli.ts"
+  ]
+}

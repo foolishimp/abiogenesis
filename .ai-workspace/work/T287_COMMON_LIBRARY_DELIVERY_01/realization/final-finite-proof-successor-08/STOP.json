@@ -1,0 +1,47 @@
+{
+  "kind": "first unexpected selected command failure",
+  "command": "native-workspace-physical-regression",
+  "request": {
+    "label": "native-workspace-physical-regression",
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern",
+      "^(?:post\\-effect\\ channel\\ conflict\\ retains\\ admitted\\ native\\ failure\\ scope\\ without\\ a\\ fabricated\\ exchange)$",
+      "test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript",
+    "effectiveEnvironment": {
+      "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "HOME": "/Users/jim",
+      "LANG": "en_AU.UTF-8",
+      "TMPDIR": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/06-native-workspace-physical-regression/tmp/",
+      "npm_config_offline": "true",
+      "npm_config_ignore_scripts": "true",
+      "npm_config_audit": "false",
+      "npm_config_fund": "false",
+      "npm_config_update_notifier": "false",
+      "npm_config_cache": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/cache",
+      "npm_config_logs_dir": "/private/tmp/abg-stdo3-finite-08-9d3470afc2b618e5/npm-logs",
+      "NODE_OPTIONS": "",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "sha256:25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+      "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/host"
+    },
+    "timeoutMs": 600000,
+    "commandFreezeSha256": "2563a0f0c781e7389b22fcd3095db8dfc5849ef1edd053b28f1a29bcdec4a9da",
+    "runnerSha256": "31fb9de5513587fd66121214b8186e789041c971080d9529887de5c75fa5d0ec",
+    "startedUnix": 1792568911.771441
+  },
+  "result": {
+    "pid": 51675,
+    "exitCode": 1,
+    "wallMs": 416.6576671414077,
+    "stdoutSha256": "33a3c855c283960e73249d6ef7f7a51e33fb4e51137db2cba97f17dc27ad23a0",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "disposition": "stopped before repair/retry/next case"
+}

@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "test_env/tests/t287-stdo3-run-environment.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage/build_tenants/abiogenesis/typescript",
+  "resolved_executable": "/opt/homebrew/bin/node",
+  "started_utc": "2026-10-20T23:15:24.203141+00:00",
+  "environment_overrides": {},
+  "returncode": 0,
+  "wall_seconds": 0.5079362920951098,
+  "completed_utc": "2026-10-20T23:15:24.711222+00:00",
+  "stdout": {
+    "bytes": 475,
+    "sha256": "742e9e620af1d5d6cf248958b176f5fb0aee93eb982d2331193d5a631fff3dc6"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

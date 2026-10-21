@@ -1,0 +1,20 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^U1 physical target scope successor",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/stage-01/build_tenants/abiogenesis/typescript",
+  "overrides": {
+    "TMPDIR": "/private/tmp/abg-u1-c0-successor-uly0wqi4",
+    "ABG_U1_EVIDENCE_DIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/evidence-01",
+    "ABG_WORKSITE_BUILD_ROOT": null,
+    "ABG_U1_FIRST_CASE": null
+  },
+  "stage_freeze_sha256": "f800ca54592e23a699d06e3a5a8733958a150cba1168b9f58060c3b9e1ff0670",
+  "source_inputs_sha256": "1ab466a1d65bf1f9c70796eae918662a3f084318c6afe74f71e440852887533c",
+  "selected_cases": 10,
+  "native_or_command_actors": 0
+}

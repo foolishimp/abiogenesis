@@ -1,0 +1,319 @@
+{
+  "activation": "P5-INSTALLED-C2-SUCCESSOR-08",
+  "status": "STOPPED_TEST_TIMEOUT_THEN_OUTER_DEADLINE",
+  "scope": "Single installed C1 to C2 proof, controlled provider, no native semantic credit or P5 acceptance.",
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/freeze.json",
+    "bytes": 1981007,
+    "sha256": "96b9ce2062ab04f1a456ba28d3122160e1093d8b6ecdfb88ae1cd8b6f0338ee8"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10681875,
+    "sha256": "fadd07e06799be957087419527c683ce18650ecf0abfe669c0f28e034d84aef6"
+  },
+  "manifestSha256": "51de2eb3af366ce1089f074d56258312620266f67759344acc549966447c6a84",
+  "productContentDigest": "sha256:349c24b4c4cc15431d92a5d6f46f48420367f56a8d25dc1fb2cbb97f44a3e5d3",
+  "bootstrap": {
+    "key": "install",
+    "startedAt": "2026-10-21T08:23:55.738Z",
+    "completedAt": "2026-10-21T08:24:46.394Z",
+    "wallMs": 50645.5735,
+    "pid": 73770,
+    "groupId": 73770,
+    "supervisorPid": 73748,
+    "timedOut": false,
+    "events": [
+      {
+        "kind": "spawn",
+        "pid": 73770,
+        "atMs": 22.32987499999996
+      },
+      {
+        "kind": "exit",
+        "status": 0,
+        "signal": null,
+        "atMs": 50578.970709
+      },
+      {
+        "kind": "close",
+        "status": 0,
+        "signal": null,
+        "atMs": 50587.578959
+      }
+    ],
+    "facts": {
+      "directExit": {
+        "status": 0,
+        "signal": null
+      },
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "scopeKind": "posix_process_group",
+      "scopeAbsence": "absent",
+      "closeObserved": true,
+      "streamsDisposed": true,
+      "drainExpired": false,
+      "firstError": null,
+      "cleanupDeadlineNs": "1402958885220416",
+      "cleanupElapsedMs": 8.431875,
+      "probeCount": 1,
+      "signalAttempts": 0
+    },
+    "stdout": {
+      "bytes": 24,
+      "sha256": "e11642737a588f4aeb0609e2db2696530369e4f8485f637caffb896fbe4b43b2"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "success": true,
+    "physicalAbsenceIsNotAdmission": true
+  },
+  "firstFailure": {
+    "type": "node_test_timeout",
+    "message": "test timed out after 600000ms",
+    "reportedElapsedMs": 600001.950708,
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/commands/test.stdout",
+      "bytes": 762,
+      "sha256": "4ab2025c63b72567c0f6604970d49931c04adf748166af360851c7585e8cb7ea"
+    },
+    "secondaryMessage": "Promise resolution is still pending but the event loop has already resolved",
+    "testOutcome": "cancelled",
+    "subsequentOuterTimeout": true
+  },
+  "outerTestHost": {
+    "key": "test",
+    "startedAt": "2026-10-21T08:25:26.008Z",
+    "completedAt": "2026-10-21T08:35:56.006Z",
+    "wallMs": 630048.51375,
+    "pid": 74749,
+    "groupId": 74749,
+    "supervisorPid": 74747,
+    "timedOut": true,
+    "events": [
+      {
+        "kind": "spawn",
+        "pid": 74749,
+        "atMs": 7.155792000000005
+      },
+      {
+        "kind": "signal_requested",
+        "signal": "SIGTERM",
+        "atMs": 630009.573125
+      },
+      {
+        "kind": "exit",
+        "status": 1,
+        "signal": null,
+        "atMs": 630015.857084
+      },
+      {
+        "kind": "close",
+        "status": 1,
+        "signal": null,
+        "atMs": 630016.0624170001
+      }
+    ],
+    "facts": {
+      "directExit": {
+        "status": 1,
+        "signal": null
+      },
+      "launchFailure": null,
+      "noChildEstablished": false,
+      "scopeKind": "posix_process_group",
+      "scopeAbsence": "absent",
+      "closeObserved": true,
+      "streamsDisposed": true,
+      "drainExpired": false,
+      "firstError": null,
+      "cleanupDeadlineNs": "1403628579834166",
+      "cleanupElapsedMs": 38.468917,
+      "probeCount": 7,
+      "signalAttempts": 1
+    },
+    "stdout": {
+      "bytes": 762,
+      "sha256": "4ab2025c63b72567c0f6604970d49931c04adf748166af360851c7585e8cb7ea"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "success": false,
+    "physicalAbsenceIsNotAdmission": true
+  },
+  "C1": {
+    "completion": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/archive/test-evidence/source-completion.json",
+      "bytes": 121686,
+      "sha256": "570e85530506be442b483c6eb628cc69dfc353ad9650858cc12db7bf23bf16a4"
+    },
+    "disposition": "closed",
+    "resultKind": "worksite_construction_result",
+    "runId": "run://abiogenesis/9c9d37d108a0ce07c5218e6b7852648b331268ee62ddb083180f15b0fbccdf20",
+    "sourceLogicalEventCount": 185,
+    "lastEventTime": "2026-10-21T08:35:41.294Z",
+    "process": {
+      "pid": 78207,
+      "provider": "controlled-construction"
+    },
+    "retainedAbsence": {
+      "label": "construction",
+      "pid": 78207,
+      "groupId": 78207,
+      "directChildPresence": "absent",
+      "ownedGroupPresence": "absent",
+      "observedAt": "2026-10-21T08:35:42.725Z",
+      "physicalAbsenceIsNotAdmission": true
+    },
+    "sourceClose": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-p5-08-7ca935e280b14df6/scratch/abi5-root-env-LY8r8p/runtime/events.jsonl",
+      "prefixLength": 3805575,
+      "prefixDigest": "sha256:3ec37340dbc8cdca6601267dc612a5feaad60d717d85ea687f89a13632299ac5",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 475161792,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:d6a85c0e6280ce35047b037b516e55bd96ad91b3295336e30386929af35ab191"
+    }
+  },
+  "C2": {
+    "submittedDefinitionCall": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/archive/test-evidence/definition-call.json",
+      "bytes": 27457613,
+      "sha256": "0d4ef4c60e160758a00af82540c76d6793002eab63b84b3477c2e1d0f286175e"
+    },
+    "runEnvironmentBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor08/archive/test-evidence/run-environment-binding.json",
+      "bytes": 7808,
+      "sha256": "cf7e44486ac22495b58e1a77324e5813dc6f9fbf6b76adbae6e5d87fc5e9211f"
+    },
+    "observedInlineTailKinds": [
+      "public_operation_admitted",
+      "invocation_admitted",
+      "implementation_admitted",
+      "basis_admitted",
+      "run_segment_opened",
+      "graph_call_opened",
+      "frame_opened",
+      "runtime_activity_probe_observed",
+      "traversal_cursor_entered",
+      "c_call_opened",
+      "c_call_fibre_selected",
+      "runtime_activity_probe_observed"
+    ],
+    "runId": "run://abiogenesis/5111c7c4685061a835608fce687b3ee3f9bfc49ec91234f0540a48560293a5f2",
+    "rootExecutionBasisAdmitted": true,
+    "callOpened": true,
+    "fibreSelected": true,
+    "actorStartRecordsInC2Tail": 0,
+    "returnedPublicOutcome": false,
+    "commandOrHttpEvidence": false,
+    "helperAckOrAdmittedObservation": false,
+    "freshReplayReached": false,
+    "N2": "NOT_REACHED",
+    "ownerLocalNegatives": "NOT_REACHED",
+    "sourceRepairActualRootAdmission": "Exact new installed package admitted C2 root execution basis after actual closed C1 source; this is narrower than full pre-effect/actor/command/HTTP completion.",
+    "terminalClosure": false,
+    "missingEvidenceFiles": [
+      "public-outcome.json",
+      "command-process.json",
+      "transport-helper.json",
+      "admitted-http.json",
+      "fresh-proof.json",
+      "summary.json",
+      "failure.json",
+      "cleanup.json"
+    ],
+    "lastPhysicalRecord": {
+      "eventId": "event://abiogenesis/fbbf50d66471fff5dc2905ad89b85aab562dc759c4de6632ab34f7bbfc83985b",
+      "kind": "runtime_activity_probe_observed",
+      "eventTime": "2026-10-21T08:35:53.588Z",
+      "admissionOrdinal": 197,
+      "runId": "run://abiogenesis/5111c7c4685061a835608fce687b3ee3f9bfc49ec91234f0540a48560293a5f2",
+      "basisId": "execution-basis://abiogenesis/f698d75a78a5e96f7e436859d6f373e7f1b667767c19596255daeb516f8cece8"
+    }
+  },
+  "physicalClosure": {
+    "observedAt": "2026-10-21T08:36:50.237718+00:00",
+    "rows": [
+      {
+        "label": "host",
+        "pidOrGroupId": 74749,
+        "groupProbe": false,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "host-group",
+        "pidOrGroupId": 74749,
+        "groupProbe": true,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "supervisor",
+        "pidOrGroupId": 74747,
+        "groupProbe": false,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "construction",
+        "pidOrGroupId": 78207,
+        "groupProbe": false,
+        "presence": "absent",
+        "errno": 3
+      },
+      {
+        "label": "construction-group",
+        "pidOrGroupId": 78207,
+        "groupProbe": true,
+        "presence": "absent",
+        "errno": 3
+      }
+    ],
+    "allRecordedScopesAbsent": true,
+    "limit": "Only exact physically recorded identities; raw runtime records are not replayed logical history."
+  },
+  "retention": {
+    "root": "/private/tmp/abg-stdo3-p5-08-7ca935e280b14df6",
+    "nodes": 12336,
+    "regularFileBytes": 211252011,
+    "portableCopies": 21,
+    "cleanupPerformed": false,
+    "cleanupFinallyReceipt": "NOT_OBSERVED",
+    "knownScopesAbsent": true,
+    "limit": "No universal escaped-descendant or unrecorded process claim; no fabricated command PID."
+  },
+  "preservation": {
+    "bootstrap5271Exact": true,
+    "binModeNormalizations": 2,
+    "allOwnedInputsExact": true,
+    "main936": "No main write; reuse exact closed candidate preservation receipt.",
+    "prior07Freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/failure-freeze.json",
+      "bytes": 1829518,
+      "sha256": "d0f9dd2979ad4fa57202235cf7f89a01cb7353a1529d8632f4dd5d736f922a56"
+    },
+    "candidateInputs": "No writes to stage/archive/manifest/dependencies; exact selected pins rebound and rechecked.",
+    "newBootstrapInstallCount": 1,
+    "selectedTestExecutionCount": 1,
+    "retryCount": 0
+  },
+  "limits": [
+    "No P5 pass, C2 actor/helper/command/HTTP outcome, fresh replay/N2 or local negatives credit.",
+    "The new installed root admission establishes the repaired source-prefix seam only at that actual boundary.",
+    "C2 remains an opened, nonterminal runtime cut; outer physical absence is not semantic closure.",
+    "Node cancellation occurred before later retained C1 closure and C2 admission; no automatic rollback or fabricated terminal result.",
+    "No long-duration cause or performance repair is established by this evidence.",
+    "No new P1/P2/P3, paid native/P4, independent acceptance or L5 claim."
+  ]
+}

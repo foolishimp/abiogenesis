@@ -1,0 +1,17 @@
+{
+  "authorization": "Root exact-path LFS treatment for successor-02/population.json, transport storage only",
+  "rule": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/population.json filter=lfs diff=lfs merge=lfs -text",
+  "content": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/population.json",
+    "sha256": "17ebc96f0df129150713e6d31d02f8a81f893813e0eb4a006348829a0aeb16e1",
+    "bytes": 110067109
+  },
+  "populationFreezeRow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-03/successor-02/population.json",
+    "sha256": "17ebc96f0df129150713e6d31d02f8a81f893813e0eb4a006348829a0aeb16e1",
+    "bytes": 110067109
+  },
+  "attributesBeforeSha256": "c3cd3ef62543eb9585485131e650271984348c0635fffebb6ead8dca8211c7e2",
+  "attributesAfterSha256": "8686577c370fba817b5b52e01fde11248ba23b1713f0876bfa77365bc5bd8e19",
+  "sourceOrEvidenceMeaningChanged": false
+}

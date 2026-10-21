@@ -1,0 +1,26 @@
+--- frozen-baseline/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts
++++ closed-final02/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts
+@@ -1,5 +1,6 @@
+ import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
++import { resolveExactMatch } from "./exact_match.js";
+ import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
+ import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+ import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";
+ import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+@@ -275,12 +276,12 @@
+ 
+ function exact<T>(values: readonly T[], predicate: (value: T) => boolean):
+   | Readonly<{ kind: "one"; value: T }>
+   | Readonly<{ kind: "absent" | "ambiguous" }> {
+-  const matches = values.filter(predicate);
+-  return matches.length === 1
+-    ? { kind: "one", value: matches[0]! }
+-    : { kind: matches.length === 0 ? "absent" : "ambiguous" };
++  const selected = resolveExactMatch(values, predicate);
++  return selected.kind === "one"
++    ? { kind: "one", value: selected.value }
++    : { kind: selected.kind === "absent" ? "absent" : "ambiguous" };
+ }
+ 
+ function candidateFromInstall(
+   install: ProductInstall,

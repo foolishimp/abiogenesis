@@ -1,0 +1,12 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+    "sha256": "252c9696a2caa6fa0252981cafa80a8f5997871a8ee06a8cc148ca64ba514566",
+    "bytes": 61877
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "sha256": "16bdca924b40f3505d37e4188bdcfa6d5582a58be21ca41a74e13161e3f6537d",
+    "bytes": 25260
+  }
+]

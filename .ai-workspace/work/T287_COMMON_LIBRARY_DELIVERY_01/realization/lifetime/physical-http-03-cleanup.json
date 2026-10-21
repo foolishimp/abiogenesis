@@ -1,0 +1,12 @@
+{
+  "observedAt": "2026-10-20T23:36:54.077815+00:00",
+  "windowUnixSeconds": [
+    1792539367.552709,
+    1792539370.521214
+  ],
+  "temporaryRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T",
+  "newFixtureDirectoriesRemaining": [],
+  "matchingResponseProcesses": [],
+  "observedAssertion": "terminationConfirmed === true passed before timedOut === false failed in response mode. Later cases were not started.",
+  "limits": "Exact child PID/scratch path and response body were not emitted before assertion; fixture teardown removed its root. Do not infer a successful HTTP response assertion from this failure. The owned absence observation passed; no universal descendant claim."
+}

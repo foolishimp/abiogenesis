@@ -1,0 +1,76 @@
+{
+  "rows": [
+    {
+      "id": "R1",
+      "status": "supported_receipt_and_mandatory_call_graph",
+      "evidence": [
+        "P1 product-resolve",
+        "P1 workspace-bind"
+      ],
+      "route": "resolve -> validateResolveResources:240/252; bind -> validateBindResources:535/560/567/569 -> imported sameJson. Successful owner results require these resource predicates to pass.",
+      "limit": "Eight static call sites are preserved; no per-site dynamic census."
+    },
+    {
+      "id": "R2",
+      "status": "supported_receipt_and_mandatory_call_graph",
+      "evidence": [
+        "P1 product-resolve",
+        "P1 workspace-bind"
+      ],
+      "route": "resolve verified-preimage validation:218 and bind resource relations:563/568 -> imported sameCoordinate. Actual nonempty ABI/fixture installs and successful binding establish passage.",
+      "limit": "Three static call sites preserved; no instrumented count."
+    },
+    {
+      "id": "R3",
+      "status": "supported_receipt_and_mandatory_call_graph",
+      "evidence": [
+        "P1 product-verify-0"
+      ],
+      "route": "verify:351-360 -> admitResources -> artifactMatchesRequest:97-100 and result projection:260 -> imported sameCoordinate. Packed artifact verification returned locally_verified.",
+      "limit": "Packed branch supports new common route; all eight static call sites are not asserted dynamically covered."
+    },
+    {
+      "id": "R4",
+      "status": "open_installed_topology_route_witness",
+      "evidence": [],
+      "route": "deriveCanonicalRootedTopologyPartition:155 -> validateCanonicalRootedTopologyWitness:68 -> imported hasExactKeys:76/107 exists in exact package/installed bytes.",
+      "limit": "No selected retained installed topology witness establishes actual passage. Planned three-case HoG route/foldback evidence must be bound to its real owner path; import presence alone gives no execution credit."
+    },
+    {
+      "id": "R5",
+      "status": "supported_retained_P5_C1_owner_materialization",
+      "evidence": [
+        "P5 successor07 exact C1 raw prefix / recorded readAll logical events"
+      ],
+      "route": "readAll -> durable RuntimeHistory.materialize -> body loader -> decodeEventBody -> imported hasExactKeys for four actual physical references.",
+      "limit": "Preserve later C2 failure. P1/P2/P3 alone have zero body-reference rows and do not prove this predicate branch."
+    },
+    {
+      "id": "R6",
+      "status": "supported_receipt_and_mandatory_call_graph",
+      "evidence": [
+        "P1 resolution-first",
+        "P1 resolution-warm"
+      ],
+      "route": "ProductExecutionResolutionPort.resolve -> mandatory owner-install selection:699/703 -> exactInstallForPublication/Coordinate -> retained exact projection -> resolveExactMatch.",
+      "limit": "Exact projection retains owner absent/ambiguous mapping; it is not a duplicate cardinality algorithm."
+    },
+    {
+      "id": "R7",
+      "status": "supported_receipt_and_mandatory_call_graph",
+      "evidence": [
+        "P1 product-verify-0",
+        "P1 product-resolve",
+        "P1 workspace-bind"
+      ],
+      "route": "successful exact definition calls -> admitExactDefinitionCall:337 -> selectedDefinition:119 -> resolveExactMatch.",
+      "limit": "selectedDefinition retains the owner one/null projection. No all-branch or per-import dynamic claim."
+    }
+  ],
+  "supportedRoutes": 6,
+  "openRoutes": [
+    "R4"
+  ],
+  "noDynamicImportCensus": true,
+  "noNewRuntime": true
+}

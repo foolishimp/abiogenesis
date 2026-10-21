@@ -1,0 +1,14 @@
+[
+  {
+    "inventory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-execution-freeze.json",
+    "sha256": "14b393f39aa4c9050ca210ea84d8c13ecf3c33e8e6e1ebfe15a179d38eac630f",
+    "entries": 1948,
+    "distinct_physical_files": true
+  },
+  {
+    "inventory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/dependency-inventory.json",
+    "sha256": "991ddad43eb30a968aeb30e579aabb327a4c2016c1e157c840606c043363ad82",
+    "entries": 4576,
+    "distinct_physical_files": true
+  }
+]

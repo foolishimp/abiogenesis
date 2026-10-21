@@ -1,0 +1,90 @@
+{
+  "activation": "HOG-DIRECT-OWNER-DRIVER-02",
+  "status": "prepared_for_Executive_successor_candidate_binding_NOT_GRANTED",
+  "writer": "/root/stdo3_final_proof_writer",
+  "returnTo": "/root",
+  "utc": "2026-10-21T08:02:15.081473+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "failedCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/freeze.json",
+    "sha256": "2712f99117bce6e417ace3ecfec4fd4e4b4c101842c2f9513d028c3981ccc456",
+    "bytes": 11973,
+    "mode": "0o644"
+  },
+  "runner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/run.mjs",
+    "sha256": "f55fadc04332f2e2f34bb6e8a3bf9161bb59eadec08711f78316ef55a98898bc",
+    "bytes": 22640,
+    "mode": "0o644"
+  },
+  "oracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/oracle.mjs",
+    "sha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+    "bytes": 9679,
+    "mode": "0o644"
+  },
+  "existing21Inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/inspected-inputs.json",
+    "sha256": "5b7daf7af1e7683798e45177edcd0ac0b332cc83072227f123987f8f75baebb8",
+    "bytes": 12709,
+    "mode": "0o644"
+  },
+  "change": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/change.json",
+    "sha256": "46db74233a8c7dfce05fad42280c7922f84b79ead22bd3ddab39fc4576a23db4",
+    "bytes": 2141,
+    "mode": "0o644"
+  },
+  "diff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/change.diff",
+    "sha256": "d46d5496a861fe441038d51777967ce620a52693cdfdf22ec14ccf185d909473",
+    "bytes": 4288,
+    "mode": "0o644"
+  },
+  "how": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/HOW.md",
+    "sha256": "61955a4965081c9dd29a1deeafe361c311cfd8483cb2a1861ad7d997784e14a7",
+    "bytes": 5201,
+    "mode": "0o644"
+  },
+  "sourceInspection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/source-inspection.json",
+    "sha256": "1e5b8a8ae7ce926e2eb253ec68b0d9949092022a909adf4ec0a83ad088e179e7",
+    "bytes": 7947,
+    "mode": "0o644"
+  },
+  "staticInspection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/inspection-return.json",
+    "sha256": "9bc05d9e3d3c54c97ff44d8ec7174c4c6487c6368efb967d6ce2673c81b2c90e",
+    "bytes": 2887,
+    "mode": "0o644"
+  },
+  "syntax": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/syntax-result.json",
+    "sha256": "0e1df139af75bb11d358a82e3beab7298f85514293a6f717bf223ee47f13f6a6",
+    "bytes": 248,
+    "mode": "0o644"
+  },
+  "bindingInstructions": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/binding-instructions.json",
+    "sha256": "cf6a7ae5ef133b084ab1311bc5bea51974e90eb334840d8bcc79c59c9505f3c6",
+    "bytes": 3068,
+    "mode": "0o644"
+  },
+  "candidateSelection": "Pending Executive-selected successor from P5 repair; no active configuration/grant or future runtime roots allocated. Final06 P1 remains its own exact predecessor evidence, not automatic successor evidence.",
+  "scope": "Only proof-driver direct-start and decoded logical-event boundary adaptation. Original oracle, helpers, fixture, Product and runtime implementation remain unchanged.",
+  "validation": "Node 24.7.0 --check exit 0; static owner-interface inspection satisfied. No runtime result or acceptance claim.",
+  "effects": {
+    "newPreparationOnly": true,
+    "runtimeWorkloads": 0,
+    "bootstrapInstalls": 0,
+    "npmOperations": 0,
+    "fixturePacks": 0,
+    "PublicCalls": 0,
+    "nativeProviderCalls": 0,
+    "mainGeneratedEffects": 0,
+    "sourceRuntimeChanges": 0,
+    "GitEffects": 0
+  },
+  "next": "Root verifies this frozen preparation, binds one exact successor plus prerequisite relation/resources, then separately grants one sequential three-case execution."
+}

@@ -1,0 +1,68 @@
+{
+  "id": "COMBINED-FINAL-02",
+  "candidateId": "candidate",
+  "closedInputs": {
+    "combined-final-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3065985,
+      "sha256": "d30c05423aaa3b837bc19cee427b74f4031f3e6fef48db6bf21ddad5416af821"
+    },
+    "u1-c0-physical-currentness-successor-02": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 6111,
+      "sha256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a"
+    },
+    "u1-c0-physical-currentness-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5057,
+      "sha256": "c4a9b7100861c5f89b98399076aef7bda002f191bc0e54ab95532d074146b0f5"
+    },
+    "hog-retained-laws-proof-preparation-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-retained-laws-proof-preparation-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 13936,
+      "sha256": "8c0af8cdc2e3ae01d12e05a3baf328ce1637093444659cf0b8540859c241e49b"
+    },
+    "hog-ordinary-owner-driver-preparation-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-ordinary-owner-driver-preparation-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5356,
+      "sha256": "12239d043ac3ad63f65f844be2691601b5119ff0a90110bb273ed73a7f9c2243"
+    },
+    "final-proof-preparation-01": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 8903,
+      "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa"
+    }
+  },
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02",
+  "createdUtc": "2026-10-21T03:13:09.184327+00:00",
+  "compileLimit": 1,
+  "generatorLimit": 1,
+  "packLimit": 1,
+  "installedAndNativeWorkloads": false,
+  "methodManifest": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/manifest.json",
+    "mode": "0o444",
+    "kind": "file",
+    "bytes": 13478,
+    "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+  },
+  "composition": [],
+  "activeExclusions": [
+    "e04-retained-owner-execution-01",
+    "final-review-dispositions-01",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "continuation17": "no-open/no-mutation; no new recursive scan"
+}

@@ -1,0 +1,1765 @@
+{
+  "activation": "E03-PHYSICAL-LAUNCH-FAILURE-01",
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/host.mjs"
+  ],
+  "hostPid": 44593,
+  "hostExitCode": 0,
+  "hostWatchdogExpired": false,
+  "elapsedSeconds": 0.4194705409463495,
+  "hostAbsence": {
+    "directPid": {
+      "state": "absent",
+      "errno": "ESRCH"
+    },
+    "processGroup": {
+      "state": "absent",
+      "errno": "ESRCH"
+    }
+  },
+  "watchdogSignals": [],
+  "ownerResult": {
+    "status": "bounded_failed_spawn_population_passed",
+    "completed": [
+      {
+        "case": "worker",
+        "status": "passed",
+        "observedEvents": 27,
+        "actualFile": "worker-actual.json"
+      },
+      {
+        "case": "command",
+        "status": "passed",
+        "observedEvents": 21,
+        "actualFile": "command-actual.json"
+      },
+      {
+        "case": "direct",
+        "status": "passed",
+        "observedEvents": 27,
+        "actualFile": "direct-actual.json"
+      }
+    ],
+    "hostPid": 44593,
+    "actualSpawnCalls": 3,
+    "actualChildPids": [
+      null,
+      null,
+      null
+    ],
+    "limit": "Separate direct attempt supplies its own common facts; no internal worker/command facts inferred from outer results. Observed stream errors retained; no every-early-close rejection claim."
+  },
+  "firstFailure": null,
+  "events": [
+    {
+      "sequence": 1,
+      "monotonicNs": "1380970325896791",
+      "case": "host",
+      "event": "host-start",
+      "pid": 44593,
+      "node": "v24.7.0",
+      "platform": "darwin",
+      "inputsSha256": "79e222bd2ad739b2e3b3d4d917fc457de95dcde256e52a02fc20e71855802b91"
+    },
+    {
+      "sequence": 2,
+      "monotonicNs": "1380970350959500",
+      "case": "worker",
+      "event": "actual-spawn-call",
+      "command": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+      "args": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions"
+      ],
+      "options": {
+        "cwd": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/worker-cwd",
+        "env": {
+          "CLAUDE_CODE_DISABLE_ADVISOR_TOOL": "1"
+        },
+        "detached": true,
+        "stdio": [
+          "pipe",
+          "pipe",
+          "pipe"
+        ]
+      }
+    },
+    {
+      "sequence": 3,
+      "monotonicNs": "1380970351985500",
+      "case": "worker",
+      "event": "actual-spawn-return",
+      "state": {
+        "pid": null,
+        "pidWasUndefined": true,
+        "exitCode": null,
+        "signalCode": null,
+        "killed": false,
+        "spawnfile": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+        "spawnargs": [
+          "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "-p",
+          "--disable-slash-commands",
+          "--no-session-persistence",
+          "--output-format",
+          "stream-json",
+          "--include-partial-messages",
+          "--verbose",
+          "--permission-mode",
+          "bypassPermissions"
+        ],
+        "childErrorListeners": 0,
+        "childCloseListeners": 0,
+        "stdin": {
+          "destroyed": false,
+          "closed": false,
+          "readable": false,
+          "writable": true,
+          "readableEnded": true,
+          "writableEnded": false,
+          "writableFinished": false,
+          "writableLength": 0,
+          "errorListeners": 0,
+          "closeListeners": 0
+        },
+        "stdout": {
+          "destroyed": false,
+          "closed": false,
+          "readable": true,
+          "writable": true,
+          "readableEnded": false,
+          "writableEnded": false,
+          "writableFinished": false,
+          "writableLength": 0,
+          "errorListeners": 0,
+          "closeListeners": 1
+        },
+        "stderr": {
+          "destroyed": false,
+          "closed": false,
+          "readable": true,
+          "writable": true,
+          "readableEnded": false,
+          "writableEnded": false,
+          "writableFinished": false,
+          "writableLength": 0,
+          "errorListeners": 0,
+          "closeListeners": 1
+        }
+      }
+    },
+    {
+      "sequence": 4,
+      "monotonicNs": "1380970361092875",
+      "case": "worker",
+      "event": "stream-method-call",
+      "stream": "stdin",
+      "method": "end",
+      "inputBytes": 8388608,
+      "inputSha256": "0c77bc0a0795a93612d45256897456d0fcb24f151c44c150d07ecd03f4ef5168",
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": true,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 5,
+      "monotonicNs": "1380970365460208",
+      "case": "worker",
+      "event": "stream-method-return",
+      "stream": "stdin",
+      "method": "end",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 6,
+      "monotonicNs": "1380970365527833",
+      "case": "worker",
+      "event": "stream-method-call",
+      "stream": "stdin",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 7,
+      "monotonicNs": "1380970365661583",
+      "case": "worker",
+      "event": "stream-method-return",
+      "stream": "stdin",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 8,
+      "monotonicNs": "1380970365716416",
+      "case": "worker",
+      "event": "emitter",
+      "emitter": "child",
+      "eventName": "error",
+      "args": [
+        {
+          "errorId": 1,
+          "name": "Error",
+          "message": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT",
+          "code": "ENOENT",
+          "errno": -2,
+          "syscall": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "path": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "spawnargs": [
+            "-p",
+            "--disable-slash-commands",
+            "--no-session-persistence",
+            "--output-format",
+            "stream-json",
+            "--include-partial-messages",
+            "--verbose",
+            "--permission-mode",
+            "bypassPermissions"
+          ],
+          "stack": "Error: spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT\n    at ChildProcess._handle.onexit (node:internal/child_process:286:19)\n    at onErrorNT (node:internal/child_process:484:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+        }
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 9,
+      "monotonicNs": "1380970365896541",
+      "case": "worker",
+      "event": "owner-spawn-failed",
+      "message": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT"
+    },
+    {
+      "sequence": 10,
+      "monotonicNs": "1380970366120291",
+      "case": "worker",
+      "event": "emitter",
+      "emitter": "stdin",
+      "eventName": "close",
+      "args": [
+        false
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 11,
+      "monotonicNs": "1380970366319250",
+      "case": "worker",
+      "event": "emitter",
+      "emitter": "stdout",
+      "eventName": "end",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 12,
+      "monotonicNs": "1380970366462583",
+      "case": "worker",
+      "event": "emitter",
+      "emitter": "stderr",
+      "eventName": "end",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 13,
+      "monotonicNs": "1380970366556583",
+      "case": "worker",
+      "event": "emitter",
+      "emitter": "stdout",
+      "eventName": "finish",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 14,
+      "monotonicNs": "1380970366587791",
+      "case": "worker",
+      "event": "stream-method-call",
+      "stream": "stdout",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 15,
+      "monotonicNs": "1380970366630166",
+      "case": "worker",
+      "event": "stream-method-return",
+      "stream": "stdout",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 16,
+      "monotonicNs": "1380970366664625",
+      "case": "worker",
+      "event": "emitter",
+      "emitter": "stderr",
+      "eventName": "finish",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 17,
+      "monotonicNs": "1380970366695625",
+      "case": "worker",
+      "event": "stream-method-call",
+      "stream": "stderr",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 18,
+      "monotonicNs": "1380970366728541",
+      "case": "worker",
+      "event": "stream-method-return",
+      "stream": "stderr",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 19,
+      "monotonicNs": "1380970366754583",
+      "case": "worker",
+      "event": "emitter",
+      "emitter": "stderr",
+      "eventName": "close",
+      "args": [
+        false
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 20,
+      "monotonicNs": "1380970366787625",
+      "case": "worker",
+      "event": "emitter",
+      "emitter": "stdout",
+      "eventName": "close",
+      "args": [
+        false
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 21,
+      "monotonicNs": "1380970366824708",
+      "case": "worker",
+      "event": "emitter",
+      "emitter": "child",
+      "eventName": "close",
+      "args": [
+        -2,
+        null
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 22,
+      "monotonicNs": "1380970366903291",
+      "case": "worker",
+      "event": "stream-method-call",
+      "stream": "stdin",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 0
+      }
+    },
+    {
+      "sequence": 23,
+      "monotonicNs": "1380970366930333",
+      "case": "worker",
+      "event": "stream-method-return",
+      "stream": "stdin",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 0
+      }
+    },
+    {
+      "sequence": 24,
+      "monotonicNs": "1380970366970708",
+      "case": "worker",
+      "event": "stream-method-call",
+      "stream": "stdout",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 25,
+      "monotonicNs": "1380970366995291",
+      "case": "worker",
+      "event": "stream-method-return",
+      "stream": "stdout",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 26,
+      "monotonicNs": "1380970367032791",
+      "case": "worker",
+      "event": "stream-method-call",
+      "stream": "stderr",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 27,
+      "monotonicNs": "1380970367061000",
+      "case": "worker",
+      "event": "stream-method-return",
+      "stream": "stderr",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 28,
+      "monotonicNs": "1380970370441958",
+      "case": "worker",
+      "event": "owner-settled",
+      "outcome": {
+        "kind": "fulfilled",
+        "value": {
+          "kind": "worker_transport_result_candidate",
+          "schemaVersion": "5.0.0",
+          "disposition": "failure",
+          "agentKey": "claude",
+          "lane": "worker_executes",
+          "command": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "args": [
+            "-p",
+            "--disable-slash-commands",
+            "--no-session-persistence",
+            "--output-format",
+            "stream-json",
+            "--include-partial-messages",
+            "--verbose",
+            "--permission-mode",
+            "bypassPermissions"
+          ],
+          "status": null,
+          "signal": null,
+          "timeoutMs": 1000,
+          "absoluteTimeoutMs": 2000,
+          "timedOut": false,
+          "timeoutClass": null,
+          "exitObserved": false,
+          "terminationConfirmed": false,
+          "failureClass": "transport_failure",
+          "structuredEventCount": 0,
+          "progressEventCount": 0,
+          "toolCallCount": 0,
+          "toolInvocations": [],
+          "apiRetryCount": 0,
+          "stdout": "",
+          "stderr": "",
+          "finalOutput": "",
+          "artifacts": {
+            "prompt": {
+              "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-prompt.txt",
+              "byteLength": 8388608,
+              "digest": "sha256:0c77bc0a0795a93612d45256897456d0fcb24f151c44c150d07ecd03f4ef5168"
+            },
+            "output": {
+              "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-output.txt",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stdout": {
+              "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-stdout.log",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stderr": {
+              "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-stderr.log",
+              "byteLength": 0,
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "transport": {
+              "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-transport.json",
+              "byteLength": 1696,
+              "digest": "sha256:e2e4d740712a71729ae9735a4893e523d7536cfa37f7b3500489714940aeef63"
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequence": 29,
+      "monotonicNs": "1380970374152166",
+      "case": "worker",
+      "event": "host-survived-owner-settlement",
+      "pid": 44593
+    },
+    {
+      "sequence": 30,
+      "monotonicNs": "1380970628723291",
+      "case": "command",
+      "event": "helper-exposure-ready",
+      "sourceSha256": "b1d0e484f470001ded5ab8e2a2c32233a13e55ad05f978b299a546a26b68d150",
+      "signalListenerCounts": {
+        "SIGTERM": 1,
+        "SIGINT": 1
+      }
+    },
+    {
+      "sequence": 31,
+      "monotonicNs": "1380970629249125",
+      "case": "command",
+      "event": "actual-spawn-call",
+      "command": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+      "args": [],
+      "options": {
+        "cwd": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/command-cwd",
+        "env": {},
+        "detached": true,
+        "stdio": [
+          "ignore",
+          "pipe",
+          "pipe"
+        ]
+      }
+    },
+    {
+      "sequence": 32,
+      "monotonicNs": "1380970629511208",
+      "case": "command",
+      "event": "actual-spawn-return",
+      "state": {
+        "pid": null,
+        "pidWasUndefined": true,
+        "exitCode": null,
+        "signalCode": null,
+        "killed": false,
+        "spawnfile": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+        "spawnargs": [
+          "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable"
+        ],
+        "childErrorListeners": 0,
+        "childCloseListeners": 0,
+        "stdin": null,
+        "stdout": {
+          "destroyed": false,
+          "closed": false,
+          "readable": true,
+          "writable": true,
+          "readableEnded": false,
+          "writableEnded": false,
+          "writableFinished": false,
+          "writableLength": 0,
+          "errorListeners": 0,
+          "closeListeners": 1
+        },
+        "stderr": {
+          "destroyed": false,
+          "closed": false,
+          "readable": true,
+          "writable": true,
+          "readableEnded": false,
+          "writableEnded": false,
+          "writableFinished": false,
+          "writableLength": 0,
+          "errorListeners": 0,
+          "closeListeners": 1
+        }
+      }
+    },
+    {
+      "sequence": 33,
+      "monotonicNs": "1380970629654875",
+      "case": "command",
+      "event": "emitter",
+      "emitter": "child",
+      "eventName": "error",
+      "args": [
+        {
+          "errorId": 2,
+          "name": "Error",
+          "message": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT",
+          "code": "ENOENT",
+          "errno": -2,
+          "syscall": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "path": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "spawnargs": [],
+          "stack": "Error: spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT\n    at ChildProcess._handle.onexit (node:internal/child_process:286:19)\n    at onErrorNT (node:internal/child_process:484:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+        }
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 34,
+      "monotonicNs": "1380970629783500",
+      "case": "command",
+      "event": "emitter",
+      "emitter": "stdout",
+      "eventName": "end",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 35,
+      "monotonicNs": "1380970629834416",
+      "case": "command",
+      "event": "emitter",
+      "emitter": "stderr",
+      "eventName": "end",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 36,
+      "monotonicNs": "1380970629881958",
+      "case": "command",
+      "event": "emitter",
+      "emitter": "stdout",
+      "eventName": "finish",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 37,
+      "monotonicNs": "1380970629922375",
+      "case": "command",
+      "event": "stream-method-call",
+      "stream": "stdout",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 38,
+      "monotonicNs": "1380970629980208",
+      "case": "command",
+      "event": "stream-method-return",
+      "stream": "stdout",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 39,
+      "monotonicNs": "1380970630022958",
+      "case": "command",
+      "event": "emitter",
+      "emitter": "stderr",
+      "eventName": "finish",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 40,
+      "monotonicNs": "1380970630058291",
+      "case": "command",
+      "event": "stream-method-call",
+      "stream": "stderr",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 41,
+      "monotonicNs": "1380970630104125",
+      "case": "command",
+      "event": "stream-method-return",
+      "stream": "stderr",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 42,
+      "monotonicNs": "1380970630157708",
+      "case": "command",
+      "event": "emitter",
+      "emitter": "stderr",
+      "eventName": "close",
+      "args": [
+        false
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 43,
+      "monotonicNs": "1380970630201500",
+      "case": "command",
+      "event": "emitter",
+      "emitter": "stdout",
+      "eventName": "close",
+      "args": [
+        false
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 44,
+      "monotonicNs": "1380970630227041",
+      "case": "command",
+      "event": "emitter",
+      "emitter": "child",
+      "eventName": "close",
+      "args": [
+        -2,
+        null
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 45,
+      "monotonicNs": "1380970630274041",
+      "case": "command",
+      "event": "stream-method-call",
+      "stream": "stdout",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 46,
+      "monotonicNs": "1380970630308500",
+      "case": "command",
+      "event": "stream-method-return",
+      "stream": "stdout",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 47,
+      "monotonicNs": "1380970630337541",
+      "case": "command",
+      "event": "stream-method-call",
+      "stream": "stderr",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 48,
+      "monotonicNs": "1380970630369125",
+      "case": "command",
+      "event": "stream-method-return",
+      "stream": "stderr",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 49,
+      "monotonicNs": "1380970630511083",
+      "case": "command",
+      "event": "owner-settled",
+      "outcome": {
+        "kind": "fulfilled",
+        "value": {
+          "kind": "worksite_command_result",
+          "schemaVersion": "5.0.0",
+          "ordinal": 0,
+          "commandId": "command://e03-physical-launch-failure",
+          "executable": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "args": [],
+          "relativeCwd": ".",
+          "environment": [],
+          "timeoutMs": 1000,
+          "terminationGraceMs": 100,
+          "exitStatus": 127,
+          "timedOut": false,
+          "processSignal": null,
+          "signalSequence": [],
+          "terminationConfirmed": true,
+          "stdout": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "",
+            "byteLength": 0,
+            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "stderr": {
+            "kind": "worksite_observed_stream",
+            "schemaVersion": "5.0.0",
+            "encoding": "base64",
+            "payload": "c3Bhd24gL3ByaXZhdGUvdG1wL2FiaW9nZW5lc2lzLWUwMy1sYXVuY2gtZmFpbHVyZS1zY3JhdGNoLTIwMjYxMDIxLTc0ZDE5ZDYzL25ldmVyLWNyZWF0ZWQtZXhlY3V0YWJsZSBFTk9FTlQ=",
+            "byteLength": 107,
+            "digest": "sha256:bb70c1cb0799b5ccc56109e93bca9a248b63710643a90cdd862f3be74096ae0e"
+          },
+          "reports": [],
+          "reportCount": 0,
+          "observationRef": "worksite-command-observation://abiogenesis/982d0c1f6e425eea64cfb16878a44727e0eb33c6d274354302c2b48c4c03167c",
+          "observationDigest": "sha256:982d0c1f6e425eea64cfb16878a44727e0eb33c6d274354302c2b48c4c03167c"
+        }
+      }
+    },
+    {
+      "sequence": 50,
+      "monotonicNs": "1380970630631416",
+      "case": "command",
+      "event": "helper-signal-listeners-restored",
+      "counts": {
+        "SIGTERM": 0,
+        "SIGINT": 0
+      }
+    },
+    {
+      "sequence": 51,
+      "monotonicNs": "1380970631240250",
+      "case": "command",
+      "event": "host-survived-owner-settlement",
+      "pid": 44593
+    },
+    {
+      "sequence": 52,
+      "monotonicNs": "1380970631305541",
+      "case": "direct",
+      "event": "actual-spawn-call",
+      "command": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+      "args": [],
+      "options": {
+        "cwd": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/direct-cwd",
+        "env": {},
+        "detached": true,
+        "stdio": [
+          "pipe",
+          "pipe",
+          "pipe"
+        ]
+      }
+    },
+    {
+      "sequence": 53,
+      "monotonicNs": "1380970631512625",
+      "case": "direct",
+      "event": "actual-spawn-return",
+      "state": {
+        "pid": null,
+        "pidWasUndefined": true,
+        "exitCode": null,
+        "signalCode": null,
+        "killed": false,
+        "spawnfile": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+        "spawnargs": [
+          "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable"
+        ],
+        "childErrorListeners": 0,
+        "childCloseListeners": 0,
+        "stdin": {
+          "destroyed": false,
+          "closed": false,
+          "readable": false,
+          "writable": true,
+          "readableEnded": true,
+          "writableEnded": false,
+          "writableFinished": false,
+          "writableLength": 0,
+          "errorListeners": 0,
+          "closeListeners": 0
+        },
+        "stdout": {
+          "destroyed": false,
+          "closed": false,
+          "readable": true,
+          "writable": true,
+          "readableEnded": false,
+          "writableEnded": false,
+          "writableFinished": false,
+          "writableLength": 0,
+          "errorListeners": 0,
+          "closeListeners": 1
+        },
+        "stderr": {
+          "destroyed": false,
+          "closed": false,
+          "readable": true,
+          "writable": true,
+          "readableEnded": false,
+          "writableEnded": false,
+          "writableFinished": false,
+          "writableLength": 0,
+          "errorListeners": 0,
+          "closeListeners": 1
+        }
+      }
+    },
+    {
+      "sequence": 54,
+      "monotonicNs": "1380970640607291",
+      "case": "direct",
+      "event": "stream-method-call",
+      "stream": "stdin",
+      "method": "end",
+      "inputBytes": 8388608,
+      "inputSha256": "0c77bc0a0795a93612d45256897456d0fcb24f151c44c150d07ecd03f4ef5168",
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": true,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 55,
+      "monotonicNs": "1380970645168000",
+      "case": "direct",
+      "event": "stream-method-return",
+      "stream": "stdin",
+      "method": "end",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 56,
+      "monotonicNs": "1380970645223000",
+      "case": "direct",
+      "event": "stream-method-call",
+      "stream": "stdin",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 57,
+      "monotonicNs": "1380970645276833",
+      "case": "direct",
+      "event": "stream-method-return",
+      "stream": "stdin",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 58,
+      "monotonicNs": "1380970645309500",
+      "case": "direct",
+      "event": "emitter",
+      "emitter": "child",
+      "eventName": "error",
+      "args": [
+        {
+          "errorId": 3,
+          "name": "Error",
+          "message": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT",
+          "code": "ENOENT",
+          "errno": -2,
+          "syscall": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "path": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "spawnargs": [],
+          "stack": "Error: spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT\n    at ChildProcess._handle.onexit (node:internal/child_process:286:19)\n    at onErrorNT (node:internal/child_process:484:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+        }
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 59,
+      "monotonicNs": "1380970645370791",
+      "case": "direct",
+      "event": "direct-launch-error",
+      "error": {
+        "errorId": 3,
+        "name": "Error",
+        "message": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT",
+        "code": "ENOENT",
+        "errno": -2,
+        "syscall": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+        "path": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+        "spawnargs": [],
+        "stack": "Error: spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT\n    at ChildProcess._handle.onexit (node:internal/child_process:286:19)\n    at onErrorNT (node:internal/child_process:484:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+      }
+    },
+    {
+      "sequence": 60,
+      "monotonicNs": "1380970645475416",
+      "case": "direct",
+      "event": "emitter",
+      "emitter": "stdin",
+      "eventName": "close",
+      "args": [
+        false
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 61,
+      "monotonicNs": "1380970645526250",
+      "case": "direct",
+      "event": "emitter",
+      "emitter": "stdout",
+      "eventName": "end",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 62,
+      "monotonicNs": "1380970645567208",
+      "case": "direct",
+      "event": "emitter",
+      "emitter": "stderr",
+      "eventName": "end",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 63,
+      "monotonicNs": "1380970645601000",
+      "case": "direct",
+      "event": "emitter",
+      "emitter": "stdout",
+      "eventName": "finish",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 64,
+      "monotonicNs": "1380970645624000",
+      "case": "direct",
+      "event": "stream-method-call",
+      "stream": "stdout",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 65,
+      "monotonicNs": "1380970645657750",
+      "case": "direct",
+      "event": "stream-method-return",
+      "stream": "stdout",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 66,
+      "monotonicNs": "1380970645686375",
+      "case": "direct",
+      "event": "emitter",
+      "emitter": "stderr",
+      "eventName": "finish",
+      "args": [],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 67,
+      "monotonicNs": "1380970645706750",
+      "case": "direct",
+      "event": "stream-method-call",
+      "stream": "stderr",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": false,
+        "closed": false,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 68,
+      "monotonicNs": "1380970645737291",
+      "case": "direct",
+      "event": "stream-method-return",
+      "stream": "stderr",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 69,
+      "monotonicNs": "1380970645763666",
+      "case": "direct",
+      "event": "emitter",
+      "emitter": "stderr",
+      "eventName": "close",
+      "args": [
+        false
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 70,
+      "monotonicNs": "1380970645790416",
+      "case": "direct",
+      "event": "emitter",
+      "emitter": "stdout",
+      "eventName": "close",
+      "args": [
+        false
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 71,
+      "monotonicNs": "1380970645810750",
+      "case": "direct",
+      "event": "emitter",
+      "emitter": "child",
+      "eventName": "close",
+      "args": [
+        -2,
+        null
+      ],
+      "errorListenerCount": 1,
+      "pid": null
+    },
+    {
+      "sequence": 72,
+      "monotonicNs": "1380970645840041",
+      "case": "direct",
+      "event": "stream-method-call",
+      "stream": "stdin",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 0
+      }
+    },
+    {
+      "sequence": 73,
+      "monotonicNs": "1380970645862791",
+      "case": "direct",
+      "event": "stream-method-return",
+      "stream": "stdin",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": false,
+        "writableFinished": false,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 0
+      }
+    },
+    {
+      "sequence": 74,
+      "monotonicNs": "1380970645884500",
+      "case": "direct",
+      "event": "stream-method-call",
+      "stream": "stdout",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 75,
+      "monotonicNs": "1380970645921500",
+      "case": "direct",
+      "event": "stream-method-return",
+      "stream": "stdout",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 1,
+        "closeListeners": 2
+      }
+    },
+    {
+      "sequence": 76,
+      "monotonicNs": "1380970645945708",
+      "case": "direct",
+      "event": "stream-method-call",
+      "stream": "stderr",
+      "method": "destroy",
+      "inputBytes": 0,
+      "inputSha256": null,
+      "suppliedError": null,
+      "before": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 77,
+      "monotonicNs": "1380970645967458",
+      "case": "direct",
+      "event": "stream-method-return",
+      "stream": "stderr",
+      "method": "destroy",
+      "returnedSameStream": true,
+      "after": {
+        "destroyed": true,
+        "closed": true,
+        "readable": false,
+        "writable": false,
+        "readableEnded": true,
+        "writableEnded": true,
+        "writableFinished": true,
+        "writableLength": 0,
+        "errorListeners": 0,
+        "closeListeners": 1
+      }
+    },
+    {
+      "sequence": 78,
+      "monotonicNs": "1380970646000916",
+      "case": "direct",
+      "event": "direct-completion",
+      "facts": {
+        "directExit": null,
+        "launchFailure": {
+          "errorId": 3,
+          "name": "Error",
+          "message": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT",
+          "code": "ENOENT",
+          "errno": -2,
+          "syscall": "spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "path": "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable",
+          "spawnargs": [],
+          "stack": "Error: spawn /private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/never-created-executable ENOENT\n    at ChildProcess._handle.onexit (node:internal/child_process:286:19)\n    at onErrorNT (node:internal/child_process:484:16)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)"
+        },
+        "noChildEstablished": true,
+        "scopeKind": "posix_process_group",
+        "scopeAbsence": "absent",
+        "closeObserved": true,
+        "streamsDisposed": true,
+        "drainExpired": false,
+        "firstError": null,
+        "cleanupDeadlineNs": "1380970945423750",
+        "cleanupElapsedMs": 0.570291,
+        "probeCount": 1,
+        "signalAttempts": 0
+      }
+    },
+    {
+      "sequence": 79,
+      "monotonicNs": "1380970647113666",
+      "case": "direct",
+      "event": "host-survived-owner-settlement",
+      "pid": 44593
+    },
+    {
+      "sequence": 80,
+      "monotonicNs": "1380970647210458",
+      "case": "host",
+      "event": "host-all-cases-complete",
+      "completed": 3
+    },
+    {
+      "sequence": 81,
+      "monotonicNs": "1380970647398833",
+      "case": "host",
+      "event": "host-exit",
+      "code": 0,
+      "pid": 44593
+    }
+  ],
+  "physicalEvidenceFiles": [
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/command-actual.json",
+      "bytes": 14137,
+      "sha256": "33b621989053a9495d8fd4493feac1d4f43ccec6789eb743b3f33db6be992cf7"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/command-decision.json",
+      "bytes": 109,
+      "sha256": "235e0dfecbd62f121439232d52169d1a17138cb33dc324f00f2fe6d6d27290da"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/direct-actual.json",
+      "bytes": 21075,
+      "sha256": "df939a905ed6d3ef69ed5c025afba709d8795d072a2b374dfaa9a3703e864b52"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/direct-decision.json",
+      "bytes": 107,
+      "sha256": "6555b282205ebe749ea079d92b50576ad8802bf5d781a7db5160199d16f0ba97"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/events.jsonl",
+      "bytes": 31543,
+      "sha256": "c61041a2aacc89875c3961b1ea4fc0f5cc871e52ca9dbe4b56a70be57fa793a4"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/host-result.json",
+      "bytes": 780,
+      "sha256": "6d75d5111821c330eaeeb30d516d39f9937e7444ffabdba7f205e7896e07c5ad"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/host.stderr",
+      "bytes": 173,
+      "sha256": "3fb02207e1157f64d7d4e79fbb80ecc2879a9f9d3577907907c415322e119bf6"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/host.stdout",
+      "bytes": 90,
+      "sha256": "230cb7257c0d14ec6e7827086bcc07c308fc8f2e56c6e634787fbb0c7784c330"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-actual.json",
+      "bytes": 21682,
+      "sha256": "e39e5078786fe8066de371604c253714da6d73f9425d832b300146ab7ab49068"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-output.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-prompt.txt",
+      "bytes": 8388608,
+      "sha256": "0c77bc0a0795a93612d45256897456d0fcb24f151c44c150d07ecd03f4ef5168"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-archive/failed-spawn-transport.json",
+      "bytes": 1696,
+      "sha256": "e2e4d740712a71729ae9735a4893e523d7536cfa37f7b3500489714940aeef63"
+    },
+    {
+      "path": "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63/worker-decision.json",
+      "bytes": 107,
+      "sha256": "b8caf33048202b7c8ae3012a0eed2b5ffd1d348a01e1311777957acce3834641"
+    }
+  ],
+  "physicalEvidenceBytes": 8480107,
+  "scratchDirectories": [
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/command-cwd",
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/direct-cwd",
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63/worker-cwd"
+  ],
+  "scratchFiles": [],
+  "absentExecutableStillAbsent": true,
+  "rootsRetained": [
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63",
+    "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63"
+  ],
+  "claim": "Actual failed-spawn owner observations; no actual executable fixture child, installed/native-provider/ABG proof or universal event-order claim."
+}

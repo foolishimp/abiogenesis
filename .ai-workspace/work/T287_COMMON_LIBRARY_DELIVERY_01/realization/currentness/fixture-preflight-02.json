@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "--test-name-pattern=U1 fixture event handoffs",
+    "test_env/tests/t287-native-work-unknown-effect.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript",
+  "source_sha256": "a900b99481bcbd5a51ead74621e981cd1105e2c0582aebeee691f11ca10f85fb",
+  "exit_code": 0,
+  "stdout": "TAP version 13\n# (node:38616) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n# (Use `node --trace-warnings ...` to show where the warning was created)\n# Subtest: U1 fixture event handoffs match the exported owner contracts before effectful proof\nok 1 - U1 fixture event handoffs match the exported owner contracts before effectful proof\n  ---\n  duration_ms: 41.776583\n  type: 'test'\n  ...\n# Closed-shape preflight covered 29 candidates across 17 existing event kinds; no runtime outcome credit.\n1..1\n# tests 1\n# suites 0\n# pass 1\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 404.36925\n",
+  "stderr": "",
+  "wall_seconds": 0.4334628330543637
+}

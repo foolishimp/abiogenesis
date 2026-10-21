@@ -1,0 +1,69 @@
+{
+  "activation": "RETIREMENT-INSTALLED-CORRESPONDENCE-01",
+  "utc": "2026-10-21T08:23:01.583434+00:00",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/retirement-installed-correspondence-01",
+  "files": [
+    {
+      "path": "activation.json",
+      "sha256": "efb58979ff9953bf74058d4e16413c4144d9157562bcddf174e5aa54f8209db7",
+      "bytes": 1304
+    },
+    {
+      "path": "audit.py",
+      "sha256": "ebe60d91b0869a311a6ce3dd5bafdfd4d3d579a5189f906a9a4f5dc5baad9669",
+      "bytes": 23488
+    },
+    {
+      "path": "codec-C1-correspondence.json",
+      "sha256": "696b56b8d3f07287245ec6622303f128ef5c8401671b5a01581c05d3df5685d6",
+      "bytes": 12481
+    },
+    {
+      "path": "input-pins.json",
+      "sha256": "2c792eb86a5687e86f202efbb6c6aee84c8f3b2ca55425c9c8c66df88c06d76a",
+      "bytes": 4469
+    },
+    {
+      "path": "module-correspondence.json",
+      "sha256": "df1ad1718ec96e082fb74e736ee93ea2d83f160a528e8f732bd6b2d114b2a81f",
+      "bytes": 29949
+    },
+    {
+      "path": "owner-receipts.json",
+      "sha256": "837426d453f639f48bd9ffd72ed086d21a8362063305b653a0199205e8ac252e",
+      "bytes": 4287
+    },
+    {
+      "path": "reachability.json",
+      "sha256": "1497ccbaf1fe72c0c74540b896f851e7c6b8d1a43b8f3e6f170579451126e015",
+      "bytes": 3488
+    },
+    {
+      "path": "report.md",
+      "sha256": "d8bc70ebf537774cf0c6bf616a545d088dfcd12b43b138a7f23a71d3b652874d",
+      "bytes": 3322
+    },
+    {
+      "path": "retirement-checks.json",
+      "sha256": "e7afabbc9f1464df5e05be6e69fdf5b34df5d78dbedf8089b1e8ffc6a6fd752f",
+      "bytes": 17182
+    },
+    {
+      "path": "return.json",
+      "sha256": "310f46ce273aa9372372ea4f1add3316f2f9eca17e9e02cc8ab2a3bd166499b3",
+      "bytes": 3534
+    },
+    {
+      "path": "successor-rebind.json",
+      "sha256": "a274130d1586c9d47bc980c185a4faac2e36ba8b2a6e5bf6aea6e79048e1c42b",
+      "bytes": 1129
+    },
+    {
+      "path": "verification.json",
+      "sha256": "b302e55c0fc5910e6824fd4ac1d0a2e60c57b3eeaae437f78823c6507a461b7d",
+      "bytes": 1011
+    }
+  ],
+  "runtimeEffects": 0,
+  "acceptance": "No L5 acceptance; R4 and successor-package rebinding remain open."
+}

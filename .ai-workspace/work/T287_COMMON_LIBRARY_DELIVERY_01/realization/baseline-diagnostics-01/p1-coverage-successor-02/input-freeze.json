@@ -1,0 +1,72 @@
+{
+  "activation": "DIAGNOSTIC-EXTERNAL-ARCHIVE-02",
+  "originalStoppedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/freeze.json",
+    "sha256": "f0643a3c7916acf534d7f90115d4019a29604a5539db472443ce162b57b68cb2",
+    "bytes": 48203,
+    "mode": "0o644"
+  },
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/HOW.md",
+      "sha256": "68c3c7809a1d2951523312e79d071017e2c19312664cf61d9451f115875f526c",
+      "bytes": 988,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/activation.json",
+      "sha256": "97e4fe13f63e0bbf845d1c2eacec6f699436c0371616333b20149d858a1748c6",
+      "bytes": 865,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/archive-proof.json",
+      "sha256": "d67e6846edc052c0e0c1a45201ee97dfae13c16246c6ab0bde4755fcb78424dc",
+      "bytes": 1468,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/check-coverage-successor.py",
+      "sha256": "9cf73214c58b585fc411b9e6a8ddb1b999248fd7ed84ea5aa3bf73ab160ea6ce",
+      "bytes": 5439,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/checker-change.diff",
+      "sha256": "94d5d6b691558947cf4aaefb784e9c2fa46b0ac4694dcebbcdd26d188a3370f7",
+      "bytes": 4732,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/command.json",
+      "sha256": "e77896fc1e254663e7a172e22c4092874ec7e00d543c50d67da1216c9516c2f7",
+      "bytes": 628,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/coverage-contract.json",
+      "sha256": "f4b0d61bf4495155bd4006923e79254e7fb03389080b4681900a9a5657817169",
+      "bytes": 7444,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1-coverage-successor-02/fixture-package-inventory.json",
+      "sha256": "282a739172a00f653e0359f80f33780d4e6e8d593d9fea9f331f71012d512239",
+      "bytes": 4324,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/diagnostic-configuration.json",
+      "sha256": "5f931f85110eb80c1a2ae35cf82dcdb669c50c26c52e87b01b94e11dcac34e3b",
+      "bytes": 7994,
+      "mode": "0o644"
+    },
+    {
+      "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic/diagnostic-summary.json",
+      "sha256": "980b5a3a2c7e64faca55691213ab297d95a7bb2389d8baed57042c7682bc2bf8",
+      "bytes": 225078,
+      "mode": "0o644"
+    }
+  ],
+  "effects": "new coverage-result.json and raw command receipts only"
+}

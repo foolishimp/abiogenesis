@@ -1,0 +1,49 @@
+{
+  "status": "stopped",
+  "activation": "BASELINE-DIAGNOSTICS-01",
+  "firstFailure": {
+    "status": "stopped",
+    "subjectId": "baseline",
+    "lane": "public-preparation",
+    "firstCause": "AssertionError({'pid': 10397, 'file': 'tar', 'args': ['tar', '-tzf', '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz'], 'effectiveFile': 'tar', 'effectiveArgs': ['tar', '-tzf', '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz'], 'classification': 'external-uninstrumented', 'returnValue': 0})",
+    "summary": {
+      "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic/diagnostic-summary.json",
+      "sha256": "980b5a3a2c7e64faca55691213ab297d95a7bb2389d8baed57042c7682bc2bf8",
+      "bytes": 225078
+    },
+    "workloadResult": {
+      "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/result.json",
+      "sha256": "45ab673952ab969521b1b545abaf9d2a78dc612b9c67045a63bf6a0a4b90155c",
+      "bytes": 1768
+    },
+    "stop": "No repair/retry/next lane; return Root."
+  },
+  "frontier": "post-execution passive coverage check, after original workload/oracle and frozen analyser completed",
+  "observedWorkload": {
+    "launcherExitCode": 0,
+    "runnerResult": {
+      "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/result.json",
+      "sha256": "45ab673952ab969521b1b545abaf9d2a78dc612b9c67045a63bf6a0a4b90155c",
+      "bytes": 1768,
+      "mode": "0o644"
+    },
+    "analyserStatus": "observations_only",
+    "probeErrors": [],
+    "preservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/preservation-after.json",
+      "sha256": "a0c4af4dccee1c7340f51cb2d5602e27f33bec221dc61cbe1126f3edde58bad7",
+      "bytes": 3393,
+      "mode": "0o644"
+    }
+  },
+  "causalCone": {
+    "ProductOwner": "Exact baseline Product.verify owns archive member inspection; these ordinary non-Node child edges preserve the declared artifact verification contract. No Product failure inferred.",
+    "DiagnosticOwner": "Frozen preload correctly classified tar as external-uninstrumented and retained exact args/parent. It never claimed tar Node counters.",
+    "ProofOwner": "Writer concrete coverage contract allowed only /usr/bin/du as external. It omitted source-visible tar listing/member-read edges; checker stopped validly at its first encountered excluded edge.",
+    "EarlierEvidenceLimit": "Preparation used syntax/pure observer construction and source-name checks, not this complete installed child population. Original uninstrumented endpoint did not apply this diagnostic whitelist.",
+    "Measurement": "Per-PID Node counters remain raw observations; non-Node internal quantities remain unobserved. No count is extrapolated into tar or OS-wide totals."
+  },
+  "noRepairOrRetry": true,
+  "P3": "not configured, allocated or executed",
+  "RootDispositionRequired": "Owning measurement HOW may select a bounded disclosure/coverage successor over retained evidence; no automatic reclassification or workload repetition performed."
+}

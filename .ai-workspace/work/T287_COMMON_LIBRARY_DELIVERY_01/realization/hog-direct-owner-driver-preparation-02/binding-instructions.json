@@ -1,0 +1,43 @@
+{
+  "status": "NOT_GRANTED_pending_Executive_candidate_selection",
+  "cases": [
+    "compose-retry",
+    "workflow-foldback",
+    "fanout-partial"
+  ],
+  "originalConfigurationShape": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/configuration.NOT_GRANTED.json",
+    "sha256": "14fb2113791748d14da814abf40322290c1d10d4ea0c7064325675bdcf498883",
+    "bytes": 8343,
+    "mode": "0o644"
+  },
+  "originalGrantShape": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/effect-grant.NOT_GRANTED.json",
+    "sha256": "ea0b9051ba6e05ba25222b7003984dbd366c1424c5ea439fe2008af05820538e",
+    "bytes": 3641,
+    "mode": "0o644"
+  },
+  "originalActualP1": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/result.json",
+    "sha256": "231d13b475ac77dd4c1468500aa73a2639233822e7252014105d84ae6acf74fc",
+    "bytes": 1759,
+    "mode": "0o644"
+  },
+  "actualP1Scope": "This exact result belongs to final06. Reuse only if Executive retains that exact subject or explicitly closes the dependency relation for its selected successor; it is not automatically a new-candidate outcome.",
+  "needed": [
+    "Executive selects one closed exact candidate freeze/archive/manifest/content and actual prerequisite relation.",
+    "Bind source/emitted/dependency/support/protected-main inventories by existing format/path translations; no broad repeated inventories during preparation.",
+    "Compare existing 21 source pins and the added direct-start/logical-read source-inspection relations against the selected candidate. Source changes require explicit disposition, not silent pin refresh.",
+    "Retain raw package member inventory and separately derived installed-expected carrier with only observed package.json-declared bin mode adjustments; final06 relation is historical evidence, not an unexamined successor assumption.",
+    "Bind exact finite nonempty offline cache seed; retain exact finalP1 eight-file source only when still applicable. Distinct empty user/global npmrc, explicit internal NODE_OPTIONS absent and outer empty.",
+    "Use a new absent canonical /private/tmp parent for all three cases. Preserve old failed root and all predecessor freezes.",
+    "Bind adjacent successor run.mjs, unchanged oracle.mjs and unchanged inspected-inputs.json, exact Node 24.7.0/npm 11.5.1, activated config digest and separately granted effects.",
+    "Retain one sequential three-case attempt with finite 1800000 ms outer ceiling, <=4 GiB new retention, 0 native/provider calls, no optional law tests, cleanup or blind retries. First actual failure stops to Root."
+  ],
+  "unselected": [
+    "Runtime/bootstrap/npm/fixture/CLI execution",
+    "Optional nine retry plus two EC law tests",
+    "Main/stage/source changes, build, prepack, cleanup, Git, continuation-17"
+  ],
+  "next": "Root verifies this driver/HOW preparation and selects exact candidate binding before any execution grant."
+}

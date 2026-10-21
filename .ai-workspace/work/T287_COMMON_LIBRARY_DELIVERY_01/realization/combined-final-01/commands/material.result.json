@@ -1,0 +1,14 @@
+{
+  "label": "material",
+  "exitCode": 0,
+  "wallMs": 3873.002333100885,
+  "completedUtc": "2026-10-21T01:57:08.340130+00:00",
+  "stdout": {
+    "bytes": 393,
+    "sha256": "3d74e45ae7d1d7c4a7c68e980c2999c7c3453105cb9c214a17306e70adfb7c54"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,13 @@
+# Finite conservation 04 stopped
+
+The full U1 two-file aggregate passed12/12 and the selected C18 algebra population passed18/18 on immutable successor06 archive `25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079`. Command3 reopen18 failed13pass/5fail. Commands4–8 were not executed; no retry or repair.
+
+The first failure is `m5-event-store-reopen.test.mjs:384`:128-row live causation Map operations were `{lookups:254, entries:384}`, expected `{lookups:127, entries:128}`. Four other failures arose inside the already-started Node aggregate: two controlled forged artifact fixture contracts refused before query selection, first artifact operation was product.install rather than workspace.bind, and historical read count45583 rather than0. [Exact failure](failure-summary.json), [original STOP](STOP.json), [commands and mapped claims](mapped-outcomes.json) retain attribution. Production-versus-fixture cause is untriaged; these results create no Product waiver or repair authority.
+
+The [template](../final-proof-preparation-01/remaining-execution.template.json), command-specific freezes and request/result/stdout/stderr records bind Node24.7.0, exact source/test/dependencies, empty NODE_OPTIONS, concurrency1, original filters/noCredit exclusions and new TMPDIR. The first full U1 command used ABG_U1_FIRST_CASE=c0 and no filter. No historical P0 environment or continuation17 was read.
+
+[Physical residue](physical-stopped-inventory.json) preserves the existing U1 durable channel and every remaining selected file with byte hashes and original dev/inode metadata. Existing test-owned cleanup hooks were explicitly selected for disposable new resources; no retained-prefix claim is made for removed ephemeral logs. No custom cleanup, retry or blind process recovery occurred. [Process observation](process-observation.json) is only one snapshot of the three supervised groups; it does not establish universal descendant absence.
+
+[Preservation](preservation-after.json) verifies all6642 frozen stage files/links, exact archive/manifest/source freeze, main936 generated files and the selected main source/test unchanged. No source, support, build, package, Git, provider/native semantic or reviewer effect was performed. Retention stays below3GiB.
+
+Successor06's four installed C0 owner passes remain on their closed subject. This finite campaign is incomplete. Codec14, route7 with its exclusions, selected physical-process regression, terminal7 and conditional D02 remain unexecuted. Independent final P1/P2/P3/P5/P4, HoG/E04, diagnostics, L5 and Executive acceptance keep their separate grants and subjects. Return to Root for multi-frame triage; stop.

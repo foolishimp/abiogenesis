@@ -1,0 +1,166 @@
+{
+  "status": "satisfied",
+  "subjectId": "candidate",
+  "lane": "owner-resolution",
+  "rowBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/owner-resolution",
+  "files": [
+    {
+      "path": "command.json",
+      "sha256": "8b7c570eecbe4e272e9802d1342929410aa58edb8b22f456c49484f6d018bc22",
+      "bytes": 1119,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "configuration.json",
+      "sha256": "a9abaf7e7c6b0d53cf89fd32d2a9b0327f65d57e7242546d5fe985da2ba1329d",
+      "bytes": 5225,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "effect-grant.json",
+      "sha256": "349048ca2db84f936e3a244e98c95d672416e2c0bad1526fb04c0dfc9258b1ff",
+      "bytes": 637,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/actual-owner-results.json",
+      "sha256": "d0a7ae8b0b90bdd72380d49dc619daf0a5d07c2369fc9b1d5ce7d2a4a7c7dd71",
+      "bytes": 91086,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/calls/preparation-resolve.json",
+      "sha256": "70299b7965b7402c3923b814ca3f36a0b1699c31aa66d5e35a03d911a99d123d",
+      "bytes": 33843695,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/immutable-family-domain.json",
+      "sha256": "f230ea9a3c2c9df37815760ae6e63b1942cc9f48acfbbe07a2de3cf2dd299e67",
+      "bytes": 5294,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/preconditions.json",
+      "sha256": "4619460ff44ddbcdfe3a4e9402bc58b83b6a8e923c24b1ca386fab85dc00519e",
+      "bytes": 1597,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/receipts/preparation-resolve.json",
+      "sha256": "e9a4490213d1d6d46de38540c62e53885ea3aeda5d769449a01049e3995a64a9",
+      "bytes": 5354,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "evidence/result.json",
+      "sha256": "89422d9d36b75700ad938f9f6505d389cbf5aad56186abf1490f3556f87ec490",
+      "bytes": 467,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "input-freeze.json",
+      "sha256": "a0125c84f83668b029e86532d387151203ab4f7123c8f5eabc9d0d83c53dd365",
+      "bytes": 2294,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "launch.json",
+      "sha256": "2de3a8528dceece73e6a61335ecf69be51870f1a808552717e3cdf4bccb96a0e",
+      "bytes": 70,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "physical-resources.json",
+      "sha256": "27a7a4f844febe359e7abb82ba16f5e474ce1d48a1521dcacb6487c22825e5e6",
+      "bytes": 2943,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "portable-evidence-map.json",
+      "sha256": "bdc3cefc48822f349aea95ad8976953ae98c456eddd1cf6213b87479013e6f3c",
+      "bytes": 5798,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "process-result.json",
+      "sha256": "fd5829cfb575e1b83e7000af2c1a831fb45a9c3bfab21c3637b9ead966d6a2ba",
+      "bytes": 258,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "result.json",
+      "sha256": "97cb1d0dc7061e9b956084ae6488ce0dacc17c25998d8210320893c006335551",
+      "bytes": 2267,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retained-footprints.json",
+      "sha256": "11932ca06c05914a2210aca95c2f71aa190dc98292858d8860060f781dcc6c15",
+      "bytes": 935,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retention-command.json",
+      "sha256": "7ecd3c3f231ce171bcb948497a08b13419385b738040f0ebf4500d55a32323cb",
+      "bytes": 684,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retention-result.json",
+      "sha256": "666864e851a21f324e5f4d85aeea883f164f836280923c9894e837b852ecb9d0",
+      "bytes": 222,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retention.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "retention.stdout",
+      "sha256": "8b3f07c8524422fe048456bd962cdaa9de2eaa0f3a12391209f978cc93b0d383",
+      "bytes": 148,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "stderr-time.txt",
+      "sha256": "096695b807368e5c1c0294dfe760b900707f68caa8cc425b2680a55cab1ef22f",
+      "bytes": 777,
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644",
+      "kind": "file"
+    }
+  ],
+  "recordCount": 22,
+  "archiveSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "eventBytesUnchanged": true,
+  "newAdmission": false
+}

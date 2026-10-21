@@ -1,0 +1,2 @@
+code/src/abg/worksite_revision.ts(336,50): error TS2339: Property 'canonicalRoot' does not exist on type 'string | number | boolean | readonly JsonValue[] | { readonly [key: string]: JsonValue; }'.
+  Property 'canonicalRoot' does not exist on type 'string'.

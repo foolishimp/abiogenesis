@@ -1,0 +1,16 @@
+{
+  "kind": "mechanical_owner_typed_payload_correspondence",
+  "sourceType": "string path -> sha256File -> Promise<Sha256Digest>",
+  "rowType": "readonly PayloadInventoryRow[] with path: string and sha256: Sha256Digest",
+  "destinationType": "payloadInventoryDigest -> Sha256Digest",
+  "productContentDigest": "sha256:8c0521d15ade43c503c56d46c8b7a10a42d6e172a8841443de9ad6980ed0cf21",
+  "payloadRows": 5267,
+  "toolchainManifestSha256": "sha256:0821d08e84dd8294ad13c6b60f9ec6e15c1faa8df0d233552bfcd2077c0789a9",
+  "C2InventorySha256": "sha256:f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+  "memberSha256": "sha256:c1480f09bedaba0a9d2a329623f9c668ece6dc02d6b683639d478aebed804373",
+  "memberBytes": 110016,
+  "rendererStart": 100071,
+  "rendererEnd": 102379,
+  "rendererSha256": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+  "graphAssetSha256": "sha256:48133651b22fafb0cdcfa3b2781759146e52490626011d6831ae86661d54b757"
+}

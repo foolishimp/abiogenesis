@@ -1,0 +1,47 @@
+{
+  "kind": "exact_hog_execution_inputs",
+  "status": "frozen",
+  "activation": "HOG-FINAL06-EXECUTION-01",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/command-environment.json",
+      "sha256": "11c32a84d4c54bc502a34c75c4bd5d1181e62e6cbb059f259caf87e7fdc65100",
+      "bytes": 626
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/commands-config.json",
+      "sha256": "79edc7fcb743841018057a790f6fd10de1c0bff5c6d1bd91cecd816b15955a50",
+      "bytes": 557
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/configuration.json",
+      "sha256": "48995917e83265514c0e41539a3471992ec7854d63707b2caaa4209bf4e35a5b",
+      "bytes": 8341
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/effect-grant.json",
+      "sha256": "d8ccf6d75014c094a672453f732f9f8a8ed80aa16a66b3a6f4f7d8983d000efe",
+      "bytes": 3989
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/executive-decision.json",
+      "sha256": "c4be33c26b2c734d20be1fe999032d44e502660d0962f982e2638fe3e21d71e8",
+      "bytes": 3490
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/run-command.py",
+      "sha256": "270a6cd23729666dc788f2b89473f2d9be27003905d94146ab994d45f7f347d1",
+      "bytes": 2521
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/execution/supervisor-binding.json",
+      "sha256": "6019796248e9002b813118652fd765b94c36b994dc3b0684015de952e9c20c96",
+      "bytes": 1418
+    }
+  ],
+  "externalFrozenBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-final06-binding-01/freeze.json",
+    "sha256": "f2c99f6ec483195c7f0b226dd184bcdb9f166a00aad9f93eb3e0a4c1ad0fa149",
+    "bytes": 16042
+  }
+}

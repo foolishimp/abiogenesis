@@ -1,0 +1,125 @@
+{
+  "status": "ATTRIBUTED_TRANSCRIPTION_OF_PRIOR_ACTUAL_TOOL_RETURNS",
+  "originalEvidenceLocation": "Root/Writer conversation tool transcript from P5-08-DIAGNOSIS; no original stdout file was written. This JSON is not original stdout bytes.",
+  "runtimeSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/failure-freeze.json",
+    "bytes": 1829518,
+    "sha256": "d0f9dd2979ad4fa57202235cf7f89a01cb7353a1529d8632f4dd5d736f922a56"
+  },
+  "sourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "bytes": 128699,
+    "sha256": "eb32f6535993b608db9fb9aa1f01661acc99b7498c9af92123e628b1e878e371"
+  },
+  "installedModule": {
+    "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/execution_basis.js",
+    "bytes": 112088,
+    "sha256": "655d7e56c4196afb3dc90becd5f66dbfc8fab5aa0fd48f631a9d5cdb660ab020"
+  },
+  "task": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/archive/test-evidence/task.json",
+    "bytes": 17900,
+    "sha256": "98f8cce908b92de74a0c62cf96d81ce4a859c7303abc6045e9c220523e9f9059"
+  },
+  "publicOutcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/archive/test-evidence/public-outcome.json",
+    "bytes": 3953,
+    "sha256": "eb2585c2f0e94baed8e5cbdbfba69906c1069f65044c7d3a7ffb0384a46b0553"
+  },
+  "originalActualStore": {
+    "path": "/private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/runtime/events.jsonl",
+    "bytes": 3982944,
+    "sha256": "0c89e9e548ffcdb635a20df1cf2e0ebda61808ef05af01eb3afcb3582ff540ba"
+  },
+  "predecessorThroughC2InvocationAdmission": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/runtime/events.jsonl",
+    "prefixLength": 3981411,
+    "prefixDigest": "sha256:2d3174132eff33e58af84cced4886331ba8b5036540701d3d01dac0a35833d5c",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 475015374,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:fef7b55f6d1df305c3be04c4f7ab54a521de24bcd187a3ba60f49830a9c3b624"
+  },
+  "sourceC1Closure": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///private/tmp/abg-stdo3-p5-07-7ca935e280b14df6/scratch/abi5-root-env-VMLuFr/runtime/events.jsonl",
+    "prefixLength": 3807437,
+    "prefixDigest": "sha256:2eaf86621ec927e842c9210d924ad23104b00ac73d0e160cc0a4dec71567289e",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 475015374,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:4da9f57040f33f300b1b53ba35e8270b25e1a27c59ff3ab3b7b2b5f4f313ef9a"
+  },
+  "invocationAdmissionRef": "invocation-admission://abiogenesis/60c0dcb625b29db000c7f98b0e530c50a47afef8383bcd226820b7bacc777a54",
+  "originalDiagnostic": {
+    "execSession": 35029,
+    "hostPid": 57056,
+    "exitCode": 0,
+    "privatePredicate": "exactC2SourceEnvironment",
+    "actualResult": false,
+    "observationMethod": "Read actual durable close; select predecessor through C2 invocation admission; projectOwnedRuntimeEventPrefixAtDurablePrefix; rehydrateInvocationAdmissionAtPrefix; expose private predicate through in-memory SourceTextModule; transparently observe canonicalJson inputs/results, retaining original decisions and returns.",
+    "canonicalCalls": [
+      {
+        "operandKind": "source result object",
+        "count": 2,
+        "bytes": 2523,
+        "sha256": "494b2c77c2f42fc522277e0b3d570da4c44babb88f18d31e8e37aa9ead1609c1"
+      },
+      {
+        "operandKind": "durable logical RuntimeEvent[]",
+        "eventCount": 186,
+        "bytes": 3823704,
+        "sha256": "05e99a557a743ae964757c2069bc81027908c02bbc4a334b0821e0e4d34c5355"
+      },
+      {
+        "operandKind": "RuntimeEventBodyView object",
+        "eventCount": 186,
+        "canonical": "{\"length\":186}",
+        "bytes": 14,
+        "sha256": "9787957322bfbc4ef20d66433128467fdb45cd9b58418db03b3bfe8901c128dc"
+      }
+    ],
+    "materializedViewCanonical": {
+      "bytes": 3823704,
+      "sha256": "05e99a557a743ae964757c2069bc81027908c02bbc4a334b0821e0e4d34c5355"
+    },
+    "firstRefusingRelation": "Existing complete logical-prefix canonical equality compares array to view object at source lines 800,805\u2013811."
+  },
+  "counterfactualDiagnostic": {
+    "execSession": 11622,
+    "hostPid": 58277,
+    "exitCode": 0,
+    "actualResult": true,
+    "onlyInMemoryChange": {
+      "from": "const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix);",
+      "to": "const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix).materialize();",
+      "occurrences": 1
+    },
+    "inMemoryModuleSha256": "867fb7c7ffa42b13761a1a20e3622489fbea0a4606db450dbc621d27705dfaa6",
+    "meaning": "All remaining existing private C1 source joins pass for this exact held predecessor, invocation and task."
+  },
+  "bothRuns": {
+    "nodeOptions": "",
+    "nodeDisableCompileCache": "1",
+    "flags": [
+      "--experimental-vm-modules",
+      "--input-type=module"
+    ],
+    "warning": "Node experimental VM modules warning only",
+    "filesWritten": 0,
+    "runtimeAdmission": false,
+    "eventLogBeforeAfterSha256": "0c89e9e548ffcdb635a20df1cf2e0ebda61808ef05af01eb3afcb3582ff540ba",
+    "installedModuleBeforeAfterSha256": "655d7e56c4196afb3dc90becd5f66dbfc8fab5aa0fd48f631a9d5cdb660ab020"
+  },
+  "limitations": [
+    "These are private-predicate read-only computations, not an admitted retry, installed repaired module, C3 run, P5 completion or acceptance.",
+    "No original stdout file hash is asserted for this transcription."
+  ]
+}

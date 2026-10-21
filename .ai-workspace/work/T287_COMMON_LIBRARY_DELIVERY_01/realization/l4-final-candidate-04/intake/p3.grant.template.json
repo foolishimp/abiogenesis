@@ -1,0 +1,36 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "NOT_GRANTED",
+  "issuedBy": "/root",
+  "subjectId": "candidate",
+  "configurationSha256": null,
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "lanes": [
+    "declared-execution"
+  ],
+  "resources": {
+    "declared-execution": {
+      "evidence": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/evidence",
+      "host": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/host",
+      "scratchParent": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/worksite"
+    }
+  },
+  "maxNativePositiveCalls": 0,
+  "retryCount": 0,
+  "cleanup": false,
+  "npmCache": {
+    "seedInventory": {
+      "path": null,
+      "sha256": null
+    },
+    "sourceRoot": null,
+    "newCacheRoot": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/caches/p3",
+    "permittedLaterEffects": "explicit frozen seed copy; offline npm content/index/tmp/log writes; retained after run",
+    "status": "NOT_GRANTED; no cache root allocated"
+  },
+  "prerequisites": "bind only actual satisfied same-subject predecessor results in requiredEvidence",
+  "executionOrder": "P1 -> read-only owner-resolution -> P2 -> P3; no later phase after first unexpected failure",
+  "nativeProviderCalls": 0
+}

@@ -1,0 +1,14 @@
+{
+  "issuer": "/root",
+  "status": "authorized_preparation_successor",
+  "stoppedHOWSha256": "b127175b678d87afa5c5735079186399e7313d4ebf534dcaefa1f46e4006ebb7",
+  "firstCause": "The duplicated-install proposal conflicts with the earlier exact admitted-install/Catalog-readiness bijection at execution_resolution.ts:470-498. No owner executed.",
+  "frames": {
+    "Product": "No changed outcome; immutable catalog, exact admitted install and thin Public retained.",
+    "Identity": "Distinct collection entries cannot bypass unique installId/admissionEventRef or exact Catalog candidate correspondence.",
+    "Proof": "Helper multiplicity exercises resolveExactMatch law; it cannot establish reachability through an earlier owner gate."
+  },
+  "selectedSuccessor": "Actual installed positive plus duplicate collection typed incompatible_or_unproven/dependency refusal; source proof of all three exact owner joins and immutable Public family canonical key uniqueness. No fake admission, guard bypass or new fixture.",
+  "authorityClassification": "Product/requirements own WHAT; accepted L2 is HOW.",
+  "noWorkloadExecuted": true
+}

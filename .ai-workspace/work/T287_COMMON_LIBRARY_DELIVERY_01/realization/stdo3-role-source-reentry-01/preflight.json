@@ -1,0 +1,220 @@
+{
+  "status": "proposal preflight; no implementation or execution acceptance",
+  "capturedUtc": "2026-10-21T09:03:12.708831+00:00",
+  "repository": "repo://abiogenesis/",
+  "observedLocalRoot": "/Users/jim/src/apps/abiogenesis",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#governed-outcome-and-workspace",
+  "method": {
+    "basisUri": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": [],
+    "acquisition": "/Users/jim/.local/bin/stdo resolve <exact URI>",
+    "verificationCommand": "/Users/jim/.local/bin/stdo verify v3.0.0-rc.1 --manifest-sha256 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "observedVerification": {
+      "valid": true,
+      "failures": []
+    },
+    "observedInstalledRoot": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1"
+  },
+  "repoSources": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "byteCount": 11923
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "byteCount": 3146
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "4cb7c8da7c8cf7204c80fdcc8631c48f22c4c395c8726eb0ccf16e1a6065b2b5",
+      "byteCount": 80817
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "byteCount": 97498
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "sha256": "bdc3f6b3a30813c85eb48603ada692cff34222e67debd2413560aaa39a1af8c4",
+      "byteCount": 4522
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+      "sha256": "2a0fc5559673a860c2b7ff16091ba2ba37da3b1fe1337141c2faa639d6ca1e64",
+      "byteCount": 7870
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "sha256": "c58539026886596543c3ec6c2e6fd010f1220c6031bb68df8fff22e1e6ed50c6",
+      "byteCount": 2952
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "sha256": "0ed4ec30606484c9430354b4676f4166ca0e19fe338830a3b71bf9947e70222d",
+      "byteCount": 12282
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "byteCount": 26853
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+      "byteCount": 63515
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "byteCount": 26888
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "3a18f5c92a5aa1ba7c029106b6a493728a8583ba40e9f601ee028a4ec0ad898d",
+      "byteCount": 62484
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "sha256": "8b395f108d7e52229709c60a2108ac565359d8bb8e84bd8f1386c374674dd652",
+      "byteCount": 78451
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "sha256": "9a9fa4da696482f70ec487227aa7a623f7c0b12f15b07f00600df322ec568e7b",
+      "byteCount": 19036
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "sha256": "91fa46843154ffc6010812e029e9bd86033c195415af9eb44c42348a22d51913",
+      "byteCount": 25582
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/index.ts",
+      "sha256": "2189903cf0ff57a15c3c4c4b23f90f8f267c67a54f4a7f86eee788d8df19b916",
+      "byteCount": 11491
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "34038f0ea6c2741503194d48c6488a41402810105a1326ca8ad2f430f264003b",
+      "byteCount": 33826
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work_identity.ts",
+      "sha256": "5295c7980634a861b55cc9dd45757515703351e6c61de121cfa0b732177e325b",
+      "byteCount": 2175
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution_identity.ts",
+      "sha256": "9208805dcf5af86d24edaeb2dea00bce9dec2069108dc71c24b28eff2f2805f3",
+      "byteCount": 2260
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/stdo_environment.ts",
+      "sha256": "c52e9ab413dc31a0f356c579b623c3a00d6f5f0a1f9615a6fbce0ed7c7fdf244",
+      "byteCount": 34648
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts",
+      "sha256": "517ea5ea869d876ec6c91b3f1d1e43c79d538dade9af7ce8ac2b4e4a574ccdd8",
+      "byteCount": 27743
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+      "byteCount": 48959
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/native-registered-selection.mjs",
+      "sha256": "c2deb44c845503ea893c6803c2c7d7bc1079e8dbcd05d215a0f2fa9f85901195",
+      "byteCount": 6494
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+      "sha256": "81c51842c1d31366b509324eff717084f9df3cfee05c36d73411c855f10db76e",
+      "byteCount": 5214
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "sha256": "b435665a743c7c7a04f0dae6a59070e521fb798c491e506c28cba8201d2c0fc3",
+      "byteCount": 8597
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+      "sha256": "201eba94a0abebc65ce94917fb212a461974c6a889a7455e230576787c22516d",
+      "byteCount": 17327
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "sha256": "0967cd09ec698275a9713673cc91dff0e3d902147f45f1a3d0fb8f60c98a80ad",
+      "byteCount": 35217
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "39246ce097de388db5a162179564370b1d8f3183822ec7f1298a605b63d06f3c",
+      "byteCount": 153336
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "sha256": "c4a4865baa6e6a5d917c3a5031f5fe9b4283c220d46aaea508d304a02d35d3f7",
+      "byteCount": 44649
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "sha256": "e45af06ccbf8ef80dda57277b99a849961ac9713641ebdc31a8a5f1a292b6cfa",
+      "byteCount": 14629
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json",
+      "sha256": "cbb32c0ba1775cd2656986ab43079025e817b9969c63679e95b2408aeb24b83b",
+      "byteCount": 245
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+      "byteCount": 133684
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs",
+      "sha256": "963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6",
+      "byteCount": 6294
+    }
+  ],
+  "methodMembers": [
+    {
+      "path": "stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "byteCount": 156797
+    },
+    {
+      "path": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "byteCount": 87324
+    },
+    {
+      "path": "stdo://releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md",
+      "sha256": "8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21",
+      "byteCount": 103132
+    },
+    {
+      "path": "stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md",
+      "sha256": "c7b83b2b7e8c9a301d2e535fc3752c08f718d9fc679e32f8a91c15c285976e8e",
+      "byteCount": 147671
+    },
+    {
+      "path": "stdo://releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+      "sha256": "aafb1bf63e7928c9a21c4fe4982e4a4cdefa32b931a256e56543eb7cf629d7cd",
+      "byteCount": 83085
+    }
+  ],
+  "writeTerritory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01",
+  "forbidden": {
+    "productionOrTestEdit": true,
+    "buildGenerationTestNativeProviderGit": true,
+    "continuation17ReadOrMutation": true
+  },
+  "note": "Repo paths and immutable URIs are portable; local paths are acquisition observations only. Historical installed material is comparison evidence, never current governance."
+}

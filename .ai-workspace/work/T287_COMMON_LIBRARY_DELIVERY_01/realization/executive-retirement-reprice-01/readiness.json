@@ -1,0 +1,83 @@
+{
+  "status": "mechanically_ready_for_Root_review_and_separate_checkpoint_activation",
+  "date": "2026-10-21",
+  "scope": "Documentation and coordination only; no independent semantic acceptance.",
+  "preimagesAndEditScope": [
+    {
+      "path": "specification/GOALS.md",
+      "preimageVerified": true,
+      "scope": "All bytes from unchanged later Current Selection marker onward retained exactly.",
+      "diff": "goals.diff"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimageVerified": true,
+      "scope": "All historical routing and appended historical records retained exactly.",
+      "diff": "ticket.diff"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "preimageVerified": true,
+      "scope": "Entire old handoff preserved exactly; current handoff replaced under explicit grant.",
+      "diff": "checkpoint-handoff.diff"
+    }
+  ],
+  "protectedAuthority": [
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "unchangedFromSelectedInput": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+      "unchangedFromSelectedInput": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "unchangedFromSelectedInput": true
+    }
+  ],
+  "selectedLocalLinks": {
+    "checked": 66,
+    "missing": 0,
+    "scope": "New records, current GOALS/T287 sections and checkpoint handoff; historical links not reaudited."
+  },
+  "proposedHOWLinks": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/HOW-proposal.md",
+      "exists": true,
+      "status": "proposed/pending independent assessment",
+      "binding": "Separate Writer subject; not included in this frozen file set or represented as accepted. Root verification and their own freezes remain separate."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/HOW-proposal.md",
+      "exists": true,
+      "status": "proposed/pending independent assessment",
+      "binding": "Separate Writer subject; not included in this frozen file set or represented as accepted. Root verification and their own freezes remain separate."
+    }
+  ],
+  "sourceAttribution": {
+    "effectsReview": "Root-transcribed public independent Reviewer return; no Reviewer file writes.",
+    "retirement": "Root-dispositioned read-only Worker assessment; not independent acceptance.",
+    "P1P5FullSubjectVerification": "Root previously verified 88 P1 and 84 P5 frozen file rows. This Writer pinned only selected compact records, without rescanning their inventories.",
+    "Git": "Prior remote67c3337/current uncommitted status supplied by Root; no Git query or mutation in this activation."
+  },
+  "actualEffects": [
+    "17-file documentation freeze including three current coordination files, exact preimages and compact supporting records"
+  ],
+  "excludedEffects": [
+    "runtime/build/test/source/support/archive/main936/continuation17/Git/old frozen evidence mutation"
+  ],
+  "retainedGate": "CLOSED_until_L5_library_delivery_acceptance",
+  "remaining": [
+    "active fixture/support retirement",
+    "E03-L5-01 mandatory process-truth repair",
+    "proposed source-role/default-definition HOW acceptance and migration",
+    "P5 cancellation-contract correction before next owner effect",
+    "one final candidate and proportionate affected proof, including installed/currentness/HoG and one P4",
+    "independent conjunction/L5 and remaining release work"
+  ],
+  "noDeliveryAcceptance": true
+}

@@ -1,0 +1,178 @@
+{
+  "status": "satisfied",
+  "subjectId": "baseline",
+  "lane": "public-preparation",
+  "obligations": [
+    "P1-baseline"
+  ],
+  "activation": "L4-P1-BASELINE-01",
+  "runnerResult": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/result.json",
+    "sha256": "9b3ad5953a5bcdbfba21694962a65161bae4c678d935a9210860b865a6a5f421",
+    "bytes": 1764
+  },
+  "ownerState": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/p1-owner-state.json",
+    "sha256": "addc993e2cc370b43d018de1c9b3d74c29bbcaa3a4ebfcc898914ee9c5ff664f",
+    "bytes": 41969673
+  },
+  "actualCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:836f50923d0619bee0db9a81fdac07e7b40d3b68d524f283a802c7bac79d97ee",
+      "eventLogRef": "file:///private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:4f599bc7e80bb1aea9e67b855f7b19de84d910daddf36b9aefe5f4edc754ca8c",
+      "prefixLength": 3113281,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 473980953
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:bb1e2a8330c512ff96605c231cf5789f202b6fc159c41a50077c2214c8c3781e",
+      "device": 16777231,
+      "durableByteLength": 3113281,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:4f599bc7e80bb1aea9e67b855f7b19de84d910daddf36b9aefe5f4edc754ca8c",
+      "eventLogPath": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/resources/events/runtime.events.jsonl",
+      "inode": 473980953,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "nativeCalls": 0,
+  "actualPublicCalls": [
+    {
+      "label": "workspace-create",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "clean"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/f3dfa4d658657445fa0c49e486893887af1a0330ba45d3feee17605b65ac17e9"
+    },
+    {
+      "label": "product-verify-0",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/f9b5559836cc7f94576092b0490d7fad292d486075482335e4fe23e2ee7f9938"
+    },
+    {
+      "label": "product-verify-1",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/09af1bb5a372d0be1d2877e2593dafc82b138998b01d22bbf612f7c19b47f786"
+    },
+    {
+      "label": "product-resolve",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/1f0e2cf745b895cb58938da84a7f1de14539f55aa357f9d0c48b6ad0ee45f7a5"
+    },
+    {
+      "label": "product-install-0",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/fff3fc81ace42ce0bb14e75e53df2c6f4507a87c960fa23557b06c62041ab552"
+    },
+    {
+      "label": "product-install-1",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/c127702dc2426d825adbe0b0bd87f91a51f0a7ea44b0c981fe4cb0e35f63e075"
+    },
+    {
+      "label": "workspace-bind",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/cf6f1799a1d84ae388e44c37fcd3032fb955986a5cd8253bfde66e4e2dfb0d13"
+    },
+    {
+      "label": "catalog-admit",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/94fb3a3b2c0924e8679d0d53ea4843419741cea05a32f218d62d11df2cd0bb49"
+    },
+    {
+      "label": "catalog-view",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/c8d559b1ff62267f4e502cdf94ba0632703812f5aa290688b643f6a606153034"
+    },
+    {
+      "label": "program-conformance",
+      "exitCode": 0,
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "outcomeKind": "result",
+      "invocationRef": "invocation://abiogenesis/17a795bbee70175db2ddd267ea54b45a370a937c89c6edf7d7af26887523cb9f"
+    }
+  ],
+  "installedDeclarationConsumer": {
+    "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/commands/2-installed-declaration-consumer.json",
+    "sha256": "60c2c60712e32ad2b1fe789778086ef5ddd714890ce83994612332b3464d0758",
+    "bytes": 905
+  },
+  "resolutionEvidence": {
+    "resolution-first.json": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/resolution-first.json",
+      "sha256": "a02c94fc5444bab92a9bb20d56aacadae5fd485c19de16a122639aa5c43c876d",
+      "bytes": 5461016
+    },
+    "resolution-warm.json": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/resolution-warm.json",
+      "sha256": "a02c94fc5444bab92a9bb20d56aacadae5fd485c19de16a122639aa5c43c876d",
+      "bytes": 5461016
+    },
+    "resolution-negatives.json": {
+      "path": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p1/evidence/resolution-negatives.json",
+      "sha256": "8f7c87767a0f0a1757721631d1255bce58c32fa8697ba3c0447da884fc2150b0",
+      "bytes": 42046
+    }
+  },
+  "nextLaneStatus": "not activated",
+  "remaining": [
+    "separately selected baseline P3 comparison",
+    "candidate successor correspondence and affected reproof after E03 repair",
+    "P2/P3/P5/P4 actual evidence as Executive selects",
+    "unobserved internal V7 counters",
+    "independent semantic acceptance"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "kind": "selected_preservation_validator_failure",
+  "status": "STOPPED_RETURNED_TO_EXECUTIVE",
+  "activation": "ROUTE-OBLIGATION-PROOF-PREPARATION-01",
+  "cause": "Validator requires regular files for every freeze row; exact input manifest explicitly declares a symlink at the failing row.",
+  "failingPath": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript/node_modules/.bin/tsc",
+  "declaredRow": {
+    "mode": "0o755",
+    "kind": "symlink",
+    "target": "../typescript/bin/tsc"
+  },
+  "failedPredicate": "stat.S_ISREG(s.st_mode)",
+  "reportedHashMismatch": false,
+  "completedSubchecks": {
+    "selectedAuthorityAndFreezePins": 7,
+    "finalProofRecords": 29,
+    "p5Records": 57,
+    "hogRecords": 17
+  },
+  "unfinishedChecks": [
+    "combined-final-02 remainder",
+    "main936"
+  ],
+  "request": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/preflight.request.json",
+    "sha256": "e73a3a80e5899a1eaee9847ee1c7181ec4f995fed6ee62ed1fbadfa1b2a5b2df",
+    "bytes": 2813,
+    "mode": "0o644"
+  },
+  "result": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/preflight.result.json",
+    "sha256": "ed1376cdb11cd1bd7a940c1ee86b2c13a45d4d0d72e9ee518d0c45ea4df673ff",
+    "bytes": 610,
+    "mode": "0o644"
+  },
+  "script": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/route-obligation-proof-preparation-01/failed-preflight.py",
+    "sha256": "1065cce634b99fd79abf14ff6a3de57658b8698dbbba3d08510236f06a2c0633",
+    "bytes": 2559,
+    "mode": "0o644"
+  },
+  "effect": "No preparation runtime and no application imports. Only new failure carrier written.",
+  "retryCount": 0
+}

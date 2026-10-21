@@ -1,0 +1,19 @@
+✔ D02 shared canonical-text equality conserves values and encoding failures without an identity shortcut (4.746416ms)
+✔ D02 coordinate equality retains both strict coordinates and property faults (0.187708ms)
+✔ D03 finite selection preserves duplicate occurrences, identities, total scan and thrown predicates (0.162167ms)
+✔ D04 fixed JSON key domains retain exact names while E01 keeps its distinct legacy relation (0.199292ms)
+✔ T-287 TV5 canonical rooted-topology partition is deterministic, detached, and frozen (0.788666ms)
+✔ T-287 TV5 canonical rooted-topology partition covers ancestor, descendant, lateral, and nested paths (0.504417ms)
+✔ T-287 TV5 canonical rooted-topology partition returns its closed refusal family without partial output (0.190958ms)
+{"scope":"D14 predicate equivalence","classes":17,"definitions":93,"comparisons":2380,"cases":140}
+✔ all migrated helper classes preserve erased behavior and side-effect order (34.665417ms)
+✔ different strength and sorting contracts remain visibly different (0.074792ms)
+✔ each migrated declaration retains the exact caller type and refinement (241.66925ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 768.925583

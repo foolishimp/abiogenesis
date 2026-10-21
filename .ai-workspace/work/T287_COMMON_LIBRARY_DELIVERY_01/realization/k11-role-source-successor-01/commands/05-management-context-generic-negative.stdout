@@ -1,0 +1,10 @@
+{"proof":"generic_environment_exact_bytes","sourceUnavailableReplay":true,"nativeRoles":10,"pythonUsed":false}
+✔ generic exact-byte ingress, crossed Public coordinates, source mismatch and source-unavailable evidence replay (16.534917ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 328.540208

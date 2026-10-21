@@ -1,0 +1,9 @@
+{
+  "selectedSupervisedProcessGroups": [
+    11681,
+    12481,
+    12500
+  ],
+  "observedMembersAfterCommandExit": [],
+  "scope": "One read-only ps snapshot of those exact supervision process groups only. No universal descendant-absence claim or new signal/effect; test-owned process cleanup remains its actual recorded scope."
+}

@@ -1,0 +1,25 @@
+✔ shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays (0.378042ms)
+✔ shared canonical traversal preserves captured entries, array length and refusal precedence (4.681708ms)
+✔ incremental canonical hashes preserve independently declared golden bytes and refusal behavior (4.834084ms)
+{"kind":"native_definition_storage_component","logicalEventCount":6,"definitionBytes":145292,"encodedBytes":340434,"rawBytes":667388,"savedBytes":326954,"rawV1V2AndExactLogicalDigests":true,"nativeAdmission":false}
+✔ typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact (254.078083ms)
+✔ native definition references refuse missing, forward, foreign-slot, changed and injected material (149.466791ms)
+✔ native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append (399.912417ms)
+ℹ {"physicalBytes":93629,"expandedBytes":220249,"savedBytes":126620,"logicalEvents":9,"freshProcessReplayEqual":true,"exactColdBodyReuse":["basis-to-basis","result-to-result","result-to-basis"],"deeplyFrozen":true}
+✔ physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences (55.569167ms)
+✔ nearest malformed body references refuse before logical history is exposed (67.156583ms)
+✔ reused cold bodies still require each new envelope identity, stamp, cause and logical digest (53.785292ms)
+✔ independently supplied mutable raw input remains detached at event admission (13.023833ms)
+✔ live body reuse preserves caller isolation, owned prefix and transaction rollback (65.869833ms)
+✔ literal marker-shaped Product data and small duplicate values remain unambiguous (32.187334ms)
+✔ failed durable batch discards new inline sources; committed same-batch references survive reopen (28.42425ms)
+✔ large duplicate Result bodies and complete replay hashing fit a constrained heap (10892.741875ms)
+ℹ {"seed":"portable-synthetic","copies":96,"valueBytes":1381713,"logicalBodyBytes":134026161,"physicalBytes":1730016,"valueDigest":"sha256:4cb713c40d5acf555d8e0c4891f8dd2a31b3cbd9b3b2b121a0bde141c164e4fb","replayDigest":"sha256:a737ffffd7f70d3bcf1145f978391a43f3c7dbbeaf031280a9f9181fe4eaa5fa","completeStateDigest":"sha256:99b855bded2bb1132e8586494b6bad600099881c24b397580d1924d79f5b1112","heapUsed":90150072,"rss":283328512,"maxRSSKiB":335872,"heapLimitMiB":128,"allDistinctAdmissions":true,"callerIsolation":true,"coldReplayEqual":true,"noNativeCredit":true}
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12316.739666

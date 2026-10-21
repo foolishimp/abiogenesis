@@ -1,0 +1,45 @@
+{
+  "status": "stopped",
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/STOP-population.json",
+    "sha256": "3b33170c52bf0a41158637d1aaa4711b95ba1df19d0ff6340dd8ed67de5c9be1",
+    "bytes": 622,
+    "mode": "0o644"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/closed-evidence-portability-02/select-population.py",
+    "sha256": "5a59f5bf6ce3a451f3430c12a566d8df6e517ecc773d4e4a4afc217a191f764a",
+    "bytes": 15244,
+    "mode": "0o644"
+  },
+  "configuration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-02/p1/configuration.json",
+    "sha256": "ce793f6103e91dbd2fde6950043df2072440b277dfa4e0e810cc97b5ca6eb1d6",
+    "bytes": 5333,
+    "mode": "0o644"
+  },
+  "actualConfigurationKeys": [
+    "kind",
+    "status",
+    "activationFile",
+    "method",
+    "retryCount",
+    "cleanup",
+    "subject",
+    "toolchains",
+    "environment",
+    "requiredEvidence",
+    "lanes",
+    "externalConsumer"
+  ],
+  "selectedLanes": [
+    "public-preparation"
+  ],
+  "owningRelation": "Transport reader must respect lane-specific optional metadata. P1 has no native dispatch and does not require a provider coordinate. The failure is in the new reader assumption, not Product, source hash or runtime proof.",
+  "frontier": "During optional tool/provider metadata exclusion collection; before protected-main preflight, package mapping, population-size completion or archive construction.",
+  "priorChecks": "Prior carrier verifier passed from repo/archive bytes; selected frozen-source reader reported no earlier hash/mode/kind failure. Partial selection count is not complete coverage.",
+  "additionalStaticFinding": "Not yet executed: the draft population-freeze loop includes open population.stdout/stderr before its final print. Bind completed immutable plan inputs only in any separately authorized successor; preserve this failed script unchanged.",
+  "repairOrRetry": false,
+  "archivesWritten": 0,
+  "capacityDisposition": "Total future carrier size not yet established; no truncation or archive attempt."
+}

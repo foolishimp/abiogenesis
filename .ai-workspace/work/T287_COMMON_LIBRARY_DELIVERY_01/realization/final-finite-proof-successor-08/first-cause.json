@@ -1,0 +1,84 @@
+{
+  "firstFailedCommand": "native-workspace-physical-regression",
+  "test": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "sha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384"
+  },
+  "actualOracle": {
+    "line": 100,
+    "assertion": "prior C0 observation is current before the native physical effect",
+    "actual": false,
+    "expected": true
+  },
+  "sourceWindow": [
+    {
+      "line": 94,
+      "text": "  for(let i=rows.length-3;i<rows.length;i++) rows[i]=deepFreeze({...rows[i],graphFunctionRef:ids.graphFunctionRef});"
+    },
+    {
+      "line": 95,
+      "text": "  const preparedPrefix=selectValidatedRuntimeEventPrefix(deepFreeze([...rows]));"
+    },
+    {
+      "line": 96,
+      "text": "  assert.ok(projectExactExecutionBasisAtPrefix(preparedPrefix,basisId),'fixture authenticates its exact native task basis before process launch');"
+    },
+    {
+      "line": 97,
+      "text": "  assert.ok(projectExactInvocationAdmissionAtPrefix(preparedPrefix,invRef),'fixture authenticates its controlled invocation/grant before process launch');"
+    },
+    {
+      "line": 98,
+      "text": "  assert.ok(rehydrateAdmittedImplementationSetAtPrefix(preparedPrefix,set.implementationSetRef),'fixture authenticates the implementation set before process launch');"
+    },
+    {
+      "line": 99,
+      "text": "  const beforeCurrentness=deriveRuntimeEventCalculusProjection(preparedPrefix);"
+    },
+    {
+      "line": 100,
+      "text": "  for(const request of requests)assert.equal(holdsAt(beforeCurrentness,constructRuntimeFluent({name:'worksite_observation_current',identity:request.predecessorObservation.observationRef})),true,"
+    },
+    {
+      "line": 101,
+      "text": "    'prior C0 observation is current before the native physical effect');"
+    },
+    {
+      "line": 102,
+      "text": "  const actorPath=resolve(import.meta.dirname,'../../build/code/src/abg/actor_process.js');"
+    },
+    {
+      "line": 103,
+      "text": "  const worker=join(env.scratch,'conflicting-native.mjs');await fs.writeFile(worker,'');await fs.chmod(worker,0o755);"
+    },
+    {
+      "line": 104,
+      "text": "  const transport=await import('../../build/code/src/abg/worker_transport.js');"
+    },
+    {
+      "line": 105,
+      "text": "  let groupConfirmedBeforeConflict=false,currentProfileArtifactHook=false;"
+    },
+    {
+      "line": 106,
+      "text": "  const store={configuredDurableLogPath:()=>null,readAll:()=>deepFreeze([...rows])};"
+    },
+    {
+      "line": 107,
+      "text": "  const prefixAt=()=>deepFreeze({coordinateDigest:digest(String(rows.length)),storeIdentity:{eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST}});"
+    }
+  ],
+  "boundary": "Controlled cold invocation/basis/implementation prechecks pass; beforeCurrentness assertion fails before this test creates the controlled actor script or dispatches its physical effect. No actual post-effect result is established.",
+  "causeStatus": "Exact failed premise localized; fixture or runtime correction requires Executive conjunction. No repair selected or performed.",
+  "successfulEarlierCommands": {
+    "route7": 7,
+    "reopen18Reused": 18,
+    "codec14Reused": 14,
+    "U1Reused": 12,
+    "C18Reused": 18
+  },
+  "unstarted": [
+    "terminal-quiescence7",
+    "D02-preparation-owner-case"
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "matches": [
+    {
+      "kind": "test case",
+      "attempt": "01",
+      "name": "c0Success",
+      "before": "fa965113ec99d385f41e12234a7cd8f7fc8601bfcffbabe62c3a5ac6c2181a60",
+      "after": "fa965113ec99d385f41e12234a7cd8f7fc8601bfcffbabe62c3a5ac6c2181a60",
+      "equal": true
+    },
+    {
+      "kind": "test case",
+      "attempt": "02",
+      "name": "governanceInput",
+      "before": "6152dde0f4b87c873d6b92ae4425e75c75ac1593c2a6acd3911c4778a1293886",
+      "after": "6152dde0f4b87c873d6b92ae4425e75c75ac1593c2a6acd3911c4778a1293886",
+      "equal": true
+    },
+    {
+      "kind": "test case",
+      "attempt": "02",
+      "name": "observedConsumers",
+      "before": "281c8efc09eb577692ba2648d382ca024fdfe7033fd432ad3880726fc34c334b",
+      "after": "281c8efc09eb577692ba2648d382ca024fdfe7033fd432ad3880726fc34c334b",
+      "equal": true
+    },
+    {
+      "kind": "test case",
+      "attempt": "04",
+      "name": "synthesized",
+      "before": "cb257e0b2838475cb1beb7f82ecfa0bba7b0032d17cac80fa90e9bf4cf2532f1",
+      "after": "cb257e0b2838475cb1beb7f82ecfa0bba7b0032d17cac80fa90e9bf4cf2532f1",
+      "equal": true
+    },
+    {
+      "kind": "test case",
+      "attempt": "04",
+      "name": "governanceConsumers",
+      "before": "972dda434aea29b67409e7928d9e5ade1e8918b70f17850f274921e26c367ccc",
+      "after": "972dda434aea29b67409e7928d9e5ade1e8918b70f17850f274921e26c367ccc",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "01",
+      "supportArchive": "failed-01",
+      "name": "componentNativeAssessment",
+      "before": "378ca110f52b0d28a2992a6707265f1a88e60496842b402bebf2956d5d4176b9",
+      "after": "378ca110f52b0d28a2992a6707265f1a88e60496842b402bebf2956d5d4176b9",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "01",
+      "supportArchive": "failed-01",
+      "name": "assertFixtureContract",
+      "before": "f5c4579510189e8a111da19df5e029e08e7ba3f3e6d6374043dba3f15b23d30e",
+      "after": "f5c4579510189e8a111da19df5e029e08e7ba3f3e6d6374043dba3f15b23d30e",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "01",
+      "supportArchive": "failed-01",
+      "name": "createU1Fixture",
+      "before": "1e03379ab1c1f9cd66b2c39ef3ddcbbe5db677dc8e3bf1114a0e3a04338796f0",
+      "after": "1e03379ab1c1f9cd66b2c39ef3ddcbbe5db677dc8e3bf1114a0e3a04338796f0",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "01",
+      "supportArchive": "failed-01",
+      "name": "component",
+      "before": "5623c6657ba4e13ef8bbaad8107aa0a183b6c106f9b09f6db8c717b2bd9933dc",
+      "after": "5623c6657ba4e13ef8bbaad8107aa0a183b6c106f9b09f6db8c717b2bd9933dc",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "01",
+      "supportArchive": "failed-01",
+      "name": "traceInvalidator",
+      "before": "9175243a969f194bbc4020de985f978bfdaca29c62617af416002b2132a8bdb8",
+      "after": "9175243a969f194bbc4020de985f978bfdaca29c62617af416002b2132a8bdb8",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "01",
+      "supportArchive": "failed-01",
+      "name": "admittedResult",
+      "before": "97c346c4508f8f4ca068de362a558433c5464b0e1fc4c7987db2a8b9f5aa8658",
+      "after": "97c346c4508f8f4ca068de362a558433c5464b0e1fc4c7987db2a8b9f5aa8658",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "01",
+      "supportArchive": "failed-01",
+      "name": "admitNativeSource",
+      "before": "eadc6f5912648215f4aa9eb2e9eda9b5de020475285d9d0850851d7f0d071066",
+      "after": "eadc6f5912648215f4aa9eb2e9eda9b5de020475285d9d0850851d7f0d071066",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "02",
+      "supportArchive": "failed-01",
+      "name": "componentNativeAssessment",
+      "before": "378ca110f52b0d28a2992a6707265f1a88e60496842b402bebf2956d5d4176b9",
+      "after": "378ca110f52b0d28a2992a6707265f1a88e60496842b402bebf2956d5d4176b9",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "02",
+      "supportArchive": "failed-01",
+      "name": "assertFixtureContract",
+      "before": "f5c4579510189e8a111da19df5e029e08e7ba3f3e6d6374043dba3f15b23d30e",
+      "after": "f5c4579510189e8a111da19df5e029e08e7ba3f3e6d6374043dba3f15b23d30e",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "02",
+      "supportArchive": "failed-01",
+      "name": "createU1Fixture",
+      "before": "1e03379ab1c1f9cd66b2c39ef3ddcbbe5db677dc8e3bf1114a0e3a04338796f0",
+      "after": "1e03379ab1c1f9cd66b2c39ef3ddcbbe5db677dc8e3bf1114a0e3a04338796f0",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "02",
+      "supportArchive": "failed-01",
+      "name": "component",
+      "before": "5623c6657ba4e13ef8bbaad8107aa0a183b6c106f9b09f6db8c717b2bd9933dc",
+      "after": "5623c6657ba4e13ef8bbaad8107aa0a183b6c106f9b09f6db8c717b2bd9933dc",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "02",
+      "supportArchive": "failed-01",
+      "name": "traceInvalidator",
+      "before": "9175243a969f194bbc4020de985f978bfdaca29c62617af416002b2132a8bdb8",
+      "after": "9175243a969f194bbc4020de985f978bfdaca29c62617af416002b2132a8bdb8",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "02",
+      "supportArchive": "failed-01",
+      "name": "admittedResult",
+      "before": "97c346c4508f8f4ca068de362a558433c5464b0e1fc4c7987db2a8b9f5aa8658",
+      "after": "97c346c4508f8f4ca068de362a558433c5464b0e1fc4c7987db2a8b9f5aa8658",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "02",
+      "supportArchive": "failed-01",
+      "name": "admitNativeSource",
+      "before": "eadc6f5912648215f4aa9eb2e9eda9b5de020475285d9d0850851d7f0d071066",
+      "after": "eadc6f5912648215f4aa9eb2e9eda9b5de020475285d9d0850851d7f0d071066",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "04",
+      "supportArchive": "failed-04",
+      "name": "componentNativeAssessment",
+      "before": "378ca110f52b0d28a2992a6707265f1a88e60496842b402bebf2956d5d4176b9",
+      "after": "378ca110f52b0d28a2992a6707265f1a88e60496842b402bebf2956d5d4176b9",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "04",
+      "supportArchive": "failed-04",
+      "name": "assertFixtureContract",
+      "before": "f5c4579510189e8a111da19df5e029e08e7ba3f3e6d6374043dba3f15b23d30e",
+      "after": "f5c4579510189e8a111da19df5e029e08e7ba3f3e6d6374043dba3f15b23d30e",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "04",
+      "supportArchive": "failed-04",
+      "name": "createU1Fixture",
+      "before": "1e03379ab1c1f9cd66b2c39ef3ddcbbe5db677dc8e3bf1114a0e3a04338796f0",
+      "after": "1e03379ab1c1f9cd66b2c39ef3ddcbbe5db677dc8e3bf1114a0e3a04338796f0",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "04",
+      "supportArchive": "failed-04",
+      "name": "component",
+      "before": "5623c6657ba4e13ef8bbaad8107aa0a183b6c106f9b09f6db8c717b2bd9933dc",
+      "after": "5623c6657ba4e13ef8bbaad8107aa0a183b6c106f9b09f6db8c717b2bd9933dc",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "04",
+      "supportArchive": "failed-04",
+      "name": "traceInvalidator",
+      "before": "9175243a969f194bbc4020de985f978bfdaca29c62617af416002b2132a8bdb8",
+      "after": "9175243a969f194bbc4020de985f978bfdaca29c62617af416002b2132a8bdb8",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "04",
+      "supportArchive": "failed-04",
+      "name": "admittedResult",
+      "before": "97c346c4508f8f4ca068de362a558433c5464b0e1fc4c7987db2a8b9f5aa8658",
+      "after": "97c346c4508f8f4ca068de362a558433c5464b0e1fc4c7987db2a8b9f5aa8658",
+      "equal": true
+    },
+    {
+      "kind": "called support owner",
+      "attempt": "04",
+      "supportArchive": "failed-04",
+      "name": "admitNativeSource",
+      "before": "eadc6f5912648215f4aa9eb2e9eda9b5de020475285d9d0850851d7f0d071066",
+      "after": "eadc6f5912648215f4aa9eb2e9eda9b5de020475285d9d0850851d7f0d071066",
+      "equal": true
+    }
+  ],
+  "all_equal": true,
+  "support02": "execution-inputs-02 binds unchanged support SHA52d191; exact bytes retained in failed-01, no separate failed-02 support copy",
+  "limit": "Exact case and called support bodies plus compiled-owner inventories match. Whole module diagnostics/import and unused semantic branch changed; historical evidence retains original whole-file hashes. No new execution credit is inferred."
+}

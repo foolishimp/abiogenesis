@@ -1,0 +1,32 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "configurationSha256": "73128133f28a625f0a59a83d10cb2f007b9d86b88305820d785e4cd85b236bb5",
+  "runnerSha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "subjectId": "baseline",
+  "lanes": [
+    "declared-execution"
+  ],
+  "maxNativePositiveCalls": 0,
+  "resources": {
+    "declared-execution": {
+      "evidence": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence",
+      "host": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host",
+      "scratchParent": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent",
+      "worksite": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/worksite"
+    }
+  },
+  "issuedBy": "/root",
+  "requiredEvidence": {
+    "activation": "L4-P3-BASELINE-01",
+    "prerequisitesSha256": "0b5c0772ac9e323a410dec04d8de0cc1866f66aadd794ac68daabd7d31c5cb02",
+    "outputCorrespondenceSha256": "b57007de228dc5d18f0749ee4b4be9db5ab26f272086594965f2ed1aead0384b"
+  },
+  "frozenArtifactRoute": {
+    "ABI5_WAVE1_FROZEN_ARTIFACT_PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "ABI5_WAVE1_FROZEN_INSTALL_HOST": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host",
+    "ABI5_WAVE1_FROZEN_ARTIFACT_SHA256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+  },
+  "resourceNote": "Frozen helper creates its actual worksite inside new scratchParent. Reserved worksite sibling may remain absent; no older root is acquired."
+}

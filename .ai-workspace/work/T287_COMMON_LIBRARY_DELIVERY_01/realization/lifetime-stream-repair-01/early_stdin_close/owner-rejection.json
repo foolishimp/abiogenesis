@@ -1,0 +1,1 @@
+{"name":"Error","code":"EPIPE","errno":-32,"syscall":"write","message":"write EPIPE","stack":"Error: write EPIPE\n    at WriteWrap.onWriteComplete [as oncomplete] (node:internal/stream_base_commons:87:19)"}

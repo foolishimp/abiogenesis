@@ -1,0 +1,388 @@
+{
+  "kind": "executive_disposition_record_manifest",
+  "activation": "FINAL-REVIEW-DISPOSITION-RECORDS-01",
+  "administrative_successor": "N3-IMPORTER-ACCOUNTING-01",
+  "writer": "/root/stdo3_c0_currentness_writer",
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/E03-public-summary.md",
+      "sha256": "be190aa74111731f208e36ec674c9cffca033ee9f4b80106bdd75883fa4fccb9",
+      "bytes": 4908
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/K11-public-summary.md",
+      "sha256": "c477a219a2ed26cfa13528954edf034814abff9aeec30538bcf9e0a79be9e5ca",
+      "bytes": 3568
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/N3-preflight-01-failure.md",
+      "sha256": "ca8143c5b69aa3b76bc0b148f4b25d535d78205084cd43faf08122274efe39a3",
+      "bytes": 3242
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/N3-source-relations-credited.json",
+      "sha256": "33147d9420d4321bfa8569bbd911748b237e3aea1fddb2fb31ebf9621c421d74",
+      "bytes": 2715
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/N3-successor-inputs.json",
+      "sha256": "e0ca4e048be48ee8df53d13e92c796046fe66a172866b3494a0dcc5609cd709a",
+      "bytes": 577
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/N3-successor-receipt.json",
+      "sha256": "4939ef34f147996e6315571e7b15455df39924580a158fabb807152c028d7ad0",
+      "bytes": 853
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/N3-successor.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/N3-successor.stdout",
+      "sha256": "bb90ab00389730e7ff548dadd13291f64a49ef3c365eb132239bf84ca1613b5c",
+      "bytes": 182
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md",
+      "sha256": "bff85b8b734450a300a99b5ffb31eb7ab507a2015c6fcec09096f527693e4141",
+      "bytes": 5489
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/U1-public-summary.md",
+      "sha256": "3dfd24434761837e61c94e864ddbdae0978edcf6b19f747b27d3be9889bd543f",
+      "bytes": 4365
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "bytes": 26888
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/freeze.json",
+      "sha256": "ca36254cec018a529ee2f92bfba29111eab93d9035e99a0787c000dcf66ef8eb",
+      "bytes": 8739
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/report.md",
+      "sha256": "1ad7f5f1e0c74975827b2c5a075773a765dd17a027224a15b70923949293a85b",
+      "bytes": 8306
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/capsule-proposed.md",
+      "sha256": "c679ef079d162556b178f30c087d93ff336e804f18b2cc6bdaf613c625e47be8",
+      "bytes": 6674
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/freeze.json",
+      "sha256": "64d87528d6c547c33c27a5620ab00234e21a552628a7e4af6a86773fab667449",
+      "bytes": 18391
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/report.md",
+      "sha256": "4c855d242fe44f88ddf3c1bf0fdeb6566100e7eca54d9375d001bd2ec9b3c1ea",
+      "bytes": 8535
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/result.json",
+      "sha256": "037388530700d481929d8715ab02d6b82651b1d0b4f944d02940200bc8612dc1",
+      "bytes": 14690
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/freeze.json",
+      "sha256": "a1fe796ac076672cc2b8835f66b68c007ee1a41c374a62a6455ab75975ad446d",
+      "bytes": 20568
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/report.md",
+      "sha256": "b6f06cc1bc86b287a6c953bd8de03138e8538287eadbd5d0ddfe7f532125fd70",
+      "bytes": 8762
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-review-triage-01/R1-identity-trace.md",
+      "sha256": "ef0a66d7f4f77458bae685913b2a69a3b3b108ebae85217a1b7088ec5fa0ebe1",
+      "bytes": 5725
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/freeze.json",
+      "sha256": "8668dfa9ddbfb2fcfa860659e383e0527b009afb532e385e876384eba5b1b155",
+      "bytes": 31209
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json",
+      "sha256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a",
+      "bytes": 6111
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/report.md",
+      "sha256": "6286e62eedc651f85609caba7498fb214086e0cb6235a279761aa608e98130ad",
+      "bytes": 9737
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/AGENTS.md",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "bytes": 11923
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "sha256": "83cc117f82f4c7467871024941fe1bc99d4d554aa0095ed7be4a8003bb5c8f07",
+      "bytes": 79887
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "082f97897e776a41f44d259faffbedb3c682e6dcce72a4a75fa7db69810707bb",
+      "bytes": 88506
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "e9db3340e5c3fa72d9e715594a69ad939385eac9a46a1efdb2f223089282c026",
+      "bytes": 118854
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "sha256": "e5847b76b08c0f3ac77d40b5ef8243bbe03df42eff5b36e5d7120ddfa8fafa68",
+      "bytes": 11020
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "sha256": "bec0264685b959619fbffbec3dc28adbf98976169669e5f63334b04e6bf9d3fa",
+      "bytes": 20558
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "sha256": "3cdd78601462643b44c30c521f732132b33d2790e994861398c20ca2aece13bd",
+      "bytes": 39809
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "sha256": "91fa46843154ffc6010812e029e9bd86033c195415af9eb44c42348a22d51913",
+      "bytes": 25582
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "sha256": "6b73778a52dfd32bf357f7c902798dee3c40ce4bff37c78607492cbf7d7decf5",
+      "bytes": 21207
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "sha256": "9703f5ded2ee7fec0f1f247388a3364d0a2905d51ce0667946e7a0bb8e1ad75d",
+      "bytes": 93617
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "sha256": "eb27713ba7e25b865f7fb9c42bc088237c7c3dc79abfe3948f4d80c20428a761",
+      "bytes": 48762
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/shared/immutable.ts",
+      "sha256": "885479ead07f861a48ea8535fc47d7957b08284fe0f68be81307746daf993d69",
+      "bytes": 949
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+      "bytes": 12633
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+      "bytes": 63515
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2",
+      "bytes": 9845
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "a0247ed1f3d41bc2ba93e8689e7a37906344fa5aea1cb78241633b4720ebe46c",
+      "bytes": 98519
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "sha256": "e45af06ccbf8ef80dda57277b99a849961ac9713641ebdc31a8a5f1a292b6cfa",
+      "bytes": 14629
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/specification/GOALS.md",
+      "sha256": "6b0830c2e21a7337ada78569fa9d1f2df50c9b432916eaf3cb296d89dbdf6f89",
+      "bytes": 78328
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "bytes": 97498
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md",
+      "sha256": "5ff1c91698d5ba71f81bada072ecdc008cf1ef74e216af3b15126e56c7d666b1",
+      "bytes": 13365
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+      "bytes": 10959
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "sha256": "c58539026886596543c3ec6c2e6fd010f1220c6031bb68df8fff22e1e6ed50c6",
+      "bytes": 2952
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "sha256": "bdc3f6b3a30813c85eb48603ada692cff34222e67debd2413560aaa39a1af8c4",
+      "bytes": 4522
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/specification/requirements/product/REQ-P-CATALOG.md",
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
+      "bytes": 13757
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/acquired/stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/activation.md",
+      "sha256": "45df7bdf43be9e671edb593712218409d1f2cf0d66ad7897aff3800cd4e83d0f",
+      "bytes": 3314
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/administrative-note.json",
+      "sha256": "a9f1af3317f4fffcbaa59903f49a7e9ee82c53a2103277c6b8d5c87ba7ac1f39",
+      "bytes": 509
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/capsules.md",
+      "sha256": "ca4e1b10dbc83983f335f29b6f76a3cf6422eebdfacffc7a448ec7b4f704c2b6",
+      "bytes": 15378
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/content-checks.json",
+      "sha256": "33f093bc9433a4f5b0bad1320a9f22e2a042ca22ccf2b54307d16ebf2fd63022",
+      "bytes": 2131
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/final-checks.json",
+      "sha256": "3df130d402f50b90165072eca33960a68e51dc45a84fdf5d8c0daa2d8b9e7e8c",
+      "bytes": 34313
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/links-credited-preflight.json",
+      "sha256": "56a80ec3778ce36e5cfb02e989a115b717946026cc9de7b76f36220ce606d859",
+      "bytes": 34691
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/links-preflight.json",
+      "sha256": "23443bc3625b6993ceba5d614b45eaab0a5c3f317b7eaf0fa51740fa5ce9c7c5",
+      "bytes": 34152
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/main-generated-before.json",
+      "sha256": "8838a89cc91b09a64e587294c7ce8c206d26543c099409503bb15e97a0828677",
+      "bytes": 196721
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/method-sources.json",
+      "sha256": "512be1840e8de4eef533c55cf08e2d966da736a2ec04c587802b1a83a69e911e",
+      "bytes": 1069
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/pending-obligations.md",
+      "sha256": "f986d743add28c68893cbcc5f83147d0df249e35b2bb91e20d87fd1e377eb605",
+      "bytes": 4912
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/protected-before.json",
+      "sha256": "e70b528d0b5dd440c8ea9a2990f29cdb638b5c70a6668029a5e9c6fff7de012d",
+      "bytes": 266463
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/report.md",
+      "sha256": "ed79b27e0a79a236b17b8d302460a7288bfe3d2164325a30776d30d150d010c7",
+      "bytes": 3519
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/review-metadata.json",
+      "sha256": "06666685f4fcd974781e9f3cc61a01c804b80ba11c56268117d6981b6c5d91de",
+      "bytes": 1398
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/source-basis.json",
+      "sha256": "17f1acf8d240fcf7c7549224b620888ef4331feb9534bdfca2705e8c3106986c",
+      "bytes": 15603
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/source-relations.json",
+      "sha256": "217baab96422f6193a1741ad4624e523b0f6e892b8104a98dfbd4bf253510057",
+      "bytes": 5389
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/stdo-status.json",
+      "sha256": "be61c6fb497f70f5347fae578d95b10ccb61e0b1b99dc28f8ae42f61b3bb877e",
+      "bytes": 10805
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-addition.md",
+      "sha256": "45850323b5ea3d8e457d13c898febc22ac1c92c802292baa373ad3de3555a7dc",
+      "bytes": 5220
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-afterimage.md",
+      "sha256": "819c13cda5dff90c79e9fb73f9951bbcd7cbaf4fba28ed2e143ffab90d9b9a45",
+      "bytes": 538569
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-preimage.md",
+      "sha256": "4a6bd62f5ef62b901369dcd22094fb0cf85e0f67d2f13f7a167908c987f1a79e",
+      "bytes": 533349
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/ticket-transition.json",
+      "sha256": "94b3c0aa30d5487b3946dec147198e19557899eb84b340e6129ac3f5b1f09aa0",
+      "bytes": 1005
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/verify-n3-successor.py",
+      "sha256": "5bb9ceef7f0eeaacb82ee4ff145e8bf18cf4e0b4eff4db939344668dd99fdf03",
+      "bytes": 4226
+    }
+  ],
+  "record_count": 70,
+  "ticket_transition": {
+    "activation": "FINAL-REVIEW-DISPOSITION-RECORDS-01",
+    "administrative_successor": "N3-IMPORTER-ACCOUNTING-01",
+    "at": "2026-10-21T03:24:36.048552+00:00",
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "kind": "bounded_additive_append",
+    "preimage": {
+      "path": "ticket-preimage.md",
+      "sha256": "4a6bd62f5ef62b901369dcd22094fb0cf85e0f67d2f13f7a167908c987f1a79e",
+      "bytes": 533349
+    },
+    "addition": {
+      "path": "ticket-addition.md",
+      "sha256": "45850323b5ea3d8e457d13c898febc22ac1c92c802292baa373ad3de3555a7dc",
+      "bytes": 5220
+    },
+    "afterimage": {
+      "path": "ticket-afterimage.md",
+      "sha256": "819c13cda5dff90c79e9fb73f9951bbcd7cbaf4fba28ed2e143ffab90d9b9a45",
+      "bytes": 538569
+    },
+    "exact_preimage_prefix_preserved": true,
+    "after_equals_preimage_plus_addition": true,
+    "section_anchor": "final-review-dispositions-01",
+    "section_start_line": 5045,
+    "later_ticket_updates_expected": true,
+    "whole_worktree_frozen": false
+  },
+  "scope": "New carrier and one exact additive ticket transition; later ticket updates expected; no whole-worktree claim"
+}

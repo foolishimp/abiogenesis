@@ -1,0 +1,207 @@
+{
+  "sourceEntriesUnchanged": 1320,
+  "sourceUnionManifest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source-union-manifest.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 402678,
+    "sha256": "be5cc153e4ff8bf21c546274f702afd46fa778174a1104a77c950d8bede9ac64"
+  },
+  "stageEntriesExactlyEqualPostGeneration": 6642,
+  "stageInventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage-post-generation-inventory.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1784312,
+    "sha256": "a6fdca675129edecae7ee049c5a37440d6b21ca52af79938fdc1cf91b69c0e03"
+  },
+  "independentDependencyEntriesUnchanged": 4576,
+  "noSharedDependencyInodes": true,
+  "dependencyRelativeLinksConfined": true,
+  "dependencyInventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/dependency-inventory.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1006382,
+    "sha256": "97e7666199c6fb3c3ceda39f1e0b4ff0bf952a3631ae8f2c58402d36f49029e5"
+  },
+  "mainGeneratedEntriesUnchanged": 936,
+  "mainInputEntriesUnchanged": 1320,
+  "mainGeneratedCapture": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-generated.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 248218,
+    "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96"
+  },
+  "mainInputCapture": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-inputs.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 353609,
+    "sha256": "d5ecf2114370be271f70eaa13fe671bd11a6c0d3c6dfd6d08ed57dc889d3e1d3"
+  },
+  "priorCutEntriesUnchanged": 87344,
+  "priorRoots": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01",
+      "entries": 8012,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness",
+      "entries": 6681,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers",
+      "entries": 6698,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01",
+      "entries": 100,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01",
+      "entries": 6779,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01",
+      "entries": 19,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-candidate-01",
+      "entries": 17,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01",
+      "entries": 30,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-successor-01",
+      "entries": 24,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime",
+      "entries": 24077,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-review-triage-01",
+      "entries": 48,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01",
+      "entries": 6817,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01",
+      "entries": 6674,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01",
+      "entries": 58,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof",
+      "entries": 19,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure",
+      "entries": 6693,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-currentness",
+      "entries": 1,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-cross-binding-triage-01",
+      "entries": 29,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01",
+      "entries": 6599,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline",
+      "entries": 1312,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build",
+      "entries": 6629,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation",
+      "entries": 28,
+      "exactFileSetBytesModesTargetsUnchanged": true
+    }
+  ],
+  "separatelyClosedConcurrentPreparation": {
+    "territory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01",
+    "freeze": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 8903,
+      "sha256": "e7bf015a4cc2bf9246d2aedd9800a8b0c41aef5255b5b30fdfd78a69627b12aa"
+    },
+    "boundRecordsVerified": 29,
+    "closedFilesVerified": 30,
+    "historicalSnapshotIsNotAnImmutablePriorCut": true,
+    "observedDelta": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/concurrent-preparation-delta.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5724,
+      "sha256": "15383a2c625bcbc87eff01d78485dc75e24a5f3747313025b2703154b758f7f1"
+    }
+  },
+  "classificationCorrection": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/preservation-reentry.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 3307,
+    "sha256": "6d58672f14716eb0a6ff093c9f57631fdca4ab99da6f1a2e1485934ebd7632a3"
+  },
+  "originalFinalizationFailure": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/first-cause.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 1044,
+    "sha256": "8eff9b83a8060a46b8d02897864868d293478a67e483b1336189d30e177c1276"
+  },
+  "priorCapture": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-prior-trees.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 30784727,
+    "sha256": "0c78390eaf136e8d24804d56474d3b31203a066c5fb51feaf7bc931407ea98d9"
+  },
+  "prebuildInputsUnchanged": true,
+  "allOtherSourceInputsUnchanged": true,
+  "exactAuthorizedDerivedSourcePaths": [
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json"
+  ],
+  "archiveUnchanged": true,
+  "toolchainUnchanged": true,
+  "effectBoundary": "All writes by this activation are confined to combined-final-01; prior captures verify their exact selected physical territories"
+}

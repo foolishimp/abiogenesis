@@ -1,0 +1,49 @@
+{
+  "status": "verified",
+  "baselineP1FreezeSha256": "5af8841ae028de12ec51f6e02402ebbe1f53fdc4b1b45e388ef3127857e8a816",
+  "baselineP1Result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/result.json",
+    "sha256": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+    "status": "satisfied",
+    "subjectId": "baseline"
+  },
+  "baselineInventories": [
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source-manifest.json",
+        "sha256": "4f4fa05d92e306327f921dcaa6e14f81d851a84d8727b9c3fc391a30e66f37d9",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build"
+      },
+      "entries": 1311,
+      "allMatched": true
+    },
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-generated-inventory.json",
+        "sha256": "92f861c654cd96e2578c00d5d588047d72caf6ccea85a4794f79942645c467f2",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+      },
+      "entries": 936,
+      "allMatched": true
+    },
+    {
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-01/baseline-dependency-inventory.json",
+        "sha256": "22b00870648c52acf9941cf67993c2c98a42b81ac4339d7e68ccf587e071782f",
+        "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript"
+      },
+      "entries": 4576,
+      "allMatched": true
+    }
+  ],
+  "immutableBaselineSourceEntriesVerified": 1311,
+  "protectedMainRowsVerified": 936,
+  "closedP1RecordsPreserved": 18,
+  "newRootsAbsent": {
+    "evidence": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/evidence",
+    "host": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/host",
+    "scratchParent": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/scratchParent",
+    "worksite": "/private/tmp/abg-stdo3-l4-cb3836ff7660492d/baseline-p3/worksite"
+  },
+  "oldP1RuntimeAcquired": false
+}

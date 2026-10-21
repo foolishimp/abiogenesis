@@ -1,0 +1,41 @@
+{
+  "launch": {
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "args": [
+      "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "install",
+      "--bin-links=false",
+      "--offline",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund",
+      "--package-lock=true",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    ],
+    "cwd": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/host",
+    "timeoutMs": 120000,
+    "terminationGraceMs": 1000,
+    "lifetimeModule": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/build/code/src/shared/owned_process_lifetime.js"
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "TMPDIR": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/scratch",
+    "NODE_OPTIONS": "",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false",
+    "npm_config_update_notifier": "false",
+    "npm_config_cache": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/cache",
+    "npm_config_logs_dir": "/private/tmp/abg-stdo3-p5-04-7ca935e280b14df6/npm-logs",
+    "npm_config_userconfig": "/dev/null",
+    "npm_config_globalconfig": "/dev/null",
+    "ABG_T287_C2_PROOF_CONFIG": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/configuration.json"
+  },
+  "startedAt": "2026-10-21T06:48:27.403Z",
+  "supervisorPid": 13241,
+  "configurationPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/configuration.json",
+  "detached": true
+}

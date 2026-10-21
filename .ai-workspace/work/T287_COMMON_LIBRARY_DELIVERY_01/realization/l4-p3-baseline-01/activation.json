@@ -1,0 +1,44 @@
+{
+  "id": "L4-P3-BASELINE-01",
+  "writer": "/root/stdo3_proof_writer",
+  "issuedBy": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodFrame": "stdo://releases/v3.0.0-rc.1/standards/ASSURANCE.md#end-to-end-frame",
+  "additionalFrames": [
+    "Proof",
+    "Identity",
+    "Install"
+  ],
+  "utc": "2026-10-21T00:28:24.130030+00:00",
+  "basisPins": {
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/freeze.json": "5af8841ae028de12ec51f6e02402ebbe1f53fdc4b1b45e388ef3127857e8a816",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/result.json": "8951d0aff6ee82866112970194ed4ff21c9d9a4e9d8d065a0fdd1fc059e34ce2",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p1-baseline-01/configuration.json": "ced6277452bf1d58f0339505e74419089fb7ce4618777258e7338bbdca24a766",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/oracle.mjs": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/L2-report.md": "7beb5ee434076ed1e9e89759f4c237264318fbdb7c479f241a4893e41c337487"
+  },
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "fixedProduct": "GTL sole Program; external language-smoke producer owns callable semantics; one declared F_D Public start; sole ABG events and fresh reads; no built-in Hello or native actor",
+  "permittedEffects": "Only declared-execution lane, fresh baseline-p3 resources, offline exact ABI bootstrap, separate language fixture package setup through frozen support, one F_D start, fresh CLI run_result/run_replay, retained evidence and measurements",
+  "maxNativePositiveCalls": 0,
+  "prohibited": [
+    "other lanes",
+    "source/package production edits",
+    "ABI rebuild or fallback",
+    "main build",
+    "Git",
+    "native provider",
+    "old P1 runtime acquisition",
+    "historical runtime operation",
+    "cleanup",
+    "retry"
+  ],
+  "stop": "first genuine seam, identity drift or unconfirmed process completion; retain exact cause/prefix/residue",
+  "independence": "bounded actual execution witness; no L5 semantic acceptance"
+}

@@ -1,0 +1,25 @@
+{
+  "status": "NOT_GRANTED",
+  "evidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/offline-closure.json",
+    "sha256": "a610d875df5dc3970c319d2151bba4481173640afbe2bdacf02dc598f7eaad7d",
+    "bytes": 5419,
+    "mode": "0o644"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+    "bytes": 10681835,
+    "mode": "0o644"
+  },
+  "membership": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/archive-members.json",
+    "sha256": "07c635357d00450f1ae3888907cfee3f3ab399c1c621898065de7de65e2b3034",
+    "bytes": 1262495,
+    "mode": "0o644"
+  },
+  "packageLockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+  "seedSelected": false,
+  "cacheAllocated": false,
+  "networkFallback": false
+}

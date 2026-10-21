@@ -1,0 +1,137 @@
+{
+  "frozenFiniteMap": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/coverage.json",
+    "sha256": "ab72f3eea10eb18c0c544c5b4e67c18c9142aa16dc3f4245c69f5f78c84f6ee2"
+  },
+  "casePartitions": [
+    "V1",
+    "V2",
+    "V3",
+    "V4",
+    "V5",
+    "V6-K11",
+    "V6-K12",
+    "V7",
+    "P5-E03-worker_transport.runProcess",
+    "P5-E03-installed worksite command",
+    "P5-E03-installed HTTP probe",
+    "P5-R-L2-001",
+    "P5-Windows",
+    "P5-U1-authentication",
+    "P5-U1-population"
+  ],
+  "closedLocalInputs": {
+    "pure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/freeze.json",
+      "sha256": "ce01cdb084f5b0c3827ac9cce481d12e63193a24a1467c9409c9be9a768acca4",
+      "claim": "closed local construction evidence only; conjoin per-case only on exact supporting bytes"
+    },
+    "currentness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/freeze.json",
+      "sha256": "433107b89d8eb01cc5a67ad6c8543e18d37575d5f89ba490c3795108955e788d",
+      "claim": "closed local construction evidence only; conjoin per-case only on exact supporting bytes"
+    },
+    "lifetime": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime/freeze.json",
+      "sha256": "5c7311ac1041a0ba766c89fc18c315cd3277ea3ebc2425a40e7ffff896764c4c",
+      "claim": "closed local construction evidence only; conjoin per-case only on exact supporting bytes"
+    }
+  },
+  "testSourceCorrespondence": [
+    {
+      "path": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "candidateSha256": "eea1089a08001120f8d71d5ad0c487d1914473c2404893d0c9448f8833a929b6",
+      "priorTestSha256": "eea1089a08001120f8d71d5ad0c487d1914473c2404893d0c9448f8833a929b6",
+      "sameTestBytes": true,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    },
+    {
+      "path": "test_env/tests/t287-static-declaration-closure.test.mjs",
+      "candidateSha256": "9253df5cf9182acb19f8fce99b95d4e05f1d482fbdce385001ae304bbf377ef4",
+      "priorTestSha256": "9253df5cf9182acb19f8fce99b95d4e05f1d482fbdce385001ae304bbf377ef4",
+      "sameTestBytes": true,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    },
+    {
+      "path": "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+      "candidateSha256": "28105f9e1073609907ed984664551723c0d40fe024bef74bc29fb1c1e62050a2",
+      "priorTestSha256": "28105f9e1073609907ed984664551723c0d40fe024bef74bc29fb1c1e62050a2",
+      "sameTestBytes": true,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    },
+    {
+      "path": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "candidateSha256": "729625109b9f6160c80b933618fd67ffe407aa3b8808a94e9f54de8c7ebf76bc",
+      "priorTestSha256": "729625109b9f6160c80b933618fd67ffe407aa3b8808a94e9f54de8c7ebf76bc",
+      "sameTestBytes": true,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    },
+    {
+      "path": "test_env/tests/t287-event-body-encoding.test.mjs",
+      "candidateSha256": "151a764429dc5f57abaf894d74e8abe0ac206af8807922ab549be6df83a2d6fc",
+      "priorTestSha256": "151a764429dc5f57abaf894d74e8abe0ac206af8807922ab549be6df83a2d6fc",
+      "sameTestBytes": true,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    },
+    {
+      "path": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "candidateSha256": "524c4e603099fd0532acfa99cd1059beeb8228d9fc2591c2bc87e8158958d68e",
+      "priorTestSha256": "524c4e603099fd0532acfa99cd1059beeb8228d9fc2591c2bc87e8158958d68e",
+      "sameTestBytes": true,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    },
+    {
+      "path": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "candidateSha256": "6c381a883f4b57bc5a66f5fa88cfca0acc88d703d9ffca47b455e3b185eb08fd",
+      "priorTestSha256": "6c381a883f4b57bc5a66f5fa88cfca0acc88d703d9ffca47b455e3b185eb08fd",
+      "sameTestBytes": true,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    },
+    {
+      "path": "test_env/tests/m5-worker-transport.test.mjs",
+      "candidateSha256": "19cb0f8dc20501d40acf1df02044350d476518cfc38eaa71d748681c429c35de",
+      "priorTestSha256": "68f87f608b0086891127dc6640280e95b7da3cc2b06a51a1e9af9cb489be0543",
+      "sameTestBytes": false,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    },
+    {
+      "path": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "candidateSha256": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384",
+      "priorTestSha256": "49294a67008612a1000853293dec3c17d9f17e56ecb0f4771063aa9a9763a391",
+      "sameTestBytes": false,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    },
+    {
+      "path": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "candidateSha256": "011e3fbae5975cd8ffcfd79182e55a5830019a66e2b1aa406bbcca4ff9ba4279",
+      "priorTestSha256": "d6090750306ce5a58d1071a14cee7deb11616446ab635684924c8d3e7fa7f1a6",
+      "sameTestBytes": false,
+      "actualCombinedExecution": "not performed",
+      "evidenceRule": "same test bytes alone do not establish unchanged source/import/runtime support or case closure"
+    }
+  ],
+  "selectedOwningTestsStillNeedActualEvidence": [
+    "test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test_env/tests/t287-route-reconstruction.test.mjs",
+    "test_env/tests/m5-event-store-reopen.test.mjs"
+  ],
+  "requiredAction": "Executive selects exact remaining owning cases under subsequent L4 grant or admits sufficient exact unchanged-support receipts. Do not broadly repeat already sufficient local cases.",
+  "P5Residuals": [
+    "actual admitted C0 c_call_evidenced successor followed by uncertainty",
+    "actual downstream currentness consumers beyond C2/shared invalidator",
+    "installed command and HTTP physical participant boundary claims separately from local fixtures"
+  ],
+  "measurementResidual": "unobserved internal V7 work/byte/phase counters remain open; no invented phase split or speed claim",
+  "newU1ConsumerProof": "in progress in another bounded activation; excluded from this combined source/package subject",
+  "newTestsRun": 0,
+  "sameFamilyIndependence": "separate same-family contexts do not by default satisfy STDO EVALUATION section 3 semantic independence; no L5 claim"
+}

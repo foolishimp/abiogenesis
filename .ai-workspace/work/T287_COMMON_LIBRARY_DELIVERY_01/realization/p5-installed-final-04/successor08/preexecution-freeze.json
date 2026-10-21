@@ -1,0 +1,136 @@
+{
+  "activation": "P5-INSTALLED-C2-SUCCESSOR-08",
+  "frozenAt": "2026-10-21T08:23:34.792012+00:00",
+  "files": [
+    {
+      "path": "HOW-before-effects.md",
+      "bytes": 3824,
+      "sha256": "3a07c9dce5ae67e58afa0b371267e6ad3fa85e08456ea3ab9ec97af1a7227220"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 2219,
+      "sha256": "f02edb1ac3d4848d0cff731ea3448478c5121cc1d4d54faba2fbbf4ca02e146f"
+    },
+    {
+      "path": "binding-preflight.json",
+      "bytes": 10013,
+      "sha256": "349e76e9876720c988a92079335612ace27178f1b4aed0080c11cc0be50945bc"
+    },
+    {
+      "path": "capture-cut.py",
+      "bytes": 4380,
+      "sha256": "45a5ac43075565cda59d7b7c7d066860f28e662bce9ede04305c1a400c9673d5"
+    },
+    {
+      "path": "configuration.json",
+      "bytes": 1293,
+      "sha256": "50547c0157cab6914247bddd2b3a6fd331d4b8e4b0e8817555deae1fb1fcb2b4"
+    },
+    {
+      "path": "environment.json",
+      "bytes": 1101,
+      "sha256": "3ba7ad2c48fe4fe992fa4aa6337193f1bd2613881161e6018d3200baf6dd67ab"
+    },
+    {
+      "path": "launches.json",
+      "bytes": 1589,
+      "sha256": "aa4b571665216e44cba1bd2fb2a2f886122bca87489c2ac4795cf1144bd48b1d"
+    },
+    {
+      "path": "mode-relation-pins.json",
+      "bytes": 1788,
+      "sha256": "96a98d4e2a509e3a4a78a87fe94aadc96e5e090195543af2d78ed6b2cb59d7e5"
+    },
+    {
+      "path": "npm-global.rc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "npm-user.rc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "owned-output.json",
+      "bytes": 322,
+      "sha256": "b7ca2b081e6915cd337af4aca58bec841647717e34620fa012df8764534e5532"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/package-lock.json",
+      "bytes": 8001,
+      "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 9744,
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3189620,
+      "sha256": "51de2eb3af366ce1089f074d56258312620266f67759344acc549966447c6a84"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "bytes": 2282,
+      "sha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 521,
+      "sha256": "359a6a21bd40382ac1ae71dfa235a74ebf2a2389375fc548e685ee22cfbbde5e"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/installed-public-definition-call.mjs",
+      "bytes": 99,
+      "sha256": "e17e8fe15cc061708ae0a69520e5b46195549762f9ca2c7f8ed2f2d086cea633"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 40077,
+      "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e"
+    },
+    {
+      "path": "proof/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "bytes": 56673,
+      "sha256": "8005d9b488b86deae56758b9241d0226a634207c7996ed24d146bfd53095cc75"
+    },
+    {
+      "path": "proof-copy-inventory.json",
+      "bytes": 9954,
+      "sha256": "27b5810fd133d1e12118b1590d7258ffc082dec4a5876e392717a1f31bb7ae33"
+    },
+    {
+      "path": "run-host.mjs",
+      "bytes": 5799,
+      "sha256": "cc5b9eb731600e7cc69b667ef2159852611e70f3c1f49004f45776ff61d96a20"
+    },
+    {
+      "path": "verify-host.py",
+      "bytes": 2556,
+      "sha256": "d89d61522174b3d25a1876362287caaa1af842436c0c40a337276b1ec18f0a88"
+    }
+  ]
+}

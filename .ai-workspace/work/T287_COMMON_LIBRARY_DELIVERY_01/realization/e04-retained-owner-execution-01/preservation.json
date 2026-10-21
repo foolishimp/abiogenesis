@@ -1,0 +1,49 @@
+{
+  "kind": "E04_post_execution_preservation",
+  "checks": [
+    {
+      "label": "closed preparation",
+      "rows": 74,
+      "mismatches": []
+    },
+    {
+      "label": "E03 closed records",
+      "rows": 183,
+      "mismatches": []
+    },
+    {
+      "label": "E03 frozen outputs",
+      "rows": 4,
+      "mismatches": []
+    },
+    {
+      "label": "E03 source inventory",
+      "rows": 1946,
+      "mismatches": []
+    },
+    {
+      "label": "E03 emitted inventory",
+      "rows": 743,
+      "mismatches": []
+    },
+    {
+      "label": "E03 dependencies",
+      "rows": 4576,
+      "mismatches": []
+    },
+    {
+      "label": "main936",
+      "rows": 936,
+      "mismatches": []
+    },
+    {
+      "label": "execution frozen inputs",
+      "rows": 8,
+      "mismatches": []
+    }
+  ],
+  "mainMemberCount": 936,
+  "mainMemberDifference": [],
+  "failures": [],
+  "scope": "Only named frozen subjects and main generated 936; no claim about concurrent moving source tree."
+}

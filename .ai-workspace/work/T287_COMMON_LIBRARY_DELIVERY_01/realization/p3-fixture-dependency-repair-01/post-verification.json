@@ -1,0 +1,27 @@
+{
+  "status": "matched",
+  "stageEntries": 6629,
+  "stageSourceRows": 1311,
+  "stageGeneratedRows": 936,
+  "stageDependencyRows": 4576,
+  "onlySourceChanges": [
+    "test_env/support/root-installed-environment.mjs",
+    "test_env/support/language-smoke-fixture.mjs",
+    "test_env/support/root-cli-environment.mjs"
+  ],
+  "baselineOriginalInputsPreserved": true,
+  "baselineArchiveAndGeneratedBytesPreserved": true,
+  "protectedMainRowsVerified": 936,
+  "originalP3FailureRecordsVerified": 29,
+  "originalP3PhysicalResidueFilesVerified": 11153,
+  "mainSupportOutputsMatchFrozenStage": true,
+  "preflightFrozenInputsPreserved": true,
+  "newRuntimeRootsAbsent": {
+    "evidence": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/evidence",
+    "host": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/host",
+    "scratchParent": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/scratchParent",
+    "worksite": "/private/tmp/abg-stdo3-p3-support-801ba4e594e94919/baseline-p3/worksite"
+  },
+  "installedExecutionGranted": false,
+  "nativeCalls": 0
+}

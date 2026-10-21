@@ -1,0 +1,5 @@
+# E03-STREAM-DERIVATION-01 Executive continuation
+
+Executive independently read the first failure/deltas and C2 correspondence. It classifies the failure as the preflight mistaking two source-owned generator outputs for immutable pre-generation inputs; the missing-preflight refusal launched no host or child. This is the already characterized COMBINED-DERIVATION-01 relation, not stream code failure.
+
+Granted support-only correction: authenticate exactly capability-definition-graph.json and command-execution-context.inventory.json through their existing generator owners and retained inputs; bind their exact post-generation bytes, C2 member/span, all other 1,311 unchanged source rows, dependencies and main 936 generated files. Preserve the first inventory/compile/generate receipts and failure; do not rerun successful compile/generator, blanket-exclude contracts, strip identities, alter production/expectations or claim prior execution. The following is the first actual F2 launch, only after a valid new preflight. First new genuine failure stops dependent work.

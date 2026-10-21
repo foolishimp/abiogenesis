@@ -1,0 +1,12 @@
+{
+  "scope": "Correction of Writer message prose only",
+  "mistakenConstructionPid": 31386,
+  "actualRecordedConstructionPid": 33509,
+  "authoritativeEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/independent-absence.json",
+    "bytes": 912,
+    "sha256": "8e81ce3b4af18a3b1a38400baeb1871720efb7c7eef9d0b0fc932cfe46d0a9b0"
+  },
+  "actualEvidenceFilesAlwaysUsedPid": 33509,
+  "noRuntimeEffect": true
+}

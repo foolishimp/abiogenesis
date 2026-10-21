@@ -1,0 +1,290 @@
+{
+  "measures": [
+    {
+      "name": "bootstrap-install",
+      "wallMs": 49160.335416999995,
+      "cpuUs": {
+        "user": 856555,
+        "system": 933195
+      },
+      "memoryBefore": {
+        "rss": 207306752,
+        "heapTotal": 16089088,
+        "heapUsed": 9903752,
+        "external": 106766822,
+        "arrayBuffers": 104489243
+      },
+      "memoryAfter": {
+        "rss": 215711744,
+        "heapTotal": 28573696,
+        "heapUsed": 14182000,
+        "external": 6497267,
+        "arrayBuffers": 4219648
+      },
+      "resourceUsage": {
+        "userCPUTime": 2242544,
+        "systemCPUTime": 2362497,
+        "maxRSS": 210656,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 13714,
+        "majorPageFault": 79,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 2,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 23,
+        "involuntaryContextSwitches": 152944
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "language-setup-and-start",
+      "wallMs": 344125.94991699996,
+      "cpuUs": {
+        "user": 171465258,
+        "system": 12908734
+      },
+      "memoryBefore": {
+        "rss": 216432640,
+        "heapTotal": 28573696,
+        "heapUsed": 14784800,
+        "external": 6589598,
+        "arrayBuffers": 4311979
+      },
+      "memoryAfter": {
+        "rss": 666451968,
+        "heapTotal": 266371072,
+        "heapUsed": 136843720,
+        "external": 26423311,
+        "arrayBuffers": 23999069
+      },
+      "resourceUsage": {
+        "userCPUTime": 173715002,
+        "systemCPUTime": 15272815,
+        "maxRSS": 1621440,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 397648,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 2782,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 194,
+        "involuntaryContextSwitches": 1124061
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "fresh-run_result",
+      "wallMs": 7479.146791999985,
+      "cpuUs": {
+        "user": 3145,
+        "system": 1866
+      },
+      "memoryBefore": {
+        "rss": 891420672,
+        "heapTotal": 254672896,
+        "heapUsed": 114493448,
+        "external": 33761389,
+        "arrayBuffers": 31337147
+      },
+      "memoryAfter": {
+        "rss": 891420672,
+        "heapTotal": 254672896,
+        "heapUsed": 114621344,
+        "external": 33777075,
+        "arrayBuffers": 31352833
+      },
+      "resourceUsage": {
+        "userCPUTime": 174925108,
+        "systemCPUTime": 15479453,
+        "maxRSS": 1621440,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 431653,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 2783,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 210,
+        "involuntaryContextSwitches": 1130940
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "fresh-run_replay",
+      "wallMs": 7442.251083999989,
+      "cpuUs": {
+        "user": 1879,
+        "system": 1562
+      },
+      "memoryBefore": {
+        "rss": 891420672,
+        "heapTotal": 254672896,
+        "heapUsed": 114572952,
+        "external": 36979004,
+        "arrayBuffers": 34554762
+      },
+      "memoryAfter": {
+        "rss": 891420672,
+        "heapTotal": 254672896,
+        "heapUsed": 114652984,
+        "external": 36994382,
+        "arrayBuffers": 34570140
+      },
+      "resourceUsage": {
+        "userCPUTime": 175089563,
+        "systemCPUTime": 15491211,
+        "maxRSS": 1621440,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 431731,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 2784,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 210,
+        "involuntaryContextSwitches": 1131945
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    },
+    {
+      "name": "whole-lane",
+      "wallMs": 361569.920459,
+      "cpuUs": {
+        "user": 172849767,
+        "system": 13133491
+      },
+      "memoryBefore": {
+        "rss": 215711744,
+        "heapTotal": 28573696,
+        "heapUsed": 14205816,
+        "external": 6497267,
+        "arrayBuffers": 4219648
+      },
+      "memoryAfter": {
+        "rss": 897908736,
+        "heapTotal": 254672896,
+        "heapUsed": 114764328,
+        "external": 43443491,
+        "arrayBuffers": 41019249
+      },
+      "resourceUsage": {
+        "userCPUTime": 175092444,
+        "systemCPUTime": 15496003,
+        "maxRSS": 1621440,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 432127,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 2784,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 210,
+        "involuntaryContextSwitches": 1132054
+      },
+      "scope": "runner process; interval includes awaited child work; CPU is parent only; samples are not heap peaks"
+    }
+  ],
+  "commands": [
+    {
+      "label": "bootstrap-offline-install",
+      "executable": "/opt/homebrew/bin/npm",
+      "args": [
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--bin-links=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/host",
+      "exitCode": 0,
+      "wallMs": 18601.706792
+    },
+    {
+      "label": "installed-declaration-consumer",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "--target",
+        "ES2022",
+        "--strict",
+        "--skipLibCheck",
+        "false",
+        "--typeRoots",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage/build_tenants/abiogenesis/typescript/node_modules/@types",
+        "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/host/external-consumer.mts"
+      ],
+      "cwd": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/host",
+      "exitCode": 0,
+      "wallMs": 28264.705250000003
+    }
+  ],
+  "footprints": [
+    {
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/evidence",
+      "files": 14,
+      "logicalBytes": 84444601,
+      "symlinks": 0,
+      "allocatedKiB": 82504,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/host",
+      "files": 5275,
+      "logicalBytes": 70701029,
+      "symlinks": 0,
+      "allocatedKiB": 82992,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/scratchParent",
+      "files": 11155,
+      "logicalBytes": 168163225,
+      "symlinks": 0,
+      "allocatedKiB": 194456,
+      "scope": "owned root at retained exit; filesystem allocation can overlap on copy-on-write volumes"
+    },
+    {
+      "root": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p3/worksite",
+      "present": false
+    }
+  ],
+  "archiveBytes": 10681844,
+  "overhead": "hash/inventory checks, evidence writes and footprint walks measured in parent whole-process scope; no diagnostic instrumentation injected",
+  "unobserved": [
+    "internal read/hash/encode/write byte counters",
+    "RuntimeHistorySelection body/selector/suffix/cause counters not exposed by selected caller",
+    "child CPU and peak memory for helper-internal subprocesses",
+    "native-provider token cost unless reported by retained transcript",
+    "OS-wide allocation peaks"
+  ],
+  "restrictions": "No speedup or heap-limit claim; sampled memory is not a peak; P4 is a capability witness, not a baseline timing ratio."
+}

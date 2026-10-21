@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/carrier-check.mjs"
+  ],
+  "exitCode": 0,
+  "recordedAt": "2026-10-21T07:15:09.720053+00:00",
+  "stdoutSha256": "00cc2a6f10693b4f93cc4d8c04cad87aba883da0eedbc0e4dbc14d262c415300",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

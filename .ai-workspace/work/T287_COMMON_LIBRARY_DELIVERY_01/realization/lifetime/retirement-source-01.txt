@@ -1,0 +1,20 @@
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts:14:import { createMonotonicDeadline, createOwnedProcessLifetime } from "../shared/owned_process_lifetime.js";
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts:373:  const inactivityTimer = createMonotonicDeadline();
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts:374:  const absoluteTimer = createMonotonicDeadline();
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts:381:  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: input.terminationGraceMs }, {
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts:2:import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts:690:function signalProcess(child: ReturnType<typeof spawn>, signal: NodeJS.Signals): void {
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts:701:    if (activeCommand !== null) signalProcess(activeCommand, "SIGKILL");
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts:736:  const timeoutTimer = createMonotonicDeadline();
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts:737:  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts:1037:  const launchTimer = createMonotonicDeadline(), requestTimer = createMonotonicDeadline();
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts:1039:  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: launch.terminationGraceMs as number }, {
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts:1074:        await new Promise((resolveWait) => setTimeout(resolveWait, 25));
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts:1086:      if (response === null) await new Promise((resolveWait) => setTimeout(resolveWait, 25));
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts:14:  arm: (callback, delayMs) => setTimeout(callback, delayMs),
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts:15:  cancel: (timer) => clearTimeout(timer as ReturnType<typeof setTimeout>),
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts:29:export function createMonotonicDeadline(clock: MonotonicTimerHost = nodeClock) {
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts:122:export function createOwnedProcessLifetime(
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts:134:  const phaseTimer = createMonotonicDeadline(clock);
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts:135:  const probeTimer = createMonotonicDeadline(clock);
+/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts:136:  const drainTimer = createMonotonicDeadline(clock);

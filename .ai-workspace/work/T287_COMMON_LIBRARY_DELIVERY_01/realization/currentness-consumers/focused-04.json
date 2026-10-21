@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript",
+  "first_case": "governance",
+  "input_freeze_sha256": "1bb55f5bcae4b7ceaf5010b84a2eec93a6a727bef441d6e2c3fec6b78df3e463",
+  "exit_code": 1,
+  "wall_seconds": 0.6437130409758538,
+  "stdout": "(node:75898) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2716 U1-P5-02 actual C0 successor and every affected currentness consumer (323.971417ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 614.373292\n\n\u2716 failing tests:\n\ntest at test_env/tests/t287-native-work-currentness-consumers.test.mjs:551:1\n\u2716 U1-P5-02 actual C0 successor and every affected currentness consumer (323.971417ms)\n  TypeError [Error]: native workspace task requires one bound worksite, context and declared scope\n      at Module.constructNativeWorkspaceWorkTask (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_work.js:40:15)\n      at createU1Fixture (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs:129:71)\n      at async selected (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:62:13)\n      at async semanticData (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:368:13)\n      at async Object.semanticFoldConsumer [as semanticFold] (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:418:18)\n      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:555:39)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)\n",
+  "stderr": ""
+}

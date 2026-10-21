@@ -1,0 +1,61 @@
+{
+  "status": "source_argument_pending_final_emission_correspondence",
+  "authority": "D03-OWNER-ORACLE-TRIAGE-01",
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "sha256": "b09aa6b0c69dbb56a49a7c7f3c8cd707c214232db7a5c4694de3de9e5cb3a32b",
+      "bytes": 47155,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+      "sha256": "c99f3cfc646680ba793c561a7833ab55832879b92f533981662a247af53de4e9",
+      "bytes": 36794,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "sha256": "bed19177f3671edfb3bc0a4b569416379baab71a88609feabbb9df724bb54b84",
+      "bytes": 43489,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+      "sha256": "68b19e78ed7b95f93ed8df582ea3215a9401b2f710f4076872255eaa799307d9",
+      "bytes": 42507,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts",
+      "sha256": "72e253e31383a2e673c16199a25444e25502ec8026f633f8e06f289e4bee57bb",
+      "bytes": 18231,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/shared/owner_contract_source_set.ts",
+      "sha256": "ff141a920a7d91807f5b7bcb2d1a09a885b7598614f3b5f8baa25f49921c33f1",
+      "bytes": 20735,
+      "mode": "0o644"
+    }
+  ],
+  "relations": [
+    {
+      "owner": "exactInstallForCoordinate",
+      "argument": "Resolver424\u2013498 reconstructs Catalog/View, verifies every admitted install against actual ABG projection, requires unique installId/admissionEventRef and exact candidate bijection. Coordinate predicate311\u2013321 includes installId equality. Therefore its matching subset has at most one member at all actual joins."
+    },
+    {
+      "owner": "exactInstallForPublication",
+      "argument": "Program declaration closure is required at500\u2013508. declaration_closure exactOwnerCoordinate348\u2013371 requires exactly one Catalog installed candidate with the same Product/content/manifest tuple for every selected declaration, including Program owner. Resolver candidate bijection preserves that multiplicity. Therefore the Program publication match at698\u2013716 cannot be many on admitted inputs."
+    },
+    {
+      "owner": "publicationForCoordinate",
+      "argument": "Both program and selected declaration closures are produced by declaration_closure resolve; selectedPublicationMap789\u2013795 deduplicates moduleRef+semanticDigest and returned publications906\u2013915 are exactly its values. publicationForCoordinate374\u2013385 includes equality on that tuple and additionally owningProductId. Every call642/759/768/789/832/938/962 consumes one of those closure arrays; additional product equality cannot increase multiplicity. Therefore at most one matches without digest/coordinate substitution."
+    },
+    {
+      "owner": "selected intrinsic Public definition",
+      "argument": "owner_contract_source_set520\u2013542 checks56 source rows,56 distinct composite keys,18 operation IDs and fixed key-set digest at module construction. public_function_family342\u2013357 maps those sources then deep-freezes family and definitions. Canonical definitionKey equality cannot select many. Actual installed glue checks frozen keys through the immutable exported family; no constant mutation."
+    }
+  ],
+  "boundary": "Pure resolveExactMatch still requires many/duplicate/order/throw laws. Actual resolver duplicate collection must yield incompatible_or_unproven/dependency before inner exact matching. No claim that every other catalog/GraphFunction ambiguity is unreachable."
+}

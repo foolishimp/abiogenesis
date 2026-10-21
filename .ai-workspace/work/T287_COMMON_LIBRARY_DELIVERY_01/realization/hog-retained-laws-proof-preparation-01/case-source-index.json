@@ -1,0 +1,245 @@
+{
+  "names": [
+    {
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "line": 21,
+      "name": "declared C.retry frontier is the sole retry-attempt lifecycle owner"
+    },
+    {
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "line": 61,
+      "name": "stopped retry foldback bridge requires the exact consumed causal suffix"
+    },
+    {
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "line": 238,
+      "name": "CCall retry writes require the exact current declared retry frontier"
+    },
+    {
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "line": 281,
+      "name": "production judgment writers remain closed behind the CCall owner"
+    },
+    {
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "line": 304,
+      "name": "runtime package exports expose no raw or candidate-factory event writer"
+    },
+    {
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "line": 323,
+      "name": "raw executor resume remains closed to every retry cursor"
+    },
+    {
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "line": 340,
+      "name": "entry frame runtime is an exact common projection and retry composition stays disjoint"
+    },
+    {
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "line": 420,
+      "name": "projected retry entry consumes only its exact admitted successor prefix without effects"
+    },
+    {
+      "file": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "line": 533,
+      "name": "F04 payload refusal composes one pure result rejection while authority refusal cannot retry"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 24,
+      "name": "nominal prefix reuse preserves full historical EC and replay including fresh process"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 372,
+      "name": "A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat or stale prefixes with zero append"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 494,
+      "name": "validated event-prefix selection is immutable, ordered, and causally run-local"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 548,
+      "name": "closed typed Event Calculus law refuses missing, duplicate, malformed, and contradictory input"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 597,
+      "name": "historical traversal-route projection ignores later construction enrichment and still refuses a forged admission body"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 711,
+      "name": "structural retry lineage selects its Run while retaining workspace authority"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 815,
+      "name": "retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruction-stable"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 902,
+      "name": "retry fluent identity is exact across graph-call, frame, and boundary scopes before and after consumption"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 993,
+      "name": "retry handoff route matrix keeps retry, blocked, advance, and terminal effects decision-exact"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1068,
+      "name": "retry judgment preserves attempt activity until exact progress consumption"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1185,
+      "name": "run_stopped terminates every exact active retry attempt and available retry progress"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1316,
+      "name": "terminal projection rows realize static locus law for the exact Run and preserve unrelated loci"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1471,
+      "name": "run HoldsAt truth survives durable reopen and a lawful closure"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1548,
+      "name": "runtime_failure_observed terminates the exact active Run"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1590,
+      "name": "run_stopped makes runtime failure throw before memory or durable append"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1751,
+      "name": "M5 application preparation refusal is exact across fresh processes until its route consumes it"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1888,
+      "name": "M5 generic CCall child foldback cannot project as application foldback"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1941,
+      "name": "M5 incomplete application child foldback cannot project through an open payload cast"
+    },
+    {
+      "file": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "line": 1995,
+      "name": "M5 application foldback projection rejects every empty semantic reference and malformed digest"
+    },
+    {
+      "file": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "line": 64,
+      "name": "real admitted compose and shared batches conserve changing inputs under one basis"
+    },
+    {
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "line": 146,
+      "name": "terminal route-only projection preserves complete replay and avoids nonreturned populations"
+    },
+    {
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "line": 176,
+      "name": "terminal route-only retains cold and hot malformed-history refusals"
+    },
+    {
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "line": 217,
+      "name": "retained native outputs and exact pre-basis historical owner facts are conserved"
+    },
+    {
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "line": 246,
+      "name": "route facts ignore unrelated growth and preserve relevant source, cursor and intent changes"
+    },
+    {
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "line": 331,
+      "name": "owned deferred recursion restores and begins at the exact cut while Public wrappers keep complete values"
+    },
+    {
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "line": 419,
+      "name": "selected replay guard streams the exact complete Result, route and replay digest"
+    },
+    {
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "line": 436,
+      "name": "finite pure candidate plan equals complete-array construction without advancing the accepted base"
+    },
+    {
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "line": 481,
+      "name": "ordinary selected route and scoped extent avoid growing historical bodies; explicit snapshots have their own lifetime"
+    },
+    {
+      "file": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "line": 536,
+      "name": "drop complete output then selected route does not retain decoded historical bodies"
+    },
+    {
+      "file": "test_env/tests/t287-selected-execution-closure.test.mjs",
+      "line": 104,
+      "name": "lawful multi-entry Program conserves the admitted eight-leaf selection out of eleven"
+    },
+    {
+      "file": "test_env/tests/t287-selected-execution-closure.test.mjs",
+      "line": 135,
+      "name": "single-entry resolution retains its whole-Program implementation meaning"
+    },
+    {
+      "file": "test_env/tests/t287-selected-execution-closure.test.mjs",
+      "line": 151,
+      "name": "self-consistent foreign selected closure cannot replace the admitted resolution"
+    },
+    {
+      "file": "test_env/tests/t287-selected-execution-closure.test.mjs",
+      "line": 166,
+      "name": "single-entry historical basis payloads still replay without new ingress fields"
+    },
+    {
+      "file": "test_env/tests/t287-selected-execution-closure.test.mjs",
+      "line": 182,
+      "name": "the actual Public refusal call preserves admitted event and diagnostic references"
+    },
+    {
+      "file": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "line": 177,
+      "name": "same-subject conformance retains one real owner derivation and predecessor semantic result"
+    },
+    {
+      "file": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "line": 280,
+      "name": "conformance resolved-closure continuation preserves raw readiness and complete validation outcomes"
+    },
+    {
+      "file": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "line": 306,
+      "name": "compact selection binds scope, cold acquisition, historical cuts and trusted-desktop currentness"
+    },
+    {
+      "file": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "line": 383,
+      "name": "compact release-artifact ingress preserves historical selection and downstream F16/QUAL056 gates"
+    },
+    {
+      "file": "test_env/tests/t287-registered-graph-selection.test.mjs",
+      "line": 15,
+      "name": "registered selection through installed Public CLI, child foldback and fresh reads"
+    }
+  ],
+  "status": "source index only; not passing-case evidence"
+}

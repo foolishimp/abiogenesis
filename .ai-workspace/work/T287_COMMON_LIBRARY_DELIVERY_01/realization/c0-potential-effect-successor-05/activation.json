@@ -1,0 +1,16 @@
+{
+  "activation": "C0-SEMANTIC-PREFIX-05",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifest": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "predecessorFreezeSha256": "e5f71d9556cece8fb43eff69ad2f069de861fe90ac3de62b2f5060e1b3223bce",
+  "originalArtifactFreezeSha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+  "originalProofFreezeSha256": "dc4931ca55fc37265b64ab8b3a29502873113a054370335fa5120e138acc8f9c",
+  "sourceEdit": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+  "sourcePreimageSha256": "556f3904e05edc5c9a4c7237a2ca494da9c061ba8f7f37a794f05fdeac634ada",
+  "sourceAfterSha256": "39d78f136b8cfcb5b70de7799859f08853d5d081a0fff190d5fe72c2d04a587a",
+  "physicalRoot": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-05",
+  "newCompileGeneratorPackSunnyInstall": 0,
+  "priorSunnySetupFailures": 1,
+  "priorActualC0PhysicalAttempts": 0,
+  "stop": "First selected precondition/executable oracle failure or physical uncertainty stops; routine discovery is not that predicate."
+}

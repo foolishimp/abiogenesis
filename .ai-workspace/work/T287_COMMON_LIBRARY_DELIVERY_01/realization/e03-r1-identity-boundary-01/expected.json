@@ -1,0 +1,34 @@
+{
+  "activation": "E03-R1-IDENTITY-BOUNDARY-01",
+  "limits": { "inactivityTimeoutMs": 300000, "absoluteTimeoutMs": 900000 },
+  "modes": ["retained", "explicit", "null"],
+  "cuts": ["intent-author", "intent-assessor", "design-author", "design-assessor"],
+  "pairCount": 12,
+  "baselineRule": {
+    "aggregation": "sum",
+    "commandFields": ["timeoutMs", "terminationGraceMs", "terminationGraceMs"],
+    "httpResponseFields": { "launch": ["timeoutMs", "terminationGraceMs"], "request": ["timeoutMs"] },
+    "ownerAllowanceMs": 5000,
+    "limitComparison": "required_budget_strictly_less_than_each_limit",
+    "limitOrdering": "absolute_strictly_greater_than_inactivity"
+  },
+  "successorRule": {
+    "aggregation": "sum",
+    "commandFields": ["timeoutMs", "terminationGraceMs", "terminationGraceMs"],
+    "httpResponseFields": { "launch": ["timeoutMs", "terminationGraceMs", "terminationGraceMs"], "request": ["timeoutMs"] },
+    "perOperationDrain": { "field": "terminationGraceMs", "maximumMs": 250, "operation": "minimum" },
+    "ownerAllowanceMs": 5000,
+    "limitComparison": "required_budget_strictly_less_than_each_limit",
+    "limitOrdering": "absolute_strictly_greater_than_inactivity"
+  },
+  "emptyBudget": { "commandBudgetMs": 0, "httpProbeBudgetMs": 0, "requiredExecutionBudgetMs": 5000 },
+  "designBudget": {
+    "baseline": { "commandBudgetMs": 1200, "httpProbeBudgetMs": 0, "requiredExecutionBudgetMs": 6200, "compatible": true },
+    "successor": { "commandBudgetMs": 1300, "httpProbeBudgetMs": 0, "requiredExecutionBudgetMs": 6300, "compatible": true }
+  },
+  "nullLimitContract": "exact whole-contract equality including contractDigest and absent executionCapacity",
+  "nonnullContract": "exact whole expected successor; only specified budgetRule, canonical body contractDigest and actual Design-assessor capacity values change",
+  "determinism": "two independent calls on each cut; retained mode additionally compares omitted and explicit identical limits",
+  "fixtureProvenance": "canonical component source values only, no authenticated runtime assembly or admission",
+  "historicalAssembly": "not executed; separate proposed capsule only"
+}

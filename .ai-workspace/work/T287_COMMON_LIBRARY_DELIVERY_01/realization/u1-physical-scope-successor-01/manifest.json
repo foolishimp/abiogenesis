@@ -1,0 +1,396 @@
+{
+  "kind": "bounded_writer_successor_manifest",
+  "activation": "U1-PHYSICAL-SCOPE-SUCCESSOR-01",
+  "source_files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "2fb146d5dd8c869eec147c08effa6688fea918493274a93d00bfafc4ade7e93c",
+      "bytes": 89590
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "f46908c1598ddc8a7a21a5a890dc2a1af5fe75089160e15054824cfcb59ddca3",
+      "bytes": 76803
+    }
+  ],
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/L2-supplement.md",
+      "sha256": "4fa2d49b6148fccd60ff59cc9f76d90a93f9d992e8d8e31e5e8fd2b79a1c6a05",
+      "bytes": 2439
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/activation.md",
+      "sha256": "4a0aa35961feab2966031fa14911d228e604ce3adfb8b423109141733d1c630a",
+      "bytes": 2833
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/case-matrix.json",
+      "sha256": "ab4fc79fa8fa33f2b5578afa2232702ca2220d9f0214e2ded6368a52524cbd29",
+      "bytes": 221643
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/compile-01.json",
+      "sha256": "735a20a43124e3c6fb5e3d8be6f72ab2fc30a154202e1c6871d755101eae7c0c",
+      "bytes": 595
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/evidence-01/physical-scope-results.json",
+      "sha256": "e60adc8b6feef2c18c623e4b31ce2dec709f40169ebd47a1a52f94dcfc85c9e8",
+      "bytes": 5118064
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/execution-inputs.json",
+      "sha256": "c9c5d7fac7bdf2024ae69c56079f5d864195c3dcaab5dac3d76941883c75fc4b",
+      "bytes": 2320
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/focused-01.json",
+      "sha256": "848c50b4275b50e889cb209fe17f2772f72fc4cce73a441a620fed5fe6eab8ee",
+      "bytes": 1201
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/focused-01.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/focused-01.stdout",
+      "sha256": "3940e190661ce61e461ad3340a8a21bd0d441fc20468e5afcbbebb2e26471534",
+      "bytes": 478
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/handoff-audit.md",
+      "sha256": "c55de6e7fb404ad7cafaecb9990be5cde7aceab27264086dc02ff4884c0f7331",
+      "bytes": 5297
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-8wjJ7I/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-8wjJ7I/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-8wjJ7I/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-8wjJ7I/worksite/target.txt",
+      "sha256": "1e81270f1a47dce22a2e4985250c74b2e3374443734f1492b03ea2cd2af4ec48",
+      "bytes": 10
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-96C7jg/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-DbkLJn/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-DbkLJn/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-DbkLJn/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-DbkLJn/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EFKnwk/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EFKnwk/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EFKnwk/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EFKnwk/worksite/target.txt",
+      "sha256": "6e54d64dcefa6e734070adc72c1e29a67b369cd0d0a6a588578139c2672479cd",
+      "bytes": 10001
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EL7Fwo/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EL7Fwo/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EL7Fwo/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-EL7Fwo/worksite/target.txt",
+      "sha256": "1e81270f1a47dce22a2e4985250c74b2e3374443734f1492b03ea2cd2af4ec48",
+      "bytes": 10
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-HideBa/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-HideBa/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-HideBa/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-HideBa/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-Lb2MTz/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-RuXReD/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-RuXReD/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-RuXReD/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-RuXReD/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-TB6bIC/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-W27mJQ/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-ZtdPjs/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-h5z9xF/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-jbSswf/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-jfdyK2/worksite/target.txt",
+      "sha256": "7e4fa2eb8c7ac089739d5defc4489fad68a100d92082ca35c6b40a4524821f87",
+      "bytes": 6
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-mmK2mG/worksite/keep.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-mmK2mG/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-mmK2mG/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-mmK2mG/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-wgUTnZ/worksite/keep.txt",
+      "sha256": "50070263dfc61d098c37465e9b8ef5e18a8afdd4d7175a97f44e5d529870eb1c",
+      "bytes": 35
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-wgUTnZ/worksite/nested/file.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-wgUTnZ/worksite/nested-peer.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-generic-worksite-fixture-wgUTnZ/worksite/target.txt",
+      "sha256": "9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+      "bytes": 7
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-YcbOSx/events.jsonl",
+      "sha256": "a032870aec5c1c8820fe42c9f716e580303c436a4d1bf543be07faafcaf0e2a3",
+      "bytes": 152017
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-a5Oh1O/events.jsonl",
+      "sha256": "007febd1f5778a2366f35f3c75cea22e957a9ffa032e80b989c374bc44fef0a0",
+      "bytes": 151613
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-bYD0a7/events.jsonl",
+      "sha256": "63fee4510c98695d01ca95bb11a2dc61462ae8b692170afc7d69f23351ff259c",
+      "bytes": 149857
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-dXwd1O/events.jsonl",
+      "sha256": "89c0ef2b57770177e997347504f7d0d84fdaac2f66e2822f3fb0010f66429e7e",
+      "bytes": 105425
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-i8jdLh/events.jsonl",
+      "sha256": "002d5d26efab67cad0212972842063300a4c64c0b28f589558da87bc397aacb7",
+      "bytes": 105428
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-rtPi7Q/events.jsonl",
+      "sha256": "cd8641b29e9124d25a9ebddf6fda87046b23273c9628000daaf8af9e67454e29",
+      "bytes": 151985
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-yRV0UB/events.jsonl",
+      "sha256": "d0cb5f1d3ba2ba51dcf1ccc7bf1a02d435710a947f3fe875651f7dd02c2a8837",
+      "bytes": 125959
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical/abi5-u1-yqdUWz/events.jsonl",
+      "sha256": "d920c239c5f25dd4c2ba1c8619d8fc51523dbbf8dc040dfc5f75d018e465cde7",
+      "bytes": 151700
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/physical-final-inventory.json",
+      "sha256": "79e1aeba93b415aa2cabcc28d11aae97287d02e4632708cba0d92d9b4aef2776",
+      "bytes": 24955
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "937ac47e383e740fb75a8eb367195cb2893681c064fee9f55af92369f5d56189",
+      "bytes": 89640
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/preimages/build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1",
+      "bytes": 34273
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "sha256": "5f8f1f7a0cd32386ffb76e8b69b44682c4f95a66aed88e5f9203517d86e51a61",
+      "bytes": 53780
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "sha256": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546",
+      "bytes": 37664
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/preimages.json",
+      "sha256": "83cb9d3feb44116b847f80d3e8423e53a97656f1334a150adfa632ef015bbcb3",
+      "bytes": 1405
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/preservation.json",
+      "sha256": "3930ed17e7b66c7106a5f62e8410d409a6a50d8454dae09fd4cd783bb52959c4",
+      "bytes": 2370
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/production-delta.diff",
+      "sha256": "57f32028d0953cc6c9267e1ff9c4a62fdf44098d14bfb45b2984edec4d4196a0",
+      "bytes": 929
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/report.md",
+      "sha256": "033b6086251d7da1c0fb8fbb75b1b9c77cfd313a62ce0d4f732c10f2fd3f8b36",
+      "bytes": 10241
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/source-final.json",
+      "sha256": "e61a0939c5f2c4a2dd45721499092cd8216b73248b79171ccb23c60400e20549",
+      "bytes": 1734
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-execution-freeze.json",
+      "sha256": "14b393f39aa4c9050ca210ea84d8c13ecf3c33e8e6e1ebfe15a179d38eac630f",
+      "bytes": 430621
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-member-check.json",
+      "sha256": "868aab132f4564ae072259e5e21e8052b770f7d6d746a9777f5c1aca78d645f0",
+      "bytes": 165
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/support-correspondence.json",
+      "sha256": "f3084f164bb124c8239635250e3d52ede71db7e070e69192b4b7b7c3363581bd",
+      "bytes": 20853
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/support-correspondence.mjs",
+      "sha256": "7d30f5ba966d94ad2072781cc18d9ffd4a0f5bd272884c88a2b25620a6e0bad5",
+      "bytes": 3731
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/toolchain.json",
+      "sha256": "c417f108ffcc5a4bfa8b4ed65b90ad2f2d8de206882bbf606bef1dc998df96d8",
+      "bytes": 390
+    }
+  ],
+  "record_count": 73,
+  "record_bytes": 7171905,
+  "stage_inventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-physical-scope-successor-01/stage-execution-freeze.json",
+    "sha256": "14b393f39aa4c9050ca210ea84d8c13ecf3c33e8e6e1ebfe15a179d38eac630f",
+    "files": 1948
+  },
+  "dependency_inventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/dependency-inventory.json",
+    "sha256": "991ddad43eb30a968aeb30e579aabb327a4c2016c1e157c840606c043363ad82",
+    "entries": 4576
+  },
+  "scope": "Exact two source successors plus new isolated proof records/effects; no whole moving-tree or combined package freeze."
+}

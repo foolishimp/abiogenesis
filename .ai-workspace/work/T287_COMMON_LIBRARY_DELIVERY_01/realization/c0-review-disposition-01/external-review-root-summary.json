@@ -1,0 +1,73 @@
+{
+  "kind": "C0_external_review_Root_attributed_public_summary",
+  "attribution": "Root-attributed public summary; not a raw or complete reviewer transcript",
+  "source": "Executive /root activation C0-REVIEW-DISPOSITION-01",
+  "model": "claude-opus-5-5",
+  "reasoningEffort": "xhigh",
+  "tools": ["Read", "Glob", "Grep"],
+  "sessionId": "f6db0c7a-1261-44d4-b997-fbaf3b133d16",
+  "uuid": "b83620ef-20b7-4d61-ad39-f0a727d9349a",
+  "turns": 98,
+  "elapsedMs": 921886,
+  "exitCode": 0,
+  "is_error": false,
+  "subagents": 0,
+  "denials": 0,
+  "safetyStops": 0,
+  "hashOrExecToolsUsed": false,
+  "pinVerification": "Root independently checked the source pins; the reviewer had no hash or exec tool.",
+  "rawTranscript": null,
+  "rawTranscriptHash": null,
+  "subject": {
+    "C0SuccessorFreezeSHA256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a",
+    "ProductFrameReadFirst": true,
+    "sourcePinsRecord": "source-pins.json"
+  },
+  "boundedConclusion": "The admitted-success and admitted post-publication-failure Result claim is satisfied. This does not satisfy general REQ-R-ABG3-PROJECTION-026.",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "S2",
+      "summary": "An actual owner physical effect followed by admission failure has no admitted invalidation cause.",
+      "classification": "Product blocker supported by the source path; no new executed witness is attributed to this reviewer."
+    },
+    {
+      "id": "F2",
+      "severity": "S3",
+      "summary": "Five real physical C0 vectors use fixture-produced evidence and Result through generic admitRuntimeEvent, not admitOwnedCCallResult.",
+      "evidenceCorrection": "Prior actual evidence/Result labels must distinguish real physical C0 effects from fixture-produced, generically admitted evidence/Result. They do not establish the genuine owner-admission path.",
+      "requiredProof": "Genuine owner-admitted post-publication failure and a second binding, with full-prefix, indexed, cold-replay and native-gate proof."
+    },
+    {
+      "id": "F3",
+      "severity": "S3",
+      "summary": "Five corrupt copies mostly fail at an outer digest or missing selection.",
+      "requiredProof": "Consistently redigested deep authorization, implementation, order and basis negatives."
+    },
+    {
+      "id": "F4",
+      "severity": "S3",
+      "summary": "Later-basis revival is supported by source analysis.",
+      "proofLimit": "No executed later-basis revival witness."
+    },
+    {
+      "id": "F5",
+      "severity": "S3",
+      "summary": "Local worksite_revision physical invalidation is narrowed by full-authority comparison.",
+      "relationDistinction": "Full authority is justified for provenance transfer. Physical invalidation of a prior observation at the same canonical root/path is a separate relation. The public assessment identifies the affected origin-survival uses; it does not authorize weakening provenance authority."
+    },
+    {
+      "id": "F6",
+      "severity": "S4",
+      "summary": "The successful worksiteTransitionForResult path lacks the contractRef check present in the indexed dependency condition.",
+      "proofLimit": "The suggested history is owner-impossible under the current admission contract; no actual admitted counterexample was established.",
+      "dispositionRecord": "F6-capsule.json"
+    }
+  ],
+  "otherBoundaries": {
+    "nestedRoots": "Already excluded by the owning HOW and recorded in an existing capsule; not reopened here.",
+    "timing": "The native gate observing successful evidence earlier than EC Result is conservative. The proposed selected-fibre redesign will supersede that timing relation; no redesign is granted by this record.",
+    "indeterminateAuthorization": "The existing capsule is unchanged."
+  },
+  "noAcceptanceOrReleaseClaim": true
+}

@@ -1,0 +1,11 @@
+--- closed06/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts
++++ C2-selected/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts
+@@ -797,7 +797,7 @@
+       authorityPrefix,
+       sourceRunClosures[0]!.eventId,
+     );
+-    const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix);
++    const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix).materialize();
+     sourceDurablePrefix = durableRuntimeEventPrefixThroughEvent(
+       durablePrefix, sourceRunClosures[0]!.eventId,
+     );

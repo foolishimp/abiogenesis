@@ -1,0 +1,48 @@
+{
+  "observedAt": "2026-10-21T00:19:44.200278+00:00",
+  "oldFreezeSha256": "5c7311ac1041a0ba766c89fc18c315cd3277ea3ebc2425a40e7ffff896764c4c",
+  "oldHashesReverified": 198,
+  "oldSubjectMismatches": [],
+  "protectedMainFilesReverified": 936,
+  "mainGeneratedMismatches": [],
+  "processAbsence": [
+    {
+      "case": "draining_control",
+      "kind": "host",
+      "id": 68965,
+      "absent": true
+    },
+    {
+      "case": "draining_control",
+      "kind": "child",
+      "id": 68966,
+      "absent": true
+    },
+    {
+      "case": "draining_control",
+      "kind": "group",
+      "id": -68966,
+      "absent": true
+    },
+    {
+      "case": "early_stdin_close",
+      "kind": "host",
+      "id": 68968,
+      "absent": true
+    },
+    {
+      "case": "early_stdin_close",
+      "kind": "child",
+      "id": 68969,
+      "absent": true
+    },
+    {
+      "case": "early_stdin_close",
+      "kind": "group",
+      "id": -68969,
+      "absent": true
+    }
+  ],
+  "retainedCaseDirectories": "Both case directories, scripts, observations and archives remain under this granted new evidence root; no outside fixture root exists. No active process fixture or unresolved scope remains.",
+  "limitations": "Independent later absence is not owner finalization/admission; no installed/native/Windows or universal descendant claim."
+}

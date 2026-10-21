@@ -1,0 +1,71 @@
+{
+  "syntax-owner": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "test_env/tests/t287-c0-post-publication-failure.test.mjs"
+    ]
+  },
+  "syntax-currentness": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+    ]
+  },
+  "syntax-support": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "--check",
+      "test_env/support/root-installed-environment.mjs"
+    ]
+  },
+  "tsc": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ]
+  },
+  "generate": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "scripts/generate-product-manifest.mjs"
+    ]
+  },
+  "material": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/verify-metadata.mjs"
+    ]
+  },
+  "generation-correspondence": {
+    "argv": [
+      "/usr/bin/python3",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/verify-generation.py"
+    ]
+  },
+  "pack": {
+    "argv": [
+      "/opt/homebrew/bin/npm",
+      "pack",
+      "--ignore-scripts",
+      "--json",
+      "--pack-destination",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/artifacts"
+    ]
+  },
+  "archive-correspondence": {
+    "argv": [
+      "/usr/bin/python3",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/verify-archive.py"
+    ]
+  },
+  "payload": {
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-realization-01/verify-payload.mjs"
+    ]
+  }
+}

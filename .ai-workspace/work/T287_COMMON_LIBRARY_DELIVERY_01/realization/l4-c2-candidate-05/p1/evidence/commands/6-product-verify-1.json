@@ -1,0 +1,14 @@
+{
+  "label": "product-verify-1",
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/evidence/calls/product-verify-1.request.jsonl"
+  ],
+  "cwd": "/private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/evidence",
+  "wallMs": 160138.49154099997,
+  "stdout": "{\"acquisitionKind\":\"eventless\",\"kind\":\"installed_definition_call_transport_result\",\"receipt\":{\"definitionKey\":{\"memberKey\":\"verify\",\"operationId\":\"abg.operation.product.verify\"},\"exitCode\":0,\"failure\":null,\"invocationRef\":\"invocation://abiogenesis/a9e040001b747a816d164f476239000e4027b7646809b4238cc7cebd1a0f3a4e\",\"kind\":\"definition_host_receipt\",\"ownerOutput\":{\"outcomeKind\":\"result\",\"value\":{\"definitionContractCoordinates\":null,\"disposition\":\"locally_verified\",\"localNativeEvidence\":{\"digest\":\"sha256:39f1cad7aba9b3ec9d22bae81f603a6179ef49eac352837951b7f8ff21fada0c\",\"ref\":\"local-native-evidence://abiogenesis/product-verification/39f1cad7aba9b3ec9d22bae81f603a6179ef49eac352837951b7f8ff21fada0c\"},\"pendingExternalSelectors\":[],\"provenance\":[{\"digest\":\"sha256:33ed822311b7598a271340f9c83e94a161b0872556b70a2db70a00d27d44f0c1\",\"ref\":\"provenance://abiogenesis/product-verification/33ed822311b7598a271340f9c83e94a161b0872556b70a2db70a00d27d44f0c1\"}],\"residuals\":[],\"targetKind\":\"packed_artifact\",\"verifiedArtifact\":{\"digest\":\"sha256:4cd5ae27de63cdd1a43c8bda75fb2fa341effdf23fdab41dcb53bb47602de6e4\",\"ref\":\"product-verification://abiogenesis/4cd5ae27de63cdd1a43c8bda75fb2fa341effdf23fdab41dcb53bb47602de6e4\"}}},\"resources\":{\"disposition\":\"read_only_unchanged\",\"kind\":\"product_verification_resource_disposition\",\"packedArtifact\":{\"digest\":\"sha256:bc71f2fa93bb6fd100a69fd88452cc43555ab972d030962cb5e7df178b4fc49c\",\"ref\":\"file:///private/tmp/abg-stdo3-c2-05-2a945e70cf0d6b81/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz\"},\"schemaVersion\":\"5.0.0\",\"targetKind\":\"packed_artifact\"},\"schemaVersion\":\"5.0.0\"},\"schemaVersion\":\"5.0.0\"}\n",
+  "stderr": "",
+  "exitCode": 0
+}

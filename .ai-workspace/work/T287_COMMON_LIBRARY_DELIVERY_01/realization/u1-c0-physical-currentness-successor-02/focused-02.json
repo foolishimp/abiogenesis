@@ -1,0 +1,29 @@
+{
+  "activation": "U1-C0-FAILURE-FIXTURE-02",
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=^U1 physical target scope successor",
+    "test_env/tests/t287-native-work-currentness-consumers.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/stage-02/build_tenants/abiogenesis/typescript",
+  "overrides": {
+    "TMPDIR": "/private/tmp/abg-u1-c0-fixture02-0q7ow7yj",
+    "ABG_U1_EVIDENCE_DIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/evidence-02",
+    "ABG_WORKSITE_BUILD_ROOT": null,
+    "ABG_U1_FIRST_CASE": null
+  },
+  "stage_freeze_sha256": "48428b9b10f38fe421b5e04e52562e0ec23d158231c7ca9275b1610e435be4c2",
+  "source_inputs_sha256": "9bc423fe6848898756103a02a56e00c9db202f55e5669573605a33df88a56a3d",
+  "stopped_freeze_sha256": "c4a9b7100861c5f89b98399076aef7bda002f191bc0e54ab95532d074146b0f5",
+  "selected_cases": 10,
+  "retry_ordinal": 1,
+  "additional_compile": false,
+  "native_or_command_actors": 0,
+  "started_at": "2026-10-21T03:00:32.162284+00:00",
+  "exit_code": 0,
+  "wall_seconds": 3.6218740940093994,
+  "stdout_sha256": "ba4a987f0d8967f588e96ea810e53ec29c051654a82a6db9e17820ba47495346",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

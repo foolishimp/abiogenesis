@@ -1,0 +1,23 @@
+{
+  "file": "test_env/tests/t287-owned-process-lifetime.test.mjs",
+  "name": "controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct",
+  "group": "controlled",
+  "command": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern",
+    "^controlled\\ lifetime:\\ no\\ launch,\\ close\\ without\\ exit,\\ probe\\ errors\\ and\\ Windows\\ scope\\ stay\\ distinct$",
+    "test_env/tests/t287-owned-process-lifetime.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/lifetime-stream-repair-01/stage/build_tenants/abiogenesis/typescript",
+  "startedAt": "2026-10-21T00:47:42.302055+00:00",
+  "elapsedSeconds": 0.057806249940767884,
+  "exitCode": 0,
+  "sourceInventorySha256": "359ff82f1a07bfe8d440404ca2ae32ab677fc98eb75118c755b517b5d4ba03a8",
+  "postGenerationInventorySha256": "7440dc4b30a78adf73e209918d0b285f2e0deb8a5f8d13855e08ff2e04e845df",
+  "testSha256": "78fc4541bcf29df031ae5486394f61c724ac913c9799422c77ffa683100b0d2e",
+  "stdoutSha256": "b844b1468d37cf1f8898d1fbc29feadb3c1751a33a1bc5f9c17cb4ee5020c121",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,52 @@
+{
+  "preimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/source-inputs.json",
+    "sha256": "4e9f5acc061fc6ffce9fd8620a779a862adcfe509cae4baf7f2c01c065c5967c",
+    "bytes": 355548,
+    "mode": "0o644"
+  },
+  "post": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/stage-post-generation-inventory.json",
+    "sha256": "eb41de1242486d6bcfe5cec7b902bd25092cc91ddda6dfe513448c6dbbd83d37",
+    "bytes": 1784333,
+    "mode": "0o644"
+  },
+  "correspondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/emitted-correspondence.json",
+    "sha256": "c4a809a41f92cdd98a5f83e1a6799c51638b5f58de246babdda49e4dcc7e187f",
+    "bytes": 2819,
+    "mode": "0o644"
+  },
+  "producerReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/commands/generate.result.json",
+    "sha256": "157e9c25c14f2d8b6ff6bc720d605210335f4a77a7f36e21523b7a86339e8168",
+    "bytes": 238,
+    "mode": "0o644"
+  },
+  "changes": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 197474,
+        "sha256": "5ff808849b0e7173101512dbe7ab56f73ef3a66ad3017752319a77ba4c89d68d"
+      },
+      "after": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "mode": "0o644",
+        "kind": "file",
+        "bytes": 197474,
+        "sha256": "f98a9852d82bc9f75dddfbb63e36e35ff4ab3e5f9b4c52dc3436faf1abc3a334"
+      }
+    }
+  ],
+  "unchangedSecondGeneratorOverlap": {
+    "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+    "type": "file",
+    "mode": "0o644",
+    "sha256": "f5a36ccf23e2707fae3153993432a05392ae956524bfe59bf1f1c1d64840d42e",
+    "bytes": 255
+  },
+  "allOtherSourceRowsExact": true
+}

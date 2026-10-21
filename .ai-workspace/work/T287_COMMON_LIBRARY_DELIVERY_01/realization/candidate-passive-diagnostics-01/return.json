@@ -1,0 +1,174 @@
+{
+  "status": "satisfied_bounded_diagnostics",
+  "activation": "FINAL-CANDIDATE-DIAGNOSTICS-01",
+  "subjectId": "candidate",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844,
+    "mode": "0o644"
+  },
+  "lanes": {
+    "p1": {
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/result.json",
+        "sha256": "8aa55f8b2f80d540b69d3615c35b717f2fe152354fd3c292ab5af9eb0e0f9d69",
+        "bytes": 2050,
+        "mode": "0o644"
+      },
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/freeze.json",
+        "sha256": "efc512f21cc00af955d505a7a2b5c1d219a4371491397f1955b9c69748027b20",
+        "bytes": 7325885,
+        "mode": "0o644"
+      },
+      "measurements": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/measurement-return.json",
+        "sha256": "19ee53245e73af8d99762b9b14b4c2d139168a26bc55c322b27d1cf9e34ed688",
+        "bytes": 14725,
+        "mode": "0o644"
+      },
+      "coverage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/coverage-result.json",
+        "sha256": "b041dd23f12b7c321dfee93a214c08ef6c83c522793fe337fba8abb98bedfe16",
+        "bytes": 2317,
+        "mode": "0o644"
+      },
+      "ownerHandoff": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/owner-handoff.json",
+        "sha256": "1363e14e2dee4ef37c20a1dd74158f6603b0bcc681ef314db83ffe9a853b5ca7",
+        "bytes": 1992,
+        "mode": "0o644"
+      },
+      "prefix": {
+        "coordinateDigest": "sha256:ce18d3f79e0f90935d4869a96effef8d45a1049a728debdcc445a54417a33f45",
+        "eventLogRef": "file:///private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p1/evidence/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:f518d558ed35027c21419da5706583da3727fcee115df65f815b3929649e7b45",
+        "prefixLength": 3113362,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 474886643
+        }
+      },
+      "rawProcess": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p1/process-result.json",
+        "sha256": "4ad906419b9741f45a0009708e37678a0a9f2ca94ac189fc981ec59644febd3a",
+        "bytes": 131,
+        "mode": "0o644"
+      },
+      "processCount": 16,
+      "traceCount": 16,
+      "traceBytes": 257094121,
+      "observerRecordBytes": 186850,
+      "historyOwners": 10,
+      "instrumentedChildEdges": 15,
+      "externalChildEdges": 68,
+      "cleanupHooksCaptured": 0,
+      "cleanupHooksExecuted": 0,
+      "nativeCalls": 0,
+      "retryCount": 0
+    },
+    "p3": {
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/result.json",
+        "sha256": "b69ac29643b3715abc45d6dc17e31d43c6cdbae6288054cb24fa856ca08ff6df",
+        "bytes": 2050,
+        "mode": "0o644"
+      },
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/freeze.json",
+        "sha256": "1d60ba0f1ee127cc253d02983294799ced265062d99e39906eda50d4f2dc0834",
+        "bytes": 7459005,
+        "mode": "0o644"
+      },
+      "measurements": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/measurement-return.json",
+        "sha256": "7b98d6c358d937525e0c2d28ffef4b9b20b5a18a04d37ff12fa21bd1f7f40216",
+        "bytes": 13792,
+        "mode": "0o644"
+      },
+      "coverage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/coverage-result.json",
+        "sha256": "7a4277f0bdc947f39c04da57f2fad601535661eee957f67a37eaf11c00208152",
+        "bytes": 2314,
+        "mode": "0o644"
+      },
+      "ownerHandoff": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/owner-handoff.json",
+        "sha256": "6d8081dec98da7847aee612254cade5462cf61726470547b38f3c38b780abd74",
+        "bytes": 2019,
+        "mode": "0o644"
+      },
+      "prefix": {
+        "coordinateDigest": "sha256:75a068b80f25f8440b1124fb1882c2e32097f36fc472d50a4ec4de69253fa2a3",
+        "eventLogRef": "file:///private/tmp/abg-stdo3-candidate-diag-947f3a62d1ce48b0/p3/scratchParent/abi5-root-env-Yd6DRJ/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:92aa0ba37633a0538d2067e97a3ff35fac9e5c2fc42677960decd26e78d9b119",
+        "prefixLength": 3217815,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 474964018
+        }
+      },
+      "rawProcess": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/p3/process-result.json",
+        "sha256": "3653670036205f35eff68c30b0486c8b7f3ac097c7ae7096bdd5f2455ba232af",
+        "bytes": 131,
+        "mode": "0o644"
+      },
+      "processCount": 9,
+      "traceCount": 9,
+      "traceBytes": 209836158,
+      "observerRecordBytes": 90152,
+      "historyOwners": 17,
+      "instrumentedChildEdges": 8,
+      "externalChildEdges": 11,
+      "cleanupHooksCaptured": 1,
+      "cleanupHooksExecuted": 0,
+      "nativeCalls": 0,
+      "retryCount": 0
+    }
+  },
+  "comparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/baseline-candidate-comparison.json",
+    "sha256": "751d3f3f9469739978b67091b794fdcc5965ff74d527cc2a8bafad46140bc114",
+    "bytes": 18399,
+    "mode": "0o644"
+  },
+  "retainedStorage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/candidate-passive-diagnostics-01/retained-storage.json",
+    "sha256": "141329baa8b6991a7816f55fb8f24151ce449265e47222950121f6a0239f787d",
+    "bytes": 898,
+    "mode": "0o644"
+  },
+  "unobserved": [
+    "External tar/du per-PID CPU, memory and internal IO",
+    "Unsized native filesystem completion bytes and unprobed APIs",
+    "Cold selectScopeCold internal causal iteration counts",
+    "Later exit-handler work beyond observer snapshot",
+    "OS-wide IO/allocation peaks and CoW-exclusive bytes",
+    "Isolated instrumentation overhead, host-load causality and statistical distribution",
+    "Native provider/semantic cost: no provider runs selected"
+  ],
+  "effects": {
+    "P1Repetitions": 1,
+    "P3Repetitions": 1,
+    "baselineRepetitions": 0,
+    "nativeProviderCalls": 0,
+    "sourceChanges": 0,
+    "builds": 0,
+    "packs": 0,
+    "GitActions": 0,
+    "retryCount": 0,
+    "cleanup": false,
+    "continuation17Access": 0
+  },
+  "resultConsumer": "/root",
+  "scope": "Frozen original deterministic workload/oracle plus passive coverage and scoped cost observations. No L5, Product acceptance or release decision.",
+  "stopAfterReturn": true
+}

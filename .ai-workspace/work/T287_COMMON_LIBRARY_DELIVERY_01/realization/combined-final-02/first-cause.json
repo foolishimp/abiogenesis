@@ -1,0 +1,44 @@
+{
+  "kind": "first_unexpected_combined_build_correspondence_failure",
+  "request": {
+    "label": "structure",
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/verify-structure.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stage/build_tenants/abiogenesis/typescript",
+    "environment": {
+      "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "HOME": "/Users/jim",
+      "LANG": "en_AU.UTF-8",
+      "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/tmp",
+      "npm_config_offline": "true",
+      "npm_config_ignore_scripts": "true",
+      "npm_config_audit": "false",
+      "npm_config_fund": "false",
+      "npm_config_update_notifier": "false",
+      "npm_config_logs_dir": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/npm-logs",
+      "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/npm-cache"
+    },
+    "grant": "COMBINED-FINAL-02",
+    "prebuild_freeze_sha256": "e64d6794e1bf124b69cbb3ae6c23fe098e1a33b336d09c820354a90d8bf446f7",
+    "runner_sha256": "806f7aecc759b6afecb464b600e5a12d8989e821b0d2928d40dfdfc14cb414ef",
+    "startedUtc": "2026-10-21T03:18:31.124352+00:00",
+    "verification_script_sha256": "8a76f5d08f7f6ef8e377dd23955ab4133366b90c6f3cc955113c478ce7a700eb"
+  },
+  "receipt": {
+    "label": "structure",
+    "exitCode": 1,
+    "wallMs": 304.6254999935627,
+    "completedUtc": "2026-10-21T03:18:31.429669+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 569,
+      "sha256": "3c9c4cd82e916de754c0f6282939aede1395c99a145825fa196efb039940a750"
+    }
+  },
+  "disposition": "Stopped without retry or repair"
+}

@@ -1,0 +1,51 @@
+{
+  "activation": "E03-PHYSICAL-LAUNCH-FAILURE-01",
+  "argv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/run.py"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "exitCode": 0,
+  "toolReportedWallSeconds": 0.364347625,
+  "parentMeasuredHostWallSeconds": 0.4194705409463495,
+  "executionFreeze": {
+    "path": "execution-freeze.json",
+    "bytes": 1991,
+    "sha256": "ff120c86ff826bc812684a93e234762b74ad870c2636e8eb06ed70dfcf182aa5"
+  },
+  "actualHostArgv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "--experimental-vm-modules",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-physical-launch-failure-01/host.mjs"
+  ],
+  "hostPid": 44593,
+  "hostExitCode": 0,
+  "hostWatchdogExpired": false,
+  "hostAbsence": {
+    "directPid": {
+      "state": "absent",
+      "errno": "ESRCH"
+    },
+    "processGroup": {
+      "state": "absent",
+      "errno": "ESRCH"
+    }
+  },
+  "watchdogSignals": [],
+  "observation": {
+    "path": "observation.json",
+    "bytes": 51637,
+    "sha256": "f265bd0c30730377512b3a48b6ee71a6220dbbbe97cce40df3e75a4c3f3e1f88"
+  },
+  "decision": {
+    "path": "decision.json",
+    "bytes": 1176,
+    "sha256": "414c9498162125ee2b42431c02d96cd8499898ff2003b97d82ae87f20c7fdc05"
+  },
+  "noRetry": true,
+  "rootsRetained": [
+    "/private/tmp/abiogenesis-e03-launch-failure-scratch-20261021-74d19d63",
+    "/private/tmp/abiogenesis-e03-launch-failure-evidence-20261021-74d19d63"
+  ],
+  "claim": "One actual frozen failed-spawn population; no production repair or independent acceptance."
+}

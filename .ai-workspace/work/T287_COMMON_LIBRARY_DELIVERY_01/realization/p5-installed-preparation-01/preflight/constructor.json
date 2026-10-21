@@ -1,0 +1,373 @@
+{
+  "scope": "pure configuration only; cold A/W premises are not actual ABG admission and no source result is fabricated",
+  "input": {
+    "workspaceAuthorityBasis": {
+      "kind": "workspace_authority_basis",
+      "schemaVersion": "5.0.0",
+      "workspaceId": "workspace://t287/p5/constructor-only",
+      "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/preflight/prospective-workspace",
+      "authorityMode": "trusted_developer",
+      "authorizedActorRef": "actor://t287/p5/constructor-only",
+      "authorityManifestRef": "manifest://t287/p5/constructor-only",
+      "authorityManifestDigest": "sha256:d30ecd65e957339aa9bc242c752beab3b23f2be6404b5507f853fcf90b2cc122",
+      "authorityBasisId": "workspace-authority://abiogenesis/3f7aa242aa3048415b946d0d6a95f2bb47168d1ac96fcbf08ed15cb503109c3d",
+      "authorityBasisDigest": "sha256:3f7aa242aa3048415b946d0d6a95f2bb47168d1ac96fcbf08ed15cb503109c3d"
+    },
+    "workspaceBinding": {
+      "kind": "workspace_binding",
+      "schemaVersion": "5.0.0",
+      "bindingId": "workspace-binding://abiogenesis/9a5c8182b17e51943f874a971ffc606ae80783cb1bbf48dc24362b85facf61f9",
+      "bindingDigest": "sha256:9a5c8182b17e51943f874a971ffc606ae80783cb1bbf48dc24362b85facf61f9",
+      "workspaceId": "workspace://t287/p5/constructor-only",
+      "authorityBasisId": "workspace-authority://abiogenesis/3f7aa242aa3048415b946d0d6a95f2bb47168d1ac96fcbf08ed15cb503109c3d",
+      "authorityBasisDigest": "sha256:3f7aa242aa3048415b946d0d6a95f2bb47168d1ac96fcbf08ed15cb503109c3d",
+      "authorizedActorRef": "actor://t287/p5/constructor-only",
+      "productSetId": "product-set://t287/p5/cold",
+      "productSetDigest": "sha256:d02a328972b569be2ce780a22dcfbc325d7005d15229633886e4c87d3f3567e6",
+      "lockId": "lock://t287/p5/cold",
+      "lockDigest": "sha256:a4db0612a2e732fd4c76cd77128aa10d1eea041512dfaa988701b9f7178acd5d",
+      "roots": {
+        "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/preflight/toolchain",
+        "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/preflight/product",
+        "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/preflight/eventLog",
+        "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/preflight/runtimeState",
+        "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/preflight/projection",
+        "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/preflight/archive"
+      },
+      "admissionEventRef": "event://t287/p5/cold-premise-not-admitted"
+    },
+    "protectedSubjects": [
+      {
+        "kind": "worksite_subject",
+        "schemaVersion": "5.0.0",
+        "subjectRef": "worksite-subject://abiogenesis/4aeb2b30b1080fef00cb8b4dc9677acb3748ab6261ad34bb6e79a7c75287f7f3",
+        "subjectDigest": "sha256:4aeb2b30b1080fef00cb8b4dc9677acb3748ab6261ad34bb6e79a7c75287f7f3",
+        "workspaceBindingIdentity": "workspace-binding://abiogenesis/9a5c8182b17e51943f874a971ffc606ae80783cb1bbf48dc24362b85facf61f9",
+        "workspaceBindingDigest": "sha256:9a5c8182b17e51943f874a971ffc606ae80783cb1bbf48dc24362b85facf61f9",
+        "subjectUri": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-preparation-01/preflight/prospective-workspace/c2-source/service.mjs",
+        "relativePath": "c2-source/service.mjs"
+      }
+    ],
+    "commands": [
+      {
+        "commandId": "command://c2-ack/large-nonzero",
+        "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "args": [
+          "-e",
+          "const fs=require('node:fs');fs.writeSync(1,Buffer.alloc(210000,65));fs.writeSync(2,Buffer.alloc(210000,66));process.exit(7)"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 5000,
+        "terminationGraceMs": 1000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://c2-ack/small-success",
+        "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "args": [
+          "-e",
+          "process.stdout.write('small\\n')"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 5000,
+        "terminationGraceMs": 1000,
+        "expectedReports": []
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "predicateId": "predicate://c2-ack/nonzero",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://c2-ack/large-nonzero",
+          "equals": 7
+        }
+      },
+      {
+        "predicateId": "predicate://c2-ack/stdout",
+        "predicateKind": "stdout_exact",
+        "declaration": {
+          "validationCommandId": "command://c2-ack/small-success",
+          "equals": "small\n"
+        }
+      },
+      {
+        "predicateId": "predicate://c2-ack/http",
+        "predicateKind": "http_response_exact",
+        "declaration": {
+          "validationCommandId": "command://c2-ack/small-success",
+          "status": 201,
+          "body": "abi-ok",
+          "launch": {
+            "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+            "args": [
+              "c2-source/service.mjs",
+              "{ABI_HTTP_PORT_FILE}"
+            ],
+            "environment": {},
+            "relativeCwd": ".",
+            "portFile": {
+              "relativePath": "evidence/http-port.txt"
+            },
+            "timeoutMs": 5000,
+            "terminationGraceMs": 1000
+          },
+          "request": {
+            "hostname": "127.0.0.1",
+            "method": "GET",
+            "path": "/",
+            "timeoutMs": 1000
+          }
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "pathKind": "subtree",
+        "relativePath": "evidence"
+      }
+    ]
+  },
+  "normalized": {
+    "commands": [
+      {
+        "kind": "worksite_declared_command",
+        "schemaVersion": "5.0.0",
+        "ordinal": 0,
+        "commandId": "command://c2-ack/large-nonzero",
+        "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "args": [
+          "-e",
+          "const fs=require('node:fs');fs.writeSync(1,Buffer.alloc(210000,65));fs.writeSync(2,Buffer.alloc(210000,66));process.exit(7)"
+        ],
+        "relativeCwd": ".",
+        "environment": [
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "HOME",
+            "value": "/Users/jim"
+          },
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "LANG",
+            "value": "C.UTF-8"
+          },
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "LC_ALL",
+            "value": "C.UTF-8"
+          },
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "PATH",
+            "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0-macos/codex-arg0JtPKke:/Users/jim/.codex/tmp/arg0/codex-arg0CDnCoA:/Users/jim/.codex/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0Bb4u1U:/Users/jim/.codex/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0LxzuXl:/Users/jim/.codex/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg03BXQTA:/Users/jim/.codex/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg00N7H4l:/Users/jim/.codex/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0KdMMgl:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+          },
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "TMPDIR",
+            "value": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/"
+          }
+        ],
+        "timeoutMs": 5000,
+        "terminationGraceMs": 1000,
+        "expectedReports": []
+      },
+      {
+        "kind": "worksite_declared_command",
+        "schemaVersion": "5.0.0",
+        "ordinal": 1,
+        "commandId": "command://c2-ack/small-success",
+        "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "args": [
+          "-e",
+          "process.stdout.write('small\\n')"
+        ],
+        "relativeCwd": ".",
+        "environment": [
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "HOME",
+            "value": "/Users/jim"
+          },
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "LANG",
+            "value": "C.UTF-8"
+          },
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "LC_ALL",
+            "value": "C.UTF-8"
+          },
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "PATH",
+            "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0-macos/codex-arg0JtPKke:/Users/jim/.codex/tmp/arg0/codex-arg0CDnCoA:/Users/jim/.codex/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0Bb4u1U:/Users/jim/.codex/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0LxzuXl:/Users/jim/.codex/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg03BXQTA:/Users/jim/.codex/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg00N7H4l:/Users/jim/.codex/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0KdMMgl:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+          },
+          {
+            "kind": "worksite_command_environment_entry",
+            "schemaVersion": "5.0.0",
+            "name": "TMPDIR",
+            "value": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/"
+          }
+        ],
+        "timeoutMs": 5000,
+        "terminationGraceMs": 1000,
+        "expectedReports": []
+      }
+    ],
+    "predicates": [
+      {
+        "kind": "worksite_outcome_predicate",
+        "schemaVersion": "5.0.0",
+        "ordinal": 0,
+        "predicateId": "predicate://c2-ack/nonzero",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://c2-ack/large-nonzero",
+          "equals": 7
+        }
+      },
+      {
+        "kind": "worksite_outcome_predicate",
+        "schemaVersion": "5.0.0",
+        "ordinal": 1,
+        "predicateId": "predicate://c2-ack/stdout",
+        "predicateKind": "stdout_exact",
+        "declaration": {
+          "validationCommandId": "command://c2-ack/small-success",
+          "equals": "small\n"
+        }
+      },
+      {
+        "kind": "worksite_outcome_predicate",
+        "schemaVersion": "5.0.0",
+        "ordinal": 2,
+        "predicateId": "predicate://c2-ack/http",
+        "predicateKind": "http_response_exact",
+        "declaration": {
+          "validationCommandId": "command://c2-ack/small-success",
+          "status": 201,
+          "body": "abi-ok",
+          "launch": {
+            "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+            "args": [
+              "c2-source/service.mjs",
+              "{ABI_HTTP_PORT_FILE}"
+            ],
+            "environment": [
+              {
+                "kind": "worksite_command_environment_entry",
+                "schemaVersion": "5.0.0",
+                "name": "HOME",
+                "value": "/Users/jim"
+              },
+              {
+                "kind": "worksite_command_environment_entry",
+                "schemaVersion": "5.0.0",
+                "name": "LANG",
+                "value": "C.UTF-8"
+              },
+              {
+                "kind": "worksite_command_environment_entry",
+                "schemaVersion": "5.0.0",
+                "name": "LC_ALL",
+                "value": "C.UTF-8"
+              },
+              {
+                "kind": "worksite_command_environment_entry",
+                "schemaVersion": "5.0.0",
+                "name": "PATH",
+                "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0-macos/codex-arg0JtPKke:/Users/jim/.codex/tmp/arg0/codex-arg0CDnCoA:/Users/jim/.codex/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0Bb4u1U:/Users/jim/.codex/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0LxzuXl:/Users/jim/.codex/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg03BXQTA:/Users/jim/.codex/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg00N7H4l:/Users/jim/.codex/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex/tmp/arg0/codex-arg0KdMMgl:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+              },
+              {
+                "kind": "worksite_command_environment_entry",
+                "schemaVersion": "5.0.0",
+                "name": "TMPDIR",
+                "value": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/"
+              }
+            ],
+            "relativeCwd": ".",
+            "portFile": {
+              "relativePath": "evidence/http-port.txt"
+            },
+            "timeoutMs": 5000,
+            "terminationGraceMs": 1000
+          },
+          "request": {
+            "hostname": "127.0.0.1",
+            "method": "GET",
+            "path": "/",
+            "timeoutMs": 1000
+          }
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "kind": "worksite_command_write_territory",
+        "schemaVersion": "5.0.0",
+        "territoryRef": "worksite-command-write-territory://abiogenesis/90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14",
+        "territoryDigest": "sha256:90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14",
+        "ordinal": 0,
+        "pathKind": "subtree",
+        "relativePath": "evidence",
+        "purpose": "execution_evidence"
+      }
+    ]
+  },
+  "budget": {
+    "rule": {
+      "aggregation": "sum",
+      "commandFields": [
+        "timeoutMs",
+        "terminationGraceMs",
+        "terminationGraceMs"
+      ],
+      "httpResponseFields": {
+        "launch": [
+          "timeoutMs",
+          "terminationGraceMs",
+          "terminationGraceMs"
+        ],
+        "request": [
+          "timeoutMs"
+        ]
+      },
+      "perOperationDrain": {
+        "field": "terminationGraceMs",
+        "maximumMs": 250,
+        "operation": "minimum"
+      },
+      "ownerAllowanceMs": 5000,
+      "limitComparison": "required_budget_strictly_less_than_each_limit",
+      "limitOrdering": "absolute_strictly_greater_than_inactivity"
+    },
+    "commandBudgetMs": 14500,
+    "httpProbeBudgetMs": 8250,
+    "requiredExecutionBudgetMs": 27750
+  },
+  "literalOracle": {
+    "commandBudgetMs": 14500,
+    "httpProbeBudgetMs": 8250,
+    "requiredExecutionBudgetMs": 27750,
+    "status": 201,
+    "body": "abi-ok",
+    "portFile": "evidence/http-port.txt"
+  },
+  "negativeOracles": [
+    "no allowed port write territory",
+    "missing exact placeholder"
+  ]
+}

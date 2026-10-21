@@ -1,0 +1,186 @@
+[
+  {
+    "attempt": 1,
+    "roots": [
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-2bOji4",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-9kLS1F",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-G3r6FZ",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-z9azwR",
+        "exists": true
+      }
+    ],
+    "logs": [
+      {
+        "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-xmbE9H/events.jsonl",
+        "exists": true
+      }
+    ],
+    "journal_limit": "Attempts01/02 predate general journal capture; exact admitted rows and retained roots are recorded, with C0 pre-effect durable coordinate. General retained log coordinates were not reconstructed.",
+    "status": "failed state retained and recorded file bytes unchanged"
+  },
+  {
+    "attempt": 2,
+    "roots": [
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-KUK8vb",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-PBiGG7",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-aaiCmh",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-kGbHSv",
+        "exists": true
+      }
+    ],
+    "logs": [],
+    "journal_limit": "Attempts01/02 predate general journal capture; exact admitted rows and retained roots are recorded, with C0 pre-effect durable coordinate. General retained log coordinates were not reconstructed.",
+    "status": "failed state retained and recorded file bytes unchanged"
+  },
+  {
+    "attempt": 3,
+    "roots": [
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-bkm8kW",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-uTVqh3",
+        "exists": true
+      }
+    ],
+    "logs": [
+      {
+        "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-BK3orb/events.jsonl",
+        "exists": true
+      }
+    ],
+    "journal_limit": "actual durable coordinate and encoded log bytes retained before cleanup",
+    "status": "failed state retained and recorded file bytes unchanged"
+  },
+  {
+    "attempt": 4,
+    "roots": [
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-JKC8YX",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-d1CEbc",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-iH2ydw",
+        "exists": true
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-k5ZImT",
+        "exists": true
+      }
+    ],
+    "logs": [
+      {
+        "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-O5aXJM/events.jsonl",
+        "exists": true
+      }
+    ],
+    "journal_limit": "actual durable coordinate and encoded log bytes retained before cleanup",
+    "status": "failed state retained and recorded file bytes unchanged"
+  },
+  {
+    "attempt": 5,
+    "roots": [
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-1ZGxFX",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-3RkZLw",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-4bnSLz",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-6vT4FX",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-Pw4YOV",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-QwJwbf",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-W3f0IE",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-Zv9ArK",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-aFJo2o",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-bztslt",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-dBePzX",
+        "exists": false
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-dW1JVH",
+        "exists": false
+      }
+    ],
+    "logs": [
+      {
+        "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-5IyMfs/events.jsonl",
+        "exists": false
+      },
+      {
+        "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-71AoKn/events.jsonl",
+        "exists": false
+      },
+      {
+        "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-IpmKAq/events.jsonl",
+        "exists": false
+      },
+      {
+        "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-OVWnRp/events.jsonl",
+        "exists": false
+      },
+      {
+        "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-YKmo6k/events.jsonl",
+        "exists": false
+      },
+      {
+        "eventLogRef": "file:///var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-u1-gP5Ikd/events.jsonl",
+        "exists": false
+      }
+    ],
+    "journal_limit": "actual durable coordinate and encoded log bytes retained before cleanup",
+    "status": "success-only cleanup verified"
+  }
+]

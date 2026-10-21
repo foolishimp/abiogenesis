@@ -1,0 +1,9 @@
+{
+  "stageNondependencyFiles": 1946,
+  "stageNondependencyBytes": 88019624,
+  "dependencyEntries": 4576,
+  "dependencyFileBytes": 58290945,
+  "physicalPromptArchiveBytes": 16777216,
+  "retainedRoots": "exact isolated stage plus new evidence; ordinary test scratch roots use existing cleanup hooks",
+  "noSavingClaim": true
+}

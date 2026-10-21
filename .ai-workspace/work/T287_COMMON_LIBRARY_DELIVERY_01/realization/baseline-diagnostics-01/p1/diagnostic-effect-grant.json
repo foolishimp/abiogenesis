@@ -1,0 +1,79 @@
+{
+  "kind": "t287_passive_diagnostic_effect_grant",
+  "status": "granted",
+  "issuedBy": "/root",
+  "activation": "BASELINE-DIAGNOSTICS-01",
+  "subjectId": "baseline",
+  "lane": "public-preparation",
+  "configurationSha256": "5f931f85110eb80c1a2ae35cf82dcdb669c50c26c52e87b01b94e11dcac34e3b",
+  "launcherSha256": "1ee5db3e8640b1c2cd5e4acab4249d710f61415c42fa00ca40a12595674792fa",
+  "nativeCalls": 0,
+  "diagnosticRoot": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/diagnostic",
+  "runtimeRoots": {
+    "evidence": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+    "host": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host",
+    "scratchParent": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/scratchParent",
+    "worksite": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite"
+  },
+  "cache": {
+    "root": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/caches/p1",
+    "seed": {
+      "kind": "explicit_empty_seed",
+      "files": []
+    },
+    "closure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/archive-closure.json",
+      "sha256": "500076db05114a43578f76410e3546b0bddd5a59360a52ed161a835016b1e2b6",
+      "bytes": 6972,
+      "mode": "0o644"
+    },
+    "effects": [
+      "create empty owned root",
+      "offline npm content/index/tmp/log writes"
+    ],
+    "globalCacheRead": false,
+    "globalCacheWrite": false,
+    "networkFallback": false,
+    "retain": true
+  },
+  "childCommands": [
+    {
+      "file": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "kind": "node"
+    },
+    {
+      "file": "node",
+      "kind": "node"
+    },
+    {
+      "file": "/opt/homebrew/bin/npm",
+      "kind": "npm-node-script",
+      "script": {
+        "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+        "bytes": 54,
+        "mode": "0o755"
+      }
+    },
+    {
+      "file": "npm",
+      "kind": "npm-node-script",
+      "script": {
+        "path": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+        "bytes": 54,
+        "mode": "0o755"
+      }
+    }
+  ],
+  "moduleRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/host",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/scratchParent",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/worksite"
+  ],
+  "retryCount": 0,
+  "cleanup": false,
+  "stop": "First actual preflight, attachment, owner, oracle, coverage or process failure; no repair/retry/next lane."
+}

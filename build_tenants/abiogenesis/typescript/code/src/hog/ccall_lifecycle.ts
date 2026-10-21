@@ -12,7 +12,7 @@ import * as Effect from "effect/Effect";
 
 import * as Abg from "../abg/index.js";
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
-import { deriveRuntimeHeldFluentProjection } from "../abg/event_calculus.js";
+import { worksiteSelectedOccurrenceInputCurrent } from "../abg/event_calculus.js";
 import { hasNoCompletedRetryExit } from "../abg/retry.js";
 import type {
   AbgEventStore,
@@ -164,17 +164,8 @@ function worksiteLeafAuthority(
   ) return null;
   Abg.assertHeldEventStoreAtDurablePrefix(input.store, openedPrefix);
   const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(openedPrefix);
-  const calculus = deriveRuntimeHeldFluentProjection(
-    selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: cCall.runId }),
-  );
   if (!parents && isWorksiteFileReplaceRequest(input.input) &&
-    !Abg.holdsAt(
-      calculus,
-      Abg.constructWorksiteObservationCurrentFluent(
-        input.input.predecessorObservation.observationRef,
-      ),
-    )
-  ) return null;
+    !worksiteSelectedOccurrenceInputCurrent(authorityPrefix, cCall, input.input)) return null;
   return constructLeafExecutionAuthority({
     actorRef: input.executionBasis.actorRef,
     workspaceBinding: input.actorRuntimeBinding.workspaceBinding,

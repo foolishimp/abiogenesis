@@ -1,0 +1,400 @@
+{
+  "kind": "immutable_existing_evidence_records_at_preservation_reentry",
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/HOW.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5538,
+      "sha256": "22274037d241f8a85880df8b0d99fc41b21bd20f95a8610fac0208b23c45555a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/activation.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3839,
+      "sha256": "f6847bd21483dccd9d7467a47f74eff044c7363b76f8512a49ddf28aed29e071"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/archive-members.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1262480,
+      "sha256": "0e275e747ff86b29b57cb9396177c5e8dbf3ea0b4c07c8fb496848da1c4f852d"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/archive-payload-owner-input.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 915559,
+      "sha256": "62cf0d8e6b5c73020726794d899e72ed0fc0b8660b0106d24a9c3bc9f8288864"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/archive-payload-owner-result.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 829,
+      "sha256": "379fe40e9ad62c99e2f422e3b1a5996e2f5d1fbe3e87bd453576ea703e17d5a0"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 10679557,
+      "sha256": "465707598054ec00080400ab15d790ed82bc0f35d586d0998a5015697031bf06"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/finalize.request.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 647,
+      "sha256": "b37add129d29fdaf3be308a953ac60d368108866f561d76d2b2442241ae97dba"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/generate.request.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1372,
+      "sha256": "b4d4b955a9d669ab387193deed3938c785b51dc931da29aa8429db73bd914586"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/generate.result.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 361,
+      "sha256": "d1085acaed9cf7b40867e0fd3e3030e9b7a0a842d2a34397fabbda0e9d3e0abc"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/generate.stderr",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/generate.stdout",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/material.request.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1567,
+      "sha256": "600b5f3a233f493032417d340de81a19e0ae20ef89d909b4d2e56caaab09e129"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/material.result.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 362,
+      "sha256": "bd660319c95dd20ca51f410019d6e34dbf47418343c7a635fbc3a22effea2895"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/material.stderr",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/material.stdout",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 393,
+      "sha256": "3d74e45ae7d1d7c4a7c68e980c2999c7c3453105cb9c214a17306e70adfb7c54"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/pack.request.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1509,
+      "sha256": "2163d0fd75454a1a399495b2ac651d8bff657e3a1ca6c306125b6806c9e9b47c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/pack.result.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 362,
+      "sha256": "4de6186bde4c0595ee5aa9faf5039ac6d0487cc9662cf8f4021ff0085426ca5c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/pack.stderr",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/pack.stdout",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 693429,
+      "sha256": "35371788dbe3d0c438a6d5194fb1f0104ec9a827f765bafcf31fb137cf3b8b59"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/payload.request.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1565,
+      "sha256": "80a7bbe6685ef5c2a61df8288dc033c4fbf5b11521f6b520e94e02ecc6ffacdf"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/payload.result.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 362,
+      "sha256": "6c72e3365c642ca6f5569abd4d85fef2ee642be9d183523a98046ece05cc1133"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/payload.stderr",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/payload.stdout",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 788,
+      "sha256": "5d7f17336ebb5c7c262a5ea3640493f4ef140bc725418d5190995feea7a6f2d5"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/structure.request.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1569,
+      "sha256": "dae7f87d374cca2068a6ba70383db03c2f1c4a2adbab3b3650ce5f772243f551"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/structure.result.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 364,
+      "sha256": "bb6efa43bf95865b8348a48816c9b4a9a42e9f190d39415cb18b3a8e74216406"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/structure.stderr",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/structure.stdout",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 124,
+      "sha256": "e5567488d72d134b9c6d17db2c97630a0c9e077134afb9240fb0472e069818f7"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/tsc.request.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1392,
+      "sha256": "1f9bfa490d815b36bff71791b2bd5050ec8ebd9ab4198339ed762c5c8e3d9dc9"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/tsc.result.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 355,
+      "sha256": "dedcdab575d979d91394b93a183ad5db78a98fee1a2103c39ea4d68dd45eb22f"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/tsc.stderr",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/commands/tsc.stdout",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/common.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1373,
+      "sha256": "9dc09a38bf640105bb73844ede8f100e3b3271932e004108166da5693bba6bdf"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/dependency-inventory.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1006382,
+      "sha256": "97e7666199c6fb3c3ceda39f1e0b4ff0bf952a3631ae8f2c58402d36f49029e5"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/finalize.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 17512,
+      "sha256": "94167ee1397e95ef0818c2e8888c39c23c94513c2a4f575f61c5560413388e62"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/first-cause.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1044,
+      "sha256": "8eff9b83a8060a46b8d02897864868d293478a67e483b1336189d30e177c1276"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/generated-inventory.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 249264,
+      "sha256": "3c79def76d9f8f4810b86fc046466fb851df965d98ed48e32a9f98f3edff94ff"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/metadata-correspondence.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 44590,
+      "sha256": "2f5939c774427947ead8a0186d651ab6f6e4c5fe193b6fd9ee10214709a835d0"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/package-source-correspondence.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1184,
+      "sha256": "95142f85dbf3a90f2872488c70c89edaa156b0ae3d9d3dc89872019c216c287a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/payload-source-manifest.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 328835,
+      "sha256": "70f39b2bb40ef5bb9d5f2b93edd0b9c299f2a3fa64f8b1b5b8bf06958062043b"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/prebuild-freeze.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3738,
+      "sha256": "5101b980a04659fda90b07506c40c9620eb2c4f0443ced35e4cbeab727654811"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/precedence-ledger.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 37019,
+      "sha256": "483aa07eb17e3791280f648af721cb5827ff046530ad62d8cba5a9a6f62f229a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/prepare.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 11824,
+      "sha256": "555b268895496ab503292602f5699ad5944bb9929549ebcd7dc1bd09ec76ba62"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-generated.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 248218,
+      "sha256": "b6273def4c3e1db1dcb5d350db81f65019bc8a07ca189c0ac08cf41655bc1b96"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-main-inputs.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 353609,
+      "sha256": "d5ecf2114370be271f70eaa13fe671bd11a6c0d3c6dfd6d08ed57dc889d3e1d3"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/protected-prior-trees.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 30784727,
+      "sha256": "0c78390eaf136e8d24804d56474d3b31203a066c5fb51feaf7bc931407ea98d9"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/run-command.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3626,
+      "sha256": "7cb9994acbe7198e7a924dec1f685e9f477a5dbf5ee0fc2298705a5feebeeff3"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/run-structure.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1712,
+      "sha256": "806f7aecc759b6afecb464b600e5a12d8989e821b0d2928d40dfdfc14cb414ef"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source-generated-correspondence.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1804,
+      "sha256": "3c4df7b9a999e00eca1aef83930110ec5eebc8ec54ff13d189b772682c266144"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/source-union-manifest.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 402678,
+      "sha256": "be5cc153e4ff8bf21c546274f702afd46fa778174a1104a77c950d8bede9ac64"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage-post-generation-inventory.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1784312,
+      "sha256": "a6fdca675129edecae7ee049c5a37440d6b21ca52af79938fdc1cf91b69c0e03"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/stage-prebuild-inventory.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1588546,
+      "sha256": "09c4e70a5e5f3f27f83ad2e8d497904c704352ee3750ca92cc6ec71b9bcdb34e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/structural-correspondence.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 41944,
+      "sha256": "7022fa8c682d1750cafc209dff98a3e37bd6755b609c4ec22a0e557bfc2398dc"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/toolchain.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 706,
+      "sha256": "6886dbcbdf250bebfcaf0a55bc600e4107a825a36420bd385af771a6010c820a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/verify-metadata.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 13661,
+      "sha256": "8e8f30ce8d22ae56d617007635dfed02441df6f7525bd0612d54a7d5f6450fba"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/verify-payload.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1937,
+      "sha256": "894f2030400b8c9fc1b5cc47271bd50855daa92c7b136e2bcb2a643bb17c2268"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-01/verify-structure.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 13573,
+      "sha256": "4751c01b4d0af77c530100eb9c6afc8976f31775ce192516247707b4a945ea48"
+    }
+  ],
+  "sourceAndStage": "Bound by unchanged source and post-generation inventories; not copied or regenerated",
+  "originalFinalizationExitCodeObserved": 1,
+  "originalOutputProvenance": "Tool transcript only; no raw local stdout/stderr hash is claimed. Local first-cause retains traceback."
+}

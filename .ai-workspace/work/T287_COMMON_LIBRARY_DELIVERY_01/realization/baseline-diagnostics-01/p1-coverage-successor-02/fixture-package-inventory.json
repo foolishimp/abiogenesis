@@ -1,0 +1,107 @@
+{
+  "archive": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-artifacts/abi5-tests-sandbox-uat-5.0.0.tgz",
+    "sha256": "07bec7de8b50d206f7123b8dbbdb813712bb6cc3d3489b6445a05e7fab73dd48",
+    "bytes": 6184,
+    "mode": "0o644"
+  },
+  "producerCommand": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/commands/4-pack-consumer.json",
+    "sha256": "828c623d479541d2f7d4d6b37b10ccc5af408562f8ecb57fd070c57b316f3cb8",
+    "bytes": 1797,
+    "mode": "0o644"
+  },
+  "acquisition": {
+    "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/consumer-acquisition.json",
+    "sha256": "0f90e5d125760cb34dc83da575e5dad72bfd910ecd2f99ad73296942ef1f9b13",
+    "bytes": 10046,
+    "mode": "0o644"
+  },
+  "sourceRoot": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source",
+  "files": [
+    {
+      "path": "contracts/assessment.schema.json",
+      "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7",
+      "bytes": 462,
+      "mode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/contracts/assessment.schema.json",
+        "sha256": "f2fe036c7b6b2a1dbe13f2dbe9cdda649011d64315421eaa83c19ad708701aa7",
+        "bytes": 462,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "bytes": 247,
+      "mode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/contracts/capabilities/capability-definition-graph.json",
+        "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+        "bytes": 247,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "package.json",
+      "sha256": "9102c922fda84f34e9873fb646537411d39060a8423ba458cb1a8ac3c5c4effe",
+      "bytes": 566,
+      "mode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/package.json",
+        "sha256": "9102c922fda84f34e9873fb646537411d39060a8423ba458cb1a8ac3c5c4effe",
+        "bytes": 566,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "sha256": "56463af63cc08284fc0822c9c85c27d1eace68e3e0e581b067ed78d2d659af48",
+      "bytes": 4864,
+      "mode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/product-toolchain-manifest.json",
+        "sha256": "56463af63cc08284fc0822c9c85c27d1eace68e3e0e581b067ed78d2d659af48",
+        "bytes": 4864,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "bytes": 75,
+      "mode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/contracts/public-contract-catalog.schema.json",
+        "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+        "bytes": 75,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "build/publication.json",
+      "sha256": "91cd4bafe80f6546c677a925a3b993ba26d30d422afe6fb93743c5c6199aebdd",
+      "bytes": 27494,
+      "mode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/build/publication.json",
+        "sha256": "91cd4bafe80f6546c677a925a3b993ba26d30d422afe6fb93743c5c6199aebdd",
+        "bytes": 27494,
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "build/semantics.mjs",
+      "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3",
+      "bytes": 757,
+      "mode": "0o644",
+      "source": {
+        "path": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p1/evidence/setup/consumer-source/build/semantics.mjs",
+        "sha256": "9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3",
+        "bytes": 757,
+        "mode": "0o644"
+      }
+    }
+  ]
+}

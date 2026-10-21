@@ -1,0 +1,12 @@
+{
+  "observedAt": "2026-10-20T23:42:00.265725+00:00",
+  "checks": [
+    {
+      "pid": 46534,
+      "scopeAbsentNow": true,
+      "fixtureRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-pRxEz7",
+      "fixtureRootAbsentNow": true
+    }
+  ],
+  "limit": "Declared POSIX group and recorded fixture root only; no universal descendant claim."
+}

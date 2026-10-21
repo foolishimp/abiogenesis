@@ -1,0 +1,164 @@
+{
+  "status": "frozen_before_P3_output",
+  "subjectId": "baseline",
+  "lane": "declared-execution",
+  "requirements": [
+    "Original runner result satisfied, baseline/public-preparation, nativeCalls 0",
+    "Original full producer-bound Program/operation correspondence with reference endpoint",
+    "Every observed process record has exact config, expected zero exit, no probeErrors",
+    "Every explicitly preloaded successful child PID has a process record and Node fs trace",
+    "Every loaded emitted module has selected byte pin and declared canonical root; history/prefix/canonical modules all observed in aggregate",
+    "RuntimeHistory work/body/selector/scope and RuntimeEventIndex actual counters retain their original meanings; no missing channel is converted to zero",
+    "All trace files parse and each counter channel remains separate",
+    "Physical prefix/owner handoff and immutable inputs retained"
+  ],
+  "allowedUninstrumentedChildren": [
+    {
+      "file": "/usr/bin/du",
+      "args": [
+        "-sk",
+        "exact declared runtime root"
+      ],
+      "purpose": "original footprint utility"
+    },
+    {
+      "file": "tar",
+      "forms": [
+        "-tzf exactarchive",
+        "-xOzf exactarchive exactpackage-member"
+      ],
+      "owner": {
+        "source": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+          "sha256": "2fcf1a47f5c0760f3fdd38c4caa34b4252b1ad989f1943c098152a60a0387cfc",
+          "bytes": 95404,
+          "mode": "0o644"
+        },
+        "emitted": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/build_tenants/abiogenesis/typescript/build/code/src/product/verify_product.js",
+          "sha256": "f1998352ac6e08919246a9b3c8b6af59a018e4936e43576b283c4525f6e6de18",
+          "bytes": 91615,
+          "mode": "0o644"
+        },
+        "listArchiveEntriesLines": {
+          "start": 1797,
+          "end": 1812,
+          "text": "function listArchiveEntries(artifactPath: string): Promise<readonly string[]> {\n  return new Promise((resolve, reject) => {\n    execFile(\n      \"tar\",\n      [\"-tzf\", artifactPath],\n      { encoding: \"utf8\", maxBuffer: TAR_MAX_BUFFER },\n      (error, stdout, stderr) => {\n        if (error !== null) {\n          reject(new Error(stderr || error.message));\n          return;\n        }\n        resolve(stdout.split(\"\\n\").filter((entry) => entry.length > 0));\n      },\n    );\n  });\n}"
+        },
+        "readArchiveEntryLines": {
+          "start": 1814,
+          "end": 1829,
+          "text": "function readArchiveEntry(artifactPath: string, entry: string): Promise<Uint8Array> {\n  return new Promise((resolve, reject) => {\n    execFile(\n      \"tar\",\n      [\"-xOzf\", artifactPath, entry],\n      { encoding: \"buffer\", maxBuffer: TAR_MAX_BUFFER },\n      (error, stdout, stderr) => {\n        if (error !== null) {\n          reject(new Error(Buffer.isBuffer(stderr) ? stderr.toString(\"utf8\") : error.message));\n          return;\n        }\n        resolve(Buffer.isBuffer(stdout) ? stdout : Buffer.from(stdout));\n      },\n    );\n  });\n}"
+        },
+        "callRoutes": [
+          {
+            "line": 2104,
+            "relation": "verifyPackedProduct reads exact archive and then listArchiveEntries"
+          },
+          {
+            "line": 2136,
+            "relation": "read manifest member through readArchiveEntry"
+          },
+          {
+            "line": 2198,
+            "relation": "read package metadata through readArchiveEntry"
+          },
+          {
+            "line": 2028,
+            "relation": "archive entry reader delegates named member fallback to readArchiveEntry"
+          }
+        ]
+      }
+    }
+  ],
+  "unexpectedChildren": "Stop to Root; retain raw edge and do not silently add coverage",
+  "sampling": "Per-PID samples/maxRSS/CPU; no summed maxima or OS-wide IO total. Native trace includes observer/evidence IO; JS observer own operations excluded as frozen design states.",
+  "originalStoppedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/freeze.json",
+    "sha256": "f0643a3c7916acf534d7f90115d4019a29604a5539db472443ce162b57b68cb2",
+    "bytes": 48203,
+    "mode": "0o644"
+  },
+  "originalContract": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/coverage-contract.json",
+    "sha256": "e68d72412313a964da781e84a1b6bbfe62183da244cad56bf00199dd9dde43ac",
+    "bytes": 1375,
+    "mode": "0o644"
+  },
+  "originalFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/baseline-diagnostics-01/p1/coverage-result.json",
+    "sha256": "be89cd598e1f64a6d522731d1f1367c6507fddecb5b65b99b8359308e66b7f40",
+    "bytes": 1134,
+    "mode": "0o644"
+  },
+  "allowedDuRoots": [
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/evidence",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/host",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent",
+    "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/worksite"
+  ],
+  "archiveBindings": [
+    {
+      "archive": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+        "bytes": 10676374,
+        "mode": "0o644"
+      },
+      "inventory": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/baseline-package-inventory.json",
+        "sha256": "7fceeafce866ff9df84dc33568e247583badcf9021ac592e8e3f6e765b7531b4",
+        "bytes": 987427,
+        "mode": "0o644"
+      },
+      "members": [
+        "package/product-toolchain-manifest.json",
+        "package/package.json",
+        "package/contracts/capabilities/capability-definition-graph.json"
+      ],
+      "owner": "immutable baseline archive"
+    }
+  ],
+  "externalLimits": "tar/du per-PID IO/CPU/memory unobserved. Spawn return value is not child exit status. No observed totals or interval scopes broadened.",
+  "fixtureArchiveRule": {
+    "count": 1,
+    "actualCarrier": "installed-environment.json.additionalProducts[0]",
+    "artifactReceipt": "artifact-1.json",
+    "verificationCarrier": "installed-environment.json.verifiedProducts[1]",
+    "productId": "product://abi5-tests/language-fixtures@5.0.0",
+    "packageName": "@abi5-tests/language-fixtures",
+    "packageVersion": "5.0.0",
+    "ownedScratchParent": "/private/tmp/abg-stdo3-baseline-diag-aa3f6c60f8d944cb/p3/scratchParent",
+    "sourceRootSuffix": "language-smoke-fixture",
+    "artifactRelativePath": "artifacts/abi5-tests-language-fixtures-5.0.0.tgz",
+    "sourcePackageFiles": [
+      "build/leaf.mjs",
+      "build/program.mjs",
+      "contracts/capabilities/capability-definition-graph.json",
+      "contracts/public-contract-catalog.schema.json",
+      "package.json",
+      "product-toolchain-manifest.json"
+    ],
+    "members": [
+      "package/product-toolchain-manifest.json",
+      "package/package.json",
+      "package/contracts/capabilities/capability-definition-graph.json"
+    ],
+    "dependency": {
+      "@abiogenesis/typescript-tenant": "file:/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    },
+    "producer": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276,
+      "mode": "0o644"
+    },
+    "rootSupport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+      "bytes": 40077,
+      "mode": "0o644"
+    },
+    "requiredRelation": "Archive digest/size agrees actual producer basis, artifact receipt and verifiedProduct; package member bytes and modes equal retained source; identity/dependency metadata exact; create separate observed binding record without rewriting this contract."
+  }
+}

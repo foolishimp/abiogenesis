@@ -1,0 +1,16 @@
+{
+  "new_test": {
+    "prior_subject": "a900b99481bcbd5a51ead74621e981cd1105e2c0582aebeee691f11ca10f85fb",
+    "final_subject": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546",
+    "unchanged_definitions_and_positive_tests_prefix_sha256": "c5142e3e94cdbeed9aae35b877d4b5f4cd08c1287fde0f41acae2cafa59c8602",
+    "unchanged_c2_test_suffix_sha256": "ed4378140c23e657a9680d37165d9fe12c7d290a6f71535b1551b3e02e9edf20",
+    "changed_negative_receipt": "focused-negative-03.json"
+  },
+  "native_regression": {
+    "prior_subject": "3f7e5ad427cacc90d030612b06f7485c4d2b9fa9d7f798bcd67450a957869984",
+    "final_subject": "3de46feacb8e255cfd0361d289e44e52ff1e8c785e62bce3f7190b806e6da384",
+    "unchanged_remaining_tests_and_helpers_suffix_sha256": "5bb07de3f9e27e45a8c5d27ffbda44958148f97889bb377c3af3fd69ceca35a5",
+    "imports_delta": "adds actual prefix accessor and actual liveness projector; owner modules unchanged in pinned stage",
+    "changed_local_process_receipt": "regression-native-work-03.json"
+  }
+}

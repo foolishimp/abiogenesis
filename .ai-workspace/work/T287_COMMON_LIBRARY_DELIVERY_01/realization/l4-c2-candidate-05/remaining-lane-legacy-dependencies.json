@@ -1,0 +1,206 @@
+{
+  "status": "bounded_read_only_dependency_and_retirement_list",
+  "requestedBy": "/root after Owner clarification that calculus removes old fixtures and technical debt",
+  "scope": "Only already-planned owner-resolution, P2, P3 and three HoG cases. P5 and P4 not re-audited. No fixture/framework/helper changes or new executions.",
+  "rows": [
+    {
+      "lane": "owner-resolution",
+      "dependency": "Actual new P1 owner-state, catalog/resolve requests and receipts; original owner-resolution.mjs",
+      "currentUse": "Reads the installed Product/ABG owners and exact P1 prefix; does not construct, pack or install a fixture. Existing sandbox consumer declarations are already admitted inputs.",
+      "requiredObligation": "Actual admitted installation/capability/catalog resolution, unique owner relation and no EventStore append.",
+      "legacyJudgment": "No new fixture is required. The exact old consumer identity is the present evidence carrier, not a Public law requiring this consumer implementation.",
+      "sources": [
+        "proof/run-installed.mjs:139-168",
+        "realization/final-proof-preparation-01/owner-resolution.mjs:18-80"
+      ]
+    },
+    {
+      "lane": "P2",
+      "dependency": "uat/public-setup.mjs::installedModules/publicCaller/authorizeInstalledOperation plus actual P1 verified artifact, lock, installation and close handoff",
+      "currentUse": "Calls Product install once at a new physical target and projects the actual returned prefix. It does not call populateSandbox or prepareConsumer. public-setup statically imports uat/consumer.mjs, but that consumer packer is not selected by P2.",
+      "requiredObligation": "Real duplicate physical install with a distinct invocation, preservation of the first admission, no invented second admission, actual returned authority.",
+      "legacyJudgment": "Owner call/admission evidence is required. UAT caller wrapper and static consumer import are replaceable proof carriers; no requirement to retain their broad fixture construction code. No obsolete private algorithm in this selected P2 path is established by this bounded read.",
+      "sources": [
+        "proof/run-installed.mjs:169-198",
+        "test_env/uat/public-setup.mjs:4,20,33,84,132"
+      ]
+    },
+    {
+      "lane": "P3",
+      "dependency": "installed-language-test.mjs -> root-installed-environment.mjs + language-smoke-fixture.mjs -> language-smoke/program.mjs and leaf.mjs; registered-graph-selection.mjs for start/read transport",
+      "currentUse": "Packs and installs an external Product, constructs its catalog/Program, executes the deterministic HelloWorld leaf, then starts fresh Public result/replay reads.",
+      "requiredObligation": "The selected P3 oracle requires the literal external F_D HelloWorld witness and its separate implementation/semantics owner. Public contracts require valid admitted declarations, evidence and current read carriers; they do not require these fixture filenames or a private hash implementation.",
+      "legacyJudgment": "language-smoke/leaf.mjs:4-9 retains a private canonical JSON recursion and SHA-256 wrapper, used for module-level descriptor and runtime evidence at lines 15-20. This is live fixture computational duplication, not dead code and not required as a private algorithm by Public. Replace/retire the carrier only with the selected obligation conserved; do not merely patch callers.",
+      "sources": [
+        "proof/run-installed.mjs:238-257",
+        "test_env/support/installed-language-test.mjs:11-58",
+        "test_env/support/language-smoke-fixture.mjs:18-83",
+        "test_env/fixtures/language-smoke/leaf.mjs:4-20"
+      ]
+    },
+    {
+      "lane": "HoG compose-retry / workflow-foldback / fanout-partial",
+      "dependency": "root-installed-environment.mjs + language-structural-fixture.mjs -> entire language-structural/program.mjs and leaf.mjs; registered-graph-selection.mjs for start/read transport",
+      "currentUse": "Original driver copies/packs both entire structural fixture files for each of three cases; selected case Programs use compose/retry, child workflow and partial fan-out. The same files also carry unselected gate, recursion and probabilistic-worker Programs/leaf code.",
+      "requiredObligation": "Actual route consumes completed retry progress; actual child foldback preserves the child result; partial fan-out retains completed/stopping/unstarted rows and does not close success; fresh replay and exact logical/raw boundaries. Those laws require finite declared witness behavior, not the entire legacy fixture suite.",
+      "legacyJudgment": "structural leaf lines 3-7 retain private canonical JSON/hash routines, called by all descriptor initializers and selected deterministic evidence. Line 26 has a private NUL-joined key predicate used by the selected fixture semantics. Its contract differs from true exact-key membership: no substitution equivalence is asserted. Unselected F_P worker/gate/recursion branches and the whole-suite packaging are not required by these three selected laws.",
+      "sources": [
+        "realization/hog-direct-owner-driver-preparation-02/run.mjs:146-240",
+        "realization/hog-direct-owner-driver-preparation-02/oracle.mjs:55-108",
+        "test_env/support/language-structural-fixture.mjs:10-73",
+        "test_env/fixtures/language-structural/leaf.mjs:3-7,26-40"
+      ]
+    },
+    {
+      "lane": "P3 and all three HoG cases: import-only legacy dependency",
+      "dependency": "registered-graph-selection.mjs:7 -> registered-selection-product/index.mjs",
+      "currentUse": "The selected lanes call constructInstalledStartCall/constructInstalledRunReadCall/runInstalledCliRequest. They do not invoke prepareRegisteredSelectionProduct. However the static import evaluates index.mjs, including descriptors built through its private canonical/hash routines.",
+      "requiredObligation": "Current installed call construction/transport is needed by the existing runner. The registered-selection fixture and old fixture packer are not required by the selected HelloWorld or structural Programs.",
+      "legacyJudgment": "Concrete avoidable private computational dependency: index.mjs:6-10 canonical/hash and lines 17-23 descriptor initializers. It remains live at module import even though the associated fixture is unselected. This is a retirement/scope issue, not evidence that the old fixture should be repaired.",
+      "sources": [
+        "test_env/support/registered-graph-selection.mjs:7,11,227,489,576",
+        "test_env/fixtures/registered-selection-product/index.mjs:6-23"
+      ]
+    },
+    {
+      "lane": "P3 and HoG: legacy setup identity carrier",
+      "dependency": "candidate-basis.mjs + fixtures/abi5-root-candidate-basis.json via setupInstalledRootCatalog",
+      "currentUse": "Reads/validates six historic identity fields, then packed_artifact mode overwrites all six from the exact selected archive and manifest. Only kind/schemaVersion are other JSON keys.",
+      "requiredObligation": "Exact archive, content, manifest and Product/package identities are required. This persisted test fixture file is not a Public-contract requirement.",
+      "legacyJudgment": "Historical coupling remains despite authoritative selected artifact input. The setup helper is currently reachable; removing this dependency requires preserving exact owner inputs, not refreshing stale fixture hashes.",
+      "sources": [
+        "test_env/support/candidate-basis.mjs:4-23",
+        "test_env/support/root-installed-environment.mjs:233-249"
+      ]
+    },
+    {
+      "lane": "Remaining P2/P3/HoG inventory baggage",
+      "dependency": "root-cli-environment.mjs, registered-selection-product/native.mjs, stdo3-run-environment.mjs; P2 also pins the broader language support/fixture set",
+      "currentUse": "Included in inherited selected-support/preflight metadata. No selected remaining lane call to these helper/fixture functions was found in the bounded driver chains. Native/P4 pathways are unselected.",
+      "requiredObligation": "None of these specific files is needed to express the selected P2, P3 or three ordinary HoG laws. Current runner inventories mechanically require their bytes.",
+      "legacyJudgment": "Declared proof coupling is distinct from actual owner reachability. Reprice or retire this baggage through Executive scope before adding fixes. This is not a whole-repository unreachability proof.",
+      "sources": [
+        "realization/l4-final-candidate-04/intake/selected-support.json",
+        "realization/hog-final06-binding-01/support-inventory.json",
+        "proof/run-installed.mjs:169-257",
+        "realization/hog-direct-owner-driver-preparation-02/run.mjs:146-240"
+      ]
+    }
+  ],
+  "inputPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "29abada25c16efff12bbd7bf995645e3aa68bb043eb59d67c988311a705aac18",
+      "bytes": 27984,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "bytes": 11420,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "sha256": "34d91efdba0602ad47d375fb46a85015eabd7d816a63eba68b3f113559986f95",
+      "bytes": 4500,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "e7bcbfd831e1e710c6b4c0cee6eeeb1bf3d245b4409cc9cc4089ead21d0239d3",
+      "bytes": 40294,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd",
+      "bytes": 1177,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "sha256": "359a6a21bd40382ac1ae71dfa235a74ebf2a2389375fc548e685ee22cfbbde5e",
+      "bytes": 521,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "bytes": 21826,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "sha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+      "bytes": 10076,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "bytes": 8359,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+      "bytes": 3059,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "bytes": 7076,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+      "bytes": 22919,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/stage/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "bytes": 10669,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+      "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+      "bytes": 48889,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs",
+      "sha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+      "bytes": 7231,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/run.mjs",
+      "sha256": "f55fadc04332f2e2f34bb6e8a3bf9161bb59eadec08711f78316ef55a98898bc",
+      "bytes": 22640,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/hog-direct-owner-driver-preparation-02/oracle.mjs",
+      "sha256": "871bb6ad42dac58effa9deb211e07afd1886ed6b8d8c3291c54dc15b2389162b",
+      "bytes": 9679,
+      "mode": "0o644"
+    }
+  ],
+  "interpretation": "Three fixture files still own private canonical JSON/hash implementations; one is only imported by the selected caller helper, two execute selected fixture behavior. These are concrete computational duplication, not completed retirement. Pure seven-body audit does not claim whole-fixture retirement. Selected behavior and owner admission obligations remain; exact historic fixture carriers/private algorithms are not Public requirements.",
+  "limits": [
+    "No proof that every legacy file is dead or safely deletable.",
+    "No semantic-equivalence claim for canonical variants or NUL-joined key semantics.",
+    "No new repair campaign, replacement implementation or test execution."
+  ]
+}

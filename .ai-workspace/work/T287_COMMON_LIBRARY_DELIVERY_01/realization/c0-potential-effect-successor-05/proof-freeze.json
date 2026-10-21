@@ -1,0 +1,72 @@
+{
+  "activation": "C0-SEMANTIC-PREFIX-05",
+  "records": [
+    {
+      "path": "HOW-binding.md",
+      "bytes": 1918,
+      "sha256": "6cadb6daa10b7fd7e891be3259c6bdca12a848f3be62935e9b7ad13693412420"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 1212,
+      "sha256": "73ec7de55be5cbd730d5fcee21d25f8c64cdb7685361cb5ff837514bc00b1d83"
+    },
+    {
+      "path": "command-environment.json",
+      "bytes": 854,
+      "sha256": "e1e767557ff9f9f1764a6af7b1f8f0e21210d15e6d2721a9258ac05f939d051f"
+    },
+    {
+      "path": "mode-relation-pins.json",
+      "bytes": 1803,
+      "sha256": "2732f3625bab129b166b3cf0d3b149f388d6025ed09dff1cb8edcec8eb23035a"
+    },
+    {
+      "path": "overlay-inputs.json",
+      "bytes": 5164,
+      "sha256": "318840ac5d8ed48f6cd361287b019cc4234fc9fca36e863543399519c08fc5f2"
+    },
+    {
+      "path": "preflight-preservation.json",
+      "bytes": 632,
+      "sha256": "26a26803a3ff44e73369af6b085d2a16ff772abe8118cfa570ba7e3a3a9b2abc"
+    },
+    {
+      "path": "proof-commands-config.json",
+      "bytes": 14206,
+      "sha256": "d4096e979583f37e6d492fad0bdd507d7528ef83568125148b0477ef8fc2f167"
+    },
+    {
+      "path": "proof-resources.json",
+      "bytes": 7567,
+      "sha256": "3f5906c6d2136fc74816d00d3f71b8240bbaa52aeeceff7bcbb53d6277905e7d"
+    },
+    {
+      "path": "run-proof-command.py",
+      "bytes": 2314,
+      "sha256": "08d6b7711945aa8f9209f227e5d9427981478d128e9f4f9b61fdfccb33323280"
+    },
+    {
+      "path": "test-only.diff",
+      "bytes": 1557,
+      "sha256": "7b565b124c4a58257d68d3e0f365550648c7da5c4da34aa152c89a2479ec3d80"
+    },
+    {
+      "path": "test.preimage.mjs",
+      "bytes": 52968,
+      "sha256": "556f3904e05edc5c9a4c7237a2ca494da9c061ba8f7f37a794f05fdeac634ada"
+    },
+    {
+      "path": "verify-installed-host.py",
+      "bytes": 2319,
+      "sha256": "a9814a4115c6a1885366e444b86996a2c27fbbc57fe1403f24faec0d3019dc30"
+    }
+  ],
+  "sourceAfterSha256": "39d78f136b8cfcb5b70de7799859f08853d5d081a0fff190d5fe72c2d04a587a",
+  "overlayInputsSha256": "318840ac5d8ed48f6cd361287b019cc4234fc9fca36e863543399519c08fc5f2",
+  "reusedArtifactFreezeSha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+  "predecessorFreezeSha256": "e5f71d9556cece8fb43eff69ad2f069de861fe90ac3de62b2f5060e1b3223bce",
+  "originalProofFreezeSha256": "dc4931ca55fc37265b64ab8b3a29502873113a054370335fa5120e138acc8f9c",
+  "status": "Exact corrected test/configuration frozen before syntax and first owner command",
+  "priorActualC0PhysicalAttempts": 0
+}

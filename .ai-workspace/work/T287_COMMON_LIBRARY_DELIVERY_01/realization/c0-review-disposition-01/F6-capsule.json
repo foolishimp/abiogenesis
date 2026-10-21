@@ -1,0 +1,38 @@
+{
+  "id": "T287-C0-F6-OWNER-IMPOSSIBLE-WRONG-CONTRACT-01",
+  "kind": "deferred_assurance_capsule",
+  "frame": {
+    "primary": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "relations": ["Product authority", "ABG owner admission", "Event Calculus projection and dependency correspondence", "Proof"]
+  },
+  "evidence": {
+    "attribution": "Root disposition of external C0 review F6, as recorded in external-review-root-summary.json; this Writer does not claim a new dynamic counterexample or independent F6 proof.",
+    "C0SuccessorFreezeSHA256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a",
+    "combinedFinal02FreezeSHA256": "245a11505b2c3f372da001fa0f3202d4554fea30d9d593e2fe3b5ede61906fe2",
+    "sourceUnionSHA256": "311ae0287daefeef3f32b160e4f86e80b27087b6641f31935d34a31c06b014a1",
+    "sourcePinsRecord": "source-pins.json",
+    "sourceRoute": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/source/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+    "relation": "Successful worksiteTransitionForResult lacks the contractRef check included in the indexed dependency condition.",
+    "admittedCounterexample": "None established; the suggested wrong-contract history is excluded by the current ordinary owner-admission contract."
+  },
+  "noBlockRationale": "Root classifies F6 as nonblocking for the current admitted domain because no admissible ordinary owner history demonstrates the disagreement. This is a bounded domain conclusion, not a claim that arbitrary malformed histories project identically. No production change is selected for a hypothetical wrong-contract history.",
+  "trigger": [
+    "An ordinary owner-admitted wrong-contract history reaches the successful transition path and demonstrates the claimed dependency/projection disagreement.",
+    "The owner-admission contract changes so that its present exclusion of the alleged history is no longer established."
+  ],
+  "reentry": "Return to the Executive with exact Product and admission-contract pins, an authenticated owner path and the precise projection/dependency disagreement. Reassess the admitted domain and source relation before selecting an owning HOW, production grant or bounded proof. Registration alone activates none of those effects.",
+  "closureFalsifier": "A reproducible ordinary owner-admitted wrong-contract history, under the pinned or a changed admission contract, that reaches this successful transition and yields a real full-prefix/indexed dependency discrepancy falsifies the present no-block rationale and requires re-entry.",
+  "closureEvidence": {
+    "currentClosure": "Not closed and not activated; no executed admitted counterexample or new owner-exclusion proof is claimed by this record.",
+    "requiredOnReentry": "Exact source and admission-contract identity; genuine owner admission receipts for the selected domain; full-prefix, indexed and cold-replay correspondence for any admitted witness; or an independently checked exact owner-exclusion argument establishing that the proposed history remains outside the supported domain. Any selected repair additionally requires its own bounded realization and proof."
+  },
+  "owner": {
+    "decisionAuthority": "/root Executive",
+    "semanticOwner": "ABG C-call outcome admission and Event Calculus projection owners",
+    "recordWriter": "/root/stdo3_k11_successor_writer",
+    "futureRealization": "Unassigned; separate activation required"
+  },
+  "status": "registered_deferred_assurance_not_activated",
+  "productionChangeSelected": false,
+  "L5Acceptance": false
+}

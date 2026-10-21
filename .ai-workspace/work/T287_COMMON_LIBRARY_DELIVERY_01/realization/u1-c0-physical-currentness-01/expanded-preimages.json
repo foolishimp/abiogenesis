@@ -1,0 +1,17 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+    "sha256": "6a332fe393db54a876b761eb0f8d494a1db4356b799b19f78e143d5420c4a1b8",
+    "bytes": 20058
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+    "sha256": "f75417d472354cdc474c32cecf17f5a7bc2426c4dc5534e447afe3ad5d635567",
+    "bytes": 39699
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "sha256": "d3dbdff7c59ef07589d0a939100f05f841ccecedaf62dcc40c2c810a33918916",
+    "bytes": 75589
+  }
+]

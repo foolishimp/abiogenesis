@@ -1,0 +1,66 @@
+{
+  "sourceCounts": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "beforeLines": 0,
+      "afterLines": 267,
+      "beforeRawSetTimeoutCalls": 0,
+      "afterRawSetTimeoutCalls": 1,
+      "sharedLifetimeAcquisitions": 0,
+      "beforeWaitForExitSymbols": 0,
+      "afterWaitForExitSymbols": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "beforeLines": 1019,
+      "afterLines": 802,
+      "beforeRawSetTimeoutCalls": 8,
+      "afterRawSetTimeoutCalls": 0,
+      "sharedLifetimeAcquisitions": 1,
+      "beforeWaitForExitSymbols": 0,
+      "afterWaitForExitSymbols": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "beforeLines": 1495,
+      "afterLines": 1437,
+      "beforeRawSetTimeoutCalls": 8,
+      "afterRawSetTimeoutCalls": 2,
+      "sharedLifetimeAcquisitions": 2,
+      "beforeWaitForExitSymbols": 3,
+      "afterWaitForExitSymbols": 0
+    }
+  ],
+  "physicalDiagnosticQuantities": {
+    "direct": {
+      "probes": 1,
+      "signals": 0,
+      "cleanupMs": 0.179708,
+      "closeObserved": true,
+      "bufferedBytes": 13
+    },
+    "escapedPipe": {
+      "probes": 1,
+      "signals": 0,
+      "cleanupMs": 32.500959,
+      "closeObserved": false,
+      "streamsDisposed": true,
+      "escapedChildSeparatelyObservedAbsent": true
+    },
+    "captureBytes": {
+      "worker": 14,
+      "command": 14,
+      "http": 30
+    },
+    "redirectedDescendantPopulation": {
+      "owners": 3,
+      "modes": 2,
+      "cases": 6,
+      "assertedSignalSequencePerCase": [
+        "SIGTERM",
+        "SIGKILL"
+      ]
+    }
+  },
+  "limits": "Source structure and bounded local work accounting only, not performance or semantic benefit. Owner raw setTimeout calls remaining in helper are two fixed 25ms polls; the shared sole host arm uses checked chunks. Emergency parent-exit signal remains. Installed combined source and native proof are separate."
+}

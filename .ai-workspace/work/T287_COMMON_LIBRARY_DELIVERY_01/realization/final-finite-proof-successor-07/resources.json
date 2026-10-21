@@ -1,0 +1,49 @@
+{
+  "root": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b",
+  "initiallyAbsent": true,
+  "cases": [
+    {
+      "id": "reopen18",
+      "root": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/03-reopen18",
+      "canonical": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/03-reopen18",
+      "initiallyAbsent": true
+    },
+    {
+      "id": "codec14",
+      "root": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/04-codec14",
+      "canonical": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/04-codec14",
+      "initiallyAbsent": true
+    },
+    {
+      "id": "route-self-contained",
+      "root": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained",
+      "canonical": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/05-route-self-contained",
+      "initiallyAbsent": true
+    },
+    {
+      "id": "native-workspace-physical-regression",
+      "root": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/06-native-workspace-physical-regression",
+      "canonical": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/06-native-workspace-physical-regression",
+      "initiallyAbsent": true
+    },
+    {
+      "id": "terminal-quiescence7",
+      "root": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/07-terminal-quiescence7",
+      "canonical": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/07-terminal-quiescence7",
+      "initiallyAbsent": true
+    },
+    {
+      "id": "D02-preparation-owner-case",
+      "root": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/08-D02-preparation-owner-case",
+      "canonical": "/private/tmp/abg-stdo3-finite-07-f2e530a8c69d417b/08-D02-preparation-owner-case",
+      "initiallyAbsent": true
+    }
+  ],
+  "retainedByteLimit": 3221225472,
+  "bootstrapHostReadOnly": "/private/tmp/abg-c0-potential-25ac62e990e141ce/successor-06/unavailable/host",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "-p",
+    "tsconfig.json",
+    "--pretty",
+    "false"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness-consumers/stage-01/build_tenants/abiogenesis/typescript",
+  "exit_code": 0,
+  "wall_seconds": 6.9319939613342285,
+  "stdout": "",
+  "stderr": ""
+}

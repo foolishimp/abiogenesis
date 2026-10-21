@@ -1,0 +1,53 @@
+{
+  "status": "frozen_before_installed_outputs",
+  "originalSelectedP3Correspondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-p3-baseline-01/output-correspondence.json",
+    "sha256": "b57007de228dc5d18f0749ee4b4be9db5ab26f272086594965f2ed1aead0384b",
+    "bytes": 5873,
+    "mode": "0o644"
+  },
+  "repairCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/output-correspondence.json",
+    "sha256": "bbd934b8bad5fa8c957bfb71d7841a8a0e9d300099c471df7e0e8cfaf9ef1baf",
+    "bytes": 2601,
+    "mode": "0o644"
+  },
+  "localFixtureDerivedRelation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/fixture-correspondence.json",
+    "sha256": "7de5e8cbd25b0642ac0a10b580a3040e134b4684b5aca08f4510822c016459e5",
+    "bytes": 6810,
+    "mode": "0o644"
+  },
+  "input": {
+    "kind": "hello_world_input",
+    "schemaVersion": "5.0.0",
+    "subject": "World"
+  },
+  "output": {
+    "kind": "hello_world_output",
+    "schemaVersion": "5.0.0",
+    "message": "Hello World"
+  },
+  "fixtureOwner": "product://abi5-tests/language-fixtures@5.0.0",
+  "abiArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-preparation/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5"
+  },
+  "abiManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "1ab726a7c5bc47a9c46f9ae9992c44425b383832b3f2657580eb7222d08c91ee"
+  },
+  "supportManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/support-manifest.json",
+    "sha256": "922a85040acf61df1ce0e9ad9380df55e8a162acbf42a41e04b88787cf8c4a6c"
+  },
+  "fixtureDerivation": "Selected real ABI archive path/digest and publication package coordinate -> exact npm dependency -> existing Product content, manifest and package producer. Preserve new identity digests/physical roots, compare Program/leaf contracts and literal output exactly.",
+  "sourceSupport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/support-overlays.json",
+    "sha256": "eb70934c58e4e550e6b8c2fdd6d3c6b1c4d11750cffe279e0058b213e235cabc",
+    "bytes": 3597,
+    "mode": "0o644"
+  },
+  "comparability": "Same uninstrumented frozen runner and workload for baseline/candidate P3; original failed setup interval is retained separately, not successful P3 timing.",
+  "nativeCalls": 0
+}

@@ -1,0 +1,15 @@
+{
+  "effectGrant": "P5_INSTALLED_EXECUTION_GRANTED_BY_EXECUTIVE",
+  "proofPackageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor06/proof/build_tenants/abiogenesis/typescript",
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactSha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+  "installHost": "/private/tmp/abg-stdo3-p5-05-7ca935e280b14df6/host",
+  "hostManifestSha256": "a782e3bc49c703b3ea254e45edb54d3f7bf0402b42ff3bd34356dc0c13111ab4",
+  "scratchParent": "/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/scratch",
+  "evidenceRoot": "/private/tmp/abg-stdo3-p5-06-7ca935e280b14df6/evidence",
+  "nodeExecutable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "testSha256": "a9a11a3e666f8303cfed31fb9525df8b60277c27bc7edc5360da6b147ef5ed6a",
+  "freshSupportSha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2",
+  "setupSupportSha256": "18dc4b6b428a4925924fe04de28eba3e7a8e0727bb749649e91e1df857c6490e",
+  "replayWorkerSha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e"
+}

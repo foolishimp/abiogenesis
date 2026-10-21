@@ -12,6 +12,8 @@ import { realizeNativeWorkspaceWork } from '../../build/code/src/implementation/
 import { constructLeafExecutionAuthority } from '../../build/code/src/implementation/leaf_execution_authority.js';
 import { createNewEmptyAppendSink } from '../../build/code/src/abg/index.js';
 import { eventCalculusEffect, projectNativeWorkRetiredObservations } from '../../build/code/src/abg/event_calculus.js';
+import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';
+import { worksiteCommandSourcesInvalidatedAfter } from '../../build/code/src/abg/native_worksite_execution.js';
 import { rawAdmitValue } from '../../build/code/src/validator/raw_admission.js';
 import { validateActorProcessCarrierPair } from '../../build/code/src/abg/actor_process.js';
 import { deriveProbabilisticTransportEvidence } from '../../build/code/src/abg/c_call.js';
@@ -19,7 +21,8 @@ import { canonicalJson } from '../../build/code/src/shared/canonical_json.js';
 import { dirname, resolve } from 'node:path';
 import { SourceTextModule, SyntheticModule } from 'node:vm';
 import { deepFreeze } from '../../build/code/src/shared/immutable.js';
-import { selectValidatedRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
+import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore } from '../../build/code/src/abg/event_prefix.js';
+import { projectActorLivenessContext } from '../../build/code/src/abg/runtime_liveness.js';
 import { deriveRuntimeEventCalculusProjection, holdsAt, constructRuntimeFluent } from '../../build/code/src/abg/event_calculus.js';
 import { ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store.js';
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
@@ -72,7 +75,7 @@ test('post-effect channel conflict retains admitted native failure scope without
   append({kind:'invocation_admitted',aggregateType:'workspace',aggregateId:env.workspaceBinding.bindingId,parentAggregateId:invocation.invocationRef,
     scopeClass:'workspace',basisId:invRef,causationEventRefs:[pub.eventId],payload:{...invocation,invocationAdmissionRef:invRef,invocationAdmissionDigest:invDigest}});
   for(const rawInputValue of requests)append({kind:'basis_admitted',aggregateType:'workspace',aggregateId:env.workspaceBinding.bindingId,
-    payload:{rawInputValue,invocationAdmissionRef:invRef,basisClass:'root',graphFunctionRef:invocation.graphFunctionRef,
+    payload:{rawInputValue,rawInputDigest:product.sha256Canonical(rawInputValue),invocationAdmissionRef:invRef,basisClass:'root',graphFunctionRef:invocation.graphFunctionRef,
       workspaceBindingId:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest,
       actorRef:env.capabilityGrant.actorRef,programRef:invocation.programRef}});
   const {kind:bk,schemaVersion:bs,disposition:bd,basisRef:br,basisDigest:bh,admissionEventRef:be,...basisBody}=authority.executionBasis;
@@ -100,12 +103,16 @@ test('post-effect channel conflict retains admitted native failure scope without
   const worker=join(env.scratch,'conflicting-native.mjs');await fs.writeFile(worker,'');await fs.chmod(worker,0o755);
   const transport=await import('../../build/code/src/abg/worker_transport.js');
   let groupConfirmedBeforeConflict=false,currentProfileArtifactHook=false;
+  const store={configuredDurableLogPath:()=>null,readAll:()=>deepFreeze([...rows])};
   const prefixAt=()=>deepFreeze({coordinateDigest:digest(String(rows.length)),storeIdentity:{eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST}});
   let currentPrefix=prefixAt();
   const overrides={
     './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
     './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>({call,execution:basis,inputDigest:basis.rawInputDigest,inputValue:env.task})},
     './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>null},
+    // Controlled physical-read premise follows the actual ActorProcess import;
+    // the complete immutable fixture still passes the real prefix validator.
+    './event_prefix.js':{readOwnedRuntimeEventPrefixAtDurablePrefix:()=>selectValidatedRuntimeEventPrefix(deepFreeze([...rows]))},
     './runtime_liveness.js':{captureNativeFrameBoundary:()=>({}),observeNativeFrameLiveness:()=>{},
       admitRuntimeActivityProbe:input=>({successorPrefix:currentPrefix,value:rows.find(row=>row.eventId===input.observation.underlyingEventRef)??rows.at(-1)})},
     './event_store.js':{readRuntimeEventsAtDurablePrefix:()=>deepFreeze([...rows]),assertHeldEventStoreAtDurablePrefix:()=>{},admitRuntimeEvent:(_store,candidate)=>append(candidate),
@@ -116,6 +123,9 @@ test('post-effect channel conflict retains admitted native failure scope without
       assert.equal(plan.args.includes('--json-schema'),true,'ordinary native work selects structured_output mode');
       return plan;
     },runPreparedWorkerTransport:async(plan,observer)=>{
+      const prefix=selectRuntimeEventPrefixFromStore(store),started=rows.find(row=>row.kind==='actor_invocation_started');
+      assert.ok(started,'native actor intent precedes the local process');
+      assert.ok(projectActorLivenessContext(prefix,started.aggregateId),'complete real prefix/liveness prerequisite before local launch');
       currentProfileArtifactHook=typeof observer.assessNativeResultArtifact==='function';
       try{return await transport.runPreparedWorkerTransport(plan,observer);}
       catch(error){groupConfirmedBeforeConflict=rows.some(row=>row.kind==='actor_process_exited'&&row.payload.status===0)&&
@@ -130,10 +140,18 @@ test('post-effect channel conflict retains admitted native failure scope without
     instructionContractRef:ids.taskContractRef,prompt:'Perform only the bounded local edit.'};
   const oldCommand=process.env.ABG_TS_CLAUDE_COMMAND;process.env.ABG_TS_CLAUDE_COMMAND=worker;
   t.after(()=>{if(oldCommand===undefined)delete process.env.ABG_TS_CLAUDE_COMMAND;else process.env.ABG_TS_CLAUDE_COMMAND=oldCommand;});
-  const effect=await actor.namespace.invokeActorProcessWithAssembly({store:{readAll:()=>deepFreeze([...rows])},predecessorPrefix:currentPrefix,executionBasis:basis,
+  const effect=await actor.namespace.invokeActorProcessWithAssembly({store,predecessorPrefix:currentPrefix,executionBasis:basis,
     scope:{runId,graphCallId,frameId},cCall:call,expectedInputDigest:basis.rawInputDigest,occurrence:{...call,nativeInstructionAssemblyBasis:{}},
     workerContracts:{instructionContractRef:ids.taskContractRef,resultContractRef:ids.workerReportContractRef},runtime:{workspaceBinding:env.workspaceBinding,artifactTruth:{}},
     request,dispatchOrdinal:1,basis:{correlationId:'native-tail'}},{request});
+  const presence=pid=>{try{process.kill(pid,0);return'present';}catch(error){return error.code==='ESRCH'?'absent':`unknown:${error.code??error.name}`;}};
+  const processFacts=rows.filter(row=>row.kind.startsWith('actor_process_')||row.kind==='actor_invocation_failed')
+    .map(row=>({eventId:row.eventId,admissionOrdinal:row.admissionOrdinal,kind:row.kind,payload:row.payload}));
+  t.diagnostic(JSON.stringify({kind:'u1_local_process_retained_facts',worker,processFacts,
+    currentProcesses:processFacts.filter(row=>row.kind==='actor_process_started').map(row=>({pid:row.payload.processId,
+      leader:presence(row.payload.processId),group:process.platform==='win32'?'not-posix':presence(-row.payload.processId)})),
+    targetContent:await fs.readFile(join(env.canonicalRoot,'target.txt'),'utf8'),groupConfirmedBeforeConflict,
+    actorDisposition:effect.kind,actorMessage:effect.message??null}));
   assert.equal(effect.kind,'actor_process_effect_refusal');assert.match(effect.message,/distinct worker output channels disagree/);
   assert.equal(currentProfileArtifactHook,true,'the actual ActorProcess current-profile path supplies channel assessment');
   assert.equal(groupConfirmedBeforeConflict,true,'healthy group confirmation precedes post-process channel parsing');
@@ -141,15 +159,18 @@ test('post-effect channel conflict retains admitted native failure scope without
   const failed=rows.find(row=>row.kind==='actor_invocation_failed');assert.equal(failed.payload.failureClass,'transport_exception');
   assert.equal(rows.some(row=>row.kind==='c_call_result_admitted'),false,'no exchange or native Result is fabricated');
   const prior=deepFreeze(rows.filter(row=>row.admissionOrdinal<failed.admissionOrdinal));
+  assert.deepEqual(projectNativeWorkUnknownEffectTask(failed,prior),env.task);
   assert.deepEqual(projectNativeWorkRetiredObservations(failed,prior),[requests[0].predecessorObservation.observationRef]);
   const cold=selectValidatedRuntimeEventPrefix(deepFreeze(JSON.parse(JSON.stringify(rows))));
   const projected=deriveRuntimeEventCalculusProjection(cold);
+  assert.equal(worksiteCommandSourcesInvalidatedAfter(cold,failed.admissionOrdinal-1,env.canonicalRoot,['target.txt']),true);
+  assert.equal(worksiteCommandSourcesInvalidatedAfter(cold,failed.admissionOrdinal-1,env.canonicalRoot,['keep.txt']),false);
   assert.equal(holdsAt(projected,constructRuntimeFluent({name:'worksite_observation_current',identity:requests[0].predecessorObservation.observationRef})),false);
   for(const request of requests.slice(1))assert.equal(holdsAt(projected,constructRuntimeFluent({name:'worksite_observation_current',identity:request.predecessorObservation.observationRef})),true);
   for(const kind of ['actor_process_started','actor_transport_binding_admitted','invocation_admitted','c_call_fibre_selected'])
     assert.deepEqual(projectNativeWorkRetiredObservations(failed,prior.filter(row=>row.kind!==kind)),[],kind);
   assert.deepEqual(projectNativeWorkRetiredObservations({...failed,runId:'run://foreign'},prior),[]);
-  t.diagnostic('Actual local process/group completion, supported structured_output/file conflict and partial file effects; lower installation/admission recording and liveness admission are controlled doubles. Exact liveness context and cold basis/invocation/implementation/currentness owners exercised; no probe, assessment, full native/Public admission or UAT credit.');
+  t.diagnostic('Actual local process/group completion, supported structured_output/file conflict and partial file effects; lower installation/admission recording, physical-prefix access and liveness admission are controlled doubles. Exact prefix validation and cold basis/invocation/implementation/currentness owners exercised; no live provider, installed Run, probe, assessment, full native/Public admission or UAT credit.');
 });
 async function fixture(t, writeRoots = ['target.txt']) {
   const env = await worksiteFixture(product);

@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "checks": [
+    "Eight selected source/emission/archive modules and both actual P1 installations have identical selected bytes and modes.",
+    "Seven selected old bodies absent or private filter/cardinality delegated; owner projections retained.",
+    "Relative target import paths resolve to the exact common members in both actual P1 roots.",
+    "Exact predecessor metadata and original runner hashes match supplied closed pins.",
+    "Exact P1/P3 result pins match supplied closed results.",
+    "P5 C1 raw cutoff, frozen archived readAll output, actual installed codec/common modules and mandatory body-loader path bound."
+  ],
+  "auditToolCorrection": "The initial audit-record extractor recognized function declarations only; it was extended to recognize the pre-existing const arrow declaration for exactKeys. No source mismatch, runtime execution, or proof outcome was produced by that extractor attempt.",
+  "scope": "Read-only code/evidence audit plus new records only."
+}

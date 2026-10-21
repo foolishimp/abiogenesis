@@ -1,0 +1,60 @@
+{
+  "closed_utc": "2026-10-20T23:20:37.047344+00:00",
+  "status": "CLOSED_LOCAL_MECHANICAL_READY",
+  "independent_acceptance": false,
+  "test_results": [
+    {
+      "command": "04-stdo3-acquisition-after-fixture-reentry",
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "05-common-computations",
+      "tests": 10,
+      "pass": 10,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "06-owner-selection",
+      "tests": 14,
+      "pass": 13,
+      "fail": 1,
+      "skipped": 0
+    },
+    {
+      "command": "08-owner-selection-generated-input",
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "command": "09-event-body-codec",
+      "tests": 14,
+      "pass": 14,
+      "fail": 0,
+      "skipped": 0
+    }
+  ],
+  "distinct_successful_selected_cases": 43,
+  "preserved_failures": [
+    "first-cause-03.json",
+    "first-cause-06.json"
+  ],
+  "failure_dispositions": [
+    "Executive K11-FIXTURE-01",
+    "Executive PURE-STAGE-02"
+  ],
+  "unresolved_local_failures": [],
+  "installed_lanes_executed": [],
+  "native_dispatch_count": 0,
+  "main_generated_unchanged_count": 936,
+  "frozen_input_manifest": "stage-inputs-02.json",
+  "output_inventory": "generated-output-inventory.json",
+  "scope": "pure/K11 plus initial status routing only; other Writer inputs excluded",
+  "delivery": "OPEN",
+  "release_resumption_gate": "CLOSED"
+}

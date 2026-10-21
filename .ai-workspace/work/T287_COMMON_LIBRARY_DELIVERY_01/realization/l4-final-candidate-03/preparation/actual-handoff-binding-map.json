@@ -1,0 +1,97 @@
+{
+  "status": "pending actual final03 P1 output",
+  "sequence": [
+    {
+      "step": "P1",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+        "bytes": 48889,
+        "mode": "0o644"
+      },
+      "lane": "public-preparation",
+      "requiredEvidence": []
+    },
+    {
+      "step": "owner-resolution",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-proof-preparation-01/owner-resolution.mjs",
+        "sha256": "ec16ec05680ec4702302482cc9d121e715da79ef85819c43ea6b20ae5ac05185",
+        "bytes": 7231,
+        "mode": "0o644"
+      },
+      "source": "actual final P1 installed root and complete physical prefix only",
+      "p1Fields": {
+        "result": "P1 evidence/result.json",
+        "ownerState": "P1 evidence/p1-owner-state.json",
+        "catalogCall": "actual catalog-admit request path from retained calls",
+        "catalogOutcome": "matching actual catalog-admit outcome",
+        "viewCall": "actual catalog-view request",
+        "resolveCall": "actual product-resolve request",
+        "resolveOutcome": "matching actual product-resolve outcome"
+      },
+      "installedRoot": "actual p1-owner-state.installations[0].installedRoot; verify actual subject and full package members",
+      "installedInventory": "exact translated package file rows, regular payload only; reject any unsupported link translation",
+      "mustCheck": "actual calls/labels, output SHA, mode/size and real complete event-log prefix match before freezing owner config"
+    },
+    {
+      "step": "P2",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+        "bytes": 48889,
+        "mode": "0o644"
+      },
+      "lane": "partial-install",
+      "bindings": {
+        "preparationResult": "actual satisfied P1 result",
+        "preparationSetup": "actual P1 p1-owner-state.json including native, resolvedLock, calls and closeHandoff",
+        "verificationCall": "actual first ABI product-verify request carrier from retained calls",
+        "verificationOutcome": "matching actual first ABI verification outcome"
+      },
+      "predecessors": [
+        "P1",
+        "owner-resolution"
+      ],
+      "actualReturnedPrefix": "the returned successor handoff is recorded/projected; no claim that a refusal preserves the predecessor or removes physical effects"
+    },
+    {
+      "step": "P3",
+      "script": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+        "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+        "bytes": 48889,
+        "mode": "0o644"
+      },
+      "lane": "declared-execution",
+      "predecessors": [
+        "P1",
+        "owner-resolution",
+        "P2"
+      ],
+      "resources": "fresh P3 roots; no acquisition of P1/P2 resources",
+      "semantics": "unchanged external F_D HelloWorld Product, explicit exact archive dependency and fresh CLI result/replay"
+    }
+  ],
+  "noFuturePinsInvented": true,
+  "subjectBinding": {
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "6c577a2f0ad90f89c35dd989040c6787892bbdb4e6a0bba6f3bbd6cc0fa0c3b5",
+      "bytes": 10681835,
+      "mode": "0o644"
+    },
+    "manifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "2960e5dddf8959de4ff269a3aac92dce2a8dd27bb79dee308b5fa394a3bf9920",
+      "bytes": 3189620,
+      "mode": "0o644"
+    },
+    "closedFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-03/freeze.json",
+      "sha256": "cfed5ef7e736ec6ff24005290c23cb0e30a39e64266ca8a2e2806f4493ae20f9",
+      "bytes": 2343069,
+      "mode": "0o644"
+    }
+  }
+}

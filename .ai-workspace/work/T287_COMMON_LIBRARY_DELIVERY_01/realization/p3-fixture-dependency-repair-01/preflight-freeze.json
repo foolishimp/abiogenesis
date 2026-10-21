@@ -1,0 +1,71 @@
+{
+  "status": "frozen_before_local_effects",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/activation.json",
+      "sha256": "c4f7775547218e4f9df083c3c599b24d6a69ecf11fe52aadad2795619dd6e228",
+      "bytes": 6461,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/how.md",
+      "sha256": "690f0985422ecbc0855edc84aa43b1cf269e2a5a8e4cf93fb2216c0a71db5b31",
+      "bytes": 2057,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/output-correspondence.json",
+      "sha256": "bbd934b8bad5fa8c957bfb71d7841a8a0e9d300099c471df7e0e8cfaf9ef1baf",
+      "bytes": 2601,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/source-before.json",
+      "sha256": "4abf77ea699c8e0c03478f27cd80b6545ac28fd76f06f523ba88b111c3b6328d",
+      "bytes": 322855,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/source-after.json",
+      "sha256": "81491d917f9c481dad6dae6729c4ad98b4885c9a46f9309368b95347dfa0d0cd",
+      "bytes": 322885,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/support-overlays.json",
+      "sha256": "eb70934c58e4e550e6b8c2fdd6d3c6b1c4d11750cffe279e0058b213e235cabc",
+      "bytes": 3597,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/support-manifest.json",
+      "sha256": "922a85040acf61df1ce0e9ad9380df55e8a162acbf42a41e04b88787cf8c4a6c",
+      "bytes": 2961,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage-inventory.json",
+      "sha256": "854e4595452b83356dee1d832de49e767d68fe6824c5445f915f7c991dea7e3c",
+      "bytes": 1782556,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/stage-construction.json",
+      "sha256": "523b26337344d07aa94e60b30177b4343f35de4e753d6aecbf3e4804496d16ca",
+      "bytes": 688,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/preflight-configuration.json",
+      "sha256": "745a227011830180227a70ca34a077492d9324bfa1cc7bd99cfdb0b496052a4a",
+      "bytes": 2452,
+      "mode": "0o644"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p3-fixture-dependency-repair-01/preflight.mjs",
+      "sha256": "f3266f612e1d11c9395b6bf39a1c8a2bf304d177ebb84fa06b67b26588d46ba4",
+      "bytes": 4585,
+      "mode": "0o644"
+    }
+  ]
+}

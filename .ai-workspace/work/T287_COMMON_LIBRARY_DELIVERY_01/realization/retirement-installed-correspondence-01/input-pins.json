@@ -1,0 +1,92 @@
+{
+  "retirementAudit": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/retirement-audit.json",
+    "sha256": "a5c006c40230abb3e112078ca69153f46d6dccdb1b86510f3b62eeead2645ff7",
+    "bytes": 2469,
+    "mode": "0o644"
+  },
+  "pureFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/freeze.json",
+    "sha256": "ce01cdb084f5b0c3827ac9cce481d12e63193a24a1467c9409c9be9a768acca4",
+    "bytes": 19946,
+    "mode": "0o644"
+  },
+  "final06Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/freeze.json",
+    "sha256": "80c749e3ad666b8d6ae08e9b4c4f8e56a274072926f1005e6d8049b40b5671cd",
+    "bytes": 1994729,
+    "mode": "0o644"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "25e7f390a899f3bd9c49fa11a15feba1f59cb2a1d2ba4bad1f62c1abc4224079",
+    "bytes": 10681844,
+    "mode": "0o644"
+  },
+  "final04Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/freeze.json",
+    "sha256": "e58e78c1a3c1b4086ba5d5f16dd1676105c99059a5fc31377c00eaa37e24fbce",
+    "bytes": 9849,
+    "mode": "0o644"
+  },
+  "actualP1OwnerState": {
+    "path": "/private/tmp/abg-stdo3-final-04-6f42d9a31e5870bc/p1/evidence/p1-owner-state.json",
+    "sha256": "506cc1088d44acd3fd981d6518d85b3f94760a379889ddeebe1c8b2b3004ccf1",
+    "bytes": 41971061,
+    "mode": "0o644"
+  },
+  "P5S07FailureFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-installed-final-04/successor07/failure-freeze.json",
+    "sha256": "d0f9dd2979ad4fa57202235cf7f89a01cb7353a1529d8632f4dd5d736f922a56",
+    "bytes": 1829518,
+    "mode": "0o644"
+  },
+  "L2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+    "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+    "bytes": 26888,
+    "mode": "0o644"
+  },
+  "pureSourceEmission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/source-generated-correspondence.json",
+    "sha256": "64507a61b146126d7e4dffc903797796447ba1645ef5dae272bc67cd58484ce2",
+    "bytes": 1206,
+    "mode": "0o644"
+  },
+  "pureSourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/stage-inputs-02.json",
+    "sha256": "8c1cba9c5afc1def0de40d5f73c6359b726313fee975133ecc71c9d7f007422e",
+    "bytes": 369360,
+    "mode": "0o644"
+  },
+  "pureGeneratedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/pure/generated-output-inventory.json",
+    "sha256": "de5ecdadaace175cf96bdc5809f7d83e2f50b329ea632da9be9581760e9705c3",
+    "bytes": 227715,
+    "mode": "0o644"
+  },
+  "finalSourceInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/l4-final-candidate-04/intake/stage-source-inventory.json",
+    "sha256": "1d4d796594268adc906f75f984958adab5a533f01357d5a7fb7e7e1dd4ca12dc",
+    "bytes": 353630,
+    "mode": "0o644"
+  },
+  "finalGeneratedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/generated-inventory.json",
+    "sha256": "b0b38bf971f06aaff83889f2f4dd4301b5e08fd8d1f503afc12fcc8b48349d99",
+    "bytes": 249264,
+    "mode": "0o644"
+  },
+  "archiveInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c0-potential-effect-successor-06/archive-members.json",
+    "sha256": "404c0be5cc48bbc85e5b80685c01072458c720a513aca5465f543d4f47b475fb",
+    "bytes": 1262495,
+    "mode": "0o644"
+  },
+  "originalRunner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed.mjs",
+    "sha256": "fb20ffc2a5f3bdfcbbbebc51e68d17ac1ec52b4fc20093aaa652efcfd84a7164",
+    "bytes": 48889,
+    "mode": "0o644"
+  }
+}

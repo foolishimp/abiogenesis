@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "--test-name-pattern=post-effect channel conflict",
+    "test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript",
+  "source_sha256": "d31c461853eb65211a7234d16f777cc42344cc0dd511eae53c7d524e2ee4f5ad",
+  "exit_code": 1,
+  "stdout": "TAP version 13\n# (node:40862) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n# (Use `node --trace-warnings ...` to show where the warning was created)\n# Subtest: post-effect channel conflict retains admitted native failure scope without a fabricated exchange\nnot ok 1 - post-effect channel conflict retains admitted native failure scope without a fabricated exchange\n  ---\n  duration_ms: 293.007333\n  type: 'test'\n  location: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs:36:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    The input did not match the regular expression /distinct worker output channels disagree/. Input:\n    \n    'store.configuredDurableLogPath is not a function'\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n  actual: 'store.configuredDurableLogPath is not a function'\n  operator: 'match'\n  stack: |-\n    TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/currentness/stage-01/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs:142:67)\n    async Test.run (node:internal/test_runner/test:1113:7)\n    async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 581.883208\n",
+  "stderr": "",
+  "wall_seconds": 0.6089730418752879
+}

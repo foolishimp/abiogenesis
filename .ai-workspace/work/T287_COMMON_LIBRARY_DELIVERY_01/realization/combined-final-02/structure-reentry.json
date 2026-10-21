@@ -1,0 +1,72 @@
+{
+  "grant": "COMBINED-FINAL-STRUCTURE-02",
+  "HOW": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/HOW-structure-successor-02.md",
+    "kind": "file",
+    "mode": "0o644",
+    "bytes": 6063,
+    "sha256": "8b514d133010d065fb6d4eb412a2921bc6d0eb877011a02c389d0a8f56c03c23"
+  },
+  "historicalFirstCause": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/first-cause.json",
+    "kind": "file",
+    "mode": "0o644",
+    "bytes": 2153,
+    "sha256": "a054de724d00abbdf8f1efe9438a6da9d342c55bde02cb8d858510e5856b08c9"
+  },
+  "historicalVerifier": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/verify-structure.mjs",
+    "kind": "file",
+    "mode": "0o644",
+    "bytes": 13594,
+    "sha256": "8a76f5d08f7f6ef8e377dd23955ab4133366b90c6f3cc955113c478ce7a700eb"
+  },
+  "historicalRunner": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/run-structure.py",
+    "kind": "file",
+    "mode": "0o644",
+    "bytes": 1712,
+    "sha256": "806f7aecc759b6afecb464b600e5a12d8989e821b0d2928d40dfdfc14cb414ef"
+  },
+  "historicalRequest": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/structure.request.json",
+    "kind": "file",
+    "mode": "0o644",
+    "bytes": 1563,
+    "sha256": "82a806768781028ccedb2904ea4fc92c8e7587a42857afc4c08a4e391ffb7d51"
+  },
+  "historicalResult": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/commands/structure.result.json",
+    "kind": "file",
+    "mode": "0o644",
+    "bytes": 363,
+    "sha256": "6c7dc9413bb9f8716ba4f600d7b9dbe10135333018905f959b2f977ef63fd8cd"
+  },
+  "stoppedRecords": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/combined-final-02/stopped-records-structure-02.json",
+    "kind": "file",
+    "mode": "0o644",
+    "bytes": 207460,
+    "sha256": "49799f9a37d0de09f28a12d21de79a0693d00a6da5c8fe2744919c9c3359fdbe"
+  },
+  "frozenC0Diff": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/source-delta-from-original.diff",
+    "kind": "file",
+    "mode": "0o644",
+    "bytes": 49020,
+    "sha256": "b559ee45c2d721e5072a7bacb04691ed292942fce3ff8c290da3f607298890a1"
+  },
+  "c0Freeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/u1-c0-physical-currentness-successor-02/freeze.json",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 6111,
+    "sha256": "0abc3970a4bff7e7bf64db227a98e0fab9cd201d9b7d593589bd9de7636b2c8a"
+  },
+  "archiveSha256": "151ad625652dc426d46a210559afde50f40b93acdf216b5ca9d64969e5eb8e54",
+  "origin": "Reused proof location assumed predicate remained in native wrapper; accepted extraction places it in common collector",
+  "noSourceArtifactChange": true,
+  "newVerifierExecutions": 1,
+  "onPass": "Existing preservation/support/candidate/freeze closure only",
+  "onNewFailure": "Stop and return; no repair/retry"
+}
