@@ -1,0 +1,151 @@
+{
+  "authority": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/freeze.json",
+      "sha256": "ef460e63939ea9e7df5536a164aab0452952f1e471f9ba89f890be40141b0131",
+      "bytes": 4747
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec",
+      "bytes": 29684
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "sha256": "8ec79201b0b381f212b522674041d263fea2f907d85f3d8fb5f67d1db74eb31c",
+      "bytes": 3494
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/review-disposition-supplement-02.md",
+      "sha256": "c60296c7566ee9caae6963c9759d884b48eee2712589e5e481299e6a3843eed8",
+      "bytes": 5960
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/HOW-proposal.md",
+      "sha256": "c526fc6f3f70580fd5178f31d6ef54396723dd9a784b207e36b9962631fabf9b",
+      "bytes": 12249
+    }
+  ],
+  "sourceAndSupport": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 32848,
+      "sha256": "8f04a97ee6bf99fbdd18a4bd6a9816048dfa08c83c9a2d0704e86f3fb683e51e",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 60131,
+      "sha256": "d7b779a0cbb86059135682ecc63b36ae3f5bd6fdba748bec43d258d8fcd44126",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 113259,
+      "sha256": "adb5cfb380f2ab38d7e0a77fd70ae96cd227c9b2680458083359849655769099",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "bytes": 79621,
+      "sha256": "a7543cf4675c48f065d3dd3c8a1d9fb3470a0869a1d264014f4fae9d48b607f6",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 90807,
+      "sha256": "35d850a10e68ba417a6d4a92ac739eb9f3190e92e164a3cdbf04d644b70fc1cd",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "bytes": 9845,
+      "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 56852,
+      "sha256": "5c84d3280f147544b5152bde7e068e88dec8a050731888354935df1c1cde0b6b",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "bytes": 38837,
+      "sha256": "78fc4541bcf29df031ae5486394f61c724ac913c9799422c77ffa683100b0d2e",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "bytes": 11243,
+      "sha256": "011e3fbae5975cd8ffcfd79182e55a5830019a66e2b1aa406bbcca4ff9ba4279",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 87048,
+      "sha256": "fc57f1684d311fd1967ef7b3af456c046096e0fbe518cb1bd96df942d1c0f57b",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-stream-drain.test.mjs",
+      "bytes": 14105,
+      "sha256": "e11cdbc9f124366f67bb6039b26639c9cadc4b4abeb6f894c0fe6e5139f6c550",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "bytes": 3280,
+      "sha256": "1b35403af5532bf5b04bd3c101a9c2bfdfcbaf4f37db0ffeaccb84e7996a3cbb",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "bytes": 39413,
+      "sha256": "d58d787586be60a643e640c1c46ffc6e8fa1bdfaedb179bd7a6b1fa17b9191fc",
+      "allowedWrite": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd",
+      "allowedWrite": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "bytes": 11020,
+      "sha256": "e5847b76b08c0f3ac77d40b5ef8243bbe03df42eff5b36e5d7120ddfa8fafa68",
+      "allowedWrite": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 14887,
+      "sha256": "d38f46fae38fa8239532b853eb962bb6a1defb99d59ae2edc7931561faa9e0fb",
+      "allowedWrite": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 79199,
+      "sha256": "d1b3fd50257e279dbacad23a464092317422cdf95f8f858b304034825fa3c0ee",
+      "allowedWrite": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 292659,
+      "sha256": "028bba5e6b32041eafb5d5cb42ca0007527523b1bfd978e720f2fd904920fc55",
+      "allowedWrite": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "bytes": 37724,
+      "sha256": "7bf337d5bfef0b7e7aa05ea3a4b803cf81c9a023781211a9e69ddbe26d32cd2e",
+      "allowedWrite": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "bytes": 2282,
+      "sha256": "bdb4d631c8af10e9168da5fc6b7b56aee109185e4436b0e4d94cd04b8688f90e",
+      "allowedWrite": false
+    }
+  ]
+}

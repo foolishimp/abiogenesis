@@ -1,13 +1,9 @@
-import { createHash } from 'node:crypto';
+import { canonicalJson as canonical, sha256Canonical as hash } from '@abiogenesis/typescript-tenant/product';
+export { canonical, hash };
 export const version = '5.0.0';
 export const packageName = '@abiogenesis-fixtures/registered-selection';
 export const ref = (type, name) => `${type}://registered-selection/${name}@5`;
 export const contract = name => ref('contract', name);
-export const canonical = value => JSON.stringify(value, function (_, v) {
-  return v && typeof v === 'object' && !Array.isArray(v)
-    ? Object.fromEntries(Object.keys(v).sort().map(k => [k, v[k]])) : v;
-});
-export const hash = value => `sha256:${createHash('sha256').update(canonical(value)).digest('hex')}`;
 export const bindings = ['select', 'A', 'B'].map(name => ({
   kind: 'implementation_binding', bindingRef: ref('binding', name), implementationRef: ref('implementation', name),
   packageName, packageVersion: version, modulePath: 'build/index.js', namedSymbol: name === 'select' ? 'select' : `execute${name}`,

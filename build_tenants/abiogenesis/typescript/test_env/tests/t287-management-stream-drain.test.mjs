@@ -40,7 +40,11 @@ async function exercise({ bytes = 512 * 1024, letter = "a", slowMs = 0, mode = "
     timeoutMs: 10_000, absoluteTimeoutMs: 30_000, terminationGraceMs: 1_000,
     environment: {}, observer: {
       onStdoutObserved(chunk) { observed += chunk; ordering.push("stdout"); delay(slowMs); observe(chunk); return true; },
-      onProcessExited() { ordering.push("exit"); },
+      onProcessFinalized(facts) {
+        assert.equal(facts.scopeAbsence, "absent");
+        assert.notEqual(facts.directExit, null);
+        ordering.push("finalized");
+      },
     },
   });
   assert.equal(result.stdout, await readFile(result.artifacts.stdout.path, "utf8"));

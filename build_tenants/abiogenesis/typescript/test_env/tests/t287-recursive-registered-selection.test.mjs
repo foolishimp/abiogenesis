@@ -10,7 +10,8 @@ import * as product from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
 import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
-import {nativeSelectionEnvironment} from '../support/native-registered-selection.mjs';
+import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
+import {NATIVE_SELECTION_STDO3_ROLE} from '../fixtures/registered-selection-product/native.mjs';
 import {declarations,initialState,validState,evaluatedState,selectionTask,executeA,executeB,SEMANTICS,ref,contract,hash} from '../fixtures/registered-selection-product/recursive.mjs';
 const packageRoot=new URL('../..',import.meta.url).pathname;
 
@@ -244,8 +245,8 @@ test('one installed Public start revises native choice from child evidence and r
   let selectedEnvironment;const accounting={wallMs:{}};
   const env=await setupInstalledRootCatalog({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,setupAccounting:accounting,
     prepareAdditionalProducts:async basis=>{
-      selectedEnvironment=await nativeSelectionEnvironment(basis);
-      const abiPackageArchivePath=join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
+      selectedEnvironment=await stdo3RunEnvironment({...basis,sourceRoot:process.env.ABI5_STDO3_SOURCE_ROOT,selectorRole:NATIVE_SELECTION_STDO3_ROLE});
+      const abiPackageArchivePath=basis.abiPackageArchivePath;
       return [await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath,declarationFactory:g=>declarations(g,selectedEnvironment.declaration),fixtureFiles:['index','native','recursive'].map(n=>({path:`build/${n}.mjs`,source:new URL(`../fixtures/registered-selection-product/${n}.mjs`,import.meta.url)}))})];
     }});
   await save('setup.json',{scratch:env.scratch,installedRoots:env.installedRoots,artifactPaths:env.artifactPaths,accounting});

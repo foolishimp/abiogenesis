@@ -1,5 +1,25 @@
 # T-287 Default Governance Library
 
+## Later accepted STDO 3 source and role amendment — 2026-10-21
+
+Root accepts D1–D3 of the [source/role HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/HOW-proposal.md)
+(SHA-256 `3f163754f48d72a2b8577c5c425951f8fa0ff5b9cd80da0d4042ad6084179c78`),
+with the constraints in the [closed review disposition](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/review-disposition-supplement.md).
+The [accepted activation](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/activation.md)
+records the operative source territories. These decisions supersede the old
+ordinary helper/member retention and v2.5.1 source selection for the new definition;
+historical immutable definitions, Runs and evidence retain their exact basis.
+
+Use the exact STDO 3 Executive and Assurance members plus the original manifest
+as the generic three-member packaged subset, preserving specialized full-source
+checks. Reuse the production four-role declaration; retire the old ordinary
+companion helper and selected old packaged member after migrating their consumers.
+`root-installed-environment.mjs::prepareAdditionalProducts` receives the explicit
+`bootstrapPackage` root already known at that callback, never the later
+`installedRoot` or an ambient lookup. Preserve D1–D3's role spans, policies,
+A/B/gap, recursive and four-role obligations; P4's narrower binding is unchanged.
+This is design acceptance only. Source effects require a separate Root grant.
+
 Accepted HOW under `execution.md#s5-acceptance-and-implementation-grant`. Exact STDO v2.5.1-rc.1; Product/Design/Owner, Reuse/Foundation and End-To-End Interface Integration. Source proposal SHA-256 `f9e7f51a2bd12ee0d27e5e0d3a9861545a941e139835ab87097144e8e053fe2a`; focused review SHA-256 `fc71d3c2cae63de284b0ef28bff11fec655bf790d9922674d1e3e7289712efda`. Immutable history: `.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-plan.md` and `default-library-plan-review-02.md`. This tenant document owns the technical relation.
 
 Publish one ordinary default-library module with seven callable purposes:

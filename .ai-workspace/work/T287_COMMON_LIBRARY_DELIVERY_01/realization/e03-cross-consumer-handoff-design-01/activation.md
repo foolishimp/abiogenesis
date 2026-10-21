@@ -1,0 +1,11 @@
+# E03 cross-consumer failure handoff — design-only activation
+
+Root Executive selected the existing worksite-causality frame to close the command/HTTP failure handback before the combined candidate. This is a proposal, not implementation authority or acceptance. Exact inputs are bound in input-pins.json. The established STDO RC1 manifest 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232 and empty composition govern; no mutable selector or alternate method is selected.
+
+Allowed effects: only new compact records and necessary source preimages in this directory. No production, test, live HOW/L2, status, frozen predecessor, generated file, build, runtime/process, provider or Git mutation. No other agent or reviewer is activated. Return one exact design freeze and stop. Subsequent source work requires Executive selection and the owning HOW/L2 amendment.
+
+Attributed rationale: Root's source triage and independent Reviewer concur that command line 760 and HTTP line 1111 throw facts.firstError before final projection, while ordinary callbacks can already be suppressed. Main exits before result.json. Inner detached process groups are not the outer worker's group. Root selects durable failure inspection without widening complete(), HoG, Public or ABG gates, and requires canonical/raw handoff before any fallible finalizer or serialization. This is attributed summary, not original review bytes or private reasoning.
+
+Root subsequently reported the independent worker/actor review of freeze 4bfdf7e28575dbf9b3f2cffc23b4f25e49ce16b37f5ec643c6ecec96acbfc1c0 closed without a supported material counterexample. Root accepts that bounded source result only; it establishes no build, executed proof or L5 acceptance. That source stays read-only. Command/HTTP remains the selected blocker. Whole-path performance is unproved; broad history optimization is outside this work.
+
+The initial record-creation preflight stopped before any write when it observed the concurrent L2 successor. Root expressly identified and authorized that separate exact-key amendment. closing-correspondence.json binds the unchanged starting L2 prefix and appended successor; neither is overwritten here. Other pinned inputs remain the substantive source subject. No execution was repeated.

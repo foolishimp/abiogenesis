@@ -1,0 +1,67 @@
+{
+  "kind": "checked-fact-reader-design-correction-freeze",
+  "capturedUtc": "2026-10-21T11:44:34.656592+00:00",
+  "writer": "/root/stdo3_checked_fact_design_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "workResult": "candidate_ready",
+  "claim": "Literal C3 execution-basis raw-input correction for Root verification against the closed independent review; no new general review loop.",
+  "predecessorFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/freeze.json",
+    "sha256": "74b4562d7d4fb4f51310cdffb525996cfba7cb6377f4f879c3337db73a8bd348",
+    "unchanged": true
+  },
+  "predecessorFilesVerifiedUnchanged": 5,
+  "sourceInputCount": 58,
+  "sourceInputsUnchanged": true,
+  "sourceInputInventorySha256": "869aa334cba8acdf56b7d59d7ccd7d5b9280435dea649ca42cb5fb1f3cede771",
+  "selectedCorrection": "Non-record/null-digest and unencodable-record/null-digest singleton partitions map to existing owner null/refusal, explicitly superseding the latter old later throw. Common checker exceptions and later unrelated body errors remain.",
+  "retainedRelations": "13 cardinality retirement rows; five common calls/three modules; other seven sampled reader rows; callable types; owner multiplicity, order, identity, registry and raw/owned/prospective authority boundaries.",
+  "fileCount": 8,
+  "bytes": 89164,
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/HOW-proposal.md",
+      "sha256": "5e2169845cd3015ea6ed99223044b89ba7dc18788f1d73236b929f075f8356e7",
+      "bytes": 16448
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "sha256": "1e1f5a27f8db60f42e6369a2824e371dfb3506c7d8750b5f0a48900b635e805f",
+      "bytes": 13804
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/handoff.md",
+      "sha256": "bb144341615202866b3ed8e7a0a09a1254ed0bc9a558ff435270e9d6e6efe2fb",
+      "bytes": 3192
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/mechanical-checks.json",
+      "sha256": "5ad2338761c624663bcd44d666a73428ffb8a9e7bd528e2153b293aac1a8f83a",
+      "bytes": 14983
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/retirement-consumer-proof-map.md",
+      "sha256": "4489f719421c8ba8bbd9780f767d6abc64b4facc8f63d92b48bfe6b62733c605",
+      "bytes": 16938
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/review-and-decision.md",
+      "sha256": "8f20ce5c033fb467b1c7066abe70e193d8e9b30f0fa2396cc0903617ebd30cf8",
+      "bytes": 3491
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/source-correspondence.json",
+      "sha256": "e45bb40415448d3bb4dbbb71ec2c1ff772fcc43aca4e5ccc432f25db9630c64c",
+      "bytes": 2774
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/source-inputs.json",
+      "sha256": "869aa334cba8acdf56b7d59d7ccd7d5b9280435dea649ca42cb5fb1f3cede771",
+      "bytes": 17534
+    }
+  ],
+  "mechanicalEvidence": "95 document/source correspondence and literal-delta checks; final predecessor/input and handoff-link checks also pass. No runtime/proof execution or independent semantic assessment by Writer.",
+  "effects": "Only newly created checked-fact-reader-design-02; no live HOW/L2/source/tests/generated/prior-cut/Git/runtime/provider/cleanup/Reviewer effects.",
+  "returnRelation": "Root verifies literal correction, conjoins owning designs and separately grants HOW/source/proof actions.",
+  "noFurtherWritesAfterFreeze": true
+}

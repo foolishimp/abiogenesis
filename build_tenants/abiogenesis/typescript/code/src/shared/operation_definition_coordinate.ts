@@ -1,4 +1,4 @@
-import { isNonEmptyString } from "./admission_predicates.js";
+import { hasExactKeys, isNonEmptyString } from "./admission_predicates.js";
 import type { JsonValue } from "./canonical_json.js";
 import {
   isSha256Digest,
@@ -23,16 +23,6 @@ export interface ExactOperationInvocationCoordinate
   readonly invocationRef: string;
   readonly invocationPayloadDigest: Sha256Digest;
   readonly invocationDigest: Sha256Digest;
-}
-
-function hasExactKeys(
-  value: Record<string, unknown>,
-  expected: readonly string[],
-): boolean {
-  const actual = Object.keys(value).sort();
-  const canonicalExpected = [...expected].sort();
-  return actual.length === canonicalExpected.length &&
-    actual.every((key, index) => key === canonicalExpected[index]);
 }
 
 export function isExactOperationDefinitionCoordinate(

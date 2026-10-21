@@ -1,0 +1,114 @@
+{
+  "capturedUtc": "2026-10-21T11:10:39.568651+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#governed-outcome-and-workspace",
+  "grant": "Root documentation-only transcription of its closed three-assessment conjunction and selected C1-C5 design re-entry",
+  "files": [
+    {
+      "path": "specification/GOALS.md",
+      "preimagePath": "preimages/specification/GOALS.md",
+      "sha256": "be077885bffdb6b7104a09d2601534d9420a2d63bb26e3b31a48bddfe21a59b7",
+      "bytes": 80810
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimagePath": "preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "1be36d26eae8f673fccbc95de2918f6123f4d34a27462d93d3e92505eaa0d73a",
+      "bytes": 544166
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "preimagePath": "preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "sha256": "6899d3117792f37e3d2c5b8c809e227b7f1f4954c868f32c2e738329dfe7be81",
+      "bytes": 5685
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "preimagePath": "preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "9c1e55b2897d69783eb6c93f050cd94ef7dbfbcafd21d5861a10ed7f4915534e",
+      "bytes": 32157
+    }
+  ],
+  "readOnlyInputs": [
+    {
+      "path": ".ai-workspace/comments/claude/20261021T085826Z_REVIEW_common_library_design_consolidation.md",
+      "sha256": "e567c24acb5f774a3c35ca70af4d2f2c6bc6e64daba8a3cc97ab09ed43ed482f",
+      "bytes": 20413,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+      "bytes": 63515,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/freeze.json",
+      "sha256": "4bfdf7e28575dbf9b3f2cffc23b4f25e49ce16b37f5ec643c6ecec96acbfc1c0",
+      "bytes": 13132,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/freeze.json",
+      "sha256": "17b1b6d2fdb5ef829d1da23233a9fd240f5759b076fe09f46eec6547c521c42e",
+      "bytes": 10246,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/freeze.json",
+      "sha256": "1bbc47ac141d00c7f6ee920d1972e0e3c1304488085e3c13a3067286cf204d1e",
+      "bytes": 6401,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/freeze.json",
+      "sha256": "d24b8d7d0300f0d807fa3867ac34a93e5728ce1a5486d1aa26d5158fab421ea5",
+      "bytes": 2108,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/freeze.json",
+      "sha256": "ed4ca1b301b020ce64fa0339b5e50483351c55415567d5881e1dfd32a58c9a7b",
+      "bytes": 9694,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md",
+      "sha256": "8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec",
+      "bytes": 13892,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/freeze.json",
+      "sha256": "93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8",
+      "bytes": 7400,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146,
+      "verification": "read-only authority/protected-input pin"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "bytes": 97498,
+      "verification": "read-only authority/protected-input pin"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853,
+      "verification": "read-only authority/protected-input pin"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json",
+      "sha256": "cbb32c0ba1775cd2656986ab43079025e817b9969c63679e95b2408aeb24b83b",
+      "bytes": 245,
+      "verification": "read-only authority/protected-input pin"
+    }
+  ],
+  "reviewReturnProvenance": "The three independent assessments were read-only collaboration returns received and closed by Root; no assessment files or message hashes exist. review-conjunction.md is their first durable attributed summary, not a new assessment.",
+  "historicalPinLimit": "Freeze artifacts remain exact; historical live L2 authority pins have announced successors and are not silently treated as current preimages.",
+  "limits": "Only four current status/routing documents and this new work record may change. No source/tests/build/import/process/Git or Reviewer activation."
+}

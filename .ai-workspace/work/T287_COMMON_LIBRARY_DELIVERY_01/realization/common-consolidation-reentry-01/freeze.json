@@ -1,0 +1,181 @@
+{
+  "kind": "common-consolidation-design-reentry-documentation-freeze",
+  "capturedUtc": "2026-10-21T11:20:56.284791+00:00",
+  "writer": "/root/stdo3_role_source_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#governed-outcome-and-workspace",
+  "fileCount": 17,
+  "bytes": 1419619,
+  "files": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "3f714076463b23860cffde548402d3096570a1c83837929c50789978b3d5cecc",
+      "bytes": 543087
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "sha256": "5cade56357259b567ce21638035b66064f4306106c4506d1b5ddd8e535075021",
+      "bytes": 6243
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "281a4e31840203fb249ce9cf1d10ca5d3d07f0769fb9175080e7514bae489615",
+      "bytes": 37283
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "sha256": "dd7fc152f278fdd0b3218fa9e300568d4c7c178b4a63b92ef304f9fa7832a3d5",
+      "bytes": 7204
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "sha256": "8e2d80491a2ef9791e64f13df06cdcf9adaf793f7155eace52fbe9a4e16113a9",
+      "bytes": 46737
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/handoff.md",
+      "sha256": "c147d79ded20c27072a200db66ac4713102b061b0562ab456efdb0c30b4e2e6f",
+      "bytes": 3350
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/mechanical-checks.json",
+      "sha256": "6840aad7f285864784ee09907513641be589e8d19546dced87c8edd85f5f904b",
+      "bytes": 12309
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/plan.md",
+      "sha256": "4fda7cd6aec9f51f56c68a7f17b0505ed7064903c8240c137014f06a2b26480f",
+      "bytes": 4582
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preflight.json",
+      "sha256": "d642c45ffdacc8215567c0f5f632c70afa66060d53975ff0159814c4ed0f7b7d",
+      "bytes": 6175
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "1be36d26eae8f673fccbc95de2918f6123f4d34a27462d93d3e92505eaa0d73a",
+      "bytes": 544166
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "sha256": "6899d3117792f37e3d2c5b8c809e227b7f1f4954c868f32c2e738329dfe7be81",
+      "bytes": 5685
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "9c1e55b2897d69783eb6c93f050cd94ef7dbfbcafd21d5861a10ed7f4915534e",
+      "bytes": 32157
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/specification/GOALS.md",
+      "sha256": "be077885bffdb6b7104a09d2601534d9420a2d63bb26e3b31a48bddfe21a59b7",
+      "bytes": 80810
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/readiness.json",
+      "sha256": "0610839c6274ceb3b6a88821b2e4a7bbd35a6a45b0858fff83414474b6b2ad1d",
+      "bytes": 1347
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md",
+      "sha256": "1627d4bb125c5d26b986e56ccca55daa42e3fd8230e0b02fe1a80231906139e3",
+      "bytes": 6291
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/successor.json",
+      "sha256": "657902d6852b044d4d353d8386edde6d0d2ce1c94e0d5e14b1a5d8752ab2fda4",
+      "bytes": 1422
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "de61b7775584087d7b69e4dbef4f3c536154ac06673f78dadb0db36687ce08fc",
+      "bytes": 80771
+    }
+  ],
+  "readOnlyInputs": [
+    {
+      "path": ".ai-workspace/comments/claude/20261021T085826Z_REVIEW_common_library_design_consolidation.md",
+      "sha256": "e567c24acb5f774a3c35ca70af4d2f2c6bc6e64daba8a3cc97ab09ed43ed482f",
+      "bytes": 20413,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+      "bytes": 63515,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/freeze.json",
+      "sha256": "4bfdf7e28575dbf9b3f2cffc23b4f25e49ce16b37f5ec643c6ecec96acbfc1c0",
+      "bytes": 13132,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/freeze.json",
+      "sha256": "17b1b6d2fdb5ef829d1da23233a9fd240f5759b076fe09f46eec6547c521c42e",
+      "bytes": 10246,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/freeze.json",
+      "sha256": "1bbc47ac141d00c7f6ee920d1972e0e3c1304488085e3c13a3067286cf204d1e",
+      "bytes": 6401,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/freeze.json",
+      "sha256": "d24b8d7d0300f0d807fa3867ac34a93e5728ce1a5486d1aa26d5158fab421ea5",
+      "bytes": 2108,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/freeze.json",
+      "sha256": "ed4ca1b301b020ce64fa0339b5e50483351c55415567d5881e1dfd32a58c9a7b",
+      "bytes": 9694,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md",
+      "sha256": "8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec",
+      "bytes": 13892,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/freeze.json",
+      "sha256": "93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8",
+      "bytes": 7400,
+      "verification": "exact artifact bytes; no broad live-subject or execution revalidation"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146,
+      "verification": "read-only authority/protected-input pin"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "bytes": 97498,
+      "verification": "read-only authority/protected-input pin"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853,
+      "verification": "read-only authority/protected-input pin"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json",
+      "sha256": "cbb32c0ba1775cd2656986ab43079025e817b9969c63679e95b2408aeb24b83b",
+      "bytes": 245,
+      "verification": "read-only authority/protected-input pin"
+    }
+  ],
+  "RootDisposition": "Critique substantially upheld as selected-library coverage gap; retain historical acceptance and actual contractions; select C1-C5 owning design re-entry and S2/P1 lifecycle blocker before combined candidate.",
+  "reviewProvenance": "Three Root-received and closed read-only collaboration returns; attributed first durable summary, not new assessment files/message hashes.",
+  "currentBoundary": "Four live status/routing surfaces only, L2 append-only; common HOW/source cuts/prior freeze bytes protected. Root separately activates frame-specific design Writers.",
+  "candidateHold": "Combined candidate/P1/P5/P4 and dependent execution held until new design/source conjunction. L4 partial on old subjects; L5 acceptance absent and release resumption closed.",
+  "evidence": "63 document/hash/routing/link checks; 36 added links plus final handoff links checked; 13 exact read-only inputs unchanged. No source/test/build/import/process/provider/Git/Reviewer action.",
+  "noFurtherWritesAfterFreeze": true
+}

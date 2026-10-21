@@ -1,0 +1,1453 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts
+@@ -1,4 +1,4 @@
+-import { spawn } from "node:child_process";
++import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
+ import { appendFileSync } from "node:fs";
+ import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
+ import { resolve } from "node:path";
+@@ -11,7 +11,7 @@
+ } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+ import { admitIJsonText } from "../shared/i_json.js";
+-import { createMonotonicDeadline, createOwnedProcessLifetime } from "../shared/owned_process_lifetime.js";
++import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
+ import type { RuntimeLivenessObserverProjection } from "./runtime_liveness_contracts.js";
+ import {
+   classifyWorkerTransportFailure,
+@@ -67,11 +67,12 @@
+     timeoutClass: WorkerTransportTimeoutClass,
+   ) => void;
+   readonly onSignalRequested?: (signal: NodeJS.Signals) => void;
+-  readonly onProcessExited?: (
+-    status: number | null,
+-    signal: NodeJS.Signals | null,
+-  ) => void;
+-  readonly onTerminationUnconfirmed?: () => void;
++  /** Final ownership handback, outside ordinary callbacks suppressed by failure. */
++  readonly onProcessFinalized?: (facts: OwnedProcessFacts) => void;
++  /** A genuine assessed candidate retained before an original transport error.
++   * Prepared-plan correspondence has already been checked at this boundary. */
++  readonly onResultArtifact?: (result: WorkerTransportResult) => void;
++  /** Positive pre-launch refusal only; asynchronous launch facts use finalization. */
+   readonly onSpawnFailed?: (message: string) => void;
+ }
+ 
+@@ -122,6 +123,8 @@
+ }
+ 
+ interface ProcessObservation {
++  readonly facts: OwnedProcessFacts;
++  readonly finalizationError?: unknown;
+   readonly status: number | null;
+   readonly signal: NodeJS.Signals | null;
+   readonly timedOut: boolean;
+@@ -374,25 +377,25 @@
+   const absoluteTimer = createMonotonicDeadline();
+   const clearLeaseTimers = (): void => { inactivityTimer.cancel(); absoluteTimer.cancel(); };
+   const snapshotResultBearingStdout = (): void => { resultBearingStdout ??= stdout; };
+-  const child = spawn(input.command, input.args, {
+-    cwd: input.cwd, env: input.env, detached: process.platform !== "win32",
+-    stdio: ["pipe", "pipe", "pipe"],
+-  });
++  let child: ChildProcessWithoutNullStreams;
++  try {
++    child = spawn(input.command, input.args, {
++      cwd: input.cwd, env: input.env, detached: process.platform !== "win32",
++      stdio: ["pipe", "pipe", "pipe"],
++    });
++  } catch (error) { return refuseBeforeLaunch(error, input.observer); }
+   const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: input.terminationGraceMs }, {
+     onSpawn: (pid) => input.observer?.onProcessStarted?.(pid),
+     onError: (error) => {
+       clearLeaseTimers(); snapshotResultBearingStdout(); launchError = error.message;
+-      input.observer?.onSpawnFailed?.(error.message);
+     },
+-    onExit: (status, signal) => {
++    onExit: () => {
+       clearLeaseTimers(); snapshotResultBearingStdout(); captureOpen = false;
+       child.stdout.destroy(); child.stderr.destroy(); child.stdin.destroy();
+-      input.observer?.onProcessExited?.(status, signal);
+     },
+     onSignalRequested: (signal) => {
+       clearLeaseTimers(); input.observer?.onSignalRequested?.(signal);
+     },
+-    onUnconfirmed: () => { clearLeaseTimers(); input.observer?.onTerminationUnconfirmed?.(); },
+   });
+   const beginTimeout = (observedTimeoutClass: WorkerTransportTimeoutClass): void => {
+     if (timedOut || lifetime.snapshot().cleanupDeadlineNs !== null) return;
+@@ -448,17 +451,27 @@
+   } catch (error) { lifetime.fail(error); }
+   try {
+     const facts = await lifetime.completion;
+-    if (facts.firstError !== null) throw facts.firstError;
++    let finalization: Pick<ProcessObservation, "finalizationError"> = {};
++    try { input.observer?.onProcessFinalized?.(facts); }
++    catch (error) { finalization = { finalizationError: error }; }
+     return {
++      facts, ...finalization,
+       status: facts.directExit?.status ?? null, signal: facts.directExit?.signal ?? null,
+       timedOut, timeoutClass, exitObserved: facts.directExit !== null,
+       terminationConfirmed: facts.scopeAbsence === "absent" && facts.directExit !== null,
+-      launchError, resultBearingStdout: resultBearingStdout ?? stdout, stdout, stderr,
++      launchError: facts.launchFailure?.message ?? launchError,
++      resultBearingStdout: resultBearingStdout ?? stdout, stdout, stderr,
+     };
+   } finally {
+     clearLeaseTimers(); captureOpen = false;
+     child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
+   }
++}
++
++function refuseBeforeLaunch(error: unknown, observer?: WorkerProcessObserver): never {
++  try { observer?.onSpawnFailed?.(error instanceof Error ? error.message : String(error)); }
++  catch { /* A later admission failure cannot replace the original pre-launch failure. */ }
++  throw error;
+ }
+ 
+ /** Pure existing protocol parser, shared by the native artifact observer. */
+@@ -471,54 +484,60 @@
+ 
+ async function executeWorkerTransport(
+   input: WorkerTransportRequest,
++  validatePreparedResult: (result: WorkerTransportResult) => void,
+ ): Promise<WorkerTransportResult> {
+-  assertLabel(input.label);
+-  if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
+-    throw new TypeError("worker transport timeout must be one positive safe integer");
+-  }
+-  const terminationGraceMs = input.terminationGraceMs ?? 1_000;
+-  if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
+-    throw new TypeError("worker transport termination grace must be one positive safe integer");
+-  }
+-  const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(
+-    input.timeoutMs,
+-    input.absoluteTimeoutMs,
+-  );
+-  await mkdir(input.archiveRoot, { recursive: true });
+-  const archiveRoot = resolve(input.archiveRoot);
+-  const paths = {
+-    prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
+-    output: resolve(archiveRoot, `${input.label}-output.txt`),
+-    stdout: resolve(archiveRoot, `${input.label}-stdout.log`),
+-    stderr: resolve(archiveRoot, `${input.label}-stderr.log`),
+-    transport: resolve(archiveRoot, `${input.label}-transport.json`),
+-  };
+-  const environment = input.environment ?? process.env;
+-  const args = composeWorkerTransportArgs({
+-    contract: input.contract,
+-    prompt: input.prompt,
+-    outputPath: paths.output,
+-    lane: input.lane,
+-    environment,
+-    ...(input.responseJsonSchema === undefined
+-      ? {}
+-      : { responseJsonSchema: input.responseJsonSchema }),
+-    ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
+-    ...(input.explicitAppendArgs === undefined
+-      ? {}
+-      : { explicitAppendArgs: input.explicitAppendArgs }),
+-  });
+-  // Establish the archive before a paid process can emit bytes. Refuse reuse
+-  // of an existing attempt archive instead of truncating retained evidence.
+-  const promptBytes = Buffer.from(input.prompt, "utf8");
+-  await writeFile(paths.prompt, promptBytes, { flag: "wx" });
+-  await writeFile(paths.stdout, "", { flag: "wx" });
+-  await writeFile(paths.stderr, "", { flag: "wx" });
++  // This catch ends before spawn. No post-launch rejection can become no-child.
++  const { paths, args, promptBytes, absoluteTimeoutMs, terminationGraceMs, env } = await (async () => {
++    assertLabel(input.label);
++    if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
++      throw new TypeError("worker transport timeout must be one positive safe integer");
++    }
++    const terminationGraceMs = input.terminationGraceMs ?? 1_000;
++    if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
++      throw new TypeError("worker transport termination grace must be one positive safe integer");
++    }
++    const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(
++      input.timeoutMs,
++      input.absoluteTimeoutMs,
++    );
++    await mkdir(input.archiveRoot, { recursive: true });
++    const archiveRoot = resolve(input.archiveRoot);
++    const paths = {
++      prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
++      output: resolve(archiveRoot, `${input.label}-output.txt`),
++      stdout: resolve(archiveRoot, `${input.label}-stdout.log`),
++      stderr: resolve(archiveRoot, `${input.label}-stderr.log`),
++      transport: resolve(archiveRoot, `${input.label}-transport.json`),
++    };
++    const environment = input.environment ?? process.env;
++    const args = composeWorkerTransportArgs({
++      contract: input.contract,
++      prompt: input.prompt,
++      outputPath: paths.output,
++      lane: input.lane,
++      environment,
++      ...(input.responseJsonSchema === undefined
++        ? {}
++        : { responseJsonSchema: input.responseJsonSchema }),
++      ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
++      ...(input.explicitAppendArgs === undefined
++        ? {}
++        : { explicitAppendArgs: input.explicitAppendArgs }),
++    });
++    // Establish the archive before a paid process can emit bytes. Refuse reuse
++    // of an existing attempt archive instead of truncating retained evidence.
++    const promptBytes = Buffer.from(input.prompt, "utf8");
++    await writeFile(paths.prompt, promptBytes, { flag: "wx" });
++    await writeFile(paths.stdout, "", { flag: "wx" });
++    await writeFile(paths.stderr, "", { flag: "wx" });
++    return { paths, args, promptBytes, absoluteTimeoutMs, terminationGraceMs,
++      env: sanitizeWorkerTransportEnvironment(input.contract, environment) ?? {} };
++  })().catch(error => refuseBeforeLaunch(error, input.observer));
+   const processObservation = await runProcess({
+     command: input.contract.command,
+     args,
+     cwd: input.cwd,
+-    env: sanitizeWorkerTransportEnvironment(input.contract, environment) ?? {},
++    env,
+     stdin: input.contract.promptTransport === "stdin" ? input.prompt : null,
+     timeoutMs: input.timeoutMs,
+     absoluteTimeoutMs,
+@@ -527,107 +546,124 @@
+     stderrPath: paths.stderr,
+     ...(input.observer === undefined ? {} : { observer: input.observer }),
+   });
+-  const structuredOutputExpected = input.contract.agentKey === "claude" && args.includes("--json-schema");
+-  const observation = input.contract.parser === "claude_stream_json"
+-    ? observeStructuredOutput(
+-        processObservation.resultBearingStdout,
+-        structuredOutputExpected,
+-      )
+-    : {
+-      structuredEventCount: 0,
+-      progressEventCount:
+-        processObservation.resultBearingStdout.length > 0 ? 1 : 0,
+-      toolCallCount: 0,
+-      toolInvocations: [],
+-      apiRetryCount: 0,
+-      finalOutput: processObservation.resultBearingStdout,
++  const failed = processObservation.facts.firstError !== null || Object.hasOwn(processObservation, "finalizationError");
++  const firstError = processObservation.facts.firstError ?? processObservation.finalizationError;
++  if (processObservation.facts.scopeAbsence !== "absent" ||
++      (processObservation.facts.directExit === null && !processObservation.facts.noChildEstablished)) {
++    if (failed) throw firstError;
++    throw new TypeError("worker owned process scope remains unconfirmed");
++  }
++  // Legacy transports retain their exception contract. Current-profile owners
++  // must assess available candidates before the same original Error is thrown.
++  if (failed && input.observer?.assessNativeResultArtifact === undefined) throw firstError;
++  try {
++    const structuredOutputExpected = input.contract.agentKey === "claude" && args.includes("--json-schema");
++    const observation = input.contract.parser === "claude_stream_json"
++      ? observeStructuredOutput(
++          processObservation.resultBearingStdout,
++          structuredOutputExpected,
++        )
++      : {
++        structuredEventCount: 0,
++        progressEventCount:
++          processObservation.resultBearingStdout.length > 0 ? 1 : 0,
++        toolCallCount: 0,
++        toolInvocations: [],
++        apiRetryCount: 0,
++        finalOutput: processObservation.resultBearingStdout,
++      };
++    let finalOutput = observation.finalOutput;
++    let nativeResultAssessment: NativeWorkerResultAssessment | undefined;
++    if (input.observer?.assessNativeResultArtifact !== undefined) {
++      let fileOutput: string | null = null;
++      try { fileOutput = (await readFile(paths.output)).toString("utf8"); }
++      catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
++      if (fileOutput !== null && fileOutput.trim().length > 0) {
++        if (finalOutput.trim().length === 0) {
++          if (!structuredOutputExpected && input.responsePresentation !== "result_text") finalOutput = fileOutput;
++        }
++        else {
++          let sameOutput = fileOutput === finalOutput;
++          try { sameOutput ||= canonicalJson(JSON.parse(fileOutput)) === canonicalJson(JSON.parse(finalOutput)); } catch { /* no parser repair */ }
++          if (!sameOutput) throw new TypeError("distinct worker output channels disagree; no first/last result selection");
++        }
++      }
++      nativeResultAssessment = input.observer.assessNativeResultArtifact(finalOutput);
++    }
++    const failureClass = classifyWorkerTransportFailure({
++      parser: input.contract.parser,
++      lane: input.lane,
++      processStatus: processObservation.status,
++      timedOut: processObservation.timedOut,
++      terminationConfirmed: processObservation.terminationConfirmed,
++      processSpawnFailed: processObservation.launchError !== null,
++      structuredEventCount: observation.structuredEventCount,
++      toolCallCount: observation.toolCallCount,
++      apiRetryCount: observation.apiRetryCount,
++      finalOutput,
++      ...(nativeResultAssessment === undefined ? {} : { nativeResultDisposition: nativeResultAssessment.disposition }),
++    });
++    const outputBytes = Buffer.from(finalOutput, "utf8");
++    const stdoutBytes = Buffer.from(processObservation.stdout, "utf8");
++    const stderrBytes = Buffer.from(processObservation.stderr, "utf8");
++    await writeFile(paths.output, outputBytes);
++    if (sha256Bytes(await readFile(paths.stdout)) !== sha256Bytes(stdoutBytes) ||
++        sha256Bytes(await readFile(paths.stderr)) !== sha256Bytes(stderrBytes)) {
++      throw new TypeError("worker stream archive differs from observed bytes");
++    }
++    const body = {
++      ...(nativeResultAssessment === undefined ? {} : { nativeResultAssessment }),
++      kind: "worker_transport_result_candidate" as const,
++      schemaVersion: "5.0.0" as const,
++      disposition: failureClass === null ? "success" as const : "failure" as const,
++      agentKey: input.contract.agentKey,
++      lane: input.lane,
++      command: input.contract.command,
++      args,
++      status: processObservation.status,
++      signal: processObservation.signal,
++      timeoutMs: input.timeoutMs,
++      absoluteTimeoutMs,
++      timedOut: processObservation.timedOut,
++      timeoutClass: processObservation.timeoutClass,
++      exitObserved: processObservation.exitObserved,
++      terminationConfirmed: processObservation.terminationConfirmed,
++      failureClass,
++      structuredEventCount: observation.structuredEventCount,
++      progressEventCount: observation.progressEventCount,
++      toolCallCount: observation.toolCallCount,
++      toolInvocations: observation.toolInvocations,
++      apiRetryCount: observation.apiRetryCount,
++      stdout: processObservation.stdout,
++      stderr: processObservation.stderr,
++      finalOutput,
++      artifacts: {
++        prompt: artifact(paths.prompt, promptBytes),
++        output: artifact(paths.output, outputBytes),
++        stdout: artifact(paths.stdout, stdoutBytes),
++        stderr: artifact(paths.stderr, stderrBytes),
++      },
+     };
+-  let finalOutput = observation.finalOutput;
+-  let nativeResultAssessment: NativeWorkerResultAssessment | undefined;
+-  if (input.observer?.assessNativeResultArtifact !== undefined) {
+-    let fileOutput: string | null = null;
+-    try { fileOutput = (await readFile(paths.output)).toString("utf8"); }
+-    catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+-    if (fileOutput !== null && fileOutput.trim().length > 0) {
+-      if (finalOutput.trim().length === 0) {
+-        if (!structuredOutputExpected && input.responsePresentation !== "result_text") finalOutput = fileOutput;
+-      }
+-      else {
+-        let sameOutput = fileOutput === finalOutput;
+-        try { sameOutput ||= canonicalJson(JSON.parse(fileOutput)) === canonicalJson(JSON.parse(finalOutput)); } catch { /* no parser repair */ }
+-        if (!sameOutput) throw new TypeError("distinct worker output channels disagree; no first/last result selection");
+-      }
+-    }
+-    nativeResultAssessment = input.observer.assessNativeResultArtifact(finalOutput);
+-  }
+-  const failureClass = classifyWorkerTransportFailure({
+-    parser: input.contract.parser,
+-    lane: input.lane,
+-    processStatus: processObservation.status,
+-    timedOut: processObservation.timedOut,
+-    terminationConfirmed: processObservation.terminationConfirmed,
+-    processSpawnFailed: processObservation.launchError !== null,
+-    structuredEventCount: observation.structuredEventCount,
+-    toolCallCount: observation.toolCallCount,
+-    apiRetryCount: observation.apiRetryCount,
+-    finalOutput,
+-    ...(nativeResultAssessment === undefined ? {} : { nativeResultDisposition: nativeResultAssessment.disposition }),
+-  });
+-  const outputBytes = Buffer.from(finalOutput, "utf8");
+-  const stdoutBytes = Buffer.from(processObservation.stdout, "utf8");
+-  const stderrBytes = Buffer.from(processObservation.stderr, "utf8");
+-  await writeFile(paths.output, outputBytes);
+-  if (sha256Bytes(await readFile(paths.stdout)) !== sha256Bytes(stdoutBytes) ||
+-      sha256Bytes(await readFile(paths.stderr)) !== sha256Bytes(stderrBytes)) {
+-    throw new TypeError("worker stream archive differs from observed bytes");
+-  }
+-  const body = {
+-    ...(nativeResultAssessment === undefined ? {} : { nativeResultAssessment }),
+-    kind: "worker_transport_result_candidate" as const,
+-    schemaVersion: "5.0.0" as const,
+-    disposition: failureClass === null ? "success" as const : "failure" as const,
+-    agentKey: input.contract.agentKey,
+-    lane: input.lane,
+-    command: input.contract.command,
+-    args,
+-    status: processObservation.status,
+-    signal: processObservation.signal,
+-    timeoutMs: input.timeoutMs,
+-    absoluteTimeoutMs,
+-    timedOut: processObservation.timedOut,
+-    timeoutClass: processObservation.timeoutClass,
+-    exitObserved: processObservation.exitObserved,
+-    terminationConfirmed: processObservation.terminationConfirmed,
+-    failureClass,
+-    structuredEventCount: observation.structuredEventCount,
+-    progressEventCount: observation.progressEventCount,
+-    toolCallCount: observation.toolCallCount,
+-    toolInvocations: observation.toolInvocations,
+-    apiRetryCount: observation.apiRetryCount,
+-    stdout: processObservation.stdout,
+-    stderr: processObservation.stderr,
+-    finalOutput,
+-    artifacts: {
+-      prompt: artifact(paths.prompt, promptBytes),
+-      output: artifact(paths.output, outputBytes),
+-      stdout: artifact(paths.stdout, stdoutBytes),
+-      stderr: artifact(paths.stderr, stderrBytes),
+-    },
+-  };
+-  const transportBytes = Buffer.from(`${canonicalJson(body as unknown as JsonValue)}\n`, "utf8");
+-  await writeFile(paths.transport, transportBytes);
+-  const result = deepFreeze({
+-    ...body,
+-    artifacts: {
+-      ...body.artifacts,
+-      transport: artifact(paths.transport, transportBytes),
+-    },
+-  }) as WorkerTransportResult;
+-  const persistedTransport = await readFile(paths.transport);
+-  if (sha256Bytes(persistedTransport) !== result.artifacts.transport.digest) {
+-    throw new TypeError("worker transport artifact changed after persistence");
+-  }
+-  return result;
++    const transportBytes = Buffer.from(`${canonicalJson(body as unknown as JsonValue)}\n`, "utf8");
++    await writeFile(paths.transport, transportBytes);
++    const result = deepFreeze({
++      ...body,
++      artifacts: {
++        ...body.artifacts,
++        transport: artifact(paths.transport, transportBytes),
++      },
++    }) as WorkerTransportResult;
++    const persistedTransport = await readFile(paths.transport);
++    if (sha256Bytes(persistedTransport) !== result.artifacts.transport.digest) {
++      throw new TypeError("worker transport artifact changed after persistence");
++    }
++    validatePreparedResult(result);
++    if (failed) {
++      input.observer?.onResultArtifact?.(result);
++      throw firstError;
++    }
++    return result;
++  } catch (error) { throw failed ? firstError : error; }
+ }
+ 
+ export interface PreparedWorkerTransport {
+@@ -778,25 +814,25 @@
+ ): Promise<WorkerTransportResult> {
+   const request = preparedTransportState.get(plan);
+   if (request === undefined) {
+-    throw new TypeError("worker transport plan was not prepared by this ABG module");
+-  }
+-  const result = await executeWorkerTransport({
++    return refuseBeforeLaunch(new TypeError("worker transport plan was not prepared by this ABG module"), observer);
++  }
++  return executeWorkerTransport({
+     ...request,
+     ...(observer === undefined ? {} : { observer }),
++  }, result => {
++    if (
++      result.command !== plan.command ||
++      canonicalJson(result.args as unknown as JsonValue) !==
++        canonicalJson(plan.args as unknown as JsonValue)
++    ) {
++      throw new TypeError("executed worker transport differs from the prepared binding");
++    }
+   });
+-  if (
+-    result.command !== plan.command ||
+-    canonicalJson(result.args as unknown as JsonValue) !==
+-      canonicalJson(plan.args as unknown as JsonValue)
+-  ) {
+-    throw new TypeError("executed worker transport differs from the prepared binding");
+-  }
+-  return result;
+ }
+ 
+ export async function runWorkerTransport(
+   input: WorkerTransportRequest,
+ ): Promise<WorkerTransportResult> {
+-  const plan = await prepareWorkerTransport(input);
++  const plan = await prepareWorkerTransport(input).catch(error => refuseBeforeLaunch(error, input.observer));
+   return runPreparedWorkerTransport(plan, input.observer);
+ }
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts
+@@ -20,6 +20,7 @@
+ } from "../shared/digests.js";
+ import { admitIJsonValue } from "../shared/i_json.js";
+ import { deepFreeze } from "../shared/immutable.js";
++import type { OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
+ import { isNonBlankRef } from "../shared/references.js";
+ import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
+ import type { CCall } from "./c_call.js";
+@@ -53,6 +54,7 @@
+   runPreparedWorkerTransport,
+   createWorkerTransportOutputObserver,
+   type WorkerTransportRequest,
++  type WorkerTransportResult,
+   type WorkerToolInvocationEvidence,
+ } from "./worker_transport.js";
+ import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy, type RuntimeProbeObservation, type RuntimeProbeSource } from "./runtime_liveness_contracts.js";
+@@ -620,7 +622,7 @@
+   if (actorTerminal !== undefined && processTerminal === undefined) {
+     throw new TypeError("ActorInvocation cleanup terminal requires confirmed Process terminality");
+   }
+-  const terminationUnconfirmed = rows.some((event) =>
++  const terminationUnconfirmed = processTerminal === undefined && rows.some((event) =>
+     event.kind === "actor_process_termination_unconfirmed"
+   );
+   const processLive = started.length === 1 && processTerminal === undefined;
+@@ -994,7 +996,9 @@
+   const stdoutEventRefs: string[] = [];
+   const stderrEventRefs: string[] = [];
+   let processStarted = false;
+-  let processTerminalConfirmed = false;
++  let finalProcessFacts: OwnedProcessFacts | null = null;
++  let processTerminalEvent: ReturnType<typeof append> | null = null;
++  let admittedArtifact: ReturnType<typeof append> | null = null;
+   let actorTerminalAdmitted = false;
+   const signalSequence: string[] = [];
+   const append = (
+@@ -1102,8 +1106,79 @@
+     successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId;
+   };
+ 
++  const admitTransportArtifact = (transport: WorkerTransportResult) => {
++    if (admittedArtifact !== null) throw new TypeError("actor result artifact was already admitted");
++    if (finalProcessFacts === null || finalProcessFacts.scopeAbsence !== "absent" ||
++        (finalProcessFacts.directExit === null && !finalProcessFacts.noChildEstablished)) {
++      throw new TypeError("actor result artifact lacks final confirmed physical facts");
++    }
++    const observedOutputDigest = outputDigest(transport.finalOutput);
++    const artifactDigests = {
++      output: transport.artifacts.output.digest,
++      prompt: transport.artifacts.prompt.digest,
++      stderr: transport.artifacts.stderr.digest,
++      stdout: transport.artifacts.stdout.digest,
++      transport: transport.artifacts.transport.digest,
++    };
++    const observationBody = {
++      ...(transport.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: transport.nativeResultAssessment }),
++      actorInvocationRef,
++      actorRef: input.request.actorRef,
++      workerBindingRef: input.request.workerBindingRef,
++      implementationRef: input.request.implementationRef,
++      inputDigest: input.request.inputDigest,
++      materializationPlanRef: input.request.materializationPlanRef,
++      rendererRef: input.request.rendererRef,
++      instructionContractRef: input.request.instructionContractRef,
++      resultContractRef: input.request.resultContractRef,
++      processRef,
++      transportBindingRef,
++      transportBindingDigest,
++      disposition: transport.disposition,
++      failureClass: transport.failureClass,
++      finalOutput: transport.finalOutput,
++      observedOutputDigest,
++      promptDigest,
++      transportDigest: transport.artifacts.transport.digest,
++      transportLane: transport.lane,
++      processStatus: transport.status,
++      processSignal: transport.signal,
++      timeoutClass: transport.timeoutClass,
++      timedOut: transport.timedOut,
++      exitObserved: transport.exitObserved,
++      terminationConfirmed: transport.terminationConfirmed,
++      signalSequence: Object.freeze([...signalSequence]),
++      structuredEventCount: transport.structuredEventCount,
++      progressEventCount: transport.progressEventCount,
++      toolCallCount: transport.toolCallCount,
++      toolInvocations: transport.toolInvocations,
++      apiRetryCount: transport.apiRetryCount,
++      stdoutByteLength,
++      stderrByteLength,
++      artifactDigests,
++    };
++    const artifactEvent = append(
++      "actor_result_artifact_observed",
++      "actor_invocation",
++      actorInvocationRef,
++      input.cCall.cCallRef,
++      {
++        cCallRef: input.cCall.cCallRef,
++        requestRef,
++        requestDigest,
++        ...observationBody,
++      } as unknown as Readonly<Record<string, JsonValue>>,
++    );
++    // Retain the actual committed witness before a subsequent probe can fail.
++    admittedArtifact = artifactEvent;
++    if (currentProfile && transport.nativeResultAssessment?.disposition !== "absent") probe("result_artifact", artifactEvent,
++      transport.nativeResultAssessment?.disposition === "admitted" ? "artifact_admitted" : "artifact_rejected", elapsed());
++    return { artifactEvent, observation: deepFreeze(observationBody) as ActorProcessObservation };
++  };
++
+   try {
+     const transport = await runPreparedWorkerTransport(plan, {
++      onResultArtifact: admitTransportArtifact,
+       ...(currentProfile ? { assessNativeResultArtifact, onNativeSupervisionWakeup: () => {
+         observePendingAsset();
+         const sampled = elapsed();
+@@ -1220,107 +1295,41 @@
+         );
+       },
+       onSpawnFailed: (message) => {
+-        append(
+-          "actor_process_spawn_failed",
+-          "process",
+-          processRef,
+-          actorInvocationRef,
++        if (processStarted || finalProcessFacts !== null || processTerminalEvent !== null) {
++          throw new TypeError("pre-launch refusal cannot follow a physical attempt or Process terminal");
++        }
++        processTerminalEvent = append(
++          "actor_process_spawn_failed", "process", processRef, actorInvocationRef,
+           { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(message) },
+         );
+-        processTerminalConfirmed = true;
+       },
+-      onProcessExited: (status, signal) => {
+-        if (processStarted) {
+-          append(
+-            "actor_process_exited",
+-            "process",
+-            processRef,
+-            actorInvocationRef,
+-            { actorInvocationRef, processRef, status, signal },
++      onProcessFinalized: (facts) => {
++        if (finalProcessFacts !== null || processTerminalEvent !== null) {
++          throw new TypeError("Process final facts must be handed back exactly once");
++        }
++        // Keep the canonical facts even if their semantic admission fails.
++        finalProcessFacts = facts;
++        if (facts.scopeAbsence === "absent" && facts.noChildEstablished && facts.launchFailure !== null) {
++          if (processStarted) throw new TypeError("no-child launch failure cannot follow admitted process start");
++          processTerminalEvent = append(
++            "actor_process_spawn_failed", "process", processRef, actorInvocationRef,
++            { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(facts.launchFailure.message) },
+           );
++        } else if (facts.scopeAbsence === "absent" && facts.directExit !== null && processStarted) {
++          processTerminalEvent = append(
++            "actor_process_exited", "process", processRef, actorInvocationRef,
++            { actorInvocationRef, processRef, status: facts.directExit.status, signal: facts.directExit.signal },
++          );
++        } else if (processStarted) {
++          append("actor_process_termination_unconfirmed", "process", processRef,
++            actorInvocationRef, { actorInvocationRef, processRef });
+         } else {
+-          append(
+-            "actor_process_spawn_failed",
+-            "process",
+-            processRef,
+-            actorInvocationRef,
+-            {
+-              actorInvocationRef,
+-              processRef,
+-              diagnosticDigest: sha256Canonical({ status, signal }),
+-            },
+-          );
++          throw new TypeError("physical completion has no admitted process start or positive no-child premise");
+         }
+-        processTerminalConfirmed = true;
+-      },
+-      onTerminationUnconfirmed: () => {
+-        processTerminalConfirmed = false;
+-        append("actor_process_termination_unconfirmed", "process", processRef,
+-          actorInvocationRef, { actorInvocationRef, processRef });
+       },
+     });
+-    processTerminalConfirmed = transport.terminationConfirmed ||
+-      (!processStarted && transport.status !== null && transport.status < 0);
+-    const observedOutputDigest = outputDigest(transport.finalOutput);
+-    const artifactDigests = {
+-      output: transport.artifacts.output.digest,
+-      prompt: transport.artifacts.prompt.digest,
+-      stderr: transport.artifacts.stderr.digest,
+-      stdout: transport.artifacts.stdout.digest,
+-      transport: transport.artifacts.transport.digest,
+-    };
+-    const observationBody = {
+-      ...(transport.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: transport.nativeResultAssessment }),
+-      actorInvocationRef,
+-      actorRef: input.request.actorRef,
+-      workerBindingRef: input.request.workerBindingRef,
+-      implementationRef: input.request.implementationRef,
+-      inputDigest: input.request.inputDigest,
+-      materializationPlanRef: input.request.materializationPlanRef,
+-      rendererRef: input.request.rendererRef,
+-      instructionContractRef: input.request.instructionContractRef,
+-      resultContractRef: input.request.resultContractRef,
+-      processRef,
+-      transportBindingRef,
+-      transportBindingDigest,
+-      disposition: transport.disposition,
+-      failureClass: transport.failureClass,
+-      finalOutput: transport.finalOutput,
+-      observedOutputDigest,
+-      promptDigest,
+-      transportDigest: transport.artifacts.transport.digest,
+-      transportLane: transport.lane,
+-      processStatus: transport.status,
+-      processSignal: transport.signal,
+-      timeoutClass: transport.timeoutClass,
+-      timedOut: transport.timedOut,
+-      exitObserved: transport.exitObserved,
+-      terminationConfirmed: transport.terminationConfirmed,
+-      signalSequence: Object.freeze([...signalSequence]),
+-      structuredEventCount: transport.structuredEventCount,
+-      progressEventCount: transport.progressEventCount,
+-      toolCallCount: transport.toolCallCount,
+-      toolInvocations: transport.toolInvocations,
+-      apiRetryCount: transport.apiRetryCount,
+-      stdoutByteLength,
+-      stderrByteLength,
+-      artifactDigests,
+-    };
+-    const artifactEvent = append(
+-      "actor_result_artifact_observed",
+-      "actor_invocation",
+-      actorInvocationRef,
+-      input.cCall.cCallRef,
+-      {
+-        cCallRef: input.cCall.cCallRef,
+-        requestRef,
+-        requestDigest,
+-        ...observationBody,
+-      } as unknown as Readonly<Record<string, JsonValue>>,
+-    );
+-    if (currentProfile && transport.nativeResultAssessment?.disposition !== "absent") probe("result_artifact", artifactEvent,
+-      transport.nativeResultAssessment?.disposition === "admitted" ? "artifact_admitted" : "artifact_rejected", elapsed());
+-    if (processTerminalConfirmed) {
++    const { artifactEvent, observation } = admitTransportArtifact(transport);
++    if (processTerminalEvent !== null) {
+       // The terminal owner consumes the actual artifact producer. A liveness
+       // observation between them is not a replacement artifact cause.
+       previousEventRef = artifactEvent.eventId;
+@@ -1348,7 +1357,6 @@
+       );
+       actorTerminalAdmitted = true;
+     }
+-    const observation = deepFreeze(observationBody) as ActorProcessObservation;
+     const exchange = validateActorProcessCarrierPair(input.request, observation);
+     if (exchange.kind !== "actor_process_carrier_validation") {
+       return refuseActorProcessEffect(
+@@ -1367,42 +1375,28 @@
+       exchange,
+     });
+   } catch (error) {
+-    if (!processStarted && !processTerminalConfirmed) {
+-      append(
+-        "actor_process_spawn_failed",
+-        "process",
+-        processRef,
+-        actorInvocationRef,
+-        {
++    if (!actorTerminalAdmitted && processTerminalEvent !== null) {
++      try {
++        append(
++          "actor_invocation_failed",
++          "actor_invocation",
+           actorInvocationRef,
+-          processRef,
+-          diagnosticDigest: sha256Canonical(
+-            error instanceof Error ? error.message : String(error),
+-          ),
+-        },
+-      );
+-      processTerminalConfirmed = true;
+-    }
+-    if (!actorTerminalAdmitted && processTerminalConfirmed) {
+-      append(
+-        "actor_invocation_failed",
+-        "actor_invocation",
+-        actorInvocationRef,
+-        input.cCall.cCallRef,
+-        {
+-          actorInvocationRef,
+-          processRef,
+-          cCallRef: input.cCall.cCallRef,
+-          disposition: "failure",
+-          failureClass: "transport_exception",
+-          transportBindingRef,
+-          transportBindingDigest,
+-          diagnosticDigest: sha256Canonical(
+-            error instanceof Error ? error.message : String(error),
+-          ),
+-        },
+-      );
+-      actorTerminalAdmitted = true;
++          input.cCall.cCallRef,
++          {
++            actorInvocationRef,
++            processRef,
++            cCallRef: input.cCall.cCallRef,
++            disposition: "failure",
++            failureClass: "transport_exception",
++            transportBindingRef,
++            transportBindingDigest,
++            diagnosticDigest: sha256Canonical(
++              error instanceof Error ? error.message : String(error),
++            ),
++          },
++        );
++        actorTerminalAdmitted = true;
++      } catch { /* Preserve the first owner failure and the actual committed prefix. */ }
+     }
+     throw error;
+   }
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts
+@@ -2441,11 +2441,7 @@
+           .filter((value): value is string => value !== null),
+         exitStatus: Number.isSafeInteger(exitStatus) ? exitStatus as number : null,
+         exitSignal: processExited === undefined ? null : stringField(processExited, "signal"),
+-        terminationConfirmed:
+-          processExited !== undefined &&
+-          !actorRows.some(
+-            (event) => event.kind === "actor_process_termination_unconfirmed",
+-          ),
++        terminationConfirmed: processExited !== undefined,
+         transportDigest: artifact === undefined
+           ? null
+           : stringField(artifact, "transportDigest") as Sha256Digest | null,
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts
+@@ -811,8 +811,7 @@
+     const processLive = actorRef !== null && any(["actor_process_started"], e =>
+       record(e.payload) && e.payload.actorInvocationRef === actorRef) &&
+       !any(["actor_process_spawn_failed"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef) &&
+-      !actorDone && (!any(["actor_process_exited"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef) ||
+-        any(["actor_process_termination_unconfirmed"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef));
++      !actorDone && !any(["actor_process_exited"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef);
+     let disposition: RuntimeLivenessObserverProjection["disposition"]["disposition"] = "continue_waiting";
+     let reason = "within_bound_lease";
+     if (hardCapReached && processLive) { disposition = "controlled_terminate"; reason = "absolute_safety_cap"; }
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts
+@@ -1801,7 +1801,6 @@
+   private baseOrdinal = 0;
+   readonly probeFacts: { ordinal: number; actor: string | null; target: "frame" | "call" | null; key: string; digest: string }[] = [];
+   readonly interruptionFacts: { ordinal: number; digest: string }[] = [];
+-  readonly unconfirmedFacts: { ordinal: number; process: string }[] = [];
+   private get effectCount(): number { return this.baseCount + this.effectRows.length; }
+   private *factsThrough(count: number): Iterable<RuntimeEffectFact> {
+     if (this.base !== undefined) yield* this.base.factsThrough(Math.min(count, this.baseCount));
+@@ -1833,10 +1832,6 @@
+   private *allInterruptionFacts(): Iterable<(typeof this.interruptionFacts)[number]> {
+     if (this.base !== undefined) for (const fact of this.base.allInterruptionFacts()) if (fact.ordinal <= this.baseOrdinal) yield fact;
+     yield* this.interruptionFacts;
+-  }
+-  private *allUnconfirmedFacts(): Iterable<(typeof this.unconfirmedFacts)[number]> {
+-    if (this.base !== undefined) for (const fact of this.base.allUnconfirmedFacts()) if (fact.ordinal <= this.baseOrdinal) yield fact;
+-    yield* this.unconfirmedFacts;
+   }
+   forkAt(prefix: RuntimeEventPrefix): RuntimeEventCalculusDerivation {
+     const fork = new RuntimeEventCalculusDerivation();
+@@ -1857,7 +1852,6 @@
+       if (target !== null) { const scopes = target.get(fact.key) ?? new Set<string>(); scopes.add(fact.digest); target.set(fact.key, scopes); }
+     }
+     for (const fact of this.allInterruptionFacts()) if (fact.ordinal <= extent.lastOrdinal) fork.history.interruptedScopes.add(fact.digest);
+-    for (const fact of this.allUnconfirmedFacts()) if (fact.ordinal <= extent.lastOrdinal) fork.unconfirmedProcesses.add(fact.process);
+     return fork;
+   }
+   private fluentRunAt(key: string, ordinal: number): string | undefined {
+@@ -1867,7 +1861,6 @@
+     return low > 0 ? rows[low - 1]!.runId : this.base?.fluentRunAt(key, Math.min(ordinal, this.baseOrdinal));
+   }
+   readonly actorProbeScopes = new Map<string, Set<string>>();
+-  readonly unconfirmedProcesses = new Set<string>();
+   readonly history: RuntimeEffectHistory = { byId: { get: ref => this.prefix === undefined ? undefined : runtimeEventAtPrefix(this.prefix, ref) },
+     interruptedScopes: new Set(), frameProbeScopes: new Map(), cCallProbeScopes: new Map() };
+   readonly clipCounts = [0];
+@@ -1975,11 +1968,10 @@
+                 ? [...this.holds.values()].filter(fluent => fluent.name === "runtime_invocation_active" && (this.actorProbeScopes.get(event.aggregateId)?.has(fluent.identity ?? "") ?? false)) : []),
+               ...(event.kind === "actor_process_exited" ||
+                   event.kind === "actor_process_spawn_failed"
+-                ? (event.kind === "actor_process_exited" && this.unconfirmedProcesses.has(processRef)
+-                    ? [] : [constructRuntimeFluent({
++                ? [constructRuntimeFluent({
+                     name: "actor_cleanup_live",
+                     identity: processRef,
+-                  })])
++                  })]
+                 : [constructRuntimeFluent({ name: "actor_cleanup_live", identity: processRef }), constructRuntimeFluent({
+                     name: "actor_cleanup_pending",
+                     identity: processRef,
+@@ -2017,10 +2009,6 @@
+     this.clipCounts.push(this.clipCounts[0]! + this.clippedFluentRefs.length);
+     this.declipCounts.push(this.declipCounts[0]! + this.declippedPatternRefs.length);
+     if (prefix.kind === "validated_runtime_event_prefix") this.priorEvents.push(event);
+-    if (event.kind === "actor_process_termination_unconfirmed") {
+-      this.unconfirmedProcesses.add(event.aggregateId);
+-      this.unconfirmedFacts.push({ ordinal: event.admissionOrdinal, process: event.aggregateId });
+-    }
+     // A native observation has just completed its exact liveness source
+     // relation. Other profiles retain the raw contract guards used by the
+     // exported effect helper. Later closures consume only these scoped facts.
+--- a/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs
+@@ -49,57 +49,6 @@
+   });
+ }
+ 
+-function runFreshWorker(input) {
+-  return new Promise((resolveResult, reject) => {
+-    const child = spawn(process.execPath, [worker], {
+-      env: { ...process.env, NODE_OPTIONS: "" },
+-      stdio: ["pipe", "pipe", "pipe"],
+-    });
+-    let stdout = "";
+-    let stderr = "";
+-    let settled = false;
+-    const timeout = setTimeout(() => {
+-      if (settled) return;
+-      settled = true;
+-      child.kill("SIGKILL");
+-      reject(new Error(
+-        `fresh-process runtime projection worker timed out after 30000ms: ${stderr}`,
+-      ));
+-    }, 30_000);
+-    timeout.unref();
+-    const settle = (complete) => {
+-      if (settled) return false;
+-      settled = true;
+-      clearTimeout(timeout);
+-      complete();
+-      return true;
+-    };
+-    child.stdout.setEncoding("utf8");
+-    child.stderr.setEncoding("utf8");
+-    child.stdout.on("data", (chunk) => { stdout += chunk; });
+-    child.stderr.on("data", (chunk) => { stderr += chunk; });
+-    child.on("error", (error) => settle(() => reject(error)));
+-    child.on("close", (code) => {
+-      settle(() => {
+-        if (code !== 0) {
+-          reject(new Error(
+-            `fresh-process runtime projection worker failed ${code}: ${stderr}`,
+-          ));
+-          return;
+-        }
+-        try {
+-          resolveResult(JSON.parse(stdout));
+-        } catch (error) {
+-          reject(new Error(
+-            `fresh-process runtime projection worker returned invalid JSON: ${String(error)}\n${stdout}\n${stderr}`,
+-          ));
+-        }
+-      });
+-    });
+-    child.stdin.end(JSON.stringify(input));
+-  });
+-}
+-
+ function evidenceError(error) {
+   if (error === null || error === undefined) return null;
+   return { name: error.name, message: error.message, stack: error.stack,
+@@ -109,13 +58,16 @@
+ const evidenceJson = (value) => `${JSON.stringify(value, (_key, item) =>
+   typeof item === "bigint" ? item.toString() : item, 2)}\n`;
+ 
+-// Opt-in assurance consumer of the exact installed physical owner. The legacy
+-// branch above is not evidence for this path and remains unchanged for callers.
+-async function runOwnedFreshWorker(input, evidenceRoot, ordinal) {
+-  const root = join(evidenceRoot, String(ordinal));
+-  await mkdir(root);
++// Every fresh replay uses the exact installed physical owner. Optional evidence
++// retention changes only writes, never process ownership or cleanup.
++async function runFreshWorker(input, evidenceRoot, ordinal) {
++  const root = evidenceRoot === undefined ? null : join(evidenceRoot, String(ordinal));
++  if (root !== null) await mkdir(root);
++  const retain = async (name, bytes) => {
++    if (root !== null) await writeFile(join(root, name), bytes, { flag: "wx" });
++  };
+   const stdin = JSON.stringify(input);
+-  await writeFile(join(root, "input.json"), stdin, { flag: "wx" });
++  await retain("input.json", stdin);
+   const modulePath = join(input.installedPackageRoot,
+     "build/code/src/shared/owned_process_lifetime.js");
+   const { createOwnedProcessLifetime, createMonotonicDeadline } =
+@@ -125,7 +77,7 @@
+   const detached = process.platform !== "win32";
+   const launch = { executable: process.execPath, args: [worker], detached,
+     timeoutMs: 30_000, terminationGraceMs: 1_000, modulePath };
+-  await writeFile(join(root, "launch.json"), evidenceJson(launch), { flag: "wx" });
++  await retain("launch.json", evidenceJson(launch));
+   let child;
+   try {
+     child = spawn(launch.executable, launch.args, {
+@@ -133,7 +85,8 @@
+       stdio: ["pipe", "pipe", "pipe"],
+     });
+   } catch (error) {
+-    await writeFile(join(root, "launch-failure.json"), evidenceJson(evidenceError(error)), { flag: "wx" });
++    try { await retain("launch-failure.json", evidenceJson(evidenceError(error))); }
++    catch (retentionError) { console.error("fresh-worker evidence retention failed", retentionError); }
+     throw error;
+   }
+   const stdout = [], stderr = [], signals = [];
+@@ -151,10 +104,10 @@
+     child.stdout.on("data", onStdout);
+     child.stderr.on("data", onStderr);
+     deadline.after(30_000, () => { timedOut = true; lifetime.requestTermination(); });
+-    await writeFile(join(root, "process.json"), evidenceJson({
++    await retain("process.json", evidenceJson({
+       pid: child.pid ?? null, groupId: detached ? child.pid ?? null : null,
+       scopeKind: detached ? "posix_process_group" : "windows_direct_child",
+-    }), { flag: "wx" });
++    }));
+     child.stdin.end(stdin);
+   } catch (error) {
+     lifetime.fail(error);
+@@ -172,13 +125,16 @@
+     failure = new Error(`fresh-process runtime projection worker failed ${facts.directExit?.status}: ${err.toString("utf8")}`);
+   let result;
+   if (failure === null) {
+-    try { result = JSON.parse(out.toString("utf8")); }
++    try {
++      result = JSON.parse(out.toString("utf8"));
++      assert.equal(result.processId, child.pid, "fresh replay self-report must identify its actual owned child");
++    }
+     catch (error) { failure = error; }
+   }
+   try {
+-    await writeFile(join(root, "stdout.bin"), out, { flag: "wx" });
+-    await writeFile(join(root, "stderr.bin"), err, { flag: "wx" });
+-    await writeFile(join(root, "completion.json"), evidenceJson({
++    await retain("stdout.bin", out);
++    await retain("stderr.bin", err);
++    await retain("completion.json", evidenceJson({
+       pid: child.pid ?? null, groupId: detached ? child.pid ?? null : null,
+       timedOut, signalRequestsObserved: signals,
+       signalObserverSuppressedAfterFirstError: facts.firstError !== null,
+@@ -186,7 +142,7 @@
+         launchFailure: evidenceError(facts.launchFailure) },
+       failure: evidenceError(failure), result: result ?? null,
+       physicalAbsenceIsNotAdmission: true,
+-    }), { flag: "wx" });
++    }));
+   } catch (error) {
+     // Retention failure is a proof failure. Preserve an earlier actual Error.
+     if (failure !== null) console.error("fresh-worker evidence retention failed", error);
+@@ -228,10 +184,8 @@
+     join(ownedProcessProof.evidenceRoot, "retained.json"),
+     evidenceJson({ closeHandoff, retainedRows }), { flag: "wx" },
+   );
+-  const run = ownedProcessProof === undefined ? runFreshWorker
+-    : (value, ordinal) => runOwnedFreshWorker(value, ownedProcessProof.evidenceRoot, ordinal);
+-  const first = await run(input, 1);
+-  const second = await run(input, 2);
++  const first = await runFreshWorker(input, ownedProcessProof?.evidenceRoot, 1);
++  const second = await runFreshWorker(input, ownedProcessProof?.evidenceRoot, 2);
+   const transportedRetainedRows = JSON.parse(JSON.stringify(retainedRows));
+ 
+   assert.notEqual(first.processId, process.pid);
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
+@@ -701,8 +701,10 @@
+     observer: {
+       onProcessStarted: (pid) => { processId = pid; },
+       onStdoutObserved: () => true,
+-      onProcessExited: (status, signal) => observedExits.push({ status, signal }),
+-      onTerminationUnconfirmed: () => { unconfirmedTerminations += 1; },
++      onProcessFinalized: facts => {
++        if (facts.directExit !== null) observedExits.push(facts.directExit);
++        if (facts.scopeAbsence !== "absent") unconfirmedTerminations += 1;
++      },
+     },
+   });
+   assert.equal(result.disposition, "failure");
+@@ -979,7 +981,7 @@
+     observer: {
+       onTimeoutObserved: () => { timeoutObservations += 1; },
+       onSignalRequested: (signal) => requestedSignals.push(signal),
+-      onProcessExited: (status, signal) => observedExits.push({ status, signal }),
++      onProcessFinalized: facts => { if (facts.directExit !== null) observedExits.push(facts.directExit); },
+     },
+   });
+ 
+@@ -1048,7 +1050,11 @@
+     const record=value=>writeFileSync(${JSON.stringify(join(root, 'owner.json'))},JSON.stringify(value));
+     try {const result=await runWorkerTransport({contract:constructKnownWorkerTransportContract('claude',{command:process.execPath,prefixArgs:[${JSON.stringify(childFile)}],environment:{}}),
+       prompt:'x'.repeat(8388608),lane:'worker_executes',cwd:${JSON.stringify(root)},archiveRoot:${JSON.stringify(join(root, 'archive'))},label:'stdin-error',
+-      timeoutMs:1000,absoluteTimeoutMs:2000,terminationGraceMs:100,environment:{},observer:{onProcessStarted:pid=>writeFileSync(${JSON.stringify(join(root, 'started.json'))},JSON.stringify({pid}))}});
++      timeoutMs:1000,absoluteTimeoutMs:2000,terminationGraceMs:100,environment:{},observer:{
++      onProcessStarted:pid=>writeFileSync(${JSON.stringify(join(root, 'started.json'))},JSON.stringify({pid})),
++      onProcessFinalized:facts=>writeFileSync(${JSON.stringify(join(root, 'finalized.json'))},JSON.stringify({...facts,
++        firstError:facts.firstError===null?null:{name:facts.firstError.name,code:facts.firstError.code,message:facts.firstError.message}},
++        (_key,value)=>typeof value==='bigint'?value.toString():value))}});
+       record({kind:'returned',result});process.exitCode=21;
+     } catch(error) {record({kind:'rejected',name:error.name,code:error.code,errno:error.errno,syscall:error.syscall,message:error.message,stack:error.stack});}
+     writeFileSync(${JSON.stringify(join(root, 'survived.json'))},JSON.stringify({survived:true,pid:process.pid}));`);
+@@ -1085,7 +1091,7 @@
+     await new Promise(resolveWait => setTimeout(resolveWait, 25));
+   }
+   const observed = { exit, deadlineExpired, hostPid: host.pid, identity, stdout, stderr,
+-    owner: await optionalJson('owner.json'), survived: await optionalJson('survived.json'), samples };
++    owner: await optionalJson('owner.json'), finalized: await optionalJson('finalized.json'), survived: await optionalJson('survived.json'), samples };
+   // Capture the actual failure/owner/physical facts before assertions or cleanup.
+   t.diagnostic(JSON.stringify(observed));
+   if (identity !== null && samples.at(-1)?.group === 'present') {
+@@ -1099,6 +1105,8 @@
+   assert.equal(exit.code, 0); assert.equal(exit.signal, null); assert.equal(observed.survived?.survived, true);
+   assert.equal(observed.owner?.kind, 'rejected'); assert.equal(observed.owner.code, 'EPIPE');
+   assert.equal(observed.owner.syscall, 'write'); assert.equal(observed.owner.message, 'write EPIPE');
++  assert.equal(observed.finalized.scopeAbsence, 'absent'); assert.notEqual(observed.finalized.directExit, null);
++  assert.equal(observed.finalized.firstError.code, 'EPIPE'); assert.equal(observed.finalized.noChildEstablished, false);
+   assert.doesNotMatch(stderr, /Unhandled 'error' event/u);
+   assert.equal(await optionalJson('archive/stdin-error-transport.json'), null, 'no fabricated transport result');
+ });
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs
+@@ -172,6 +172,62 @@
+       stream.emit('close'); assert.equal(stream.listenerCount('error'), 0);
+     }
+   }
++});
++
++test('controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure', async () => {
++  const path = join(packageRoot, 'build/code/src/abg/worker_transport.js');
++  for (const order of ['exit-error', 'error-exit']) for (const scope of ['absent', 'present', 'unknown'])
++    for (const observerFails of [false, true]) {
++      const clock = controlledClock(), child = new ControlledChild();
++      const first = Object.assign(new Error('original stream error'), { code: 'EPIPE' });
++      const observerError = new Error('later final observer error');
++      let absence = 'present', lifetime, finalized = 0, handedBack = null;
++      child.stdin.end = () => {};
++      child.stdout.setEncoding = child.stderr.setEncoding = () => {};
++      const module = new SourceTextModule((await readFile(path, 'utf8')) + '\nexport { runProcess };', { identifier: path });
++      const overrides = {
++        'node:child_process': { spawn: () => child },
++        '../shared/owned_process_lifetime.js': {
++          createMonotonicDeadline: () => createMonotonicDeadline(clock.clock),
++          createOwnedProcessLifetime: (actualChild, bounds, observations) => {
++            assert.equal(actualChild, child);
++            lifetime = createOwnedProcessLifetime(child, { ...bounds, host: {
++              clock: clock.clock, platform: 'posix', probeGroup: () => absence, signal: () => {},
++            } }, observations);
++            return lifetime;
++          },
++        },
++      };
++      await module.link(async specifier => {
++        const imported = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href);
++        const values = { ...imported, ...overrides[specifier] };
++        return new SyntheticModule(Object.keys(values), function () {
++          for (const [name, value] of Object.entries(values)) this.setExport(name, value);
++        });
++      });
++      await module.evaluate();
++      const pending = module.namespace.runProcess({ command: '/controlled/no-launch', args: [], cwd: '/controlled', env: {},
++        stdin: '', timeoutMs: 1000, absoluteTimeoutMs: 2000, terminationGraceMs: 100,
++        stdoutPath: '/controlled/no-output', stderrPath: '/controlled/no-output', observer: {
++          onProcessFinalized: facts => { finalized++; handedBack = facts; if (observerFails) throw observerError; },
++          onSpawnFailed: () => assert.fail('an established child cannot become a no-child failure'),
++        } });
++      child.emit('spawn');
++      if (order === 'error-exit') child.stderr.emit('error', first);
++      child.emit('exit', 0, null);
++      if (order === 'exit-error') child.stderr.emit('error', first);
++      assert.equal(finalized, 0, 'raw exit supplies no final or semantic confirmation');
++      absence = scope; child.emit('close'); clock.advance(300);
++      const observation = await pending;
++      assert.equal(finalized, 1); assert.equal(observation.facts, handedBack);
++      assert.equal(observation.facts, await lifetime.completion, 'same canonical completion object');
++      assert.equal(observation.facts.firstError, first);
++      assert.equal(observation.finalizationError, observerFails ? observerError : undefined);
++      assert.equal(observation.facts.scopeAbsence, scope);
++      assert.deepEqual(observation.facts.directExit, { status: 0, signal: null });
++      assert.equal(observation.terminationConfirmed, scope === 'absent');
++      assert.equal(observation.facts.noChildEstablished, false); assert.equal(clock.active(), 0);
++    }
+ });
+ 
+ test('controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct', async () => {
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs
+@@ -24,6 +24,7 @@
+ } from "../../build/code/src/abg/event_prefix.js";
+ import { createNewEmptyAppendSink, admitRuntimeEvent, admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+   selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';
++import { projectRuntimeActorProcessFactsAtPrefix } from "../../build/code/src/abg/replay.js";
+ import { sha256Canonical } from '../../build/code/src/shared/digests.js';
+ import { deepFreeze } from "../../build/code/src/shared/immutable.js";
+ 
+@@ -144,28 +145,35 @@
+   ]), actorRef), /requires confirmed Process terminality/);
+ });
+ 
+-test('cold leader exit preserves unknown group cleanup across ordinary Run failure', () => {
+-  for (const order of ['exit-first', 'unconfirmed-first']) {
+-    const rows = [event('actor_process_started', 1, 'process', processRef, actorRef,
+-      { actorInvocationRef: actorRef, processRef })];
+-    const kinds = order === 'exit-first' ? ['actor_process_exited', 'actor_process_termination_unconfirmed'] :
+-      ['actor_process_termination_unconfirmed', 'actor_process_exited'];
+-    for (const kind of kinds) rows.push(event(kind, rows.length + 1, 'process', processRef, actorRef,
+-      { actorInvocationRef: actorRef, processRef, ...(kind === 'actor_process_exited' ? { status: 0, signal: null } : {}) }));
+-    rows.push(event('runtime_failure_observed', rows.length + 1, 'run', 'run://t287/cleanup', null, {}));
+-    const cold = prefix(deepFreeze(JSON.parse(JSON.stringify(rows)))), calculus = deriveRuntimeEventCalculusProjection(cold);
+-    const projected = projectActorProcessLifecycle(cold, actorRef);
+-    assert.equal(projected.processTerminalKind, 'actor_process_exited');
+-    assert.equal(projected.processLive, false, 'leader exit remains the true leader fact');
+-    assert.equal(projected.cleanupDisposition, 'termination_unconfirmed');
+-    for (const name of ['actor_cleanup_live', 'actor_cleanup_pending'])
+-      assert.equal(holdsAt(calculus, constructRuntimeFluent({ name, identity: processRef })), true, order);
+-    const terminal = event('actor_invocation_failed', rows.length + 1, 'actor_invocation', actorRef, cCallRef,
+-      { actorInvocationRef: actorRef, processRef });
+-    const closed = deriveRuntimeEventCalculusProjection(prefix([...rows, terminal]));
+-    for (const name of ['actor_cleanup_live', 'actor_cleanup_pending'])
+-      assert.equal(holdsAt(closed, constructRuntimeFluent({ name, identity: processRef })), false);
+-  }
++test('unconfirmed cleanup stays live until a genuine confirmed Process terminal, including cold replay', () => {
++  const rows = [
++    event('actor_invocation_started', 1, 'actor_invocation', actorRef, cCallRef, { actorInvocationRef: actorRef }),
++    event('actor_process_started', 2, 'process', processRef, actorRef, { actorInvocationRef: actorRef, processRef }),
++    event('actor_process_termination_unconfirmed', 3, 'process', processRef, actorRef, { actorInvocationRef: actorRef, processRef }),
++    event('runtime_failure_observed', 4, 'run', 'run://t287/cleanup', null, {}),
++  ];
++  const assertCut = (values, confirmed, actorDone) => {
++    const selected = prefix(deepFreeze(JSON.parse(JSON.stringify(values))));
++    const calculus = deriveRuntimeEventCalculusProjection(selected);
++    const projected = projectActorProcessLifecycle(selected, actorRef);
++    assert.equal(projected.processLive, !confirmed);
++    assert.equal(projected.terminationUnconfirmed, !confirmed);
++    assert.equal(projected.cleanupPending, !actorDone);
++    assert.equal(projectRuntimeActorProcessFactsAtPrefix(selected)[0].terminationConfirmed, confirmed);
++    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_live', identity: processRef })), !confirmed);
++    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_cleanup_live', identity: processRef })), !confirmed);
++    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_cleanup_pending', identity: processRef })), !actorDone);
++    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_termination_unconfirmed', identity: processRef })), true,
++      'later physical confirmation does not erase the historical uncertainty fact');
++  };
++  assertCut(rows, false, false);
++  // The owner admits this event only after owned-scope absence, not at raw child exit.
++  rows.push(event('actor_process_exited', 5, 'process', processRef, actorRef,
++    { actorInvocationRef: actorRef, processRef, status: 0, signal: null }));
++  assertCut(rows, true, false);
++  rows.push(event('actor_invocation_failed', 6, 'actor_invocation', actorRef, cCallRef,
++    { actorInvocationRef: actorRef, processRef }));
++  assertCut(rows, true, true);
+ });
+ 
+ test('owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes',async()=>{
+@@ -185,18 +193,18 @@
+         aggregateType:'workspace',aggregateId:'invocation://unrelated/'+i,parentAggregateId:null,causationEventRefs:[],
+         correlationId:'correlation://unrelated/'+i,workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://unrelated',
+         payload:{invocationRef:'invocation://unrelated/'+i,invocationDigest:sha256Canonical(i),operationId:'abg.operation.project.read',variant:'status'}});
++      admit('actor_process_termination_unconfirmed',processRef,actorRef,{actorInvocationRef:actorRef,processRef});
+       admit('actor_process_exited',processRef,actorRef,{actorInvocationRef:actorRef,processRef,status:0,signal:null});
+-      admit('actor_process_termination_unconfirmed',processRef,actorRef,{actorInvocationRef:actorRef,processRef});
+     });
+     const owned=selectOwnedRuntimeEventPrefix(acquired.store),complete=selectValidatedRuntimeEventPrefix(acquired.store.readAll());
+     const expected=projectActorProcessLifecycle(complete,actorRef);
+-    assert.equal(expected.processLive,false);assert.equal(expected.cleanupDisposition,'termination_unconfirmed');
++    assert.equal(expected.processLive,false);assert.equal(expected.terminationUnconfirmed,false);assert.equal(expected.cleanupDisposition,'pending');
+     assert.deepEqual(projectActorProcessLifecycle(owned,actorRef),expected);
+     assert.equal(runtimeEventPrefixExtent(owned).count,132);assert.equal(Object.hasOwn(owned,'events'),false);
+     assert.throws(()=>projectActorProcessLifecycle({...owned},actorRef),'copied private selection has no nominal owner');
+     const coordinate=structuredClone(selectHeldEventStoreDurablePrefix(acquired.store));acquired.store.closeDurableLog();
+     const cold=readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate,{requireCurrent:true});
+-    assert.deepEqual(projectActorProcessLifecycle(cold,actorRef),expected,'cold selected bodies preserve unknown cleanup');
++    assert.deepEqual(projectActorProcessLifecycle(cold,actorRef),expected,'cold selected bodies preserve later confirmed cleanup and its pending Actor obligation');
+     const bytes=await readFile(path),changed=Buffer.from(bytes);changed[0]=91;await writeFile(path,changed);
+     assert.throws(()=>readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate,{requireCurrent:true}),e=>e.code==='prefix_digest_mismatch');
+     await writeFile(path,bytes);
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-stream-drain.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-stream-drain.test.mjs
+@@ -40,7 +40,11 @@
+     timeoutMs: 10_000, absoluteTimeoutMs: 30_000, terminationGraceMs: 1_000,
+     environment: {}, observer: {
+       onStdoutObserved(chunk) { observed += chunk; ordering.push("stdout"); delay(slowMs); observe(chunk); return true; },
+-      onProcessExited() { ordering.push("exit"); },
++      onProcessFinalized(facts) {
++        assert.equal(facts.scopeAbsence, "absent");
++        assert.notEqual(facts.directExit, null);
++        ordering.push("finalized");
++      },
+     },
+   });
+   assert.equal(result.stdout, await readFile(result.artifacts.stdout.path, "utf8"));
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs
+@@ -189,6 +189,170 @@
+   };
+ }
+ 
++// Reuse the authentic installed F_P leaf port below. Physical child events,
++// prefix acquisition and event recording are controlled component premises;
++// assessment, worker parsing/persistence and actor admission ordering are real
++// installed owner code. This is not an installed Run or OS-process proof.
++async function finalizedArtifactCases(environment, basis, context) {
++  const { SourceTextModule, SyntheticModule } = await import('node:vm');
++  const { EventEmitter } = await import('node:events');
++  const fs = await import('node:fs/promises');
++  const installed = name => join(environment.installedRoot, 'build/code/src', name + '.js');
++  const physical = await import(pathToFileURL(installed('shared/owned_process_lifetime')).href);
++  const transportContracts = await import(pathToFileURL(installed('abg/transport_contracts')).href);
++  const events = await import(pathToFileURL(installed('abg/event_store')).href);
++  const { actorRuntimeProbeSources } = await import(pathToFileURL(installed('abg/runtime_liveness_contracts')).href);
++  const prefixes = await import(pathToFileURL(installed('abg/event_prefix')).href);
++  const calculus = await import(pathToFileURL(installed('abg/event_calculus')).href);
++  const { deepFreeze } = await import(pathToFileURL(installed('shared/immutable')).href);
++  const hash = environment.product.sha256Canonical;
++  async function component(name, overrides, suffix = '') {
++    const path = installed(name), module = new SourceTextModule(await fs.readFile(path, 'utf8') + suffix, { identifier: path });
++    await module.link(async specifier => {
++      const actual = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href);
++      const values = { ...actual, ...overrides[specifier] };
++      return new SyntheticModule(Object.keys(values), function () {
++        for (const [key, value] of Object.entries(values)) this.setExport(key, value);
++      });
++    });
++    await module.evaluate(); return module.namespace;
++  }
++  for (const mode of ['valid', 'invalid', 'absent', 'unreadable', 'conflict', 'owner-unavailable',
++    'artifact-refused', 'probe-refused', 'process-refused', 'plan-mismatch', 'unknown', 'present', 'normal']) {
++    const first = Object.assign(new Error(`retained stream error: ${mode}`), { code: 'EPIPE' });
++    const rows = [], probes = [], store = {}, child = new EventEmitter();
++    let plan, lifetime, absent = false, caught = null, outputReads = 0, finalFacts = null, compositions = 0;
++    let currentPrefix = { storeIdentity: { eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST }, coordinateDigest: hash(mode + ':0') };
++    let predecessor;
++    const append = candidate => {
++      if (mode === 'artifact-refused' && candidate.kind === 'actor_result_artifact_observed') throw new Error('controlled artifact admission refusal');
++      if (mode === 'process-refused' && candidate.kind === 'actor_process_exited') throw new Error('controlled Process admission refusal');
++      const ordinal = rows.length + 1;
++      const event = deepFreeze({ ...candidate, eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST,
++        eventId: `event://f04-finalized/${mode}/${ordinal}`, admissionOrdinal: ordinal, payloadDigest: hash(candidate.payload) });
++      rows.push(event); return event;
++    };
++    const raw = mode === 'absent' ? '' : JSON.stringify(validResult(mode === 'invalid' ? { message: 'wrong subject' } : {}));
++    const stdout = raw === '' ? '' : JSON.stringify({ type: 'result', subtype: 'success', is_error: false, structured_output: JSON.parse(raw) }) + '\n';
++    child.pid = 4242;
++    for (const name of ['stdin', 'stdout', 'stderr']) {
++      const stream = new EventEmitter(); stream.closed = false;
++      stream.setEncoding = () => stream;
++      stream.destroy = () => { stream.destroyed = true; };
++      child[name] = stream;
++    }
++    child.stdin.end = () => { void (async () => {
++      if (raw !== '') await fs.writeFile(plan.paths.output,
++        mode === 'conflict' ? JSON.stringify(validResult({ message: 'other channel' })) : raw);
++      child.emit('spawn');
++      if (stdout !== '') child.stdout.emit('data', stdout);
++      child.emit('exit', 0, null);
++      assert.equal(rows.some(row => row.kind === 'actor_process_exited'), false,
++        'raw exit precedes final owned-scope confirmation');
++      if (mode !== 'normal') child.stderr.emit('error', first);
++      absent = true; child.emit('close');
++    })().catch(error => { lifetime.fail(error); absent = true; child.emit('exit', 0, null); child.emit('close'); }); };
++    const worker = await component('abg/worker_transport', {
++      'node:child_process': { spawn: () => child },
++      './transport_contracts.js': { composeWorkerTransportArgs: input => {
++        const args = transportContracts.composeWorkerTransportArgs(input);
++        return mode === 'plan-mismatch' && ++compositions > 1 ? [...args, '--controlled-mismatch'] : args;
++      } },
++      'node:fs/promises': { readFile: async (path, ...args) => {
++        if (path === plan?.paths.output) {
++          outputReads++;
++          if (mode === 'unreadable') throw Object.assign(new Error('controlled unreadable candidate'), { code: 'EACCES' });
++        }
++        return fs.readFile(path, ...args);
++      } },
++      '../shared/owned_process_lifetime.js': { createOwnedProcessLifetime: (ownedChild, bounds, observers) => {
++        lifetime = physical.createOwnedProcessLifetime(ownedChild, { ...bounds, terminationGraceMs: 5, host: {
++          clock: { nowNs: () => process.hrtime.bigint(), arm: (f, ms) => setTimeout(f, ms), cancel: clearTimeout },
++          platform: 'posix', signal: () => {},
++          probeGroup: () => mode === 'unknown' ? 'unknown' : mode === 'present' ? 'present' : absent ? 'absent' : 'present',
++        } }, observers); return lifetime;
++      } },
++    });
++    const call = { ...basis.occurrence, implementationRef: basis.resolution.implementationRef,
++      implementationBindingRef: basis.resolution.implementationBindingRef, outputContractRef: basis.resolution.outputContractRef,
++      fibreSelectedEventRef: '' };
++    const fibre = append({ kind: 'c_call_fibre_selected', aggregateType: 'c_call', aggregateId: call.cCallRef,
++      parentAggregateId: call.frameId, causationEventRefs: [], eventTime: '2026-10-21T00:00:00.000Z',
++      correlationId: 'f04-finalized', workflowVersion: '5.0.0', scopeClass: 'run', basisId: environment.executionBasis.basisRef,
++      runId: call.runId, graphCallId: call.graphCallId, frameId: call.frameId, payload: { cCallRef: call.cCallRef } });
++    call.fibreSelectedEventRef = fibre.eventId;
++    currentPrefix = { ...currentPrefix, coordinateDigest: hash(mode + ':' + rows.length) }; predecessor = currentPrefix;
++    const contextAtActor = actorInvocationRef => ({ scope: { actorInvocationRef }, binding: { clockOriginRef: 'clock://f04-finalized' },
++      probes: actorRuntimeProbeSources(plan.parser).map(source => ({ source, probeRef: `probe://f04-finalized/${source}` })) });
++    const actor = await component('abg/actor_process', {
++      './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => basis.prefix, selectRuntimeEventPrefixFromStore: () => basis.prefix },
++      './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
++      './event_store.js': { assertHeldEventStoreAtDurablePrefix: () => {}, admitRuntimeEvent: (_store, candidate) => append(candidate),
++        admitNonEmptyRuntimeEventTransactionAtDurablePrefix: (_store, _prefix, action) => {
++          const value = action(); currentPrefix = { ...currentPrefix, coordinateDigest: hash(mode + ':' + rows.length) };
++          return { value, successorPrefix: currentPrefix };
++        } },
++      './runtime_liveness.js': { captureNativeFrameBoundary: () => ({}), observeNativeFrameLiveness: () => {},
++        projectActorLivenessContext: (_prefix, actorInvocationRef) => contextAtActor(actorInvocationRef),
++        admitRuntimeActivityProbe: input => {
++          if (mode === 'probe-refused' && input.observation.signal === 'artifact_admitted') throw new Error('controlled probe admission refusal');
++          probes.push(input.observation.signal);
++          return { successorPrefix: currentPrefix, value: rows.find(row => row.eventId === input.observation.underlyingEventRef) };
++        } },
++      './worker_transport.js': { prepareWorkerTransport: async input => {
++        plan = await worker.prepareWorkerTransport({ ...input, label: input.label + '-' + mode }); return plan;
++      }, runPreparedWorkerTransport: async (prepared, observer) => {
++        try { return await worker.runPreparedWorkerTransport(prepared, { ...observer, onProcessFinalized: facts => {
++          finalFacts = facts; observer.onProcessFinalized(facts);
++        } }); } catch (error) { caught = error; throw error; }
++      } },
++    }, '\nexport { invokeActorProcessWithAssembly };');
++    const effect = await actor.invokeActorProcessWithAssembly({ store, predecessorPrefix: predecessor,
++      executionBasis: environment.executionBasis,
++      scope: { runId: call.runId, graphCallId: call.graphCallId, frameId: call.frameId }, cCall: call,
++      expectedInputDigest: basis.request.inputDigest, occurrence: basis.occurrence,
++      workerContracts: { instructionContractRef: INPUT_CONTRACT_REF, resultContractRef: OUTPUT_CONTRACT_REF },
++      runtime: { workspaceBinding: environment.workspaceBinding, artifactTruth: environment.artifactTruth },
++      request: basis.request, dispatchOrdinal: 1, basis: { correlationId: 'f04-finalized' },
++      ...(mode === 'owner-unavailable' ? {} : { rawResultOwner: { port: environment.leafPort, resolution: basis.resolution, input: basis.input } }),
++    }, { request: basis.request });
++    const artifacts = rows.filter(row => row.kind === 'actor_result_artifact_observed');
++    const terminal = rows.find(row => row.kind === 'actor_invocation_failed' || row.kind === 'actor_invocation_closed');
++    const noArtifact = ['unreadable', 'conflict', 'owner-unavailable', 'artifact-refused', 'plan-mismatch', 'unknown', 'present'].includes(mode);
++    assert.equal(artifacts.length, noArtifact ? 0 : 1, mode);
++    assert.equal(finalFacts.firstError, mode === 'normal' ? null : first, mode);
++    assert.equal(caught, mode === 'normal' ? null : first, 'original Error identity survives assessment/admission failures');
++    if (mode === 'unknown' || mode === 'present') {
++      assert.equal(outputReads, 0); assert.equal(terminal, undefined);
++      assert.equal(rows.some(row => row.kind === 'actor_process_exited'), false);
++      assert.equal(rows.filter(row => row.kind === 'actor_process_termination_unconfirmed').length, 1);
++    } else if (mode === 'process-refused') {
++      assert.equal(terminal, undefined, 'physical absence without admitted Process witness cannot authorize Actor terminal');
++      assert.equal(rows.some(row => row.kind === 'actor_process_exited'), false);
++    } else {
++      assert.equal(rows.filter(row => row.kind === 'actor_process_exited').length, 1);
++      assert.notEqual(terminal, undefined);
++      assert.equal(terminal.kind, mode === 'normal' ? 'actor_invocation_closed' : 'actor_invocation_failed');
++      assert.equal(Object.hasOwn(terminal.payload, 'consumedArtifactEventRef'), mode === 'normal');
++    }
++    if (!noArtifact) {
++      const artifact = artifacts[0], assessment = artifact.payload.nativeResultAssessment;
++      assert.equal(assessment.disposition, mode === 'absent' ? 'absent' : mode === 'invalid' ? 'rejected' : 'admitted');
++      if (assessment.disposition === 'admitted') assert.equal(assessment.verification.kind, 'verified_probabilistic_result_contract_preimage');
++      const selected = prefixes.selectValidatedRuntimeEventPrefix(deepFreeze(rows));
++      const state = calculus.deriveRuntimeEventCalculusProjection(selected);
++      assert.equal(calculus.holdsAt(state, calculus.constructRuntimeFluent({ name: 'actor_result_artifact_available', identity: artifact.eventId })), mode !== 'normal');
++      const cold = prefixes.selectValidatedRuntimeEventPrefix(deepFreeze(JSON.parse(JSON.stringify(rows))));
++      assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(cold), state, 'closed component rows preserve artifact availability');
++      if (!['absent', 'probe-refused'].includes(mode)) assert.equal(probes.filter(signal => signal === (mode === 'invalid' ? 'artifact_rejected' : 'artifact_admitted')).length, 1);
++    }
++    assert.equal(effect.kind, mode === 'normal' ? 'actor_process_effect_receipt' : 'actor_process_effect_refusal');
++    assert.deepEqual(effect.successorPrefix, currentPrefix, 'actual recorded prefix retained, including committed artifact before probe refusal');
++    assert.equal(rows.some(row => row.kind === 'c_call_result_admitted'), false);
++    context.diagnostic(`E03 ${mode}: authentic installed F_P assessment; controlled physical and admission substrate, no OS/Run/fresh-process claim.`);
++  }
++}
++
+ test("F04-A exact request-bound raw result admission is pure and decision-exact", async (context) => {
+   const environment = await setupInstalledRootExecutionBasis(context, root, {
+     candidateBasisSource: "packed_artifact",
+@@ -932,6 +1096,7 @@
+         error.code === code,
+     );
+   }
++  await finalizedArtifactCases(environment, basis, context);
+   assert.deepEqual(environment.store.readAll(), beforeEvents);
+ });
+ 

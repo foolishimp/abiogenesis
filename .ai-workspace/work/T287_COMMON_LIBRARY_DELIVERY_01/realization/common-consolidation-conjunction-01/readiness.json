@@ -1,0 +1,82 @@
+{
+  "kind": "documentation-writer-readiness",
+  "status": "ready for Root literal diff verification and separately authorized checkpoint",
+  "checks": [
+    {
+      "check": "bounded live-document change, exact preimage, added-line whitespace and new local links",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "pass": true,
+      "addedLines": 64
+    },
+    {
+      "check": "bounded live-document change, exact preimage, added-line whitespace and new local links",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "pass": true,
+      "addedLines": 45
+    },
+    {
+      "check": "bounded live-document change, exact preimage, added-line whitespace and new local links",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "pass": true,
+      "addedLines": 63
+    },
+    {
+      "check": "bounded live-document change, exact preimage, added-line whitespace and new local links",
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "pass": true,
+      "addedLines": 61
+    },
+    {
+      "check": "bounded live-document change, exact preimage, added-line whitespace and new local links",
+      "path": "specification/GOALS.md",
+      "pass": true,
+      "addedLines": 53
+    },
+    {
+      "check": "bounded live-document change, exact preimage, added-line whitespace and new local links",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "pass": true,
+      "addedLines": 97
+    },
+    {
+      "check": "bounded live-document change, exact preimage, added-line whitespace and new local links",
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "pass": true,
+      "addedLines": 69
+    },
+    {
+      "check": "all 48 read-only exact inputs unchanged, including all 30 closed design members",
+      "pass": true
+    },
+    {
+      "check": "goal identity, outcome and success-signal retained; four table columns",
+      "pass": true
+    },
+    {
+      "check": "contradictory selected-library deferral/retention/completion claims removed from current common HOW",
+      "pass": true
+    },
+    {
+      "check": "six value owner obligations and finite target scope remain explicit",
+      "pass": true
+    },
+    {
+      "check": "decision and checkpoint local links exist",
+      "pass": true
+    }
+  ],
+  "newLocalLinksVerified": 25,
+  "readOnlyInputsVerifiedUnchanged": 48,
+  "closedDesignMembers": 30,
+  "liveDocumentCount": 7,
+  "effects": "seven granted live Markdown documents plus new conjunction records only",
+  "notPerformed": [
+    "source/test edits",
+    "build or typecheck",
+    "runtime import or test/process/provider execution",
+    "Git mutation or remote check",
+    "new independent review",
+    "cleanup or historical Run migration"
+  ],
+  "limits": "Mechanical document/custody evidence only. Bounded design acceptance is Root disposition; full migration, runtime proof, L5 and release remain open."
+}

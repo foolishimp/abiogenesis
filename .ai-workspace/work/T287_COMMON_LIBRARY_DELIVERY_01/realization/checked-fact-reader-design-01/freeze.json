@@ -1,0 +1,49 @@
+{
+  "kind": "checked-fact-reader-design-freeze",
+  "capturedUtc": "2026-10-21T11:33:26.800130+00:00",
+  "writer": "/root/stdo3_checked_fact_design_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "workResult": "candidate_ready",
+  "claim": "One bounded HOW proposal for Root conjunction and independent review. No acceptance or implementation.",
+  "sourceInputInventorySha256": "869aa334cba8acdf56b7d59d7ccd7d5b9280435dea649ca42cb5fb1f3cede771",
+  "readOnlyInputCount": 58,
+  "readOnlyInputsUnchanged": true,
+  "fileCount": 5,
+  "bytes": 60182,
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/HOW-proposal.md",
+      "sha256": "07a46d2008f8059236e4cd57be007aa7029867258c7c8626051b32e6268e355e",
+      "bytes": 13611
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/handoff.md",
+      "sha256": "ee9b77ee9c76ffae052a46e5f41924126b764240bf01a4d90443f5410befef20",
+      "bytes": 3837
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/mechanical-checks.json",
+      "sha256": "abea96adce5d4beb057021dc70577b91ffc1d28d4bc991902d1388ca65366dce",
+      "bytes": 11188
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/retirement-consumer-proof-map.md",
+      "sha256": "05a9592a022e1fb7c41116c94b6b2862b186d7bba3ce4a1b4709343dd2e783bb",
+      "bytes": 14012
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/source-inputs.json",
+      "sha256": "869aa334cba8acdf56b7d59d7ccd7d5b9280435dea649ca42cb5fb1f3cede771",
+      "bytes": 17534
+    }
+  ],
+  "effects": "Only this newly created work directory; no source/test/live HOW/L2/main generated/Git/runtime/provider/cleanup/Reviewer effects.",
+  "executionEvidence": "None. Seventy document/pin/lexical checks plus final handoff-link and input rechecks only.",
+  "openRelations": [
+    "Independent review and Root design conjunction",
+    "Owning HOW activation and bounded source grant",
+    "Type, focused owner and affected installed proof on a later exact candidate",
+    "Complete legacy domain schema/cast consolidation is not established by this record-read mechanism; return any newly necessary relation to Root"
+  ],
+  "noFurtherWritesAfterFreeze": true
+}

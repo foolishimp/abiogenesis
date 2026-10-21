@@ -1,0 +1,38 @@
+{
+  "kind": "bounded-source-readiness",
+  "writer": "/root/stdo3_role_source_writer",
+  "recipient": "/root",
+  "status": "source_increment_closed_for_combined_candidate",
+  "acceptedDecisions": [
+    "D1",
+    "D2",
+    "D3"
+  ],
+  "sourceChanges": {
+    "modified": 11,
+    "added": 3,
+    "deleted": 2
+  },
+  "mechanicalSourceChecksPassed": 59,
+  "syntaxOnlyFilesPassed": 11,
+  "materialGap": null,
+  "nextOwnerAction": "Combine closed increments into the single authorized isolated candidate, then perform accepted build/generation/package and affected proof allocation.",
+  "remaining": [
+    "combined typing/build/generation/package correspondence",
+    "new packaged members included and old member/helper excluded",
+    "existing owner acquisition/refusal/role-context proof",
+    "retained native/recursive/four-role obligations within accepted proof allocation",
+    "independent implementation assessment and Executive disposition"
+  ],
+  "notPerformed": [
+    "build",
+    "Product/process test",
+    "runtime import",
+    "package generation",
+    "native/provider execution",
+    "Git",
+    "reviewer activation"
+  ],
+  "protectedNamedGeneratedOutput": "contracts/default-library/stdo/context.inventory.json",
+  "claimLimit": "Source/syntax evidence only; no semantic acceptance, L5 closure, qualification or release."
+}

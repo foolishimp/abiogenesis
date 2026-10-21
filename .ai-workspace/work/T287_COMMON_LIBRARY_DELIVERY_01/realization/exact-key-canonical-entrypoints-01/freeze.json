@@ -1,0 +1,188 @@
+{
+  "kind": "exact-key-canonical-entrypoints-freeze",
+  "capturedUtc": "2026-10-21T10:54:12.188851+00:00",
+  "writer": "/root/stdo3_role_source_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#governed-outcome-and-workspace",
+  "authority": "Root-selected K01/D04/E01 narrow naming and identical-mechanics amendment under accepted common design cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+  "fileCount": 27,
+  "bytes": 471029,
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "9c1e55b2897d69783eb6c93f050cd94ef7dbfbcafd21d5861a10ed7f4915534e",
+      "bytes": 32157
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "sha256": "a2b7cd116db34eb500ec466812599232c12740b784323bad7ce5acbe923d4ca5",
+      "bytes": 39266
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/handoff.md",
+      "sha256": "5d99ecc6a1f164eff5c07dc9175b918a23b44754b0acd54808a96c1bfa9f22d0",
+      "bytes": 4269
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/mechanical-checks.json",
+      "sha256": "36a253ec1123a70a701f5fc8066b4608a828581fdca6918b2dd6e1bfa3cf1f8c",
+      "bytes": 9409
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/path-grant.md",
+      "sha256": "db151c309f67ba1eaa88811ad751ae6133ec0227238b737dcc22d3ecce1c0d41",
+      "bytes": 4573
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preflight.json",
+      "sha256": "6e86ae1a4f0208e18bc29165369a52e24638b119a28decc737b112aaf37fc905",
+      "bytes": 8652
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec",
+      "bytes": 29684
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "sha256": "784b0bc807710f5e14930730bb13475096da0595c0fae9b9d06d71d5119e00d6",
+      "bytes": 36871
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "sha256": "99eb6bc769e6d0cfe2096fc7d2dead581cdbf8b195289ae934f6fe467e4b755b",
+      "bytes": 36790
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "sha256": "e978a8c6e27e297197b75619e32c946ea8891480ac236f4a5f2238847049679e",
+      "bytes": 15317
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "sha256": "4201661ba63da261ff4dca3e1fe636682525ea0876ca288db55d5fddfc974ef5",
+      "bytes": 42687
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "sha256": "80800880af82e935584dfe62ec1c9f826336f280a01c482cfa25f20f57ad17d4",
+      "bytes": 3558
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "sha256": "0f8a4dc64164371ba6c474c09927b8bc79cd582c661a567a2a1917f3fb3f3dc3",
+      "bytes": 14150
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "sha256": "68753c2927d2c42aec99355968589273ad52b567bb835b9dab0311d12f137132",
+      "bytes": 4293
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "sha256": "86ea16b534cb9c52f3b42e898e736be84c71ce874d9056fa0fcbbf3871055c41",
+      "bytes": 20912
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "sha256": "29253422da6eacc3be8f13e91ddaf1a687eb30bc79975aa0a82992caf52ebd87",
+      "bytes": 5734
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/readiness.json",
+      "sha256": "2c0a4a33e78fa9ff7070b8884bcb2a7c5da7ee82b58ffbf2269bc9bc81211585",
+      "bytes": 1126
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch",
+      "sha256": "6553f6880eefe6fdab392fa820fefeae6c020c437b41cf34acd9ece24e5bfb0f",
+      "bytes": 14522
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/successor.json",
+      "sha256": "fd0bffc245bf2c7521ff597118909d4cba2b34368dd13c052fd61cfd4674a064",
+      "bytes": 3860
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "sha256": "46d7e17f39c60bd9e390da898d80465068ce44fffac76ada3b8afb81f8d77253",
+      "bytes": 36834
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "sha256": "9a18511e07412a7165cb0002a3bc711c0e02b60e4c468900255b32189ae5c78d",
+      "bytes": 15339
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "sha256": "f6bc4b2f932a14ccad1cd79f5d2df3a1b82c93d632da5c08e52ac277e6d0542a",
+      "bytes": 42720
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "sha256": "dd598437590529e4fba918180867ff75bdd2f7935a06f1f2135c1a5156e3d833",
+      "bytes": 3402
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "sha256": "9d7de4fe441d1c997b23350a36620f14d20b42f0d7f25d1df1c26a992f5714ec",
+      "bytes": 14156
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "sha256": "1cd7192fc9626a038bfa15edc19efae4061e5cae69299acd4fc227069562ce2e",
+      "bytes": 3986
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "sha256": "cc5b7b278ae65b3a7b21fd8cde711d309ffd6c0e0fed576de628349ef1091f7f",
+      "bytes": 20956
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "sha256": "ccd14787f5264fb6f4e79feccb74ca5a459f37cb7ade435f538ef6b9512306b4",
+      "bytes": 5806
+    }
+  ],
+  "retiredAlgorithms": [
+    "admission_predicates.hasExactJsonKeys duplicate exact-key body",
+    "operation_definition_coordinate private hasExactKeys"
+  ],
+  "retiredExport": "definition_binding_mechanics.hasExactKeys",
+  "replacementExport": "definition_binding_mechanics.hasUnicodeNulJoinedKeys (same historical NUL relation)",
+  "readOnlyInputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+      "bytes": 63515
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t288-admission-helper-preimages.json",
+      "sha256": "8b6c846f3acadee96608fc75c3c545e8d04f50b3bf4a7fa3ffcd00d6913c5bd6",
+      "bytes": 5450
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json",
+      "sha256": "cbb32c0ba1775cd2656986ab43079025e817b9969c63679e95b2408aeb24b83b",
+      "bytes": 245
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "bytes": 11923
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853
+    }
+  ],
+  "protectedRoleSourceFreezeSha256": "17b1b6d2fdb5ef829d1da23233a9fd240f5759b076fe09f46eec6547c521c42e",
+  "readiness": "46 mechanical checks and 8 syntax-only files; no runtime/test/build/typecheck/emission/provider/Git execution",
+  "disposition": "Source increment closed for single combined isolated candidate; execution and independent semantic acceptance remain open.",
+  "noFurtherWritesAfterFreeze": true
+}

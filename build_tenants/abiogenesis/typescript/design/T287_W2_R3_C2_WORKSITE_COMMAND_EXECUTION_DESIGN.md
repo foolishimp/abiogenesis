@@ -1,8 +1,8 @@
 # T-287 W2-R3-C2 Worksite Command Execution Design
 
-The [retained-construction forward re-entry design](T287_C2_FORWARD_REENTRY_DESIGN.md) is the subordinate binding for its distinct post-failure C2 arm; all other source and execution paths below remain unchanged.
+The [retained-construction forward re-entry design](T287_C2_FORWARD_REENTRY_DESIGN.md) is the subordinate binding for its distinct post-failure C2 arm. The current common-lifetime amendment below separately governs the helper’s exceptional failure boundary.
 
-**Status**: accepted C2 helper-acknowledgment amendment
+**Status**: accepted C2 helper-acknowledgment design with the bounded common-lifetime failure-handoff amendment below; its source/proof completion remains open.
 
 **Accepted design amendment**: `C2-HELPER-ACK-D`
 
@@ -20,9 +20,58 @@ The [retained-construction forward re-entry design](T287_C2_FORWARD_REENTRY_DESI
 
 **Current method route**:
 `repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`.
-T-287 and the design index retain historical accepted identities. The current
-amendment changes only the Worker-return relation in section 6 and its affected
-proof conditions; completed Wave 2 evidence retains its exact accepted subject.
+T-287 and the design index retain historical accepted identities. The historical helper-acknowledgment amendment changes the Worker-return
+relation in section 6 and its affected proof conditions; the current bounded
+failure-handoff amendment below also governs the exceptional path. Completed
+Wave 2 evidence retains its exact accepted subject.
+
+## Current common-lifetime failure-handoff amendment — 2026-10-21
+
+Root ratifies the exact [cross-consumer HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md),
+SHA-256 `8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec`,
+freeze `93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8`,
+including its finite failure/publication/inspection proof cases. The
+[Root conjunction](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
+records its bounded DESIGN acceptance alongside the [C1 lifecycle law](T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md).
+Original frozen proposal bytes remain unchanged. No helper source or execution
+acceptance is implied.
+
+Command and HTTP adapters await the canonical lifetime completion once and
+retain the **same immutable `OwnedProcessFacts` object**, raw captures and exact
+operation/task/attempt context in main before fallible detachment, cancellation,
+projection or encoding. This assignment handoff is outside ordinary observer
+callbacks, which may be suppressed after firstError. Preserve the original first
+Error or thrown value through every later finalizer/diagnostic failure; absence
+of a throw is distinct from a thrown null/undefined. Do not rebuild physical
+facts from callbacks or borrow the outer worker’s process-group evidence.
+
+On failure or unresolved physical scope, main may retain internal diagnostic
+evidence by create-only publication of the fixed `process-failure.json` sibling
+at `archiveRoot/worksite-command-execution/<taskDigest hex>/<attemptDigest hex>/`.
+The exact HOW binds canonical identities, format tag/version, full canonical
+facts serialization, raw byte/error descriptions, preflight sibling absence,
+attempted versus verified publication, and partial-residue handling. Retention
+can be unavailable; a failed publication does not prove no file committed.
+Preserve the primary failure. Never overwrite, delete, retry or fabricate a
+complete `result.json`, success acknowledgment or Product result.
+
+The named internal `inspectWorksiteCommandExecutionProcessFailure` export in
+`implementation/worksite_command_execution.ts` rederives the exact task and
+authority-free occurrence/launch coordinates, verifies the confined canonical
+single-link diagnostic and its joins, and returns verified-present, absent,
+invalid or unavailable evidence. It needs no successful Worker exchange or
+`complete()`. It is an exact-attempt observation, not an admitted event, runtime
+resource, Public/SDK/CLI endpoint or permission to retry/continue/restore
+currentness/close. Existing success and ABG admission gates remain unchanged.
+
+The failure-retention archive checks and attempted diagnostic publication are
+the only selected later effects on that branch. No report read, later command,
+predicate/request, protected-after observation, delta inventory or successful
+helper artifact follows. Unknown scope remains unknown. No budget or cleanup
+algorithm changes. The exact original cause, physical facts and failure-side
+inspection must be proved through the actual helper boundary under a later
+grant. Dependency-ready source can be selected separately; combined candidate,
+affected execution and L5 remain held for complete conjunction.
 
 ## 1. Claim
 
@@ -752,10 +801,14 @@ a timeout; cleanup does not manufacture `timedOut` or application failure.
 Current common-library E03 continuation: if a command or HTTP probe cannot
 confirm its owned physical scope absent within the declared bounds, the helper
 stops before expected-report filesystem observations, any later command or
-predicate, after snapshot or publication.
-It uses the existing thrown/non-admitted helper failure route, retaining the
-exact task/attempt relation and observed command/probe, exit/signal/timeout,
-signal sequence and physical uncertainty in diagnostics. The complete helper
+predicate, after snapshot or successful helper-artifact publication. The current
+failure-handoff amendment permits only its exact create-only diagnostic archive
+effects on that branch, with publication uncertainty explicit.
+It uses the existing thrown/non-admitted helper failure route, preserving the
+original cause and canonical final facts before fallible finalization. The fixed
+failure sibling and internal inspector retain the exact task/attempt relation
+and observed command/probe, exit/signal/timeout and physical uncertainty. Observed
+callback signal lists are distinct from canonical signal attempts. The complete helper
 artifact contract cannot be replaced by a partial successful artifact. A
 failed but physically confirmed inner command may still be a truthful
 observation. Outer actor termination does not certify the inner owned group.

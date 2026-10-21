@@ -1,0 +1,50 @@
+{
+  "kind": "checked-fact-reader-design-correction-correspondence",
+  "capturedUtc": "2026-10-21T11:41:55.618217+00:00",
+  "predecessorFreeze": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/freeze.json",
+    "sha256": "74b4562d7d4fb4f51310cdffb525996cfba7cb6377f4f879c3337db73a8bd348"
+  },
+  "predecessorFiles": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/HOW-proposal.md",
+      "sha256": "07a46d2008f8059236e4cd57be007aa7029867258c7c8626051b32e6268e355e",
+      "bytes": 13611
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/handoff.md",
+      "sha256": "ee9b77ee9c76ffae052a46e5f41924126b764240bf01a4d90443f5410befef20",
+      "bytes": 3837
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/mechanical-checks.json",
+      "sha256": "abea96adce5d4beb057021dc70577b91ffc1d28d4bc991902d1388ca65366dce",
+      "bytes": 11188
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/retirement-consumer-proof-map.md",
+      "sha256": "05a9592a022e1fb7c41116c94b6b2862b186d7bba3ce4a1b4709343dd2e783bb",
+      "bytes": 14012
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/source-inputs.json",
+      "sha256": "869aa334cba8acdf56b7d59d7ccd7d5b9280435dea649ca42cb5fb1f3cede771",
+      "bytes": 17534
+    }
+  ],
+  "predecessorFilesVerified": 5,
+  "predecessorSourceInventory": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/source-inputs.json",
+    "sha256": "869aa334cba8acdf56b7d59d7ccd7d5b9280435dea649ca42cb5fb1f3cede771",
+    "successorCopyIdentical": true
+  },
+  "sourceInputCount": 58,
+  "sourceInputsMatchPredecessor": true,
+  "changedDesignFiles": [
+    "HOW-proposal.md",
+    "retirement-consumer-proof-map.md"
+  ],
+  "selectedChange": "Execution-basis non-record/null-digest and unencodable-record/null-digest singleton partitions return existing owner null/refusal. Common exception channel and other C3 relations are preserved.",
+  "independentReviewProvenance": "Root relayed closed /root/stdo3_checked_fact_design_review collaboration return: 5 proposal files and 58 input pins verified twice; one P2 preservation finding; no further material counterexample in bounded C3. No standalone review file or message hash is invented.",
+  "authority": "Root follow-up activation in the present conversation; this record transcribes the exact bounded correction, not a new independent verdict."
+}

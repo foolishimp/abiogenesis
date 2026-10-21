@@ -1,0 +1,260 @@
+{
+  "capturedUtc": "2026-10-21T11:19:35.759726+00:00",
+  "scope": "document preimages/diff/unchanged authority and freeze artifacts/current routing/added local links only",
+  "checks": [
+    {
+      "check": "exact preimage: specification/GOALS.md",
+      "result": "pass"
+    },
+    {
+      "check": "GOALS historical routing tail unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "GOAL-035 identity outcome and success signal unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "result": "pass"
+    },
+    {
+      "check": "T287 historical remainder after current operation boundary unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "result": "pass"
+    },
+    {
+      "check": "L2 section 10 is append only",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: .ai-workspace/comments/claude/20261021T085826Z_REVIEW_common_library_design_consolidation.md",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: stdo_abiogenesis.json",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: specification/PRODUCT.md",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "result": "pass"
+    },
+    {
+      "check": "protected exact input unchanged: build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json",
+      "result": "pass"
+    },
+    {
+      "check": "five bounded families selected",
+      "result": "pass"
+    },
+    {
+      "check": "Root full reported aggregates transcribed",
+      "result": "pass"
+    },
+    {
+      "check": "returns are attributed messages, not invented files",
+      "result": "pass"
+    },
+    {
+      "check": "A remains undecided and accepted token frontier explicit",
+      "result": "pass"
+    },
+    {
+      "check": "future owning HOW reconciliation and bounded scope explicit",
+      "result": "pass"
+    },
+    {
+      "check": "qualified T288 uptake list avoids unsupplied D10 credit",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: specification/GOALS.md -> ../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: specification/GOALS.md -> ../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: specification/GOALS.md -> ../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: specification/GOALS.md -> ../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: specification/GOALS.md -> ../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: specification/GOALS.md -> ../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/plan.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md -> ../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md -> ../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md -> ../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md -> ../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md -> ../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md -> ../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md -> realization/common-consolidation-reentry-01/decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md -> realization/common-consolidation-reentry-01/plan.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md -> realization/common-consolidation-reentry-01/review-conjunction.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md -> ../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md -> L2-execution-contract.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md -> realization/common-consolidation-reentry-01/decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md -> realization/common-consolidation-reentry-01/decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md -> realization/common-consolidation-reentry-01/plan.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md -> realization/common-consolidation-reentry-01/review-conjunction.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md -> review-conjunction.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md -> ../e03-final-facts-source-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md -> ../stdo3-role-source-implementation-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md -> ../fixture-retirement-source-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md -> ../p5-cancellation-guard-source-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md -> ../exact-key-canonical-entrypoints-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md -> plan.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/plan.md -> decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/plan.md -> review-conjunction.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md -> ../../../../comments/claude/20261021T085826Z_REVIEW_common_library_design_consolidation.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md -> preflight.json",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md -> ../e03-cross-consumer-handoff-design-01/HOW-proposal.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md -> ../e03-cross-consumer-handoff-design-01/freeze.json",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md -> decision.md",
+      "result": "pass"
+    },
+    {
+      "check": "added local link exists: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md -> plan.md",
+      "result": "pass"
+    }
+  ],
+  "addedLocalLinksChecked": 36,
+  "limits": "No source/semantic reassessment, build, test, import, process/provider, Git or Reviewer action. Historical freeze artifact bytes are verified, not each later-mutated live authority referent."
+}

@@ -1,0 +1,35 @@
+{
+  "kind": "bounded-source-readiness",
+  "writer": "/root/stdo3_role_source_writer",
+  "recipient": "/root",
+  "status": "source_increment_closed_for_combined_candidate",
+  "scope": "K01/D04 identical exact-key mechanics and E01 honest legacy relation name",
+  "changedFiles": {
+    "production": 7,
+    "existingTest": 1,
+    "appendOnlyLiveL2": 2
+  },
+  "retirement": {
+    "duplicateAlgorithmBodies": 2,
+    "misleadingSharedExportNames": 1,
+    "legacyConsumersRenamed": 4,
+    "legacyConsumerCallSites": 9
+  },
+  "checks": {
+    "mechanicalPassed": 46,
+    "syntaxOnlyFilesPassed": 8
+  },
+  "materialGap": null,
+  "remaining": "Single combined isolated build/typecheck and existing affected semantic/owner proof, independent assessment and Executive disposition.",
+  "notPerformed": [
+    "build",
+    "typecheck",
+    "emission",
+    "runtime imports",
+    "Product/process tests",
+    "provider execution",
+    "Git",
+    "Reviewer activation"
+  ],
+  "claimLimit": "Source/syntax/type-shape correspondence only; preserve historical NUL relation; no performance, universal canonicality, acceptance or release claim."
+}

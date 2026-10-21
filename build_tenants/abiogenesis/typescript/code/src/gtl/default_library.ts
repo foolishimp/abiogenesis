@@ -76,62 +76,109 @@ export function defaultGovernanceGraphFunctions(options: { purposes?: readonly G
   return [parent, step, ...wrappers];
 }
 
-// Exact source bytes are packaged at this asset path. The inventory identifies
-// the selected source member; each role projects only its applicable spans.
+// Exact released bytes are packaged as a generic source subset. The original
+// manifest proves provenance; only the two selected members supply role context.
 export const DEFAULT_LIBRARY_STDO_SOURCE = {
-  "basisRef": "stdo://releases/v2.5.1-rc.1/",
-  "manifestDigest": "sha256:5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
-  "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
-  "assetPath": "contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
-  "byteCount": 133684,
-  "digest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+  "basisRef": "stdo://releases/v3.0.0-rc.1/",
+  "manifestDigest": "sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "manifest": {
+    "path": "manifest.json",
+    "assetPath": "contracts/default-library/stdo/manifest.json",
+    "byteCount": 13478
+  },
+  "members": {
+    "executive": {
+      "path": "standards/EXECUTIVE_BASELINE.md",
+      "assetPath": "contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+      "byteCount": 156797,
+      "digest": "sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e"
+    },
+    "assurance": {
+      "path": "standards/ASSURANCE.md",
+      "assetPath": "contracts/default-library/stdo/standards/ASSURANCE.md",
+      "byteCount": 87324,
+      "digest": "sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
+    }
+  },
   "spans": {
-    "Derived Executive Frame": {
-      "startByte": 30700,
-      "endByte": 35546,
-      "spanDigest": "sha256:462f85054e7a000076051c2fc0adb7c9b6c80726057ce4112e6da192e501c485"
+    "executive": {
+      "member": "executive",
+      "anchors": [
+        "8-derived-executive-frame"
+      ],
+      "startByte": 83537,
+      "endByte": 89094,
+      "spanDigest": "sha256:beac5c3e7dd7bb8ed27914271b1953bce37e8d83e9f8e082cc30b4f57e190545"
     },
-    "Derived Worker Frame": {
-      "startByte": 35546,
-      "endByte": 38401,
-      "spanDigest": "sha256:97fbe3a344cd77dd263495db42e334916e76d50fdf8f075452ecebe56fd58b26"
+    "worker": {
+      "member": "executive",
+      "anchors": [
+        "9-derived-worker-frame"
+      ],
+      "startByte": 89094,
+      "endByte": 92075,
+      "spanDigest": "sha256:41c60108a27d41f3f5dc0f533207973f1d58bfed75e99b4b9016bd7d23f00453"
     },
-    "Derived Reviewer Frame": {
-      "startByte": 38401,
-      "endByte": 42638,
-      "spanDigest": "sha256:b5e9f2ac18af32a6586f860b9bfe23826d9b633ac844a880170652e35952791b"
+    "reviewer": {
+      "member": "executive",
+      "anchors": [
+        "10-derived-reviewer-frame"
+      ],
+      "startByte": 92075,
+      "endByte": 96708,
+      "spanDigest": "sha256:fc549bf2e55ffaabad86b4fd3b9290d9043f8716f2ed21b28c0410c643c3911c"
     },
-    "Derived Generic Specialist Frame Set": {
-      "startByte": 42638,
-      "endByte": 52663,
-      "spanDigest": "sha256:a837522281bdfbaa533e8e9ab048b21c183465e8094a8b43c599be40e1586c2b"
+    "specialists": {
+      "member": "executive",
+      "anchors": [
+        "11-derived-generic-specialist-frame-set"
+      ],
+      "startByte": 96708,
+      "endByte": 109201,
+      "spanDigest": "sha256:6498d934efff03cc742689e12295555928f4f0d975077744b12120f119f53189"
     },
-    "Derived Product Testing Frame Set": {
-      "startByte": 52663,
-      "endByte": 76400,
-      "spanDigest": "sha256:89765aa681593fdcd6fece4bf88960bd8a883d7e15a32d7e7d433b3fbb53ba8b"
+    "testing": {
+      "member": "assurance",
+      "anchors": [
+        "7-product-testing-frame-set",
+        "8-combinatorial-coverage-and-testing-value",
+        "9-legitimate-path-and-technical-debt-erasure",
+        "10-testing-evidence-composition",
+        "11-assurance-subject-acquisition-and-evaluation",
+        "12-counterexample-localisation"
+      ],
+      "startByte": 34042,
+      "endByte": 63245,
+      "spanDigest": "sha256:4abfd834bf7bac3273899d417c571bac0795966b0ec41084e6e37a86eaf6d981"
     }
   }
 } as const;
-const frameMember = { path: DEFAULT_LIBRARY_STDO_SOURCE.path, type: "file" as const, digest: DEFAULT_LIBRARY_STDO_SOURCE.digest, target: null };
+const frameMembers = [
+  { path: DEFAULT_LIBRARY_STDO_SOURCE.manifest.path, type: "file" as const, digest: DEFAULT_LIBRARY_STDO_SOURCE.manifestDigest, target: null },
+  ...Object.values(DEFAULT_LIBRARY_STDO_SOURCE.members).map(member => ({ path: member.path, type: "file" as const, digest: member.digest, target: null })),
+].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
 export const DEFAULT_LIBRARY_CONTEXT_INVENTORY = { path: "contracts/default-library/stdo/context.inventory.json",
-  content: canonicalJson({ kind: "run_environment_member_inventory", schemaVersion: "5.0.0", members: [frameMember] }) + "\n" };
+  content: canonicalJson({ kind: "run_environment_member_inventory", schemaVersion: "5.0.0", members: frameMembers }) + "\n" };
 export function defaultLibraryRunEnvironment(): RunEnvironmentDeclaration {
   const source = DEFAULT_LIBRARY_STDO_SOURCE, contextRef = ref("context", "stdo-frames");
-  const member = { memberRef: ref("member", "stdo-frames"), path: source.path, byteCount: source.byteCount, digest: source.digest };
-  const headings = { selector: ["Derived Executive Frame"], constructor: ["Derived Worker Frame", "Derived Generic Specialist Frame Set"],
-    assessor: ["Derived Reviewer Frame", "Derived Product Testing Frame Set"], command_executor: ["Derived Worker Frame", "Derived Product Testing Frame Set"] } as const;
+  const members = Object.values(source.members).map(member => ({ memberRef: ref("member", member.path), path: member.path,
+    byteCount: member.byteCount, digest: member.digest })).sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+  const selections = { selector: ["executive"], constructor: ["worker", "specialists"],
+    assessor: ["reviewer", "testing"], command_executor: ["worker", "testing"] } as const;
   return constructRunEnvironmentDeclaration({ kind: "run_environment_declaration", schemaVersion: "5.0.0", declarationRef: ref("environment", "default"),
     dependencies: [{ dependencyRef: ref("dependency", "stdo-frames"), basisRef: source.basisRef, recordRef: ref("record", "selected-stdo-member-inventory"),
-      recordDigest: sha256Bytes(Buffer.from(DEFAULT_LIBRARY_CONTEXT_INVENTORY.content)), recordFormat: "member_inventory@1", inventoryDigest: stdoInventoryDigest([frameMember]), members: [frameMember] }],
-    contexts: [{ contextRef, sourceLocator: source.basisRef, inventoryDigest: sha256Canonical([member]), members: [member] }], corpusAccess: null, accesses: [],
+      recordDigest: sha256Bytes(Buffer.from(DEFAULT_LIBRARY_CONTEXT_INVENTORY.content)), recordFormat: "member_inventory@1", inventoryDigest: stdoInventoryDigest(frameMembers), members: frameMembers }],
+    contexts: [{ contextRef, sourceLocator: source.basisRef, inventoryDigest: sha256Canonical(members), members }], corpusAccess: null, accesses: [],
     roles: ([ [ref("graph-function", "executive-step"), ref("node", "select"), "selector"], [native.graphFunctionRef, native.nodeRef, "constructor"],
       [native.assessmentGraphFunctionRef, native.assessmentNodeRef, "assessor"], [c2.graphFunctionRef, c2.nodeRef, "command_executor"] ] as const).map(([graphFunctionRef, programLocusRef, role]) => ({
       graphFunctionRef, programLocusRef, role,
-      frameRefs: headings[role].map(heading => source.basisRef + source.path + "#" + heading.toLowerCase().replaceAll(" ", "-")).sort(),
+      frameRefs: selections[role].flatMap(key => { const span = source.spans[key];
+        return span.anchors.map(anchor => source.basisRef + source.members[span.member].path + "#" + anchor); }).sort(),
       policy: { policyRef: ref("policy", role), text: DEFAULT_LIBRARY_POLICY, digest: sha256Bytes(Buffer.from(DEFAULT_LIBRARY_POLICY)) },
       accessRefs: [], contextPolicy: { policyRef: ref("policy", role + "/context"), selectors: role === "selector" ? ["full_source", "active_binding_semantics"] : ["current_worksite", "admitted_execution_evidence"] },
-      sourceBindings: headings[role].map(heading => ({ contextRef, memberRef: member.memberRef, memberDigest: member.digest, ...source.spans[heading] })) })) });
+      sourceBindings: selections[role].map(key => { const span = source.spans[key], member = source.members[span.member];
+        return { contextRef, memberRef: ref("member", member.path), memberDigest: member.digest,
+          startByte: span.startByte, endByte: span.endByte, spanDigest: span.spanDigest }; }) })) });
 }
 export function constructDefaultGovernanceLibraryModulePublication(artifact: RootModuleArtifactBasis) {
   const graphs = defaultGovernanceGraphFunctions(), environment = defaultLibraryRunEnvironment();

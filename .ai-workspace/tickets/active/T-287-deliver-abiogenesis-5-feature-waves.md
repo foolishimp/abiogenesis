@@ -9,13 +9,13 @@
 - current_method_basis: stdo://releases/v3.0.0-rc.1/
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01
-- current_activation_status: L1_L2_ACCEPTED_L3_IMPLEMENTED_retirement_and_E03_correction_OPEN_L4_PARTIAL_L5_INTERIM_S2_BLOCKER
-- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/decision.md
-- current_next_work: unfinished_review_checkpoint_after_current_records_proposed_HOW_and_portable_evidence_before_further_source_runtime_mutation
+- current_activation_status: BOUNDED_DESIGN_CONJUNCTION_ACCEPTED_VALUE_OWNER_OBLIGATIONS_OPEN_SOURCE_COMPLETION_L4_L5_HELD
+- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
+- current_next_work: authorized_WIP_checkpoint_then_finite_value_owner_decisions_and_separately_granted_dependency_ready_source
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
-- current_runtime_frontier: fadd_candidate_P1_PASS_P5_successor08_TIMEOUT_all_post_P1_lanes_HELD_final_candidate_closure_OPEN
+- current_runtime_frontier: historical_P1_PASS_P5_TIMEOUT_candidate_P1_P5_P4_and_dependents_HELD_pending_design_source_conjunction
 - current_qualification: OPEN_fifteen_families_F11_sole_AF22_pre_RC_installed_RC_and_human_acceptance
 - change_class: goal_reprice
 - derived_change_classes: product_reprice
@@ -23,17 +23,26 @@
 
 ## Current Delivery Plan
 
-The owner's 2026-10-21 instruction selects **delivery of the common computational
-capability library before resuming the 5.0 release**. L1 and the exact L2
-delivery design are accepted. L3 implementations exist with active retirement
-and mandatory E03 process-truth correction open; L4 is partial; interim L5 source
-review has one S2 blocker and delivery acceptance is absent. Root selects an
-unfinished review checkpoint after durable current records, proposed HOW
-preparation and portable evidence, before further source/runtime mutation.
-Prior checkpoint `67c3337` is remote; the current refactor is uncommitted. The concrete asset is a library of
-reusable computations and lawful compositions that reduces independently
-invented solutions. Explicit obligations govern each capability and
-composition; actual execution and assessment determine their outcomes.
+The owner selects **common computational library delivery before remaining 5.0
+release work**. Historical L1/L2 acceptance and actual contractions are retained.
+Root’s [current design conjunction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
+ratifies bounded C1 lifecycle, C3 checked-reading and command/HTTP failure
+handoff. C2/C4/C5 core callable contracts and retirement directions are accepted
+with six owner obligations and two native composite classifications OPEN.
+The coverage critique is substantially upheld; the owning common HOW now
+binds the finite callable/consumer/deletion/proof maps rather than leaving
+selected duplication under automatic retention or 5.1 allocation.
+
+Five source cuts retain static/syntax readiness only. Lifecycle and helper
+implementation/proof remain open; combined candidate/build/P1/P5/P4 are HELD
+until the required source conjunction. L4 is partial on older subjects, L5
+acceptance absent and release resumption closed. The [checkpoint handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
+owns current transport identity/parity. At this design conjunction, before the
+authorized WIP checkpoint, the successor is uncommitted; known prior checkpoint
+`400d763d1d4c3d9e84cf30d6b830d7b975ef7089` was pushed, remote-equal, tracking 0/0
+and clean at its historical cut. The asset remains reusable computations and
+lawful compositions that remove independent duplicate solutions while
+preserving supported distinctions.
 [Goals](../../../specification/GOALS.md#current-selection) selects that work;
 [Product](../../../specification/PRODUCT.md#50-and-51-release-boundaries)
 keeps the fifteen-family 5.0 outcome and exclusions.
@@ -66,20 +75,26 @@ admitted domains, inputs/outputs, effects, refusals, lifetime and resource
 obligations, composition rules, actual foundation and owner bindings, existing
 and proposed consumers, and a finite realization/proof sequence. This is L1
 evidence. [L2 successor 02 is accepted](../../work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
-after independent review 02: exact D02–D04/K11/E03/U1 realization scope,
-E01/E02/E04 retention and P1–P5 proof are bound, including the timer-domain
-correction. Library delivery still requires L3–L5 below; design acceptance
+after independent review 02: its exact D02–D04/K11/E03/U1 scope, then-selected
+E01/E02/E04 dispositions and P1–P5 proof were bound, including the timer-domain
+correction. Current C1–C5 amendments supersede the affected retention/deferral
+assumptions while preserving that historical cut. Library delivery still requires L3–L5 below; design acceptance
 does not establish implementation, observed contraction or successful execution.
 The [delivery-plan activation](../../work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/activation.md)
 records this successor selection and preserves the accepted design cut.
 The [checkpoint handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
-now selects an unfinished review checkpoint after the prior design checkpoint.
-The [resumed L3 activation](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/activation.md)
-started the three realization streams. The
-[Executive retirement correction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/decision.md)
-reprices the remaining work toward actual removal/replacement and mandatory
-process-truth repair. Existing proof retains its exact subject; final candidate
-closure and delivery acceptance remain open.
+routes the [current conjunction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
+and [L2 §11](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md#11-root-conjoined-bounded-designs-and-source-boundary--2026-10-21).
+Closed reviews and their literal corrections are retained; no new broad design
+review is selected. Earlier realization and retirement grants keep their exact
+cuts. Lifetime `4bfdf7e…`, role/source `17b1b6d…`, fixture `1bbc47ac…`, P5 guard
+`d24b8d7d…` and exact-key `ed4ca1b…` are frozen bounded source increments with
+static/syntax readiness only. Root’s current custody verification matched 39
+distinct source/proof/contract files and both selected deletions; this adds no
+runtime proof. Command/HTTP HOW `8fb5ca19…`, C1 HOW `122df374…` and C3 HOW
+`5e216984…` are accepted bounded DESIGN; the value core `e1ebd204…` is accepted
+only within its explicit open owner boundaries. Implementation, complete
+candidate closure and delivery acceptance remain open.
 
 The method pin does not migrate an admitted Run. The current STDO template
 binds exact native source/material and only explicitly selected supplementary
@@ -90,13 +105,15 @@ Historical cohort-bound Runs and evidence keep their original dependencies.
 
 ### Common computational library deliverable
 
-**Owner:** ABIogenesis/T-287. **Status:** open; L1/L2 accepted, L3 implemented
-with active retirement and E03 process-truth correction open; L4 partial; interim
-L5 source review has E03-L5-01 S2, Root priority P1/current blocker. Active fixture
-retirement is not delivered. The unfinished review checkpoint is selected before
-further source/runtime mutation.
-**Release-resumption gate:** closed until L5 acceptance is recorded against
-the exact delivered subject.
+**Owner:** ABIogenesis/T-287. **Status:** open. The bounded design conjunction
+is ratified. Six value owner obligations and two native composite classifications
+remain OPEN; full migration is not source-ready. Five source cuts retain
+static/syntax evidence, with implementation and proof of the lifecycle/helper
+successors still open. L4 remains partial on older subjects; L5 acceptance is
+absent. Current transport status belongs to the checkpoint handoff.
+
+**Release-resumption gate:** closed until L5 acceptance on the exact delivered
+subject. All C1–C5 obligations are selected library scope; no automatic 5.1 deferral.
 
 The deliverable contains:
 
@@ -180,13 +197,13 @@ library work package; L5 acceptance opens the remaining release sequence.
 | Step | Selected work and prerequisite | Observable exit | Stop or next action |
 |---|---|---|---|
 | Reconciliation — accepted | Retain the exact STDO 3 Product/requirement destination and calculus binding from the preceding accepted document subject. | Independent assessment and recorded disposition in `T287_STDO3_RECONCILIATION_01`. | Retain evidence within its original scope; the owner-selected library prerequisite supersedes the earlier next-work order. |
-| L1 library design baseline — accepted | Retain the source-grounded K01–K12 contracts, D01–D11 dispositions, compositions and obligations. | [Accepted exact design](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md), including corrected owner/effect views and explicit E01–E04 stops. | Retain this accepted design; L2 now supplies the selected material decisions. Library delivery remains open. |
-| L2 delivery scope and material design — accepted | Retain [successor 02 execution contract](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md): D02–D04/K11/E03/U1, E01/E02/E04 retained domains, finite P1–P5 proof, independent oracles and measurement basis. | [Executive acceptance](../../work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md) conjoins independent review 01's ten scoped predicates and review 02's timer-domain correction on exact freeze 02. | The checkpoint is completed; the owner has separately resumed bounded L3. Design acceptance alone provides no execution result. |
-| Prior design checkpoint — completed | Preserve its exact full-tree design/commentary/evidence subject and transport. | Remote design checkpoint `67c3337` retains its original scope. | Current refactor remains uncommitted and is not delivered by that prior checkpoint. |
-| Current review checkpoint — selected now | Close durable retirement/review records and proposed lifetime/role-source HOW preparation; retain portable evidence. Separate Git Writer checkpoints and pushes the full visible tree, including other-session public commentary/analysis. | Exact reviewable unfinished subject and verified remote transport before further source/runtime mutation. | The checkpoint may contain the blocker and unfinished refactor. No delivery acceptance or new runtime authority follows; retain this exact checkpoint during subsequent implementation. |
-| L3 realization and consumer adoption — implemented; correction/retirement open | After the review checkpoint and separate activation, remove the redundant fresh runner/selector, consolidate U1 setup while preserving changed-file and supplied-context cases, and replace in-domain private canonical/hash algorithms with common owners. Repair E03-L5-01 under its owning HOW. Resolve companion-helper/default-definition source-role HOW explicitly. | Actual retirement/replacement and caller use; conserved distinct obligations; justified exceptions; focused affected proof. | One final candidate for L4. Active fixture retirement is not yet delivered; extraction or line count alone supplies no debt-reduction claim. |
-| L4 execution and independent evidence — partial; post-P1 held | New-candidate P1 passed; P5 successor08 timed out with C1 completion and C2 admission/opening but no C2 result. Existing finite passes retain exact04/07/08/09 subjects. After correction and one final package, execute proportionate affected installed/finite obligations and one bound P4 native witness. | Actual results discharge required obligations; source/package correspondence and independent assessment bind consumer use, retirement, currentness and observed cost. | Owner-resolution/P2/P3/HoG/P4 currently held. First genuine failure returns to Root; no blind retry, causal performance claim or success from missing evidence. |
-| L5 library delivery acceptance — interim source review; blocked | Preserve the independent E03-L5-01 S2 finding, Root priority P1/current blocker. After repair, conjoin accepted design, exact implementation/consumer/retirement, affected L4 proof and independent result. | T-287 Executive records acceptance with no unresolved required in-scope obligation and explicitly opens the release-resumption gate. | Only recorded delivery acceptance resumes release. Current source review, finite passes, P1 success and checkpoint transport cannot open the gate. |
+| L1 baseline — historical acceptance retained | Preserve the exact historical common HOW `cb8dae9f…` and its accepted claims; current owning HOW carries §1.1’s bounded conjunction. | [Historical acceptance](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md) plus [current decision](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md). | C1/C3/cross-consumer DESIGN accepted; value core accepted with six owner obligations/two composite classifications OPEN. |
+| L2 — bounded conjunction ratified | [L2 §11](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md#11-root-conjoined-bounded-designs-and-source-boundary--2026-10-21) refines selected C1–C5 callable/consumer/retirement scope. | Closed reviews and literal corrections incorporated in owning HOWs. | Close finite value decisions; Root may grant dependency-ready C1/cross-consumer source separately. C3 requires truthful C5 wrappers. |
+| Prior design checkpoint — completed | Preserve its exact full-tree design/commentary/evidence subject and transport. | Remote design checkpoint `67c3337` retains its original scope. | That prior checkpoint remains historical; the unfinished refactor is retained in checkpoint `400d763…`, without delivery acceptance. |
+| Review checkpoint — historical completed cut | Preserve `400d763d1d4c3d9e84cf30d6b830d7b975ef7089`; [handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md) owns successor transport status. | Pushed, direct remote equal, tracking 0/0 and clean at that historical cut. | Corrected design/source custody ready for the authorized full-visible-tree WIP checkpoint; transport grants no delivery/runtime/release acceptance. |
+| L3 bounded source — five cuts frozen; successor completion open | Retain lifetime `4bfdf7e…`, role `17b1b6d…`, fixture `1bbc47ac…`, P5 `d24b8d7d…`, exact-key `ed4ca1b…`. | Actual bounded retirement/adoption and syntax/static readiness; 39-file custody check adds no execution. | Separately grant dependency-ready source. Unresolved value owner boundaries hold their migration; complete required conjunction precedes one combined isolated candidate. |
+| L4 — partial historical subjects; all candidate lanes held | Preserve P1 pass, P5 successor08 timeout and finite04/07/08/09 evidence. | Original subjects/exclusions remain. | Candidate/P1/P5/P4 and owner-resolution/P2/P3/HoG held for design/source conjunction and later effect grant. No timeout-cause/performance inference. |
+| L5 delivery acceptance — blocked | Complete C1–C5 source/consumer retirement and affected evidence, including the lifecycle S2/Root P1 blocker. | Independent assessment and Root disposition on the delivered exact subject. | Bounded design acceptance and prior narrow source reviews do not close implementation/outcomes. Delivery acceptance absent; release gate closed. |
 | D1/D4 remaining release integration — waiting for L5 | After library acceptance, compare current source to the accepted design and frozen Source44; reuse valid library evidence and implement only remaining admitted release deltas. | Focused checks plus exact installed producer/consumer composition establish the changed release relations. Source/package correspondence and authentic setup evidence are retained or renewed only where invalidated. | Return a failed join to its owning boundary; no blind clean restart or extra controller. |
 | D2 controlled correction/restart | Reconcile17's completed physical install with admitted16 facts; select lawful reuse or an owner-supported changed pair. Bind the actual Source, Program, current input and reviewed fixture. | Actual helper execution gives a failing C2 result with original diagnostics/citations; parent retains it; selected native repair changes the candidate; the same checker passes; close/reopen and fresh Public reads conserve producer, state and effects. | A refusal or uncertain effect stops and is explained. This finite controlled proof does not establish genuine semantic work. |
 | D3 genuine selected lifecycle | Select the exact installed candidate, original source, full selected obligations, independent oracle and actual worker/assessment configuration prospectively. | The supported ordinary interface produces and corrects a working application, receives independent assessment and reaches admitted closure/fresh readback. Required ambiguity, refusal and recovery cases retain their outcomes. | No hidden assistance or shrinking of the oracle. Apply remaining D4 generic-composition obligations and D5 coverage; reuse valid prior evidence. |
@@ -262,53 +279,57 @@ quota, method requalification campaign, per-helper review or all-profile gate.
 
 ### Current operation boundary
 
-Root selects the [retirement correction and unfinished review checkpoint](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/decision.md).
-The owner's purpose is to strip out old fixtures and remove technical debt;
-Root owns the drift into legacy proof repair. Remove the old fresh runner and
-selector, consolidate duplicated U1 setup without dropping its changed-file
-predecessor/successor case, and replace private generic canonical/hash algorithms
-where the canonical owner's domain supports the relation. Preserve aliases,
-renderer contracts, language witnesses and unreconciled NUL-domain semantics.
-Remove incidental imports/unused carriers only on exact dependency evidence.
-Distinct structural/HoG/root setup and ordinary proof-runner obligations remain.
+Root’s [bounded design conjunction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
+is ratified in the common, terminal-quiescence and C2 owning HOWs. C1 lifecycle,
+C3 checked records and cross-consumer cause/facts/inspection contracts are
+accepted DESIGN. C2/C4/C5 core callable contracts and finite retirement directions
+are accepted with O-TYPE/O-RESOURCE/O-SHAPE/O-CODEC/O-SCHEMA/O-KEY and two native
+composite classifications OPEN. This does not accept full migration or prove
+runtime behavior. Closed independent reviews and their literal corrections are
+retained without another broad design-review campaign.
 
-The companion-only native-selection factory has active native/recursive/default
-callers. Its A/B/gap, changed-choice recursion and four-role migration needs the
-separate [source/role HOW proposal](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/HOW-proposal.md).
-Production `DEFAULT_LIBRARY_STDO_SOURCE` v2.5.1 is a distinct immutable definition
-with an open explicit role/source-span decision, not already retired. P4 A alone
-cannot close these obligations. The separate
-[lifetime HOW proposal](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/HOW-proposal.md)
-addresses [E03-L5-01](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/review-effects.md):
-raw direct-child exit must not become final group-absence truth through an
-exceptional transport path. Both HOWs are proposed/pending independent assessment,
-not accepted source changes. No new native campaign follows from their preparation.
+The finite scope is 24 simple equality bodies, 13 local exactly-one helpers,
+three stream framers, five shared plus 38 local guards and five shared plus one
+private NUL key body. Default to a canonical implementation. Retention requires
+a concrete supported input/caller/outcome distinction, owner and falsifier;
+missing proof remains open. Preserve failure/equality/admission domains except
+the exact selected owner corrections. Direct typed imports are callable
+surfaces; no new facade/runtime/schema/registry is selected.
 
-[Current exact evidence](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/plan.md):
-candidate freeze `96b9ce…`, archive `fadd07e…`, manifest `51de2e…`; new P1 passed in
-954.636 s with zero native/provider calls, freeze `ef5880…` (Root verified 88 files).
-P5 successor08 freeze `c54099…` (Root verified 84 files) failed at 600 s / 630 s; C1
-completed after test cancellation and C2 was admitted/opened, with no C2 actor,
-helper/HTTP result, fresh N2 equality or terminal closure. Future proof re-entry
-must stop subsequent owner effects after test cancellation using the existing
-test contract; no extra harness/retry is selected. Original physical phases
-were 323.088 s setup and 293.475 s C1, not archive-copy time. Concurrency is observed,
-not causal attribution. Finite passes across 04/07/08/09 retain their subjects.
-Owner-resolution, P2, P3, HoG and P4 are all held.
+The lifecycle law uses the exact pre-event matching-Run Actor census and one
+Run-initiated token until Actor consumption. Only redundant b058 R3.3 payload
+census serialization is superseded; post-Run Process start remains prohibited.
+A physical child without admitted start retains unresolved cleanup. Both C3
+malformed null-digest cases now select owner null/refusal; the common checker
+retains exceptions. Installed equality uses `(value) => product.canonicalJson(value)`.
+The default-library collided/inherited key form selects false. These bounded
+corrections require implementation and proof, not another unqualified equivalence
+claim. The source-established lifecycle S2/Root P1 blocker remains operationally
+open; no incorrectly closed real Run is claimed.
 
-Current sequence: durable current records + proposed HOW preparation + portable
-evidence → separate full-tree review checkpoint/push, including other-session
-public commentary → separately activated retirement/process-truth correction →
-one final candidate → proportionate affected installed/finite proof and one P4
-native witness → independent conjunction/L5 → remaining 5.0 release work.
-L1/L2 accepted; L3 correction/retirement open; L4 partial; L5 interim source S2
-blocker; gate closed. Preserve this incomplete checkpoint during later work.
-Existing grants retain exact subjects/effects; this record grants no new workload.
+The [five source cuts](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
+retain static/syntax readiness only. At this design conjunction, before the
+authorized checkpoint, they are uncommitted. Root matched all 39 distinct
+source/proof/contract files and both selected deletions; that is custody only.
+The checkpoint handoff owns later transport identity/parity. Historical P1 on
+archive `fadd07e…` passed in 954.636 s without native/provider calls; P5
+successor08 `c54099…` timed out at 600 s/630 s, with late C1 completion and C2
+admission/opening but no C2 actor/helper/HTTP result, fresh N2 equality or terminal
+closure. Its setup/C1 phases were 323.088 s/293.475 s. Concurrency was observed,
+not established as a cause. A second live lazy-view bug, timeout cause and
+performance benefit remain unproved. Exact finite passes keep their original scope.
 
-Historical attempts remain stopped. No cleanup of their physical targets,
-recreation of completed installs or mutation of their evidence follows merely
-from this plan. Required independent assessment and actual human release
-acceptance remain with their owners.
+Next: authorized WIP checkpoint; finite value owner/type decisions plus
+separately granted dependency-ready C1/cross-consumer source; C3 with truthful
+C5 wrappers; complete required source conjunction; one combined isolated
+candidate; proportionate affected/installed proof and unchanged P4; independent
+L5; then release work. Source edits need not all wait for every value decision,
+but unresolved owner boundaries hold their affected migration. Combined build,
+P1/P5/P4 and dependents remain HELD until conjunction and a later exact grant.
+No source/test/build/import/process/provider/Git or Reviewer effect follows
+from this documentation. Preserve old freezes, failed cuts and main generated936;
+no cleanup, old Run migration or restarted historical attempt is selected.
+
 
 ## Historical Routing Snapshot
 

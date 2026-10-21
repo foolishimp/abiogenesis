@@ -1,0 +1,232 @@
+{
+  "kind": "e03-common-lifecycle-law-design-freeze",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/HOW-proposal.md",
+      "bytes": 17980,
+      "sha256": "7d210ec5d396500861d9494d1d972be69a939717cb48b1af7f3f288a9feb4bae"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/activation.md",
+      "bytes": 3231,
+      "sha256": "0dd08059e41d17604f764cd39f2547e7ffe0afca41d8e216383e97f6c30ed4af"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/authority-observations/L2-coordination-successor.md",
+      "bytes": 37283,
+      "sha256": "281a4e31840203fb249ce9cf1d10ca5d3d07f0769fb9175080e7514bae489615"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/closing-verification.json",
+      "bytes": 1072,
+      "sha256": "60e8cd6a81135698ab6862f8e4a7e2335c413277172a7a9c0addd597c830465e"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/handoff.md",
+      "bytes": 1299,
+      "sha256": "e4ca4b03533fbe727c5ae46e0d05af7e678ca4c32f4b4f0b525ff8051edee3c5"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/input-pins.json",
+      "bytes": 8071,
+      "sha256": "ed39e40c52654e0804c3d5a54edd2d44f68ee371c42668d1e269fc50b93ccc8b"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/retirement-and-proof.md",
+      "bytes": 7235,
+      "sha256": "8c9338982be0f0f8b1e190aa203d8662f6fa121c82e6a1624ea28f7d76b123b1"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/source-correspondence.json",
+      "bytes": 3607,
+      "sha256": "f109585e78af37967faa8b7c5bab956d1deda30f2e6a8003cd042aa39ca8b266"
+    }
+  ],
+  "recordCount": 8,
+  "inputs": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 11923,
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3146,
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 97498,
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+      "bytes": 6120,
+      "sha256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 10959,
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 26853,
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "bytes": 3494,
+      "sha256": "8ec79201b0b381f212b522674041d263fea2f907d85f3d8fb5f67d1db74eb31c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260804T072110Z_STRATEGY_t287_terminal_quiescence_owner_network_replacement.md",
+      "bytes": 64052,
+      "sha256": "c295a065fb95eba780692310e99de7b9aa967d1f93c8fb23b9815326adabead9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260804T090750Z_STRATEGY_t287_terminal_quiescence_bounded_local_repair.md",
+      "bytes": 21082,
+      "sha256": "b0582ef7e0789ac4cb2a52f4a61d7e146b22fbbaeae1df3be3368ef77b8428a0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260804T105623Z_STRATEGY_t287_link_observation_and_cleanup_live_repair.md",
+      "bytes": 9533,
+      "sha256": "d3dabca896de207185ff9e3641df3d52f76afc126b140deb93a59957f648a7da"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260804T111837Z_STRATEGY_t287_preterminal_process_confirmation_overlay.md",
+      "bytes": 3415,
+      "sha256": "49ca598c60a815b532f02503c6c1a409bdd58d9f4dbd2247574f90206d410b64"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/freeze.json",
+      "bytes": 13132,
+      "sha256": "4bfdf7e28575dbf9b3f2cffc23b4f25e49ce16b37f5ec643c6ecec96acbfc1c0"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/HOW-proposal.md",
+      "bytes": 12249,
+      "sha256": "c526fc6f3f70580fd5178f31d6ef54396723dd9a784b207e36b9962631fabf9b"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/freeze.json",
+      "bytes": 7400,
+      "sha256": "93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md",
+      "bytes": 13892,
+      "sha256": "8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 35447,
+      "sha256": "0d143356c440e95de290687ed447403ef3dc3b730f82b943344fbcc633fec137"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 61449,
+      "sha256": "8827b8a0dc15e1eceed4f5bf33a71b4a17ca66c201f21764d9fb53501a5166a0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 113128,
+      "sha256": "908ea893f558802fa7364135f1df7d916fdf88b96537bd3dc8d216b8359d1116"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "bytes": 79492,
+      "sha256": "e5c4861c4421a59eb447bd33dc58a33f68478973ee71701da95f8fcd57f2f4f3"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 89947,
+      "sha256": "ef03c5a8461171d135784696b15b57c309c6e1457ac5017f5168fc2d3c87fa27"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "bytes": 44013,
+      "sha256": "683adaea9685ab094fd80559230fe1ee7a13cc235f6bc41490869a66c89a47d0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 205774,
+      "sha256": "bab403015888d6946eefd8b127efaa2f4b52bf42968a17febf7c28972971d7ae"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+      "bytes": 20971,
+      "sha256": "2707ef256cfd710fffa39a3f111d07194e0bb596c41da1040af3ccd6a64cae63"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "bytes": 34676,
+      "sha256": "93fc6b319623133a5f7bb5f983296871223ee868948d82ec2534b7b709b2ebd9"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 292659,
+      "sha256": "028bba5e6b32041eafb5d5cb42ca0007527523b1bfd978e720f2fd904920fc55"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "bytes": 36102,
+      "sha256": "4f66700bc62ba99865768f554736076088d46bcb818657509200ac8e04ebad52"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "bytes": 11789,
+      "sha256": "2595fb097d0e8f494376142e50a2604d73bd5c488caac0f7de0d4df55c2cf9c4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "bytes": 14595,
+      "sha256": "ce809ca525bbc9ee14454a31fbf0aa36751c53973de03a207cb1518d6249fce9"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "bytes": 34427,
+      "sha256": "01543d555ea3fdad5ffa0949bdcb52d2bef264090c2c2068586c2c3fab1b3569"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "bytes": 79927,
+      "sha256": "6307010acf298563c235b51c61f086d64563e0f5f65225c3748a5ecd676a2163"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "bytes": 16791,
+      "sha256": "0f86b55946040837d508345ad4a9233a86affa81aea0bd1022a36a20425c312f"
+    }
+  ],
+  "inputCount": 32,
+  "timeScopedAuthority": {
+    "livePath": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+    "snapshot": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/authority-observations/L2-coordination-successor.md",
+    "bytes": 37283,
+    "sha256": "281a4e31840203fb249ce9cf1d10ca5d3d07f0769fb9175080e7514bae489615",
+    "preservedPrefixes": [
+      {
+        "bytes": 29684,
+        "sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec"
+      },
+      {
+        "bytes": 32157,
+        "sha256": "9c1e55b2897d69783eb6c93f050cd94ef7dbfbcafd21d5861a10ed7f4915534e"
+      }
+    ],
+    "appendedBytes": 5126,
+    "appendSha256": "efd1e92c8111af4529b52e73b97e98accb76b7cd1905f932d24434b6a94710af",
+    "relation": "Root-announced documentation successor; excluded from unchanged live-file assertion; no status loop"
+  },
+  "sourceOutputs": [],
+  "scope": "One EC-owned lifecycle-law design and selected identical physical guard/type subset retirement. No source or runtime acceptance. Cross-consumer design 93d088fb remains a separate composed prerequisite.",
+  "noFurtherWritesAfterFreeze": true
+}

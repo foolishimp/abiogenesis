@@ -1,12 +1,6 @@
-import { createHash } from "node:crypto";
+import { sha256Canonical as digest } from "@abiogenesis/typescript-tenant/product";
 import { LANGUAGE_TEST_IDS as ids, LANGUAGE_FIXTURE_OWNER as owner, evaluateLanguageTestResult } from "./program.mjs";
 
-function canonical(value) {
-  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
-  if (value !== null && typeof value === "object") return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
-  return JSON.stringify(value);
-}
-const digest = value => `sha256:${createHash("sha256").update(canonical(value)).digest("hex")}`;
 const descriptor = { implementationRef: ids.implementationRef, packageName: owner.packageName,
   packageVersion: owner.packageVersion, modulePath: "build/leaf.mjs", namedSymbol: "render", computeRegime: "F_D",
   inputContractRef: ids.inputContractRef, outputContractRef: ids.outputContractRef,

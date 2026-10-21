@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {readFile,writeFile,mkdir,mkdtemp,readdir,copyFile,cp,rm,symlink} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,mkdtemp,copyFile,cp,rm,symlink} from 'node:fs/promises';
 import {join,basename,resolve,dirname} from 'node:path';
 import {SourceTextModule,SyntheticModule} from 'node:vm';
 import {execFile} from 'node:child_process';
@@ -72,7 +72,7 @@ test('default catalogue publishes conditional purposes over fixed native/C2 chil
   assert.equal(projectObservedWorksiteCommandChildAtPrefix(null,{parentBasis:{},parentCCallRef:'missing',runId:'missing',task:{}}),null);
 });
 test('independent consumer restricts choices while preserving actual native role and schema owners',async()=>{
-  const pubs=constructors.map(n=>gtl[n](basis)),selected=await libraryEnvironment({gtl,product});
+  const pubs=constructors.map(n=>gtl[n](basis)),selected=await libraryEnvironment({gtl,product,packageRoot});
   const data=libraryConsumerDeclaration(gtl,pubs[0],selected.declaration);
   const consumer=gtl.modulePublication({kind:'module_publication',moduleVersion:'5.0.0',...data,artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.productManifestDigest,
     contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest]}))});
@@ -132,14 +132,50 @@ test('declared wrapper judgments advance actual observations, including red C2, 
   assert.equal(product.governanceVerdict(state),false);assert.equal(semantics.resolveJudgmentRelation(product.governanceRef('predicate','fold')).evaluate(commandTask,observed),false,'observation and state fold remain different contracts');
 });
 
-test('default role content is the selected STDO source with capability instructions separate',async()=>{
+test('default role content is the exact packaged STDO3 subset with capability instructions separate',async()=>{
   const {DEFAULT_LIBRARY_STDO_SOURCE:source}=await import('../../build/code/src/gtl/default_library.js');
-  const original=await readFile(join('/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1',source.path));
-  const packaged=await readFile(join(packageRoot,source.assetPath));assert.deepEqual(packaged,original);assert.equal(product.sha256Bytes(packaged),source.digest);
-  const environment=gtl.defaultLibraryRunEnvironment();
-  for(const role of environment.roles){assert.ok(role.frameRefs.every(ref=>ref.startsWith(source.basisRef+source.path+'#')));
-    assert.equal(role.policy.text,product.DEFAULT_LIBRARY_POLICY);
-    for(const span of role.sourceBindings){const bytes=packaged.subarray(span.startByte,span.endByte);assert.equal(product.sha256Bytes(bytes),span.spanDigest);assert.ok(bytes.toString().startsWith('## Derived '));assert.notEqual(bytes.toString(),role.policy.text);}}
+  assert.equal(source.basisRef,'stdo://releases/v3.0.0-rc.1/');
+  const manifest=await readFile(join(packageRoot,source.manifest.assetPath));
+  assert.equal(product.sha256Bytes(manifest),'sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232');
+  const released=product.runEnvironmentRecordMembers('stdo_source_manifest@1',manifest),packaged=new Map();
+  const expectedMembers={'standards/EXECUTIVE_BASELINE.md':'sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e',
+    'standards/ASSURANCE.md':'sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca'};
+  for(const member of Object.values(source.members)){
+    const bytes=await readFile(join(packageRoot,member.assetPath));packaged.set(member.path,bytes);
+    assert.equal(product.sha256Bytes(bytes),expectedMembers[member.path]);assert.equal(bytes.length,member.byteCount);
+    assert.ok(released.some(row=>row.path===member.path&&row.type==='file'&&row.digest===member.digest));
+  }
+  assert.deepEqual([...packaged.keys()].sort(),Object.keys(expectedMembers).sort());
+  const environment=gtl.defaultLibraryRunEnvironment(),dependency=environment.dependencies[0];
+  assert.equal(dependency.recordFormat,'member_inventory@1');
+  assert.deepEqual(dependency.members.map(member=>member.path),['manifest.json','standards/ASSURANCE.md','standards/EXECUTIVE_BASELINE.md']);
+  assert.equal(dependency.members[0].digest,product.sha256Bytes(manifest));
+  assert.equal(environment.corpusAccess,null);assert.deepEqual(environment.accesses,[]);
+  assert.throws(()=>gtl.constructStdoRunEnvironmentDeclaration(structuredClone(environment)),/STDO requires exact source/,
+    'a generic packaged subset does not masquerade as the specialized complete-source manifest');
+  const expectedSpans={selector:[[83537,89094]],constructor:[[89094,92075],[96708,109201]],
+    assessor:[[92075,96708],[34042,63245]],command_executor:[[89094,92075],[34042,63245]]};
+  assert.deepEqual(environment.roles.map(role=>role.role),Object.keys(expectedSpans));
+  for(const role of environment.roles){
+    assert.deepEqual(role.sourceBindings.map(span=>[span.startByte,span.endByte]),expectedSpans[role.role]);
+    assert.equal(role.policy.text,product.DEFAULT_LIBRARY_POLICY);assert.deepEqual(role.accessRefs,[]);
+    assert.deepEqual(role.contextPolicy.selectors,role.role==='selector'?['full_source','active_binding_semantics']:['current_worksite','admitted_execution_evidence']);
+    assert.ok(role.frameRefs.every(ref=>Object.keys(expectedMembers).some(path=>ref.startsWith(source.basisRef+path+'#'))));
+    for(const span of role.sourceBindings){
+      const member=environment.contexts.find(context=>context.contextRef===span.contextRef).members.find(member=>member.memberRef===span.memberRef);
+      const bytes=packaged.get(member.path).subarray(span.startByte,span.endByte);
+      assert.equal(product.sha256Bytes(bytes),span.spanDigest);assert.match(bytes.toString(),/^## (?:7|8|9|10|11)\. /);assert.notEqual(bytes.toString(),role.policy.text);
+    }
+    if(role.role==='assessor'||role.role==='command_executor'){
+      const testing=role.sourceBindings.at(-1),body=packaged.get('standards/ASSURANCE.md').subarray(testing.startByte,testing.endByte).toString();
+      for(const section of ['## 7.','## 8.','## 9.','## 10.','## 11.','## 12.'])assert.ok(body.includes(section));
+      assert.ok(!body.includes('## 13.'));assert.equal(role.frameRefs.filter(ref=>ref.includes('/ASSURANCE.md#')).length,6);
+    }
+  }
+  const selected=await libraryEnvironment({gtl,product,packageRoot}),expected=structuredClone(environment);
+  expected.declarationRef=witnessRef('environment','selected');expected.roles.find(role=>role.role==='selector').graphFunctionRef=witnessRef('graph-function','executive-step');
+  assert.deepEqual(selected.declaration,expected,'witness changes only the two accepted identities');
+  await assert.rejects(libraryEnvironment({gtl,product}),/explicit exact packageRoot/);
 });
 test('framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe',async t=>{
   const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
@@ -378,12 +414,14 @@ async function planningAssemblyFor(task,{oldProjectorSource}={}) {
   const owner={events:[],call,execution,graph:{template:graph.template},inputValue:task,inputDigest:product.sha256Canonical(task),inputRef:'input:controlled-planning',program:publication.programs[0]};
   const candidate={publication,graphFunction:graph,declarationGraphFunctions:[...publication.graphFunctions,...library.graphFunctions],
     executionBasis:execution,cCall:call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
-  const source=await import('../../build/code/src/gtl/default_library.js'),bytes=await readFile(join(packageRoot,source.DEFAULT_LIBRARY_STDO_SOURCE.assetPath));
-  const sourceContent=role.sourceBindings.map(binding=>{
-    assert.equal(product.sha256Bytes(bytes),binding.memberDigest);
+  const source=await import('../../build/code/src/gtl/default_library.js');
+  const sourceContent=await Promise.all(role.sourceBindings.map(async binding=>{
+    const member=publication.runEnvironments[0].contexts.find(context=>context.contextRef===binding.contextRef).members.find(member=>member.memberRef===binding.memberRef);
+    const asset=Object.values(source.DEFAULT_LIBRARY_STDO_SOURCE.members).find(asset=>asset.path===member.path);
+    const bytes=await readFile(join(packageRoot,asset.assetPath));assert.equal(product.sha256Bytes(bytes),binding.memberDigest);
     const span=bytes.subarray(binding.startByte,binding.endByte);assert.equal(product.sha256Bytes(span),binding.spanDigest);
-    return {...binding,path:source.DEFAULT_LIBRARY_STDO_SOURCE.path,sourceLocator:source.DEFAULT_LIBRARY_STDO_SOURCE.basisRef,text:new TextDecoder('utf-8',{fatal:true}).decode(span)};
-  });
+    return {...binding,path:member.path,sourceLocator:source.DEFAULT_LIBRARY_STDO_SOURCE.basisRef,text:new TextDecoder('utf-8',{fatal:true}).decode(span)};
+  }));
   let oldProjector;
   if(oldProjectorSource){
     const {default:ts}=await import('typescript'),file=resolve(packageRoot,'build/code/src/product/default_library.js');
@@ -976,8 +1014,8 @@ test('one installed Public default-library invocation reuses observed files, cor
   const env=await setupInstalledRootCatalog({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,setupAccounting:accounting,...(frozenArtifact?{frozenArtifact}:{}),
     additionalCorePublicationConstructors:constructors,
     prepareAdditionalProducts:async setup=>{
-      selectedEnvironment=await libraryEnvironment(setup);
-      const archive=frozenArtifact?.artifactPath??join(setup.scratch,'artifacts',(await readdir(join(setup.scratch,'artifacts'))).find(n=>n.endsWith('.tgz')));
+      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
+      const archive=setup.abiPackageArchivePath;
       const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
       const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
       return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:archive,declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,companion?{purposes:['testing','uat']}:{}),

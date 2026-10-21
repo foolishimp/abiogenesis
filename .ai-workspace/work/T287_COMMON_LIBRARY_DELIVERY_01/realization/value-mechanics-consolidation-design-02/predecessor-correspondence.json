@@ -1,0 +1,1934 @@
+{
+  "kind": "value-mechanics-design-successor-correspondence",
+  "capturedUtc": "2026-10-21T11:46:00.437504+00:00",
+  "predecessor": {
+    "freezePath": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/freeze.json",
+    "freezeSha256": "ef26e01bce305de2f4b7bbcabe718d7aa61b4e1ab8622de5ce7e299f9aabb817",
+    "members": [
+      {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/handoff.md",
+        "sha256": "eccf5e526b07d35cb25298138c0a9c1ed035407a1af5308fe56752b7e367706c",
+        "bytes": 2864
+      },
+      {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/mechanical-checks.json",
+        "sha256": "6f04d882044b9c38811ac72b51745f0c944b60fa4165a3bd883ad96ed9e7eecc",
+        "bytes": 33833
+      },
+      {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/proposal.md",
+        "sha256": "88cb588e3baf6fbcaedf0d0cc0fc40bad8636f2bfd15d1a37af08f811d88c5aa",
+        "bytes": 22380
+      },
+      {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/retirement-proof-map.json",
+        "sha256": "b624a398f4058ead7f9d405037561ff77ac91396db9389213cda23dd0c8204eb",
+        "bytes": 104218
+      },
+      {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/source-pins.json",
+        "sha256": "e02e02e9485cf943a035703f242953d0cec55b251353e1090ed6621d1e246a68",
+        "bytes": 32019
+      }
+    ],
+    "readOnlyInputCount": 107,
+    "sourcePinsPath": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/source-pins.json",
+    "sourcePinsSha256": "e02e02e9485cf943a035703f242953d0cec55b251353e1090ed6621d1e246a68"
+  },
+  "successorInputCorrespondence": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/source-pins.json",
+    "sha256": "e02e02e9485cf943a035703f242953d0cec55b251353e1090ed6621d1e246a68",
+    "byteIdenticalToPredecessor": true,
+    "all107InputsFreshlyMatched": true,
+    "newInputFiles": 0,
+    "newReadWithinExistingPin": "product/default_library.ts:117 exactKeys and :132-139 isFramedSynthesisResult; input file was already pinned"
+  },
+  "changedDesignClaims": [
+    {
+      "id": "C2-INSTALLED-CALL",
+      "change": "supplied per-operand method closure preserves lookup, receiver, absent dependency and error/order semantics",
+      "literal": "canonicalJsonEquals(left, right, (value) => product.canonicalJson(value))"
+    },
+    {
+      "id": "C5-ADJACENT-KEY",
+      "change": "one adjacent exactKeys117/isFramedSynthesisResult133 row; explicit collided/inherited own-key rejection; source-derived inference only"
+    },
+    {
+      "id": "C2-24-SELECTED",
+      "change": "ten already inventoried simple equality bodies now selected alongside eleven plus three; owner/type/proof closure required"
+    }
+  ],
+  "preserved": {
+    "C4TextSha256": "86f3db3adb2c28d8f8943fbc4921305b97490e6dd485bb2c60de4e09ceaa8fcc",
+    "C4TextBytes": 2541,
+    "all24EqualityBodyPreimagesAndRelations": true,
+    "all38LocalShallowRows": true,
+    "allOriginal24NulConsumerRows": true,
+    "sixOwnerObligations": "OPEN",
+    "twoCompositeClassifications": "OPEN",
+    "priorSourceCuts": [
+      "ed4ca1b\u2026",
+      "1bbc47ac\u2026"
+    ],
+    "predecessorFilesUnchanged": true
+  },
+  "attribution": {
+    "reviewer": "/root/stdo3_values_design_review",
+    "receivedVia": "Root collaboration assignment",
+    "RootReportedReviewEvidence": "5 predecessor members and 107 inputs matched twice; core supported; two S2 findings; six owner obligations and two composite classifications remain open",
+    "independentReviewerArtifactOrHash": "not supplied; not invented",
+    "RootDecision": "apply exact two corrections, select all 24 equality bodies, preserve open owner obligations; Root literal verification next, no fresh general review loop"
+  },
+  "mechanicalChecks": {
+    "passed": 461,
+    "failed": 0,
+    "sourceOrPredecessorMismatches": 0,
+    "checks": [
+      {
+        "check": "exact predecessor freeze",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/handoff.md",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/mechanical-checks.json",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/proposal.md",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/retirement-proof-map.json",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/source-pins.json",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: .ai-workspace/comments/claude/20261021T085826Z_REVIEW_common_library_design_consolidation.md",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/freeze.json",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: AGENTS.md",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/gtl/canonicalization.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/gtl/consensus.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/gtl/consensus_schema.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction_recovery.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/materialization_operations.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/product/worksite_revision.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/public/continuation_authority.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/shared/digests.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/shared/i_json.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/shared/public_invocation.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/support/t288-admission-helper-preimages.json",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t287-common-computational-library.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t287-json-value-definition.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t287-public-preparation.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t288-blocked-retry-entry.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t288-logical-prefix-digest.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: build_tenants/abiogenesis/typescript/test_env/tests/t288-scoped-retry-guard.test.mjs",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: specification/PRODUCT.md",
+        "passed": true
+      },
+      {
+        "check": "unchanged predecessor member/input: stdo_abiogenesis.json",
+        "passed": true
+      },
+      {
+        "check": "all 107 input pin rows and pin-record bytes reused exactly",
+        "passed": true
+      },
+      {
+        "check": "unchanged map section: streamingFraming",
+        "passed": true
+      },
+      {
+        "check": "unchanged map section: sharedShapeAndKeys",
+        "passed": true
+      },
+      {
+        "check": "unchanged map section: localShallowGuards",
+        "passed": true
+      },
+      {
+        "check": "unchanged map section: nulConsumers",
+        "passed": true
+      },
+      {
+        "check": "unchanged map section: outsideSelectedRewrite",
+        "passed": true
+      },
+      {
+        "check": "unchanged map section: sharedUnknownShapeImportConsumers",
+        "passed": true
+      },
+      {
+        "check": "unchanged map section: resourceSelfEncodingProbes",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal path",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal symbol",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal startLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal endLine",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal bodySha256",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal preimage",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal callLines",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal relation",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal failure",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal target",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal owner",
+        "passed": true
+      },
+      {
+        "check": "preserved equality source/relation: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal proof",
+        "passed": true
+      },
+      {
+        "check": "selected equality status: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+        "passed": true
+      },
+      {
+        "check": "exactly 24 selected equality bodies",
+        "passed": true
+      },
+      {
+        "check": "no former ten-body optional disposition key",
+        "passed": true
+      },
+      {
+        "check": "exact installed method closure in proposal and map",
+        "passed": true
+      },
+      {
+        "check": "captured/default-fallback call removed from successor proposal",
+        "passed": true
+      },
+      {
+        "check": "installed receiver/lookup/error obligation preserved",
+        "passed": true
+      },
+      {
+        "check": "one adjacent private key row only",
+        "passed": true
+      },
+      {
+        "check": "new key source preimage at 117",
+        "passed": true
+      },
+      {
+        "check": "actual predicate at 132/use133 pinned",
+        "passed": true
+      },
+      {
+        "check": "source-derived collided/inherited discriminator exact",
+        "passed": true
+      },
+      {
+        "check": "actual predicate outcomes prospective and not runtime claim",
+        "passed": true
+      },
+      {
+        "check": "25 key consumer files / 222 calls",
+        "passed": true
+      },
+      {
+        "check": "six owner obligations remain named/open",
+        "passed": true
+      },
+      {
+        "check": "two composite classifications unchanged and open",
+        "passed": true
+      },
+      {
+        "check": "entire C4 contract text unchanged",
+        "passed": true
+      },
+      {
+        "check": "local document link proposal.md -> ../value-mechanics-consolidation-design-01/freeze.json",
+        "passed": true
+      },
+      {
+        "check": "local document link proposal.md -> review-and-root-decision.md",
+        "passed": true
+      },
+      {
+        "check": "local document link proposal.md -> predecessor-correspondence.json",
+        "passed": true
+      },
+      {
+        "check": "local document link proposal.md -> ../common-consolidation-reentry-01/decision.md",
+        "passed": true
+      },
+      {
+        "check": "local document link proposal.md -> source-pins.json",
+        "passed": true
+      },
+      {
+        "check": "local document link proposal.md -> retirement-proof-map.json",
+        "passed": true
+      },
+      {
+        "check": "local document link review-and-root-decision.md -> ../value-mechanics-consolidation-design-01/freeze.json",
+        "passed": true
+      },
+      {
+        "check": "local document link review-and-root-decision.md -> predecessor-correspondence.json",
+        "passed": true
+      },
+      {
+        "check": "local document link handoff.md -> proposal.md",
+        "passed": true
+      },
+      {
+        "check": "local document link handoff.md -> retirement-proof-map.json",
+        "passed": true
+      },
+      {
+        "check": "local document link handoff.md -> review-and-root-decision.md",
+        "passed": true
+      },
+      {
+        "check": "local document link handoff.md -> predecessor-correspondence.json",
+        "passed": true
+      },
+      {
+        "check": "no invented reviewer artifact/hash",
+        "passed": true
+      },
+      {
+        "check": "no source readiness claim",
+        "passed": true
+      }
+    ]
+  },
+  "evidenceLimit": "Read-only source/predecessor/body correspondence and design-record checks only; no source implementation, typecheck, runtime reproduction or acceptance."
+}

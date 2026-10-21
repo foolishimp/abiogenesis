@@ -259,6 +259,7 @@ export async function setupInstalledRootCatalog(
       gtl: bootstrapGtl, abiPublication: bootstrapRootPublication, abiPackageArchivePath: artifactPath })] : []
     : await options.prepareAdditionalProducts({
         scratch,
+        bootstrapPackage,
         product: bootstrapProduct,
         gtl: languageTestGtlView(bootstrapGtl),
         abiPublication: bootstrapRootPublication,

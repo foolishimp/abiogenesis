@@ -811,8 +811,7 @@ function deriveRuntimeLivenessSemantics(
     const processLive = actorRef !== null && any(["actor_process_started"], e =>
       record(e.payload) && e.payload.actorInvocationRef === actorRef) &&
       !any(["actor_process_spawn_failed"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef) &&
-      !actorDone && (!any(["actor_process_exited"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef) ||
-        any(["actor_process_termination_unconfirmed"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef));
+      !actorDone && !any(["actor_process_exited"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef);
     let disposition: RuntimeLivenessObserverProjection["disposition"]["disposition"] = "continue_waiting";
     let reason = "within_bound_lease";
     if (hardCapReached && processLive) { disposition = "controlled_terminate"; reason = "absolute_safety_cap"; }

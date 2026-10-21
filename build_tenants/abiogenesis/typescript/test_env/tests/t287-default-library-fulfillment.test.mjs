@@ -34,7 +34,7 @@ test('prospective installed declaration uses immutable schema and exact original
   assert.equal(product.sha256Bytes(f.files['source/witness-contract.md']),'sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b');
   assert.ok(product.governanceFulfillmentSourceMatches(d,context));
   for(const path of freshLifecyclePaths)assert.equal(context.entries.find(e=>e.relativePath===path)?.state,'absent');
-  const pubs=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'].map(n=>gtl[n](basis)),env=await libraryEnvironment({gtl,product});
+  const pubs=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'].map(n=>gtl[n](basis)),env=await libraryEnvironment({gtl,product,packageRoot});
   const data=fulfillmentConsumerDeclaration({gtl,product,library:pubs[0],runEnvironment:env.declaration});
   const consumer=gtl.modulePublication({kind:'module_publication',moduleVersion:'5.0.0',...data,artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.productManifestDigest,contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest]}))});
   const raw=(value,kind)=>{const result=validator.rawAdmitValue(value,kind,'contract:fixture');assert.equal(result.kind,'raw_admitted_value',JSON.stringify(result));return result;};

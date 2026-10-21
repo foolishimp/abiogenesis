@@ -1,0 +1,15 @@
+{
+  "kind": "design-record-closure",
+  "checkedAtUtc": "2026-10-21T11:26:50.049719+00:00",
+  "stableInputsChecked": 32,
+  "stableInputMismatches": [],
+  "timeScopedAuthority": "Only the retained L2 observation is verified at closure; the announced live documentation successor is not chased or asserted globally immutable. Original 29684/32157 byte prefixes are retained exactly.",
+  "literalDesignChecks": [
+    "cleanupDisposition includes projected remaining Actor obligation",
+    "matching Run stop/failure remains the EC cleanup-token frontier",
+    "selected exact 12-field Pick retirement",
+    "both stale pre-Run token test expectations recorded for replacement with U1/physical checks preserved"
+  ],
+  "effects": "Only new records in this directory; no source/test/live documentation edits, runtime imports/tests/processes, builds, providers or Git. No whole moving-tree or generated936 inventory claim.",
+  "proofStatus": "Source inspection and mechanical record checks only; independent assessment, source implementation and execution remain unperformed."
+}

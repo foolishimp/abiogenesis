@@ -97,8 +97,5 @@ export function hasExactJsonKeys(
   value: Readonly<Record<string, JsonValue>>,
   expected: readonly string[],
 ): boolean {
-  const keys = Object.keys(value).sort();
-  const expectedKeys = [...expected].sort();
-  return keys.length === expectedKeys.length &&
-    keys.every((key, index) => key === expectedKeys[index]);
+  return hasExactKeys(value, expected);
 }

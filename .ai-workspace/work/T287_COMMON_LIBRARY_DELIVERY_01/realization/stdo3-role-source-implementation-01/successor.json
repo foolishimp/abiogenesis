@@ -1,0 +1,203 @@
+{
+  "kind": "bounded-role-source-successor",
+  "authorityFreezeSha256": "ef460e63939ea9e7df5536a164aab0452952f1e471f9ba89f890be40141b0131",
+  "proposalSha256": "3f163754f48d72a2b8577c5c425951f8fa0ff5b9cd80da0d4042ad6084179c78",
+  "sourceMapSha256": "a51365e6a46cc73cb4985b2ee373442827b648b533bc9d89f6ddfa0b48fd1406",
+  "changes": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/code/src/gtl/default_library.ts",
+        "sha256": "9a9fa4da696482f70ec487227aa7a623f7c0b12f15b07f00600df322ec568e7b",
+        "byteCount": 19036
+      },
+      "successor": {
+        "sha256": "e7b88b289d7fd6e44d88c97f8b313e6b022c7dd8f8b17727775f70216b4d3e6e",
+        "byteCount": 20551
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/scripts/generate-product-manifest.mjs",
+        "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+        "byteCount": 48959
+      },
+      "successor": {
+        "sha256": "456eb42dac4ec0f5b24d0d250a1e086efb8aa63460b0a061d7c347b005f7165f",
+        "byteCount": 49817
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/test_env/support/root-installed-environment.mjs",
+        "sha256": "e7bcbfd831e1e710c6b4c0cee6eeeb1bf3d245b4409cc9cc4089ead21d0239d3",
+        "byteCount": 40294
+      },
+      "successor": {
+        "sha256": "3e2f5b407ac602532ee487a0f2756e1f8bd0e9a28d3c8bef73db711b192c9877",
+        "byteCount": 40320
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/native-registered-selection.mjs",
+      "disposition": "deleted",
+      "preimage": {
+        "path": "preimages/test_env/support/native-registered-selection.mjs",
+        "sha256": "c2deb44c845503ea893c6803c2c7d7bc1079e8dbcd05d215a0f2fa9f85901195",
+        "byteCount": 6494
+      },
+      "successor": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/test_env/support/stdo3-run-environment.mjs",
+        "sha256": "81c51842c1d31366b509324eff717084f9df3cfee05c36d73411c855f10db76e",
+        "byteCount": 5214
+      },
+      "successor": {
+        "sha256": "5c9e62d673d7d4985ae44a9a59c2558f59d6f080b3e8e9c817f90dd33cea4c4d",
+        "byteCount": 5751
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/test_env/support/default-library.mjs",
+        "sha256": "b435665a743c7c7a04f0dae6a59070e521fb798c491e506c28cba8201d2c0fc3",
+        "byteCount": 8597
+      },
+      "successor": {
+        "sha256": "d615fa0bd09282c0e79d9850afb808290e0d35f24407f4528f598e520eec3155",
+        "byteCount": 7324
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/test_env/fixtures/registered-selection-product/native.mjs",
+        "sha256": "963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6",
+        "byteCount": 6294
+      },
+      "successor": {
+        "sha256": "307a3142ef640aadba4e7cc7853914b019d4214ee0399eae8275aa4ebb40256b",
+        "byteCount": 7987
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/test_env/tests/t287-native-registered-selection.test.mjs",
+        "sha256": "201eba94a0abebc65ce94917fb212a461974c6a889a7455e230576787c22516d",
+        "byteCount": 17327
+      },
+      "successor": {
+        "sha256": "d79dd8d587666352f5435adc0e9c1c0b07a487eac91a0ba0c77000f395d226f7",
+        "byteCount": 17306
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "sha256": "0967cd09ec698275a9713673cc91dff0e3d902147f45f1a3d0fb8f60c98a80ad",
+        "byteCount": 35217
+      },
+      "successor": {
+        "sha256": "e69964c0aaf222c06c59bc1e623de8939699c2a67b8823e05584b2a6f6cb2a5e",
+        "byteCount": 35305
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/test_env/tests/t287-default-library.test.mjs",
+        "sha256": "39246ce097de388db5a162179564370b1d8f3183822ec7f1298a605b63d06f3c",
+        "byteCount": 153336
+      },
+      "successor": {
+        "sha256": "f7cc54d5fb9bbc454230287b88380e8c75bc1aeacd086af64c61a7ad5915d227",
+        "byteCount": 156707
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/test_env/tests/t287-default-library-fulfillment.test.mjs",
+        "sha256": "c4a4865baa6e6a5d917c3a5031f5fe9b4283c220d46aaea508d304a02d35d3f7",
+        "byteCount": 44649
+      },
+      "successor": {
+        "sha256": "cd88fbb94cf7ae378cc40022884ecf7bd07a4fcb3dc9e283ec24418c1556fece",
+        "byteCount": 44661
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "disposition": "modified",
+      "preimage": {
+        "path": "preimages/test_env/tests/t287-stdo3-run-environment.test.mjs",
+        "sha256": "e45af06ccbf8ef80dda57277b99a849961ac9713641ebdc31a8a5f1a292b6cfa",
+        "byteCount": 14629
+      },
+      "successor": {
+        "sha256": "5b1a70bbe01a4edaf15cf9afee90dff30be1a18a99ba8196b642bf0303d5b0a9",
+        "byteCount": 16311
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "disposition": "deleted",
+      "preimage": {
+        "path": "preimages/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+        "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+        "byteCount": 133684
+      },
+      "successor": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/manifest.json",
+      "disposition": "added",
+      "preimage": null,
+      "successor": {
+        "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+        "byteCount": 13478
+      },
+      "exactCopyOf": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/input-evidence/manifest.json"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+      "disposition": "added",
+      "preimage": null,
+      "successor": {
+        "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+        "byteCount": 156797
+      },
+      "exactCopyOf": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/input-evidence/standards/EXECUTIVE_BASELINE.md"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/ASSURANCE.md",
+      "disposition": "added",
+      "preimage": null,
+      "successor": {
+        "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+        "byteCount": 87324
+      },
+      "exactCopyOf": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/input-evidence/standards/ASSURANCE.md"
+    }
+  ],
+  "assetDiffConvention": "Immutable asset additions/deletion are exact hash-bound content changes here; textual implementation diff is source.patch. New source copies remain in the accepted proposal input-evidence, avoiding duplicate copies.",
+  "limits": "Source increment only; generated inventory/build and Product execution are intentionally pending."
+}

@@ -189,6 +189,170 @@ function actorObservation(basis, overrides) {
   };
 }
 
+// Reuse the authentic installed F_P leaf port below. Physical child events,
+// prefix acquisition and event recording are controlled component premises;
+// assessment, worker parsing/persistence and actor admission ordering are real
+// installed owner code. This is not an installed Run or OS-process proof.
+async function finalizedArtifactCases(environment, basis, context) {
+  const { SourceTextModule, SyntheticModule } = await import('node:vm');
+  const { EventEmitter } = await import('node:events');
+  const fs = await import('node:fs/promises');
+  const installed = name => join(environment.installedRoot, 'build/code/src', name + '.js');
+  const physical = await import(pathToFileURL(installed('shared/owned_process_lifetime')).href);
+  const transportContracts = await import(pathToFileURL(installed('abg/transport_contracts')).href);
+  const events = await import(pathToFileURL(installed('abg/event_store')).href);
+  const { actorRuntimeProbeSources } = await import(pathToFileURL(installed('abg/runtime_liveness_contracts')).href);
+  const prefixes = await import(pathToFileURL(installed('abg/event_prefix')).href);
+  const calculus = await import(pathToFileURL(installed('abg/event_calculus')).href);
+  const { deepFreeze } = await import(pathToFileURL(installed('shared/immutable')).href);
+  const hash = environment.product.sha256Canonical;
+  async function component(name, overrides, suffix = '') {
+    const path = installed(name), module = new SourceTextModule(await fs.readFile(path, 'utf8') + suffix, { identifier: path });
+    await module.link(async specifier => {
+      const actual = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href);
+      const values = { ...actual, ...overrides[specifier] };
+      return new SyntheticModule(Object.keys(values), function () {
+        for (const [key, value] of Object.entries(values)) this.setExport(key, value);
+      });
+    });
+    await module.evaluate(); return module.namespace;
+  }
+  for (const mode of ['valid', 'invalid', 'absent', 'unreadable', 'conflict', 'owner-unavailable',
+    'artifact-refused', 'probe-refused', 'process-refused', 'plan-mismatch', 'unknown', 'present', 'normal']) {
+    const first = Object.assign(new Error(`retained stream error: ${mode}`), { code: 'EPIPE' });
+    const rows = [], probes = [], store = {}, child = new EventEmitter();
+    let plan, lifetime, absent = false, caught = null, outputReads = 0, finalFacts = null, compositions = 0;
+    let currentPrefix = { storeIdentity: { eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST }, coordinateDigest: hash(mode + ':0') };
+    let predecessor;
+    const append = candidate => {
+      if (mode === 'artifact-refused' && candidate.kind === 'actor_result_artifact_observed') throw new Error('controlled artifact admission refusal');
+      if (mode === 'process-refused' && candidate.kind === 'actor_process_exited') throw new Error('controlled Process admission refusal');
+      const ordinal = rows.length + 1;
+      const event = deepFreeze({ ...candidate, eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST,
+        eventId: `event://f04-finalized/${mode}/${ordinal}`, admissionOrdinal: ordinal, payloadDigest: hash(candidate.payload) });
+      rows.push(event); return event;
+    };
+    const raw = mode === 'absent' ? '' : JSON.stringify(validResult(mode === 'invalid' ? { message: 'wrong subject' } : {}));
+    const stdout = raw === '' ? '' : JSON.stringify({ type: 'result', subtype: 'success', is_error: false, structured_output: JSON.parse(raw) }) + '\n';
+    child.pid = 4242;
+    for (const name of ['stdin', 'stdout', 'stderr']) {
+      const stream = new EventEmitter(); stream.closed = false;
+      stream.setEncoding = () => stream;
+      stream.destroy = () => { stream.destroyed = true; };
+      child[name] = stream;
+    }
+    child.stdin.end = () => { void (async () => {
+      if (raw !== '') await fs.writeFile(plan.paths.output,
+        mode === 'conflict' ? JSON.stringify(validResult({ message: 'other channel' })) : raw);
+      child.emit('spawn');
+      if (stdout !== '') child.stdout.emit('data', stdout);
+      child.emit('exit', 0, null);
+      assert.equal(rows.some(row => row.kind === 'actor_process_exited'), false,
+        'raw exit precedes final owned-scope confirmation');
+      if (mode !== 'normal') child.stderr.emit('error', first);
+      absent = true; child.emit('close');
+    })().catch(error => { lifetime.fail(error); absent = true; child.emit('exit', 0, null); child.emit('close'); }); };
+    const worker = await component('abg/worker_transport', {
+      'node:child_process': { spawn: () => child },
+      './transport_contracts.js': { composeWorkerTransportArgs: input => {
+        const args = transportContracts.composeWorkerTransportArgs(input);
+        return mode === 'plan-mismatch' && ++compositions > 1 ? [...args, '--controlled-mismatch'] : args;
+      } },
+      'node:fs/promises': { readFile: async (path, ...args) => {
+        if (path === plan?.paths.output) {
+          outputReads++;
+          if (mode === 'unreadable') throw Object.assign(new Error('controlled unreadable candidate'), { code: 'EACCES' });
+        }
+        return fs.readFile(path, ...args);
+      } },
+      '../shared/owned_process_lifetime.js': { createOwnedProcessLifetime: (ownedChild, bounds, observers) => {
+        lifetime = physical.createOwnedProcessLifetime(ownedChild, { ...bounds, terminationGraceMs: 5, host: {
+          clock: { nowNs: () => process.hrtime.bigint(), arm: (f, ms) => setTimeout(f, ms), cancel: clearTimeout },
+          platform: 'posix', signal: () => {},
+          probeGroup: () => mode === 'unknown' ? 'unknown' : mode === 'present' ? 'present' : absent ? 'absent' : 'present',
+        } }, observers); return lifetime;
+      } },
+    });
+    const call = { ...basis.occurrence, implementationRef: basis.resolution.implementationRef,
+      implementationBindingRef: basis.resolution.implementationBindingRef, outputContractRef: basis.resolution.outputContractRef,
+      fibreSelectedEventRef: '' };
+    const fibre = append({ kind: 'c_call_fibre_selected', aggregateType: 'c_call', aggregateId: call.cCallRef,
+      parentAggregateId: call.frameId, causationEventRefs: [], eventTime: '2026-10-21T00:00:00.000Z',
+      correlationId: 'f04-finalized', workflowVersion: '5.0.0', scopeClass: 'run', basisId: environment.executionBasis.basisRef,
+      runId: call.runId, graphCallId: call.graphCallId, frameId: call.frameId, payload: { cCallRef: call.cCallRef } });
+    call.fibreSelectedEventRef = fibre.eventId;
+    currentPrefix = { ...currentPrefix, coordinateDigest: hash(mode + ':' + rows.length) }; predecessor = currentPrefix;
+    const contextAtActor = actorInvocationRef => ({ scope: { actorInvocationRef }, binding: { clockOriginRef: 'clock://f04-finalized' },
+      probes: actorRuntimeProbeSources(plan.parser).map(source => ({ source, probeRef: `probe://f04-finalized/${source}` })) });
+    const actor = await component('abg/actor_process', {
+      './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => basis.prefix, selectRuntimeEventPrefixFromStore: () => basis.prefix },
+      './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
+      './event_store.js': { assertHeldEventStoreAtDurablePrefix: () => {}, admitRuntimeEvent: (_store, candidate) => append(candidate),
+        admitNonEmptyRuntimeEventTransactionAtDurablePrefix: (_store, _prefix, action) => {
+          const value = action(); currentPrefix = { ...currentPrefix, coordinateDigest: hash(mode + ':' + rows.length) };
+          return { value, successorPrefix: currentPrefix };
+        } },
+      './runtime_liveness.js': { captureNativeFrameBoundary: () => ({}), observeNativeFrameLiveness: () => {},
+        projectActorLivenessContext: (_prefix, actorInvocationRef) => contextAtActor(actorInvocationRef),
+        admitRuntimeActivityProbe: input => {
+          if (mode === 'probe-refused' && input.observation.signal === 'artifact_admitted') throw new Error('controlled probe admission refusal');
+          probes.push(input.observation.signal);
+          return { successorPrefix: currentPrefix, value: rows.find(row => row.eventId === input.observation.underlyingEventRef) };
+        } },
+      './worker_transport.js': { prepareWorkerTransport: async input => {
+        plan = await worker.prepareWorkerTransport({ ...input, label: input.label + '-' + mode }); return plan;
+      }, runPreparedWorkerTransport: async (prepared, observer) => {
+        try { return await worker.runPreparedWorkerTransport(prepared, { ...observer, onProcessFinalized: facts => {
+          finalFacts = facts; observer.onProcessFinalized(facts);
+        } }); } catch (error) { caught = error; throw error; }
+      } },
+    }, '\nexport { invokeActorProcessWithAssembly };');
+    const effect = await actor.invokeActorProcessWithAssembly({ store, predecessorPrefix: predecessor,
+      executionBasis: environment.executionBasis,
+      scope: { runId: call.runId, graphCallId: call.graphCallId, frameId: call.frameId }, cCall: call,
+      expectedInputDigest: basis.request.inputDigest, occurrence: basis.occurrence,
+      workerContracts: { instructionContractRef: INPUT_CONTRACT_REF, resultContractRef: OUTPUT_CONTRACT_REF },
+      runtime: { workspaceBinding: environment.workspaceBinding, artifactTruth: environment.artifactTruth },
+      request: basis.request, dispatchOrdinal: 1, basis: { correlationId: 'f04-finalized' },
+      ...(mode === 'owner-unavailable' ? {} : { rawResultOwner: { port: environment.leafPort, resolution: basis.resolution, input: basis.input } }),
+    }, { request: basis.request });
+    const artifacts = rows.filter(row => row.kind === 'actor_result_artifact_observed');
+    const terminal = rows.find(row => row.kind === 'actor_invocation_failed' || row.kind === 'actor_invocation_closed');
+    const noArtifact = ['unreadable', 'conflict', 'owner-unavailable', 'artifact-refused', 'plan-mismatch', 'unknown', 'present'].includes(mode);
+    assert.equal(artifacts.length, noArtifact ? 0 : 1, mode);
+    assert.equal(finalFacts.firstError, mode === 'normal' ? null : first, mode);
+    assert.equal(caught, mode === 'normal' ? null : first, 'original Error identity survives assessment/admission failures');
+    if (mode === 'unknown' || mode === 'present') {
+      assert.equal(outputReads, 0); assert.equal(terminal, undefined);
+      assert.equal(rows.some(row => row.kind === 'actor_process_exited'), false);
+      assert.equal(rows.filter(row => row.kind === 'actor_process_termination_unconfirmed').length, 1);
+    } else if (mode === 'process-refused') {
+      assert.equal(terminal, undefined, 'physical absence without admitted Process witness cannot authorize Actor terminal');
+      assert.equal(rows.some(row => row.kind === 'actor_process_exited'), false);
+    } else {
+      assert.equal(rows.filter(row => row.kind === 'actor_process_exited').length, 1);
+      assert.notEqual(terminal, undefined);
+      assert.equal(terminal.kind, mode === 'normal' ? 'actor_invocation_closed' : 'actor_invocation_failed');
+      assert.equal(Object.hasOwn(terminal.payload, 'consumedArtifactEventRef'), mode === 'normal');
+    }
+    if (!noArtifact) {
+      const artifact = artifacts[0], assessment = artifact.payload.nativeResultAssessment;
+      assert.equal(assessment.disposition, mode === 'absent' ? 'absent' : mode === 'invalid' ? 'rejected' : 'admitted');
+      if (assessment.disposition === 'admitted') assert.equal(assessment.verification.kind, 'verified_probabilistic_result_contract_preimage');
+      const selected = prefixes.selectValidatedRuntimeEventPrefix(deepFreeze(rows));
+      const state = calculus.deriveRuntimeEventCalculusProjection(selected);
+      assert.equal(calculus.holdsAt(state, calculus.constructRuntimeFluent({ name: 'actor_result_artifact_available', identity: artifact.eventId })), mode !== 'normal');
+      const cold = prefixes.selectValidatedRuntimeEventPrefix(deepFreeze(JSON.parse(JSON.stringify(rows))));
+      assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(cold), state, 'closed component rows preserve artifact availability');
+      if (!['absent', 'probe-refused'].includes(mode)) assert.equal(probes.filter(signal => signal === (mode === 'invalid' ? 'artifact_rejected' : 'artifact_admitted')).length, 1);
+    }
+    assert.equal(effect.kind, mode === 'normal' ? 'actor_process_effect_receipt' : 'actor_process_effect_refusal');
+    assert.deepEqual(effect.successorPrefix, currentPrefix, 'actual recorded prefix retained, including committed artifact before probe refusal');
+    assert.equal(rows.some(row => row.kind === 'c_call_result_admitted'), false);
+    context.diagnostic(`E03 ${mode}: authentic installed F_P assessment; controlled physical and admission substrate, no OS/Run/fresh-process claim.`);
+  }
+}
+
 test("F04-A exact request-bound raw result admission is pure and decision-exact", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root, {
     candidateBasisSource: "packed_artifact",
@@ -932,6 +1096,7 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
         error.code === code,
     );
   }
+  await finalizedArtifactCases(environment, basis, context);
   assert.deepEqual(environment.store.readAll(), beforeEvents);
 });
 

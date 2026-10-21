@@ -1,0 +1,83 @@
+{
+  "kind": "source-syntax-readiness",
+  "classification": "Node --check parses the five files without imports, module evaluation or test execution",
+  "cwd": "/Users/jim/src/apps/abiogenesis",
+  "commands": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs"
+      ],
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "4fd53e",
+        "wall_time_seconds": 0.000004125,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs"
+      ],
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "b93b09",
+        "wall_time_seconds": 0.000007042,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs"
+      ],
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "f67b6d",
+        "wall_time_seconds": 0.000007792,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs"
+      ],
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "eb9e05",
+        "wall_time_seconds": 0.000005416,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs"
+      ],
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "a0fd4b",
+        "wall_time_seconds": 0.000007458,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    }
+  ],
+  "passed": true
+}

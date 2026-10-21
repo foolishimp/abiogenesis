@@ -1,4 +1,4 @@
-import { spawn } from "node:child_process";
+import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { appendFileSync } from "node:fs";
 import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -11,7 +11,7 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
-import { createMonotonicDeadline, createOwnedProcessLifetime } from "../shared/owned_process_lifetime.js";
+import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import type { RuntimeLivenessObserverProjection } from "./runtime_liveness_contracts.js";
 import {
   classifyWorkerTransportFailure,
@@ -67,11 +67,12 @@ export interface WorkerProcessObserver {
     timeoutClass: WorkerTransportTimeoutClass,
   ) => void;
   readonly onSignalRequested?: (signal: NodeJS.Signals) => void;
-  readonly onProcessExited?: (
-    status: number | null,
-    signal: NodeJS.Signals | null,
-  ) => void;
-  readonly onTerminationUnconfirmed?: () => void;
+  /** Final ownership handback, outside ordinary callbacks suppressed by failure. */
+  readonly onProcessFinalized?: (facts: OwnedProcessFacts) => void;
+  /** A genuine assessed candidate retained before an original transport error.
+   * Prepared-plan correspondence has already been checked at this boundary. */
+  readonly onResultArtifact?: (result: WorkerTransportResult) => void;
+  /** Positive pre-launch refusal only; asynchronous launch facts use finalization. */
   readonly onSpawnFailed?: (message: string) => void;
 }
 
@@ -122,6 +123,8 @@ export interface WorkerToolInvocationEvidence {
 }
 
 interface ProcessObservation {
+  readonly facts: OwnedProcessFacts;
+  readonly finalizationError?: unknown;
   readonly status: number | null;
   readonly signal: NodeJS.Signals | null;
   readonly timedOut: boolean;
@@ -374,25 +377,25 @@ async function runProcess(input: {
   const absoluteTimer = createMonotonicDeadline();
   const clearLeaseTimers = (): void => { inactivityTimer.cancel(); absoluteTimer.cancel(); };
   const snapshotResultBearingStdout = (): void => { resultBearingStdout ??= stdout; };
-  const child = spawn(input.command, input.args, {
-    cwd: input.cwd, env: input.env, detached: process.platform !== "win32",
-    stdio: ["pipe", "pipe", "pipe"],
-  });
+  let child: ChildProcessWithoutNullStreams;
+  try {
+    child = spawn(input.command, input.args, {
+      cwd: input.cwd, env: input.env, detached: process.platform !== "win32",
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+  } catch (error) { return refuseBeforeLaunch(error, input.observer); }
   const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: input.terminationGraceMs }, {
     onSpawn: (pid) => input.observer?.onProcessStarted?.(pid),
     onError: (error) => {
       clearLeaseTimers(); snapshotResultBearingStdout(); launchError = error.message;
-      input.observer?.onSpawnFailed?.(error.message);
     },
-    onExit: (status, signal) => {
+    onExit: () => {
       clearLeaseTimers(); snapshotResultBearingStdout(); captureOpen = false;
       child.stdout.destroy(); child.stderr.destroy(); child.stdin.destroy();
-      input.observer?.onProcessExited?.(status, signal);
     },
     onSignalRequested: (signal) => {
       clearLeaseTimers(); input.observer?.onSignalRequested?.(signal);
     },
-    onUnconfirmed: () => { clearLeaseTimers(); input.observer?.onTerminationUnconfirmed?.(); },
   });
   const beginTimeout = (observedTimeoutClass: WorkerTransportTimeoutClass): void => {
     if (timedOut || lifetime.snapshot().cleanupDeadlineNs !== null) return;
@@ -448,17 +451,27 @@ async function runProcess(input: {
   } catch (error) { lifetime.fail(error); }
   try {
     const facts = await lifetime.completion;
-    if (facts.firstError !== null) throw facts.firstError;
+    let finalization: Pick<ProcessObservation, "finalizationError"> = {};
+    try { input.observer?.onProcessFinalized?.(facts); }
+    catch (error) { finalization = { finalizationError: error }; }
     return {
+      facts, ...finalization,
       status: facts.directExit?.status ?? null, signal: facts.directExit?.signal ?? null,
       timedOut, timeoutClass, exitObserved: facts.directExit !== null,
       terminationConfirmed: facts.scopeAbsence === "absent" && facts.directExit !== null,
-      launchError, resultBearingStdout: resultBearingStdout ?? stdout, stdout, stderr,
+      launchError: facts.launchFailure?.message ?? launchError,
+      resultBearingStdout: resultBearingStdout ?? stdout, stdout, stderr,
     };
   } finally {
     clearLeaseTimers(); captureOpen = false;
     child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
   }
+}
+
+function refuseBeforeLaunch(error: unknown, observer?: WorkerProcessObserver): never {
+  try { observer?.onSpawnFailed?.(error instanceof Error ? error.message : String(error)); }
+  catch { /* A later admission failure cannot replace the original pre-launch failure. */ }
+  throw error;
 }
 
 /** Pure existing protocol parser, shared by the native artifact observer. */
@@ -471,54 +484,60 @@ export function observeWorkerTransportOutput(parser: WorkerTransportContract["pa
 
 async function executeWorkerTransport(
   input: WorkerTransportRequest,
+  validatePreparedResult: (result: WorkerTransportResult) => void,
 ): Promise<WorkerTransportResult> {
-  assertLabel(input.label);
-  if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
-    throw new TypeError("worker transport timeout must be one positive safe integer");
-  }
-  const terminationGraceMs = input.terminationGraceMs ?? 1_000;
-  if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
-    throw new TypeError("worker transport termination grace must be one positive safe integer");
-  }
-  const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(
-    input.timeoutMs,
-    input.absoluteTimeoutMs,
-  );
-  await mkdir(input.archiveRoot, { recursive: true });
-  const archiveRoot = resolve(input.archiveRoot);
-  const paths = {
-    prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
-    output: resolve(archiveRoot, `${input.label}-output.txt`),
-    stdout: resolve(archiveRoot, `${input.label}-stdout.log`),
-    stderr: resolve(archiveRoot, `${input.label}-stderr.log`),
-    transport: resolve(archiveRoot, `${input.label}-transport.json`),
-  };
-  const environment = input.environment ?? process.env;
-  const args = composeWorkerTransportArgs({
-    contract: input.contract,
-    prompt: input.prompt,
-    outputPath: paths.output,
-    lane: input.lane,
-    environment,
-    ...(input.responseJsonSchema === undefined
-      ? {}
-      : { responseJsonSchema: input.responseJsonSchema }),
-    ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
-    ...(input.explicitAppendArgs === undefined
-      ? {}
-      : { explicitAppendArgs: input.explicitAppendArgs }),
-  });
-  // Establish the archive before a paid process can emit bytes. Refuse reuse
-  // of an existing attempt archive instead of truncating retained evidence.
-  const promptBytes = Buffer.from(input.prompt, "utf8");
-  await writeFile(paths.prompt, promptBytes, { flag: "wx" });
-  await writeFile(paths.stdout, "", { flag: "wx" });
-  await writeFile(paths.stderr, "", { flag: "wx" });
+  // This catch ends before spawn. No post-launch rejection can become no-child.
+  const { paths, args, promptBytes, absoluteTimeoutMs, terminationGraceMs, env } = await (async () => {
+    assertLabel(input.label);
+    if (!Number.isSafeInteger(input.timeoutMs) || input.timeoutMs < 1) {
+      throw new TypeError("worker transport timeout must be one positive safe integer");
+    }
+    const terminationGraceMs = input.terminationGraceMs ?? 1_000;
+    if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
+      throw new TypeError("worker transport termination grace must be one positive safe integer");
+    }
+    const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(
+      input.timeoutMs,
+      input.absoluteTimeoutMs,
+    );
+    await mkdir(input.archiveRoot, { recursive: true });
+    const archiveRoot = resolve(input.archiveRoot);
+    const paths = {
+      prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
+      output: resolve(archiveRoot, `${input.label}-output.txt`),
+      stdout: resolve(archiveRoot, `${input.label}-stdout.log`),
+      stderr: resolve(archiveRoot, `${input.label}-stderr.log`),
+      transport: resolve(archiveRoot, `${input.label}-transport.json`),
+    };
+    const environment = input.environment ?? process.env;
+    const args = composeWorkerTransportArgs({
+      contract: input.contract,
+      prompt: input.prompt,
+      outputPath: paths.output,
+      lane: input.lane,
+      environment,
+      ...(input.responseJsonSchema === undefined
+        ? {}
+        : { responseJsonSchema: input.responseJsonSchema }),
+      ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
+      ...(input.explicitAppendArgs === undefined
+        ? {}
+        : { explicitAppendArgs: input.explicitAppendArgs }),
+    });
+    // Establish the archive before a paid process can emit bytes. Refuse reuse
+    // of an existing attempt archive instead of truncating retained evidence.
+    const promptBytes = Buffer.from(input.prompt, "utf8");
+    await writeFile(paths.prompt, promptBytes, { flag: "wx" });
+    await writeFile(paths.stdout, "", { flag: "wx" });
+    await writeFile(paths.stderr, "", { flag: "wx" });
+    return { paths, args, promptBytes, absoluteTimeoutMs, terminationGraceMs,
+      env: sanitizeWorkerTransportEnvironment(input.contract, environment) ?? {} };
+  })().catch(error => refuseBeforeLaunch(error, input.observer));
   const processObservation = await runProcess({
     command: input.contract.command,
     args,
     cwd: input.cwd,
-    env: sanitizeWorkerTransportEnvironment(input.contract, environment) ?? {},
+    env,
     stdin: input.contract.promptTransport === "stdin" ? input.prompt : null,
     timeoutMs: input.timeoutMs,
     absoluteTimeoutMs,
@@ -527,107 +546,124 @@ async function executeWorkerTransport(
     stderrPath: paths.stderr,
     ...(input.observer === undefined ? {} : { observer: input.observer }),
   });
-  const structuredOutputExpected = input.contract.agentKey === "claude" && args.includes("--json-schema");
-  const observation = input.contract.parser === "claude_stream_json"
-    ? observeStructuredOutput(
-        processObservation.resultBearingStdout,
-        structuredOutputExpected,
-      )
-    : {
-      structuredEventCount: 0,
-      progressEventCount:
-        processObservation.resultBearingStdout.length > 0 ? 1 : 0,
-      toolCallCount: 0,
-      toolInvocations: [],
-      apiRetryCount: 0,
-      finalOutput: processObservation.resultBearingStdout,
-    };
-  let finalOutput = observation.finalOutput;
-  let nativeResultAssessment: NativeWorkerResultAssessment | undefined;
-  if (input.observer?.assessNativeResultArtifact !== undefined) {
-    let fileOutput: string | null = null;
-    try { fileOutput = (await readFile(paths.output)).toString("utf8"); }
-    catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
-    if (fileOutput !== null && fileOutput.trim().length > 0) {
-      if (finalOutput.trim().length === 0) {
-        if (!structuredOutputExpected && input.responsePresentation !== "result_text") finalOutput = fileOutput;
+  const failed = processObservation.facts.firstError !== null || Object.hasOwn(processObservation, "finalizationError");
+  const firstError = processObservation.facts.firstError ?? processObservation.finalizationError;
+  if (processObservation.facts.scopeAbsence !== "absent" ||
+      (processObservation.facts.directExit === null && !processObservation.facts.noChildEstablished)) {
+    if (failed) throw firstError;
+    throw new TypeError("worker owned process scope remains unconfirmed");
+  }
+  // Legacy transports retain their exception contract. Current-profile owners
+  // must assess available candidates before the same original Error is thrown.
+  if (failed && input.observer?.assessNativeResultArtifact === undefined) throw firstError;
+  try {
+    const structuredOutputExpected = input.contract.agentKey === "claude" && args.includes("--json-schema");
+    const observation = input.contract.parser === "claude_stream_json"
+      ? observeStructuredOutput(
+          processObservation.resultBearingStdout,
+          structuredOutputExpected,
+        )
+      : {
+        structuredEventCount: 0,
+        progressEventCount:
+          processObservation.resultBearingStdout.length > 0 ? 1 : 0,
+        toolCallCount: 0,
+        toolInvocations: [],
+        apiRetryCount: 0,
+        finalOutput: processObservation.resultBearingStdout,
+      };
+    let finalOutput = observation.finalOutput;
+    let nativeResultAssessment: NativeWorkerResultAssessment | undefined;
+    if (input.observer?.assessNativeResultArtifact !== undefined) {
+      let fileOutput: string | null = null;
+      try { fileOutput = (await readFile(paths.output)).toString("utf8"); }
+      catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+      if (fileOutput !== null && fileOutput.trim().length > 0) {
+        if (finalOutput.trim().length === 0) {
+          if (!structuredOutputExpected && input.responsePresentation !== "result_text") finalOutput = fileOutput;
+        }
+        else {
+          let sameOutput = fileOutput === finalOutput;
+          try { sameOutput ||= canonicalJson(JSON.parse(fileOutput)) === canonicalJson(JSON.parse(finalOutput)); } catch { /* no parser repair */ }
+          if (!sameOutput) throw new TypeError("distinct worker output channels disagree; no first/last result selection");
+        }
       }
-      else {
-        let sameOutput = fileOutput === finalOutput;
-        try { sameOutput ||= canonicalJson(JSON.parse(fileOutput)) === canonicalJson(JSON.parse(finalOutput)); } catch { /* no parser repair */ }
-        if (!sameOutput) throw new TypeError("distinct worker output channels disagree; no first/last result selection");
-      }
+      nativeResultAssessment = input.observer.assessNativeResultArtifact(finalOutput);
     }
-    nativeResultAssessment = input.observer.assessNativeResultArtifact(finalOutput);
-  }
-  const failureClass = classifyWorkerTransportFailure({
-    parser: input.contract.parser,
-    lane: input.lane,
-    processStatus: processObservation.status,
-    timedOut: processObservation.timedOut,
-    terminationConfirmed: processObservation.terminationConfirmed,
-    processSpawnFailed: processObservation.launchError !== null,
-    structuredEventCount: observation.structuredEventCount,
-    toolCallCount: observation.toolCallCount,
-    apiRetryCount: observation.apiRetryCount,
-    finalOutput,
-    ...(nativeResultAssessment === undefined ? {} : { nativeResultDisposition: nativeResultAssessment.disposition }),
-  });
-  const outputBytes = Buffer.from(finalOutput, "utf8");
-  const stdoutBytes = Buffer.from(processObservation.stdout, "utf8");
-  const stderrBytes = Buffer.from(processObservation.stderr, "utf8");
-  await writeFile(paths.output, outputBytes);
-  if (sha256Bytes(await readFile(paths.stdout)) !== sha256Bytes(stdoutBytes) ||
-      sha256Bytes(await readFile(paths.stderr)) !== sha256Bytes(stderrBytes)) {
-    throw new TypeError("worker stream archive differs from observed bytes");
-  }
-  const body = {
-    ...(nativeResultAssessment === undefined ? {} : { nativeResultAssessment }),
-    kind: "worker_transport_result_candidate" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: failureClass === null ? "success" as const : "failure" as const,
-    agentKey: input.contract.agentKey,
-    lane: input.lane,
-    command: input.contract.command,
-    args,
-    status: processObservation.status,
-    signal: processObservation.signal,
-    timeoutMs: input.timeoutMs,
-    absoluteTimeoutMs,
-    timedOut: processObservation.timedOut,
-    timeoutClass: processObservation.timeoutClass,
-    exitObserved: processObservation.exitObserved,
-    terminationConfirmed: processObservation.terminationConfirmed,
-    failureClass,
-    structuredEventCount: observation.structuredEventCount,
-    progressEventCount: observation.progressEventCount,
-    toolCallCount: observation.toolCallCount,
-    toolInvocations: observation.toolInvocations,
-    apiRetryCount: observation.apiRetryCount,
-    stdout: processObservation.stdout,
-    stderr: processObservation.stderr,
-    finalOutput,
-    artifacts: {
-      prompt: artifact(paths.prompt, promptBytes),
-      output: artifact(paths.output, outputBytes),
-      stdout: artifact(paths.stdout, stdoutBytes),
-      stderr: artifact(paths.stderr, stderrBytes),
-    },
-  };
-  const transportBytes = Buffer.from(`${canonicalJson(body as unknown as JsonValue)}\n`, "utf8");
-  await writeFile(paths.transport, transportBytes);
-  const result = deepFreeze({
-    ...body,
-    artifacts: {
-      ...body.artifacts,
-      transport: artifact(paths.transport, transportBytes),
-    },
-  }) as WorkerTransportResult;
-  const persistedTransport = await readFile(paths.transport);
-  if (sha256Bytes(persistedTransport) !== result.artifacts.transport.digest) {
-    throw new TypeError("worker transport artifact changed after persistence");
-  }
-  return result;
+    const failureClass = classifyWorkerTransportFailure({
+      parser: input.contract.parser,
+      lane: input.lane,
+      processStatus: processObservation.status,
+      timedOut: processObservation.timedOut,
+      terminationConfirmed: processObservation.terminationConfirmed,
+      processSpawnFailed: processObservation.launchError !== null,
+      structuredEventCount: observation.structuredEventCount,
+      toolCallCount: observation.toolCallCount,
+      apiRetryCount: observation.apiRetryCount,
+      finalOutput,
+      ...(nativeResultAssessment === undefined ? {} : { nativeResultDisposition: nativeResultAssessment.disposition }),
+    });
+    const outputBytes = Buffer.from(finalOutput, "utf8");
+    const stdoutBytes = Buffer.from(processObservation.stdout, "utf8");
+    const stderrBytes = Buffer.from(processObservation.stderr, "utf8");
+    await writeFile(paths.output, outputBytes);
+    if (sha256Bytes(await readFile(paths.stdout)) !== sha256Bytes(stdoutBytes) ||
+        sha256Bytes(await readFile(paths.stderr)) !== sha256Bytes(stderrBytes)) {
+      throw new TypeError("worker stream archive differs from observed bytes");
+    }
+    const body = {
+      ...(nativeResultAssessment === undefined ? {} : { nativeResultAssessment }),
+      kind: "worker_transport_result_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: failureClass === null ? "success" as const : "failure" as const,
+      agentKey: input.contract.agentKey,
+      lane: input.lane,
+      command: input.contract.command,
+      args,
+      status: processObservation.status,
+      signal: processObservation.signal,
+      timeoutMs: input.timeoutMs,
+      absoluteTimeoutMs,
+      timedOut: processObservation.timedOut,
+      timeoutClass: processObservation.timeoutClass,
+      exitObserved: processObservation.exitObserved,
+      terminationConfirmed: processObservation.terminationConfirmed,
+      failureClass,
+      structuredEventCount: observation.structuredEventCount,
+      progressEventCount: observation.progressEventCount,
+      toolCallCount: observation.toolCallCount,
+      toolInvocations: observation.toolInvocations,
+      apiRetryCount: observation.apiRetryCount,
+      stdout: processObservation.stdout,
+      stderr: processObservation.stderr,
+      finalOutput,
+      artifacts: {
+        prompt: artifact(paths.prompt, promptBytes),
+        output: artifact(paths.output, outputBytes),
+        stdout: artifact(paths.stdout, stdoutBytes),
+        stderr: artifact(paths.stderr, stderrBytes),
+      },
+    };
+    const transportBytes = Buffer.from(`${canonicalJson(body as unknown as JsonValue)}\n`, "utf8");
+    await writeFile(paths.transport, transportBytes);
+    const result = deepFreeze({
+      ...body,
+      artifacts: {
+        ...body.artifacts,
+        transport: artifact(paths.transport, transportBytes),
+      },
+    }) as WorkerTransportResult;
+    const persistedTransport = await readFile(paths.transport);
+    if (sha256Bytes(persistedTransport) !== result.artifacts.transport.digest) {
+      throw new TypeError("worker transport artifact changed after persistence");
+    }
+    validatePreparedResult(result);
+    if (failed) {
+      input.observer?.onResultArtifact?.(result);
+      throw firstError;
+    }
+    return result;
+  } catch (error) { throw failed ? firstError : error; }
 }
 
 export interface PreparedWorkerTransport {
@@ -778,25 +814,25 @@ export async function runPreparedWorkerTransport(
 ): Promise<WorkerTransportResult> {
   const request = preparedTransportState.get(plan);
   if (request === undefined) {
-    throw new TypeError("worker transport plan was not prepared by this ABG module");
+    return refuseBeforeLaunch(new TypeError("worker transport plan was not prepared by this ABG module"), observer);
   }
-  const result = await executeWorkerTransport({
+  return executeWorkerTransport({
     ...request,
     ...(observer === undefined ? {} : { observer }),
+  }, result => {
+    if (
+      result.command !== plan.command ||
+      canonicalJson(result.args as unknown as JsonValue) !==
+        canonicalJson(plan.args as unknown as JsonValue)
+    ) {
+      throw new TypeError("executed worker transport differs from the prepared binding");
+    }
   });
-  if (
-    result.command !== plan.command ||
-    canonicalJson(result.args as unknown as JsonValue) !==
-      canonicalJson(plan.args as unknown as JsonValue)
-  ) {
-    throw new TypeError("executed worker transport differs from the prepared binding");
-  }
-  return result;
 }
 
 export async function runWorkerTransport(
   input: WorkerTransportRequest,
 ): Promise<WorkerTransportResult> {
-  const plan = await prepareWorkerTransport(input);
+  const plan = await prepareWorkerTransport(input).catch(error => refuseBeforeLaunch(error, input.observer));
   return runPreparedWorkerTransport(plan, input.observer);
 }

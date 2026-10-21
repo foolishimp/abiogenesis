@@ -1,0 +1,2044 @@
+{
+  "capturedUtc": "2026-10-21T12:04:56.984577+00:00",
+  "parent": "400d763d1d4c3d9e84cf30d6b830d7b975ef7089",
+  "trackedChangesBeforeWriter": 48,
+  "untrackedFilesBeforeWriter": 179,
+  "scope": "All visible tracked/untracked work; this receipt directory is added by the checkpoint Writer. Existing public commentary is included by parent history. No raw private reasoning or session logs added.",
+  "files": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 544987,
+        "sha256": "0c7cc5b47b0950dcc3dbababbb7f1c4f43ca8c824501db49422250b805da481f"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+        "bytes": 6927,
+        "sha256": "0f2cab7a1a163e1c6b01c442810a97981c496c9397d1169e92e9f05c33915453"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+        "bytes": 41692,
+        "sha256": "d56f3f08b344255da1baf9e4f0d170ff3d01394db87a3f5f5a4912803bd90d8c"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+        "bytes": 39266,
+        "sha256": "a2b7cd116db34eb500ec466812599232c12740b784323bad7ce5acbe923d4ca5"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/activation.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/activation.md",
+        "bytes": 3716,
+        "sha256": "f045af903bfde9a0adab3cf7e33c129eebbfe67451aa44d3b672defc29f0da85"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/correspondence.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/correspondence.json",
+        "bytes": 3999,
+        "sha256": "372c2887451ec16cc8b1e91ec20b042eb49af29438deb46fe360c3ededbcf817"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/freeze.json",
+        "bytes": 4747,
+        "sha256": "ef460e63939ea9e7df5536a164aab0452952f1e471f9ba89f890be40141b0131"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/input-pins.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/input-pins.json",
+        "bytes": 1629,
+        "sha256": "2434cf40e8956b7b729ee2731d8f941a7e7ebf89c51ed3ab5040d0bb9a740b50"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/01-T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/01-T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+        "bytes": 2026,
+        "sha256": "2e5d91cc3431bdcd010d8fdba8d423c3e05daaba85bd7727d2406fc1cb7650fd"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/02-T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/02-T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "bytes": 62484,
+        "sha256": "3a18f5c92a5aa1ba7c029106b6a493728a8583ba40e9f601ee028a4ec0ad898d"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/03-T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/03-T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "bytes": 78451,
+        "sha256": "8b395f108d7e52229709c60a2108ac565359d8bb8e84bd8f1386c374674dd652"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/04-L2-execution-contract.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/04-L2-execution-contract.md",
+        "bytes": 26888,
+        "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/05-GOALS.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/05-GOALS.md",
+        "bytes": 80826,
+        "sha256": "3145e64971cd2a0bbdd48e1dba8422e4b4ecd44a15177a53404d414e37b46c6d"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/06-T-287-deliver-abiogenesis-5-feature-waves.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/06-T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 544429,
+        "sha256": "4f7dc3ee8a03f7d41b61a12f2f9706eee61b40d65e64316ac65c159cd2edc1c5"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/07-CHECKPOINT_HANDOFF.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/07-CHECKPOINT_HANDOFF.md",
+        "bytes": 6069,
+        "sha256": "84559ffe8f8fe9a18a80fa19705e61a3d636c27f2026dfb2b86bba357f136659"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/validation.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/validation.json",
+        "bytes": 1539,
+        "sha256": "82d954d9f3ae449024ed8419046b6a4c4735cd54ba59766d38ee48a74e42a257"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/HOW-proposal.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/HOW-proposal.md",
+        "bytes": 13611,
+        "sha256": "07a46d2008f8059236e4cd57be007aa7029867258c7c8626051b32e6268e355e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/freeze.json",
+        "bytes": 2582,
+        "sha256": "74b4562d7d4fb4f51310cdffb525996cfba7cb6377f4f879c3337db73a8bd348"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/handoff.md",
+        "bytes": 3837,
+        "sha256": "ee9b77ee9c76ffae052a46e5f41924126b764240bf01a4d90443f5410befef20"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/mechanical-checks.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/mechanical-checks.json",
+        "bytes": 11188,
+        "sha256": "abea96adce5d4beb057021dc70577b91ffc1d28d4bc991902d1388ca65366dce"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/retirement-consumer-proof-map.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/retirement-consumer-proof-map.md",
+        "bytes": 14012,
+        "sha256": "05a9592a022e1fb7c41116c94b6b2862b186d7bba3ce4a1b4709343dd2e783bb"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/source-inputs.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01/source-inputs.json",
+        "bytes": 17534,
+        "sha256": "869aa334cba8acdf56b7d59d7ccd7d5b9280435dea649ca42cb5fb1f3cede771"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/HOW-proposal.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/HOW-proposal.md",
+        "bytes": 16448,
+        "sha256": "5e2169845cd3015ea6ed99223044b89ba7dc18788f1d73236b929f075f8356e7"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+        "bytes": 13804,
+        "sha256": "1e1f5a27f8db60f42e6369a2824e371dfb3506c7d8750b5f0a48900b635e805f"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/freeze.json",
+        "bytes": 4042,
+        "sha256": "368854bc8bb340677e7afd278c4ca69e30b2f6355899073b426298c9fccf0e0a"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/handoff.md",
+        "bytes": 3192,
+        "sha256": "bb144341615202866b3ed8e7a0a09a1254ed0bc9a558ff435270e9d6e6efe2fb"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/mechanical-checks.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/mechanical-checks.json",
+        "bytes": 14983,
+        "sha256": "5ad2338761c624663bcd44d666a73428ffb8a9e7bd528e2153b293aac1a8f83a"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/retirement-consumer-proof-map.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/retirement-consumer-proof-map.md",
+        "bytes": 16938,
+        "sha256": "4489f719421c8ba8bbd9780f767d6abc64b4facc8f63d92b48bfe6b62733c605"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/review-and-decision.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/review-and-decision.md",
+        "bytes": 3491,
+        "sha256": "8f20ce5c033fb467b1c7066abe70e193d8e9b30f0fa2396cc0903617ebd30cf8"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/source-correspondence.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/source-correspondence.json",
+        "bytes": 2774,
+        "sha256": "e45bb40415448d3bb4dbbb71ec2c1ff772fcc43aca4e5ccc432f25db9630c64c"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/source-inputs.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/source-inputs.json",
+        "bytes": 17534,
+        "sha256": "869aa334cba8acdf56b7d59d7ccd7d5b9280435dea649ca42cb5fb1f3cede771"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+        "bytes": 106375,
+        "sha256": "7e386ce83f150bc551d607e67856e149aeda9e5f7a57c120913cc49021bf0e2f"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md",
+        "bytes": 7905,
+        "sha256": "7200083168804b096e0c3d3eb5d6eb5090e138a6fa3513c61885426f2fb69e6c"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/freeze.json",
+        "bytes": 21503,
+        "sha256": "2c2ee5c5d8ed824176592775a0f1d63b1c8a277e375240f8bd9c7485339bc772"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/handoff.md",
+        "bytes": 2141,
+        "sha256": "7cca96ebb8e8bc3ef6bb7207e38fba16eaf9e2b980c881ec254112d9d9000167"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/inputs.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/inputs.json",
+        "bytes": 17491,
+        "sha256": "07b8b93555c836d812862b75fa345a31863edcd01d16a132d1fc8e3f11ca79d2"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/outputs.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/outputs.json",
+        "bytes": 2191,
+        "sha256": "7295b7df682821ac75c6c355abf4484967d41436127e7dd08180c10b5fc0447f"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages.json",
+        "bytes": 3001,
+        "sha256": "f04309fbc7a9093111bcb9e65a854e3626f823d223e7344d15de1128884ed90d"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 543087,
+        "sha256": "3f714076463b23860cffde548402d3096570a1c83837929c50789978b3d5cecc"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+        "bytes": 6243,
+        "sha256": "5cade56357259b567ce21638035b66064f4306106c4506d1b5ddd8e535075021"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+        "bytes": 37283,
+        "sha256": "281a4e31840203fb249ce9cf1d10ca5d3d07f0769fb9175080e7514bae489615"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 63515,
+        "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+        "bytes": 3494,
+        "sha256": "8ec79201b0b381f212b522674041d263fea2f907d85f3d8fb5f67d1db74eb31c"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "bytes": 67023,
+        "sha256": "dfb98d80113aaf150e05a09577d4cc3898b339e33426790f878ed02c90b89d5c"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/specification/GOALS.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/specification/GOALS.md",
+        "bytes": 80771,
+        "sha256": "de61b7775584087d7b69e4dbef4f3c536154ac06673f78dadb0db36687ce08fc"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/readiness.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/readiness.json",
+        "bytes": 3184,
+        "sha256": "605ae4ed76e747151227f9288977c82b5cc283e1fd3432019a6ab41c14488ba3"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+        "bytes": 7204,
+        "sha256": "dd7fc152f278fdd0b3218fa9e300568d4c7c178b4a63b92ef304f9fa7832a3d5"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+        "bytes": 46737,
+        "sha256": "8e2d80491a2ef9791e64f13df06cdcf9adaf793f7155eace52fbe9a4e16113a9"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/freeze.json",
+        "bytes": 9651,
+        "sha256": "f46164cd09d190feac86c1f375b1f404a05ec46c0526f8341379bf31c291b686"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/handoff.md",
+        "bytes": 3350,
+        "sha256": "c147d79ded20c27072a200db66ac4713102b061b0562ab456efdb0c30b4e2e6f"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/mechanical-checks.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/mechanical-checks.json",
+        "bytes": 12309,
+        "sha256": "6840aad7f285864784ee09907513641be589e8d19546dced87c8edd85f5f904b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/plan.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/plan.md",
+        "bytes": 4582,
+        "sha256": "4fda7cd6aec9f51f56c68a7f17b0505ed7064903c8240c137014f06a2b26480f"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preflight.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preflight.json",
+        "bytes": 6175,
+        "sha256": "d642c45ffdacc8215567c0f5f632c70afa66060d53975ff0159814c4ed0f7b7d"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 544166,
+        "sha256": "1be36d26eae8f673fccbc95de2918f6123f4d34a27462d93d3e92505eaa0d73a"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+        "bytes": 5685,
+        "sha256": "6899d3117792f37e3d2c5b8c809e227b7f1f4954c868f32c2e738329dfe7be81"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+        "bytes": 32157,
+        "sha256": "9c1e55b2897d69783eb6c93f050cd94ef7dbfbcafd21d5861a10ed7f4915534e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/specification/GOALS.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/preimages/specification/GOALS.md",
+        "bytes": 80810,
+        "sha256": "be077885bffdb6b7104a09d2601534d9420a2d63bb26e3b31a48bddfe21a59b7"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/readiness.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/readiness.json",
+        "bytes": 1347,
+        "sha256": "0610839c6274ceb3b6a88821b2e4a7bbd35a6a45b0858fff83414474b6b2ad1d"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md",
+        "bytes": 6291,
+        "sha256": "1627d4bb125c5d26b986e56ccca55daa42e3fd8230e0b02fe1a80231906139e3"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/successor.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/successor.json",
+        "bytes": 1422,
+        "sha256": "657902d6852b044d4d353d8386edde6d0d2ce1c94e0d5e14b1a5d8752ab2fda4"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/HOW-proposal.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/HOW-proposal.md",
+        "bytes": 17980,
+        "sha256": "7d210ec5d396500861d9494d1d972be69a939717cb48b1af7f3f288a9feb4bae"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/activation.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/activation.md",
+        "bytes": 3231,
+        "sha256": "0dd08059e41d17604f764cd39f2547e7ffe0afca41d8e216383e97f6c30ed4af"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/authority-observations/L2-coordination-successor.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/authority-observations/L2-coordination-successor.md",
+        "bytes": 37283,
+        "sha256": "281a4e31840203fb249ce9cf1d10ca5d3d07f0769fb9175080e7514bae489615"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/closing-verification.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/closing-verification.json",
+        "bytes": 1072,
+        "sha256": "60e8cd6a81135698ab6862f8e4a7e2335c413277172a7a9c0addd597c830465e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/freeze.json",
+        "bytes": 10332,
+        "sha256": "c74eb5b128c18a16a92274f79aaf79dc78b764a8d7f2fb4ee90388a7dab05cda"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/handoff.md",
+        "bytes": 1299,
+        "sha256": "e4ca4b03533fbe727c5ae46e0d05af7e678ca4c32f4b4f0b525ff8051edee3c5"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/input-pins.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/input-pins.json",
+        "bytes": 8071,
+        "sha256": "ed39e40c52654e0804c3d5a54edd2d44f68ee371c42668d1e269fc50b93ccc8b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/retirement-and-proof.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/retirement-and-proof.md",
+        "bytes": 7235,
+        "sha256": "8c9338982be0f0f8b1e190aa203d8662f6fa121c82e6a1624ea28f7d76b123b1"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/source-correspondence.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/source-correspondence.json",
+        "bytes": 3607,
+        "sha256": "f109585e78af37967faa8b7c5bab956d1deda30f2e6a8003cd042aa39ca8b266"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/HOW-proposal.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/HOW-proposal.md",
+        "bytes": 20675,
+        "sha256": "122df37438d9f5930fcc83a3159bc0b3b8b5e6927c4546288a32d11a8a96a910"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/closing-verification.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/closing-verification.json",
+        "bytes": 1050,
+        "sha256": "25352cc4e0de9507df69f29b1fb067ca479bbc80f939977207acf60b283008dd"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/freeze.json",
+        "bytes": 6248,
+        "sha256": "6114dba2945fca732df86e852b638261da876c91df31263c8289c871137020ee"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/handoff.md",
+        "bytes": 1081,
+        "sha256": "7b49bda278024b873265c801199fbfc30865c38d90a8d1b3a8c7fda656f45efe"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/predecessor-and-source-correspondence.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/predecessor-and-source-correspondence.json",
+        "bytes": 4585,
+        "sha256": "25dc3eababe8a46acf2de22f1676d827024928e0a61e8b89377f4cdef5adab46"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+        "bytes": 18209,
+        "sha256": "f7716401acf2a29ea6aa9055b07031f1b88178ddf7cbf467cdb3fa3064cc6a3a"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/retirement-and-proof.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/retirement-and-proof.md",
+        "bytes": 8107,
+        "sha256": "4b9fbc2fa8a39dc8f46e90f2108e1cd3d12d93ba50f224ea6c9076ef910f6153"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/review-and-disposition.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/review-and-disposition.md",
+        "bytes": 2105,
+        "sha256": "9821e292443de30bb9d7d105e1f5d96bd11d9f44c7b6b9ce08887458aed6cea6"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md",
+        "bytes": 13892,
+        "sha256": "8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/activation.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/activation.md",
+        "bytes": 2288,
+        "sha256": "9ed6ea23443075b9192b61658cf2c70a21e5abf4a40a5482fc5baa0df824cf26"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/closing-correspondence.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/closing-correspondence.json",
+        "bytes": 1323,
+        "sha256": "7d6f1f6c88e148acb1a56892afb7e1902eb52f9f349ee669e0f1c425281091c0"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/closing-verification.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/closing-verification.json",
+        "bytes": 544,
+        "sha256": "3c1bf6193b7636246ce11c4c5d22e8595e965aacf4ab275b77f9bf9ccfacf907"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/freeze.json",
+        "bytes": 7400,
+        "sha256": "93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/handoff.md",
+        "bytes": 1268,
+        "sha256": "ef99c237bb390f3c41ac1d8a303a4c401c0b9be2e14251a140a2627d42170300"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/input-pins.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/input-pins.json",
+        "bytes": 4877,
+        "sha256": "5b68ee98ce78dac555b4cb8e19c6f2b4214b3fb263c5033f1302592cefb92b96"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/preimages/L2-starting-cut.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/preimages/L2-starting-cut.md",
+        "bytes": 29684,
+        "sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/preimages/worksite_command_execution.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/preimages/worksite_command_execution.ts",
+        "bytes": 39519,
+        "sha256": "ec709a3b74b4d5ff6a522083f779a7971739167d30f132dd87d8bcbb2ad4fce3"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/preimages/worksite_command_helper.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/preimages/worksite_command_helper.ts",
+        "bytes": 62395,
+        "sha256": "d8bddd8487e78babc8b1ee6df86215c112973cb9b093e7a4242c4684b7a56e3f"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/activation.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/activation.md",
+        "bytes": 1776,
+        "sha256": "4f5a14731a42cbf886ec6a780d049c7839175df40ec25d8c69e6c6572d52a6f0"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/freeze.json",
+        "bytes": 13132,
+        "sha256": "4bfdf7e28575dbf9b3f2cffc23b4f25e49ce16b37f5ec643c6ecec96acbfc1c0"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/handoff.md",
+        "bytes": 6688,
+        "sha256": "4ad2bf7c732d2fe382c645ae1dbf672f6efa5a37d18896c12fb58a57186782a2"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/input-pins.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/input-pins.json",
+        "bytes": 6091,
+        "sha256": "60c697f15f3a4fb26918ee070c3916bd42cff658040e87191dbe42f5b67e871c"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 60131,
+        "sha256": "d7b779a0cbb86059135682ecc63b36ae3f5bd6fdba748bec43d258d8fcd44126"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+        "bytes": 90807,
+        "sha256": "35d850a10e68ba417a6d4a92ac739eb9f3190e92e164a3cdbf04d644b70fc1cd"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+        "bytes": 113259,
+        "sha256": "adb5cfb380f2ab38d7e0a77fd70ae96cd227c9b2680458083359849655769099"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 79621,
+        "sha256": "a7543cf4675c48f065d3dd3c8a1d9fb3470a0869a1d264014f4fae9d48b607f6"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 32848,
+        "sha256": "8f04a97ee6bf99fbdd18a4bd6a9816048dfa08c83c9a2d0704e86f3fb683e51e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+        "bytes": 9845,
+        "sha256": "66bfba79ae9abe7bfa7ae2d2df2cffced28bdeac492c1f01bbbf0e7067870ce2"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+        "bytes": 3280,
+        "sha256": "1b35403af5532bf5b04bd3c101a9c2bfdfcbaf4f37db0ffeaccb84e7996a3cbb"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+        "bytes": 11243,
+        "sha256": "011e3fbae5975cd8ffcfd79182e55a5830019a66e2b1aa406bbcca4ff9ba4279"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 56852,
+        "sha256": "5c84d3280f147544b5152bde7e068e88dec8a050731888354935df1c1cde0b6b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+        "bytes": 39413,
+        "sha256": "d58d787586be60a643e640c1c46ffc6e8fa1bdfaedb179bd7a6b1fa17b9191fc"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-stream-drain.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-stream-drain.test.mjs",
+        "bytes": 14105,
+        "sha256": "e11cdbc9f124366f67bb6039b26639c9cadc4b4abeb6f894c0fe6e5139f6c550"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+        "bytes": 87048,
+        "sha256": "fc57f1684d311fd1967ef7b3af456c046096e0fbe518cb1bd96df942d1c0f57b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 38837,
+        "sha256": "78fc4541bcf29df031ae5486394f61c724ac913c9799422c77ffa683100b0d2e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source-correspondence.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source-correspondence.json",
+        "bytes": 7789,
+        "sha256": "b878fb5cf91a7626ad7744a89edd0e4715f4ab659f13b9cdb32e09fbef06ee14"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+        "bytes": 79640,
+        "sha256": "a834925f34806d4d9426a30f61248ba15b9e450f9d0a7ce86688fed7deec1c13"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/syntax-check.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/syntax-check.json",
+        "bytes": 6187,
+        "sha256": "1905f0e15e95158a0ea24778451d03ee5e63d321122e7d78413d7655b8530cb2"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/freeze.json",
+        "bytes": 9694,
+        "sha256": "ed4ca1b301b020ce64fa0339b5e50483351c55415567d5881e1dfd32a58c9a7b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/handoff.md",
+        "bytes": 4269,
+        "sha256": "5d99ecc6a1f164eff5c07dc9175b918a23b44754b0acd54808a96c1bfa9f22d0"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/mechanical-checks.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/mechanical-checks.json",
+        "bytes": 9409,
+        "sha256": "36a253ec1123a70a701f5fc8066b4608a828581fdca6918b2dd6e1bfa3cf1f8c"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/path-grant.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/path-grant.md",
+        "bytes": 4573,
+        "sha256": "db151c309f67ba1eaa88811ad751ae6133ec0227238b737dcc22d3ecce1c0d41"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preflight.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preflight.json",
+        "bytes": 8652,
+        "sha256": "6e86ae1a4f0208e18bc29165369a52e24638b119a28decc737b112aaf37fc905"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+        "bytes": 29684,
+        "sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+        "bytes": 36871,
+        "sha256": "784b0bc807710f5e14930730bb13475096da0595c0fae9b9d06d71d5119e00d6"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+        "bytes": 36790,
+        "sha256": "99eb6bc769e6d0cfe2096fc7d2dead581cdbf8b195289ae934f6fe467e4b755b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+        "bytes": 15317,
+        "sha256": "e978a8c6e27e297197b75619e32c946ea8891480ac236f4a5f2238847049679e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+        "bytes": 42687,
+        "sha256": "4201661ba63da261ff4dca3e1fe636682525ea0876ca288db55d5fddfc974ef5"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+        "bytes": 3558,
+        "sha256": "80800880af82e935584dfe62ec1c9f826336f280a01c482cfa25f20f57ad17d4"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+        "bytes": 14150,
+        "sha256": "0f8a4dc64164371ba6c474c09927b8bc79cd582c661a567a2a1917f3fb3f3dc3"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+        "bytes": 4293,
+        "sha256": "68753c2927d2c42aec99355968589273ad52b567bb835b9dab0311d12f137132"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+        "bytes": 20912,
+        "sha256": "86ea16b534cb9c52f3b42e898e736be84c71ce874d9056fa0fcbbf3871055c41"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+        "bytes": 5734,
+        "sha256": "29253422da6eacc3be8f13e91ddaf1a687eb30bc79975aa0a82992caf52ebd87"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/readiness.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/readiness.json",
+        "bytes": 1126,
+        "sha256": "2c0a4a33e78fa9ff7070b8884bcb2a7c5da7ee82b58ffbf2269bc9bc81211585"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch",
+        "bytes": 14522,
+        "sha256": "6553f6880eefe6fdab392fa820fefeae6c020c437b41cf34acd9ece24e5bfb0f"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/successor.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/successor.json",
+        "bytes": 3860,
+        "sha256": "fd0bffc245bf2c7521ff597118909d4cba2b34368dd13c052fd61cfd4674a064"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/activation.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/activation.json",
+        "bytes": 3129,
+        "sha256": "f0e102c4b0dfd4872bd620505adddf35cc855a8d3f34bd1746d34defb22f7de3"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff",
+        "bytes": 39570,
+        "sha256": "8c495b2bbf37b2f073fe4d03ebb16f02d0d88440d19646f863a949eb8154fa4e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/changes.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/changes.json",
+        "bytes": 2382,
+        "sha256": "3ac60738c5213220729ca2a0988704971998266291e78ad28967992a1b471155"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/freeze.json",
+        "bytes": 6401,
+        "sha256": "1bbc47ac141d00c7f6ee920d1972e0e3c1304488085e3c13a3067286cf204d1e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/handoff.md",
+        "bytes": 7163,
+        "sha256": "93905ee3ac7f906cb5cf7d966cd026862780930dbef81440041862bf195ab33a"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages.json",
+        "bytes": 1973,
+        "sha256": "ecae2725bc86a935cfb26140e32010ef3a70e613bf50cbeeaba035eb8a2b0f88"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/fixtures/language-smoke/leaf.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/fixtures/language-smoke/leaf.mjs",
+        "bytes": 3059,
+        "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/fixtures/language-structural/leaf.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/fixtures/language-structural/leaf.mjs",
+        "bytes": 10669,
+        "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/fixtures/registered-selection-product/index.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/fixtures/registered-selection-product/index.mjs",
+        "bytes": 10076,
+        "sha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/support/t287-native-work-currentness-consumers.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/support/t287-native-work-currentness-consumers.mjs",
+        "bytes": 34273,
+        "sha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/tests/t287-native-work-unknown-effect.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/tests/t287-native-work-unknown-effect.test.mjs",
+        "bytes": 37664,
+        "sha256": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/return.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/return.json",
+        "bytes": 3899,
+        "sha256": "f4470be259dfabe39f053058eb591d0dc62c909ea3b335d00bb85cffea921f95"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/source-checks.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/source-checks.json",
+        "bytes": 5593,
+        "sha256": "15940787b7a78196a875a6ca64620c973a7dde5ce2562f516d4467c3075607de"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/syntax.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/syntax.json",
+        "bytes": 2140,
+        "sha256": "cb2474e9bd5838ab85b2ed35613fa7c8999653b7bdfa42ef4d4f2202b9c39a5b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/activation.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/activation.md",
+        "bytes": 1251,
+        "sha256": "9d7ff6b9b451a5448e23e79b1b3c1426ace4e844941799534859dec2ef1ac996"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/change.diff",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/change.diff",
+        "bytes": 10238,
+        "sha256": "48a461c0b254b1de9e67b3f8e87346e7bbf7156be65d47a9b057faa3f42970d7"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/change.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/change.json",
+        "bytes": 2001,
+        "sha256": "4566fd968ac2526c1cc089629e6b5e63f6f865307fbb157c24ea7ecce24ec78d"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/freeze.json",
+        "bytes": 2108,
+        "sha256": "d24b8d7d0300f0d807fa3867ac34a93e5728ce1a5486d1aa26d5158fab421ea5"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/preimage.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/preimage.mjs",
+        "bytes": 56673,
+        "sha256": "8005d9b488b86deae56758b9241d0226a634207c7996ed24d146bfd53095cc75"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/syntax.stderr",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/syntax.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/syntax.stdout",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/syntax.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/validation.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/validation.json",
+        "bytes": 595,
+        "sha256": "f542edcbd6e266966c0650a7478515369b3222da7e37dc5d1f631d37e2021f04"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/freeze.json",
+        "bytes": 10246,
+        "sha256": "17b1b6d2fdb5ef829d1da23233a9fd240f5759b076fe09f46eec6547c521c42e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/handoff.md",
+        "bytes": 8745,
+        "sha256": "7caa35acec4c08924a75958543107f87722eed8576eb630df2352d4145975905"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/mechanical-checks.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/mechanical-checks.json",
+        "bytes": 13466,
+        "sha256": "bf2f92f623556868f2a29cedeb908bebbd6b4212acec26d81a848b0f8938a739"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preflight.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preflight.json",
+        "bytes": 4932,
+        "sha256": "52b040e50a6ce8a2410667579ecb7e32f933b797a6a7acad9cc02849d143f952"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/code/src/gtl/default_library.ts",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/code/src/gtl/default_library.ts",
+        "bytes": 19036,
+        "sha256": "9a9fa4da696482f70ec487227aa7a623f7c0b12f15b07f00600df322ec568e7b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+        "bytes": 133684,
+        "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/scripts/generate-product-manifest.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/scripts/generate-product-manifest.mjs",
+        "bytes": 48959,
+        "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/fixtures/registered-selection-product/native.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/fixtures/registered-selection-product/native.mjs",
+        "bytes": 6294,
+        "sha256": "963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/support/default-library.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/support/default-library.mjs",
+        "bytes": 8597,
+        "sha256": "b435665a743c7c7a04f0dae6a59070e521fb798c491e506c28cba8201d2c0fc3"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/support/native-registered-selection.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/support/native-registered-selection.mjs",
+        "bytes": 6494,
+        "sha256": "c2deb44c845503ea893c6803c2c7d7bc1079e8dbcd05d215a0f2fa9f85901195"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/support/root-installed-environment.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/support/root-installed-environment.mjs",
+        "bytes": 40294,
+        "sha256": "e7bcbfd831e1e710c6b4c0cee6eeeb1bf3d245b4409cc9cc4089ead21d0239d3"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/support/stdo3-run-environment.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/support/stdo3-run-environment.mjs",
+        "bytes": 5214,
+        "sha256": "81c51842c1d31366b509324eff717084f9df3cfee05c36d73411c855f10db76e"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-default-library-fulfillment.test.mjs",
+        "bytes": 44649,
+        "sha256": "c4a4865baa6e6a5d917c3a5031f5fe9b4283c220d46aaea508d304a02d35d3f7"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-default-library.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 153336,
+        "sha256": "39246ce097de388db5a162179564370b1d8f3183822ec7f1298a605b63d06f3c"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-native-registered-selection.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-native-registered-selection.test.mjs",
+        "bytes": 17327,
+        "sha256": "201eba94a0abebc65ce94917fb212a461974c6a889a7455e230576787c22516d"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "bytes": 35217,
+        "sha256": "0967cd09ec698275a9713673cc91dff0e3d902147f45f1a3d0fb8f60c98a80ad"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/preimages/test_env/tests/t287-stdo3-run-environment.test.mjs",
+        "bytes": 14629,
+        "sha256": "e45af06ccbf8ef80dda57277b99a849961ac9713641ebdc31a8a5f1a292b6cfa"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/readiness.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/readiness.json",
+        "bytes": 1336,
+        "sha256": "b7a10fe954ed8de4ce0bf3af0abf4807aa62876059546adb936103458860a3a4"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+        "bytes": 51818,
+        "sha256": "2a8b997e49f6b507b1291ee7b7ed3c4e2f04cab3e750eaa81976575b10c5d5b2"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/successor.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/successor.json",
+        "bytes": 8533,
+        "sha256": "74a5bd6a5b2f787e105fa38b44abff21e3c08f6c6782869f63fae6b6aa68a661"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/freeze.json",
+        "bytes": 25617,
+        "sha256": "ef26e01bce305de2f4b7bbcabe718d7aa61b4e1ab8622de5ce7e299f9aabb817"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/handoff.md",
+        "bytes": 2864,
+        "sha256": "eccf5e526b07d35cb25298138c0a9c1ed035407a1af5308fe56752b7e367706c"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/mechanical-checks.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/mechanical-checks.json",
+        "bytes": 33833,
+        "sha256": "6f04d882044b9c38811ac72b51745f0c944b60fa4165a3bd883ad96ed9e7eecc"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/proposal.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/proposal.md",
+        "bytes": 22380,
+        "sha256": "88cb588e3baf6fbcaedf0d0cc0fc40bad8636f2bfd15d1a37af08f811d88c5aa"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/retirement-proof-map.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/retirement-proof-map.json",
+        "bytes": 104218,
+        "sha256": "b624a398f4058ead7f9d405037561ff77ac91396db9389213cda23dd0c8204eb"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/source-pins.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/source-pins.json",
+        "bytes": 32019,
+        "sha256": "e02e02e9485cf943a035703f242953d0cec55b251353e1090ed6621d1e246a68"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/freeze.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/freeze.json",
+        "bytes": 28456,
+        "sha256": "6ef9e727844242d82295291c41847e5a1fb1417341b717c3301d53df8d1cadc0"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/handoff.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/handoff.md",
+        "bytes": 2138,
+        "sha256": "16b60f4106e26946dac4adb0e7978d278fa5dfb1f2c8a73d0e4cdd79246f47c2"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/predecessor-correspondence.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/predecessor-correspondence.json",
+        "bytes": 87180,
+        "sha256": "87a47acc08b4b9526fa695c44046e164ca802dd6d0bf92ce8dd960e47d9d741b"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/proposal.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/proposal.md",
+        "bytes": 26434,
+        "sha256": "e1ebd2047eab1aa7cfb56ce7a4384279e8a40c10dbdbdaf815442707e0e89246"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/retirement-proof-map.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/retirement-proof-map.json",
+        "bytes": 111054,
+        "sha256": "955f167580081eee0290a8add7a053b730a64f246b522c08970b28d0536580ab"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/review-and-root-decision.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/review-and-root-decision.md",
+        "bytes": 3757,
+        "sha256": "025b20ba47a929763eaea339eeda9af36882b56661124e2756be226648bd0930"
+      }
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/source-pins.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/source-pins.json",
+        "bytes": 32019,
+        "sha256": "e02e02e9485cf943a035703f242953d0cec55b251353e1090ed6621d1e246a68"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 61449,
+        "sha256": "8827b8a0dc15e1eceed4f5bf33a71b4a17ca66c201f21764d9fb53501a5166a0"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+        "bytes": 89947,
+        "sha256": "ef03c5a8461171d135784696b15b57c309c6e1457ac5017f5168fc2d3c87fa27"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+        "bytes": 113128,
+        "sha256": "908ea893f558802fa7364135f1df7d916fdf88b96537bd3dc8d216b8359d1116"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "bytes": 79492,
+        "sha256": "e5c4861c4421a59eb447bd33dc58a33f68478973ee71701da95f8fcd57f2f4f3"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 35447,
+        "sha256": "0d143356c440e95de290687ed447403ef3dc3b730f82b943344fbcc633fec137"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "bytes": 20551,
+        "sha256": "e7b88b289d7fd6e44d88c97f8b313e6b022c7dd8f8b17727775f70216b4d3e6e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+        "bytes": 36834,
+        "sha256": "46d7e17f39c60bd9e390da898d80465068ce44fffac76ada3b8afb81f8d77253"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+        "bytes": 15339,
+        "sha256": "9a18511e07412a7165cb0002a3bc711c0e02b60e4c468900255b32189ae5c78d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+        "bytes": 42720,
+        "sha256": "f6bc4b2f932a14ccad1cd79f5d2df3a1b82c93d632da5c08e52ac277e6d0542a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+        "bytes": 3402,
+        "sha256": "dd598437590529e4fba918180867ff75bdd2f7935a06f1f2135c1a5156e3d833"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+        "bytes": 14156,
+        "sha256": "9d7de4fe441d1c997b23350a36620f14d20b42f0d7f25d1df1c26a992f5714ec"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+        "bytes": 3986,
+        "sha256": "1cd7192fc9626a038bfa15edc19efae4061e5cae69299acd4fc227069562ce2e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+        "bytes": 20956,
+        "sha256": "cc5b7b278ae65b3a7b21fd8cde711d309ffd6c0e0fed576de628349ef1091f7f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/manifest.json",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/manifest.json",
+        "bytes": 13478,
+        "sha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/ASSURANCE.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/ASSURANCE.md",
+        "bytes": 87324,
+        "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+      "beforeCheckpointWriterStatus": "untracked",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+        "bytes": 156797,
+        "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 73074,
+        "sha256": "2f33121b76c80d923fc28844cca477802cc8ed7eadda9683cb391d84801ee6dc"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "bytes": 64086,
+        "sha256": "607e0576a525312bb9c515bf0d477beae14dd625047777113639073154ae10f9"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "bytes": 80053,
+        "sha256": "9af85767a2958d0551313ad0c879be6bce9dc30cc73efab5241f813e1dda1dfa"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+        "bytes": 6627,
+        "sha256": "2c7828c9b8e9319245f6180e2e63fbbc829186426e357dca15ef4bf44a1e8966"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+        "bytes": 71025,
+        "sha256": "8806d49ff31264f4904310abdf950530d744ea93aea91e588aebc5d0e06a072a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "bytes": 49817,
+        "sha256": "456eb42dac4ec0f5b24d0d250a1e086efb8aa63460b0a061d7c347b005f7165f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+        "bytes": 2704,
+        "sha256": "9ee35f0cacaacff06581007aa89d7a8814dd873c0ae42a3b848e914090089b87"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+        "bytes": 10407,
+        "sha256": "63ca4427b4509f643fb58c38dd5e231c485187ae381082f710007872356e6c95"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+        "bytes": 9862,
+        "sha256": "a81b2a8104580439f5b1f69472542782dfb4aaf76f474031fdc05f99fc6ba6ac"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs",
+        "bytes": 7987,
+        "sha256": "307a3142ef640aadba4e7cc7853914b019d4214ee0399eae8275aa4ebb40256b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+        "bytes": 7324,
+        "sha256": "d615fa0bd09282c0e79d9850afb808290e0d35f24407f4528f598e520eec3155"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+        "bytes": 8406,
+        "sha256": "89f440e0e1296b42e00d1aeb970e35ea2edea808d8ba4f9a03d0401da75b95b4"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/native-registered-selection.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+        "bytes": 40320,
+        "sha256": "3e2f5b407ac602532ee487a0f2756e1f8bd0e9a28d3c8bef73db711b192c9877"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+        "bytes": 5751,
+        "sha256": "5c9e62d673d7d4985ae44a9a59c2558f59d6f080b3e8e9c817f90dd33cea4c4d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+        "bytes": 34427,
+        "sha256": "01543d555ea3fdad5ffa0949bdcb52d2bef264090c2c2068586c2c3fab1b3569"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+        "bytes": 11789,
+        "sha256": "2595fb097d0e8f494376142e50a2604d73bd5c488caac0f7de0d4df55c2cf9c4"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 57541,
+        "sha256": "5f7bd4828ab8c58635d426b33ca42932784373d39d4ab7d9006a2d300fa1395b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+        "bytes": 44661,
+        "sha256": "cd88fbb94cf7ae378cc40022884ecf7bd07a4fcb3dc9e283ec24418c1556fece"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "bytes": 156707,
+        "sha256": "f7cc54d5fb9bbc454230287b88380e8c75bc1aeacd086af64c61a7ad5915d227"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+        "bytes": 52392,
+        "sha256": "592db1e07b159ed109e22629883f121327ef8219379d3f57ea7c5363e2d7b079"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-stream-drain.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-stream-drain.test.mjs",
+        "bytes": 14233,
+        "sha256": "011c090728dfc3e003062045325352f48e1cf14ffbc0a3a46a642678ed3d76d2"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+        "bytes": 17306,
+        "sha256": "d79dd8d587666352f5435adc0e9c1c0b07a487eac91a0ba0c77000f395d226f7"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+        "bytes": 14595,
+        "sha256": "ce809ca525bbc9ee14454a31fbf0aa36751c53973de03a207cb1518d6249fce9"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+        "bytes": 42382,
+        "sha256": "32d24f6a27b51fd431d1987748d9a0eff3fa672c8b3f6060483dee1bc95452fe"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "bytes": 35305,
+        "sha256": "e69964c0aaf222c06c59bc1e623de8939699c2a67b8823e05584b2a6f6cb2a5e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+        "bytes": 16311,
+        "sha256": "5b1a70bbe01a4edaf15cf9afee90dff30be1a18a99ba8196b642bf0303d5b0a9"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        "bytes": 57632,
+        "sha256": "e6f10ccc675f85db41e95ed82adb3acfb1efe9b00c8fbb99f5904fd810b16dfb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+        "bytes": 5806,
+        "sha256": "ccd14787f5264fb6f4e79feccb74ca5a459f37cb7ade435f538ef6b9512306b4"
+      }
+    },
+    {
+      "path": "specification/GOALS.md",
+      "beforeCheckpointWriterStatus": "tracked-change",
+      "file": {
+        "path": "specification/GOALS.md",
+        "bytes": 81771,
+        "sha256": "1dee7bc0bd9e5ed3c2939c4f4884d7f72d8c441870b4496fc7b482d2233b584f"
+      }
+    }
+  ]
+}

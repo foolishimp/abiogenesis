@@ -1,0 +1,273 @@
+{
+  "capturedUtc": "2026-10-21T10:52:30.691849+00:00",
+  "scope": "source/body/type-shape correspondence and syntax only",
+  "checks": [
+    {
+      "check": "exact preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "result": "pass"
+    },
+    {
+      "check": "exact preimage: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "result": "pass"
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "result": "pass"
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/support/t288-admission-helper-preimages.json",
+      "result": "pass"
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json",
+      "result": "pass"
+    },
+    {
+      "check": "unchanged read-only input: AGENTS.md",
+      "result": "pass"
+    },
+    {
+      "check": "unchanged read-only input: stdo_abiogenesis.json",
+      "result": "pass"
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "result": "pass"
+    },
+    {
+      "check": "JSON exact-key signature unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "only JSON duplicate body changes to delegation",
+      "result": "pass"
+    },
+    {
+      "check": "canonical predicate unchanged: hasExactKeys",
+      "result": "pass"
+    },
+    {
+      "check": "canonical predicate unchanged: hasUnicodeNulJoinedKeys",
+      "result": "pass"
+    },
+    {
+      "check": "coordinate only imports common predicate and removes identical private body",
+      "result": "pass"
+    },
+    {
+      "check": "coordinate two existing calls unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "definition mechanics only renames existing NUL relation",
+      "result": "pass"
+    },
+    {
+      "check": "misleading shared export absent without alias",
+      "result": "pass"
+    },
+    {
+      "check": "legacy consumer rename only: code/src/validator/conformance_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "legacy argument and failure path count retained: code/src/validator/conformance_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "legacy consumer rename only: code/src/product/project_read_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "legacy argument and failure path count retained: code/src/product/project_read_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "legacy consumer rename only: code/src/product/install_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "legacy argument and failure path count retained: code/src/product/install_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "legacy consumer rename only: code/src/product/catalog_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "legacy argument and failure path count retained: code/src/product/catalog_definition_bindings.ts",
+      "result": "pass"
+    },
+    {
+      "check": "t288 changes only export identity and explicit old-name absence",
+      "result": "pass"
+    },
+    {
+      "check": "93 preimage assertion and original case population retained",
+      "result": "pass"
+    },
+    {
+      "check": "live L2 amendment is append only: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "result": "pass"
+    },
+    {
+      "check": "live L2 amendment is append only: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "result": "pass"
+    },
+    {
+      "check": "module-reference inventory unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "exact four consumers now import honest name and no old named import remains",
+      "result": "pass"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    }
+  ],
+  "syntax": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "limits": "No build, typecheck, emission, runtime imports, Product/process tests, process/provider or Git execution. Existing semantic proof and independent acceptance remain for the combined isolated candidate."
+}

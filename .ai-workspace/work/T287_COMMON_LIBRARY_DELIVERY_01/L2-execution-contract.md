@@ -1,8 +1,11 @@
 # L2 common computational library execution contract
 
-**Status:** Executive-selected L2 candidate for independent design assessment. This document records `/root` Executive's conjunction; the separately activated Writer has not accepted, implemented or executed it. The general ABIogenesis 5.0 release campaign still waits for L5 library delivery acceptance.
+**Current status:** L1/L2 are accepted. The later accepted amendment in §8 makes
+Root's closed lifetime and source/role decisions operative before separately
+granted source work. Implementation, affected proof and L5 delivery acceptance
+remain open; the release gate remains closed.
 
-**R-L2-001 successor:** [independent review 01](review-L2/review-01.md) requires the bounded timing HOW clarification in §4. The rejected [original cut](review-L2/subject-01/L2-execution-contract.md) and [original freeze](L2-candidate-freeze.json) remain preserved; the ten other supported predicates retain their stated scope pending exact successor assessment. This Writer stops after the successor freeze at the USER CHECKPOINT boundary. No L3 implementation or Git action is authorized by this correction.
+**Historical R-L2-001 successor record:** [independent review 01](review-L2/review-01.md) requires the bounded timing HOW clarification in §4. The rejected [original cut](review-L2/subject-01/L2-execution-contract.md) and [original freeze](L2-candidate-freeze.json) remain preserved; the ten other supported predicates retain their stated scope pending exact successor assessment. This Writer stops after the successor freeze at the USER CHECKPOINT boundary. No L3 implementation or Git action is authorized by this correction.
 
 ## 1. Exact subject and controlling decisions
 
@@ -141,3 +144,213 @@ Two-sided retirement proves the new route is reached and the superseded selected
 L2 independent assessment and Executive disposition precede L3. L3 freezes implementation, support runner and oracles; L4 additionally freezes exact toolchain/candidate/resources and effect grant before execution. Basis drift, an unsupported owner change, missing prerequisite, first genuine failed seam, unconfirmed physical completion or required actor unavailability stops dependent work and returns exact causal evidence. Preserve first failure, actual prefix, physical residue and uncertainty; no blind retry, relabelled success or hidden effect loss.
 
 Only conjoined applicable executed obligations plus independent assessment can support L5 library delivery acceptance. That opens the release-resumption gate; genuine lifecycle, qualification and human release acceptance remain later Product decisions. This L2 candidate itself establishes none of those outcomes.
+
+## 8. Accepted retirement amendment — 2026-10-21
+
+The [accepted activation](realization/accepted-retirement-activation-01/activation.md)
+incorporates the exact lifetime HOW plus [closed correction](realization/review-checkpoint-01/review-disposition-supplement-02.md)
+(`c60296c7566ee9caae6963c9759d884b48eee2712589e5e481299e6a3843eed8`),
+and source/role D1–D3 [HOW](realization/stdo3-role-source-reentry-01/HOW-proposal.md)
+(`3f163754f48d72a2b8577c5c425951f8fa0ff5b9cd80da0d4042ad6084179c78`)
+with its [closed review constraints](realization/review-checkpoint-01/review-disposition-supplement.md).
+This later amendment controls conflicting earlier territory and retention clauses.
+
+It explicitly supersedes the earlier ordinary companion-helper retention and
+`b0582ef7…` R3.2 zero-artifact-on-transport-exception rule for genuinely assessed
+but unconsumed artifacts. Final physical facts and successful Process admission
+control terminality; raw exit only ends capture. Require prepared-plan
+correspondence before handoff; conserve committed artifacts through later probe
+failure and retain the same original Error. The complete six-step correction and
+failure cases are incorporated, not reduced to these reminders.
+
+- Lifetime Writer: five ABG files `worker_transport.ts`, `actor_process.ts`,
+  `replay.ts`, `runtime_liveness.ts`, `event_calculus.ts`; the existing fresh-process
+  helper and named affected cases in the accepted retirement/proof map, including
+  authentic F04A/rawResultOwner artifact assessment. U1 setup/test edits belong to
+  the fixture Writer. Shared lifetime/native-work-effect owners retain their contracts.
+- Fixture Writer: U1 unknown-effect test/shared currentness-consumer setup and the
+  language-smoke, language-structural and registered-selection private canonical/hash
+  implementations. Retain changed-predecessor and supplied-context cases. Numeric-key
+  ordering is shared-canonical conformance correction, not universal old/new equality;
+  renderer A JSON.stringify and structural NUL semantics remain distinct.
+- Role/source Writer: D1–D3's exact default-library source/generator/member,
+  support/fixture and affected-test territory, plus the `root-installed-environment`
+  preparation callback passing actual `bootstrapPackage`, never later `installedRoot`
+  or ambient fallback. Existing P4 source spans, policy and oracle remain unchanged.
+
+P5's existing `context.signal` cancellation guard is selected for a separate proof
+activation; preserve occurred effects, finally/first failure and existing bounds.
+One combined isolated candidate follows the disjoint source work, not per-stream
+builds. Main generated bytes remain unchanged. This transcription grants no
+source, test, runtime, build or Git effects; Root separately activates those steps.
+
+
+## 9. Root-selected exact-key entrypoint amendment — 2026-10-21
+
+Root selects the owner's identified inherited K01/D04/E01 common-entrypoint debt
+for the bounded [path/grant](realization/exact-key-canonical-entrypoints-01/path-grant.md)
+and [calculus amendment](calculus/L2-report.md#9-root-selected-exact-key-entrypoint-amendment--2026-10-21).
+This supersedes earlier retention of the `definition_binding_mechanics`
+`hasExactKeys` export name and its four caller spellings only. E01 retains the
+actual Unicode NUL-joined relation and every existing domain/failure decision.
+Other owners' local NUL aliases are outside this grant.
+
+The additional exact source territory is seven production files:
+`shared/{admission_predicates,operation_definition_coordinate,definition_binding_mechanics}.ts`,
+`validator/conformance_definition_bindings.ts`, and
+`product/{catalog,install,project_read}_definition_bindings.ts`. Delete the JSON
+exact-key wrapper's duplicate algorithm while retaining its typed signature and
+delegating to common `hasExactKeys`; delete the identical coordinate-private
+algorithm and import that common function. Rename the shared legacy NUL
+import/use/export and all nine calls across the four consumers to
+`hasUnicodeNulJoinedKeys`, removing the misleading export without an alias.
+There is no exact-equality substitution in the legacy NUL domain.
+
+Only `t288-admission-predicates.test.mjs` changes in proof support: honest export
+identity plus explicit absence of the old shared name. Preserve the 93 historical
+preimages and the existing type/refinement/error/trace tests. Namespace/dynamic
+inventory and exact body correspondence are recorded before edits; an additional
+material consumer or different relation returns to Root before expansion.
+
+The selected feedback disposition is two duplicate algorithm deletions and one
+misleading export rename with existing common owners, not a performance claim.
+Keep actual performance evaluation separate; the wrapper can add call overhead.
+This activation permits the two live L2 append amendments, bounded work records,
+those eight source/test files and mechanical source/syntax/type-shape checks only.
+No build/typecheck/emission, runtime imports, test/process/provider execution,
+Git, ticket/GOALS edit or Reviewer activation is granted. Main generated936 and
+the frozen role/source cut remain protected. Full affected proof and independent
+acceptance remain for the single combined isolated candidate.
+
+
+## 10. Root-selected common-consolidation design re-entry — 2026-10-21
+
+Root's [decision](realization/common-consolidation-reentry-01/decision.md),
+[plan](realization/common-consolidation-reentry-01/plan.md) and [attributed conjunction](realization/common-consolidation-reentry-01/review-conjunction.md)
+record three closed independent read-only assessments of Claude post `e567c24a…`.
+The critique is substantially upheld as a selected-library design-coverage gap.
+Original L1/L2 acceptance and real contractions retain their exact historical
+subjects; common HOW `cb8dae9f…` is unchanged pending frame-specific proposals.
+This current routing supersedes earlier candidate-ready/retention assumptions only
+where the newly selected obligations require owning re-entry.
+
+All five bounded families are selected before the combined candidate:
+
+- C1: one EC-owned lifecycle law reused by actual projectors, canonical physical
+  finalization guard and exact shared transport-field type reuse where identical.
+  Keep never-created-child/exit/scope/Actor-consumption distinctions; conjoin accepted
+  command/HTTP original-cause/final-facts/CLI-retention HOW `8fb5ca19…`/`93d088fb…`.
+- C2: retire 11 private equalities into typed common text/digest mechanics with
+  explicit owner throw/false projections. Keep seven text/throw, one digest/throw
+  (`parent_rehydration`) and three digest/false (`open_call`, `c_call`, `retry`).
+  No relocated unchecked JsonValue casts or shallow-shape admission of lazy views.
+- C3: bounded K04/K08 checked fact read/selection; inventory 13 local one bodies
+  and five common calls/three modules; retire equivalents including U1. Static
+  owner payload/digest contracts preserve malformed singleton versus absence,
+  admitted/raw/prospective categories, owner causal joins/identity/registries and
+  justified ordered-first raw behavior supported by 17 controls.
+- C4: shared synchronous canonical record framing for pendingInteractionBodyDigest,
+  completedRetryProgressPlanDigest and writeReplayBody; preserve lazy/eager
+  acquisition and sink-error/side-effect trace.
+- C5: one shallow Boolean record mechanic with truthful typed wrappers and one
+  key comparator per actual relation. Inventory five shared record/five NUL bodies
+  and 38 local guard bodies/36 files. Decide NUL collisions from actual supported
+  caller domains, not invalid erased tests alone; completed exact-key source remains.
+
+The new lifecycle partition is S2/Root priority P1 and a delivery blocker: started
+then unconfirmed before Run terminal disagrees between actor projector and EC;
+confirmed exit then Run stop without Actor terminal consumption loses EC pending
+cleanup because Run stop enumerates only actor_process_live. The latter violates
+the accepted single Actor cleanup-token law. A is an observed disagreement only,
+not a choice of which current implementation is correct. Root's b058 R3.1/R3.3
+and d3 R2.3 reacquisition selects the token frontier at matching Run stop/failure,
+distinct from pre-Run physical uncertainty and later Actor consumption; c526
+preservation did not authorize a new initiation frontier. These are source counterexamples,
+not observed incorrect Run closure; prior bounded no-counterexample review does
+not close them. Existing physical/no-child distinctions remain valid.
+
+Default to canonical implementation. Retention needs a concrete supported caller/
+outcome distinction, falsifier and owner/disposition; absence of proof stays open.
+Each target names callable contract, consumers, retired body/route, replacement,
+justified variants and affected proof. Use bounded retirement/type checks, not a
+generic duplication framework. Direct typed imports are valid callables. Preserve
+failure/equality/admission domains until expressly decided. Later owning HOW
+activation must reconcile §§1/6/9 with Product 1239–1257: optional helper deferral
+applies outside this selected library. This is not an unbounded all-helper sweep.
+
+Lifetime `4bfdf7e…`, role `17b1b6d…`, fixture `1bbc47ac…`, P5 guard `d24b8d7d…` and
+exact-key `ed4ca1b…` are frozen uncommitted source increments with syntax/static
+readiness only. Source retirement is retained; accepted command/HTTP helper design
+remains unimplemented and must conjoin C1. Historical T288 D03/04/D07/D08/D09 uptake
+remains credited; the general reader obligation does not reopen T288/T289.
+Performance, a second live lazy-view bug and P5 timeout cause are not established.
+
+Root separately activates the lifecycle/value/history design Writers. Combined
+candidate, P1, P5, P4 and dependent execution are held until new design/source
+conjunction and a later exact effect grant. L4 remains partial on older subjects;
+L5 acceptance and release resumption remain closed. Last remote checkpoint
+`400d763…` was clean/0-0/remote-equal at that historical cut; current successor is
+uncommitted. This grant permits only the four current status/routing documents
+and this compact re-entry record. No source/test/build/import/process/Git/Reviewer
+effects; preserve prior freezes, failed cuts, common HOW and main generated936.
+
+
+## 11. Root-conjoined bounded designs and source boundary — 2026-10-21
+
+The [current conjunction](realization/common-consolidation-conjunction-01/decision.md)
+ratifies the closed frame designs and literal corrections in the owning common,
+terminal-quiescence and C2 HOWs. This section supersedes §10’s pending-proposal
+routing and affected retention assumptions. Historical L1/L2 and frozen proposals
+remain unchanged; their old live-document input pins are historical predecessors,
+not failed proofs after these announced amendments.
+
+- C1 HOW `122df37438d9f5930fcc83a3159bc0b3b8b5e6927c4546288a32d11a8a96a910`,
+  freeze `6114dba2945fca732df86e852b638261da876c91df31263c8289c871137020ee`:
+  accepted bounded DESIGN for one EC-owned lifecycle decision and exact consumers,
+  common physical artifact-read guard and selected type-field reuse. Ratify the
+  admitted pre-event matching-Run Actor census, one token/member at Run stop/failure
+  until Actor consumption, and source-terminal attribution. Supersede only b058
+  R3.3’s redundant serialized `cleanupPendingRows` payload clause. Preserve the
+  post-Run-start prohibition; physical child/unadmitted start retains unresolved
+  semantic cleanup. Source counterexamples remain implementation/proof obligations.
+- Cross-consumer HOW `8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec`,
+  freeze `93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8`:
+  accepted bounded DESIGN. Before fallible finalization, command/HTTP main retains
+  the same immutable canonical facts and raw captures outside suppressed observers,
+  preserving the original cause. Exact create-only `process-failure.json` plus the
+  internal stateless inspector supplies failure-side observation without success
+  exchange or ABG/Product promotion. Helper source remains unimplemented.
+- C3 HOW `5e2169845cd3015ea6ed99223044b89ba7dc18788f1d73236b929f075f8356e7`,
+  freeze `368854bc8bb340677e7afd278c4ca69e30b2f6355899073b426298c9fccf0e0a`:
+  accepted bounded DESIGN for 13 exactly-one retirements and checked-record/digest
+  composition, preserving filter/cardinality work, owner identity/joins/registry
+  actions and raw/owned/prospective distinctions. Both malformed execution-basis
+  null-digest partitions explicitly select owner null/refusal; common exceptions
+  and later unrelated body errors remain. C3 requires truthful C5 JSON wrappers.
+- C2/C4/C5 proposal `e1ebd2047eab1aa7cfb56ce7a4384279e8a40c10dbdbdaf815442707e0e89246`,
+  freeze `6ef9e727844242d82295291c41847e5a1fb1417341b717c3301d53df8d1cadc0`:
+  bounded callable contracts and selected retirement directions accepted, not full
+  migration/source readiness. Scope is 24 simple equality bodies, three framers,
+  five shared plus 38 local guards and five shared plus one private NUL key body.
+  Installed equality uses exactly `(value) => product.canonicalJson(value)`;
+  default-library collided/inherited keys select false through exact own-key checking.
+  O-TYPE/O-RESOURCE/O-SHAPE/O-CODEC/O-SCHEMA/O-KEY and two native composite
+  classifications remain OPEN. Their finite proof maps are required, not executed.
+
+Default common implementation; a retained variant needs a supported distinguishing
+input/outcome, owner and falsifier. Missing proof stays open. All selected C1–C5
+work is inside the library prerequisite, with no automatic 5.1 deferral. Direct
+typed imports remain valid; no generic duplication framework or new runtime is
+selected. The five earlier source freezes remain static/syntax readiness only;
+Root’s fresh 39-file/two-deletion custody verification adds no execution proof.
+
+After the authorized checkpoint, Root may separately activate dependency-ready
+C1/cross-consumer source while finite value owner decisions continue. C3 depends
+on the accepted truthful C5 wrapper contract. An unresolved owner boundary holds
+its affected value migration; complete required design/source conjunction holds
+the combined candidate/build and P1/P5/P4/dependent execution. Then one isolated
+candidate, proportionate affected/installed proof and independent L5 precede release
+resumption. No new broad design-review campaign is selected. L4 stays partial on
+older subjects; L5 and release acceptance remain absent. This transcription grants
+no source/test/build/import/process/provider/Git/Reviewer effects and preserves
+main generated936 and all prior frozen/failed cuts.

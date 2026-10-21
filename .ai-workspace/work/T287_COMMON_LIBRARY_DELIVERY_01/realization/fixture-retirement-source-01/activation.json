@@ -1,0 +1,60 @@
+{
+  "kind": "fixture-retirement-source-activation",
+  "role": "Writer",
+  "actor": "/root/stdo3_fixture_retirement_writer",
+  "decisionOwner": "/root",
+  "startedAt": "2026-10-21T10:27:12.026933+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "checkpointBasis": "400d763d1d4c3d9e84cf30d6b830d7b975ef7089",
+  "acceptedAmendment": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/freeze.json",
+    "sha256": "ef460e63939ea9e7df5536a164aab0452952f1e471f9ba89f890be40141b0131",
+    "verifiedFiles": 18,
+    "mismatches": []
+  },
+  "L2Sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec",
+  "method": {
+    "basis": "stdo://releases/v3.0.0-rc.1/",
+    "manifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+    "composition": []
+  },
+  "classification": [
+    "realization_refactor",
+    "fixture conformance correction to the existing shared canonical/digest owner"
+  ],
+  "purpose": "Retire duplicated U1 assurance setup and three private canonical/hash algorithms while preserving distinct observations, authentication and consumer obligations.",
+  "writeTerritory": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01"
+  ],
+  "grant": "Root SOURCE IMPLEMENTATION GRANT: five prepared files and one compact handoff; mechanical source and syntax checks only; freeze and stop.",
+  "preserve": [
+    "U1 supplied environment/taskFactory/onAttempt and invocation/basis identity",
+    "unknown-effect changed predecessor and successor observations",
+    "confirmed Process exit clears physical live and cleanup-live; cleanup pending persists until Actor terminal; historical uncertainty and C0 withdrawal remain",
+    "registered canonical/hash aliases",
+    "renderer A ordinary JSON.stringify output",
+    "structural NUL-key and message predicates",
+    "exact packaged ABI dependency relation",
+    "Product WHAT, main generated936 and historical evidence"
+  ],
+  "prohibited": [
+    "build",
+    "runtime import",
+    "Product or process test execution",
+    "package generation",
+    "native/provider effects",
+    "Git effects",
+    "continuation17 access",
+    "additional debt survey"
+  ],
+  "stops": [
+    "first material input mismatch or scope gap",
+    "unsupported semantic or source expansion"
+  ],
+  "return": "Exact preimages/diff/hashes, actual retirement accounting, retained obligations and source/syntax-only readiness; no execution or acceptance claim."
+}

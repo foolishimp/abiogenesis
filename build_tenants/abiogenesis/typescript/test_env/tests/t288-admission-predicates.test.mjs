@@ -61,7 +61,8 @@ test('different strength and sorting contracts remain visibly different',()=>{
  assert.equal(helpers.isNonblankNulFreeString('a\0'),false);
  assert.equal(helpers.isJsonRecordShape({notJson:()=>{}}),true);
  assert.equal(bindings.isRecord,helpers.isRecord);
- assert.equal(bindings.hasExactKeys,helpers.hasUnicodeNulJoinedKeys);
+ assert.equal(bindings.hasUnicodeNulJoinedKeys,helpers.hasUnicodeNulJoinedKeys);
+ assert.equal(Object.hasOwn(bindings,'hasExactKeys'),false);
 });
 
 test('each migrated declaration retains the exact caller type and refinement',()=>{

@@ -1,0 +1,139 @@
+{
+  "kind": "fixture-retirement-source-correspondence",
+  "classification": "Static source comparison only; no module import or Product execution",
+  "checks": [
+    {
+      "name": "one U1 setup implementation",
+      "passed": true,
+      "detail": "The unknown-effect file imports the existing setup; its small wrapper only selects the changed-predecessor bytes."
+    },
+    {
+      "name": "one paths list",
+      "passed": true,
+      "detail": "The consumer imports the shared paths list."
+    },
+    {
+      "name": "U1 existing default remains unchanged",
+      "passed": true,
+      "detail": "The only newly selected physical fixture write is gated by the new explicit argument."
+    },
+    {
+      "name": "changed content and identity are asserted",
+      "passed": true,
+      "detail": "Uses actual owner observations; no fabricated digest or observation identity."
+    },
+    {
+      "name": "shared setup remainder byte-identical",
+      "passed": true,
+      "detail": "Supplied environment/taskFactory, both onAttempt calls, invocation overrides, basis invocation identities, raw verifier, event admission and owner handles remain byte-identical outside the three declared edits."
+    },
+    {
+      "name": "authentication and C2 tests byte-identical",
+      "passed": true,
+      "detail": "Both unknown causes, all malformed/prerequisite/forged-cause cases and C2 provenance/currentness/cold assertions are preserved verbatim."
+    },
+    {
+      "name": "preflight test byte-identical",
+      "passed": true,
+      "detail": "The shape-only preflight still admits no synthetic preview rows."
+    },
+    {
+      "name": "confirmed absence and historical uncertainty separated",
+      "passed": true,
+      "detail": "These are newly authored assertions, not executed results."
+    },
+    {
+      "name": "fixtures/registered-selection-product/index.mjs domain body unchanged",
+      "passed": true,
+      "detail": "All fixture-owned behavior after the canonical/hash definitions is byte-identical."
+    },
+    {
+      "name": "fixtures/registered-selection-product/index.mjs private algorithm removed",
+      "passed": true,
+      "detail": "Static import replaces the independent algorithm; no new callable wrapper."
+    },
+    {
+      "name": "fixtures/language-smoke/leaf.mjs domain body unchanged",
+      "passed": true,
+      "detail": "All fixture-owned behavior after the canonical/hash definitions is byte-identical."
+    },
+    {
+      "name": "fixtures/language-smoke/leaf.mjs private algorithm removed",
+      "passed": true,
+      "detail": "Static import replaces the independent algorithm; no new callable wrapper."
+    },
+    {
+      "name": "fixtures/language-structural/leaf.mjs domain body unchanged",
+      "passed": true,
+      "detail": "All fixture-owned behavior after the canonical/hash definitions is byte-identical."
+    },
+    {
+      "name": "fixtures/language-structural/leaf.mjs private algorithm removed",
+      "passed": true,
+      "detail": "Static import replaces the independent algorithm; no new callable wrapper."
+    },
+    {
+      "name": "registered export aliases retained",
+      "passed": true,
+      "detail": "Existing native and recursive imports keep their canonical/hash names; numeric-key hashing now selects the same shared owner as ABG."
+    },
+    {
+      "name": "structural NUL predicates unchanged",
+      "passed": true,
+      "detail": "Both existing NUL-based relations remain byte-identical."
+    },
+    {
+      "name": "no introduced trailing whitespace",
+      "passed": true,
+      "detail": "Five selected source files checked without Git operations."
+    },
+    {
+      "name": "existing packaged Product compatibility projection",
+      "passed": true,
+      "detail": "The source-owned shared functions retain ownership; Product index is their existing export projection."
+    },
+    {
+      "name": "existing packers bind exact dependency",
+      "passed": true,
+      "detail": "No package or packer source was changed by this activation; execution of installed dependency resolution remains pending."
+    }
+  ],
+  "passed": true,
+  "preservedInputPins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "bytes": 9744
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23",
+      "bytes": 25105
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "sha256": "df472b160de488183ecb1f472070886e4f5c011b6062f54efa00cb6ad98091c9",
+      "bytes": 1709
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/digests.ts",
+      "sha256": "dbb2c3d0a718dfc11abbfea5aadb184c8956de29dfbff8c64aea465c691a49fb",
+      "bytes": 1270
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "bytes": 21826
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "bytes": 7076
+    }
+  ]
+}

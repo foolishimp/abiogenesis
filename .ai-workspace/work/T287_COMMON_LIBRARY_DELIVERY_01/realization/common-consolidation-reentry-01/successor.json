@@ -1,0 +1,30 @@
+{
+  "kind": "documentation-only-current-routing-successor",
+  "changes": [
+    {
+      "path": "specification/GOALS.md",
+      "preimageSha256": "be077885bffdb6b7104a09d2601534d9420a2d63bb26e3b31a48bddfe21a59b7",
+      "successorSha256": "de61b7775584087d7b69e4dbef4f3c536154ac06673f78dadb0db36687ce08fc",
+      "bytes": 80771
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimageSha256": "1be36d26eae8f673fccbc95de2918f6123f4d34a27462d93d3e92505eaa0d73a",
+      "successorSha256": "3f714076463b23860cffde548402d3096570a1c83837929c50789978b3d5cecc",
+      "bytes": 543087
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "preimageSha256": "6899d3117792f37e3d2c5b8c809e227b7f1f4954c868f32c2e738329dfe7be81",
+      "successorSha256": "5cade56357259b567ce21638035b66064f4306106c4506d1b5ddd8e535075021",
+      "bytes": 6243
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "preimageSha256": "9c1e55b2897d69783eb6c93f050cd94ef7dbfbcafd21d5861a10ed7f4915534e",
+      "successorSha256": "281a4e31840203fb249ce9cf1d10ca5d3d07f0769fb9175080e7514bae489615",
+      "bytes": 37283
+    }
+  ],
+  "limits": "Only current status/routing in GOALS/T287/CHECKPOINT_HANDOFF and append-only L2 section 10; no common HOW/source/test/evidence mutation."
+}

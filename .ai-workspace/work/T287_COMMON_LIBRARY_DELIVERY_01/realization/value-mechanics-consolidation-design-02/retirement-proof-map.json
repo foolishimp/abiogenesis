@@ -1,0 +1,2656 @@
+{
+  "kind": "bounded-value-mechanics-retirement-and-proof-map",
+  "status": "bounded corrected proposal; 24 equality bodies selected; six owner obligations and two composite classifications remain open; not source-ready",
+  "sourceRoot": "build_tenants/abiogenesis/typescript/code/src",
+  "counts": {
+    "rootNamedPrivateEqualities": 11,
+    "privateFramingBodies": 3,
+    "sharedShallowBodies": 5,
+    "localShallowBodies": 38,
+    "localShallowFiles": 36,
+    "namedRecordBodies": 25,
+    "adjacentShapeAdapters": 2,
+    "sharedNulBodies": 5,
+    "nulConsumerFiles": 24,
+    "nulCallSites": 221,
+    "additionalNamedEqualitiesSelected": 3,
+    "selectedFiniteNamedEqualityFollowThrough": 10,
+    "selectedCanonicalEqualityBodies": 24,
+    "adjacentPrivateNulBodies": 1,
+    "allSelectedKeyConsumerFiles": 25,
+    "allSelectedKeyCallSites": 222
+  },
+  "canonicalEquality": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts",
+      "symbol": "sameCanonical",
+      "startLine": 175,
+      "endLine": 177,
+      "bodySha256": "c9c6d92255b59b4077c84e98003f37b2789b1c10e4a03e640dbc72f82807285e",
+      "preimage": "function sameCanonical(left: unknown, right: unknown): boolean {\n  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n}",
+      "callLines": [
+        217,
+        218,
+        219,
+        223,
+        473
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "shared/public_function_family",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+      "symbol": "sameCanonical",
+      "startLine": 1361,
+      "endLine": 1363,
+      "bodySha256": "c9c6d92255b59b4077c84e98003f37b2789b1c10e4a03e640dbc72f82807285e",
+      "preimage": "function sameCanonical(left: unknown, right: unknown): boolean {\n  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n}",
+      "callLines": [
+        1510,
+        1544,
+        1668,
+        1723,
+        1725,
+        1780
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "product/verify_product",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+      "symbol": "sameCanonical",
+      "startLine": 416,
+      "endLine": 418,
+      "bodySha256": "c9c6d92255b59b4077c84e98003f37b2789b1c10e4a03e640dbc72f82807285e",
+      "preimage": "function sameCanonical(left: unknown, right: unknown): boolean {\n  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n}",
+      "callLines": [
+        695,
+        731
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "product/public_contract_publication",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "symbol": "sameCanonical",
+      "startLine": 99,
+      "endLine": 101,
+      "bodySha256": "c9c6d92255b59b4077c84e98003f37b2789b1c10e4a03e640dbc72f82807285e",
+      "preimage": "function sameCanonical(left: unknown, right: unknown): boolean {\n  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n}",
+      "callLines": [
+        116,
+        132,
+        400,
+        569,
+        586,
+        641,
+        734,
+        781,
+        1011,
+        1013,
+        1026,
+        1116
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "product/worksite_operations",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts",
+      "symbol": "sameCanonical",
+      "startLine": 198,
+      "endLine": 200,
+      "bodySha256": "c9c6d92255b59b4077c84e98003f37b2789b1c10e4a03e640dbc72f82807285e",
+      "preimage": "function sameCanonical(left: unknown, right: unknown): boolean {\n  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n}",
+      "callLines": [
+        340,
+        341,
+        391,
+        729,
+        822,
+        1039,
+        1046,
+        1056
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "product/worksite_construction",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts",
+      "symbol": "sameCanonical",
+      "startLine": 227,
+      "endLine": 229,
+      "bodySha256": "c9c6d92255b59b4077c84e98003f37b2789b1c10e4a03e640dbc72f82807285e",
+      "preimage": "function sameCanonical(left: unknown, right: unknown): boolean {\n  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n}",
+      "callLines": [
+        326,
+        327,
+        329,
+        333,
+        334,
+        440,
+        510,
+        514,
+        515,
+        699,
+        711
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "product/worksite_branch_construction",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "symbol": "sameCanonical",
+      "startLine": 529,
+      "endLine": 531,
+      "bodySha256": "c9c6d92255b59b4077c84e98003f37b2789b1c10e4a03e640dbc72f82807285e",
+      "preimage": "function sameCanonical(left: unknown, right: unknown): boolean {\n  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n}",
+      "callLines": [
+        599,
+        603,
+        753,
+        758,
+        785,
+        805,
+        816,
+        923,
+        927,
+        931,
+        935,
+        996,
+        1002,
+        1675,
+        1834
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "abg/execution_basis",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+      "symbol": "sameCanonical",
+      "startLine": 62,
+      "endLine": 65,
+      "bodySha256": "bb396ca9915c2b35ff268cf07fa05e50a1f17b6d03513c59e03380302af762eb",
+      "preimage": "function sameCanonical(left: object, right: object): boolean {\n  return sha256Canonical(left as unknown as JsonValue) ===\n    sha256Canonical(right as unknown as JsonValue);\n}",
+      "callLines": [
+        217,
+        293,
+        349,
+        350
+      ],
+      "relation": "digest",
+      "failure": "throw",
+      "target": "shared/digests.ts::canonicalDigestEquals",
+      "owner": "hog/parent_rehydration",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "symbol": "sameCanonicalValue",
+      "startLine": 153,
+      "endLine": 160,
+      "bodySha256": "9a8c313a3e3bbc8c6f92d99a628d87d7ebbaaccde7cf08b68fc7b8d1594b8923",
+      "preimage": "function sameCanonicalValue(left: unknown, right: unknown): boolean {\n  try {\n    return sha256Canonical(left as JsonValue) ===\n      sha256Canonical(right as JsonValue);\n  } catch {\n    return false;\n  }\n}",
+      "callLines": [
+        525,
+        580,
+        581
+      ],
+      "relation": "digest",
+      "failure": "false",
+      "target": "shared/digests.ts::canonicalDigestEqualsOrFalse",
+      "owner": "abg/open_call",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "symbol": "sameCanonicalValue",
+      "startLine": 1386,
+      "endLine": 1393,
+      "bodySha256": "9a8c313a3e3bbc8c6f92d99a628d87d7ebbaaccde7cf08b68fc7b8d1594b8923",
+      "preimage": "function sameCanonicalValue(left: unknown, right: unknown): boolean {\n  try {\n    return sha256Canonical(left as JsonValue) ===\n      sha256Canonical(right as JsonValue);\n  } catch {\n    return false;\n  }\n}",
+      "callLines": [
+        1424,
+        1425,
+        4659,
+        5389,
+        5440,
+        5441,
+        5538,
+        5595,
+        5596,
+        5746
+      ],
+      "relation": "digest",
+      "failure": "false",
+      "target": "shared/digests.ts::canonicalDigestEqualsOrFalse",
+      "owner": "abg/c_call",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "symbol": "sameCanonicalRetryValue",
+      "startLine": 672,
+      "endLine": 679,
+      "bodySha256": "6d349c4f51393ffcc89e8535e487742e7b5a2254a79e1f27b047b36a53c24b37",
+      "preimage": "function sameCanonicalRetryValue(left: unknown, right: unknown): boolean {\n  try {\n    return sha256Canonical(left as JsonValue) ===\n      sha256Canonical(right as JsonValue);\n  } catch {\n    return false;\n  }\n}",
+      "callLines": [
+        702,
+        732,
+        778,
+        795,
+        796,
+        797,
+        798
+      ],
+      "relation": "digest",
+      "failure": "false",
+      "target": "shared/digests.ts::canonicalDigestEqualsOrFalse",
+      "owner": "abg/retry",
+      "selection": "Root-selected C2 obligation: original eleven",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "symbol": "sameJson",
+      "startLine": 219,
+      "endLine": 221,
+      "bodySha256": "3f676a78a659d327f1cfac9e0a4acc5f0b79f9760e710b6d186a347ed71d51f9",
+      "preimage": "function sameJson(left: unknown, right: unknown): boolean {\n  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n}",
+      "callLines": [
+        355,
+        385,
+        386,
+        1319,
+        1378,
+        1384
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "abg/project_read_ports",
+      "selection": "Root-selected C2 obligation: three bounded additional named consumers",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "symbol": "sameJson",
+      "startLine": 229,
+      "endLine": 235,
+      "bodySha256": "5ff7b769d90373740f9cbac9d681145bd4d26b85f9076e0025e61df3a9e821a9",
+      "preimage": "function sameJson(left: unknown, right: unknown): boolean {\n  try {\n    return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);\n  } catch {\n    return false;\n  }\n}",
+      "callLines": [
+        351,
+        352,
+        441,
+        646,
+        647,
+        673,
+        674,
+        675,
+        676
+      ],
+      "relation": "text",
+      "failure": "false",
+      "target": "shared/canonical_json.ts::canonicalJsonEqualsOrFalse",
+      "owner": "abg/project_read_definition_bindings",
+      "selection": "Root-selected C2 obligation: three bounded additional named consumers",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private algorithm; preserve the same owner branch/refusal/throw and exact left-before-right evaluation",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "symbol": "sameJson",
+      "startLine": 65,
+      "endLine": 68,
+      "bodySha256": "68c5fbe0490ed8790490efb8aafe61b82d8ad097d5e6e514079e1c0e278105fb",
+      "preimage": "function sameJson(product: ConstructionProduct, left: unknown, right: unknown): boolean {\n  return product.canonicalJson(left as JsonValue) ===\n    product.canonicalJson(right as JsonValue);\n}",
+      "callLines": [
+        87,
+        91
+      ],
+      "relation": "text-installed-encoder",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "public/installed_public_definition_call",
+      "selection": "Root-selected C2 obligation: three bounded additional named consumers",
+      "inputObligation": "owner-produced JsonValue; unknown ingress and schema/output typing are open under O-TYPE/O-RESOURCE where applicable",
+      "disposition": "delete private comparison algorithm; call the one common text equality with the required per-operand method closure; preserve owner branch/refusal/throw",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "status": "selected/current; owner/type/proof closure open; source migration not ready",
+      "invocation": "canonicalJsonEquals(left, right, (value) => product.canonicalJson(value))",
+      "retainedDependencySemantics": [
+        "fresh product.canonicalJson lookup for each operand",
+        "product receiver on each method call",
+        "absent dependency throws at method invocation; supplied closure never becomes undefined/default",
+        "first accessor/left call failure prevents right acquisition",
+        "second accessor/right call failure follows completed left encoding",
+        "original exception identity and left-before-right trace"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+      "symbol": "same",
+      "startLine": 12,
+      "endLine": 12,
+      "bodySha256": "c0539beb1953a5bef4dbe5b3d4acc05f9a2320541b8787ce91a2dcb1cc4b00cf",
+      "preimage": "const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);",
+      "callLines": [
+        41,
+        65
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "abg/registered_selection_provenance",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "symbol": "same",
+      "startLine": 29,
+      "endLine": 30,
+      "bodySha256": "826771501cd87d98a7f131cdad0eccc8830d65e83a2ff3b6c2a492e0fab1cf1b",
+      "preimage": "\nconst same=(a:unknown,b:unknown)=>canonicalJson(a as JsonValue)===canonicalJson(b as JsonValue);",
+      "callLines": [
+        109,
+        112,
+        191,
+        193,
+        194,
+        207,
+        219,
+        221,
+        238,
+        240,
+        260,
+        271,
+        273,
+        282,
+        283
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "abg/worksite_command_forward",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "symbol": "same",
+      "startLine": 43,
+      "endLine": 43,
+      "bodySha256": "c0539beb1953a5bef4dbe5b3d4acc05f9a2320541b8787ce91a2dcb1cc4b00cf",
+      "preimage": "const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);",
+      "callLines": [
+        85,
+        87,
+        98,
+        109,
+        134,
+        262,
+        279,
+        280,
+        302,
+        304,
+        307,
+        325,
+        326,
+        342,
+        343,
+        345,
+        355,
+        359,
+        361,
+        364,
+        370,
+        387,
+        392,
+        394
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "abg/worksite_construction_recovery",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "symbol": "same",
+      "startLine": 37,
+      "endLine": 39,
+      "bodySha256": "ecb58259050f814c1ba1c0834701cb60c6a070c2871882fe2acecbe594aeee1e",
+      "preimage": "function same(a: unknown, b: unknown): boolean {\n  return canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);\n}",
+      "callLines": [
+        105,
+        203,
+        273,
+        283,
+        295,
+        313,
+        325,
+        334,
+        418,
+        430,
+        462,
+        476,
+        485,
+        489,
+        490,
+        513,
+        514,
+        569,
+        600
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "abg/worksite_input_provenance",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "symbol": "same",
+      "startLine": 43,
+      "endLine": 44,
+      "bodySha256": "46a236b8e8950b935a72000d7c6cadbc05d735918ba705058d052df2df1ecef1",
+      "preimage": "\nconst same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);",
+      "callLines": [
+        48,
+        49,
+        117,
+        139,
+        141,
+        156,
+        162,
+        171,
+        173,
+        194,
+        217,
+        220,
+        222,
+        294,
+        327,
+        355,
+        362,
+        369,
+        371,
+        389,
+        395,
+        412,
+        422,
+        433,
+        459,
+        467,
+        472,
+        478,
+        481,
+        494,
+        495,
+        503,
+        538,
+        547,
+        549,
+        550,
+        551,
+        552,
+        573,
+        594,
+        595,
+        606,
+        610,
+        615,
+        622,
+        654,
+        661,
+        674,
+        695,
+        701,
+        708,
+        714,
+        718,
+        756,
+        776,
+        796
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "abg/worksite_revision",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts",
+      "symbol": "same",
+      "startLine": 82,
+      "endLine": 82,
+      "bodySha256": "3e90b250c8ea435f713b635329891a5a754dd9b344736042a6c7783e2cf6f176",
+      "preimage": "const same = (a: unknown,b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);",
+      "callLines": [
+        103,
+        115,
+        121,
+        129,
+        135,
+        140,
+        141,
+        152
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "product/worksite_command_forward",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts",
+      "symbol": "same",
+      "startLine": 57,
+      "endLine": 57,
+      "bodySha256": "c0539beb1953a5bef4dbe5b3d4acc05f9a2320541b8787ce91a2dcb1cc4b00cf",
+      "preimage": "const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);",
+      "callLines": [
+        71,
+        82,
+        130,
+        150,
+        154
+      ],
+      "relation": "text",
+      "failure": "throw",
+      "target": "shared/canonical_json.ts::canonicalJsonEquals",
+      "owner": "product/worksite_construction_recovery",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "symbol": "equal",
+      "startLine": 45,
+      "endLine": 45,
+      "bodySha256": "0a9aed12fc8312846301e17e3d3948b054c19041c3b8b3a02c405d7f88571896",
+      "preimage": "const equal = (a: unknown, b: unknown) => hash(a) === hash(b);",
+      "callLines": [
+        76,
+        93,
+        121,
+        134,
+        135,
+        136,
+        141,
+        147,
+        153,
+        163,
+        164,
+        181,
+        193,
+        258,
+        270,
+        271,
+        274,
+        276,
+        282,
+        307,
+        327,
+        344,
+        358,
+        363,
+        383,
+        386,
+        387,
+        390,
+        395,
+        398,
+        399,
+        402,
+        430,
+        456,
+        457,
+        492,
+        496,
+        516,
+        517,
+        530,
+        548,
+        566,
+        567,
+        568,
+        572
+      ],
+      "relation": "digest",
+      "failure": "throw",
+      "target": "shared/digests.ts::canonicalDigestEquals",
+      "owner": "abg/semantic_job",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "symbol": "same",
+      "startLine": 63,
+      "endLine": 63,
+      "bodySha256": "7203d522f16aff77223e3fd02b2118d8be07f49246d1ac11e76e3d8829142730",
+      "preimage": "const same = (a: unknown, b: unknown) => hash(a) === hash(b);",
+      "callLines": [
+        97,
+        98,
+        110,
+        118,
+        119,
+        121,
+        122,
+        178,
+        188,
+        194,
+        238,
+        251,
+        253,
+        255,
+        266,
+        270,
+        280,
+        281,
+        287,
+        324,
+        335,
+        342,
+        343,
+        349,
+        353,
+        371,
+        560,
+        632,
+        645,
+        663
+      ],
+      "relation": "digest",
+      "failure": "throw",
+      "target": "shared/digests.ts::canonicalDigestEquals",
+      "owner": "abg/semantic_revision",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "symbol": "equal",
+      "startLine": 42,
+      "endLine": 42,
+      "bodySha256": "0a9aed12fc8312846301e17e3d3948b054c19041c3b8b3a02c405d7f88571896",
+      "preimage": "const equal = (a: unknown, b: unknown) => hash(a) === hash(b);",
+      "callLines": [
+        259,
+        291,
+        292,
+        399,
+        414,
+        415,
+        440,
+        553,
+        710,
+        712,
+        716,
+        718,
+        723,
+        724,
+        727,
+        728,
+        733,
+        738,
+        742,
+        817,
+        832,
+        848,
+        936,
+        958,
+        959,
+        967,
+        970,
+        973,
+        976,
+        979,
+        980,
+        981,
+        989,
+        995
+      ],
+      "relation": "digest",
+      "failure": "throw",
+      "target": "shared/digests.ts::canonicalDigestEquals",
+      "owner": "product/semantic_job",
+      "status": "selected/current; owner/type/proof closure open; no blanket replacement or automatic 5.1 deferral",
+      "obligation": "Root has selected this finite recurrence; owning JsonValue producer, exact failure projection and affected proof must close before retirement is accepted.",
+      "proof": [
+        "P-EQUAL",
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "selection": "Root-selected C2 obligation: ten finite named follow-through consumers"
+    }
+  ],
+  "streamingFraming": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "symbol": "pendingInteractionBodyDigest",
+      "startLine": 7309,
+      "endLine": 7319,
+      "bodySha256": "6138c6c0065931522dfc28da74339e794bd95263fc3788c08b92fa98de3f9961",
+      "preimage": "function pendingInteractionBodyDigest(plan: Pick<OwnedPendingInteractionAdmissionPlan,\"projectedPrefix\"|\"replayState\"> & object): Sha256Digest {\n  const body = \"planRef\" in plan ? pendingInteractionPlanBody(plan as OwnedPendingInteractionAdmissionPlan) : plan as unknown as Readonly<Record<string,JsonValue>>;\n  const hash=createHash(\"sha256\");const write=(part:string)=>{hash.update(part);};write(\"{\");let comma=false;\n  for(const key of Object.keys(body).sort(compareUnicodeCodeUnits)) {\n    if(comma)write(\",\");comma=true;writeCanonicalJson(key,write);write(\":\");\n    if(key===\"projectedPrefix\") { if(plan.projectedPrefix.kind === \"validated_runtime_event_prefix\")writeCanonicalJson(body[key]!,write);else writeRuntimeEventPrefixValue(plan.projectedPrefix,write); }\n    else if(key===\"replayState\") { if(\"kind\" in plan.replayState && plan.replayState.kind === \"replay_state\")writeCanonicalJson(body[key]!,write);else writeRuntimeReplayGuardValue(plan.replayState,write); }\n    else writeCanonicalJson(body[key]!,write);\n  }\n  write(\"}\");return `sha256:${hash.digest(\"hex\")}`;\n}",
+      "callLines": [
+        6191,
+        6218,
+        6239
+      ],
+      "target": "shared/canonical_json.ts::writeCanonicalRecord",
+      "disposition": "delete private key sort/key quoting/separator/framing loop; retain owner member writer, hash sink, plan/prefix/replay authority",
+      "proof": [
+        "P-FRAME",
+        "P-PREFIX"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "symbol": "completedRetryProgressPlanDigest",
+      "startLine": 6600,
+      "endLine": 6612,
+      "bodySha256": "77ea91662e7735f13eaa792e54724c24fc4ad063566a556d5c39c7800af9ea19",
+      "preimage": "function completedRetryProgressPlanDigest(plan: OwnedCompletedRetryProgressPlan): Sha256Digest {\n  const digest = createHash(\"sha256\");\n  const write = (part: string): void => { digest.update(part, \"utf8\"); };\n  write(\"{\"); let comma = false;\n  for (const key of Object.keys(plan).sort(compareUnicodeCodeUnits)) {\n    if (comma) write(\",\"); comma = true;\n    writeCanonicalJson(key, write); write(\":\");\n    if (key === \"projectedPrefix\") writeRuntimeEventPrefixValue(plan.projectedPrefix, write);\n    else if (key === \"replayState\") writeRuntimeReplayGuardValue(plan.replayState, write);\n    else writeCanonicalJson((plan as unknown as Record<string, JsonValue>)[key]!, write);\n  }\n  write(\"}\"); return `sha256:${digest.digest(\"hex\")}`;\n}",
+      "callLines": [
+        6654
+      ],
+      "target": "shared/canonical_json.ts::writeCanonicalRecord",
+      "disposition": "delete private key sort/key quoting/separator/framing loop; retain owner member writer, hash sink, plan/prefix/replay authority",
+      "proof": [
+        "P-FRAME",
+        "P-PREFIX"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "symbol": "writeReplayBody",
+      "startLine": 2302,
+      "endLine": 2314,
+      "bodySha256": "b7bf7f38fa1f6de63247a012dd182933d1d5ab60931e5e0a5c2c863b955b1886",
+      "preimage": "function writeReplayBody(body: Readonly<Record<string, JsonValue>>,\n  selected: Readonly<Record<string, () => Iterable<JsonValue>>> | undefined, write: (part: string) => void): void {\n  write(\"{\"); let comma = false;\n  for (const key of Object.keys(body).sort(compareUnicodeCodeUnits)) {\n    if (comma) write(\",\"); comma = true; writeCanonicalJson(key, write); write(\":\");\n    const rows = selected?.[key];\n    if (rows === undefined) writeCanonicalJson(body[key]!, write);\n    else { write(\"[\"); let rowComma = false; for (const row of rows()) {\n      if (rowComma) write(\",\"); rowComma = true; writeCanonicalJson(row, write);\n    } write(\"]\"); }\n  }\n  write(\"}\");\n}",
+      "callLines": [
+        1440,
+        2300
+      ],
+      "target": "shared/canonical_json.ts::writeCanonicalRecord",
+      "disposition": "delete private key sort/key quoting/separator/framing loop; retain owner member writer, hash sink, plan/prefix/replay authority",
+      "proof": [
+        "P-FRAME",
+        "P-PREFIX"
+      ]
+    }
+  ],
+  "sharedShapeAndKeys": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "isRecord",
+      "startLine": 7,
+      "endLine": 11,
+      "bodySha256": "a46b97b297139fbaa7f81a42bfbebdb571f0a32f24569f599d668703d7909dd1",
+      "preimage": "export function isRecord(\n  value: unknown,\n): value is Readonly<Record<string, unknown>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "callLines": [],
+      "disposition": "one Boolean core / truthful delegating wrapper"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "isJsonRecord",
+      "startLine": 20,
+      "endLine": 24,
+      "bodySha256": "6df0683e6e44129a3543c26f18a6d5057eba563a049a57ee17ce5289e57c3596",
+      "preimage": "export function isJsonRecord(\n  value: JsonValue,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "callLines": [],
+      "disposition": "one Boolean core / truthful delegating wrapper"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "isJsonRecordShape",
+      "startLine": 26,
+      "endLine": 30,
+      "bodySha256": "e229358723774e68e7127d7a647e5f13f63e55ee7582f33cb17b9e470ab917cd",
+      "preimage": "export function isJsonRecordShape(\n  value: unknown,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "callLines": [],
+      "disposition": "one Boolean core / truthful delegating wrapper"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "isOptionalJsonRecord",
+      "startLine": 32,
+      "endLine": 36,
+      "bodySha256": "0dbf379c1cdf0c686fbb2fe3d7140c86976a5840ee7970676eef6bee6aede236",
+      "preimage": "export function isOptionalJsonRecord(\n  value: JsonValue | undefined,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "callLines": [],
+      "disposition": "one Boolean core / truthful delegating wrapper"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "isMutableRecord",
+      "startLine": 59,
+      "endLine": 61,
+      "bodySha256": "7cce3203c65606038795b9a93de6638c0d0785220e7bcad1392da240fa805313",
+      "preimage": "export function isMutableRecord(value: unknown): value is Record<string, unknown> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "callLines": [],
+      "disposition": "one Boolean core / truthful delegating wrapper"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "hasNulJoinedKeys",
+      "startLine": 13,
+      "endLine": 18,
+      "bodySha256": "dbca407fc8131cd13737ac6388216cbaf5ed43cf5882d472d456981e67cf73d3",
+      "preimage": "export function hasNulJoinedKeys(\n  value: Readonly<Record<string, unknown>>,\n  keys: readonly string[],\n): boolean {\n  return Object.keys(value).sort().join(\"\\0\") === [...keys].sort().join(\"\\0\");\n}",
+      "callLines": [],
+      "disposition": "retire NUL body and route callers to exact key owner after O-KEY"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "hasObjectUnicodeNulJoinedKeys",
+      "startLine": 43,
+      "endLine": 46,
+      "bodySha256": "25b5c4733e796bc57e95d5b0d2ce95f2ab4b803748ccedb55680b13824570d23",
+      "preimage": "export function hasObjectUnicodeNulJoinedKeys(value: object, keys: readonly string[]): boolean {\n  return Object.keys(value).sort(compareUnicodeCodeUnits).join(\"\\0\") ===\n    [...keys].sort(compareUnicodeCodeUnits).join(\"\\0\");\n}",
+      "callLines": [],
+      "disposition": "retire NUL body and route callers to exact key owner after O-KEY"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "hasJsonNulJoinedKeys",
+      "startLine": 52,
+      "endLine": 57,
+      "bodySha256": "61620724e8053a65aa0dd88491092b532e30e0848ce2ca61d70a357c60d98130",
+      "preimage": "export function hasJsonNulJoinedKeys(\n  value: Readonly<Record<string, JsonValue>>,\n  keys: readonly string[],\n): boolean {\n  return Object.keys(value).sort().join(\"\\0\") === [...keys].sort().join(\"\\0\");\n}",
+      "callLines": [],
+      "disposition": "retire NUL body and route callers to exact key owner after O-KEY"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "hasNulJoinedFields",
+      "startLine": 63,
+      "endLine": 68,
+      "bodySha256": "4c603d4c977822932868a7239fa86b5991fbff4e6a5ff6b8d94f7f7f58409877",
+      "preimage": "export function hasNulJoinedFields(\n  value: Readonly<Record<string, unknown>>,\n  fields: readonly string[],\n): boolean {\n  return Object.keys(value).sort().join(\"\\0\") === [...fields].sort().join(\"\\0\");\n}",
+      "callLines": [],
+      "disposition": "retire NUL body and route callers to exact key owner after O-KEY"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "hasUnicodeNulJoinedKeys",
+      "startLine": 74,
+      "endLine": 80,
+      "bodySha256": "9cc0a40df03befc9296b01bde8b46408d976a5779351925f56f59e095c5d71dc",
+      "preimage": "export function hasUnicodeNulJoinedKeys(\n  value: Readonly<Record<string, unknown>>,\n  keys: readonly string[],\n): boolean {\n  return Object.keys(value).sort(compareUnicodeCodeUnits).join(\"\\0\") ===\n    [...keys].sort(compareUnicodeCodeUnits).join(\"\\0\");\n}",
+      "callLines": [],
+      "disposition": "retire NUL body and route callers to exact key owner after O-KEY"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "hasExactKeys",
+      "startLine": 82,
+      "endLine": 90,
+      "bodySha256": "65a788dd1165eab162133ff02bc9ec8ca9181420500ba1bdba1d6f9489e9dfaa",
+      "preimage": "export function hasExactKeys(\n  value: Readonly<Record<string, unknown>>,\n  expected: readonly string[],\n): boolean {\n  const actual = Object.keys(value).sort();\n  const sortedExpected = [...expected].sort();\n  return actual.length === sortedExpected.length &&\n    actual.every((key, index) => key === sortedExpected[index]);\n}",
+      "callLines": [
+        100
+      ],
+      "disposition": "retain existing exact owner / existing Json delegate"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "symbol": "hasExactJsonKeys",
+      "startLine": 96,
+      "endLine": 101,
+      "bodySha256": "aecd10fdbb84988b9891cec7ce9ac127c7d0c8c8041056273f408dc8546b5efc",
+      "preimage": "export function hasExactJsonKeys(\n  value: Readonly<Record<string, JsonValue>>,\n  expected: readonly string[],\n): boolean {\n  return hasExactKeys(value, expected);\n}",
+      "callLines": [],
+      "disposition": "retain existing exact owner / existing Json delegate"
+    }
+  ],
+  "localShallowGuards": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "symbol": "isRecord",
+      "startLine": 167,
+      "endLine": 169,
+      "bodySha256": "84b17703753164152d80c4786200ed635ecb7b1f4a78bc4dbe7173a1727cdaa1",
+      "preimage": "function isRecord(value: JsonValue): value is { [key: string]: JsonValue } {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isJsonRecord",
+      "inputDomain": "JsonValue",
+      "jsonRefinementUnsupported": false,
+      "owner": "abg/artifact_truth",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "symbol": "isJsonRecord",
+      "startLine": 1561,
+      "endLine": 1565,
+      "bodySha256": "08a3646b5512e8596962756afd328cd80e05ca75aea3377d1b1786337eb15421",
+      "preimage": "function isJsonRecord(\n  value: JsonValue | undefined,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isOptionalJsonRecord",
+      "inputDomain": "JsonValue | undefined",
+      "jsonRefinementUnsupported": false,
+      "owner": "abg/c_call",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "symbol": "isJsonRecord",
+      "startLine": 136,
+      "endLine": 140,
+      "bodySha256": "08a3646b5512e8596962756afd328cd80e05ca75aea3377d1b1786337eb15421",
+      "preimage": "function isJsonRecord(\n  value: JsonValue | undefined,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isOptionalJsonRecord",
+      "inputDomain": "JsonValue | undefined",
+      "jsonRefinementUnsupported": false,
+      "owner": "abg/c_call_outcome",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "symbol": "record",
+      "startLine": 29,
+      "endLine": 29,
+      "bodySha256": "62d02667ee75903d9d3bb4256022342fb9f7da56492f6da33d6a8e3bdc240e70",
+      "preimage": "const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === \"object\" && x !== null && !Array.isArray(x);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/default_library",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "symbol": "isRecord",
+      "startLine": 169,
+      "endLine": 170,
+      "bodySha256": "c8684a17c78de6f1f960f7458d892574e3f82f6b7c859f5015159e61e8223308",
+      "preimage": "    const isRecord = (value: unknown): value is Readonly<Record<string, JsonValue>> =>\n      value !== null && typeof value === \"object\" && !Array.isArray(value);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/execution_basis",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "symbol": "isJsonRecord",
+      "startLine": 949,
+      "endLine": 953,
+      "bodySha256": "76aa1feb6e3d98239e4f0bbfc13d0f24cae4cfa805f6d5924b928609e21eba4f",
+      "preimage": "function isJsonRecord(\n  value: unknown,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/execution_basis",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "symbol": "record",
+      "startLine": 40,
+      "endLine": 40,
+      "bodySha256": "6b6281a55fd446ea423e3cc2b743b7e64c7783696489c0767253ef9940e48df8",
+      "preimage": "const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === \"object\" && !Array.isArray(v);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/native_work_reacquisition",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "symbol": "record",
+      "startLine": 18,
+      "endLine": 18,
+      "bodySha256": "8ed218e6b94bf35ca9273211e598132c5687c96682a863b15cb38816ee84f22a",
+      "preimage": "const record = (v: unknown): v is Readonly<Record<string, JsonValue>> => typeof v === \"object\" && v !== null && !Array.isArray(v);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/native_worksite_execution",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "symbol": "record",
+      "startLine": 56,
+      "endLine": 56,
+      "bodySha256": "50eced63fee0a57bf564199305508cbb5c34adf9757115ed065a95d0d9b1f99b",
+      "preimage": "const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === \"object\" && !Array.isArray(x);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/qualification_proof",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+      "symbol": "record",
+      "startLine": 10,
+      "endLine": 11,
+      "bodySha256": "fc2521d45034f56d18276712fcb0e8342ecfe2b0d7cdab0dd7eee7820fbd6f4d",
+      "preimage": "const record = (x: unknown): x is Readonly<Record<string, JsonValue>> =>\n  x !== null && typeof x === \"object\" && !Array.isArray(x);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/registered_selection_provenance",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "symbol": "isSemanticRecord",
+      "startLine": 1607,
+      "endLine": 1611,
+      "bodySha256": "4d6fd1c336c5f443f3199fccd53c0cc8fb93c599bfe71cd4f3c642ddc7efd64c",
+      "preimage": "function isSemanticRecord(\n  value: JsonValue | undefined,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isOptionalJsonRecord",
+      "inputDomain": "JsonValue | undefined",
+      "jsonRefinementUnsupported": false,
+      "owner": "abg/replay",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "symbol": "record",
+      "startLine": 542,
+      "endLine": 543,
+      "bodySha256": "09a6cafb17dd66dff514df7464cbf92de5703ef5f662e1517f0178d3381b2dcf",
+      "preimage": "  const record = (value: unknown): value is Readonly<Record<string, JsonValue>> =>\n    typeof value === \"object\" && value !== null && !Array.isArray(value);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/runtime_history",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "symbol": "record",
+      "startLine": 32,
+      "endLine": 34,
+      "bodySha256": "1ce94a3dc4d1b83182c33310e349332528f635b63759ad38a45bfef9ea60502f",
+      "preimage": "function record(value: unknown): value is Record<string, JsonValue> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/runtime_liveness",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+      "symbol": "record",
+      "startLine": 130,
+      "endLine": 132,
+      "bodySha256": "64e8ca6d8c3674afe89272fc093ae1bb88811c389689ef379120d7d9b6489a42",
+      "preimage": "function record(value: unknown): value is Record<string, unknown> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": false,
+      "owner": "abg/runtime_liveness_contracts",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "symbol": "record",
+      "startLine": 46,
+      "endLine": 46,
+      "bodySha256": "50eced63fee0a57bf564199305508cbb5c34adf9757115ed065a95d0d9b1f99b",
+      "preimage": "const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === \"object\" && !Array.isArray(x);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/semantic_job",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "symbol": "recordJob",
+      "startLine": 62,
+      "endLine": 62,
+      "bodySha256": "b0b88f588b83c87aff3f13240023821ccd2575267f5dc758d3c7706040eec197",
+      "preimage": "const recordJob = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === \"object\" && !Array.isArray(x);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/semantic_revision",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+      "symbol": "record",
+      "startLine": 45,
+      "endLine": 47,
+      "bodySha256": "2d1beb735d64893cb0d5f3e2fb86b5ffa2dfc56e9c815c0a7965ac60c685cd22",
+      "preimage": "function record(value: unknown): value is Readonly<Record<string, JsonValue>> {\n  return value !== null && typeof value === \"object\" && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/semantic_stage",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts",
+      "symbol": "record",
+      "startLine": 37,
+      "endLine": 37,
+      "bodySha256": "c167d37669a0d6326cf89f10846fe2488d2a03e3fb66d49ae4b9649d3b8c39ac",
+      "preimage": "const record = (x: unknown): x is Record<string, any> => typeof x === \"object\" && x !== null && !Array.isArray(x);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/stdo_environment",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "symbol": "isJsonRecord",
+      "startLine": 104,
+      "endLine": 108,
+      "bodySha256": "76aa1feb6e3d98239e4f0bbfc13d0f24cae4cfa805f6d5924b928609e21eba4f",
+      "preimage": "function isJsonRecord(\n  value: unknown,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/traversal_cursor",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "symbol": "isJsonRecord",
+      "startLine": 934,
+      "endLine": 938,
+      "bodySha256": "08a3646b5512e8596962756afd328cd80e05ca75aea3377d1b1786337eb15421",
+      "preimage": "function isJsonRecord(\n  value: JsonValue | undefined,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isOptionalJsonRecord",
+      "inputDomain": "JsonValue | undefined",
+      "jsonRefinementUnsupported": false,
+      "owner": "abg/traversal_route",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "symbol": "record",
+      "startLine": 32,
+      "endLine": 32,
+      "bodySha256": "7066a0124aeb267c0f00603e18cf70e4ad2f6b87ac1de86a46e834d03a8b234d",
+      "preimage": "const record=(v:unknown):v is Record<string,JsonValue>=>v!==null&&typeof v===\"object\"&&!Array.isArray(v);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/worksite_command_forward",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "symbol": "record",
+      "startLine": 44,
+      "endLine": 46,
+      "bodySha256": "2d1beb735d64893cb0d5f3e2fb86b5ffa2dfc56e9c815c0a7965ac60c685cd22",
+      "preimage": "function record(value: unknown): value is Readonly<Record<string, JsonValue>> {\n  return value !== null && typeof value === \"object\" && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/worksite_construction_recovery",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "symbol": "record",
+      "startLine": 34,
+      "endLine": 36,
+      "bodySha256": "3493584caff032a0443663759310b8bafb4efca418624db857d7a20c2c09665c",
+      "preimage": "function record(value: unknown): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/worksite_input_provenance",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "symbol": "record",
+      "startLine": 45,
+      "endLine": 45,
+      "bodySha256": "6b6281a55fd446ea423e3cc2b743b7e64c7783696489c0767253ef9940e48df8",
+      "preimage": "const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === \"object\" && !Array.isArray(v);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "abg/worksite_revision",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+      "symbol": "record",
+      "startLine": 8,
+      "endLine": 9,
+      "bodySha256": "aaf357840630c402a7d29cd5e61328f7dc6ad7b42dc55f7ef898384e06c42f43",
+      "preimage": "const record = (value: unknown): value is RecordValue =>\n  value !== null && typeof value === \"object\" && !Array.isArray(value);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "gtl/registered_selection",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction_recovery.ts",
+      "symbol": "record",
+      "startLine": 61,
+      "endLine": 63,
+      "bodySha256": "d01df4c2e3e416c3436adfcf38b43225d6c98bb855e72c61117b7a19085775ff",
+      "preimage": "function record(value: unknown): value is Record<string, unknown> {\n  return value !== null && typeof value === \"object\" && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": false,
+      "owner": "gtl/worksite_construction_recovery",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "symbol": "isJsonRecord",
+      "startLine": 139,
+      "endLine": 143,
+      "bodySha256": "76aa1feb6e3d98239e4f0bbfc13d0f24cae4cfa805f6d5924b928609e21eba4f",
+      "preimage": "function isJsonRecord(\n  value: unknown,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "hog/recursion_lifecycle",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "symbol": "isJsonRecord",
+      "startLine": 135,
+      "endLine": 139,
+      "bodySha256": "76aa1feb6e3d98239e4f0bbfc13d0f24cae4cfa805f6d5924b928609e21eba4f",
+      "preimage": "function isJsonRecord(\n  value: unknown,\n): value is Readonly<Record<string, JsonValue>> {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "hog/workflow_lifecycle",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "symbol": "metadataRecord",
+      "startLine": 701,
+      "endLine": 703,
+      "bodySha256": "f852945bbfe61f36fc2346838dad9137f863b892335f4c0ebfd5929699ec6efa",
+      "preimage": "function metadataRecord(value: unknown): value is Readonly<Record<string, unknown>> {\n  return value !== null && typeof value === \"object\" && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": false,
+      "owner": "product/declaration_exports",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "symbol": "record",
+      "startLine": 166,
+      "endLine": 167,
+      "bodySha256": "42d2ff88361422859536d466b3829e17f8e7529162d4423a49a2a60e6c560a09",
+      "preimage": "  const record = (item: JsonValue | undefined): item is Readonly<Record<string, JsonValue>> =>\n    item !== null && typeof item === \"object\" && !Array.isArray(item);",
+      "target": "shared/admission_predicates.ts::isOptionalJsonRecord",
+      "inputDomain": "JsonValue | undefined",
+      "jsonRefinementUnsupported": false,
+      "owner": "product/default_library",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "symbol": "record",
+      "startLine": 212,
+      "endLine": 213,
+      "bodySha256": "8124d4e5a9e855799ddee20ccba86dd2ceabfe4c43735f3a5959b321d32050d2",
+      "preimage": "  const record = (value: JsonValue | undefined): value is Readonly<Record<string, JsonValue>> =>\n    value !== null && typeof value === \"object\" && !Array.isArray(value);",
+      "target": "shared/admission_predicates.ts::isOptionalJsonRecord",
+      "inputDomain": "JsonValue | undefined",
+      "jsonRefinementUnsupported": false,
+      "owner": "product/default_library",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts",
+      "symbol": "record",
+      "startLine": 7,
+      "endLine": 7,
+      "bodySha256": "22dfd6ec7b2364bea93818d94cd4abe37e843edbd815535cbc6f49c2c1e864e7",
+      "preimage": "const record = (x: unknown): x is RecordValue => x !== null && typeof x === \"object\" && !Array.isArray(x);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "product/registered_selection_native",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+      "symbol": "isRecordEvidence",
+      "startLine": 91,
+      "endLine": 91,
+      "bodySha256": "8cf7150de606feac88a71fa09bedb23276037980e612ab1b8ee34af68cd8366a",
+      "preimage": "function isRecordEvidence(value:unknown):value is Record<string,unknown>{return typeof value===\"object\"&&value!==null&&!Array.isArray(value);}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": false,
+      "owner": "product/release_snapshot_definition_bindings",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "symbol": "record",
+      "startLine": 34,
+      "endLine": 34,
+      "bodySha256": "cab3183be9ee89f29ac68c37947b6302cd90f9eb096d1ddc9d6216782a8b42dc",
+      "preimage": "const record = (value: unknown): value is Readonly<Record<string, JsonValue>> => value !== null && typeof value === \"object\" && !Array.isArray(value);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "product/semantic_job",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts",
+      "symbol": "record",
+      "startLine": 84,
+      "endLine": 84,
+      "bodySha256": "27f172841ef8db632e8693c75b780d2f5aeab3a14609b8fc586ee86752a622f1",
+      "preimage": "const record = (v: unknown): v is Record<string, unknown> => typeof v === \"object\" && v !== null && !Array.isArray(v);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": false,
+      "owner": "product/worksite_command_forward",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts",
+      "symbol": "record",
+      "startLine": 58,
+      "endLine": 60,
+      "bodySha256": "d01df4c2e3e416c3436adfcf38b43225d6c98bb855e72c61117b7a19085775ff",
+      "preimage": "function record(value: unknown): value is Record<string, unknown> {\n  return value !== null && typeof value === \"object\" && !Array.isArray(value);\n}",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": false,
+      "owner": "product/worksite_construction_recovery",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_revision.ts",
+      "symbol": "record",
+      "startLine": 85,
+      "endLine": 85,
+      "bodySha256": "e06c38d43c6be7b6a4cead28bf45a7a8d65da76b4e1563390cae1d6d15c7febd",
+      "preimage": "const record = (x: unknown): x is Record<string, unknown> => typeof x === \"object\" && x !== null && !Array.isArray(x);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": false,
+      "owner": "product/worksite_revision",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+      "symbol": "record",
+      "startLine": 22,
+      "endLine": 22,
+      "bodySha256": "50eced63fee0a57bf564199305508cbb5c34adf9757115ed065a95d0d9b1f99b",
+      "preimage": "const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === \"object\" && !Array.isArray(x);",
+      "target": "shared/admission_predicates.ts::isRecord",
+      "inputDomain": "unknown",
+      "jsonRefinementUnsupported": true,
+      "owner": "validator/self_conformance_semantics",
+      "disposition": "selected/current C5: delete local body; import the shared guard with truthful refinement; retain owner member/admission predicates",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    }
+  ],
+  "adjacentShapeAdapters": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "symbol": "asRecord",
+      "startLine": 149,
+      "endLine": 153,
+      "bodySha256": "602dc8e50afc9d0bf5eaeb14140390cf3f353e75cbca53d645d922ba0ea0d3e6",
+      "preimage": "function asRecord(value: unknown): Readonly<Record<string, JsonValue>> | null {\n  return typeof value === \"object\" && value !== null && !Array.isArray(value)\n    ? value as Readonly<Record<string, JsonValue>>\n    : null;\n}",
+      "callLines": [
+        181,
+        214,
+        222,
+        320,
+        410,
+        439,
+        482,
+        540,
+        541
+      ],
+      "disposition": "selected adjacent type adapter: delegate shallow selection to isRecord; return UnknownRecord|null until owner JSON input is established",
+      "proof": [
+        "P-SHAPE",
+        "P-TYPES"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "symbol": "jsonRecord schema",
+      "startLine": 44,
+      "endLine": 44,
+      "preimage": "const jsonRecord = v.custom<Readonly<Record<string, JsonValue>>>(x => typeof x === \"object\" && x !== null && !Array.isArray(x));",
+      "disposition": "O-SCHEMA: existing v.custom shallow JSON claim is not valid; owner schema input/output decision before replacement. Keep only one shallow core; do not add repeated recursive validation.",
+      "proof": [
+        "P-TYPES",
+        "P-OWNER"
+      ],
+      "adjacentKeyObligation": "Root-selected exactKeys117/isFramedSynthesisResult133 collided/inherited own-key rejection; broader O-SCHEMA remains OPEN"
+    }
+  ],
+  "nulConsumers": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+      "export": "hasJsonNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        265
+      ],
+      "callCount": 1,
+      "owner": "abg/graph_application",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "export": "hasJsonNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        987,
+        1087,
+        1160,
+        1228,
+        1251,
+        1279,
+        1328,
+        1375,
+        1437
+      ],
+      "callCount": 9,
+      "owner": "abg/traversal_route",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/consensus.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        788,
+        805,
+        891,
+        911,
+        1058,
+        1821,
+        1847,
+        1879,
+        1960,
+        1996,
+        2019,
+        2047,
+        2075,
+        2125,
+        2211,
+        2221,
+        2273,
+        2291,
+        2311,
+        2397,
+        2439,
+        2452,
+        2502,
+        2540,
+        2619,
+        2683,
+        2737,
+        2793,
+        2826,
+        2892,
+        2925
+      ],
+      "callCount": 31,
+      "owner": "gtl/consensus",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/consensus_schema.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        211,
+        223,
+        240
+      ],
+      "callCount": 3,
+      "owner": "gtl/consensus_schema",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "export": "hasNulJoinedFields",
+      "localAlias": "exactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        109,
+        143
+      ],
+      "callCount": 2,
+      "owner": "implementation/worksite_command_helper",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "export": "hasUnicodeNulJoinedKeys",
+      "localAlias": "hasUnicodeNulJoinedKeys",
+      "importRoute": "../shared/definition_binding_mechanics.js",
+      "callLines": [
+        277,
+        701,
+        843
+      ],
+      "callCount": 3,
+      "owner": "product/catalog_definition_bindings",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        194,
+        540,
+        565,
+        682,
+        814,
+        974,
+        1045,
+        1112,
+        1181,
+        1212
+      ],
+      "callCount": 10,
+      "owner": "product/environment",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "export": "hasUnicodeNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        199,
+        209,
+        230,
+        522
+      ],
+      "callCount": 4,
+      "owner": "product/environment_definition_bindings",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "export": "hasUnicodeNulJoinedKeys",
+      "localAlias": "hasUnicodeNulJoinedKeys",
+      "importRoute": "../shared/definition_binding_mechanics.js",
+      "callLines": [
+        132
+      ],
+      "callCount": 1,
+      "owner": "product/install_definition_bindings",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        275,
+        320,
+        374,
+        432,
+        616,
+        644,
+        650
+      ],
+      "callCount": 7,
+      "owner": "product/invocation",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/materialization_operations.ts",
+      "export": "hasObjectUnicodeNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        208,
+        243,
+        398
+      ],
+      "callCount": 3,
+      "owner": "product/materialization_operations",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "export": "hasUnicodeNulJoinedKeys",
+      "localAlias": "hasUnicodeNulJoinedKeys",
+      "importRoute": "../shared/definition_binding_mechanics.js",
+      "callLines": [
+        124,
+        378
+      ],
+      "callCount": 2,
+      "owner": "product/project_read_definition_bindings",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+      "export": "hasObjectUnicodeNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        313,
+        321,
+        334,
+        650,
+        743,
+        838
+      ],
+      "callCount": 6,
+      "owner": "product/project_read_ports",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+      "export": "hasObjectUnicodeNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        184,
+        213,
+        225,
+        261,
+        284,
+        312,
+        344
+      ],
+      "callCount": 7,
+      "owner": "product/result_assessment_operation",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        175,
+        183,
+        194,
+        346,
+        362,
+        377,
+        384,
+        389,
+        392,
+        401,
+        406,
+        432,
+        445,
+        473,
+        499,
+        520,
+        590,
+        615,
+        646,
+        733,
+        909,
+        929,
+        959,
+        969,
+        1163,
+        1194,
+        1210,
+        1318,
+        1385
+      ],
+      "callCount": 29,
+      "owner": "product/verify_product",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        313,
+        411,
+        479,
+        498,
+        535,
+        543,
+        615,
+        631
+      ],
+      "callCount": 8,
+      "owner": "product/worksite_branch_construction",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "export": "hasNulJoinedFields",
+      "localAlias": "exactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        231,
+        234,
+        359,
+        402,
+        403,
+        769,
+        789,
+        801,
+        961,
+        999,
+        1051,
+        1071,
+        1078,
+        1081,
+        1090,
+        1101,
+        1108,
+        1118,
+        1132,
+        1191,
+        1224,
+        1604,
+        1649,
+        1660,
+        1689,
+        1699,
+        1740,
+        1757,
+        1771,
+        1785,
+        1887,
+        1927,
+        1958,
+        2081,
+        2087,
+        2103,
+        2173,
+        2264,
+        2271,
+        2276,
+        2277
+      ],
+      "callCount": 41,
+      "owner": "product/worksite_command_execution",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        207,
+        237,
+        373,
+        471,
+        551,
+        577,
+        588,
+        706,
+        788,
+        807,
+        847,
+        880,
+        893,
+        951,
+        968,
+        1008,
+        1024
+      ],
+      "callCount": 17,
+      "owner": "product/worksite_construction",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        272,
+        286,
+        295,
+        313,
+        328,
+        337,
+        458,
+        599,
+        813,
+        896,
+        1009,
+        1022,
+        1139,
+        1363,
+        1524,
+        1683,
+        1702,
+        1712,
+        1781,
+        1800,
+        1827,
+        1841,
+        1843,
+        1844,
+        1875,
+        1895,
+        1897,
+        1901
+      ],
+      "callCount": 28,
+      "owner": "product/worksite_effect",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/continuation_authority.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        135
+      ],
+      "callCount": 1,
+      "owner": "public/continuation_authority",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        175,
+        202,
+        213
+      ],
+      "callCount": 3,
+      "owner": "public/gap_authority",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+      "export": "hasNulJoinedKeys",
+      "localAlias": "hasExactKeys",
+      "importRoute": "../shared/admission_predicates.js",
+      "callLines": [
+        138
+      ],
+      "callCount": 1,
+      "owner": "public/run_projection_authority",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "export": "hasUnicodeNulJoinedKeys",
+      "localAlias": "hasUnicodeNulJoinedKeys",
+      "importRoute": "./admission_predicates.js",
+      "callLines": [
+        331
+      ],
+      "callCount": 1,
+      "owner": "shared/definition_binding_mechanics",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "export": "hasUnicodeNulJoinedKeys",
+      "localAlias": "hasUnicodeNulJoinedKeys",
+      "importRoute": "../shared/definition_binding_mechanics.js",
+      "callLines": [
+        187,
+        287,
+        329
+      ],
+      "callCount": 3,
+      "owner": "validator/conformance_definition_bindings",
+      "supportedExpectedDomain": "declared primitive string key names (literal or owner-composed); no production numeric expected key identified",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "disposition": "selected/current C5 proposed exact-shape correction; owner must approve refusal of malformed collision before implementation; no NUL algorithm retained",
+      "proof": [
+        "P-KEYS",
+        "P-OWNER"
+      ]
+    }
+  ],
+  "outsideSelectedRewrite": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "symbol": "same",
+      "reason": "identity/deep-strict/canonical three-stage contract; not a plain canonical equivalence. Existing HOW distinguishes it. No supported distinction proven in this bounded design; open to actual owner, not a justified permanent retain.",
+      "owner": "abg/native_work_reacquisition",
+      "status": "open/current-library owner classification; no broad inline rewrite authorized"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "symbol": "same",
+      "reason": "identity/deep-strict/canonical three-stage contract; not a plain canonical equivalence. Existing HOW distinguishes it. No supported distinction proven in this bounded design; open to actual owner, not a justified permanent retain.",
+      "owner": "abg/native_worksite_execution",
+      "status": "open/current-library owner classification; no broad inline rewrite authorized"
+    }
+  ],
+  "noClaim": "No source implementation, compile, runtime proof, performance improvement, installed resolution or acceptance is established by this map.",
+  "sharedUnknownShapeImportConsumers": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "sourceMentionLines": [
+        6
+      ],
+      "owner": "abg/continuation",
+      "status": "selected/current O-SHAPE; unknown stays UnknownRecord, already JsonValue uses the typed shared wrapper",
+      "proof": [
+        "P-TYPES",
+        "P-SHAPE"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "sourceMentionLines": [
+        2,
+        27,
+        30,
+        163
+      ],
+      "owner": "abg/event_body_encoding",
+      "status": "selected/current O-SHAPE; unknown stays UnknownRecord, already JsonValue uses the typed shared wrapper",
+      "proof": [
+        "P-TYPES",
+        "P-SHAPE"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "sourceMentionLines": [
+        4
+      ],
+      "owner": "abg/invocation_execution_truth",
+      "status": "selected/current O-SHAPE; unknown stays UnknownRecord, already JsonValue uses the typed shared wrapper",
+      "proof": [
+        "P-TYPES",
+        "P-SHAPE"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "sourceMentionLines": [
+        6
+      ],
+      "owner": "abg/retry",
+      "status": "selected/current O-SHAPE; unknown stays UnknownRecord, already JsonValue uses the typed shared wrapper",
+      "proof": [
+        "P-TYPES",
+        "P-SHAPE"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/canonicalization.ts",
+      "sourceMentionLines": [
+        1
+      ],
+      "owner": "gtl/canonicalization",
+      "status": "selected/current O-SHAPE; unknown stays UnknownRecord, already JsonValue uses the typed shared wrapper",
+      "proof": [
+        "P-TYPES",
+        "P-SHAPE"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+      "sourceMentionLines": [
+        1
+      ],
+      "owner": "gtl/materialize",
+      "status": "selected/current O-SHAPE; unknown stays UnknownRecord, already JsonValue uses the typed shared wrapper",
+      "proof": [
+        "P-TYPES",
+        "P-SHAPE"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "sourceMentionLines": [
+        9
+      ],
+      "owner": "product/builtin_semantics",
+      "status": "selected/current O-SHAPE; unknown stays UnknownRecord, already JsonValue uses the typed shared wrapper",
+      "proof": [
+        "P-TYPES",
+        "P-SHAPE"
+      ]
+    }
+  ],
+  "resourceSelfEncodingProbes": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "line": 240,
+      "source": "!sameJson(resources, resources)",
+      "owner": "environment_definition_bindings",
+      "status": "O-RESOURCE open/current: encodability probe is not JSON admission; owning schema/handle boundary needed before typed retirement",
+      "proof": [
+        "P-TYPES",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "line": 535,
+      "source": "!sameJson(resources, resources) ||",
+      "owner": "environment_definition_bindings",
+      "status": "O-RESOURCE open/current: encodability probe is not JSON admission; owning schema/handle boundary needed before typed retirement",
+      "proof": [
+        "P-TYPES",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "line": 143,
+      "source": "!sameJson(resources, resources) ||",
+      "owner": "install_definition_bindings",
+      "status": "O-RESOURCE open/current: encodability probe is not JSON admission; owning schema/handle boundary needed before typed retirement",
+      "proof": [
+        "P-TYPES",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "line": 290,
+      "source": "!sameJson(resources, resources) ||",
+      "owner": "catalog_definition_bindings",
+      "status": "O-RESOURCE open/current: encodability probe is not JSON admission; owning schema/handle boundary needed before typed retirement",
+      "proof": [
+        "P-TYPES",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "line": 704,
+      "source": "!sameJson(resources, resources)",
+      "owner": "catalog_definition_bindings",
+      "status": "O-RESOURCE open/current: encodability probe is not JSON admission; owning schema/handle boundary needed before typed retirement",
+      "proof": [
+        "P-TYPES",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "line": 856,
+      "source": "!sameJson(resources, resources)",
+      "owner": "catalog_definition_bindings",
+      "status": "O-RESOURCE open/current: encodability probe is not JSON admission; owning schema/handle boundary needed before typed retirement",
+      "proof": [
+        "P-TYPES",
+        "P-OWNER"
+      ]
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "line": 128,
+      "source": "sameJson(value, value);",
+      "owner": "project_read_definition_bindings",
+      "status": "O-RESOURCE open/current: encodability probe is not JSON admission; owning schema/handle boundary needed before typed retirement",
+      "proof": [
+        "P-TYPES",
+        "P-OWNER"
+      ]
+    }
+  ],
+  "adjacentPrivateKeyComparators": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "symbol": "exactKeys",
+      "startLine": 117,
+      "endLine": 117,
+      "bodySha256": "0d2892af947d54d61723a9565af8daae31a915977224abab4a78c2e40385436c",
+      "preimage": "const exactKeys = (value: object, keys: readonly string[]) => Object.keys(value).sort().join(\"\\0\") === [...keys].sort().join(\"\\0\");",
+      "callLines": [
+        133
+      ],
+      "owner": "product/default_library::isFramedSynthesisResult",
+      "target": "shared/admission_predicates.ts::hasExactKeys (object, readonly string[])",
+      "selection": "Root-selected adjacent finite C5/O-KEY and O-SCHEMA correction",
+      "disposition": "retire private NUL-joined body to exact own-key comparison; reject the collided/inherited form without a compatibility branch",
+      "predicate": {
+        "symbol": "isFramedSynthesisResult",
+        "startLine": 132,
+        "endLine": 138,
+        "bodySha256": "bc529d04c5bba2ba22f007e34bf1f0a28bc25c86de688346521ad7da10f94b2a",
+        "preimage": "export function isFramedSynthesisResult(value: unknown): value is FramedSynthesisResult {\n  if (typeof value !== \"object\" || value === null || !exactKeys(value, [\"kind\", \"schemaVersion\", \"state\", \"basis\", \"judgment\"])) return false;\n  const r = value as FramedSynthesisResult;\n  return r.kind === \"framed_synthesis_result\" && r.schemaVersion === \"5.0.0\" && isGovernanceWorkState(r.state) &&\n    v.is(synthesisBasisSchema, r.basis) && isFramedSynthesisJudgment(r.judgment) && r.basis.taskRef === r.state.original.taskRef &&\n    r.basis.previousResultRef === (r.state.synthesis?.resultRef ?? null);\n}"
+      },
+      "discriminator": {
+        "basis": "existing R satisfying isFramedSynthesisResult(R)",
+        "prototypeMembers": [
+          "basis = R.basis",
+          "judgment = R.judgment"
+        ],
+        "ownKeys": [
+          "basis\u0000judgment",
+          "kind",
+          "schemaVersion",
+          "state"
+        ],
+        "ownValues": "NUL-joined key has null; kind/schemaVersion/state equal R",
+        "oldOutcome": "true inferred from pinned source for valid R; not executed",
+        "selectedSuccessorOutcomes": {
+          "validR": true,
+          "collidedInherited": false
+        },
+        "failureProjection": "actual owner predicate false; no compatibility branch",
+        "proofStatus": "OPEN; source-derived discriminator only, actual original/successor predicate execution requires later grant"
+      },
+      "ownerObligations": [
+        "O-KEY",
+        "O-SCHEMA"
+      ],
+      "proof": [
+        "P-KEYS",
+        "P-OWNER",
+        "P-RETIRE"
+      ]
+    }
+  ],
+  "predecessor": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-01/freeze.json",
+    "sha256": "ef26e01bce305de2f4b7bbcabe718d7aa61b4e1ab8622de5ce7e299f9aabb817",
+    "unchanged": true
+  }
+}

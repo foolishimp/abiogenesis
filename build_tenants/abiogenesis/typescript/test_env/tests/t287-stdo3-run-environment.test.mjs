@@ -7,7 +7,7 @@ import test, { after, before } from 'node:test';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import * as product from '../../build/code/src/product/index.js';
 import { isRunEnvironmentEvidence } from '../../build/code/src/abg/stdo_environment.js';
-import { declarations } from '../fixtures/registered-selection-product/native.mjs';
+import { declarations, NATIVE_SELECTION_STDO3_ROLE } from '../fixtures/registered-selection-product/native.mjs';
 import { STDO3_SOURCE, stdo3RunEnvironment } from '../support/stdo3-run-environment.mjs';
 
 let root, sourceRoot, environment;
@@ -114,6 +114,24 @@ test('K11 current public specialization admits exact standalone STDO3 and conser
     x => { x.roles[0].accessRefs = ['access:undeclared']; },
     x => { x.accesses = [{ accessRef: 'access:unexpected', operation: 'validate', mode: 'validation', frameIndexRefs: [], maxOutputBytes: 1000, timeoutMs: 100 }]; },
   ]) { const changed = structuredClone(d); mutate(changed); assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(changed), TypeError); }
+});
+
+test('ordinary selector data uses complete Executive source while the P4 default remains exact', async () => {
+  const ordinary=await stdo3RunEnvironment({gtl,product,sourceRoot,selectorRole:NATIVE_SELECTION_STDO3_ROLE});
+  assert.deepEqual(ordinary.declaration.roles,[NATIVE_SELECTION_STDO3_ROLE]);
+  assert.deepEqual(ordinary.declaration.roles[0].sourceBindings.map(({startByte,endByte})=>[startByte,endByte]),[[83537,89094]]);
+  const bytes=await readFile(join(sourceRoot,STDO3_SOURCE.memberPath)),span=ordinary.declaration.roles[0].sourceBindings[0];
+  assert.equal(product.sha256Bytes(bytes.subarray(span.startByte,span.endByte)),span.spanDigest);
+  assert.match(bytes.subarray(span.startByte,span.endByte).toString(),/^## 8\. Derived Executive frame\n/);
+  assert.equal(ordinary.pythonPath,null);assert.deepEqual(ordinary.declaration.accesses,[]);
+  const p4=await stdo3RunEnvironment({gtl,product,sourceRoot});
+  assert.deepEqual(p4.declaration,environment.declaration,'explicit ordinary data does not mutate the default declaration');
+  assert.deepEqual(p4.declaration.roles[0].sourceBindings.map(({startByte,endByte,spanDigest})=>({startByte,endByte,spanDigest})),[
+    {startByte:55240,endByte:55942,spanDigest:'sha256:f570de4d76c017e873f390926698a04c9704c443e602092c4c13985b5eb4cd80'},
+    {startByte:64650,endByte:65910,spanDigest:'sha256:20ec39085c7dbe19a1b7a06f00d8dcadf7b82e4cb9c163be282e7a3a53b6a68e'},
+  ]);
+  assert.equal(p4.declaration.roles[0].policy.digest,'sha256:902f5f27e841498f5e44c8f1eebc65856c4f39f8ff0f58fc4d3f5cbfcaa6667a');
+  await assert.rejects(stdo3RunEnvironment({gtl,product}),/explicit exact STDO3 sourceRoot/);
 });
 
 test('K11 every standalone role binds native STDO material while additional generic material remains explicit', () => {

@@ -105,7 +105,7 @@ const current = (projection, observation) => holdsAt(projection,
 // Controlled causal premises use the existing Product constructors and actual
 // EventStore admission, codec, indexes, exact joins and cold reconstruction.
 // No native process, semantic assessment, installed Run or UAT is claimed.
-export async function createU1Fixture(t, roots = ['target.txt'], { withSource = false, preflight = false, environment = null, taskFactory = null, onAttempt = () => {} } = {}) {
+export async function createU1Fixture(t, roots = ['target.txt'], { withSource = false, preflight = false, environment = null, taskFactory = null, onAttempt = () => {}, priorSuccessorBytes = null } = {}) {
   const env = environment ?? await worksiteFixture(product), other = await worksiteFixture(product);
   onAttempt({ ...env, otherScratch: other.scratch });
   t.after(async () => { await fs.rm(env.scratch, { recursive: true, force: true }); await fs.rm(other.scratch, { recursive: true, force: true }); });
@@ -122,9 +122,9 @@ export async function createU1Fixture(t, roots = ['target.txt'], { withSource = 
   };
   const requests = await Promise.all(paths.map(path => request(env, path)));
   const foreign = await request(other, 'target.txt');
-  // A later actual observation of a prior changed file is itself an immutable
-  // predecessor for subsequent work. Both observations must lose currentness.
-  // No unowned file rewrite is used as a C0 successor in this activation.
+  // The unknown-effect cases explicitly select a changed-file predecessor.
+  // Other consumers retain their unchanged physical setup and actual C0 effects.
+  if (priorSuccessorBytes !== null) await fs.writeFile(join(env.canonicalRoot, 'target.txt'), priorSuccessorBytes);
   const successor = await request(env, 'target.txt');
   const task = taskFactory !== null ? await taskFactory(env) : native.constructNativeWorkspaceWorkTask({ workspaceAuthorityBasis: env.workspaceAuthorityBasis,
     workspaceBinding: env.workspaceBinding, capabilityGrant: env.capabilityGrant, context: await observe(env),
@@ -270,6 +270,7 @@ export async function createU1Fixture(t, roots = ['target.txt'], { withSource = 
         failureClass: 'transport_exception', transportBindingRef: binding.aggregateId, transportBindingDigest: binding.payload.transportBindingDigest,
         diagnosticDigest: hash('preserved original failure') }, { parentAggregateId: cCallRef, causationEventRefs: [process.eventId] })
       : append(kind, 'process', processRef, { actorInvocationRef: actorRef, processRef }, { parentAggregateId: actorRef, causationEventRefs: [process.eventId] }));
+  // Controlled confirmed owned-scope absence, never a raw direct-child exit.
   const exit = () => atCut(() => append('actor_process_exited', 'process', processRef, { actorInvocationRef: actorRef, processRef, status: 0, signal: null },
       { parentAggregateId: actorRef, causationEventRefs: [process.eventId] }));
   return { ...env, task, requests, successor, foreign, store, before, beforeRows, cause, exit, actorRef, processRef,
@@ -278,7 +279,7 @@ export async function createU1Fixture(t, roots = ['target.txt'], { withSource = 
 }
 
 
-export { product, hash, ids, identity, clone, prefixOf, current, assertFixtureContract, componentNativeAssessment };
+export { product, hash, ids, paths, identity, clone, prefixOf, current, assertFixtureContract, componentNativeAssessment };
 
 // Every linked override is an explicitly disclosed component premise. Owner
 // bodies are loaded byte-for-byte from the isolated compilation output.

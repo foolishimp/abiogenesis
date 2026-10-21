@@ -1,0 +1,108 @@
+{
+  "kind": "fixture-retirement-source-return",
+  "actor": "/root/stdo3_fixture_retirement_writer",
+  "executive": "/root",
+  "status": "source_ready_frozen_not_executed",
+  "endedAt": "2026-10-21T10:31:44.942775+00:00",
+  "changedSourceFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "beforeSha256": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546",
+      "afterSha256": "ce809ca525bbc9ee14454a31fbf0aa36751c53973de03a207cb1518d6249fce9",
+      "beforeBytes": 37664,
+      "afterBytes": 14595,
+      "beforeLines": 401,
+      "afterLines": 160,
+      "removedLines": 266,
+      "addedLines": 25
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "beforeSha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1",
+      "afterSha256": "01543d555ea3fdad5ffa0949bdcb52d2bef264090c2c2068586c2c3fab1b3569",
+      "beforeBytes": 34273,
+      "afterBytes": 34427,
+      "beforeLines": 379,
+      "afterLines": 380,
+      "removedLines": 5,
+      "addedLines": 6
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "beforeSha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+      "afterSha256": "a81b2a8104580439f5b1f69472542782dfb4aaf76f474031fdc05f99fc6ba6ac",
+      "beforeBytes": 10076,
+      "afterBytes": 9862,
+      "beforeLines": 66,
+      "afterLines": 62,
+      "removedLines": 6,
+      "addedLines": 2
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "beforeSha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+      "afterSha256": "9ee35f0cacaacff06581007aa89d7a8814dd873c0ae42a3b848e914090089b87",
+      "beforeBytes": 3059,
+      "afterBytes": 2704,
+      "beforeLines": 37,
+      "afterLines": 31,
+      "removedLines": 7,
+      "addedLines": 1
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "beforeSha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "afterSha256": "63ca4427b4509f643fb58c38dd5e231c485187ae381082f710007872356e6c95",
+      "beforeBytes": 10669,
+      "afterBytes": 10407,
+      "beforeLines": 56,
+      "afterLines": 54,
+      "removedLines": 3,
+      "addedLines": 1
+    }
+  ],
+  "retirement": {
+    "removedLines": 287,
+    "addedLines": 35,
+    "netLines": -252,
+    "netBytes": -23746
+  },
+  "retiredResponsibilities": {
+    "duplicatedU1SetupImplementations": 1,
+    "privateCanonicalizers": 3,
+    "privateCanonicalHashFunctions": 3,
+    "privateCryptoImports": 3
+  },
+  "readiness": {
+    "staticChecks": 19,
+    "staticChecksPassed": true,
+    "syntaxChecks": 5,
+    "syntaxChecksPassed": true,
+    "runtimeImports": 0,
+    "productOrProcessTests": 0,
+    "builds": 0,
+    "packages": 0,
+    "nativeOrProviderCalls": 0,
+    "gitOperations": 0
+  },
+  "conserved": [
+    "U1 changed-predecessor and shared default setup",
+    "supplied environment/task/attempt variants and invocation identities",
+    "authentication/scope/C2/cold assertions",
+    "confirmed physical termination distinct from Actor cleanup and C0 currentness",
+    "historical unknown-effect evidence",
+    "registered export aliases",
+    "renderer A JSON.stringify output",
+    "structural NUL semantics",
+    "existing packaged dependency relation"
+  ],
+  "remaining": [
+    "combined isolated candidate",
+    "selected-preimage equality execution",
+    "numeric-key shared-owner conformance evidence, separate from equivalence",
+    "affected finite and installed execution",
+    "independent review and Executive conjunction"
+  ],
+  "writeTerritoryClosed": true,
+  "noFurtherSourceEdits": true
+}

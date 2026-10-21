@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "scope": "seven affected document preimages/successors, new link paths, added-line whitespace, two preserved historical tails and six small referenced carriers",
+  "failures": [],
+  "changes": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "addedLines": 19,
+      "removedLines": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "addedLines": 20,
+      "removedLines": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "addedLines": 20,
+      "removedLines": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "addedLines": 44,
+      "removedLines": 2
+    },
+    {
+      "path": "specification/GOALS.md",
+      "addedLines": 14,
+      "removedLines": 15
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "addedLines": 25,
+      "removedLines": 26
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "addedLines": 19,
+      "removedLines": 26
+    }
+  ],
+  "newLinkChecks": 28,
+  "historicalTailsExact": true,
+  "protectedGenerated936": "No generated path written; existing closed protection carrier reused, no rehash",
+  "sourceTestRuntimeBuildGitEffects": false,
+  "fullWorktreeInventory": false
+}

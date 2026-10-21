@@ -49,57 +49,6 @@ function observeRetained(abg, product, store, requests, durablePrefix) {
   });
 }
 
-function runFreshWorker(input) {
-  return new Promise((resolveResult, reject) => {
-    const child = spawn(process.execPath, [worker], {
-      env: { ...process.env, NODE_OPTIONS: "" },
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-    let stdout = "";
-    let stderr = "";
-    let settled = false;
-    const timeout = setTimeout(() => {
-      if (settled) return;
-      settled = true;
-      child.kill("SIGKILL");
-      reject(new Error(
-        `fresh-process runtime projection worker timed out after 30000ms: ${stderr}`,
-      ));
-    }, 30_000);
-    timeout.unref();
-    const settle = (complete) => {
-      if (settled) return false;
-      settled = true;
-      clearTimeout(timeout);
-      complete();
-      return true;
-    };
-    child.stdout.setEncoding("utf8");
-    child.stderr.setEncoding("utf8");
-    child.stdout.on("data", (chunk) => { stdout += chunk; });
-    child.stderr.on("data", (chunk) => { stderr += chunk; });
-    child.on("error", (error) => settle(() => reject(error)));
-    child.on("close", (code) => {
-      settle(() => {
-        if (code !== 0) {
-          reject(new Error(
-            `fresh-process runtime projection worker failed ${code}: ${stderr}`,
-          ));
-          return;
-        }
-        try {
-          resolveResult(JSON.parse(stdout));
-        } catch (error) {
-          reject(new Error(
-            `fresh-process runtime projection worker returned invalid JSON: ${String(error)}\n${stdout}\n${stderr}`,
-          ));
-        }
-      });
-    });
-    child.stdin.end(JSON.stringify(input));
-  });
-}
-
 function evidenceError(error) {
   if (error === null || error === undefined) return null;
   return { name: error.name, message: error.message, stack: error.stack,
@@ -109,13 +58,16 @@ function evidenceError(error) {
 const evidenceJson = (value) => `${JSON.stringify(value, (_key, item) =>
   typeof item === "bigint" ? item.toString() : item, 2)}\n`;
 
-// Opt-in assurance consumer of the exact installed physical owner. The legacy
-// branch above is not evidence for this path and remains unchanged for callers.
-async function runOwnedFreshWorker(input, evidenceRoot, ordinal) {
-  const root = join(evidenceRoot, String(ordinal));
-  await mkdir(root);
+// Every fresh replay uses the exact installed physical owner. Optional evidence
+// retention changes only writes, never process ownership or cleanup.
+async function runFreshWorker(input, evidenceRoot, ordinal) {
+  const root = evidenceRoot === undefined ? null : join(evidenceRoot, String(ordinal));
+  if (root !== null) await mkdir(root);
+  const retain = async (name, bytes) => {
+    if (root !== null) await writeFile(join(root, name), bytes, { flag: "wx" });
+  };
   const stdin = JSON.stringify(input);
-  await writeFile(join(root, "input.json"), stdin, { flag: "wx" });
+  await retain("input.json", stdin);
   const modulePath = join(input.installedPackageRoot,
     "build/code/src/shared/owned_process_lifetime.js");
   const { createOwnedProcessLifetime, createMonotonicDeadline } =
@@ -125,7 +77,7 @@ async function runOwnedFreshWorker(input, evidenceRoot, ordinal) {
   const detached = process.platform !== "win32";
   const launch = { executable: process.execPath, args: [worker], detached,
     timeoutMs: 30_000, terminationGraceMs: 1_000, modulePath };
-  await writeFile(join(root, "launch.json"), evidenceJson(launch), { flag: "wx" });
+  await retain("launch.json", evidenceJson(launch));
   let child;
   try {
     child = spawn(launch.executable, launch.args, {
@@ -133,7 +85,8 @@ async function runOwnedFreshWorker(input, evidenceRoot, ordinal) {
       stdio: ["pipe", "pipe", "pipe"],
     });
   } catch (error) {
-    await writeFile(join(root, "launch-failure.json"), evidenceJson(evidenceError(error)), { flag: "wx" });
+    try { await retain("launch-failure.json", evidenceJson(evidenceError(error))); }
+    catch (retentionError) { console.error("fresh-worker evidence retention failed", retentionError); }
     throw error;
   }
   const stdout = [], stderr = [], signals = [];
@@ -151,10 +104,10 @@ async function runOwnedFreshWorker(input, evidenceRoot, ordinal) {
     child.stdout.on("data", onStdout);
     child.stderr.on("data", onStderr);
     deadline.after(30_000, () => { timedOut = true; lifetime.requestTermination(); });
-    await writeFile(join(root, "process.json"), evidenceJson({
+    await retain("process.json", evidenceJson({
       pid: child.pid ?? null, groupId: detached ? child.pid ?? null : null,
       scopeKind: detached ? "posix_process_group" : "windows_direct_child",
-    }), { flag: "wx" });
+    }));
     child.stdin.end(stdin);
   } catch (error) {
     lifetime.fail(error);
@@ -172,13 +125,16 @@ async function runOwnedFreshWorker(input, evidenceRoot, ordinal) {
     failure = new Error(`fresh-process runtime projection worker failed ${facts.directExit?.status}: ${err.toString("utf8")}`);
   let result;
   if (failure === null) {
-    try { result = JSON.parse(out.toString("utf8")); }
+    try {
+      result = JSON.parse(out.toString("utf8"));
+      assert.equal(result.processId, child.pid, "fresh replay self-report must identify its actual owned child");
+    }
     catch (error) { failure = error; }
   }
   try {
-    await writeFile(join(root, "stdout.bin"), out, { flag: "wx" });
-    await writeFile(join(root, "stderr.bin"), err, { flag: "wx" });
-    await writeFile(join(root, "completion.json"), evidenceJson({
+    await retain("stdout.bin", out);
+    await retain("stderr.bin", err);
+    await retain("completion.json", evidenceJson({
       pid: child.pid ?? null, groupId: detached ? child.pid ?? null : null,
       timedOut, signalRequestsObserved: signals,
       signalObserverSuppressedAfterFirstError: facts.firstError !== null,
@@ -186,7 +142,7 @@ async function runOwnedFreshWorker(input, evidenceRoot, ordinal) {
         launchFailure: evidenceError(facts.launchFailure) },
       failure: evidenceError(failure), result: result ?? null,
       physicalAbsenceIsNotAdmission: true,
-    }), { flag: "wx" });
+    }));
   } catch (error) {
     // Retention failure is a proof failure. Preserve an earlier actual Error.
     if (failure !== null) console.error("fresh-worker evidence retention failed", error);
@@ -228,10 +184,8 @@ export async function proveFreshProcessRuntimeProjectionEquality({
     join(ownedProcessProof.evidenceRoot, "retained.json"),
     evidenceJson({ closeHandoff, retainedRows }), { flag: "wx" },
   );
-  const run = ownedProcessProof === undefined ? runFreshWorker
-    : (value, ordinal) => runOwnedFreshWorker(value, ownedProcessProof.evidenceRoot, ordinal);
-  const first = await run(input, 1);
-  const second = await run(input, 2);
+  const first = await runFreshWorker(input, ownedProcessProof?.evidenceRoot, 1);
+  const second = await runFreshWorker(input, ownedProcessProof?.evidenceRoot, 2);
   const transportedRetainedRows = JSON.parse(JSON.stringify(retainedRows));
 
   assert.notEqual(first.processId, process.pid);

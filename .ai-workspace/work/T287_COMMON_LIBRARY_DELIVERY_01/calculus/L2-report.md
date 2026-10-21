@@ -170,3 +170,39 @@ The finite realization order after independent L2 acceptance is:
 Algorithmic account: D02 reuses identical computations; D03 still makes one finite scan and materializes matches; D04 may sort a constant expected list; K11 removes an unselected dependency obligation without bypassing exact source acquisition. Informational account: output bytes, multiplicity, field domains, source identities, historical evidence and semantic owner decisions remain conserved. Computational account: record actual acquisition counts, bytes/canonicalization/hash work, match/path lengths, selected history bodies/suffixes, retained memory, native calls, wall/CPU and physical residue on the selected path. No latency/memory saving is inferred from deleted lines or fewer names.
 
 Material residuals are the closed L2-E and L2-P decisions, their executable joins, independent L2 assessment, actual implementation, source/package correspondence, actual contraction, executed obligations and L5 acceptance. No whole-product Prime, exhaustive all-source conformance, native semantic success, performance improvement or release readiness is claimed. The report's mechanical source/link preservation checks cannot discharge those predicates.
+
+
+## 9. Root-selected exact-key entrypoint amendment — 2026-10-21
+
+Root dispositions the owner's common-entrypoint feedback as real inherited
+K01/D04 naming/mechanics debt under accepted common design `cb8dae9f…1160b`.
+The [bounded path/grant record](../realization/exact-key-canonical-entrypoints-01/path-grant.md)
+and its preflight bind the exact sources, four legacy consumers and proof limits.
+This amendment supersedes §4's retention of the misleading shared export name
+only; E01's historical NUL-joined acceptance, collisions and caller domains remain.
+
+- Delete two duplicate exact-key algorithm bodies: preserve the typed
+  `hasExactJsonKeys` signature while delegating to existing
+  `admission_predicates.hasExactKeys`; delete the private coordinate helper in
+  `shared/operation_definition_coordinate.ts` and import the same common function.
+  Source comparison establishes identical `Object.keys`/sort/spread/length/every
+  operations and order after local identifier renaming. Existing guards, arguments,
+  signatures, field checks and failures remain.
+- Rename the import/use/export in `shared/definition_binding_mechanics.ts` from
+  the misleading `hasExactKeys` alias to `hasUnicodeNulJoinedKeys`. Migrate exactly
+  `validator/conformance_definition_bindings.ts` and
+  `product/{catalog,install,project_read}_definition_bindings.ts` (nine calls).
+  Remove the old shared export without a compatibility alias. This is the same
+  NUL-joined function identity, never substitution with elementwise exact equality.
+- Migrate the existing t288 module-identity assertion to the honest export and
+  add explicit old-export absence. Keep its 93 historical preimages and all
+  type/refinement/erased-value/error/trace cases unchanged. Other owner-local NUL
+  aliases and unrelated consumers remain outside this amendment.
+
+The debt ledger gains two algorithm deletions and one misleading export rename,
+with shared destinations actually consumed. This resolves the selected feedback
+through source contraction; it is no measured performance benefit or universal
+canonicality claim. A forwarding call may add overhead. Only source/syntax/type-shape
+correspondence is selected now; no test/build/typecheck/emission/runtime/Git
+execution. Existing affected proof and semantic acceptance await the single
+combined isolated candidate. Earlier frozen evidence and D1–D3 remain unchanged.

@@ -1,0 +1,56 @@
+{
+  "kind": "common-consolidation-full-visible-tree-checkpoint-receipt",
+  "writer": "/root/stdo3_review_checkpoint_writer",
+  "capturedUtc": "2026-10-21T12:09:25.153208+00:00",
+  "parentCommit": "400d763d1d4c3d9e84cf30d6b830d7b975ef7089",
+  "checkpointIdentity": "The Git commit containing this exact receipt; self-SHA and post-push outcomes are not predicted.",
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-checkpoint-01/CHECKPOINT_HANDOFF.preimage.md",
+      "bytes": 6272,
+      "sha256": "5ffc9ef83ca98161bdcea2160ea2c8a0bb0c747ea8837c98655fb6cc4b5e6592"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-checkpoint-01/README.md",
+      "bytes": 4059,
+      "sha256": "1f970309d89886691d84e5ce83517a0976170d761f38cf6714046a335f5bbf51"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-checkpoint-01/custody.json",
+      "bytes": 12369,
+      "sha256": "4fd2f888813aa8689029c818630b40176a974896d53f3ecd14adaa84368015d9"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-checkpoint-01/scope-inventory.json",
+      "bytes": 108314,
+      "sha256": "521b6dee698caaccf41c231edd9ff08cbd63f571d50fcb8991a02c0232035735"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-checkpoint-01/staged-diff-check.json",
+      "bytes": 38435,
+      "sha256": "fce876f0a16ba4673963ec8bcd041de955d9ade736f79cb1fe7edcdd8ceb81c6"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-checkpoint-01/validation.json",
+      "bytes": 3322,
+      "sha256": "6b1c274677555e0d2bfe1cee24c06221f0d28d4ec367897ba20a8a4fc41b7f19"
+    }
+  ],
+  "recordCount": 6,
+  "outputs": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "bytes": 6927,
+      "sha256": "0f2cab7a1a163e1c6b01c442810a97981c496c9397d1169e92e9f05c33915453"
+    }
+  ],
+  "claims": [
+    "Exact existing source/design custody and bounded transport readiness only.",
+    "182 frozen-evidence whitespace diagnostics accepted by Root for custody; live source/document check clean.",
+    "935 protected surviving rows exact; one explicitly accepted retirement; zero unexpected drift."
+  ],
+  "runtimeProofClaim": false,
+  "libraryAcceptanceClaim": false,
+  "releaseAcceptanceClaim": false,
+  "noFurtherWorktreeWritesAfterFreeze": true
+}

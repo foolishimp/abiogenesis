@@ -1,0 +1,424 @@
+{
+  "kind": "common-consolidation-bounded-design-conjunction-freeze",
+  "capturedUtc": "2026-10-21T11:58:37.153190+00:00",
+  "writer": "/root/stdo3_consolidation_ratification_writer",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#governed-outcome-and-workspace",
+  "workResult": "candidate_ready",
+  "claim": "Faithful seven-document ratification/status transcription of Root-conjoined closed designs; no new semantic assessment or source/runtime acceptance.",
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "bytes": 106375,
+      "sha256": "7e386ce83f150bc551d607e67856e149aeda9e5f7a57c120913cc49021bf0e2f"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md",
+      "bytes": 7905,
+      "sha256": "7200083168804b096e0c3d3eb5d6eb5090e138a6fa3513c61885426f2fb69e6c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/handoff.md",
+      "bytes": 2141,
+      "sha256": "7cca96ebb8e8bc3ef6bb7207e38fba16eaf9e2b980c881ec254112d9d9000167"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/inputs.json",
+      "bytes": 17491,
+      "sha256": "07b8b93555c836d812862b75fa345a31863edcd01d16a132d1fc8e3f11ca79d2"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/outputs.json",
+      "bytes": 2191,
+      "sha256": "7295b7df682821ac75c6c355abf4484967d41436127e7dd08180c10b5fc0447f"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 543087,
+      "sha256": "3f714076463b23860cffde548402d3096570a1c83837929c50789978b3d5cecc"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "bytes": 6243,
+      "sha256": "5cade56357259b567ce21638035b66064f4306106c4506d1b5ddd8e535075021"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "bytes": 37283,
+      "sha256": "281a4e31840203fb249ce9cf1d10ca5d3d07f0769fb9175080e7514bae489615"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 63515,
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "bytes": 3494,
+      "sha256": "8ec79201b0b381f212b522674041d263fea2f907d85f3d8fb5f67d1db74eb31c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "bytes": 67023,
+      "sha256": "dfb98d80113aaf150e05a09577d4cc3898b339e33426790f878ed02c90b89d5c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages/specification/GOALS.md",
+      "bytes": 80771,
+      "sha256": "de61b7775584087d7b69e4dbef4f3c536154ac06673f78dadb0db36687ce08fc"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/preimages.json",
+      "bytes": 3001,
+      "sha256": "f04309fbc7a9093111bcb9e65a854e3626f823d223e7344d15de1128884ed90d"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/readiness.json",
+      "bytes": 3184,
+      "sha256": "605ae4ed76e747151227f9288977c82b5cc283e1fd3432019a6ab41c14488ba3"
+    }
+  ],
+  "recordCount": 14,
+  "outputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 73074,
+      "sha256": "2f33121b76c80d923fc28844cca477802cc8ed7eadda9683cb391d84801ee6dc",
+      "preimageSha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "bytes": 6627,
+      "sha256": "2c7828c9b8e9319245f6180e2e63fbbc829186426e357dca15ef4bf44a1e8966",
+      "preimageSha256": "8ec79201b0b381f212b522674041d263fea2f907d85f3d8fb5f67d1db74eb31c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "bytes": 71025,
+      "sha256": "8806d49ff31264f4904310abdf950530d744ea93aea91e588aebc5d0e06a072a",
+      "preimageSha256": "dfb98d80113aaf150e05a09577d4cc3898b339e33426790f878ed02c90b89d5c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "bytes": 41692,
+      "sha256": "d56f3f08b344255da1baf9e4f0d170ff3d01394db87a3f5f5a4912803bd90d8c",
+      "preimageSha256": "281a4e31840203fb249ce9cf1d10ca5d3d07f0769fb9175080e7514bae489615"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "bytes": 81771,
+      "sha256": "1dee7bc0bd9e5ed3c2939c4f4884d7f72d8c441870b4496fc7b482d2233b584f",
+      "preimageSha256": "de61b7775584087d7b69e4dbef4f3c536154ac06673f78dadb0db36687ce08fc"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 544987,
+      "sha256": "0c7cc5b47b0950dcc3dbababbb7f1c4f43ca8c824501db49422250b805da481f",
+      "preimageSha256": "3f714076463b23860cffde548402d3096570a1c83837929c50789978b3d5cecc"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "bytes": 6272,
+      "sha256": "5ffc9ef83ca98161bdcea2160ea2c8a0bb0c747ea8837c98655fb6cc4b5e6592",
+      "preimageSha256": "5cade56357259b567ce21638035b66064f4306106c4506d1b5ddd8e535075021"
+    }
+  ],
+  "outputCount": 7,
+  "readOnlyInputs": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/HOW-proposal.md",
+      "bytes": 20675,
+      "sha256": "122df37438d9f5930fcc83a3159bc0b3b8b5e6927c4546288a32d11a8a96a910",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/closing-verification.json",
+      "bytes": 1050,
+      "sha256": "25352cc4e0de9507df69f29b1fb067ca479bbc80f939977207acf60b283008dd",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/handoff.md",
+      "bytes": 1081,
+      "sha256": "7b49bda278024b873265c801199fbfc30865c38d90a8d1b3a8c7fda656f45efe",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/predecessor-and-source-correspondence.json",
+      "bytes": 4585,
+      "sha256": "25dc3eababe8a46acf2de22f1676d827024928e0a61e8b89377f4cdef5adab46",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "bytes": 18209,
+      "sha256": "f7716401acf2a29ea6aa9055b07031f1b88178ddf7cbf467cdb3fa3064cc6a3a",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/retirement-and-proof.md",
+      "bytes": 8107,
+      "sha256": "4b9fbc2fa8a39dc8f46e90f2108e1cd3d12d93ba50f224ea6c9076ef910f6153",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/review-and-disposition.md",
+      "bytes": 2105,
+      "sha256": "9821e292443de30bb9d7d105e1f5d96bd11d9f44c7b6b9ce08887458aed6cea6",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/freeze.json",
+      "bytes": 6248,
+      "sha256": "6114dba2945fca732df86e852b638261da876c91df31263c8289c871137020ee",
+      "relation": "Root-selected closed design freeze"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/HOW-proposal.md",
+      "bytes": 16448,
+      "sha256": "5e2169845cd3015ea6ed99223044b89ba7dc18788f1d73236b929f075f8356e7",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "bytes": 13804,
+      "sha256": "1e1f5a27f8db60f42e6369a2824e371dfb3506c7d8750b5f0a48900b635e805f",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/handoff.md",
+      "bytes": 3192,
+      "sha256": "bb144341615202866b3ed8e7a0a09a1254ed0bc9a558ff435270e9d6e6efe2fb",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/mechanical-checks.json",
+      "bytes": 14983,
+      "sha256": "5ad2338761c624663bcd44d666a73428ffb8a9e7bd528e2153b293aac1a8f83a",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/retirement-consumer-proof-map.md",
+      "bytes": 16938,
+      "sha256": "4489f719421c8ba8bbd9780f767d6abc64b4facc8f63d92b48bfe6b62733c605",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/review-and-decision.md",
+      "bytes": 3491,
+      "sha256": "8f20ce5c033fb467b1c7066abe70e193d8e9b30f0fa2396cc0903617ebd30cf8",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/source-correspondence.json",
+      "bytes": 2774,
+      "sha256": "e45bb40415448d3bb4dbbb71ec2c1ff772fcc43aca4e5ccc432f25db9630c64c",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/source-inputs.json",
+      "bytes": 17534,
+      "sha256": "869aa334cba8acdf56b7d59d7ccd7d5b9280435dea649ca42cb5fb1f3cede771",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/freeze.json",
+      "bytes": 4042,
+      "sha256": "368854bc8bb340677e7afd278c4ca69e30b2f6355899073b426298c9fccf0e0a",
+      "relation": "Root-selected closed design freeze"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/handoff.md",
+      "bytes": 2138,
+      "sha256": "16b60f4106e26946dac4adb0e7978d278fa5dfb1f2c8a73d0e4cdd79246f47c2",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/predecessor-correspondence.json",
+      "bytes": 87180,
+      "sha256": "87a47acc08b4b9526fa695c44046e164ca802dd6d0bf92ce8dd960e47d9d741b",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/proposal.md",
+      "bytes": 26434,
+      "sha256": "e1ebd2047eab1aa7cfb56ce7a4384279e8a40c10dbdbdaf815442707e0e89246",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/retirement-proof-map.json",
+      "bytes": 111054,
+      "sha256": "955f167580081eee0290a8add7a053b730a64f246b522c08970b28d0536580ab",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/review-and-root-decision.md",
+      "bytes": 3757,
+      "sha256": "025b20ba47a929763eaea339eeda9af36882b56661124e2756be226648bd0930",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/source-pins.json",
+      "bytes": 32019,
+      "sha256": "e02e02e9485cf943a035703f242953d0cec55b251353e1090ed6621d1e246a68",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/freeze.json",
+      "bytes": 28456,
+      "sha256": "6ef9e727844242d82295291c41847e5a1fb1417341b717c3301d53df8d1cadc0",
+      "relation": "Root-selected closed design freeze"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md",
+      "bytes": 13892,
+      "sha256": "8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/activation.md",
+      "bytes": 2288,
+      "sha256": "9ed6ea23443075b9192b61658cf2c70a21e5abf4a40a5482fc5baa0df824cf26",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/closing-correspondence.json",
+      "bytes": 1323,
+      "sha256": "7d6f1f6c88e148acb1a56892afb7e1902eb52f9f349ee669e0f1c425281091c0",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/closing-verification.json",
+      "bytes": 544,
+      "sha256": "3c1bf6193b7636246ce11c4c5d22e8595e965aacf4ab275b77f9bf9ccfacf907",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/handoff.md",
+      "bytes": 1268,
+      "sha256": "ef99c237bb390f3c41ac1d8a303a4c401c0b9be2e14251a140a2627d42170300",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/input-pins.json",
+      "bytes": 4877,
+      "sha256": "5b68ee98ce78dac555b4cb8e19c6f2b4214b3fb263c5033f1302592cefb92b96",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/preimages/L2-starting-cut.md",
+      "bytes": 29684,
+      "sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/preimages/worksite_command_execution.ts",
+      "bytes": 39519,
+      "sha256": "ec709a3b74b4d5ff6a522083f779a7971739167d30f132dd87d8bcbb2ad4fce3",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/preimages/worksite_command_helper.ts",
+      "bytes": 62395,
+      "sha256": "d8bddd8487e78babc8b1ee6df86215c112973cb9b093e7a4242c4684b7a56e3f",
+      "relation": "closed design member"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/freeze.json",
+      "bytes": 7400,
+      "sha256": "93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8",
+      "relation": "Root-selected closed design freeze"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 11923,
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3146,
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 97498,
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": "specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 26853,
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "bytes": 7204,
+      "sha256": "dd7fc152f278fdd0b3218fa9e300568d4c7c178b4a63b92ef304f9fa7832a3d5",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/plan.md",
+      "bytes": 4582,
+      "sha256": "4fda7cd6aec9f51f56c68a7f17b0505ed7064903c8240c137014f06a2b26480f",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md",
+      "bytes": 6291,
+      "sha256": "1627d4bb125c5d26b986e56ccca55daa42e3fd8230e0b02fe1a80231906139e3",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/freeze.json",
+      "bytes": 9651,
+      "sha256": "f46164cd09d190feac86c1f375b1f404a05ec46c0526f8341379bf31c291b686",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/freeze.json",
+      "bytes": 13132,
+      "sha256": "4bfdf7e28575dbf9b3f2cffc23b4f25e49ce16b37f5ec643c6ecec96acbfc1c0",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/freeze.json",
+      "bytes": 10246,
+      "sha256": "17b1b6d2fdb5ef829d1da23233a9fd240f5759b076fe09f46eec6547c521c42e",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/freeze.json",
+      "bytes": 6401,
+      "sha256": "1bbc47ac141d00c7f6ee920d1972e0e3c1304488085e3c13a3067286cf204d1e",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/p5-cancellation-guard-source-01/freeze.json",
+      "bytes": 2108,
+      "sha256": "d24b8d7d0300f0d807fa3867ac34a93e5728ce1a5486d1aa26d5158fab421ea5",
+      "relation": "authority or preserved source-custody receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/freeze.json",
+      "bytes": 9694,
+      "sha256": "ed4ca1b301b020ce64fa0339b5e50483351c55415567d5881e1dfd32a58c9a7b",
+      "relation": "authority or preserved source-custody receipt"
+    }
+  ],
+  "readOnlyInputCount": 48,
+  "mechanicalChecks": 12,
+  "newLocalLinksVerified": 25,
+  "closedDesignMembersVerified": 30,
+  "effectBoundary": "Seven named live Markdown documents and this new conjunction directory only. No source/test/build/import/process/provider/Git/Reviewer effects.",
+  "scopeLimits": "Six value owner obligations and two composite classifications OPEN; dependency-ready source requires separate grant; combined candidate/build/proof, L5 and release remain held.",
+  "historicalInputRule": "Later authorized live-document changes preserve these exact preimages/outputs as historical cuts; original frozen artifacts remain immutable.",
+  "noFurtherWritesAfterFreeze": true
+}

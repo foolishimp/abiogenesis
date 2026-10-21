@@ -1,0 +1,902 @@
+--- a/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md
+@@ -1,10 +1,10 @@
+ # ABIogenesis 5 Common Computational Capability Library
+ 
+-**Status:** candidate library design for independent assessment. It selects reusable contracts, ownership, composition and bounded consolidation decisions. It does not establish implementation conformance, measured savings, installed outcomes, qualification or release.
++**Status:** Root-ratified bounded design conjunction, 2026-10-21. C1 lifecycle, C3 checked reading and cross-consumer failure handoff are accepted at DESIGN scope. C2/C4/C5 common callable contracts and finite retirement directions are accepted with six owner obligations and two composite classifications OPEN. Full migration, implementation conformance, measured savings, installed outcomes, L5 delivery acceptance and release remain unproved. [Current conjunction](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) records the exact subjects and limits.
+ 
+ **Selection:** the owner's 2026-10-21 clarification makes this library design the first ABG activity. The intended asset is a common computational basis from which features are composed, reducing independent solutions to equivalent computational problems. Explicit obligations determine what execution must establish; execution determines the actual outcomes.
+ 
+-**Basis:** [activation](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/activation.md), [source inventory](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/basis.json), SHA-256 `7c4196afaf481be05056a5c3b5120b98b9e4d012ccf2b673f765076b3ec23376`; HEAD `727f1dbcab3c198f7704735fdf91b994b7aac243` plus the inventoried dirty bytes. The [Product assessment](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/product-assessment.md) and [realization assessment](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/realization-assessment.md) are separate source-evidence inputs conjoined by the Executive. The latter searched 264 TypeScript sources and inspected the named consumer bodies; it is not a complete semantic clone or dynamic-path audit.
++**Historical L1 basis:** [activation](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/activation.md), [source inventory](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/basis.json), SHA-256 `7c4196afaf481be05056a5c3b5120b98b9e4d012ccf2b673f765076b3ec23376`; HEAD `727f1dbcab3c198f7704735fdf91b994b7aac243` plus the inventoried dirty bytes. The [Product assessment](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/product-assessment.md) and [realization assessment](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/realization-assessment.md) are separate source-evidence inputs conjoined by the Executive. The latter searched 264 TypeScript sources and inspected the named consumer bodies; it is not a complete semantic clone or dynamic-path audit.
+ 
+ **Authority:** [Product](../../../../specification/PRODUCT.md), [requirements](../../../../specification/requirements/README.md), the [project frame](ABI5_PROJECT_REFERENCE_FRAME_BASIS.md), [realization constitution](ABI5_REALIZATION_CONSTITUTION.md) and [computational binding](ABI5_STDO3_COMPUTATIONAL_BINDING.md). The exact method is `stdo://releases/v3.0.0-rc.1/`, manifest `069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232`, including [DESIGN_MODULE](stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md), [SPEC_METHOD §11](stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding) and [FOUNDATIONS](stdo://releases/v3.0.0-rc.1/standards/FOUNDATIONS.md). No companion or moving methodology source is selected.
+ 
+@@ -12,7 +12,7 @@
+ 
+ The common library consists of the canonical mechanics, reusable owner ports and static compositions specified below. Existing modules remain its implementation locations. Direct typed imports are the consumption mechanism. No new root barrel, package export, runtime catalog, dispatcher, resource framework or `runPipeline` is selected merely to give the library one name.
+ 
+-The design covers the intended common capability basis across all fifteen selected Product families. The present installation, preparation, history and continuation path is an initial consumer and proof discriminator, not the boundary of the library. The [Product compression allocation](../../../../specification/PRODUCT.md#50-compression-boundary) remains: applicable identity, authority, currentness, replay and fresh-process defects are 5.0 work; further equivalent pure-helper contraction may be realized in 5.1. This design is undertaken now; an all-helper refactor is not a new release gate.
++The design covers the intended common capability basis across all fifteen selected Product families. The present installation, preparation, history and continuation path is an initial consumer and proof discriminator, not the boundary of the library. Under [Product’s compression boundary](../../../../specification/PRODUCT.md#common-computational-library-prerequisite), the selected library requires accepted design, usable implementations, actual consumer adoption and retirement or justified retention, executed obligations and independent acceptance before release work resumes. C1–C5 below are inside that selected deliverable; none is automatically deferred to 5.1. Optional pure-helper contraction outside the deliverable retains Product’s later allocation. This finite selection is not an unbounded all-helper sweep.
+ 
+ The following decisions are selected:
+ 
+@@ -21,9 +21,22 @@
+ 3. Product declaration resolution, GTL construction, HoG traversal, ABG event resources/history and native effect owners remain reusable libraries in their existing domains. Their semantic relations are not reimplemented inside a generic helper.
+ 4. Existing Effect 3.22.1, exact owner schemas and Node mechanics remain the admitted foundation composition. No material new dependency is selected.
+ 5. The finite consolidation ledger in §6 distinguishes equivalent mechanics, existing compositions, intentionally different contracts and proposed additions awaiting a material design decision.
+-6. Each retained implementation increment must name its consumer replacements and complete affected path. Moving code or counting fewer functions does not establish reduced proliferation.
++6. Each retained implementation increment must name its consumer replacements and complete affected path. Default to the common implementation. A retained variant needs a concrete supported input/caller for which that implementation changes the required outcome, with owner, falsifier and disposition. Missing equivalence evidence remains an open obligation; it does not justify retention. Preserve equality, failure and admission domains until their owner explicitly decides a correction. Moving code or counting fewer functions does not establish reduced proliferation.
+ 
+ The [published default governance/lifecycle library](T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md) remains ordinary declared GTL GraphFunctions and Programs. Its Executive, induction, design, testing and UAT roles use this lower realization library through GTL/HoG/Product/ABG owners. They do not become low-level library primitives. Likewise [capability_contracts.ts](../code/src/shared/capability_contracts.ts) describes existing public definition capabilities; this document's capability identifiers are design coordinates, not additional DS1 capability rows or callable exports.
++
++### 1.1 Exact accepted consolidation contracts and open boundaries
++
++Root incorporates the following exact design bodies and their finite consumer/deletion/proof maps. Original proposal labels and freezes remain immutable historical inputs; this owning HOW records their present acceptance. These maps, rather than the K01–K12 taxonomy alone, bind the selected computational consolidation.
++
++| Selected family | Exact incorporated subject and disposition |
++|---|---|
++| C1 — lifecycle and physical facts | [Lifecycle HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/HOW-proposal.md), SHA-256 `122df37438d9f5930fcc83a3159bc0b3b8b5e6927c4546288a32d11a8a96a910`, freeze `6114dba2945fca732df86e852b638261da876c91df31263c8289c871137020ee`, and [retirement/proof map](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/retirement-and-proof.md). Accepted bounded DESIGN; the [terminal-quiescence owning HOW](T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md) ratifies the precise census supersession and token frontier. |
++| C1 — command/HTTP failure boundary | [Cross-consumer HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md), SHA-256 `8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec`, freeze `93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8`. Accepted bounded DESIGN; the [C2 execution owning HOW](T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md) carries original cause, immutable final facts and exact-attempt diagnostic inspection. Helper realization remains open. |
++| C3 — exact selection and checked records | [Checked-read HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/HOW-proposal.md), SHA-256 `5e2169845cd3015ea6ed99223044b89ba7dc18788f1d73236b929f075f8356e7`, freeze `368854bc8bb340677e7afd278c4ca69e30b2f6355899073b426298c9fccf0e0a`, and [consumer/retirement/proof map](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/retirement-consumer-proof-map.md). Accepted bounded DESIGN, including both explicit malformed null-digest refusals; source depends on the truthful C5 wrapper contract. |
++| C2/C4/C5 — value mechanics | [Value proposal](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/proposal.md), SHA-256 `e1ebd2047eab1aa7cfb56ce7a4384279e8a40c10dbdbdaf815442707e0e89246`, freeze `6ef9e727844242d82295291c41847e5a1fb1417341b717c3301d53df8d1cadc0`, and [finite retirement/proof map](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/retirement-proof-map.json), SHA-256 `955f167580081eee0290a8add7a053b730a64f246b522c08970b28d0536580ab`. Common callable contracts and selected retirement directions accepted; O-TYPE/O-RESOURCE/O-SHAPE/O-CODEC/O-SCHEMA/O-KEY and two native composite classifications remain OPEN. This is not full migration or source-readiness acceptance. |
++
++The finite selected scope is 24 simple equality bodies, 13 local exactly-one helpers, three streamed canonical framers, five shared plus 38 local shallow guards, and five shared plus one private NUL-joined key body. Counts identify targets, not semantic coverage or a promised net diff. Source grants may follow separately for dependency-ready C1/cross-consumer work while value owner decisions continue. Whole value migration at an unresolved owner boundary, the combined candidate/build and affected execution remain held until the required conjunction. No source or execution effect is granted here.
+ 
+ ## 2. Library organization and dependency direction
+ 
+@@ -88,9 +101,9 @@
+ 
+ `admitIJsonText(string) → IJsonValue` or `IJsonAdmissionError`; `admitIJsonValue(unknown) → IJsonValue` on its inspected finite ordinary-value domain, or the same typed error. The seven declared error codes are duplicate key, invalid framing, invalid Unicode scalar, malformed JSON, non-finite number, non-I-JSON value and unsafe integral number. Text admission retains duplicate-key detection; value admission constructs detached ordinary dense arrays/records and normalizes negative zero. Arbitrary cyclic/proxy/host-object behavior is outside the established totality claim; a stack/inspection fault is not a fabricated typed refusal.
+ 
+-`isRecord` and its JsonValue variants check only shallow non-null non-array shape. Their type refinements do not validate members. `hasExactKeys`/`hasExactJsonKeys` compare actual and expected keys elementwise with equal lengths. The NUL-joined variants retain a different historical relation: `["a","b"]` and `["a\u0000b"]` collide when joined. They are not exact key-set checks even where a caller aliases the function as `hasExactKeys`.
+-
+-All operations retain exact input-domain and failure behavior. Strict owner schemas decide concrete carrier shape; raw GTL admission, TypeScript local typing, complete Program validation and semantic judgment remain different evaluations. Resource work is proportional to inspected text/value/keys; no ambient cache, default field or semantic repair is introduced.
++`isRecord(unknown)` owns one shallow non-null non-array shape algorithm and refines only unknown members. `isJsonRecord(JsonValue)` and the optional JSON wrapper delegate while preserving an already established JSON domain; the unknown-input shape wrapper cannot confer JSON admission. C5 selects five shared and 38 local Boolean-body retirements with the owner obligations in §9. `hasExactKeys(object, readonly string[])` owns the elementwise sorted-key comparison with equal lengths; `hasExactJsonKeys` delegates. The five shared and one private NUL-joined bodies are selected retirement targets, not presumptively retained variants: `["a","b"]` and `["a\u0000b"]` collide when joined. O-KEY binds each owner’s admitted domain and correction/refusal decision. For `product/default_library.exactKeys`, Root selects common exact-own-key checking and rejection of the collided/inherited `basis`/`judgment` form; valid existing results remain true. This explicit correction supplies no general raw-input-equivalence claim or broader schema closure.
++
++All operations retain exact input-domain and failure behavior except the explicitly selected owner corrections in §1.1 and §9. Strict owner schemas decide concrete carrier shape; raw GTL admission, TypeScript local typing, complete Program validation and semantic judgment remain different evaluations. Resource work is proportional to inspected text/value/keys; no ambient cache, default field or semantic repair is introduced.
+ 
+ ### K02 — Canonical bytes, digest and named equality
+ 
+@@ -100,7 +113,9 @@
+ 
+ The sink is an explicit synchronous output effect. A sink or encoding exception propagates and may follow partial output; it is not a successful complete encoding. `sha256Bytes` hashes exactly its input bytes; `sha256File` performs a physical file read and can reject. Owners choose all preimages and coordinate meanings. A digest does not authenticate a publication, install or event.
+ 
+-Three equalities stay separate: exact canonical text comparison (`sameJson`, false when encoding throws); exact `ReferenceDigest` pair comparison (`ref === ref && digest === digest`); and canonical-digest comparison (`hog/operator_support.ts::sameCanonical`). The latter is not exact byte equality. Identity/deep-strict shortcuts in native reacquisition remain separate owner contracts. No global “equal” operator is selected. Streaming avoids a required whole-text intermediate for hashing; actual retained memory and whole-path benefit require measurement.
++C2 selects `canonicalJsonEquals(JsonValue, JsonValue, encode = canonicalJson)` and its explicit `canonicalJsonEqualsOrFalse` projection in the canonical writer, plus `canonicalDigestEquals` and `canonicalDigestEqualsOrFalse` in the digest owner. Preserve complete left-before-right evaluation and each owner’s throw/false channel across the 24 finite bodies. Digest equality is not exact-text equality. `ReferenceDigest` pair comparison remains its strict ref/digest relation. Installed Public equality delegates with exactly `(value) => product.canonicalJson(value)`, preserving per-operand method lookup, receiver and missing-dependency throw rather than selecting the local default. The two native identity/deep-strict/canonical compositions remain OPEN classification obligations, not automatically retained variants. No unchecked cast, shallow guard or handle enumeration may establish the typed JSON input.
++
++C4 selects `writeCanonicalRecord(acquire, writeMember, sink)` in `canonical_json.ts`: opening brace, one acquisition, sorted private key entries, separators and one member callback per key, closing brace. The ordinary writer acquires `Object.entries` before framing; the three stream owners acquire keys after the brace and read values after the colon. Preserve eager/lazy acquisition, factory consumption, partial-output exception trace and owner preimages. The three private framing loops are retired; prefix/replay authentication and member dispatch remain local. Streaming avoids a required whole-text intermediate for hashing; actual retained memory and whole-path benefit require measurement.
+ 
+ ### K03 — Capturing and preserving immutable values
+ 
+@@ -112,11 +127,13 @@
+ 
+ ### K04 — Multiplicity-preserving finite selection
+ 
+-**Mechanism:** [exact_match.ts](../code/src/product/exact_match.ts)::`resolveExactMatch<T>(readonly T[], predicate) → ExactMatch<T>`.
+-
+-The closed result is `absent | one(value) | many(values)`. On a finite sequence and total deterministic owner predicate, preserve order, every matching occurrence and candidate identity. Duplicate equal-looking values remain `many`; there is no deduplication, default or first-match authority. A throwing predicate throws; it is not an `absent` result. The result wrappers/multiple-value array are frozen, not the candidate values.
+-
+-The owner maps this result to its exact output/refusal contract. For example `many → ambiguous`, or `absent | many → null`, are named local projections after multiplicity is decided. Declaration closure additionally distinguishes no matching declaration from a matching declaration outside reachable dependencies; K04 cannot erase that distinction. Work is one finite scan plus the materialized matches; the scan retains no state between calls.
++**Mechanism:** existing [exact_match.ts](../code/src/product/exact_match.ts), extended by the exact C3 contract in §1.1.
++
++`exactMatchCardinality(length)` owns zero/one/many. `resolveExactMatch(ExactMatchSource<T>, predicate)` preserves the existing direct `values.filter(predicate)` and frozen result wrapper/many-array behavior. `exactMatchValue` returns the original singleton value or null. `onlyExactMatch(alreadySelected)` uses the same count decision without filtering, copying or freezing. Two throwing owners retain their exact error projection. Thirteen local exactly-one helpers are selected for retirement; five existing common calls remain consumers.
++
++Preserve every occurrence, candidate identity, predicate order/exception and the array’s filter behavior, including sparse holes and mutation. Existing lazy event views use their own filter without whole-history materialization. Preselected cardinality is O(1); selection runs its full predicate. There is no early exit, deduplication, default or first-match substitution. Justified ordered-first raw history readers retain the named controls in the C3 map.
++
++Owners retain absence versus ambiguity/refusal, declaration reachability, causal joins and output/registry identity. K04 owns neither semantic admission nor the selection of a prefix category.
+ 
+ ### K05 — Static owner binding and typed execution
+ 
+@@ -153,6 +170,10 @@
+ The existing `RuntimeEventPrefix` union distinguishes validated explicit snapshots, an owner-bound `RuntimeHistorySelection`, and a prospective validation view. Exact owner prefix selection plus scope/index/body selectors returns the declared view or the owner's refusal/exception; `runtimeEventAtPrefix` can return `undefined` for an absent member. A copied coordinate or selection cannot manufacture the owner's authenticity. Explicit current acquisition and a historical prefix read retain different contracts.
+ 
+ `runtimePrefixComputation` and owner derivation scopes reuse an established same-owner computation and advance through the required suffix. Event Calculus owns initiation/termination/inertia; replay and other projections compose those declared facts. Shared iteration/indexing is not an arbitrary caller-supplied reducer or axiom set. Rollback/abandonment invalidation, exact event-contract profile, scope and predecessor relationships remain part of reuse.
++
++C3 adds `checkExactRuntimeRecord(selection, staticCheck)` beside the existing prefix accessors. It preserves absent/many, projects a singleton record once, optionally hashes before acquiring the expected digest, and returns invalid/record_projection, invalid/record_digest or the same event/value references in a frozen wrapper. It catches nothing, registers nothing and authenticates no prefix. Owners retain multi-fact joins, result identity and raw/owned/prospective categories. The exact execution-basis adapter correction maps both non-record/null-digest and unencodable-record/null-digest singleton inputs to its existing null/refusal outcome; unrelated selection, predicate, profile, construction and later whole-basis errors retain their channels. Proof rows B01–B06 bind this deliberate correction rather than claiming raw equivalence.
++
++C1’s dependency-light EC-owned `decideActorProcessLifecycle` supplies the one Actor/Process/Run lifecycle decision to existing EC transition, Actor, replay and liveness consumers. The exact pre-event matching-Run Actor census, cleanup-token frontier, witnesses and source attribution are ratified in the terminal-quiescence HOW. The existing EC fold remains sole truth derivation; there is no second reducer/cache/admission mechanism.
+ 
+ Operational history retains envelope/index/scalar/body-location facts; it does not retain every decoded payload as current state. Selected body views are transient and released after the consumer; complete output remains complete when requested. Cold reconstruction must equal the supported warm result. Resource obligations separately count envelopes examined, selector extent, suffix rows, decoded bodies/bytes, retained live facts and recovery work. Repeated entire-history expansion at each call boundary is not justified by using a common function.
+ 
+@@ -205,7 +226,7 @@
+ | Confirmation/drain/probe/observer failure | Return uncertainty and any known exit, output and signal facts; release known local handles/timers as permitted. | Preserve cleanup obligation; withdraw dependent currentness when post-effect state is unknown. |
+ | Process terminated, output missing/invalid or semantic assessment negative | Preserve termination and output/effect evidence as separate facts. | Reobserve affected worksite; refuse/unresolve result as the existing owner requires. |
+ 
+-This selects one common contract for recurrence comparison. It does **not** yet select a new callable/module or merge the three process loops. Observer timing, protocol parsing, platform evidence, timeout policies and post-observation obligations materially differ. E03 in §9 blocks that extraction until those mappings and the proportional foundation choice close. Existing owner implementations remain the selected realization meanwhile. No Effect scheduler, retry policy or new process authority is created.
++The existing `shared/owned_process_lifetime.ts` is the selected common physical mechanism for worker, command and HTTP progression, probing, bounded confirmation/drain and completion. Protocol, timeout and result policies remain local. The exact C1 and cross-consumer contracts in §1.1 complete the selected failure boundary: preserve the same immutable `OwnedProcessFacts` and original first cause outside suppressed ordinary callbacks before fallible owner finalization; retain exact-attempt `process-failure.json` evidence and its stateless internal inspection route on command/HTTP failure. No partial successful helper result or ABG admission follows. `hasConfirmedOwnedProcessBoundary` shares only the identical worker/Actor artifact-read predicate; no-child, direct exit, scope absence and admitted Actor consumption remain distinct. The accepted design still requires source completion and affected proof; old E03 extraction-deferred wording no longer governs this selected mechanism. No Effect scheduler, retry policy or new process authority is created.
+ 
+ ## 4. Lawful composition and the calculus
+ 
+@@ -236,7 +257,7 @@
+ | K05/executable composition | Existing Effect **3.22.1**, fixed owner contracts and one outer runner, under [constitution §10.1.1](ABI5_REALIZATION_CONSTITUTION.md#1011-effect-3221-decision-ledger) | Preserve the accepted comparison against manual wrappers and alternate runtimes. No present-day package-health, size or universal dominance claim is inferred from that historical ledger. New scheduler/state/runtime features fail the current authority boundary. |
+ | K06 partition | Existing native array/path algorithm and accepted witness/refusal contract, under [§10.3–10.8](ABI5_REALIZATION_CONSTITUTION.md#103-semantic-and-computational-disposition) | General graph search/tree edit has a larger different domain and is not a lawful drop-in replacement. New domains re-enter instead of weakening witness checks. |
+ | K07–K11 owner computation/resource/representation | Existing owner ports + canonical/selection mechanics + [Node/Effect owner-local resource composition](ABI5_REALIZATION_CONSTITUTION.md#1013-exact-1856-resource-capability-foundation-ledger) | Universal resource carriers, ambient caches, parallel catalogs/event reducers and generic prompt engines add meaning/lifetime surfaces. Preserve exact owner contracts and bounded reconstruction instead. |
+-| K12 current physical owners | Existing Node filesystem/process composition and source-owned Product/actor contracts | Preserve admitted realization. A new common process-lifetime implementation, archive parser or material inventory algorithm remains subject to proportional discovery, adapter/effect evidence and total cost; current incumbency alone cannot select it. |
++| K12 current physical owners | Existing Node filesystem/process composition, shared owned-process lifetime and source-owned Product/actor contracts | Preserve the selected common lifetime foundation and §1.1’s accepted failure/lifecycle contracts; source completion, adapter/effect evidence and total cost remain open. Any new archive parser or material inventory algorithm still requires E04’s proportional discovery; incumbency alone cannot select it. |
+ 
+ No fresh external alternatives were searched because this candidate selects no new material foundation. That residual does not block reuse of already admitted contracts; it blocks new package selection, new dominance claims and any material construction whose frontier could change. E03/E04 identify those proposed additions. A newly acquired applicable candidate that could materially change the choice reopens the affected decision.
+ 
+@@ -244,23 +265,23 @@
+ 
+ ## 6. Concrete consolidation and separation ledger
+ 
+-These are target design dispositions, not claims that code has already migrated. “Consolidate” uses the existing named mechanism and preserves the listed owner adapter; “retain” names a concrete non-equivalent relation.
++These are target design dispositions, not claims that code has already migrated. §1.1’s exact callable-to-consumer-to-deleted-body/proof maps govern the selected C1–C5 expansion. “Consolidate” preserves the owner adapter or its explicitly selected correction. “Retain” requires a supported distinguishing input/outcome, owner and falsifier; a missing proof remains OPEN. Historical L1/L2 acceptance and completed source cuts retain their exact scope.
+ 
+ | ID | Source recurrence and selected disposition | Exact target and preservation obligation |
+ |---|---|---|
+ | D01 | Canonical collected text and streaming digest already share one writer. **Consume** it throughout the named Product/event/context paths. | K02; no second serialization implementation or owner-independent preimage normalizer. Prove same bytes for the affected admitted domain and retain source-specific historical edge behavior. |
+-| D02 | `environment_definition_bindings.ts::sameJson` duplicates `definition_binding_mechanics.ts::sameJson`; environment and verification bindings duplicate `sameCoordinate`. **Consolidate** those identical functions. | Import the existing K02 functions from the already-used definition-binding module; delete the local implementations. Preserve false-on-encoding-exception and exact ref-plus-digest comparison. `hog/operator_support.ts::sameCanonical` remains digest equality; native identity/deep-strict shortcuts remain distinct. |
+-| D03 | [execution_resolution.ts](../code/src/product/execution_resolution.ts)::`exact` and [definition_binding_mechanics.ts](../code/src/shared/definition_binding_mechanics.ts)::`selectedDefinition` repeat finite filter/cardinality mechanics. **Consolidate** through K04 with explicit owner projection. | `absent/one/many → absent/one/ambiguous` for Product resolution; `one.value`, otherwise `null`, for definition selection. Retain the actual predicate, candidate sequence and duplicate multiplicity. No new exact-one algorithm or public operation. Existing implementation-resolution consumers remain the reference route. |
+-| D04 | Rooted-witness and event-codec private exact-key checks use closed unique constant key lists. **Consolidate** their elementwise/set-membership mechanics into existing `hasExactKeys` after proving that constant-domain correspondence. | K01; keep member validation and owner-specific refusal local. NUL-joined callers are **retain-distinct pending E01**, not silently substituted. Exact-list comparison and NUL-delimited equality have different raw-input domains. |
++| D02 | **Consolidate C2’s 24 finite simple equality bodies** through the typed text/digest callables and explicit throw/false projections. Preserve the already selected coordinate contraction. | K02; actual owner/type proof is required under O-TYPE/O-RESOURCE. The installed method closure preserves lookup/receiver. Two native composite classifications stay OPEN, not retained by default. |
++| D03 | **Consolidate C3’s 13 local exactly-one helpers** through common cardinality/selection/value projection. Retain the five existing common calls. | K04; full original filter versus O(1) preselected count remains explicit. Preserve duplicates, predicate order/throws, exact owner null/error projection, Result identity and justified ordered-first raw controls. |
++| D04 | **Consolidate C5’s five shared plus 38 local shallow guards and five shared plus one private NUL key body**, with the finite owner obligations in §9. The earlier exact-key entrypoint source contraction remains. | K01; unknown members remain unknown, typed wrappers delegate, and exact-own-key checking has one mechanic. Missing admitted-domain proof does not justify NUL retention. The default-library collided/inherited form is explicitly selected for false/refusal; other O-KEY/O-SCHEMA decisions remain open. |
+ | D05 | `declaration_closure.ts::locateRequired` selects all matching declarations and eligible reachable declarations. **Compose/retain owner decision**, not replace wholesale with generic exact-one. | K04 may decide eligible multiplicity; `all.length === 0 → absent`, otherwise no eligible result → `missing_dependency` stays Product-owned. Dependency closure, source provenance and executable resolution reuse K07. No generic graph/dependency algorithm addition is selected. |
+ | D06 | Definition bindings, installed run entry and read/transition wrappers share structural admission and receipt checking. **Consume** K05's three binders where their exact domain fits; keep irreducible Product/ABG composition. | Fixed imported owner and concrete contracts; no fourth binder or per-definition interpreter. A custom body is only removed after its physical effects, receipt/currentness and refusal branches have an exact existing-binder correspondence. No blanket “all bindings already converted” claim. |
+-| D07 | Current/historical event consumers share authenticated selection, suffix derivation and body acquisition. **Consume** K08/K09; retain canonical Event Calculus and owner projection law. | No feature-local entire-history fold, cache or lock protocol with different meaning. Preserve held versus cold, complete versus selected output, rollback/profile invalidation and actual close. Source counts do not prove every consumer already conforms. |
++| D07 | **Consolidate C3 checked singleton record/digest mechanics and C1 lifecycle decisions** while consuming existing authenticated history/index/resource owners. | K08/K09; preserve raw/owned/prospective distinctions, malformed singleton versus absence, owner joins, output identity, exact cut/dependency stamps, current/cold/fork behavior and sole EC truth. No broad dependency acquisition or per-cause cost improvement is claimed. |
+ | D08 | Body storage and native instruction assembly both reuse immutable definitions but have different outputs. **Consume** K10 for storage and existing K11 bookkeeping inside its owner; **retain distinct** codec and context selection contracts. | Codec reconstruction restores every logical field. Context projection independently conserves required sources, role qualifications, actual current input and readable content. Body savings cannot justify semantic omission. |
+ | D09 | `deepFreeze`, I-JSON capture, event capture and immutable closure reuse address different alias/admission/lifetime relations. **Retain distinct, compose explicitly** through K03/K07/K10. | No substitute “immutable<T>” brand or universal cache. Detached value, recursively frozen inspection, owner-authenticated value and current observation remain separate predicates. |
+-| D10 | Native worker, command and HTTP-probe paths repeat owned process cleanup. **Proposed common contract K12; extraction blocked by E03**. Inventory/parser factoring is **blocked by E04** where a material new algorithm is proposed. | Retain existing owner implementations now. A later selected shared mechanical function must preserve platform scope, observers/effect order, uncertainty and post-work observation; no protocol, result or ABG authority moves into it. |
++| D10 | **Consume existing shared physical lifetime and complete accepted C1/cross-consumer failure and lifecycle consolidation.** Three canonical stream framers are separately selected C4 targets. | K12/K02; original cause plus immutable final facts must cross every selected adapter, with concrete failure-side inspection. C1 removes the competing EC/projector law and shares the identical physical guard/type fields. Inventory/parser factoring remains E04; no protocol, result or ABG authority moves. |
+ | D11 | Installation and artifact admission are used by many features. **Reuse their ordered composition**, not a fictitious all-or-nothing common transaction. | [install_definition_bindings.ts](../code/src/product/install_definition_bindings.ts) → `installProductInResolvedLock` → [admitProductInstallInResolvedLock](../code/src/abg/environment_admission.ts) → exact artifact projection/receipt. Physical success may precede admission refusal. Reuse a previously admitted install only under its original identity/support; changing invocation labels cannot create another install truth. |
+ 
+-D02–D04 are concrete small contraction targets, with mechanical equivalence obligations and no new module layout prerequisite. D05–D09/D11 establish the mandatory construction basis for future consumers. D10 names a higher-impact recurrence requiring a stronger decision, not an excuse to add another bespoke solution meanwhile. The Executive allocates accepted contractions under Product's 5.0/5.1 boundary; this document does not activate their implementation.
++D02–D04/D07/D10 now bind the finite selected C1–C5 contracts and retirement maps, beyond the original small contractions. D05/D06/D08/D09/D11 preserve their demonstrated owner distinctions and reusable construction basis; they do not certify all callers as consolidated. The complete selected library must satisfy Product’s prerequisite boundary. Optional 5.1 compression applies outside this selection. This document grants no implementation effects.
+ 
+ ## 7. Source-to-library-to-outcome paths
+ 
+@@ -382,21 +403,27 @@
+ 
+ ## 9. Remaining decisions and finite realization sequence
+ 
+-The existing-contract architecture, D01–D09/D11 dispositions and obligations above are concrete decisions offered for acceptance. The following additions or contract changes are intentionally not admitted for retained implementation:
+-
+-| Gap | Exact unresolved decision and dependent stop | Closure evidence |
+-|---|---|---|
+-| E01 raw structural-domain change | For each proposed NUL-joined replacement, establish the caller's admitted key domain and whether exact comparison preserves or intentionally changes it. No blanket replacement or proof of equivalence. | Named caller/owner, concrete colliding and noncolliding inputs, owning decision and affected admission/negative-path proof. |
+-| E02 wider reusable equality/closure/cache extraction | No general unknown-object equality, shared dependency solver, identity shortcut or library-wide cache is selected. Propose one only when an actual additional consumer needs a proved common domain. | Exact domain, equality/support/invalidation/lifetime law, alternative comparison if material, consumer mapping and cold/current counterexamples. Existing K02/K07/K08 contracts remain usable. |
+-| E03 common process implementation | Decide whether/how one mechanical process-lifetime function can preserve worker observers, command/probe policies, platform scope and uncertainty without moving owner meaning. Its export, placement and algorithm are not yet selected. | Bounded foundation comparison; source correspondence for all proposed consumers; precise input/observation/refusal types; launch, timeout, observer/probe, descendants, drain and post-observation cases. This blocks extraction, not current owner use. |
+-| E04 filesystem/archive factoring | Decide any proposed new traversal/materialization or archive parser capability against the two inventory domains and real candidate foundations. No generic filesystem framework is selected. | Node-kind/path/link/collision/preimage/partial-write contracts, exact archive domain, foundation/cost comparison and real owner consumer proof. Existing Product ports remain selected. |
++Root accepts the bounded contracts in §1.1 after the closed reviews and their literal corrections. The following finite owner decisions remain OPEN. Their presence is not a retained-variant justification or automatic 5.1 deferral; the affected migration cannot be called source-ready until its owning relation closes.
++
++| Open obligation | Required owner decision and affected proof |
++|---|---|
++| O-TYPE | Truthful JSON data types for all 24 selected equality bodies and their definition/publication/basis/scope/cursor/result producers, with no moved casts, omitted data or unproved `JsonValue` intersections. Strict compile-negative lazy-view/function-member cases must remain rejected. |
++| O-RESOURCE | The seven self-comparison encodability probes and unknown `requiredSlot`/coordinate inputs require existing checked data or resource/handle premises, preserving absent/false/null/error outcomes. An equality probe is not admission. |
++| O-SHAPE | Five shared plus 38 local shallow bodies and seven shape-wrapper consumers must preserve unknown members until the actual schema/member owner narrows them. No recursive validator at each read. |
++| O-CODEC | Restored unknown event bodies remain for later Event Store validation; truthful parser/data types do not move event admission into a shallow check. |
++| O-SCHEMA | Existing default-library shallow custom JSON schema and nullable project-read adapter need an actual ingress/refusal decision. The concrete collided-key refusal is selected but does not close broader JSON membership. No blanket stricter I-JSON policy. |
++| O-KEY / E01 | Five shared plus one private NUL bodies have finite owner/caller rows. Bind valid, collided and noncollided outcomes and actual refusal. The default-library valid-true/collided-inherited-false correction is selected; other owner decisions/proof remain open. The prior honest NUL export rename is retained source, not full E01 closure. |
++| Two native composite classifications | Name a supported input/outcome distinction for identity/deep-strict/canonical compositions, or select common replacement with owner proof. No unproved “retain” disposition. |
++| E04 filesystem/archive factoring | Outside the selected C1–C5 addition, any proposed new parser/traversal capability still needs exact node/path/link/partial-write and archive-domain foundation/cost evidence. Existing distinct Product and execution-root inventories remain; no new framework is selected. |
++
++E02’s former deferral of simple equality and E03’s former undecided physical-lifetime extraction are superseded by §1.1’s finite selections. They do not block reuse of the existing common lifetime or excuse competing lifecycle/failure boundaries. General unknown-object equality, shared dependency solvers and library-wide caches remain unselected. The lifecycle S2/Root P1 delivery blocker remains open in implementation: the accepted single law must replace the source disagreement and live-Process-only cleanup census. Source counterexamples do not claim an executed false Run closure.
+ 
+ Finite delivery order:
+ 
+-1. Independently assess this exact design with Product, computational, foundation, authority/effect and proof frames; the Executive resolves the findings. Design acceptance is the current requested outcome.
+-2. Select one bounded realization increment and its consumer set. For D02–D04, import existing functions, preserve owner projections and delete only the corresponding equivalent implementations. For K07–K11 path work, bind the exact retained source/evidence and shared-owner correspondence. E01–E04 must close before their affected addition/change is retained.
+-3. Verify the affected finite contract cases and transitive control/effect graph. Every executable vertex/edge maps to existing GTL/C, static owner, Effect, ABG admission or projection; every required relation has an operative route. Preserve unrelated accepted evidence and dirty bytes.
+-4. Execute the earliest selected installed producer-to-consumer discriminator, using the existing installation/preparation/history/native/continuation path where authorized. Preserve physical-install/admission partial completion, retained producer identity, required observation and fresh-read results. An integration failure returns the exact causal relation for owner triage; it does not authorize retries or another framework.
+-5. Measure complete-path work and actual contraction, then independently assess the exact implementation/outcome subject. Reuse sufficient evidence; broader pure compression remains allocated by Product. F11, qualification, the selected lifecycle and release retain their separate remaining gates.
+-
+-The exit for this activity is an independently dispositioned, source-grounded library design with these obligations and bounded stops. Exhaustive design within a declared domain means every material admitted case has an owner, composition and disposition. It does not mean that a library taxonomy predicts execution, that all source is already consolidated, or that ABG 5.0 is complete.
++1. Preserve the closed frame reviews, literal corrections and exact bounded design acceptances in the [Root conjunction](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md). No new broad design-review campaign is selected.
++2. Resolve the remaining finite value owner/type decisions. Root may separately activate dependency-ready C1/cross-consumer source while those decisions continue; C3 requires the accepted truthful C5 wrapper contract. No source effect follows from this document, and an open owner boundary holds its affected migration.
++3. Complete the separately granted source increments and actual consumer/body retirement, preserving earlier five source cuts and unchanged evidence. Conjoin the required source and owner relations before constructing one combined isolated candidate; main generated936 remains protected.
++4. Under a later exact grant, verify affected finite contract/type/refusal cases and the earliest installed producer-to-consumer discriminator, including partial effects, actual inspection, close/reopen and fresh read. Combined build, P1/P5/P4 and dependent execution remain HELD until that conjunction. An integration failure returns to Root triage; no automatic retry follows.
++5. Record actual contraction and whole-path work, independently assess the delivered exact subject and record L5 acceptance. Only then resume remaining fifteen-family release integration, lifecycle, F11/sole AF22, qualification and human release acceptance. Performance and the P5 timeout’s cause remain unproved.
++
++Exhaustive design within this finite selection requires an owner, callable/consumer/deletion route and disposition for every material admitted case. The taxonomy does not predict execution; accepted bounded design and static source readiness do not discharge execution, library delivery or ABG 5.0 release obligations.
+--- a/build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md
+@@ -1,6 +1,50 @@
+ # T-287 Terminal-Quiescence Owner Network Accepted Design
+ 
+-## Later accepted Executive amendment — 2026-10-21
++## Current accepted lifecycle-law conjunction — 2026-10-21
++
++Root ratifies the exact [C1 lifecycle HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/HOW-proposal.md),
++SHA-256 `122df37438d9f5930fcc83a3159bc0b3b8b5e6927c4546288a32d11a8a96a910`,
++freeze `6114dba2945fca732df86e852b638261da876c91df31263c8289c871137020ee`,
++and its [retirement/proof map](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/retirement-and-proof.md).
++The [Root conjunction](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
++records the closed independent review and literal corrections. This acceptance
++is bounded DESIGN; the original frozen proposal remains unchanged.
++
++One pure EC-owned `decideActorProcessLifecycle` supplies the actual Actor,
++Event Calculus, replay and liveness consumers. Existing EC transition/holds
++remains the sole truth derivation. The actual cleanup token begins at the
++matching Run stop/failure and persists until qualified Actor consumption.
++Pre-Run physical uncertainty or confirmed Process exit can leave a projected
++Actor cleanup obligation without initiating that token. Shared physical
++finalization and type-only field reuse retain the exact bounded C1 contract;
++no universal carrier, second fold, cache or runtime authority is introduced.
++
++This amendment explicitly supersedes **only** b058 R3.3 lines 243–246’s
++requirement to serialize `cleanupPendingRows` into the Run-terminal payload
++and compare that duplicate payload with the census. The replacement uses the
++exact admitted **pre-event matching-Run Actor census** from existing indexed
++history/EC, including formerly active Actors whose Process already exited,
++failed to spawn or has no admitted Process row. Preserve one cleanup token per
++member, exclusion of Actors already terminal at that predecessor, exact source
++Run-terminal event attribution, and later Actor consumption. No payload field,
++schema, stored census or historical migration is added.
++
++A Process start after matching Run stop/failure remains prohibited. For an
++Actor with no admitted Process row, positive canonical no-child evidence may
++support lawful spawn-failed cleanup. A physically established child whose start
++was not admitted retains the real facts and original failure with unresolved
++semantic cleanup. Missing rows prove no physical absence; do not fabricate a
++start, Process terminal or Actor terminal. This is the selected correction to
++the predecessor proof proposal, not evidence of an executed post-Run start.
++
++The [C2 owning HOW](T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md)
++separately ratifies the accepted command/HTTP cause-plus-final-facts handoff and
++exact-attempt failure inspection. Dependency-ready source may receive a separate
++Root grant. The source-established lifecycle S2/Root P1 blocker, affected proof
++and L5 delivery acceptance remain open; no incorrect real-Run closure or new
++runtime proof is claimed. These documents grant no implementation effects.
++
++## Earlier accepted Executive amendment — 2026-10-21
+ 
+ Root accepts the [lifetime HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/HOW-proposal.md)
+ conjoined with the exact [closed corrective review](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/review-disposition-supplement-02.md)
+--- a/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+@@ -1,8 +1,8 @@
+ # T-287 W2-R3-C2 Worksite Command Execution Design
+ 
+-The [retained-construction forward re-entry design](T287_C2_FORWARD_REENTRY_DESIGN.md) is the subordinate binding for its distinct post-failure C2 arm; all other source and execution paths below remain unchanged.
+-
+-**Status**: accepted C2 helper-acknowledgment amendment
++The [retained-construction forward re-entry design](T287_C2_FORWARD_REENTRY_DESIGN.md) is the subordinate binding for its distinct post-failure C2 arm. The current common-lifetime amendment below separately governs the helper’s exceptional failure boundary.
++
++**Status**: accepted C2 helper-acknowledgment design with the bounded common-lifetime failure-handoff amendment below; its source/proof completion remains open.
+ 
+ **Accepted design amendment**: `C2-HELPER-ACK-D`
+ 
+@@ -20,9 +20,58 @@
+ 
+ **Current method route**:
+ `repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`.
+-T-287 and the design index retain historical accepted identities. The current
+-amendment changes only the Worker-return relation in section 6 and its affected
+-proof conditions; completed Wave 2 evidence retains its exact accepted subject.
++T-287 and the design index retain historical accepted identities. The historical helper-acknowledgment amendment changes the Worker-return
++relation in section 6 and its affected proof conditions; the current bounded
++failure-handoff amendment below also governs the exceptional path. Completed
++Wave 2 evidence retains its exact accepted subject.
++
++## Current common-lifetime failure-handoff amendment — 2026-10-21
++
++Root ratifies the exact [cross-consumer HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md),
++SHA-256 `8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec`,
++freeze `93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8`,
++including its finite failure/publication/inspection proof cases. The
++[Root conjunction](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
++records its bounded DESIGN acceptance alongside the [C1 lifecycle law](T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md).
++Original frozen proposal bytes remain unchanged. No helper source or execution
++acceptance is implied.
++
++Command and HTTP adapters await the canonical lifetime completion once and
++retain the **same immutable `OwnedProcessFacts` object**, raw captures and exact
++operation/task/attempt context in main before fallible detachment, cancellation,
++projection or encoding. This assignment handoff is outside ordinary observer
++callbacks, which may be suppressed after firstError. Preserve the original first
++Error or thrown value through every later finalizer/diagnostic failure; absence
++of a throw is distinct from a thrown null/undefined. Do not rebuild physical
++facts from callbacks or borrow the outer worker’s process-group evidence.
++
++On failure or unresolved physical scope, main may retain internal diagnostic
++evidence by create-only publication of the fixed `process-failure.json` sibling
++at `archiveRoot/worksite-command-execution/<taskDigest hex>/<attemptDigest hex>/`.
++The exact HOW binds canonical identities, format tag/version, full canonical
++facts serialization, raw byte/error descriptions, preflight sibling absence,
++attempted versus verified publication, and partial-residue handling. Retention
++can be unavailable; a failed publication does not prove no file committed.
++Preserve the primary failure. Never overwrite, delete, retry or fabricate a
++complete `result.json`, success acknowledgment or Product result.
++
++The named internal `inspectWorksiteCommandExecutionProcessFailure` export in
++`implementation/worksite_command_execution.ts` rederives the exact task and
++authority-free occurrence/launch coordinates, verifies the confined canonical
++single-link diagnostic and its joins, and returns verified-present, absent,
++invalid or unavailable evidence. It needs no successful Worker exchange or
++`complete()`. It is an exact-attempt observation, not an admitted event, runtime
++resource, Public/SDK/CLI endpoint or permission to retry/continue/restore
++currentness/close. Existing success and ABG admission gates remain unchanged.
++
++The failure-retention archive checks and attempted diagnostic publication are
++the only selected later effects on that branch. No report read, later command,
++predicate/request, protected-after observation, delta inventory or successful
++helper artifact follows. Unknown scope remains unknown. No budget or cleanup
++algorithm changes. The exact original cause, physical facts and failure-side
++inspection must be proved through the actual helper boundary under a later
++grant. Dependency-ready source can be selected separately; combined candidate,
++affected execution and L5 remain held for complete conjunction.
+ 
+ ## 1. Claim
+ 
+@@ -752,10 +801,14 @@
+ Current common-library E03 continuation: if a command or HTTP probe cannot
+ confirm its owned physical scope absent within the declared bounds, the helper
+ stops before expected-report filesystem observations, any later command or
+-predicate, after snapshot or publication.
+-It uses the existing thrown/non-admitted helper failure route, retaining the
+-exact task/attempt relation and observed command/probe, exit/signal/timeout,
+-signal sequence and physical uncertainty in diagnostics. The complete helper
++predicate, after snapshot or successful helper-artifact publication. The current
++failure-handoff amendment permits only its exact create-only diagnostic archive
++effects on that branch, with publication uncertainty explicit.
++It uses the existing thrown/non-admitted helper failure route, preserving the
++original cause and canonical final facts before fallible finalization. The fixed
++failure sibling and internal inspector retain the exact task/attempt relation
++and observed command/probe, exit/signal/timeout and physical uncertainty. Observed
++callback signal lists are distinct from canonical signal attempts. The complete helper
+ artifact contract cannot be replaced by a partial successful artifact. A
+ failed but physically confirmed inner command may still be a truthful
+ observation. Outer actor termination does not certify the inner owned group.
+--- a/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md
++++ b/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md
+@@ -293,3 +293,64 @@
+ uncommitted. This grant permits only the four current status/routing documents
+ and this compact re-entry record. No source/test/build/import/process/Git/Reviewer
+ effects; preserve prior freezes, failed cuts, common HOW and main generated936.
++
++
++## 11. Root-conjoined bounded designs and source boundary — 2026-10-21
++
++The [current conjunction](realization/common-consolidation-conjunction-01/decision.md)
++ratifies the closed frame designs and literal corrections in the owning common,
++terminal-quiescence and C2 HOWs. This section supersedes §10’s pending-proposal
++routing and affected retention assumptions. Historical L1/L2 and frozen proposals
++remain unchanged; their old live-document input pins are historical predecessors,
++not failed proofs after these announced amendments.
++
++- C1 HOW `122df37438d9f5930fcc83a3159bc0b3b8b5e6927c4546288a32d11a8a96a910`,
++  freeze `6114dba2945fca732df86e852b638261da876c91df31263c8289c871137020ee`:
++  accepted bounded DESIGN for one EC-owned lifecycle decision and exact consumers,
++  common physical artifact-read guard and selected type-field reuse. Ratify the
++  admitted pre-event matching-Run Actor census, one token/member at Run stop/failure
++  until Actor consumption, and source-terminal attribution. Supersede only b058
++  R3.3’s redundant serialized `cleanupPendingRows` payload clause. Preserve the
++  post-Run-start prohibition; physical child/unadmitted start retains unresolved
++  semantic cleanup. Source counterexamples remain implementation/proof obligations.
++- Cross-consumer HOW `8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec`,
++  freeze `93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8`:
++  accepted bounded DESIGN. Before fallible finalization, command/HTTP main retains
++  the same immutable canonical facts and raw captures outside suppressed observers,
++  preserving the original cause. Exact create-only `process-failure.json` plus the
++  internal stateless inspector supplies failure-side observation without success
++  exchange or ABG/Product promotion. Helper source remains unimplemented.
++- C3 HOW `5e2169845cd3015ea6ed99223044b89ba7dc18788f1d73236b929f075f8356e7`,
++  freeze `368854bc8bb340677e7afd278c4ca69e30b2f6355899073b426298c9fccf0e0a`:
++  accepted bounded DESIGN for 13 exactly-one retirements and checked-record/digest
++  composition, preserving filter/cardinality work, owner identity/joins/registry
++  actions and raw/owned/prospective distinctions. Both malformed execution-basis
++  null-digest partitions explicitly select owner null/refusal; common exceptions
++  and later unrelated body errors remain. C3 requires truthful C5 JSON wrappers.
++- C2/C4/C5 proposal `e1ebd2047eab1aa7cfb56ce7a4384279e8a40c10dbdbdaf815442707e0e89246`,
++  freeze `6ef9e727844242d82295291c41847e5a1fb1417341b717c3301d53df8d1cadc0`:
++  bounded callable contracts and selected retirement directions accepted, not full
++  migration/source readiness. Scope is 24 simple equality bodies, three framers,
++  five shared plus 38 local guards and five shared plus one private NUL key body.
++  Installed equality uses exactly `(value) => product.canonicalJson(value)`;
++  default-library collided/inherited keys select false through exact own-key checking.
++  O-TYPE/O-RESOURCE/O-SHAPE/O-CODEC/O-SCHEMA/O-KEY and two native composite
++  classifications remain OPEN. Their finite proof maps are required, not executed.
++
++Default common implementation; a retained variant needs a supported distinguishing
++input/outcome, owner and falsifier. Missing proof stays open. All selected C1–C5
++work is inside the library prerequisite, with no automatic 5.1 deferral. Direct
++typed imports remain valid; no generic duplication framework or new runtime is
++selected. The five earlier source freezes remain static/syntax readiness only;
++Root’s fresh 39-file/two-deletion custody verification adds no execution proof.
++
++After the authorized checkpoint, Root may separately activate dependency-ready
++C1/cross-consumer source while finite value owner decisions continue. C3 depends
++on the accepted truthful C5 wrapper contract. An unresolved owner boundary holds
++its affected value migration; complete required design/source conjunction holds
++the combined candidate/build and P1/P5/P4/dependent execution. Then one isolated
++candidate, proportionate affected/installed proof and independent L5 precede release
++resumption. No new broad design-review campaign is selected. L4 stays partial on
++older subjects; L5 and release acceptance remain absent. This transcription grants
++no source/test/build/import/process/provider/Git/Reviewer effects and preserves
++main generated936 and all prior frozen/failed cuts.
+--- a/specification/GOALS.md
++++ b/specification/GOALS.md
+@@ -15,7 +15,7 @@
+ 
+ | Goal ID | Goal | Success signal | Status |
+ |---|---|---|---|
+-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The common computational library precedes remaining release work. L1/L2 acceptance remains historical; [C1–C5 design re-entry](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md) is selected. Five source increments are frozen/uncommitted with syntax/static evidence only. The new lifecycle-law S2/P1 delivery blocker holds the combined candidate and P1/P5/P4/dependent lanes pending design/source conjunction. L4 is partial on older subjects; L5 acceptance is absent and release resumption closed. `400d763d1d4c3d9e84cf30d6b830d7b975ef7089` was remote-equal, tracking 0/0 and clean at its historical checkpoint; the current successor is uncommitted. Fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
++| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The common computational library precedes release work. [Root’s design conjunction](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) accepts bounded C1/C3/cross-consumer contracts and C2/C4/C5 core callables with six owner obligations and two composite classifications OPEN. Five source cuts retain static/syntax readiness only. Lifecycle implementation, complete source conjunction, combined candidate/P1/P5/P4 and independent L5 remain open or held; release resumption is closed. [Current checkpoint handoff](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md) owns transport status. Fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
+ 
+ ## Current Selection
+ 
+@@ -31,38 +31,58 @@
+ 
+ The [L1 design baseline](../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md)
+ and [exact L2 design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
+-remain accepted on their historical exact cuts. Root's [closed review conjunction](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md)
+-substantially upholds the consolidation critique as a design-coverage gap while
+-retaining real contractions. Common HOW `cb8dae9f…` stays unchanged pending the
+-smallest owning proposals. C1 lifecycle law, C2 typed equality, C3 checked fact
+-read/selection, C4 canonical record framing and C5 shallow shape/key relations are
+-all selected library obligations; none is automatically deferred to 5.1. Direct
+-typed imports are a valid callable surface; no new facade/runtime is selected.
+-
+-The owner's purpose remains **“the purpose of the calculus is to strip out old
+-fixtures, to remove massive tech debt”**. Root accepted bounded source readiness
+-for lifetime `4bfdf7e…`, role/source `17b1b6d…`, fixture `1bbc47ac…`, P5 guard
+-`d24b8d7d…` and exact-key `ed4ca1b…`; the [exact cuts](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
+-are frozen/uncommitted with syntax/static evidence only. The old ordinary companion
+-helper and packaged STDO2.5 member are deleted in the role/source cut. These actual
+-contractions remain; they establish neither full-foundation coverage nor runtime
+-acceptance. Historical evidence and distinct companion/renderer/NUL/owner duties remain.
+-
+-Command/HTTP HOW `8fb5ca19…`, freeze `93d088fb…`, is accepted at bounded design
+-scope; helper source is unimplemented and must conjoin C1. The new inherited
+-Actor-projector/EC cleanup partition is S2, Root priority P1 and a delivery blocker.
+-It is a source counterexample, not an observed incorrectly closed Run. Prior
+-bounded no-counterexample review does not close it; physical/no-child distinctions remain.
+-
+-The last remote [checkpoint](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
+-is `400d763d1d4c3d9e84cf30d6b830d7b975ef7089`, remote-equal, tracking 0/0 and clean
+-at that historical cut. The current successor is uncommitted. L4 is partial on
+-older subjects, including the preserved P1 pass/P5 timeout. L5 acceptance is absent
+-and release resumption closed. The [current sequence](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/plan.md)
+-is C1–C5 owning proposals → Root conjunction/amendments → separately granted source
+-completion → one combined isolated candidate → affected proof/unchanged P4 →
+-independent L5 → release work. Candidate/P1/P5/P4 and dependent lanes are held for
+-the new design/source conjunction. Old failed cuts and main generated936 remain protected.
++retain their historical acceptance. Root’s [current conjunction](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
++ratifies the corrected bounded C1 lifecycle, C3 checked-reader and command/HTTP
++failure-handoff designs in the owning HOWs. C2/C4/C5 common callable contracts
++and retirement directions are accepted with O-TYPE/O-RESOURCE/O-SHAPE/O-CODEC/
++O-SCHEMA/O-KEY and two native composite classifications OPEN. This is not full
++migration or source-readiness acceptance. The coverage critique remains
++substantially upheld; real completed contractions are retained.
++
++The finite selected scope is 24 simple equality bodies, 13 local exactly-one
++helpers, three stream framers, five shared plus 38 local shallow guards and five
++shared plus one private NUL key body. Every selected row needs a callable,
++consumer, deleted body/route, justified variant and proof. Default to the common
++implementation; retention needs a concrete supported distinguishing input/outcome,
++owner and falsifier. Missing proof stays open. All C1–C5 are library obligations;
++none is automatically deferred to 5.1. Direct typed imports are valid callables.
++
++The owner’s purpose remains **“the purpose of the calculus is to strip out old
++fixtures, to remove massive tech debt”**. The five [source freezes](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
++retain bounded static/syntax readiness: lifetime `4bfdf7e…`, role/source
++`17b1b6d…`, fixture `1bbc47ac…`, P5 guard `d24b8d7d…` and exact-key `ed4ca1b…`.
++At this design conjunction, before the authorized checkpoint, those source
++increments are uncommitted. Root’s fresh custody check matched all 39 distinct
++source/proof/contract files and confirmed both selected deletions absent; that
++is custody evidence, not new execution. The old ordinary companion helper,
++packaged STDO2.5 member and selected fixture/key duplicates are retired in source.
++Distinct owner/renderer/companion duties and historical proof remain.
++
++The lifecycle S2/Root P1 delivery blocker is resolved in bounded DESIGN only.
++The accepted law requires the pre-event matching-Run Actor census and one
++Run-initiated cleanup token until Actor consumption, distinct from pre-Run
++physical uncertainty. Source implementation and affected proof remain open;
++no incorrectly closed real Run is claimed. Command/HTTP final-facts retention,
++fixed failure diagnostic and stateless inspection are likewise accepted DESIGN
++and unimplemented in the helper.
++
++The [current checkpoint handoff](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
++owns current commit/remote/parity status. The known preceding checkpoint is
++`400d763d1d4c3d9e84cf30d6b830d7b975ef7089`, remote-equal, tracking 0/0 and clean
++at that historical cut. This corrected design and source custody are ready for
++the separately authorized full-visible-tree WIP checkpoint; no later push is
++claimed by this conjunction.
++
++Next, close the finite value owner/type decisions and separately grant
++dependency-ready source completion. C1/cross-consumer source can proceed under
++a separate Root grant while those decisions continue; C3 requires the truthful
++C5 wrapper contract. Whole value migration at an unresolved owner boundary and
++the combined candidate/build/P1/P5/P4 remain held until the required source
++conjunction. Then run proportionate affected and installed proof, independently
++assess L5 and only after acceptance resume release work. L4 remains partial on
++older subjects, including P1 pass/P5 timeout; L5 acceptance is absent. No new
++broad design-review campaign is selected. Old failed cuts and main generated936
++remain protected.
+ 
+ The owner's Executive correction applies [proportionality and steel-thread
+ controls](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#design-and-proof-controls):
+--- a/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ b/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -9,9 +9,9 @@
+ - current_method_basis: stdo://releases/v3.0.0-rc.1/
+ - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
+ - current_activation: T287_COMMON_LIBRARY_DELIVERY_01
+-- current_activation_status: L1_L2_HISTORICAL_ACCEPTANCE_C1_C5_DESIGN_REENTRY_SELECTED_SOURCE_FROZEN_L4_PARTIAL_L5_BLOCKED
+-- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md
+-- current_next_work: C1_C5_frame_specific_owning_design_reentry_then_Root_conjunction_and_separate_source_grant
++- current_activation_status: BOUNDED_DESIGN_CONJUNCTION_ACCEPTED_VALUE_OWNER_OBLIGATIONS_OPEN_SOURCE_COMPLETION_L4_L5_HELD
++- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
++- current_next_work: authorized_WIP_checkpoint_then_finite_value_owner_decisions_and_separately_granted_dependency_ready_source
+ - current_prerequisite_deliverable: common_computational_capability_library
+ - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
+ - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
+@@ -24,17 +24,25 @@
+ ## Current Delivery Plan
+ 
+ The owner selects **common computational library delivery before remaining 5.0
+-release work**. Original L1/L2 acceptance stays historical. Root's [new design
+-re-entry](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md)
+-substantially upholds the coverage critique and selects C1–C5 while retaining real
+-contractions. Common HOW `cb8dae9f…` is unchanged pending owning proposals. Five
+-source increments are frozen/uncommitted with syntax/static readiness only. The
+-new inherited lifecycle-law S2/P1 blocker holds combined candidate/P1/P5/P4 and
+-dependent lanes; L4 is partial on older subjects, L5 acceptance absent and release
+-resumption closed. Checkpoint `400d763d1d4c3d9e84cf30d6b830d7b975ef7089` was pushed,
+-remote-equal, tracking 0/0 and clean at that historical cut; the current successor
+-is uncommitted. The asset remains reusable computations and lawful compositions
+-that remove independent duplicate solutions while preserving supported distinctions.
++release work**. Historical L1/L2 acceptance and actual contractions are retained.
++Root’s [current design conjunction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
++ratifies bounded C1 lifecycle, C3 checked-reading and command/HTTP failure
++handoff. C2/C4/C5 core callable contracts and retirement directions are accepted
++with six owner obligations and two native composite classifications OPEN.
++The coverage critique is substantially upheld; the owning common HOW now
++binds the finite callable/consumer/deletion/proof maps rather than leaving
++selected duplication under automatic retention or 5.1 allocation.
++
++Five source cuts retain static/syntax readiness only. Lifecycle and helper
++implementation/proof remain open; combined candidate/build/P1/P5/P4 are HELD
++until the required source conjunction. L4 is partial on older subjects, L5
++acceptance absent and release resumption closed. The [checkpoint handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
++owns current transport identity/parity. At this design conjunction, before the
++authorized WIP checkpoint, the successor is uncommitted; known prior checkpoint
++`400d763d1d4c3d9e84cf30d6b830d7b975ef7089` was pushed, remote-equal, tracking 0/0
++and clean at its historical cut. The asset remains reusable computations and
++lawful compositions that remove independent duplicate solutions while
++preserving supported distinctions.
+ [Goals](../../../specification/GOALS.md#current-selection) selects that work;
+ [Product](../../../specification/PRODUCT.md#50-and-51-release-boundaries)
+ keeps the fifteen-family 5.0 outcome and exclusions.
+@@ -67,21 +75,26 @@
+ obligations, composition rules, actual foundation and owner bindings, existing
+ and proposed consumers, and a finite realization/proof sequence. This is L1
+ evidence. [L2 successor 02 is accepted](../../work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
+-after independent review 02: exact D02–D04/K11/E03/U1 realization scope,
+-E01/E02/E04 retention and P1–P5 proof are bound, including the timer-domain
+-correction. Library delivery still requires L3–L5 below; design acceptance
++after independent review 02: its exact D02–D04/K11/E03/U1 scope, then-selected
++E01/E02/E04 dispositions and P1–P5 proof were bound, including the timer-domain
++correction. Current C1–C5 amendments supersede the affected retention/deferral
++assumptions while preserving that historical cut. Library delivery still requires L3–L5 below; design acceptance
+ does not establish implementation, observed contraction or successful execution.
+ The [delivery-plan activation](../../work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01/activation.md)
+ records this successor selection and preserves the accepted design cut.
+ The [checkpoint handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
+-routes the [closed review conjunction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md)
+-and smallest owning design re-entry. Earlier realization and retirement grants
+-retain their exact cuts. Lifetime `4bfdf7e…`, role/source `17b1b6d…`, fixture
+-`1bbc47ac…`, P5 guard `d24b8d7d…` and exact-key `ed4ca1b…` are completed bounded
+-source increments, not runtime/semantic acceptance. Command/HTTP HOW `8fb5ca19…`,
+-freeze `93d088fb…`, is accepted at design scope; helper source is unimplemented
+-and must conjoin the new EC-owned lifecycle law. Existing proof retains its exact
+-subjects; final candidate closure and delivery acceptance remain open.
++routes the [current conjunction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
++and [L2 §11](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md#11-root-conjoined-bounded-designs-and-source-boundary--2026-10-21).
++Closed reviews and their literal corrections are retained; no new broad design
++review is selected. Earlier realization and retirement grants keep their exact
++cuts. Lifetime `4bfdf7e…`, role/source `17b1b6d…`, fixture `1bbc47ac…`, P5 guard
++`d24b8d7d…` and exact-key `ed4ca1b…` are frozen bounded source increments with
++static/syntax readiness only. Root’s current custody verification matched 39
++distinct source/proof/contract files and both selected deletions; this adds no
++runtime proof. Command/HTTP HOW `8fb5ca19…`, C1 HOW `122df374…` and C3 HOW
++`5e216984…` are accepted bounded DESIGN; the value core `e1ebd204…` is accepted
++only within its explicit open owner boundaries. Implementation, complete
++candidate closure and delivery acceptance remain open.
+ 
+ The method pin does not migrate an admitted Run. The current STDO template
+ binds exact native source/material and only explicitly selected supplementary
+@@ -92,12 +105,12 @@
+ 
+ ### Common computational library deliverable
+ 
+-**Owner:** ABIogenesis/T-287. **Status:** open. L1/L2 acceptance is historical;
+-C1–C5 owning design re-entry is selected. Five source increments are frozen and
+-uncommitted with syntax/static evidence only; actual bounded retirement remains.
+-The new lifecycle-law S2/P1 blocker holds combined candidate/dependent proof.
+-L4 is partial on older subjects; L5 delivery acceptance is absent. `400d763…` is
+-the historical remote-equal/clean checkpoint, not the current successor state.
++**Owner:** ABIogenesis/T-287. **Status:** open. The bounded design conjunction
++is ratified. Six value owner obligations and two native composite classifications
++remain OPEN; full migration is not source-ready. Five source cuts retain
++static/syntax evidence, with implementation and proof of the lifecycle/helper
++successors still open. L4 remains partial on older subjects; L5 acceptance is
++absent. Current transport status belongs to the checkpoint handoff.
+ 
+ **Release-resumption gate:** closed until L5 acceptance on the exact delivered
+ subject. All C1–C5 obligations are selected library scope; no automatic 5.1 deferral.
+@@ -184,13 +197,13 @@
+ | Step | Selected work and prerequisite | Observable exit | Stop or next action |
+ |---|---|---|---|
+ | Reconciliation — accepted | Retain the exact STDO 3 Product/requirement destination and calculus binding from the preceding accepted document subject. | Independent assessment and recorded disposition in `T287_STDO3_RECONCILIATION_01`. | Retain evidence within its original scope; the owner-selected library prerequisite supersedes the earlier next-work order. |
+-| L1 baseline — historical acceptance retained | Preserve common HOW `cb8dae9f…` and exact accepted contracts. | [Historical design acceptance](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md). | C1–C5 coverage re-entry is selected; frame proposals precede owning amendment. No full-foundation coverage claim. |
+-| L2 — historical acceptance with current re-entry | Preserve successor02 and accepted amendments; [L2 §10](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md#10-root-selected-common-consolidation-design-re-entry--2026-10-21) holds candidate for C1–C5 conjunction. | Earlier review/acceptance retain exact cuts. | Root separately activates lifecycle/value/history design work, then source effects. |
++| L1 baseline — historical acceptance retained | Preserve the exact historical common HOW `cb8dae9f…` and its accepted claims; current owning HOW carries §1.1’s bounded conjunction. | [Historical acceptance](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md) plus [current decision](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md). | C1/C3/cross-consumer DESIGN accepted; value core accepted with six owner obligations/two composite classifications OPEN. |
++| L2 — bounded conjunction ratified | [L2 §11](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md#11-root-conjoined-bounded-designs-and-source-boundary--2026-10-21) refines selected C1–C5 callable/consumer/retirement scope. | Closed reviews and literal corrections incorporated in owning HOWs. | Close finite value decisions; Root may grant dependency-ready C1/cross-consumer source separately. C3 requires truthful C5 wrappers. |
+ | Prior design checkpoint — completed | Preserve its exact full-tree design/commentary/evidence subject and transport. | Remote design checkpoint `67c3337` retains its original scope. | That prior checkpoint remains historical; the unfinished refactor is retained in checkpoint `400d763…`, without delivery acceptance. |
+-| Review checkpoint — historical completed cut | Preserve `400d763d1d4c3d9e84cf30d6b830d7b975ef7089`. | Pushed, direct remote equal, tracking 0/0 and clean at that cut. | Current successor is uncommitted; transport establishes no delivery/runtime/release acceptance. |
+-| L3 bounded source — frozen; successor held | Retain lifetime `4bfdf7e…`, role `17b1b6d…`, fixture `1bbc47ac…`, P5 `d24b8d7d…`, exact-key `ed4ca1b…`. | Actual bounded retirement/adoption and syntax/static readiness. | C1–C5 design/source conjunction required; command/HTTP helper design is unimplemented. No combined candidate yet. |
++| Review checkpoint — historical completed cut | Preserve `400d763d1d4c3d9e84cf30d6b830d7b975ef7089`; [handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md) owns successor transport status. | Pushed, direct remote equal, tracking 0/0 and clean at that historical cut. | Corrected design/source custody ready for the authorized full-visible-tree WIP checkpoint; transport grants no delivery/runtime/release acceptance. |
++| L3 bounded source — five cuts frozen; successor completion open | Retain lifetime `4bfdf7e…`, role `17b1b6d…`, fixture `1bbc47ac…`, P5 `d24b8d7d…`, exact-key `ed4ca1b…`. | Actual bounded retirement/adoption and syntax/static readiness; 39-file custody check adds no execution. | Separately grant dependency-ready source. Unresolved value owner boundaries hold their migration; complete required conjunction precedes one combined isolated candidate. |
+ | L4 — partial historical subjects; all candidate lanes held | Preserve P1 pass, P5 successor08 timeout and finite04/07/08/09 evidence. | Original subjects/exclusions remain. | Candidate/P1/P5/P4 and owner-resolution/P2/P3/HoG held for design/source conjunction and later effect grant. No timeout-cause/performance inference. |
+-| L5 delivery acceptance — blocked | Resolve new lifecycle-law S2/P1 blocker; conjoin C1–C5, source/consumer retirement and affected evidence. | Independent assessment and Root disposition. | Prior bounded no-counterexample review does not close the new cleanup partition. Delivery acceptance absent; release gate closed. |
++| L5 delivery acceptance — blocked | Complete C1–C5 source/consumer retirement and affected evidence, including the lifecycle S2/Root P1 blocker. | Independent assessment and Root disposition on the delivered exact subject. | Bounded design acceptance and prior narrow source reviews do not close implementation/outcomes. Delivery acceptance absent; release gate closed. |
+ | D1/D4 remaining release integration — waiting for L5 | After library acceptance, compare current source to the accepted design and frozen Source44; reuse valid library evidence and implement only remaining admitted release deltas. | Focused checks plus exact installed producer/consumer composition establish the changed release relations. Source/package correspondence and authentic setup evidence are retained or renewed only where invalidated. | Return a failed join to its owning boundary; no blind clean restart or extra controller. |
+ | D2 controlled correction/restart | Reconcile17's completed physical install with admitted16 facts; select lawful reuse or an owner-supported changed pair. Bind the actual Source, Program, current input and reviewed fixture. | Actual helper execution gives a failing C2 result with original diagnostics/citations; parent retains it; selected native repair changes the candidate; the same checker passes; close/reopen and fresh Public reads conserve producer, state and effects. | A refusal or uncertain effect stops and is explained. This finite controlled proof does not establish genuine semantic work. |
+ | D3 genuine selected lifecycle | Select the exact installed candidate, original source, full selected obligations, independent oracle and actual worker/assessment configuration prospectively. | The supported ordinary interface produces and corrects a working application, receives independent assessment and reaches admitted closure/fresh readback. Required ambiguity, refusal and recovery cases retain their outcomes. | No hidden assistance or shrinking of the oracle. Apply remaining D4 generic-composition obligations and D5 coverage; reuse valid prior evidence. |
+@@ -266,50 +279,56 @@
+ 
+ ### Current operation boundary
+ 
+-Root selects [C1–C5 common-consolidation re-entry](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md)
+-after three closed independent read-only returns. The critique is substantially
+-upheld as a coverage gap; existing acceptance/contractions remain on exact cuts.
+-Common HOW `cb8dae9f…` stays unchanged until owning lifecycle/value/history proposals
+-are conjoined. All five bounded families are library scope, not automatic 5.1 work.
+-
+-Default to a canonical implementation. Retention requires a supported caller/outcome
+-distinction, falsifier and owner/disposition; missing proof is open. Do not blindly
+-change equality, failure or admission domains. Each target binds callable contract,
+-consumers, retired route, canonical replacement, variants and proof. Direct typed
+-imports are valid; no generic duplication framework/facade/barrel/registry is selected.
++Root’s [bounded design conjunction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
++is ratified in the common, terminal-quiescence and C2 owning HOWs. C1 lifecycle,
++C3 checked records and cross-consumer cause/facts/inspection contracts are
++accepted DESIGN. C2/C4/C5 core callable contracts and finite retirement directions
++are accepted with O-TYPE/O-RESOURCE/O-SHAPE/O-CODEC/O-SCHEMA/O-KEY and two native
++composite classifications OPEN. This does not accept full migration or prove
++runtime behavior. Closed independent reviews and their literal corrections are
++retained without another broad design-review campaign.
++
++The finite scope is 24 simple equality bodies, 13 local exactly-one helpers,
++three stream framers, five shared plus 38 local guards and five shared plus one
++private NUL key body. Default to a canonical implementation. Retention requires
++a concrete supported input/caller/outcome distinction, owner and falsifier;
++missing proof remains open. Preserve failure/equality/admission domains except
++the exact selected owner corrections. Direct typed imports are callable
++surfaces; no new facade/runtime/schema/registry is selected.
++
++The lifecycle law uses the exact pre-event matching-Run Actor census and one
++Run-initiated token until Actor consumption. Only redundant b058 R3.3 payload
++census serialization is superseded; post-Run Process start remains prohibited.
++A physical child without admitted start retains unresolved cleanup. Both C3
++malformed null-digest cases now select owner null/refusal; the common checker
++retains exceptions. Installed equality uses `(value) => product.canonicalJson(value)`.
++The default-library collided/inherited key form selects false. These bounded
++corrections require implementation and proof, not another unqualified equivalence
++claim. The source-established lifecycle S2/Root P1 blocker remains operationally
++open; no incorrectly closed real Run is claimed.
+ 
+ The [five source cuts](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
+-are frozen/uncommitted: lifetime `4bfdf7e…`, role/source `17b1b6d…`, fixture
+-`1bbc47ac…`, P5 guard `d24b8d7d…`, exact-key `ed4ca1b…`. Root accepted syntax/static
+-source readiness only. Ordinary companion-helper/old packaged member retirement
+-is delivered in source; P4 and distinct obligations remain. Command/HTTP HOW
+-`8fb5ca19…`/freeze `93d088fb…` is accepted at bounded design scope; helper source
+-is unimplemented and must conjoin the EC-owned lifecycle law.
+-
+-The new S2/P1 blocker is the Actor-projector/EC cleanup partition: started→unconfirmed
+-before Run terminal disagrees on pending cleanup; confirmed exit→Run stop without
+-Actor consumption loses EC pending cleanup while the actor projector retains it.
+-These are source counterexamples, not an observed incorrectly closed Run. Earlier
+-bounded worker no-counterexample review does not close them. No correct implementation
+-is selected in A. The accepted token frontier is matching Run stop/failure, distinct
+-from pre-Run physical uncertainty and later Actor consumption; physical/no-child
+-distinctions remain valid.
+-
+-Preserve historical evidence: P1 on archive `fadd07e…` passed in 954.636 s without
+-native/provider calls; P5 successor08 `c54099…` timed out at 600 s/630 s, with late
+-C1 completion and C2 admission/opening but no C2 actor/helper/HTTP result, fresh N2
+-equality or terminal closure. Original phases were 323.088 s setup and 293.475 s
+-C1. Concurrency is observed, not causation. Performance, a second live lazy-view
+-bug and P5 timeout cause are not established. Exact finite passes retain their scope.
+-
+-Sequence: historical checkpoint `400d763…` → C1–C5 proposals/Root conjunction →
+-owning amendments/separate source grant → source conjunction → one isolated
+-candidate → affected proof/unchanged P4 → independent L5 → release work. Candidate,
+-P1, P5, P4 and dependents are held. L4 is partial on older subjects; L5 acceptance
+-and release resumption are closed. Root separately activates design Writers.
+-This documentation grants no source/test/build/import/process/Git/Reviewer effects.
+-Preserve failed cuts, main generated936 and historical attempts; no cleanup,
+-recreated installs, evidence mutation or Run migration is selected.
++retain static/syntax readiness only. At this design conjunction, before the
++authorized checkpoint, they are uncommitted. Root matched all 39 distinct
++source/proof/contract files and both selected deletions; that is custody only.
++The checkpoint handoff owns later transport identity/parity. Historical P1 on
++archive `fadd07e…` passed in 954.636 s without native/provider calls; P5
++successor08 `c54099…` timed out at 600 s/630 s, with late C1 completion and C2
++admission/opening but no C2 actor/helper/HTTP result, fresh N2 equality or terminal
++closure. Its setup/C1 phases were 323.088 s/293.475 s. Concurrency was observed,
++not established as a cause. A second live lazy-view bug, timeout cause and
++performance benefit remain unproved. Exact finite passes keep their original scope.
++
++Next: authorized WIP checkpoint; finite value owner/type decisions plus
++separately granted dependency-ready C1/cross-consumer source; C3 with truthful
++C5 wrappers; complete required source conjunction; one combined isolated
++candidate; proportionate affected/installed proof and unchanged P4; independent
++L5; then release work. Source edits need not all wait for every value decision,
++but unresolved owner boundaries hold their affected migration. Combined build,
++P1/P5/P4 and dependents remain HELD until conjunction and a later exact grant.
++No source/test/build/import/process/provider/Git or Reviewer effect follows
++from this documentation. Preserve old freezes, failed cuts and main generated936;
++no cleanup, old Run migration or restarted historical attempt is selected.
+ 
+ 
+ ## Historical Routing Snapshot
+--- a/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
++++ b/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
+@@ -1,91 +1,83 @@
+-# Current handoff: common-library design re-entry
++# Current handoff: corrected design ready for WIP checkpoint
+ 
+-Start with Root's [decision](realization/common-consolidation-reentry-01/decision.md),
+-[plan](realization/common-consolidation-reentry-01/plan.md) and [attributed closed
+-review conjunction](realization/common-consolidation-reentry-01/review-conjunction.md).
+-The [T287 current operation boundary](../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-operation-boundary)
+-and [L2 §10](L2-execution-contract.md#10-root-selected-common-consolidation-design-re-entry--2026-10-21)
+-route the work. Earlier L1/L2 acceptance remains historical on exact cuts; accepted
+-common HOW `cb8dae9f…` is unchanged pending the smallest frame-specific proposals.
+-The critique is substantially upheld as a selected-library coverage gap, while
+-real completed contractions remain valid and useful.
++**Transport state at this design conjunction:** ready for the separately
++authorized full-visible-tree WIP checkpoint; not yet committed or pushed by
++this Writer. The known previous remote checkpoint is
++**400d763d1d4c3d9e84cf30d6b830d7b975ef7089**. Its push, direct remote equality,
++tracking 0/0 and cleanliness were verified at that historical cut. A separate
++checkpoint Writer owns the next commit, push and fresh parity/cleanliness
++receipt. This current handoff is the route for later transport status.
+ 
+-**Current state:** C1 lifecycle, C2 typed equality, C3 checked fact read/selection,
+-C4 canonical record framing and C5 shallow shape/actual key relations are all
+-selected library design scope. The new inherited Actor-projector/EC cleanup-law
+-gap is S2, Root priority P1 and a delivery blocker. Prior bounded worker
+-no-counterexample review does not close this partition. No real-Run incorrect
+-closure is claimed. Candidate/P1/P5/P4 and dependents are held for design/source
+-conjunction; L4 is partial on older subjects, L5 acceptance absent, release gate closed.
++Start with Root’s [bounded design conjunction](realization/common-consolidation-conjunction-01/decision.md),
++the [owning common HOW](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md),
++[T287 current operation boundary](../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-operation-boundary)
++and [L2 §11](L2-execution-contract.md#11-root-conjoined-bounded-designs-and-source-boundary--2026-10-21).
++The earlier L1/L2 acceptances and frozen proposals remain unchanged on their
++exact subjects. The critique is substantially upheld as a coverage gap; actual
++completed consolidations remain useful source results.
+ 
+-The last remote full-tree checkpoint remains **400d763d1d4c3d9e84cf30d6b830d7b975ef7089**.
+-Push, direct remote equality, tracking 0/0 and cleanliness were verified at that
+-historical cut. Root reports the current successor uncommitted. No fresh Git or
+-remote check occurs in this transcription; old checkpoint/evidence remains exact.
++## Current design and source state
+ 
+-## Bounded source readiness and accepted design retained
++| Family | Status at the conjunction |
++|---|---|
++| C1 lifecycle | Corrected HOW `122df374…`, freeze `6114dba2…`, accepted bounded DESIGN. One EC-owned law, pre-event matching-Run Actor census, one token/member, exact source attribution and post-Run-start prohibition. Lifecycle S2/Root P1 implementation/proof blocker remains open. |
++| Command/HTTP failure handoff | HOW `8fb5ca19…`, freeze `93d088fb…`, accepted bounded DESIGN. Original cause plus same immutable facts/raw captures, create-only `process-failure.json` and internal stateless inspection. Helper source is unimplemented. |
++| C3 checked records/selection | HOW `5e216984…`, freeze `368854bc…`, accepted bounded DESIGN; 13 local exactly-one helpers and checked record/digest mechanics selected. Both malformed null-digest basis cases explicitly refuse; actual owner distinctions remain. Requires truthful C5 wrappers and source/proof completion. |
++| C2/C4/C5 values | Proposal `e1ebd204…`, freeze `6ef9e727…`, core callables/retirement directions accepted. Scope: 24 simple equality bodies, three framers, five shared plus 38 local guards, five shared plus one private NUL body. Six owner obligations and two native composite classifications remain OPEN; full migration is not source-ready. |
+ 
+-Root accepted source readiness for lifetime `4bfdf7e…`, role/source `17b1b6d…`,
+-fixture `1bbc47ac…`, P5 cancellation guard `d24b8d7d…` and exact-key `ed4ca1b…`;
+-the [five exact freezes](realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
+-are uncommitted with syntax/static evidence only. Actual ordinary companion-helper,
+-old packaged STDO2.5 member, fixture and exact-key retirement is retained. P4
+-source/policy/oracle and distinct companion, renderer, NUL, cold-read and owner
+-obligations remain. These are source results, not full-foundation/runtime acceptance.
++Closed independent reviews and literal corrections are preserved in the
++conjunction. Installed equality uses `(value) => product.canonicalJson(value)`;
++the default-library collided/inherited key form selects false. Default common
++implementation; a retained variant needs a concrete supported distinguishing
++input/outcome, owner and falsifier. Missing proof stays open. C1–C5 are selected
++library scope, not automatic 5.1 work. No broad new design-review campaign,
++facade, runtime, schema or registry is selected.
+ 
+-Command/HTTP HOW `8fb5ca19…`, frozen `93d088fb…`, is accepted at bounded DESIGN
+-scope. Helper source is unimplemented and must conjoin the EC-owned C1 lifecycle
+-law; the frozen proposal is unchanged. Physical never-created-child, exit, scope
+-and Actor consumption distinctions remain valid. Preserve original cause, final
+-facts and concrete failure-side CLI retention. No new universal reducer/schema
+-or runtime authority follows.
++The five [completed source cuts](realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
++retain static/syntax readiness only: lifetime `4bfdf7e…`, role/source `17b1b6d…`,
++fixture `1bbc47ac…`, P5 guard `d24b8d7d…`, exact-key `ed4ca1b…`. At this design
++conjunction, before the authorized checkpoint, those increments are uncommitted.
++Root freshly matched all 39 distinct source/proof/contract files and both
++selected deletions; custody verification adds no runtime proof. The old ordinary
++companion helper, packaged STDO2.5 member and selected fixture/key bodies are
++retired in source. Distinct companion, renderer, owner and cold-read obligations
++remain. Main generated936 and all old failed/frozen cuts are preserved.
+ 
+-## Preserved results and open obligations
++## Preserved execution evidence
+ 
+-- Historical candidate P1 passed on archive `fadd07e…` in 954.636 s, with zero native/provider
+-  calls. [P1 freeze](realization/l4-c2-candidate-05/p1/freeze.json) is `ef5880…`;
+-  Root verified 88 files. Candidate freeze is `96b9ce…`, manifest `51de2e…`.
++- Historical P1 passed on archive `fadd07e…` in 954.636 s with zero native/provider
++  calls. [P1 freeze](realization/l4-c2-candidate-05/p1/freeze.json) `ef5880…` remains
++  bound to candidate freeze `96b9ce…`, manifest `51de2e…`.
+ - [P5 successor08](realization/p5-installed-final-04/successor08/failure-report.md)
+-  remains failed: 600 s test / 630 s outer timeout, freeze `c54099…`, Root verified
+-  84 files. C1 completed after cancellation; C2 was admitted/opened. No C2 actor,
+-  helper/HTTP outcome, fresh N2 equality or terminal closure was obtained.
+-  Subsequent owner effects must stop after cancellation under the existing test
+-  contract in future proof re-entry. Post-cancellation effects remain real evidence.
+-- Selected finite passes across 04/07/08/09 retain exact subjects and exclusions.
+-  The [seven-body audit](realization/retirement-installed-correspondence-01/report.md)
+-  retains its final06 correspondence; topology witness and new-package rebind
+-  remain open. These narrower executions do not qualify the later frozen source-retirement cuts.
+-- Combined candidate, P1, P5, P4 and owner-resolution/P2/P3/HoG are held for the
+-  new C1–C5 design/source conjunction. The newly exposed lifecycle-law S2/P1
+-  blocker is source-established; no incorrect real-Run closure or new runtime
+-  reproduction is claimed. Existing positive and failed cuts retain their scopes.
+-- Original P5 physical phases were 323.088 s setup and 293.475 s C1, not archive
+-  copy time. Concurrency is observed, not a causal explanation or speed claim.
+-  A timeout alone does not establish a source defect.
++  remains failed at the 600 s test / 630 s outer bound, freeze `c54099…`. Setup
++  took 323.088 s and C1 293.475 s, with C1 completing after cancellation. C2 was
++  admitted/opened; no C2 actor/helper/HTTP result, fresh N2 equality or terminal
++  closure was obtained. Cancellation source guards are frozen, not rerun.
++- Finite 04/07/08/09 passes and the [seven-body audit](realization/retirement-installed-correspondence-01/report.md)
++  retain their exact subjects/exclusions. Topology witness and new-package rebind
++  remain open. They do not qualify the later source cuts.
+ 
+-The portable P1/P5 receipts and existing carriers retain their declared scope;
+-external `/private/tmp` origins are not silently relabeled as repository paths.
+-The completed checkpoint verified sufficient portable material and exact
+-transport within its recorded review-portability boundary. Previous [handoff/current-status preimages](realization/executive-retirement-reprice-01/preimages.json)
+-preserve the superseded current routing. Old cuts, protected main936 and
+-continuation17 remain untouched; no cleanup, repeated install or old Run migration
+-is selected.
++No source finding is promoted to executed false Run closure. A second live
++lazy-view bug, whole-path growth/speed benefit and P5 timeout cause remain
++unproved. Portable P1/P5 receipts keep their recorded scope and exact origins;
++no new environment restoration, cleanup or historical Run migration occurs.
+ 
+-## Work after the checkpoint
++## Dependency-ready continuation
+ 
+-Root separately activates lifecycle, value and history design Writers for C1–C5.
+-Default to canonical implementation; a retained variant needs a supported
+-caller/outcome distinction, falsifier and owner/disposition. Missing proof remains
+-open, and no equality/failure/admission domain may change blindly. Direct typed
+-imports are valid callable surfaces; no new facade/barrel/registry is required.
++After the checkpoint, Root may separately grant C1/cross-consumer source while
++finite value owner/type decisions continue. C3 requires the accepted truthful
++C5 wrapper contract. An unresolved owner boundary holds its affected value
++migration; it need not stop every dependency-ready source edit.
+ 
+-Conjoin frame-specific HOWs, reconcile the owning common design's §§1/6/9 with
+-Product's outside-selected-library deferral boundary, then separately grant the
+-bounded source successor. All five families are selected, not an unbounded
+-all-helper sweep. Only after closed design/source conjunction select one isolated
+-candidate and proportionate affected proof/unchanged P4, then independent L5.
+-Only recorded library delivery acceptance opens remaining fifteen-family release,
+-F11/sole AF22, qualification and human acceptance work.
++The complete required design/source conjunction holds the combined isolated
++candidate/build, P1/P5/P4 and owner-resolution/P2/P3/HoG execution. After that
++conjunction, select one candidate and proportionate affected/installed proof,
++then independent L5. L4 stays partial on older subjects; L5 acceptance is absent
++and release resumption remains closed. Only recorded library acceptance opens
++the remaining fifteen-family release, lifecycle, F11/sole AF22, qualification
++and human acceptance work.
+ 
+-This update is documentation only: no source/test/build/import/process/Git or
+-Reviewer action. Preserve old failed cuts, all prior freezes and main generated936.
++This handoff records documentation and custody readiness only. A later source,
++proof or checkpoint effect requires its own exact Root grant. The seven live
++amendment preimages, patch, input/output pins and Writer readiness are retained
++under [common-consolidation-conjunction-01](realization/common-consolidation-conjunction-01/decision.md).

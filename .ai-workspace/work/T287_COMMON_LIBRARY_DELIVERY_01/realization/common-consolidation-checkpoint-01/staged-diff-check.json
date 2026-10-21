@@ -1,0 +1,930 @@
+{
+  "command": "git diff --cached --check",
+  "exitCode": 2,
+  "diagnosticCount": 182,
+  "fileCount": 9,
+  "byFile": {
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch": 12,
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch": 78,
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch": 27,
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff": 21,
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts": 6,
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff": 18,
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch": 5,
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff": 6,
+    ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch": 9
+  },
+  "diagnostics": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 5,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 14,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 23,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 29,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 74,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 76,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 78,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 98,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 100,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 102,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 135,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch",
+      "line": 137,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 5,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 8,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 10,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 13,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 15,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 17,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 19,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 22,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 24,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 31,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 46,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 48,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 50,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 52,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 59,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 61,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 63,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 65,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 70,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 72,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 74,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 76,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 89,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 91,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 94,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 100,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 102,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 106,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 109,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 111,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 118,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 120,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 122,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 124,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 127,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 146,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 149,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 151,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 153,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 155,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 178,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 180,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 199,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 246,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 253,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 260,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 262,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 264,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 322,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 324,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 414,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 419,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 421,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 423,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 510,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 530,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 600,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 604,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 606,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 619,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 642,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 644,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 683,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 737,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 738,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 745,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 762,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 777,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 783,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 791,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 806,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 822,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 825,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 856,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 868,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 871,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 881,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch",
+      "line": 896,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 4,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 9,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 11,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 14,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 85,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 96,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 120,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 122,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 168,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 172,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 174,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 193,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 195,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 217,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 219,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 309,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 311,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 317,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 334,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 346,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 357,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 360,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 376,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 393,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 395,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 418,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch",
+      "line": 420,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 7,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 9,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 11,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 13,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 16,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 18,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 20,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 23,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 27,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 29,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 41,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 43,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 45,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 47,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 50,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 52,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 54,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 56,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 63,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 74,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff",
+      "line": 74,
+      "diagnostic": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 959,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 962,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 976,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 980,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 1110,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "line": 2388,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 35,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 38,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 107,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 110,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 436,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 468,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 517,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 895,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 953,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 1046,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 1071,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 1166,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 1177,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 1181,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 1234,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 1278,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 1453,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff",
+      "line": 1453,
+      "diagnostic": "new blank line at EOF."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch",
+      "line": 36,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch",
+      "line": 45,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch",
+      "line": 58,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch",
+      "line": 196,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch",
+      "line": 202,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff",
+      "line": 37,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff",
+      "line": 285,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff",
+      "line": 361,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff",
+      "line": 362,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff",
+      "line": 365,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff",
+      "line": 392,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "line": 6,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "line": 267,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "line": 269,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "line": 319,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "line": 410,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "line": 434,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "line": 468,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "line": 574,
+      "diagnostic": "trailing whitespace."
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch",
+      "line": 579,
+      "diagnostic": "trailing whitespace."
+    }
+  ],
+  "stderr": ""
+}

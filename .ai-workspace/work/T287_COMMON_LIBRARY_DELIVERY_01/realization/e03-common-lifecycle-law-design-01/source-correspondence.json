@@ -1,0 +1,96 @@
+{
+  "kind": "source-inspection-only",
+  "actorSource": {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "bytes": 61449,
+    "sha256": "8827b8a0dc15e1eceed4f5bf33a71b4a17ca66c201f21764d9fb53501a5166a0"
+  },
+  "workerSource": {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "bytes": 35447,
+    "sha256": "0d143356c440e95de290687ed447403ef3dc3b730f82b943344fbcc633fec137"
+  },
+  "selectedPickFields": [
+    {
+      "field": "disposition",
+      "actorDeclaration": "readonly disposition: \"failure\" | \"success\";",
+      "workerDeclaration": "readonly disposition: \"failure\" | \"success\";",
+      "optional": false
+    },
+    {
+      "field": "finalOutput",
+      "actorDeclaration": "readonly finalOutput: string;",
+      "workerDeclaration": "readonly finalOutput: string;",
+      "optional": false
+    },
+    {
+      "field": "timedOut",
+      "actorDeclaration": "readonly timedOut: boolean;",
+      "workerDeclaration": "readonly timedOut: boolean;",
+      "optional": false
+    },
+    {
+      "field": "timeoutClass",
+      "actorDeclaration": "readonly timeoutClass: \"absolute\" | \"inactivity\" | null;",
+      "workerDeclaration": "readonly timeoutClass: WorkerTransportTimeoutClass | null;",
+      "optional": false
+    },
+    {
+      "field": "exitObserved",
+      "actorDeclaration": "readonly exitObserved: boolean;",
+      "workerDeclaration": "readonly exitObserved: boolean;",
+      "optional": false
+    },
+    {
+      "field": "terminationConfirmed",
+      "actorDeclaration": "readonly terminationConfirmed: boolean;",
+      "workerDeclaration": "readonly terminationConfirmed: boolean;",
+      "optional": false
+    },
+    {
+      "field": "structuredEventCount",
+      "actorDeclaration": "readonly structuredEventCount: number;",
+      "workerDeclaration": "readonly structuredEventCount: number;",
+      "optional": false
+    },
+    {
+      "field": "progressEventCount",
+      "actorDeclaration": "readonly progressEventCount: number;",
+      "workerDeclaration": "readonly progressEventCount: number;",
+      "optional": false
+    },
+    {
+      "field": "toolCallCount",
+      "actorDeclaration": "readonly toolCallCount: number;",
+      "workerDeclaration": "readonly toolCallCount: number;",
+      "optional": false
+    },
+    {
+      "field": "toolInvocations",
+      "actorDeclaration": "readonly toolInvocations: readonly WorkerToolInvocationEvidence[];",
+      "workerDeclaration": "readonly toolInvocations: readonly WorkerToolInvocationEvidence[];",
+      "optional": false
+    },
+    {
+      "field": "apiRetryCount",
+      "actorDeclaration": "readonly apiRetryCount: number;",
+      "workerDeclaration": "readonly apiRetryCount: number;",
+      "optional": false
+    },
+    {
+      "field": "nativeResultAssessment",
+      "actorDeclaration": "readonly nativeResultAssessment?: NativeWorkerResultAssessment;",
+      "workerDeclaration": "readonly nativeResultAssessment?: NativeWorkerResultAssessment;",
+      "optional": true
+    }
+  ],
+  "timeoutAliasSource": "worker_transport.ts28: WorkerTransportTimeoutClass = \"absolute\" | \"inactivity\"",
+  "producer": "actor_process.ts1123-1155 copies the selected fields from WorkerTransportResult; nativeResultAssessment optionality is preserved",
+  "exclusions": [
+    "processStatus/processSignal renamed and actor uses string signal",
+    "failureClass actor string versus worker classifier union",
+    "scope/identity/digests/byte lengths and other carrier distinctions"
+  ],
+  "executedTypeCheck": false,
+  "runtimeExecuted": false
+}

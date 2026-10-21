@@ -1,0 +1,141 @@
+{
+  "kind": "fixture-retirement-source-freeze",
+  "status": "source_ready_only",
+  "checkpointBasis": "400d763d1d4c3d9e84cf30d6b830d7b975ef7089",
+  "acceptedAmendmentSha256": "ef460e63939ea9e7df5536a164aab0452952f1e471f9ba89f890be40141b0131",
+  "L2Sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "sha256": "ce809ca525bbc9ee14454a31fbf0aa36751c53973de03a207cb1518d6249fce9",
+      "bytes": 14595
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "01543d555ea3fdad5ffa0949bdcb52d2bef264090c2c2068586c2c3fab1b3569",
+      "bytes": 34427
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "sha256": "a81b2a8104580439f5b1f69472542782dfb4aaf76f474031fdc05f99fc6ba6ac",
+      "bytes": 9862
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "sha256": "9ee35f0cacaacff06581007aa89d7a8814dd873c0ae42a3b848e914090089b87",
+      "bytes": 2704
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "sha256": "63ca4427b4509f643fb58c38dd5e231c485187ae381082f710007872356e6c95",
+      "bytes": 10407
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/activation.json",
+      "sha256": "f0e102c4b0dfd4872bd620505adddf35cc855a8d3f34bd1746d34defb22f7de3",
+      "bytes": 3129
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff",
+      "sha256": "8c495b2bbf37b2f073fe4d03ebb16f02d0d88440d19646f863a949eb8154fa4e",
+      "bytes": 39570
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/changes.json",
+      "sha256": "3ac60738c5213220729ca2a0988704971998266291e78ad28967992a1b471155",
+      "bytes": 2382
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/handoff.md",
+      "sha256": "93905ee3ac7f906cb5cf7d966cd026862780930dbef81440041862bf195ab33a",
+      "bytes": 7163
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/fixtures/language-smoke/leaf.mjs",
+      "sha256": "f850348031830338ada4afe854884ee8f123def92cec280924fd142b2063d204",
+      "bytes": 3059
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/fixtures/language-structural/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "bytes": 10669
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/fixtures/registered-selection-product/index.mjs",
+      "sha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+      "bytes": 10076
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/support/t287-native-work-currentness-consumers.mjs",
+      "sha256": "17a3d32aed1e8208de38e45a706aee1223e0901c0c7fdae6b89008f7d50a6ff1",
+      "bytes": 34273
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages/tests/t287-native-work-unknown-effect.test.mjs",
+      "sha256": "bca4a6806aa59ed2ec070be295f6c77e621f357a0acbe52002de11c50a497546",
+      "bytes": 37664
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/preimages.json",
+      "sha256": "ecae2725bc86a935cfb26140e32010ef3a70e613bf50cbeeaba035eb8a2b0f88",
+      "bytes": 1973
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/return.json",
+      "sha256": "f4470be259dfabe39f053058eb591d0dc62c909ea3b335d00bb85cffea921f95",
+      "bytes": 3899
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/source-checks.json",
+      "sha256": "15940787b7a78196a875a6ca64620c973a7dde5ce2562f516d4467c3075607de",
+      "bytes": 5593
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/syntax.json",
+      "sha256": "cb2474e9bd5838ab85b2ed35613fa7c8999653b7bdfa42ef4d4f2202b9c39a5b",
+      "bytes": 2140
+    }
+  ],
+  "fileCount": 18,
+  "bytes": 233585,
+  "readOnlyInputPins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "bytes": 9744
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23",
+      "bytes": 25105
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "sha256": "df472b160de488183ecb1f472070886e4f5c011b6062f54efa00cb6ad98091c9",
+      "bytes": 1709
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/digests.ts",
+      "sha256": "dbb2c3d0a718dfc11abbfea5aadb184c8956de29dfbff8c64aea465c691a49fb",
+      "bytes": 1270
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "bytes": 21826
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "sha256": "6d917069f48fb243a4ae743d77861bdf6130d6724d19440988c5b74d3eed9966",
+      "bytes": 7076
+    }
+  ],
+  "runtimeExecutionClaim": false,
+  "independentAcceptanceClaim": false,
+  "noFurtherWritesAfterFreeze": true
+}

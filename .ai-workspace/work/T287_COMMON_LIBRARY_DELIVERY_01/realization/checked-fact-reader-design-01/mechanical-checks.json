@@ -1,0 +1,366 @@
+{
+  "kind": "checked-fact-reader-design-mechanical-checks",
+  "checkedUtc": "2026-10-21T11:32:35.552493+00:00",
+  "checks": [
+    {
+      "check": "input_unchanged",
+      "path": "AGENTS.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "README.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "stdo_abiogenesis.json",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "specification/GOALS.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "specification/INTENT.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "specification/PRODUCT.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/plan.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/review-conjunction.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/freeze.json",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/comments/claude/20261021T085826Z_REVIEW_common_library_design_consolidation.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/tickets/completed/T-288-remove-duplicated-runtime-construction.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/t288-completion.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/integrated-overhead-final-review.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": ".ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/integrated-overhead-base-review.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/implementation_resolution.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/exact_match.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/digests.ts",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-unknown-effect.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/forward-command-owners.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-prefix-structure.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-public-terminal-projection.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "/Users/jim/src/apps/AGENTS.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/manifest.json",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/frames/bootstrap.md",
+      "passed": true
+    },
+    {
+      "check": "input_unchanged",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "passed": true
+    },
+    {
+      "check": "balanced_code_fences",
+      "path": "HOW-proposal.md",
+      "passed": true
+    },
+    {
+      "check": "no_trailing_whitespace",
+      "path": "HOW-proposal.md",
+      "passed": true
+    },
+    {
+      "check": "local_link",
+      "path": "HOW-proposal.md",
+      "target": "../common-consolidation-reentry-01/decision.md",
+      "passed": true
+    },
+    {
+      "check": "local_link",
+      "path": "HOW-proposal.md",
+      "target": "source-inputs.json",
+      "passed": true
+    },
+    {
+      "check": "local_link",
+      "path": "HOW-proposal.md",
+      "target": "retirement-consumer-proof-map.md",
+      "passed": true
+    },
+    {
+      "check": "local_link",
+      "path": "HOW-proposal.md",
+      "target": "retirement-consumer-proof-map.md",
+      "passed": true
+    },
+    {
+      "check": "balanced_code_fences",
+      "path": "retirement-consumer-proof-map.md",
+      "passed": true
+    },
+    {
+      "check": "no_trailing_whitespace",
+      "path": "retirement-consumer-proof-map.md",
+      "passed": true
+    },
+    {
+      "check": "local_link",
+      "path": "retirement-consumer-proof-map.md",
+      "target": "source-inputs.json",
+      "passed": true
+    },
+    {
+      "check": "local_link",
+      "path": "retirement-consumer-proof-map.md",
+      "target": "HOW-proposal.md",
+      "passed": true
+    },
+    {
+      "check": "thirteen_helper_rows",
+      "passed": true
+    },
+    {
+      "check": "eight_sample_rows",
+      "passed": true
+    }
+  ],
+  "counts": {
+    "passed": 70,
+    "failed": 0
+  },
+  "scope": "File pins, bounded lexical census, document formatting and links only. No code compilation, runtime import, test, process/provider, Git, main generated mutation or independent semantic assessment.",
+  "writerWriteTerritory": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-01"
+}

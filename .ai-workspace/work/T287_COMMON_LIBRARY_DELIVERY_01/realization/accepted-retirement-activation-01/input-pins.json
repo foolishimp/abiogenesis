@@ -1,0 +1,35 @@
+{
+  "references": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/review-disposition-supplement-02.md",
+      "sha256": "c60296c7566ee9caae6963c9759d884b48eee2712589e5e481299e6a3843eed8",
+      "bytes": 5960
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/HOW-proposal.md",
+      "sha256": "3f163754f48d72a2b8577c5c425951f8fa0ff5b9cd80da0d4042ad6084179c78",
+      "bytes": 17119
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/HOW-proposal.md",
+      "sha256": "c526fc6f3f70580fd5178f31d6ef54396723dd9a784b207e36b9962631fabf9b",
+      "bytes": 12249
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/retirement-and-proof.md",
+      "sha256": "fae75dd1f676e5e038b19901af9ca125bc809955708c7cb6ab6e95d885901f23",
+      "bytes": 7904
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/review-checkpoint-01/review-disposition-supplement.md",
+      "sha256": "a89c723fb0d7a164f6f04bf19df5acfadddfc81bd5eaa558af9feba9dc51844f",
+      "bytes": 7166
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/main-generated-protection.json",
+      "sha256": "9f99e4cb7147f0cdd9a38bd315b9512a6566e8acdd53576ec7d697503083634c",
+      "bytes": 382
+    }
+  ],
+  "purpose": "closed decision and existing protection carriers only; no new assessment or generated inventory"
+}

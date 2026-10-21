@@ -701,8 +701,10 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
     observer: {
       onProcessStarted: (pid) => { processId = pid; },
       onStdoutObserved: () => true,
-      onProcessExited: (status, signal) => observedExits.push({ status, signal }),
-      onTerminationUnconfirmed: () => { unconfirmedTerminations += 1; },
+      onProcessFinalized: facts => {
+        if (facts.directExit !== null) observedExits.push(facts.directExit);
+        if (facts.scopeAbsence !== "absent") unconfirmedTerminations += 1;
+      },
     },
   });
   assert.equal(result.disposition, "failure");
@@ -979,7 +981,7 @@ test("M5 ABG transport excludes descendant output emitted after direct-process e
     observer: {
       onTimeoutObserved: () => { timeoutObservations += 1; },
       onSignalRequested: (signal) => requestedSignals.push(signal),
-      onProcessExited: (status, signal) => observedExits.push({ status, signal }),
+      onProcessFinalized: facts => { if (facts.directExit !== null) observedExits.push(facts.directExit); },
     },
   });
 
@@ -1048,7 +1050,11 @@ test('M5 an actual early stdin close rejects EPIPE after cleanup and leaves the 
     const record=value=>writeFileSync(${JSON.stringify(join(root, 'owner.json'))},JSON.stringify(value));
     try {const result=await runWorkerTransport({contract:constructKnownWorkerTransportContract('claude',{command:process.execPath,prefixArgs:[${JSON.stringify(childFile)}],environment:{}}),
       prompt:'x'.repeat(8388608),lane:'worker_executes',cwd:${JSON.stringify(root)},archiveRoot:${JSON.stringify(join(root, 'archive'))},label:'stdin-error',
-      timeoutMs:1000,absoluteTimeoutMs:2000,terminationGraceMs:100,environment:{},observer:{onProcessStarted:pid=>writeFileSync(${JSON.stringify(join(root, 'started.json'))},JSON.stringify({pid}))}});
+      timeoutMs:1000,absoluteTimeoutMs:2000,terminationGraceMs:100,environment:{},observer:{
+      onProcessStarted:pid=>writeFileSync(${JSON.stringify(join(root, 'started.json'))},JSON.stringify({pid})),
+      onProcessFinalized:facts=>writeFileSync(${JSON.stringify(join(root, 'finalized.json'))},JSON.stringify({...facts,
+        firstError:facts.firstError===null?null:{name:facts.firstError.name,code:facts.firstError.code,message:facts.firstError.message}},
+        (_key,value)=>typeof value==='bigint'?value.toString():value))}});
       record({kind:'returned',result});process.exitCode=21;
     } catch(error) {record({kind:'rejected',name:error.name,code:error.code,errno:error.errno,syscall:error.syscall,message:error.message,stack:error.stack});}
     writeFileSync(${JSON.stringify(join(root, 'survived.json'))},JSON.stringify({survived:true,pid:process.pid}));`);
@@ -1085,7 +1091,7 @@ test('M5 an actual early stdin close rejects EPIPE after cleanup and leaves the 
     await new Promise(resolveWait => setTimeout(resolveWait, 25));
   }
   const observed = { exit, deadlineExpired, hostPid: host.pid, identity, stdout, stderr,
-    owner: await optionalJson('owner.json'), survived: await optionalJson('survived.json'), samples };
+    owner: await optionalJson('owner.json'), finalized: await optionalJson('finalized.json'), survived: await optionalJson('survived.json'), samples };
   // Capture the actual failure/owner/physical facts before assertions or cleanup.
   t.diagnostic(JSON.stringify(observed));
   if (identity !== null && samples.at(-1)?.group === 'present') {
@@ -1099,6 +1105,8 @@ test('M5 an actual early stdin close rejects EPIPE after cleanup and leaves the 
   assert.equal(exit.code, 0); assert.equal(exit.signal, null); assert.equal(observed.survived?.survived, true);
   assert.equal(observed.owner?.kind, 'rejected'); assert.equal(observed.owner.code, 'EPIPE');
   assert.equal(observed.owner.syscall, 'write'); assert.equal(observed.owner.message, 'write EPIPE');
+  assert.equal(observed.finalized.scopeAbsence, 'absent'); assert.notEqual(observed.finalized.directExit, null);
+  assert.equal(observed.finalized.firstError.code, 'EPIPE'); assert.equal(observed.finalized.noChildEstablished, false);
   assert.doesNotMatch(stderr, /Unhandled 'error' event/u);
   assert.equal(await optionalJson('archive/stdin-error-transport.json'), null, 'no fabricated transport result');
 });

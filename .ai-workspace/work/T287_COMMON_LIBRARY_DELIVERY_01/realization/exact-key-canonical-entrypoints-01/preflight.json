@@ -1,0 +1,159 @@
+{
+  "capturedUtc": "2026-10-21T10:50:02.386817+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#governed-outcome-and-workspace",
+  "selection": "Root explicit K01/D04/E01 naming and identical-mechanics amendment, 2026-10-21",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "preimagePath": "preimages/build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "sha256": "80800880af82e935584dfe62ec1c9f826336f280a01c482cfa25f20f57ad17d4",
+      "bytes": 3558
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "preimagePath": "preimages/build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "sha256": "68753c2927d2c42aec99355968589273ad52b567bb835b9dab0311d12f137132",
+      "bytes": 4293
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "preimagePath": "preimages/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "sha256": "0f8a4dc64164371ba6c474c09927b8bc79cd582c661a567a2a1917f3fb3f3dc3",
+      "bytes": 14150
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "preimagePath": "preimages/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "sha256": "86ea16b534cb9c52f3b42e898e736be84c71ce874d9056fa0fcbbf3871055c41",
+      "bytes": 20912
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "preimagePath": "preimages/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "sha256": "99eb6bc769e6d0cfe2096fc7d2dead581cdbf8b195289ae934f6fe467e4b755b",
+      "bytes": 36790
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "preimagePath": "preimages/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "sha256": "e978a8c6e27e297197b75619e32c946ea8891480ac236f4a5f2238847049679e",
+      "bytes": 15317
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "preimagePath": "preimages/build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "sha256": "4201661ba63da261ff4dca3e1fe636682525ea0876ca288db55d5fddfc974ef5",
+      "bytes": 42687
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "preimagePath": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "sha256": "29253422da6eacc3be8f13e91ddaf1a687eb30bc79975aa0a82992caf52ebd87",
+      "bytes": 5734
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "preimagePath": "preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md",
+      "sha256": "784b0bc807710f5e14930730bb13475096da0595c0fae9b9d06d71d5119e00d6",
+      "bytes": 36871
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "preimagePath": "preimages/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec",
+      "bytes": 29684
+    }
+  ],
+  "readOnlyInputs": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "sha256": "cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b",
+      "bytes": 63515
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t288-admission-helper-preimages.json",
+      "sha256": "8b6c846f3acadee96608fc75c3c545e8d04f50b3bf4a7fa3ffcd00d6913c5bd6",
+      "bytes": 5450
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json",
+      "sha256": "cbb32c0ba1775cd2656986ab43079025e817b9969c63679e95b2408aeb24b83b",
+      "bytes": 245
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "bytes": 11923
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "bytes": 3146
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "bytes": 26853
+    }
+  ],
+  "sourceCorrespondence": {
+    "method": "Source body comparison after local identifier alpha-renaming and whitespace normalization; Object.keys property is unchanged; no module execution.",
+    "canonical": "shared/admission_predicates.ts::hasExactKeys",
+    "hasExactJsonKeys": "local keys -> actual; expectedKeys -> sortedExpected; exact operations/order match",
+    "operationCoordinate": "canonicalExpected -> sortedExpected; exact operations/order match"
+  },
+  "legacyExportConsumers": [
+    {
+      "path": "code/src/validator/conformance_definition_bindings.ts",
+      "importNames": "{\n  definitionFault,\n  exactDefinitionCallMatches,\n  hasExactKeys,\n  isDefinitionFault,\n  isRecord,\n  reference,\n  sameCoordinate,\n  sameJson,\n  validatedOwnerOutput,\n}",
+      "callSites": 3
+    },
+    {
+      "path": "code/src/product/project_read_definition_bindings.ts",
+      "importNames": "{\n  definitionFault,\n  exactDefinitionCallMatches,\n  hasExactKeys,\n  isDefinitionFault,\n  isRecord,\n  reference,\n  sameCoordinate,\n  sameJson,\n  validatedOwnerOutput,\n}",
+      "callSites": 2
+    },
+    {
+      "path": "code/src/product/install_definition_bindings.ts",
+      "importNames": "{\n  definitionFault,\n  hasExactKeys,\n  isDefinitionFault,\n  isRecord,\n  reference,\n  sameCoordinate,\n  sameJson,\n  validatedOwnerOutput,\n}",
+      "callSites": 1
+    },
+    {
+      "path": "code/src/product/catalog_definition_bindings.ts",
+      "importNames": "{\n  admitExactDefinitionCall,\n  definitionFault,\n  hasExactKeys,\n  isDefinitionFault,\n  isRecord,\n  reference,\n  sameCoordinate,\n  sameJson,\n  validatedOwnerOutput,\n}",
+      "callSites": 3
+    }
+  ],
+  "referenceInventory": [
+    "code/src/abg/witness_definition_bindings.ts",
+    "code/src/validator/conformance_definition_bindings.ts",
+    "code/src/owner_bindings/run_invocation.ts",
+    "code/src/implementation/release_publication.ts",
+    "code/src/public/installed_definition_call_transport.ts",
+    "code/src/product/declaration_application.ts",
+    "code/src/shared/static_definition_bindings.ts",
+    "code/src/product/environment_definition_bindings.ts",
+    "code/src/product/project_read_definition_bindings.ts",
+    "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+    "code/src/product/admission_authority.ts",
+    "test_env/tests/t287-cross-cut-public-read.test.mjs",
+    "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+    "code/src/product/release_snapshot_definition_bindings.ts",
+    "code/src/product/verification_definition_bindings.ts",
+    "test_env/support/witness-reprice-mechanics.mjs",
+    "code/src/product/install_definition_bindings.ts",
+    "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+    "code/src/product/project_read_ports.ts",
+    "code/src/product/catalog_definition_bindings.ts",
+    "test_env/tests/t288-admission-predicates.test.mjs",
+    "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+    "test_env/tests/t287-common-computational-library.test.mjs"
+  ],
+  "namespaceAndDynamicDisposition": {
+    "t288-admission-predicates.test.mjs": "bindings.hasExactKeys identity assertion is selected for honest-name and absence migration",
+    "t287-w2-05-static-binding-algebra.test.mjs": "callAdmission namespace uses admitExactDefinitionCall only; unchanged",
+    "t287-conformance-owner-reuse.test.mjs": "dynamic mechanics module uses sameJson only; unchanged",
+    "t287-w2-05-install-catalog-owner-chain.test.mjs": "reads emitted source text for prohibited patterns; no alias lookup; unchanged"
+  },
+  "limits": "Capture plus source/syntax/type-shape correspondence only. No build, typecheck, emission, runtime imports, test execution, process/provider or Git actions."
+}

@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFile,mkdir,realpath} from 'node:fs/promises';
-import {join} from 'node:path';
-import {nativeSelectionEnvironment} from './native-registered-selection.mjs';
+import {join,dirname,isAbsolute} from 'node:path';
 
 export const witnessRef=(kind,name)=>`${kind}://default-library-witness/${name}@5`;
 export const assessmentContract={contractRef:witnessRef('contract','assessment'),contractVersion:'5.0.0',contractKind:'output',valueKind:'consumer_outcome_assessment'};
@@ -28,33 +27,25 @@ export function libraryConsumerDeclaration(gtl,library,runEnvironment,{purposes=
     graphFunctions:[parent,step],runEnvironments:[runEnvironment],contributions:[parent,step].map(g=>({handle:g.name,kind:'graph_function',declarationOrContractRef:g.name,owningProductId:witnessRef('product','consumer'),
       programMembershipRefs:[program.programRef],readinessPrerequisiteRefs:[program.programRef],compatibilityRefs:['compatibility://abiogenesis/major/5']}))};
 }
-export async function libraryEnvironment({gtl,product}){
-  const base=await nativeSelectionEnvironment({gtl,product}),d=structuredClone(base.declaration),source=d.dependencies[0];
-  const sourceRoot=base.physicalDependencies[0].root,path='standards/STDO_REFERENCE_FRAME_BASELINE.md',bytes=await readFile(join(sourceRoot,path));
-  const memberDigest=product.sha256Bytes(bytes),contextRef=witnessRef('context','frames'),memberRef=witnessRef('member','frames');
-  const member={memberRef,path,byteCount:bytes.length,digest:memberDigest};
-  d.contexts.push({contextRef,sourceLocator:source.basisRef,inventoryDigest:product.sha256Canonical([member]),members:[member]});
-  const bind=heading=>{const marker=Buffer.from(`## ${heading}\n`),startByte=bytes.indexOf(marker);assert.ok(startByte>=0);const next=bytes.indexOf(Buffer.from('\n## '),startByte+marker.length),endByte=next<0?bytes.length:next+1;
-    return {contextRef,memberRef,memberDigest,startByte,endByte,spanDigest:product.sha256Bytes(bytes.subarray(startByte,endByte))};};
-  const native=product.NATIVE_WORKSPACE_WORK_IDS,c2=product.WORKSITE_COMMAND_EXECUTION_IDS;
+export async function libraryEnvironment({gtl,product,packageRoot}){
+  assert.ok(typeof packageRoot==='string'&&isAbsolute(packageRoot),'explicit exact packageRoot is required');
+  const recordPath=await realpath(join(packageRoot,gtl.DEFAULT_LIBRARY_CONTEXT_INVENTORY.path)),sourceRoot=dirname(recordPath);
+  const d=structuredClone(gtl.defaultLibraryRunEnvironment());
+  assert.equal(d.dependencies.length,1,'packaged source subset has one declared inventory');
+  const dependency=d.dependencies[0],recordBytes=await readFile(recordPath);
+  assert.equal(product.sha256Bytes(recordBytes),dependency.recordDigest,'selected package inventory matches its declaration');
+  assert.deepEqual(product.runEnvironmentRecordMembers(dependency.recordFormat,recordBytes),dependency.members);
   d.declarationRef=witnessRef('environment','selected');
-  const policy=product.DEFAULT_LIBRARY_POLICY;
-  d.roles=[
-    [witnessRef('graph-function','executive-step'),product.governanceRef('node','select'),'selector',['Derived Executive Frame']],
-    [native.graphFunctionRef,native.nodeRef,'constructor',['Derived Worker Frame','Derived Generic Specialist Frame Set']],
-    [native.assessmentGraphFunctionRef,native.assessmentNodeRef,'assessor',['Derived Reviewer Frame','Derived Product Testing Frame Set']],
-    [c2.graphFunctionRef,c2.nodeRef,'command_executor',['Derived Worker Frame','Derived Product Testing Frame Set']],
-  ].map(([graphFunctionRef,programLocusRef,role,headings])=>({graphFunctionRef,programLocusRef,role,
-    frameRefs:headings.map(h=>source.basisRef+path+'#'+h.toLowerCase().replaceAll(' ','-')).sort(),policy:{policyRef:witnessRef('policy',role),text:policy,digest:product.sha256Bytes(Buffer.from(policy))},
-    contextPolicy:{policyRef:witnessRef('policy',role+'/context'),selectors:role==='selector'?['full_source','active_binding_semantics']:['current_worksite','admitted_execution_evidence']},
-    accessRefs:base.declaration.roles[0].accessRefs,sourceBindings:headings.map(bind)}));
-  const declaration=gtl.constructStdoRunEnvironmentDeclaration(d);
-  return {declaration,async resources({authority,program,workspaceBinding,product}){
+  const selectors=d.roles.filter(role=>role.role==='selector');assert.equal(selectors.length,1);
+  selectors[0].graphFunctionRef=witnessRef('graph-function','executive-step');
+  const declaration=gtl.constructRunEnvironmentDeclaration(d);
+  const physicalDependencies=[{dependencyRef:dependency.dependencyRef,root:sourceRoot,recordPath}];
+  return {declaration,async resources({authority,program,workspaceBinding,product:resourceProduct=product}){
     const path=join(workspaceBinding.roots.archiveRoot,'default-library-context');await mkdir(path,{recursive:true});
-    const coordinates={dependencies:base.physicalDependencies,pythonPath:base.pythonPath,temporaryRoot:await realpath(path)};
-    return product.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:'5.0.0',...coordinates,
+    const coordinates={dependencies:physicalDependencies,pythonPath:null,temporaryRoot:await realpath(path)};
+    return resourceProduct.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:'5.0.0',...coordinates,
       permission:{authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,actorRef:authority.actorRef,programRef:program.programRef,
-        environmentRef:declaration.declarationRef,environmentDigest:product.sha256Canonical(declaration),operations:['read_context','validate'],...coordinates}});
+        environmentRef:declaration.declarationRef,environmentDigest:resourceProduct.sha256Canonical(declaration),operations:['read_context'],...coordinates}});
   }};
 }
 export async function witnessInput({product,selection,seedRoot}){

@@ -1,0 +1,21 @@
+# Exact-key entrypoints source handoff
+
+Writer `/root/stdo3_role_source_writer` returns the Root-selected K01/D04/E01 increment. **Source readiness is closed for the single combined isolated candidate; semantic acceptance remains open.** No additional material consumer or different computation was found. The [path/grant](path-grant.md) binds the selected frame, owner transformations, invariants, proof and effect limits; [preflight](preflight.json) binds ten exact preimages and accepted common design `cb8dae9f7e684f9b6be730b74125294524ecd7e4d1f035fc03734d7ff1d1160b`.
+
+The actual contraction is two algorithm bodies and one misleading shared export name:
+
+- `admission_predicates.hasExactJsonKeys` keeps its exact typed signature and delegates to existing `hasExactKeys`. Its repeated `Object.keys`/sort/spread/length/every body is deleted. The common exact comparator and all NUL comparators are unchanged.
+- `operation_definition_coordinate` deletes its identical private exact-key function and imports the common function at its two existing calls. Its owner guards, expected keys, exported signatures, digest decisions and failures are unchanged.
+- `definition_binding_mechanics` imports, calls and exports the same `hasUnicodeNulJoinedKeys` function under that name. The misleading `hasExactKeys` export is removed without an alias. Exactly four production consumers migrate: validator conformance and Product catalog/install/project-read, preserving all nine call arguments and owner paths.
+
+The NUL relation retains its Unicode comparator, joins and delimiter collisions; it was not replaced with exact equality. The mechanics module's internal call also retains that same relation. Namespace/dynamic inspection found the selected t288 identity assertion, unrelated `admitExactDefinitionCall`/`sameJson` use, and emitted-source inspection, with no additional legacy alias consumer. Other owners' local NUL aliases remain outside scope; this is not a universal canonicality claim.
+
+`calculus/L2-report.md` and `L2-execution-contract.md` receive append-only Root-selected amendments. They supersede only this shared name/caller-spelling retention, record the two algorithm deletions/one rename, retain E01's accepted domains, and reserve execution for the combined candidate. Earlier frozen evidence is unchanged. [Successor hashes](successor.json) and [diff](source.patch) cover exactly seven production files, one existing test and those two documents.
+
+The t288 test changes only the honest module-export identity assertion and explicit old-export absence. Its three existing cases, 93 historical preimages, erased-value/error/trace comparison population and type/refinement proof code remain unchanged. No mirror tests were added. The preimage fixture JSON is hash-verified unchanged.
+
+[Mechanical checks](mechanical-checks.json) report 46 passes, including exact transformation/source/type-shape correspondence, unchanged caller remainder, append-only document checks and `node --check` on all eight source/test files. These checks do not execute predicates, import Product modules, compile types, or prove semantic acceptance. No build, typecheck, emission, runtime imports, Product/process test, provider or Git action ran. No Reviewer was activated. Ticket/GOALS, other Writer territory, the frozen D1–D3 role/source increment and main generated936 were not edited; the named protected generated inventory is hash-verified unchanged.
+
+The existing typed value/expected-key → Boolean handoff and each owner's ensuing decision remain the only contracts. There is no new primitive, runtime, schema, controller, facade or compatibility alias. Removing repeated bodies/names proves this bounded contraction, not a speed or memory improvement; the typed wrapper adds a forwarding call and actual performance remains empirical.
+
+The next owner includes this exact source cut in the single combined isolated build and affected t288/coordinate/definition-owner proof. Execute the existing preimage/type/refinement/error/trace cases and applicable installed owner cases there, retain their exact subject and limits, then seek independent assessment and Executive disposition. This Writer makes no L5, qualification or release claim and stops at the freeze.

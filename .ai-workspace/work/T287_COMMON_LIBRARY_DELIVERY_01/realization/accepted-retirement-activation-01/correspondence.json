@@ -1,0 +1,69 @@
+{
+  "checkpoint": "400d763d1d4c3d9e84cf30d6b830d7b975ef7089",
+  "effects": "seven documentation successors and this compact record only",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/01-T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "beforeSha256": "2e5d91cc3431bdcd010d8fdba8d423c3e05daaba85bd7727d2406fc1cb7650fd",
+      "beforeBytes": 2026,
+      "afterSha256": "8ec79201b0b381f212b522674041d263fea2f907d85f3d8fb5f67d1db74eb31c",
+      "afterBytes": 3494
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/02-T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "beforeSha256": "3a18f5c92a5aa1ba7c029106b6a493728a8583ba40e9f601ee028a4ec0ad898d",
+      "beforeBytes": 62484,
+      "afterSha256": "607e0576a525312bb9c515bf0d477beae14dd625047777113639073154ae10f9",
+      "afterBytes": 64086
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/03-T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "beforeSha256": "8b395f108d7e52229709c60a2108ac565359d8bb8e84bd8f1386c374674dd652",
+      "beforeBytes": 78451,
+      "afterSha256": "9af85767a2958d0551313ad0c879be6bce9dc30cc73efab5241f813e1dda1dfa",
+      "afterBytes": 80053
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/04-L2-execution-contract.md",
+      "beforeSha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "beforeBytes": 26888,
+      "afterSha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec",
+      "afterBytes": 29684
+    },
+    {
+      "path": "specification/GOALS.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/05-GOALS.md",
+      "beforeSha256": "3145e64971cd2a0bbdd48e1dba8422e4b4ecd44a15177a53404d414e37b46c6d",
+      "beforeBytes": 80826,
+      "afterSha256": "be077885bffdb6b7104a09d2601534d9420a2d63bb26e3b31a48bddfe21a59b7",
+      "afterBytes": 80810
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/06-T-287-deliver-abiogenesis-5-feature-waves.md",
+      "beforeSha256": "4f7dc3ee8a03f7d41b61a12f2f9706eee61b40d65e64316ac65c159cd2edc1c5",
+      "beforeBytes": 544429,
+      "afterSha256": "1be36d26eae8f673fccbc95de2918f6123f4d34a27462d93d3e92505eaa0d73a",
+      "afterBytes": 544166
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "preimage": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/07-CHECKPOINT_HANDOFF.md",
+      "beforeSha256": "84559ffe8f8fe9a18a80fa19705e61a3d636c27f2026dfb2b86bba357f136659",
+      "beforeBytes": 6069,
+      "afterSha256": "6899d3117792f37e3d2c5b8c809e227b7f1f4954c868f32c2e738329dfe7be81",
+      "afterBytes": 5685
+    }
+  ],
+  "unchangedProtectedGeneratedBasis": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/c2-source-prefix-candidate-01/main-generated-protection.json",
+    "verifiedRowsAtPriorCut": 936,
+    "noGeneratedPathWritten": true,
+    "newFullInventoryOrRehash": false
+  },
+  "frozenPostsWritten": false
+}

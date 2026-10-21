@@ -1,0 +1,23 @@
+{
+  "checkedAtUtc": "2026-10-21T11:36:01.375505+00:00",
+  "inputCount": 16,
+  "inputMismatches": [],
+  "literalDesignChecks": {
+    "explicit_narrow_payload_clause_supersession": true,
+    "pre_event_matching_run_census": true,
+    "fixed_source_predecessor": true,
+    "source_terminal_attribution": true,
+    "post_run_start_refused": true,
+    "physical_child_without_admitted_start_remains_unresolved": true,
+    "positive_no_child_cleanup_distinct": true,
+    "old_later_start_expectation_removed": true,
+    "remaining_actor_obligation_preserved": true,
+    "run_triggered_frontier_preserved": true,
+    "twelve_field_pick_preserved": true,
+    "owning_how_ratification_pending": true
+  },
+  "predecessorFrozenAndUnchanged": true,
+  "sourceEffects": 0,
+  "runtimeExecuted": false,
+  "limits": "Mechanical proposal/pin correspondence only. Attributed independent review is not an original external review artifact. No live authority amendment, source implementation, runtime acceptance, historical migration or whole-tree preservation claim."
+}

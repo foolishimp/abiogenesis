@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {mkdir,mkdtemp,readFile,writeFile,readdir,copyFile,symlink} from 'node:fs/promises';
+import {mkdir,mkdtemp,readFile,writeFile,copyFile,symlink} from 'node:fs/promises';
 import {join,resolve,basename} from 'node:path';
 import {tmpdir} from 'node:os';
 import {pathToFileURL} from 'node:url';
 import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
-import {nativeSelectionEnvironment} from '../support/native-registered-selection.mjs';
-import {declarations,ref,contract} from '../fixtures/registered-selection-product/native.mjs';
+import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
+import {declarations,ref,contract,NATIVE_SELECTION_STDO3_ROLE} from '../fixtures/registered-selection-product/native.mjs';
 const packageRoot=new URL('../..',import.meta.url).pathname;
 
 test('native Executive selects registered capabilities through installed Public entry', {skip:process.env.ABI5_NATIVE_SELECTION_LIVE!=='1'}, async()=>{
@@ -20,8 +20,8 @@ test('native Executive selects registered capabilities through installed Public 
   const accounting={wallMs:{}};
   const environment=await setupInstalledRootCatalog({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,setupAccounting:accounting,
     ...(frozenArtifact?{frozenArtifact}:{}),prepareAdditionalProducts:async basis=>{
-      selectedEnvironment=await nativeSelectionEnvironment(basis);
-      const abiPackageArchivePath=frozenArtifact?.artifactPath ?? join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
+      selectedEnvironment=await stdo3RunEnvironment({...basis,sourceRoot:process.env.ABI5_STDO3_SOURCE_ROOT,selectorRole:NATIVE_SELECTION_STDO3_ROLE});
+      const abiPackageArchivePath=basis.abiPackageArchivePath;
       return [await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath,declarationFactory:gtl=>declarations(gtl,selectedEnvironment.declaration),
         fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/registered-selection-product/index.mjs',import.meta.url)},
           {path:'build/native.mjs',source:new URL('../fixtures/registered-selection-product/native.mjs',import.meta.url)}]})];

@@ -1,0 +1,283 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts
+@@ -97,8 +97,5 @@
+   value: Readonly<Record<string, JsonValue>>,
+   expected: readonly string[],
+ ): boolean {
+-  const keys = Object.keys(value).sort();
+-  const expectedKeys = [...expected].sort();
+-  return keys.length === expectedKeys.length &&
+-    keys.every((key, index) => key === expectedKeys[index]);
++  return hasExactKeys(value, expected);
+ }
+--- a/build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts
+@@ -1,4 +1,4 @@
+-import { isNonEmptyString } from "./admission_predicates.js";
++import { hasExactKeys, isNonEmptyString } from "./admission_predicates.js";
+ import type { JsonValue } from "./canonical_json.js";
+ import {
+   isSha256Digest,
+@@ -23,16 +23,6 @@
+   readonly invocationRef: string;
+   readonly invocationPayloadDigest: Sha256Digest;
+   readonly invocationDigest: Sha256Digest;
+-}
+-
+-function hasExactKeys(
+-  value: Record<string, unknown>,
+-  expected: readonly string[],
+-): boolean {
+-  const actual = Object.keys(value).sort();
+-  const canonicalExpected = [...expected].sort();
+-  return actual.length === canonicalExpected.length &&
+-    actual.every((key, index) => key === canonicalExpected[index]);
+ }
+ 
+ export function isExactOperationDefinitionCoordinate(
+--- a/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts
+@@ -1,4 +1,4 @@
+-import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from "./admission_predicates.js";
++import { isRecord, hasUnicodeNulJoinedKeys } from "./admission_predicates.js";
+ import { resolveExactMatch } from "../product/exact_match.js";
+ import * as v from "valibot";
+ 
+@@ -328,7 +328,7 @@
+   call: unknown,
+   packet: TPacket,
+ ): DefinitionCall<TPacket, never>["invocation"] | null {
+-  if (!isRecord(call) || !hasExactKeys(call, ["invocation", "resources"]) ||
++  if (!isRecord(call) || !hasUnicodeNulJoinedKeys(call, ["invocation", "resources"]) ||
+     !isRecord(call.invocation)) return null;
+   const rawInvocation = call.invocation as unknown as AdmittedPublicInvocation<
+     PublicDefinitionKeyLike,
+@@ -427,4 +427,4 @@
+   return admitExactDefinitionCall(call, packet) !== null;
+ }
+ 
+-export { isRecord, hasExactKeys };
++export { isRecord, hasUnicodeNulJoinedKeys };
+--- a/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts
+@@ -22,7 +22,7 @@
+ import {
+   definitionFault,
+   exactDefinitionCallMatches,
+-  hasExactKeys,
++  hasUnicodeNulJoinedKeys,
+   isDefinitionFault,
+   isRecord,
+   reference,
+@@ -184,7 +184,7 @@
+     !Array.isArray(value) ||
+     value.some((coordinate) =>
+       !isRecord(coordinate) ||
+-      !hasExactKeys(coordinate, ["digest", "ref"]) ||
++      !hasUnicodeNulJoinedKeys(coordinate, ["digest", "ref"]) ||
+       typeof coordinate.ref !== "string" ||
+       !isSha256Digest(coordinate.digest)
+     )
+@@ -284,7 +284,7 @@
+   environment: ExactPrefixWorkspaceEnvironment,
+ ): ConformanceDeclarationBasis {
+   const supplied = resources.declarationCatalog;
+-  if (!isRecord(supplied) || !hasExactKeys(supplied, ["catalog", "catalogView"])) {
++  if (!isRecord(supplied) || !hasUnicodeNulJoinedKeys(supplied, ["catalog", "catalogView"])) {
+     throw new TypeError("declared inventory requires its exact admitted catalog and view");
+   }
+   const installs = environment.productInstalls.map(install =>
+@@ -326,7 +326,7 @@
+     const resources = call.resources;
+     if (
+       !isRecord(resources) ||
+-      !hasExactKeys(resources, [
++      !hasUnicodeNulJoinedKeys(resources, [
+         "conformanceLaw",
+         "declaredInventory",
+         "kind",
+--- a/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts
+@@ -27,7 +27,7 @@
+ import {
+   admitExactDefinitionCall,
+   definitionFault,
+-  hasExactKeys,
++  hasUnicodeNulJoinedKeys,
+   isDefinitionFault,
+   isRecord,
+   reference,
+@@ -274,7 +274,7 @@
+   const resources = call.resources;
+   if (
+     !isRecord(resources) ||
+-    !hasExactKeys(resources, [
++    !hasUnicodeNulJoinedKeys(resources, [
+       "admittedInstalls",
+       "eventResource",
+       "kind",
+@@ -698,7 +698,7 @@
+     const resources = call.resources;
+     if (
+       !isRecord(resources) ||
+-      !hasExactKeys(resources, ["catalog", "kind", "schemaVersion"]) ||
++      !hasUnicodeNulJoinedKeys(resources, ["catalog", "kind", "schemaVersion"]) ||
+       resources.kind !== "catalog_view_resource_assertion" ||
+       resources.schemaVersion !== "5.0.0" ||
+       !sameJson(resources, resources)
+@@ -840,7 +840,7 @@
+       const request = call.invocation.request;
+       if (
+         !isRecord(resources) ||
+-        !hasExactKeys(resources, [
++        !hasUnicodeNulJoinedKeys(resources, [
+           "applicationBasis",
+           "catalog",
+           "catalogRow",
+--- a/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts
+@@ -20,7 +20,7 @@
+ import { sha256Canonical } from "../shared/digests.js";
+ import {
+   definitionFault,
+-  hasExactKeys,
++  hasUnicodeNulJoinedKeys,
+   isDefinitionFault,
+   isRecord,
+   reference,
+@@ -129,7 +129,7 @@
+   const resources = call.resources;
+   if (
+     !isRecord(resources) ||
+-    !hasExactKeys(resources, [
++    !hasUnicodeNulJoinedKeys(resources, [
+       "eventResource",
+       "kind",
+       "packedArtifact",
+--- a/build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts
+@@ -27,7 +27,7 @@
+ import {
+   definitionFault,
+   exactDefinitionCallMatches,
+-  hasExactKeys,
++  hasUnicodeNulJoinedKeys,
+   isDefinitionFault,
+   isRecord,
+   reference,
+@@ -121,7 +121,7 @@
+   )[] = [],
+ ): value is ProductProjectReadResourceAssertion<TPacket> {
+   return isRecord(value) &&
+-    hasExactKeys(value, ["kind", "packet", "schemaVersion", ...additionalKeys]) &&
++    hasUnicodeNulJoinedKeys(value, ["kind", "packet", "schemaVersion", ...additionalKeys]) &&
+     value.kind === "product_project_read_resource_assertion" &&
+     value.schemaVersion === "5.0.0" &&
+     isRecord(value.packet) &&
+@@ -375,7 +375,7 @@
+   const scope = slots.catalog_scope;
+   if (packet.selector.visibility.kind === "workspace_catalog") {
+     return isRecord(scope) &&
+-      hasExactKeys(scope, ["digest", "ref"]) &&
++      hasUnicodeNulJoinedKeys(scope, ["digest", "ref"]) &&
+       sameCoordinate(scope as unknown as ReferenceDigest, catalogCoordinate);
+   }
+   const request = isRecord(call.invocation) && isRecord(call.invocation.request)
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs
+@@ -61,7 +61,8 @@
+  assert.equal(helpers.isNonblankNulFreeString('a\0'),false);
+  assert.equal(helpers.isJsonRecordShape({notJson:()=>{}}),true);
+  assert.equal(bindings.isRecord,helpers.isRecord);
+- assert.equal(bindings.hasExactKeys,helpers.hasUnicodeNulJoinedKeys);
++ assert.equal(bindings.hasUnicodeNulJoinedKeys,helpers.hasUnicodeNulJoinedKeys);
++ assert.equal(Object.hasOwn(bindings,'hasExactKeys'),false);
+ });
+ 
+ test('each migrated declaration retains the exact caller type and refinement',()=>{
+--- a/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md
++++ b/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/calculus/L2-report.md
+@@ -170,3 +170,39 @@
+ Algorithmic account: D02 reuses identical computations; D03 still makes one finite scan and materializes matches; D04 may sort a constant expected list; K11 removes an unselected dependency obligation without bypassing exact source acquisition. Informational account: output bytes, multiplicity, field domains, source identities, historical evidence and semantic owner decisions remain conserved. Computational account: record actual acquisition counts, bytes/canonicalization/hash work, match/path lengths, selected history bodies/suffixes, retained memory, native calls, wall/CPU and physical residue on the selected path. No latency/memory saving is inferred from deleted lines or fewer names.
+ 
+ Material residuals are the closed L2-E and L2-P decisions, their executable joins, independent L2 assessment, actual implementation, source/package correspondence, actual contraction, executed obligations and L5 acceptance. No whole-product Prime, exhaustive all-source conformance, native semantic success, performance improvement or release readiness is claimed. The report's mechanical source/link preservation checks cannot discharge those predicates.
++
++
++## 9. Root-selected exact-key entrypoint amendment — 2026-10-21
++
++Root dispositions the owner's common-entrypoint feedback as real inherited
++K01/D04 naming/mechanics debt under accepted common design `cb8dae9f…1160b`.
++The [bounded path/grant record](../realization/exact-key-canonical-entrypoints-01/path-grant.md)
++and its preflight bind the exact sources, four legacy consumers and proof limits.
++This amendment supersedes §4's retention of the misleading shared export name
++only; E01's historical NUL-joined acceptance, collisions and caller domains remain.
++
++- Delete two duplicate exact-key algorithm bodies: preserve the typed
++  `hasExactJsonKeys` signature while delegating to existing
++  `admission_predicates.hasExactKeys`; delete the private coordinate helper in
++  `shared/operation_definition_coordinate.ts` and import the same common function.
++  Source comparison establishes identical `Object.keys`/sort/spread/length/every
++  operations and order after local identifier renaming. Existing guards, arguments,
++  signatures, field checks and failures remain.
++- Rename the import/use/export in `shared/definition_binding_mechanics.ts` from
++  the misleading `hasExactKeys` alias to `hasUnicodeNulJoinedKeys`. Migrate exactly
++  `validator/conformance_definition_bindings.ts` and
++  `product/{catalog,install,project_read}_definition_bindings.ts` (nine calls).
++  Remove the old shared export without a compatibility alias. This is the same
++  NUL-joined function identity, never substitution with elementwise exact equality.
++- Migrate the existing t288 module-identity assertion to the honest export and
++  add explicit old-export absence. Keep its 93 historical preimages and all
++  type/refinement/erased-value/error/trace cases unchanged. Other owner-local NUL
++  aliases and unrelated consumers remain outside this amendment.
++
++The debt ledger gains two algorithm deletions and one misleading export rename,
++with shared destinations actually consumed. This resolves the selected feedback
++through source contraction; it is no measured performance benefit or universal
++canonicality claim. A forwarding call may add overhead. Only source/syntax/type-shape
++correspondence is selected now; no test/build/typecheck/emission/runtime/Git
++execution. Existing affected proof and semantic acceptance await the single
++combined isolated candidate. Earlier frozen evidence and D1–D3 remain unchanged.
+--- a/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md
++++ b/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md
+@@ -183,3 +183,41 @@
+ One combined isolated candidate follows the disjoint source work, not per-stream
+ builds. Main generated bytes remain unchanged. This transcription grants no
+ source, test, runtime, build or Git effects; Root separately activates those steps.
++
++
++## 9. Root-selected exact-key entrypoint amendment — 2026-10-21
++
++Root selects the owner's identified inherited K01/D04/E01 common-entrypoint debt
++for the bounded [path/grant](realization/exact-key-canonical-entrypoints-01/path-grant.md)
++and [calculus amendment](calculus/L2-report.md#9-root-selected-exact-key-entrypoint-amendment--2026-10-21).
++This supersedes earlier retention of the `definition_binding_mechanics`
++`hasExactKeys` export name and its four caller spellings only. E01 retains the
++actual Unicode NUL-joined relation and every existing domain/failure decision.
++Other owners' local NUL aliases are outside this grant.
++
++The additional exact source territory is seven production files:
++`shared/{admission_predicates,operation_definition_coordinate,definition_binding_mechanics}.ts`,
++`validator/conformance_definition_bindings.ts`, and
++`product/{catalog,install,project_read}_definition_bindings.ts`. Delete the JSON
++exact-key wrapper's duplicate algorithm while retaining its typed signature and
++delegating to common `hasExactKeys`; delete the identical coordinate-private
++algorithm and import that common function. Rename the shared legacy NUL
++import/use/export and all nine calls across the four consumers to
++`hasUnicodeNulJoinedKeys`, removing the misleading export without an alias.
++There is no exact-equality substitution in the legacy NUL domain.
++
++Only `t288-admission-predicates.test.mjs` changes in proof support: honest export
++identity plus explicit absence of the old shared name. Preserve the 93 historical
++preimages and the existing type/refinement/error/trace tests. Namespace/dynamic
++inventory and exact body correspondence are recorded before edits; an additional
++material consumer or different relation returns to Root before expansion.
++
++The selected feedback disposition is two duplicate algorithm deletions and one
++misleading export rename with existing common owners, not a performance claim.
++Keep actual performance evaluation separate; the wrapper can add call overhead.
++This activation permits the two live L2 append amendments, bounded work records,
++those eight source/test files and mechanical source/syntax/type-shape checks only.
++No build/typecheck/emission, runtime imports, test/process/provider execution,
++Git, ticket/GOALS edit or Reviewer activation is granted. Main generated936 and
++the frozen role/source cut remain protected. Full affected proof and independent
++acceptance remain for the single combined isolated candidate.

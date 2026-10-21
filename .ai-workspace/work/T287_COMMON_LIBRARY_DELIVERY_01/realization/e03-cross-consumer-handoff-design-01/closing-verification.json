@@ -1,0 +1,15 @@
+{
+  "scope": "Mechanical record/source identity checks only",
+  "inputCount": 22,
+  "mismatches": [],
+  "sourcePreimagesByteExact": true,
+  "startingL2PrefixByteExact": true,
+  "jsonRecordsParsed": true,
+  "singleMermaidSequenceFencePair": true,
+  "sourceEdits": 0,
+  "runtimeImportsTestsBuildsProcesses": 0,
+  "gitOperations": 0,
+  "mainGeneratedWrites": 0,
+  "main936InventoryRescan": false,
+  "limits": "No implementation, execution, ABG admission, whole-path performance or L5 acceptance. No independent review performed by this Writer."
+}

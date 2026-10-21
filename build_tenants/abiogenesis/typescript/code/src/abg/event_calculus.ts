@@ -1801,7 +1801,6 @@ class RuntimeEventCalculusDerivation {
   private baseOrdinal = 0;
   readonly probeFacts: { ordinal: number; actor: string | null; target: "frame" | "call" | null; key: string; digest: string }[] = [];
   readonly interruptionFacts: { ordinal: number; digest: string }[] = [];
-  readonly unconfirmedFacts: { ordinal: number; process: string }[] = [];
   private get effectCount(): number { return this.baseCount + this.effectRows.length; }
   private *factsThrough(count: number): Iterable<RuntimeEffectFact> {
     if (this.base !== undefined) yield* this.base.factsThrough(Math.min(count, this.baseCount));
@@ -1834,10 +1833,6 @@ class RuntimeEventCalculusDerivation {
     if (this.base !== undefined) for (const fact of this.base.allInterruptionFacts()) if (fact.ordinal <= this.baseOrdinal) yield fact;
     yield* this.interruptionFacts;
   }
-  private *allUnconfirmedFacts(): Iterable<(typeof this.unconfirmedFacts)[number]> {
-    if (this.base !== undefined) for (const fact of this.base.allUnconfirmedFacts()) if (fact.ordinal <= this.baseOrdinal) yield fact;
-    yield* this.unconfirmedFacts;
-  }
   forkAt(prefix: RuntimeEventPrefix): RuntimeEventCalculusDerivation {
     const fork = new RuntimeEventCalculusDerivation();
     const extent = runtimeEventPrefixExtent(prefix);
@@ -1857,7 +1852,6 @@ class RuntimeEventCalculusDerivation {
       if (target !== null) { const scopes = target.get(fact.key) ?? new Set<string>(); scopes.add(fact.digest); target.set(fact.key, scopes); }
     }
     for (const fact of this.allInterruptionFacts()) if (fact.ordinal <= extent.lastOrdinal) fork.history.interruptedScopes.add(fact.digest);
-    for (const fact of this.allUnconfirmedFacts()) if (fact.ordinal <= extent.lastOrdinal) fork.unconfirmedProcesses.add(fact.process);
     return fork;
   }
   private fluentRunAt(key: string, ordinal: number): string | undefined {
@@ -1867,7 +1861,6 @@ class RuntimeEventCalculusDerivation {
     return low > 0 ? rows[low - 1]!.runId : this.base?.fluentRunAt(key, Math.min(ordinal, this.baseOrdinal));
   }
   readonly actorProbeScopes = new Map<string, Set<string>>();
-  readonly unconfirmedProcesses = new Set<string>();
   readonly history: RuntimeEffectHistory = { byId: { get: ref => this.prefix === undefined ? undefined : runtimeEventAtPrefix(this.prefix, ref) },
     interruptedScopes: new Set(), frameProbeScopes: new Map(), cCallProbeScopes: new Map() };
   readonly clipCounts = [0];
@@ -1975,11 +1968,10 @@ class RuntimeEventCalculusDerivation {
                 ? [...this.holds.values()].filter(fluent => fluent.name === "runtime_invocation_active" && (this.actorProbeScopes.get(event.aggregateId)?.has(fluent.identity ?? "") ?? false)) : []),
               ...(event.kind === "actor_process_exited" ||
                   event.kind === "actor_process_spawn_failed"
-                ? (event.kind === "actor_process_exited" && this.unconfirmedProcesses.has(processRef)
-                    ? [] : [constructRuntimeFluent({
+                ? [constructRuntimeFluent({
                     name: "actor_cleanup_live",
                     identity: processRef,
-                  })])
+                  })]
                 : [constructRuntimeFluent({ name: "actor_cleanup_live", identity: processRef }), constructRuntimeFluent({
                     name: "actor_cleanup_pending",
                     identity: processRef,
@@ -2017,10 +2009,6 @@ class RuntimeEventCalculusDerivation {
     this.clipCounts.push(this.clipCounts[0]! + this.clippedFluentRefs.length);
     this.declipCounts.push(this.declipCounts[0]! + this.declippedPatternRefs.length);
     if (prefix.kind === "validated_runtime_event_prefix") this.priorEvents.push(event);
-    if (event.kind === "actor_process_termination_unconfirmed") {
-      this.unconfirmedProcesses.add(event.aggregateId);
-      this.unconfirmedFacts.push({ ordinal: event.admissionOrdinal, process: event.aggregateId });
-    }
     // A native observation has just completed its exact liveness source
     // relation. Other profiles retain the raw contract guards used by the
     // exported effect helper. Later closures consume only these scoped facts.

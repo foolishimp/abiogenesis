@@ -37,6 +37,7 @@ import {
   constructCapabilityDefinitionGraph,
   derivePublicCatalogRowProposals,
   payloadInventoryDigest,
+  runEnvironmentRecordMembers,
   modulePublicationSemanticDigest,
   sha256Canonical,
   sha256Bytes,
@@ -104,10 +105,21 @@ for (const member of commandEnvironment.contexts.flatMap(context => context.memb
       throw new Error("C2 declared context span differs from its Product-owned renderer");
   }
 }
-const defaultFrameBytes = await readFile(join(root, DEFAULT_LIBRARY_STDO_SOURCE.assetPath));
-if (defaultFrameBytes.length !== DEFAULT_LIBRARY_STDO_SOURCE.byteCount || sha256Bytes(defaultFrameBytes) !== DEFAULT_LIBRARY_STDO_SOURCE.digest ||
-    Object.values(DEFAULT_LIBRARY_STDO_SOURCE.spans).some(span => sha256Bytes(defaultFrameBytes.subarray(span.startByte, span.endByte)) !== span.spanDigest))
-  throw new Error("default library frame content differs from selected STDO v2.5.1-rc.1 source");
+const defaultSource = DEFAULT_LIBRARY_STDO_SOURCE;
+const defaultManifestBytes = await readFile(join(root, defaultSource.manifest.assetPath));
+if (defaultManifestBytes.length !== defaultSource.manifest.byteCount || sha256Bytes(defaultManifestBytes) !== defaultSource.manifestDigest)
+  throw new Error("default library original STDO manifest differs from its exact released basis");
+const defaultReleaseMembers = runEnvironmentRecordMembers("stdo_source_manifest@1", defaultManifestBytes);
+for (const [key, member] of Object.entries(defaultSource.members)) {
+  if (!defaultReleaseMembers.some(row => row.path === member.path && row.type === "file" && row.digest === member.digest))
+    throw new Error("default library source member is absent from its exact released manifest: " + member.path);
+  const bytes = await readFile(join(root, member.assetPath));
+  if (bytes.length !== member.byteCount || sha256Bytes(bytes) !== member.digest ||
+      Object.values(defaultSource.spans).filter(span => span.member === key).some(span =>
+        span.startByte < 0 || span.startByte >= span.endByte || span.endByte > bytes.length ||
+        sha256Bytes(bytes.subarray(span.startByte, span.endByte)) !== span.spanDigest))
+    throw new Error("default library member or role span differs from selected STDO source: " + member.path);
+}
 await mkdir(dirname(join(root, DEFAULT_LIBRARY_CONTEXT_INVENTORY.path)), { recursive: true });
 await writeFile(join(root, DEFAULT_LIBRARY_CONTEXT_INVENTORY.path), DEFAULT_LIBRARY_CONTEXT_INVENTORY.content);
 await writeFile(join(root, "contracts/default-library/policy.txt"), DEFAULT_LIBRARY_POLICY);

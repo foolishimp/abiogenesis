@@ -1,4 +1,4 @@
-import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from "./admission_predicates.js";
+import { isRecord, hasUnicodeNulJoinedKeys } from "./admission_predicates.js";
 import { resolveExactMatch } from "../product/exact_match.js";
 import * as v from "valibot";
 
@@ -328,7 +328,7 @@ export function admitExactDefinitionCall<
   call: unknown,
   packet: TPacket,
 ): DefinitionCall<TPacket, never>["invocation"] | null {
-  if (!isRecord(call) || !hasExactKeys(call, ["invocation", "resources"]) ||
+  if (!isRecord(call) || !hasUnicodeNulJoinedKeys(call, ["invocation", "resources"]) ||
     !isRecord(call.invocation)) return null;
   const rawInvocation = call.invocation as unknown as AdmittedPublicInvocation<
     PublicDefinitionKeyLike,
@@ -427,4 +427,4 @@ export function exactDefinitionCallMatches(
   return admitExactDefinitionCall(call, packet) !== null;
 }
 
-export { isRecord, hasExactKeys };
+export { isRecord, hasUnicodeNulJoinedKeys };

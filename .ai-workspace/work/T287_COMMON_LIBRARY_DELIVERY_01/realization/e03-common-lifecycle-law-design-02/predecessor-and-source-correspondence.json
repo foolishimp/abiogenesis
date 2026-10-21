@@ -1,0 +1,97 @@
+{
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "stdoBasis": "stdo://releases/v3.0.0-rc.1/",
+  "stdoManifestSha256": "069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "composition": [],
+  "inputs": [
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/freeze.json",
+      "bytes": 10332,
+      "sha256": "c74eb5b128c18a16a92274f79aaf79dc78b764a8d7f2fb4ee90388a7dab05cda"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/HOW-proposal.md",
+      "bytes": 17980,
+      "sha256": "7d210ec5d396500861d9494d1d972be69a939717cb48b1af7f3f288a9feb4bae"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/retirement-and-proof.md",
+      "bytes": 7235,
+      "sha256": "8c9338982be0f0f8b1e190aa203d8662f6fa121c82e6a1624ea28f7d76b123b1"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-01/source-correspondence.json",
+      "bytes": 3607,
+      "sha256": "f109585e78af37967faa8b7c5bab956d1deda30f2e6a8003cd042aa39ca8b266"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260804T090750Z_STRATEGY_t287_terminal_quiescence_bounded_local_repair.md",
+      "bytes": 21082,
+      "sha256": "b0582ef7e0789ac4cb2a52f4a61d7e146b22fbbaeae1df3be3368ef77b8428a0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260804T105623Z_STRATEGY_t287_link_observation_and_cleanup_live_repair.md",
+      "bytes": 9533,
+      "sha256": "d3dabca896de207185ff9e3641df3d52f76afc126b140deb93a59957f648a7da"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-repair-01/HOW-proposal.md",
+      "bytes": 12249,
+      "sha256": "c526fc6f3f70580fd5178f31d6ef54396723dd9a784b207e36b9962631fabf9b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "bytes": 3494,
+      "sha256": "8ec79201b0b381f212b522674041d263fea2f907d85f3d8fb5f67d1db74eb31c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/freeze.json",
+      "bytes": 13132,
+      "sha256": "4bfdf7e28575dbf9b3f2cffc23b4f25e49ce16b37f5ec643c6ecec96acbfc1c0"
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/freeze.json",
+      "bytes": 7400,
+      "sha256": "93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 61449,
+      "sha256": "8827b8a0dc15e1eceed4f5bf33a71b4a17ca66c201f21764d9fb53501a5166a0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 89947,
+      "sha256": "ef03c5a8461171d135784696b15b57c309c6e1457ac5017f5168fc2d3c87fa27"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 113128,
+      "sha256": "908ea893f558802fa7364135f1df7d916fdf88b96537bd3dc8d216b8359d1116"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "bytes": 79492,
+      "sha256": "e5c4861c4421a59eb447bd33dc58a33f68478973ee71701da95f8fcd57f2f4f3"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 35447,
+      "sha256": "0d143356c440e95de290687ed447403ef3dc3b730f82b943344fbcc633fec137"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/owned_process_lifetime.ts",
+      "bytes": 12633,
+      "sha256": "77feebf69af3c6df487d0d2954544fd6588f84a7c68fb00b03eda60b425756cd"
+    }
+  ],
+  "inputCount": 16,
+  "sourceRelation": "The six selected production source inputs match predecessor pins exactly. Other authority/support relations are inherited from the closed predecessor; no whole-tree preservation claim.",
+  "predecessorPreserved": true,
+  "selectedChanges": [
+    "Explicit narrow supersession of serialized Run-terminal cleanupPendingRows requirement with admitted pre-event indexed census",
+    "No post-Run Process start; distinguish positive no-child cleanup from physically established child with unadmitted start"
+  ],
+  "sourceOutputs": [],
+  "runtimeExecuted": false
+}

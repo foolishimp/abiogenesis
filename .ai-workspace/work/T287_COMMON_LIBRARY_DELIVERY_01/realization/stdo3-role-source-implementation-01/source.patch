@@ -1,0 +1,600 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts
+@@ -76,62 +76,109 @@
+   return [parent, step, ...wrappers];
+ }
+ 
+-// Exact source bytes are packaged at this asset path. The inventory identifies
+-// the selected source member; each role projects only its applicable spans.
++// Exact released bytes are packaged as a generic source subset. The original
++// manifest proves provenance; only the two selected members supply role context.
+ export const DEFAULT_LIBRARY_STDO_SOURCE = {
+-  "basisRef": "stdo://releases/v2.5.1-rc.1/",
+-  "manifestDigest": "sha256:5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+-  "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+-  "assetPath": "contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+-  "byteCount": 133684,
+-  "digest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
++  "basisRef": "stdo://releases/v3.0.0-rc.1/",
++  "manifestDigest": "sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
++  "manifest": {
++    "path": "manifest.json",
++    "assetPath": "contracts/default-library/stdo/manifest.json",
++    "byteCount": 13478
++  },
++  "members": {
++    "executive": {
++      "path": "standards/EXECUTIVE_BASELINE.md",
++      "assetPath": "contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
++      "byteCount": 156797,
++      "digest": "sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e"
++    },
++    "assurance": {
++      "path": "standards/ASSURANCE.md",
++      "assetPath": "contracts/default-library/stdo/standards/ASSURANCE.md",
++      "byteCount": 87324,
++      "digest": "sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
++    }
++  },
+   "spans": {
+-    "Derived Executive Frame": {
+-      "startByte": 30700,
+-      "endByte": 35546,
+-      "spanDigest": "sha256:462f85054e7a000076051c2fc0adb7c9b6c80726057ce4112e6da192e501c485"
+-    },
+-    "Derived Worker Frame": {
+-      "startByte": 35546,
+-      "endByte": 38401,
+-      "spanDigest": "sha256:97fbe3a344cd77dd263495db42e334916e76d50fdf8f075452ecebe56fd58b26"
+-    },
+-    "Derived Reviewer Frame": {
+-      "startByte": 38401,
+-      "endByte": 42638,
+-      "spanDigest": "sha256:b5e9f2ac18af32a6586f860b9bfe23826d9b633ac844a880170652e35952791b"
+-    },
+-    "Derived Generic Specialist Frame Set": {
+-      "startByte": 42638,
+-      "endByte": 52663,
+-      "spanDigest": "sha256:a837522281bdfbaa533e8e9ab048b21c183465e8094a8b43c599be40e1586c2b"
+-    },
+-    "Derived Product Testing Frame Set": {
+-      "startByte": 52663,
+-      "endByte": 76400,
+-      "spanDigest": "sha256:89765aa681593fdcd6fece4bf88960bd8a883d7e15a32d7e7d433b3fbb53ba8b"
++    "executive": {
++      "member": "executive",
++      "anchors": [
++        "8-derived-executive-frame"
++      ],
++      "startByte": 83537,
++      "endByte": 89094,
++      "spanDigest": "sha256:beac5c3e7dd7bb8ed27914271b1953bce37e8d83e9f8e082cc30b4f57e190545"
++    },
++    "worker": {
++      "member": "executive",
++      "anchors": [
++        "9-derived-worker-frame"
++      ],
++      "startByte": 89094,
++      "endByte": 92075,
++      "spanDigest": "sha256:41c60108a27d41f3f5dc0f533207973f1d58bfed75e99b4b9016bd7d23f00453"
++    },
++    "reviewer": {
++      "member": "executive",
++      "anchors": [
++        "10-derived-reviewer-frame"
++      ],
++      "startByte": 92075,
++      "endByte": 96708,
++      "spanDigest": "sha256:fc549bf2e55ffaabad86b4fd3b9290d9043f8716f2ed21b28c0410c643c3911c"
++    },
++    "specialists": {
++      "member": "executive",
++      "anchors": [
++        "11-derived-generic-specialist-frame-set"
++      ],
++      "startByte": 96708,
++      "endByte": 109201,
++      "spanDigest": "sha256:6498d934efff03cc742689e12295555928f4f0d975077744b12120f119f53189"
++    },
++    "testing": {
++      "member": "assurance",
++      "anchors": [
++        "7-product-testing-frame-set",
++        "8-combinatorial-coverage-and-testing-value",
++        "9-legitimate-path-and-technical-debt-erasure",
++        "10-testing-evidence-composition",
++        "11-assurance-subject-acquisition-and-evaluation",
++        "12-counterexample-localisation"
++      ],
++      "startByte": 34042,
++      "endByte": 63245,
++      "spanDigest": "sha256:4abfd834bf7bac3273899d417c571bac0795966b0ec41084e6e37a86eaf6d981"
+     }
+   }
+ } as const;
+-const frameMember = { path: DEFAULT_LIBRARY_STDO_SOURCE.path, type: "file" as const, digest: DEFAULT_LIBRARY_STDO_SOURCE.digest, target: null };
++const frameMembers = [
++  { path: DEFAULT_LIBRARY_STDO_SOURCE.manifest.path, type: "file" as const, digest: DEFAULT_LIBRARY_STDO_SOURCE.manifestDigest, target: null },
++  ...Object.values(DEFAULT_LIBRARY_STDO_SOURCE.members).map(member => ({ path: member.path, type: "file" as const, digest: member.digest, target: null })),
++].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+ export const DEFAULT_LIBRARY_CONTEXT_INVENTORY = { path: "contracts/default-library/stdo/context.inventory.json",
+-  content: canonicalJson({ kind: "run_environment_member_inventory", schemaVersion: "5.0.0", members: [frameMember] }) + "\n" };
++  content: canonicalJson({ kind: "run_environment_member_inventory", schemaVersion: "5.0.0", members: frameMembers }) + "\n" };
+ export function defaultLibraryRunEnvironment(): RunEnvironmentDeclaration {
+   const source = DEFAULT_LIBRARY_STDO_SOURCE, contextRef = ref("context", "stdo-frames");
+-  const member = { memberRef: ref("member", "stdo-frames"), path: source.path, byteCount: source.byteCount, digest: source.digest };
+-  const headings = { selector: ["Derived Executive Frame"], constructor: ["Derived Worker Frame", "Derived Generic Specialist Frame Set"],
+-    assessor: ["Derived Reviewer Frame", "Derived Product Testing Frame Set"], command_executor: ["Derived Worker Frame", "Derived Product Testing Frame Set"] } as const;
++  const members = Object.values(source.members).map(member => ({ memberRef: ref("member", member.path), path: member.path,
++    byteCount: member.byteCount, digest: member.digest })).sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
++  const selections = { selector: ["executive"], constructor: ["worker", "specialists"],
++    assessor: ["reviewer", "testing"], command_executor: ["worker", "testing"] } as const;
+   return constructRunEnvironmentDeclaration({ kind: "run_environment_declaration", schemaVersion: "5.0.0", declarationRef: ref("environment", "default"),
+     dependencies: [{ dependencyRef: ref("dependency", "stdo-frames"), basisRef: source.basisRef, recordRef: ref("record", "selected-stdo-member-inventory"),
+-      recordDigest: sha256Bytes(Buffer.from(DEFAULT_LIBRARY_CONTEXT_INVENTORY.content)), recordFormat: "member_inventory@1", inventoryDigest: stdoInventoryDigest([frameMember]), members: [frameMember] }],
+-    contexts: [{ contextRef, sourceLocator: source.basisRef, inventoryDigest: sha256Canonical([member]), members: [member] }], corpusAccess: null, accesses: [],
++      recordDigest: sha256Bytes(Buffer.from(DEFAULT_LIBRARY_CONTEXT_INVENTORY.content)), recordFormat: "member_inventory@1", inventoryDigest: stdoInventoryDigest(frameMembers), members: frameMembers }],
++    contexts: [{ contextRef, sourceLocator: source.basisRef, inventoryDigest: sha256Canonical(members), members }], corpusAccess: null, accesses: [],
+     roles: ([ [ref("graph-function", "executive-step"), ref("node", "select"), "selector"], [native.graphFunctionRef, native.nodeRef, "constructor"],
+       [native.assessmentGraphFunctionRef, native.assessmentNodeRef, "assessor"], [c2.graphFunctionRef, c2.nodeRef, "command_executor"] ] as const).map(([graphFunctionRef, programLocusRef, role]) => ({
+       graphFunctionRef, programLocusRef, role,
+-      frameRefs: headings[role].map(heading => source.basisRef + source.path + "#" + heading.toLowerCase().replaceAll(" ", "-")).sort(),
++      frameRefs: selections[role].flatMap(key => { const span = source.spans[key];
++        return span.anchors.map(anchor => source.basisRef + source.members[span.member].path + "#" + anchor); }).sort(),
+       policy: { policyRef: ref("policy", role), text: DEFAULT_LIBRARY_POLICY, digest: sha256Bytes(Buffer.from(DEFAULT_LIBRARY_POLICY)) },
+       accessRefs: [], contextPolicy: { policyRef: ref("policy", role + "/context"), selectors: role === "selector" ? ["full_source", "active_binding_semantics"] : ["current_worksite", "admitted_execution_evidence"] },
+-      sourceBindings: headings[role].map(heading => ({ contextRef, memberRef: member.memberRef, memberDigest: member.digest, ...source.spans[heading] })) })) });
++      sourceBindings: selections[role].map(key => { const span = source.spans[key], member = source.members[span.member];
++        return { contextRef, memberRef: ref("member", member.path), memberDigest: member.digest,
++          startByte: span.startByte, endByte: span.endByte, spanDigest: span.spanDigest }; }) })) });
+ }
+ export function constructDefaultGovernanceLibraryModulePublication(artifact: RootModuleArtifactBasis) {
+   const graphs = defaultGovernanceGraphFunctions(), environment = defaultLibraryRunEnvironment();
+--- a/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs
++++ b/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs
+@@ -37,6 +37,7 @@
+   constructCapabilityDefinitionGraph,
+   derivePublicCatalogRowProposals,
+   payloadInventoryDigest,
++  runEnvironmentRecordMembers,
+   modulePublicationSemanticDigest,
+   sha256Canonical,
+   sha256Bytes,
+@@ -104,10 +105,21 @@
+       throw new Error("C2 declared context span differs from its Product-owned renderer");
+   }
+ }
+-const defaultFrameBytes = await readFile(join(root, DEFAULT_LIBRARY_STDO_SOURCE.assetPath));
+-if (defaultFrameBytes.length !== DEFAULT_LIBRARY_STDO_SOURCE.byteCount || sha256Bytes(defaultFrameBytes) !== DEFAULT_LIBRARY_STDO_SOURCE.digest ||
+-    Object.values(DEFAULT_LIBRARY_STDO_SOURCE.spans).some(span => sha256Bytes(defaultFrameBytes.subarray(span.startByte, span.endByte)) !== span.spanDigest))
+-  throw new Error("default library frame content differs from selected STDO v2.5.1-rc.1 source");
++const defaultSource = DEFAULT_LIBRARY_STDO_SOURCE;
++const defaultManifestBytes = await readFile(join(root, defaultSource.manifest.assetPath));
++if (defaultManifestBytes.length !== defaultSource.manifest.byteCount || sha256Bytes(defaultManifestBytes) !== defaultSource.manifestDigest)
++  throw new Error("default library original STDO manifest differs from its exact released basis");
++const defaultReleaseMembers = runEnvironmentRecordMembers("stdo_source_manifest@1", defaultManifestBytes);
++for (const [key, member] of Object.entries(defaultSource.members)) {
++  if (!defaultReleaseMembers.some(row => row.path === member.path && row.type === "file" && row.digest === member.digest))
++    throw new Error("default library source member is absent from its exact released manifest: " + member.path);
++  const bytes = await readFile(join(root, member.assetPath));
++  if (bytes.length !== member.byteCount || sha256Bytes(bytes) !== member.digest ||
++      Object.values(defaultSource.spans).filter(span => span.member === key).some(span =>
++        span.startByte < 0 || span.startByte >= span.endByte || span.endByte > bytes.length ||
++        sha256Bytes(bytes.subarray(span.startByte, span.endByte)) !== span.spanDigest))
++    throw new Error("default library member or role span differs from selected STDO source: " + member.path);
++}
+ await mkdir(dirname(join(root, DEFAULT_LIBRARY_CONTEXT_INVENTORY.path)), { recursive: true });
+ await writeFile(join(root, DEFAULT_LIBRARY_CONTEXT_INVENTORY.path), DEFAULT_LIBRARY_CONTEXT_INVENTORY.content);
+ await writeFile(join(root, "contracts/default-library/policy.txt"), DEFAULT_LIBRARY_POLICY);
+--- a/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
+@@ -259,6 +259,7 @@
+       gtl: bootstrapGtl, abiPublication: bootstrapRootPublication, abiPackageArchivePath: artifactPath })] : []
+     : await options.prepareAdditionalProducts({
+         scratch,
++        bootstrapPackage,
+         product: bootstrapProduct,
+         gtl: languageTestGtlView(bootstrapGtl),
+         abiPublication: bootstrapRootPublication,
+--- a/build_tenants/abiogenesis/typescript/test_env/support/native-registered-selection.mjs
++++ /dev/null
+@@ -1,61 +0,0 @@
+-import assert from 'node:assert/strict';
+-import {readFile,realpath,mkdir} from 'node:fs/promises';
+-import {join} from 'node:path';
+-import {execFileSync} from 'node:child_process';
+-import {ref} from '../fixtures/registered-selection-product/index.mjs';
+-
+-/** Fixture data for the existing current run-environment owner, not a new owner. */
+-export async function nativeSelectionEnvironment({gtl,product}) {
+-  const release='v2.5.1-rc.1',support='/Users/jim/Library/Application Support';
+-  const roots=await Promise.all(['STDO','STDO Representation','Axiom Indexer'].map(name=>realpath(join(support,name,'releases',release))));
+-  const sourceUri=`stdo://releases/${release}/`;
+-  const dependencyKinds=['source','representation','axiom'];
+-  const recordPaths=[join(roots[0],'manifest.json'),join(roots[1],'releases/v2.5.1.md'),join(roots[2],'releases/v2.5.1.md')];
+-  const recordBytes=await Promise.all(recordPaths.map(path=>readFile(path)));
+-  assert.equal(product.sha256Bytes(recordBytes[0]),'sha256:5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64');
+-  const dependencies=dependencyKinds.map((kind,i)=>{
+-    const recordFormat=i===0?'stdo_source_manifest@1':'release_record@1';
+-    const members=product.runEnvironmentRecordMembers(recordFormat,recordBytes[i]);
+-    return {dependencyRef:ref('dependency',kind),basisRef:i===0?sourceUri:`${kind}://releases/${release}/`,
+-      recordRef:i===0?sourceUri+'manifest.json':`https://raw.githubusercontent.com/foolishimp/specification_methodology/4e83fdc4e31ad2161ab70a9759cecbbae5390b69/${i===1?'stdo_representation':'axiom_indexer'}/releases/v2.5.1.md`,
+-      recordDigest:product.sha256Bytes(recordBytes[i]),recordFormat,inventoryDigest:gtl.stdoInventoryDigest(members),members};
+-  });
+-  const programPath=`build_tenants/axiom_indexer/representation/stdo-${release}/axiomatic-program.json`;
+-  const mapPath=`build_tenants/axiom_indexer/representation/stdo-${release}/logical-constraint-map.json`;
+-  const programBytes=await readFile(join(roots[1],programPath)),mapBytes=await readFile(join(roots[1],mapPath));
+-  const program=JSON.parse(programBytes),map=JSON.parse(mapBytes);
+-  const pythonPath=await realpath('/usr/local/bin/python3');
+-  const contextRef=ref('context','executive');
+-  const selections=[['standards/STDO_REFERENCE_FRAME_BASELINE.md','Derived Executive Frame'],['standards/REFERENCE_FRAME_METHOD.md','Canonical Compression']];
+-  const members=[],sourceBindings=[],frameRefs=[];
+-  for(const [path,heading] of selections){
+-    const bytes=await readFile(join(roots[0],path)),marker=Buffer.from(`## ${heading}\n`),startByte=bytes.indexOf(marker);
+-    assert.ok(startByte>=0,heading);const next=bytes.indexOf(Buffer.from('\n## '),startByte+marker.length),endByte=next<0?bytes.length:next+1;
+-    const memberRef=ref('member',path),memberDigest=product.sha256Bytes(bytes);
+-    members.push({memberRef,path,byteCount:bytes.length,digest:memberDigest});
+-    sourceBindings.push({contextRef,memberRef,memberDigest,startByte,endByte,spanDigest:product.sha256Bytes(bytes.subarray(startByte,endByte))});
+-    frameRefs.push(sourceUri+path+'#'+heading.toLowerCase().replaceAll(' ','-'));
+-  }
+-  const policyText='Under the declared bounded Executive frame, judge whether one permitted registered capability serves the supplied task and recipient requirements. Respect the declared purpose, conditions, input, result and effect contracts. This computation produces a suitability finding and permitted choice or gap; it does not confer operation authority or claim a wider STDO disposition. Supplied observations are current request facts, not independently verified workspace state. A missing suitable capability or required support remains an explicit gap. Do not generate capabilities, repair input, inspect the workspace or treat capability presence as success.';
+-  const declaration=gtl.constructStdoRunEnvironmentDeclaration({kind:'run_environment_declaration',schemaVersion:'5.0.0',declarationRef:ref('declaration','native-environment'),dependencies,
+-    contexts:[{contextRef,sourceLocator:sourceUri,inventoryDigest:product.sha256Canonical(members),members}],
+-    corpusAccess:{kind:'axiom_indexer',sourceDependencyRef:dependencies[0].dependencyRef,representationDependencyRef:dependencies[1].dependencyRef,axiomDependencyRef:dependencies[2].dependencyRef,
+-      program:{path:programPath,uri:program.uri,byteDigest:product.sha256Bytes(programBytes),canonicalDigest:product.sha256Canonical(program)},
+-      map:{path:mapPath,uri:`urn:stdo-representation:map:stdo-${release}`,byteDigest:product.sha256Bytes(mapBytes),canonicalDigest:map.map_sha256},
+-      executablePath:'build_tenants/core/code/ac.py',outputContractPath:'skills/axiomatize-corpus/references/output-contract.md',
+-      pythonExecutableDigest:product.sha256Bytes(await readFile(pythonPath)),pythonVersion:execFileSync(pythonPath,['--version'],{encoding:'utf8'}).trim()},
+-    accesses:[{accessRef:ref('access','source-corpus-validation'),operation:'validate',mode:'validation',frameIndexRefs:[],maxOutputBytes:2_000_000,timeoutMs:30_000}],
+-    roles:[{graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',frameRefs:frameRefs.sort(),
+-      policy:{policyRef:ref('policy','native-suitability'),text:policyText,digest:product.sha256Bytes(Buffer.from(policyText))},
+-      contextPolicy:{policyRef:ref('policy','native-context'),selectors:['full_source','active_binding_semantics']},
+-      accessRefs:[ref('access','source-corpus-validation')],sourceBindings}]});
+-  const physicalDependencies=dependencies.map((d,i)=>({dependencyRef:d.dependencyRef,root:roots[i],recordPath:recordPaths[i]}));
+-  return {declaration,physicalDependencies,pythonPath,
+-    async resources({authority,program,workspaceBinding,product}){
+-      const path=join(workspaceBinding.roots.archiveRoot,'native-selection-context');await mkdir(path,{recursive:true});const temporaryRoot=await realpath(path);
+-      const coordinates={dependencies:physicalDependencies,pythonPath,temporaryRoot};
+-      return product.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:'5.0.0',...coordinates,
+-        permission:{authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,actorRef:authority.actorRef,programRef:program.programRef,
+-          environmentRef:declaration.declarationRef,environmentDigest:product.sha256Canonical(declaration),operations:['read_context','validate'],...coordinates}});
+-    }};
+-}
+--- a/build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs
+@@ -12,9 +12,10 @@
+ 
+ const policyText = 'Under the declared bounded Executive frame, select only a permitted registered renderer satisfying the supplied task and recipient requirements, or preserve an explicit gap. Respect each declared purpose, conditions, input, result and effect contract. Supplied observations are current request facts, not independently verified workspace state. Do not generate capabilities, inspect or mutate the workspace, repair input, confer operation authority or claim wider acceptance.';
+ 
+-/** Current P4 data for the existing owners. The caller supplies a disposable
+- * exact source mirror; this factory never selects an ambient install. */
+-export async function stdo3RunEnvironment({ gtl, product, sourceRoot }) {
++/** Current STDO3 source for the existing owners, retaining the P4 default role.
++ * The caller supplies an exact source mirror; no ambient install is selected. */
++export async function stdo3RunEnvironment({ gtl, product, sourceRoot, selectorRole }) {
++  assert.ok(typeof sourceRoot === 'string' && sourceRoot.length > 0, 'explicit exact STDO3 sourceRoot is required');
+   const root = await realpath(sourceRoot), recordPath = join(root, 'manifest.json');
+   const recordBytes = await readFile(recordPath);
+   assert.equal(product.sha256Bytes(recordBytes), STDO3_SOURCE.manifestDigest, 'exact STDO3 manifest');
+@@ -39,18 +40,24 @@
+   const dependency = { dependencyRef: ref('dependency', 'stdo3-source'), basisRef: STDO3_SOURCE.basisRef,
+     recordRef: STDO3_SOURCE.basisRef + 'manifest.json', recordDigest: STDO3_SOURCE.manifestDigest,
+     recordFormat: 'stdo_source_manifest@1', inventoryDigest: gtl.stdoInventoryDigest(members), members };
++  // Optional data changes only this existing selector's declared source/policy;
++  // omitted data keeps the frozen P4 role exactly as before.
++  const role = selectorRole === undefined ? { graphFunctionRef: ref('graph-function', 'root'), programLocusRef: ref('node', 'select'), role: 'selector',
++      frameRefs: headings.map(heading => STDO3_SOURCE.basisRef + STDO3_SOURCE.memberPath + '#' + heading.toLowerCase().replaceAll(' ', '-')).sort(),
++      policy: { policyRef: ref('policy', 'stdo3-native-suitability'), text: policyText,
++        digest: product.sha256Bytes(Buffer.from(policyText)) },
++      contextPolicy: { policyRef: ref('policy', 'stdo3-native-context'), selectors: ['full_source', 'active_binding_semantics'] },
++      accessRefs: [], sourceBindings } : structuredClone(selectorRole);
++  assert.equal(role.role, 'selector');
++  assert.equal(role.graphFunctionRef, ref('graph-function', 'root'));
++  assert.equal(role.programLocusRef, ref('node', 'select'));
+   const declaration = gtl.constructStdoRunEnvironmentDeclaration({
+     kind: 'run_environment_declaration', schemaVersion: '5.0.0',
+     declarationRef: ref('declaration', 'stdo3-native-environment'), dependencies: [dependency],
+     contexts: [{ contextRef, sourceLocator: STDO3_SOURCE.basisRef,
+       inventoryDigest: product.sha256Canonical(contextMembers), members: contextMembers }],
+     corpusAccess: null, accesses: [],
+-    roles: [{ graphFunctionRef: ref('graph-function', 'root'), programLocusRef: ref('node', 'select'), role: 'selector',
+-      frameRefs: headings.map(heading => STDO3_SOURCE.basisRef + STDO3_SOURCE.memberPath + '#' + heading.toLowerCase().replaceAll(' ', '-')).sort(),
+-      policy: { policyRef: ref('policy', 'stdo3-native-suitability'), text: policyText,
+-        digest: product.sha256Bytes(Buffer.from(policyText)) },
+-      contextPolicy: { policyRef: ref('policy', 'stdo3-native-context'), selectors: ['full_source', 'active_binding_semantics'] },
+-      accessRefs: [], sourceBindings }],
++    roles: [role],
+   });
+   const physicalDependencies = [{ dependencyRef: dependency.dependencyRef, root, recordPath }];
+   return { declaration, physicalDependencies, pythonPath: null,
+--- a/build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs
+@@ -1,7 +1,6 @@
+ import assert from 'node:assert/strict';
+ import {readFile,mkdir,realpath} from 'node:fs/promises';
+-import {join} from 'node:path';
+-import {nativeSelectionEnvironment} from './native-registered-selection.mjs';
++import {join,dirname,isAbsolute} from 'node:path';
+ 
+ export const witnessRef=(kind,name)=>`${kind}://default-library-witness/${name}@5`;
+ export const assessmentContract={contractRef:witnessRef('contract','assessment'),contractVersion:'5.0.0',contractKind:'output',valueKind:'consumer_outcome_assessment'};
+@@ -28,33 +27,25 @@
+     graphFunctions:[parent,step],runEnvironments:[runEnvironment],contributions:[parent,step].map(g=>({handle:g.name,kind:'graph_function',declarationOrContractRef:g.name,owningProductId:witnessRef('product','consumer'),
+       programMembershipRefs:[program.programRef],readinessPrerequisiteRefs:[program.programRef],compatibilityRefs:['compatibility://abiogenesis/major/5']}))};
+ }
+-export async function libraryEnvironment({gtl,product}){
+-  const base=await nativeSelectionEnvironment({gtl,product}),d=structuredClone(base.declaration),source=d.dependencies[0];
+-  const sourceRoot=base.physicalDependencies[0].root,path='standards/STDO_REFERENCE_FRAME_BASELINE.md',bytes=await readFile(join(sourceRoot,path));
+-  const memberDigest=product.sha256Bytes(bytes),contextRef=witnessRef('context','frames'),memberRef=witnessRef('member','frames');
+-  const member={memberRef,path,byteCount:bytes.length,digest:memberDigest};
+-  d.contexts.push({contextRef,sourceLocator:source.basisRef,inventoryDigest:product.sha256Canonical([member]),members:[member]});
+-  const bind=heading=>{const marker=Buffer.from(`## ${heading}\n`),startByte=bytes.indexOf(marker);assert.ok(startByte>=0);const next=bytes.indexOf(Buffer.from('\n## '),startByte+marker.length),endByte=next<0?bytes.length:next+1;
+-    return {contextRef,memberRef,memberDigest,startByte,endByte,spanDigest:product.sha256Bytes(bytes.subarray(startByte,endByte))};};
+-  const native=product.NATIVE_WORKSPACE_WORK_IDS,c2=product.WORKSITE_COMMAND_EXECUTION_IDS;
++export async function libraryEnvironment({gtl,product,packageRoot}){
++  assert.ok(typeof packageRoot==='string'&&isAbsolute(packageRoot),'explicit exact packageRoot is required');
++  const recordPath=await realpath(join(packageRoot,gtl.DEFAULT_LIBRARY_CONTEXT_INVENTORY.path)),sourceRoot=dirname(recordPath);
++  const d=structuredClone(gtl.defaultLibraryRunEnvironment());
++  assert.equal(d.dependencies.length,1,'packaged source subset has one declared inventory');
++  const dependency=d.dependencies[0],recordBytes=await readFile(recordPath);
++  assert.equal(product.sha256Bytes(recordBytes),dependency.recordDigest,'selected package inventory matches its declaration');
++  assert.deepEqual(product.runEnvironmentRecordMembers(dependency.recordFormat,recordBytes),dependency.members);
+   d.declarationRef=witnessRef('environment','selected');
+-  const policy=product.DEFAULT_LIBRARY_POLICY;
+-  d.roles=[
+-    [witnessRef('graph-function','executive-step'),product.governanceRef('node','select'),'selector',['Derived Executive Frame']],
+-    [native.graphFunctionRef,native.nodeRef,'constructor',['Derived Worker Frame','Derived Generic Specialist Frame Set']],
+-    [native.assessmentGraphFunctionRef,native.assessmentNodeRef,'assessor',['Derived Reviewer Frame','Derived Product Testing Frame Set']],
+-    [c2.graphFunctionRef,c2.nodeRef,'command_executor',['Derived Worker Frame','Derived Product Testing Frame Set']],
+-  ].map(([graphFunctionRef,programLocusRef,role,headings])=>({graphFunctionRef,programLocusRef,role,
+-    frameRefs:headings.map(h=>source.basisRef+path+'#'+h.toLowerCase().replaceAll(' ','-')).sort(),policy:{policyRef:witnessRef('policy',role),text:policy,digest:product.sha256Bytes(Buffer.from(policy))},
+-    contextPolicy:{policyRef:witnessRef('policy',role+'/context'),selectors:role==='selector'?['full_source','active_binding_semantics']:['current_worksite','admitted_execution_evidence']},
+-    accessRefs:base.declaration.roles[0].accessRefs,sourceBindings:headings.map(bind)}));
+-  const declaration=gtl.constructStdoRunEnvironmentDeclaration(d);
+-  return {declaration,async resources({authority,program,workspaceBinding,product}){
++  const selectors=d.roles.filter(role=>role.role==='selector');assert.equal(selectors.length,1);
++  selectors[0].graphFunctionRef=witnessRef('graph-function','executive-step');
++  const declaration=gtl.constructRunEnvironmentDeclaration(d);
++  const physicalDependencies=[{dependencyRef:dependency.dependencyRef,root:sourceRoot,recordPath}];
++  return {declaration,async resources({authority,program,workspaceBinding,product:resourceProduct=product}){
+     const path=join(workspaceBinding.roots.archiveRoot,'default-library-context');await mkdir(path,{recursive:true});
+-    const coordinates={dependencies:base.physicalDependencies,pythonPath:base.pythonPath,temporaryRoot:await realpath(path)};
+-    return product.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:'5.0.0',...coordinates,
++    const coordinates={dependencies:physicalDependencies,pythonPath:null,temporaryRoot:await realpath(path)};
++    return resourceProduct.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:'5.0.0',...coordinates,
+       permission:{authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,actorRef:authority.actorRef,programRef:program.programRef,
+-        environmentRef:declaration.declarationRef,environmentDigest:product.sha256Canonical(declaration),operations:['read_context','validate'],...coordinates}});
++        environmentRef:declaration.declarationRef,environmentDigest:resourceProduct.sha256Canonical(declaration),operations:['read_context'],...coordinates}});
+   }};
+ }
+ export async function witnessInput({product,selection,seedRoot}){
+--- a/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs
+@@ -1,6 +1,18 @@
+ import { isNativeRegisteredSelectionTask,isNativeRegisteredSelectionResponse,materializeNativeRegisteredChoice } from '@abiogenesis/typescript-tenant/product';
+ import { declarations as baseDeclarations,bindings as baseBindings,hash,ref,contract,version,packageName } from './index.mjs';
+ export {ref,contract,version,packageName};
++// Existing bounded selector policy, now bound to the complete STDO3 Executive
++// source. This is declaration data for the shared current environment constructor.
++export const NATIVE_SELECTION_STDO3_ROLE=Object.freeze({
++  graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',
++  frameRefs:['stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#8-derived-executive-frame'],
++  policy:{policyRef:ref('policy','native-suitability'),text:"Under the declared bounded Executive frame, judge whether one permitted registered capability serves the supplied task and recipient requirements. Respect the declared purpose, conditions, input, result and effect contracts. This computation produces a suitability finding and permitted choice or gap; it does not confer operation authority or claim a wider STDO disposition. Supplied observations are current request facts, not independently verified workspace state. A missing suitable capability or required support remains an explicit gap. Do not generate capabilities, repair input, inspect the workspace or treat capability presence as success.",
++    digest:"sha256:4edda6c26a4fb54b24e005051b96d7457b94b77041557ba1c8a238e96924eeb2"},
++  contextPolicy:{policyRef:ref('policy','native-context'),selectors:['full_source','active_binding_semantics']},
++  accessRefs:[],sourceBindings:[{contextRef:ref('context','stdo3-executive'),memberRef:ref('member','standards/EXECUTIVE_BASELINE.md'),
++    memberDigest:"sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
++    startByte:83537,endByte:89094,spanDigest:"sha256:beac5c3e7dd7bb8ed27914271b1953bce37e8d83e9f8e082cc30b4f57e190545"}],
++});
+ export const bindings=baseBindings.map(binding=>({...binding,modulePath:'build/native.mjs',computeRegime:binding.bindingRef===ref('binding','select')?'F_P':'F_D'}));
+ const descriptor=binding=>{const {kind,bindingRef,...body}=binding;return {kind:'packaged_leaf_implementation_descriptor',schemaVersion:version,...body,descriptorDigest:hash(body)};};
+ export const SELECT_DESCRIPTOR=descriptor(bindings[0]),A_DESCRIPTOR=descriptor(bindings[1]),B_DESCRIPTOR=descriptor(bindings[2]);
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs
+@@ -1,13 +1,13 @@
+ import assert from 'node:assert/strict';
+ import test from 'node:test';
+-import {mkdir,mkdtemp,readFile,writeFile,readdir,copyFile,symlink} from 'node:fs/promises';
++import {mkdir,mkdtemp,readFile,writeFile,copyFile,symlink} from 'node:fs/promises';
+ import {join,resolve,basename} from 'node:path';
+ import {tmpdir} from 'node:os';
+ import {pathToFileURL} from 'node:url';
+ import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
+ import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
+-import {nativeSelectionEnvironment} from '../support/native-registered-selection.mjs';
+-import {declarations,ref,contract} from '../fixtures/registered-selection-product/native.mjs';
++import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
++import {declarations,ref,contract,NATIVE_SELECTION_STDO3_ROLE} from '../fixtures/registered-selection-product/native.mjs';
+ const packageRoot=new URL('../..',import.meta.url).pathname;
+ 
+ test('native Executive selects registered capabilities through installed Public entry', {skip:process.env.ABI5_NATIVE_SELECTION_LIVE!=='1'}, async()=>{
+@@ -20,8 +20,8 @@
+   const accounting={wallMs:{}};
+   const environment=await setupInstalledRootCatalog({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,setupAccounting:accounting,
+     ...(frozenArtifact?{frozenArtifact}:{}),prepareAdditionalProducts:async basis=>{
+-      selectedEnvironment=await nativeSelectionEnvironment(basis);
+-      const abiPackageArchivePath=frozenArtifact?.artifactPath ?? join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
++      selectedEnvironment=await stdo3RunEnvironment({...basis,sourceRoot:process.env.ABI5_STDO3_SOURCE_ROOT,selectorRole:NATIVE_SELECTION_STDO3_ROLE});
++      const abiPackageArchivePath=basis.abiPackageArchivePath;
+       return [await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath,declarationFactory:gtl=>declarations(gtl,selectedEnvironment.declaration),
+         fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/registered-selection-product/index.mjs',import.meta.url)},
+           {path:'build/native.mjs',source:new URL('../fixtures/registered-selection-product/native.mjs',import.meta.url)}]})];
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs
+@@ -10,7 +10,8 @@
+ import * as validator from '../../build/code/src/validator/index.js';
+ import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis} from '../support/root-installed-environment.mjs';
+ import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
+-import {nativeSelectionEnvironment} from '../support/native-registered-selection.mjs';
++import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
++import {NATIVE_SELECTION_STDO3_ROLE} from '../fixtures/registered-selection-product/native.mjs';
+ import {declarations,initialState,validState,evaluatedState,selectionTask,executeA,executeB,SEMANTICS,ref,contract,hash} from '../fixtures/registered-selection-product/recursive.mjs';
+ const packageRoot=new URL('../..',import.meta.url).pathname;
+ 
+@@ -244,8 +245,8 @@
+   let selectedEnvironment;const accounting={wallMs:{}};
+   const env=await setupInstalledRootCatalog({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,setupAccounting:accounting,
+     prepareAdditionalProducts:async basis=>{
+-      selectedEnvironment=await nativeSelectionEnvironment(basis);
+-      const abiPackageArchivePath=join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
++      selectedEnvironment=await stdo3RunEnvironment({...basis,sourceRoot:process.env.ABI5_STDO3_SOURCE_ROOT,selectorRole:NATIVE_SELECTION_STDO3_ROLE});
++      const abiPackageArchivePath=basis.abiPackageArchivePath;
+       return [await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath,declarationFactory:g=>declarations(g,selectedEnvironment.declaration),fixtureFiles:['index','native','recursive'].map(n=>({path:`build/${n}.mjs`,source:new URL(`../fixtures/registered-selection-product/${n}.mjs`,import.meta.url)}))})];
+     }});
+   await save('setup.json',{scratch:env.scratch,installedRoots:env.installedRoots,artifactPaths:env.artifactPaths,accounting});
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs
+@@ -1,6 +1,6 @@
+ import assert from 'node:assert/strict';
+ import test from 'node:test';
+-import {readFile,writeFile,mkdir,mkdtemp,readdir,copyFile,cp,rm,symlink} from 'node:fs/promises';
++import {readFile,writeFile,mkdir,mkdtemp,copyFile,cp,rm,symlink} from 'node:fs/promises';
+ import {join,basename,resolve,dirname} from 'node:path';
+ import {SourceTextModule,SyntheticModule} from 'node:vm';
+ import {execFile} from 'node:child_process';
+@@ -72,7 +72,7 @@
+   assert.equal(projectObservedWorksiteCommandChildAtPrefix(null,{parentBasis:{},parentCCallRef:'missing',runId:'missing',task:{}}),null);
+ });
+ test('independent consumer restricts choices while preserving actual native role and schema owners',async()=>{
+-  const pubs=constructors.map(n=>gtl[n](basis)),selected=await libraryEnvironment({gtl,product});
++  const pubs=constructors.map(n=>gtl[n](basis)),selected=await libraryEnvironment({gtl,product,packageRoot});
+   const data=libraryConsumerDeclaration(gtl,pubs[0],selected.declaration);
+   const consumer=gtl.modulePublication({kind:'module_publication',moduleVersion:'5.0.0',...data,artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.productManifestDigest,
+     contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest]}))});
+@@ -132,14 +132,50 @@
+   assert.equal(product.governanceVerdict(state),false);assert.equal(semantics.resolveJudgmentRelation(product.governanceRef('predicate','fold')).evaluate(commandTask,observed),false,'observation and state fold remain different contracts');
+ });
+ 
+-test('default role content is the selected STDO source with capability instructions separate',async()=>{
++test('default role content is the exact packaged STDO3 subset with capability instructions separate',async()=>{
+   const {DEFAULT_LIBRARY_STDO_SOURCE:source}=await import('../../build/code/src/gtl/default_library.js');
+-  const original=await readFile(join('/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1',source.path));
+-  const packaged=await readFile(join(packageRoot,source.assetPath));assert.deepEqual(packaged,original);assert.equal(product.sha256Bytes(packaged),source.digest);
+-  const environment=gtl.defaultLibraryRunEnvironment();
+-  for(const role of environment.roles){assert.ok(role.frameRefs.every(ref=>ref.startsWith(source.basisRef+source.path+'#')));
+-    assert.equal(role.policy.text,product.DEFAULT_LIBRARY_POLICY);
+-    for(const span of role.sourceBindings){const bytes=packaged.subarray(span.startByte,span.endByte);assert.equal(product.sha256Bytes(bytes),span.spanDigest);assert.ok(bytes.toString().startsWith('## Derived '));assert.notEqual(bytes.toString(),role.policy.text);}}
++  assert.equal(source.basisRef,'stdo://releases/v3.0.0-rc.1/');
++  const manifest=await readFile(join(packageRoot,source.manifest.assetPath));
++  assert.equal(product.sha256Bytes(manifest),'sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232');
++  const released=product.runEnvironmentRecordMembers('stdo_source_manifest@1',manifest),packaged=new Map();
++  const expectedMembers={'standards/EXECUTIVE_BASELINE.md':'sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e',
++    'standards/ASSURANCE.md':'sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca'};
++  for(const member of Object.values(source.members)){
++    const bytes=await readFile(join(packageRoot,member.assetPath));packaged.set(member.path,bytes);
++    assert.equal(product.sha256Bytes(bytes),expectedMembers[member.path]);assert.equal(bytes.length,member.byteCount);
++    assert.ok(released.some(row=>row.path===member.path&&row.type==='file'&&row.digest===member.digest));
++  }
++  assert.deepEqual([...packaged.keys()].sort(),Object.keys(expectedMembers).sort());
++  const environment=gtl.defaultLibraryRunEnvironment(),dependency=environment.dependencies[0];
++  assert.equal(dependency.recordFormat,'member_inventory@1');
++  assert.deepEqual(dependency.members.map(member=>member.path),['manifest.json','standards/ASSURANCE.md','standards/EXECUTIVE_BASELINE.md']);
++  assert.equal(dependency.members[0].digest,product.sha256Bytes(manifest));
++  assert.equal(environment.corpusAccess,null);assert.deepEqual(environment.accesses,[]);
++  assert.throws(()=>gtl.constructStdoRunEnvironmentDeclaration(structuredClone(environment)),/STDO requires exact source/,
++    'a generic packaged subset does not masquerade as the specialized complete-source manifest');
++  const expectedSpans={selector:[[83537,89094]],constructor:[[89094,92075],[96708,109201]],
++    assessor:[[92075,96708],[34042,63245]],command_executor:[[89094,92075],[34042,63245]]};
++  assert.deepEqual(environment.roles.map(role=>role.role),Object.keys(expectedSpans));
++  for(const role of environment.roles){
++    assert.deepEqual(role.sourceBindings.map(span=>[span.startByte,span.endByte]),expectedSpans[role.role]);
++    assert.equal(role.policy.text,product.DEFAULT_LIBRARY_POLICY);assert.deepEqual(role.accessRefs,[]);
++    assert.deepEqual(role.contextPolicy.selectors,role.role==='selector'?['full_source','active_binding_semantics']:['current_worksite','admitted_execution_evidence']);
++    assert.ok(role.frameRefs.every(ref=>Object.keys(expectedMembers).some(path=>ref.startsWith(source.basisRef+path+'#'))));
++    for(const span of role.sourceBindings){
++      const member=environment.contexts.find(context=>context.contextRef===span.contextRef).members.find(member=>member.memberRef===span.memberRef);
++      const bytes=packaged.get(member.path).subarray(span.startByte,span.endByte);
++      assert.equal(product.sha256Bytes(bytes),span.spanDigest);assert.match(bytes.toString(),/^## (?:7|8|9|10|11)\. /);assert.notEqual(bytes.toString(),role.policy.text);
++    }
++    if(role.role==='assessor'||role.role==='command_executor'){
++      const testing=role.sourceBindings.at(-1),body=packaged.get('standards/ASSURANCE.md').subarray(testing.startByte,testing.endByte).toString();
++      for(const section of ['## 7.','## 8.','## 9.','## 10.','## 11.','## 12.'])assert.ok(body.includes(section));
++      assert.ok(!body.includes('## 13.'));assert.equal(role.frameRefs.filter(ref=>ref.includes('/ASSURANCE.md#')).length,6);
++    }
++  }
++  const selected=await libraryEnvironment({gtl,product,packageRoot}),expected=structuredClone(environment);
++  expected.declarationRef=witnessRef('environment','selected');expected.roles.find(role=>role.role==='selector').graphFunctionRef=witnessRef('graph-function','executive-step');
++  assert.deepEqual(selected.declaration,expected,'witness changes only the two accepted identities');
++  await assert.rejects(libraryEnvironment({gtl,product}),/explicit exact packageRoot/);
+ });
+ test('framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe',async t=>{
+   const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
+@@ -378,12 +414,14 @@
+   const owner={events:[],call,execution,graph:{template:graph.template},inputValue:task,inputDigest:product.sha256Canonical(task),inputRef:'input:controlled-planning',program:publication.programs[0]};
+   const candidate={publication,graphFunction:graph,declarationGraphFunctions:[...publication.graphFunctions,...library.graphFunctions],
+     executionBasis:execution,cCall:call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
+-  const source=await import('../../build/code/src/gtl/default_library.js'),bytes=await readFile(join(packageRoot,source.DEFAULT_LIBRARY_STDO_SOURCE.assetPath));
+-  const sourceContent=role.sourceBindings.map(binding=>{
+-    assert.equal(product.sha256Bytes(bytes),binding.memberDigest);
++  const source=await import('../../build/code/src/gtl/default_library.js');
++  const sourceContent=await Promise.all(role.sourceBindings.map(async binding=>{
++    const member=publication.runEnvironments[0].contexts.find(context=>context.contextRef===binding.contextRef).members.find(member=>member.memberRef===binding.memberRef);
++    const asset=Object.values(source.DEFAULT_LIBRARY_STDO_SOURCE.members).find(asset=>asset.path===member.path);
++    const bytes=await readFile(join(packageRoot,asset.assetPath));assert.equal(product.sha256Bytes(bytes),binding.memberDigest);
+     const span=bytes.subarray(binding.startByte,binding.endByte);assert.equal(product.sha256Bytes(span),binding.spanDigest);
+-    return {...binding,path:source.DEFAULT_LIBRARY_STDO_SOURCE.path,sourceLocator:source.DEFAULT_LIBRARY_STDO_SOURCE.basisRef,text:new TextDecoder('utf-8',{fatal:true}).decode(span)};
+-  });
++    return {...binding,path:member.path,sourceLocator:source.DEFAULT_LIBRARY_STDO_SOURCE.basisRef,text:new TextDecoder('utf-8',{fatal:true}).decode(span)};
++  }));
+   let oldProjector;
+   if(oldProjectorSource){
+     const {default:ts}=await import('typescript'),file=resolve(packageRoot,'build/code/src/product/default_library.js');
+@@ -976,8 +1014,8 @@
+   const env=await setupInstalledRootCatalog({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,setupAccounting:accounting,...(frozenArtifact?{frozenArtifact}:{}),
+     additionalCorePublicationConstructors:constructors,
+     prepareAdditionalProducts:async setup=>{
+-      selectedEnvironment=await libraryEnvironment(setup);
+-      const archive=frozenArtifact?.artifactPath??join(setup.scratch,'artifacts',(await readdir(join(setup.scratch,'artifacts'))).find(n=>n.endsWith('.tgz')));
++      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
++      const archive=setup.abiPackageArchivePath;
+       const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
+       const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
+       return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:archive,declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,companion?{purposes:['testing','uat']}:{}),
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs
+@@ -34,7 +34,7 @@
+   assert.equal(product.sha256Bytes(f.files['source/witness-contract.md']),'sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b');
+   assert.ok(product.governanceFulfillmentSourceMatches(d,context));
+   for(const path of freshLifecyclePaths)assert.equal(context.entries.find(e=>e.relativePath===path)?.state,'absent');
+-  const pubs=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'].map(n=>gtl[n](basis)),env=await libraryEnvironment({gtl,product});
++  const pubs=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'].map(n=>gtl[n](basis)),env=await libraryEnvironment({gtl,product,packageRoot});
+   const data=fulfillmentConsumerDeclaration({gtl,product,library:pubs[0],runEnvironment:env.declaration});
+   const consumer=gtl.modulePublication({kind:'module_publication',moduleVersion:'5.0.0',...data,artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.productManifestDigest,contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest]}))});
+   const raw=(value,kind)=>{const result=validator.rawAdmitValue(value,kind,'contract:fixture');assert.equal(result.kind,'raw_admitted_value',JSON.stringify(result));return result;};
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs
+@@ -7,7 +7,7 @@
+ import * as gtl from '../../build/code/src/gtl/index.js';
+ import * as product from '../../build/code/src/product/index.js';
+ import { isRunEnvironmentEvidence } from '../../build/code/src/abg/stdo_environment.js';
+-import { declarations } from '../fixtures/registered-selection-product/native.mjs';
++import { declarations, NATIVE_SELECTION_STDO3_ROLE } from '../fixtures/registered-selection-product/native.mjs';
+ import { STDO3_SOURCE, stdo3RunEnvironment } from '../support/stdo3-run-environment.mjs';
+ 
+ let root, sourceRoot, environment;
+@@ -116,6 +116,24 @@
+   ]) { const changed = structuredClone(d); mutate(changed); assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(changed), TypeError); }
+ });
+ 
++test('ordinary selector data uses complete Executive source while the P4 default remains exact', async () => {
++  const ordinary=await stdo3RunEnvironment({gtl,product,sourceRoot,selectorRole:NATIVE_SELECTION_STDO3_ROLE});
++  assert.deepEqual(ordinary.declaration.roles,[NATIVE_SELECTION_STDO3_ROLE]);
++  assert.deepEqual(ordinary.declaration.roles[0].sourceBindings.map(({startByte,endByte})=>[startByte,endByte]),[[83537,89094]]);
++  const bytes=await readFile(join(sourceRoot,STDO3_SOURCE.memberPath)),span=ordinary.declaration.roles[0].sourceBindings[0];
++  assert.equal(product.sha256Bytes(bytes.subarray(span.startByte,span.endByte)),span.spanDigest);
++  assert.match(bytes.subarray(span.startByte,span.endByte).toString(),/^## 8\. Derived Executive frame\n/);
++  assert.equal(ordinary.pythonPath,null);assert.deepEqual(ordinary.declaration.accesses,[]);
++  const p4=await stdo3RunEnvironment({gtl,product,sourceRoot});
++  assert.deepEqual(p4.declaration,environment.declaration,'explicit ordinary data does not mutate the default declaration');
++  assert.deepEqual(p4.declaration.roles[0].sourceBindings.map(({startByte,endByte,spanDigest})=>({startByte,endByte,spanDigest})),[
++    {startByte:55240,endByte:55942,spanDigest:'sha256:f570de4d76c017e873f390926698a04c9704c443e602092c4c13985b5eb4cd80'},
++    {startByte:64650,endByte:65910,spanDigest:'sha256:20ec39085c7dbe19a1b7a06f00d8dcadf7b82e4cb9c163be282e7a3a53b6a68e'},
++  ]);
++  assert.equal(p4.declaration.roles[0].policy.digest,'sha256:902f5f27e841498f5e44c8f1eebc65856c4f39f8ff0f58fc4d3f5cbfcaa6667a');
++  await assert.rejects(stdo3RunEnvironment({gtl,product}),/explicit exact STDO3 sourceRoot/);
++});
++
+ test('K11 every standalone role binds native STDO material while additional generic material remains explicit', () => {
+   assertEveryRoleBindsNativeSource(environment.declaration);
+ });

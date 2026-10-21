@@ -1,0 +1,100 @@
+{
+  "kind": "accepted-retirement-documentation-freeze",
+  "checkpointBasis": "400d763d1d4c3d9e84cf30d6b830d7b975ef7089",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "sha256": "8ec79201b0b381f212b522674041d263fea2f907d85f3d8fb5f67d1db74eb31c",
+      "bytes": 3494
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "607e0576a525312bb9c515bf0d477beae14dd625047777113639073154ae10f9",
+      "bytes": 64086
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "sha256": "9af85767a2958d0551313ad0c879be6bce9dc30cc73efab5241f813e1dda1dfa",
+      "bytes": 80053
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec",
+      "bytes": 29684
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "be077885bffdb6b7104a09d2601534d9420a2d63bb26e3b31a48bddfe21a59b7",
+      "bytes": 80810
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "1be36d26eae8f673fccbc95de2918f6123f4d34a27462d93d3e92505eaa0d73a",
+      "bytes": 544166
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md",
+      "sha256": "6899d3117792f37e3d2c5b8c809e227b7f1f4954c868f32c2e738329dfe7be81",
+      "bytes": 5685
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/activation.md",
+      "sha256": "f045af903bfde9a0adab3cf7e33c129eebbfe67451aa44d3b672defc29f0da85",
+      "bytes": 3716
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/correspondence.json",
+      "sha256": "372c2887451ec16cc8b1e91ec20b042eb49af29438deb46fe360c3ededbcf817",
+      "bytes": 3999
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/input-pins.json",
+      "sha256": "2434cf40e8956b7b729ee2731d8f941a7e7ebf89c51ed3ab5040d0bb9a740b50",
+      "bytes": 1629
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/01-T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md",
+      "sha256": "2e5d91cc3431bdcd010d8fdba8d423c3e05daaba85bd7727d2406fc1cb7650fd",
+      "bytes": 2026
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/02-T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "3a18f5c92a5aa1ba7c029106b6a493728a8583ba40e9f601ee028a4ec0ad898d",
+      "bytes": 62484
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/03-T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "sha256": "8b395f108d7e52229709c60a2108ac565359d8bb8e84bd8f1386c374674dd652",
+      "bytes": 78451
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/04-L2-execution-contract.md",
+      "sha256": "65f4007521634d808a3fd94bc87707ae4183ddb00ec4ec0da49e37381ee403c1",
+      "bytes": 26888
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/05-GOALS.md",
+      "sha256": "3145e64971cd2a0bbdd48e1dba8422e4b4ecd44a15177a53404d414e37b46c6d",
+      "bytes": 80826
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/06-T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "4f7dc3ee8a03f7d41b61a12f2f9706eee61b40d65e64316ac65c159cd2edc1c5",
+      "bytes": 544429
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/preimages/07-CHECKPOINT_HANDOFF.md",
+      "sha256": "84559ffe8f8fe9a18a80fa19705e61a3d636c27f2026dfb2b86bba357f136659",
+      "bytes": 6069
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/accepted-retirement-activation-01/validation.json",
+      "sha256": "82d954d9f3ae449024ed8419046b6a4c4735cd54ba59766d38ee48a74e42a257",
+      "bytes": 1539
+    }
+  ],
+  "fileCount": 18,
+  "bytes": 1620034,
+  "acceptance": "Root accepted design conjunction transcribed; source, affected execution, L5 and release remain open",
+  "noFurtherWritesAfterFreeze": true
+}

@@ -2441,11 +2441,7 @@ function projectRuntimeActorProcessFields(prefix: RuntimeEventPrefix,actorInvoca
           .filter((value): value is string => value !== null),
         exitStatus: Number.isSafeInteger(exitStatus) ? exitStatus as number : null,
         exitSignal: processExited === undefined ? null : stringField(processExited, "signal"),
-        terminationConfirmed:
-          processExited !== undefined &&
-          !actorRows.some(
-            (event) => event.kind === "actor_process_termination_unconfirmed",
-          ),
+        terminationConfirmed: processExited !== undefined,
         transportDigest: artifact === undefined
           ? null
           : stringField(artifact, "transportDigest") as Sha256Digest | null,

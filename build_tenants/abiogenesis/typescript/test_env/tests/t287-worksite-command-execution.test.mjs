@@ -413,6 +413,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
   let phase = "setup";
   let firstFailure = null;
   try {
+  context.signal.throwIfAborted();
   const builtProduct = await import(pathToFileURL(
     join(proof === null ? packageRoot : join(proof.configuration.installHost,
       "node_modules/@abiogenesis/typescript-tenant"), "build/code/src/product/index.js"),
@@ -431,6 +432,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
       else process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS = priorAbsolute;
     }
   });
+  context.signal.throwIfAborted();
   if (proof !== null) {
     process.env.ABG_TS_FP_TIMEOUT_MS = "60000";
     process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS = "90000";
@@ -448,8 +450,10 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     graphFunctionRef: c1.graphFunctionRef,
     inputContractRef: c1.taskContractRef,
     inputFactory: async ({ product, workspaceAuthority, workspaceBinding, capabilityGrant }) => {
+      context.signal.throwIfAborted();
       const relativeRoot = "c2-source";
       await mkdir(join(workspaceAuthority.canonicalRoot, relativeRoot), { recursive: true });
+      context.signal.throwIfAborted();
       sourcePath = join(workspaceAuthority.canonicalRoot, SOURCE_RELATIVE_PATH);
       const subject = product.constructWorksiteSubject({
         workspaceAuthorityBasis: workspaceAuthority,
@@ -483,8 +487,10 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     installCandidate: environment.installCandidate, workspaceBinding,
     deferredCleanupHookCount: proof.deferredHooks.length,
   });
+  context.signal.throwIfAborted();
   phase = "C1 construction";
   process.env.ABG_TS_CLAUDE_COMMAND = await installConstructionTransport(environment.scratch, proof);
+  context.signal.throwIfAborted();
   const opened = abg.openTraversalScope(
     environment.store,
     abg.selectHeldEventStoreDurablePrefix(environment.store),
@@ -520,6 +526,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     if (processRow !== null) await retainProcessAbsence(proof, "construction", processRow.pid, true);
   }
   assert.equal(sourceCompletion.disposition, "closed", JSON.stringify(sourceCompletion));
+  context.signal.throwIfAborted();
   const sourceEvents = environment.store.readAll();
   const sourceResultEvent = sourceEvents.find((event) =>
     event.kind === "c_call_result_admitted" && event.graphFunctionRef === c1.graphFunctionRef &&
@@ -563,6 +570,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     selection: { kind: "direct", catalogHandle: c2.graphFunctionRef },
   });
   assert.equal(resolution.kind, "loaded_product_execution_resolution", JSON.stringify(resolution));
+  context.signal.throwIfAborted();
   const policy = product.constructRootInvocationPolicy(workspaceBinding, resolution.program, [], ["F_P"]);
   const grantBasis = {
     admittedInstalls: environment.admittedInstalls, workspaceBinding,
@@ -611,6 +619,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
   const dependencyRoot = await realpath(environment.installedRoot);
   const recordPath = await realpath(join(dependencyRoot, gtl.WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.path));
   const supportRoot = join(workspaceBinding.roots.archiveRoot, "c2-run-environment-support");
+  context.signal.throwIfAborted();
   await mkdir(supportRoot);
   const temporaryRoot = await realpath(supportRoot);
   const coordinates = {
@@ -633,6 +642,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     policyKey: gtl.RUN_ENVIRONMENT_POLICY, environmentRef,
     declaration: environmentDeclaration, resources: runEnvironmentResources,
   });
+  context.signal.throwIfAborted();
   const closeHandoff = environment.store.projectReopenAuthorityAndClose();
   const eventResource = {
     kind: "reopen_abg_event_resource", schemaVersion: "5.0.0", closeHandoff,
@@ -693,6 +703,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
   // The fixture executes the actual installed helper once and relays only its stdout.
   const command = join(environment.scratch, "c2-bin/claude-compact-command");
   const stdoutPath = join(environment.scratch, "actual-helper-stdout.txt");
+  context.signal.throwIfAborted();
   await writeFile(command, [
     "#!/usr/bin/env node",
     "const {spawnSync}=require('node:child_process');const fs=require('node:fs');let prompt='';",
@@ -725,9 +736,12 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     "console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,structured_output:JSON.parse(helper.stdout)}));",
     "});", "",
   ].join("\n"), "utf8");
+  context.signal.throwIfAborted();
   await chmod(command, 0o755);
+  context.signal.throwIfAborted();
   process.env.ABG_TS_CLAUDE_COMMAND = command;
   phase = "installed Public C2";
+  context.signal.throwIfAborted();
   const outcome = await installedPublic.runInstalledDefinitionCallTransport({ kind: "reopen", closeHandoff }, call);
   if (proof !== null) {
     await proof.write("public-outcome.json", outcome);
@@ -773,10 +787,12 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
   assert.deepEqual(Buffer.from(observation.commandResults[0].stderr.payload, "base64"), Buffer.alloc(210000, 66));
   assert.deepEqual(observation.commandResults.map((row) => row.exitStatus), [7, 0]);
   assert.equal(observation.predicateObservations[0].observedValue, 7);
+  context.signal.throwIfAborted();
   const reopened = abg.reopenEventStore(c2Close.reopenAuthority);
   assert.equal(reopened.kind, "reopened_event_store_context");
   replayStore = reopened.store;
   phase = "fresh replay";
+  context.signal.throwIfAborted();
   const freshProof = await proveFreshProcessRuntimeProjectionEquality({
     abg, product, installedPackageRoot: environment.installedRoot, store: reopened.store,
     ...(proof === null ? {} : { ownedProcessProof: { evidenceRoot: join(proof.root, "fresh-replay") } }),
@@ -793,8 +809,10 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
   const commandProduct = await import(pathToFileURL(join(environment.installedRoot, "build/code/src/product/worksite_command_execution.js")).href);
   const occurrence = directOccurrence("compact-ack-negatives", c2.nodeRef);
   const plan = helperPlanForOccurrence(product, task, occurrence);
+  context.signal.throwIfAborted();
   const prepared = await implementation.realizeWorksiteCommandExecution(task, occurrence);
   if (proof !== null) await proof.write("negative-helper-plan.json", plan);
+  context.signal.throwIfAborted();
   const execution = await executeHelper(plan, proof);
   const raw = JSON.parse(execution.stdout);
   const exchange = exactHelperExchange(product, prepared, plan, "compact-ack-negatives", execution.stdout.trimEnd());
@@ -802,6 +820,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
   const full = JSON.parse(fullBytes.toString("utf8"));
   if (proof !== null) await proof.writeBytes("negative-helper-artifact.json", fullBytes);
   await retainHttp(proof, "negative", full);
+  context.signal.throwIfAborted();
   const initialCompletion = await prepared.complete(exchange);
   if (proof !== null) await proof.write("negative-helper-initial-completion.json", { exchange, initialCompletion });
   assert.equal(initialCompletion.disposition, "success");
@@ -818,6 +837,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
   assert.equal(validateAck({ ...raw, attemptRef: `${raw.attemptRef}/wrong` }), false);
   const refusals = [];
   async function refuses(label, candidateExchange, failureClass) {
+    context.signal.throwIfAborted();
     const result = await prepared.complete(candidateExchange);
     if (proof !== null) await proof.write(`negative-${label}.json`, { candidateExchange, result });
     assert.equal(result.disposition, "failure", label);
@@ -857,6 +877,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     assert.equal(commandProduct.isWorksiteCommandHelperArtifact(task, value), false, label);
     assert.throws(() => commandProduct.constructWorksiteCommandHelperArtifact({ ...value, task }), undefined, label);
     if (proof !== null) await proof.write(`negative-input-${label}.json`, value);
+    context.signal.throwIfAborted();
     await writeFile(plan.artifactPath, `${product.canonicalJson(value)}\n`);
     try { await refuses(label, exchange, "helper_artifact_contract_failure"); }
     finally { await writeFile(plan.artifactPath, fullBytes); }
@@ -865,16 +886,19 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     const bytes = await readFile(path);
     if (proof !== null) await proof.write(`negative-input-${label}.json`, {
       path, originalBase64: bytes.toString("base64"), candidateBase64: Buffer.concat([bytes, Buffer.from("\n")]).toString("base64") });
+    context.signal.throwIfAborted();
     await writeFile(path, Buffer.concat([bytes, Buffer.from("\n")]));
     try { await refuses(label, exchange, "helper_manifest_mismatch"); }
     finally { await writeFile(path, bytes); }
   }
   if (proof !== null) await proof.write("negative-input-missing-artifact.json", { path: plan.artifactPath, retainedPath: `${plan.artifactPath}.retained` });
+  context.signal.throwIfAborted();
   await rename(plan.artifactPath, `${plan.artifactPath}.retained`);
   try { await refuses("missing-helper-artifact", exchange, "helper_artifact_absent"); }
   finally { await rename(`${plan.artifactPath}.retained`, plan.artifactPath); }
   if (proof !== null) await proof.write("negative-input-protected-source.json", {
     sourcePath, originalBase64: SOURCE_BYTES.toString("base64"), candidateBase64: Buffer.from("altered protected source\n").toString("base64") });
+  context.signal.throwIfAborted();
   await writeFile(sourcePath, Buffer.from("altered protected source\n"));
   try { await refuses("altered-protected-source", exchange, "protected_observation_mismatch"); }
   finally { await writeFile(sourcePath, SOURCE_BYTES); }
@@ -885,7 +909,9 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     kind: observationKind, schemaVersion: observationVersion, ...reorderedBody, observationDigest: reorderedDigest,
     observationRef: `worksite-command-execution-observation://abiogenesis/${reorderedDigest.slice(7)}`,
   }), false, "re-signed observations must retain full-vector validation");
+  context.signal.throwIfAborted();
   assert.equal(await product.installedProductContentMatches(environment.installCandidate), true);
+  context.signal.throwIfAborted();
   const summary = {
     proof: "C2 installed compact helper stdout/full observation/fresh replay",
     artifactSha256: await product.sha256File(environment.artifactPath),
@@ -902,6 +928,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     installedProductUnchanged: true,
   };
   if (proof !== null) await proof.write("summary.json", summary);
+  context.signal.throwIfAborted();
   context.diagnostic(JSON.stringify(summary));
   } catch (error) {
     firstFailure = error;

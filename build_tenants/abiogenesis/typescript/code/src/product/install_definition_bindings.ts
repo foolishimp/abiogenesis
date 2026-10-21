@@ -20,7 +20,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,
-  hasExactKeys,
+  hasUnicodeNulJoinedKeys,
   isDefinitionFault,
   isRecord,
   reference,
@@ -129,7 +129,7 @@ function validateResources(
   const resources = call.resources;
   if (
     !isRecord(resources) ||
-    !hasExactKeys(resources, [
+    !hasUnicodeNulJoinedKeys(resources, [
       "eventResource",
       "kind",
       "packedArtifact",

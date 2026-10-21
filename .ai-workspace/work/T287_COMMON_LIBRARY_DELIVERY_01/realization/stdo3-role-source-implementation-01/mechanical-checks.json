@@ -1,0 +1,433 @@
+{
+  "capturedUtc": "2026-10-21T10:39:57.889144+00:00",
+  "scope": "mechanical byte/source correspondence and parser syntax only",
+  "nodeVersion": "v24.7.0",
+  "checks": [
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/support/native-registered-selection.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "result": "pass"
+    },
+    {
+      "check": "preimage: build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "result": "pass"
+    },
+    {
+      "check": "accepted proposal: HOW-proposal.md",
+      "result": "pass"
+    },
+    {
+      "check": "accepted proposal: source-map.json",
+      "result": "pass"
+    },
+    {
+      "check": "accepted activation freeze",
+      "result": "pass"
+    },
+    {
+      "check": "basis and original manifest identity",
+      "result": "pass"
+    },
+    {
+      "check": "packaged original manifest bytes and portable copy",
+      "result": "pass"
+    },
+    {
+      "check": "selected member data and exact bytes: standards/EXECUTIVE_BASELINE.md",
+      "result": "pass"
+    },
+    {
+      "check": "original manifest membership: standards/EXECUTIVE_BASELINE.md",
+      "result": "pass"
+    },
+    {
+      "check": "portable selected member equality: standards/EXECUTIVE_BASELINE.md",
+      "result": "pass"
+    },
+    {
+      "check": "selected member data and exact bytes: standards/ASSURANCE.md",
+      "result": "pass"
+    },
+    {
+      "check": "original manifest membership: standards/ASSURANCE.md",
+      "result": "pass"
+    },
+    {
+      "check": "portable selected member equality: standards/ASSURANCE.md",
+      "result": "pass"
+    },
+    {
+      "check": "complete selected span: executive",
+      "result": "pass"
+    },
+    {
+      "check": "complete selected span: worker",
+      "result": "pass"
+    },
+    {
+      "check": "complete selected span: reviewer",
+      "result": "pass"
+    },
+    {
+      "check": "complete selected span: specialists",
+      "result": "pass"
+    },
+    {
+      "check": "complete selected span: testing",
+      "result": "pass"
+    },
+    {
+      "check": "complete Assurance sections 7 through 12",
+      "result": "pass"
+    },
+    {
+      "check": "production graph and publication algorithms unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "four role identity rows unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "four role policy and context selectors unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "P4 default role literal unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "P4 source identity and policy definitions unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "P4 default span construction unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "P4 resources unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "P4 exact span: ### Executive",
+      "result": "pass"
+    },
+    {
+      "check": "P4 exact span: ### The three duties",
+      "result": "pass"
+    },
+    {
+      "check": "ordinary selector bounded policy unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "native fixture algorithms unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "callback seam only adds explicit bootstrapPackage",
+      "result": "pass"
+    },
+    {
+      "check": "actual bootstrap package assignment precedes callback and installedRoot assignment follows it",
+      "result": "pass"
+    },
+    {
+      "check": "named generated inventory untouched",
+      "result": "pass"
+    },
+    {
+      "check": "exact old helper and packaged member removed",
+      "result": "pass"
+    },
+    {
+      "check": "no active old-helper imports or old single-member access",
+      "result": "pass",
+      "detail": {
+        "territory": [
+          "test_env",
+          "code/src",
+          "scripts"
+        ],
+        "matches": []
+      }
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "syntax only: build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "result": "pass",
+      "detail": "no diagnostics"
+    },
+    {
+      "check": "four exact role-to-span selections equal accepted map",
+      "result": "pass",
+      "detail": {
+        "selector": [
+          "executive"
+        ],
+        "constructor": [
+          "worker",
+          "specialists"
+        ],
+        "assessor": [
+          "reviewer",
+          "testing"
+        ],
+        "command_executor": [
+          "worker",
+          "testing"
+        ]
+      }
+    },
+    {
+      "check": "all original P4 and companion case code unchanged outside added role import and new bounded declaration case",
+      "result": "pass"
+    }
+  ],
+  "syntax": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "caseSourceChanges": [
+    {
+      "path": "test_env/tests/t287-native-registered-selection.test.mjs",
+      "oldTopLevelCaseCount": 1,
+      "newTopLevelCaseCount": 1,
+      "retiredTitles": [],
+      "successorTitles": []
+    },
+    {
+      "path": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "oldTopLevelCaseCount": 4,
+      "newTopLevelCaseCount": 4,
+      "retiredTitles": [],
+      "successorTitles": []
+    },
+    {
+      "path": "test_env/tests/t287-default-library.test.mjs",
+      "oldTopLevelCaseCount": 20,
+      "newTopLevelCaseCount": 20,
+      "retiredTitles": [
+        "default role content is the selected STDO source with capability instructions separate"
+      ],
+      "successorTitles": [
+        "default role content is the exact packaged STDO3 subset with capability instructions separate"
+      ]
+    },
+    {
+      "path": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "oldTopLevelCaseCount": 5,
+      "newTopLevelCaseCount": 5,
+      "retiredTitles": [],
+      "successorTitles": []
+    },
+    {
+      "path": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "oldTopLevelCaseCount": 4,
+      "newTopLevelCaseCount": 5,
+      "retiredTitles": [],
+      "successorTitles": [
+        "ordinary selector data uses complete Executive source while the P4 default remains exact"
+      ]
+    }
+  ],
+  "retiredPaths": [
+    "build_tenants/abiogenesis/typescript/test_env/support/native-registered-selection.mjs",
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md"
+  ],
+  "namedGeneratedInventory": {
+    "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json",
+    "sha256": "cbb32c0ba1775cd2656986ab43079025e817b9969c63679e95b2408aeb24b83b",
+    "byteCount": 245
+  },
+  "limits": "No Product import, build, package generation, test, native/provider or Git execution. No typing, package inclusion, runtime, semantic equivalence or qualification result is inferred."
+}

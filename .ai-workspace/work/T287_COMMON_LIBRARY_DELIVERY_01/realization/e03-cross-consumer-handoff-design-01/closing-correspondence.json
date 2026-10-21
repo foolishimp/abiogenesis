@@ -1,0 +1,18 @@
+{
+  "classification": "Expected announced concurrent authority append; not an integration failure or new review cycle",
+  "originalPreflight": "Hash comparison stopped before all effects; expected L2 29684 bytes/befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec, observed 32157 bytes/9c1e55b2897d69783eb6c93f050cd94ef7dbfbcafd21d5861a10ed7f4915534e",
+  "executiveDisposition": "Root authorized binding starting L2 plus the narrow exact-key successor and instructed no false drift alarm, live overwrite or additional failure carrier. Source design scope unchanged.",
+  "startingPrefix": {
+    "bytes": 29684,
+    "sha256": "befe41ee02f2089b74f97df6c4b3713a94b474894f3394891d2df673791adaec",
+    "retainedAt": "preimages/L2-starting-cut.md"
+  },
+  "successor": {
+    "bytes": 32157,
+    "sha256": "9c1e55b2897d69783eb6c93f050cd94ef7dbfbcafd21d5861a10ed7f4915534e",
+    "appendedBytes": 2473,
+    "appendSha256": "46733780c4a6e37b7fe470d058fa4f08e2d0fe8a545d01285c4c93999442617f",
+    "owningFreezeSha256": "ed4ca1b301b020ce64fa0339b5e50483351c55415567d5881e1dfd32a58c9a7b"
+  },
+  "relation": "Starting E03 authority is byte-exact prefix. Appended section 9 selects separate K01/D04/E01 entrypoint naming/mechanics, not a changed command/HTTP physical contract. No source/live authority edit by this Writer."
+}

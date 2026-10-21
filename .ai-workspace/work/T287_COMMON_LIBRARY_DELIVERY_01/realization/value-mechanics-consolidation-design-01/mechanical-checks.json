@@ -1,0 +1,891 @@
+{
+  "kind": "value-mechanics-design-mechanical-checks",
+  "capturedUtc": "2026-10-21T11:31:33.036491+00:00",
+  "passed": 216,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "unchanged read-only input: .ai-workspace/comments/claude/20261021T085826Z_REVIEW_common_library_design_consolidation.md",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/freeze.json",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: AGENTS.md",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/gtl/canonicalization.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/gtl/consensus.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/gtl/consensus_schema.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction_recovery.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/materialization_operations.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/project_read_definition_bindings.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/product/worksite_revision.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/public/continuation_authority.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/public/gap_authority.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/public/run_projection_authority.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/shared/definition_binding_mechanics.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/shared/digests.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/shared/i_json.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/shared/operation_definition_coordinate.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/shared/public_invocation.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/support/t288-admission-helper-preimages.json",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t287-common-computational-library.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t287-json-value-definition.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t287-public-preparation.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t288-admission-predicates.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t288-blocked-retry-entry.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t288-logical-prefix-digest.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: build_tenants/abiogenesis/typescript/test_env/tests/t288-scoped-retry-guard.test.mjs",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: specification/PRODUCT.md",
+      "passed": true
+    },
+    {
+      "check": "unchanged read-only input: stdo_abiogenesis.json",
+      "passed": true
+    },
+    {
+      "check": "107 exact source/authority/proof pins",
+      "passed": true
+    },
+    {
+      "check": "38 local shallow bodies / 36 files / 25 named record",
+      "passed": true
+    },
+    {
+      "check": "Root selected 7 text throw / 1 digest throw / 3 digest false",
+      "passed": true
+    },
+    {
+      "check": "three additional named comparison rows",
+      "passed": true
+    },
+    {
+      "check": "ten current-library follow-through rows remain open with owners",
+      "passed": true
+    },
+    {
+      "check": "three current streamed framing bodies",
+      "passed": true
+    },
+    {
+      "check": "24 NUL consumers / 221 lexical calls",
+      "passed": true
+    },
+    {
+      "check": "five shared shallow / five shared NUL bodies",
+      "passed": true
+    },
+    {
+      "check": "seven unknown-shape import consumers and seven self-encoding probes",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/public_function_family.ts::sameCanonical:175",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts::sameCanonical:1361",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/public_contract_publication.ts::sameCanonical:416",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts::sameCanonical:99",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts::sameCanonical:198",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts::sameCanonical:227",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::sameCanonical:529",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts::sameCanonical:62",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts::sameCanonicalValue:153",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::sameCanonicalValue:1386",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::sameCanonicalRetryValue:672",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts::sameJson:219",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts::sameJson:229",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts::sameJson:65",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::same:12",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::same:29",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::same:43",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::same:37",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::same:43",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::same:82",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::same:57",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::equal:45",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::same:63",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::equal:42",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::pendingInteractionBodyDigest:7309",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/retry.ts::completedRetryProgressPlanDigest:6600",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/replay.ts::writeReplayBody:2302",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::isRecord:7",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::isJsonRecord:20",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::isJsonRecordShape:26",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::isOptionalJsonRecord:32",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::isMutableRecord:59",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::hasNulJoinedKeys:13",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::hasObjectUnicodeNulJoinedKeys:43",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::hasJsonNulJoinedKeys:52",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::hasNulJoinedFields:63",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::hasUnicodeNulJoinedKeys:74",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::hasExactKeys:82",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/shared/admission_predicates.ts::hasExactJsonKeys:96",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts::isRecord:167",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts::isJsonRecord:1561",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts::isJsonRecord:136",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts::record:29",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::isRecord:169",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts::isJsonRecord:949",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts::record:40",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts::record:18",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts::record:56",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts::record:10",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/replay.ts::isSemanticRecord:1607",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts::record:542",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts::record:32",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness_contracts.ts::record:130",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts::record:46",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts::recordJob:62",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts::record:45",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/stdo_environment.ts::record:37",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts::isJsonRecord:104",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts::isJsonRecord:934",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts::record:32",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts::record:44",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts::record:34",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts::record:45",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts::record:8",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction_recovery.ts::record:61",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts::isJsonRecord:139",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts::isJsonRecord:135",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts::metadataRecord:701",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/default_library.ts::record:166",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/default_library.ts::record:212",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts::record:7",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts::isRecordEvidence:91",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts::record:34",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/worksite_command_forward.ts::record:84",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/worksite_construction_recovery.ts::record:58",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/product/worksite_revision.ts::record:85",
+      "passed": true
+    },
+    {
+      "check": "exact selected body preimage: build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts::record:22",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation P-EQUAL",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation P-TYPES",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation P-SHAPE",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation P-KEYS",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation P-FRAME",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation P-PREFIX",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation P-OWNER",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation P-RETIRE",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation O-TYPE",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation O-RESOURCE",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation O-SHAPE",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation O-CODEC",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation O-SCHEMA",
+      "passed": true
+    },
+    {
+      "check": "proof or open owner obligation O-KEY",
+      "passed": true
+    },
+    {
+      "check": "local document link proposal.md -> ../common-consolidation-reentry-01/decision.md",
+      "passed": true
+    },
+    {
+      "check": "local document link proposal.md -> source-pins.json",
+      "passed": true
+    },
+    {
+      "check": "local document link proposal.md -> retirement-proof-map.json",
+      "passed": true
+    },
+    {
+      "check": "local document link handoff.md -> proposal.md",
+      "passed": true
+    },
+    {
+      "check": "local document link handoff.md -> retirement-proof-map.json",
+      "passed": true
+    },
+    {
+      "check": "local document link handoff.md -> source-pins.json",
+      "passed": true
+    },
+    {
+      "check": "effect boundary and no acceptance claim",
+      "passed": true
+    },
+    {
+      "check": "prior fixture and exact-key cut retained",
+      "passed": true
+    },
+    {
+      "check": "source closure and typechecks explicitly future",
+      "passed": true
+    }
+  ],
+  "performed": [
+    "read-only source inventory",
+    "JSON record parsing",
+    "selected source body correspondence",
+    "hash/byte freshness",
+    "local document link checks"
+  ],
+  "notPerformed": [
+    "source or test edits",
+    "live HOW or L2 edits",
+    "TypeScript typechecking or emitting",
+    "runtime imports",
+    "builds",
+    "Product/process/provider tests",
+    "package generation",
+    "Git",
+    "Reviewer activation"
+  ],
+  "conclusion": "The bounded proposal and source pins are internally consistent; semantic owner admission closure, implementation and executed proof remain open."
+}

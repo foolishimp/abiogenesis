@@ -1,0 +1,162 @@
+--- checked-fact-reader-design-01/HOW-proposal.md
++++ checked-fact-reader-design-02/HOW-proposal.md
+@@ -1,6 +1,10 @@
+ # C3 — Common exact selection and checked record facts
+ 
+-**Status: proposed HOW; construction result, not acceptance or implementation.**
++**Status: corrected proposed HOW; construction result, not acceptance or implementation.**
++Successor 02 preserves frozen 01 (`74b4562d…`) and applies only Root's selected
++execution-basis raw-input correction. The [attributed review and decision](review-and-decision.md)
++bind the one P2 preservation finding and the explicit changed outcome; all
++other C3 contracts and thirteen cardinality retirements remain selected.
+ Writer: `/root/stdo3_checked_fact_design_writer`. Frame:
+ `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`.
+ 
+@@ -127,7 +131,9 @@
+ It returns a frozen result wrapper with the **same event and projected value
+ references**. It does not deep-freeze, copy or register them. Projector,
+ expected-value and encoder exceptions propagate unchanged; this function has no
+-catch or retry. The owner retains its existing catch boundary.
++catch or retry. Owners retain their existing catch boundaries except the exact
++execution-basis raw-input adapter correction selected in §4 below. That exception
++does not change this common function's exception channel.
+ 
+ `expected: unknown` is deliberate: comparing a claimed field does not certify
+ it as `Sha256Digest`. The successful digest comparison proves only equality
+@@ -204,14 +210,48 @@
+ the outer catch/null behavior. Never insert an early `return` after the first
+ selection which would skip a later predicate exception or body read.
+ 
++**Execution-basis raw input (`invocation_execution_truth.ts`).** Root selects
++an owner correction alongside extraction. The old `canonicalRecordDigest`
++returns `null` for a non-record or encoding failure, and the reader compares
++that sentinel with `payload.rawInputDigest`. A raw immutable singleton with
++`rawInputValue: null` and claimed digest `null` can pass that comparison and
++return a purported typed basis when the remaining body/ref coordinates match.
++An unencodable record with claimed digest `null` can instead reach the later
++whole-basis encoding throw. Neither outcome is a preservation target:
++`ExecutionBasis.rawInputValue` requires a record, and genuine basis construction
++refuses a failed record detach.
++
++The replacement selects and counts candidates first, exactly as before. For
++one candidate, a non-record raw input is an invalid singleton and returns the
++existing owner `null` result before constructing a basis. A raw record that
++cannot be canonically encoded is also an invalid singleton and returns `null`,
++including the former null-claimed-digest/later-throw partition. Never compare a
++failed projection or encoding sentinel with a claimed digest. A successfully
++encoded record must still match its claimed digest; a wrong/non-null digest
++continues to refuse.
++
++The common checked-record function keeps its declared exception channel. This
++specific owner adapter handles the selected raw-input encoding failure at that
++stage; its record projection and expected-field access retain their existing
++owner premise and order. Keep the catch confined to raw-input encoding/checking:
++selection, predicate execution, other owner reads, basis construction and the
++later whole-basis hash are outside it. Do not normalize unrelated projector,
++index, profile or later-body errors. A later body encoding error after a valid
++raw-input check still throws as before. No compatibility branch, new general
++I-JSON admission policy or error-normalization mechanism is selected. The
++[finite owner cases](retirement-consumer-proof-map.md#execution-basis-correction-proof-cases)
++include both corrected malformed partitions and the preserved surrounding
++relations; no proof has run.
++
+ The eight-sample disposition in the map additionally removes exact-cardinality
+ bodies in `invocation_execution_truth`, `execution_basis` and `replay`.
+ Type holes in complete legacy `ExecutionBasis`/`InvocationAdmission`/set
+ construction are not moved into this library or declared solved by a record
+ check. A full typed schema replacing those casts is not established by the
+ review samples. If implementation finds one necessary for a selected shared
+-boundary, stop and return that relation to Root; do not add a stricter raw
+-admission policy under this extraction grant.
++boundary, stop and return that relation to Root. Apart from the explicit
++execution-basis record/encoding refusal above, no broader raw admission policy
++change is selected.
+ 
+ ## 5. Exit and bounds
+ 
+@@ -230,6 +270,7 @@
+ 
+ Only this new work directory is writable in this activation. Source, tests,
+ live HOW/L2, generated936, prior failed cuts and Git remain unchanged. Root
+-conjoins the frozen proposal with C1/C2/C4/C5 and independently selects later
+-review, owning HOW amendment, implementation and proof. This Writer returns one
+-candidate and stops.
++conjoins this frozen successor with C1/C2/C4/C5 and verifies the literal correction
++against the closed independent review; no new general review loop is selected.
++Root owns the later HOW amendment, implementation and proof grants. This Writer
++returns one corrected candidate and stops.
+--- checked-fact-reader-design-01/retirement-consumer-proof-map.md
++++ checked-fact-reader-design-02/retirement-consumer-proof-map.md
+@@ -4,7 +4,9 @@
+ Line numbers identify the frozen input, not the eventual successor. Exact bytes
+ are in [source-inputs.json](source-inputs.json). The four callable K04 entries
+ and K08 checked-record relation are defined in [the proposal](HOW-proposal.md).
+-Nothing in this map is executed evidence.
++Nothing in this map is executed evidence. Successor 02 changes only the
++execution-basis raw-input preservation claim and its finite owner proof cases,
++under the [attributed review and Root decision](review-and-decision.md).
+ 
+ ## Thirteen private singleton bodies
+ 
+@@ -52,7 +54,7 @@
+ 
+ | Reader | Required contraction | Owner step retained; concrete distinguishing input/outcome and falsifier |
+ |---|---|---|
+-| `invocation_execution_truth::projectExactExecutionBasisAtPrefix` (614) | Replace index/filter/count body with K04. Raw-input record/digest check uses K08 with a narrowly scoped catch preserving current `canonicalRecordDigest` behavior; retire that now-single-use helper. | Raw-input hash failure maps to null while later basis-body encoding can throw; one universal catch changes this boundary. Basis-body preimage, self-ref, field equality and frozen carrier construction stay owner-defined. Falsifier: valid same-source basis, wrong raw digest, malformed raw record, malformed body, and exact original throw/null. |
++| `invocation_execution_truth::projectExactExecutionBasisAtPrefix` (614) | Replace index/filter/count body with K04 and retire `canonicalRecordDigest`. Root explicitly corrects its null-sentinel comparison: non-record or unencodable raw input is an invalid singleton and maps to the existing owner null/refusal, including both null-claimed-digest partitions. | Preserve valid raw input, wrong/non-null digest refusal, and later body encoding errors outside the selected raw-input correction. Keep body preimage, self-ref, field equality, construction, multiplicity and predicate order. The common checker still throws; only this owner adapter handles the selected raw-input failure. Falsifier: the finite B01–B06 rows below. |
+ | `invocation_execution_truth::projectExactInvocationAdmissionAtPrefix` (262) | Replace main exact selection with K04; retain current predicate and record check. | A singleton event with missing/foreign Public cause must fail even with matching payload digest. Public authority/grants/input/definition joins, optional historical catalog arrays and freezing remain. First-ID Public-cause lookup is not changed. Falsifier: same bytes with wrong Public cause/authority and optional-field legacy behavior. |
+ | `execution_basis::rehydrateAdmittedImplementationSetAtPrefix` (1278) | K04 exact selection; nested typed-record K08 with `digest: null` removes repeated record projection after exact selection without inventing a hash. The paired interaction-set reader repeats the same route and is included in this finite successor. | `implementationSets.add(set)` occurs before `hasAdmittedImplementationSetAtPrefix`; typed guard/WeakSet membership and owner content identity are not common reader work. Returning a record without registration changes `isAdmittedImplementationSet` behavior. Preserve operation order even for failed final validation. Same obligation for the existing interaction-set registry. |
+ | `traversal_route::projectAdmittedRoute` (757) | Reuse its already projected historical route; no new exact-one conversion. | Two matching raw `construction_intent_selected` or `run_stopped` rows choose the earlier eligible event. Returning many/null changes supported raw projection. Owner: traversal route. Falsifier: controlled ordered duplicate side events, including later equal/changed bodies; record the exact resulting refs. This route-specific case is additional to T288's CCall first-ID controls. |
+@@ -67,6 +69,27 @@
+ parameter. Complete owner schema consolidation is a separate unresolved
+ relation if needed during implementation, returned to Root rather than silently
+ classified as retained duplication.
++
++## Execution-basis correction proof cases
++
++These are planned cases against the later exact source candidate, not executed
++results. The raw snapshot route must expose both historical malformed behaviors
++before comparing the corrected reader. Apply the same owner cases through the
++existing route categories where their owner permits construction; do not forge
++an owned/prospective receipt to force a malformed row past its prior boundary.
++
++| ID | Input partition | Required successor outcome / preserved boundary |
++|---|---|---|
++| B01 | One valid record input, matching raw digest and complete valid basis body/ref coordinates | Same typed basis fields and existing construction/identity behavior. |
++| B02 | Raw immutable singleton with non-record `rawInputValue: null`, claimed raw digest `null`, and otherwise matching body/ref coordinates | Invalid singleton -> owner `null`; the former purported basis must not escape. Do not report absence or add compatibility acceptance. |
++| B03 | Raw immutable singleton with an unencodable record and claimed raw digest `null` | Invalid singleton -> owner `null` at raw-input checking; the former later whole-body encoding throw is explicitly superseded for this partition. |
++| B04 | Valid encodable record with wrong/non-null claimed digest; also malformed raw input with non-null claimed digest | Existing owner `null` refusal remains. Failed encoding never becomes a comparable digest sentinel. |
++| B05 | Valid raw record and matching digest, with an unrelated later basis-body encoding error | Preserve the later throw and its error identity; the raw-input catch must not encompass basis construction/hash or normalize this error. |
++| B06 | Raw immutable, genuine owned and prospective validation routes; zero/one/many, copied/forged owner coordinates, wrong scope/profile/cause | Retain each existing route's prior admission/authenticity/refusal boundary. Run valid owner cases on all permitted routes. Malformed candidates rejected before a genuine owner/prospective prefix exists stay rejected there; no receipt is fabricated. On any permitted raw check, B02/B03 return null. Preserve complete predicate evaluation and duplicate/order behavior. |
++
++The narrowed correction is justified by the source-owned record contract and
++constructor refusal. It does not assert that all complete legacy domain shapes
++are now validated, or that general I-JSON admission has been tightened.
+ 
+ ## Proof obligations and proportional sequence
+ 
+@@ -90,8 +113,10 @@
+    malformed singleton -> invalid, distinct from absent; matching and mismatched
+    digest; missing claimed digest; projector/encoder/expected callback throw
+    identity; exactly one projection/hash; same event/value references; digest
+-   null performs none. Owners' return-null/throw mappings match their original
+-   cuts. Two malformed matches remain many before payload validation: do not
++   null performs none. Owner mappings match their original cuts except the
++   explicit B02/B03 execution-basis correction; its raw-input encoding failure
++   maps to null while the common checker still throws. Two malformed matches
++   remain many before payload validation: do not
+    filter malformed candidates away after selection to manufacture one.
+ 4. **Actual owner composition first.** Reuse the U1 fixture and existing
+    `t287-native-work-unknown-effect.test.mjs` path over actual indexed/owned,
+@@ -101,8 +126,9 @@
+    generic revision and C0 controls; add only the missing branch/order cases.
+    A forged/copy prefix must retain existing owner refusal; the helper cannot
+    convert it into an owned prefix.
+-5. **Conservation at changed read owners.** Preserve basis raw/body error order,
+-   invocation Public-cause relation, set/interaction registry behavior, Run
++5. **Conservation at changed read owners.** Execute B01–B06: correct the two
++   malformed raw-input partitions and preserve later body errors outside them.
++   Preserve invocation Public-cause relation, set/interaction registry behavior, Run
+    native/semantic identity and terminal error text. Reuse the exact T288 D08
+    17-case shadow control artifact named by its closed review; add the two
+    route-side ordered-first cases rather than claiming T288 already proves

@@ -1,0 +1,64 @@
+{
+  "phase": "finalized-precommit",
+  "capturedUtc": "2026-10-21T12:04:56.984577+00:00",
+  "trackedDiffCheck": {
+    "exitCode": 0,
+    "diagnosticCount": 0
+  },
+  "sourceCustody": {
+    "files": 39,
+    "mismatches": 0,
+    "deletions": 2
+  },
+  "designConjunctionCustody": {
+    "entries": 69,
+    "mismatches": 0
+  },
+  "generatedProtection": {
+    "historicalRows": 936,
+    "unchangedSurvivors": 935,
+    "authorizedRetirement": 1,
+    "unexpectedDrift": 0
+  },
+  "boundedCredentialMarkerScan": {
+    "files": 227,
+    "findings": [],
+    "limit": "High-confidence private-key and token markers only, not a comprehensive secret audit."
+  },
+  "reusedEvidence": "Existing frozen syntax/static readiness only. No new build, compile, test, Product/runtime import, native/provider or installed proof.",
+  "stagedDiffCheck": {
+    "command": "git diff --cached --check",
+    "exitCode": 2,
+    "diagnosticCount": 182,
+    "fileCount": 9,
+    "byFile": {
+      ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/correction.patch": 12,
+      ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/amendment.patch": 78,
+      ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/diff.patch": 27,
+      ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/proposal.diff": 21,
+      ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts": 6,
+      ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-final-facts-source-01/source.diff": 18,
+      ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/exact-key-canonical-entrypoints-01/source.patch": 5,
+      ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/fixture-retirement-source-01/change.diff": 6,
+      ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-implementation-01/source.patch": 9
+    },
+    "diagnosticDetail": "staged-diff-check.json",
+    "rootDisposition": "Root explicitly accepts these 182 diagnostics in nine exact frozen patch/preimage files as a custody-preservation exception for this WIP checkpoint. Preserve bytes; the full staged check is not a pass. No live code or live document is flagged. A new diagnostic/path requires return to Root."
+  },
+  "liveSourceAndDocumentStagedDiffCheck": {
+    "exitCode": 0,
+    "diagnosticCount": 0
+  },
+  "stageInventory": {
+    "preFinalReceiptChangedPaths": 232,
+    "unexpectedPaths": [],
+    "missingPaths": [],
+    "actualDeletionsNoRenameDetection": [
+      "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "build_tenants/abiogenesis/typescript/test_env/support/native-registered-selection.mjs"
+    ],
+    "note": "The six finalized receipt members and its freeze add seven files to the 227 preexisting changed paths; final no-renames path count must be 234."
+  },
+  "frozenWhitespaceEvidencePins": "All nine diagnostic files match their owning frozen SHA-256 pins.",
+  "indexSourceCorrespondence": "No unstaged difference in any of the 39 selected source/proof/contract files."
+}

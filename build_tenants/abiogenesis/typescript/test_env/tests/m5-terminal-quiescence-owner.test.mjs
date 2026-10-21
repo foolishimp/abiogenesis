@@ -24,6 +24,7 @@ import {
 } from "../../build/code/src/abg/event_prefix.js";
 import { createNewEmptyAppendSink, admitRuntimeEvent, admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   selectHeldEventStoreDurablePrefix } from '../../build/code/src/abg/event_store.js';
+import { projectRuntimeActorProcessFactsAtPrefix } from "../../build/code/src/abg/replay.js";
 import { sha256Canonical } from '../../build/code/src/shared/digests.js';
 import { deepFreeze } from "../../build/code/src/shared/immutable.js";
 
@@ -144,28 +145,35 @@ test("duplicate Process terminality and Actor terminal before confirmation fail 
   ]), actorRef), /requires confirmed Process terminality/);
 });
 
-test('cold leader exit preserves unknown group cleanup across ordinary Run failure', () => {
-  for (const order of ['exit-first', 'unconfirmed-first']) {
-    const rows = [event('actor_process_started', 1, 'process', processRef, actorRef,
-      { actorInvocationRef: actorRef, processRef })];
-    const kinds = order === 'exit-first' ? ['actor_process_exited', 'actor_process_termination_unconfirmed'] :
-      ['actor_process_termination_unconfirmed', 'actor_process_exited'];
-    for (const kind of kinds) rows.push(event(kind, rows.length + 1, 'process', processRef, actorRef,
-      { actorInvocationRef: actorRef, processRef, ...(kind === 'actor_process_exited' ? { status: 0, signal: null } : {}) }));
-    rows.push(event('runtime_failure_observed', rows.length + 1, 'run', 'run://t287/cleanup', null, {}));
-    const cold = prefix(deepFreeze(JSON.parse(JSON.stringify(rows)))), calculus = deriveRuntimeEventCalculusProjection(cold);
-    const projected = projectActorProcessLifecycle(cold, actorRef);
-    assert.equal(projected.processTerminalKind, 'actor_process_exited');
-    assert.equal(projected.processLive, false, 'leader exit remains the true leader fact');
-    assert.equal(projected.cleanupDisposition, 'termination_unconfirmed');
-    for (const name of ['actor_cleanup_live', 'actor_cleanup_pending'])
-      assert.equal(holdsAt(calculus, constructRuntimeFluent({ name, identity: processRef })), true, order);
-    const terminal = event('actor_invocation_failed', rows.length + 1, 'actor_invocation', actorRef, cCallRef,
-      { actorInvocationRef: actorRef, processRef });
-    const closed = deriveRuntimeEventCalculusProjection(prefix([...rows, terminal]));
-    for (const name of ['actor_cleanup_live', 'actor_cleanup_pending'])
-      assert.equal(holdsAt(closed, constructRuntimeFluent({ name, identity: processRef })), false);
-  }
+test('unconfirmed cleanup stays live until a genuine confirmed Process terminal, including cold replay', () => {
+  const rows = [
+    event('actor_invocation_started', 1, 'actor_invocation', actorRef, cCallRef, { actorInvocationRef: actorRef }),
+    event('actor_process_started', 2, 'process', processRef, actorRef, { actorInvocationRef: actorRef, processRef }),
+    event('actor_process_termination_unconfirmed', 3, 'process', processRef, actorRef, { actorInvocationRef: actorRef, processRef }),
+    event('runtime_failure_observed', 4, 'run', 'run://t287/cleanup', null, {}),
+  ];
+  const assertCut = (values, confirmed, actorDone) => {
+    const selected = prefix(deepFreeze(JSON.parse(JSON.stringify(values))));
+    const calculus = deriveRuntimeEventCalculusProjection(selected);
+    const projected = projectActorProcessLifecycle(selected, actorRef);
+    assert.equal(projected.processLive, !confirmed);
+    assert.equal(projected.terminationUnconfirmed, !confirmed);
+    assert.equal(projected.cleanupPending, !actorDone);
+    assert.equal(projectRuntimeActorProcessFactsAtPrefix(selected)[0].terminationConfirmed, confirmed);
+    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_live', identity: processRef })), !confirmed);
+    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_cleanup_live', identity: processRef })), !confirmed);
+    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_cleanup_pending', identity: processRef })), !actorDone);
+    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_termination_unconfirmed', identity: processRef })), true,
+      'later physical confirmation does not erase the historical uncertainty fact');
+  };
+  assertCut(rows, false, false);
+  // The owner admits this event only after owned-scope absence, not at raw child exit.
+  rows.push(event('actor_process_exited', 5, 'process', processRef, actorRef,
+    { actorInvocationRef: actorRef, processRef, status: 0, signal: null }));
+  assertCut(rows, true, false);
+  rows.push(event('actor_invocation_failed', 6, 'actor_invocation', actorRef, cCallRef,
+    { actorInvocationRef: actorRef, processRef }));
+  assertCut(rows, true, true);
 });
 
 test('owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes',async()=>{
@@ -185,18 +193,18 @@ test('owned actor selection preserves complete lifecycle truth across unrelated 
         aggregateType:'workspace',aggregateId:'invocation://unrelated/'+i,parentAggregateId:null,causationEventRefs:[],
         correlationId:'correlation://unrelated/'+i,workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://unrelated',
         payload:{invocationRef:'invocation://unrelated/'+i,invocationDigest:sha256Canonical(i),operationId:'abg.operation.project.read',variant:'status'}});
-      admit('actor_process_exited',processRef,actorRef,{actorInvocationRef:actorRef,processRef,status:0,signal:null});
       admit('actor_process_termination_unconfirmed',processRef,actorRef,{actorInvocationRef:actorRef,processRef});
+      admit('actor_process_exited',processRef,actorRef,{actorInvocationRef:actorRef,processRef,status:0,signal:null});
     });
     const owned=selectOwnedRuntimeEventPrefix(acquired.store),complete=selectValidatedRuntimeEventPrefix(acquired.store.readAll());
     const expected=projectActorProcessLifecycle(complete,actorRef);
-    assert.equal(expected.processLive,false);assert.equal(expected.cleanupDisposition,'termination_unconfirmed');
+    assert.equal(expected.processLive,false);assert.equal(expected.terminationUnconfirmed,false);assert.equal(expected.cleanupDisposition,'pending');
     assert.deepEqual(projectActorProcessLifecycle(owned,actorRef),expected);
     assert.equal(runtimeEventPrefixExtent(owned).count,132);assert.equal(Object.hasOwn(owned,'events'),false);
     assert.throws(()=>projectActorProcessLifecycle({...owned},actorRef),'copied private selection has no nominal owner');
     const coordinate=structuredClone(selectHeldEventStoreDurablePrefix(acquired.store));acquired.store.closeDurableLog();
     const cold=readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate,{requireCurrent:true});
-    assert.deepEqual(projectActorProcessLifecycle(cold,actorRef),expected,'cold selected bodies preserve unknown cleanup');
+    assert.deepEqual(projectActorProcessLifecycle(cold,actorRef),expected,'cold selected bodies preserve later confirmed cleanup and its pending Actor obligation');
     const bytes=await readFile(path),changed=Buffer.from(bytes);changed[0]=91;await writeFile(path,changed);
     assert.throws(()=>readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate,{requireCurrent:true}),e=>e.code==='prefix_digest_mismatch');
     await writeFile(path,bytes);

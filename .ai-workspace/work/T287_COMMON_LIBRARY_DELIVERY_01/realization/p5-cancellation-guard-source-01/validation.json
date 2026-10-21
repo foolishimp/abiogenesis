@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "node": "/opt/homebrew/bin/node",
+  "nodeVersion": "v24.7.0",
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--check",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs"
+  ],
+  "exitCode": 0,
+  "onlyDirectGuardInsertions": true,
+  "preimageAndSuccessorPinsExact": true,
+  "originalAllOtherBytesConserved": true,
+  "cleanupAndRestorationStatementsUnchanged": true,
+  "testAndOuterBoundsChanged": false,
+  "testsBuildsProductImportsNativeProviderGit": false,
+  "mainGeneratedPathsWritten": false,
+  "addedGuardCount": 27
+}

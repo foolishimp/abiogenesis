@@ -174,6 +174,62 @@ test('controlled lifetime: every owned stdio error keeps the first error and fin
   }
 });
 
+test('controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure', async () => {
+  const path = join(packageRoot, 'build/code/src/abg/worker_transport.js');
+  for (const order of ['exit-error', 'error-exit']) for (const scope of ['absent', 'present', 'unknown'])
+    for (const observerFails of [false, true]) {
+      const clock = controlledClock(), child = new ControlledChild();
+      const first = Object.assign(new Error('original stream error'), { code: 'EPIPE' });
+      const observerError = new Error('later final observer error');
+      let absence = 'present', lifetime, finalized = 0, handedBack = null;
+      child.stdin.end = () => {};
+      child.stdout.setEncoding = child.stderr.setEncoding = () => {};
+      const module = new SourceTextModule((await readFile(path, 'utf8')) + '\nexport { runProcess };', { identifier: path });
+      const overrides = {
+        'node:child_process': { spawn: () => child },
+        '../shared/owned_process_lifetime.js': {
+          createMonotonicDeadline: () => createMonotonicDeadline(clock.clock),
+          createOwnedProcessLifetime: (actualChild, bounds, observations) => {
+            assert.equal(actualChild, child);
+            lifetime = createOwnedProcessLifetime(child, { ...bounds, host: {
+              clock: clock.clock, platform: 'posix', probeGroup: () => absence, signal: () => {},
+            } }, observations);
+            return lifetime;
+          },
+        },
+      };
+      await module.link(async specifier => {
+        const imported = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href);
+        const values = { ...imported, ...overrides[specifier] };
+        return new SyntheticModule(Object.keys(values), function () {
+          for (const [name, value] of Object.entries(values)) this.setExport(name, value);
+        });
+      });
+      await module.evaluate();
+      const pending = module.namespace.runProcess({ command: '/controlled/no-launch', args: [], cwd: '/controlled', env: {},
+        stdin: '', timeoutMs: 1000, absoluteTimeoutMs: 2000, terminationGraceMs: 100,
+        stdoutPath: '/controlled/no-output', stderrPath: '/controlled/no-output', observer: {
+          onProcessFinalized: facts => { finalized++; handedBack = facts; if (observerFails) throw observerError; },
+          onSpawnFailed: () => assert.fail('an established child cannot become a no-child failure'),
+        } });
+      child.emit('spawn');
+      if (order === 'error-exit') child.stderr.emit('error', first);
+      child.emit('exit', 0, null);
+      if (order === 'exit-error') child.stderr.emit('error', first);
+      assert.equal(finalized, 0, 'raw exit supplies no final or semantic confirmation');
+      absence = scope; child.emit('close'); clock.advance(300);
+      const observation = await pending;
+      assert.equal(finalized, 1); assert.equal(observation.facts, handedBack);
+      assert.equal(observation.facts, await lifetime.completion, 'same canonical completion object');
+      assert.equal(observation.facts.firstError, first);
+      assert.equal(observation.finalizationError, observerFails ? observerError : undefined);
+      assert.equal(observation.facts.scopeAbsence, scope);
+      assert.deepEqual(observation.facts.directExit, { status: 0, signal: null });
+      assert.equal(observation.terminationConfirmed, scope === 'absent');
+      assert.equal(observation.facts.noChildEstablished, false); assert.equal(clock.active(), 0);
+    }
+});
+
 test('controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct', async () => {
   const launch = Object.assign(new Error('no executable'), { code: 'ENOENT' });
   let projected = null;

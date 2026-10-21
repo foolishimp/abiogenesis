@@ -20,6 +20,7 @@ import {
 } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import type { OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { isNonBlankRef } from "../shared/references.js";
 import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import type { CCall } from "./c_call.js";
@@ -53,6 +54,7 @@ import {
   runPreparedWorkerTransport,
   createWorkerTransportOutputObserver,
   type WorkerTransportRequest,
+  type WorkerTransportResult,
   type WorkerToolInvocationEvidence,
 } from "./worker_transport.js";
 import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy, type RuntimeProbeObservation, type RuntimeProbeSource } from "./runtime_liveness_contracts.js";
@@ -620,7 +622,7 @@ export function projectActorProcessLifecycle(
   if (actorTerminal !== undefined && processTerminal === undefined) {
     throw new TypeError("ActorInvocation cleanup terminal requires confirmed Process terminality");
   }
-  const terminationUnconfirmed = rows.some((event) =>
+  const terminationUnconfirmed = processTerminal === undefined && rows.some((event) =>
     event.kind === "actor_process_termination_unconfirmed"
   );
   const processLive = started.length === 1 && processTerminal === undefined;
@@ -994,7 +996,9 @@ async function invokeActorProcessWithAssembly(
   const stdoutEventRefs: string[] = [];
   const stderrEventRefs: string[] = [];
   let processStarted = false;
-  let processTerminalConfirmed = false;
+  let finalProcessFacts: OwnedProcessFacts | null = null;
+  let processTerminalEvent: ReturnType<typeof append> | null = null;
+  let admittedArtifact: ReturnType<typeof append> | null = null;
   let actorTerminalAdmitted = false;
   const signalSequence: string[] = [];
   const append = (
@@ -1102,8 +1106,79 @@ async function invokeActorProcessWithAssembly(
     successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId;
   };
 
+  const admitTransportArtifact = (transport: WorkerTransportResult) => {
+    if (admittedArtifact !== null) throw new TypeError("actor result artifact was already admitted");
+    if (finalProcessFacts === null || finalProcessFacts.scopeAbsence !== "absent" ||
+        (finalProcessFacts.directExit === null && !finalProcessFacts.noChildEstablished)) {
+      throw new TypeError("actor result artifact lacks final confirmed physical facts");
+    }
+    const observedOutputDigest = outputDigest(transport.finalOutput);
+    const artifactDigests = {
+      output: transport.artifacts.output.digest,
+      prompt: transport.artifacts.prompt.digest,
+      stderr: transport.artifacts.stderr.digest,
+      stdout: transport.artifacts.stdout.digest,
+      transport: transport.artifacts.transport.digest,
+    };
+    const observationBody = {
+      ...(transport.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: transport.nativeResultAssessment }),
+      actorInvocationRef,
+      actorRef: input.request.actorRef,
+      workerBindingRef: input.request.workerBindingRef,
+      implementationRef: input.request.implementationRef,
+      inputDigest: input.request.inputDigest,
+      materializationPlanRef: input.request.materializationPlanRef,
+      rendererRef: input.request.rendererRef,
+      instructionContractRef: input.request.instructionContractRef,
+      resultContractRef: input.request.resultContractRef,
+      processRef,
+      transportBindingRef,
+      transportBindingDigest,
+      disposition: transport.disposition,
+      failureClass: transport.failureClass,
+      finalOutput: transport.finalOutput,
+      observedOutputDigest,
+      promptDigest,
+      transportDigest: transport.artifacts.transport.digest,
+      transportLane: transport.lane,
+      processStatus: transport.status,
+      processSignal: transport.signal,
+      timeoutClass: transport.timeoutClass,
+      timedOut: transport.timedOut,
+      exitObserved: transport.exitObserved,
+      terminationConfirmed: transport.terminationConfirmed,
+      signalSequence: Object.freeze([...signalSequence]),
+      structuredEventCount: transport.structuredEventCount,
+      progressEventCount: transport.progressEventCount,
+      toolCallCount: transport.toolCallCount,
+      toolInvocations: transport.toolInvocations,
+      apiRetryCount: transport.apiRetryCount,
+      stdoutByteLength,
+      stderrByteLength,
+      artifactDigests,
+    };
+    const artifactEvent = append(
+      "actor_result_artifact_observed",
+      "actor_invocation",
+      actorInvocationRef,
+      input.cCall.cCallRef,
+      {
+        cCallRef: input.cCall.cCallRef,
+        requestRef,
+        requestDigest,
+        ...observationBody,
+      } as unknown as Readonly<Record<string, JsonValue>>,
+    );
+    // Retain the actual committed witness before a subsequent probe can fail.
+    admittedArtifact = artifactEvent;
+    if (currentProfile && transport.nativeResultAssessment?.disposition !== "absent") probe("result_artifact", artifactEvent,
+      transport.nativeResultAssessment?.disposition === "admitted" ? "artifact_admitted" : "artifact_rejected", elapsed());
+    return { artifactEvent, observation: deepFreeze(observationBody) as ActorProcessObservation };
+  };
+
   try {
     const transport = await runPreparedWorkerTransport(plan, {
+      onResultArtifact: admitTransportArtifact,
       ...(currentProfile ? { assessNativeResultArtifact, onNativeSupervisionWakeup: () => {
         observePendingAsset();
         const sampled = elapsed();
@@ -1220,107 +1295,41 @@ async function invokeActorProcessWithAssembly(
         );
       },
       onSpawnFailed: (message) => {
-        append(
-          "actor_process_spawn_failed",
-          "process",
-          processRef,
-          actorInvocationRef,
+        if (processStarted || finalProcessFacts !== null || processTerminalEvent !== null) {
+          throw new TypeError("pre-launch refusal cannot follow a physical attempt or Process terminal");
+        }
+        processTerminalEvent = append(
+          "actor_process_spawn_failed", "process", processRef, actorInvocationRef,
           { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(message) },
         );
-        processTerminalConfirmed = true;
       },
-      onProcessExited: (status, signal) => {
-        if (processStarted) {
-          append(
-            "actor_process_exited",
-            "process",
-            processRef,
-            actorInvocationRef,
-            { actorInvocationRef, processRef, status, signal },
-          );
-        } else {
-          append(
-            "actor_process_spawn_failed",
-            "process",
-            processRef,
-            actorInvocationRef,
-            {
-              actorInvocationRef,
-              processRef,
-              diagnosticDigest: sha256Canonical({ status, signal }),
-            },
-          );
+      onProcessFinalized: (facts) => {
+        if (finalProcessFacts !== null || processTerminalEvent !== null) {
+          throw new TypeError("Process final facts must be handed back exactly once");
         }
-        processTerminalConfirmed = true;
-      },
-      onTerminationUnconfirmed: () => {
-        processTerminalConfirmed = false;
-        append("actor_process_termination_unconfirmed", "process", processRef,
-          actorInvocationRef, { actorInvocationRef, processRef });
+        // Keep the canonical facts even if their semantic admission fails.
+        finalProcessFacts = facts;
+        if (facts.scopeAbsence === "absent" && facts.noChildEstablished && facts.launchFailure !== null) {
+          if (processStarted) throw new TypeError("no-child launch failure cannot follow admitted process start");
+          processTerminalEvent = append(
+            "actor_process_spawn_failed", "process", processRef, actorInvocationRef,
+            { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(facts.launchFailure.message) },
+          );
+        } else if (facts.scopeAbsence === "absent" && facts.directExit !== null && processStarted) {
+          processTerminalEvent = append(
+            "actor_process_exited", "process", processRef, actorInvocationRef,
+            { actorInvocationRef, processRef, status: facts.directExit.status, signal: facts.directExit.signal },
+          );
+        } else if (processStarted) {
+          append("actor_process_termination_unconfirmed", "process", processRef,
+            actorInvocationRef, { actorInvocationRef, processRef });
+        } else {
+          throw new TypeError("physical completion has no admitted process start or positive no-child premise");
+        }
       },
     });
-    processTerminalConfirmed = transport.terminationConfirmed ||
-      (!processStarted && transport.status !== null && transport.status < 0);
-    const observedOutputDigest = outputDigest(transport.finalOutput);
-    const artifactDigests = {
-      output: transport.artifacts.output.digest,
-      prompt: transport.artifacts.prompt.digest,
-      stderr: transport.artifacts.stderr.digest,
-      stdout: transport.artifacts.stdout.digest,
-      transport: transport.artifacts.transport.digest,
-    };
-    const observationBody = {
-      ...(transport.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: transport.nativeResultAssessment }),
-      actorInvocationRef,
-      actorRef: input.request.actorRef,
-      workerBindingRef: input.request.workerBindingRef,
-      implementationRef: input.request.implementationRef,
-      inputDigest: input.request.inputDigest,
-      materializationPlanRef: input.request.materializationPlanRef,
-      rendererRef: input.request.rendererRef,
-      instructionContractRef: input.request.instructionContractRef,
-      resultContractRef: input.request.resultContractRef,
-      processRef,
-      transportBindingRef,
-      transportBindingDigest,
-      disposition: transport.disposition,
-      failureClass: transport.failureClass,
-      finalOutput: transport.finalOutput,
-      observedOutputDigest,
-      promptDigest,
-      transportDigest: transport.artifacts.transport.digest,
-      transportLane: transport.lane,
-      processStatus: transport.status,
-      processSignal: transport.signal,
-      timeoutClass: transport.timeoutClass,
-      timedOut: transport.timedOut,
-      exitObserved: transport.exitObserved,
-      terminationConfirmed: transport.terminationConfirmed,
-      signalSequence: Object.freeze([...signalSequence]),
-      structuredEventCount: transport.structuredEventCount,
-      progressEventCount: transport.progressEventCount,
-      toolCallCount: transport.toolCallCount,
-      toolInvocations: transport.toolInvocations,
-      apiRetryCount: transport.apiRetryCount,
-      stdoutByteLength,
-      stderrByteLength,
-      artifactDigests,
-    };
-    const artifactEvent = append(
-      "actor_result_artifact_observed",
-      "actor_invocation",
-      actorInvocationRef,
-      input.cCall.cCallRef,
-      {
-        cCallRef: input.cCall.cCallRef,
-        requestRef,
-        requestDigest,
-        ...observationBody,
-      } as unknown as Readonly<Record<string, JsonValue>>,
-    );
-    if (currentProfile && transport.nativeResultAssessment?.disposition !== "absent") probe("result_artifact", artifactEvent,
-      transport.nativeResultAssessment?.disposition === "admitted" ? "artifact_admitted" : "artifact_rejected", elapsed());
-    if (processTerminalConfirmed) {
+    const { artifactEvent, observation } = admitTransportArtifact(transport);
+    if (processTerminalEvent !== null) {
       // The terminal owner consumes the actual artifact producer. A liveness
       // observation between them is not a replacement artifact cause.
       previousEventRef = artifactEvent.eventId;
@@ -1348,7 +1357,6 @@ async function invokeActorProcessWithAssembly(
       );
       actorTerminalAdmitted = true;
     }
-    const observation = deepFreeze(observationBody) as ActorProcessObservation;
     const exchange = validateActorProcessCarrierPair(input.request, observation);
     if (exchange.kind !== "actor_process_carrier_validation") {
       return refuseActorProcessEffect(
@@ -1367,42 +1375,28 @@ async function invokeActorProcessWithAssembly(
       exchange,
     });
   } catch (error) {
-    if (!processStarted && !processTerminalConfirmed) {
-      append(
-        "actor_process_spawn_failed",
-        "process",
-        processRef,
-        actorInvocationRef,
-        {
+    if (!actorTerminalAdmitted && processTerminalEvent !== null) {
+      try {
+        append(
+          "actor_invocation_failed",
+          "actor_invocation",
           actorInvocationRef,
-          processRef,
-          diagnosticDigest: sha256Canonical(
-            error instanceof Error ? error.message : String(error),
-          ),
-        },
-      );
-      processTerminalConfirmed = true;
-    }
-    if (!actorTerminalAdmitted && processTerminalConfirmed) {
-      append(
-        "actor_invocation_failed",
-        "actor_invocation",
-        actorInvocationRef,
-        input.cCall.cCallRef,
-        {
-          actorInvocationRef,
-          processRef,
-          cCallRef: input.cCall.cCallRef,
-          disposition: "failure",
-          failureClass: "transport_exception",
-          transportBindingRef,
-          transportBindingDigest,
-          diagnosticDigest: sha256Canonical(
-            error instanceof Error ? error.message : String(error),
-          ),
-        },
-      );
-      actorTerminalAdmitted = true;
+          input.cCall.cCallRef,
+          {
+            actorInvocationRef,
+            processRef,
+            cCallRef: input.cCall.cCallRef,
+            disposition: "failure",
+            failureClass: "transport_exception",
+            transportBindingRef,
+            transportBindingDigest,
+            diagnosticDigest: sha256Canonical(
+              error instanceof Error ? error.message : String(error),
+            ),
+          },
+        );
+        actorTerminalAdmitted = true;
+      } catch { /* Preserve the first owner failure and the actual committed prefix. */ }
     }
     throw error;
   }

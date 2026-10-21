@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The [common computational library deliverable](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#common-computational-library-deliverable) precedes remaining 5.0 release work. L1/L2 are accepted. L3 is implemented with active retirement and mandatory E03 process-truth correction open; L4 is partial; interim L5 source review has one S2 blocker and delivery acceptance is absent. The release gate is closed. Root selects an unfinished review checkpoint now, after durable records/HOW preparation and portable evidence, before further source/runtime mutation. Prior remote checkpoint `67c3337`; current work uncommitted. Existing evidence retains its exact subjects. Current-candidate lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The common computational library precedes release work. [Root’s design conjunction](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) accepts bounded C1/C3/cross-consumer contracts and C2/C4/C5 core callables with six owner obligations and two composite classifications OPEN. Five source cuts retain static/syntax readiness only. Lifecycle implementation, complete source conjunction, combined candidate/P1/P5/P4 and independent L5 remain open or held; release resumption is closed. [Current checkpoint handoff](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md) owns transport status. Fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
 
 ## Current Selection
 
@@ -30,43 +30,59 @@ that acceptance. Bounded integration and installed proof needed to deliver
 the library belong to the library work package.
 
 The [L1 design baseline](../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md)
-and [exact L2 delivery design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
-are accepted. L2 binds D02–D04 contraction, K11 standalone STDO3 context,
-E03 shared physical lifetime/timing, U1 scoped unknown-effect currentness,
-E01/E02/E04 retained domains, and frozen P1–P5 proof. Independent review 02
-closed the bounded timer-domain design finding. L3 implementations exist, but
-active fixture/support retirement is not delivered and E03 process truth needs
-mandatory correction. L4 is partial: new-candidate P1 passed; P5 successor08
-timed out, with late C1 completion and C2 admission/opening retained but no C2 outcome.
-Owner-resolution, P2, P3, HoG and P4 remain held. The
-[independent effects-review return](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/review-effects.md)
-contains E03-L5-01, severity S2; Root assigns priority P1 and a delivery blocker.
-That priority is distinct from the successful installed proof lane P1. L5
-delivery acceptance remains absent; historical evidence keeps its exact scope.
+and [exact L2 design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
+retain their historical acceptance. Root’s [current conjunction](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
+ratifies the corrected bounded C1 lifecycle, C3 checked-reader and command/HTTP
+failure-handoff designs in the owning HOWs. C2/C4/C5 common callable contracts
+and retirement directions are accepted with O-TYPE/O-RESOURCE/O-SHAPE/O-CODEC/
+O-SCHEMA/O-KEY and two native composite classifications OPEN. This is not full
+migration or source-readiness acceptance. The coverage critique remains
+substantially upheld; real completed contractions are retained.
 
-The owner's correction is: **“the purpose of the calculus is to strip out old
-fixtures, to remove massive tech debt”**. Root's
-[retirement decision](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/decision.md)
-selects removal of the redundant fresh-process runner, consolidation of U1 setup,
-and replacement of private generic canonical/hash algorithms by existing common
-capabilities, preserving distinct caller and witness obligations. Per capability,
-completion records actual retired implementations/fixtures/callers, canonical
-replacement and use, retained obligations, exceptions with reasons and affected
-proof. Historical immutable evidence does not require active compatibility
-maintenance. The companion-only helper and production default-library v2.5.1
-definition require explicit source/role HOW decisions; neither is already retired.
+The finite selected scope is 24 simple equality bodies, 13 local exactly-one
+helpers, three stream framers, five shared plus 38 local shallow guards and five
+shared plus one private NUL key body. Every selected row needs a callable,
+consumer, deleted body/route, justified variant and proof. Default to the common
+implementation; retention needs a concrete supported distinguishing input/outcome,
+owner and falsifier. Missing proof stays open. All C1–C5 are library obligations;
+none is automatically deferred to 5.1. Direct typed imports are valid callables.
 
-Root selects the [full-tree review checkpoint](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
-now, after current records, proposed HOW preparation and portable evidence,
-before further source/runtime mutation. It includes public commentary from the
-other session and may truthfully contain the unfinished refactor and blocker.
-The prior remote checkpoint is `67c3337`; current work is uncommitted. Git belongs
-to a separate Writer activation. The [current plan](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/executive-retirement-reprice-01/plan.md)
-then orders retirement/process-truth repair → one final candidate → proportionate
-affected installed/finite proof and one P4 native witness → independent L5 →
-remaining 5.0 release work. The
-[operation boundary](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-operation-boundary)
-retains exact grants and open obligations.
+The owner’s purpose remains **“the purpose of the calculus is to strip out old
+fixtures, to remove massive tech debt”**. The five [source freezes](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
+retain bounded static/syntax readiness: lifetime `4bfdf7e…`, role/source
+`17b1b6d…`, fixture `1bbc47ac…`, P5 guard `d24b8d7d…` and exact-key `ed4ca1b…`.
+At this design conjunction, before the authorized checkpoint, those source
+increments are uncommitted. Root’s fresh custody check matched all 39 distinct
+source/proof/contract files and confirmed both selected deletions absent; that
+is custody evidence, not new execution. The old ordinary companion helper,
+packaged STDO2.5 member and selected fixture/key duplicates are retired in source.
+Distinct owner/renderer/companion duties and historical proof remain.
+
+The lifecycle S2/Root P1 delivery blocker is resolved in bounded DESIGN only.
+The accepted law requires the pre-event matching-Run Actor census and one
+Run-initiated cleanup token until Actor consumption, distinct from pre-Run
+physical uncertainty. Source implementation and affected proof remain open;
+no incorrectly closed real Run is claimed. Command/HTTP final-facts retention,
+fixed failure diagnostic and stateless inspection are likewise accepted DESIGN
+and unimplemented in the helper.
+
+The [current checkpoint handoff](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
+owns current commit/remote/parity status. The known preceding checkpoint is
+`400d763d1d4c3d9e84cf30d6b830d7b975ef7089`, remote-equal, tracking 0/0 and clean
+at that historical cut. This corrected design and source custody are ready for
+the separately authorized full-visible-tree WIP checkpoint; no later push is
+claimed by this conjunction.
+
+Next, close the finite value owner/type decisions and separately grant
+dependency-ready source completion. C1/cross-consumer source can proceed under
+a separate Root grant while those decisions continue; C3 requires the truthful
+C5 wrapper contract. Whole value migration at an unresolved owner boundary and
+the combined candidate/build/P1/P5/P4 remain held until the required source
+conjunction. Then run proportionate affected and installed proof, independently
+assess L5 and only after acceptance resume release work. L4 remains partial on
+older subjects, including P1 pass/P5 timeout; L5 acceptance is absent. No new
+broad design-review campaign is selected. Old failed cuts and main generated936
+remain protected.
 
 The owner's Executive correction applies [proportionality and steel-thread
 controls](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#design-and-proof-controls):
@@ -101,8 +117,8 @@ that basis and supersedes its next-work ordering.
 Product re-entry removes the mandatory legacy companion-cohort assumption
 from the STDO runtime template while preserving explicitly declared source,
 access, context and admission obligations. This changes the current destination;
-implementation and affected installed proof remain open. Historical Runs keep
-their admitted method and dependencies.
+the bounded source increment is frozen while affected installed proof remains
+open. Historical Runs keep their admitted method and dependencies.
 
 After library acceptance, the release path resumes toward one complete
 installed application lifecycle with consequential correction and preserved
