@@ -150,3 +150,12 @@ For 8b (ticket, GOALS, design closure after the review):
   regenerated copies of exactly those 40 and a fresh checkout has a partial
   build tree. Record for Jim; the fix (`git rm --cached` of the 40, or
   tracking all of `build/`) is a separate decision outside this plan.
+- Step 6 review (Fable) items for 8b's design notes: R2 the lifecycle
+  rule's R branch lacks the formula's `not A` (unreachable on admitted
+  prefixes; state it or add the term at step 8 with a falsifier); R5 the
+  published native-runtime-observation contract embeds `ROOT_EVENT_CALCULUS`
+  without the rules (no runtime consumer; state the law's two tables or
+  drop the member); R6 §4.4 anchors to `event_calculus.ts` lines that now
+  live in `abg/calculus/axioms.ts` and `rules.ts`; R7 "effects that depend
+  only on the event kind" over-states the axiom table, which reads
+  pre-existing context through `AxiomFoldContext`.

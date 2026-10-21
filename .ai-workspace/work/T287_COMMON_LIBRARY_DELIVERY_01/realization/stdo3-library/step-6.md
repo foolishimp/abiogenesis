@@ -396,3 +396,104 @@ ACTION: execute step 6 as re-activated.
   - (4) `m5-consensus-module.test.mjs` cannot load at baseline (`ROOT_PUBLIC_OPERATION_IDS`), so the r10 proof store's stored witnesses are unexercised by this step.
   - The earlier residuals on the gate flag and on the witness are closed by Delta 2 and D7.
 - return route: this file
+
+## Review
+
+Reviewer: Claude Fable 5.1, same family as the Worker (Opus) and the Executive (Fable); no Writer grant; subject `c2432eb85` against `c2432eb85^` (`4124ec7e0`). Line numbers are the subject's tree; design = `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`.
+
+Blocking: S0 0, S1 0, S2 1 (design text written from the D7 trace; the code is not wrong). Non-blocking: S3 4, S4 2.
+New S2 or above: yes (R1).
+
+**Claim vs evidence (re-run: unit lane and `lint:imports` only).** The lane passes at the subject on the Worker's build: 6 of 6, P-FOLD 22 cuts (`node --experimental-vm-modules --test`, 1.3 s); `lint:imports` rc 0. The tenant tree equals `1dea2c79d` (`git diff --stat 1dea2c79d c2432eb85 -- build_tenants` lists only the design file), so the cherry-pick claim holds. Build outputs are consistent with the final tree: the manifest's `capabilityDefinitionGraph.assetLocator.contentDigest` equals the sha256 of the committed graph; `build/code/src/abg/calculus/*.js` and `build/code/src/abg/event_calculus.js` are dated 10:10:45, after the last source write (10:05:16) and before the commit (10:13:46). Build and language-smoke timings are the Worker's record; not reproduced. `ROOT_PUBLIC_OPERATION_IDS` is absent from `code/src` at `98e0257d0`, `67c333799` and the subject (`git grep`; last touched `adaeede02`): baseline failure confirmed. No fixture changed (`git show --stat`). Self-checks 1 to 6 re-verified by grep: the four rule-owned fluents are initiated or terminated only in `rules.ts:141-178`; `terminal_run_census` reads `actor_process_live` at `rules.ts:54` as an input; `ROOT_DERIVED_RULES` is read only in `fold.ts:24,113`; `ROOT_EVENT_CALCULUS` leaves `abg/calculus/` only through the `event_calculus.ts:64` and `abg/index.ts:191` re-exports.
+
+**Law.** Both tables are module constants; `effectOf(state, event, dependencies)` and `foldStep(state, event, dependencies)` take no axiom, rule or callback (`fold.ts:112,139`); each `derive` is module-owned (`rules.ts:185-210`); `advance` is the `foldStep` loop plus `memoize` with no `event.kind ===` branch (`event_calculus.ts:236-245`); the class keeps the memo and `forkAt` only; defects keep `throw` (`rules.ts:112`; `actor_process.ts:615-627`). The behavior changes in the diff are the D1 reframe (the §4.4 formulas) except R3 below, which is outside the change class but unobservable on admitted prefixes.
+
+**Findings.** `severity | site | claim | evidence | smallest repair`
+
+- R1. S2 | design:189 (the D7 paragraph) and design:644 (§10.6 row 5) | The paragraph names `abg/traversal_route.ts:5371` as "the one site that compares a stored witness with a recomputation" and says a prior-law route or judgment "fails closed at transition admission". Neither is what the code does. | At `traversal_route.ts:5371` the compared `transition.route` is `input.candidate.route`, a `traversal_route_candidate` built in the same transaction from a replay state computed under the current law: `hog/workflow_lifecycle.ts:997-1002,1016-1026` (`fanOutReplay` from `projectOwnedRuntimeTruthAtDurablePrefix` or the retry plan), `hog/interaction_lifecycle.ts:131-152,176-187` (`Routes.proposeHoldRoute(..., plan.replayState, ...)`, `plan.replayState = projectRuntimeReplayGuard(...)` at `c_call.ts:6166`), `hog/structural_transition.ts:195-224` (`replayAtDurable`, `hog/operator_support.ts:45-50`); the digest enters at `hog/route_proposal.ts:131,1378`. So 5371 is the same fresh-against-fresh staleness check as `:4438` and `c_call.ts:7047`. Every other `replayDigest` comparison in `code/src` is also two computed values (`fan_out.ts:222`, `c_call_outcome.ts:1520`, `replay.ts:202`, `product/project_read_definition_bindings.ts:962` against `project_read_ports.ts:871-872,1032-1033`). The stored `replayStateDigest` is read only at `replay.ts:656` into the route read model and propagated or shape-checked (`closure.ts:284`, `traversal_transition.ts:164,182`, `fan_out_projection.ts:1455`); `sourceReplayDigest` is stored (`invocation_admission.ts:582`) and key-listed only. In my words: no admission, reopen or cold-replay path compares a stored witness with a recomputation; a prior-law witness is never re-read, so nothing fails closed on its account; "history reopens unchanged" and "no prior law is retained" hold a fortiori. | Design owner under the pen, no code change: reword the paragraph and the row 5 entry to say that the three `replayStateDigest` comparisons check a proposal built in the same transaction against the current replay, that no path compares a stored witness with a recomputation, and that a prior-law route or judgment is neither re-admitted nor re-checked. The Worker wrote what Delta 1 dictated; the defect is the Executive's trace (D7 Facts), which the stop Return's wording ("a candidate's stored digest") invited.
+
+- R2. S3 | `rules.ts:168-179` | The R branch of `cleanupPending` lacks the formula's `not A` term: every process with `actor_process_live` or `actor_process_active` held in the Run receives `actor_cleanup_pending`, whether or not its actor terminal already holds. | §4.4: `cleanupPending = not A and (T or U or (R and formerlyActiveActor))`; the code applies `not A` on the T, U branches (`rules.ts:150,160`) and terminates on A (`:166`) only. Reaching the gap needs A before R with the process still live or active, i.e. an actor terminal without a process terminal, which the owner never emits (`actor_process.ts:1335-1385`: the actor terminal follows `processTerminalEvent`) and the projection refuses (`actor_process.ts:625-627`). The term is also not realizable from `holds` at R: the Run stop carries no actor ref and the fold state holds no process-to-actor relation. The test's tables (B: `S, R`) do not reach it. | Design note at step 8: state that `not A` is vacuous at R under the emitter's ordering (A after T), or carry the process-to-actor relation in `FoldState` and filter the census; no step 6 code change.
+
+- R3. S3 | `runtime_liveness.ts:816-822` (the granted `:813` read) | The `actor_process_spawn_failed` read is taken at the cut before `events.at(-1)`. In the validator path (`:688-690`, `events = reconstruction.facts(event.admissionOrdinal)`) that is the cut before the liveness event, as intended. In the public path (`deriveRuntimeLiveness`, `:875`; `events = runtimeEventBodiesAtPrefix(prefix)`, `:722`; caller `admitRuntimeThreshold`, `:1030`) `events.at(-1)` is the prefix's last event, so the read excludes it, one event short of the old `any([...])` over `events`; the validator's timeout branch calls the public path at `prefix = reconstruction.cut(ordinal)` (`:656-659`) and reads at N-2. | Unobservable on admitted prefixes: the term runs only after `actor_process_started` matched for the actor (`&&` short-circuit), and a spawn failure after a start is refused at emission (`actor_process.ts:1317`) and by the projection (`:618-619`), so `processLive` is value-identical. | One line: `const cut = reconstruction === undefined ? prefix : validatedRuntimeEventPrefixBeforeEvent(prefix, boundary.eventId)`; take it with R4 at step 8.
+
+- R4. S3 | `runtime_liveness.ts:823-828` | `processLive` is still decided from event kinds (`actor_process_started`, `actor_process_exited`, `actorDone`) outside `abg/calculus/`: a lifecycle derivation that P-LIFECYCLE's last sentence and the step 8 lint fail. Residual (2) admits it; the grant covered the `:813` read only. | Confirmed by reading `:823-828`. | Keep `any(["actor_process_started"])` only to bind `started.processRef`; then `const processLive = actorRef !== null && !actorDone && started.processRef !== null && holdsAt(heldBefore, constructRuntimeFluentPattern({ name: "actor_process_live", identity: started.processRef })).length !== 0;` with `heldBefore` the R3 cut; drop the `spawnFailed` and `actor_process_exited` terms (both inside `actor_process_live = S and not T`); `!actorDone` is a disposition guard, not a lifecycle fact, and stays.
+
+- R5. S3 | `scripts/generate-product-manifest.mjs:139-147`; `contracts/schemas/native-runtime-observation.json:4396-4486` | The published native runtime observation contract embeds `eventCalculus: ROOT_EVENT_CALCULUS`; after the reframe it no longer initiates `actor_process_live`, `actor_process_termination_unconfirmed` or `actor_cleanup_pending` and has no rule member, so the published contract under-states the law. Not in the Return. | No runtime consumer reads the file (`code/src` grep: only the generator); `ROOT_EVENT_CONTRACT_DIGEST` is built from aggregate types, event kinds and payload contracts (`event_store.ts:1182-1188`), so no admitted event depends on it; the manifest and capability graph carry the new digests. | Step 8, outside this grant: publish the rule table's declaration (`ruleRef`, `appliesTo`) beside `eventCalculus`, or record in §4.4 that the published contract carries the axiom table only.
+
+- R6. S4 | design:191-196 (pre-existing §4.4 text) | The design still anchors counterexample B, the unconditional `actor_cleanup_pending` entry and the moved axiom entries to `abg/event_calculus.ts` lines 1909, 258 and 222 to 258; those now live in `abg/calculus/axioms.ts:208-250` and `rules.ts`. | Outside the grant ("Nothing else in the design"). | Design owner, step 8.
+
+- R7. S4 | design:184; `calculus/axioms.ts:809-960` | "The axiom table declares effects that depend only on the event kind" over-states the realization: the effect-ref switch keeps pre-existing context reads (`history.prefix`, the probe scopes: e.g. `c_call_judged` at `:950-958`, the actor terminal at `:880-905`), now passed as `AxiomFoldContext` (`axiomEffectOf`, `axioms.ts:1717-1741`). Not introduced by this step; unchanged behavior. | None at step 6; a design sentence at step 8 if the distinction is to be kept exact.
+
+**The reframe, against §4.4, §5, §10.5.**
+- (a) One producer: confirmed by grep (above). The Return's table is right; `actor_process_active`, `actor_process_exited`, `actor_process_spawn_failed`, `actor_cleanup_live` and the stdout and stderr fluents stay in the axiom table (`axioms.ts:208-250`).
+- (b) Confirmed (Law above). `axiomEffectOf(event, dependencies, context?)` takes fold data, not a callback.
+- (c) Read from `derive`: `processLive = S and not T` (`rules.ts:139-141,152`); `terminationUnconfirmed = not T and U` (`:153,159`); `cleanupPending` as §4.4 on T, U and A, with the R gap of R2. Token frontier: `isRunCleanupTerminal` (`run_stopped`, or `runtime_failure_observed` with `aggregateType === "run"`) matched by `contextualFluentRunIds` against `event.runId` (`:170-174`): the matching Run stop. `actor_process_terminated` from `actor_process_exited` only when `actor_process_live(processRef)` holds and `actor_process_termination_unconfirmed(processRef)` does not (`:145-149`); "live holds" is `S and not T`, a stricter proxy for "an admitted start precedes" that differs only on a duplicate terminal, itself a refused cardinality defect.
+- (d) The four tables match the formulas (A: pending and terminated from the exit, unchanged at R; B: pending and live at R, no terminated; spawn failure: spawn_failed and pending, no terminated; U then exit: unconfirmed and pending at U, exit ends live and unconfirmed and initiates no terminated). Retired derivations are gone, not duplicated: the actor projection's run-terminal clause (old `actor_process.ts:626-634`) is replaced by three `holdsAt` reads (`:630-635`); the old census that initiated `actor_cleanup_pending` for live processes (old `event_calculus.ts:1909-1925`) survives only as `actor_cleanup_live` in `terminal_run_census` (`rules.ts:53-56`), while `actor_cleanup_pending` at R comes from the lifecycle rule's live-or-active census (`:168-179`); the axiom entries and the effect-ref switch lost the four names (`axioms.ts:208-250,809-877`).
+- (e) `actor_cleanup_pending` is in `RUN_QUIESCENCE_LIVE_OR_CONSUMABLE_FLUENTS` (`replay.ts:321`), so it blocks `quiescent_for_close` (`replay.ts:448-481`). Before the Run terminal nothing changes: an unclosed actor already blocks through `actor_invocation_active`. After the Run terminal (the census ends `actor_invocation_active`, `rules.ts:62`) an exited process whose actor is not closed now blocks closure until the actor terminal, where the old law let the Run close. Readers: `closure.ts:552-557` (root closure refuses `runtime_basis_mismatch`, naming the fluent) and `project_read_ports.ts:1006` (read model); `runtime_liveness.ts` does not read the set; `invocation_admission.ts` has no held-set read (it stores `sourceReplayDigest` only), so the activation's third reader is not a reader. Installed Hello World path (`installed-language-smoke.test.mjs`): a native leaf with no actor process events; no change. The U1 fixture (`S, U, exit, A`, no Run stop): `actor_cleanup_pending` holds from U to A under both laws (the old U entry initiated it unconditionally); same answer, and the lane reads no quiescence. Each `append` in `actor_process.ts:1007-1030` is its own durable transaction, so an exit-without-actor-terminal durable prefix exists; whether a Run stop lands inside that window on a real path I cannot tell from the diff.
+- (f) P-FOLD: `createU1Fixture` admits `actor_process_started` (`support/t287-native-work-currentness-consumers.mjs:251`) and the test adds U, exit and the actor failure (`:268-274`); `assertFoldAgreement` compares the cold fold, `project` and `forkAt` at each of the 22 cuts on `holds`, `clippedFluentRefs`, `declippedPatternRefs`, on the validated and the owned prefix, plus each fork advanced to the end (`t287-calculus-fold.test.mjs:39-67`). Confirmed.
+- (g) Emitters: `actor_process.ts:1304-1306` (`onSpawnFailed`), `:1317-1320` (no-child failure), `:1322-1325` (exit, requires `processStarted` and the confirmed boundary), `:1327` (U), exclusive through the `processTerminalEvent !== null` guards. Broken in `support:268-274` (U then exit) and `m5-terminal-quiescence-owner.test.mjs:196-197`. The guard in `rules.ts:145-149` makes the premise irrelevant to correctness. Confirmed.
+- (h) `projectActorProcessLifecycle` returns the same keys (`processRef` hoisted); `runtime_liveness.ts:820-821` reads spawn failure through `holdsAt`; `replay.ts:348` classifies `actor_process_terminated`; the commit touches only the granted paths plus Delta 1 and this file (15 paths). R3 and R4 for `:816-828`.
+- (i) Census: my grep of the five fluent names and the three event kinds over `code/src` outside `abg/calculus/` finds no reader the Return's list lacks (the other hits are the name sets `replay.ts:345-349`, the registry `event_store.ts:83-89,614,663`, the emitters `actor_process.ts:1305-1327`, and `actor_process.ts:573-574,606-607,618,621` inside the listed `:604-621`). Complete.
+- (j) The paragraph (design:189) and the row 5 entry (design:644) say what the ruling says and no more; both carry the ruling's wrong trace (R1). The two suites were run once and recorded; the `m5-consensus-module` failure is baseline (above); no fixture changed.
+- (k) Confirmed (Claim vs evidence above).
+
+**Proportionality.** `forkRuntimeEventCalculusAtForModuleTest` (`event_calculus.ts:293-298`) and the `emptyFoldState` export serve the lane's fork and cold clauses; `FoldState.source` (`fold.ts:71`) and `AxiomFoldContext` carry what the class's `history` already fed the axiom switch; the `LIVENESS_VALIDATORS` WeakMap (`rules.ts:98`) replaces the per-`advance` local; the `@internal` exports (`stringField`, `stringArrayField`, `frameProbeScopeKey`, `completeEffect`, `ownedRuntimeFluent*`) are the module split. Nothing added beyond the activation.
+
+**Residuals confirmed/refuted.**
+- (1) Confirmed, and sharper: the `:813` read nests a fold derivation inside `foldStep` (`deriveLiveness` -> validator -> `deriveRuntimeLivenessSemantics` -> `deriveRuntimeHeldFluentProjection(before)`); sound by inspection (the before-cut's derivation has nothing to advance at `effectCount`, and `held` returns the pre-event `holds`), unexercised at this commit (0 calls in the lane; no actor events in the smoke). First exercise is `m5-event-calculus-runtime` at step 8.
+- (2) Confirmed; R3 and R4 give the switch.
+- (3) Confirmed: `m5-terminal-quiescence-owner.test.mjs:166-167` asserts `actor_process_termination_unconfirmed` after the exit (now `not T and U`), `:222` expects the axiom effect of U to initiate `actor_cleanup_pending` (now the rule's); neither run nor edited.
+- (4) Confirmed (baseline).
+- The gate-flag residual is closed by Delta 2. The witness residual is closed as a ruling (D7) but not as a mechanism: R1.
+
+## Disposition of the review (Executive)
+
+R1 (S2) is accepted as `P1`: the D7 trace was the Executive's error; the
+code is right and the ruling's conclusion (history reopens unchanged, no
+prior law retained, not a profile change) stands with a stronger basis: no
+path in `code/src` compares a stored witness with a recomputation at all.
+Repaired now, by a fresh Worker, as design wording only, with R3 and R4
+(S3, `P2`) folded in because they sit in the granted file and the review
+gives the one-line switch. R2, R5, R6 and R7 go to step 8's design notes
+(`P3`). The repair is checked by the step 7 Reviewer (one added line in its
+activation) rather than by a second Fable pass on this step: the finding is
+a factual trace the Reviewer established, and the repair transcribes it.
+
+## Repair activation (Executive, after the review)
+
+Worker: Opus 5.5, xhigh, fresh context, Writer grant. Head: `c2432eb85`
+plus Executive bookkeeping on top; the source tree equals `c2432eb85`.
+
+1. **Design §4.4, the D7 paragraph** (after P-FOLD; design line about 189):
+   rewrite so that it states what the step 6 review established: the replay
+   state witness (`abg/replay.ts:1387`, the held fluent set digested into
+   `replayStateDigest` and `sourceReplayDigest`) is computed under the law in
+   force when the route or judgment is proposed; every comparison of it in
+   `code/src` (`abg/traversal_route.ts:4438` and `:5371`, `abg/c_call.ts:7047`)
+   compares values computed in the same transaction under the same law, and
+   no path compares a stored witness with a recomputation; a stored witness
+   is therefore never re-read against a new law, history reopens unchanged
+   after a law change under D1, and no prior law is retained. Remove the
+   "fails closed at transition admission" sentence. **§10.6 row 5 entry**
+   (design line about 644): the same correction in one clause.
+2. **`abg/runtime_liveness.ts:816-828`** (R3, R4 of the review): take the
+   `holdsAt` read of `actor_process_spawn_failed` at the cut the review names
+   for each path (the cut before the liveness event in the validator path;
+   the prefix's last event is not excluded in the public path), and decide
+   `processLive` through `holdsAt` over `actor_process_live(processRef)`
+   with `actor_process_started` read only to bind `processRef`, as the
+   review's R4 repair states. No other change in that file.
+3. Gate, in `build_tenants/abiogenesis/typescript`: `npm run build`;
+   `npm run lint:imports`;
+   `node --experimental-vm-modules --test test_env/tests/t287-calculus-fold.test.mjs`;
+   `npm run test:installed:language`.
+
+Grant: the two design locations, `code/src/abg/runtime_liveness.ts` lines
+816 to 828, the regenerated tracked build outputs, this file's
+`## Repair return` (commit, the design lines changed, the two switches,
+gate results). Stage by path, one commit on `main`, no push, message first
+line `Step 6 repair: D7 witness wording; liveness reads through holdsAt`,
+last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stop
+if the gate fails after one bounded fix.
+
+ACTION: execute the step 6 repair as activated.

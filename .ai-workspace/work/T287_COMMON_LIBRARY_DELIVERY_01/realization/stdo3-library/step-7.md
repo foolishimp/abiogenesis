@@ -278,7 +278,7 @@ Product output contract, no `result.json` member, no ticket, no GOALS.
 
 **Gate** (in `build_tenants/abiogenesis/typescript`, in order, all must
 pass): `npm run build`; `npm run lint:imports`;
-`node --test test_env/tests/t287-lifecycle-failure-carrier.test.mjs`;
+`node --experimental-vm-modules --test test_env/tests/t287-lifecycle-failure-carrier.test.mjs`;
 `npm run test:installed:language`. Record exit codes and wall times. The
 lifecycle suites (`t287-owned-process-lifetime`, `m5-worker-transport`,
 `t287-worksite-command-execution`, `t287-observed-worksite-command`) wait
