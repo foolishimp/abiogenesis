@@ -321,3 +321,19 @@ negative on the worker route at bounded cost, even with the fallback in
 item 9.
 
 ACTION: execute step 7 as activated.
+
+## Executive note (2026-10-22, after steps 2 to 6)
+
+Head for this step is the step 6 commit in the plan's ledger (an Executive
+bookkeeping commit sits on top; the source tree equals it). The line numbers
+in the census are from `97b1200bc`; steps 3 to 6 touched the named files at
+comparison, record-guard, selection and lifecycle-derivation sites, so
+re-find every anchor by name before editing. Available atoms: `isRecord`,
+`hasExactKeys`, `admitJson` (`shared/admit/`), `canonicalEquals`
+(`shared/value/`), `resolveExactMatch`, `onlyExactMatch` (`shared/select/`),
+`ok`, `refused`, `andThen` (`shared/refusal.ts`), and from step 6
+`abg/calculus/` with `holdsAt(state | projection, pattern)` and
+`ROOT_DERIVED_RULES` (whose `actor_process_lifecycle` rule you extend with
+the copy check). Read the step 6 `## Return` section of `step-6.md` for the
+module cut and the rule's shape before touching `abg/calculus/rules.ts`;
+read nothing else of that file.
