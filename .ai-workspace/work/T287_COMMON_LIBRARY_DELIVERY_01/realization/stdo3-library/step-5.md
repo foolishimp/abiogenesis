@@ -26,7 +26,7 @@ Design authority: `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPU
 `CheckedRecord`), §4.2 (`select`), §10.2 D2 (digest leg after projection),
 §10.4 first row (declaration closure stays Product-owned), §10.5 P-SELECT,
 P-RECORD and P-INGRESS. Read those, not the whole document. `shared/refusal.ts`
-(step 2) supplies `Outcome`, `ok`, `refused`, `then`.
+(step 2) supplies `Outcome`, `ok`, `refused`, `andThen`.
 
 **Law that binds every migrated site** (design §4.2): selection preserves
 every occurrence, predicate order and predicate exception; it has no early

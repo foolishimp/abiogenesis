@@ -139,3 +139,40 @@ behaviors); (b) the gate fails after one bounded fix; (c) the C2 positive
 test cannot be written without a Product or ABG behavior change.
 
 ACTION: execute step 4 as activated.
+
+## Executive note (2026-10-22, from the step 3 Return at `a2516dbdc`)
+
+Head for this step is `a2516dbdc` (the Executive's bookkeeping commit sits
+on top; the source tree equals it). Steps 2 and 3 landed: `shared/refusal.ts`
+(`ok`, `refused`, `andThen`), `shared/select/exact_match.ts`,
+`shared/admit/` (`isRecord`, `hasExactKeys`, `admitJson`, `admitContract`,
+`admitRef`), the binding family in `public/binding/`. The retired names
+`isJsonRecord`, `isJsonRecordShape`, `hasUnicodeNulJoinedKeys`,
+`hasExactJsonKeys` and the other NUL-joined predicates no longer exist. Three
+items join your grant:
+
+1. **D3 ruling at `abg/retry.ts:659-663`** (`isProjectedRetryResumeCarrier`):
+   the site keeps `sha256Canonical(value.inputValue as JsonValue)` behind an
+   `isRecord` check. Ruling: ingress through `admitJson`; the digest is
+   computed over the admitted value. The carrier's contract makes
+   `inputValue` a JSON value whose canonical digest is `inputDigest`; a value
+   that is not I-JSON has no canonical digest, so refusing it changes no valid
+   input's outcome, and digesting a cast value is the C2 bug class this
+   step closes. Record it under O-TYPE with the site.
+2. **Test maintenance for the library's own unit lane.**
+   `test_env/tests/t287-common-computational-library.test.mjs` imports
+   retired names (`sameJson`, `sameCoordinate` from the binding mechanics;
+   `hasUnicodeNulJoinedKeys`) and fails to import. Rewrite its four cases
+   over the consolidated atoms: D02 over `canonicalEquals` (this step), D02
+   coordinate equality over whatever `exactContractCoordinate` now exposes
+   or drop it if the binding mechanics no longer export an equality,
+   D03 unchanged over `resolveExactMatch`, D04 over `hasExactKeys` with the
+   P-KEYS counterexample (a key containing U+0000 against the split keys
+   yields `false`; the retired NUL-joined bodies returned `true`). Keep the
+   file name. Delete `test_env/tests/t288-admission-predicates.test.mjs`:
+   it asserts the retired bodies by name and their mutual differences,
+   which row 2 of the design retires; say so in Return. Neither file is in
+   a package script; the step 8 run names the first.
+3. Your own unit lane `t287-value-equality.test.mjs` stays as activated.
+
+List the files and the retry decision in Return.
