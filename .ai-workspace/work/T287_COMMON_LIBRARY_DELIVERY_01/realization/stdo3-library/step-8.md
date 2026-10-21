@@ -117,3 +117,36 @@ justified allow-list entry; (c) the D4 retirement would change a caller's
 observable refusal.
 
 ACTION: execute step 8a as activated.
+
+## Items accrued for step 8 (Executive, running list)
+
+For 8a's grant (add to rule 1 to 4 above):
+- Delete `test_env/support/t288-admission-helper-preimages.json`, orphaned
+  by step 4's deletion of `t288-admission-predicates.test.mjs`.
+- Attribution rule for the integrated run: suites red at the pre-code
+  baseline `97b1200bc` with the same failure set are recorded as baseline
+  failures, not returned to a seam; the Executive's baseline run result is
+  in the plan's ledger. Only a failure absent at the baseline returns to the
+  first violated seam.
+
+For 8b (ticket, GOALS, design closure after the review):
+- Design §10.1 row 3 count correction: three record writers that produce
+  persisted plan digests stay (digest stability); the installed-codec pair
+  stays (installed Product's encoder).
+- Design §4.3 wording: inline digest comparisons against stored digests
+  stay `===`; comparisons that digest both sides became `canonicalEquals`.
+- Design §10.6 row 5 record: the emission premise result from step 6.
+- Public surface change in step 4 (`sameQualificationValue` removed from the
+  `validator` barrel) recorded in the ticket section for Jim's decision.
+- Step 2's `ABI5_OWNED_ADMISSION_PREIMAGE` env-gated test path needs a new
+  preimage; record, do not build.
+- Step 3's untouched copies: `isRecordEvidence`
+  (`release_snapshot_definition_bindings.ts:91`), seven local `isJsonRecord`,
+  remaining local `record` guards; `jsonRecord` schema still claims
+  `JsonValue` members. Record as the "as touched" remainder.
+- Tracked build outputs are a historical accident: `build/` is in
+  `.gitignore`, yet 40 files under `build/code/src/` (and the contracts and
+  manifest) are tracked from an older force-add, so every code step commits
+  regenerated copies of exactly those 40 and a fresh checkout has a partial
+  build tree. Record for Jim; the fix (`git rm --cached` of the 40, or
+  tracking all of `build/`) is a separate decision outside this plan.

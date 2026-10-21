@@ -231,3 +231,15 @@ is a profile change; (d) a rule needs a parameter that only a caller can
 supply.
 
 ACTION: execute step 6 as activated.
+
+## Executive note (2026-10-22, after steps 2 to 5)
+
+Head for this step is `10efed8b2` (an Executive bookkeeping commit sits on
+top; the source tree equals it). The line numbers in the census are from
+`97b1200bc`; steps 3 to 5 touched `event_calculus.ts`, `actor_process.ts`,
+`replay.ts` and `runtime_liveness.ts` only at comparison, record-guard and
+selection sites, so anchors may have shifted by a few lines; re-find them by
+name. `isRecord` and `hasExactKeys` come from `shared/admit/`,
+`canonicalEquals` from `shared/value/`, `resolveExactMatch` and
+`onlyExactMatch` from `shared/select/`; use them in new code rather than
+local copies. The carrier's sequencing export is `andThen`.

@@ -345,3 +345,15 @@ document. List the lines in Return.
   - Only the smoke gate ran. It does not reach most migrated readers, so the one-for-one translation is the only check on them until the end-of-wave broad suite.
   - The eight checked-record readers left above stay for their owners.
 - return route: this file
+
+## Disposition (Executive)
+
+Accepted at `10efed8b2`. Ruling on the null-digest question: `checkExactRecord`
+itself yields `invalid` for a non-record singleton or an unencodable
+projected record when `digest` is null; that is design §4.2's sentence
+("Both malformed null-digest partitions ... yield `invalid`"), so the
+realization stands. The eight checked-record readers left because their
+expected digest or projection needs a runtime value are the §5.6.2C
+boundary and stay; the double hash in the two admitted-set readers, the
+first-match census (212 sites in 31 files, `.find(` and `.at(-1)` only) and
+the untested migrated readers until the step 8 run are recorded there.
