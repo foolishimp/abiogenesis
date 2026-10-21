@@ -171,3 +171,18 @@ express the execution-basis readers at `execution_basis.ts:1094` and
 `:1192` without a signature change.
 
 ACTION: execute step 5 as activated.
+
+## Executive note (2026-10-22, after steps 2 and 3)
+
+Steps 2 and 3 are in: `shared/refusal.ts` exports `ok`, `refused`, `andThen`
+(not `then`); `shared/select/exact_match.ts` holds `resolveExactMatch` with
+`product/exact_match.ts` as the shim you delete; `shared/admit/` holds
+`isRecord` and `hasExactKeys`; the binding family lives in `public/binding/`.
+`code/src` and `test_env` already have no reference to `product/exact_match`
+except the shim itself. Three design documents still name the old path as a
+realization coordinate; two are history (the library design §2 move list
+and the constitution §16.14 record) and stay. The third joins your grant:
+`design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md`
+lines about 2170, 2174 and 2296 name `product/exact_match.ts`; change those
+location strings to `shared/select/exact_match.ts`, nothing else in that
+document. List the lines in Return.

@@ -252,3 +252,27 @@ List the files and the retry decision in Return.
   - Dense single-line files gained long lines where casts moved from bodies into calls.
   - Design §4.3 says the inline digest comparisons stay as `===`. The activation's narrower rule was followed instead: comparisons that digest both sides became `canonicalEquals`; digest checks against stored digests stay `===`.
 - return route: this file
+
+## Disposition (Executive)
+
+Accepted at `5f4a1d4c9`. Rulings on the two stop questions: (a) the join
+replacement distinguishing `["a\0b"]` from `["a","b"]` and `[]` from `[""]`
+is the P-KEYS correction the design specifies; the retired joins conflated
+distinct sequences, so no valid input changed outcome. Encoding failures
+propagating as `TypeError` from typed carriers is the derive family's defect
+channel (design §3: defects keep `throw`). (c) The C2 positive and negative
+proof on a test-side copy of the sequence is accepted as the atom-level
+P-EQUAL evidence; the production comparison in `exactC2SourceEnvironment`
+stays unproven by any suite until the C2 owner-reuse suite is green, which
+is a step 8 matter (the suite is red at `a2516dbdc` with the same failures,
+before this step). Public surface: the removal of `sameQualificationValue`
+from the `validator` barrel and so from the package `"."` and `"./validator"`
+entries is a surface change outside `realization_refactor`; no consumer
+outside the tree imports it, and it is one line to restore; flagged for Jim,
+not reverted. Residuals carried to step 8: the three record writers that
+produce persisted plan digests (left for digest stability; the design's row
+3 count is corrected at close), the installed-codec pair (installed
+Product's encoder, correctly left), four fast-path wrappers, about 65
+`unknown` call sites that still cast (O-TYPE residue), the orphaned
+`test_env/support/t288-admission-helper-preimages.json` (step 8a deletes),
+and the §4.3 wording on inline digest comparisons (step 8b clarifies).
