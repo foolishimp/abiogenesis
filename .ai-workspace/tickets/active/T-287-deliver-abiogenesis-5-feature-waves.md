@@ -5195,36 +5195,58 @@ constitution §5.6.1. Product, requirements and constitution are unchanged.
 - **Design:** the [library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md),
   [computational binding §4](../../../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md#existing-operator-classes)
   and the [Event Calculus IACS](../../../build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_IACS.md).
-- **Content source:** Part B (B1 to B13) of the
+- **Content source:** Part B (B1 to B14) of the
   [compute calculus and library design post](../../comments/claude/20261021T135156Z_REVIEW_compute_calculus_and_library_design.md).
 - **Step ledger:** the [plan post](../../comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md),
   section Ledger. Realization proceeds by its eight steps.
 
 **Decisions.** The owner took D0 to D5 on 2026-10-22 at the plan's
-recommended defaults.
+recommended defaults. The step 1 repair (below) changed D0's basis, D3's scope
+and D5 after B14; the bullets state the decisions as they now stand.
 
 - **D0:** withdraws the acceptance of the row "Cross-consumer handoff" in
   [Root's conjunction decision](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md).
   That HOW retained `OwnedProcessFacts` and capture buffers in memory, wrote a
   create-only `process-failure.json` beside the attempt archive and read it back
-  through an inspector: a second store beside the event log. Replacement (design
-  §9.3): the owned-process lifetime returns terminal facts as a refusal carrier,
-  `failCCall` passes it to `failTraversal`, which admits it at the successor
-  prefix, and failure inspection is a projection (`holdsAt` plus the admitted
-  refusal event). No failure file is written or read.
+  through an inspector: a second store beside the event log. Basis (B14, design
+  §9.1): a physical observation is handed in memory to the actor that admits
+  it, which Product's "Ordinary internal handoffs use its established state"
+  and constitution §4.1 permit; admission is the only point where it becomes
+  history; derived state comes from the fold through `holdsAt`. A store written
+  by one interface and read back by another is forbidden, and its only
+  justification, failed admission, is a store-failure model the owner has not
+  selected. Replacement (design §9.3): the transport hands the final facts to
+  the actor through `onProcessFinalized` (`worker_transport.ts:455`); the actor
+  retains them (`actor_process.ts:1306`); `refuseActorProcessEffect` in the
+  actor's outer catch (`:1403`) carries them as evidence, encoded once by
+  `encodeOwnedProcessFacts`; the refusal reaches `failCCall`
+  (`ccall_lifecycle.ts:541`) and `failTraversal` admits it at the successor
+  prefix. The command and HTTP adapters return their facts the same way to the
+  helper's result route. If admission itself fails, the refusal is returned with
+  the facts in memory and the physical state stays unknown. Failure inspection
+  is a projection (`holdsAt` plus the admitted refusal event). No failure file
+  is written or read.
 - **D1:** `ROOT_DERIVED_RULES` carries the contextual Event Calculus effects
   (terminal Run census, per-process cleanup, liveness, actor process lifecycle);
   it realizes the IACS's `RuntimeDerivedFluentRule`.
 - **D2:** the digest leg of `checkExactRecord` runs after projection.
 - **D3:** the two native composite classifications are ingress questions
-  answered by `admitContract`; no equality variant or encoder parameter. O-TYPE
-  closes by this decision.
+  answered by `admitContract`; no equality variant or encoder parameter. Per
+  site: each is decided when its ingress site is touched (plan steps 3 and 4)
+  and recorded in that step's Return. No blanket closure; O-TYPE closes site by
+  site.
 - **D4:** the throwing `i_json` entry stays as a lift over `admitJson` until it
   is retired.
-- **D5:** `terminationConfirmed` leaves `actor_*` event payloads and result
-  artifacts through a new root event profile; the legacy profile digest is
-  retained for recorded stores. `exitObserved`, `timedOut` and `signalSequence`
-  follow where derivable.
+- **D5:** B14's alternative. `terminationConfirmed` stays in `actor_*` event
+  payloads (and in the result artifacts that record it); the
+  `actor_process_lifecycle` rule derives the fluent and checks the copied field
+  against it at fold time; readers use `holdsAt`. `exitObserved`, `timedOut`
+  and `signalSequence` follow where derivable. Deferred obligation: retire the
+  field at the next root event contract profile change. A new profile now is
+  not proportional: the store recognizes exactly the legacy and the current
+  digest (`event_store.ts:1189`) and reopening rejects any stamp other than the
+  current digest (`:3608`), so a third profile needs validators, permitted
+  transitions and fresh-process reopening, a recovery obligation of its own.
 
 **Supersession.** This design supersedes the K01 to K12 catalog and the
 conjunction's bounded C1 to C5 contracts. The five Codex source cuts keep their
@@ -5233,6 +5255,24 @@ this design.
 
 **Follow-up for its own re-entry.** `HeldWorkflowSuspension`,
 `HeldRecursionSuspension` and `rehydrateParentReturnFrames` carry parent state
-in caller memory across a hold, the second instance of the recovery law (design
-§9.4). Untraced: whether `application` and `sourceCursor` are recoverable from
-events. Re-entry follows the rule table (plan step 6).
+in caller memory across a hold (design §9.4). Untraced: whether the hold crosses
+a recovery boundary, which decides between a permitted in-memory handoff and
+derived state rebuilt from copies, and whether `application` and
+`sourceCursor` are recoverable from events. Re-entry follows the rule table
+(plan step 6).
+
+**Step 1 repair (2026-10-22).** Invalidator: the former Executive's review of
+the plan, received after the step 1 Worker started, showed that B13 overstated
+the recovery invariant (it forbade the in-memory handoff Product permits) and
+mis-traced the failure route (the loss is the actor's outer catch, not a throw
+past `invocation.complete`). The Executive verified the cited source lines and
+wrote the correction as B14 in the design post. Commit `44be3cbce` transcribed
+B13 as written; the repair commit carries B14 into the library design (§9.1
+three layers, §9.3 refusal route, `encodeOwnedProcessFacts` in
+`shared/process/`, no `materialize` stage on `StructuralRefusal`, P-LIFECYCLE
+with two negatives), the binding §4 `materialize` row and the IACS proof
+surface. Decision changes: D0's replacement is B14's route; D3 is per site; D5
+moves from a new root event profile, as `44be3cbce` recorded it, to B14's
+alternative, per the Executive's repair activation and the plan's revised
+decisions table. Deferred: retirement of `terminationConfirmed` at the next root
+event contract profile change.

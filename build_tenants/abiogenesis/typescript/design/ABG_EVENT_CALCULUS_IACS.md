@@ -55,7 +55,15 @@ For every admitted prefix, `RuntimeEventCalculusDerivation.advance` and the pure
 
 `holdsAt` is the only admitted reader of a lifecycle fact, such as whether an
 owned process has terminated. Falsifier: any module outside `abg/calculus/`
-that computes or copies a lifecycle boolean from event payloads or process
-facts instead of calling `holdsAt`. The
+that answers a lifecycle question from a copied payload field, from process
+facts, from its own recomputation over the log or from a second store, instead
+of calling `holdsAt`. The owner's physical observation that selects which event
+it reports is not such a reader.
+
+The `actor_process_lifecycle` rule derives `actor_process_terminated` and checks
+the copied `terminationConfirmed` payload field against it at fold time. The
+field stays in the payload until the next root event contract profile change.
+Falsifier: an admitted event whose copied field disagrees with the derived
+fluent. The
 [common library design](ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#9-recovery-from-the-event-log)
 states the recovery law this reader serves.
