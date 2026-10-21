@@ -159,3 +159,9 @@ For 8b (ticket, GOALS, design closure after the review):
   live in `abg/calculus/axioms.ts` and `rules.ts`; R7 "effects that depend
   only on the event kind" over-states the axiom table, which reads
   pre-existing context through `AxiomFoldContext`.
+- Step 6 repair wording gap for 8b: the D7 paragraph says the witness is
+  computed "when the route or judgment is proposed"; `sourceReplayDigest`
+  sits in the invocation source-result basis, which is admitted, not
+  proposed. One clause. The repaired `runtime_liveness.ts` lines 813 to 828
+  run under no gate test; `m5-event-calculus-runtime` in the 8a run is their
+  first execution.
