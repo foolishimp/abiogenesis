@@ -5195,14 +5195,16 @@ constitution §5.6.1. Product, requirements and constitution are unchanged.
 - **Design:** the [library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md),
   [computational binding §4](../../../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md#existing-operator-classes)
   and the [Event Calculus IACS](../../../build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_IACS.md).
-- **Content source:** Part B (B1 to B14) of the
+- **Content source:** Part B (B1 to B14, with the B14 addendum) of the
   [compute calculus and library design post](../../comments/claude/20261021T135156Z_REVIEW_compute_calculus_and_library_design.md).
 - **Step ledger:** the [plan post](../../comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md),
   section Ledger. Realization proceeds by its eight steps.
 
 **Decisions.** The owner took D0 to D5 on 2026-10-22 at the plan's
 recommended defaults. The step 1 repair (below) changed D0's basis, D3's scope
-and D5 after B14; the bullets state the decisions as they now stand.
+and D5 after B14; the bullets state the decisions as they now stand. D3 per
+site and the D5 alternative were put to the owner on 2026-10-22 with the
+reason; the owner answered "ok go".
 
 - **D0:** withdraws the acceptance of the row "Cross-consumer handoff" in
   [Root's conjunction decision](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md).
@@ -5215,17 +5217,20 @@ and D5 after B14; the bullets state the decisions as they now stand.
   history; derived state comes from the fold through `holdsAt`. A store written
   by one interface and read back by another is forbidden, and its only
   justification, failed admission, is a store-failure model the owner has not
-  selected. Replacement (design §9.3): the transport hands the final facts to
-  the actor through `onProcessFinalized` (`worker_transport.ts:455`); the actor
-  retains them (`actor_process.ts:1306`); `refuseActorProcessEffect` in the
-  actor's outer catch (`:1403`) carries them as evidence, encoded once by
-  `encodeOwnedProcessFacts`; the refusal reaches `failCCall`
-  (`ccall_lifecycle.ts:541`) and `failTraversal` admits it at the successor
-  prefix. The command and HTTP adapters return their facts the same way to the
-  helper's result route. If admission itself fails, the refusal is returned with
-  the facts in memory and the physical state stays unknown. Failure inspection
-  is a projection (`holdsAt` plus the admitted refusal event). No failure file
-  is written or read.
+  selected. Replacement (B14 addendum, design §9.3): the transport hands the
+  final facts to the actor through `onProcessFinalized`
+  (`worker_transport.ts:455`), inside which the owner reports one process
+  terminal event, the event the lifecycle rule folds; the actor retains the
+  facts (`actor_process.ts:1306`); every refusal after finalization (`:1362`,
+  `:1403`) carries them, encoded once by `encodeOwnedProcessFacts`; at the
+  refusal branch (`ccall_lifecycle.ts:541`) the C-call passes `failCCall` the
+  inline `data:` reference of the subject `failTraversal` admits, so
+  `admitRuntimeFailure` retains the facts in `L`. Helper-run command and HTTP
+  processes carry their facts in the admitted leaf result or failure subject,
+  and their lifecycle answer is a projection of that event, not `holdsAt`. If
+  the failure's admission fails, the facts are lost with the Run's failure and
+  the physical state stays unknown. Failure inspection is a projection. No
+  failure file is written or read.
 - **D1:** `ROOT_DERIVED_RULES` carries the contextual Event Calculus effects
   (terminal Run census, per-process cleanup, liveness, actor process lifecycle);
   it realizes the IACS's `RuntimeDerivedFluentRule`.
@@ -5240,7 +5245,9 @@ and D5 after B14; the bullets state the decisions as they now stand.
 - **D5:** B14's alternative. `terminationConfirmed` stays in `actor_*` event
   payloads (and in the result artifacts that record it); the
   `actor_process_lifecycle` rule derives the fluent and checks the copied field
-  against it at fold time; readers use `holdsAt`. `exitObserved`, `timedOut`
+  against it at fold time; the fluent wins, a disagreement initiates the
+  diagnostic fluent `terminationConfirmed_copy_disagrees(processRef)`, and no
+  prefix is refused; readers use `holdsAt`. `exitObserved`, `timedOut`
   and `signalSequence` follow where derivable. Deferred obligation: retire the
   field at the next root event contract profile change. A new profile now is
   not proportional: the store recognizes exactly the legacy and the current
@@ -5276,3 +5283,19 @@ moves from a new root event profile, as `44be3cbce` recorded it, to B14's
 alternative, per the Executive's repair activation and the plan's revised
 decisions table. Deferred: retirement of `terminationConfirmed` at the next root
 event contract profile change.
+
+**Step 1 review and repair 2 (2026-10-22).** The independent review of
+`0e89859bf` found 4 S2, 12 S3 and 7 S4, overall No. The Executive set the four
+S2 at P1 with their same-section S3 in one repair round, sent the remaining S3
+and the S4 to the ledger at P3 to P4, and wrote the B14 addendum as the basis
+of the route. Repair 2 carries it: the lifecycle rule folds the reported
+terminal events and takes no process facts; the encoded facts enter `L` as the
+admitted failure's diagnostic subject; helper-run processes answer by
+projection, not `holdsAt`; `effectOf` and `foldStep` close over the module
+tables; a fold-time disagreement is a diagnostic fluent; design §10.6 states
+`U(B)` per row and §10.7 the catalog dispositions. The repair builds the inline
+reference at the C-call failure branch, not in `refuseActorProcessEffect` as
+the addendum states, because `admitRuntimeFailure` retains a `data:` reference
+only when it decodes to the admitted subject `{ stage, candidate }`
+(`runtime_failure.ts:239-241`, `traversal_failure.ts:87`); that site awaits
+ratification (design §10.6, row 6).

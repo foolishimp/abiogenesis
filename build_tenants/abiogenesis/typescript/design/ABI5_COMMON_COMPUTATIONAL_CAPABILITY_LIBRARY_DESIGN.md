@@ -29,7 +29,7 @@ The [published default governance/lifecycle library](T287_DEFAULT_GOVERNANCE_LIB
 - **Outside:** HoG traversal, the GTL term algebra, Event Store append, Product install and verify, and the actor transport protocol. The library owns none of their decisions.
 - **Requirements:** unchanged. The design realizes [EVENTS-018](../../../../specification/requirements/abg/REQ-R-ABG3-EVENTS.md) (declared Event Calculus effects), [PROJECTION-001, -002 and -013](../../../../specification/requirements/abg/REQ-R-ABG3-PROJECTION.md) (deterministic, incrementally maintained projection; `HoldsAt` derived by replay including derived-fluent rules), and the BINDING and PUBLIC-CONTRACTS requirements cited by [constitution §16.7](ABI5_REALIZATION_CONSTITUTION.md#167-t-287-static-definition-binding-compression-amendment-record). Product, including its [5.0 compression boundary](../../../../specification/PRODUCT.md#50-compression-boundary), is unchanged.
 - **Constitution:** the library realizes the eight operator signatures of [§5.6.1](ABI5_REALIZATION_CONSTITUTION.md#561-closed-operator-algebra) and stays inside [§5.6.2C](ABI5_REALIZATION_CONSTITUTION.md#562c-operative-static-definition-binding-algebra). `bindStaticOwner`, `bindExactPrefixRead` and `bindExactPrefixTransition` remain the complete binding algebra. The library adds no fourth combinator, registry, callback, controller, mode selector or runtime. Its atoms are pure functions below the binders, which §5.6.2C permits: "Family modules may statically compose their own imported leaves before passing one typed owner function to a combinator".
-- **Decision completeness:** §10.2 takes every material decision of this boundary except two it places explicitly: the ingress answer for each native composite comparison, decided at its site (D3), and the retirement of `terminationConfirmed` from event payloads, deferred (D5). No other material semantic alternative remains inside the library, so design, implementation and tests co-evolve for each row of §10.1.
+- **Decision completeness:** §10.2 takes the material decisions of this boundary. §10.6 names, for each row of §10.1, the relations that remain unresolved, who decides each and when. A row whose unresolved set is empty evolves with its implementation and tests; any other row is design-gated on the relations it names.
 
 ## 2. Library organization and dependency direction
 
@@ -58,7 +58,7 @@ refusal <- value <- admit <- select <- {binding, process} <- abg/calculus <- own
 2. [product/exact_match.ts](../code/src/product/exact_match.ts) moves to `shared/select/exact_match.ts`.
 3. [shared/owner_contract_source_set.ts](../code/src/shared/owner_contract_source_set.ts) moves to `public/owner_contract_source_set.ts`.
 
-The location `product/exact_match.ts` that [constitution §10](ABI5_REALIZATION_CONSTITUTION.md#10-common-library-catalog) and [Table 5.6.3-B](ABI5_REALIZATION_CONSTITUTION.md#table-563-b---selected-leaf-instance-catalog) row `N06` give for exact-match cardinality is a realization coordinate, updated to `shared/select/exact_match.ts` when row 1 of §10.1 realizes move 2; the relation, role and prohibited role are unchanged.
+The location `product/exact_match.ts` that [constitution §10](ABI5_REALIZATION_CONSTITUTION.md#10-common-library-catalog) and [Table 5.6.3-B](ABI5_REALIZATION_CONSTITUTION.md#table-563-b---selected-leaf-instance-catalog) row `N06` give for exact-match cardinality is a realization coordinate, updated to `shared/select/exact_match.ts` when row 1 of §10.1 realizes move 2 (§10.7); the relation, role and prohibited role are unchanged.
 
 The remaining operators stay with their owners. `traverse` stays in `hog/`. `admit` as append stays in [event_store.ts](../code/src/abg/event_store.ts). `transition` stays in its owner modules. `materialize` effects stay in Product install and verify and in ABG actor transport. The library never owns an owner decision ([FS-17](ABI5_REALIZATION_CONSTITUTION.md#55-axioms); the last prohibition of §5.6.2C).
 
@@ -91,7 +91,7 @@ function refused(outcome: unknown): outcome is StructuralRefusal;
 function then<A, B>(outcome: Outcome<A>, next: (value: A) => Outcome<B>): Outcome<B>;
 ```
 
-Admitted domain: the pure layer, `validate`, `select` and `derive`. Process facts reach the log as evidence of their owner's refusal, not through this carrier (§9.3). A `StructuralRefusal` carries no owner meaning ([FS-11](ABI5_REALIZATION_CONSTITUTION.md#55-axioms)). An owner maps it into its own union exactly once at the owner boundary. It never crosses `DefinitionExecutionFault`. Defects keep `throw`; expected refusals never do.
+Admitted domain: the pure layer, `validate`, `select` and `derive`. Process facts reach the log as their owner's terminal event and, on a failure, inside the admitted failure's diagnostic subject, not through this carrier (§9.3). A `StructuralRefusal` carries no owner meaning ([FS-11](ABI5_REALIZATION_CONSTITUTION.md#55-axioms)). An owner maps it into its own union exactly once at the owner boundary. A binder maps the refusal of its own `admitContract` call to its existing resource or receipt fault (§4.5); no other `StructuralRefusal` crosses `DefinitionExecutionFault`. Defects keep `throw`; expected refusals never do.
 
 | Carrier | Standing | Reason |
 |---|---|---|
@@ -99,16 +99,15 @@ Admitted domain: the pure layer, `validate`, `select` and `derive`. Process fact
 | `Sha256Digest` | prime | identity of admitted bytes |
 | `StructuralRefusal`, `Outcome<A>` | prime | the one expected-failure carrier of the library |
 | `ExactMatch<T>` | prime | the `select` codomain: `absent`, `one`, `many` |
-| `RuntimeEvent`, `RuntimeFluent`, `RuntimeFluentPattern`, `EventCalculusEffect`, `RuntimeEventCalculusProjection` | prime, ABG-owned | the [Event Calculus IACS](ABG_EVENT_CALCULUS_IACS.md); `EventCalculusEffect` is the type of its `RuntimeEventCalculusEffect` row |
+| `RuntimeEvent`, `RuntimeFluent`, `RuntimeFluentPattern`, `EventCalculusEffect`, `RuntimeEventCalculusProjection` | prime, ABG-owned | the [Event Calculus IACS](ABG_EVENT_CALCULUS_IACS.md); `EventCalculusEffect` is the type of its `RuntimeEventCalculusEffect` row; `RuntimeEventCalculusProjection` publishes one `FoldState` at a prefix cut and is the one prime name of the fold's result |
 | `DerivedEffectRule` and its table `ROOT_DERIVED_RULES` | prime, ABG-owned | the realization of the IACS's `RuntimeDerivedFluentRule` |
-| `FoldState`, `HoldsAt` | prime, ABG-owned | the fold carrier at one prefix cut and its current fluent truth; `RuntimeEventCalculusProjection` publishes one `FoldState` |
-| `OwnedProcessFacts` | prime | the one process-termination evidence carrier: observed once by its owner, handed in memory to the actor that admits it, admitted once as encoded evidence of the exit or refusal event; never re-observed, serialized beside the log or read back from a second store (§9) |
+| `OwnedProcessFacts` | prime | the one process-termination evidence carrier: observed once by its owner, handed in memory to the owner that reports it, reported once as one process terminal event and, on a failure, admitted once, encoded, as the failure's diagnostic subject; never re-observed, serialized beside the log or read back from a second store (§9) |
 | `DefinitionCall`, `DefinitionReturn`, `ExactDefinitionCallable`, `DefinitionExecutionFault` | prime | the §5.6.2C ABI |
-| `ExactMatchSource<T>`, `RecordCheck<E, P>`, `CheckedRecord<E, P>`, effect rows, `FoldState` internals (transition cache, probe and interruption facts) | subordinate | parameters or derived views; the promotion test fails for each: no independent identity, admission or lifecycle |
+| `ExactMatchSource<T>`, `RecordCheck<E, P>`, `CheckedRecord<E, P>`, `FoldState`, `HoldsAt`, effect rows, `FoldState` internals (transition cache, probe and interruption facts) | subordinate | parameters or derived views: `FoldState` is the fold carrier behind `RuntimeEventCalculusProjection` and `HoldsAt` its map from fluent ref to `RuntimeFluent`; the promotion test fails for each: no independent identity, admission or lifecycle |
 
 No table row adds a peer type.
 
-**Lifecycle.** Library carriers are values: constructed, read and discarded. `foldStep` advances a `FoldState`; `forkAt` copies it at a cut; it is recomputed from the event log, never persisted as truth. `ROOT_EVENT_CALCULUS` and `ROOT_DERIVED_RULES` are declared at module construction and change only by design re-entry. `OwnedProcessFacts` is produced once per launched process, held in memory by the admitting actor until admission, and admitted once.
+**Lifecycle.** Library carriers are values: constructed, read and discarded. `foldStep` advances a `FoldState`; `forkAt` copies it at a cut; it is recomputed from the event log, never persisted as truth. `ROOT_EVENT_CALCULUS` and `ROOT_DERIVED_RULES` are declared at module construction and change only by design re-entry. `OwnedProcessFacts` is produced once per launch and handed in memory to its owner, which reports one process terminal event from it; on a failure, its encoding is admitted once with the failure (§9.3).
 
 ## 4. Atomic function families
 
@@ -174,16 +173,16 @@ type DerivedEffectRule = Readonly<{
 }>;
 const ROOT_EVENT_CALCULUS: AxiomTable;                  // existing
 const ROOT_DERIVED_RULES: readonly DerivedEffectRule[]; // terminal Run census, per-process cleanup, liveness, actor process lifecycle
-function effectOf(axioms: AxiomTable, rules: readonly DerivedEffectRule[], state: FoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]): EventCalculusEffect; // pure
-function foldStep(axioms: AxiomTable, rules: readonly DerivedEffectRule[], state: FoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]): FoldState;           // pure
+function effectOf(state: FoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]): EventCalculusEffect; // pure, closed over both tables
+function foldStep(state: FoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]): FoldState;           // pure, closed over both tables
 function holdsAt(state: FoldState, pattern: RuntimeFluentPattern): readonly RuntimeFluent[];
 ```
 
-The axiom table declares effects that depend only on the event kind. The rule table declares every contextual effect. Both are module constants; no caller supplies an axiom or a rule.
+The axiom table declares effects that depend only on the event kind. The rule table declares every contextual effect. Both are module constants; no caller supplies an axiom or a rule. `effectOf` and `foldStep` read both tables from their own module, so their exported signatures take no axiom or rule parameter. Each rule's `derive` is a module-owned function fixed when the table is declared, not a runtime-supplied callback ([FS-17](ABI5_REALIZATION_CONSTITUTION.md#55-axioms)); the constitution's typed Event Calculus projection admits closed module law and prohibits caller axioms ([§10](ABI5_REALIZATION_CONSTITUTION.md#10-common-library-catalog)).
 
 `RuntimeEventCalculusDerivation` is the memoized realization of `foldStep`, with `forkAt`. Its `advance` is "for each event, state = foldStep(...)", with the class caching transitions. Agreement between the class and the pure fold is proof obligation P-FOLD, which is PROJECTION-002's live and cold agreement stated as a test.
 
-The rule `actor_process_lifecycle` decides the Actor, Process and Run lifecycle for one actor invocation. Its inputs are admitted events: `S`, the process started (`actor_process_started`); `T`, a process terminal (`actor_process_exited` or `actor_process_spawn_failed`); `U`, termination unconfirmed (`actor_process_termination_unconfirmed`); `A`, an actor terminal (`actor_invocation_closed` or `actor_invocation_failed`); `R`, the matching Run's terminal. Its formulas:
+The rule `actor_process_lifecycle` decides the Actor, Process and Run lifecycle for one actor invocation. Its inputs are admitted events only; it takes no `OwnedProcessFacts`. The owner reports exactly one process terminal event from its facts (§4.6), and the rule folds that event. The inputs: `S`, the process started (`actor_process_started`); `T`, a process terminal (`actor_process_exited` or `actor_process_spawn_failed`); `U`, termination unconfirmed (`actor_process_termination_unconfirmed`); `G`, a signal requested (`actor_process_signal_requested`); `O`, a timeout observed (`actor_process_timeout_observed`); `A`, an actor terminal (`actor_invocation_closed` or `actor_invocation_failed`); `R`, the matching Run's terminal. `G` and `O` carry the facts from which the fold derives `signalSequence` and `timedOut` (D5). Its formulas:
 
 ```text
 processLive            = S and not T
@@ -191,13 +190,17 @@ terminationUnconfirmed = not T and U
 cleanupPending         = not A and (T or U or (R and formerlyActiveActor))
 ```
 
-`formerlyActiveActor` holds when the invocation's actor is in the matching Run's census of actors for which `actor_process_active` or `actor_process_live` held. The cleanup token frontier is the matching Run stop. The rule also initiates `actor_process_terminated(processRef)` from those events when the owned process boundary is confirmed (§9.2). Two existing derivations are its falsification cases: counterexample A, the cleanup reading in `abg/actor_process.ts` at line 631, and counterexample B, the terminal Run census in `abg/event_calculus.ts` at line 1909, which counts only processes still live. The unconditional `actor_cleanup_pending` initiation in the axiom table (`abg/event_calculus.ts`, line 258) moves into the rule, which can see whether a process was ever started.
+`formerlyActiveActor` holds when the invocation's actor is in the matching Run's census of actors for which `actor_process_active` or `actor_process_live` held. The cleanup token frontier is the matching Run stop. The rule initiates `actor_process_terminated(processRef)` from `actor_process_exited`, which the owner reports only for a confirmed boundary after an admitted start (`abg/actor_process.ts:1318`). Two existing derivations are its falsification cases: counterexample A, the cleanup reading in `abg/actor_process.ts` at line 631, and counterexample B, the terminal Run census in `abg/event_calculus.ts` at line 1909, which counts only processes still live. The unconditional `actor_cleanup_pending` initiation in the axiom table (`abg/event_calculus.ts`, line 258) moves into the rule, which can see whether a process was ever started. The axiom entries that initiate or terminate `actor_process_live` and that initiate `actor_process_termination_unconfirmed` (`abg/event_calculus.ts`, lines 222 to 258) move into the rule with it, so each lifecycle fluent has one producer.
 
-The rule produces fluents inside the one fold. `actor_process.ts`, `replay.ts`, `runtime_liveness.ts` and every other reader of a lifecycle fact read them through `holdsAt`. Four consumers that had to agree become one producer and its readers, as PROJECTION-013 requires.
+The lifecycle fluents are closed: `actor_process_spawn_failed`, from the axiom table, and `actor_process_live`, `actor_process_terminated`, `actor_process_termination_unconfirmed` and `actor_cleanup_pending`, from this rule. A lifecycle question asks whether one of these fluents holds for one process or actor invocation.
+
+The rule also checks the copied `terminationConfirmed` against `actor_process_terminated` at the same cut. The copy is in `actor_result_artifact_observed` and in `c_call_evidenced` with evidence class `probabilistic_transport` (`abg/event_store.ts:301`, `:732`); these events are checked inputs, not decision inputs. The fluent wins. A disagreement initiates the diagnostic fluent `terminationConfirmed_copy_disagrees(processRef)`. No prefix is refused for it, so existing history reopens unchanged.
+
+The rule produces fluents inside the one fold. `actor_process.ts`, `replay.ts`, `runtime_liveness.ts` and every other reader of a lifecycle fact read them through `holdsAt`, with a pattern `{ kind: "runtime_fluent_pattern", name, identity }` that names one lifecycle fluent. Four consumers that had to agree become one producer and its readers, as PROJECTION-013 requires.
 
 ### 4.5 Lift: `shared/binding/`
 
-`bindStaticOwner`, `runExactDefinition` and `runEffectProgram` keep their behavior. `bindStaticOwner` consumes `admitContract` in place of inline `v.safeParse`. `bindExactPrefixRead` and `bindExactPrefixTransition` live in `abg/exact_prefix_bindings.ts` and specialize `bindStaticOwner` as §5.6.2C states. Each binder is higher-order only at module construction; every captured owner function, schema and packet is a direct import. Exactly one `Effect.run*` site exists.
+`bindStaticOwner`, `runExactDefinition` and `runEffectProgram` keep their fault surface. `bindStaticOwner` consumes `admitContract` in place of inline `v.safeParse`. It maps a refused resource assertion to its existing `invalid_resource_assertion` fault and a refused receipt to its existing `invalid_resource_receipt` fault ([static_definition_bindings.ts](../code/src/shared/static_definition_bindings.ts), lines 134 to 145 and 153 to 164). The inner predicate changes; the faults a caller observes do not. `bindExactPrefixRead` and `bindExactPrefixTransition` live in `abg/exact_prefix_bindings.ts` and specialize `bindStaticOwner` as §5.6.2C states. Each binder is higher-order only at module construction; every captured owner function, schema and packet is a direct import. Exactly one `Effect.run*` site exists.
 
 ### 4.6 Process facts: `shared/process/`
 
@@ -209,11 +212,22 @@ function hasConfirmedOwnedProcessBoundary(facts: OwnedProcessFacts): boolean;
 function encodeOwnedProcessFacts(facts: OwnedProcessFacts): JsonValue;
 ```
 
-`hasConfirmedOwnedProcessBoundary` is the one test for "the owned process is gone" at the physical observation. Worker, command and HTTP adapters use it to choose between reporting an exit and reporting unconfirmed termination; no adapter computes its own formula. A launch with no established child is never a confirmed boundary. The test selects which event the owner reports; it is not a lifecycle read, which only `holdsAt` answers (§9.1).
+The owner of a process boundary reports exactly one of three terminal outcomes from its facts, once:
 
-`encodeOwnedProcessFacts` is the one encoding of the facts as admitted evidence, used by the worker, command and HTTP routes alike (§9.3). `OwnedProcessFacts` is not JSON: `launchFailure` and `firstError` are `Error`, and `cleanupDeadlineNs` is `bigint`. An `Error` becomes a description record of `name`, `message` and, where present, `code`, `errno`, `syscall`, `path` and `stack`; unavailable members are named, and the record is never `{}`. The `bigint` becomes a tagged base-10 string. `null` stays `null`. Every other member is JSON-native and is carried unchanged.
+- a spawn failure when no child was established (`scopeAbsence` is `"absent"`, `noChildEstablished` holds and `launchFailure` is set);
+- an exit when `hasConfirmedOwnedProcessBoundary` holds after an admitted start;
+- termination unconfirmed otherwise.
 
-The lifetime hands its terminal facts in memory to the owner that admits them; it neither throws nor writes them. Protocol, timeout and result policies stay with each adapter. The family creates no scheduler, retry policy or process authority.
+The worker owner reports them as `actor_process_spawn_failed`, `actor_process_exited` with `status` and `signal`, and `actor_process_termination_unconfirmed` (`abg/actor_process.ts:1312-1328`). The command and HTTP adapters report the same three outcomes in their result (§9.3). `hasConfirmedOwnedProcessBoundary` is the one test for "the owned process is gone" at the physical observation; no adapter computes its own formula. A launch with no established child is never a confirmed boundary. The test selects which outcome the owner reports; it is not a lifecycle read, which only `holdsAt` answers (§9.1).
+
+The remaining members of the facts (`firstError`, `launchFailure`, `cleanupElapsedMs`, `probeCount`, `signalAttempts`, `closeObserved`, `streamsDisposed`, `drainExpired`) are attribution evidence. `encodeOwnedProcessFacts` is the one encoding of the facts as admitted evidence, used by every route (§9.3). `OwnedProcessFacts` is not JSON: `launchFailure` and `firstError` are `Error`, and `cleanupDeadlineNs` is `bigint`. The encoding has one fixed form:
+
+- every member of `OwnedProcessFacts` keeps its name;
+- an `Error` becomes `{ name, message, code, errno, syscall, path }`, each member a string or `null`; `stack` is omitted, because it is unbounded and not canonical;
+- the `bigint` becomes `{ "kind": "bigint", "value": "<base-10 digits>" }`;
+- `null` stays `null`; booleans, numbers and strings pass through.
+
+The lifetime hands its terminal facts in memory to the owner that reports them; it neither throws nor writes them. Protocol, timeout and result policies stay with each adapter. The family creates no scheduler, retry policy or process authority.
 
 The lifetime's closed material cases:
 
@@ -233,14 +247,14 @@ The lifetime's closed material cases:
 | unit, lift | `ok`, `exactMatchOutcome`; `Effect.succeed` at the binder | `then(ok(a), f) = f(a)` | none |
 | sequential | `then`, Kleisli composition over `Outcome` | associative: `then(then(o, f), g) = then(o, a => then(f(a), g))`; refusal-absorbing: `then(r, f) = r` for every refusal `r`; identity: `then(o, ok) = o` | Effect `flatMap` for the lifted layer, existing |
 | parallel, applicative | none | none | `C.batch`, graph fan-out and fan-in |
-| fold | `foldStep` | `fold(L ++ s) = foldStep*(fold(L), s)` at equal axioms and rules; cold equals warm at the same cut | ABG |
+| fold | `foldStep` | `fold(L ++ s) = foldStep*(fold(L), s)`; cold equals warm at the same cut | ABG |
 | retry, recovery | none | none | `C.retry`, the HoG retry lifecycle |
 | recursion, fixed point | none | none | `workflow.C`, the HoG recursion lifecycle |
 | projection | `holdsAt`, `checkExactRecord` | read-only: no outcome of a projection is an admission | ABG and Product owners |
 
 Authority law for every row: a composed function has no more authority than its inputs and constituents (FS-11; DESIGN_MODULE §5, Authority model). Nothing here reads a prefix, appends an event, selects a target or decides a continuation. The [seven C constructors](../../../../specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md) keep their GTL and HoG owners; the library adds no constructor and no traversal algorithm.
 
-Falsifier for the sequential row: a `then` whose refusal branch is not the identity. Falsifier for the fold row: an admitted prefix where `advance` and the pure fold disagree on `holds`.
+Falsifier for the sequential row: a `then` whose refusal branch is not the identity. Falsifier for the fold row: an admitted prefix split `L ++ s` where `fold(L ++ s)` and `foldStep*(fold(L), s)` differ, or a cut where cold replay and the warm fork differ.
 
 ## 6. Prime atoms, admitted domains, falsifiers
 
@@ -254,75 +268,107 @@ Falsifier for the sequential row: a `then` whose refusal branch is not the ident
 | `admitContract` | `unknown` with a strict Valibot schema | `safeParse` success with refusal, or failure with `ok` |
 | `resolveExactMatch` | finite source and total predicate | cardinality disagreeing with the filter length |
 | `checkExactRecord` | `ExactMatch<E>` with a static `RecordCheck` | `one` when `project` refused or the digests differ |
-| `effectOf`, `foldStep` | an admitted event in prefix order with its declared dependencies | an effect differing from `advance` on the same event |
-| `holdsAt` | a `FoldState` at an admitted prefix cut and a fluent pattern | any module outside `abg/calculus/` that answers a lifecycle question from a copied payload field, from process facts, from its own recomputation over the log or from a second store, instead of calling `holdsAt` |
-| `encodeOwnedProcessFacts` | `OwnedProcessFacts` from one lifetime | an `Error` encoded as `{}` or without an available member, a `bigint` encoded as a number or an untagged string, a changed `null`, or a second encoding of the facts in any adapter |
+| `effectOf`, `foldStep` | an admitted event in prefix order with its declared dependencies | a prefix split where the fold law of §5 fails; a cut where cold replay and the warm fork differ; or an effect differing from the expected-effect table of counterexample A or B (§4.4) |
+| `holdsAt` | a `FoldState` at an admitted prefix cut and a pattern `{ kind: "runtime_fluent_pattern", name, identity }` | any module outside `abg/calculus/` that decides one of the lifecycle fluents of §4.4 (`actor_process_spawn_failed`, `actor_process_live`, `actor_process_terminated`, `actor_process_termination_unconfirmed`, `actor_cleanup_pending`) from a copied payload field, from the presence of an event kind in a prefix, from its own recomputation over the log or from a second store, instead of calling `holdsAt` with a pattern naming that fluent; the owner's report of a terminal outcome from its physical observation (§4.6) is not such a reader |
+| `encodeOwnedProcessFacts` | `OwnedProcessFacts` from one lifetime | a member renamed or dropped; an `Error` encoded other than as `{ name, message, code, errno, syscall, path }` with string or `null` members; a `stack` member present; a `bigint` encoded other than as `{ "kind": "bigint", "value": "<base-10 digits>" }`; a changed `null`; or a second encoding of the facts in any adapter |
 | `then` | any `Outcome` | the laws in §5 |
 
-Whole-family Prime contraction. No atom duplicates another's domain: digest comparison is native `===` on a branded string and is not an atom. No atom adds an authority centre: all are pure and read nothing. `holdsAt` is the only admitted reader of "is this process gone". The atoms in this table replace roughly 400 private bodies by census.
+Whole-family Prime contraction. No atom duplicates another's domain: digest comparison is native `===` on a branded string and is not an atom. No atom adds an authority centre: all are pure and read nothing. `holdsAt` is the only admitted reader of "is this actor process gone"; for a helper-run process the answer is a projection of its admitted leaf result or failure (§9.3). The atoms in this table replace roughly 400 private bodies by census.
 
 ## 7. Three views
 
-The three views name the same eighteen carriers: `JsonValue`, `Sha256Digest`, `StructuralRefusal`, `Outcome`, `ExactMatch`, `RecordCheck`, `CheckedRecord`, `RuntimeEvent`, `EventCalculusEffect`, `DerivedEffectRule`, `FoldState`, `HoldsAt`, `RuntimeFluent`, `OwnedProcessFacts`, `ExactDefinitionCallable`, `DefinitionCall`, `DefinitionReturn`, `DefinitionExecutionFault`. No view adds a carrier the others lack. `RuntimeFluentPattern`, `ExactMatchSource` and `RuntimeEventCalculusProjection` are parameters or published projections and appear in no view. The domain view marks ABG-owned prime carriers `ABG_prime`.
+The three views name the same twenty-one carriers, the named rows of §3: `JsonValue`, `Sha256Digest`, `StructuralRefusal`, `Outcome`, `ExactMatch`, `ExactMatchSource`, `RecordCheck`, `CheckedRecord`, `RuntimeEvent`, `RuntimeFluent`, `RuntimeFluentPattern`, `EventCalculusEffect`, `RuntimeEventCalculusProjection`, `DerivedEffectRule`, `FoldState`, `HoldsAt`, `OwnedProcessFacts`, `ExactDefinitionCallable`, `DefinitionCall`, `DefinitionReturn`, `DefinitionExecutionFault`. No view adds a carrier the others lack. Effect rows and the `FoldState` internals are unnamed subordinate parts and are not drawn. The domain view uses the standard stereotypes `prime-conformant` and `subordinate` (DESIGN_MODULE §7, Domain model) and places the ABG-owned carriers in the `ABG` namespace.
 
 ### Domain view
 
 ```mermaid
 classDiagram
-  class JsonValue
-  <<prime>> JsonValue
-  class Sha256Digest
-  <<prime>> Sha256Digest
-  class StructuralRefusal
-  <<prime>> StructuralRefusal
-  StructuralRefusal : +stage
-  StructuralRefusal : +code
-  StructuralRefusal : +path
-  StructuralRefusal : +evidence
-  class Outcome
-  <<prime>> Outcome
-  Outcome : ok or refusal
-  class ExactMatch
-  <<prime>> ExactMatch
-  ExactMatch : absent one many
-  class RecordCheck
-  <<subordinate>> RecordCheck
-  RecordCheck : +project()
-  RecordCheck : +digest
-  class CheckedRecord
-  <<subordinate>> CheckedRecord
-  CheckedRecord : absent many invalid one
-  class RuntimeEvent
-  <<ABG_prime>> RuntimeEvent
-  class EventCalculusEffect
-  <<ABG_prime>> EventCalculusEffect
-  EventCalculusEffect : initiates terminates clips declips
-  class DerivedEffectRule
-  <<ABG_prime>> DerivedEffectRule
-  DerivedEffectRule : +ruleRef
-  DerivedEffectRule : +appliesTo
-  DerivedEffectRule : +derive()
-  class FoldState
-  <<ABG_prime>> FoldState
-  FoldState : +holds
-  FoldState : +ordinal
-  class HoldsAt
-  <<ABG_prime>> HoldsAt
-  class RuntimeFluent
-  <<ABG_prime>> RuntimeFluent
-  class OwnedProcessFacts
-  <<prime>> OwnedProcessFacts
-  class ExactDefinitionCallable
-  <<prime>> ExactDefinitionCallable
-  class DefinitionCall
-  <<prime>> DefinitionCall
-  class DefinitionReturn
-  <<prime>> DefinitionReturn
-  class DefinitionExecutionFault
-  <<prime>> DefinitionExecutionFault
+  class JsonValue {
+    <<prime-conformant>>
+  }
+  class Sha256Digest {
+    <<prime-conformant>>
+  }
+  class StructuralRefusal {
+    <<prime-conformant>>
+    +stage
+    +code
+    +path
+    +evidence
+  }
+  class Outcome {
+    <<prime-conformant>>
+    ok or refusal
+  }
+  class ExactMatch {
+    <<prime-conformant>>
+    absent one many
+  }
+  class ExactMatchSource {
+    <<subordinate>>
+  }
+  class RecordCheck {
+    <<subordinate>>
+    +project()
+    +digest
+  }
+  class CheckedRecord {
+    <<subordinate>>
+    absent many invalid one
+  }
+  namespace ABG {
+    class RuntimeEvent {
+      <<prime-conformant>>
+    }
+    class RuntimeFluent {
+      <<prime-conformant>>
+    }
+    class RuntimeFluentPattern {
+      <<prime-conformant>>
+      +name
+      +identity
+    }
+    class EventCalculusEffect {
+      <<prime-conformant>>
+      initiates terminates clips declips
+    }
+    class RuntimeEventCalculusProjection {
+      <<prime-conformant>>
+    }
+    class DerivedEffectRule {
+      <<prime-conformant>>
+      +ruleRef
+      +appliesTo
+      +derive()
+    }
+    class FoldState {
+      <<subordinate>>
+      +holds
+      +ordinal
+    }
+    class HoldsAt {
+      <<subordinate>>
+    }
+  }
+  class OwnedProcessFacts {
+    <<prime-conformant>>
+  }
+  class ExactDefinitionCallable {
+    <<prime-conformant>>
+  }
+  class DefinitionCall {
+    <<prime-conformant>>
+  }
+  class DefinitionReturn {
+    <<prime-conformant>>
+  }
+  class DefinitionExecutionFault {
+    <<prime-conformant>>
+  }
   JsonValue --> Sha256Digest : sha256Canonical
   JsonValue ..> Outcome : admitJson
   Outcome --> StructuralRefusal : refusal variant
+  ExactMatchSource --> ExactMatch : resolveExactMatch
   ExactMatch --> Outcome : exactMatchOutcome
   ExactMatch --> CheckedRecord : checkExactRecord
   RecordCheck --> CheckedRecord : static project and digest
@@ -332,9 +378,12 @@ classDiagram
   DerivedEffectRule --> EventCalculusEffect : contextual effect
   EventCalculusEffect --> FoldState : foldStep
   FoldState *-- HoldsAt
-  HoldsAt o-- RuntimeFluent : holdsAt
+  HoldsAt o-- RuntimeFluent
+  RuntimeEventCalculusProjection --> FoldState : publishes one cut
+  RuntimeFluentPattern ..> RuntimeFluent : holdsAt selects
+  OwnedProcessFacts ..> RuntimeEvent : owner reports one process terminal event
   OwnedProcessFacts --> JsonValue : encodeOwnedProcessFacts
-  OwnedProcessFacts ..> RuntimeEvent : owner admits as exit or refusal evidence
+  JsonValue ..> RuntimeEvent : encoded facts in the admitted failure's diagnostic subject
   StructuralRefusal ..> RuntimeEvent : owner maps and ABG admits
   ExactDefinitionCallable --> DefinitionCall : consumes
   ExactDefinitionCallable --> DefinitionReturn : returns
@@ -358,7 +407,7 @@ sequenceDiagram
   B->>A: admitContract on the resource assertion
   A-->>B: Outcome ok, or StructuralRefusal
   B->>O: owner function, called once
-  O->>S: resolveExactMatch over the prefix RuntimeEvent rows
+  O->>S: resolveExactMatch over the ExactMatchSource of prefix RuntimeEvent rows
   S-->>O: ExactMatch of RuntimeEvent
   O->>S: checkExactRecord with the static RecordCheck
   S->>V: sha256Canonical of the projected JsonValue
@@ -377,22 +426,26 @@ sequenceDiagram
   participant T as abg/worker_transport
   participant A as abg/actor_process
   participant H as hog/ccall_lifecycle
-  participant E as failTraversal and Event Store
+  participant E as Event Store and failTraversal
   participant C as abg/calculus
   participant R as lifecycle reader
   L-->>T: OwnedProcessFacts at the terminal
   T->>A: onProcessFinalized hands the OwnedProcessFacts in memory
-  A->>A: retain finalProcessFacts before admission
+  A->>L: hasConfirmedOwnedProcessBoundary
+  L-->>A: boolean that selects the reported outcome
+  A->>E: admit one process terminal RuntimeEvent: spawn failed, exited or termination unconfirmed
+  A->>A: retain finalProcessFacts
   A->>L: encodeOwnedProcessFacts
-  L-->>A: JsonValue evidence
-  A-->>H: actor_process_effect_refusal with the encoded facts as evidence
-  H->>E: failCCall passes the refusal as the candidate
-  E->>E: admit one RuntimeEvent at the successor prefix
-  E-->>C: RuntimeEvent in prefix order
-  C->>C: effectOf with the axiom table and the DerivedEffectRule table gives EventCalculusEffect
+  L-->>A: JsonValue of the facts
+  A-->>H: actor_process_effect_refusal carrying the encoded facts
+  H->>H: constructRuntimeFailureDiagnosticRef of the subject stage and candidate
+  H->>E: failCCall with that inline reference and the refusal as candidate
+  E->>E: admitRuntimeFailure retains the subject inline in runtime_failure_observed
+  E-->>C: RuntimeEvent rows in prefix order
+  C->>C: effectOf gives EventCalculusEffect from the axiom table and the DerivedEffectRule table
   C->>C: foldStep gives the next FoldState and its HoldsAt
-  R->>C: holdsAt for actor_process_terminated of processRef
-  C-->>R: RuntimeFluent rows from HoldsAt
+  R->>C: holdsAt with the RuntimeFluentPattern actor_process_terminated and processRef
+  C-->>R: RuntimeFluent rows of the RuntimeEventCalculusProjection
 ```
 
 ### State view
@@ -409,7 +462,7 @@ stateDiagram-v2
   [*] --> raw
   raw --> admitted : admitJson or admitContract gives Outcome ok
   raw --> refused : Outcome refusal
-  admitted --> selected : resolveExactMatch
+  admitted --> selected : resolveExactMatch over an ExactMatchSource
   admitted --> refused : absent or many through exactMatchOutcome
   selected --> checked : checkExactRecord
   selected --> refused : CheckedRecord invalid
@@ -427,16 +480,21 @@ stateDiagram-v2
   state fold {
     state "FoldState at cut 0" as s0
     state "FoldState at cut n with HoldsAt" as sn
+    state "RuntimeEventCalculusProjection at cut n" as published
     [*] --> s0
     s0 --> sn : foldStep per RuntimeEvent with EventCalculusEffect from axioms and DerivedEffectRule
+    sn --> published : publish one FoldState
+    published --> published : holdsAt with a RuntimeFluentPattern gives RuntimeFluent rows
   }
   state lifecycle {
     state "RuntimeFluent actor_process_live" as live
     state "RuntimeFluent actor_process_terminated" as terminated
     state "RuntimeFluent actor_process_termination_unconfirmed" as unconfirmed
+    state "RuntimeFluent actor_process_spawn_failed" as spawn_failed
+    [*] --> spawn_failed : actor_process_spawn_failed, reported when OwnedProcessFacts show no established child
     [*] --> live : actor_process_started
-    live --> terminated : exit event whose OwnedProcessFacts confirm the boundary
-    live --> unconfirmed : termination unconfirmed event
+    live --> terminated : actor_process_exited, reported when OwnedProcessFacts confirm the boundary
+    live --> unconfirmed : actor_process_termination_unconfirmed
   }
 ```
 
@@ -460,10 +518,10 @@ The views carry the same carriers and transitions. The cross-view axiom matrix i
 A runtime fact passes through three layers, and the law differs per layer:
 
 1. **Physical observation.** A process boundary is observed once, by its owner (`createOwnedProcessLifetime`), into immutable `OwnedProcessFacts`. The owner hands those facts in memory to the actor that admits them. That handoff is permitted and required. Re-observing, serializing or re-reading the facts inside the program is not.
-2. **Admission.** The owner admits the observation as an event: on the success path as `actor_process_exited` or a sibling, on the failure path as the refusal of §9.3. Admission is the only point at which an observation becomes history in the admitted log `L`.
+2. **Admission.** The owner admits the observation as one process terminal event (`actor_process_spawn_failed`, `actor_process_exited` or `actor_process_termination_unconfirmed`) on the success and the failure path alike. On a failure, the encoded facts are admitted with the failure as its diagnostic subject (§9.3). Admission is the only point at which an observation becomes history in the admitted log `L`.
 3. **Derived state.** Lifecycle questions, such as whether a process is gone or whether a Run may close, are answered from the fold of `L` through `holdsAt`. Derived state is never recomputed from copied payload fields and never read from a second store. `holdsAt` answers admitted questions only; it does not replace the physical observation of layer 1.
 
-What is forbidden is a second store of observations, written by one interface and read back by another as evidence or truth. A failure file beside the attempt archive, with an inspector that reads it back, is such a store. Its only justification is the case where admission itself fails, a store-failure model the owner has not selected.
+What is forbidden is a second store of observations, written by one interface and read back by another as evidence or truth without a binding in `L`. A failure file beside the attempt archive, with an inspector that reads it back, is such a store. Its only justification is the case where admission itself fails, a store-failure model the owner has not selected. An artifact bound by its digest in `L` and read back for verification against that digest is referenced evidence, part of `recover(P, L, referencedEvidence)` below, and is permitted.
 
 The law realizes Product's [live-state law](../../../../specification/PRODUCT.md#live-state-recovery-and-valid-reuse):
 
@@ -479,14 +537,14 @@ A transport file across a real spawn boundary is lawful: the helper child's `tas
 
 ### 9.2 Worked example: process termination
 
-The fact "the child process is gone" is the `actor_process_lifecycle` rule's fluent `actor_process_terminated(processRef)`. The log carries its primitive events: `actor_process_exited`, `actor_process_termination_unconfirmed`, `actor_process_spawn_failed` and `actor_invocation_failed`. The rule initiates the fluent from those events when the admitted `OwnedProcessFacts` satisfy `hasConfirmedOwnedProcessBoundary`. Every reader calls `holdsAt(state, { kind: "actor_process_terminated", processRef })`. The boolean field `terminationConfirmed` stays in the event payloads and result artifacts that record it; the rule checks it against the fluent at fold time, and no reader consumes it (D5).
+The fact "the child process is gone" is the `actor_process_lifecycle` rule's fluent `actor_process_terminated(processRef)`. The log carries its primitive events: the one process terminal event the owner reports (`actor_process_spawn_failed`, `actor_process_exited` or `actor_process_termination_unconfirmed`), the signal and timeout events, and the actor terminal. The rule initiates the fluent from `actor_process_exited`, which the owner reports only for a confirmed boundary after start. Every reader calls `holdsAt(state, { kind: "runtime_fluent_pattern", name: "actor_process_terminated", identity: processRef })`. The boolean field `terminationConfirmed` stays in the event payloads and result artifacts that record it. The rule checks it against the fluent at fold time: the fluent wins, a disagreement is recorded as `terminationConfirmed_copy_disagrees(processRef)`, and no prefix is refused (§4.4). No reader consumes the field (D5).
 
 The current realization holds the same fact in four forms:
 
-1. Computed at the edge with two formulas: `abg/worker_transport.ts:461` (`scopeAbsence === "absent" && directExit !== null`); `implementation/worksite_command_helper.ts:769` and `:1136` (`scopeAbsence === "absent"`).
+1. Computed at the edge with two formulas: `abg/worker_transport.ts:461` and the owner's report at `abg/actor_process.ts:1318` (`scopeAbsence === "absent" && directExit !== null`); `implementation/worksite_command_helper.ts:769` and `:1136` (`scopeAbsence === "absent"`).
 2. Copied interface to interface as a boolean field: `worker_transport.ts:598` and `:630` into the transport observation; `abg/actor_process.ts:1149` into the actor observation that becomes an event payload (`abg/event_store.ts:301` and `:732` list the field); `abg/c_call.ts:2033`, `:2100`, `:3842` and `:6708` into the classified observation and the result artifact; `c_call.ts:6607` compares two copies with each other.
-3. Recomputed from the log by a different rule: `abg/replay.ts:2444` derives it as the presence of `actor_process_exited`, ignoring the copied field and the scope-absence condition.
-4. Consumed from the copies: `abg/transport_contracts.ts:71` and `:76`, `abg/worksite_construction_recovery.ts:228` and `:262`, `validator/qualification.ts:52`, and `abg/invocation_admission.ts:512`, which projects it from the prefix through the copied payload field.
+3. Derived from the log outside the fold: `abg/replay.ts:2444` sets it from the presence of `actor_process_exited`. That kind already records the confirmed boundary, so the answer is the fluent's, computed outside `abg/calculus/`.
+4. Consumed from the copies: `abg/transport_contracts.ts:71` and `:76`, `abg/worksite_construction_recovery.ts:228` and `:262`, and `validator/qualification.ts:52`. `abg/invocation_admission.ts:512` consumes form 3 through replay's projection (`abg/replay.ts:2392`).
 
 Row 6 of §10.1 replaces form 1 with `hasConfirmedOwnedProcessBoundary`, form 3 with the rule, and form 4 and the comparison at `c_call.ts:6607` with `holdsAt`. Of form 2, the field stays where it is recorded, as the copy the rule checks, until its retirement (D5).
 
@@ -494,14 +552,14 @@ Row 6 of §10.1 replaces form 1 with `hasConfirmedOwnedProcessBoundary`, form 3 
 
 ### 9.3 Process failure facts
 
-A process failure reaches `L` as evidence of the owner's admitted refusal:
+An actor process reaches `L` through its owner's terminal event and, on a failure, through the admitted failure's diagnostic subject:
 
-1. The worker transport hands the final `OwnedProcessFacts` to the actor through `onProcessFinalized` (`abg/worker_transport.ts:455`). The actor retains them as `finalProcessFacts` before admission (`abg/actor_process.ts:1306`), so that they survive a failed semantic admission.
-2. On failure, the actor's outer catch (`abg/actor_process.ts:1403`) refuses through `refuseActorProcessEffect`, whose result is the owner refusal `actor_process_effect_refusal`. The refusal carries the retained `finalProcessFacts` as its evidence, encoded once by `encodeOwnedProcessFacts` (§4.6). The current outer catch builds the refusal from the error message alone and drops the facts.
-3. The refusal reaches `failCCall` (`hog/ccall_lifecycle.ts:541`) as the candidate, and `failTraversal` admits it at the successor prefix. The facts are then in `L` once, in the event the fold consumes.
-4. The command and HTTP adapters of `implementation/worksite_command_helper.ts` return their facts the same way, encoded once, to the helper's result route.
-5. If admission itself fails, the refusal is still returned to HoG with the facts in memory, and the Run fails with it; the physical state stays unknown. Nothing is written beside `L`.
-6. Failure inspection is a projection: `holdsAt` over the prefix for the lifecycle fluent, plus the admitted refusal event for the encoded facts. It reads no file. `process-failure.json` is not used.
+1. The worker transport hands the final `OwnedProcessFacts` to the actor through `onProcessFinalized` (`abg/worker_transport.ts:455`). Inside that callback the owner reports exactly one process terminal event (§4.6; `abg/actor_process.ts:1312-1328`), so the event the lifecycle rule folds is in `L` on the success and the failure path alike. The actor retains the facts as `finalProcessFacts` (`abg/actor_process.ts:1306`).
+2. Every refusal after finalization carries the retained facts: the carrier refusal (`abg/actor_process.ts:1362`) and the refusal of the outer catch (`:1403`). `refuseActorProcessEffect` adds one member holding `encodeOwnedProcessFacts(finalProcessFacts)`, or `null` when no facts were handed back. Its own `diagnosticRef` stays the class reference `diagnostic://abiogenesis/actor-process/<code>@5`. The current refusals are built from the error message alone and drop the facts.
+3. The refusal reaches `failCCall` (`hog/ccall_lifecycle.ts:541`) as the candidate. At that branch the C-call passes, as the diagnostic reference, `constructRuntimeFailureDiagnosticRef` (`abg/runtime_failure.ts:84`) of the exact subject that `failTraversal` admits, `{ stage, candidate }` (`hog/traversal_failure.ts:87`). `admitRuntimeFailure` retains a `data:` reference only when it decodes to that subject (`abg/runtime_failure.ts:239-241`, `:100-105`), and the evidence projection checks it again (`:127`). A reference that encodes the facts alone fails that check. The encoded facts are then in `L` inline, in the admitted `runtime_failure_observed`.
+4. Helper-run processes, the command and HTTP processes of `implementation/worksite_command_helper.ts`, run inside the helper child and have no `actor_process_*` events. Their facts, encoded once by `encodeOwnedProcessFacts`, enter `L` as members of the admitted leaf result (`result.json`, read once by the parent and admitted by `c_call_result_admitted`) or of the admitted failure's diagnostic subject. Their lifecycle question is answered by projecting that admitted event, not by `holdsAt`.
+5. If `admitRuntimeFailure` itself throws (`abg/runtime_failure.ts:237`, `:281`), the facts are lost with the Run's failure and the physical state stays unknown. Nothing changes on that path, and nothing is written beside `L`.
+6. Failure inspection is a projection: for an actor process, `holdsAt` over the prefix for its lifecycle fluents plus the admitted failure's retained diagnostic subject for its encoded facts; for a helper-run process, the admitted leaf result or failure subject. It reads no file. `process-failure.json` is not used.
 
 ### 9.4 Open instance: held suspensions
 
@@ -518,18 +576,18 @@ A process failure reaches `L` as evidence of the owner's admitted refusal:
 | 3 | `shared/value/`: `canonicalEquals`, `writeCanonicalRecord` | 12 `sameCanonical*` bodies, 39 inline comparisons, 3 record writers | row 2, for ingress of `unknown` comparands |
 | 4 | `shared/select/`: `exactMatchCardinality`, `onlyExactMatch`, `exactMatchOutcome`, `checkExactRecord` | 2 local `one()` helpers, the private checked-record helpers, then the private algorithms of the 74 readers | row 1 |
 | 5 | `abg/calculus/`: `effectOf`, `foldStep`, `holdsAt`, `ROOT_DERIVED_RULES` with its four rules; `advance` rewritten over `foldStep` | the inline census, cleanup and liveness branches in `advance`; the lifecycle re-derivations in `actor_process.ts`, `replay.ts` and `runtime_liveness.ts`; every reader of a copied lifecycle field | D1 |
-| 6 | `shared/process/`: `hasConfirmedOwnedProcessBoundary`, `encodeOwnedProcessFacts`; `refuseActorProcessEffect` and the command and HTTP adapters carry the encoded facts to `failTraversal` (§9.3); every lifecycle reader on `holdsAt` | the divergent scope-absence reading in command and HTTP; the refusal that drops the retained facts; every read of `terminationConfirmed` and its derivable siblings outside the rule, and the recomputation at `replay.ts:2444`; the fields stay recorded (D5) | row 5, D5 |
+| 6 | `shared/process/`: `hasConfirmedOwnedProcessBoundary`, `encodeOwnedProcessFacts`; the worker owner and the command and HTTP adapters report the three terminal outcomes through the predicate; every actor refusal after finalization carries the encoded facts, and the C-call failure branch admits them inline as the diagnostic subject (§9.3); the helper adapters carry them in the admitted leaf result or failure subject; every actor-process lifecycle reader on `holdsAt` | the divergent scope-absence reading in command and HTTP; the refusals that drop the retained facts; every read of `terminationConfirmed` and its derivable siblings outside the rule, and the derivation at `replay.ts:2444`; the fields stay recorded (D5) | row 5, D5 |
 
-Rows 1 to 4 and 6 are each one `realization_refactor` under this design. Row 5 moves contextual effects from `advance` into the declared rule table and is a `design_reframe` of the Event Calculus realization. Rows 1 to 4 remove bodies and add only the atoms of §4; row 5 removes four lifecycle derivations and adds one table.
+Rows 1 to 4 and 6 are each one `realization_refactor` under this design. Row 5 moves contextual effects from `advance` into the declared rule table and is a `design_reframe` of the Event Calculus realization. Rows 1 to 4 remove bodies and add only the atoms of §4; row 5 removes four lifecycle derivations and adds one table. §10.6 states which rows co-evolve and which are design-gated.
 
 ### 10.2 Decisions
 
-- **D0, process failure facts.** Process failure facts enter `L` as encoded evidence of the owner's admitted refusal, by the route of §9.3 and under the layers of §9.1. The facts pass in memory only from their observer to the actor that admits them. No failure file is written beside the attempt archive, and no inspector reads one back.
+- **D0, process failure facts.** The owner reports one process terminal event from its facts. On a failure, the encoded facts enter `L` as the admitted failure's diagnostic subject, by the route of §9.3 and under the layers of §9.1. The facts pass in memory only from their observer to the owner that reports them. If the failure's admission fails, the facts are lost with the Run's failure. No failure file is written beside the attempt archive, and no inspector reads one back.
 - **D1, contextual effects.** `ROOT_DERIVED_RULES` carries every contextual Event Calculus effect: the terminal Run census, per-process cleanup, liveness and the actor process lifecycle. `advance` holds no contextual branch. This realizes the IACS's `RuntimeDerivedFluentRule`.
 - **D2, digest order.** The digest leg of `checkExactRecord` runs after projection: `expected(event, value)` and `actual(value)` consume the projected value.
 - **D3, composite comparisons.** The two native composite comparisons are ingress questions, not equality variants: no equality variant or encoder parameter exists for them. Each is decided at its own ingress site when row 2 or row 3 of §10.1 realizes that site: its owner admits each side to `JsonValue` through `admitContract` or `admitJson`, or refuses. The decision is recorded with that site's change; D3 does not close O-TYPE as a whole.
 - **D4, throwing I-JSON entry.** The throwing entry of `i_json.ts` is a lift over `admitJson` (admit, then throw on refusal) until no caller remains; it is then retired. New callers use `admitJson`.
-- **D5, payload copies.** `terminationConfirmed` stays in `actor_*` event payloads and in the result artifacts that record it. The `actor_process_lifecycle` rule derives `actor_process_terminated` and checks the copied field against it at fold time; every reader uses `holdsAt`. Retiring the field is an obligation of the next root event contract profile change, because the store recognizes exactly two contract digests, the legacy and the current (`abg/event_store.ts:1189`), and reopening rejects any stamp other than the current digest (`:3608`). `exitObserved`, `timedOut` and `signalSequence` follow `terminationConfirmed` where the fold derives them.
+- **D5, payload copies.** `terminationConfirmed` stays in `actor_*` event payloads and in the result artifacts that record it. The `actor_process_lifecycle` rule derives `actor_process_terminated` and checks the copied field against it at fold time; the fluent wins, a disagreement initiates `terminationConfirmed_copy_disagrees(processRef)`, and no prefix is refused. Every reader uses `holdsAt`. Retiring the field is an obligation of the next root event contract profile change, because the store recognizes exactly two contract digests, the legacy and the current (`abg/event_store.ts:1189`), and reopening rejects any stamp other than the current digest (`:3608`). `exitObserved`, `timedOut` and `signalSequence` follow `terminationConfirmed` where the fold derives them.
 
 ### 10.3 Owner obligations
 
@@ -563,9 +621,43 @@ ASSURANCE §13 whole-path proofs are marked.
 - **P-SELECT:** `resolveExactMatch` cardinality equals the filter-length classification for every source kind.
 - **P-RECORD (whole path):** both malformed null-digest partitions yield `invalid`; the execution-basis adapter maps `invalid` to its existing refusal.
 - **P-FOLD:** for every admitted prefix in the T120 and replay fixtures, `advance` and `foldStep*` yield identical `holds`, `clippedFluentRefs` and `declippedPatternRefs`; cold replay equals warm fork at every cut.
-- **P-LIFECYCLE (whole path):** counterexamples A and B as tests over the rule. Two negatives: a no-child launch failure, and an error after launch with unresolved cleanup (`scopeAbsence` not `"absent"`, `firstError` set). Each yields the admitted refusal with the encoded facts and the same `holdsAt` answer on worker, command and HTTP, and no file is read. For the no-child launch failure, `holdsAt` reports no `actor_process_terminated`. At fold time every copied `terminationConfirmed` agrees with the derived fluent. No module outside `abg/calculus/` answers a lifecycle question except through `holdsAt`.
-- **P-BIND:** the three binders typecheck and behave unchanged after the `admitContract` substitution; exactly one `Effect.run*` site remains.
+- **P-LIFECYCLE (whole path):** counterexamples A and B as tests over the rule, with their expected-effect tables. Two negatives on the worker route: a no-child launch failure, and an error after launch with unresolved cleanup (`scopeAbsence` not `"absent"`, `firstError` set). Each yields its reported terminal event and the admitted failure whose retained diagnostic subject holds the encoded facts, and no file is read. For the no-child launch failure, `holdsAt` reports `actor_process_spawn_failed` and no `actor_process_terminated`; for the unresolved cleanup, `actor_process_termination_unconfirmed` and no `actor_process_terminated`. Helper-run processes have no `actor_process_*` events: the same two negatives on the command and HTTP routes yield the admitted leaf result or failure subject with the encoded facts, and their lifecycle answer is a projection of that admitted event. A copied `terminationConfirmed` that disagrees with `actor_process_terminated` yields `terminationConfirmed_copy_disagrees` and refuses no prefix. No module outside `abg/calculus/` decides a lifecycle fluent except through `holdsAt`.
+- **P-BIND:** the three binders typecheck after the `admitContract` substitution and keep their fault surface: a refused resource assertion or receipt yields the same `DefinitionExecutionFault` code as before. Exactly one `Effect.run*` site remains.
 - **P-LAYER:** a search for upward imports from `shared/` returns none.
+
+### 10.6 Decision completeness per row
+
+For each row of §10.1, `U(B)` is the set of material relations still unresolved (DESIGN_MODULE §5, Proportional design sequencing). A row whose `U(B)` is empty co-evolves: design, implementation and tests evolve together and reconcile before closure. Otherwise the named relation is decided by its owner before retained implementation establishes it.
+
+| Row | `U(B)` | Decided by, and when | Sequencing |
+|---|---|---|---|
+| 1 | acceptance of the `catalog_addition_proposal` for the failure carrier, with its constitution §10.1 cost ledger (§10.7) | the constitution owner, before this row is coded | design-gated on that acceptance |
+| 2 | the ingress answer at each native composite comparison site this row touches (D3); the ingress or refusal decision for the default-library shallow custom JSON schema and the nullable project-read adapter (O-SCHEMA) | the owner of each site, when this row realizes it; the answer is recorded with that site's change | design-gated at those sites; co-evolution elsewhere |
+| 3 | the ingress answer at each native composite comparison site this row touches (D3) | the owner of each site, when this row realizes it | design-gated at those sites; co-evolution elsewhere |
+| 4 | empty | none | co-evolution |
+| 5 | the emission premise: every `actor_process_exited` in an existing prefix was reported for a confirmed boundary after start, which initiating `actor_process_terminated` from that kind assumes. If the premise holds, that effect depends on the kind alone and belongs in the axiom table under D1; if an existing prefix breaks it, the rule keeps the effect and needs the context that separates the two cases | ABG, from the emission history of `actor_process_exited`, before the rule is retained | design-gated on D1: retained only after the design gate accepts D1 with this design |
+| 6 | ratification of the site in §9.3 item 3, the C-call failure branch, where the inline diagnostic reference is built; at that site the traversal failure result's `diagnosticRef` and `message` (`hog/traversal_failure.ts:51-52`, `:62-66`) become the inline reference in place of the class reference, and no reader keys on the class reference; acceptance of the `catalog_addition_proposal` for the two process atoms, with its cost ledger (§10.7); the helper route: how the helper's facts enter the admitted leaf result or failure subject, including the helper's thrown cleanup failure (`implementation/worksite_command_helper.ts:1362-1366`), and which projection answers its lifecycle question | the design owner ratifies the site, and the constitution owner accepts the addition, before this row is coded; the Product worksite-command owner and ABG decide the helper route when this row realizes it | design-gated on all three |
+
+### 10.7 Catalog disposition
+
+Each function this design adds or moves declares one disposition under [constitution §10.2](ABI5_REALIZATION_CONSTITUTION.md#102-new-algorithm-rule), against the relations of the [§10 catalog](ABI5_REALIZATION_CONSTITUTION.md#10-common-library-catalog) and the neutral mechanics of [Table 5.6.3-B](ABI5_REALIZATION_CONSTITUTION.md#table-563-b---selected-leaf-instance-catalog).
+
+| Functions | Disposition | Relation |
+|---|---|---|
+| `canonicalJson`, `writeCanonicalJson`, `sha256Canonical`, `sha256Bytes`, `deepFreeze`, `isDeeplyFrozen` | `catalog_reuse` | canonical value serialization, canonical digest, immutable carrier construction (`N01`, `N02`, `N04`) |
+| `canonicalEquals`, `writeCanonicalRecord` | `catalog_extension` | canonical value serialization (`N01`) |
+| `admitJson`, `admitContract`, `admitRef`, `isRecord`, `hasExactKeys` | `catalog_extension` | strict schema and I-JSON admission (`N05`) |
+| `resolveExactMatch` | `catalog_reuse`, moved by move 2 of §2 | exact-match cardinality (`N06`) |
+| `exactMatchCardinality`, `onlyExactMatch`, `exactMatchOutcome`, `checkExactRecord` | `catalog_extension` | exact-match cardinality (`N06`); `checkExactRecord` composes it with `validate` and `derive` |
+| `effectOf`, `foldStep`, `holdsAt`, `ROOT_DERIVED_RULES` | `catalog_extension` | typed Event Calculus projection: closed module law, no caller axioms |
+| `bindStaticOwner`, `bindExactPrefixRead`, `bindExactPrefixTransition` | `catalog_reuse`; the last two moved by move 1 of §2 | static exact definition-binding algebra |
+| `deriveCanonicalRootedTopologyPartition` | `catalog_reuse` | canonical rooted-topology partition |
+| `StructuralRefusal`, `Outcome`, `ok`, `refused`, `then` | `catalog_addition_proposal` | none: the library's one expected-failure carrier |
+| `hasConfirmedOwnedProcessBoundary`, `encodeOwnedProcessFacts` | `catalog_addition_proposal` | none: subprocess mechanics (`N11`) stay with their owners |
+
+The two addition proposals state the recurrence they replace and their law and contract in §3 to §6, their substrate, owner seams and authority-neutral role in §2 and §5, the deletion of equivalent helpers in §10.1 and their proof in §10.5. No catalog relation holds a failure carrier or a process-fact function, so neither extends one. The candidate and total-lifecycle-cost ledger of constitution §10.1 accompanies each with the coding plan of its row, and neither is coded before its acceptance.
+
+Move 2 is a `realization_refactor` ([constitution §16](ABI5_REALIZATION_CONSTITUTION.md#16-amendment-rule)): it changes the location column of the §10 exact-match row and of `N06` from `product/exact_match.ts` to `shared/select/exact_match.ts`, and its amendment record lands in the constitution when row 1 realizes the move. Catalog extensions and additions are catalog law, a `design_reframe` under the same rule; their amendment records land with the rows that realize them.
 
 ## 11. Source-to-library-to-outcome paths
 
