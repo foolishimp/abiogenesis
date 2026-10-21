@@ -5184,3 +5184,55 @@ the exact final E03 basis; the earlier E03 verdict-before-Product-Frame output i
 not final L5 acceptance. No completed full refactor, qualification or release is
 claimed. This additive section is bound by its record's ticket preimage/afterimage
 transition; later ticket updates remain expected.
+
+## STDO 3 Library Re-entry (2026-10-22)
+
+**Change class:** `design_reframe`. The common computational library design is
+re-entered from the catalog of review coordinates and the conjunction's bounded
+C1 to C5 contracts to a design derived from the operator algebra of
+constitution §5.6.1. Product, requirements and constitution are unchanged.
+
+- **Design:** the [library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md),
+  [computational binding §4](../../../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md#existing-operator-classes)
+  and the [Event Calculus IACS](../../../build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_IACS.md).
+- **Content source:** Part B (B1 to B13) of the
+  [compute calculus and library design post](../../comments/claude/20261021T135156Z_REVIEW_compute_calculus_and_library_design.md).
+- **Step ledger:** the [plan post](../../comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md),
+  section Ledger. Realization proceeds by its eight steps.
+
+**Decisions.** The owner took D0 to D5 on 2026-10-22 at the plan's
+recommended defaults.
+
+- **D0:** withdraws the acceptance of the row "Cross-consumer handoff" in
+  [Root's conjunction decision](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md).
+  That HOW retained `OwnedProcessFacts` and capture buffers in memory, wrote a
+  create-only `process-failure.json` beside the attempt archive and read it back
+  through an inspector: a second store beside the event log. Replacement (design
+  §9.3): the owned-process lifetime returns terminal facts as a refusal carrier,
+  `failCCall` passes it to `failTraversal`, which admits it at the successor
+  prefix, and failure inspection is a projection (`holdsAt` plus the admitted
+  refusal event). No failure file is written or read.
+- **D1:** `ROOT_DERIVED_RULES` carries the contextual Event Calculus effects
+  (terminal Run census, per-process cleanup, liveness, actor process lifecycle);
+  it realizes the IACS's `RuntimeDerivedFluentRule`.
+- **D2:** the digest leg of `checkExactRecord` runs after projection.
+- **D3:** the two native composite classifications are ingress questions
+  answered by `admitContract`; no equality variant or encoder parameter. O-TYPE
+  closes by this decision.
+- **D4:** the throwing `i_json` entry stays as a lift over `admitJson` until it
+  is retired.
+- **D5:** `terminationConfirmed` leaves `actor_*` event payloads and result
+  artifacts through a new root event profile; the legacy profile digest is
+  retained for recorded stores. `exitObserved`, `timedOut` and `signalSequence`
+  follow where derivable.
+
+**Supersession.** This design supersedes the K01 to K12 catalog and the
+conjunction's bounded C1 to C5 contracts. The five Codex source cuts keep their
+static/syntax readiness as historical evidence; they are not realization of
+this design.
+
+**Follow-up for its own re-entry.** `HeldWorkflowSuspension`,
+`HeldRecursionSuspension` and `rehydrateParentReturnFrames` carry parent state
+in caller memory across a hold, the second instance of the recovery law (design
+§9.4). Untraced: whether `application` and `sourceCursor` are recoverable from
+events. Re-entry follows the rule table (plan step 6).

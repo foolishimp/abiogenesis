@@ -1,18 +1,16 @@
 # ABIogenesis 5 Common Computational Capability Library
 
-**Status:** Root-ratified bounded design conjunction, 2026-10-21. C1 lifecycle, C3 checked reading and cross-consumer failure handoff are accepted at DESIGN scope. C2/C4/C5 common callable contracts and finite retirement directions are accepted with six owner obligations and two composite classifications OPEN. Full migration, implementation conformance, measured savings, installed outcomes, L5 delivery acceptance and release remain unproved. [Current conjunction](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) records the exact subjects and limits.
+**Status:** active tenant design of the common computational library. Its decisions, change record and delivery evidence live in [T-287](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md).
 
-**Selection:** the owner's 2026-10-21 clarification makes this library design the first ABG activity. The intended asset is a common computational basis from which features are composed, reducing independent solutions to equivalent computational problems. Explicit obligations determine what execution must establish; execution determines the actual outcomes.
-
-**Historical L1 basis:** [activation](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/activation.md), [source inventory](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/basis.json), SHA-256 `7c4196afaf481be05056a5c3b5120b98b9e4d012ccf2b673f765076b3ec23376`; HEAD `727f1dbcab3c198f7704735fdf91b994b7aac243` plus the inventoried dirty bytes. The [Product assessment](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/product-assessment.md) and [realization assessment](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/realization-assessment.md) are separate source-evidence inputs conjoined by the Executive. The latter searched 264 TypeScript sources and inspected the named consumer bodies; it is not a complete semantic clone or dynamic-path audit.
+**Selection:** the Product's [common-library prerequisite](../../../../specification/PRODUCT.md#common-computational-library-prerequisite) makes this library design the first ABG activity. The intended asset is a common computational basis from which features are composed, reducing independent solutions to equivalent computational problems. Explicit obligations determine what execution must establish; execution determines the actual outcomes.
 
 **Authority:** [Product](../../../../specification/PRODUCT.md), [requirements](../../../../specification/requirements/README.md), the [project frame](ABI5_PROJECT_REFERENCE_FRAME_BASIS.md), [realization constitution](ABI5_REALIZATION_CONSTITUTION.md) and [computational binding](ABI5_STDO3_COMPUTATIONAL_BINDING.md). The exact method is `stdo://releases/v3.0.0-rc.1/`, manifest `069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232`, including [DESIGN_MODULE](stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md), [SPEC_METHOD §11](stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding) and [FOUNDATIONS](stdo://releases/v3.0.0-rc.1/standards/FOUNDATIONS.md). No companion or moving methodology source is selected.
 
 ## 1. Selected asset and Product boundary
 
-The common library consists of the canonical mechanics, reusable owner ports and static compositions specified below. Existing modules remain its implementation locations. Direct typed imports are the consumption mechanism. No new root barrel, package export, runtime catalog, dispatcher, resource framework or `runPipeline` is selected merely to give the library one name.
+The common library consists of the operator-family modules, carriers, atoms and static compositions specified below; §2 names their locations. Direct typed imports are the consumption mechanism. No new root barrel, package export, runtime catalog, dispatcher, resource framework or `runPipeline` is selected merely to give the library one name.
 
-The design covers the intended common capability basis across all fifteen selected Product families. The present installation, preparation, history and continuation path is an initial consumer and proof discriminator, not the boundary of the library. Under [Product’s compression boundary](../../../../specification/PRODUCT.md#common-computational-library-prerequisite), the selected library requires accepted design, usable implementations, actual consumer adoption and retirement or justified retention, executed obligations and independent acceptance before release work resumes. C1–C5 below are inside that selected deliverable; none is automatically deferred to 5.1. Optional pure-helper contraction outside the deliverable retains Product’s later allocation. This finite selection is not an unbounded all-helper sweep.
+The design covers the intended common capability basis across all fifteen selected Product families. The present installation, preparation, history and continuation path is an initial consumer and proof discriminator, not the boundary of the library. Under [Product’s compression boundary](../../../../specification/PRODUCT.md#common-computational-library-prerequisite), release work resumes only after the selected library meets the delivery conditions that boundary names. The atom families of §4 are inside that selected deliverable; none is automatically deferred to 5.1. Optional pure-helper contraction outside the deliverable retains Product’s later allocation. This finite selection is not an unbounded all-helper sweep.
 
 The following decisions are selected:
 
@@ -20,278 +18,550 @@ The following decisions are selected:
 2. Canonical bytes, exact coordinate equality, finite selection and closed structural mechanics have canonical implementations. Owner predicates and result interpretation remain explicit.
 3. Product declaration resolution, GTL construction, HoG traversal, ABG event resources/history and native effect owners remain reusable libraries in their existing domains. Their semantic relations are not reimplemented inside a generic helper.
 4. Existing Effect 3.22.1, exact owner schemas and Node mechanics remain the admitted foundation composition. No material new dependency is selected.
-5. The finite consolidation ledger in §6 distinguishes equivalent mechanics, existing compositions, intentionally different contracts and proposed additions awaiting a material design decision.
+5. §10.1 orders consumer retirement. §10.4 records the owner distinctions the library preserves.
 6. Each retained implementation increment must name its consumer replacements and complete affected path. Default to the common implementation. A retained variant needs a concrete supported input/caller for which that implementation changes the required outcome, with owner, falsifier and disposition. Missing equivalence evidence remains an open obligation; it does not justify retention. Preserve equality, failure and admission domains until their owner explicitly decides a correction. Moving code or counting fewer functions does not establish reduced proliferation.
 
-The [published default governance/lifecycle library](T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md) remains ordinary declared GTL GraphFunctions and Programs. Its Executive, induction, design, testing and UAT roles use this lower realization library through GTL/HoG/Product/ABG owners. They do not become low-level library primitives. Likewise [capability_contracts.ts](../code/src/shared/capability_contracts.ts) describes existing public definition capabilities; this document's capability identifiers are design coordinates, not additional DS1 capability rows or callable exports.
+The [published default governance/lifecycle library](T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md) remains ordinary declared GTL GraphFunctions and Programs. Its Executive, induction, design, testing and UAT roles use this lower realization library through GTL/HoG/Product/ABG owners. They do not become low-level library primitives. Likewise [capability_contracts.ts](../code/src/shared/capability_contracts.ts) describes existing public definition capabilities; the module and atom names of this document are library exports, not additional DS1 capability rows.
 
-### 1.1 Exact accepted consolidation contracts and open boundaries
+### 1.1 Design boundary
 
-Root incorporates the following exact design bodies and their finite consumer/deletion/proof maps. Original proposal labels and freezes remain immutable historical inputs; this owning HOW records their present acceptance. These maps, rather than the K01–K12 taxonomy alone, bind the selected computational consolidation.
-
-| Selected family | Exact incorporated subject and disposition |
-|---|---|
-| C1 — lifecycle and physical facts | [Lifecycle HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/HOW-proposal.md), SHA-256 `122df37438d9f5930fcc83a3159bc0b3b8b5e6927c4546288a32d11a8a96a910`, freeze `6114dba2945fca732df86e852b638261da876c91df31263c8289c871137020ee`, and [retirement/proof map](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-common-lifecycle-law-design-02/retirement-and-proof.md). Accepted bounded DESIGN; the [terminal-quiescence owning HOW](T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md) ratifies the precise census supersession and token frontier. |
-| C1 — command/HTTP failure boundary | [Cross-consumer HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-cross-consumer-handoff-design-01/HOW-proposal.md), SHA-256 `8fb5ca195bab507f2203a67e07937e4d7e9bab982b638ff3e974fecfd5d2d7ec`, freeze `93d088fb4ad4a1ed1b2a846a1bfb54e2a220012e9c6fdfbcee953c8d6eb96bf8`. Accepted bounded DESIGN; the [C2 execution owning HOW](T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md) carries original cause, immutable final facts and exact-attempt diagnostic inspection. Helper realization remains open. |
-| C3 — exact selection and checked records | [Checked-read HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/HOW-proposal.md), SHA-256 `5e2169845cd3015ea6ed99223044b89ba7dc18788f1d73236b929f075f8356e7`, freeze `368854bc8bb340677e7afd278c4ca69e30b2f6355899073b426298c9fccf0e0a`, and [consumer/retirement/proof map](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/checked-fact-reader-design-02/retirement-consumer-proof-map.md). Accepted bounded DESIGN, including both explicit malformed null-digest refusals; source depends on the truthful C5 wrapper contract. |
-| C2/C4/C5 — value mechanics | [Value proposal](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/proposal.md), SHA-256 `e1ebd2047eab1aa7cfb56ce7a4384279e8a40c10dbdbdaf815442707e0e89246`, freeze `6ef9e727844242d82295291c41847e5a1fb1417341b717c3301d53df8d1cadc0`, and [finite retirement/proof map](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/value-mechanics-consolidation-design-02/retirement-proof-map.json), SHA-256 `955f167580081eee0290a8add7a053b730a64f246b522c08970b28d0536580ab`. Common callable contracts and selected retirement directions accepted; O-TYPE/O-RESOURCE/O-SHAPE/O-CODEC/O-SCHEMA/O-KEY and two native composite classifications remain OPEN. This is not full migration or source-readiness acceptance. |
-
-The finite selected scope is 24 simple equality bodies, 13 local exactly-one helpers, three streamed canonical framers, five shared plus 38 local shallow guards, and five shared plus one private NUL-joined key body. Counts identify targets, not semantic coverage or a promised net diff. Source grants may follow separately for dependency-ready C1/cross-consumer work while value owner decisions continue. Whole value migration at an unresolved owner boundary, the combined candidate/build and affected execution remain held until the required conjunction. No source or execution effect is granted here.
+- **Inside:** `code/src/shared/`; the pure atoms now private in `abg/`, `product/` and `hog/`; the fold interior of [event_calculus.ts](../code/src/abg/event_calculus.ts).
+- **Outside:** HoG traversal, the GTL term algebra, Event Store append, Product install and verify, and the actor transport protocol. The library owns none of their decisions.
+- **Requirements:** unchanged. The design realizes [EVENTS-018](../../../../specification/requirements/abg/REQ-R-ABG3-EVENTS.md) (declared Event Calculus effects), [PROJECTION-001, -002 and -013](../../../../specification/requirements/abg/REQ-R-ABG3-PROJECTION.md) (deterministic, incrementally maintained projection; `HoldsAt` derived by replay including derived-fluent rules), and the BINDING and PUBLIC-CONTRACTS requirements cited by [constitution §16.7](ABI5_REALIZATION_CONSTITUTION.md#167-t-287-static-definition-binding-compression-amendment-record). Product, including its [5.0 compression boundary](../../../../specification/PRODUCT.md#50-compression-boundary), is unchanged.
+- **Constitution:** the library realizes the eight operator signatures of [§5.6.1](ABI5_REALIZATION_CONSTITUTION.md#561-closed-operator-algebra) and stays inside [§5.6.2C](ABI5_REALIZATION_CONSTITUTION.md#562c-operative-static-definition-binding-algebra). `bindStaticOwner`, `bindExactPrefixRead` and `bindExactPrefixTransition` remain the complete binding algebra. The library adds no fourth combinator, registry, callback, controller, mode selector or runtime. Its atoms are pure functions below the binders, which §5.6.2C permits: "Family modules may statically compose their own imported leaves before passing one typed owner function to a combinator".
+- **Decision completeness:** §10.2 takes every material decision of this boundary. No material semantic alternative remains inside the library, so design, implementation and tests co-evolve for each row of §10.1.
 
 ## 2. Library organization and dependency direction
 
-| Library portion | Canonical locations and direct dependencies | Consumers and retained meaning |
-|---|---|---|
-| Value and finite-structure mechanics | [canonical_json.ts](../code/src/shared/canonical_json.ts), [digests.ts](../code/src/shared/digests.ts), [immutable.ts](../code/src/shared/immutable.ts), [i_json.ts](../code/src/shared/i_json.ts), [admission_predicates.ts](../code/src/shared/admission_predicates.ts), [references.ts](../code/src/shared/references.ts), [exact_match.ts](../code/src/product/exact_match.ts), [rooted_topology_partition.ts](../code/src/shared/rooted_topology_partition.ts). Native arrays/maps/strings and Node crypto; I-JSON text uses existing jsonc-parser. | GTL, Validator, Product, HoG, ABG and Implementation import exact functions. Mechanics do not select semantic preimages, evidence, topology targets or grants. The historical placement of `exact_match.ts` under Product does not give its generic selection algorithm Product admission authority. |
-| Static contract and execution membrane | [public_function_contracts.ts](../code/src/shared/public_function_contracts.ts), [definition_binding_mechanics.ts](../code/src/shared/definition_binding_mechanics.ts), [static_definition_bindings.ts](../code/src/shared/static_definition_bindings.ts), [effect_definition.ts](../code/src/shared/effect_definition.ts). Exact owner types/schemas, Valibot, Effect subpaths and the ABG resource-receipt checks explicitly imported by the prefix binders. | Module-static definition bindings consume one fixed packet and one imported owner. Resource types remain concrete generics. This is an explicit boundary composition, not a reason for foundational value modules to import Public or ABG behavior. |
-| Reusable semantic-owner capabilities | Product declaration/install/environment ports; GTL constructor/materialization/source-path ports; ABG event resource, exact-prefix, history, Event Calculus and projection ports; Implementation request/effect ports. §3 names their precise contracts. | Callers reuse owner relations. Common mechanics may implement a role, but the declaring owner retains identity, admission, refusal, effect ordering, lifetime and closure meaning. |
-| Executable composition | [graph_execute.ts](../code/src/hog/graph_execute.ts), [traversal.ts](../code/src/hog/traversal.ts), existing leaf/child/retry owner ports and [run_invocation.ts](../code/src/owner_bindings/run_invocation.ts). | The admitted GTL Program supplies topology; HoG directly executes it with the existing Effect fold. Public/SDK/CLI invoke and project the result. No feature controller or second execution plan is introduced. |
+Each library module realizes one operator family of §5.6.1. The role column uses the module taxonomy of DESIGN_MODULE §9.
 
-There are 18 existing shared modules on the assessment basis; that fact locates current code, not the required module count. Pure mechanical functions remain cohesive with their actual domain. Owner-local compositions need not move to `shared/`. The April [common realization derivation](ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md) and [common delivery derivation](ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md) are design lineage: their `shared/abg_library`, `shared/delivery`, `app/m04/control` and directory `abg/m03/transport` implementations are absent from this basis. They do not select a replacement layout or restore M04 control.
+| Module | Operator family | Role | Imports | Effect class |
+|---|---|---|---|---|
+| `shared/refusal.ts` | carrier | carrier | none | pure |
+| `shared/value/` | `derive` over `JsonValue` | semantic kernel | `refusal` | pure |
+| `shared/admit/` | `validate` | ingress | `refusal`, `value` | pure; Valibot and jsonc-parser as foundations |
+| `shared/select/` | `select` | semantic kernel | `refusal` | pure |
+| `shared/binding/` | lift at Public | effect boundary | `refusal`, `admit` | constructs Effect programs; runs one only in `runExactDefinition` |
+| `shared/process/` | `materialize` facts, not the effect | effect boundary | `refusal` | Node child process and timers |
+| `abg/calculus/` | `project`: the fold and `holdsAt` | semantic kernel, ABG-owned | `shared/*` | pure; a memoized class as realization |
+| `abg/exact_prefix_bindings.ts` | lift of `admit` and `transition` | effect boundary, ABG-owned | `shared/binding/`, `abg/event_store.ts` | Effect |
 
-### Domain scaffold
+The dependency direction is one order; a module imports only modules to its left:
 
-```mermaid
-classDiagram
-  class OwnerContract {
-    exact input and result domain
-    authority and refusal law
-  }
-  class ValueMechanics {
-    encode hash inspect select partition
-  }
-  class StaticBinding {
-    fixed packet
-    exact resources and receipts
-  }
-  class OwnerCapability {
-    declared semantic relation
-  }
-  class GTLProgram {
-    admitted graph and C composition
-  }
-  class HoGTraversal {
-    direct traversal
-  }
-  class ABGHistory {
-    admitted causal events
-  }
-  class DerivedProjection {
-    exact prefix support
-  }
-  StaticBinding --> OwnerContract : imports
-  StaticBinding --> OwnerCapability : calls once
-  OwnerCapability --> ValueMechanics : composes
-  HoGTraversal --> GTLProgram : traverses
-  HoGTraversal --> OwnerCapability : invokes declared port
-  OwnerCapability --> ABGHistory : only through ABG admission
-  DerivedProjection --> ABGHistory : reconstructs
-  OwnerCapability --> DerivedProjection : reads explicit support
+```text
+refusal <- value <- admit <- select <- {binding, process} <- abg/calculus <- owners
 ```
 
-These are design roles, not proposed classes or runtime identities. The domain carriers and identities remain those in [binding §3](ABI5_STDO3_COMPUTATIONAL_BINDING.md#3-ontology-and-carrier-projection). No library entry owns a new lifecycle. A pure value is constructed/read/discarded; a derived projection is recomputed or invalidated; a physical resource is acquired/completed/closed or abandoned by its existing owner. Immutable Product coordinates, mutable worksite state, observations, proposed effects and admitted runtime truth remain distinct.
+`shared/` imports nothing from `abg/`, `product/`, `hog/`, `gtl/`, `validator/` or `public/`. Three moves establish this direction:
 
-## 3. Closed capability contracts
+1. `bindExactPrefixRead` and `bindExactPrefixTransition` move from [static_definition_bindings.ts](../code/src/shared/static_definition_bindings.ts) to `abg/exact_prefix_bindings.ts`.
+2. [product/exact_match.ts](../code/src/product/exact_match.ts) moves to `shared/select/exact_match.ts`.
+3. [shared/owner_contract_source_set.ts](../code/src/shared/owner_contract_source_set.ts) moves to `public/owner_contract_source_set.ts`.
 
-`K01`–`K12` are review coordinates. They classify concrete functions and compositions; they are not twelve new atoms, services or runtime operations. Source-owned type declarations are imported, not redeclared as a universal result/resource union. “Pure” below excludes physical I/O and semantic admission; allocation and explicitly stated freezing or sink writes still occur.
+The remaining operators stay with their owners. `traverse` stays in `hog/`. `admit` as append stays in [event_store.ts](../code/src/abg/event_store.ts). `transition` stays in its owner modules. `materialize` effects stay in Product install and verify and in ABG actor transport. The library never owns an owner decision ([FS-17](ABI5_REALIZATION_CONSTITUTION.md#55-axioms); the last prohibition of §5.6.2C).
 
-### K01 — Closed value and structural admission
+Existing shared modules take these places:
 
-**Mechanisms:** [i_json.ts](../code/src/shared/i_json.ts), [admission_predicates.ts](../code/src/shared/admission_predicates.ts), exact owner Valibot schemas and GTL [raw_admission.ts](../code/src/validator/raw_admission.ts).
+- [canonical_json.ts](../code/src/shared/canonical_json.ts), [digests.ts](../code/src/shared/digests.ts) and [immutable.ts](../code/src/shared/immutable.ts) are the existing members of the `value` family.
+- [i_json.ts](../code/src/shared/i_json.ts), [admission_predicates.ts](../code/src/shared/admission_predicates.ts) and [references.ts](../code/src/shared/references.ts) hold the bodies the `admit` family replaces.
+- [definition_binding_mechanics.ts](../code/src/shared/definition_binding_mechanics.ts), `static_definition_bindings.ts` after move 1, and [effect_definition.ts](../code/src/shared/effect_definition.ts) form the `binding` family.
+- [owned_process_lifetime.ts](../code/src/shared/owned_process_lifetime.ts) is the `process` family.
+- [rooted_topology_partition.ts](../code/src/shared/rooted_topology_partition.ts) is a `derive` atom over canonical root-to-frame paths. `deriveCanonicalRootedTopologyPartition(sourceWitness, targetWitness)` returns the preserved common prefix, the exits inner-to-outer and the entries outer-to-inner, or one of `invalid_witness | topology_mismatch | basis_mismatch | root_mismatch | adjacency_mismatch`. Cycles, multiple-parent causal search, cross-basis topology, retry policy and HoG route choice are outside its domain.
+- The Public contract modules (`public_function_contracts.ts`, `public_function_family.ts`, `public_function_projections.ts`, `public_invocation.ts`, `operation_definition_coordinate.ts`, `capability_contracts.ts`) and the `index.ts` barrel keep their roles, hold no atom of this design and obey the same import direction.
 
-`admitIJsonText(string) → IJsonValue` or `IJsonAdmissionError`; `admitIJsonValue(unknown) → IJsonValue` on its inspected finite ordinary-value domain, or the same typed error. The seven declared error codes are duplicate key, invalid framing, invalid Unicode scalar, malformed JSON, non-finite number, non-I-JSON value and unsafe integral number. Text admission retains duplicate-key detection; value admission constructs detached ordinary dense arrays/records and normalizes negative zero. Arbitrary cyclic/proxy/host-object behavior is outside the established totality claim; a stack/inspection fault is not a fabricated typed refusal.
+**Foundations.** Exact-pinned Effect 3.22.1 under [constitution §10.1.1](ABI5_REALIZATION_CONSTITUTION.md#1011-effect-3221-decision-ledger), Valibot, jsonc-parser and Node `crypto` and `child_process` are the admitted foundation composition. The library adds no dependency. A new parser, scheduler, runtime or package re-enters foundation selection (DESIGN_MODULE §5, Capability and foundation selection) before construction; incumbency alone selects nothing.
 
-`isRecord(unknown)` owns one shallow non-null non-array shape algorithm and refines only unknown members. `isJsonRecord(JsonValue)` and the optional JSON wrapper delegate while preserving an already established JSON domain; the unknown-input shape wrapper cannot confer JSON admission. C5 selects five shared and 38 local Boolean-body retirements with the owner obligations in §9. `hasExactKeys(object, readonly string[])` owns the elementwise sorted-key comparison with equal lengths; `hasExactJsonKeys` delegates. The five shared and one private NUL-joined bodies are selected retirement targets, not presumptively retained variants: `["a","b"]` and `["a\u0000b"]` collide when joined. O-KEY binds each owner’s admitted domain and correction/refusal decision. For `product/default_library.exactKeys`, Root selects common exact-own-key checking and rejection of the collided/inherited `basis`/`judgment` form; valid existing results remain true. This explicit correction supplies no general raw-input-equivalence claim or broader schema closure.
+## 3. Irreducible carrier set
 
-All operations retain exact input-domain and failure behavior except the explicitly selected owner corrections in §1.1 and §9. Strict owner schemas decide concrete carrier shape; raw GTL admission, TypeScript local typing, complete Program validation and semantic judgment remain different evaluations. Resource work is proportional to inspected text/value/keys; no ambient cache, default field or semantic repair is introduced.
+The library has one expected-failure carrier:
 
-### K02 — Canonical bytes, digest and named equality
+```ts
+type StructuralRefusal = Readonly<{
+  kind: "structural_refusal";
+  stage: "validate" | "select" | "derive" | "materialize";
+  code: string;             // closed per family, listed in §4
+  path: readonly string[];  // JSON pointer segments where known
+  evidence: Readonly<Record<string, JsonValue>>;
+}>;
+type Outcome<A> = Readonly<{ kind: "ok"; value: A }> | StructuralRefusal;
+function ok<A>(value: A): Outcome<A>;
+function refused(outcome: unknown): outcome is StructuralRefusal;
+function then<A, B>(outcome: Outcome<A>, next: (value: A) => Outcome<B>): Outcome<B>;
+```
 
-**Mechanisms:** [canonical_json.ts](../code/src/shared/canonical_json.ts), [digests.ts](../code/src/shared/digests.ts) and the existing `sameJson`/`sameCoordinate` in [definition_binding_mechanics.ts](../code/src/shared/definition_binding_mechanics.ts).
+Admitted domain: the pure layer, and the terminal facts of `shared/process/` under stage `materialize` (§9.3). A `StructuralRefusal` carries no owner meaning ([FS-11](ABI5_REALIZATION_CONSTITUTION.md#55-axioms)). An owner maps it into its own union exactly once at the owner boundary. It never crosses `DefinitionExecutionFault`. Defects keep `throw`; expected refusals never do.
 
-On a finite acyclic admitted JSON value, `canonicalJson(value) → string`; `writeCanonicalJson(value, synchronousSink) → void` emits the same ordered text chunks; `sha256Canonical(value) → Sha256Digest` hashes that stream. Preserve Unicode code-unit key ordering, array order, finite-number handling and `-0 → 0`. The stricter common I-JSON path excludes sparse arrays. Existing canonical-writer sparse-array behavior is historical source behavior, not a new valid-JSON guarantee or permission to silently change an existing caller's accepted domain.
+| Carrier | Standing | Reason |
+|---|---|---|
+| `JsonValue` | prime | identity of every canonical comparison and digest |
+| `Sha256Digest` | prime | identity of admitted bytes |
+| `StructuralRefusal`, `Outcome<A>` | prime | the one expected-failure carrier of the library |
+| `ExactMatch<T>` | prime | the `select` codomain: `absent`, `one`, `many` |
+| `RuntimeEvent`, `RuntimeFluent`, `RuntimeFluentPattern`, `EventCalculusEffect`, `RuntimeEventCalculusProjection` | prime, ABG-owned | the [Event Calculus IACS](ABG_EVENT_CALCULUS_IACS.md); `EventCalculusEffect` is the type of its `RuntimeEventCalculusEffect` row |
+| `DerivedEffectRule` and its table `ROOT_DERIVED_RULES` | prime, ABG-owned | the realization of the IACS's `RuntimeDerivedFluentRule` |
+| `FoldState`, `HoldsAt` | prime, ABG-owned | the fold carrier at one prefix cut and its current fluent truth; `RuntimeEventCalculusProjection` publishes one `FoldState` |
+| `OwnedProcessFacts` | prime | the one process-termination evidence carrier; admitted once, as evidence of the refusal or exit event, and never retained or copied past that admission (§9) |
+| `DefinitionCall`, `DefinitionReturn`, `ExactDefinitionCallable`, `DefinitionExecutionFault` | prime | the §5.6.2C ABI |
+| `ExactMatchSource<T>`, `RecordCheck<E, P>`, `CheckedRecord<E, P>`, effect rows, `FoldState` internals (transition cache, probe and interruption facts) | subordinate | parameters or derived views; the promotion test fails for each: no independent identity, admission or lifecycle |
 
-The sink is an explicit synchronous output effect. A sink or encoding exception propagates and may follow partial output; it is not a successful complete encoding. `sha256Bytes` hashes exactly its input bytes; `sha256File` performs a physical file read and can reject. Owners choose all preimages and coordinate meanings. A digest does not authenticate a publication, install or event.
+No table row adds a peer type.
 
-C2 selects `canonicalJsonEquals(JsonValue, JsonValue, encode = canonicalJson)` and its explicit `canonicalJsonEqualsOrFalse` projection in the canonical writer, plus `canonicalDigestEquals` and `canonicalDigestEqualsOrFalse` in the digest owner. Preserve complete left-before-right evaluation and each owner’s throw/false channel across the 24 finite bodies. Digest equality is not exact-text equality. `ReferenceDigest` pair comparison remains its strict ref/digest relation. Installed Public equality delegates with exactly `(value) => product.canonicalJson(value)`, preserving per-operand method lookup, receiver and missing-dependency throw rather than selecting the local default. The two native identity/deep-strict/canonical compositions remain OPEN classification obligations, not automatically retained variants. No unchecked cast, shallow guard or handle enumeration may establish the typed JSON input.
+**Lifecycle.** Library carriers are values: constructed, read and discarded. `foldStep` advances a `FoldState`; `forkAt` copies it at a cut; it is recomputed from the event log, never persisted as truth. `ROOT_EVENT_CALCULUS` and `ROOT_DERIVED_RULES` are declared at module construction and change only by design re-entry. `OwnedProcessFacts` is produced once per launched process and admitted once.
 
-C4 selects `writeCanonicalRecord(acquire, writeMember, sink)` in `canonical_json.ts`: opening brace, one acquisition, sorted private key entries, separators and one member callback per key, closing brace. The ordinary writer acquires `Object.entries` before framing; the three stream owners acquire keys after the brace and read values after the colon. Preserve eager/lazy acquisition, factory consumption, partial-output exception trace and owner preimages. The three private framing loops are retired; prefix/replay authentication and member dispatch remain local. Streaming avoids a required whole-text intermediate for hashing; actual retained memory and whole-path benefit require measurement.
+## 4. Atomic function families
 
-### K03 — Capturing and preserving immutable values
+Each family is one typed family with closed variants. The signatures instantiate §5.6.1. Counts are `grep` censuses over `code/src`; they identify retirement targets, not semantic coverage.
 
-**Mechanisms:** [immutable.ts](../code/src/shared/immutable.ts), K01 construction and existing typed owner constructors.
+### 4.1 `validate`: `shared/admit/`
 
-`deepFreeze<T>(value) → Readonly<T>` mutates the reachable, not-already-frozen ordinary object graph in place and returns the original reference. It neither detaches caller aliases nor authenticates/adopts a value; it returns early for an already-frozen object and therefore does not establish recursive immutability of every input. `isDeeplyFrozen(unknown) → boolean` inspects ordinary data-descriptor object/array graphs with a visited set, rejects unsuitable prototypes/accessors and checks nested frozen state. It is inspection, not admission.
+| Atom | Signature | Replaces | Codes |
+|---|---|---|---|
+| `isRecord` | `(value: unknown) => value is Readonly<Record<string, unknown>>` | 2 definitions, 32 inline bodies, 5 typed aliases in `admission_predicates.ts` | guard |
+| `hasExactKeys` | `(value: object, keys: readonly string[]) => boolean` | 5 NUL-joined bodies | guard |
+| `admitJson` | `(raw: unknown) => Outcome<JsonValue>` | the throwing path of `i_json.ts` for new callers | the seven `IJsonAdmissionFailureCode` values: duplicate key, invalid framing, invalid Unicode scalar, malformed JSON, non-finite number, non-I-JSON value, unsafe integral number |
+| `admitContract` | `<T>(schema: v.GenericSchema<T, T>, raw: unknown) => Outcome<T>` | inline `v.safeParse` in the three binders and in owners | `contract_mismatch` with `path` |
+| `admitRef` | `(value: unknown) => Outcome<string>` | the `requireRef` throw | `blank_ref` |
 
-A caller requiring detached admitted I-JSON composes K01's copying construction and freezing. An event owner requiring a captured event uses its own [captureRuntimeEventCandidate](../code/src/abg/event_body_encoding.ts), then owner validation/admission. These are distinct contracts, not overloads of “immutable.” No general clone/cache/branding framework is added. The lifetime is that of the owning value; alias mutation, already-frozen shells, cycles and unsupported object kinds are explicit preservation cases when changing a consumer.
+Ingress collapse (DESIGN_MODULE §3): `unknown` enters the pure layer only through this family. A `derive` or `select` export whose input is `unknown` is a defect of the library. `isRecord` refines only the outer shape; members stay `unknown` until their owner's schema narrows them. The throwing entry of `i_json.ts` is a lift over `admitJson` until retired (§10.2, D4).
 
-### K04 — Multiplicity-preserving finite selection
+### 4.2 `select`: `shared/select/`
 
-**Mechanism:** existing [exact_match.ts](../code/src/product/exact_match.ts), extended by the exact C3 contract in §1.1.
+| Atom | Signature | Replaces |
+|---|---|---|
+| `resolveExactMatch` | `<T>(values: ExactMatchSource<T>, predicate: (v: T) => boolean) => ExactMatch<T>` | existing, moved down; 213 inline `length === 1` sites migrate as touched |
+| `exactMatchCardinality` | `(length: number) => "absent" \| "one" \| "many"` | the count decision for already selected arrays |
+| `onlyExactMatch` | `<T>(selected: readonly T[]) => ExactMatch<T>` | 2 local `one()` helpers; returns the closed union, never `T \| null` |
+| `exactMatchOutcome` | `<T>(match: ExactMatch<T>) => Outcome<T>` | lifts `absent` and `many` to `select` refusals for sequential composition |
+| `checkExactRecord` | `<E, P>(match: ExactMatch<E>, check: RecordCheck<E, P>) => CheckedRecord<E, P>` | the private checked-record helpers; ABG instantiates `E = RuntimeEvent` for its 74 readers |
 
-`exactMatchCardinality(length)` owns zero/one/many. `resolveExactMatch(ExactMatchSource<T>, predicate)` preserves the existing direct `values.filter(predicate)` and frozen result wrapper/many-array behavior. `exactMatchValue` returns the original singleton value or null. `onlyExactMatch(alreadySelected)` uses the same count decision without filtering, copying or freezing. Two throwing owners retain their exact error projection. Thirteen local exactly-one helpers are selected for retirement; five existing common calls remain consumers.
+```ts
+type RecordCheck<E, P> = Readonly<{
+  project: (event: E) => Outcome<P>;
+  digest: null | Readonly<{ expected: (event: E, value: P) => Sha256Digest; actual: (value: P) => Sha256Digest }>;
+}>;
+type CheckedRecord<E, P> =
+  | Readonly<{ kind: "absent" }>
+  | Readonly<{ kind: "many"; values: readonly E[] }>
+  | Readonly<{ kind: "invalid"; event: E; reason: "record_projection" | "record_digest" }>
+  | Readonly<{ kind: "one"; event: E; value: P }>;
+```
 
-Preserve every occurrence, candidate identity, predicate order/exception and the array’s filter behavior, including sparse holes and mutation. Existing lazy event views use their own filter without whole-history materialization. Preselected cardinality is O(1); selection runs its full predicate. There is no early exit, deduplication, default or first-match substitution. Justified ordered-first raw history readers retain the named controls in the C3 map.
+`ExactMatch<T>` realizes the §5.6.1 `select` codomain: `one` is `exact`, `many` is `ambiguous`. Selection preserves every occurrence, predicate order and predicate exception; it has no early exit, deduplication, default or first-match substitution. `checkExactRecord` is `select`, then `validate`, then `derive`, composed once. The owner supplies `project` and `digest` as a module constant per reader, never as a runtime argument (§5.6.2C). The digest leg runs after projection (D2). Both malformed null-digest partitions, a non-record singleton and an unencodable record, yield `invalid`.
 
-Owners retain absence versus ambiguity/refusal, declaration reachability, causal joins and output/registry identity. K04 owns neither semantic admission nor the selection of a prefix category.
+### 4.3 `derive`: `shared/value/`, domain `JsonValue` only
 
-### K05 — Static owner binding and typed execution
+| Atom | Signature | Replaces |
+|---|---|---|
+| `canonicalJson`, `writeCanonicalJson` | existing | none |
+| `canonicalEquals` | `(left: JsonValue, right: JsonValue) => boolean` | 12 `sameCanonical*` bodies and 39 inline comparisons |
+| `sha256Canonical`, `sha256Bytes` | existing | none; the 57 inline digest comparisons stay as `===` on the branded string once ingress types their inputs |
+| `writeCanonicalRecord` | `<T>(entries: readonly (readonly [string, T])[], writeMember: (member: T, key: string, sink: CanonicalJsonSink) => void, sink: CanonicalJsonSink) => void` | 3 hand-rolled record writers |
+| `deepFreeze`, `isDeeplyFrozen` | existing | none |
 
-**Mechanisms:** [static_definition_bindings.ts](../code/src/shared/static_definition_bindings.ts), [definition_binding_mechanics.ts](../code/src/shared/definition_binding_mechanics.ts), [effect_definition.ts](../code/src/shared/effect_definition.ts).
+Equality takes no encoder parameter: an `encode` argument would be a runtime-supplied function. Installed equality with an owner codec is `canonicalEquals(a, b)` after both sides pass `admitJson`. The two native composite comparisons are ingress questions (D3), not equality variants. `writeCanonicalJson` and `writeCanonicalRecord` write to an explicit synchronous sink; a sink exception propagates after partial output and is not a complete encoding.
 
-`ExactDefinitionCallable<Packet, Resources, Receipt>` consumes `DefinitionCall<Packet, Resources>` and returns `Effect<DefinitionReturn<Packet, Receipt>, DefinitionExecutionFault<Packet.definitionKey>, never>`. `DefinitionReturn` preserves the exact owner semantic output and resource receipt. Expected semantic refusals remain owner values; structural execution faults and defects/interruption remain their existing channels.
+### 4.4 `project`: `abg/calculus/`, ABG-owned
 
-Exactly three module-static constructors are selected: `bindStaticOwner` admits the fixed call/resource contracts, calls its imported owner once and checks output/receipt; `bindExactPrefixRead` additionally requires an exact reopened unchanged prefix; `bindExactPrefixTransition` checks the owner-issued matching same-store successor, including the held-resource completion form. No dynamic function lookup, fourth binding mode, generic workflow, outer transaction, per-key switch or erased `Resources` carrier is added.
+```ts
+type HoldsAt = ReadonlyMap<string, RuntimeFluent>;   // fluentRef -> fluent
+type FoldState = Readonly<{ holds: HoldsAt; ordinal: number; /* transitions, probe and interruption facts */ }>;
+type DerivedEffectRule = Readonly<{
+  ruleRef: string;
+  appliesTo: readonly RuntimeEvent["kind"][];
+  derive: (state: FoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]) => EventCalculusEffect;
+}>;
+const ROOT_EVENT_CALCULUS: AxiomTable;                  // existing
+const ROOT_DERIVED_RULES: readonly DerivedEffectRule[]; // terminal Run census, per-process cleanup, liveness, actor process lifecycle
+function effectOf(axioms: AxiomTable, rules: readonly DerivedEffectRule[], state: FoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]): EventCalculusEffect; // pure
+function foldStep(axioms: AxiomTable, rules: readonly DerivedEffectRule[], state: FoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]): FoldState;           // pure
+function holdsAt(state: FoldState, pattern: RuntimeFluentPattern): readonly RuntimeFluent[];
+```
 
-Effect supplies typed sequence, stack-safe suspension/iteration and owner-local physical Scope. [runEffectProgram](../code/src/shared/effect_definition.ts) is the existing outer host runner. Scope release is a physical event, not ABG semantic closure. Invalid returned receipts can occur after owner effects; the binder must conserve that fact and cannot imply rollback. Cost includes call/resource checking, one owner call and result checking; expensive acquisition inside the owner is accounted for separately.
+The axiom table declares effects that depend only on the event kind. The rule table declares every contextual effect. Both are module constants; no caller supplies an axiom or a rule.
 
-### K06 — Admitted construction and rooted-path partition
+`RuntimeEventCalculusDerivation` is the memoized realization of `foldStep`, with `forkAt`. Its `advance` is "for each event, state = foldStep(...)", with the class caching transitions. Agreement between the class and the pure fold is proof obligation P-FOLD, which is PROJECTION-002's live and cold agreement stated as a test.
 
-**Mechanisms:** GTL [c_algebra.ts](../code/src/gtl/c_algebra.ts), [materialize.ts](../code/src/gtl/materialize.ts), [source_path.ts](../code/src/gtl/source_path.ts); common [rooted_topology_partition.ts](../code/src/shared/rooted_topology_partition.ts).
+The rule `actor_process_lifecycle` decides the Actor, Process and Run lifecycle for one actor invocation. Its inputs are admitted events: `S`, the process started (`actor_process_started`); `T`, a process terminal (`actor_process_exited` or `actor_process_spawn_failed`); `U`, termination unconfirmed (`actor_process_termination_unconfirmed`); `A`, an actor terminal (`actor_invocation_closed` or `actor_invocation_failed`); `R`, the matching Run's terminal. Its formulas:
 
-GTL owns its existing typed constructors and materialized-graph contracts. The reusable structural atom here is `deriveCanonicalRootedTopologyPartition(sourceWitness, targetWitness) → CanonicalRootedTopologyPartition | CanonicalRootedTopologyPartitionRefusal`. Its domain is two finite unique canonical root-to-frame paths with one topology, exact basis and root. Output preserves their common prefix, exits inner-to-outer and enters outer-to-inner. Refusal codes are `invalid_witness | topology_mismatch | basis_mismatch | root_mismatch | adjacency_mismatch`.
+```text
+processLive            = S and not T
+terminationUnconfirmed = not T and U
+cleanupPending         = not A and (T or U or (R and formerlyActiveActor))
+```
 
-The function performs no effects, semantic target choice or candidate admission. Work/temporary state is linear in supplied paths. Identity, ancestor exit, descendant entry and lateral movement are covered. Cycles, multiple-parent causal DAG search, cross-basis topology, human response `H → S`, retry policy and HoG next-route choice are not this relation. [retry.ts](../code/src/abg/retry.ts) is an actual consumer; further consumers must first supply the same admitted witness contract. Existing [TV5 obligations](ABI5_REALIZATION_CONSTITUTION.md#108-accepted-implementation-gate-and-remaining-proof-obligations) remain open where not proved.
+`formerlyActiveActor` holds when the invocation's actor is in the matching Run's census of actors for which `actor_process_active` or `actor_process_live` held. The cleanup token frontier is the matching Run stop. The rule also initiates `actor_process_terminated(processRef)` from those events when the owned process boundary is confirmed (§9.2). Two existing derivations are its falsification cases: counterexample A, the cleanup reading in `abg/actor_process.ts` at line 631, and counterexample B, the terminal Run census in `abg/event_calculus.ts` at line 1909, which counts only processes still live. The unconditional `actor_cleanup_pending` initiation in the axiom table (`abg/event_calculus.ts`, line 258) moves into the rule, which can see whether a process was ever started.
 
-### K07 — Exact immutable dependency and executable resolution
+The rule produces fluents inside the one fold. `actor_process.ts`, `replay.ts`, `runtime_liveness.ts` and every other reader of a lifecycle fact read them through `holdsAt`. Four consumers that had to agree become one producer and its readers, as PROJECTION-013 requires.
 
-**Mechanisms:** Product [declaration_closure.ts](../code/src/product/declaration_closure.ts), [execution_resolution.ts](../code/src/product/execution_resolution.ts), [implementation_resolution.ts](../code/src/product/implementation_resolution.ts) and [installed_module.ts](../code/src/product/installed_module.ts).
+### 4.5 Lift: `shared/binding/`
 
-`resolveExecutionDeclarationClosure(catalog, view, programRef, graphFunctionRef)` and `resolveProgramDeclarationClosure(catalog, view, programRef)` return their distinct resolved closure or `ExecutionDeclarationClosureRefusal`: `absent | ambiguous | catalog_mismatch | missing_dependency | wrong_owner`. `ProductExecutionResolutionPort.resolve` composes exact Product inputs/selection, closure, implementation and semantic binding into the existing resolution result/refusal. Resolution refusal codes and stages remain the source-owned closed unions; physical acquisition failures retain their actual fault boundary.
+`bindStaticOwner`, `runExactDefinition` and `runEffectProgram` keep their behavior. `bindStaticOwner` consumes `admitContract` in place of inline `v.safeParse`. `bindExactPrefixRead` and `bindExactPrefixTransition` live in `abg/exact_prefix_bindings.ts` and specialize `bindStaticOwner` as §5.6.2C states. Each binder is higher-order only at module construction; every captured owner function, schema and packet is a direct import. Exactly one `Effect.run*` site exists.
 
-Catalog/view are pure readiness/narrowing. A view may contain zero or several Programs; an executable resolution selects one exact Program and its lawful membership. Closure reuse is keyed by the actual deeply frozen catalog/view objects plus Program, execution/program scope and requested GraphFunction. Copied or mutable foreign values require their own validation. Installed module preparation is reused only within one physical resolution call per actual install object; it is not a global install/currentness cache.
+### 4.6 Process facts: `shared/process/`
 
-K01–K04 support the mechanics; publication ownership, dependency reachability, callable membership and executable source provenance remain Product/GTL relations. Changed dependencies invalidate affected results. Consumers include current execution, [historical project reads](../code/src/abg/project_read_ports.ts), invocation truth and qualification; none may build a feature-local closure map with weaker source rules.
+`createOwnedProcessLifetime` and `OwnedProcessFacts` are the existing physical mechanism for worker, command and HTTP progression, probing, bounded confirmation and drain. The family adds one pure predicate:
 
-### K08 — Authenticated history, selected bodies and derived current state
+```ts
+function hasConfirmedOwnedProcessBoundary(facts: OwnedProcessFacts): boolean;
+// facts.scopeAbsence === "absent" && facts.directExit !== null
+```
 
-**Mechanisms:** ABG [runtime_history.ts](../code/src/abg/runtime_history.ts), [runtime_derivation.ts](../code/src/abg/runtime_derivation.ts), [event_prefix.ts](../code/src/abg/event_prefix.ts), [event_calculus.ts](../code/src/abg/event_calculus.ts) and [replay.ts](../code/src/abg/replay.ts).
+It is the one test for "the owned process is gone". Worker, command and HTTP adapters use it to choose between reporting an exit and reporting unconfirmed termination; no adapter computes its own formula. A launch with no established child is never a confirmed boundary. The lifetime returns its terminal facts as an `Outcome`; a refusal carries `OwnedProcessFacts` as evidence under stage `materialize` (§9.3). Protocol, timeout and result policies stay with each adapter. The family creates no scheduler, retry policy or process authority.
 
-The existing `RuntimeEventPrefix` union distinguishes validated explicit snapshots, an owner-bound `RuntimeHistorySelection`, and a prospective validation view. Exact owner prefix selection plus scope/index/body selectors returns the declared view or the owner's refusal/exception; `runtimeEventAtPrefix` can return `undefined` for an absent member. A copied coordinate or selection cannot manufacture the owner's authenticity. Explicit current acquisition and a historical prefix read retain different contracts.
-
-`runtimePrefixComputation` and owner derivation scopes reuse an established same-owner computation and advance through the required suffix. Event Calculus owns initiation/termination/inertia; replay and other projections compose those declared facts. Shared iteration/indexing is not an arbitrary caller-supplied reducer or axiom set. Rollback/abandonment invalidation, exact event-contract profile, scope and predecessor relationships remain part of reuse.
-
-C3 adds `checkExactRuntimeRecord(selection, staticCheck)` beside the existing prefix accessors. It preserves absent/many, projects a singleton record once, optionally hashes before acquiring the expected digest, and returns invalid/record_projection, invalid/record_digest or the same event/value references in a frozen wrapper. It catches nothing, registers nothing and authenticates no prefix. Owners retain multi-fact joins, result identity and raw/owned/prospective categories. The exact execution-basis adapter correction maps both non-record/null-digest and unencodable-record/null-digest singleton inputs to its existing null/refusal outcome; unrelated selection, predicate, profile, construction and later whole-basis errors retain their channels. Proof rows B01–B06 bind this deliberate correction rather than claiming raw equivalence.
-
-C1’s dependency-light EC-owned `decideActorProcessLifecycle` supplies the one Actor/Process/Run lifecycle decision to existing EC transition, Actor, replay and liveness consumers. The exact pre-event matching-Run Actor census, cleanup-token frontier, witnesses and source attribution are ratified in the terminal-quiescence HOW. The existing EC fold remains sole truth derivation; there is no second reducer/cache/admission mechanism.
-
-Operational history retains envelope/index/scalar/body-location facts; it does not retain every decoded payload as current state. Selected body views are transient and released after the consumer; complete output remains complete when requested. Cold reconstruction must equal the supported warm result. Resource obligations separately count envelopes examined, selector extent, suffix rows, decoded bodies/bytes, retained live facts and recovery work. Repeated entire-history expansion at each call boundary is not justified by using a common function.
-
-### K09 — Expected-prefix transaction and physical event-resource lifetime
-
-**Mechanisms:** [event_store.ts](../code/src/abg/event_store.ts) and [definition_event_resource.ts](../code/src/abg/definition_event_resource.ts).
-
-Reuse `admitRuntimeEventTransactionAtExpectedPrefix`/`admitRuntimeEventTransactionAtDurablePrefix`, durable reopen and held-prefix selection; reuse `acquireAbgEventResource`, `selectAcquiredAbgEventResource`, `completeAbgEventResource`, `closeAbgEventResource`, `abandonAbgEventResource` and declared interrupted recovery. Inputs/outputs remain their exact owner types, including `AbgEventResourceAssertion | AcquiredAbgEventResourceSelection` and `AbgEventResourceReceipt | AbgEventResourceCompletion`.
-
-Admission preserves expected predecessor, declared semantic commit unit, event order, append durability and actual resource identity. A held selection is not serializable acquisition authority. Completing a held operation does not close its enclosing resource; only the physical finalizer produces a close/reopen handoff. Wrong predecessor, foreign resource, unavailable bytes, poisoned/interrupted store, failed append and failed finalization cannot become success through a shared wrapper.
-
-Store locks, descriptors, staged rows and receipts are owned for their declared acquisition scope. ABG transaction atomicity applies to its admitted event batch, not to arbitrary earlier filesystem/native effects. No feature may invent a parallel lock/reopen protocol or write events outside these owners.
-
-### K10 — Reversible physical encoding of admitted event bodies
-
-**Mechanism:** [event_body_encoding.ts](../code/src/abg/event_body_encoding.ts), called by the Event Store.
-
-`encodeEventBody(RuntimeEvent, committedInlineBodies, stagedInlineBodies, ownerReader?) → physical string`; `decodeEventBody(unknown, earlierInlineByEvent, ownerReader?) → {event: unknown, physicallyInline: boolean}` or a validation/read exception. The Event Store still validates the fully restored logical event and stamps. Encoding stages index additions; only committed durable rows establish later reuse eligibility.
-
-The closed slots are `basis_input`, `c_call_result_value` and `native_definition_material`. The first two retain v1 cross-slot body reuse; native material uses the separately typed v2 bundle and cannot alias unrestricted input/result values. A reference names an earlier physically inline source from the same authenticated stream with matching slot compatibility, source event/payload/digest and exact canonical value. Missing/forward/foreign/chained/mixed references refuse. Small bodies remain inline when the reference would cost more.
-
-Logical event identity and public values are unchanged by encoding; physical byte-prefix identity remains distinct. This is storage sharing, not a semantic result cache or permission to omit context. Cold raw/v1/v2 reconstruction, partial durable batches and staged-but-uncommitted reuse are finite proof cases.
-
-### K11 — Exact source/context preparation and leaf exchange
-
-**Mechanisms:** [instruction_assembly.ts](../code/src/abg/instruction_assembly.ts), [execution_basis.ts](../code/src/abg/execution_basis.ts), [Implementation contracts](../code/src/implementation/contracts.ts), [leaf_invocation_port.ts](../code/src/implementation/leaf_invocation_port.ts) and concrete native owner adapters.
-
-Reuse the existing `NativeInstructionAssembly`, `PreparedProbabilisticLeafInvocation`, `LeafExecutionOccurrence` and `LeafRealizationCandidate` contracts. Declared assembly and native semantic/worksite assembly remain distinct owner entrypoints. Explicit assembly refusal causes are `unknown_dependency | unavailable_required_content | stale_basis | unsupported_selection | declared_bound_overflow`; compatibility entrypoints returning `null` or throwing remain their named projections, not universal success/failure conversions.
-
-Within the assembly owner, existing `assemblyIdentity`, `renderInstructionSections` and `finishInstructionAssembly` share canonical bookkeeping after each branch establishes its own selected material. Exact current producer/input, role/frame, declarations, contracts, source provenance/qualification, accessible content, ordering and declared bounds must survive every projection. A locator is not supplied content; a digest is not semantic sufficiency; graph entry input is not necessarily the current input.
-
-Prepared execution is completed from the actual attributed exchange. Worksite work requires post-effect observation even after timeout or malformed output; framed selection has its separate zero-tool-call and exact-choice obligations. Mechanical envelope/digest checks can be reused; owner assessment and required independent evaluation cannot be collapsed into a “successful transport ⇒ accepted result” function. Retention is limited to selected call material and exact reusable immutable definitions, with worksite freshness assessed separately.
-
-### K12 — Authorized physical materialization and process observation
-
-**Mechanisms:** Product [verify_product.ts](../code/src/product/verify_product.ts), [install_product.ts](../code/src/product/install_product.ts), [workspace_operations.ts](../code/src/product/workspace_operations.ts), [materialization_operations.ts](../code/src/product/materialization_operations.ts); ABG [worker_transport.ts](../code/src/abg/worker_transport.ts), [actor_process.ts](../code/src/abg/actor_process.ts) and [worksite_command_helper.ts](../code/src/implementation/worksite_command_helper.ts).
-
-Use the existing closed Product request/candidate/refusal types and `ActorProcessRequest`, `ActorProcessObservation`, `ActorProcessCarrierValidationResult`, `ActorProcessEffectResult`. Input includes the exact declared request, resource/grant and executable/environment basis; output records actual physical observations/candidate, typed refusal or fault. Actor carrier-validation codes remain `invalid_actor_process_request | invalid_actor_process_observation`; effect refusals remain `actor_process_carrier_refused | actor_process_invocation_refused`. These do not exhaust physical completion states: observation fields separately preserve timeout class, exit/close evidence, signal sequence, status and `terminationConfirmed`.
-
-Product payload inventory hashes declared file locators/content. [Execution-root inventory](../code/src/implementation/worksite_command_execution.ts) observes files, directories, symlinks and physical/link identities. They remain distinct contracts. Path traversal/hash mechanics may be shared only after preserving each policy and identity projection. The existing archive parser is retained; a material parser replacement requires new foundation discovery and archive-domain proof.
-
-The recurring process-lifetime contract is fixed at this design level as: one owner-launched process and explicit platform scope + declared deadline/grace/drain bounds + actual observations → termination evidence with uncertainty preserved. Its closed material cases are:
+The lifetime's closed material cases:
 
 | Case | Required mechanical distinction | Owner consequence |
 |---|---|---|
-| Launch refused/failed with no established child | Preserve launch evidence; do not invent an exit or process identity. | No completed work result follows; any known residue remains attributable. |
-| POSIX owned process group | Launcher exit/pipe close is distinct from evidence that the owned group is absent. | Confirmed termination requires the selected group/exit relation; still assess performed work. |
+| Launch refused or failed with no established child | Preserve launch evidence; do not invent an exit or process identity. | No completed work result follows; any known residue remains attributable. |
+| POSIX owned process group | Launcher exit or pipe close is distinct from evidence that the owned group is absent. | Confirmed termination requires the selected group and exit relation; still assess performed work. |
 | Windows owned child | Use the supported child-completion contract and identify its scope. | Do not relabel child completion as POSIX group absence or unproved descendant termination. |
-| Absolute/inactivity deadline or cancellation | Preserve the triggering cause, ordered TERM/grace/KILL requests and actual outcomes. | Timeout or a signal request does not prove termination, rollback or nonperformance. |
-| Confirmation/drain/probe/observer failure | Return uncertainty and any known exit, output and signal facts; release known local handles/timers as permitted. | Preserve cleanup obligation; withdraw dependent currentness when post-effect state is unknown. |
-| Process terminated, output missing/invalid or semantic assessment negative | Preserve termination and output/effect evidence as separate facts. | Reobserve affected worksite; refuse/unresolve result as the existing owner requires. |
+| Absolute or inactivity deadline, or cancellation | Preserve the triggering cause, the ordered TERM, grace and KILL requests and their actual outcomes. | Timeout or a signal request does not prove termination, rollback or nonperformance. |
+| Confirmation, drain, probe or observer failure | Return uncertainty and any known exit, output and signal facts; release known local handles and timers as permitted. | Preserve the cleanup obligation; withdraw dependent currentness when post-effect state is unknown. |
+| Process terminated, output missing or invalid, or semantic assessment negative | Preserve termination and output or effect evidence as separate facts. | Reobserve the affected worksite; refuse or unresolve the result as the existing owner requires. |
 
-The existing `shared/owned_process_lifetime.ts` is the selected common physical mechanism for worker, command and HTTP progression, probing, bounded confirmation/drain and completion. Protocol, timeout and result policies remain local. The exact C1 and cross-consumer contracts in §1.1 complete the selected failure boundary: preserve the same immutable `OwnedProcessFacts` and original first cause outside suppressed ordinary callbacks before fallible owner finalization; retain exact-attempt `process-failure.json` evidence and its stateless internal inspection route on command/HTTP failure. No partial successful helper result or ABG admission follows. `hasConfirmedOwnedProcessBoundary` shares only the identical worker/Actor artifact-read predicate; no-child, direct exit, scope absence and admitted Actor consumption remain distinct. The accepted design still requires source completion and affected proof; old E03 extraction-deferred wording no longer governs this selected mechanism. No Effect scheduler, retry policy or new process authority is created.
+## 5. Higher-order composition with laws
 
-## 4. Lawful composition and the calculus
+| Category | Library combinator | Laws | Owner of anything beyond |
+|---|---|---|---|
+| unit, lift | `ok`, `exactMatchOutcome`; `Effect.succeed` at the binder | `then(ok(a), f) = f(a)` | none |
+| sequential | `then`, Kleisli composition over `Outcome` | associative: `then(then(o, f), g) = then(o, a => then(f(a), g))`; refusal-absorbing: `then(r, f) = r` for every refusal `r`; identity: `then(o, ok) = o` | Effect `flatMap` for the lifted layer, existing |
+| parallel, applicative | none | none | `C.batch`, graph fan-out and fan-in |
+| fold | `foldStep` | `fold(L ++ s) = foldStep*(fold(L), s)` at equal axioms and rules; cold equals warm at the same cut | ABG |
+| retry, recovery | none | none | `C.retry`, the HoG retry lifecycle |
+| recursion, fixed point | none | none | `workflow.C`, the HoG recursion lifecycle |
+| projection | `holdsAt`, `checkExactRecord` | read-only: no outcome of a projection is an admission | ABG and Product owners |
 
-The [eight operator classes](ABI5_REALIZATION_CONSTITUTION.md#561-closed-operator-algebra) remain `select`, `validate`, `derive`, `transition`, `admit`, `traverse`, `project`, `materialize`. They classify roles, not universal exported functions. K04 realizes selection mechanics; K01/K05 support structural validation; K02/K03/K06 support pure derivation; K07/K08/K10 support exact resolution/projection; K09 supports owner transition/admission; K12 supports physical materialization. K11 and executable owner paths compose several classes without acquiring their authorities.
+Authority law for every row: a composed function has no more authority than its inputs and constituents (FS-11; DESIGN_MODULE §5, Authority model). Nothing here reads a prefix, appends an event, selects a target or decides a continuation. The [seven C constructors](../../../../specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md) keep their GTL and HoG owners; the library adds no constructor and no traversal algorithm.
 
-The [seven C constructors](../../../../specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md) remain `C.of`, `C.id`, `C.compose`, `C.edge`, `workflow.C`, `C.batch`, `C.retry`. GTL's graph relations and continuation range remain as declared in [computational binding §4](ABI5_STDO3_COMPUTATIONAL_BINDING.md#4-closed-operation-and-composition-signature). Library reuse does not add an eighth constructor or another traversal algorithm.
+Falsifier for the sequential row: a `then` whose refusal branch is not the identity. Falsifier for the fold row: an admitted prefix where `advance` and the pure fold disagree on `holds`.
 
-The following composition laws apply to every selected consumer:
+## 6. Prime atoms, admitted domains, falsifiers
 
-- **Closure:** the actual producer output, its type/cardinality and basis satisfy the next exact input. A raw candidate cannot replace an admitted Result, and a historical fact cannot replace required current observation.
-- **Identity:** a pure identity preserves value and support. Re-encoding equal bytes does not create a new invocation, authority, admission or evaluation.
-- **Ordered composition:** equivalent regrouping must preserve data dependencies, result/refusal behavior and every observable effect/admission/resource boundary. It may not commute effects, fold child completion into parent closure or hide partial completion.
-- **Higher-order selection:** K04 predicates and K05 owners/contracts are selected statically within declared meaning. Data cannot register another semantic handler or choose an undeclared fallback.
-- **Effects and cardinality:** Effect sequential bind/lifting handles execution mechanics. C.batch, graph fan-out/fan-in, retry and recursion retain GTL/HoG/ABG cardinality, ordering, bounds, attempt and parent relations; no generic concurrency or automatic physical retry is inferred.
-- **Reuse:** admission/support, material dependency validity and present applicability must all hold. Reusing implementation code is different from reusing a computed value, historical Result, evidence or physical resource. Each uses K03/K07/K08/K09 and its owner invalidators.
-
-The algorithmic account names the concrete scan/encoding/partition/fold or owner-call sequence. The informational account names what its values, refusals, evidence and identity relations mean. The computational account names actual Effect/Node/module execution, effects, storage, lifetime and cost. These three accounts must agree; neither an algebraic signature nor a method result proves execution.
-
-No new categorical functor claim is made. Such a claim would separately require objects/arrows, equality, identity/composition and preservation evidence under FOUNDATIONS. The library's practical obligation is explicit callable/path correspondence and source-linked conservation under the already accepted calculus.
-
-## 5. Foundation selection and cost
-
-The bounded discovery population and exact package/lock hashes are recorded in the [realization assessment](../../../../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/realization-assessment.md#bounded-discovery-and-current-foundations). Its cutoff is this activation's source basis on 2026-10-21. Applicable populations were the current source/dependencies, Node mechanics, accepted constitution ledgers and named predecessor documents; archived donor bodies and fresh external alternatives were not independently searched.
-
-| Capability decision | Selected foundation composition | Alternative and decisive boundary |
+| Atom | Admitted domain | Falsifier |
 |---|---|---|
-| K01–K04 finite value/shape/selection mechanics | Existing implementation + native strings/arrays/maps; exact jsonc-parser/Valibot in their admitted roles | A second serializer, duplicate exact-match scan or identical ref/digest comparator adds independently maintained behavior without a new relation. These bounded contractions introduce no material algorithm/dependency choice. Broader unknown-object equality, parser replacement and changed input domains are separate decisions. |
-| K05/executable composition | Existing Effect **3.22.1**, fixed owner contracts and one outer runner, under [constitution §10.1.1](ABI5_REALIZATION_CONSTITUTION.md#1011-effect-3221-decision-ledger) | Preserve the accepted comparison against manual wrappers and alternate runtimes. No present-day package-health, size or universal dominance claim is inferred from that historical ledger. New scheduler/state/runtime features fail the current authority boundary. |
-| K06 partition | Existing native array/path algorithm and accepted witness/refusal contract, under [§10.3–10.8](ABI5_REALIZATION_CONSTITUTION.md#103-semantic-and-computational-disposition) | General graph search/tree edit has a larger different domain and is not a lawful drop-in replacement. New domains re-enter instead of weakening witness checks. |
-| K07–K11 owner computation/resource/representation | Existing owner ports + canonical/selection mechanics + [Node/Effect owner-local resource composition](ABI5_REALIZATION_CONSTITUTION.md#1013-exact-1856-resource-capability-foundation-ledger) | Universal resource carriers, ambient caches, parallel catalogs/event reducers and generic prompt engines add meaning/lifetime surfaces. Preserve exact owner contracts and bounded reconstruction instead. |
-| K12 current physical owners | Existing Node filesystem/process composition, shared owned-process lifetime and source-owned Product/actor contracts | Preserve the selected common lifetime foundation and §1.1’s accepted failure/lifecycle contracts; source completion, adapter/effect evidence and total cost remain open. Any new archive parser or material inventory algorithm still requires E04’s proportional discovery; incumbency alone cannot select it. |
+| `canonicalEquals` | two `JsonValue`s: finite numbers, `-0` as `0`, keys sorted by code unit | equal under RFC 8785 and false, or unequal and true |
+| `sha256Canonical` | `JsonValue` | digest differs from the hash of the `canonicalJson(v)` bytes |
+| `isRecord` | `unknown` | a non-null, non-array object returning false |
+| `hasExactKeys` | own enumerable string keys against a key list | sets equal under code-unit order and false; or a NUL-containing key colliding |
+| `admitJson` | `unknown` | an I-JSON value refused, or a non-I-JSON value admitted |
+| `admitContract` | `unknown` with a strict Valibot schema | `safeParse` success with refusal, or failure with `ok` |
+| `resolveExactMatch` | finite source and total predicate | cardinality disagreeing with the filter length |
+| `checkExactRecord` | `ExactMatch<E>` with a static `RecordCheck` | `one` when `project` refused or the digests differ |
+| `effectOf`, `foldStep` | an admitted event in prefix order with its declared dependencies | an effect differing from `advance` on the same event |
+| `holdsAt` | a `FoldState` at an admitted prefix cut and a fluent pattern | any module outside `abg/calculus/` that computes or copies a lifecycle boolean from event payloads or process facts instead of calling `holdsAt` |
+| `then` | any `Outcome` | the laws in §5 |
 
-No fresh external alternatives were searched because this candidate selects no new material foundation. That residual does not block reuse of already admitted contracts; it blocks new package selection, new dominance claims and any material construction whose frontier could change. E03/E04 identify those proposed additions. A newly acquired applicable candidate that could materially change the choice reopens the affected decision.
+Whole-family Prime contraction. No atom duplicates another's domain: digest comparison is native `===` on a branded string and is not an atom. No atom adds an authority centre: all are pure and read nothing. `holdsAt` is the only admitted reader of "is this process gone". The atoms in this table replace roughly 400 private bodies by census.
 
-Compare integration/deletion cost, authority leakage, package/startup/storage/runtime cost, determinism/failure/recovery, proof fan-out and exit cost. No dependency-count or line-count score substitutes for that comparison. A common module can increase migration and proof cost; actual benefit is established only by removed independent mechanisms plus preserved complete-path behavior.
+## 7. Three views
 
-## 6. Concrete consolidation and separation ledger
+The three views name the same eighteen carriers: `JsonValue`, `Sha256Digest`, `StructuralRefusal`, `Outcome`, `ExactMatch`, `RecordCheck`, `CheckedRecord`, `RuntimeEvent`, `EventCalculusEffect`, `DerivedEffectRule`, `FoldState`, `HoldsAt`, `RuntimeFluent`, `OwnedProcessFacts`, `ExactDefinitionCallable`, `DefinitionCall`, `DefinitionReturn`, `DefinitionExecutionFault`. No view adds a carrier the others lack. `RuntimeFluentPattern`, `ExactMatchSource` and `RuntimeEventCalculusProjection` are parameters or published projections and appear in no view. The domain view marks ABG-owned prime carriers `ABG_prime`.
 
-These are target design dispositions, not claims that code has already migrated. §1.1’s exact callable-to-consumer-to-deleted-body/proof maps govern the selected C1–C5 expansion. “Consolidate” preserves the owner adapter or its explicitly selected correction. “Retain” requires a supported distinguishing input/outcome, owner and falsifier; a missing proof remains OPEN. Historical L1/L2 acceptance and completed source cuts retain their exact scope.
+### Domain view
 
-| ID | Source recurrence and selected disposition | Exact target and preservation obligation |
+```mermaid
+classDiagram
+  class JsonValue
+  <<prime>> JsonValue
+  class Sha256Digest
+  <<prime>> Sha256Digest
+  class StructuralRefusal
+  <<prime>> StructuralRefusal
+  StructuralRefusal : +stage
+  StructuralRefusal : +code
+  StructuralRefusal : +path
+  StructuralRefusal : +evidence
+  class Outcome
+  <<prime>> Outcome
+  Outcome : ok or refusal
+  class ExactMatch
+  <<prime>> ExactMatch
+  ExactMatch : absent one many
+  class RecordCheck
+  <<subordinate>> RecordCheck
+  RecordCheck : +project()
+  RecordCheck : +digest
+  class CheckedRecord
+  <<subordinate>> CheckedRecord
+  CheckedRecord : absent many invalid one
+  class RuntimeEvent
+  <<ABG_prime>> RuntimeEvent
+  class EventCalculusEffect
+  <<ABG_prime>> EventCalculusEffect
+  EventCalculusEffect : initiates terminates clips declips
+  class DerivedEffectRule
+  <<ABG_prime>> DerivedEffectRule
+  DerivedEffectRule : +ruleRef
+  DerivedEffectRule : +appliesTo
+  DerivedEffectRule : +derive()
+  class FoldState
+  <<ABG_prime>> FoldState
+  FoldState : +holds
+  FoldState : +ordinal
+  class HoldsAt
+  <<ABG_prime>> HoldsAt
+  class RuntimeFluent
+  <<ABG_prime>> RuntimeFluent
+  class OwnedProcessFacts
+  <<prime>> OwnedProcessFacts
+  class ExactDefinitionCallable
+  <<prime>> ExactDefinitionCallable
+  class DefinitionCall
+  <<prime>> DefinitionCall
+  class DefinitionReturn
+  <<prime>> DefinitionReturn
+  class DefinitionExecutionFault
+  <<prime>> DefinitionExecutionFault
+  JsonValue --> Sha256Digest : sha256Canonical
+  JsonValue ..> Outcome : admitJson
+  Outcome --> StructuralRefusal : refusal variant
+  ExactMatch --> Outcome : exactMatchOutcome
+  ExactMatch --> CheckedRecord : checkExactRecord
+  RecordCheck --> CheckedRecord : static project and digest
+  RecordCheck --> Sha256Digest : digest leg after projection
+  ExactMatch --> RuntimeEvent : ABG instance
+  RuntimeEvent --> EventCalculusEffect : effectOf
+  DerivedEffectRule --> EventCalculusEffect : contextual effect
+  EventCalculusEffect --> FoldState : foldStep
+  FoldState *-- HoldsAt
+  HoldsAt o-- RuntimeFluent : holdsAt
+  OwnedProcessFacts --> StructuralRefusal : evidence under stage materialize
+  StructuralRefusal ..> RuntimeEvent : owner maps and ABG admits
+  ExactDefinitionCallable --> DefinitionCall : consumes
+  ExactDefinitionCallable --> DefinitionReturn : returns
+  ExactDefinitionCallable --> DefinitionExecutionFault : substrate fault
+  ExactDefinitionCallable ..> Outcome : admitContract at ingress
+```
+
+### Sequence view
+
+One checked-record read through a prefix-read binding:
+
+```mermaid
+sequenceDiagram
+  participant P as Public
+  participant B as abg/exact_prefix_bindings
+  participant A as shared/admit
+  participant O as ABG reader
+  participant S as shared/select
+  participant V as shared/value
+  P->>B: DefinitionCall into the ExactDefinitionCallable
+  B->>A: admitContract on the resource assertion
+  A-->>B: Outcome ok, or StructuralRefusal
+  B->>O: owner function, called once
+  O->>S: resolveExactMatch over the prefix RuntimeEvent rows
+  S-->>O: ExactMatch of RuntimeEvent
+  O->>S: checkExactRecord with the static RecordCheck
+  S->>V: sha256Canonical of the projected JsonValue
+  V-->>S: Sha256Digest
+  S-->>O: CheckedRecord absent, many, invalid or one
+  O->>O: total map into the owner union
+  O-->>B: owner output
+  B-->>P: DefinitionReturn, or DefinitionExecutionFault on substrate failure
+```
+
+One process failure recovered from the log (§9):
+
+```mermaid
+sequenceDiagram
+  participant L as shared/process
+  participant T as ABG transport adapter
+  participant H as hog/ccall_lifecycle
+  participant E as failTraversal and Event Store
+  participant C as abg/calculus
+  participant R as lifecycle reader
+  L-->>T: OwnedProcessFacts at the terminal
+  T-->>H: Outcome refusal, a StructuralRefusal with OwnedProcessFacts as evidence
+  H->>E: failCCall passes the refusal as the candidate
+  E->>E: admit one RuntimeEvent at the successor prefix
+  E-->>C: RuntimeEvent in prefix order
+  C->>C: effectOf with the axiom table and the DerivedEffectRule table gives EventCalculusEffect
+  C->>C: foldStep gives the next FoldState and its HoldsAt
+  R->>C: holdsAt for actor_process_terminated of processRef
+  C-->>R: RuntimeFluent rows from HoldsAt
+```
+
+### State view
+
+```mermaid
+stateDiagram-v2
+  state "raw unknown" as raw
+  state "admitted JsonValue" as admitted
+  state "refused StructuralRefusal" as refused
+  state "selected ExactMatch one" as selected
+  state "checked CheckedRecord one under RecordCheck" as checked
+  state "derived Sha256Digest or equality" as derived
+  state "owner union" as owner_union
+  [*] --> raw
+  raw --> admitted : admitJson or admitContract gives Outcome ok
+  raw --> refused : Outcome refusal
+  admitted --> selected : resolveExactMatch
+  admitted --> refused : absent or many through exactMatchOutcome
+  selected --> checked : checkExactRecord
+  selected --> refused : CheckedRecord invalid
+  checked --> derived : canonicalEquals or sha256Canonical
+  derived --> owner_union : owner disposition
+  refused --> owner_union : owner disposition, once
+  state binding {
+    state "DefinitionCall admitted" as call
+    state "DefinitionReturn" as returned
+    state "DefinitionExecutionFault" as faulted
+    [*] --> call : ExactDefinitionCallable invoked
+    call --> returned : owner output and receipt valid
+    call --> faulted : substrate failure
+  }
+  state fold {
+    state "FoldState at cut 0" as s0
+    state "FoldState at cut n with HoldsAt" as sn
+    [*] --> s0
+    s0 --> sn : foldStep per RuntimeEvent with EventCalculusEffect from axioms and DerivedEffectRule
+  }
+  state lifecycle {
+    state "RuntimeFluent actor_process_live" as live
+    state "RuntimeFluent actor_process_terminated" as terminated
+    state "RuntimeFluent actor_process_termination_unconfirmed" as unconfirmed
+    [*] --> live : actor_process_started
+    live --> terminated : exit event whose OwnedProcessFacts confirm the boundary
+    live --> unconfirmed : termination unconfirmed event
+  }
+```
+
+The views carry the same carriers and transitions. The cross-view axiom matrix is the design-gate owner's to run.
+
+## 8. Three accounts per family
+
+| Family | Algorithmic | Informational | Computational |
+|---|---|---|---|
+| derive | one canonical traversal (`writeCanonicalJson`); a hash over its parts | RFC 8785 equality on `JsonValue`; a digest identifies admitted bytes | linear in value size; equality may stream both sides to one comparator without a second string, proved byte-equal by P-EQUAL |
+| validate | jsonc-parser tree walk; Valibot `safeParse`; own-key sort | the ingress contract: what the owner may assume afterwards | linear; foreign input parsed once |
+| select | one filter or one indexed lookup | cardinality before value; no first-match authority | full filter or preselected count, declared per call |
+| project | pure fold step; a memoized class with `forkAt` | `HoldsAt` is the only current truth; rules are declared law | incremental suffix fold; cold equals warm (P-FOLD); selected body views are transient and released after the consumer |
+| lift | three binders; one runner | refusals are owner values; faults are substrate | one Effect program per Public call; no nested runner |
+| process | one lifetime per launched process; deadline, grace, drain | termination evidence with uncertainty preserved | Node child process and timers; handles released on every path |
+
+## 9. Recovery from the event log
+
+### 9.1 The law
+
+A runtime fact exists once, as an event in the admitted log `L`. Every consumer derives it by folding `L`. No interface hands a copy of a fact to another interface, and no interface keeps a second store beside `L` that another interface reads back.
+
+The law realizes Product's [live-state law](../../../../specification/PRODUCT.md#live-state-recovery-and-valid-reuse):
+
+```text
+L_next = L ++ newlyCommittedEvents
+S_next = foldStep(S, newlyCommittedEvents)
+recover(P, L, referencedEvidence) == committedRuntimeState(S)
+```
+
+and A5-F10: "replay, not caller memory, derives the result, next execution state, and explanation of workspace change." [Constitution §4.1](ABI5_REALIZATION_CONSTITUTION.md#41-distribution-and-risk-proportionality) binds the realization the same way: crossing a function, module or role boundary alone introduces no serialization or historical reconstruction obligation, and machinery whose sole justification is an unselected deployment or threat model is removed. [FS-13](ABI5_REALIZATION_CONSTITUTION.md#55-axioms) states the reconstruction consequence: "Process-local objects may be evidence but not required authority."
+
+A transport file across a real spawn boundary is lawful: the helper child's `task.json`, `launch.json` and `result.json` cross a process boundary, the parent reads each once and admits it, and no second consumer reads it back as truth.
+
+### 9.2 Worked example: process termination
+
+The fact "the child process is gone" is the `actor_process_lifecycle` rule's fluent `actor_process_terminated(processRef)`. The log carries its primitive events: `actor_process_exited`, `actor_process_termination_unconfirmed`, `actor_process_spawn_failed` and `actor_invocation_failed`. The rule initiates the fluent from those events when the admitted `OwnedProcessFacts` satisfy `hasConfirmedOwnedProcessBoundary`. Every reader calls `holdsAt(state, { kind: "actor_process_terminated", processRef })`. The boolean field `terminationConfirmed` leaves the event payloads and the result artifacts (D5).
+
+The current realization holds the same fact in four forms, which the retirement order removes:
+
+1. Computed at the edge with two formulas: `abg/worker_transport.ts:461` (`scopeAbsence === "absent" && directExit !== null`); `implementation/worksite_command_helper.ts:769` and `:1136` (`scopeAbsence === "absent"`).
+2. Copied interface to interface as a boolean field: `worker_transport.ts:598` and `:630` into the transport observation; `abg/actor_process.ts:1149` into the actor observation that becomes an event payload (`abg/event_store.ts:301` and `:732` list the field); `abg/c_call.ts:2033`, `:2100`, `:3842` and `:6708` into the classified observation and the result artifact; `c_call.ts:6607` compares two copies with each other.
+3. Recomputed from the log by a different rule: `abg/replay.ts:2444` derives it as the presence of `actor_process_exited`, ignoring the copied field and the scope-absence condition.
+4. Consumed from the copies: `abg/transport_contracts.ts:71` and `:76`, `abg/worksite_construction_recovery.ts:228` and `:262`, `validator/qualification.ts:52`, and `abg/invocation_admission.ts:512`, which projects it from the prefix through the copied payload field.
+
+`exitObserved`, `timedOut` and `signalSequence` sit beside `terminationConfirmed` in the same payloads; each leaves the payload where the fold can derive it (D5).
+
+### 9.3 Process failure facts
+
+A process failure reaches the log as a refusal carrier:
+
+1. The owned-process lifetime returns its terminal facts as an `Outcome`, never as a throw. `runProcess` in the worker transport yields `Outcome<ProcessObservation>`; its refusal is a `StructuralRefusal` under stage `materialize` whose evidence carries the `OwnedProcessFacts` fields as JSON values. The first error is the refusal's `evidence.firstError` description, not a rethrown object. The command and HTTP adapters do the same.
+2. `hog/ccall_lifecycle.ts` passes that refusal to `failCCall` as the candidate, and `failTraversal` admits it. The facts are then in `L` once, at the successor prefix, in the event the fold consumes. The `actor_process_effect_refusal` case follows the same path.
+3. Failure inspection is a projection: `holdsAt` over the prefix for the lifecycle fluent, plus the admitted refusal event for the raw facts. It reads no file and retains no reference. `process-failure.json` is not used.
+
+### 9.4 Open instance: held suspensions
+
+`HeldWorkflowSuspension` (`hog/traversal_completion.ts`), `HeldRecursionSuspension` and the `HeldParentTraversalSuspension[]` input of `rehydrateParentReturnFrames` (`hog/parent_rehydration.ts`) carry `parentGraph`, `parentClosureContract`, `parentCCall`, `parentGraphInput`, `parentInput` and `childInput` as in-memory copies across a hold, and `rehydrateParentReturnFrames` rebuilds the return frames from those copies. The law applies: a hold is an event, and a return frame is a projection at the prefix. Whether `application` and `sourceCursor` are recoverable from events is not yet traced, so this instance has its own design re-entry after row 5 of §10.1.
+
+## 10. Retirement order, decisions and proofs
+
+### 10.1 Retirement order
+
+| Row | Change | Retires (census) | Depends on |
+|---|---|---|---|
+| 1 | `shared/refusal.ts`; the three moves of §2 | the three upward imports | nothing |
+| 2 | `shared/admit/`: `isRecord`, `hasExactKeys`, `admitJson`, `admitContract`, `admitRef` | 5 NUL-joined bodies, 5 typed record aliases, 32 inline guards as touched, inline `v.safeParse` in `bindStaticOwner` | nothing |
+| 3 | `shared/value/`: `canonicalEquals`, `writeCanonicalRecord` | 12 `sameCanonical*` bodies, 39 inline comparisons, 3 record writers | row 2, for ingress of `unknown` comparands |
+| 4 | `shared/select/`: `exactMatchCardinality`, `onlyExactMatch`, `exactMatchOutcome`, `checkExactRecord` | 2 local `one()` helpers, the private checked-record helpers, then the private algorithms of the 74 readers | row 1 |
+| 5 | `abg/calculus/`: `effectOf`, `foldStep`, `holdsAt`, `ROOT_DERIVED_RULES` with its four rules; `advance` rewritten over `foldStep` | the inline census, cleanup and liveness branches in `advance`; the lifecycle re-derivations in `actor_process.ts`, `replay.ts` and `runtime_liveness.ts`; every reader of a copied lifecycle field | D1 |
+| 6 | `shared/process/`: `hasConfirmedOwnedProcessBoundary`; process failure facts as a refusal carrier into `failTraversal` (§9.3); lifecycle payload copies replaced by the fluent | the divergent scope-absence reading in command and HTTP; the throw path of the facts; `terminationConfirmed` and its derivable siblings in payloads and artifacts | row 5, D5 |
+
+Rows 1 to 4 and 6 are each one `realization_refactor` under this design. Row 5 moves contextual effects from `advance` into the declared rule table and is a `design_reframe` of the Event Calculus realization. Rows 1 to 4 remove bodies and add only the atoms of §4; row 5 removes four lifecycle derivations and adds one table.
+
+### 10.2 Decisions
+
+- **D0, process failure facts.** Process failure facts enter `L` through the refusal carrier of §9.3. No adapter retains the facts for another interface, no failure file is written beside the attempt archive, and no inspector reads one back.
+- **D1, contextual effects.** `ROOT_DERIVED_RULES` carries every contextual Event Calculus effect: the terminal Run census, per-process cleanup, liveness and the actor process lifecycle. `advance` holds no contextual branch. This realizes the IACS's `RuntimeDerivedFluentRule`.
+- **D2, digest order.** The digest leg of `checkExactRecord` runs after projection: `expected(event, value)` and `actual(value)` consume the projected value.
+- **D3, composite comparisons.** The two native composite comparisons are ingress questions: their owner admits each side to `JsonValue` through `admitContract` or `admitJson`, or refuses. No equality variant or encoder parameter exists for them.
+- **D4, throwing I-JSON entry.** The throwing entry of `i_json.ts` is a lift over `admitJson` (admit, then throw on refusal) until no caller remains; it is then retired. New callers use `admitJson`.
+- **D5, payload copies.** `terminationConfirmed` leaves `actor_*` event payloads and result artifacts through a new root event contract profile; recorded stores keep the legacy profile digest (`LEGACY_ROOT_EVENT_CONTRACT_DIGEST` in `abg/event_contract_profiles.ts`). `exitObserved`, `timedOut` and `signalSequence` follow where the fold derives them.
+
+### 10.3 Owner obligations
+
+| Obligation | Required owner decision and affected proof |
+|---|---|
+| O-TYPE | Closed by D3: equality comparands are typed `JsonValue` from ingress, with no moved casts, omitted data or unproved `JsonValue` intersections. Strict compile-negative lazy-view and function-member cases remain rejected. |
+| O-RESOURCE | The seven self-comparison encodability probes and unknown `requiredSlot` or coordinate inputs require existing checked data or resource and handle premises, preserving absent, false, null and error outcomes. An equality probe is not admission. |
+| O-SHAPE | Shallow guard bodies retired into `isRecord` and the seven shape-wrapper consumers preserve unknown members until the actual schema or member owner narrows them. No recursive validator runs at each read. |
+| O-CODEC | Restored unknown event bodies remain for later Event Store validation; truthful parser and data types do not move event admission into a shallow check. |
+| O-SCHEMA | The default-library shallow custom JSON schema and the nullable project-read adapter need an actual ingress or refusal decision. The concrete collided-key refusal is selected; it does not close broader JSON membership. No blanket stricter I-JSON policy. |
+| O-KEY | Each NUL-joined body retired into `hasExactKeys` binds its owner's valid, collided and noncollided outcomes and actual refusal. For `product/default_library.exactKeys`, valid existing results remain true and the collided or inherited `basis`/`judgment` form is rejected. |
+| E04 | Outside the library: a new parser or filesystem traversal capability needs exact node, path, link, partial-write and archive-domain foundation and cost evidence. The Product payload inventory and the execution-root inventory remain distinct contracts. |
+
+### 10.4 Owner distinctions the library preserves
+
+| Subject | Distinction and preservation obligation |
+|---|---|
+| Product declaration closure (`product/declaration_closure.ts::locateRequired`) | `select` may decide eligible multiplicity; `all.length === 0 → absent`, and no eligible result → `missing_dependency`, stay Product-owned. Dependency closure, source provenance and executable resolution stay with Product resolution. No generic graph or dependency algorithm is added. |
+| Definition bindings and installed run entry | Consume the three binders where their exact domain fits; keep irreducible Product and ABG composition. A custom body is removed only after its physical effects, receipt and currentness and refusal branches have an exact binder correspondence. |
+| Event body storage and native instruction assembly | Distinct codec and context-selection contracts. Codec reconstruction restores every logical field; context projection conserves required sources, role qualifications, actual current input and readable content. Body savings cannot justify semantic omission. |
+| `deepFreeze`, I-JSON capture, event capture and immutable closure | Distinct alias, admission and lifetime relations, composed explicitly. No universal `immutable<T>` brand or cache. Detached value, recursively frozen inspection, owner-authenticated value and current observation remain separate predicates. |
+| Installation and artifact admission | Reuse the ordered composition [install_definition_bindings.ts](../code/src/product/install_definition_bindings.ts) → `installProductInResolvedLock` → [admitProductInstallInResolvedLock](../code/src/abg/environment_admission.ts) → exact artifact projection and receipt. Physical success may precede admission refusal. A previously admitted install is reused only under its original identity and support. |
+
+### 10.5 Proofs
+
+ASSURANCE §13 whole-path proofs are marked.
+
+- **P-EQUAL:** `canonicalEquals(a, b)` equals `canonicalJson(a) === canonicalJson(b)` over a generated `JsonValue` corpus including `-0`, nested keys out of order and empty containers.
+- **P-INGRESS:** no `derive` or `select` export takes `unknown`; `tsc --noEmit` plus a lint rule on the two directories.
+- **P-KEYS:** `hasExactKeys` agrees with set equality on own string keys; a NUL in a key is the counterexample the retired bodies fail.
+- **P-SELECT:** `resolveExactMatch` cardinality equals the filter-length classification for every source kind.
+- **P-RECORD (whole path):** both malformed null-digest partitions yield `invalid`; the execution-basis adapter maps `invalid` to its existing refusal.
+- **P-FOLD:** for every admitted prefix in the T120 and replay fixtures, `advance` and `foldStep*` yield identical `holds`, `clippedFluentRefs` and `declippedPatternRefs`; cold replay equals warm fork at every cut.
+- **P-LIFECYCLE (whole path):** counterexamples A and B as tests over the rule; for a no-child launch failure, `holdsAt` reports no `actor_process_terminated` on worker, command and HTTP alike, and no file is read; no module outside `abg/calculus/` computes or copies a lifecycle boolean.
+- **P-BIND:** the three binders typecheck and behave unchanged after the `admitContract` substitution; exactly one `Effect.run*` site remains.
+- **P-LAYER:** a search for upward imports from `shared/` returns none.
+
+## 11. Source-to-library-to-outcome paths
+
+These are reconstructible design paths, not executed traces. Route labels:
+
+| Label | Modules | Operator |
 |---|---|---|
-| D01 | Canonical collected text and streaming digest already share one writer. **Consume** it throughout the named Product/event/context paths. | K02; no second serialization implementation or owner-independent preimage normalizer. Prove same bytes for the affected admitted domain and retain source-specific historical edge behavior. |
-| D02 | **Consolidate C2’s 24 finite simple equality bodies** through the typed text/digest callables and explicit throw/false projections. Preserve the already selected coordinate contraction. | K02; actual owner/type proof is required under O-TYPE/O-RESOURCE. The installed method closure preserves lookup/receiver. Two native composite classifications stay OPEN, not retained by default. |
-| D03 | **Consolidate C3’s 13 local exactly-one helpers** through common cardinality/selection/value projection. Retain the five existing common calls. | K04; full original filter versus O(1) preselected count remains explicit. Preserve duplicates, predicate order/throws, exact owner null/error projection, Result identity and justified ordered-first raw controls. |
-| D04 | **Consolidate C5’s five shared plus 38 local shallow guards and five shared plus one private NUL key body**, with the finite owner obligations in §9. The earlier exact-key entrypoint source contraction remains. | K01; unknown members remain unknown, typed wrappers delegate, and exact-own-key checking has one mechanic. Missing admitted-domain proof does not justify NUL retention. The default-library collided/inherited form is explicitly selected for false/refusal; other O-KEY/O-SCHEMA decisions remain open. |
-| D05 | `declaration_closure.ts::locateRequired` selects all matching declarations and eligible reachable declarations. **Compose/retain owner decision**, not replace wholesale with generic exact-one. | K04 may decide eligible multiplicity; `all.length === 0 → absent`, otherwise no eligible result → `missing_dependency` stays Product-owned. Dependency closure, source provenance and executable resolution reuse K07. No generic graph/dependency algorithm addition is selected. |
-| D06 | Definition bindings, installed run entry and read/transition wrappers share structural admission and receipt checking. **Consume** K05's three binders where their exact domain fits; keep irreducible Product/ABG composition. | Fixed imported owner and concrete contracts; no fourth binder or per-definition interpreter. A custom body is only removed after its physical effects, receipt/currentness and refusal branches have an exact existing-binder correspondence. No blanket “all bindings already converted” claim. |
-| D07 | **Consolidate C3 checked singleton record/digest mechanics and C1 lifecycle decisions** while consuming existing authenticated history/index/resource owners. | K08/K09; preserve raw/owned/prospective distinctions, malformed singleton versus absence, owner joins, output identity, exact cut/dependency stamps, current/cold/fork behavior and sole EC truth. No broad dependency acquisition or per-cause cost improvement is claimed. |
-| D08 | Body storage and native instruction assembly both reuse immutable definitions but have different outputs. **Consume** K10 for storage and existing K11 bookkeeping inside its owner; **retain distinct** codec and context selection contracts. | Codec reconstruction restores every logical field. Context projection independently conserves required sources, role qualifications, actual current input and readable content. Body savings cannot justify semantic omission. |
-| D09 | `deepFreeze`, I-JSON capture, event capture and immutable closure reuse address different alias/admission/lifetime relations. **Retain distinct, compose explicitly** through K03/K07/K10. | No substitute “immutable<T>” brand or universal cache. Detached value, recursively frozen inspection, owner-authenticated value and current observation remain separate predicates. |
-| D10 | **Consume existing shared physical lifetime and complete accepted C1/cross-consumer failure and lifecycle consolidation.** Three canonical stream framers are separately selected C4 targets. | K12/K02; original cause plus immutable final facts must cross every selected adapter, with concrete failure-side inspection. C1 removes the competing EC/projector law and shares the identical physical guard/type fields. Inventory/parser factoring remains E04; no protocol, result or ABG authority moves. |
-| D11 | Installation and artifact admission are used by many features. **Reuse their ordered composition**, not a fictitious all-or-nothing common transaction. | [install_definition_bindings.ts](../code/src/product/install_definition_bindings.ts) → `installProductInResolvedLock` → [admitProductInstallInResolvedLock](../code/src/abg/environment_admission.ts) → exact artifact projection/receipt. Physical success may precede admission refusal. Reuse a previously admitted install only under its original identity/support; changing invocation labels cannot create another install truth. |
-
-D02–D04/D07/D10 now bind the finite selected C1–C5 contracts and retirement maps, beyond the original small contractions. D05/D06/D08/D09/D11 preserve their demonstrated owner distinctions and reusable construction basis; they do not certify all callers as consolidated. The complete selected library must satisfy Product’s prerequisite boundary. Optional 5.1 compression applies outside this selection. This document grants no implementation effects.
-
-## 7. Source-to-library-to-outcome paths
-
-These are reconstructible design paths, not executed traces.
+| `admit`, `value`, `select`, `binding`, `calculus`, `process` | the library modules of §2 | per §2 |
+| `partition` | [rooted_topology_partition.ts](../code/src/shared/rooted_topology_partition.ts) | derive |
+| resolution | Product [declaration_closure.ts](../code/src/product/declaration_closure.ts), [execution_resolution.ts](../code/src/product/execution_resolution.ts), [implementation_resolution.ts](../code/src/product/implementation_resolution.ts), [installed_module.ts](../code/src/product/installed_module.ts) | owner derive and select |
+| history | ABG [event_prefix.ts](../code/src/abg/event_prefix.ts), [runtime_history.ts](../code/src/abg/runtime_history.ts), [runtime_derivation.ts](../code/src/abg/runtime_derivation.ts), [replay.ts](../code/src/abg/replay.ts) | owner project |
+| store | ABG [event_store.ts](../code/src/abg/event_store.ts), [definition_event_resource.ts](../code/src/abg/definition_event_resource.ts) | admit |
+| codec | ABG [event_body_encoding.ts](../code/src/abg/event_body_encoding.ts) | owner derive |
+| assembly | ABG [instruction_assembly.ts](../code/src/abg/instruction_assembly.ts), [execution_basis.ts](../code/src/abg/execution_basis.ts); Implementation [contracts.ts](../code/src/implementation/contracts.ts), [leaf_invocation_port.ts](../code/src/implementation/leaf_invocation_port.ts) | owner derive and project |
+| effect | Product [verify_product.ts](../code/src/product/verify_product.ts), [install_product.ts](../code/src/product/install_product.ts), [workspace_operations.ts](../code/src/product/workspace_operations.ts), [materialization_operations.ts](../code/src/product/materialization_operations.ts); ABG [worker_transport.ts](../code/src/abg/worker_transport.ts), [actor_process.ts](../code/src/abg/actor_process.ts); Implementation [worksite_command_helper.ts](../code/src/implementation/worksite_command_helper.ts) | materialize |
 
 | Path | Current source route and common capabilities | Outcome and irreducible remainder |
 |---|---|---|
-| Exact install and later reuse | [install binding](../code/src/product/install_definition_bindings.ts) → K01/K02/K05 request/resource checks → K09 acquisition → K12 Product verification/install → ABG environment admission → K08 artifact projection → resource receipt. Later K07 resolution consumes the exact valid installed dependency. | Physical installed candidate, admission result and usable resolved install are distinct. An existing same-content install with another occurrence must be lawfully reused or refused under owner rules; it cannot be relabeled to satisfy a new invocation. |
-| Installed graph invocation and native work | [run owner](../code/src/owner_bindings/run_invocation.ts) → K05/K09 → K07 exact resolution → ABG invocation admission → [HoG fold](../code/src/hog/graph_execute.ts) → K11 exact current-input preparation → K12 actor/worksite execution → mandatory owner observation/assessment → ABG result admission → K08 current facts → next declared consumer. | Reuses the same value, selection, binding, resource and history mechanisms across producer and consumer. GTL topology, F_D/F_P/F_H authority, actual observed work and independent assessment remain distinct. |
-| Retry/continuation | K08 exact current prefix → [GTL source path](../code/src/gtl/source_path.ts) → K06 rooted partition → [ABG retry](../code/src/abg/retry.ts) constructs predecessor-linked progress/route candidates → K09 atomic admission → same HoG traversal → K08 fresh projection. | Reuse the same partition for production and route verification. Target selection, retry allowance, attempt lineage, child/parent meaning and terminal closure remain owner decisions. |
+| Exact install and later reuse | [install binding](../code/src/product/install_definition_bindings.ts) → `admit`, `value` and `binding` request and resource checks → store acquisition → effect: Product verification and install → ABG environment admission → history and `calculus` artifact projection → resource receipt. Later resolution consumes the exact valid installed dependency. | Physical installed candidate, admission result and usable resolved install are distinct. An existing same-content install with another occurrence must be lawfully reused or refused under owner rules; it cannot be relabeled to satisfy a new invocation. |
+| Installed graph invocation and native work | [run owner](../code/src/owner_bindings/run_invocation.ts) → `binding` and store → resolution → ABG invocation admission → [HoG fold](../code/src/hog/graph_execute.ts) → assembly: exact current-input preparation → effect: actor and worksite execution with `process` facts → mandatory owner observation and assessment → ABG result admission → `calculus` current facts → next declared consumer. | Reuses the same value, selection, binding, resource and history mechanisms across producer and consumer. GTL topology, F_D/F_P/F_H authority, actual observed work and independent assessment remain distinct. |
+| Retry/continuation | history and `calculus` exact current prefix → [GTL source path](../code/src/gtl/source_path.ts) → `partition` → [ABG retry](../code/src/abg/retry.ts) constructs predecessor-linked progress and route candidates → store atomic admission → same HoG traversal → `calculus` fresh projection. | Reuse the same partition for production and route verification. Target selection, retry allowance, attempt lineage, child/parent meaning and terminal closure remain owner decisions. |
 
 ### Sequence view: prepared native work
 
@@ -355,27 +625,27 @@ stateDiagram-v2
   RecoveryRequired --> Prepared: lawful re-entry on authenticated actual prefix and new evidence
 ```
 
-This is the combined relation, not a new persisted state machine. Read-only acquisition may complete unchanged without performing a semantic transition. Pure K01–K07 operations do not require ABG lifecycle events. `RefusedBeforeEffect` is valid only when no relevant effect occurred. `UnadmittedResidue` applies only when the attempted admission established no successor; a refusal accompanied by admitted diagnostic events preserves that actual successor.
+This is the combined relation, not a new persisted state machine. Read-only acquisition may complete unchanged without performing a semantic transition. Pure library atoms and Product resolution do not require ABG lifecycle events. `RefusedBeforeEffect` is valid only when no relevant effect occurred. `UnadmittedResidue` applies only when the attempted admission established no successor; a refusal accompanied by admitted diagnostic events preserves that actual successor.
 
 [Static binders](../code/src/shared/static_definition_bindings.ts) execute the owner before validating receipts and owner output. The run owner's `finish` passes its computed final prefix to [`completeAbgEventResource`](../code/src/abg/definition_event_resource.ts), which either completes a borrowed held resource or calls `closeAbgEventResource`. Receipt/output failure after admission, direct-finalizer failure and later held-finalizer failure therefore preserve the admitted successor. Physical close may itself have occurred before a receipt becomes unavailable or invalid. Recovery conserves those known facts and any unresolved physical state, reacquires the actual admitted prefix when needed, and never infers rollback, successful handoff or permission to repeat native work from a missing receipt.
 
-Cross-view checks bind the same identities, typed handoffs, authority, effect order, current/historical support and resource owner. Whole-family Prime review considers identity, topology, lifecycle, admission, effects and closure as well as functions/carriers. This candidate proposes no new semantic atom; retained common mechanics and owner relations still require review against their declared domains. No global minimality or completed Prime contraction claim follows from the catalog.
+Cross-view checks bind the same identities, typed handoffs, authority, effect order, current/historical support and resource owner. Whole-family Prime review considers identity, topology, lifecycle, admission, effects and closure as well as functions and carriers.
 
-## 8. Finite coverage and execution obligations
+## 12. Finite coverage and execution obligations
 
-The finite coverage unit is a selected capability contract × concrete consumer mapping × material case partition. A counterexample in that domain re-enters the shared relation and every affected consumer, rather than authorizing a feature-local fork. New domains require explicit admission; no universal source-wide exhaustiveness is claimed.
+The finite coverage unit is a library family or owner route × concrete consumer mapping × material case partition. A counterexample in that domain re-enters the shared relation and every affected consumer, rather than authorizing a feature-local fork. New domains require explicit admission; no universal source-wide exhaustiveness is claimed.
 
 | Obligation set | Finite cases and falsifiers |
 |---|---|
-| V1 values/equality/selection, K01–K04 | Each declared value/refusal variant; missing/extra/NUL-containing keys; unsafe/non-finite numbers; sparse versus admitted dense arrays; already-frozen shell/alias behavior; equal/unequal canonical text and ref/digest pairs; zero/one/multiple/duplicate matches; throwing predicate/sink. Falsifier: changed accepted input set, output byte, multiplicity, failure channel or identity. |
-| V2 static composition, K05 | Each of three binders; exact/wrong packet, resource and receipt; unchanged read; same-store successor; held completion; owner success/refusal/fault/interruption; malformed output after effects. Falsifier: second owner call, new fallback/controller, erased resources, changed effect order or lost residue. |
-| V3 algebra/structure, K06 and HoG | All seven C constructors and each retained graph relation through its owning proof; partition identity/ancestor/descendant/lateral and all five refusal codes; retry bounds/attempt lineage, child result/foldback, batch partial/unstarted cases. Falsifier: hidden callable constructor, duplicate walker or mismatched source-to-execution edge. Existing proof is reused only on unchanged support. |
-| V4 exact resolution, K07 | Empty/multi-Program view and exact execution selection; absent/ambiguous/wrong owner/missing dependency; immutable same-input reuse, copied/mutated input and changed dependency; call-local preparation versus next-call fresh acquisition. Falsifier: catalog presence treated as authority or a stale/foreign closure consumed. |
-| V5 history/resource/codec, K08–K10 | Held/warm versus copied/cold; current versus historical; relevant versus unrelated history growth; exact/scope-crossed/profile-changed prefix; committed/prospective/rolled-back state; selected versus complete bodies; raw/v1/v2; inline/reference including missing/forward/foreign/chained/mixed references; close/abandon/poison/failed append. Falsifier: different logical truth, missing full output, retained unbounded decoded history or reused invalid support. |
-| V6 context/effect, K11–K12 | Current producer input versus entry input; available/missing/stale/over-bound required content; role/source qualifications; native success/invalid output/timeout/unavailable actor; POSIX versus Windows evidence; physical success with failed ABG admission; required post-observation unavailable; retained producer with failed consumer preparation. Falsifier: context omission, attributed wrong result, false termination, invented rollback/currentness or unperformed assessment reported as a result. |
+| V1 values, equality and selection: `admit`, `value`, `select` | Each declared value/refusal variant; missing/extra/NUL-containing keys; unsafe/non-finite numbers; sparse versus admitted dense arrays; already-frozen shell/alias behavior; equal/unequal canonical text and ref/digest pairs; zero/one/multiple/duplicate matches; throwing predicate/sink. Falsifier: changed admitted input set, output byte, multiplicity, failure channel or identity. |
+| V2 static composition: `binding` | Each of three binders; exact/wrong packet, resource and receipt; unchanged read; same-store successor; held completion; owner success/refusal/fault/interruption; malformed output after effects. Falsifier: second owner call, new fallback/controller, erased resources, changed effect order or lost residue. |
+| V3 algebra and structure: `partition` and HoG | All seven C constructors and each retained graph relation through its owning proof; partition identity/ancestor/descendant/lateral and all five refusal codes; retry bounds/attempt lineage, child result/foldback, batch partial/unstarted cases. Falsifier: hidden callable constructor, duplicate walker or mismatched source-to-execution edge. Existing proof is reused only on unchanged support. |
+| V4 exact resolution: resolution | Empty/multi-Program view and exact execution selection; absent/ambiguous/wrong owner/missing dependency; immutable same-input reuse, copied/mutated input and changed dependency; call-local preparation versus next-call fresh acquisition. Falsifier: catalog presence treated as authority or a stale/foreign closure consumed. |
+| V5 history, resource and codec: history, `calculus`, store, codec | Held/warm versus copied/cold; current versus historical; relevant versus unrelated history growth; exact/scope-crossed/profile-changed prefix; committed/prospective/rolled-back state; selected versus complete bodies; raw/v1/v2; inline/reference including missing/forward/foreign/chained/mixed references; close/abandon/poison/failed append. Falsifier: different logical truth, missing full output, retained unbounded decoded history or reused invalid support. |
+| V6 context and effect: assembly, effect, `process` | Current producer input versus entry input; available/missing/stale/over-bound required content; role/source qualifications; native success/invalid output/timeout/unavailable actor; POSIX versus Windows evidence; physical success with failed ABG admission; required post-observation unavailable; retained producer with failed consumer preparation. Falsifier: context omission, attributed wrong result, false termination, invented rollback/currentness or unperformed assessment reported as a result. |
 | V7 whole path and cost | One selected actual installed producer→consumer path, retained work, close/reopen and fresh read, plus its negative/partial-effect discriminator. Record startup/acquisition counts, bytes read/hashed/encoded/written, decoded bodies, selector/suffix work, live/peak memory, native calls, wall/CPU time and material install/temp footprint. Falsifier: savings only move repeated work to another stage, changed source/basis, or endpoint proof omits the failing boundary. |
 
-V1–V7 are execution/assessment obligations. No tests, builds, native calls or performance measurements were performed for this design activity. The existing [computational binding's evidence boundary](ABI5_STDO3_COMPUTATIONAL_BINDING.md#7-computational-realization-and-whole-path-work) and prior source/component proofs retain their exact subjects. They do not become STDO 3 installed qualification by citation.
+V1 to V7 are execution and assessment obligations; this design records no executed test, build, native call or measurement. The existing [computational binding's evidence boundary](ABI5_STDO3_COMPUTATIONAL_BINDING.md#7-computational-realization-and-whole-path-work) and prior source/component proofs retain their exact subjects. They do not become STDO 3 installed qualification by citation.
 
 For method assessment, declare the predicate and support first. A valid evaluation that proves wrong/missing/crossed submitted basis falsifies admissibility. An attempted evaluation whose own required basis is incoherent is `invalid_basis`; a performed admissible evaluation with insufficient evidence is `indeterminate`; an evaluation not performed because its actor/tool is unavailable has no result. Runtime refusal/transport tags, host exit codes and physical termination do not map globally to method results or Product completion.
 
@@ -383,47 +653,26 @@ For method assessment, declare the predicate and support first. A valid evaluati
 
 | Family | Library routes | Owner outcome retained |
 |---|---|---|
-| A5-F01 | K01–K05, K07, K09, K12 | Exact verification/install/workspace and pure readiness catalog. |
-| A5-F02 | K01–K04, K06–K07 | Complete retained GTL typing, raw admission, serialization and Program law. |
-| A5-F03 | K04–K09, K11–K12 | Every retained graph/C/traversal relation with exact call and parent/child conservation. |
-| A5-F04 | K01–K05, K08, K10–K12 | Declared context, actual attributed F_P output and admission integrity. |
-| A5-F05 | K01–K05, K07 | One typed Public definition authority and exact derived projections. |
-| A5-F06 | K04–K05, K07–K09, K12 | Thin installed SDK/CLI; no adapter continuation controller. |
-| A5-F07 | K01–K05, K07–K12 | Distinct One Surface authorities, fresh evidence and admitted consequence. |
-| A5-F09 | K01–K05, K07 | Pure catalog readiness/narrowing and exact callable/start membership. |
-| A5-F10 | K01–K06, K08–K12 | ABG causal runtime truth, currentness, continuation and closure. |
-| A5-F11 | K01–K05, K07–K11 | Authentic independent self-conformance and explicit uncovered obligations. |
-| A5-F13 | K01–K05, K07, K09, K12 | Source-blind native operation through the same Public owners. |
-| A5-F14 | K01–K12 as traversed | Independently authored installed mechanics/live F_P witness and oracle. |
-| A5-F15 | K01–K05, K07–K12 | Exact candidate/law/assessment subject and sole qualification authority. |
-| A5-F16 | K01–K05, K07–K09, K12 | Immutable publication, installed-RC proof and actual human acceptance. |
-| A5-F17 | K01–K12 as traversed | Original source→working outcome→independent evaluation→consequential correction. |
+| A5-F01 | `admit`, `value`, `select`, `binding`; resolution; store; effect, `process` | Exact verification/install/workspace and pure readiness catalog. |
+| A5-F02 | `admit`, `value`, `select`, `partition`; resolution | Complete retained GTL typing, raw admission, serialization and Program law. |
+| A5-F03 | `select`, `binding`, `partition`; resolution; history, `calculus`; store; assembly; effect, `process` | Every retained graph/C/traversal relation with exact call and parent/child conservation. |
+| A5-F04 | `admit`, `value`, `select`, `binding`; history, `calculus`; codec; assembly; effect, `process` | Declared context, actual attributed F_P output and admission integrity. |
+| A5-F05 | `admit`, `value`, `select`, `binding`; resolution | One typed Public definition authority and exact derived projections. |
+| A5-F06 | `select`, `binding`; resolution; history, `calculus`; store; effect, `process` | Thin installed SDK/CLI; no adapter continuation controller. |
+| A5-F07 | `admit`, `value`, `select`, `binding`; resolution; history, `calculus`; store; codec; assembly; effect, `process` | Distinct One Surface authorities, fresh evidence and admitted consequence. |
+| A5-F09 | `admit`, `value`, `select`, `binding`; resolution | Pure catalog readiness/narrowing and exact callable/start membership. |
+| A5-F10 | `admit`, `value`, `select`, `binding`, `partition`; history, `calculus`; store; codec; assembly; effect, `process` | ABG causal runtime truth, currentness, continuation and closure. |
+| A5-F11 | `admit`, `value`, `select`, `binding`; resolution; history, `calculus`; store; codec; assembly | Authentic independent self-conformance and explicit uncovered obligations. |
+| A5-F13 | `admit`, `value`, `select`, `binding`; resolution; store; effect, `process` | Source-blind native operation through the same Public owners. |
+| A5-F14 | every library module and owner route, as traversed | Independently authored installed mechanics/live F_P witness and oracle. |
+| A5-F15 | `admit`, `value`, `select`, `binding`; resolution; history, `calculus`; store; codec; assembly; effect, `process` | Exact candidate/law/assessment subject and sole qualification authority. |
+| A5-F16 | `admit`, `value`, `select`, `binding`; resolution; history, `calculus`; store; effect, `process` | Immutable publication, installed-RC proof and actual human acceptance. |
+| A5-F17 | every library module and owner route, as traversed | Original source→working outcome→independent evaluation→consequential correction. |
 
 This routes coverage without claiming every occurrence consolidated or every family qualified. F08/F12, native human response/resume and other [reserved 5.1 behavior](../../../../specification/PRODUCT.md#50-and-51-release-boundaries) are not reintroduced. Full Data Mapper delivery and all seven sandbox workloads are not additional library or 5.0 release gates.
 
-## 9. Remaining decisions and finite realization sequence
+## 13. Conformance claimed and not claimed
 
-Root accepts the bounded contracts in §1.1 after the closed reviews and their literal corrections. The following finite owner decisions remain OPEN. Their presence is not a retained-variant justification or automatic 5.1 deferral; the affected migration cannot be called source-ready until its owning relation closes.
+Claimed: functional bias (immutable carriers, one explicit failure carrier, ingress collapse, small transforms, no effectful helper that decides meaning); atomic families with closed variants; higher-order categories named with laws; Prime atoms with domains and falsifiers; an irreducible carrier set with its promotion test; three accounts; three views; the recovery law of §9; constitution axioms FS-11, FS-12, FS-13, FS-15, FS-17, FS-18, FS-19 and FS-20 respected (no registry, no callback, no fourth binder, no foundation reproduction; Effect reused through the existing ABI only); ODD §11.5B (no library surface owns traversal, actor invocation, retry, event append or closure).
 
-| Open obligation | Required owner decision and affected proof |
-|---|---|
-| O-TYPE | Truthful JSON data types for all 24 selected equality bodies and their definition/publication/basis/scope/cursor/result producers, with no moved casts, omitted data or unproved `JsonValue` intersections. Strict compile-negative lazy-view/function-member cases must remain rejected. |
-| O-RESOURCE | The seven self-comparison encodability probes and unknown `requiredSlot`/coordinate inputs require existing checked data or resource/handle premises, preserving absent/false/null/error outcomes. An equality probe is not admission. |
-| O-SHAPE | Five shared plus 38 local shallow bodies and seven shape-wrapper consumers must preserve unknown members until the actual schema/member owner narrows them. No recursive validator at each read. |
-| O-CODEC | Restored unknown event bodies remain for later Event Store validation; truthful parser/data types do not move event admission into a shallow check. |
-| O-SCHEMA | Existing default-library shallow custom JSON schema and nullable project-read adapter need an actual ingress/refusal decision. The concrete collided-key refusal is selected but does not close broader JSON membership. No blanket stricter I-JSON policy. |
-| O-KEY / E01 | Five shared plus one private NUL bodies have finite owner/caller rows. Bind valid, collided and noncollided outcomes and actual refusal. The default-library valid-true/collided-inherited-false correction is selected; other owner decisions/proof remain open. The prior honest NUL export rename is retained source, not full E01 closure. |
-| Two native composite classifications | Name a supported input/outcome distinction for identity/deep-strict/canonical compositions, or select common replacement with owner proof. No unproved “retain” disposition. |
-| E04 filesystem/archive factoring | Outside the selected C1–C5 addition, any proposed new parser/traversal capability still needs exact node/path/link/partial-write and archive-domain foundation/cost evidence. Existing distinct Product and execution-root inventories remain; no new framework is selected. |
-
-E02’s former deferral of simple equality and E03’s former undecided physical-lifetime extraction are superseded by §1.1’s finite selections. They do not block reuse of the existing common lifetime or excuse competing lifecycle/failure boundaries. General unknown-object equality, shared dependency solvers and library-wide caches remain unselected. The lifecycle S2/Root P1 delivery blocker remains open in implementation: the accepted single law must replace the source disagreement and live-Process-only cleanup census. Source counterexamples do not claim an executed false Run closure.
-
-Finite delivery order:
-
-1. Preserve the closed frame reviews, literal corrections and exact bounded design acceptances in the [Root conjunction](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md). No new broad design-review campaign is selected.
-2. Resolve the remaining finite value owner/type decisions. Root may separately activate dependency-ready C1/cross-consumer source while those decisions continue; C3 requires the accepted truthful C5 wrapper contract. No source effect follows from this document, and an open owner boundary holds its affected migration.
-3. Complete the separately granted source increments and actual consumer/body retirement, preserving earlier five source cuts and unchanged evidence. Conjoin the required source and owner relations before constructing one combined isolated candidate; main generated936 remains protected.
-4. Under a later exact grant, verify affected finite contract/type/refusal cases and the earliest installed producer-to-consumer discriminator, including partial effects, actual inspection, close/reopen and fresh read. Combined build, P1/P5/P4 and dependent execution remain HELD until that conjunction. An integration failure returns to Root triage; no automatic retry follows.
-5. Record actual contraction and whole-path work, independently assess the delivered exact subject and record L5 acceptance. Only then resume remaining fifteen-family release integration, lifecycle, F11/sole AF22, qualification and human release acceptance. Performance and the P5 timeout’s cause remain unproved.
-
-Exhaustive design within this finite selection requires an owner, callable/consumer/deletion route and disposition for every material admitted case. The taxonomy does not predict execution; accepted bounded design and static source readiness do not discharge execution, library delivery or ABG 5.0 release obligations.
+Not claimed: the design-gate verdict, which is the owner's; any runtime proof; measured savings; installed outcomes; L5 delivery or release.

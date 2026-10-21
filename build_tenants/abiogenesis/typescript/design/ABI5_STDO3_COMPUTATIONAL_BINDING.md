@@ -17,8 +17,8 @@ factors current computations into reusable capabilities with actual
 foundation, owner and consumer bindings so new feature work composes an
 established computational basis. Coverage and explicit obligations guide that
 factoring; execution and independent assessment establish actual outcomes.
-The eight operator classes below are classifications, not a sufficient
-library specification or a mandate for eight new generic callables.
+§4 binds the eight operator classes to the exported atoms and modules that
+realize them.
 
 The binding names all fifteen selected Product families for coverage. Its active design reconciliation is the causally connected preparation, definition reuse, authenticated history, current-state projection, native-material, retained-work and continuation boundary. Other accepted boundaries retain their owning design and evidence. Their presence in the routing table is not a new acceptance of every implementation or proof.
 
@@ -79,20 +79,20 @@ Subordinate payloads inherit their owner's lifecycle; no extra peer entity is im
 
 ### Existing operator classes
 
-The following instantiates [constitution §5.6.1](ABI5_REALIZATION_CONSTITUTION.md#561-closed-operator-algebra). Each actual operation binds its exact owner type, basis and refusal family; the class name is not a new callable or semantic atom.
+The eight operator classes of [constitution §5.6.1](ABI5_REALIZATION_CONSTITUTION.md#561-closed-operator-algebra) are exported function signatures. Named atoms in named modules realize each class. The [common library design](ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#4-atomic-function-families) owns the library atoms and their laws; each owner keeps its exact type, basis and refusal family.
 
-| Class | Typed relation | Admitted-domain decision |
-|---|---|---|
-| `select` | finite sequence × predicate → absent / exact / ambiguous | Preserve multiplicity until zero/one/many is known; never first-match, set-collapse or fallback authority. |
-| `validate` | raw/declaration subject × exact contract → admitted validation / refusal | Refuse before prohibited construction/effect; no silent repair. Local, raw and whole-Program checks retain distinct domains. |
-| `derive` | exact immutable inputs → immutable value / refusal | Pure Catalog/view/closure/planning relation; no mutable-tail lookup or runtime event. |
-| `transition` | owner state × command × authority → candidate / refusal | Candidate is not a performed effect or durable fact. |
-| `admit` | exact applicable predecessor × candidate × evidence → successor/admitted value / refusal | Existing owner decides its complete enclosing relation. ABG runtime facts use expected-prefix atomic admission; other owners do not inherit that authority. |
-| `traverse` | admitted GTL × cursor/current input × basis → proposal / completion / refusal | HoG consumes the original Program/materialized Graph. ABG joins the outcome to the lawful continuation. |
-| `project` | immutable truth/authenticated prefix × supported selector → typed view / refusal | No projection writes truth, chooses a live tail implicitly or supplies its own admission witness. |
-| `materialize` | admitted physical operation × target/grant → receipt/manifest / refusal or substrate fault | Physical effect and semantic admission remain separate. Collision, failure and residue follow the existing owner contract. |
+| Class | Typed relation | Module | Realizing atoms | Admitted-domain decision |
+|---|---|---|---|---|
+| `select` | finite sequence × predicate → absent / exact / ambiguous | `shared/select/` | `resolveExactMatch`, `exactMatchCardinality`, `onlyExactMatch`, `exactMatchOutcome`, `checkExactRecord` | Preserve multiplicity until zero/one/many is known; never first-match, set-collapse or fallback authority. `ExactMatch<T>` realizes the codomain: `one` is exact, `many` is ambiguous. |
+| `validate` | raw/declaration subject × exact contract → admitted validation / refusal | `shared/admit/` | `admitJson`, `admitContract`, `admitRef`, `isRecord`, `hasExactKeys` | Refuse before prohibited construction/effect; no silent repair. Local, raw and whole-Program checks retain distinct domains. `unknown` enters the pure layer only through this module. |
+| `derive` | exact immutable inputs → immutable value / refusal | `shared/value/`; `shared/rooted_topology_partition.ts` | `canonicalJson`, `writeCanonicalJson`, `canonicalEquals`, `sha256Canonical`, `sha256Bytes`, `writeCanonicalRecord`, `deepFreeze`; `deriveCanonicalRootedTopologyPartition` | Pure Catalog/view/closure/planning relation; no mutable-tail lookup or runtime event. |
+| `transition` | owner state × command × authority → candidate / refusal | owner modules, such as `abg/retry.ts`; lifted by `abg/exact_prefix_bindings.ts` | owner transition functions, such as `planRetryRuntimeFailureTransition`; lift `bindExactPrefixTransition` | Candidate is not a performed effect or durable fact. |
+| `admit` | exact applicable predecessor × candidate × evidence → successor/admitted value / refusal | `abg/event_store.ts`; lifted by `abg/exact_prefix_bindings.ts` | `admitRuntimeEventTransactionAtExpectedPrefix`; lift `bindExactPrefixTransition` | Existing owner decides its complete enclosing relation. ABG runtime facts use expected-prefix atomic admission; other owners do not inherit that authority. |
+| `traverse` | admitted GTL × cursor/current input × basis → proposal / completion / refusal | `hog/graph_execute.ts` | `executeGraphTraversalEffect` | HoG consumes the original Program/materialized Graph. ABG joins the outcome to the lawful continuation. |
+| `project` | immutable truth/authenticated prefix × supported selector → typed view / refusal | `abg/calculus/`; lifted by `abg/exact_prefix_bindings.ts` | `effectOf`, `foldStep`, `holdsAt`; lift `bindExactPrefixRead` | No projection writes truth, chooses a live tail implicitly or supplies its own admission witness. `holdsAt` is the only reader of a lifecycle fact. |
+| `materialize` | admitted physical operation × target/grant → receipt/manifest / refusal or substrate fault | `product/install_product.ts` and ABG actor transport for the effect; `shared/process/` for its facts | `installProductInResolvedLock`; `createOwnedProcessLifetime`, `hasConfirmedOwnedProcessBoundary` | Physical effect and semantic admission remain separate. Collision, failure and residue follow the existing owner contract. |
 
-The generic binding algebra stays exactly `bindStaticOwner`, `bindExactPrefixRead` and `bindExactPrefixTransition`, fixed at module construction by direct owner imports and exact schemas. Their declared roles are structural admission, one owner invocation and exact receipt validation. They do not select semantic policy, sequence a new workflow, decide currentness, acquire a rival catalog or translate owner refusal into a host failure.
+The generic binding algebra stays exactly `bindStaticOwner`, `bindExactPrefixRead` and `bindExactPrefixTransition`, fixed at module construction by direct owner imports and exact schemas. Their declared roles are structural admission, one owner invocation and exact receipt validation. They do not select semantic policy, sequence a new workflow, decide currentness, acquire a rival catalog or translate owner refusal into a host failure. `bindStaticOwner` lives in `shared/binding/`; `bindExactPrefixRead` and `bindExactPrefixTransition` live in `abg/exact_prefix_bindings.ts`.
 
 ### Seven C constructors
 

@@ -292,4 +292,4 @@ path; SP-06). The lifecycle suites wait for step 8. Commit.
 
 | Step | Commit | Gate | Retired | Agents | Note |
 |---|---|---|---|---|---|
-| 0 | | | | | |
+| 0 | `93a4b08df` (posts) | build 34 s pass; `test:installed:language` 46 s, 1/1 pass at `93a4b08df` | none | none | steel thread ≈ 80 s per step; D0–D5 taken at the recommended defaults on Jim's "go" (2026-10-22). The tracked `build/` tree at `2e74fcd8c` was stale against its source: the step 0 build changed 11 files (+357/−149). Reverted after the smoke so step 1 stays design-only; code steps commit the rebuilt outputs with their source. |
