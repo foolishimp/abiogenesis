@@ -22,7 +22,7 @@ import {
   sha256Canonical,
 } from "../../build/code/src/shared/digests.js";
 import { PUBLIC_PROJECTION_PAYLOADS } from
-  "../../build/code/src/shared/public_function_projections.js";
+  "../../build/code/src/public/binding/public_function_projections.js";
 import { resolveNativeDeclarationClosures } from
   "../../build/code/src/product/declaration_exports.js";
 import {

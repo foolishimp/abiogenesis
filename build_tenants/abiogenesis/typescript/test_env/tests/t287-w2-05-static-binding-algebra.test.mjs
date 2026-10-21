@@ -31,14 +31,18 @@ import {
 import {
   PUBLIC_FUNCTION_DEFINITION_FAMILY,
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
-} from "../../build/code/src/shared/public_function_family.js";
+} from "../../build/code/src/public/binding/public_function_family.js";
 import { PUBLIC_PROJECTION_PAYLOADS } from
-  "../../build/code/src/shared/public_function_projections.js";
-import * as bindings from
-  "../../build/code/src/shared/static_definition_bindings.js";
+  "../../build/code/src/public/binding/public_function_projections.js";
+import * as staticBindings from
+  "../../build/code/src/public/binding/static_definition_bindings.js";
+import * as prefixBindings from
+  "../../build/code/src/abg/exact_prefix_bindings.js";
 import * as resourceOwner from "../../build/code/src/abg/definition_event_resource.js";
 import * as eventOwner from "../../build/code/src/abg/event_store.js";
-import * as callAdmission from "../../build/code/src/shared/definition_binding_mechanics.js";
+import * as callAdmission from "../../build/code/src/public/binding/definition_binding_mechanics.js";
+
+const bindings = Object.freeze({ ...staticBindings, ...prefixBindings });
 
 const schemaVersion = "5.0.0";
 const catalog = Object.freeze({
@@ -262,10 +266,10 @@ async function faultOf(program) {
 }
 
 test("W2-05 three-function static binding algebra admits once and fails closed", async (context) => {
-  assert.deepEqual(Object.keys(bindings).sort(), [
+  assert.deepEqual(Object.keys(staticBindings).sort(), ["bindStaticOwner"]);
+  assert.deepEqual(Object.keys(prefixBindings).sort(), [
     "bindExactPrefixRead",
     "bindExactPrefixTransition",
-    "bindStaticOwner",
   ]);
 
   const call = exactInvokeCall(resources);
@@ -649,15 +653,16 @@ test('native transport delegates one complete admission to the real fixed Run ow
   const root = await mkdtemp(join(tmpdir(), 'abi5-owned-admission-'));
   t.after(() => rm(root, {recursive:true,force:true}));
   let ownerAdmissions = 0, transportAdmissions = 0;
-  const observedBindings = await observedSource('shared/static_definition_bindings', {
+  const observedBindings = await observedSource('public/binding/static_definition_bindings', {
     './definition_binding_mechanics.js': {admitExactDefinitionCall(...args) {
       ownerAdmissions++; return callAdmission.admitExactDefinitionCall(...args);
     }},
   });
-  const run = await observedSource('owner_bindings/run_invocation', {'../shared/static_definition_bindings.js':observedBindings}, true);
+  const observedPrefixBindings = await observedSource('abg/exact_prefix_bindings', {'../public/binding/static_definition_bindings.js':observedBindings});
+  const run = await observedSource('owner_bindings/run_invocation', {'../abg/exact_prefix_bindings.js':observedPrefixBindings}, true);
   const overrides = {
     '../product/index.js':{RUN_DEFINITION_BINDINGS:run.RUN_DEFINITION_BINDINGS},
-    '../shared/definition_binding_mechanics.js':{admitExactDefinitionCall(...args) {
+    './binding/definition_binding_mechanics.js':{admitExactDefinitionCall(...args) {
       transportAdmissions++; return callAdmission.admitExactDefinitionCall(...args);
     }},
   };

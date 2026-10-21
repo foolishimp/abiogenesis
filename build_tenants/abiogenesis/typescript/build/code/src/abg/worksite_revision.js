@@ -1,7 +1,7 @@
 import { RuntimeEventBodyView } from "./runtime_history.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
-import { projectNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
+import { projectNativeWorkCommandSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
 import { isSemanticJobEnvelope } from "../product/semantic_job.js";
 import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision } from "../product/semantic_revision.js";
@@ -307,16 +307,13 @@ function samePhysicalSubject(prefix, a, b) {
 /** A known native write under any W for this physical subject invalidates an
  * older alias. It never provides a replacement from an unrelated invocation. */
 function invalidatedAcrossBindings(prefix, subject, ordinal, work) {
-    const events = runtimeEventBodiesAtPrefix(prefix);
-    return events.some(e => {
-        if (e.kind !== "c_call_result_admitted" || e.admissionOrdinal <= ordinal || typeof e.basisId !== "string")
-            return false;
-        const transition = work === undefined ? projectWorksiteTransitionForResult(e, events.filter(p => p.admissionOrdinal < e.admissionOrdinal)) : retainedTransition(work, e);
-        if (transition === null)
-            return false;
-        const basis = projectExactExecutionBasisAtPrefix(prefix, e.basisId);
-        return basis !== null && record(basis.rawInputValue.subject) && samePhysicalSubject(prefix, basis.rawInputValue.subject, subject);
-    });
+    // Authority identity still owns provenance transfer in samePhysicalSubject.
+    // Physical invalidation resolves the admitted root and exact path only.
+    const binding = one(projectArtifactTruth(prefix).artifacts, row => row.operationId === "abg.operation.workspace.bind" &&
+        row.authorityScopeRef === subject.workspaceBindingIdentity && row.authorityScopeDigest === subject.workspaceBindingDigest);
+    const authority = binding?.workspaceAuthorityBasis;
+    const root = record(authority) ? authority.canonicalRoot : undefined;
+    return typeof root !== "string" || worksiteCommandSourcesInvalidatedAfter(prefix, ordinal, root, [subject.relativePath]);
 }
 function projectionFacts(prefix, result, work) {
     if (work.cache.has(result.eventId))

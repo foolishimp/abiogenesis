@@ -41,22 +41,24 @@ Each library module realizes one operator family of §5.6.1. The role column use
 | `shared/value/` | `derive` over `JsonValue` | semantic kernel | `refusal` | pure |
 | `shared/admit/` | `validate` | ingress | `refusal`, `value` | pure; Valibot and jsonc-parser as foundations |
 | `shared/select/` | `select` | semantic kernel | `refusal` | pure |
-| `shared/binding/` | lift at Public | effect boundary | `refusal`, `admit` | constructs Effect programs; runs one only in `runExactDefinition` |
+| `public/binding/` | lift at Public | effect boundary | `refusal`, `admit`, `shared/effect_definition.ts`, and the owner contract tables through the Public family | constructs Effect programs; runs one only in `runExactDefinition` |
 | `shared/process/` | `materialize` facts, not the effect | effect boundary | `value` | Node child process and timers |
 | `abg/calculus/` | `project`: the fold and `holdsAt` | semantic kernel, ABG-owned | `shared/*` | pure; a memoized class as realization |
-| `abg/exact_prefix_bindings.ts` | lift of `admit` and `transition` | effect boundary, ABG-owned | `shared/binding/`, `abg/event_store.ts` | Effect |
+| `abg/exact_prefix_bindings.ts` | lift of `admit` and `transition` | effect boundary, ABG-owned | `public/binding/`, `abg/event_store.ts` | Effect |
 
 The dependency direction is one order; a module imports only modules to its left:
 
 ```text
-refusal <- value <- admit <- select <- {binding, process} <- abg/calculus <- owners
+refusal <- value <- admit <- select <- process <- abg/calculus <- owner contract tables <- public/binding <- owner definition-binding modules <- entrypoints
 ```
+
+Owner contract tables live in owner directories and are data; owner definition-binding modules live in owner directories and are Public-surface compositions; the import-direction lint (`npm run lint:imports`) applies to `shared/`.
 
 `shared/` imports nothing from `abg/`, `product/`, `hog/`, `gtl/`, `validator/` or `public/`. Three moves establish this direction:
 
 1. `bindExactPrefixRead` and `bindExactPrefixTransition` move from [static_definition_bindings.ts](../code/src/shared/static_definition_bindings.ts) to `abg/exact_prefix_bindings.ts`.
 2. [product/exact_match.ts](../code/src/product/exact_match.ts) moves to `shared/select/exact_match.ts`.
-3. [shared/owner_contract_source_set.ts](../code/src/shared/owner_contract_source_set.ts) moves to `public/owner_contract_source_set.ts`.
+3. `shared/owner_contract_source_set.ts`, `shared/public_function_family.ts`, `shared/public_function_projections.ts`, `shared/definition_binding_mechanics.ts` and `shared/static_definition_bindings.ts` after move 1 move to `public/binding/`.
 
 The location `product/exact_match.ts` that [constitution §10](ABI5_REALIZATION_CONSTITUTION.md#10-common-library-catalog) and [Table 5.6.3-B](ABI5_REALIZATION_CONSTITUTION.md#table-563-b---selected-leaf-instance-catalog) row `N06` give for exact-match cardinality is a realization coordinate, updated to `shared/select/exact_match.ts` when row 1 of §10.1 realizes move 2 (§10.7); the relation, role and prohibited role are unchanged.
 
@@ -66,10 +68,10 @@ Existing shared modules take these places:
 
 - [canonical_json.ts](../code/src/shared/canonical_json.ts), [digests.ts](../code/src/shared/digests.ts) and [immutable.ts](../code/src/shared/immutable.ts) are the existing members of the `value` family.
 - [i_json.ts](../code/src/shared/i_json.ts), [admission_predicates.ts](../code/src/shared/admission_predicates.ts) and [references.ts](../code/src/shared/references.ts) hold the bodies the `admit` family replaces.
-- [definition_binding_mechanics.ts](../code/src/shared/definition_binding_mechanics.ts), `static_definition_bindings.ts` after move 1, and [effect_definition.ts](../code/src/shared/effect_definition.ts) form the `binding` family.
+- [effect_definition.ts](../code/src/shared/effect_definition.ts) is the `shared/` member of the `binding` family. Its other members are in `public/binding/`: [definition_binding_mechanics.ts](../code/src/public/binding/definition_binding_mechanics.ts), [static_definition_bindings.ts](../code/src/public/binding/static_definition_bindings.ts) after move 1, and the Public family modules that call admission reads, `owner_contract_source_set.ts`, `public_function_family.ts` and `public_function_projections.ts`.
 - [owned_process_lifetime.ts](../code/src/shared/owned_process_lifetime.ts) is the `process` family.
 - [rooted_topology_partition.ts](../code/src/shared/rooted_topology_partition.ts) is a `derive` atom over canonical root-to-frame paths. `deriveCanonicalRootedTopologyPartition(sourceWitness, targetWitness)` returns the preserved common prefix, the exits inner-to-outer and the entries outer-to-inner, or one of `invalid_witness | topology_mismatch | basis_mismatch | root_mismatch | adjacency_mismatch`. Cycles, multiple-parent causal search, cross-basis topology, retry policy and HoG route choice are outside its domain.
-- The Public contract modules (`public_function_contracts.ts`, `public_function_family.ts`, `public_function_projections.ts`, `public_invocation.ts`, `operation_definition_coordinate.ts`, `capability_contracts.ts`) and the `index.ts` barrel keep their roles, hold no atom of this design and obey the same import direction.
+- The Public contract modules (`public_function_contracts.ts`, `public_invocation.ts`, `operation_definition_coordinate.ts`, `capability_contracts.ts`) and the `index.ts` barrel keep their roles, hold no atom of this design and obey the same import direction.
 
 **Foundations.** Exact-pinned Effect 3.22.1 under [constitution §10.1.1](ABI5_REALIZATION_CONSTITUTION.md#1011-effect-3221-decision-ledger), Valibot, jsonc-parser and Node `crypto` and `child_process` are the admitted foundation composition. The library adds no dependency. A new parser, scheduler, runtime or package re-enters foundation selection (DESIGN_MODULE §5, Capability and foundation selection) before construction; incumbency alone selects nothing.
 
@@ -198,9 +200,9 @@ The rule also checks the copied `terminationConfirmed` against `actor_process_te
 
 The rule produces fluents inside the one fold. `actor_process.ts`, `replay.ts`, `runtime_liveness.ts` and every other reader of a lifecycle fact read them through `holdsAt`, with a pattern `{ kind: "runtime_fluent_pattern", name, identity }` that names one lifecycle fluent. Four consumers that had to agree become one producer and its readers, as PROJECTION-013 requires.
 
-### 4.5 Lift: `shared/binding/`
+### 4.5 Lift: `public/binding/`
 
-`bindStaticOwner`, `runExactDefinition` and `runEffectProgram` keep their fault surface. `bindStaticOwner` consumes `admitContract` in place of inline `v.safeParse`. It maps a refused resource assertion to its existing `invalid_resource_assertion` fault and a refused receipt to its existing `invalid_resource_receipt` fault ([static_definition_bindings.ts](../code/src/shared/static_definition_bindings.ts), lines 134 to 145 and 153 to 164). The inner predicate changes; the faults a caller observes do not. `bindExactPrefixRead` and `bindExactPrefixTransition` live in `abg/exact_prefix_bindings.ts` and specialize `bindStaticOwner` as §5.6.2C states. Each binder is higher-order only at module construction; every captured owner function, schema and packet is a direct import. Exactly one `Effect.run*` site exists.
+`bindStaticOwner` lives in `public/binding/`, and `runExactDefinition` and `runEffectProgram` in `shared/effect_definition.ts`; all three keep their fault surface. `bindStaticOwner` consumes `admitContract` in place of inline `v.safeParse`. It maps a refused resource assertion to its existing `invalid_resource_assertion` fault and a refused receipt to its existing `invalid_resource_receipt` fault ([static_definition_bindings.ts](../code/src/public/binding/static_definition_bindings.ts), lines 47 to 58 and 66 to 77). The inner predicate changes; the faults a caller observes do not. `bindExactPrefixRead` and `bindExactPrefixTransition` live in `abg/exact_prefix_bindings.ts` and specialize `bindStaticOwner` as §5.6.2C states. Each binder is higher-order only at module construction; every captured owner function, schema and packet is a direct import. Exactly one `Effect.run*` site exists.
 
 ### 4.6 Process facts: `shared/process/`
 
@@ -631,7 +633,7 @@ For each row of §10.1, `U(B)` is the set of material relations still unresolved
 
 | Row | `U(B)` | Decided by, and when | Sequencing |
 |---|---|---|---|
-| 1 | acceptance of the `catalog_addition_proposal` for the failure carrier, with its constitution §10.1 cost ledger (§10.7) | the constitution owner, before this row is coded | design-gated on that acceptance |
+| 1 | acceptance of the `catalog_addition_proposal` for the failure carrier, with its constitution §10.1 cost ledger (§10.7); placement of call admission: `public/binding/`, above the owner contract tables, decided by the Executive at step 2 (2026-10-22) because `admitExactDefinitionCall` reads the instantiated family, whose digests range over the whole owner set | the constitution owner, before this row is coded | design-gated on that acceptance |
 | 2 | the ingress answer at each native composite comparison site this row touches (D3); the ingress or refusal decision for the default-library shallow custom JSON schema and the nullable project-read adapter (O-SCHEMA) | the owner of each site, when this row realizes it; the answer is recorded with that site's change | design-gated at those sites; co-evolution elsewhere |
 | 3 | the ingress answer at each native composite comparison site this row touches (D3) | the owner of each site, when this row realizes it | design-gated at those sites; co-evolution elsewhere |
 | 4 | empty | none | co-evolution |
@@ -744,7 +746,7 @@ stateDiagram-v2
 
 This is the combined relation, not a new persisted state machine. Read-only acquisition may complete unchanged without performing a semantic transition. Pure library atoms and Product resolution do not require ABG lifecycle events. `RefusedBeforeEffect` is valid only when no relevant effect occurred. `UnadmittedResidue` applies only when the attempted admission established no successor; a refusal accompanied by admitted diagnostic events preserves that actual successor.
 
-[Static binders](../code/src/shared/static_definition_bindings.ts) execute the owner before validating receipts and owner output. The run owner's `finish` passes its computed final prefix to [`completeAbgEventResource`](../code/src/abg/definition_event_resource.ts), which either completes a borrowed held resource or calls `closeAbgEventResource`. Receipt/output failure after admission, direct-finalizer failure and later held-finalizer failure therefore preserve the admitted successor. Physical close may itself have occurred before a receipt becomes unavailable or invalid. Recovery conserves those known facts and any unresolved physical state, reacquires the actual admitted prefix when needed, and never infers rollback, successful handoff or permission to repeat native work from a missing receipt.
+[Static binders](../code/src/public/binding/static_definition_bindings.ts) execute the owner before validating receipts and owner output. The run owner's `finish` passes its computed final prefix to [`completeAbgEventResource`](../code/src/abg/definition_event_resource.ts), which either completes a borrowed held resource or calls `closeAbgEventResource`. Receipt/output failure after admission, direct-finalizer failure and later held-finalizer failure therefore preserve the admitted successor. Physical close may itself have occurred before a receipt becomes unavailable or invalid. Recovery conserves those known facts and any unresolved physical state, reacquires the actual admitted prefix when needed, and never infers rollback, successful handoff or permission to repeat native work from a missing receipt.
 
 Cross-view checks bind the same identities, typed handoffs, authority, effect order, current/historical support and resource owner. Whole-family Prime review considers identity, topology, lifecycle, admission, effects and closure as well as functions and carriers.
 

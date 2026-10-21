@@ -10,11 +10,11 @@ import {
 } from "../shared/effect_definition.js";
 import {
   OWNER_CONTRACT_SOURCES,
-} from "../shared/owner_contract_source_set.js";
+} from "./binding/owner_contract_source_set.js";
 import type {
   OwnerContractSourceDeclaration,
 } from "../shared/public_function_contracts.js";
-import { admitExactDefinitionCall } from "../shared/definition_binding_mechanics.js";
+import { admitExactDefinitionCall } from "./binding/definition_binding_mechanics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import * as validator from "../validator/index.js";
 

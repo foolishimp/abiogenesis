@@ -1,4 +1,5 @@
 import { prepareInstalledProductModules } from "./installed_module.js";
+import { resolveExactMatch } from "../shared/select/exact_match.js";
 import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";
@@ -67,10 +68,10 @@ function refusal(code, stage, message) {
     });
 }
 function exact(values, predicate) {
-    const matches = values.filter(predicate);
-    return matches.length === 1
-        ? { kind: "one", value: matches[0] }
-        : { kind: matches.length === 0 ? "absent" : "ambiguous" };
+    const selected = resolveExactMatch(values, predicate);
+    return selected.kind === "one"
+        ? { kind: "one", value: selected.value }
+        : { kind: selected.kind === "absent" ? "absent" : "ambiguous" };
 }
 function candidateFromInstall(install) {
     const { kind: _kind, disposition: _disposition, admissionEventRef: _admissionEventRef, ...body } = install;

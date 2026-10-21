@@ -7,7 +7,7 @@ import addFormats from "ajv-formats";
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { isRecord, sameJson } from "../shared/definition_binding_mechanics.js";
+import { isRecord, sameJson } from "../public/binding/definition_binding_mechanics.js";
 import { jsonValueSchema, nonblankSchema } from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import { rawAdmitValue } from "../validator/raw_admission.js";

@@ -46,7 +46,7 @@ import { productInstallCoordinate } from "../product/environment.js";
 import { projectProductManifestOperationCoordinate } from "../product/verify_product.js";
 import {
   bindExactPrefixRead,
-} from "../shared/static_definition_bindings.js";
+} from "./exact_prefix_bindings.js";
 
 type ReopenAbgEventResourceAssertion = Extract<
   AbgEventResourceAssertion,

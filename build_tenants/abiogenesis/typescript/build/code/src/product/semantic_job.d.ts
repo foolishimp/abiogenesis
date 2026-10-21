@@ -329,8 +329,13 @@ export declare function projectSemanticJobActorContract(envelope: SemanticJobEnv
                 aggregation: "sum";
                 commandFields: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
                 httpResponseFields: {
-                    readonly launch: readonly ["timeoutMs", "terminationGraceMs"];
+                    readonly launch: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
                     readonly request: readonly ["timeoutMs"];
+                };
+                perOperationDrain: {
+                    readonly field: "terminationGraceMs";
+                    readonly maximumMs: 250;
+                    readonly operation: "minimum";
                 };
                 ownerAllowanceMs: number;
                 limitComparison: "required_budget_strictly_less_than_each_limit";
@@ -448,8 +453,13 @@ export declare function projectSemanticJobActorMaterial(envelope: SemanticJobEnv
                     aggregation: "sum";
                     commandFields: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
                     httpResponseFields: {
-                        readonly launch: readonly ["timeoutMs", "terminationGraceMs"];
+                        readonly launch: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
                         readonly request: readonly ["timeoutMs"];
+                    };
+                    perOperationDrain: {
+                        readonly field: "terminationGraceMs";
+                        readonly maximumMs: 250;
+                        readonly operation: "minimum";
                     };
                     ownerAllowanceMs: number;
                     limitComparison: "required_budget_strictly_less_than_each_limit";

@@ -39,7 +39,7 @@ import {
 import {
   selectIntrinsicPublicFunctionDefinition,
   type IntrinsicPublicFunctionDefinition,
-} from "../shared/public_function_family.js";
+} from "../public/binding/public_function_family.js";
 
 export const DIRECT_INVOKE_CAPABILITY =
   "abg.capability.catalog.invoke-graph-function@5";

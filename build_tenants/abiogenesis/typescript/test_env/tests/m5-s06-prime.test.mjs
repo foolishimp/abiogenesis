@@ -27,7 +27,7 @@ import {
 } from "../../build/code/src/product/declaration_exports.js";
 import {
   resolveExactMatch,
-} from "../../build/code/src/product/exact_match.js";
+} from "../../build/code/src/shared/select/exact_match.js";
 import {
   loadVerifiedInstalledModule,
 } from "../../build/code/src/product/installed_module.js";

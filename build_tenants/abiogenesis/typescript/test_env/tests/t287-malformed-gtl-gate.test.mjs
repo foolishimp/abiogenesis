@@ -84,7 +84,7 @@ test('Public conformance conserves dual-kind closure authorities and rejects mis
       projectAdmittedWorkspaceBindingByInvocationRef:()=>({binding:{bindingId:workspace.ref,bindingDigest:workspace.digest}}),
     },
     '../product/environment.js':{isWorkspaceAuthorityBasis:value=>value===authority,productInstallCoordinate:value=>value},
-    '../shared/definition_binding_mechanics.js':{exactDefinitionCallMatches:()=>true},
+    '../public/binding/definition_binding_mechanics.js':{exactDefinitionCallMatches:()=>true},
     './conformance_operation.js':{ConformancePort:{evaluateGtlProgram:packet=>{
       const actual=ConformancePort.evaluateGtlProgram(packet);
       return emittedRef===null ? actual : {...actual,violatedContractRefs:[...actual.violatedContractRefs,emittedRef]};

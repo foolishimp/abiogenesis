@@ -3,7 +3,7 @@ import { withAdmissionAuthority, type AdmissionDefinitionOwner } from "./admissi
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { reconstructWorkspaceManifest, type WorkspaceManifest } from "./workspace_operations.js";
-import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate, sameJson } from "../shared/definition_binding_mechanics.js";
+import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate, sameJson } from "../public/binding/definition_binding_mechanics.js";
 import * as Effect from "effect/Effect";
 
 import {

@@ -45,7 +45,7 @@ import {
 } from "../build/code/src/product/index.js";
 import {
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
-} from "../build/code/src/shared/public_function_family.js";
+} from "../build/code/src/public/binding/public_function_family.js";
 import {
   resolveNativeDeclarationClosures,
 } from "../build/code/src/product/declaration_exports.js";
@@ -70,7 +70,7 @@ import {
 } from "../build/code/src/gtl/index.js";
 import {
   PUBLIC_PROJECTION_PAYLOADS,
-} from "../build/code/src/shared/public_function_projections.js";
+} from "../build/code/src/public/binding/public_function_projections.js";
 import {
   projectStrictJsonSchema,
 } from "../build/code/src/shared/public_function_contracts.js";

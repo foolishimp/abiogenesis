@@ -29,13 +29,13 @@ import {
 import type {
   IntrinsicPublicFunctionFamilyCoordinate,
   IntrinsicPublicOperationContractProjection,
-} from "../shared/public_function_family.js";
+} from "../public/binding/public_function_family.js";
 import {
   PUBLIC_PROJECTION_PAYLOADS,
   type PublicCliGrammarProjection,
   type PublicDocumentationInventoryRow,
   type PublicSdkMemberProjection,
-} from "../shared/public_function_projections.js";
+} from "../public/binding/public_function_projections.js";
 import type {
   PublicContractCatalogCoordinate,
   PublicContractCoordinate,

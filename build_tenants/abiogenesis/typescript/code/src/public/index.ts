@@ -29,7 +29,7 @@ export {
   type IntrinsicPublicFunctionFamily,
   type IntrinsicPublicFunctionFamilyCoordinate,
   type IntrinsicPublicOperationContractProjection,
-} from "../shared/public_function_family.js";
+} from "./binding/public_function_family.js";
 export {
   PUBLIC_OPERATION_SCHEMAS,
   PUBLIC_PROJECTION_PAYLOADS,
@@ -40,7 +40,7 @@ export {
   type PublicProjectionAsset,
   type PublicProjectionPayloads,
   type PublicSdkMemberProjection,
-} from "../shared/public_function_projections.js";
+} from "./binding/public_function_projections.js";
 export {
   constructInstalledPublicDefinitionCall,
   type InstalledPublicDefinitionCallInput,

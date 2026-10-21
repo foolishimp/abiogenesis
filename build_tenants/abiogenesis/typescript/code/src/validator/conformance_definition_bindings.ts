@@ -29,7 +29,7 @@ import {
   sameCoordinate,
   sameJson,
   validatedOwnerOutput,
-} from "../shared/definition_binding_mechanics.js";
+} from "../public/binding/definition_binding_mechanics.js";
 import type {
   DefinitionExecutionFault,
   DefinitionCall,

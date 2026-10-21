@@ -27,7 +27,7 @@ const generatedDirectoryPaths = Object.freeze([
 ]);
 const generatorPath = join(root, "scripts/generate-product-manifest.mjs");
 const sharedProjectionOwner =
-  "../build/code/src/shared/public_function_projections.js";
+  "../build/code/src/public/binding/public_function_projections.js";
 
 test("W2-05 generator imports projections from the exact shared owner", async () => {
   const source = await readFile(generatorPath, "utf8");
@@ -73,8 +73,8 @@ async function builtApi(cacheKey) {
       import(moduleUrl("build/code/src/shared/canonical_json.js")),
       import(moduleUrl("build/code/src/shared/digests.js")),
       import(moduleUrl("build/code/src/product/declaration_exports.js")),
-      import(moduleUrl("build/code/src/shared/public_function_family.js")),
-      import(moduleUrl("build/code/src/shared/public_function_projections.js")),
+      import(moduleUrl("build/code/src/public/binding/public_function_family.js")),
+      import(moduleUrl("build/code/src/public/binding/public_function_projections.js")),
       import(moduleUrl("build/code/src/product/public_contract_publication.js")),
     ]);
   return { canonical, declarations, digests, family, projections, publication };

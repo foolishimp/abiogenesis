@@ -7,8 +7,8 @@ import type {
   IntrinsicPublicFunctionDefinition,
   IntrinsicPublicFunctionFamily,
   IntrinsicPublicOperationContractProjection,
-} from "../shared/public_function_family.js";
-import type { PublicProjectionPayloads } from "../shared/public_function_projections.js";
+} from "./binding/public_function_family.js";
+import type { PublicProjectionPayloads } from "./binding/public_function_projections.js";
 import type {
   InvocationAuthorityCandidateSlots,
   PublicContractCatalogCoordinate,

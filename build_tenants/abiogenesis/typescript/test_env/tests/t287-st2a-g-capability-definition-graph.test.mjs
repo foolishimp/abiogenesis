@@ -11,7 +11,7 @@ import * as product from "../../build/code/src/product/index.js";
 import { parseProductManifest } from "../../build/code/src/product/verify_product.js";
 import {
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
-} from "../../build/code/src/shared/public_function_family.js";
+} from "../../build/code/src/public/binding/public_function_family.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const execFileAsync = promisify(execFile);

@@ -1,14 +1,14 @@
-import { isRecord, hasUnicodeNulJoinedKeys } from "./admission_predicates.js";
-import { resolveExactMatch } from "../product/exact_match.js";
+import { isRecord, hasUnicodeNulJoinedKeys } from "../../shared/admission_predicates.js";
+import { resolveExactMatch } from "../../shared/select/exact_match.js";
 import * as v from "valibot";
 
 import { canonicalJson, type JsonValue } from
-  "./canonical_json.js";
+  "../../shared/canonical_json.js";
 import type {
   DefinitionCall,
   DefinitionExecutionFault,
-} from "./effect_definition.js";
-import { deepFreeze } from "./immutable.js";
+} from "../../shared/effect_definition.js";
+import { deepFreeze } from "../../shared/immutable.js";
 import {
   admitRuntimeContract,
   contractBoundValueSchema,
@@ -25,20 +25,20 @@ import {
   type PublicAuthoritySlotRequirement,
   type OwnerContractSourceDeclaration,
   type OwnerSemanticOutput,
-} from "./public_function_contracts.js";
+} from "../../shared/public_function_contracts.js";
 import {
   PUBLIC_FUNCTION_DEFINITION_FAMILY,
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
   type IntrinsicPublicFunctionDefinition,
 } from "./public_function_family.js";
 import { PUBLIC_PROJECTION_PAYLOADS } from "./public_function_projections.js";
-import { sha256Canonical } from "./digests.js";
+import { sha256Canonical } from "../../shared/digests.js";
 import type {
   AdmittedPublicInvocation,
   PublicDefinitionKeyLike,
   PublicContractCoordinate,
   ReferenceDigest,
-} from "./public_invocation.js";
+} from "../../shared/public_invocation.js";
 
 export function sameJson(left: unknown, right: unknown): boolean {
   try {

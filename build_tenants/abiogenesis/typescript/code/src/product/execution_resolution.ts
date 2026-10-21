@@ -1,5 +1,5 @@
 import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
-import { resolveExactMatch } from "./exact_match.js";
+import { resolveExactMatch } from "../shared/select/exact_match.js";
 import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";

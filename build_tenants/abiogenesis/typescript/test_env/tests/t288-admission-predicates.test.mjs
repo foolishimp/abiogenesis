@@ -8,7 +8,7 @@ import { spawnSync } from 'node:child_process';
 import ts from 'typescript';
 import * as helpers from '../../build/code/src/shared/admission_predicates.js';
 import { compareUnicodeCodeUnits } from '../../build/code/src/shared/canonical_json.js';
-import * as bindings from '../../build/code/src/shared/definition_binding_mechanics.js';
+import * as bindings from '../../build/code/src/public/binding/definition_binding_mechanics.js';
 
 const fixtures=JSON.parse(fs.readFileSync(new URL('../support/t288-admission-helper-preimages.json',import.meta.url)));
 const sourceRoot=fileURLToPath(new URL('../../code/src/',import.meta.url));

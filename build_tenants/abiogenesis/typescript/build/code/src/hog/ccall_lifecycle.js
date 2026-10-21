@@ -11,7 +11,7 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_exec
 import * as Effect from "effect/Effect";
 import * as Abg from "../abg/index.js";
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
-import { deriveRuntimeHeldFluentProjection } from "../abg/event_calculus.js";
+import { worksiteSelectedOccurrenceInputCurrent } from "../abg/event_calculus.js";
 import { hasNoCompletedRetryExit } from "../abg/retry.js";
 import { WORKSITE_C0_IDS, WORKSITE_FILE_PARENTS_IDS } from "../gtl/worksite_c0.js";
 import { constructLeafExecutionAuthority } from "../implementation/leaf_invocation_port.js";
@@ -59,9 +59,8 @@ function worksiteLeafAuthority(input, resolution, cCall, openedPrefix) {
         return null;
     Abg.assertHeldEventStoreAtDurablePrefix(input.store, openedPrefix);
     const authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(openedPrefix);
-    const calculus = deriveRuntimeHeldFluentProjection(selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: cCall.runId }));
     if (!parents && isWorksiteFileReplaceRequest(input.input) &&
-        !Abg.holdsAt(calculus, Abg.constructWorksiteObservationCurrentFluent(input.input.predecessorObservation.observationRef)))
+        !worksiteSelectedOccurrenceInputCurrent(authorityPrefix, cCall, input.input))
         return null;
     return constructLeafExecutionAuthority({
         actorRef: input.executionBasis.actorRef,

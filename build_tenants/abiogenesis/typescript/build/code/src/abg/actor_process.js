@@ -335,7 +335,7 @@ export function projectActorProcessLifecycle(prefix, actorInvocationRef) {
     if (actorTerminal !== undefined && processTerminal === undefined) {
         throw new TypeError("ActorInvocation cleanup terminal requires confirmed Process terminality");
     }
-    const terminationUnconfirmed = rows.some((event) => event.kind === "actor_process_termination_unconfirmed");
+    const terminationUnconfirmed = processTerminal === undefined && rows.some((event) => event.kind === "actor_process_termination_unconfirmed");
     const processLive = started.length === 1 && processTerminal === undefined;
     const runTerminal = indexedRuntimeEvents(prefix, "kind:run_stopped").length !== 0 ||
         indexedRuntimeEvents(prefix, "kind:runtime_failure_observed").some(event => event.aggregateType === "run");
@@ -628,7 +628,9 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
         const stdoutEventRefs = [];
         const stderrEventRefs = [];
         let processStarted = false;
-        let processTerminalConfirmed = false;
+        let finalProcessFacts = null;
+        let processTerminalEvent = null;
+        let admittedArtifact = null;
         let actorTerminalAdmitted = false;
         const signalSequence = [];
         const append = (kind, aggregateType, aggregateId, parentAggregateId, payload) => {
@@ -743,8 +745,73 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
             successorPrefix = result.successorPrefix;
             previousEventRef = result.value.eventId;
         };
+        const admitTransportArtifact = (transport) => {
+            if (admittedArtifact !== null)
+                throw new TypeError("actor result artifact was already admitted");
+            if (finalProcessFacts === null || finalProcessFacts.scopeAbsence !== "absent" ||
+                (finalProcessFacts.directExit === null && !finalProcessFacts.noChildEstablished)) {
+                throw new TypeError("actor result artifact lacks final confirmed physical facts");
+            }
+            const observedOutputDigest = outputDigest(transport.finalOutput);
+            const artifactDigests = {
+                output: transport.artifacts.output.digest,
+                prompt: transport.artifacts.prompt.digest,
+                stderr: transport.artifacts.stderr.digest,
+                stdout: transport.artifacts.stdout.digest,
+                transport: transport.artifacts.transport.digest,
+            };
+            const observationBody = {
+                ...(transport.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: transport.nativeResultAssessment }),
+                actorInvocationRef,
+                actorRef: input.request.actorRef,
+                workerBindingRef: input.request.workerBindingRef,
+                implementationRef: input.request.implementationRef,
+                inputDigest: input.request.inputDigest,
+                materializationPlanRef: input.request.materializationPlanRef,
+                rendererRef: input.request.rendererRef,
+                instructionContractRef: input.request.instructionContractRef,
+                resultContractRef: input.request.resultContractRef,
+                processRef,
+                transportBindingRef,
+                transportBindingDigest,
+                disposition: transport.disposition,
+                failureClass: transport.failureClass,
+                finalOutput: transport.finalOutput,
+                observedOutputDigest,
+                promptDigest,
+                transportDigest: transport.artifacts.transport.digest,
+                transportLane: transport.lane,
+                processStatus: transport.status,
+                processSignal: transport.signal,
+                timeoutClass: transport.timeoutClass,
+                timedOut: transport.timedOut,
+                exitObserved: transport.exitObserved,
+                terminationConfirmed: transport.terminationConfirmed,
+                signalSequence: Object.freeze([...signalSequence]),
+                structuredEventCount: transport.structuredEventCount,
+                progressEventCount: transport.progressEventCount,
+                toolCallCount: transport.toolCallCount,
+                toolInvocations: transport.toolInvocations,
+                apiRetryCount: transport.apiRetryCount,
+                stdoutByteLength,
+                stderrByteLength,
+                artifactDigests,
+            };
+            const artifactEvent = append("actor_result_artifact_observed", "actor_invocation", actorInvocationRef, input.cCall.cCallRef, {
+                cCallRef: input.cCall.cCallRef,
+                requestRef,
+                requestDigest,
+                ...observationBody,
+            });
+            // Retain the actual committed witness before a subsequent probe can fail.
+            admittedArtifact = artifactEvent;
+            if (currentProfile && transport.nativeResultAssessment?.disposition !== "absent")
+                probe("result_artifact", artifactEvent, transport.nativeResultAssessment?.disposition === "admitted" ? "artifact_admitted" : "artifact_rejected", elapsed());
+            return { artifactEvent, observation: deepFreeze(observationBody) };
+        };
         try {
             const transport = await runPreparedWorkerTransport(plan, {
+                onResultArtifact: admitTransportArtifact,
                 ...(currentProfile ? { assessNativeResultArtifact, onNativeSupervisionWakeup: () => {
                         observePendingAsset();
                         const sampled = elapsed();
@@ -833,83 +900,35 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
                     append("actor_process_signal_requested", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, signal });
                 },
                 onSpawnFailed: (message) => {
-                    append("actor_process_spawn_failed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(message) });
-                    processTerminalConfirmed = true;
+                    if (processStarted || finalProcessFacts !== null || processTerminalEvent !== null) {
+                        throw new TypeError("pre-launch refusal cannot follow a physical attempt or Process terminal");
+                    }
+                    processTerminalEvent = append("actor_process_spawn_failed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(message) });
                 },
-                onProcessExited: (status, signal) => {
-                    if (processStarted) {
-                        append("actor_process_exited", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, status, signal });
+                onProcessFinalized: (facts) => {
+                    if (finalProcessFacts !== null || processTerminalEvent !== null) {
+                        throw new TypeError("Process final facts must be handed back exactly once");
+                    }
+                    // Keep the canonical facts even if their semantic admission fails.
+                    finalProcessFacts = facts;
+                    if (facts.scopeAbsence === "absent" && facts.noChildEstablished && facts.launchFailure !== null) {
+                        if (processStarted)
+                            throw new TypeError("no-child launch failure cannot follow admitted process start");
+                        processTerminalEvent = append("actor_process_spawn_failed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(facts.launchFailure.message) });
+                    }
+                    else if (facts.scopeAbsence === "absent" && facts.directExit !== null && processStarted) {
+                        processTerminalEvent = append("actor_process_exited", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, status: facts.directExit.status, signal: facts.directExit.signal });
+                    }
+                    else if (processStarted) {
+                        append("actor_process_termination_unconfirmed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef });
                     }
                     else {
-                        append("actor_process_spawn_failed", "process", processRef, actorInvocationRef, {
-                            actorInvocationRef,
-                            processRef,
-                            diagnosticDigest: sha256Canonical({ status, signal }),
-                        });
+                        throw new TypeError("physical completion has no admitted process start or positive no-child premise");
                     }
-                    processTerminalConfirmed = true;
-                },
-                onTerminationUnconfirmed: () => {
-                    processTerminalConfirmed = false;
-                    append("actor_process_termination_unconfirmed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef });
                 },
             });
-            processTerminalConfirmed = transport.terminationConfirmed ||
-                (!processStarted && transport.status !== null && transport.status < 0);
-            const observedOutputDigest = outputDigest(transport.finalOutput);
-            const artifactDigests = {
-                output: transport.artifacts.output.digest,
-                prompt: transport.artifacts.prompt.digest,
-                stderr: transport.artifacts.stderr.digest,
-                stdout: transport.artifacts.stdout.digest,
-                transport: transport.artifacts.transport.digest,
-            };
-            const observationBody = {
-                ...(transport.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: transport.nativeResultAssessment }),
-                actorInvocationRef,
-                actorRef: input.request.actorRef,
-                workerBindingRef: input.request.workerBindingRef,
-                implementationRef: input.request.implementationRef,
-                inputDigest: input.request.inputDigest,
-                materializationPlanRef: input.request.materializationPlanRef,
-                rendererRef: input.request.rendererRef,
-                instructionContractRef: input.request.instructionContractRef,
-                resultContractRef: input.request.resultContractRef,
-                processRef,
-                transportBindingRef,
-                transportBindingDigest,
-                disposition: transport.disposition,
-                failureClass: transport.failureClass,
-                finalOutput: transport.finalOutput,
-                observedOutputDigest,
-                promptDigest,
-                transportDigest: transport.artifacts.transport.digest,
-                transportLane: transport.lane,
-                processStatus: transport.status,
-                processSignal: transport.signal,
-                timeoutClass: transport.timeoutClass,
-                timedOut: transport.timedOut,
-                exitObserved: transport.exitObserved,
-                terminationConfirmed: transport.terminationConfirmed,
-                signalSequence: Object.freeze([...signalSequence]),
-                structuredEventCount: transport.structuredEventCount,
-                progressEventCount: transport.progressEventCount,
-                toolCallCount: transport.toolCallCount,
-                toolInvocations: transport.toolInvocations,
-                apiRetryCount: transport.apiRetryCount,
-                stdoutByteLength,
-                stderrByteLength,
-                artifactDigests,
-            };
-            const artifactEvent = append("actor_result_artifact_observed", "actor_invocation", actorInvocationRef, input.cCall.cCallRef, {
-                cCallRef: input.cCall.cCallRef,
-                requestRef,
-                requestDigest,
-                ...observationBody,
-            });
-            if (currentProfile && transport.nativeResultAssessment?.disposition !== "absent")
-                probe("result_artifact", artifactEvent, transport.nativeResultAssessment?.disposition === "admitted" ? "artifact_admitted" : "artifact_rejected", elapsed());
-            if (processTerminalConfirmed) {
+            const { artifactEvent, observation } = admitTransportArtifact(transport);
+            if (processTerminalEvent !== null) {
                 // The terminal owner consumes the actual artifact producer. A liveness
                 // observation between them is not a replacement artifact cause.
                 previousEventRef = artifactEvent.eventId;
@@ -931,7 +950,6 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
                 });
                 actorTerminalAdmitted = true;
             }
-            const observation = deepFreeze(observationBody);
             const exchange = validateActorProcessCarrierPair(input.request, observation);
             if (exchange.kind !== "actor_process_carrier_validation") {
                 return refuseActorProcessEffect("actor_process_carrier_refused", exchange.message, predecessorPrefix, successorPrefix);
@@ -946,26 +964,21 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
             });
         }
         catch (error) {
-            if (!processStarted && !processTerminalConfirmed) {
-                append("actor_process_spawn_failed", "process", processRef, actorInvocationRef, {
-                    actorInvocationRef,
-                    processRef,
-                    diagnosticDigest: sha256Canonical(error instanceof Error ? error.message : String(error)),
-                });
-                processTerminalConfirmed = true;
-            }
-            if (!actorTerminalAdmitted && processTerminalConfirmed) {
-                append("actor_invocation_failed", "actor_invocation", actorInvocationRef, input.cCall.cCallRef, {
-                    actorInvocationRef,
-                    processRef,
-                    cCallRef: input.cCall.cCallRef,
-                    disposition: "failure",
-                    failureClass: "transport_exception",
-                    transportBindingRef,
-                    transportBindingDigest,
-                    diagnosticDigest: sha256Canonical(error instanceof Error ? error.message : String(error)),
-                });
-                actorTerminalAdmitted = true;
+            if (!actorTerminalAdmitted && processTerminalEvent !== null) {
+                try {
+                    append("actor_invocation_failed", "actor_invocation", actorInvocationRef, input.cCall.cCallRef, {
+                        actorInvocationRef,
+                        processRef,
+                        cCallRef: input.cCall.cCallRef,
+                        disposition: "failure",
+                        failureClass: "transport_exception",
+                        transportBindingRef,
+                        transportBindingDigest,
+                        diagnosticDigest: sha256Canonical(error instanceof Error ? error.message : String(error)),
+                    });
+                    actorTerminalAdmitted = true;
+                }
+                catch { /* Preserve the first owner failure and the actual committed prefix. */ }
             }
             throw error;
         }

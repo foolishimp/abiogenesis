@@ -13,7 +13,7 @@ import {projectExactPrefixWorkspaceEnvironment} from '../../build/code/src/abg/e
 import {prepareRunReadAtDurablePrefix} from '../../build/code/src/abg/project_read_ports.js';
 import {ABG_PROJECT_READ_CONTRACTS} from '../../build/code/src/abg/project_read_operation_contracts.js';
 import {ABG_PROJECT_READ_DEFINITION_BINDINGS} from '../../build/code/src/abg/project_read_definition_bindings.js';
-import {admitExactDefinitionCall} from '../../build/code/src/shared/definition_binding_mechanics.js';
+import {admitExactDefinitionCall} from '../../build/code/src/public/binding/definition_binding_mechanics.js';
 import {parseProductManifest,parseProductPublicContract,projectProductManifestOperationCoordinate} from '../../build/code/src/product/verify_product.js';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 const root=resolve(import.meta.dirname,'../..'),hash=product.sha256Canonical;

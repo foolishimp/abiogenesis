@@ -2,7 +2,7 @@ import {
   canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
-} from "./canonical_json.js";
+} from "../../shared/canonical_json.js";
 import {
   EXACT_OWNER_CONTRACT_KEY_SET_DIGEST,
   OWNER_CONTRACT_SOURCES,
@@ -13,15 +13,15 @@ import {
   type ResolvedOwnerContractBinding,
   type ResolvedOwnerContractSource,
 } from "./owner_contract_source_set.js";
-import { sha256Canonical, type Sha256Digest } from "./digests.js";
-import { deepFreeze } from "./immutable.js";
+import { sha256Canonical, type Sha256Digest } from "../../shared/digests.js";
+import { deepFreeze } from "../../shared/immutable.js";
 import type {
   PublicAdapterExitMap,
   PublicAuthorityClass,
   PublicAuthoritySlotRequirement,
   PublicEventAdmission,
-} from "./public_function_contracts.js";
-import type { PublicDefinitionKeyLike } from "./public_invocation.js";
+} from "../../shared/public_function_contracts.js";
+import type { PublicDefinitionKeyLike } from "../../shared/public_invocation.js";
 
 const FAMILY_REQUIREMENT_AUTHORITY_REFS = Object.freeze([
   "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-009",

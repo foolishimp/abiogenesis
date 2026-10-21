@@ -19,12 +19,12 @@ import {
 import {
   PUBLIC_FUNCTION_DEFINITION_FAMILY,
   type IntrinsicPublicFunctionFamilyCoordinate,
-} from "../shared/public_function_family.js";
+} from "../public/binding/public_function_family.js";
 import {
   PUBLIC_PROJECTION_PAYLOADS,
   S06_COMMON_PUBLIC_CONTRACT_IDS,
   type PublicProjectionPayloads,
-} from "../shared/public_function_projections.js";
+} from "../public/binding/public_function_projections.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {

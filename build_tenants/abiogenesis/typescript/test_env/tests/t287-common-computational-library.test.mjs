@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { sameCoordinate, sameJson } from '../../build/code/src/shared/definition_binding_mechanics.js';
-import { resolveExactMatch } from '../../build/code/src/product/exact_match.js';
+import { sameCoordinate, sameJson } from '../../build/code/src/public/binding/definition_binding_mechanics.js';
+import { resolveExactMatch } from '../../build/code/src/shared/select/exact_match.js';
 import { hasExactKeys, hasUnicodeNulJoinedKeys } from '../../build/code/src/shared/admission_predicates.js';
 import { decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
 

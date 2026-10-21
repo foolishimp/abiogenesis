@@ -1,32 +1,32 @@
-import { isRecord } from "./admission_predicates.js";
-import { ABG_PROJECT_READ_CONTRACTS } from "../abg/project_read_operation_contracts.js";
-import { WITNESS_OPERATION_CONTRACTS } from "../abg/witness_operation_contracts.js";
-import { CATALOG_OPERATION_CONTRACTS } from "../product/catalog_operation_contracts.js";
-import { PRODUCT_ENVIRONMENT_CONTRACTS } from "../product/environment_operation_contracts.js";
-import { PRODUCT_INSTALL_CONTRACTS } from "../product/install_operation_contracts.js";
+import { isRecord } from "../../shared/admission_predicates.js";
+import { ABG_PROJECT_READ_CONTRACTS } from "../../abg/project_read_operation_contracts.js";
+import { WITNESS_OPERATION_CONTRACTS } from "../../abg/witness_operation_contracts.js";
+import { CATALOG_OPERATION_CONTRACTS } from "../../product/catalog_operation_contracts.js";
+import { PRODUCT_ENVIRONMENT_CONTRACTS } from "../../product/environment_operation_contracts.js";
+import { PRODUCT_INSTALL_CONTRACTS } from "../../product/install_operation_contracts.js";
 import {
   INTERACTION_OPERATION_CONTRACTS,
   RESULT_OPERATION_CONTRACTS,
-} from "../product/interaction_operation_contracts.js";
+} from "../../product/interaction_operation_contracts.js";
 import {
   MATERIALIZATION_OPERATION_CONTRACTS,
-} from "../product/materialization_operation_contracts.js";
-import { RELEASE_OPERATION_CONTRACTS } from "../product/release_snapshot_operations.js";
-import { PRODUCT_PROJECT_READ_CONTRACTS } from "../product/project_read_operation_contracts.js";
-import { RUN_OPERATION_CONTRACTS } from "../product/run_operation_contracts.js";
-import { PRODUCT_VERIFICATION_CONTRACTS } from "../product/verification_operation_contracts.js";
-import { WORKSPACE_OPERATION_CONTRACTS } from "../product/workspace_operation_contracts.js";
-import { CONFORMANCE_OPERATION_CONTRACTS } from "../validator/conformance_operation_contracts.js";
-import { compareUnicodeCodeUnits, type JsonValue } from "./canonical_json.js";
-import { sha256Bytes, sha256Canonical, type Sha256Digest } from "./digests.js";
-import { deepFreeze } from "./immutable.js";
+} from "../../product/materialization_operation_contracts.js";
+import { RELEASE_OPERATION_CONTRACTS } from "../../product/release_snapshot_operations.js";
+import { PRODUCT_PROJECT_READ_CONTRACTS } from "../../product/project_read_operation_contracts.js";
+import { RUN_OPERATION_CONTRACTS } from "../../product/run_operation_contracts.js";
+import { PRODUCT_VERIFICATION_CONTRACTS } from "../../product/verification_operation_contracts.js";
+import { WORKSPACE_OPERATION_CONTRACTS } from "../../product/workspace_operation_contracts.js";
+import { CONFORMANCE_OPERATION_CONTRACTS } from "../../validator/conformance_operation_contracts.js";
+import { compareUnicodeCodeUnits, type JsonValue } from "../../shared/canonical_json.js";
+import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../../shared/digests.js";
+import { deepFreeze } from "../../shared/immutable.js";
 import {
   type OwnerContractSourceDeclaration,
   type OwnerDefinitionMetadata,
   projectStrictJsonSchema,
   type RuntimeContractSchema,
-} from "./public_function_contracts.js";
-import type { PublicDefinitionKeyLike } from "./public_invocation.js";
+} from "../../shared/public_function_contracts.js";
+import type { PublicDefinitionKeyLike } from "../../shared/public_invocation.js";
 
 export const EXACT_OWNER_CONTRACT_KEY_SET_DIGEST =
   "sha256:61077d017dbbe0bd071f312066d27bc6535a732aa9da00cd543a70506ec24a4f" as const;

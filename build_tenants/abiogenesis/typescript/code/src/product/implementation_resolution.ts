@@ -17,7 +17,7 @@ import {
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { ProductInstall } from "./environment.js";
-import { resolveExactMatch } from "./exact_match.js";
+import { resolveExactMatch } from "../shared/select/exact_match.js";
 import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
 import {
   isResolvedExecutionDeclarationClosure,

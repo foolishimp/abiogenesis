@@ -13,7 +13,7 @@ import {projectAdmittedCCallStateAtPrefix} from '../../build/code/src/abg/c_call
 import {readRuntimeEventsAtDurablePrefix} from '../../build/code/src/abg/event_store.js';
 import {selectValidatedRuntimeEventPrefix,validatedRuntimeEventPrefixThroughEvent} from '../../build/code/src/abg/event_prefix.js';
 import {sha256Canonical} from '../../build/code/src/shared/digests.js';
-import {PUBLIC_FUNCTION_DEFINITION_FAMILY,PUBLIC_OPERATION_CONTRACT_PROJECTIONS} from '../../build/code/src/shared/public_function_family.js';
+import {PUBLIC_FUNCTION_DEFINITION_FAMILY,PUBLIC_OPERATION_CONTRACT_PROJECTIONS} from '../../build/code/src/public/binding/public_function_family.js';
 import {ROOT_EVENT_CONTRACT_DIGEST,projectRuntimeEventFromValidatedHistory} from '../../build/code/src/abg/event_store.js';
 import {constructRuntimeSystemProbeContract} from '../../build/code/src/abg/runtime_liveness_contracts.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';

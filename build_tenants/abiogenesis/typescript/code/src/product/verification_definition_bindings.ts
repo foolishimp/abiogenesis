@@ -1,5 +1,5 @@
 import { withAdmissionAuthority } from "./admission_authority.js";
-import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate } from "../shared/definition_binding_mechanics.js";
+import { admitExactDefinitionCall, definitionFault as callAdmissionFault, sameCoordinate } from "../public/binding/definition_binding_mechanics.js";
 import { join } from "node:path";
 import * as Effect from "effect/Effect";
 import * as v from "valibot";

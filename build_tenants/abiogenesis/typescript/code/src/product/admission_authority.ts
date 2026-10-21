@@ -13,7 +13,7 @@ import {
 } from "../shared/public_function_contracts.js";
 import {
   admitExactDefinitionCall, definitionFault, isRecord, sameJson,
-} from "../shared/definition_binding_mechanics.js";
+} from "../public/binding/definition_binding_mechanics.js";
 import type { DefinitionCall, ExactDefinitionCallable } from "../shared/effect_definition.js";
 import {
   projectWorkspaceEnvironmentFromArtifactTruth,

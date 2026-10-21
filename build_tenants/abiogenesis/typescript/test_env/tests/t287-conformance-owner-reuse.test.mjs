@@ -68,7 +68,7 @@ async function backend(base) {
       constructAdmissionCapabilityGrants:(...args)=>invocation.constructAdmissionCapabilityGrants(...args)},
   });
   invocation=await mechanism(base,'product/invocation',{'./admission_authority.js':authority});
-  const mechanics=await load(base,'shared/definition_binding_mechanics');
+  const mechanics=await load(base,'public/binding/definition_binding_mechanics');
   metrics.resourceSelfComparisons=0;
   metrics.closureResolutions=0;metrics.rawClosureValidations=0;metrics.resolvedClosureContinuations=0;
   const declarations=await load(base,'product/declaration_closure');
@@ -83,11 +83,11 @@ async function backend(base) {
     './conformance_operation.js':conformance,
     '../product/declaration_closure.js':{resolveProgramDeclarationClosure:(...args)=>{metrics.closureResolutions++;return declarations.resolveProgramDeclarationClosure(...args);}},
     '../abg/index.js':{...env,...artifact},
-    '../shared/definition_binding_mechanics.js':{sameJson:(a,b)=>{
+    '../public/binding/definition_binding_mechanics.js':{sameJson:(a,b)=>{
       if(a===b && a?.kind==='conformance_evaluation_resource_assertion')metrics.resourceSelfComparisons++;
       return mechanics.sameJson(a,b);}}});
   return {base,authority,invocation,bindings,metrics,env,artifact,conformance,
-    projections:(await load(base,'shared/public_function_projections')).PUBLIC_PROJECTION_PAYLOADS,
+    projections:(await load(base,'public/binding/public_function_projections')).PUBLIC_PROJECTION_PAYLOADS,
     publicApi:await load(base,'public/index'),contracts:await load(base,'validator/conformance_operation_contracts'),host:await load(base,'shared/effect_definition'),
     failArchive:value=>{archiveFails=value;},failManifest:value=>{manifestFails=value;},afterManifestRead:fn=>{afterManifestRead=fn;}};
 }

@@ -13,7 +13,7 @@ import { RELEASE_OPERATION_ARTIFACT_SCHEMA, RELEASE_OPERATION_CONTRACTS, RELEASE
  type PublishedRcSnapshotRequest,type ReleasePublicationGrant,type ReleasePhysicalObservation,type ReleaseOperationArtifact, type PublishedReleaseOperationArtifact, type TappedReleaseSnapshotRequest, type ReleaseAcceptanceGrant, type TappedReleaseOperationArtifact } from "../product/release_snapshot_operations.js";
 import * as v from "valibot";
 import { readFileSync } from "node:fs";
-import { admitExactDefinitionCall } from "../shared/definition_binding_mechanics.js";
+import { admitExactDefinitionCall } from "../public/binding/definition_binding_mechanics.js";
 import { isCapabilityGrant,type CapabilityGrant } from "../product/invocation.js";
 import { isExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
 import { isRecord } from "../shared/admission_predicates.js";

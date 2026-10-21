@@ -14,22 +14,14 @@ import {
   type AbgEventResourceReceipt,
   type AbgEventResourceInput,
   type AbgEventResourceOutcome,
-} from "../abg/definition_event_resource.js";
-import type { DurablePrefixCoordinate } from "../abg/event_store.js";
-import {
-  admitExactDefinitionCall,
-  definitionFault,
-  validatedOwnerOutput,
-} from "./definition_binding_mechanics.js";
-import type {
-  DefinitionCall,
-  DefinitionReturn,
-  ExactDefinitionCallable,
-} from "./effect_definition.js";
-import { sha256Bytes } from "./digests.js";
-import { deepFreeze } from "./immutable.js";
+} from "./definition_event_resource.js";
+import type { DurablePrefixCoordinate } from "./event_store.js";
+import { definitionFault } from "../public/binding/definition_binding_mechanics.js";
+import { bindStaticOwner } from "../public/binding/static_definition_bindings.js";
+import type { ExactDefinitionCallable } from "../shared/effect_definition.js";
+import { sha256Bytes } from "../shared/digests.js";
 import type { OwnerContractSourceDeclaration } from
-  "./public_function_contracts.js";
+  "../shared/public_function_contracts.js";
 
 function samePrefix(
   left: DurablePrefixCoordinate,
@@ -100,88 +92,6 @@ function exactTransitionReceipt(
   return sameStore(receipt.entryPrefix, successor) &&
     successor.prefixLength >= receipt.entryPrefix.prefixLength &&
     (successor.prefixLength !== receipt.entryPrefix.prefixLength || samePrefix(receipt.entryPrefix, successor));
-}
-
-/**
- * Constructs one module-static definition closure over an exact owner and its
- * owner-authored structural resource contracts.
- */
-export function bindStaticOwner<
-  TPacket extends OwnerContractSourceDeclaration,
-  TResources,
-  TResourceReceipt,
->(
-  packet: TPacket,
-  owner: ExactDefinitionCallable<TPacket, TResources, TResourceReceipt>,
-  resourceAssertionSchema: v.GenericSchema<TResources, TResources>,
-  resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
-): ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> {
-  const callable: ExactDefinitionCallable<
-    TPacket,
-    TResources,
-    TResourceReceipt
-  > = (call) => {
-    const admittedInvocation = admitExactDefinitionCall(call, packet);
-    if (admittedInvocation === null) {
-      return Effect.fail(definitionFault(
-        packet.definitionKey,
-        "call_admission",
-        "call_identity_mismatch",
-        "definition call differs from its fixed module-static coordinate",
-      ));
-    }
-
-    const admittedResources = v.safeParse(
-      resourceAssertionSchema,
-      call.resources,
-    );
-    if (!admittedResources.success) {
-      return Effect.fail(definitionFault(
-        packet.definitionKey,
-        "resource_admission",
-        "invalid_resource_assertion",
-        "definition resources differ from the owner-authored structural contract",
-      ));
-    }
-
-    const admittedCall: DefinitionCall<TPacket, TResources> = deepFreeze({
-      invocation: admittedInvocation,
-      resources: admittedResources.output,
-    });
-    return Effect.suspend(() => owner(admittedCall)).pipe(
-      Effect.flatMap((result) => {
-        const admittedReceipt = v.safeParse(
-          resourceReceiptSchema,
-          result.resources,
-        );
-        if (!admittedReceipt.success) {
-          return Effect.fail(definitionFault(
-            packet.definitionKey,
-            "receipt_admission",
-            "invalid_resource_receipt",
-            "owner receipt differs from its module-static structural contract",
-          ));
-        }
-        return Effect.try({
-          try: (): DefinitionReturn<TPacket, TResourceReceipt> => deepFreeze({
-            ownerOutput: validatedOwnerOutput(
-              packet,
-              result.ownerOutput,
-              "module-static definition owner",
-            ),
-            resources: admittedReceipt.output,
-          }),
-          catch: () => definitionFault(
-            packet.definitionKey,
-            "owner_output_admission",
-            "invalid_owner_output",
-            "owner output differs from its exact fixed-packet contract",
-          ),
-        });
-      }),
-    );
-  };
-  return Object.freeze(callable);
 }
 
 /** Module-static specialization for an unchanged exact-prefix owner read. */

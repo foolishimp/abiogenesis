@@ -1631,7 +1631,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     "build/code/src/product/catalog_definition_bindings.js",
     "build/code/src/product/project_read_definition_bindings.js",
     "build/code/src/validator/conformance_definition_bindings.js",
-    "build/code/src/shared/definition_binding_mechanics.js",
+    "build/code/src/public/binding/definition_binding_mechanics.js",
   ]) {
     const source = await readFile(join(harness.installedPackageRoot, path), "utf8");
     assert.doesNotMatch(

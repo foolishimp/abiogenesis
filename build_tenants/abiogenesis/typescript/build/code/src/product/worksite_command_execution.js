@@ -25,13 +25,15 @@ export { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_ide
 const commandExecutionBudgetRule = deepFreeze({
     aggregation: "sum",
     commandFields: ["timeoutMs", "terminationGraceMs", "terminationGraceMs"],
-    httpResponseFields: { launch: ["timeoutMs", "terminationGraceMs"], request: ["timeoutMs"] },
+    httpResponseFields: { launch: ["timeoutMs", "terminationGraceMs", "terminationGraceMs"], request: ["timeoutMs"] },
+    perOperationDrain: { field: "terminationGraceMs", maximumMs: 250, operation: "minimum" },
     ownerAllowanceMs: 5_000,
     limitComparison: "required_budget_strictly_less_than_each_limit",
     limitOrdering: "absolute_strictly_greater_than_inactivity",
 });
 export function projectWorksiteCommandExecutionBudget(task) {
-    const commandBudgetMs = task.commands.reduce((sum, command) => commandExecutionBudgetRule.commandFields.reduce((subtotal, field) => subtotal + command[field], sum), 0);
+    const commandBudgetMs = task.commands.reduce((sum, command) => commandExecutionBudgetRule.commandFields.reduce((subtotal, field) => subtotal + command[field], sum) +
+        Math.min(command[commandExecutionBudgetRule.perOperationDrain.field], commandExecutionBudgetRule.perOperationDrain.maximumMs), 0);
     const httpProbeBudgetMs = task.outcomePredicates.reduce((sum, predicate) => {
         if (predicate.predicateKind !== "http_response_exact" ||
             typeof predicate.declaration !== "object" || predicate.declaration === null ||
@@ -43,7 +45,8 @@ export function projectWorksiteCommandExecutionBudget(task) {
             typeof request !== "object" || request === null || Array.isArray(request))
             return sum;
         const parts = { launch: launch, request: request };
-        return Object.keys(commandExecutionBudgetRule.httpResponseFields).reduce((subtotal, part) => commandExecutionBudgetRule.httpResponseFields[part].reduce((total, field) => total + Number(parts[part][field]), subtotal), sum);
+        return Object.keys(commandExecutionBudgetRule.httpResponseFields).reduce((subtotal, part) => commandExecutionBudgetRule.httpResponseFields[part].reduce((total, field) => total + Number(parts[part][field]), subtotal), sum) +
+            Math.min(Number(parts.launch[commandExecutionBudgetRule.perOperationDrain.field]), commandExecutionBudgetRule.perOperationDrain.maximumMs);
     }, 0);
     return deepFreeze({ rule: commandExecutionBudgetRule, commandBudgetMs, httpProbeBudgetMs,
         requiredExecutionBudgetMs: commandBudgetMs + httpProbeBudgetMs + commandExecutionBudgetRule.ownerAllowanceMs });

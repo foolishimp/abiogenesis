@@ -107,9 +107,9 @@ import {
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
   isRecord,
-} from "../shared/definition_binding_mechanics.js";
+} from "../public/binding/definition_binding_mechanics.js";
 import { bindExactPrefixTransition } from
-  "../shared/static_definition_bindings.js";
+  "../abg/exact_prefix_bindings.js";
 import {
   type DefinitionCall,
   type DefinitionExecutionFault,

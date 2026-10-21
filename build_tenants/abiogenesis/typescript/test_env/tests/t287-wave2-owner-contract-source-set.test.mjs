@@ -12,7 +12,7 @@ import {
   OWNER_CONTRACT_MODULE_SOURCES,
   OWNER_CONTRACT_SOURCE_MAP,
   OWNER_CONTRACT_SOURCES,
-} from "../../build/code/src/shared/owner_contract_source_set.js";
+} from "../../build/code/src/public/binding/owner_contract_source_set.js";
 import {
   admitRuntimeContract,
   ownerAuthorityDigest,
@@ -29,7 +29,7 @@ import {
   PUBLIC_FUNCTION_DEFINITION_FAMILY,
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
   derivePublicOperationContractProjections,
-} from "../../build/code/src/shared/public_function_family.js";
+} from "../../build/code/src/public/binding/public_function_family.js";
 import {
   canonicalJson,
 } from "../../build/code/src/shared/canonical_json.js";

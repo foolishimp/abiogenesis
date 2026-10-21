@@ -1,6 +1,6 @@
 import { projectExactPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
-import { sameJson } from "../shared/definition_binding_mechanics.js";
+import { sameJson } from "../public/binding/definition_binding_mechanics.js";
 import { readReleaseArtifactBytes,projectReleaseQualification,projectReleaseAcceptance } from "../implementation/release_publication.js";
 import { releaseArtifactCoordinate } from "./release_snapshot_operations.js";
 import { isRecord, hasObjectUnicodeNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";

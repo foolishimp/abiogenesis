@@ -1,5 +1,5 @@
 import { withAdmissionAuthority, type AdmissionDefinitionOwner } from "./admission_authority.js";
-import { admitExactDefinitionCall, definitionFault as callAdmissionFault } from "../shared/definition_binding_mechanics.js";
+import { admitExactDefinitionCall, definitionFault as callAdmissionFault } from "../public/binding/definition_binding_mechanics.js";
 import { join } from "node:path";
 import * as Effect from "effect/Effect";
 
@@ -27,7 +27,7 @@ import {
   sameCoordinate,
   sameJson,
   validatedOwnerOutput,
-} from "../shared/definition_binding_mechanics.js";
+} from "../public/binding/definition_binding_mechanics.js";
 import type {
   DefinitionCall,
   DefinitionExecutionFault,

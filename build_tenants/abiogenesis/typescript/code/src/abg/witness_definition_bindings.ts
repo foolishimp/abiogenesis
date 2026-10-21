@@ -14,7 +14,7 @@ import {
   reference,
   sameJson,
   validatedOwnerOutput,
-} from "../shared/definition_binding_mechanics.js";
+} from "../public/binding/definition_binding_mechanics.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type {
   DefinitionCall,
@@ -25,7 +25,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { constructExactOperationInvocationCoordinate } from
   "../shared/operation_definition_coordinate.js";
 import type { OwnerSemanticOutput } from "../shared/public_function_contracts.js";
-import { bindStaticOwner } from "../shared/static_definition_bindings.js";
+import { bindStaticOwner } from "../public/binding/static_definition_bindings.js";
 import {
   abandonAbgEventResource,
   acquireAbgEventResource,

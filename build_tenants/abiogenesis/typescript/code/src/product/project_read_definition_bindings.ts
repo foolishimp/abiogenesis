@@ -1,6 +1,6 @@
 import * as v from "valibot";
 import { acquireAbgEventResource,closeAbgEventResource,abandonAbgEventResource,validateAbgEventResourceAssertion,validateAbgEventResourceReceipt,type AbgEventResourceAssertion,type AbgEventResourceReceipt } from "../abg/definition_event_resource.js";
-import { bindExactPrefixRead } from "../shared/static_definition_bindings.js";
+import { bindExactPrefixRead } from "../abg/exact_prefix_bindings.js";
 import { absolutePathSchema } from "../shared/public_function_contracts.js";
 import { projectReleaseEvidence } from "./project_read_ports.js";
 import * as Effect from "effect/Effect";
@@ -34,7 +34,7 @@ import {
   sameCoordinate,
   sameJson,
   validatedOwnerOutput,
-} from "../shared/definition_binding_mechanics.js";
+} from "../public/binding/definition_binding_mechanics.js";
 import type {
   DefinitionCall,
   DefinitionExecutionFault,

@@ -2,19 +2,19 @@ import {
   canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
-} from "./canonical_json.js";
+} from "../../shared/canonical_json.js";
 import {
   projectStrictJsonSchema,
   type RuntimeContractSchema,
-} from "./public_function_contracts.js";
+} from "../../shared/public_function_contracts.js";
 import {
   PUBLIC_FUNCTION_DEFINITION_FAMILY,
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
   type IntrinsicPublicFunctionDefinition,
   type IntrinsicPublicFunctionFamilyCoordinate,
 } from "./public_function_family.js";
-import { sha256Bytes, sha256Canonical, type Sha256Digest } from "./digests.js";
-import { deepFreeze } from "./immutable.js";
+import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../../shared/digests.js";
+import { deepFreeze } from "../../shared/immutable.js";
 
 export const S06_COMMON_PUBLIC_CONTRACT_IDS = Object.freeze([
   "abg.schema.public-operation-contract",

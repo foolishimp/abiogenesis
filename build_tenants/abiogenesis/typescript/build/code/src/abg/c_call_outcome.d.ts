@@ -2,6 +2,7 @@ import type { ModulePublication } from "../gtl/contracts.js";
 import type { ClosureContract, GraphFunction, GtlGraph } from "../gtl/contracts.js";
 import type { ClosedLeafOwnerReceipt, LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { type WorksiteFileReplaceRequest } from "../product/worksite_effect.js";
 import type { WorkspaceBinding } from "../product/environment.js";
 import type { ActorRuntimeBinding } from "./actor_process.js";
 import { type AdmittedCCallResult, type CCall, type CCallAdmissionRejection, type CCallRuntimeFailureSource, type ChildFoldbackAdmission, type RehydratedAdmittedCCallState, type JudgmentCandidate, type RejectedCCallCompletion } from "./c_call.js";
@@ -16,9 +17,8 @@ import type { OpenedTraversalScope } from "./open_call.js";
 import { type ScopeClosureAdmission, type ScopeClosureAdmissionRefusal } from "./closure.js";
 import { type RouteTransitionAdmission, type RouteTransitionResult } from "./traversal_route.js";
 import type { TraversalTransitionCandidate } from "./traversal_transition.js";
-/** Reconstructs C0's Product-owned failure join from admitted bytes, with no I/O. */
 export declare function projectWorksiteFailureBasis(events: readonly RuntimeEvent[], cCallRef: string, value: unknown): {
-    request: (JsonValue | undefined) & import("../product/worksite_effect.js").WorksiteFileReplaceRequest;
+    request: (JsonValue | undefined) & WorksiteFileReplaceRequest;
     authorization: import("../product/worksite_effect.js").WorksiteEffectAuthorization;
     executionBasis: ExecutionBasis;
     implementationSet: AdmittedImplementationSet;
