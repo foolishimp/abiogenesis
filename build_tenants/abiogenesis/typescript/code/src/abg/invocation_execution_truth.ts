@@ -30,6 +30,8 @@ import { validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import { runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./event_store.js";
 import { canonicalEquals, canonicalRecordDigest } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
+import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
+import { checkExactRecord, resolveExactMatch, type RecordCheck } from "../shared/select/index.js";
 
 /** @internal Existing Catalog reconstruction binds each complete preimage to
  * its actual admitted install/lock/W. No copied Catalog grants applicability. */
@@ -596,6 +598,53 @@ export function hasExactInvocationRunBindingAtPrefix(
     payload.graphFunctionRef === admission.graphFunctionRef;
 }
 
+const EXECUTION_BASIS_PROJECTION_REFUSAL: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "execution_basis_projection",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+function executionBasisBody(basis: ExecutionBasis): JsonValue {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    basisRef: _basisRef,
+    basisDigest: _basisDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = basis;
+  return body as unknown as JsonValue;
+}
+
+/** One `basis_admitted` event as a checked record: the projection admits the
+ * raw input against its recorded digest and builds the basis; the digest leg
+ * compares the basis body digest with the recorded `basisDigest` (D2). */
+const EXECUTION_BASIS_RECORD: RecordCheck<RuntimeEvent, ExecutionBasis> = Object.freeze({
+  project: (event: RuntimeEvent): Outcome<ExecutionBasis> => {
+    if (!isRecord(event.payload)) return EXECUTION_BASIS_PROJECTION_REFUSAL;
+    const rawInputValue = admitJson(event.payload.rawInputValue);
+    if (
+      rawInputValue.kind !== "ok" ||
+      !isRecord(rawInputValue.value) ||
+      canonicalRecordDigest(rawInputValue.value) !== event.payload.rawInputDigest
+    ) return EXECUTION_BASIS_PROJECTION_REFUSAL;
+    return ok(deepFreeze({
+      kind: "execution_basis" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      ...event.payload,
+      admissionEventRef: event.eventId,
+    }) as unknown as ExecutionBasis);
+  },
+  digest: Object.freeze({
+    expected: (_event: RuntimeEvent, basis: ExecutionBasis) => basis.basisDigest,
+    actual: (basis: ExecutionBasis) => sha256Canonical(executionBasisBody(basis)),
+  }),
+});
+
 export function projectExactExecutionBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   basisRef: string,
@@ -609,41 +658,21 @@ export function projectExactExecutionBasisAtPrefix(
   prefix: RuntimeEventPrefix,
   basisRef: string,
 ): ExecutionBasis | null {
-  const matches = indexedRuntimeEvents(prefix, "payload:basisRef:" + basisRef).filter(
-    (event) =>
-      event.kind === "basis_admitted" &&
-      event.basisId === basisRef &&
-      isRecord(event.payload) &&
-      event.payload.basisRef === basisRef,
+  const checked = checkExactRecord(
+    resolveExactMatch(indexedRuntimeEvents(prefix, "payload:basisRef:" + basisRef),
+      (event) =>
+        event.kind === "basis_admitted" &&
+        event.basisId === basisRef &&
+        isRecord(event.payload) &&
+        event.payload.basisRef === basisRef),
+    EXECUTION_BASIS_RECORD,
   );
-  if (matches.length !== 1) return null;
-  const event = matches[0]!;
+  // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
+  if (checked.kind !== "one") return null;
+  const { event, value: basis } = checked;
   if (!isRecord(event.payload)) return null;
-  const rawInputValue = admitJson(event.payload.rawInputValue);
-  if (
-    rawInputValue.kind !== "ok" ||
-    !isRecord(rawInputValue.value) ||
-    canonicalRecordDigest(rawInputValue.value) !== event.payload.rawInputDigest
-  ) return null;
-  const basis = deepFreeze({
-    kind: "execution_basis" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    ...event.payload,
-    admissionEventRef: event.eventId,
-  }) as unknown as ExecutionBasis;
-  const {
-    kind: _kind,
-    schemaVersion: _schemaVersion,
-    disposition: _disposition,
-    basisRef: _basisRef,
-    basisDigest: _basisDigest,
-    admissionEventRef: _admissionEventRef,
-    ...body
-  } = basis;
-  // The immutable admitted payload's raw input digest was checked above.
-  return sha256Canonical(body as unknown as JsonValue) === basis.basisDigest &&
-      basis.basisRef ===
+  // The raw input digest and the basis body digest were checked above.
+  return basis.basisRef ===
         `execution-basis://abiogenesis/${basis.basisDigest.slice("sha256:".length)}` &&
       event.payload.basisRef === basis.basisRef &&
       event.payload.basisDigest === basis.basisDigest &&

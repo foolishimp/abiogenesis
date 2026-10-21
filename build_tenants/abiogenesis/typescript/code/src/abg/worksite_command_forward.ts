@@ -27,9 +27,11 @@ import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } fro
 import { replayValidatedRuntimeEventPrefix } from "./replay.js";
 import { constructRunActiveFluent, runtimeFluentKey } from "./event_calculus.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
 const hash=(a:unknown)=>sha256Canonical(a as JsonValue);
 const record=(v:unknown):v is Record<string,JsonValue>=>v!==null&&typeof v==="object"&&!Array.isArray(v);
-const one=<T>(rows:readonly T[],test:(row:T)=>boolean):T|null=>{const selected=rows.filter(test);return selected.length===1?selected[0]!:null;};
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 /** Actor ownership is native parent/child lineage, not a guessed payload on
  * each process/stream event. A dispatch intent alone consumes this eligibility. */
 export function hasWorksiteCommandForwardDispatchAtPrefix(prefix:ValidatedRuntimeEventPrefix,cCallRef:string):boolean {
@@ -49,10 +51,10 @@ function graphFor(basis:ExecutionBasis,gf:GraphFunction) {
   return graph.materializationRef===basis.graphRef&&graph.materializationDigest===basis.graphDigest?graph:null;
 }
 function nativeLeaf(prefix:RuntimeEventPrefix,ref:string,gf:GraphFunction) {
-  const events=indexedRuntimeEvents(prefix,"aggregate:c_call:"+ref),open=one(events,e=>e.kind==="c_call_opened"&&e.aggregateId===ref);
+  const events=indexedRuntimeEvents(prefix,"aggregate:c_call:"+ref),open=exactOrNull(resolveExactMatch(events,e=>e.kind==="c_call_opened"&&e.aggregateId===ref));
   const basis=open?.basisId===undefined?null:projectExactExecutionBasisAtPrefix(prefix,open.basisId);
   const graph=basis===null?null:graphFor(basis,gf),call=graph===null?null:projectOpenedCCallCarrierAtPrefix(prefix,graph,ref);
-  const result=one(events,e=>e.kind==="c_call_result_admitted"&&e.aggregateId===ref),judged=one(events,e=>e.kind==="c_call_judged"&&e.aggregateId===ref);
+  const result=exactOrNull(resolveExactMatch(events,e=>e.kind==="c_call_result_admitted"&&e.aggregateId===ref)),judged=exactOrNull(resolveExactMatch(events,e=>e.kind==="c_call_judged"&&e.aggregateId===ref));
   if(basis===null||call===null||call.callClass!=="leaf"||result===null||judged===null||!record(result.payload)||!record(judged.payload))return null;
   const state=projectAdmittedCCallStateAtPrefix(prefix,call as unknown as Record<string,JsonValue>,
     {kind:"admitted_c_call_result",schemaVersion:"5.0.0",disposition:"admitted",...result.payload,admissionEventRef:result.eventId},
@@ -65,7 +67,7 @@ export function projectWorksiteCommandForwardSource(request:WorksiteCommandForwa
     if(!isWorksiteCommandForwardRequest(request))return null;
     const s=request.source,events=readRuntimeEventsAtDurablePrefix(s.prefix),prefix=selectValidatedRuntimeEventPrefix(events);
     const invocation=projectExactInvocationAdmissionAtPrefix(prefix,s.invocationAdmissionRef);
-    const opened=one(events,e=>e.kind==="c_call_opened"&&e.aggregateId===s.failedCCallRef&&e.runId===s.runId);
+    const opened=exactOrNull(resolveExactMatch(events,e=>e.kind==="c_call_opened"&&e.aggregateId===s.failedCCallRef&&e.runId===s.runId));
     const sourceBasis=opened?.basisId===undefined?null:projectExactExecutionBasisAtPrefix(prefix,opened.basisId);
     if(invocation===null||invocation.invocationRef!==s.invocationRef||sourceBasis===null||
       sourceBasis.invocationAdmissionRef!==s.invocationAdmissionRef||sourceBasis.invocationRef!==s.invocationRef||
@@ -81,13 +83,13 @@ export function projectWorksiteCommandForwardSource(request:WorksiteCommandForwa
     const closure=resolveExecutionDeclarationClosure(rebuilt.catalog,rebuilt.catalogView,invocation.programRef,invocation.graphFunctionRef);
     if(closure.kind!=="resolved_execution_declaration_closure")return null;
     const definition=(ref:string):GraphFunction|null=>{
-      const owner=one(closure.graphFunctionOwners,o=>o.declarationRef===ref);
-      const publication=owner===null?null:one(closure.publications,p=>p.moduleRef===owner.moduleRef&&p.owningProductId===owner.productId&&
-        modulePublicationSemanticDigest(p)===owner.publicationDigest);
-      return publication===null?null:one(publication.graphFunctions,g=>g.name===ref);
+      const owner=exactOrNull(resolveExactMatch(closure.graphFunctionOwners,o=>o.declarationRef===ref));
+      const publication=owner===null?null:exactOrNull(resolveExactMatch(closure.publications,p=>p.moduleRef===owner.moduleRef&&p.owningProductId===owner.productId&&
+        modulePublicationSemanticDigest(p)===owner.publicationDigest));
+      return publication===null?null:exactOrNull(resolveExactMatch(publication.graphFunctions,g=>g.name===ref));
     };
     const gf=definition(sourceBasis.graphFunctionRef),failed=gf===null?null:nativeLeaf(prefix,s.failedCCallRef,gf);
-    const failure=one(events,e=>e.eventId===s.failureEventRef),runFailure=one(events,e=>e.eventId===s.runFailureEventRef);
+    const failure=exactOrNull(resolveExactMatch(events,e=>e.eventId===s.failureEventRef)),runFailure=exactOrNull(resolveExactMatch(events,e=>e.eventId===s.runFailureEventRef));
     if(failed===null||failed.cCall.regime!=="F_P"||failed.cCall.implementationRef!==C2.implementationRef||
       failed.cCall.implementationBindingRef!==C2.implementationBindingRef||failed.result.resultClass==="success"||failed.judgment.judgment==="advance"||
       failure===null||failure.kind!=="c_call_evidenced"||failure.aggregateId!==s.failedCCallRef||failure.runId!==s.runId||
@@ -130,15 +132,15 @@ function isFailedUndispatchedForwardSuccessor(prefix:ValidatedRuntimeEventPrefix
     const events=runtimeEventsFromValidatedPrefix(prefix);
     if(basis.basisClass!=="root"||basis.invocationAdmissionRef!==invocation.invocationAdmissionRef||
       basis.invocationRef!==invocation.invocationRef||basis.graphFunctionRef!==F.graphFunctionRef)return false;
-    const runOpen=one(events,e=>e.kind==="run_segment_opened"&&(e.basisId===basis.basisRef||
-      (record(e.payload)&&e.payload.invocationAdmissionRef===invocation.invocationAdmissionRef)));
+    const runOpen=exactOrNull(resolveExactMatch(events,e=>e.kind==="run_segment_opened"&&(e.basisId===basis.basisRef||
+      (record(e.payload)&&e.payload.invocationAdmissionRef===invocation.invocationAdmissionRef))));
     if(runOpen?.runId===undefined||runOpen.basisId!==basis.basisRef||!record(runOpen.payload)||
       runOpen.payload.executionBasisRef!==basis.basisRef||runOpen.payload.executionBasisDigest!==basis.basisDigest||
       !hasExactInvocationRunBindingAtPrefix(prefix,invocation,runOpen.runId))return false;
     const runPrefix=selectValidatedRuntimeEventPrefix(events,{runId:runOpen.runId});
     const runEvents=runtimeEventsFromValidatedPrefix(runPrefix),replayed=replayValidatedRuntimeEventPrefix(runPrefix,prefix);
-    const terminal=one(runEvents,e=>e.runId===runOpen.runId&&
-      (e.kind==="runtime_failure_observed"||e.kind==="run_stopped"||e.kind==="run_closed"));
+    const terminal=exactOrNull(resolveExactMatch(runEvents,e=>e.runId===runOpen.runId&&
+      (e.kind==="runtime_failure_observed"||e.kind==="run_stopped"||e.kind==="run_closed")));
     if(replayed.runId!==runOpen.runId||replayed.runtimeStatus!=="failed"||replayed.runClosedEventRef!==null||
       replayed.activeFluents.includes(runtimeFluentKey(constructRunActiveFluent(runOpen.runId)))||
       terminal===null||terminal.aggregateType!=="run"||terminal.aggregateId!==runOpen.runId||
@@ -166,7 +168,7 @@ export function worksiteCommandForwardUnconsumed(prefix:ValidatedRuntimeEventPre
     if(invocation===null)return e.payload.graphFunctionRef===F.graphFunctionRef&&
       e.payload.workspaceId===request.workspaceBinding.workspaceId;
     if(invocation.graphFunctionRef!==F.graphFunctionRef)return false;
-    const basisEvent=one(events,row=>row.kind==="basis_admitted"&&record(row.payload)&&row.payload.basisClass==="root"&&row.payload.invocationAdmissionRef===invocation.invocationAdmissionRef);
+    const basisEvent=exactOrNull(resolveExactMatch(events,row=>row.kind==="basis_admitted"&&record(row.payload)&&row.payload.basisClass==="root"&&row.payload.invocationAdmissionRef===invocation.invocationAdmissionRef));
     const basis=basisEvent!==null&&record(basisEvent.payload)&&typeof basisEvent.payload.basisRef==="string"
       ?projectExactExecutionBasisAtPrefix(prefix,basisEvent.payload.basisRef):null;
     // An admitted but not yet based forward invocation is unresolved, not an
@@ -257,11 +259,11 @@ export function worksiteCommandForwardChildSourceAtPrefix(prefix:RuntimeEventPre
     if(parentRef===null||parentCCallRef===null||!isWorksiteCommandForwardTask(input))return false;
     const parent=projectExactExecutionBasisAtPrefix(prefix,parentRef),events=indexedRuntimeEvents(prefix,"aggregate:c_call:"+parentCCallRef);
     if(parent===null||parent.graphFunctionRef!==F.graphFunctionRef||!canonicalEquals(parent.rawInputValue, input.request as unknown as JsonValue)||parent.basisClass!=="root")return false;
-    const parentCall=one(events,e=>e.kind==="c_call_opened"&&e.aggregateId===parentCCallRef&&e.basisId===parentRef);
+    const parentCall=exactOrNull(resolveExactMatch(events,e=>e.kind==="c_call_opened"&&e.aggregateId===parentCCallRef&&e.basisId===parentRef));
     if(parentCall===null||!record(parentCall.payload)||parentCall.payload.callClass!=="workflow"||parentCall.payload.childGraphFunctionRef!==F.childGraphFunctionRef)return false;
     const parentPayload=parentCall.payload;
-    const route=one(indexedRuntimeEvents(prefix,"payload:targetCursorRef:"+parentPayload.cursorRef),e=>e.kind==="traversal_route_admitted"&&e.basisId===parentRef&&record(e.payload)&&
-      e.payload.targetCursorRef===parentPayload.cursorRef&&e.payload.targetCursorDigest===parentPayload.cursorDigest);
+    const route=exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix,"payload:targetCursorRef:"+parentPayload.cursorRef),e=>e.kind==="traversal_route_admitted"&&e.basisId===parentRef&&record(e.payload)&&
+      e.payload.targetCursorRef===parentPayload.cursorRef&&e.payload.targetCursorDigest===parentPayload.cursorDigest));
     if(route===null||!record(route.payload)||typeof route.payload.cCallRef!=="string"||route.payload.routeKind!=="advance")return false;
     const gf=(awaitFreeForwardRoot()),producer=nativeLeaf(prefix,route.payload.cCallRef,gf);
     if(producer===null||producer.cCall.implementationRef!==F.prepareImplementationRef||producer.cCall.programLocusRef!==F.prepareNodeRef||

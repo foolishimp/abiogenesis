@@ -42,6 +42,11 @@ import {
 } from "./open_call.js";
 import type { RuntimeEvent } from "./event_store.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
+/** Owner boundary: `absent` and `many` map to `undefined`. */
+const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 
 export interface TraversalCursorCandidate {
   readonly kind: "traversal_cursor";
@@ -360,7 +365,7 @@ function inputCoordinate(ref: JsonValue | undefined, digest: JsonValue | undefin
 function eventById(prefix: RuntimeEventPrefix, ref: JsonValue | undefined): RuntimeEvent | null {
   if (typeof ref !== "string") return null;
   const events = indexedRuntimeEvents(prefix, "id:" + ref);
-  return events.length === 1 ? events[0]! : null;
+  return exactOrNull(onlyExactMatch(events));
 }
 
 function sameCoordinates(a: readonly string[] | readonly number[], b: readonly string[] | readonly number[]): boolean {
@@ -449,7 +454,7 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
   let ref = selected.cursorRef, digest = selected.cursorDigest, before = Infinity;
   while (true) {
     const matches = traversalCursorAdmissionEventsAtPrefix(prefix, { ...selected, cursorRef: ref });
-    const event = matches.length === 1 ? matches[0]! : null;
+    const event = exactOrNull(onlyExactMatch(matches));
     if (event === null || event.admissionOrdinal >= before || traversalCursorAdmissionDigest(event) !== digest ||
       !isJsonRecord(event.payload)) return null;
     origins.push(event);
@@ -521,7 +526,7 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
         const admittedInput = projectRegisteredSelectionInputAtPrefix(prefix, event);
         const results = indexedRuntimeEvents(prefix, "related:" + payload.cCallRef).filter(e =>
           e.kind === "c_call_result_admitted" && e.basisId === current.executionBasisRef && isJsonRecord(e.payload));
-        const result = results.length === 1 ? results[0] : undefined;
+        const result = exactOrUndefined(onlyExactMatch(results));
         const basis = rehydrateExecutionBasisAtPrefix(prefix, current.executionBasisRef);
         if (admittedInput === null || result === undefined || !isJsonRecord(result.payload) ||
           typeof result.payload.contractRef !== "string" || result.payload.value === undefined || basis === null) return null;
@@ -581,7 +586,7 @@ export function projectOpenedCCallTraversalInputAtPrefix(prefix: RuntimeEventPre
     execution: ExecutionBasis;
 } | null {
   const openedRows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef).filter(e => e.kind === "c_call_opened");
-  const opened = openedRows.length === 1 ? openedRows[0] : undefined;
+  const opened = exactOrUndefined(onlyExactMatch(openedRows));
   if (opened === undefined || !isJsonRecord(opened.payload) || (opened.payload.callClass !== "leaf" && opened.payload.callClass !== "workflow") ||
     typeof opened.basisId !== "string" || typeof opened.payload.programLocusRef !== "string" ||
     typeof opened.payload.cursorRef !== "string" || typeof opened.payload.cursorDigest !== "string") return null;

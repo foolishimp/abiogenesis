@@ -10,7 +10,7 @@ import { worksiteExecutionSourcesCurrent } from "./worksite_revision.js";
 import { deriveRuntimeHeldFluentProjection, holdsAt, constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
 /** Pure, prefix-owned provenance for the bounded worksite retention relation. */
 import { type JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { rawAdmitValue, type RawAdmittedValue } from "../validator/raw_admission.js";
 import { isWorksitePreparationBoundInput, isWorksitePreparationInput, constructRetainedWorksiteInput,
   worksiteRetentionBinding, prepareWorksiteCommandTask, preparationConstructionTasks, WORKSITE_PREPARATION_IDS } from "../product/worksite_preparation.js";
@@ -31,14 +31,14 @@ import { governanceRef, governanceContract, isGovernanceWorkState } from "../pro
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution_identity.js";
 import { worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { ok, type StructuralRefusal } from "../shared/refusal.js";
+import { checkExactRecord, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
 
 function record(value: unknown): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
-function one(events: RuntimeEventScan, predicate: (event: RuntimeEvent) => boolean): RuntimeEvent | null {
-  const matches = events.filter(predicate);
-  return matches.length === 1 ? matches[0]! : null;
-}
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 function sameScope(a: RuntimeEvent, b: RuntimeEvent): boolean {
   return a.runId === b.runId && a.basisId === b.basisId && a.graphCallId === b.graphCallId && a.frameId === b.frameId;
 }
@@ -51,19 +51,42 @@ function sameInvocation(a: ExecutionBasis, b: ExecutionBasis): boolean {
     a.catalogViewDigest === b.catalogViewDigest && a.actorRef === b.actorRef &&
     a.rootImplementationSetRef === b.rootImplementationSetRef && a.rootImplementationSetDigest === b.rootImplementationSetDigest;
 }
+const RESULT_VALUE_PROJECTION_REFUSAL: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "result_value_projection",
+  path: Object.freeze(["payload", "value"]),
+  evidence: Object.freeze({}),
+});
+/** One result event as a checked record: its value is a record whose canonical
+ * digest is the recorded `valueDigest`. */
+const RESULT_VALUE_RECORD: RecordCheck<RuntimeEvent, Readonly<{
+  value: Readonly<Record<string, JsonValue>>; valueDigest: Sha256Digest;
+}>> = Object.freeze({
+  project: (event: RuntimeEvent) =>
+    record(event.payload) && record(event.payload.value) && isSha256Digest(event.payload.valueDigest)
+      ? ok({ value: event.payload.value, valueDigest: event.payload.valueDigest })
+      : RESULT_VALUE_PROJECTION_REFUSAL,
+  digest: Object.freeze({
+    expected: (_event: RuntimeEvent, projected: Readonly<{ valueDigest: Sha256Digest }>) => projected.valueDigest,
+    actual: (projected: Readonly<{ value: Readonly<Record<string, JsonValue>> }>) => sha256Canonical(projected.value),
+  }),
+});
 function successfulResult(events: RuntimeEventScan, resultRef: string, scope: RuntimeEvent): Readonly<{
   result: RuntimeEvent; judgment: RuntimeEvent; value: Readonly<Record<string, JsonValue>>;
 }> | null {
-  const result = one(events, (event) => event.kind === "c_call_result_admitted" && sameScope(event, scope) &&
-    record(event.payload) && event.payload.resultRef === resultRef && event.payload.resultClass === "success");
-  if (result === null || !record(result.payload) || !record(result.payload.value) ||
-    sha256Canonical(result.payload.value) !== result.payload.valueDigest) return null;
+  const checked = checkExactRecord(resolveExactMatch(events, (event) => event.kind === "c_call_result_admitted" && sameScope(event, scope) &&
+    record(event.payload) && event.payload.resultRef === resultRef && event.payload.resultClass === "success"), RESULT_VALUE_RECORD);
+  // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
+  if (checked.kind !== "one") return null;
+  const result = checked.event;
+  if (!record(result.payload)) return null;
   const resultPayload = result.payload;
-  const judgment = one(events, (event) => event.kind === "c_call_judged" && sameScope(event, result) &&
+  const judgment = exactOrNull(resolveExactMatch(events, (event) => event.kind === "c_call_judged" && sameScope(event, result) &&
     event.aggregateId === result.aggregateId && record(event.payload) && event.payload.resultRef === resultRef &&
     event.payload.resultDigest === resultPayload.resultDigest && event.payload.judgment === "advance" &&
-    event.admissionOrdinal > result.admissionOrdinal && event.causationEventRefs.includes(result.eventId));
-  return judgment === null ? null : { result, judgment, value: result.payload.value };
+    event.admissionOrdinal > result.admissionOrdinal && event.causationEventRefs.includes(result.eventId)));
+  return judgment === null ? null : { result, judgment, value: checked.value.value };
 }
 
 /** Follows one declared C3 workflow child from its parent's terminal result. */
@@ -72,14 +95,14 @@ function completedC3Child(prefix: RuntimeEventPrefix, parent: ExecutionBasis,
     basis: ExecutionBasis; result: RuntimeEvent; judgment: RuntimeEvent; foldback: RuntimeEvent;
   }> | null {
   const events = runtimeEventBodiesAtPrefix(prefix);
-  const call = one(indexedRuntimeEvents(prefix, "related:" + parentResult.aggregateId), (event) => event.kind === "c_call_opened" && sameScope(event, parentResult) &&
+  const call = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + parentResult.aggregateId), (event) => event.kind === "c_call_opened" && sameScope(event, parentResult) &&
     event.aggregateId === parentResult.aggregateId && record(event.payload) &&
-    event.payload.callClass === "workflow" && event.payload.childGraphFunctionRef === graphFunctionRef);
+    event.payload.callClass === "workflow" && event.payload.childGraphFunctionRef === graphFunctionRef));
   if (call === null || call.basisId !== parent.basisRef || !record(parentResult.payload)) return null;
-  const fibre = one(indexedRuntimeEvents(prefix, "related:" + call.aggregateId), (event) => event.kind === "c_call_fibre_selected" && sameScope(event, call) &&
-    event.aggregateId === call.aggregateId && record(event.payload) && event.payload.childGraphFunctionRef === graphFunctionRef);
-  const foldback = one(indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + call.aggregateId), (event) => event.kind === "child_foldback_admitted" && sameScope(event, call) &&
-    record(event.payload) && event.payload.parentCCallRef === call.aggregateId && event.payload.childDisposition === "closed");
+  const fibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + call.aggregateId), (event) => event.kind === "c_call_fibre_selected" && sameScope(event, call) &&
+    event.aggregateId === call.aggregateId && record(event.payload) && event.payload.childGraphFunctionRef === graphFunctionRef));
+  const foldback = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + call.aggregateId), (event) => event.kind === "child_foldback_admitted" && sameScope(event, call) &&
+    record(event.payload) && event.payload.parentCCallRef === call.aggregateId && event.payload.childDisposition === "closed"));
   if (fibre === null || foldback === null || !record(foldback.payload) ||
     typeof foldback.payload.childExecutionBasisRef !== "string" || typeof foldback.payload.childResultRef !== "string" ||
     !foldback.causationEventRefs.includes(fibre.eventId) || foldback.admissionOrdinal >= parentResult.admissionOrdinal) return null;
@@ -89,9 +112,9 @@ function completedC3Child(prefix: RuntimeEventPrefix, parent: ExecutionBasis,
     basis.graphFunctionRef !== graphFunctionRef || basis.closureContractRef !== closureContractRef ||
     basis.parentExecutionBasisRef !== parent.basisRef || basis.parentCCallRef !== call.aggregateId ||
     basis.basisDigest !== payload.childExecutionBasisDigest) return null;
-  const admission = one(indexedRuntimeEvents(prefix, "id:" + basis.admissionEventRef), (event) => event.eventId === basis.admissionEventRef && event.kind === "basis_admitted");
-  const closed = one(indexedRuntimeEvents(prefix, "basis:" + basis.basisRef), (event) => event.kind === "graph_call_closed" && event.runId === call.runId &&
-    event.basisId === basis.basisRef && event.graphCallId === payload.childGraphCallId);
+  const admission = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "id:" + basis.admissionEventRef), (event) => event.eventId === basis.admissionEventRef && event.kind === "basis_admitted"));
+  const closed = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "basis:" + basis.basisRef), (event) => event.kind === "graph_call_closed" && event.runId === call.runId &&
+    event.basisId === basis.basisRef && event.graphCallId === payload.childGraphCallId));
   if (admission === null || admission.runId !== call.runId || !admission.causationEventRefs.includes(fibre.eventId) ||
     closed === null || !record(closed.payload) || closed.payload.closureContractRef !== closureContractRef ||
     payload.childTerminalEventRef !== closed.eventId || !foldback.causationEventRefs.includes(closed.eventId) ||
@@ -101,11 +124,11 @@ function completedC3Child(prefix: RuntimeEventPrefix, parent: ExecutionBasis,
     completed.result.payload.resultDigest !== payload.childResultDigest ||
     completed.judgment.payload.judgmentRef !== payload.childJudgmentRef ||
     !canonicalEquals(completed.value, parentResult.payload.value as JsonValue) || payload.outputDigest !== sha256Canonical(completed.value)) return null;
-  const terminal = one(indexedRuntimeEvents(prefix, "payload:resultRef:" + payload.childResultRef), (event) => event.kind === "terminal_reached" && sameScope(event, closed) &&
+  const terminal = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:resultRef:" + payload.childResultRef), (event) => event.kind === "terminal_reached" && sameScope(event, closed) &&
     record(event.payload) && event.payload.closureRef === payload.childClosureRef &&
     event.payload.closureContractRef === closureContractRef && event.payload.resultRef === payload.childResultRef &&
     event.payload.judgmentRef === payload.childJudgmentRef && event.admissionOrdinal > completed.judgment.admissionOrdinal &&
-    event.admissionOrdinal < closed.admissionOrdinal);
+    event.admissionOrdinal < closed.admissionOrdinal));
   return terminal === null ? null : { basis, result: completed.result, judgment: completed.judgment, foldback };
 }
 
@@ -124,18 +147,18 @@ export function projectWorksiteInputLeafResultAtPrefix(
   prefix: RuntimeEventPrefix, inputRef: string, inputDigest: string,
 ): RuntimeEvent | null {
   const events = runtimeEventBodiesAtPrefix(prefix);
-  let result = one(indexedRuntimeEvents(prefix, "payload:resultRef:" + inputRef), e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === inputRef);
+  let result = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:resultRef:" + inputRef), e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === inputRef));
   if (result === null || !record(result.payload) || result.payload.valueDigest !== inputDigest) return null;
   while (true) {
     if (!record(result.payload) || typeof result.payload.resultRef !== "string" || typeof result.basisId !== "string") return null;
     const successful = successfulResult(events, result.payload.resultRef, result);
-    const opened = one(indexedRuntimeEvents(prefix, "related:" + result!.aggregateId), e => e.kind === "c_call_opened" && sameScope(e, result!) && e.aggregateId === result!.aggregateId);
+    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + result!.aggregateId), e => e.kind === "c_call_opened" && sameScope(e, result!) && e.aggregateId === result!.aggregateId));
     if (successful === null || successful.result.eventId !== result.eventId || opened === null || !record(opened.payload)) return null;
     if (opened.payload.callClass === "leaf") return result;
     if (opened.payload.callClass !== "workflow" || typeof opened.payload.childGraphFunctionRef !== "string") return null;
     const parent = projectExactExecutionBasisAtPrefix(prefix, result.basisId);
-    const foldback = one(indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + result!.aggregateId), e => e.kind === "child_foldback_admitted" && sameScope(e, result!) &&
-      record(e.payload) && e.payload.parentCCallRef === result!.aggregateId);
+    const foldback = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + result!.aggregateId), e => e.kind === "child_foldback_admitted" && sameScope(e, result!) &&
+      record(e.payload) && e.payload.parentCCallRef === result!.aggregateId));
     const child = foldback !== null && record(foldback.payload) && typeof foldback.payload.childExecutionBasisRef === "string"
       ? projectExactExecutionBasisAtPrefix(prefix, foldback.payload.childExecutionBasisRef) : null;
     if (parent === null || child === null) return null;
@@ -281,21 +304,21 @@ export function projectRetainedWorksiteInputAtPrefix(
     !canonicalEquals(entryBasis.rawInputValue, value.entry as unknown as JsonValue) || entryBasis.graphRef !== route.payload.declarationRef ||
     entryBasis.graphDigest !== route.payload.declarationDigest || entryBasis.graphFunctionRef !== route.graphFunctionRef ||
     entryBasis.graphRef !== route.materializationRef) return null;
-  const sourceOpen = one(indexedRuntimeEvents(prefix, "related:" + routePayload.cCallRef), (event) => event.kind === "c_call_opened" && sameScope(event, route) &&
+  const sourceOpen = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + routePayload.cCallRef), (event) => event.kind === "c_call_opened" && sameScope(event, route) &&
     event.aggregateId === routePayload.cCallRef && record(event.payload) && event.payload.callClass === "workflow" &&
-    event.payload.cursorRef === routePayload.sourceCursorRef && event.payload.cursorDigest === routePayload.sourceCursorDigest);
+    event.payload.cursorRef === routePayload.sourceCursorRef && event.payload.cursorDigest === routePayload.sourceCursorDigest));
   if (sourceOpen === null) return null;
 
-  const resultEvent = one(indexedRuntimeEvents(prefix, "related:" + sourceOpen.aggregateId), (event) => event.kind === "c_call_result_admitted" && sameScope(event, route) &&
-    event.aggregateId === sourceOpen.aggregateId && record(event.payload) && event.payload.resultClass === "success");
+  const resultEvent = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + sourceOpen.aggregateId), (event) => event.kind === "c_call_result_admitted" && sameScope(event, route) &&
+    event.aggregateId === sourceOpen.aggregateId && record(event.payload) && event.payload.resultClass === "success"));
   if (resultEvent === null || !record(resultEvent.payload) || typeof resultEvent.payload.resultRef !== "string") return null;
   const source = successfulResult(events, resultEvent.payload.resultRef, sourceOpen);
   if (source === null || !canonicalEquals(source.value, value.source as unknown as JsonValue) || !record(source.judgment.payload) ||
     source.judgment.payload.judgmentRef !== route.payload.judgmentRef ||
     source.judgment.admissionOrdinal >= route.admissionOrdinal ||
     ![entryBasis.admissionEventRef, source.result.eventId, source.judgment.eventId].every((ref) => route.causationEventRefs.includes(ref))) return null;
-  const foldback = one(indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + sourceOpen.aggregateId), (event) => event.kind === "child_foldback_admitted" && sameScope(event, route) &&
-    record(event.payload) && event.payload.parentCCallRef === sourceOpen.aggregateId && event.payload.childDisposition === "closed");
+  const foldback = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + sourceOpen.aggregateId), (event) => event.kind === "child_foldback_admitted" && sameScope(event, route) &&
+    record(event.payload) && event.payload.parentCCallRef === sourceOpen.aggregateId && event.payload.childDisposition === "closed"));
   if (foldback === null || !record(foldback.payload) || typeof foldback.payload.childExecutionBasisRef !== "string" ||
     typeof foldback.payload.childResultRef !== "string" || typeof foldback.payload.childClosureRef !== "string" ||
     !route.causationEventRefs.includes(foldback.eventId) || foldback.admissionOrdinal >= source.result.admissionOrdinal ||
@@ -311,12 +334,12 @@ export function projectRetainedWorksiteInputAtPrefix(
     (!generic ? !canonicalEquals(sourceBasis.rawInputValue, value.entry.constructionTask as unknown as JsonValue) :
       typeof sourceBasis.resultContractRef !== "string" ||
       sourceInputDigest === null || sourceInputDigest !== sourceBasis.rawInputDigest) || sourceBasis.basisDigest !== foldback.payload.childExecutionBasisDigest) return null;
-  const closed = one(indexedRuntimeEvents(prefix, "basis:" + sourceBasis.basisRef), (event) => event.kind === "graph_call_closed" && event.runId === route.runId &&
+  const closed = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "basis:" + sourceBasis.basisRef), (event) => event.kind === "graph_call_closed" && event.runId === route.runId &&
     event.graphCallId === foldPayload.childGraphCallId && event.basisId === sourceBasis.basisRef &&
-    event.admissionOrdinal < foldback.admissionOrdinal);
-  const terminal = one(indexedRuntimeEvents(prefix, "payload:resultRef:" + foldPayload.childResultRef), (event) => event.kind === "terminal_reached" && closed !== null && sameScope(event, closed) && record(event.payload) &&
+    event.admissionOrdinal < foldback.admissionOrdinal));
+  const terminal = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:resultRef:" + foldPayload.childResultRef), (event) => event.kind === "terminal_reached" && closed !== null && sameScope(event, closed) && record(event.payload) &&
     event.payload.closureRef === foldPayload.childClosureRef && event.payload.resultRef === foldPayload.childResultRef &&
-    event.payload.judgmentRef === foldPayload.childJudgmentRef && event.admissionOrdinal < closed.admissionOrdinal);
+    event.payload.judgmentRef === foldPayload.childJudgmentRef && event.admissionOrdinal < closed.admissionOrdinal));
   if (closed === null || terminal === null || foldPayload.childTerminalEventRef !== closed.eventId ||
     !record(closed.payload) || closed.payload.closureContractRef !== sourceBasis.closureContractRef) return null;
   const completed = successfulResult(events, foldback.payload.childResultRef, closed);
@@ -397,31 +420,31 @@ export function projectObservedWorksiteCommandChildAtPrefix(prefix: RuntimeEvent
     input.parentBasis.graphFunctionRef !== governanceRef("graph-function", "testing") ||
     !observedGovernanceTaskMatches(input.parentBasis.rawInputValue, input.task)) return null;
   const scoped = indexedRuntimeEvents(prefix, "basis:" + input.parentBasis.basisRef).filter(e => e.runId === input.runId);
-  const call = one(scoped, e => e.kind === "c_call_opened" && e.aggregateId === input.parentCCallRef && record(e.payload) &&
-    e.payload.callClass === "workflow" && e.payload.childGraphFunctionRef === WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef);
+  const call = exactOrNull(resolveExactMatch(scoped, e => e.kind === "c_call_opened" && e.aggregateId === input.parentCCallRef && record(e.payload) &&
+    e.payload.callClass === "workflow" && e.payload.childGraphFunctionRef === WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef));
   if (call === null || !record(call.payload)) return null;
   const callPayload = call.payload;
-  const route = one(scoped, e => e.kind === "traversal_route_admitted" && sameScope(e, call) && record(e.payload) &&
-    e.payload.routeKind === "advance" && e.payload.targetCursorRef === callPayload.cursorRef && e.payload.targetCursorDigest === callPayload.cursorDigest);
+  const route = exactOrNull(resolveExactMatch(scoped, e => e.kind === "traversal_route_admitted" && sameScope(e, call) && record(e.payload) &&
+    e.payload.routeKind === "advance" && e.payload.targetCursorRef === callPayload.cursorRef && e.payload.targetCursorDigest === callPayload.cursorDigest));
   if (route === null || !record(route.payload) || typeof route.payload.cCallRef !== "string") return null;
   const routePayload = route.payload;
-  const result = one(scoped, e => e.kind === "c_call_result_admitted" && sameScope(e, call) && e.aggregateId === routePayload.cCallRef &&
-    record(e.payload) && e.payload.resultClass === "success" && e.payload.contractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef);
+  const result = exactOrNull(resolveExactMatch(scoped, e => e.kind === "c_call_result_admitted" && sameScope(e, call) && e.aggregateId === routePayload.cCallRef &&
+    record(e.payload) && e.payload.resultClass === "success" && e.payload.contractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef));
   if (result === null || !record(result.payload) || typeof result.payload.resultRef !== "string") return null;
   const prepared = successfulResult(scoped, result.payload.resultRef, call);
-  const opened = one(scoped, e => e.kind === "c_call_opened" && sameScope(e, call) && e.aggregateId === result.aggregateId);
-  const fibre = one(scoped, e => e.kind === "c_call_fibre_selected" && sameScope(e, call) && e.aggregateId === result.aggregateId && record(e.payload) &&
+  const opened = exactOrNull(resolveExactMatch(scoped, e => e.kind === "c_call_opened" && sameScope(e, call) && e.aggregateId === result.aggregateId));
+  const fibre = exactOrNull(resolveExactMatch(scoped, e => e.kind === "c_call_fibre_selected" && sameScope(e, call) && e.aggregateId === result.aggregateId && record(e.payload) &&
     e.payload.regime === "F_D" && e.payload.implementationRef === governanceRef("implementation", "prepare-testing") &&
-    e.payload.implementationBindingRef === governanceRef("binding", "prepare-testing"));
+    e.payload.implementationBindingRef === governanceRef("binding", "prepare-testing")));
   if (prepared === null || !canonicalEquals(prepared.value, input.task as unknown as JsonValue) || !record(prepared.judgment.payload) ||
     prepared.judgment.payload.judgmentRef !== routePayload.judgmentRef || !route.causationEventRefs.includes(prepared.judgment.eventId) ||
     opened === null || !record(opened.payload) || fibre === null ||
     opened.admissionOrdinal >= fibre.admissionOrdinal ||
     fibre.admissionOrdinal >= result.admissionOrdinal || prepared.judgment.admissionOrdinal >= route.admissionOrdinal || route.admissionOrdinal >= call.admissionOrdinal) return null;
   const openPayload = opened.payload;
-  const entered = one(scoped, e => e.kind === "traversal_cursor_entered" && sameScope(e, opened) && record(e.payload) &&
+  const entered = exactOrNull(resolveExactMatch(scoped, e => e.kind === "traversal_cursor_entered" && sameScope(e, opened) && record(e.payload) &&
     e.payload.cursorRef === openPayload.cursorRef && e.payload.cursorDigest === openPayload.cursorDigest &&
-    e.payload.inputRef === input.parentBasis.rawInputAdmissionRef && e.payload.inputDigest === input.parentBasis.rawInputDigest);
+    e.payload.inputRef === input.parentBasis.rawInputAdmissionRef && e.payload.inputDigest === input.parentBasis.rawInputDigest));
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, input.parentBasis.invocationAdmissionRef);
   if (entered === null || entered.admissionOrdinal >= opened.admissionOrdinal || invocation?.capabilityGrants.length !== 1 ||
     input.task.workspaceBinding.bindingId !== input.parentBasis.workspaceBindingId || input.task.workspaceBinding.bindingDigest !== input.parentBasis.workspaceBindingDigest ||
@@ -445,30 +468,30 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEvent
 }>): RetainedWorksiteInputProjection | null {
   const events = runtimeEventBodiesAtPrefix(prefix);
   if (!isWorksiteExecutionTask(input.task) || isNativeWorksiteCommandExecutionTask(input.task) || isObservedWorksiteCommandExecutionTask(input.task)) return null;
-  const parentCall = one(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), (event) => event.kind === "c_call_opened" && event.aggregateId === input.parentCCallRef &&
-    event.runId === input.runId && event.basisId === input.parentBasis.basisRef && record(event.payload) && event.payload.callClass === "workflow");
+  const parentCall = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), (event) => event.kind === "c_call_opened" && event.aggregateId === input.parentCCallRef &&
+    event.runId === input.runId && event.basisId === input.parentBasis.basisRef && record(event.payload) && event.payload.callClass === "workflow"));
   if (parentCall === null || !record(parentCall.payload)) return null;
   const parentPayload = parentCall.payload;
-  const precedingRoute = one(indexedRuntimeEvents(prefix, "kind:" + "traversal_route_admitted"), (event) => event.kind === "traversal_route_admitted" && sameScope(event, parentCall) &&
-    record(event.payload) && event.payload.targetCursorRef === parentPayload.cursorRef && event.payload.routeKind === "advance");
+  const precedingRoute = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:" + "traversal_route_admitted"), (event) => event.kind === "traversal_route_admitted" && sameScope(event, parentCall) &&
+    record(event.payload) && event.payload.targetCursorRef === parentPayload.cursorRef && event.payload.routeKind === "advance"));
   if (precedingRoute === null || !record(precedingRoute.payload) || typeof precedingRoute.payload.cCallRef !== "string") return null;
   const precedingPayload = precedingRoute.payload;
-  const preparationResult = one(indexedRuntimeEvents(prefix, "related:" + precedingPayload.cCallRef), (event) => event.kind === "c_call_result_admitted" && sameScope(event, parentCall) &&
-    event.aggregateId === precedingPayload.cCallRef && record(event.payload) && event.payload.resultClass === "success");
+  const preparationResult = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + precedingPayload.cCallRef), (event) => event.kind === "c_call_result_admitted" && sameScope(event, parentCall) &&
+    event.aggregateId === precedingPayload.cCallRef && record(event.payload) && event.payload.resultClass === "success"));
   if (preparationResult === null || !record(preparationResult.payload) || typeof preparationResult.payload.resultRef !== "string") return null;
   const preparation = successfulResult(events, preparationResult.payload.resultRef, parentCall);
   if (preparation === null || !canonicalEquals(preparation.value, input.task as unknown as JsonValue) || !record(preparation.judgment.payload) ||
     preparation.judgment.payload.judgmentRef !== precedingPayload.judgmentRef ||
     !precedingRoute.causationEventRefs.includes(preparation.judgment.eventId) || precedingRoute.admissionOrdinal >= parentCall.admissionOrdinal) return null;
-  const preparationOpen = one(indexedRuntimeEvents(prefix, "related:" + preparation.result.aggregateId), (event) => event.kind === "c_call_opened" && sameScope(event, parentCall) &&
-    event.aggregateId === preparation.result.aggregateId);
-  const preparationFibre = one(indexedRuntimeEvents(prefix, "related:" + preparation.result.aggregateId), (event) => event.kind === "c_call_fibre_selected" && sameScope(event, parentCall) &&
-    event.aggregateId === preparation.result.aggregateId);
+  const preparationOpen = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + preparation.result.aggregateId), (event) => event.kind === "c_call_opened" && sameScope(event, parentCall) &&
+    event.aggregateId === preparation.result.aggregateId));
+  const preparationFibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + preparation.result.aggregateId), (event) => event.kind === "c_call_fibre_selected" && sameScope(event, parentCall) &&
+    event.aggregateId === preparation.result.aggregateId));
   if (preparationOpen === null || !record(preparationOpen.payload) || preparationFibre === null || !record(preparationFibre.payload)) return null;
   const preparationPayload = preparationOpen.payload;
-  const route = one(indexedRuntimeEvents(prefix, "kind:" + "traversal_route_admitted"), (event) => event.kind === "traversal_route_admitted" && sameScope(event, parentCall) &&
+  const route = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:" + "traversal_route_admitted"), (event) => event.kind === "traversal_route_admitted" && sameScope(event, parentCall) &&
     record(event.payload) && record(event.payload.boundInput) &&
-    event.payload.targetCursorRef === preparationPayload.cursorRef && event.payload.targetCursorDigest === preparationPayload.cursorDigest);
+    event.payload.targetCursorRef === preparationPayload.cursorRef && event.payload.targetCursorDigest === preparationPayload.cursorDigest));
   if (route === null || route.admissionOrdinal >= preparationOpen.admissionOrdinal) return null;
   const retained = projectRetainedWorksiteInputAtPrefix(prefix, route);
   if (retained === null || !canonicalEquals(retained.entryBasis as unknown as JsonValue, input.parentBasis as unknown as JsonValue) || !isWorksitePreparationBoundInput(retained.input.value)) return null;
@@ -500,8 +523,8 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEvent
     const reduction = completedC3Child(prefix, application.basis, application.result,
       c3.reducerGraphFunctionRef, c3.reducerChildClosureContractRef);
     if (reduction === null) return null;
-    const completionEvent = one(indexedRuntimeEvents(prefix, "kind:" + "fan_out_completion_admitted"), (event) => event.kind === "fan_out_completion_admitted" &&
-      sameScope(event, application.result) && record(event.payload) && event.payload.applicationRef === c3.fanOutApplicationRef);
+    const completionEvent = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:" + "fan_out_completion_admitted"), (event) => event.kind === "fan_out_completion_admitted" &&
+      sameScope(event, application.result) && record(event.payload) && event.payload.applicationRef === c3.fanOutApplicationRef));
     if (completionEvent === null || completionEvent.admissionOrdinal >=
       indexedRuntimeEvents(prefix, "id:" + reduction.basis.admissionEventRef).find((event) => event.eventId === reduction.basis.admissionEventRef)!.admissionOrdinal) return null;
     const completion = projectExactFanOutCompletion(prefix, { mode: "event_canonical", admissionEventRef: completionEvent.eventId });
@@ -570,22 +593,22 @@ function nativePreparationBridge(prefix: RuntimeEventPrefix, input: Readonly<{
   parentBasis: ExecutionBasis; parentCCallRef: string; entry: unknown;
 }>, implementationRef: string, bindingRef: string): RuntimeEvent | null {
   const events = runtimeEventBodiesAtPrefix(prefix), parent = input.parentBasis;
-  const call = one(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), e => e.kind === "c_call_opened" && e.aggregateId === input.parentCCallRef &&
-    e.basisId === parent.basisRef && record(e.payload) && e.payload.callClass === "workflow");
+  const call = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), e => e.kind === "c_call_opened" && e.aggregateId === input.parentCCallRef &&
+    e.basisId === parent.basisRef && record(e.payload) && e.payload.callClass === "workflow"));
   if (call === null || !record(call.payload)) return null;
   const payload = call.payload;
-  const route = one(indexedRuntimeEvents(prefix, "kind:" + "traversal_route_admitted"), e => e.kind === "traversal_route_admitted" && sameScope(e, call) && record(e.payload) &&
-    e.payload.targetCursorRef === payload.cursorRef && e.payload.targetCursorDigest === payload.cursorDigest && e.payload.routeKind === "advance");
+  const route = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:" + "traversal_route_admitted"), e => e.kind === "traversal_route_admitted" && sameScope(e, call) && record(e.payload) &&
+    e.payload.targetCursorRef === payload.cursorRef && e.payload.targetCursorDigest === payload.cursorDigest && e.payload.routeKind === "advance"));
   if (route === null || !record(route.payload) || typeof route.payload.cCallRef !== "string") return null;
   const routePayload = route.payload;
-  const result = one(indexedRuntimeEvents(prefix, "related:" + routePayload.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === routePayload.cCallRef && sameScope(e, call));
+  const result = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + routePayload.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === routePayload.cCallRef && sameScope(e, call)));
   if (result === null || !record(result.payload) || typeof result.payload.resultRef !== "string") return null;
   const bridge = successfulResult(events, result.payload.resultRef, call);
-  const fibre = one(indexedRuntimeEvents(prefix, "related:" + result.aggregateId), e => e.kind === "c_call_fibre_selected" && e.aggregateId === result.aggregateId && sameScope(e, call) && record(e.payload));
+  const fibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + result.aggregateId), e => e.kind === "c_call_fibre_selected" && e.aggregateId === result.aggregateId && sameScope(e, call) && record(e.payload)));
   if (bridge === null || fibre === null || !record(fibre.payload)) return null;
   let nativeResult = result;
   if (fibre.payload.callClass === "workflow") {
-    const foldback = one(indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + result.aggregateId), e => e.kind === "child_foldback_admitted" && sameScope(e, call) && record(e.payload) && e.payload.parentCCallRef === result.aggregateId);
+    const foldback = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + result.aggregateId), e => e.kind === "child_foldback_admitted" && sameScope(e, call) && record(e.payload) && e.payload.parentCCallRef === result.aggregateId));
     const child = foldback !== null && record(foldback.payload) && typeof foldback.payload.childExecutionBasisRef === "string"
       ? projectExactExecutionBasisAtPrefix(prefix, foldback.payload.childExecutionBasisRef) : null;
     if (child === null || typeof fibre.payload.childGraphFunctionRef !== "string") return null;
@@ -593,8 +616,8 @@ function nativePreparationBridge(prefix: RuntimeEventPrefix, input: Readonly<{
     if (completed === null) return null;
     nativeResult = completed.result;
   }
-  const nativeFibre = one(indexedRuntimeEvents(prefix, "related:" + nativeResult.aggregateId), e => e.kind === "c_call_fibre_selected" && e.aggregateId === nativeResult.aggregateId && sameScope(e, nativeResult) && record(e.payload) &&
-    e.payload.implementationRef === implementationRef && e.payload.implementationBindingRef === bindingRef);
+  const nativeFibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + nativeResult.aggregateId), e => e.kind === "c_call_fibre_selected" && e.aggregateId === nativeResult.aggregateId && sameScope(e, nativeResult) && record(e.payload) &&
+    e.payload.implementationRef === implementationRef && e.payload.implementationBindingRef === bindingRef));
   return nativeFibre !== null && canonicalEquals(bridge.value, input.entry as JsonValue) && record(bridge.judgment.payload) &&
     bridge.judgment.payload.judgmentRef === routePayload.judgmentRef && route.causationEventRefs.includes(bridge.judgment.eventId) &&
     bridge.judgment.admissionOrdinal < route.admissionOrdinal && route.admissionOrdinal < call.admissionOrdinal ? nativeResult : null;

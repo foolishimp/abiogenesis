@@ -11,6 +11,8 @@ import type { RuntimeEvent } from "./event_store.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { ok, type StructuralRefusal } from "../shared/refusal.js";
+import { checkExactRecord, resolveExactMatch, type CheckedRecord, type RecordCheck } from "../shared/select/index.js";
 
 function causeActor(event: RuntimeEvent): string | null {
   if (!isRecord(event.payload) || typeof event.payload.actorInvocationRef !== "string" ||
@@ -47,6 +49,28 @@ export function nativeWorkUnknownEffectDependencies(prefix: RuntimeEventPrefix, 
   return [...selected.values()].sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
 }
 
+const PAYLOAD_NOT_RECORD: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "payload_not_record",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+/** One selected event as a checked record: its payload is a record whose
+ * canonical digest is the event's `payloadDigest`. */
+const PAYLOAD_RECORD: RecordCheck<RuntimeEvent, JsonValue> = Object.freeze({
+  project: (event: RuntimeEvent) => isRecord(event.payload) ? ok(event.payload) : PAYLOAD_NOT_RECORD,
+  digest: Object.freeze({
+    expected: (event: RuntimeEvent) => event.payloadDigest,
+    actual: (payload: JsonValue) => sha256Canonical(payload),
+  }),
+});
+
+/** Owner boundary: `absent`, `many` and `invalid` map to `null`. */
+const checkedEventOrNull = (checked: CheckedRecord<RuntimeEvent, unknown>): RuntimeEvent | null =>
+  checked.kind === "one" ? checked.event : null;
+
 /** @internal An admitted native task establishes possible writable scope only.
  * The optional prefix is strictly BEFORE the cause; currentness callers first
  * select the actual cause from their admitted cut. Without a prefix this is a
@@ -60,22 +84,21 @@ export function projectNativeWorkUnknownEffectTask(event: RuntimeEvent, priorEve
   try {
     const prefix = ownedPrefix ?? selectValidatedRuntimeEventPrefix(Object.isFrozen(priorEvents) ? priorEvents : Object.freeze([...priorEvents]));
     if (runtimeEventPrefixExtent(prefix).lastOrdinal >= event.admissionOrdinal) return null;
-    const one = (kind: RuntimeEvent["kind"], key: string, predicate: (row: RuntimeEvent) => boolean) => {
-      const rows = (ownedPrefix === undefined ? priorEvents : indexedRuntimeEvents(prefix, key))
-        .filter(row => row.kind === kind && predicate(row));
-      return rows.length === 1 && isRecord(rows[0]!.payload) &&
-        sha256Canonical(rows[0]!.payload) === rows[0]!.payloadDigest ? rows[0]! : null;
-    };
-    const actor = one("actor_invocation_started", "aggregate:actor_invocation:" + actorRef, row => row.aggregateId === actorRef);
+    const source = (key: string) => ownedPrefix === undefined ? priorEvents : indexedRuntimeEvents(prefix, key);
+    const actor = checkedEventOrNull(checkExactRecord(resolveExactMatch(source("aggregate:actor_invocation:" + actorRef),
+      row => row.kind === "actor_invocation_started" && row.aggregateId === actorRef), PAYLOAD_RECORD));
     if (actor === null) return null;
     const ap = actor.payload as Readonly<Record<string, JsonValue>>;
     if (typeof ap.cCallRef !== "string" || typeof ap.transportBindingRef !== "string") return null;
     const callRef = ap.cCallRef;
-    const opened = one("c_call_opened", "aggregate:c_call:" + callRef, row => row.aggregateId === callRef);
-    const fibre = one("c_call_fibre_selected", "aggregate:c_call:" + callRef, row => row.aggregateId === callRef);
-    const binding = one("actor_transport_binding_admitted", "aggregate:transport_binding:" + ap.transportBindingRef,
-      row => row.aggregateId === ap.transportBindingRef);
-    const process = one("actor_process_started", "related:" + actorRef, row => row.parentAggregateId === actorRef);
+    const opened = checkedEventOrNull(checkExactRecord(resolveExactMatch(source("aggregate:c_call:" + callRef),
+      row => row.kind === "c_call_opened" && row.aggregateId === callRef), PAYLOAD_RECORD));
+    const fibre = checkedEventOrNull(checkExactRecord(resolveExactMatch(source("aggregate:c_call:" + callRef),
+      row => row.kind === "c_call_fibre_selected" && row.aggregateId === callRef), PAYLOAD_RECORD));
+    const binding = checkedEventOrNull(checkExactRecord(resolveExactMatch(source("aggregate:transport_binding:" + ap.transportBindingRef),
+      row => row.kind === "actor_transport_binding_admitted" && row.aggregateId === ap.transportBindingRef), PAYLOAD_RECORD));
+    const process = checkedEventOrNull(checkExactRecord(resolveExactMatch(source("related:" + actorRef),
+      row => row.kind === "actor_process_started" && row.parentAggregateId === actorRef), PAYLOAD_RECORD));
     if (opened === null || fibre === null || binding === null || process === null ||
       [opened, fibre, actor, binding, process].some(row => row.basisId !== event.basisId ||
         row.runId !== event.runId || row.graphCallId !== event.graphCallId || row.frameId !== event.frameId ||

@@ -90,6 +90,7 @@ import type {
   TraversalRouteKind,
 } from "./traversal_route.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch } from "../shared/select/index.js";
 
 export interface ReplayCCallState {
   readonly cCallRef: string;
@@ -398,14 +399,17 @@ export function projectRunQuiescence(
   const terminalRoutes = projection.holds.filter((fluent) =>
     fluent.name === "terminal_route_available"
   );
-  const rootGraphCallId = activeGraphCalls.length === 1
-    ? activeGraphCalls[0]!.identity
+  const rootGraphCall = onlyExactMatch(activeGraphCalls);
+  const rootGraphCallId = rootGraphCall.kind === "one"
+    ? rootGraphCall.value.identity
     : null;
-  const rootFrameId = activeFrames.length === 1
-    ? activeFrames[0]!.identity
+  const rootFrame = onlyExactMatch(activeFrames);
+  const rootFrameId = rootFrame.kind === "one"
+    ? rootFrame.value.identity
     : null;
-  const terminalRouteRef = terminalRoutes.length === 1
-    ? terminalRoutes[0]!.identity
+  const terminalRoute = onlyExactMatch(terminalRoutes);
+  const terminalRouteRef = terminalRoute.kind === "one"
+    ? terminalRoute.value.identity
     : null;
   const terminalRouteEvent = terminalRouteRef === null
     ? undefined
@@ -418,8 +422,9 @@ export function projectRunQuiescence(
       typeof terminalRouteEvent.payload.cCallRef === "string"
     ? terminalRouteEvent.payload.cCallRef
     : null;
+  const activeRunMatch = onlyExactMatch(activeRun);
   const closureSpineKeys = new Set([
-    ...(activeRun.length === 1 ? [runtimeFluentKey(activeRun[0]!)] : []),
+    ...(activeRunMatch.kind === "one" ? [runtimeFluentKey(activeRunMatch.value)] : []),
     ...(rootGraphCallId === null ? [] : [runtimeFluentKey(activeGraphCalls[0]!)]),
     ...(rootFrameId === null ? [] : [runtimeFluentKey(activeFrames[0]!)]),
     ...(terminalRouteRef === null ? [] : [runtimeFluentKey(terminalRoutes[0]!)]),

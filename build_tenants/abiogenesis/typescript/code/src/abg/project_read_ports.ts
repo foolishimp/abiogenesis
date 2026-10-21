@@ -55,6 +55,7 @@ import {
   type RunSemanticReplayProjection,
 } from "./replay.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 
 export const ABG_PROJECT_READ_MEMBER_KEYS = Object.freeze([
   "run_status",
@@ -217,9 +218,10 @@ function hasExactDataFields(value: object, fields: readonly string[]): boolean {
   });
 }
 
-function one<T>(rows: readonly T[], label: string): T {
-  if (rows.length !== 1) throw new TypeError(`terminal projection requires one exact ${label}`);
-  return rows[0]!;
+/** Owner boundary: `absent` and `many` throw the terminal-projection `TypeError`. */
+function exactOrThrow<T>(match: ExactMatch<T>, label: string): T {
+  if (match.kind !== "one") throw new TypeError(`terminal projection requires one exact ${label}`);
+  return match.value;
 }
 
 function eventRecord(event: RuntimeEvent): Readonly<Record<string, JsonValue>> {
@@ -231,12 +233,12 @@ function eventRecord(event: RuntimeEvent): Readonly<Record<string, JsonValue>> {
  * it. No current active-parent assumption is made at read time. */
 function scopeForBasis(prefix: RuntimeEventPrefix, basis: ExecutionBasis): OpenedTraversalScope {
   const events = runtimeEventBodiesAtPrefix(prefix);
-  const graph = one(indexedRuntimeEvents(prefix,"kind:graph_call_opened").filter((event) =>
-    event.basisId === basis.basisRef), "basis GraphCall");
-  const frame = one(indexedRuntimeEvents(prefix,"kind:frame_opened").filter((event) =>
-    event.basisId === basis.basisRef && event.graphCallId === graph.graphCallId), "basis Frame");
-  const run = one(indexedRuntimeEvents(prefix,"kind:run_segment_opened").filter((event) =>
-    event.runId === graph.runId), "Run opening");
+  const graph = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:graph_call_opened").filter((event) =>
+    event.basisId === basis.basisRef)), "basis GraphCall");
+  const frame = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:frame_opened").filter((event) =>
+    event.basisId === basis.basisRef && event.graphCallId === graph.graphCallId)), "basis Frame");
+  const run = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:run_segment_opened").filter((event) =>
+    event.runId === graph.runId)), "Run opening");
   const g = eventRecord(graph), f = eventRecord(frame), r = eventRecord(run);
   if (g.graphFunctionRef !== basis.graphFunctionRef || g.graphFunctionDigest !== basis.graphFunctionDigest ||
       g.graphRef !== basis.graphRef || g.graphDigest !== basis.graphDigest ||
@@ -292,7 +294,7 @@ function terminalDeclaration(
     const parent = projectExactExecutionBasisAtPrefix(prefix, root.parentExecutionBasisRef);
     if (parent === null) throw new TypeError("terminal child parent basis is absent");
     const parentScope = scopeForBasis(prefix, parent);
-    const admission = one(indexedRuntimeEvents(prefix,"id:"+root.admissionEventRef), "child basis admission");
+    const admission = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"id:"+root.admissionEventRef)), "child basis admission");
     const historical = validatedRuntimeEventPrefixBeforeEvent(prefix, admission.eventId);
     const previous = runtimeEventPrefixLastEnvelope(historical);
     if (previous === undefined || root.parentCCallRef === null ||
@@ -326,7 +328,7 @@ function terminalDeclaration(
   const environment = projectExactPrefixWorkspaceEnvironment(prepared.packet.prefix,
     truthCoordinate(root.workspaceBindingId, root.workspaceBindingDigest));
   if (environment.kind !== "exact_prefix_workspace_environment") throw new TypeError("historical environment is absent");
-  const invocationEvent = one(indexedRuntimeEvents(prefix,"id:"+invocation.admissionEventRef), "invocation event");
+  const invocationEvent = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"id:"+invocation.admissionEventRef)), "invocation event");
   const installs = environment.productInstalls.map((install) =>
     projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, install.admissionEventRef));
   const environmentEventRefs = [...environment.productInstalls.map((row) => row.admissionEventRef),
@@ -345,7 +347,7 @@ function terminalDeclaration(
       catalogView.viewDigest !== root.catalogViewDigest) throw new TypeError("historical Catalog/View differs from the root basis");
   const closure = resolveExecutionDeclarationClosure(catalog, catalogView, root.programRef, root.graphFunctionRef);
   if (closure.kind !== "resolved_execution_declaration_closure") throw new TypeError("historical root declaration closure is absent");
-  const program = one(closure.programPublication.programs.filter((row) => row.programRef === root.programRef), "root Program");
+  const program = exactOrThrow(onlyExactMatch(closure.programPublication.programs.filter((row) => row.programRef === root.programRef)), "root Program");
   if (sha256Canonical(program as unknown as JsonValue) !== root.programDigest) throw new TypeError("historical Program digest differs");
   const rootOutput = selectExactClosureContract(closure, root.resultContractRef);
   if (rootOutput === null || sha256Canonical(rootOutput.contract as unknown as JsonValue) !== invocation.outputContractDigest ||
@@ -364,10 +366,10 @@ function terminalDeclaration(
     throw new TypeError("historical root sets are absent or cross the admitted invocation");
   }
   for (const child of chain) {
-    const owner = one(closure.graphFunctionOwners.filter((row) => row.declarationRef === child.graphFunctionRef), "ancestral GraphFunction owner");
-    const publication = one(closure.publications.filter((row) => row.moduleRef === owner.moduleRef &&
-      row.owningProductId === owner.productId && modulePublicationSemanticDigest(row) === owner.publicationDigest), "GraphFunction publication");
-    const graph = one(publication.graphFunctions.filter((row) => row.name === child.graphFunctionRef), "GraphFunction declaration");
+    const owner = exactOrThrow(onlyExactMatch(closure.graphFunctionOwners.filter((row) => row.declarationRef === child.graphFunctionRef)), "ancestral GraphFunction owner");
+    const publication = exactOrThrow(onlyExactMatch(closure.publications.filter((row) => row.moduleRef === owner.moduleRef &&
+      row.owningProductId === owner.productId && modulePublicationSemanticDigest(row) === owner.publicationDigest)), "GraphFunction publication");
+    const graph = exactOrThrow(onlyExactMatch(publication.graphFunctions.filter((row) => row.name === child.graphFunctionRef)), "GraphFunction declaration");
     if (sha256Canonical(graph as unknown as JsonValue) !== child.graphFunctionDigest ||
         !program.callableMembership.includes(child.graphFunctionRef) || graph.outputs.length !== 1 ||
         graph.outputs[0] !== child.resultContractRef) throw new TypeError("child output is outside the admitted root declaration closure");
@@ -387,10 +389,10 @@ function terminalDeclaration(
           rootInteractionSetDigest: root.rootInteractionSetDigest, interactionLeafKeys: child.localInteractionLeafKeys, rows: interactions } as unknown as JsonValue)) {
       throw new TypeError("child subsets differ from their admitted root sets");
     }
-    const closureOwner = one(closure.closureContractOwners.filter((row) => row.declarationRef === child.closureContractRef), "child closure owner");
-    const closurePublication = one(closure.publications.filter((row) => row.moduleRef === closureOwner.moduleRef &&
-      row.owningProductId === closureOwner.productId && modulePublicationSemanticDigest(row) === closureOwner.publicationDigest), "child closure publication");
-    const declaration = one(closurePublication.closureContracts.filter((row) => row.closureContractRef === child.closureContractRef), "child closure contract");
+    const closureOwner = exactOrThrow(onlyExactMatch(closure.closureContractOwners.filter((row) => row.declarationRef === child.closureContractRef)), "child closure owner");
+    const closurePublication = exactOrThrow(onlyExactMatch(closure.publications.filter((row) => row.moduleRef === closureOwner.moduleRef &&
+      row.owningProductId === closureOwner.productId && modulePublicationSemanticDigest(row) === closureOwner.publicationDigest)), "child closure publication");
+    const declaration = exactOrThrow(onlyExactMatch(closurePublication.closureContracts.filter((row) => row.closureContractRef === child.closureContractRef)), "child closure contract");
     if (sha256Canonical(declaration as unknown as JsonValue) !== child.closureContractDigest ||
         declaration.closureScope !== "graph_call" || declaration.resultContractRef !== child.resultContractRef) {
       throw new TypeError("child closure contract differs from its admitted basis");
@@ -400,11 +402,11 @@ function terminalDeclaration(
   if (selected === null) throw new TypeError("child output contract has no unique historical owner");
   const contract = truthCoordinate(selected.contract.contractRef, sha256Canonical(selected.contract as unknown as JsonValue));
   if (sourceInput === undefined) return { contract };
-  const ancestor = one(chain.filter((row) => row.graphFunctionRef === sourceInput.graphFunctionRef), "selected source ancestor");
-  const owner = one(closure.graphFunctionOwners.filter((row) => row.declarationRef === ancestor.graphFunctionRef), "source input owner");
-  const publication = one(closure.publications.filter((row) => row.moduleRef === owner.moduleRef &&
-    row.owningProductId === owner.productId && modulePublicationSemanticDigest(row) === owner.publicationDigest), "source input publication");
-  const graph = one(publication.graphFunctions.filter((row) => row.name === ancestor.graphFunctionRef), "source input declaration");
+  const ancestor = exactOrThrow(onlyExactMatch(chain.filter((row) => row.graphFunctionRef === sourceInput.graphFunctionRef)), "selected source ancestor");
+  const owner = exactOrThrow(onlyExactMatch(closure.graphFunctionOwners.filter((row) => row.declarationRef === ancestor.graphFunctionRef)), "source input owner");
+  const publication = exactOrThrow(onlyExactMatch(closure.publications.filter((row) => row.moduleRef === owner.moduleRef &&
+    row.owningProductId === owner.productId && modulePublicationSemanticDigest(row) === owner.publicationDigest)), "source input publication");
+  const graph = exactOrThrow(onlyExactMatch(publication.graphFunctions.filter((row) => row.name === ancestor.graphFunctionRef)), "source input declaration");
   if (graph.inputs.length !== 1 || graph.inputs[0] !== sourceInput.contractRef ||
       selectExactClosureContract(closure, sourceInput.contractRef) === null) throw new TypeError("source ancestor input contract differs");
   return { contract, source: Object.freeze({ publication, input: Object.freeze({
@@ -435,16 +437,16 @@ function terminalOutcomeFromSelectedFacts(
   const events = runtimeEventBodiesAtPrefix(context.prefix);
   const closes = indexedRuntimeEvents(context.prefix,"kind:graph_call_closed").filter((event) => event.aggregateId === graphCallId);
   if (closes.length === 0 || (requireRunClosed && !context.runClosed)) return null;
-  const closed = one(closes, "GraphCall close"), closeBody = eventRecord(closed);
+  const closed = exactOrThrow(onlyExactMatch(closes), "GraphCall close"), closeBody = eventRecord(closed);
   if (terminal === null) throw new TypeError("closed scope lacks one exact terminal producer");
   const route = projectHistoricalTraversalRouteAtPrefix(context.prefix, terminal.route.admissionEventRef, prepared.fullPrefix);
   if (route === null || route.routeKind !== "terminal" || route.cCallRef === null || route.judgmentRef === null) {
     throw new TypeError("terminal route has no authenticated native owner");
   }
-  const open = one(indexedRuntimeEvents(context.prefix,"kind:c_call_opened").filter((event) => event.aggregateId === route.cCallRef), "terminal CCall opening");
-  const fibre = one(indexedRuntimeEvents(context.prefix,"kind:c_call_fibre_selected").filter((event) => event.aggregateId === route.cCallRef), "terminal CCall fibre");
-  const resultEvent = one(indexedRuntimeEvents(context.prefix,"kind:c_call_result_admitted").filter((event) => event.aggregateId === route.cCallRef), "terminal result admission");
-  const judgmentEvent = one(indexedRuntimeEvents(context.prefix,"kind:c_call_judged").filter((event) => event.aggregateId === route.cCallRef), "terminal judgment admission");
+  const open = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(context.prefix,"kind:c_call_opened").filter((event) => event.aggregateId === route.cCallRef)), "terminal CCall opening");
+  const fibre = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(context.prefix,"kind:c_call_fibre_selected").filter((event) => event.aggregateId === route.cCallRef)), "terminal CCall fibre");
+  const resultEvent = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(context.prefix,"kind:c_call_result_admitted").filter((event) => event.aggregateId === route.cCallRef)), "terminal result admission");
+  const judgmentEvent = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(context.prefix,"kind:c_call_judged").filter((event) => event.aggregateId === route.cCallRef)), "terminal judgment admission");
   const basis = open.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prepared.fullPrefix, open.basisId);
   if (basis === null || open.graphCallId !== graphCallId || open.runId !== context.runId) throw new TypeError("terminal producer crosses scope or basis");
   const scope = scopeForBasis(prepared.fullPrefix, basis);
@@ -464,11 +466,11 @@ function terminalOutcomeFromSelectedFacts(
       route.declarationRef !== basis.graphRef || route.declarationDigest !== basis.graphDigest ||
       route.sourceCursorRef !== o.cursorRef || route.sourceCursorDigest !== o.cursorDigest ||
       route.contractRef !== basis.transitionContractRef) throw new TypeError("terminal result, judgment and route do not join");
-  const reached = one(indexedRuntimeEvents(context.prefix,"kind:terminal_reached").filter((event) => event.graphCallId === graphCallId), "scope terminal fact");
-  const routeEvent = one(indexedRuntimeEvents(context.prefix,"id:"+route.admissionEventRef), "terminal route event");
+  const reached = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(context.prefix,"kind:terminal_reached").filter((event) => event.graphCallId === graphCallId)), "scope terminal fact");
+  const routeEvent = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(context.prefix,"id:"+route.admissionEventRef)), "terminal route event");
   const body = eventRecord(reached);
   const { closureRef, closureDigest, ...closureBody } = body;
-  const frameClosed = one(indexedRuntimeEvents(context.prefix,"kind:frame_closed").filter((event) => event.eventId === closeBody.frameClosedEventRef), "terminal Frame close");
+  const frameClosed = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(context.prefix,"kind:frame_closed").filter((event) => event.eventId === closeBody.frameClosedEventRef)), "terminal Frame close");
   if (sha256Canonical(closureBody) !== closureDigest || closureRef !== `closure://abiogenesis/${String(closureDigest).slice(7)}` ||
       body.cCallRef !== route.cCallRef || body.resultRef !== outcome.result.resultRef || body.judgmentRef !== route.judgmentRef ||
       body.routeRef !== route.routeRef || body.closureContractRef !== basis.closureContractRef ||
@@ -483,7 +485,7 @@ function terminalOutcomeFromSelectedFacts(
       closed.basisId !== basis.basisRef || closeBody.closureContractRef !== basis.closureContractRef ||
       !closed.causationEventRefs.includes(frameClosed.eventId)) throw new TypeError("terminal closure facts do not join the selected producer");
   if (requireRunClosed) {
-    const runClosed = one(indexedRuntimeEvents(context.prefix,"kind:run_closed"), "Run close");
+    const runClosed = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(context.prefix,"kind:run_closed")), "Run close");
     if (runClosed.basisId !== basis.basisRef || eventRecord(runClosed).graphCallClosedEventRef !== closed.eventId ||
         !runClosed.causationEventRefs.includes(closed.eventId)) throw new TypeError("Run close does not join its root terminal");
   }
@@ -750,8 +752,9 @@ function terminalResult(
     row.resultRef !== null &&
     row.resultDigest !== null
   );
-  return results.length === 1
-    ? deepFreeze({ route: terminalRoutes[0]!, result: results[0]! })
+  const result = onlyExactMatch(results);
+  return result.kind === "one"
+    ? deepFreeze({ route: terminalRoutes[0]!, result: result.value })
     : null;
 }
 
@@ -925,8 +928,8 @@ function graphCallSource(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   context: GraphCallReadContext,
 ) {
-  const atom = one(context.eventAtoms.filter((row) => row.eventKind === "graph_call_opened" &&
-    row.aggregateId === context.graphCallId), "GraphCall source");
+  const atom = exactOrThrow(onlyExactMatch(context.eventAtoms.filter((row) => row.eventKind === "graph_call_opened" &&
+    row.aggregateId === context.graphCallId)), "GraphCall source");
   const basis = atom.basisId === null ? null : projectExactExecutionBasisAtPrefix(prepared.fullPrefix, atom.basisId);
   return basis === null ? null : deepFreeze({
     source: truthCoordinate(context.graphCallId, atom.semanticPayloadDigest),
@@ -1129,8 +1132,9 @@ function projectResultEvidence(
     const cCalls = context.replay.cCalls.filter((row) => row.resultRef === targetRef);
     return cCalls.length === 0 ? [] : [{ context, cCalls }];
   });
-  return matches.length === 1
-    ? evidenceProjection(matches[0]!.context, matches[0]!.cCalls)
+  const match = onlyExactMatch(matches);
+  return match.kind === "one"
+    ? evidenceProjection(match.value.context, match.value.cCalls)
     : ABSENT;
 }
 
@@ -1204,12 +1208,13 @@ function projectInteractionReplay(
       .filter((row) => row.continuationKind === "fh_interaction" && row.requestRef === targetRef)
       .map((continuation) => ({ context, continuation }));
   });
-  return matches.length === 1
+  const match = onlyExactMatch(matches);
+  return match.kind === "one"
     ? {
         interactionRef: targetRef,
-        continuation: matches[0]!.continuation,
-        replayRef: matches[0]!.context.replay.replayRef,
-        replayDigest: matches[0]!.context.replay.replayDigest,
+        continuation: match.value.continuation,
+        replayRef: match.value.context.replay.replayRef,
+        replayDigest: match.value.context.replay.replayDigest,
       } as unknown as JsonValue
     : ABSENT;
 }
@@ -1225,12 +1230,13 @@ function projectContinuationReplay(
       .filter((row) => row.continuationRef === targetRef)
       .map((continuation) => ({ context, continuation }));
   });
-  return matches.length === 1
+  const match = onlyExactMatch(matches);
+  return match.kind === "one"
     ? {
         continuationRef: targetRef,
-        continuation: matches[0]!.continuation,
-        replayRef: matches[0]!.context.replay.replayRef,
-        replayDigest: matches[0]!.context.replay.replayDigest,
+        continuation: match.value.continuation,
+        replayRef: match.value.context.replay.replayRef,
+        replayDigest: match.value.context.replay.replayDigest,
       } as unknown as JsonValue
     : ABSENT;
 }
@@ -1265,10 +1271,10 @@ function gapCall(context: RunReadContext, route: NonNullable<ReturnType<typeof p
   const rows = events.filter(event => event.aggregateType === "c_call" && event.aggregateId === cCallRef);
   if (rows.some(event => event.runId !== route.runId || event.graphCallId !== route.graphCallId ||
       event.frameId !== route.frameId || event.basisId !== route.executionBasisRef)) throw new TypeError("gap C-call crosses its route scope");
-  const open = one(rows.filter(event => event.kind === "c_call_opened"), "gap C-call opening");
-  const fibre = one(rows.filter(event => event.kind === "c_call_fibre_selected"), "gap C-call fibre");
-  const result = one(rows.filter(event => event.kind === "c_call_result_admitted"), "gap C-call result");
-  const judgment = one(rows.filter(event => event.kind === "c_call_judged"), "gap C-call judgment");
+  const open = exactOrThrow(onlyExactMatch(rows.filter(event => event.kind === "c_call_opened")), "gap C-call opening");
+  const fibre = exactOrThrow(onlyExactMatch(rows.filter(event => event.kind === "c_call_fibre_selected")), "gap C-call fibre");
+  const result = exactOrThrow(onlyExactMatch(rows.filter(event => event.kind === "c_call_result_admitted")), "gap C-call result");
+  const judgment = exactOrThrow(onlyExactMatch(rows.filter(event => event.kind === "c_call_judged")), "gap C-call judgment");
   const o = eventRecord(open);
   const outcome = projectAdmittedCCallStateAtPrefix(context.prefix, {
     ...o, ...eventRecord(fibre), kind: "c_call", schemaVersion: "5.0.0", runId: open.runId!,
@@ -1279,9 +1285,9 @@ function gapCall(context: RunReadContext, route: NonNullable<ReturnType<typeof p
   if (outcome === null || outcome.result.resultClass !== "success" || outcome.judgment.judgment !== "advance" ||
       !isRecord(outcome.result.value)) throw new TypeError("gap value has no admitted successful C-call outcome");
   const implementationSet = rehydrateAdmittedImplementationSetAtPrefix(authorityPrefix, outcome.cCall.implementationSetRef);
-  const implementation = one(implementationSet?.rows.filter(row => row.requirementKey === outcome.cCall.implementationRequirementKey &&
+  const implementation = exactOrThrow(onlyExactMatch(implementationSet?.rows.filter(row => row.requirementKey === outcome.cCall.implementationRequirementKey &&
     row.implementationBindingRef === outcome.cCall.implementationBindingRef && row.implementationRef === outcome.cCall.implementationRef &&
-    row.graphFunctionRef === outcome.cCall.graphFunctionRef) ?? [], "gap implementation contract");
+    row.graphFunctionRef === outcome.cCall.graphFunctionRef) ?? []), "gap implementation contract");
   if (implementation.outputContractRef !== outcome.result.contractRef) throw new TypeError("gap output differs from its admitted implementation contract");
   return { open, result, judgment, outcome, implementation, value: outcome.result.value as Readonly<Record<string, JsonValue>>,
     projected: { result: truthCoordinate(outcome.result.resultRef, outcome.result.resultDigest),
@@ -1294,11 +1300,11 @@ function gapCall(context: RunReadContext, route: NonNullable<ReturnType<typeof p
 function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: CanonicalRunReadContext): readonly JsonValue[] {
   if (context.truth.runtimeStatus !== "gap_stopped") return [];
   const events = runtimeEventBodiesAtPrefix(context.prefix);
-  const stop = one(events.filter(event => event.kind === "run_stopped" &&
-    event.eventId === context.replay.runStoppedEventRef), "gap Run stop");
+  const stop = exactOrThrow(onlyExactMatch(events.filter(event => event.kind === "run_stopped" &&
+    event.eventId === context.replay.runStoppedEventRef)), "gap Run stop");
   const stopped = eventRecord(stop);
-  const selected = one(context.replay.routes.filter(route => route.routeKind === "gap_stop" &&
-    route.routeRef === stopped.routeRef), "stopped gap route");
+  const selected = exactOrThrow(onlyExactMatch(context.replay.routes.filter(route => route.routeKind === "gap_stop" &&
+    route.routeRef === stopped.routeRef)), "stopped gap route");
   const route = projectHistoricalTraversalRouteAtPrefix(context.prefix, selected.admissionEventRef, prepared.fullPrefix);
   if (route === null || route.runId !== context.truth.run.ref || route.cCallRef === null ||
       route.routeKind !== "gap_stop" || !stop.causationEventRefs.includes(route.admissionEventRef) ||
@@ -1323,7 +1329,7 @@ function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: Canon
     cursorRef: route.sourceCursorRef, executionBasisRef: route.executionBasisRef,
     runId: route.runId, graphCallId: route.graphCallId, frameId: route.frameId,
   });
-  const origin = one(origins, "no-action cursor origin");
+  const origin = exactOrThrow(onlyExactMatch(origins), "no-action cursor origin");
   if (traversalCursorAdmissionDigest(origin) !== route.sourceCursorDigest ||
       origin.admissionOrdinal >= next.open.admissionOrdinal || next.open.causationEventRefs[0] !== origin.eventId) {
     throw new TypeError("no-action opening differs from its admitted cursor origin");

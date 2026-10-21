@@ -31,6 +31,9 @@ import {
 import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { replayValidatedRuntimeEventPrefix } from "./replay.js";
 import { ROOT_EVENT_PROFILE_DECLARATION_REF } from "./event_contract_profiles.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 
 export const WITNESS_ADMISSION_MEMBER_KEYS = Object.freeze([
   "reprice",
@@ -625,7 +628,7 @@ function selectRunOpen(
       payload.executionBasisRef === basis.ref &&
       payload.executionBasisDigest === basis.digest;
   });
-  return matches.length === 1 ? matches[0]! : null;
+  return exactOrNull(onlyExactMatch(matches));
 }
 
 function witnessedActBody(packet: WitnessAdmitPacket): Readonly<Record<string, JsonValue>> {

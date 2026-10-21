@@ -41,6 +41,7 @@ import type { ChildExecutionBasisInput, ExecutionBasis } from "./execution_basis
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
 const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === "object" && !Array.isArray(v);
 const isRevisionEnvelope = (value: unknown): value is SemanticRevisionEnvelope | SemanticJobRevisionEnvelope => isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value);
 function sameSemanticSubject(a: unknown,b: unknown): boolean {
@@ -48,9 +49,8 @@ function sameSemanticSubject(a: unknown,b: unknown): boolean {
   return isSemanticStageEnvelope(a) && isSemanticStageEnvelope(b) && canonicalEquals(a.lifecycle as unknown as JsonValue, b.lifecycle as unknown as JsonValue) && canonicalEquals(a.sourceHandoff as unknown as JsonValue, b.sourceHandoff as unknown as JsonValue);
 }
 const hash = (v: unknown) => sha256Canonical(v as JsonValue);
-const one = <T>(rows: { filter(predicate: (row: T) => boolean): T[] }, accepts: (row: T) => boolean): T | null => {
-  const selected = rows.filter(accepts); return selected.length === 1 ? selected[0]! : null;
-};
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 const sameScope = (a: RuntimeEvent, b: RuntimeEvent) => a.basisId === b.basisId && a.runId === b.runId &&
   a.graphCallId === b.graphCallId && a.frameId === b.frameId;
 
@@ -66,10 +66,10 @@ export function projectWorksiteRevisionNativeResult(prefix: RuntimeEventPrefix,
   coordinate: SemanticRevisionCoordinate): RehydratedAdmittedCCallState | null {
   try {
     const events = runtimeEventBodiesAtPrefix(prefix);
-    const opened = one(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === coordinate.cCallRef);
-    const fibre = one(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_fibre_selected" && e.aggregateId === coordinate.cCallRef);
-    const result = one(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === coordinate.cCallRef);
-    const judgment = one(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_judged" && e.aggregateId === coordinate.cCallRef);
+    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === coordinate.cCallRef));
+    const fibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_fibre_selected" && e.aggregateId === coordinate.cCallRef));
+    const result = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === coordinate.cCallRef));
+    const judgment = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_judged" && e.aggregateId === coordinate.cCallRef));
     if (opened === null || fibre === null || result === null || judgment === null || !record(opened.payload) ||
       !record(fibre.payload) || !record(result.payload) || !record(judgment.payload) || opened.payload.callClass !== "leaf" ||
       fibre.payload.callClass !== "leaf" || typeof opened.basisId !== "string" ||
@@ -80,9 +80,9 @@ export function projectWorksiteRevisionNativeResult(prefix: RuntimeEventPrefix,
     const openedPayload = opened.payload, fibrePayload = fibre.payload;
     const basis = projectExactExecutionBasisAtPrefix(prefix, opened.basisId);
     const set = basis === null ? null : rehydrateAdmittedImplementationSetAtPrefix(prefix, basis.implementationSetRef);
-    const row = set === null ? null : one(set.rows, r => r.graphFunctionRef === basis!.graphFunctionRef &&
+    const row = set === null ? null : exactOrNull(resolveExactMatch(set.rows, r => r.graphFunctionRef === basis!.graphFunctionRef &&
       r.programLocusRef === openedPayload.programLocusRef && r.implementationRef === fibrePayload.implementationRef &&
-      r.implementationBindingRef === fibrePayload.implementationBindingRef && r.requirementKey === fibrePayload.implementationRequirementKey);
+      r.implementationBindingRef === fibrePayload.implementationBindingRef && r.requirementKey === fibrePayload.implementationRequirementKey));
     if (basis === null || set === null || row === null || set.implementationSetDigest !== basis.implementationSetDigest ||
       fibre.payload.implementationSetRef !== set.implementationSetRef || row.computeRegime !== fibre.payload.regime ||
       opened.graphFunctionRef !== basis.graphFunctionRef || opened.payload.graphFunctionRef !== basis.graphFunctionRef ||
@@ -108,9 +108,9 @@ export function projectWorksiteRevisionNativeResult(prefix: RuntimeEventPrefix,
 /** Artifact truth already reconstructs and validates the causal installs,
  * lock, ProductSet, A and W. This is an exact coordinate selection of it. */
 function nativeBinding(prefix: RuntimeEventPrefix, binding: WorkspaceBinding) {
-  const row = one(projectArtifactTruth(prefix).artifacts, r => r.operationId === "abg.operation.workspace.bind" &&
+  const row = exactOrNull(resolveExactMatch(projectArtifactTruth(prefix).artifacts, r => r.operationId === "abg.operation.workspace.bind" &&
     r.authorityScopeRef === binding.bindingId && r.authorityScopeDigest === binding.bindingDigest &&
-    r.admissionEventRef === binding.admissionEventRef);
+    r.admissionEventRef === binding.admissionEventRef));
   if (row === null || !record(row.artifact) || !record(row.workspaceAuthorityBasis)) return null;
   const {kind: _kind,...body} = row.artifact;
   return canonicalEquals({kind:"workspace_binding",...body,admissionEventRef:row.admissionEventRef}, binding as unknown as JsonValue)
@@ -120,8 +120,8 @@ export function projectAdmittedWorkspaceBindingAtCoordinate(prefix:ValidatedRunt
 /** @internal */
 export function projectAdmittedWorkspaceBindingAtCoordinate(prefix:RuntimeEventPrefix,ref:string,digest:string):WorkspaceBinding|null;
 export function projectAdmittedWorkspaceBindingAtCoordinate(prefix:RuntimeEventPrefix,ref:string,digest:string):WorkspaceBinding|null {
-  const row=one(projectArtifactTruth(prefix).artifacts,r=>r.operationId==="abg.operation.workspace.bind"&&
-    r.authorityScopeRef===ref&&r.authorityScopeDigest===digest);
+  const row=exactOrNull(resolveExactMatch(projectArtifactTruth(prefix).artifacts,r=>r.operationId==="abg.operation.workspace.bind"&&
+    r.authorityScopeRef===ref&&r.authorityScopeDigest===digest));
   if(row===null||!record(row.artifact))return null;
   const {kind:_kind,...body}=row.artifact;
   return {kind:"workspace_binding",...body,admissionEventRef:row.admissionEventRef} as unknown as WorkspaceBinding;
@@ -177,10 +177,10 @@ export function projectWitnessedWorkspaceBindingCover(prefix: RuntimeEventPrefix
         !Array.isArray(p.evidence)) return false;
       const evidence=p.evidence;
       if(![before,after].every(w => evidence.filter(c => record(c) && c.ref === w.bindingId && c.digest === w.bindingDigest).length === 1))return false;
-      const historical = one(bases,b => b.basisRef === p.subjectRef && b.basisDigest === p.subjectDigest);
+      const historical = exactOrNull(resolveExactMatch(bases,b => b.basisRef === p.subjectRef && b.basisDigest === p.subjectDigest));
       const admitted = historical === null ? null : indexedRuntimeEvents(prefix, "id:" + historical.admissionEventRef).find(e => e.eventId === historical.admissionEventRef);
-      const operation = one(indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted"),e => e.kind === "public_operation_admitted" && event.causationEventRefs.includes(e.eventId) &&
-        record(e.payload) && e.payload.operationId === "abg.operation.witness.admit" && e.payload.memberKey === "reprice");
+      const operation = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted"),e => e.kind === "public_operation_admitted" && event.causationEventRefs.includes(e.eventId) &&
+        record(e.payload) && e.payload.operationId === "abg.operation.witness.admit" && e.payload.memberKey === "reprice"));
       if (admitted === null || admitted === undefined || operation === null || !record(operation.payload) ||
         [old.row.admissionOrdinal,current.row.admissionOrdinal,admitted.admissionOrdinal,operation.admissionOrdinal].some(o => o >= event.admissionOrdinal) ||
         event.basisId !== historical!.basisRef || event.parentAggregateId !== operation.parentAggregateId ||
@@ -236,7 +236,7 @@ interface NativeHistory {
 }
 function coordinateFor(events: RuntimeEventScan, result: RuntimeEvent): SemanticRevisionCoordinate | null {
   if (!record(result.payload) || typeof result.payload.resultRef !== "string" || typeof result.payload.resultDigest !== "string") return null;
-  const judged = one(events,e => e.kind === "c_call_judged" && e.aggregateId === result.aggregateId);
+  const judged = exactOrNull(resolveExactMatch(events,e => e.kind === "c_call_judged" && e.aggregateId === result.aggregateId));
   return judged === null ? null : {cCallRef:result.aggregateId,resultRef:result.payload.resultRef,
     resultDigest:result.payload.resultDigest as SemanticRevisionCoordinate["resultDigest"],resultAdmissionEventRef:result.eventId,judgmentEventRef:judged.eventId};
 }
@@ -323,8 +323,8 @@ function samePhysicalSubject(prefix:RuntimeEventPrefix,a:WorksiteSubject,b:Works
   if(a.relativePath!==b.relativePath||a.subjectUri!==b.subjectUri)return false;
   if(a.workspaceBindingIdentity===b.workspaceBindingIdentity&&a.workspaceBindingDigest===b.workspaceBindingDigest)return true;
   const truth=projectArtifactTruth(prefix).artifacts;
-  const authority=(subject:WorksiteSubject)=>one(truth,r=>r.operationId==="abg.operation.workspace.bind"&&
-    r.authorityScopeRef===subject.workspaceBindingIdentity&&r.authorityScopeDigest===subject.workspaceBindingDigest)?.workspaceAuthorityBasis;
+  const authority=(subject:WorksiteSubject)=>exactOrNull(resolveExactMatch(truth,r=>r.operationId==="abg.operation.workspace.bind"&&
+    r.authorityScopeRef===subject.workspaceBindingIdentity&&r.authorityScopeDigest===subject.workspaceBindingDigest))?.workspaceAuthorityBasis;
   const left=authority(a),right=authority(b);
   return left!==undefined&&right!==undefined&&canonicalEquals(left, right);
 }
@@ -333,8 +333,8 @@ function samePhysicalSubject(prefix:RuntimeEventPrefix,a:WorksiteSubject,b:Works
 function invalidatedAcrossBindings(prefix:RuntimeEventPrefix,subject:WorksiteSubject,ordinal:number,work?:RetainedOriginSession):boolean {
   // Authority identity still owns provenance transfer in samePhysicalSubject.
   // Physical invalidation resolves the admitted root and exact path only.
-  const binding = one(projectArtifactTruth(prefix).artifacts, row => row.operationId === "abg.operation.workspace.bind" &&
-    row.authorityScopeRef === subject.workspaceBindingIdentity && row.authorityScopeDigest === subject.workspaceBindingDigest);
+  const binding = exactOrNull(resolveExactMatch(projectArtifactTruth(prefix).artifacts, row => row.operationId === "abg.operation.workspace.bind" &&
+    row.authorityScopeRef === subject.workspaceBindingIdentity && row.authorityScopeDigest === subject.workspaceBindingDigest));
   const authority = binding?.workspaceAuthorityBasis;
   const root = record(authority) ? authority.canonicalRoot : undefined;
   return typeof root !== "string" || worksiteCommandSourcesInvalidatedAfter(prefix, ordinal, root, [subject.relativePath]);
@@ -374,7 +374,7 @@ function projectionFacts(prefix:RuntimeEventPrefix,result:RuntimeEvent,work:Proj
     if(environment===null||!canonicalEquals(environment.authority as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue)||
       current.workspaceBinding.bindingId!==basis.workspaceBindingId||current.workspaceBinding.bindingDigest!==basis.workspaceBindingDigest||
       invocation?.capabilityGrants.length!==1||!canonicalEquals(invocation.capabilityGrants[0] as unknown as JsonValue, current.capabilityGrant as unknown as JsonValue))return null;
-    const evidence=one(indexedRuntimeEvents(prefix, "related:" + result.aggregateId),e=>e.kind==="c_call_evidenced"&&e.aggregateId===result.aggregateId);
+    const evidence=exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + result.aggregateId),e=>e.kind==="c_call_evidenced"&&e.aggregateId===result.aggregateId));
     if(evidence===null||!record(evidence.payload)||!sameScope(evidence,result)||evidence.payload.evidenceClass!=="deterministic"||
       evidence.payload.cCallRef!==state.cCall.cCallRef||evidence.payload.contractRef!==state.cCall.evidenceContractRef||
       evidence.payload.implementationRef!==SEMANTIC_REVISION_IDS.projectionImplementationRef||evidence.payload.inputDigest!==hash(request)||
@@ -542,8 +542,9 @@ export function projectWorksiteRevisionBindingOrigin(prefix:RuntimeEventPrefix,e
     const p=projectionFacts(prefix,e,work);
     return p!==null&&canonicalEquals(p.envelope.current.worksite as unknown as JsonValue, envelope.current.worksite as unknown as JsonValue)?[p]:[];
   });
-  return matches.length===1?{kind:"admitted_binding_projection",resultAdmissionEventRef:matches[0]!.state.result.admissionEventRef,
-    judgmentEventRef:matches[0]!.state.judgment.admissionEventRef}:null;
+  const match=onlyExactMatch(matches);
+  return match.kind==="one"?{kind:"admitted_binding_projection",resultAdmissionEventRef:match.value.state.result.admissionEventRef,
+    judgmentEventRef:match.value.state.judgment.admissionEventRef}:null;
 }
 /** The root seed is an exact earlier input, never the current revision request. */
 export function worksiteRevisionSeedMatches(seedBasis: ExecutionBasis, ancestor: unknown,
@@ -645,7 +646,7 @@ export function worksiteRevisionOriginSurvives(prefix: RuntimeEventPrefix,
   row: WorksiteRevisionDependencyObservation): boolean {
   const events = runtimeEventBodiesAtPrefix(prefix), origin = row.origin;
   if (origin.kind === "admitted_initial_job_bridge") {
-    const event = one(indexedRuntimeEvents(prefix, "id:" + origin.resultAdmissionEventRef), e => e.kind === "c_call_result_admitted" && e.eventId === origin.resultAdmissionEventRef);
+    const event = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "id:" + origin.resultAdmissionEventRef), e => e.kind === "c_call_result_admitted" && e.eventId === origin.resultAdmissionEventRef));
     const coordinate = event === null ? null : coordinateFor(events, event);
     const result = coordinate === null ? null : projectWorksiteRevisionNativeResult(prefix, coordinate);
     const value = result?.result.value;
@@ -660,7 +661,7 @@ export function worksiteRevisionOriginSurvives(prefix: RuntimeEventPrefix,
       !invalidatedAcrossBindings(prefix, row.subject, source.contextEvent.admissionOrdinal);
   }
   if(origin.kind==="admitted_binding_projection"){
-    const result=one(indexedRuntimeEvents(prefix, "id:" + origin.resultAdmissionEventRef),e=>e.kind==="c_call_result_admitted"&&e.eventId===origin.resultAdmissionEventRef);
+    const result=exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "id:" + origin.resultAdmissionEventRef),e=>e.kind==="c_call_result_admitted"&&e.eventId===origin.resultAdmissionEventRef));
     const p=result===null?null:projectionFacts(prefix,result,session());
     return p!==null&&p.state.judgment.admissionEventRef===origin.judgmentEventRef&&
       p.envelope.current.worksite!.targets.filter(t=>canonicalEquals(t.target.subject as unknown as JsonValue, row.subject as unknown as JsonValue)&&canonicalEquals(t.target.predecessorObservation as unknown as JsonValue, row.observation as unknown as JsonValue)).length===1&&

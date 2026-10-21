@@ -36,6 +36,9 @@ import { runtimeEventPrefixDigest,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `undefined`. */
+const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 
 export interface OpenedRun {
   readonly runId: string;
@@ -860,12 +863,12 @@ export function projectOpenedTraversalScopeForFrameAtPrefix(
 ): OpenedTraversalScope | null {
   const rows = runtimeEventBodiesAtPrefix(prefix);
   const frames = indexedRuntimeEvents(prefix, "related:" + frameId).filter(e => e.kind === "frame_opened" && e.aggregateId === frameId);
-  const frame = frames.length === 1 ? frames[0] : undefined;
+  const frame = exactOrUndefined(onlyExactMatch(frames));
   if (frame === undefined || !isRecord(frame.payload) || typeof frame.graphCallId !== "string" || typeof frame.runId !== "string") return null;
   const graphRows = indexedRuntimeEvents(prefix, "related:" + frame.graphCallId).filter(e => e.kind === "graph_call_opened" && e.aggregateId === frame.graphCallId);
   const runRows = indexedRuntimeEvents(prefix, "related:" + frame.runId).filter(e => e.kind === "run_segment_opened" && e.aggregateId === frame.runId);
-  const graph = graphRows.length === 1 ? graphRows[0] : undefined;
-  const run = runRows.length === 1 ? runRows[0] : undefined;
+  const graph = exactOrUndefined(onlyExactMatch(graphRows));
+  const run = exactOrUndefined(onlyExactMatch(runRows));
   const execution = rehydrateExecutionBasisAtPrefix(prefix, frame.basisId);
   if (execution === null || graph === undefined || run === undefined || !isRecord(graph.payload) || !isRecord(run.payload) ||
     typeof graph.payload.graphCallDigest !== "string" || typeof run.payload.runDigest !== "string" ||

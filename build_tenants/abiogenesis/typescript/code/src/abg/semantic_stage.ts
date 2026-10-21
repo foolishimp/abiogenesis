@@ -29,6 +29,9 @@ import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
 import { sha256Bytes } from "../shared/digests.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 
 export interface SemanticStageNativeBasis {
   readonly publication: Readonly<ModulePublication>;
@@ -317,7 +320,7 @@ export function selectedSemanticPredecessor(basis: SemanticStageNativeBasis, imp
       const execution = rehydrateExecutionBasisAtPrefix(owner.prefix, previous.cCall.basisId);
       return execution !== null && sameInvocation(execution, owner.execution) ? { previous, execution, event } : null;
     }).filter((x): x is NonNullable<typeof x> => x !== null);
-  return matches.length === 1 ? matches[0]! : null;
+  return exactOrNull(onlyExactMatch(matches));
 }
 
 /** C2's stored protected snapshot is the evidence content locus. It is derived

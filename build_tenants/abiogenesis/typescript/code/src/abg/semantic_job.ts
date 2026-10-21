@@ -41,6 +41,9 @@ import { projectWorksiteRevisionNativeResult } from "./worksite_revision.js";
 import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_identity.js";
 import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticJobRevisionEnvelope, isNativeSemanticRevisionIntake } from "../product/semantic_revision.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
@@ -125,7 +128,7 @@ function predecessor(basis: SemanticStageNativeBasis, owner: NonNullable<ReturnT
     const execution = rehydrateExecutionBasisAtPrefix(owner.prefix, previous.cCall.basisId);
     return execution !== null && sameJobInvocation(owner.execution, execution) ? { previous, execution, event } : null;
   }).filter((x): x is NonNullable<typeof x> => x !== null);
-  return matches.length === 1 ? matches[0]! : null;
+  return exactOrNull(onlyExactMatch(matches));
 }
 export function semanticJobInputMatchesBasis(basis: SemanticStageNativeBasis, input: unknown): input is SemanticJobEnvelope {
   try {
@@ -432,7 +435,7 @@ function semanticJobConstructionSourceMatching(prefix: RuntimeEventPrefix,
       const worksite = semanticJobSavedWorksite(original, value);
       return worksite !== null && canonicalEquals(deriveSemanticJobPreparation(original, worksite) as unknown as JsonValue, value) ? [{ seed, worksite, original, result: outcome.result }] : [];
     });
-    return rows.length === 1 ? rows[0]! : null;
+    return exactOrNull(onlyExactMatch(rows));
   } catch { return null; }
 }
 
@@ -506,7 +509,8 @@ export function semanticJobReadDependenciesAtPrefix(prefix: RuntimeEventPrefix, 
         outcome.judgment.judgment === "advance" && seed !== null && sameJobInvocation(seed, source.seed)
         ? [{ event, seed }] : [];
     });
-    return contexts.length === 1 ? { ...source, contextEvent: contexts[0]!.event } : null;
+    const context = onlyExactMatch(contexts);
+    return context.kind === "one" ? { ...source, contextEvent: context.value.event } : null;
   } catch { return null; }
 }
 

@@ -142,6 +142,9 @@ import {
   type WorksiteObservation,
 } from "../product/worksite_effect.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `undefined`. */
+const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 
 export interface CCall {
   readonly kind: "c_call";
@@ -1997,8 +2000,9 @@ function projectAdmittedActorTransport(
   const timeoutRows = actorRows.filter((event) =>
     event.kind === "actor_process_timeout_observed" && isJsonRecord(event.payload)
   );
-  const timeoutPayload = timeoutRows.length === 1
-    ? timeoutRows[0]?.payload as Readonly<Record<string, JsonValue>>
+  const timeoutRow = onlyExactMatch(timeoutRows);
+  const timeoutPayload = timeoutRow.kind === "one"
+    ? timeoutRow.value.payload as Readonly<Record<string, JsonValue>>
     : null;
   const timeoutClass = timeoutPayload?.timeoutClass ?? null;
   const timeoutLimitMatchesBinding = timeoutPayload === null ||
@@ -4207,7 +4211,7 @@ export function projectWorkflowCCallInputDigestAtPrefix(
     cursorRef: opened.payload.cursorRef, executionBasisRef: opened.basisId,
     runId: opened.runId, graphCallId: opened.graphCallId, frameId: opened.frameId,
   });
-  const origin = origins.length === 1 ? origins[0] : undefined;
+  const origin = exactOrUndefined(onlyExactMatch(origins));
   if (origin === undefined || traversalCursorAdmissionDigest(origin) !== opened.payload.cursorDigest ||
     origin.admissionOrdinal >= opened.admissionOrdinal || opened.causationEventRefs[0] !== origin.eventId) return null;
   const sameScope = (event: RuntimeEvent): boolean => event.runId === opened.runId &&
@@ -6338,7 +6342,7 @@ export function undispatchedOwnerEvidenceMatches(
       cursorRef: opened.payload.cursorRef, executionBasisRef: cCall.basisId,
       runId: cCall.runId, graphCallId: cCall.graphCallId, frameId: cCall.frameId,
     });
-    const origin = origins.length === 1 ? origins[0] : undefined;
+    const origin = exactOrUndefined(onlyExactMatch(origins));
     if (origin === undefined || traversalCursorAdmissionDigest(origin) !== opened.payload.cursorDigest ||
         origin.admissionOrdinal >= opened.admissionOrdinal || opened.causationEventRefs[0] !== origin.eventId ||
         !isJsonRecord(origin.payload)) return false;

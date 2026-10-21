@@ -57,6 +57,7 @@ import {
   runtimePrefixComputation,
 } from "./event_prefix.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch } from "../shared/select/index.js";
 
 export type PublicOperationId =
   | "abg.operation.release.snapshot"
@@ -339,8 +340,9 @@ export function projectAdmittedProductInstallByAdmissionEventRef(
     row.operationId === "abg.operation.product.install" &&
     row.admissionEventRef === admissionEventRef
   );
-  return matches.length === 1
-    ? rehydrateProductInstallRow(projection, matches[0]!)
+  const match = onlyExactMatch(matches);
+  return match.kind === "one"
+    ? rehydrateProductInstallRow(projection, match.value)
     : null;
 }
 
@@ -566,8 +568,9 @@ function deriveWorkspaceEnvironment(
   for (const eventRef of bindingRow.causationEventRefs) {
     const matches = artifactTruth.rows.filter(row =>
       row.operationId === "abg.operation.product.install" && row.admissionEventRef === eventRef);
-    const truth = matches.length === 1
-      ? rehydrateProductInstallRowFromRows(artifactTruth.rows, matches[0]!) : null;
+    const match = onlyExactMatch(matches);
+    const truth = match.kind === "one"
+      ? rehydrateProductInstallRowFromRows(artifactTruth.rows, match.value) : null;
     if (truth === null) {
       return exactPrefixEnvironmentRefusal(
         "causal_install_missing",

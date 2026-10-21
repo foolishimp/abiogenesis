@@ -26,6 +26,11 @@ import { governanceFulfillmentSelection, initialGovernanceFulfillment, governanc
   bindGovernanceFulfillmentAssessment, projectGovernanceFulfillment, invalidateGovernanceFulfillment, governanceFulfillmentActive,
   type GovernanceFulfillmentEvidence } from "../product/default_library_fulfillment.js";
 import { framedSynthesisEvidenceRefs, governanceSubjectEvidenceRefs, projectGovernanceObservationFacts } from "../product/default_library.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
+/** Owner boundary: `absent` and `many` map to `undefined`. */
+const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
 const asJson = (x: unknown) => x as Readonly<Record<string, JsonValue>>;
 function testingRefused(refusal: GovernanceTestingRefusal | undefined, stage: string, relation: string,
@@ -72,7 +77,7 @@ async function currentContext(o: Owner, state: GovernanceWorkState, refusal?: Go
 function result(o: Owner, resultRef: string, resultDigest?: string): RuntimeEvent | null {
   const rows = indexedRuntimeEvents(o.prefix, "payload:resultRef:" + resultRef).filter(e => e.kind === "c_call_result_admitted" &&
     (e.runId === o.call.runId || hasAdmittedGovernanceUse(o, e)) && record(e.payload) && e.payload.resultClass === "success" && (resultDigest === undefined || e.payload.resultDigest === resultDigest));
-  return rows.length === 1 ? rows[0]! : null;
+  return exactOrNull(onlyExactMatch(rows));
 }
 function hasAdmittedGovernanceUse(o: Owner, event: RuntimeEvent): boolean {
   return hasAdmittedGovernanceSourceUse(o.invocation, event);
@@ -104,7 +109,7 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
     const inputEvents = indexedRuntimeEvents(o.prefix, "payload:resultRef:" + input.basis.inputRef)
       .filter(e => e.kind === "c_call_result_admitted" && e.runId === o.call.runId && e.basisId === event.basisId &&
         record(e.payload) && e.payload.valueDigest === input.basis.inputDigest && isFramedSynthesisTask(e.payload.value));
-    const inputEvent = inputEvents.length === 1 ? inputEvents[0] : undefined;
+    const inputEvent = exactOrUndefined(onlyExactMatch(inputEvents));
     const task = record(inputEvent?.payload) && isFramedSynthesisTask(inputEvent.payload.value) ? inputEvent.payload.value : null;
     if (task === null || j.requirementProposals === undefined || !same(task.state, input.state)) return null;
     const fulfillment = deriveGovernanceObligations(input.state.original.fulfillment, input.state.fulfillment!, j.requirementProposals,

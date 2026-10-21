@@ -137,7 +137,13 @@ import {
   type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 import { admitJson } from "../shared/admit/index.js";
+import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
+/** Owner boundary: `absent` and `many` map to `undefined`. */
+const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 
 export {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES as RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
@@ -690,7 +696,7 @@ export function projectRetryResumeAtDurablePrefix(
     const routeEvents = durableEvents.filter((event) =>
       event.eventId === carrier.routeAdmissionEventRef
     );
-    const routeEvent = routeEvents.length === 1 ? routeEvents[0] : undefined;
+    const routeEvent = exactOrUndefined(onlyExactMatch(routeEvents));
     if (
       routeEvent?.kind !== "traversal_route_admitted" ||
       attemptEvent?.kind !== "retry_attempt_opened" ||
@@ -1346,7 +1352,7 @@ function deriveRetryAttemptCursor(
     candidate.payload.routeRef === payload.priorRouteRef &&
     candidate.payload.judgmentRef === payload.priorJudgmentRef
   );
-  const route = routeRows.length === 1 ? routeRows[0]! : null;
+  const route = exactOrNull(onlyExactMatch(routeRows));
   return route !== null && isRecord(route.payload) &&
       route.payload.targetCursorRef === cursor.cursorRef &&
       route.payload.targetCursorDigest === cursor.cursorDigest
@@ -2961,7 +2967,7 @@ function projectExactInteractionResumeSuccessorAtPrefix(
       ? [deepFreeze({ cursor, resumeEventRef: resumeEvent.eventId })]
       : [];
   });
-  return projections.length === 1 ? projections[0]! : null;
+  return exactOrNull(onlyExactMatch(projections));
 }
 
 export function projectDeclaredCRetryFrontier(
@@ -3099,9 +3105,7 @@ export function projectDeclaredCRetryFrontier(
       route.targetCursorRef === cursor.cursorRef &&
       route.targetCursorDigest === cursor.cursorDigest
     );
-    const entryRouteCandidate = entryRoutes.length === 1
-      ? entryRoutes[0]!
-      : null;
+    const entryRouteCandidate = exactOrNull(onlyExactMatch(entryRoutes));
     const entryRoute = entryRouteCandidate !== null &&
         isDeclaredCRetryAttemptOrigin(entryRouteCandidate)
       ? entryRouteCandidate
@@ -5188,6 +5192,42 @@ export function projectRetryEligibility(
   }) as RetryEligibility;
 }
 
+type DigestedRecord = Readonly<{
+  ref: JsonValue | undefined;
+  digest: Sha256Digest;
+  body: Readonly<Record<string, JsonValue>>;
+}>;
+
+const DIGESTED_RECORD_REFUSAL: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "digested_record_projection",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+/** A CRetry record payload splits into its ref, its digest and its body. */
+function digestedRecord(event: RuntimeEvent, refKey: string, digestKey: string): Outcome<DigestedRecord> {
+  if (!isRecord(event.payload)) return DIGESTED_RECORD_REFUSAL;
+  const { [refKey]: ref, [digestKey]: digest, ...body } = event.payload;
+  return isSha256Digest(digest) ? ok({ ref, digest, body }) : DIGESTED_RECORD_REFUSAL;
+}
+/** The body's canonical digest is the recorded digest (D2). */
+const DIGESTED_RECORD_DIGEST = Object.freeze({
+  expected: (_event: RuntimeEvent, record: DigestedRecord) => record.digest,
+  actual: (record: DigestedRecord) => sha256Canonical(record.body),
+});
+/** One `retry_attempt_opened` event as a checked record. */
+const RETRY_ATTEMPT_RECORD: RecordCheck<RuntimeEvent, DigestedRecord> = Object.freeze({
+  project: (event: RuntimeEvent) => digestedRecord(event, "attemptRef", "attemptDigest"),
+  digest: DIGESTED_RECORD_DIGEST,
+});
+/** One `retry_progress_recorded` event as a checked record. */
+const RETRY_PROGRESS_RECORD: RecordCheck<RuntimeEvent, DigestedRecord> = Object.freeze({
+  project: (event: RuntimeEvent) => digestedRecord(event, "progressRef", "progressDigest"),
+  digest: DIGESTED_RECORD_DIGEST,
+});
+
 /** Descriptive budget facts from existing native CRetry records. This helper
  * deliberately calls neither replay nor eligibility nor liveness. Actual retry
  * admission still verifies the full declared frontier, cursor and failure. */
@@ -5201,26 +5241,28 @@ export function projectRuntimeRetryBudgetFacts(prefix: RuntimeEventPrefix, scope
     event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId && event.frameId === scope.frameId);
   if (opened === undefined || !isRecord(opened.payload) || !Array.isArray(opened.payload.retryPath) || opened.payload.retryPath.length === 0) return absent;
   const retryPath = opened.payload.retryPath;
-  const rows = indexedRuntimeEvents(prefix, "basis:" + scope.basisRef).filter(event => event.kind === "retry_attempt_opened" && isRecord(event.payload) &&
+  const attempt = checkExactRecord(resolveExactMatch(indexedRuntimeEvents(prefix, "basis:" + scope.basisRef), event => event.kind === "retry_attempt_opened" && isRecord(event.payload) &&
     event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId &&
     event.frameId === scope.frameId && event.admissionOrdinal < opened.admissionOrdinal &&
     event.payload.attempt === scope.attempt && event.payload.taskOrdinal === scope.taskOrdinal && Array.isArray(event.payload.retryPath) &&
-    canonicalEquals(event.payload.retryPath, retryPath));
-  if (rows.length !== 1 || !isRecord(rows[0]!.payload)) return absent;
-  const { attemptRef, attemptDigest, ...body } = rows[0]!.payload;
-  if (sha256Canonical(body) !== attemptDigest || attemptRef !== `retry-attempt://abiogenesis/${String(attemptDigest).slice(7)}` ||
+    canonicalEquals(event.payload.retryPath, retryPath)), RETRY_ATTEMPT_RECORD);
+  // Owner boundary: `absent`, `many` and `invalid` are the existing `absent` facts.
+  if (attempt.kind !== "one") return absent;
+  const { ref: attemptRef, digest: attemptDigest, body } = attempt.value;
+  if (attemptRef !== `retry-attempt://abiogenesis/${String(attemptDigest).slice(7)}` ||
       !Number.isSafeInteger(body.budget) || Number(body.budget) < scope.attempt) return absent;
   const remaining = Number(body.budget) - scope.attempt;
-  const progresses = indexedRuntimeEvents(prefix, "basis:" + scope.basisRef).filter(event => event.kind === "retry_progress_recorded" && isRecord(event.payload) &&
+  const progressRecord = checkExactRecord(resolveExactMatch(indexedRuntimeEvents(prefix, "basis:" + scope.basisRef), event => event.kind === "retry_progress_recorded" && isRecord(event.payload) &&
     event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId && event.frameId === scope.frameId &&
-    event.payload.attemptRef === attemptRef && event.payload.cCallRef === scope.cCallRef);
+    event.payload.attemptRef === attemptRef && event.payload.cCallRef === scope.cCallRef), RETRY_PROGRESS_RECORD);
   let retryEligible = false;
   let resultRejectionRef: string | null = null;
-  if (progresses.length === 1 && isRecord(progresses[0]!.payload)) {
-    const { progressRef, progressDigest, ...progress } = progresses[0]!.payload;
+  // Owner boundary: `absent`, `many` and `invalid` leave the progress facts unset.
+  if (progressRecord.kind === "one") {
+    const { ref: progressRef, digest: progressDigest, body: progress } = progressRecord.value;
     const exactProgress = progress.remainingBudget === remaining &&
       progress.budget === body.budget && progress.retryBoundaryRef === body.retryBoundaryRef &&
-      sha256Canonical(progress) === progressDigest && progressRef === `retry-progress://abiogenesis/${String(progressDigest).slice(7)}`;
+      progressRef === `retry-progress://abiogenesis/${String(progressDigest).slice(7)}`;
     retryEligible = exactProgress && remaining > 0 && progress.progressClass === "retry";
     if (exactProgress && progress.failureClass === "contract_failure" && typeof progress.failureSignalRef === "string") resultRejectionRef = progress.failureSignalRef;
   }
@@ -6303,7 +6345,7 @@ function planCompletedRetryProgressFromHistory(
     event.kind === "basis_admitted" && event.basisId === executionBasisRef &&
     isRecord(event.payload) && event.payload.basisRef === executionBasisRef
   );
-  const basisEvent = basisEvents.length === 1 ? basisEvents[0] : undefined;
+  const basisEvent = exactOrUndefined(onlyExactMatch(basisEvents));
   if (
     basisEvent === undefined || !isRecord(basisEvent.payload) ||
     basisEvent.payload.graphRef !== graph.materializationRef ||

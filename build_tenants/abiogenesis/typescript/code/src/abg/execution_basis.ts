@@ -141,6 +141,8 @@ import {
   type OpenedTraversalScope,
 } from "./open_call.js";
 import { canonicalEquals, canonicalRecordDigest, type JsonRecord } from "../shared/value/index.js";
+import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
+import { checkExactRecord, resolveExactMatch, type RecordCheck } from "../shared/select/index.js";
 
 export interface RuntimeAdmissionBasis {
   readonly eventTime: string;
@@ -1045,6 +1047,82 @@ export function isAdmittedImplementationResolution(value: object): boolean {
   return implementationResolutions.has(value);
 }
 
+const SET_PROJECTION_REFUSAL: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "admitted_set_projection",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+function implementationSetBody(set: AdmittedImplementationSet): JsonValue {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    implementationSetRef: _implementationSetRef,
+    implementationSetDigest: _implementationSetDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = set;
+  return body as unknown as JsonValue;
+}
+
+function interactionSetBody(set: AdmittedInteractionSet): JsonValue {
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    interactionSetRef: _interactionSetRef,
+    interactionSetDigest: _interactionSetDigest,
+    admissionEventRef: _admissionEventRef,
+    ...body
+  } = set;
+  return body as unknown as JsonValue;
+}
+
+/** One `implementation_admitted` event as a checked implementation set: the
+ * projection builds the set from the payload; the digest leg compares the set
+ * body digest with the recorded `implementationSetDigest` (D2). */
+const IMPLEMENTATION_SET_RECORD: RecordCheck<RuntimeEvent, AdmittedImplementationSet> = Object.freeze({
+  project: (event: RuntimeEvent): Outcome<AdmittedImplementationSet> =>
+    isJsonRecord(event.payload) &&
+      event.payload.implementationSet !== undefined &&
+      isJsonRecord(event.payload.implementationSet)
+      ? ok(deepFreeze({
+        kind: "admitted_implementation_set" as const,
+        schemaVersion: "5.0.0" as const,
+        disposition: "admitted" as const,
+        ...event.payload.implementationSet,
+        admissionEventRef: event.eventId,
+      }) as unknown as AdmittedImplementationSet)
+      : SET_PROJECTION_REFUSAL,
+  digest: Object.freeze({
+    expected: (_event: RuntimeEvent, set: AdmittedImplementationSet) => set.implementationSetDigest,
+    actual: (set: AdmittedImplementationSet) => sha256Canonical(implementationSetBody(set)),
+  }),
+});
+
+/** The interaction twin of `IMPLEMENTATION_SET_RECORD`. */
+const INTERACTION_SET_RECORD: RecordCheck<RuntimeEvent, AdmittedInteractionSet> = Object.freeze({
+  project: (event: RuntimeEvent): Outcome<AdmittedInteractionSet> =>
+    isJsonRecord(event.payload) &&
+      event.payload.interactionSet !== undefined &&
+      isJsonRecord(event.payload.interactionSet)
+      ? ok(deepFreeze({
+        kind: "admitted_interaction_set" as const,
+        schemaVersion: "5.0.0" as const,
+        disposition: "admitted" as const,
+        ...event.payload.interactionSet,
+        admissionEventRef: event.eventId,
+      }) as unknown as AdmittedInteractionSet)
+      : SET_PROJECTION_REFUSAL,
+  digest: Object.freeze({
+    expected: (_event: RuntimeEvent, set: AdmittedInteractionSet) => set.interactionSetDigest,
+    actual: (set: AdmittedInteractionSet) => sha256Canonical(interactionSetBody(set)),
+  }),
+});
+
 export function isAdmittedImplementationSet(value: object): boolean {
   return implementationSets.has(value);
 }
@@ -1078,10 +1156,9 @@ export function selectAdmittedConstructionAuthority(
     | "evaluateAction",
 ) {
   const composition = admittedConstructionComposition(basis);
-  const matches = composition?.authorities.filter(
-    (binding) => binding.semanticAuthority === semanticAuthority,
-  ) ?? [];
-  return matches.length === 1 ? matches[0]! : null;
+  const match = resolveExactMatch(composition?.authorities ?? [],
+    (binding) => binding.semanticAuthority === semanticAuthority);
+  return match.kind === "one" ? match.value : null;
 }
 
 export function isAdmittedConstructionInteractionLocus(
@@ -1175,14 +1252,13 @@ export function selectAdmittedImplementationResolution(
   selection: ImplementationResolutionSelection,
 ): AdmittedImplementationResolutionRow | null {
   if (!isAdmittedImplementationSet(set)) return null;
-  const matches = set.rows.filter(
+  const match = resolveExactMatch(set.rows,
     (row) =>
       row.graphFunctionRef === selection.graphFunctionRef &&
       row.nodeRef === selection.nodeRef &&
       row.programLocusRef === selection.programLocusRef &&
-      row.implementationBindingRef === selection.implementationBindingRef,
-  );
-  return matches.length === 1 ? matches[0] ?? null : null;
+      row.implementationBindingRef === selection.implementationBindingRef);
+  return match.kind === "one" ? match.value ?? null : null;
 }
 
 export function selectAdmittedInteractionContract(
@@ -1190,7 +1266,7 @@ export function selectAdmittedInteractionContract(
   selection: InteractionContractSelection,
 ): AdmittedInteractionContractRow | null {
   if (!isAdmittedInteractionSet(set)) return null;
-  const matches = set.rows.filter(
+  const match = resolveExactMatch(set.rows,
     (row) =>
       row.graphFunctionRef === selection.graphFunctionRef &&
       row.nodeRef === selection.nodeRef &&
@@ -1200,9 +1276,8 @@ export function selectAdmittedInteractionContract(
       row.requirement.requestContractRef === selection.requestContractRef &&
       row.requirement.responseContractRef === selection.responseContractRef &&
       row.requirement.continuationContractRef ===
-        selection.continuationContractRef,
-  );
-  return matches.length === 1 ? matches[0] ?? null : null;
+        selection.continuationContractRef);
+  return match.kind === "one" ? match.value ?? null : null;
 }
 
 export function hasAdmittedInteractionSetAtPrefix(
@@ -1275,30 +1350,19 @@ export function rehydrateAdmittedImplementationSetAtPrefix(
   prefix: RuntimeEventPrefix,
   implementationSetRef: string,
 ): AdmittedImplementationSet | null {
-  const matches = indexedRuntimeEvents(prefix, "payload:implementationSetRef:" + implementationSetRef).filter(
-    (event) =>
-      event.kind === "implementation_admitted" &&
-      isJsonRecord(event.payload) &&
-      event.payload.implementationSetRef === implementationSetRef &&
-      event.payload.implementationSet !== undefined &&
-      isJsonRecord(event.payload.implementationSet),
+  const checked = checkExactRecord(
+    resolveExactMatch(indexedRuntimeEvents(prefix, "payload:implementationSetRef:" + implementationSetRef),
+      (event) =>
+        event.kind === "implementation_admitted" &&
+        isJsonRecord(event.payload) &&
+        event.payload.implementationSetRef === implementationSetRef &&
+        event.payload.implementationSet !== undefined &&
+        isJsonRecord(event.payload.implementationSet)),
+    IMPLEMENTATION_SET_RECORD,
   );
-  if (matches.length !== 1) return null;
-  const event = matches[0]!;
-  if (
-    !isJsonRecord(event.payload) ||
-    event.payload.implementationSet === undefined ||
-    !isJsonRecord(event.payload.implementationSet)
-  ) {
-    return null;
-  }
-  const set = deepFreeze({
-    kind: "admitted_implementation_set" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    ...event.payload.implementationSet,
-    admissionEventRef: event.eventId,
-  }) as unknown as AdmittedImplementationSet;
+  // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
+  if (checked.kind !== "one") return null;
+  const set = checked.value;
   implementationSets.add(set);
   return hasAdmittedImplementationSetAtPrefix(prefix, set) ? set : null;
 }
@@ -1326,30 +1390,19 @@ export function rehydrateAdmittedInteractionSetAtPrefix(
   prefix: RuntimeEventPrefix,
   interactionSetRef: string,
 ): AdmittedInteractionSet | null {
-  const matches = indexedRuntimeEvents(prefix, "payload:interactionSetRef:" + interactionSetRef).filter(
-    (event) =>
-      event.kind === "implementation_admitted" &&
-      isJsonRecord(event.payload) &&
-      event.payload.interactionSetRef === interactionSetRef &&
-      event.payload.interactionSet !== undefined &&
-      isJsonRecord(event.payload.interactionSet),
+  const checked = checkExactRecord(
+    resolveExactMatch(indexedRuntimeEvents(prefix, "payload:interactionSetRef:" + interactionSetRef),
+      (event) =>
+        event.kind === "implementation_admitted" &&
+        isJsonRecord(event.payload) &&
+        event.payload.interactionSetRef === interactionSetRef &&
+        event.payload.interactionSet !== undefined &&
+        isJsonRecord(event.payload.interactionSet)),
+    INTERACTION_SET_RECORD,
   );
-  if (matches.length !== 1) return null;
-  const event = matches[0]!;
-  if (
-    !isJsonRecord(event.payload) ||
-    event.payload.interactionSet === undefined ||
-    !isJsonRecord(event.payload.interactionSet)
-  ) {
-    return null;
-  }
-  const set = deepFreeze({
-    kind: "admitted_interaction_set" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    ...event.payload.interactionSet,
-    admissionEventRef: event.eventId,
-  }) as unknown as AdmittedInteractionSet;
+  // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
+  if (checked.kind !== "one") return null;
+  const set = checked.value;
   interactionSets.add(set);
   return hasAdmittedInteractionSetAtPrefix(prefix, set) ? set : null;
 }

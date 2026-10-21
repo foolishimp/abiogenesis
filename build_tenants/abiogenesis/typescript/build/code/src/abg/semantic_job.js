@@ -29,6 +29,9 @@ import { projectWorksiteRevisionNativeResult } from "./worksite_revision.js";
 import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_identity.js";
 import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticJobRevisionEnvelope, isNativeSemanticRevisionIntake } from "../product/semantic_revision.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = (match) => match.kind === "one" ? match.value : null;
 const hash = (x) => sha256Canonical(x);
 const record = (x) => x !== null && typeof x === "object" && !Array.isArray(x);
 export function semanticJobRootAtPrefix(prefix, execution) {
@@ -121,7 +124,7 @@ function predecessor(basis, owner, value, implementationRef) {
         const execution = rehydrateExecutionBasisAtPrefix(owner.prefix, previous.cCall.basisId);
         return execution !== null && sameJobInvocation(owner.execution, execution) ? { previous, execution, event } : null;
     }).filter((x) => x !== null);
-    return matches.length === 1 ? matches[0] : null;
+    return exactOrNull(onlyExactMatch(matches));
 }
 export function semanticJobInputMatchesBasis(basis, input) {
     try {
@@ -497,7 +500,7 @@ function semanticJobConstructionSourceMatching(prefix, matches) {
             const worksite = semanticJobSavedWorksite(original, value);
             return worksite !== null && canonicalEquals(deriveSemanticJobPreparation(original, worksite), value) ? [{ seed, worksite, original, result: outcome.result }] : [];
         });
-        return rows.length === 1 ? rows[0] : null;
+        return exactOrNull(onlyExactMatch(rows));
     }
     catch {
         return null;
@@ -534,7 +537,8 @@ export function semanticJobReadDependenciesAtPrefix(prefix, readBasis) {
                 outcome.judgment.judgment === "advance" && seed !== null && sameJobInvocation(seed, source.seed)
                 ? [{ event, seed }] : [];
         });
-        return contexts.length === 1 ? { ...source, contextEvent: contexts[0].event } : null;
+        const context = onlyExactMatch(contexts);
+        return context.kind === "one" ? { ...source, contextEvent: context.value.event } : null;
     }
     catch {
         return null;

@@ -16,11 +16,11 @@ import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPr
 import type { ExecutionBasis } from "./execution_basis.js";
 import type { DurablePrefixCoordinate, RuntimeEvent } from "./event_store.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
 const record = (v: unknown): v is Readonly<Record<string, JsonValue>> => typeof v === "object" && v !== null && !Array.isArray(v);
 const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a as JsonValue, b as JsonValue);
-const one = <T>(events: readonly T[], predicate: (e: T) => boolean) => {
-  const rows = events.filter(predicate); return rows.length === 1 ? rows[0]! : null;
-};
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 type EventEnvelope = Omit<RuntimeEvent, "payload">;
 const envelopes = (prefix: RuntimeEventPrefix, key: string): readonly EventEnvelope[] =>
   isOwnedRuntimeEventPrefix(prefix) || isValidationRuntimeEventPrefix(prefix)
@@ -96,7 +96,7 @@ export function projectNativeWorkspaceWorkSourceAtPrefix(prefix: RuntimeEventPre
     known.relatedCount === related.count && known.relatedLastOrdinal === related.lastOrdinal &&
     known.basisCount === knownBasis.count && known.basisLastOrdinal === knownBasis.lastOrdinal;
   const result = unchanged ? runtimeEventAtPrefix(prefix, known.sourceResultRef) ?? null :
-    one(bodies(prefix, "related:" + source.provenance.cCallRef, "c_call_result_admitted"), e => e.aggregateId === source.provenance.cCallRef);
+    exactOrNull(resolveExactMatch(bodies(prefix, "related:" + source.provenance.cCallRef, "c_call_result_admitted"), e => e.aggregateId === source.provenance.cCallRef));
   if (result === null || typeof result.basisId !== "string" || !record(result.payload) ||
     result.graphFunctionRef !== graphFunctionRef || result.payload.contractRef !== native.observationContractRef ||
     result.payload.resultClass !== "success" || !same(result.payload.value, source) ||
@@ -114,21 +114,21 @@ export function projectNativeWorkspaceWorkSourceAtPrefix(prefix: RuntimeEventPre
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, basis.invocationAdmissionRef);
   if (invocation === null || invocation.workspaceBindingId !== source.task.workspaceBinding.bindingId ||
     invocation.workspaceBindingDigest !== source.task.workspaceBinding.bindingDigest || invocation.workspaceId !== source.task.workspaceAuthorityBasis.workspaceId) return null;
-  const fibre = one(bodies(prefix, "related:" + result.aggregateId, "c_call_fibre_selected"), e => e.aggregateId === result.aggregateId &&
+  const fibre = exactOrNull(resolveExactMatch(bodies(prefix, "related:" + result.aggregateId, "c_call_fibre_selected"), e => e.aggregateId === result.aggregateId &&
     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
-    e.payload.regime === "F_P" && e.payload.implementationRef === implementationRef && e.payload.implementationBindingRef === implementationBindingRef);
-  const evidence = one(bodies(prefix, "related:" + result.aggregateId, "c_call_evidenced"), e => e.aggregateId === result.aggregateId &&
+    e.payload.regime === "F_P" && e.payload.implementationRef === implementationRef && e.payload.implementationBindingRef === implementationBindingRef));
+  const evidence = exactOrNull(resolveExactMatch(bodies(prefix, "related:" + result.aggregateId, "c_call_evidenced"), e => e.aggregateId === result.aggregateId &&
     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
     (payload.evidenceRefs as readonly JsonValue[]).includes(e.payload.evidenceRef!) && e.payload.evidenceClass === "probabilistic_transport" &&
     e.payload.implementationRef === implementationRef && e.payload.transportDigest === source.provenance.transportDigest &&
-    e.payload.outputDigest === payload.valueDigest);
-  const judgment = one(bodies(prefix, "related:" + result.aggregateId, "c_call_judged"), e => e.aggregateId === result.aggregateId &&
+    e.payload.outputDigest === payload.valueDigest));
+  const judgment = exactOrNull(resolveExactMatch(bodies(prefix, "related:" + result.aggregateId, "c_call_judged"), e => e.aggregateId === result.aggregateId &&
     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
     e.payload.resultRef === payload.resultRef && e.payload.resultDigest === payload.resultDigest && e.payload.judgment === "advance" &&
-    e.admissionOrdinal > result.admissionOrdinal && e.causationEventRefs.includes(result.eventId));
-  const closed = one(bodies(prefix, "basis:" + result.basisId, "graph_call_closed"), e => e.basisId === result.basisId &&
+    e.admissionOrdinal > result.admissionOrdinal && e.causationEventRefs.includes(result.eventId)));
+  const closed = exactOrNull(resolveExactMatch(bodies(prefix, "basis:" + result.basisId, "graph_call_closed"), e => e.basisId === result.basisId &&
     e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
-    e.payload.closureContractRef === basis.closureContractRef);
+    e.payload.closureContractRef === basis.closureContractRef));
   if (fibre === null || evidence === null || judgment === null || closed === null ||
     fibre.admissionOrdinal >= evidence.admissionOrdinal || evidence.admissionOrdinal >= result.admissionOrdinal ||
     closed.admissionOrdinal <= judgment.admissionOrdinal) return null;
@@ -198,9 +198,9 @@ export function projectSameRunNativeWorkCommandSourceAtPrefix(prefix: RuntimeEve
     source.sourceBasis.rootImplementationSetDigest !== input.parentBasis.rootImplementationSetDigest) ||
     source.sourceBasis.workspaceBindingId !== input.parentBasis.workspaceBindingId ||
     source.sourceBasis.workspaceBindingDigest !== input.parentBasis.workspaceBindingDigest) return null;
-  const call = one(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), e => e.kind === "c_call_opened" &&
+  const call = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), e => e.kind === "c_call_opened" &&
     e.aggregateId === input.parentCCallRef && e.basisId === input.parentBasis.basisRef && e.runId === input.runId &&
-    record(e.payload) && e.payload.callClass === "workflow" && e.payload.childGraphFunctionRef === c2.graphFunctionRef);
+    record(e.payload) && e.payload.callClass === "workflow" && e.payload.childGraphFunctionRef === c2.graphFunctionRef));
   return call !== null && call.admissionOrdinal > source.sourceClosedEvent.admissionOrdinal &&
     invocation !== null && invocation.capabilityGrants.length === 1 && same(invocation.capabilityGrants[0], input.task.capabilityGrant)
     ? source : null;

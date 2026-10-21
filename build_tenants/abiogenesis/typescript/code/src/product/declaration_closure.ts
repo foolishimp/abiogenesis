@@ -37,6 +37,7 @@ import { modulePublicationSemanticDigest } from "./publication.js";
 import { isWorksiteCommandForwardGraphFunction } from "../gtl/worksite_command_forward.js";
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "./worksite_command_forward_identity.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { resolveExactMatch } from "../shared/select/index.js";
 
 /** Supplied declarations are reconstructed against facts supplied by the native
  * environment owner. This pure relation is shared by conformance and replay;
@@ -340,14 +341,19 @@ function locateRequired<T>(
   const all = publications.flatMap((publication) =>
     rows(publication).filter(predicate).map((value) => ({ publication, value })),
   );
-  const eligible = all.filter(({ publication }) =>
+  // `select` decides eligible multiplicity; the absent and missing-dependency
+  // split stays Product-owned.
+  const eligible = resolveExactMatch(all, ({ publication }) =>
     reachable.has(publication.owningProductId)
   );
-  if (eligible.length === 1) {
-    return { kind: "one", located: eligible[0]! };
+  switch (eligible.kind) {
+    case "one":
+      return { kind: "one", located: eligible.value };
+    case "many":
+      return { kind: "ambiguous" };
+    case "absent":
+      return { kind: all.length === 0 ? "absent" : "missing_dependency" };
   }
-  if (eligible.length > 1) return { kind: "ambiguous" };
-  return { kind: all.length === 0 ? "absent" : "missing_dependency" };
 }
 
 function exactOwnerCoordinate(

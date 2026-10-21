@@ -30,6 +30,9 @@ import { cLeafTerms } from "../gtl/c_algebra.js";
 import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionTask, worksiteConstructionWorkerResultSchema } from "../product/worksite_construction.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS, isC2WorksiteCommandExecutionTask, worksiteCommandExecutionHelperPlan, renderWorksiteCommandExecutionPrompt, worksiteCommandExecutionWorkerResultSchema } from "../product/worksite_command_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = (match) => match.kind === "one" ? match.value : null;
 /** Pure bookkeeping after each branch establishes its own selection and content. */
 function assemblyIdentity(domain, plan, owner, predecessorPrefix, content) {
     const planDigest = sha256Canonical(plan), planRef = `prompt-plan://abiogenesis/${domain}/${planDigest.slice(7)}`;
@@ -54,7 +57,8 @@ function assemblyRefusal(cause, policy, role, unresolvedRefs) {
 }
 function selectedNativeContextRole(basis, locus) {
     const leaves = basis.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term)).filter(leaf => leaf.programLocusRef === locus);
-    return leaves.length === 1 ? nativeContextLeafFamily(basis.graphFunction, leaves[0]) : null;
+    const leaf = onlyExactMatch(leaves);
+    return leaf.kind === "one" ? nativeContextLeafFamily(basis.graphFunction, leaf.value) : null;
 }
 /** One attempt identity calculation shared with the existing C2 helper owner. */
 export function worksiteCommandExecutionAttemptRef(occurrence) {
@@ -219,7 +223,7 @@ export function evaluateRegisteredSelectionInstructionAssembly(basis, supplied, 
         // returning null must not fall back to the Program publication.
         const contract = contractByRef ?? ((ref) => {
             const rows = basis.publication.contracts.filter(c => c.contractRef === ref);
-            return rows.length === 1 ? rows[0] : null;
+            return exactOrNull(onlyExactMatch(rows));
         });
         if (contract(owner.call.inputContractRef)?.valueKind !== "registered_selection_task" ||
             contract(owner.call.outputContractRef)?.valueKind !== "registered_graph_choice" ||
@@ -294,7 +298,7 @@ function synthesisContext(basis, input, contractByRef) {
     const domain = registeredSelectionTargets(owner.graph.template, projection, profile.projection.term.outputCarrierRef);
     const contract = contractByRef ?? ((ref) => {
         const rows = basis.publication.contracts.filter(c => c.contractRef === ref);
-        return rows.length === 1 ? rows[0] : null;
+        return exactOrNull(onlyExactMatch(rows));
     });
     const rawContractRef = basis.graphFunction.declarations["abg.raw_result_contract"];
     if (governanceFulfillmentSelection(owner.program, input.state.original) === "invalid" || input.state.original.fulfillment !== undefined &&

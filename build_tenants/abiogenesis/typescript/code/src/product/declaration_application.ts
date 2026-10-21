@@ -7,6 +7,7 @@ import addFormats from "ajv-formats";
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 import { isRecord, sameJson } from "../public/binding/definition_binding_mechanics.js";
 import { jsonValueSchema, nonblankSchema } from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
@@ -80,9 +81,10 @@ function fail(code: CatalogApplicationRefusalCode, message: string): never {
   throw new CatalogApplicationConstructionError(code, message);
 }
 function digest(value: unknown) { return sha256Canonical(value as JsonValue); }
-function one<T>(rows: readonly T[], code: CatalogApplicationRefusalCode, message: string): T {
-  if (rows.length !== 1) fail(code, message);
-  return rows[0]!;
+/** Owner boundary: `absent` and `many` fail with the catalog refusal code. */
+function exactOrFail<T>(match: ExactMatch<T>, code: CatalogApplicationRefusalCode, message: string): T {
+  if (match.kind !== "one") fail(code, message);
+  return match.value;
 }
 
 /** Pure reconstruction over immutable installed assets and an explicit durable prefix. */
@@ -118,20 +120,20 @@ export function constructCatalogApplicationResources(input: CatalogApplicationCo
       })) {
     return fail("unready", "application catalog has no exact admitted install and workspace prefix");
   }
-  const publication = one(catalog.boundPublications.filter((p) =>
-    p.moduleRef === row.moduleRef && modulePublicationSemanticDigest(p) === row.publicationDigest),
+  const publication = exactOrFail(onlyExactMatch(catalog.boundPublications.filter((p) =>
+    p.moduleRef === row.moduleRef && modulePublicationSemanticDigest(p) === row.publicationDigest)),
   "unready", "application publication owner is missing or ambiguous");
-  const verified = one(catalog.readinessBasis.verifiedProducts.filter((p) => p.productId === row.owningProductId),
+  const verified = exactOrFail(onlyExactMatch(catalog.readinessBasis.verifiedProducts.filter((p) => p.productId === row.owningProductId)),
     "invalid_contributor", "application contributor has no unique verified owner");
-  const ownerInstall = one(env.productInstalls.filter((p) => p.productId === row.owningProductId),
+  const ownerInstall = exactOrFail(onlyExactMatch(env.productInstalls.filter((p) => p.productId === row.owningProductId)),
     "invalid_contributor", "application contributor has no unique admitted owner");
-  const contribution = one(verified.contributionManifest.rows.filter((r) =>
+  const contribution = exactOrFail(onlyExactMatch(verified.contributionManifest.rows.filter((r) =>
     r.moduleRef === row.moduleRef && r.handle === row.handle && r.kind === row.declarationKind &&
-    r.declarationOrContractRef === row.declarationOrContractRef && r.owningProductId === row.owningProductId),
+    r.declarationOrContractRef === row.declarationOrContractRef && r.owningProductId === row.owningProductId)),
   "invalid_contributor", "application contribution differs from its verified owner");
-  const declaration = one(publication.contracts.filter((d) => d.contractRef === row.declarationOrContractRef),
+  const declaration = exactOrFail(onlyExactMatch(publication.contracts.filter((d) => d.contractRef === row.declarationOrContractRef)),
     "unready", "application value contract is missing or ambiguous in the selected publication");
-  const program = one(catalog.boundPublications.flatMap((p) => p.programs).filter((p) => p.programRef === construction.programRef),
+  const program = exactOrFail(onlyExactMatch(catalog.boundPublications.flatMap((p) => p.programs).filter((p) => p.programRef === construction.programRef)),
     "target_mismatch", "application Program is missing or ambiguous");
   if (row.declarationKind === "overlay" &&
       (!row.programMembershipRefs.includes(program.programRef) || !contribution.programMembershipRefs.includes(program.programRef))) {
@@ -139,9 +141,9 @@ export function constructCatalogApplicationResources(input: CatalogApplicationCo
   }
   const target = row.declarationKind === "overlay"
     ? program
-    : one(view.entries.filter((entry) => entry.programMembershipRefs.includes(program.programRef) &&
+    : exactOrFail(onlyExactMatch(view.entries.filter((entry) => entry.programMembershipRefs.includes(program.programRef) &&
       program.callableMembership.includes(entry.definition.name)).flatMap((entry) => entry.definition.template.nodes)
-      .filter((node) => node.nodeRef === construction.targetRef),
+      .filter((node) => node.nodeRef === construction.targetRef)),
     "target_mismatch", "application node is absent or ambiguous in the admitted Program membership");
   const targetRef = row.declarationKind === "overlay" ? program.programRef : construction.targetRef;
   if (construction.targetRef !== targetRef) return fail("target_mismatch", "application target coordinate is crossed");
@@ -156,9 +158,9 @@ export function constructCatalogApplicationResources(input: CatalogApplicationCo
   const seen = new Set<string>();
   try {
     for (const asset of construction.schemaAssets) {
-      const install = one(env.productInstalls.filter((p) => p.productId === asset.productId),
+      const install = exactOrFail(onlyExactMatch(env.productInstalls.filter((p) => p.productId === asset.productId)),
         "unready", "schema asset has no unique admitted owner");
-      const schemaRow = one(install.publicContracts.filter((r) => r.contractKind === "schema_asset" && r.contractId === asset.contractId && r.owningProduct === asset.productId),
+      const schemaRow = exactOrFail(onlyExactMatch(install.publicContracts.filter((r) => r.contractKind === "schema_asset" && r.contractId === asset.contractId && r.owningProduct === asset.productId)),
         "unready", "schema asset owner is absent, ambiguous or crossed");
       if (seen.has(asset.contractId)) fail("unready", "schema asset identity is duplicated");
       seen.add(asset.contractId);

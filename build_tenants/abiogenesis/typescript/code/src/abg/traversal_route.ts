@@ -133,6 +133,11 @@ import {
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
+/** Owner boundary: `absent` and `many` map to `undefined`. */
+const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 
 export type TraversalRouteKind =
   | "advance"
@@ -643,7 +648,7 @@ function projectHistoricalTraversalRoute(
   const replayMatches = replayRoutes.filter((route) =>
     route.admissionEventRef === event.eventId
   );
-  const projected = replayMatches.length === 1 ? replayMatches[0]! : null;
+  const projected = exactOrNull(onlyExactMatch(replayMatches));
   const projectedBody = projected === null
     ? null
     : projectTraversalRouteBody(projected);
@@ -1585,7 +1590,7 @@ function constructionIntentForAdvance(
   const actionRows = executionBasis.actionCatalogRows.filter(
     (row) => row.actionRef === projection?.selectedActionRef,
   );
-  const actionRow = actionRows.length === 1 ? actionRows[0] : undefined;
+  const actionRow = exactOrUndefined(onlyExactMatch(actionRows));
   const selectedTargetInput =
     selectedBasis !== null && isJsonRecord(selectedBasis.targetInput)
       ? selectedBasis.targetInput
@@ -4277,7 +4282,8 @@ export function deriveRetainedCCallInputAtPrefix(
   const continuation = deriveCSourceContinuation(graph.template, source.currentNodeRef, source.termPath);
   if (continuation.kind === "c_source_path_refusal" || continuation.relation !== "graph_edge") return null;
   const edges = graph.template.edges.filter((edge) => edge.fromNodeRef === source.currentNodeRef);
-  const binding = edges.length === 1 ? edges[0]!.inputBinding : undefined;
+  const edge = onlyExactMatch(edges);
+  const binding = edge.kind === "one" ? edge.value.inputBinding : undefined;
   if (binding === undefined) return null;
   if (!hasAdmittedExecutionBasisAtPrefix(prefix, executionBasis) || !hasAdmittedTraversalCursorAtPrefix(prefix, source) ||
     executionBasis.basisRef !== source.executionBasisRef || executionBasis.graphRef !== graph.materializationRef ||
@@ -4293,7 +4299,7 @@ export function deriveRetainedCCallInputAtPrefix(
     const events = runtimeEventBodiesAtPrefix(prefix);
     const folds = indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + cCall.cCallRef).filter((event) => event.kind === "child_foldback_admitted" && event.runId === source.runId &&
       event.graphCallId === source.graphCallId && isJsonRecord(event.payload) && event.payload.parentCCallRef === cCall.cCallRef);
-    const fold = folds.length === 1 ? folds[0] : undefined;
+    const fold = exactOrUndefined(onlyExactMatch(folds));
     const childGraphCallId = fold !== undefined && isJsonRecord(fold.payload) ? fold.payload.childGraphCallId : null;
     const child = fold !== undefined && isJsonRecord(fold.payload) && typeof fold.payload.childExecutionBasisRef === "string"
       ? rehydrateExecutionBasisAtPrefix(prefix, fold.payload.childExecutionBasisRef) : null;

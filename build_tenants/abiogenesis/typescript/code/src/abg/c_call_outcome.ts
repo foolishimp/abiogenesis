@@ -133,12 +133,36 @@ import {
 } from "./traversal_route.js";
 import type { TraversalTransitionCandidate } from "./traversal_transition.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { ok, type StructuralRefusal } from "../shared/refusal.js";
+import { checkExactRecord, onlyExactMatch, resolveExactMatch, type CheckedRecord, type RecordCheck } from "../shared/select/index.js";
 
 function isJsonRecord(
   value: JsonValue | undefined,
 ): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
+
+const PAYLOAD_NOT_RECORD: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "payload_not_record",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+/** One selected event as a checked record: its payload is a record whose
+ * canonical digest is the event's `payloadDigest`. */
+const PAYLOAD_RECORD: RecordCheck<RuntimeEvent, Readonly<Record<string, JsonValue>>> = Object.freeze({
+  project: (event: RuntimeEvent) => isJsonRecord(event.payload) ? ok(event.payload) : PAYLOAD_NOT_RECORD,
+  digest: Object.freeze({
+    expected: (event: RuntimeEvent) => event.payloadDigest,
+    actual: (payload: Readonly<Record<string, JsonValue>>) => sha256Canonical(payload),
+  }),
+});
+
+/** Owner boundary: `absent`, `many` and `invalid` map to `null`. */
+const checkedEventOrNull = (checked: CheckedRecord<RuntimeEvent, unknown>): RuntimeEvent | null =>
+  checked.kind === "one" ? checked.event : null;
 
 /** @internal Exact admitted request/grant relation, shared by EC and C0 occurrence authentication. */
 export function projectWorksiteBasisObservation(
@@ -151,20 +175,19 @@ export function projectWorksiteBasisObservation(
     return null;
   }
   const invocationAdmissionRef = payload.invocationAdmissionRef;
-  const admissionRows = typeof invocationAdmissionRef !== "string"
-    ? []
-    : priorEvents.filter((row) =>
+  const admissionRow = checkExactRecord(typeof invocationAdmissionRef !== "string"
+    ? onlyExactMatch<RuntimeEvent>([])
+    : resolveExactMatch(priorEvents, (row) =>
         row.kind === "invocation_admitted" &&
         isJsonRecord(row.payload) &&
         row.payload.invocationAdmissionRef === invocationAdmissionRef
-      );
-  if (admissionRows.length !== 1 || !isJsonRecord(admissionRows[0]!.payload) ||
-    admissionRows[0]!.admissionOrdinal >= event.admissionOrdinal ||
-    payload.rawInputDigest !== sha256Canonical(request as unknown as JsonValue) ||
-    sha256Canonical(admissionRows[0]!.payload) !== admissionRows[0]!.payloadDigest) {
+      ), PAYLOAD_RECORD);
+  if (admissionRow.kind !== "one" ||
+    admissionRow.event.admissionOrdinal >= event.admissionOrdinal ||
+    payload.rawInputDigest !== sha256Canonical(request as unknown as JsonValue)) {
     return null;
   }
-  const admission = admissionRows[0]!.payload;
+  const admission = admissionRow.value;
   const grants = admission.capabilityGrants;
   const admittedGrant = Array.isArray(grants) && grants.length === 1
     ? grants[0]
@@ -226,20 +249,20 @@ export function projectWorksiteSelectedOccurrence(
     fibreEvent.payload.implementationRef !== "implementation://abiogenesis/worksite/file-replace-fd@5") return null;
   const cCallRef = fibreEvent.aggregateId;
   const events = [...priorEvents.filter(row => row.admissionOrdinal < fibreEvent.admissionOrdinal), fibreEvent];
-  const one = (kind: RuntimeEvent["kind"], predicate: (row: RuntimeEvent) => boolean) => {
-    const rows = events.filter(row => row.kind === kind && predicate(row));
-    return rows.length === 1 ? rows[0]! : null;
-  };
-  const basisRow = one("basis_admitted", row => row.basisId === fibreEvent.basisId);
-  const opened = one("c_call_opened", row => row.aggregateId === cCallRef);
-  const fibre = one("c_call_fibre_selected", row => row.aggregateId === cCallRef);
+  const basisRow = checkedEventOrNull(checkExactRecord(resolveExactMatch(events, row =>
+    row.kind === "basis_admitted" && row.basisId === fibreEvent.basisId), PAYLOAD_RECORD));
+  const opened = checkedEventOrNull(checkExactRecord(resolveExactMatch(events, row =>
+    row.kind === "c_call_opened" && row.aggregateId === cCallRef), PAYLOAD_RECORD));
+  const fibre = checkedEventOrNull(checkExactRecord(resolveExactMatch(events, row =>
+    row.kind === "c_call_fibre_selected" && row.aggregateId === cCallRef), PAYLOAD_RECORD));
   const basisPayload = basisRow !== null && isJsonRecord(basisRow.payload) ? basisRow.payload : null;
   const request = basisPayload?.rawInputValue;
   if (basisPayload === null || !isWorksiteFileReplaceRequest(request)) return null;
-  const bindingRow = one("public_operation_artifact_admitted", row =>
+  const bindingRow = checkedEventOrNull(checkExactRecord(resolveExactMatch(events, row =>
+    row.kind === "public_operation_artifact_admitted" &&
     isJsonRecord(row.payload) && row.payload.operationId === "abg.operation.workspace.bind" &&
     row.payload.artifactRef === request.workspaceBindingIdentity &&
-    row.payload.artifactDigest === request.workspaceBindingDigest);
+    row.payload.artifactDigest === request.workspaceBindingDigest), PAYLOAD_RECORD));
   if (basisRow === null || opened === null || fibre === null || bindingRow === null ||
     !isJsonRecord(basisRow.payload) || !isJsonRecord(opened.payload) ||
     !isJsonRecord(fibre.payload) || !isJsonRecord(bindingRow.payload) ||
@@ -261,8 +284,9 @@ export function projectWorksiteSelectedOccurrence(
     !(bindingRow.admissionOrdinal < basisRow.admissionOrdinal &&
       basisRow.admissionOrdinal < opened.admissionOrdinal &&
       opened.admissionOrdinal < fibre.admissionOrdinal)) return null;
-  const implementationRow = one("implementation_admitted", row =>
-    isJsonRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef);
+  const implementationRow = checkedEventOrNull(checkExactRecord(resolveExactMatch(events, row =>
+    row.kind === "implementation_admitted" &&
+    isJsonRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef), PAYLOAD_RECORD));
   if (!isWorksiteFileReplaceRequest(request) ||
     basisPayload.rawInputDigest !== sha256Canonical(request as unknown as JsonValue) ||
     !canonicalEquals(
@@ -271,8 +295,7 @@ export function projectWorksiteSelectedOccurrence(
     ) ||
     implementationRow === null || !isJsonRecord(implementationRow.payload) ||
     !isJsonRecord(implementationRow.payload.implementationSet) ||
-    implementationRow.admissionOrdinal >= basisRow.admissionOrdinal ||
-    [basisRow, opened, fibre, bindingRow, implementationRow].some(row => sha256Canonical(row.payload) !== row.payloadDigest)) return null;
+    implementationRow.admissionOrdinal >= basisRow.admissionOrdinal) return null;
   try {
     const workspaceBinding = { ...bindingRow.payload.artifact, kind: "workspace_binding",
       admissionEventRef: bindingRow.eventId } as unknown as WorkspaceBinding;
@@ -350,7 +373,8 @@ export function projectWorksiteFailureResultRequest(event: RuntimeEvent,
   const evidenceRows = priorEvents.filter(row =>
     row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId &&
     isJsonRecord(row.payload) && evidenceRefs.includes(row.payload.evidenceRef as string));
-  const evidenceEvent = evidenceRows.length === 1 ? evidenceRows[0]! : null;
+  const evidenceMatch = onlyExactMatch(evidenceRows);
+  const evidenceEvent = evidenceMatch.kind === "one" ? evidenceMatch.value : null;
   if (event.kind !== "c_call_result_admitted" || evidenceRefs.length !== 1 ||
     event.payload.cCallRef !== event.aggregateId ||
     event.payload.contractRef !== WORKSITE_C0_IDS.failureContractRef ||

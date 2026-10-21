@@ -36,6 +36,9 @@ import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionTask, worksiteConstruc
 import { WORKSITE_COMMAND_EXECUTION_IDS, isC2WorksiteCommandExecutionTask, worksiteCommandExecutionHelperPlan,
   renderWorksiteCommandExecutionPrompt, worksiteCommandExecutionWorkerResultSchema } from "../product/worksite_command_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 
 export interface NativeInstructionAssembly {
   readonly kind: "native_instruction_assembly";
@@ -93,7 +96,8 @@ function assemblyRefusal(cause: NativeInstructionAssemblyRefusal["cause"], polic
 }
 function selectedNativeContextRole(basis: SemanticStageNativeBasis, locus: string) {
   const leaves = basis.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term)).filter(leaf => leaf.programLocusRef === locus);
-  return leaves.length === 1 ? nativeContextLeafFamily(basis.graphFunction, leaves[0]!) : null;
+  const leaf = onlyExactMatch(leaves);
+  return leaf.kind === "one" ? nativeContextLeafFamily(basis.graphFunction, leaf.value) : null;
 }
 
 /** One attempt identity calculation shared with the existing C2 helper owner. */
@@ -254,7 +258,7 @@ export function evaluateRegisteredSelectionInstructionAssembly(basis: NativeInst
     // returning null must not fall back to the Program publication.
     const contract = contractByRef ?? ((ref: string) => {
       const rows = basis.publication.contracts.filter(c => c.contractRef === ref);
-      return rows.length === 1 ? rows[0]! : null;
+      return exactOrNull(onlyExactMatch(rows));
     });
     if (contract(owner.call.inputContractRef)?.valueKind !== "registered_selection_task" ||
       contract(owner.call.outputContractRef)?.valueKind !== "registered_graph_choice" ||
@@ -320,7 +324,7 @@ function synthesisContext(basis: NativeInstructionAssemblyBasis, input: unknown,
   const domain = registeredSelectionTargets(owner.graph.template, projection, profile.projection.term.outputCarrierRef);
   const contract = contractByRef ?? ((ref: string) => {
     const rows = basis.publication.contracts.filter(c => c.contractRef === ref);
-    return rows.length === 1 ? rows[0]! : null;
+    return exactOrNull(onlyExactMatch(rows));
   });
   const rawContractRef = basis.graphFunction.declarations["abg.raw_result_contract"];
   if (governanceFulfillmentSelection(owner.program, input.state.original) === "invalid" || input.state.original.fulfillment !== undefined &&

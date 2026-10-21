@@ -47,6 +47,7 @@ import { qualificationCoverageIsPublished, isQualificationBasisReady, projectExt
   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment, constructNativeRuntimeAssessment } from "../validator/qualification.js";
 import { isSelfConformanceInput, isSelfConformanceResult, type SelfConformanceOwner } from "../validator/self_conformance_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 const ASSESS = "implementation://abiogenesis/qualification/assess-fp@5";
 const VERDICT = "implementation://abiogenesis/qualification/exact-candidate-fd@5";
 const SELF = "implementation://abiogenesis/qualification/self-conformance-fd@5";
@@ -55,7 +56,8 @@ const MALFORMED_ASSESS = "implementation://abiogenesis/qualification/malformed-g
 const RUNTIME_ASSESS = "implementation://abiogenesis/qualification/native-runtime-assess-fd@5";
 export const QUALIFICATION_IMPLEMENTATION_REFS = Object.freeze([ASSESS, VERDICT, SELF, RULING, MALFORMED_ASSESS, RUNTIME_ASSESS]);
 const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
-const one = <T>(xs: readonly T[]): T | null => xs.length === 1 ? xs[0]! : null;
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 const coord = (ref: string, digest: string) => ({ ref, digest: digest as `sha256:${string}` });
 function declarationsOf(input: unknown, resources?: QualificationResources): readonly AbgHistoricalDeclarationProof[] {
   if (!record(input)) return [];
@@ -130,7 +132,7 @@ function proofEvents(proof: QualificationProofResource): readonly RuntimeEvent[]
 }
 function graphOwner(coordinate: DurablePrefixCoordinate, ref: string, declarations: readonly AbgHistoricalDeclarationProof[], source?: ExecutionSourceFacts) {
   const events = source?.events ?? readRuntimeEventsAtDurablePrefix(coordinate), prefix = selectValidatedRuntimeEventPrefix(events);
-  const opened = one(events.filter(e => e.kind === "c_call_opened" && e.aggregateId === ref));
+  const opened = exactOrNull(onlyExactMatch(events.filter(e => e.kind === "c_call_opened" && e.aggregateId === ref)));
   if (opened === null) return null;
   const facts = nativeFacts(prefix), known = facts.graphs.get(ref);
   if (known !== undefined && referenceDependencies(known.root.rawInputValue, source?.resources) === false) return null;
@@ -168,13 +170,13 @@ function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: s
       : projectWorkspaceEnvironmentFromArtifactTruth(source.artifactTruth, coord(root.workspaceBindingId, root.workspaceBindingDigest)));
   source?.environments.set(environmentKey, environment);
   if (environment.kind !== "exact_prefix_workspace_environment") return null;
-  const invocationEvent = one(events.filter(e => e.eventId === invocation.admissionEventRef));
+  const invocationEvent = exactOrNull(onlyExactMatch(events.filter(e => e.eventId === invocation.admissionEventRef)));
   if (invocationEvent === null || [...environment.productInstalls.map(i => i.admissionEventRef), environment.workspaceBinding.admissionEventRef].some(ref =>
     events.filter(e => e.eventId === ref && e.admissionOrdinal < invocationEvent.admissionOrdinal).length !== 1)) return null;
   if (!referenceDependencies(root.rawInputValue, source?.resources)) return null;
   const supplied = declarations.length === 0 ? declarationsOf(root.rawInputValue, source?.resources) : declarations;
   const proofs = supplied.filter(d => d.catalog?.basisDigest === root.catalogBasisDigest && d.catalogView?.viewDigest === root.catalogViewDigest);
-  const proof = one(proofs); if (proof === null) return null;
+  const proof = exactOrNull(onlyExactMatch(proofs)); if (proof === null) return null;
   const installs = environment.productInstalls.map(i => projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, i.admissionEventRef));
   if (installs.some(i => i === null)) return null;
   const declaredEnvironment = { workspaceBinding: environment.workspaceBindingCandidate,
@@ -188,15 +190,15 @@ function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: s
   facts.declarations.set(declarationKey, { proof: ownedProof, environment: declaredEnvironment, value: rebuilt });
   const closure = resolveExecutionDeclarationClosure(rebuilt.catalog, rebuilt.catalogView, root.programRef, root.graphFunctionRef);
   if (closure.kind !== "resolved_execution_declaration_closure" ||
-      hash(one(closure.programPublication.programs.filter(p => p.programRef === root.programRef))) !== root.programDigest) return null;
+      hash(exactOrNull(onlyExactMatch(closure.programPublication.programs.filter(p => p.programRef === root.programRef)))) !== root.programDigest) return null;
   const rootContract = selectExactClosureContract(closure, root.resultContractRef);
   if (rootContract === null || rootContract.contract.contractRef !== invocation.outputContractRef ||
       hash(rootContract.contract) !== invocation.outputContractDigest || !canonicalEquals(rootContract.owner as unknown as JsonValue, invocation.outputContractOwner as unknown as JsonValue)) return null;
-  const owner = one(closure.graphFunctionOwners.filter(o => o.declarationRef === execution.graphFunctionRef));
+  const owner = exactOrNull(onlyExactMatch(closure.graphFunctionOwners.filter(o => o.declarationRef === execution.graphFunctionRef)));
   if (owner === null) return null;
-  const publication = one(closure.publications.filter(p => p.owningProductId === owner.productId && p.moduleRef === owner.moduleRef &&
-    modulePublicationSemanticDigest(p) === owner.publicationDigest));
-  const fn = publication === null ? null : one(publication.graphFunctions.filter(f => f.name === execution.graphFunctionRef && hash(f) === execution.graphFunctionDigest));
+  const publication = exactOrNull(onlyExactMatch(closure.publications.filter(p => p.owningProductId === owner.productId && p.moduleRef === owner.moduleRef &&
+    modulePublicationSemanticDigest(p) === owner.publicationDigest)));
+  const fn = publication === null ? null : exactOrNull(onlyExactMatch(publication.graphFunctions.filter(f => f.name === execution.graphFunctionRef && hash(f) === execution.graphFunctionDigest)));
   if (fn === null || publication === null) return null;
   const graph = materializeGraph(fn, { invocationAdmissionRef: execution.invocationAdmissionRef, admittedInputRef: execution.rawInputAdmissionRef,
     admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue });
@@ -212,10 +214,10 @@ function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: s
   if (call === null || call.basisId !== execution.basisRef || call.runId !== opened.runId) return null;
   const set = rehydrateAdmittedImplementationSetAtPrefix(prefix, execution.implementationSetRef);
   if (set === null || set.implementationSetDigest !== execution.implementationSetDigest) return null;
-  const resolution = call.regime === "F_H" ? null : one(set.rows.filter(r => r.graphFunctionRef === call.graphFunctionRef &&
+  const resolution = call.regime === "F_H" ? null : exactOrNull(onlyExactMatch(set.rows.filter(r => r.graphFunctionRef === call.graphFunctionRef &&
     r.programLocusRef === call.programLocusRef && r.implementationRef === call.implementationRef &&
     r.implementationBindingRef === call.implementationBindingRef && r.inputContractRef === call.inputContractRef &&
-    r.outputContractRef === call.outputContractRef && r.computeRegime === call.regime));
+    r.outputContractRef === call.outputContractRef && r.computeRegime === call.regime)));
   if (call.callClass === "leaf" && call.regime !== "F_H" && resolution === null) return null;
   // Qualification executable GraphFunctions each have one atomic input locus;
   // an outer workflow passes each child's own admitted raw input. This does not
@@ -224,8 +226,8 @@ function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: s
   return { events, prefix, opened, execution, root, invocation, environment, closure, publication, graph, call, resolution, input, proof: ownedProof };
 }
 function stateAt(owner: NonNullable<ReturnType<typeof graphOwner>>): RehydratedAdmittedCCallState | null {
-  const result = one(owner.events.filter(e => e.kind === "c_call_result_admitted" && e.aggregateId === owner.call.cCallRef));
-  const judgment = one(owner.events.filter(e => e.kind === "c_call_judged" && e.aggregateId === owner.call.cCallRef));
+  const result = exactOrNull(onlyExactMatch(owner.events.filter(e => e.kind === "c_call_result_admitted" && e.aggregateId === owner.call.cCallRef)));
+  const judgment = exactOrNull(onlyExactMatch(owner.events.filter(e => e.kind === "c_call_judged" && e.aggregateId === owner.call.cCallRef)));
   if (result === null || judgment === null || !record(result.payload) || !record(judgment.payload)) return null;
   const facts = nativeFacts(owner.prefix), known = facts.states.get(owner.call.cCallRef);
   if (known?.result === result && known.judgment === judgment) return known.value;
@@ -242,7 +244,7 @@ function soleDeclaredReducer(owner: NonNullable<ReturnType<typeof graphOwner>>):
   const bindings = owner.closure.publications.flatMap(p => p.implementationBindings);
   const countGraph = (ref: string, stack: readonly string[]): number => {
     if (stack.includes(ref)) return Number.POSITIVE_INFINITY;
-    const fn = one(functions.filter(f => f.name === ref));
+    const fn = exactOrNull(onlyExactMatch(functions.filter(f => f.name === ref)));
     if (fn === null || fn.template.kind !== "inline_graph") return Number.POSITIVE_INFINITY;
     return fn.template.nodes.reduce((sum, n) => sum + (n.nodeKind === "c_locus" ? countTerm(n.term, [...stack, ref]) : 0), 0);
   };
@@ -281,7 +283,7 @@ export function projectQualificationConsumer(basis: QualificationNativeBasis, in
     if (owner.call.implementationRef === RUNTIME_ASSESS &&
         (!isNativeRuntimeAssessmentInput(input) || !malformedSubjectMatches(owner, input))) return null;
     if (isQualificationAssessmentInput(input)) {
-      const slot = one(input.plan.slots.filter(s => s.slotRef === input.task.slotRef));
+      const slot = exactOrNull(onlyExactMatch(input.plan.slots.filter(s => s.slotRef === input.task.slotRef)));
       if (slot === null || slot.graphFunctionRef !== owner.call.graphFunctionRef || slot.programLocusRef !== owner.call.programLocusRef) return null;
       const declaration = owner.publication.graphFunctions.find(g => g.name === owner.call.graphFunctionRef);
       if (declaration?.declarations["abg.qualification_role_policy"] !== hash(QUALIFICATION_ROLE_POLICY) ||
@@ -292,8 +294,8 @@ export function projectQualificationConsumer(basis: QualificationNativeBasis, in
 }
 function malformedSubjectMatches(owner: NonNullable<ReturnType<typeof graphOwner>>, input: { basis: ExactCandidateQualification<"basis"> }): boolean {
   const row = owner.resolution, basis = input.basis;
-  const install = row === null ? null : one(owner.environment.productInstalls.filter(i =>
-    i.productId === row.implementationOwnerProductId && i.packageName === row.packageName && i.packageVersion === row.packageVersion));
+  const install = row === null ? null : exactOrNull(onlyExactMatch(owner.environment.productInstalls.filter(i =>
+    i.productId === row.implementationOwnerProductId && i.packageName === row.packageName && i.packageVersion === row.packageVersion)));
   return install !== null && basis.productId === install.productId && basis.productVersion === install.packageVersion &&
     basis.productContentDigest === install.productContentDigest && basis.artifact.digest === install.artifactDigest &&
     basis.productManifest.digest === install.manifestDigest && basis.toolchain.digest === install.manifestDigest &&
@@ -372,7 +374,7 @@ function nativeRuntimeCases(input: NativeRuntimeAssessmentInput, proof: Qualific
     const first = sources[0]!, selected = sources.at(-1)!;
     if (steps[0]!.inputDigest !== first.owner.execution.rawInputDigest) return null;
     if ("structure" in c) {
-      const node = one(first.owner.graph.template.nodes.filter(n => n.nodeRef === c.structure.nodeRef));
+      const node = exactOrNull(onlyExactMatch(first.owner.graph.template.nodes.filter(n => n.nodeRef === c.structure.nodeRef)));
       if (node === null || node.nodeKind !== "c_locus" || hash(node.term) !== c.structure.termDigest ||
           node.term.kind !== (c.structure.kind === "atomic_call" ? "c_of" :
             c.structure.kind === "edge_program" ? "c_edge" : "c_compose")) return null;
@@ -389,7 +391,7 @@ function nativeRuntimeCases(input: NativeRuntimeAssessmentInput, proof: Qualific
             call.frameId !== first.state.cCall.frameId || call.basisId !== first.state.cCall.basisId) return null;
         if (i > 0) {
           const previous = sources[i - 1]!;
-          const judgment = one(previous.owner.events.filter(e => e.kind === "c_call_judged" && e.aggregateId === previous.state.cCall.cCallRef));
+          const judgment = exactOrNull(onlyExactMatch(previous.owner.events.filter(e => e.kind === "c_call_judged" && e.aggregateId === previous.state.cCall.cCallRef)));
           if (judgment === null || judgment.admissionOrdinal >= source.owner.opened.admissionOrdinal ||
               steps[i]!.inputDigest !== previous.state.result.valueDigest) return null;
         }
@@ -471,9 +473,9 @@ export function projectQualificationRulingForConsumer(basis: QualificationNative
     if (owner === null || owner.call.implementationRef !== RULING) return null;
     const rows = projectFhContinuations(owner.prefix, deriveRuntimeEventCalculusProjection(owner.prefix)).filter(c =>
       c.runId === owner.call.runId && (c.status === "responded" || c.status === "resolved") && canonicalEquals(c.responseValue, input as JsonValue));
-    const row = one(rows); if (row === null) return null;
+    const row = exactOrNull(onlyExactMatch(rows)); if (row === null) return null;
     const requestOwner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, row.cCallRef, [owner.proof]);
-    const response = one(owner.events.filter(e => e.eventId === row.respondedEventRef));
+    const response = exactOrNull(onlyExactMatch(owner.events.filter(e => e.eventId === row.respondedEventRef)));
     if (requestOwner === null || requestOwner.call.regime !== "F_H" || requestOwner.call.actorCapabilityRef !== QUALIFICATION_ROLE_POLICY.authorityRef ||
         response === null || response.kind !== "fh_interaction_responded" || !record(response.payload) || typeof response.payload.actorRef !== "string" ||
         response.payload.capabilityRef !== QUALIFICATION_ROLE_POLICY.authorityRef ||
@@ -500,17 +502,17 @@ function nativeState(proof: QualificationProofResource, ref: string) {
 /** Parent folds alias only through the authenticated sub-traversal evidence. */
 function producerForResult(proof: QualificationProofResource, result: QualificationCoordinate) {
   const events = proofEvents(proof);
-  const event = one(events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
-    e.payload.resultRef === result.ref && e.payload.resultDigest === result.digest));
+  const event = exactOrNull(onlyExactMatch(events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
+    e.payload.resultRef === result.ref && e.payload.resultDigest === result.digest)));
   if (event === null) return null;
   let current = nativeState(proof, event.aggregateId); const seen = new Set<string>();
   while (current !== null && current.state.cCall.callClass !== "leaf") {
     if (seen.has(current.state.cCall.cCallRef)) return null;
     seen.add(current.state.cCall.cCallRef);
-    const evidence = one(current.state.evidence.filter(e => e.evidenceClass === "sub_traversal"));
+    const evidence = exactOrNull(onlyExactMatch(current.state.evidence.filter(e => e.evidenceClass === "sub_traversal")));
     if (evidence?.childResultRef === undefined || evidence.childResultDigest === undefined) return null;
-    const child = one(events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
-      e.payload.resultRef === evidence.childResultRef && e.payload.resultDigest === evidence.childResultDigest));
+    const child = exactOrNull(onlyExactMatch(events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
+      e.payload.resultRef === evidence.childResultRef && e.payload.resultDigest === evidence.childResultDigest)));
     if (child === null || child.graphCallId !== evidence.childGraphCallId) return null;
     const next = nativeState(proof, child.aggregateId);
     if (next === null || !canonicalEquals(current.state.result.value, next.state.result.value)) return null;
@@ -524,7 +526,7 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
   try {
     proof = ownedProof(proof, resources);
     if (!isQualificationProofResource(proof) || !qualificationPlanMatches(plan)) return null;
-    const slot = one(plan.slots.filter(s => s.slotRef === selection.slotRef));
+    const slot = exactOrNull(onlyExactMatch(plan.slots.filter(s => s.slotRef === selection.slotRef)));
     if (slot === null || !canonicalEquals(slot.task, selection.task)) return null;
     const selected = producerForResult(proof, selection.result);
     if (selected === null || selected.owner.execution.programRef !== selection.programRef ||
@@ -539,11 +541,11 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
           candidate.owner.input.task.slotRef !== slot.slotRef || candidate.owner.input.task.taskDigest !== slot.task.digest ||
           candidate.state.cCall.graphFunctionRef !== slot.graphFunctionRef || candidate.state.cCall.programLocusRef !== slot.programLocusRef ||
           !isQualificationJudgment(candidate.state.result.value)) continue;
-      const value = candidate.state.result.value, transport = one(candidate.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport"));
+      const value = candidate.state.result.value, transport = exactOrNull(onlyExactMatch(candidate.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport")));
       const view = resolveQualificationAssessment(candidate.owner.input, resources ?? executionProofFacts.get(proof)?.resources);
       const preparation = graphOwner(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate, value.nativeBasis.cCallRef, view.task.declarations,
         { events: readRuntimeEventsAtDurablePrefix(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources: resources ?? executionProofFacts.get(proof)?.resources });
-      const started = one(candidate.owner.events.filter(e => e.kind === "actor_invocation_started" && e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef));
+      const started = exactOrNull(onlyExactMatch(candidate.owner.events.filter(e => e.kind === "actor_invocation_started" && e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef)));
       if (!canonicalEquals(value.task as unknown as JsonValue, candidate.owner.input.task as unknown as JsonValue) || !canonicalEquals(value.plan, plan) ||
           !qualificationRawMatches(candidate.owner.input, value.raw, view) || preparation === null || started === null || !record(started.payload) ||
           preparation.call.cCallRef !== candidate.state.cCall.cCallRef || preparation.execution.basisDigest !== candidate.owner.execution.basisDigest ||
@@ -560,8 +562,8 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
           value.source.requestDigest !== transport.requestDigest || value.source.actorInvocationRef !== transport.actorInvocationRef ||
           value.source.transportBindingRef !== transport.transportBindingRef || value.source.transportBindingDigest !== transport.transportBindingDigest ||
           value.source.rawValueDigest !== hash(value.raw)) continue;
-      const artifact = one(candidate.owner.events.filter(e => e.kind === "actor_result_artifact_observed" &&
-        e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef));
+      const artifact = exactOrNull(onlyExactMatch(candidate.owner.events.filter(e => e.kind === "actor_result_artifact_observed" &&
+        e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef)));
       if (artifact === null || !record(artifact.payload) || typeof artifact.payload.finalOutput !== "string" ||
           !canonicalEquals(JSON.parse(artifact.payload.finalOutput) as JsonValue, value.raw as unknown as JsonValue)) continue;
       const { cCallRef: _call, requestRef: _request, requestDigest: _digest, ...observation } = artifact.payload;
@@ -581,9 +583,9 @@ export function projectQualificationOwnerRuling(proof: QualificationProofResourc
     const rows = projectFhContinuations(prefix, deriveRuntimeEventCalculusProjection(prefix)).filter(c =>
       c.continuationRef === selection.continuationRef && c.requestRef === selection.request.ref &&
       c.requestDigest === selection.request.digest && (c.status === "responded" || c.status === "resolved"));
-    const row = one(rows); if (row === null) return null;
+    const row = exactOrNull(onlyExactMatch(rows)); if (row === null) return null;
     const owner = graphOwner(proof.prefix as DurablePrefixCoordinate, row.cCallRef, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof));
-    const response = one(events.filter(e => e.eventId === row.respondedEventRef));
+    const response = exactOrNull(onlyExactMatch(events.filter(e => e.eventId === row.respondedEventRef)));
     if (owner === null || owner.call.regime !== "F_H" || owner.call.actorCapabilityRef !== plan.ownerAuthorityRef ||
         response === null || response.kind !== "fh_interaction_responded" || !record(response.payload) || response.payload.actorRef !== plan.ownerActorRef || response.payload.capabilityRef !== plan.ownerAuthorityRef ||
         !record(owner.input) || owner.input.slotRef !== selection.slotRef || owner.input.actorRef !== plan.ownerActorRef ||
@@ -620,7 +622,7 @@ export function projectQualificationConstructionAuthors(proof: QualificationProo
           return bytes.length === m.byteCount && sha256Bytes(bytes) === m.digest;
         })).map(m => m.ref);
         if (actualScope.length === 0 || !unique(p.scopeRefs) || !canonicalEquals([...actualScope].sort(), [...p.scopeRefs].sort())) return null;
-        const transport = one(source.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport"));
+        const transport = exactOrNull(onlyExactMatch(source.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport")));
         if (transport === null || transport.actorRef !== p.actorRef || transport.workerBindingRef !== p.workerBindingRef) return null;
         actors.push(p.actorRef);
         actualScope.forEach(ref => covered.add(ref));
@@ -678,11 +680,11 @@ export function qualificationTenantClaimsMatch(basis: QualificationNativeBasis, 
   try {
     const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input, resources), resources === undefined ? undefined : { events: readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources });
     if (owner === null) return false;
-    const install = one(owner.environment.productInstalls.filter(i => i.productId === manifest.productId));
+    const install = exactOrNull(onlyExactMatch(owner.environment.productInstalls.filter(i => i.productId === manifest.productId)));
     if (install === null || !canonicalEquals(manifest.publicContractCatalog, coord(install.catalogId, install.catalogDigest)) ||
         !canonicalEquals(manifest.capabilityDefinitionGraph, coord(install.capabilityDefinitionGraph.graphId, install.capabilityDefinitionGraph.graphDigest))) return false;
     return manifest.claims.every(claim => {
-      const row = one(install.capabilityDefinitionGraph.rows.filter(r => r.capabilityId === claim.capabilityRef || r.capabilityDefinitionRef === claim.capabilityRef));
+      const row = exactOrNull(onlyExactMatch(install.capabilityDefinitionGraph.rows.filter(r => r.capabilityId === claim.capabilityRef || r.capabilityDefinitionRef === claim.capabilityRef)));
       return row !== null && claim.publicContractRefs.every(ref => install.publicContracts.filter(c => c.contractId === ref &&
         c.owningProduct === install.productId && c.capabilityIdentities.includes(row.capabilityId)).length === 1);
     });
@@ -780,7 +782,7 @@ export function resolveQualificationExecutionMaterial(proof: QualificationProofR
         s.owner.execution.invocationAdmissionRef === selection.invocationAdmissionRef && s.state.result.resultClass === "success" &&
         s.state.judgment.judgment === "advance");
       if (peers.some(s => s!.state.cCall.cCallRef !== selected.state.cCall.cCallRef)) return null;
-      const install = one(selected.owner.environment.productInstalls.filter(i => i.productId === basis.productId));
+      const install = exactOrNull(onlyExactMatch(selected.owner.environment.productInstalls.filter(i => i.productId === basis.productId)));
       if (install === null || install.packageVersion !== basis.productVersion || install.artifactDigest !== basis.artifact.digest ||
           install.productContentDigest !== basis.productContentDigest || install.manifestDigest !== basis.productManifest.digest ||
           install.manifestDigest !== basis.toolchain.digest || !canonicalEquals(sourceBasis.installedProduct, coord(install.installId, hash(install))) ||
@@ -927,10 +929,10 @@ export function resolveQualificationSelfConformanceOwner(basis: QualificationNat
     const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
     if (owner === null || owner.call.implementationRef !== SELF || owner.resolution === null) return null;
     const row = owner.resolution;
-    const install = one(owner.environment.productInstalls.filter(i => i.productId === row.implementationOwnerProductId &&
-      i.packageName === row.packageName && i.packageVersion === row.packageVersion));
+    const install = exactOrNull(onlyExactMatch(owner.environment.productInstalls.filter(i => i.productId === row.implementationOwnerProductId &&
+      i.packageName === row.packageName && i.packageVersion === row.packageVersion)));
     if (install === null) return null;
-    const asset = one(install.publicContracts.filter(c => c.contractId === "abg.asset.qualification.rule-catalog"));
+    const asset = exactOrNull(onlyExactMatch(install.publicContracts.filter(c => c.contractId === "abg.asset.qualification.rule-catalog")));
     if (asset?.assetLocator?.path !== "contracts/qualification/rule-catalog.json") return null;
     const bytes = readFileSync(join(install.installedRoot, asset.assetLocator.path));
     if (sha256Bytes(bytes) !== asset.assetLocator.contentDigest) return null;

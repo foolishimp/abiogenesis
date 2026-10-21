@@ -33,6 +33,9 @@ import type {
   PartialFanOutAdmission,
 } from "./fan_out.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 
 interface FanOutProjectionAuthority {
   readonly graph: Readonly<GtlGraph>;
@@ -115,7 +118,7 @@ function uniqueEvent(
   predicate: (event: RuntimeEvent) => boolean,
 ): RuntimeEvent | null {
   const matches = events.filter(predicate);
-  return matches.length === 1 ? matches[0]! : null;
+  return exactOrNull(onlyExactMatch(matches));
 }
 
 function isCausallyReachable(
@@ -197,7 +200,7 @@ function materializationFor(
       candidate.applicationRef === application.applicationRef &&
       candidate.batchRef === application.batchRef,
   );
-  const materialization = matches.length === 1 ? matches[0]! : null;
+  const materialization = exactOrNull(onlyExactMatch(matches));
   return materialization !== null &&
       materialization.inputVectorRef === application.inputVectorRef &&
       materialization.outputVectorRef === application.outputVectorRef &&
@@ -338,7 +341,7 @@ function exactDeclaredFanOutWorkflowLocus(
     return openedPayload.programLocusRef ===
       `workflow-locus://abiogenesis/${locusDigest.slice("sha256:".length)}`;
   });
-  return matches.length === 1 ? matches[0]! : null;
+  return exactOrNull(onlyExactMatch(matches));
 }
 
 function exactChildFoldbackBody(
@@ -591,7 +594,7 @@ function exactTaskTruth(
   const evidenceRows = cCallRows.filter(
     (event) => event.kind === "c_call_evidenced",
   );
-  const evidence = evidenceRows.length === 1 ? evidenceRows[0]! : null;
+  const evidence = exactOrNull(onlyExactMatch(evidenceRows));
   const foldback = uniqueEvent(events, (event) =>
     event.kind === "child_foldback_admitted" &&
     event.admissionOrdinal < boundaryOrdinal &&

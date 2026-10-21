@@ -36,6 +36,9 @@ import {
   type ExecutionBasis,
 } from "./execution_basis.js";
 import type { ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 
 export type ProbabilisticResultAdmissionRefusalCode =
   | IJsonAdmissionFailureCode
@@ -377,9 +380,7 @@ function admitResultCandidate(
     sha256Canonical(row as unknown as JsonValue) ===
       implementationResolutionDigest
   );
-  const admittedResolution = resolutionMatches.length === 1
-    ? resolutionMatches[0]!
-    : null;
+  const admittedResolution = exactOrNull(onlyExactMatch(resolutionMatches));
   if (
     admittedResolution === null ||
     !hasAdmittedImplementationSetAtPrefix(

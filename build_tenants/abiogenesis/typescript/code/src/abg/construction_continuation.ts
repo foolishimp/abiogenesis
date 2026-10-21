@@ -1,4 +1,5 @@
 import type { RuntimeEventPrefix } from "./event_prefix.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -39,14 +40,15 @@ export interface ConstructionIntentContinuation {
   readonly predecessorContinuationRef?: string;
 }
 const hash = (value: unknown) => sha256Canonical(value as JsonValue);
-const one = (rows: readonly RuntimeEvent[]) => rows.length === 1 ? rows[0]! : null;
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 
 /** Indexed cold projection; arbitrary failure text and F_D failure do not apply. */
 function deriveConstructionIntentContinuations(
   prefix: RuntimeEventPrefix, runId: string,
 ): readonly ConstructionIntentContinuation[] {
   const rows = indexedRuntimeEvents(prefix, "run:" + runId);
-  const openedRun = one(rows.filter(e => e.kind === "run_segment_opened"));
+  const openedRun = exactOrNull(onlyExactMatch(rows.filter(e => e.kind === "run_segment_opened")));
   if (openedRun === null || openedRun.basisId === undefined ||
     projectExactExecutionBasisAtPrefix(prefix, openedRun.basisId)?.constructionComposition == null) return [];
   const terminal = rows.filter(e => e.kind === "runtime_failure_observed")
@@ -62,10 +64,10 @@ function deriveConstructionIntentContinuations(
     if (observation.stage !== "preparation" || observation.cCallRef !== evidence.aggregateId ||
       observation.runId !== runId || observation.graphCallId !== evidence.graphCallId || observation.frameId !== evidence.frameId) continue;
     const callRows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + evidence.aggregateId);
-    const opened = one(callRows.filter(e => e.kind === "c_call_opened"));
-    const fibre = one(callRows.filter(e => e.kind === "c_call_fibre_selected"));
-    const result = one(callRows.filter(e => e.kind === "c_call_result_admitted"));
-    const judgment = one(callRows.filter(e => e.kind === "c_call_judged"));
+    const opened = exactOrNull(onlyExactMatch(callRows.filter(e => e.kind === "c_call_opened")));
+    const fibre = exactOrNull(onlyExactMatch(callRows.filter(e => e.kind === "c_call_fibre_selected")));
+    const result = exactOrNull(onlyExactMatch(callRows.filter(e => e.kind === "c_call_result_admitted")));
+    const judgment = exactOrNull(onlyExactMatch(callRows.filter(e => e.kind === "c_call_judged")));
     if (opened === null || fibre === null || result === null || judgment === null ||
       !isRecord(opened.payload) || !isRecord(fibre.payload) || !isRecord(result.payload) || !isRecord(judgment.payload) ||
       opened.payload.callClass !== "leaf" || fibre.payload.regime !== "F_P" ||
@@ -87,15 +89,15 @@ function deriveConstructionIntentContinuations(
     if (parent?.basisClass !== "root" || parent.constructionComposition === null ||
       basis.invocationAdmissionRef !== parent.invocationAdmissionRef) continue;
     const invocation = projectExactInvocationAdmissionAtPrefix(prefix, parent.invocationAdmissionRef);
-    const parentOpen = one(indexedRuntimeEvents(prefix, "aggregate:c_call:" + basis.parentCCallRef)
-      .filter(e => e.kind === "c_call_opened"));
+    const parentOpen = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "aggregate:c_call:" + basis.parentCCallRef)
+      .filter(e => e.kind === "c_call_opened")));
     if (invocation === null || parentOpen === null || !isRecord(parentOpen.payload) ||
       parentOpen.runId !== runId || parentOpen.payload.callClass !== "workflow" ||
       parentOpen.payload.childGraphFunctionRef !== basis.graphFunctionRef) continue;
     const parentCursorRef = parentOpen.payload.cursorRef;
-    const intentEvent = one(indexedRuntimeEvents(prefix, "kind:construction_intent_selected").filter(e =>
+    const intentEvent = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "kind:construction_intent_selected").filter(e =>
       e.runId === runId && e.basisId === parent.basisRef && isRecord(e.payload) &&
-      e.payload.targetCursorRef === parentCursorRef));
+      e.payload.targetCursorRef === parentCursorRef)));
     if (intentEvent === null || !isRecord(intentEvent.payload) || !isRecord(intentEvent.payload.constructionIntent)) continue;
     const intent = intentEvent.payload.constructionIntent;
     if (intent.actionKind !== "invoke_graph_function" || intent.selectedGraphFunctionRef !== basis.graphFunctionRef ||
@@ -822,7 +824,7 @@ export function prepareConstructionIntentContinuation(
     pending.input.retained === true || !isRecord(pending.input.value) || !isRecord(parent.input.value)) return null;
   const producerCall = projectOpenedCCallCarrierAtPrefix(prefix, childGraph, producer.aggregateId);
   const supportRows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + producer.aggregateId);
-  const supportJudgment = one(supportRows.filter(e => e.kind === "c_call_judged"));
+  const supportJudgment = exactOrNull(onlyExactMatch(supportRows.filter(e => e.kind === "c_call_judged")));
   const supportEvidence = supportRows.filter(e => e.kind === "c_call_evidenced");
   if (producerCall?.regime !== "F_D" || supportJudgment === null || !isRecord(supportJudgment.payload) ||
     supportJudgment.payload.judgment !== "advance" || supportJudgment.payload.resultRef !== producer.payload.resultRef ||
@@ -1654,7 +1656,7 @@ export function projectSelectedActionContinuations(prefix: RuntimeEventPrefix,
       typeof p.constructionIntentRef !== "string" || typeof p.constructionIntentDigest !== "string" ||
       typeof p.nextActionProjectionRef !== "string" || typeof p.nextActionProjectionDigest !== "string") return [];
     const basis = projectExactExecutionBasisAtPrefix(prefix, selected.basisId);
-    const route = one(events.filter(e => e.kind === "traversal_route_admitted" && selected.causationEventRefs.includes(e.eventId)));
+    const route = exactOrNull(onlyExactMatch(events.filter(e => e.kind === "traversal_route_admitted" && selected.causationEventRefs.includes(e.eventId))));
     if (basis === null || basis.constructionComposition === null || route === null || !isRecord(route.payload) ||
       route.basisId !== basis.basisRef || route.frameId !== selected.frameId || route.graphCallId !== selected.graphCallId ||
       route.admissionOrdinal >= selected.admissionOrdinal || route.payload.routeRef !== p.routeRef ||
@@ -1677,8 +1679,8 @@ export function projectSelectedActionContinuations(prefix: RuntimeEventPrefix,
       selectedActionRef: p.nextActionProjectionRef, selectedActionDigest: p.nextActionProjectionDigest as Sha256Digest,
       intentAdmissionEventRef: selected.eventId, causedByEventRef: route.eventId };
     const continuationDigest = hash(body), continuationRef = `continuation://abiogenesis/${continuationDigest.slice(7)}`;
-    const superseded = one(indexedRuntimeEvents(prefix, "aggregate:continuation:" + continuationRef)
-      .filter(e => e.kind === "continuation_superseded"));
+    const superseded = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "aggregate:continuation:" + continuationRef)
+      .filter(e => e.kind === "continuation_superseded")));
     const delta = events.find(e => e.kind === "construction_delta_observed" && isRecord(e.payload) &&
       e.payload.constructionIntentRef === constructionIntentRef && e.payload.constructionIntentDigest === constructionIntentDigest);
     const consumption = operations.find(e => isRecord(e.payload) &&
@@ -1703,7 +1705,7 @@ export type SelectedActionUseRequest = Readonly<{ run: SelectedCoordinate; conti
 function pendingSelectedOccurrence(candidates: readonly SelectedActionContinuation[], currentBasis: SelectedCoordinate): SelectedActionContinuation | null {
   const pending = candidates.filter(candidate => candidate.status === "open" &&
     candidate.executionBasisRef === currentBasis.ref && candidate.executionBasisDigest === currentBasis.digest);
-  return pending.length === 1 ? pending[0]! : null;
+  return exactOrNull(onlyExactMatch(pending));
 }
 
 /** Same owner predicate for new admission and cold operation correspondence. A
@@ -1849,8 +1851,8 @@ export function selectPendingActionUse(prefix: RuntimeEventPrefix, request: Sele
     const covers = before === null || after === null ? null : projectWitnessedWorkspaceBindingCover(prefix, before, after, [sourceBasis]);
     // The witness result coordinate is the admitted act, not a caller's assertion.
     const coordinate = request.basisRelation.coveringReprice;
-    const witness = one(indexedRuntimeEvents(prefix, "kind:declaration_reprice_admitted").filter(e =>
-      covers?.includes(e.eventId) && isRecord(e.payload) && e.payload.witnessedActRef === coordinate.ref && e.payload.witnessedActDigest === coordinate.digest));
+    const witness = exactOrNull(onlyExactMatch(indexedRuntimeEvents(prefix, "kind:declaration_reprice_admitted").filter(e =>
+      covers?.includes(e.eventId) && isRecord(e.payload) && e.payload.witnessedActRef === coordinate.ref && e.payload.witnessedActDigest === coordinate.digest)));
     const sourceEvent = indexedRuntimeEvents(prefix, "kind:construction_intent_selected").find(e => e.eventId === source.intentAdmissionEventRef);
     const currentEvent = selectedRows.find(e => e.eventId === current.intentAdmissionEventRef);
     const oldSelection = isRecord(sourceEvent?.payload) ? sourceEvent.payload.nextActionProjection : null;

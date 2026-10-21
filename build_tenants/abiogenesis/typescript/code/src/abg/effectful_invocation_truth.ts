@@ -1,4 +1,5 @@
 import type { RuntimeEventPrefix } from "./event_prefix.js";
+import { onlyExactMatch } from "../shared/select/index.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
 import { projectSelectedActionOperation, continuationOperationWorkspaceCorresponds } from "./construction_continuation.js";
 import { isRecord } from "../shared/admission_predicates.js";
@@ -210,7 +211,8 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
       e.payload !== null && !Array.isArray(e.payload) &&
       isRecord(e.payload) && isRecord(e.payload.constructionContinuationUse) &&
       e.payload.constructionContinuationUse.operationAdmissionEventRef === operation.eventId);
-    const basis = bases.length === 1 ? projectExactExecutionBasisAtPrefix(validatedPrefix, bases[0]!.basisId!) : null;
+    const basisMatch = onlyExactMatch(bases);
+    const basis = basisMatch.kind === "one" ? projectExactExecutionBasisAtPrefix(validatedPrefix, basisMatch.value.basisId!) : null;
     const use = basis?.constructionContinuationUse;
     const original = use === undefined ? null : projectExactExecutionBasisAtPrefix(validatedPrefix, use.sourceExecutionBasisRef);
     const invocation = original === null ? null : projectExactInvocationAdmissionAtPrefix(validatedPrefix, original.invocationAdmissionRef);

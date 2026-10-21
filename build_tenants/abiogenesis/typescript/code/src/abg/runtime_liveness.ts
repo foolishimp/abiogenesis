@@ -29,6 +29,7 @@ import {
   type RuntimeLivenessReadProjection,
 } from "./runtime_liveness_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
 
 function record(value: unknown): value is Record<string, JsonValue> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -39,9 +40,8 @@ export function runtimeAssetRevisionDigest(stat: Pick<BigIntStats, "dev" | "ino"
   return digest({ device: String(stat.dev), inode: String(stat.ino), size: String(stat.size),
     modifiedRevision: String(stat.mtimeNs), changedRevision: String(stat.ctimeNs) });
 }
-function one(events: RuntimeEventScan, predicate: (event: RuntimeEvent) => boolean): RuntimeEvent | null {
-  const rows = events.filter(predicate); return rows.length === 1 ? rows[0]! : null;
-}
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 export interface RuntimeLivenessContext {
   readonly scope: RuntimeInvocationScope;
   readonly binding: RuntimeLivenessBinding;
@@ -68,11 +68,11 @@ function livenessContextFacts(context: RuntimeLivenessContext | null): RuntimeLi
 function deriveActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationRef: string): RuntimeLivenessContext | null {
   try {
     const events = runtimeEventBodiesAtPrefix(prefix);
-    const started = one(indexedRuntimeEvents(prefix, "kind:actor_invocation_started"), e => e.kind === "actor_invocation_started" && e.aggregateId === actorInvocationRef);
+    const started = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:actor_invocation_started"), e => e.kind === "actor_invocation_started" && e.aggregateId === actorInvocationRef));
     if (started === null || !record(started.payload)) return null;
     const p = started.payload;
-    const bindingEvent = one(indexedRuntimeEvents(prefix, "kind:actor_transport_binding_admitted"), e => e.kind === "actor_transport_binding_admitted" &&
-      e.aggregateId === p.transportBindingRef && e.admissionOrdinal < started.admissionOrdinal);
+    const bindingEvent = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:actor_transport_binding_admitted"), e => e.kind === "actor_transport_binding_admitted" &&
+      e.aggregateId === p.transportBindingRef && e.admissionOrdinal < started.admissionOrdinal));
     const b = bindingEvent?.payload;
     if (bindingEvent === null || !record(b) || !isRuntimeLivenessBinding(b.livenessBinding) ||
         bindingEvent.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || b.livenessBinding.policy === null ||
@@ -86,8 +86,8 @@ function deriveActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationR
     if (digest(bindingBody) !== b.transportBindingDigest ||
         b.transportBindingRef !== `transport-binding://abiogenesis/${String(b.transportBindingDigest).slice(7)}`) return null;
     const basis = rehydrateExecutionBasisAtPrefix(prefix, started.basisId);
-    const opened = one(indexedRuntimeEvents(prefix, "kind:c_call_opened"), e => e.kind === "c_call_opened" && e.aggregateId === p.cCallRef);
-    const fibre = one(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected"), e => e.kind === "c_call_fibre_selected" && e.aggregateId === p.cCallRef);
+    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_opened"), e => e.kind === "c_call_opened" && e.aggregateId === p.cCallRef));
+    const fibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected"), e => e.kind === "c_call_fibre_selected" && e.aggregateId === p.cCallRef));
     if (basis === null || opened === null || fibre === null || !record(opened.payload) || !record(fibre.payload) ||
         opened.basisId !== basis.basisRef || fibre.payload.regime !== "F_P" || fibre.payload.callClass !== "leaf" ||
         fibre.payload.implementationRef !== b.implementationRef ||
@@ -147,8 +147,8 @@ const NON_ACTOR_SOURCES = Object.freeze([
 function deriveCCallLivenessContext(prefix: RuntimeEventPrefix, cCallRef: string): RuntimeLivenessContext | null {
   try {
     const events = runtimeEventBodiesAtPrefix(prefix);
-    const opened = one(indexedRuntimeEvents(prefix, "kind:c_call_opened"), e => e.kind === "c_call_opened" && e.aggregateId === cCallRef);
-    const selected = one(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected"), e => e.kind === "c_call_fibre_selected" && e.aggregateId === cCallRef);
+    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_opened"), e => e.kind === "c_call_opened" && e.aggregateId === cCallRef));
+    const selected = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected"), e => e.kind === "c_call_fibre_selected" && e.aggregateId === cCallRef));
     if (opened === null || selected === null || !record(opened.payload) || !record(selected.payload) ||
         selected.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || selected.payload.regime === "F_P" ||
         selected.admissionOrdinal <= opened.admissionOrdinal || !selected.causationEventRefs.includes(opened.eventId) ||
@@ -184,10 +184,10 @@ const FRAME_PRODUCERS = new Set([
 function deriveFrameLivenessContext(prefix: RuntimeEventPrefix, frameId: string): RuntimeLivenessContext | null {
   try {
     const events = runtimeEventBodiesAtPrefix(prefix);
-    const opened = one(indexedRuntimeEvents(prefix, "kind:frame_opened"), e => e.kind === "frame_opened" && e.aggregateId === frameId);
+    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:frame_opened"), e => e.kind === "frame_opened" && e.aggregateId === frameId));
     if (opened === null || !record(opened.payload) || opened.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return null;
     const p = opened.payload;
-    const graph = one(indexedRuntimeEvents(prefix, "kind:graph_call_opened"), e => e.kind === "graph_call_opened" && e.aggregateId === opened.graphCallId);
+    const graph = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:graph_call_opened"), e => e.kind === "graph_call_opened" && e.aggregateId === opened.graphCallId));
     const basis = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
     if (graph === null || !record(graph.payload) || basis === null || !opened.causationEventRefs.includes(graph.eventId) ||
         graph.admissionOrdinal >= opened.admissionOrdinal || graph.runId !== opened.runId || graph.basisId !== opened.basisId ||
@@ -412,7 +412,7 @@ function probeObservationMatches(prefix: RuntimeEventPrefix, context: RuntimeLiv
                 ))) return false;
           return observation.underlyingObservationRef === underlying.eventId && observation.sourceDigest === underlying.payloadDigest;
         }
-        const call = one(reconstruction?.declarationRows(String(cCallRef)) ?? events, e => e.kind === "c_call_opened" && e.aggregateId === cCallRef && e.admissionOrdinal < underlying.admissionOrdinal);
+        const call = exactOrNull(resolveExactMatch(reconstruction?.declarationRows(String(cCallRef)) ?? events, e => e.kind === "c_call_opened" && e.aggregateId === cCallRef && e.admissionOrdinal < underlying.admissionOrdinal));
         if (call === null || !record(call.payload) || call.frameId !== context.scope.frameId || call.runId !== context.scope.runId ||
             call.graphCallId !== context.scope.graphCallId || call.basisId !== context.scope.basisRef || call.graphFunctionRef !== context.scope.graphFunctionRef ||
             !Number.isSafeInteger(call.payload.attempt)) return false;
@@ -1023,8 +1023,8 @@ export function admitRuntimeThreshold(input: Readonly<{
       scopeDigest: digest(context.scope), evaluatedPrefixDigest: digest(prefix.events), projectionDigest: projection.projectionDigest,
     };
     const events = runtimeEventBodiesAtPrefix(prefix);
-    const started = one(indexedRuntimeEvents(prefix, "related:" + input.processRef), e => e.kind === "actor_process_started" && e.aggregateId === input.processRef &&
-      record(e.payload) && e.payload.actorInvocationRef === input.actorInvocationRef);
+    const started = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + input.processRef), e => e.kind === "actor_process_started" && e.aggregateId === input.processRef &&
+      record(e.payload) && e.payload.actorInvocationRef === input.actorInvocationRef));
     if (started === null) throw new TypeError("threshold process is not owned by the declared actor");
     const event = admitNativeRuntimeLivenessEvent(input.store, {
       kind: "actor_process_timeout_observed", eventTime: input.eventTime, aggregateType: "process", aggregateId: input.processRef,

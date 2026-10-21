@@ -1,0 +1,63 @@
+import { admitJson } from "../admit/json.js";
+import { isRecord } from "../admit/record.js";
+import type { Sha256Digest } from "../digests.js";
+import type { Outcome } from "../refusal.js";
+import type { ExactMatch } from "./exact_match.js";
+
+/**
+ * The owner's check of one selected record, supplied as a module constant per
+ * reader. `project` is the validate leg; the digest leg consumes the projected
+ * value (D2).
+ */
+export type RecordCheck<E, P> = Readonly<{
+  project: (event: E) => Outcome<P>;
+  digest: null | Readonly<{
+    expected: (event: E, value: P) => Sha256Digest;
+    actual: (value: P) => Sha256Digest;
+  }>;
+}>;
+
+export type CheckedRecord<E, P> =
+  | Readonly<{ kind: "absent" }>
+  | Readonly<{ kind: "many"; values: readonly E[] }>
+  | Readonly<{ kind: "invalid"; event: E; reason: "record_projection" | "record_digest" }>
+  | Readonly<{ kind: "one"; event: E; value: P }>;
+
+const ABSENT: CheckedRecord<never, never> = Object.freeze({ kind: "absent" });
+
+function invalid<E>(
+  event: E,
+  reason: "record_projection" | "record_digest",
+): CheckedRecord<E, never> {
+  return Object.freeze({ kind: "invalid", event, reason });
+}
+
+/**
+ * `select`, then `validate`, then `derive`, composed once. With a null digest
+ * the projected value must be an encodable record: a non-record singleton and
+ * an unencodable record are both `invalid`. Exceptions from `project` and the
+ * digest legs propagate.
+ */
+export function checkExactRecord<E, P>(
+  match: ExactMatch<E>,
+  check: RecordCheck<E, P>,
+): CheckedRecord<E, P> {
+  if (match.kind === "absent") return ABSENT;
+  if (match.kind === "many") {
+    return Object.freeze({ kind: "many", values: Object.freeze([...match.values]) });
+  }
+  const event = match.value;
+  const projected = check.project(event);
+  if (projected.kind !== "ok") {
+    return invalid(event, "record_projection");
+  }
+  const value = projected.value;
+  if (check.digest === null) {
+    if (!isRecord(value) || admitJson(value).kind !== "ok") {
+      return invalid(event, "record_projection");
+    }
+  } else if (check.digest.expected(event, value) !== check.digest.actual(value)) {
+    return invalid(event, "record_digest");
+  }
+  return Object.freeze({ kind: "one", event, value });
+}

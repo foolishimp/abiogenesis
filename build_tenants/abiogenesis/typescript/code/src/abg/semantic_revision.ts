@@ -58,6 +58,7 @@ import { observeWorksiteContext } from "../product/worksite_operations.js";
 import { readRuntimeFailureDiagnosticSubject } from "./runtime_failure.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { onlyExactMatch } from "../shared/select/index.js";
 
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const recordJob = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
@@ -157,7 +158,8 @@ function operationalPreparationFailure(prefix: RuntimeEventPrefix,
   const events = indexedRuntimeEvents(prefix, "aggregate:c_call:" + state.cCall.cCallRef);
   const rows = events.filter(event => event.kind === "c_call_evidenced" && recordJob(event.payload) &&
     event.payload.evidenceRef === state.result.evidenceRefs[0]);
-  const payload = rows.length === 1 ? rows[0]!.payload : null;
+  const evidence = onlyExactMatch(rows);
+  const payload = evidence.kind === "one" ? evidence.value.payload : null;
   if (!recordJob(payload) || payload.evidenceClass !== "undispatched_owner_refusal" || !recordJob(payload.ownerObservation)) return null;
   const observation = payload.ownerObservation;
   if (observation.stage !== "preparation" || observation.reason !== "thrown" || observation.errorClass !== "TypeError" ||
@@ -875,7 +877,8 @@ export function projectRevisionDesignCoordinates(basis: SemanticStageNativeBasis
       current.targets.filter(t => sameSubject(row, t)).length !== 1)) return null;
     const selected = input.revisionBasis.selection.selectedTargetRefs.map(ref => {
       const selectedRows = prior.worksite!.targets.filter(row => row.target.targetRef === ref);
-      return selectedRows.length === 1 ? rows.filter(row => sameSubject(row, selectedRows[0]!)) : [];
+      const selectedRow = onlyExactMatch(selectedRows);
+      return selectedRow.kind === "one" ? rows.filter(row => sameSubject(row, selectedRow.value)) : [];
     });
     if (selected.length === 0 || selected.some(rows => rows.length !== 1)) return null;
     const selectedSet = new Set(selected.map(rows => rows[0]!.target.targetRef));

@@ -36,10 +36,12 @@ import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation }
 import { constructAbgHistoricalDeclarationReference, hasUniqueHistoricalDeclarationDependencies,
   type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource } from "./terminal_result_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
 const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a as JsonValue, b as JsonValue);
 const hash = (a: unknown) => sha256Canonical(a as JsonValue);
 const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === "object" && !Array.isArray(v);
-const one = <T>(rows: { filter(predicate: (row: T) => boolean): T[] }, predicate: (row: T) => boolean): T | null => { const selected = rows.filter(predicate); return selected.length === 1 ? selected[0]! : null; };
+/** Owner boundary: `absent` and `many` map to `null`. */
+const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 /** @internal Call-local refusal reporting; never an operation or serialized authority. */
 export type GovernanceTestingRefusal = (stage: string, relation: string,
   selectors?: Readonly<Record<string, string | number | boolean | null>>, error?: unknown) => void;
@@ -54,8 +56,8 @@ function declarationProofFor(request: NativeWorksiteCommandReacquisitionRequest,
   resource?: AbgHistoricalGraphCallSourceResource): AbgHistoricalDeclarationProof | null {
   if (request.source.declarationReference === undefined) return request.source.declarationProof;
   if (resource === undefined || !hasUniqueHistoricalDeclarationDependencies(resource)) return null;
-  return one([resource.declarationProof, ...(resource.declarationDependencies ?? [])], proof =>
-    same(constructAbgHistoricalDeclarationReference(proof), request.source.declarationReference));
+  return exactOrNull(resolveExactMatch([resource.declarationProof, ...(resource.declarationDependencies ?? [])], proof =>
+    same(constructAbgHistoricalDeclarationReference(proof), request.source.declarationReference)));
 }
 /** Local facts from one already admitted request and exact current prefix.
  * The historical terminal and latest source checks retain their own owners. */
@@ -134,7 +136,7 @@ function projectNativeWorkReacquisitionOccurrence(basis: NativeWorkReacquisition
     if (!isNativeWorksiteCommandReacquisitionRequest(input)) return refused(refusal, stage, "request_shape");
     stage = "native_occurrence_basis";
     const events = runtimeEventBodiesAtPrefix(prefix);
-    const opened = one(indexedRuntimeEvents(prefix, "related:" + basis.cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === basis.cCallRef);
+    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + basis.cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === basis.cCallRef));
     const execution = opened?.basisId == null ? null : projectExactExecutionBasisAtPrefix(prefix, opened.basisId);
     const library = execution?.graphFunctionRef === governanceRef("graph-function", "testing");
     const gf = library ? canonicalizeAuthoredGtlCarrier(
@@ -364,9 +366,9 @@ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: Runtime
     input.task.workspaceBinding, [original.sourceBasis]);
   if (recordedCover === null || !same(recordedCover, proof.bindingCoverEventRefs)) return null;
   const events = runtimeEventBodiesAtPrefix(prefix);
-  const result = one(indexedRuntimeEvents(prefix, "related:" + proof.nativeBasis.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === proof.nativeBasis.cCallRef);
-  const judgment = one(indexedRuntimeEvents(prefix, "related:" + proof.nativeBasis.cCallRef), e => e.kind === "c_call_judged" && e.aggregateId === proof.nativeBasis.cCallRef);
-  const parentCall = one(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), e => e.kind === "c_call_opened" && e.aggregateId === input.parentCCallRef && e.basisId === input.parentBasis.basisRef);
+  const result = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + proof.nativeBasis.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === proof.nativeBasis.cCallRef));
+  const judgment = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + proof.nativeBasis.cCallRef), e => e.kind === "c_call_judged" && e.aggregateId === proof.nativeBasis.cCallRef));
+  const parentCall = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), e => e.kind === "c_call_opened" && e.aggregateId === input.parentCCallRef && e.basisId === input.parentBasis.basisRef));
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, input.parentBasis.invocationAdmissionRef);
   if (basis.invocationAdmissionRef !== input.parentBasis.invocationAdmissionRef || basis.invocationRef !== input.parentBasis.invocationRef ||
     basis.rootImplementationSetRef !== input.parentBasis.rootImplementationSetRef || basis.rootImplementationSetDigest !== input.parentBasis.rootImplementationSetDigest ||
@@ -383,9 +385,9 @@ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: Runtime
     parentCall.payload.childGraphFunctionRef !== "graph-function://abiogenesis/worksite/command-execution@5" ||
     invocation === null || invocation.capabilityGrants.length !== 1 || !same(invocation.capabilityGrants[0], input.task.capabilityGrant)) return null;
   const evidenceRefs = result.payload.evidenceRefs;
-  const evidence = one(indexedRuntimeEvents(prefix, "related:" + call.cCallRef), e => e.kind === "c_call_evidenced" && e.aggregateId === call.cCallRef &&
+  const evidence = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + call.cCallRef), e => e.kind === "c_call_evidenced" && e.aggregateId === call.cCallRef &&
     e.basisId === basis.basisRef && e.runId === call.runId && e.graphCallId === call.graphCallId && record(e.payload) &&
-    evidenceRefs.includes(e.payload.evidenceRef!));
+    evidenceRefs.includes(e.payload.evidenceRef!)));
   if (evidence === null || !record(evidence.payload) || evidence.payload.evidenceClass !== "deterministic" ||
     evidence.payload.contractRef !== call.evidenceContractRef || evidence.payload.implementationRef !== call.implementationRef ||
     evidence.payload.inputDigest !== basis.rawInputDigest || evidence.payload.outputDigest !== result.payload.valueDigest ||
