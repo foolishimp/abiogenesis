@@ -810,22 +810,21 @@ function deriveRuntimeLivenessSemantics(
     const occurrenceDone = actorDone || actorRef === null && any(["frame_closed", "c_call_judged"], e => frameOccurrence
       ? e.kind === "frame_closed" && e.frameId === context.scope.frameId
       : e.kind === "c_call_judged" && e.aggregateId === context.scope.cCallRef);
-    // The spawn-failure fact is read through holdsAt over the fold at the cut
-    // before the event at `ordinal`, so this relation, which the fold's
-    // liveness rule evaluates, never re-enters the fold at its own event.
+    // Process liveness is the fold's actor_process_live, read through holdsAt:
+    // in the validator path at the cut before the event at `ordinal`, so this
+    // relation, which the fold's liveness rule evaluates, never re-enters the
+    // fold at its own event; in the public path at the prefix itself. The start
+    // event only binds processRef.
     const started = { processRef: null as string | null };
-    const spawnFailed = (processRef: string | null) => {
-      const boundary = events.at(-1);
-      return processRef !== null && boundary !== undefined &&
-        holdsAt(deriveRuntimeHeldFluentProjection(validatedRuntimeEventPrefixBeforeEvent(prefix, boundary.eventId)),
-          constructRuntimeFluentPattern({ name: "actor_process_spawn_failed", identity: processRef })).length !== 0;
-    };
+    const boundary = events.at(-1);
     const processLive = actorRef !== null && any(["actor_process_started"], e => {
       if (!record(e.payload) || e.payload.actorInvocationRef !== actorRef) return false;
       started.processRef = e.aggregateId; return true;
-    }) &&
-      !spawnFailed(started.processRef) &&
-      !actorDone && !any(["actor_process_exited"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef);
+    }) && !actorDone && started.processRef !== null &&
+      (reconstruction === undefined || boundary !== undefined) &&
+      holdsAt(deriveRuntimeHeldFluentProjection(reconstruction === undefined ? prefix
+          : validatedRuntimeEventPrefixBeforeEvent(prefix, boundary!.eventId)),
+        constructRuntimeFluentPattern({ name: "actor_process_live", identity: started.processRef })).length !== 0;
     let disposition: RuntimeLivenessObserverProjection["disposition"]["disposition"] = "continue_waiting";
     let reason = "within_bound_lease";
     if (hardCapReached && processLive) { disposition = "controlled_terminate"; reason = "absolute_safety_cap"; }

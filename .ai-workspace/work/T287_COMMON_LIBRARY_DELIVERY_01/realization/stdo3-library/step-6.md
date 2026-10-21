@@ -497,3 +497,47 @@ last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stop
 if the gate fails after one bounded fix.
 
 ACTION: execute the step 6 repair as activated.
+
+## Repair return
+
+Worker: Opus 5.5, Writer grant. Commit: this commit, parent `4445c4ec3`
+(source tree before it equals `c2432eb85`). Paths: the design file,
+`code/src/abg/runtime_liveness.ts`, the regenerated
+`contracts/capabilities/capability-definition-graph.json` and
+`product-toolchain-manifest.json` (digest and provenance values only), this
+file. No tracked `build/code/src/` file changed (`runtime_liveness.js` is
+not among the 40 tracked); the manifest's graph `contentDigest` equals the
+sha256 of the committed graph.
+
+**Design.** Line 189 (§4.4, the D7 paragraph after P-FOLD): the witness is
+computed under the law in force when the route or judgment is proposed;
+every comparison of it (`abg/traversal_route.ts:4438` and `:5371`,
+`abg/c_call.ts:7047`) checks a proposal built in the same transaction
+against the current replay under the same law; no admission, reopen or
+cold-replay path compares a stored witness with a recomputation, so a
+prior-law route or judgment is neither re-admitted nor re-checked; history
+reopens unchanged and no prior law is retained. The "fails closed at
+transition admission" and "the one site" claims are removed; the sentence
+that a D1 law change moves the witness at every affected cut stays.
+Line 644 (§10.6 row 5): the same correction in one clause; the row stays
+one table line. Nothing else in the design changed.
+
+**Code.** `runtime_liveness.ts` lines 813 to 828 (the granted block plus
+its three-line comment, which described the removed read and now
+describes the new one; 16 lines become 15).
+- R3, the cut. Before: `holdsAt(deriveRuntimeHeldFluentProjection(validatedRuntimeEventPrefixBeforeEvent(prefix, events.at(-1).eventId)), spawn_failed)` on both paths. After: the cut is `reconstruction === undefined ? prefix : validatedRuntimeEventPrefixBeforeEvent(prefix, boundary.eventId)`, so the public path no longer drops the prefix's last event.
+- R4, the liveness read. Before: `processLive = actorRef !== null && any(actor_process_started for the actor) && !spawnFailed(processRef) && !actorDone && !any(actor_process_exited for the actor)`. After: `processLive = actorRef !== null && any(actor_process_started for the actor, binding processRef) && !actorDone && processRef !== null && holdsAt(<R3 cut>, actor_process_live(processRef)).length !== 0`; the `spawnFailed` closure and the `actor_process_exited` term are gone. The derivation stays last in the `&&` chain, so it runs only for an actor occurrence with a bound start. Imports unchanged.
+
+**Gate** (`build_tenants/abiogenesis/typescript`, each command run alone):
+
+| command | exit | wall |
+|---|---|---|
+| `npm run build` | 0 | 32.8 s |
+| `npm run lint:imports` | 0 | 0.1 s |
+| `node --experimental-vm-modules --test test_env/tests/t287-calculus-fold.test.mjs` | 0 (6 of 6, P-FOLD 22 cuts) | 1.2 s |
+| `npm run test:installed:language` | 0 (1 of 1) | 44.3 s |
+
+Neither gate test exercises lines 813 to 828: the P-FOLD lane makes no
+liveness call and the smoke has no actor process events. The switch rests
+on `tsc` and inspection; the step 7 Reviewer checks it, and
+`m5-event-calculus-runtime` at step 8 is its first exercise.
