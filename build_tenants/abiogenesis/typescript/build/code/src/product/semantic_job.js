@@ -20,6 +20,7 @@ import { SEMANTIC_STAGE_IDS as ids } from "../gtl/semantic_stage_identity.js";
 import { isWorksitePreparationInput } from "./worksite_preparation.js";
 import { isWorksiteCommandExecutionObservation, worksiteCommandConfigurationInputSchema, constructWorksiteReadDependencyBasis } from "./worksite_command_execution.js";
 import { resolveWorksiteC0JudgmentRelation, WORKSITE_FILE_PARENTS_IDS } from "../gtl/worksite_c0.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const record = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
 const hash = (value) => sha256Canonical(value);
 const ref = v.pipe(v.string(), v.minLength(1));
@@ -28,7 +29,6 @@ const positive = v.pipe(v.number(), v.integer(), v.minValue(1));
 const nonnegative = v.pipe(v.number(), v.integer(), v.minValue(0));
 const digest = v.pipe(v.string(), v.regex(/^sha256:[0-9a-f]{64}$/));
 const unique = (values) => new Set(values).size === values.length;
-const equal = (a, b) => hash(a) === hash(b);
 function keys(value, names) {
     return value !== null && typeof value === "object" && !Array.isArray(value) &&
         Object.keys(value).sort().join() === [...names].sort().join();
@@ -186,7 +186,7 @@ export function projectSemanticJobBindings(envelope) {
             const { versionRef, versionDigest, ...body } = version;
             const duplicate = refs.get(versionRef);
             if (duplicate !== undefined) {
-                if (!equal(duplicate, version))
+                if (!canonicalEquals(duplicate, version))
                     return null;
                 continue;
             }
@@ -227,8 +227,8 @@ export function isSemanticJobEnvelope(value) {
         const e = value;
         if (e.job.lifecycleRef !== e.declaration.declarationRef || e.job.sourceRoleRef !== e.declaration.sourceRoleRef ||
             hash(e.job) !== e.basis.rootInputDigest || hash(e.declaration) !== e.basis.declarationDigest ||
-            !equal(semanticJobIdentity(e.job, e.declaration, e.basis), { jobRef: e.basis.jobRef, jobDigest: e.basis.jobDigest }) ||
-            !equal(e.sourceContext, semanticJobSourceContext(e.job, e.basis.jobRef)) ||
+            !canonicalEquals(semanticJobIdentity(e.job, e.declaration, e.basis), { jobRef: e.basis.jobRef, jobDigest: e.basis.jobDigest }) ||
+            !canonicalEquals(e.sourceContext, semanticJobSourceContext(e.job, e.basis.jobRef)) ||
             e.job.members.length > e.declaration.bounds.maxSourceMembers ||
             e.sourceContext.members.reduce((n, m) => n + m.byteCount, 0) > e.declaration.bounds.maxSourceBytes ||
             !unique(e.assets.map(a => a.stageRef)))
@@ -335,7 +335,7 @@ export function projectSemanticJobPromptContext(envelope, context) {
     const predecessors = context.predecessors.map(row => {
         if (row.groundedTerms.length === 0 || !row.groundedTerms.every(term => {
             const matches = terms.filter(t => t.requirementRef === term.requirementRef);
-            return matches.length === 1 && equal(matches[0], term);
+            return matches.length === 1 && canonicalEquals(matches[0], term);
         }))
             return row;
         const { groundedTerms, ...body } = row;
@@ -352,8 +352,8 @@ export function projectSemanticJobPromptContext(envelope, context) {
                 predecessor.groundedTerms[predecessor.candidate.asset.requirementCandidates.findIndex(c => c.candidateRef === proposal.requirement.ref)]?.requirementRef;
             return requirementRef === row.binding.requirementRef && proposal.templateRef === row.templateRef &&
                 proposal.previousVersionRef === row.previousVersionRef && proposal.scope === row.policy.scope &&
-                equal(proposal.realizationMeaning, row.policy.realizationMeaning) && equal(proposal.proofMeaning, row.policy.proofMeaning) &&
-                equal(proposal.unprovedScope, row.policy.unprovedScope) && proposal.closureRule === row.policy.closureRule;
+                canonicalEquals(proposal.realizationMeaning, row.policy.realizationMeaning) && canonicalEquals(proposal.proofMeaning, row.policy.proofMeaning) &&
+                canonicalEquals(proposal.unprovedScope, row.policy.unprovedScope) && proposal.closureRule === row.policy.closureRule;
         });
         if (bindingIndex === -1)
             return row;
@@ -382,7 +382,7 @@ export function evaluateSemanticJobActorCandidate(envelope, stageRef, role, raw,
         if (!isSemanticAssessmentCandidate(raw))
             issue("$", "assessment_schema", "semantic_assessment_candidate", null);
         else {
-            if (!equal(raw.criteria.map(c => c.criterionRef), contract.criteria))
+            if (!canonicalEquals(raw.criteria.map(c => c.criterionRef), contract.criteria))
                 issue("criteria", "exact_ordered_rubric", contract.criteria, raw.criteria.map(c => c.criterionRef));
             raw.criteria.forEach((c, i) => { refs(`criteria[${i}].statementRefs`, c.statementRefs, contract.currentCandidate?.statementRefs ?? []); quotes(`criteria[${i}].sourceQuotes`, c.sourceQuotes); });
             // Preserve the existing activation boundary: author proposals are not
@@ -528,7 +528,7 @@ export function semanticJobDesignIssues(envelope, design, executionLimits) {
             if (!unique(t.obligationRefs) || !t.obligationRefs.every(r => active.some(b => b.binding.obligationRef === r)))
                 issue(`design.targets[${i}].obligationRefs`, "unique_active_obligation_domain", active.map(b => b.binding.obligationRef), t.obligationRefs);
             const expected = active.filter(b => t.obligationRefs.includes(b.binding.obligationRef)).map(b => b.versionRef).sort();
-            if (!unique(t.bindingVersionRefs) || !equal([...t.bindingVersionRefs].sort(), expected))
+            if (!unique(t.bindingVersionRefs) || !canonicalEquals([...t.bindingVersionRefs].sort(), expected))
                 issue(`design.targets[${i}].bindingVersionRefs`, "exact_selected_active_versions", expected, t.bindingVersionRefs);
         });
         design.dependencyPaths.forEach((p, i) => { if (!semanticJobRelativePath(p) || !semanticJobPathWithin(p, scope.readRoots))
@@ -706,39 +706,39 @@ export function evaluateSemanticJobRelation(predicateRef, input, output) {
             return evaluateSemanticJobRelation(ids.jobBridgePredicateRef, input, output);
         if (predicateRef === ids.jobIntakePredicateRef)
             return isSemanticJobInput(input) && isSemanticJobEnvelope(output) &&
-                equal(input, output.job) && output.assets.length === 0 && output.bindingVersions.length === 0 && output.context === null;
+                canonicalEquals(input, output.job) && output.assets.length === 0 && output.bindingVersions.length === 0 && output.context === null;
         if (predicateRef === ids.jobContextPredicateRef)
             return isSemanticJobEnvelope(input) && isSemanticJobEnvelope(output) &&
-                output.context !== null && equal({ ...input, context: output.context }, output);
+                output.context !== null && canonicalEquals({ ...input, context: output.context }, output);
         if (predicateRef === ids.jobPlanPredicateRef)
             return isSemanticJobEnvelope(input) && isWorksiteFileParentsRequest(output) &&
                 input.basis.jobRef === output.jobRef && input.basis.jobDigest === output.jobDigest &&
                 input.assets.at(-1)?.assessment?.disposition === "satisfied" && input.assets.at(-1)?.candidate.design?.dependencyDisposition === "sufficient" &&
-                equal(input.assets.at(-1)?.candidate.design?.targets.map(t => t.relativePath), output.targets.map(t => t.relativePath));
+                canonicalEquals(input.assets.at(-1)?.candidate.design?.targets.map(t => t.relativePath), output.targets.map(t => t.relativePath));
         if (predicateRef === ids.jobBridgePredicateRef)
             return isWorksiteFileParentsSuccess(input) && isWorksitePreparationInput(output) &&
-                output.kind === "worksite_command_preparation_input" && equal(input.request.targets.map(t => t.relativePath), output.constructionTask.targets.map(t => t.subject.relativePath));
+                output.kind === "worksite_command_preparation_input" && canonicalEquals(input.request.targets.map(t => t.relativePath), output.constructionTask.targets.map(t => t.subject.relativePath));
         if (!isSemanticJobInput(input) && !isSemanticJobEnvelope(input) && !isSemanticJobEnvelope(output))
             return null;
         if (!isSemanticJobEnvelope(output))
             return predicateRef === ids.lifecycleStepPredicateRef && isSemanticJobEnvelope(input) &&
                 evaluateSemanticJobRelation(ids.jobPlanPredicateRef, input, output) === true;
         if (predicateRef === ids.evidenceInputPredicateRef || predicateRef === ids.lifecycleStepPredicateRef && isWorksiteCommandExecutionObservation(input))
-            return isWorksiteCommandExecutionObservation(input) && output.evidence !== null && equal(input, output.evidence.executionObservation);
+            return isWorksiteCommandExecutionObservation(input) && output.evidence !== null && canonicalEquals(input, output.evidence.executionObservation);
         if (predicateRef === ids.lifecyclePredicateRef)
-            return (isSemanticJobInput(input) ? equal(input, output.job) : isSemanticJobEnvelope(input) && equal(input.basis, output.basis)) &&
+            return (isSemanticJobInput(input) ? canonicalEquals(input, output.job) : isSemanticJobEnvelope(input) && canonicalEquals(input.basis, output.basis)) &&
                 output.assets.length === output.declaration.stages.length && output.declaration.stages.every((stage, i) => output.assets[i]?.stageRef === stage.declarationRef && output.assets[i]?.assessment?.disposition === "satisfied") &&
                 (!output.declaration.stages.some(s => s.bodyCapabilities.includes("application_assessment")) || output.evidence !== null);
-        if (!isSemanticJobEnvelope(input) || !equal(input.basis, output.basis))
+        if (!isSemanticJobEnvelope(input) || !canonicalEquals(input.basis, output.basis))
             return false;
         if (predicateRef === ids.terminalPredicateRef)
-            return equal(input, output);
+            return canonicalEquals(input, output);
         if (predicateRef === ids.lifecycleStepPredicateRef && (output.assets.some(a => a.source.nativeWork !== undefined))) {
             if (evaluateNativeSemanticRelation(ids.nativeStagePredicateRef, input, output) === true ||
                 evaluateNativeSemanticRelation(ids.nativeEvidencePredicateRef, input, output) === true)
                 return true;
         }
-        if (predicateRef === ids.lifecycleStepPredicateRef && equal(input, output))
+        if (predicateRef === ids.lifecycleStepPredicateRef && canonicalEquals(input, output))
             return evaluateSemanticJobRelation(ids.lifecyclePredicateRef, input, output);
         if (predicateRef === ids.lifecycleStepPredicateRef && output.assets.length === input.assets.length && output.context !== null)
             return evaluateSemanticJobRelation(ids.jobContextPredicateRef, input, output);
@@ -746,12 +746,12 @@ export function evaluateSemanticJobRelation(predicateRef, input, output) {
         if (asset === undefined)
             return false;
         if (predicateRef === ids.authorPredicateRef)
-            return equal(deriveSemanticJobAsset(input, asset.stageRef, asset.candidate, asset.source), output);
+            return canonicalEquals(deriveSemanticJobAsset(input, asset.stageRef, asset.candidate, asset.source), output);
         if (predicateRef === ids.assessorPredicateRef || predicateRef === ids.lifecycleStepPredicateRef) {
             if (asset.assessment?.disposition !== "satisfied")
                 return false;
             const prior = input.assets.at(-1)?.assetRef === asset.assetRef ? input : deriveSemanticJobAsset(input, asset.stageRef, asset.candidate, asset.source);
-            return prior !== null && equal(deriveSemanticJobAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
+            return prior !== null && canonicalEquals(deriveSemanticJobAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
         }
         return false;
     }
@@ -834,7 +834,7 @@ export function deriveNativeSemanticAsset(envelope, stageRef, observation, adapt
         if (!isNativeWorkspaceWorkObservation(observation) || observation.task.assessment !== undefined || !nativeSemanticContextMatches(envelope, observation.after))
             return null;
         const source = nativeSemanticAssetSource(envelope, stageRef, observation, adapter);
-        if (!equal(observation.task.writeRoots, [source.nativeWork.assetPath]))
+        if (!canonicalEquals(observation.task.writeRoots, [source.nativeWork.assetPath]))
             return null;
         const raw = JSON.parse(Buffer.from(nativeSemanticFile(observation.after, source.nativeWork.assetPath).bytes, "base64").toString("utf8"));
         const derived = deriveSemanticJobAsset(envelope, stageRef, raw, source, [], onContractIssues);
@@ -853,7 +853,7 @@ export function deriveNativeSemanticAssessment(envelope, stageRef, observation, 
         if (asset?.stageRef !== stageRef || asset.source.nativeWork === undefined ||
             observation.task.assessment?.candidate.path !== asset.source.nativeWork.assetPath ||
             observation.task.assessment.candidate.digest !== asset.source.nativeWork.assetDigest ||
-            !equal(observation.task.assessment.producer, { resultRef: asset.source.nativeWork.observationRef, resultDigest: asset.source.nativeWork.observationDigest,
+            !canonicalEquals(observation.task.assessment.producer, { resultRef: asset.source.nativeWork.observationRef, resultDigest: asset.source.nativeWork.observationDigest,
                 cCallRef: asset.source.cCallRef, actorInvocationRef: asset.source.actorInvocationRef }))
             return null;
         const otherActors = envelope.assets.flatMap(a => [a.source.actorInvocationRef, ...(a.assessment ? [a.assessment.source.actorInvocationRef] : [])]);
@@ -875,7 +875,7 @@ export function deriveNativeSemanticAssessment(envelope, stageRef, observation, 
 export function nativeSemanticEvidenceArtifacts(envelope, value, revision) {
     try {
         if (!isNativeWorksiteCommandExecutionObservation(value) ||
-            !equal(value.task, constructNativeSemanticExecutionTask(envelope, value.task.sourceNativeWork, revision)))
+            !canonicalEquals(value.task, constructNativeSemanticExecutionTask(envelope, value.task.sourceNativeWork, revision)))
             return null;
         const source = value.task.sourceNativeWork, design = envelope.assets.at(-1).candidate.design;
         return deepFreeze(design.targets.map(selected => {
@@ -966,7 +966,7 @@ export function constructNativeSemanticConstructionTask(envelope, operating, con
 export function constructNativeSemanticExecutionTask(envelope, source, revision) {
     const design = envelope.assets.at(-1)?.candidate.design;
     if (!design || !isNativeWorkspaceWorkObservation(source) || !nativeSemanticContextMatches(envelope, source.after, revision !== undefined) ||
-        !equal(source.task, constructNativeSemanticConstructionTask(envelope, source.task, source.before, revision)))
+        !canonicalEquals(source.task, constructNativeSemanticConstructionTask(envelope, source.task, source.before, revision)))
         throw new TypeError("exact current native construction required");
     const paths = nativeSemanticPaths(envelope), protectedPaths = [...envelope.job.members.map(m => m.path), paths.rubricPath, ...paths.assets.map(a => a.path)];
     if (envelope.job.worksiteScope.evidenceWriteRoots.some(root => protectedPaths.some(path => root === "." || path === root || path.startsWith(root + "/") || root.startsWith(path + "/"))))
@@ -989,9 +989,9 @@ export function evaluateNativeSemanticRelation(predicate, input, output) {
     try {
         if (predicate === ids.nativeStepPredicateRef) {
             if (isNativeWorkspaceWorkTask(input))
-                return isNativeWorkspaceWorkObservation(output) && equal(input, output.task);
+                return isNativeWorkspaceWorkObservation(output) && canonicalEquals(input, output.task);
             if (isNativeWorksiteCommandExecutionTask(input))
-                return isNativeWorksiteCommandExecutionObservation(output) && equal(input, output.task);
+                return isNativeWorksiteCommandExecutionObservation(output) && canonicalEquals(input, output.task);
             return [ids.nativeAuthorTaskPredicateRef, ids.nativeAuthorFoldPredicateRef, ids.nativeAssessorTaskPredicateRef,
                 ids.nativeAssessorFoldPredicateRef, ids.nativeConstructionTaskPredicateRef, ids.nativeExecutionTaskPredicateRef,
                 ids.nativeStagePredicateRef, ids.nativeEvidencePredicateRef]
@@ -1001,24 +1001,24 @@ export function evaluateNativeSemanticRelation(predicate, input, output) {
             if (!isSemanticJobEnvelope(input) || !isNativeWorkspaceWorkTask(output))
                 return false;
             if (predicate === ids.nativeConstructionTaskPredicateRef)
-                return equal(output, constructNativeSemanticConstructionTask(input, output, output.context));
+                return canonicalEquals(output, constructNativeSemanticConstructionTask(input, output, output.context));
             const role = predicate === ids.nativeAuthorTaskPredicateRef ? "author" : "assessor";
             const stage = role === "author" ? input.declaration.stages[input.assets.length] : input.declaration.stages.find(s => s.declarationRef === input.assets.at(-1)?.stageRef);
-            return stage !== undefined && equal(output, constructNativeSemanticTask(input, stage.declarationRef, role, output, output.context));
+            return stage !== undefined && canonicalEquals(output, constructNativeSemanticTask(input, stage.declarationRef, role, output, output.context));
         }
         if (predicate === ids.nativeExecutionTaskPredicateRef)
             return isRetainedGraphInput(input) && isSemanticJobEnvelope(input.entry) &&
-                isNativeWorkspaceWorkObservation(input.source) && equal(output, constructNativeSemanticExecutionTask(input.entry, input.source));
+                isNativeWorkspaceWorkObservation(input.source) && canonicalEquals(output, constructNativeSemanticExecutionTask(input.entry, input.source));
         if (!isSemanticJobEnvelope(output))
             return false;
         const entry = isRetainedGraphInput(input) ? input.entry : input;
-        if (!isSemanticJobEnvelope(entry) || !equal(entry.basis, output.basis))
+        if (!isSemanticJobEnvelope(entry) || !canonicalEquals(entry.basis, output.basis))
             return false;
         if (predicate === ids.nativeEvidencePredicateRef) {
             const execution = isRetainedGraphInput(input) ? input.source : output.evidence?.executionObservation;
-            return isNativeWorksiteCommandExecutionObservation(execution) && equal(execution, output.evidence?.executionObservation) &&
-                equal(entry.assets, output.assets) && equal(entry.bindingVersions, output.bindingVersions) && equal(entry.job, output.job) &&
-                equal(execution.task, constructNativeSemanticExecutionTask(entry, execution.task.sourceNativeWork));
+            return isNativeWorksiteCommandExecutionObservation(execution) && canonicalEquals(execution, output.evidence?.executionObservation) &&
+                canonicalEquals(entry.assets, output.assets) && canonicalEquals(entry.bindingVersions, output.bindingVersions) && canonicalEquals(entry.job, output.job) &&
+                canonicalEquals(execution.task, constructNativeSemanticExecutionTask(entry, execution.task.sourceNativeWork));
         }
         const asset = output.assets.at(-1);
         if (asset === undefined)
@@ -1028,14 +1028,14 @@ export function evaluateNativeSemanticRelation(predicate, input, output) {
             if (source?.nativeWork === undefined || (!author && asset.assessment?.disposition !== "satisfied"))
                 return false;
             const adapter = { cCallRef: source.nativeWork.adapterCCallRef, inputDigest: source.nativeWork.adapterInputDigest };
-            return equal(output, author ? deriveNativeSemanticAsset(entry, asset.stageRef, input.source, adapter)
-                : deriveNativeSemanticAssessment(entry, asset.stageRef, input.source, adapter));
+            return canonicalEquals(output, (author ? deriveNativeSemanticAsset(entry, asset.stageRef, input.source, adapter)
+                : deriveNativeSemanticAssessment(entry, asset.stageRef, input.source, adapter)));
         }
         if (asset.assessment?.disposition !== "satisfied" || asset.source.nativeWork === undefined || asset.assessment.source.nativeWork === undefined)
             return false;
         const authored = entry.assets.at(-1)?.assetRef === asset.assetRef ? entry : deriveSemanticJobAsset(entry, asset.stageRef, asset.candidate, asset.source);
         const assessed = authored === null ? null : deriveSemanticJobAssessment(authored, asset.stageRef, asset.assessment.candidate, asset.assessment.source);
-        return assessed !== null && equal({ ...assessed, context: output.context }, output);
+        return assessed !== null && canonicalEquals({ ...assessed, context: output.context }, output);
     }
     catch {
         return false;

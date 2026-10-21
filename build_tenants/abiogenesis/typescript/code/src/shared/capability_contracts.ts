@@ -12,6 +12,7 @@ import type {
   PublicContractCoordinate,
   PublicDefinitionKeyLike,
 } from "./public_invocation.js";
+import { canonicalEquals } from "./value/index.js";
 
 export const CAPABILITY_DEFINITION_GRAPH_ID =
   "capability-definition-graph://abiogenesis/abg-5" as const;
@@ -95,8 +96,10 @@ const registerIds = DS1_CAPABILITY_CONTRACT_REGISTER.map(({ capabilityId }) =>
 );
 if (
   new Set(registerIds).size !== registerIds.length ||
-  [...registerIds].sort(compareUnicodeCodeUnits).join("\0") !==
-    [...MANDATORY_ABI5_CAPABILITY_IDS].sort(compareUnicodeCodeUnits).join("\0")
+  !canonicalEquals(
+    [...registerIds].sort(compareUnicodeCodeUnits),
+    [...MANDATORY_ABI5_CAPABILITY_IDS].sort(compareUnicodeCodeUnits),
+  )
 ) {
   throw new TypeError("capability register identity roster is not exact");
 }
@@ -266,10 +269,14 @@ export function constructCapabilityDefinitionGraph(
     if (
       flat === undefined ||
       coordinates.some((coordinate) =>
-        canonicalJson(coordinate.contractCatalog as unknown as JsonValue) !==
-          canonicalJson(flat.contractCatalog as unknown as JsonValue) ||
-        canonicalJson(coordinate.flatRow as unknown as JsonValue) !==
-          canonicalJson(flat.flatRow as unknown as JsonValue)
+        !canonicalEquals(
+          coordinate.contractCatalog as unknown as JsonValue,
+          flat.contractCatalog as unknown as JsonValue,
+        ) ||
+        !canonicalEquals(
+          coordinate.flatRow as unknown as JsonValue,
+          flat.flatRow as unknown as JsonValue,
+        )
       )
     ) {
       throw new TypeError(`crossed operation definition catalog ${key}`);
@@ -410,8 +417,10 @@ export function isCapabilityDefinitionGraph(
       owner,
     ])).values()];
     const expected = constructCapabilityDefinitionGraph(uniqueOwners);
-    return canonicalJson(expected as unknown as JsonValue) ===
-      canonicalJson(graph as unknown as JsonValue) &&
+    return canonicalEquals(
+      expected as unknown as JsonValue,
+      graph as unknown as JsonValue,
+    ) &&
       graph.rows.every((row) =>
         row.capabilityDefinitionDigest === sha256Canonical(rowDefinitionBody(row))
       ) &&

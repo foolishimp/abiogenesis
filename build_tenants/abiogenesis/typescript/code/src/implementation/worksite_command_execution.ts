@@ -68,6 +68,7 @@ import type {
   LeafRealizationCandidate,
   PreparedProbabilisticLeafInvocation,
 } from "./contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const descriptorBody = {
   implementationRef: WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,
@@ -256,7 +257,7 @@ function exactExchange(
 ): boolean {
   const observation = exchange.observation;
   const tool = observation.toolInvocations[0];
-  return canonicalJson(exchange.request as unknown as JsonValue) === canonicalJson(request as unknown as JsonValue) &&
+  return canonicalEquals(exchange.request as unknown as JsonValue, request as unknown as JsonValue) &&
     observation.actorRef === task.workerActorRef &&
     observation.workerBindingRef === task.workerBindingRef &&
     observation.implementationRef === worksiteExecutionImplementationRef(task) &&
@@ -535,8 +536,10 @@ function assertManifestPairCurrent(
   const taskBytes = taskManifestBytes(task);
   const launchBytes = launchManifestBytes(plan);
   if (!isWorksiteCommandExecutionHelperPlan(task, plan.helperPlan) ||
-    canonicalJson(plan as unknown as JsonValue) !==
-      canonicalJson(expectedPlan as unknown as JsonValue) ||
+    !canonicalEquals(
+      plan as unknown as JsonValue,
+      expectedPlan as unknown as JsonValue,
+    ) ||
     plan.launchManifest.taskRef !== task.taskRef ||
     plan.launchManifest.taskDigest !== task.taskDigest ||
     plan.launchManifest.taskManifestPath !== plan.helperPlan.taskManifestPath ||
@@ -642,7 +645,8 @@ export function realizeWorksiteCommandExecution(
     observeWorksiteSubjectSync(input, row.subject)
   );
   if (before.some((observation, ordinal) =>
-    canonicalJson(observation as unknown as JsonValue) !== canonicalJson(
+    !canonicalEquals(
+      observation as unknown as JsonValue,
       worksiteExecutionSources(input)[ordinal]!.observation as unknown as JsonValue,
     ))) {
     throw new TypeError(
@@ -680,7 +684,8 @@ export function realizeWorksiteCommandExecution(
         )
       ));
       if (current.some((row, ordinal) =>
-        canonicalJson(row as unknown as JsonValue) !== canonicalJson(
+        !canonicalEquals(
+          row as unknown as JsonValue,
           worksiteExecutionSources(input)[ordinal]!.observation as unknown as JsonValue,
         ))) {
         return failure("protected_observation_mismatch");

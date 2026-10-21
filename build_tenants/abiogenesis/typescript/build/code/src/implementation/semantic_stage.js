@@ -9,6 +9,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { projectNativeSemanticTask, projectNativeSemanticFold, projectNativeSemanticExecution, projectNativeSemanticEvidence, authenticateSemanticJobBasis, projectSemanticJobContext, projectSemanticJobPlan, projectSemanticJobBridge, projectSemanticJobEvidence, semanticJobInputMatchesBasis } from "../abg/semantic_job.js";
 import { isSemanticJobEnvelope, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobActorCandidate, semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse } from "../product/semantic_job.js";
 import { selectedWorksiteCommandExecutionLimits } from "./worksite_command_execution.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const hash = (x) => sha256Canonical(x);
 const placeholder = `sha256:${"0".repeat(64)}`;
 const bindings = semanticStageImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
@@ -53,7 +54,7 @@ function semanticActor(input, occurrence, role, prepareAssembly) {
     return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,
         complete(exchange) {
             const observation = exchange.observation;
-            if (hash(exchange.request) !== hash(assembly.request) ||
+            if (!canonicalEquals(exchange.request, assembly.request) ||
                 observation.promptDigest !== assembly.manifest.promptDigest || observation.toolCallCount !== 0 ||
                 observation.inputDigest !== owner.inputDigest || observation.implementationRef !== owner.call.implementationRef ||
                 observation.actorRef !== ids.workerActorRef || observation.workerBindingRef !== ids.workerBindingRef ||

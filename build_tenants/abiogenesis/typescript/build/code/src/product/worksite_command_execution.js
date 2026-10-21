@@ -15,6 +15,7 @@ import { isWorksiteObservation, isWorksiteSubject, constructWorksiteSubject, con
 import { WORKSITE_REVISION_IDS, isWorksiteRevisionCommandExecutionTask, isWorksiteRevisionObservationOrigin } from "./worksite_revision.js";
 import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask, executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandIdentityPrefix as worksiteExecutionIdentityPrefix, executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef, isWorksiteCommandForwardWorkerResult } from "./worksite_command_forward.js";
 import { isNativeWorkspaceWorkObservation } from "./native_workspace_work.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const SCHEMA_VERSION = "5.0.0";
 // Technical Node timer representation limit; execution policy belongs to callers.
 const HOST_TIMER_MAX_MS = 2_147_483_647;
@@ -263,7 +264,7 @@ function nonempty(value) {
 function same(left, right) {
     if (left === right || isDeepStrictEqual(left, right))
         return true;
-    return canonicalJson(left) === canonicalJson(right);
+    return canonicalEquals(left, right);
 }
 function identity(prefix, digest) {
     return `${prefix}/${digest.slice("sha256:".length)}`;

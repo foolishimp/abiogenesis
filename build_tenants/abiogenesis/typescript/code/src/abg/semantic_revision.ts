@@ -57,10 +57,10 @@ import { observeWorksiteContext } from "../product/worksite_operations.js";
 
 import { readRuntimeFailureDiagnosticSubject } from "./runtime_failure.js";
 import { admitIJsonText } from "../shared/i_json.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const recordJob = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
-const same = (a: unknown, b: unknown) => hash(a) === hash(b);
 function resultCoordinate(state: NonNullable<ReturnType<typeof projectWorksiteRevisionNativeResult>>): SemanticRevisionCoordinate {
   return { cCallRef: state.cCall.cCallRef, resultRef: state.result.resultRef, resultDigest: state.result.resultDigest,
     resultAdmissionEventRef: state.result.admissionEventRef, judgmentEventRef: state.judgment.admissionEventRef };
@@ -94,9 +94,12 @@ function nativeRevisionAcquisitionAtPrefix(prefix: RuntimeEventPrefix,
     acquired.cCall.implementationRef !== ids.nativeIntakeImplementationRef || !isSemanticRevisionSelectionInput(acquired.result.value)) return null;
   const acquisitionBasis = rehydrateExecutionBasisAtPrefix(prefix, acquired.cCall.basisId);
   const { acquisition: _acquisition, ...retained } = native;
-  return acquisitionBasis !== null && same(acquisitionBasis.rawInputValue, native.source) &&
-    same(acquired.result.value, { kind: "semantic_revision_selection_input", schemaVersion: "5.0.0",
-      parent: request.parent, causes: request.causes, currentWorksite: null, nativeWorksite: retained }) ? acquired : null;
+  return acquisitionBasis !== null && canonicalEquals(acquisitionBasis.rawInputValue, native.source as unknown as JsonValue) &&
+    canonicalEquals(
+      acquired.result.value,
+      { kind: "semantic_revision_selection_input", schemaVersion: "5.0.0",
+        parent: request.parent, causes: request.causes, currentWorksite: null, nativeWorksite: retained } as unknown as JsonValue,
+    ) ? acquired : null;
 }
 /** A correction can begin at a conserved pending assessment. Its accepted
  * predecessor then belongs to a prior Run, reachable only through the exact
@@ -107,7 +110,7 @@ function conservedNativeRevisionParent(prefix: ValidatedRuntimeEventPrefix,
   let descendant = cause, root = sourceRoot;
   while (isSemanticJobRevisionEnvelope(descendant.state.result.value)) {
     const value = descendant.state.result.value, request = value.revisionBasis.request, native = request.nativeWorksite;
-    if (native?.acquisition === undefined || !same(root.rawInputValue, request) ||
+    if (native?.acquisition === undefined || !canonicalEquals(root.rawInputValue, request as unknown as JsonValue) ||
       root.workspaceBindingId !== native.workspaceBinding.bindingId || root.workspaceBindingDigest !== native.workspaceBinding.bindingDigest) return null;
     const acquired = nativeRevisionAcquisitionAtPrefix(prefix, request, projectWorksiteRevisionNativeResult(prefix, native.acquisition));
     const parent = projectWorksiteRevisionNativeResult(prefix, request.parent);
@@ -115,11 +118,11 @@ function conservedNativeRevisionParent(prefix: ValidatedRuntimeEventPrefix,
     const envelope = jobEnvelope(parent.result.value), parentBasis = rehydrateExecutionBasisAtPrefix(prefix, parent.cCall.basisId);
     const parentRoot = parentBasis === null ? null : semanticJobRootAtPrefix(prefix, parentBasis);
     const parentRevision = isSemanticJobRevisionEnvelope(parent.result.value) ? parent.result.value : null;
-    if (envelope === null || parentRoot === null || !same(envelope.basis, value.current.basis) ||
-      !same(envelope.job, value.current.job) || !same(envelope.declaration, value.current.declaration) ||
+    if (envelope === null || parentRoot === null || !canonicalEquals(envelope.basis as unknown as JsonValue, value.current.basis as unknown as JsonValue) ||
+      !canonicalEquals(envelope.job as unknown as JsonValue, value.current.job as unknown as JsonValue) || !canonicalEquals(envelope.declaration as unknown as JsonValue, value.current.declaration as unknown as JsonValue) ||
       value.revisionBasis.parentRevisionRef !== (parentRevision?.revisionBasis.basisRef ?? null) ||
-      (parentRevision === null ? parentRoot.basisRef !== envelope.basis.rootExecutionBasisRef || !same(parentRoot.rawInputValue, envelope.job)
-        : !same(parentRoot.rawInputValue, parentRevision.revisionBasis.request))) return null;
+      (parentRevision === null ? parentRoot.basisRef !== envelope.basis.rootExecutionBasisRef || !canonicalEquals(parentRoot.rawInputValue, envelope.job as unknown as JsonValue)
+        : !canonicalEquals(parentRoot.rawInputValue, parentRevision.revisionBasis.request as unknown as JsonValue))) return null;
     const event = indexedRuntimeEvents(prefix, "id:" + parent.result.admissionEventRef);
     const judgment = indexedRuntimeEvents(prefix, "id:" + parent.judgment.admissionEventRef);
     const acquisitionEvent = indexedRuntimeEvents(prefix, "id:" + acquired.result.admissionEventRef);
@@ -175,7 +178,7 @@ function operationalPreparationFailure(prefix: RuntimeEventPrefix,
 function contextCorresponds(a: WorksiteContextObservation, b: WorksiteContextObservation) {
   const { observationRef: _ar, observationDigest: _ad, workspaceBindingIdentity: _aw, workspaceBindingDigest: _awd, ...left } = a;
   const { observationRef: _br, observationDigest: _bd, workspaceBindingIdentity: _bw, workspaceBindingDigest: _bwd, ...right } = b;
-  return same(left, right);
+  return canonicalEquals(left, right);
 }
 /** Discovery occurs only at the declared intake. Consumers use its admitted
  * result and exact references; they never choose a later or similar failure. */
@@ -185,13 +188,13 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
     const authenticated = authenticateOwnedNativeInstructionAssemblyBasis(basis);
     const owner = authenticated === null ? null : { ...authenticated, events: runtimeEventBodiesAtPrefix(authenticated.prefix) };
     if (owner === null || owner.call.implementationRef !== ids.nativeIntakeImplementationRef ||
-      !same(owner.inputValue, input)) return refuse("intake_basis_mismatch");
+      !canonicalEquals(owner.inputValue, input as unknown as JsonValue)) return refuse("intake_basis_mismatch");
     if (!authenticateRuntimePrefixAncestry(input.sourcePrefix, basis.predecessorPrefix)) return refuse("source_prefix_mismatch");
     const historical = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, input.sourcePrefix);
     const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(historical));
     const run = projectRunIdentityAtPrefix(prefix, input.sourceRun.ref);
     const sourceRoot = run === null ? null : rehydrateExecutionBasisAtPrefix(prefix, run.executionBasis.ref);
-    if (run === null || !same(run.run, input.sourceRun) || sourceRoot === null || sourceRoot.parentExecutionBasisRef !== null) return refuse("source_run_mismatch");
+    if (run === null || !canonicalEquals(run.run, input.sourceRun) || sourceRoot === null || sourceRoot.parentExecutionBasisRef !== null) return refuse("source_run_mismatch");
     const leaves = admittedLeaves(prefix, input.sourceRun.ref);
     const lifecycle = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle;
     if (lifecycle === undefined) return refuse("original_job_or_lifecycle_mismatch");
@@ -235,7 +238,7 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
           last?.stageRef === stage.declarationRef && last.assessment === null &&
           envelope.assets.slice(0, -1).every(asset => asset.assessment?.disposition === "satisfied") &&
           state.cCall.implementationRef === ids.authorImplementationRef && state.cCall.programLocusRef === stage.authorLocusRef &&
-          last.source.cCallRef === state.cCall.cCallRef && currentProducer?.eventId === event.eventId && same(state.result.value, current!.input.value);
+          last.source.cCallRef === state.cCall.cCallRef && currentProducer?.eventId === event.eventId && canonicalEquals(state.result.value, current!.input.value);
       }
       if (!envelope.assets.every(asset => asset.assessment?.disposition === "satisfied")) return false;
       // Evidence preparation consumes the admitted evidence fold, not the
@@ -248,12 +251,15 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
         state.cCall.cCallRef === (last.assessment!.source.nativeWork?.adapterCCallRef ?? last.assessment!.source.cCallRef) || state.cCall.implementationRef === ids.projectionImplementationRef || evidenceProducer;
       if (!exactProducer) return false;
       if (operationalFailure !== undefined) return currentProducer?.eventId === event.eventId &&
-        same(state.result.value, current!.input.value) && (envelope.evidence === null || evidenceProducer) &&
+        canonicalEquals(state.result.value, current!.input.value) && (envelope.evidence === null || evidenceProducer) &&
         envelope.declaration.stages[envelope.assets.length]?.declarationRef === operationalFailure.stageRef;
-      if (rejected !== null) return same(envelope.basis, rejected.basis) && same(envelope.assets, rejected.assets.slice(0, -1));
+      if (rejected !== null) return canonicalEquals(envelope.basis as unknown as JsonValue, rejected.basis as unknown as JsonValue) && canonicalEquals(envelope.assets as unknown as JsonValue, rejected.assets.slice(0, -1) as unknown as JsonValue);
       if (native === null || !isNativeWorkspaceWorkObservation(construction)) return false;
-      try { return same(construction.task, isSemanticJobRevisionEnvelope(state.result.value)
-        ? constructNativeRevisionConstructionTask(state.result.value, {...state.result.value.revisionBasis.request.nativeWorksite!, ...construction.task}) : constructNativeSemanticConstructionTask(envelope, construction.task, construction.before)); }
+      try { return canonicalEquals(
+        construction.task as unknown as JsonValue,
+        (isSemanticJobRevisionEnvelope(state.result.value)
+          ? constructNativeRevisionConstructionTask(state.result.value, {...state.result.value.revisionBasis.request.nativeWorksite!, ...construction.task}) : constructNativeSemanticConstructionTask(envelope, construction.task, construction.before)) as unknown as JsonValue,
+      ); }
       catch { return false; }
     };
     const parents = leaves.filter(eligibleParent);
@@ -263,11 +269,11 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
     if (parents.length !== 1) { onRefusal?.(parents.length === 0 ? "native_revision_parent_absent" : "native_revision_parent_ambiguous"); return null; }
     const parent = parents[0]!, envelope = jobEnvelope(parent.state.result.value)!;
     const original = rehydrateExecutionBasisAtPrefix(prefix, envelope.basis.rootExecutionBasisRef);
-    if (original === null || !isSemanticJobInput(original.rawInputValue) || !same(original.rawInputValue, envelope.job) ||
+    if (original === null || !isSemanticJobInput(original.rawInputValue) || !canonicalEquals(original.rawInputValue, envelope.job as unknown as JsonValue) ||
       original.parentExecutionBasisRef !== null || original.rawInputDigest !== envelope.basis.rootInputDigest ||
       original.rawInputAdmissionRef !== envelope.basis.rootInputRef || original.invocationAdmissionRef !== envelope.basis.invocationAdmissionRef ||
       !(basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle ||
-      !same(envelope.declaration, (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle)) return refuse("original_job_or_lifecycle_mismatch");
+      !canonicalEquals(envelope.declaration as unknown as JsonValue, (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle as unknown as JsonValue)) return refuse("original_job_or_lifecycle_mismatch");
     const expectedContext = rejected?.context ?? (isNativeWorkspaceWorkObservation(construction) ? construction.after : envelope.context);
     const parentBasis = rehydrateExecutionBasisAtPrefix(prefix, parent.state.cCall.basisId);
     const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
@@ -277,14 +283,14 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
       owner.environment.kind !== "exact_prefix_workspace_environment") return refuse("historical_context_or_invocation_mismatch");
     // The cause belongs to the selected source Run. Its parent either belongs
     // there too or is conserved by the admitted acquisition chain above.
-    if ((inherited === null && !same(semanticJobRootAtPrefix(prefix, parentBasis), sourceRoot)) ||
-      !same(semanticJobRootAtPrefix(prefix, causeBasis), sourceRoot)) return refuse("source_root_ancestry_mismatch");
+    if ((inherited === null && !canonicalEquals(semanticJobRootAtPrefix(prefix, parentBasis) as unknown as JsonValue, sourceRoot as unknown as JsonValue)) ||
+      !canonicalEquals(semanticJobRootAtPrefix(prefix, causeBasis) as unknown as JsonValue, sourceRoot as unknown as JsonValue)) return refuse("source_root_ancestry_mismatch");
     // Earlier acquisitions retain their own historical W cover. The new cover
     // starts at this source Run's W, not the conserved ancestor's older W.
     const priorBinding = native === null ? { bindingId: sourceRoot.workspaceBindingId, bindingDigest: sourceRoot.workspaceBindingDigest } : (construction as import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation).task.workspaceBinding;
     const oldEnvironment = projectExactPrefixWorkspaceEnvironment(historical, { ref: priorBinding.bindingId, digest: priorBinding.bindingDigest });
     if (oldEnvironment.kind !== "exact_prefix_workspace_environment" ||
-      !same(oldEnvironment.workspaceAuthorityBasis, owner.environment.workspaceAuthorityBasis)) return refuse("historical_environment_mismatch");
+      !canonicalEquals(oldEnvironment.workspaceAuthorityBasis as unknown as JsonValue, owner.environment.workspaceAuthorityBasis as unknown as JsonValue)) return refuse("historical_environment_mismatch");
     if (projectWorksiteRevisionBindingCover(owner.prefix, oldEnvironment.workspaceBinding, owner.environment.workspaceBinding,
       [parentBasis, causeBasis, sourceRoot, ...(native === null ? [] : [native.sourceBasis])]) === null) return refuse("binding_cover_absent");
     if (worksiteCommandSourcesInvalidatedAfter(owner.prefix, operationalInput?.evidence == null ? cause.event.admissionOrdinal : parent.event.admissionOrdinal,
@@ -321,7 +327,7 @@ export async function prepareNativeSemanticRevisionIntake(basis: SemanticStageNa
 export function nativeSemanticRevisionIntakeMatches(basis: SemanticStageNativeBasis, input: unknown, output: unknown): boolean {
   if (!isNativeSemanticRevisionIntake(input) || !isSemanticRevisionSelectionInput(output) || output.nativeWorksite === undefined) return false;
   const facts = nativeIntakeFacts(basis, input);
-  return facts !== null && same(intakeValue(facts, output.nativeWorksite.context, output.nativeWorksite.commandExecutionLimits), output);
+  return facts !== null && canonicalEquals(intakeValue(facts, output.nativeWorksite.context, output.nativeWorksite.commandExecutionLimits) as unknown as JsonValue, output as unknown as JsonValue);
 }
 /** The admitted intake is the acquisition proof. Its historical facts are not
  * rediscovered at selection, correction or Evidence leaves. */
@@ -332,25 +338,25 @@ function nativeJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknow
     if (owner === null || (!isSemanticRevisionSelectionInput(request) && !isSemanticRevisionRequest(request)) || request.nativeWorksite === undefined) return null;
     const actual = owner.call.implementationRef === ids.nativeRequestImplementationRef ? owner.execution.rawInputValue :
       isRetainedGraphInput(owner.inputValue) ? owner.inputValue.entry : owner.inputValue;
-    if (!same(actual, input)) return null;
+    if (!canonicalEquals(actual, input as JsonValue)) return null;
     const nativeWorksite = request.nativeWorksite;
     const candidate = nativeWorksite.acquisition === undefined
       ? selectedSemanticPredecessor(basis, ids.nativeIntakeImplementationRef, request)?.previous ?? null
       : projectWorksiteRevisionNativeResult(owner.prefix, nativeWorksite.acquisition);
     const acquired = nativeRevisionAcquisitionAtPrefix(owner.prefix, request, candidate);
     if (acquired === null ||
-      !same(owner.environment.workspaceAuthorityBasis, nativeWorksite.workspaceAuthorityBasis) ||
-      !same(owner.environment.workspaceBinding, nativeWorksite.workspaceBinding)) return null;
+      !canonicalEquals(owner.environment.workspaceAuthorityBasis as unknown as JsonValue, nativeWorksite.workspaceAuthorityBasis as unknown as JsonValue) ||
+      !canonicalEquals(owner.environment.workspaceBinding as unknown as JsonValue, nativeWorksite.workspaceBinding as unknown as JsonValue)) return null;
     const parent = projectWorksiteRevisionNativeResult(owner.prefix, request.parent), envelope = parent === null ? null : jobEnvelope(parent.result.value);
     const causes = request.causes.map(c => projectWorksiteRevisionNativeResult(owner.prefix, c));
     const construction = nativeWorksite.construction === null ? null : projectWorksiteRevisionNativeResult(owner.prefix, nativeWorksite.construction);
     if (parent === null || envelope === null || causes.some(c => c === null) ||
       nativeWorksite.construction !== null && (construction === null || !isNativeWorkspaceWorkObservation(construction.result.value)) ||
-      !same(envelope.job, owner.root.rawInputValue) || envelope.basis.rootExecutionBasisRef !== owner.root.basisRef || !same(envelope.declaration, owner.lifecycle)) return null;
+      !canonicalEquals(envelope.job as unknown as JsonValue, owner.root.rawInputValue) || envelope.basis.rootExecutionBasisRef !== owner.root.basisRef || !canonicalEquals(envelope.declaration as unknown as JsonValue, owner.lifecycle as unknown as JsonValue)) return null;
     const current = isSemanticJobRevisionEnvelope(input) ? input.current : { ...envelope, context: nativeWorksite.context };
     if (current.context === null || !semanticJobContextMatches(basis, current, current.context) ||
       readPhysical && !semanticJobContextCurrent(basis, current)) return null;
-    if (current.evidence !== null && same(current.evidence, envelope.evidence) &&
+    if (current.evidence !== null && canonicalEquals(current.evidence as unknown as JsonValue, envelope.evidence as unknown as JsonValue) &&
       worksiteCommandSourcesInvalidatedAfter(owner.prefix, indexedRuntimeEvents(owner.prefix, "id:" + acquired.result.admissionEventRef)[0]!.admissionOrdinal,
         owner.environment.workspaceAuthorityBasis.canonicalRoot, [], current.context.readRoots)) return null;
     const operationalFailure = causes.length === 1 ? operationalPreparationFailure(owner.prefix, causes[0]!, owner.lifecycle) : null;
@@ -368,7 +374,7 @@ export function projectNativeSemanticRevisionRequest(basis: SemanticStageNativeB
   const prepared = owner.execution.rawInputValue;
   const subject = nativeJobRevisionSubject(basis, prepared, true);
   const decision = selectedSemanticPredecessor(basis, ids.selectionImplementationRef, input);
-  if (subject === null || decision === null || !same(decision.execution.rawInputValue, prepared) ||
+  if (subject === null || decision === null || !canonicalEquals(decision.execution.rawInputValue, prepared) ||
     !isSemanticRevisionSelection(decision.previous.result.value)) return null;
   const selected = decision.previous.result.value;
   const selectionChoice: NonNullable<SemanticRevisionRequest["selectionChoice"]> = selected.mode === "construction_repair"
@@ -402,23 +408,23 @@ function jobRevisionSubjectAtBasis(basis: SemanticStageNativeBasis, input: unkno
     const request = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
     if (owner === null || (!isSemanticRevisionSelectionInput(request) && !isSemanticRevisionRequest(request)) ||
       hash(owner.inputValue) !== owner.inputDigest) return null;
-    if (historicalBridge === undefined ? hash(owner.inputValue) !== hash(input) :
+    if (historicalBridge === undefined ? !canonicalEquals(owner.inputValue, input as JsonValue) :
       historicalBridge.previous.cCall.implementationRef !== ids.bridgeImplementationRef ||
       historicalBridge.execution.invocationAdmissionRef !== owner.execution.invocationAdmissionRef ||
-      hash(historicalBridge.execution.rawInputValue) !== hash(input)) return null;
+      !canonicalEquals(historicalBridge.execution.rawInputValue, input as JsonValue)) return null;
     const parent = projectWorksiteRevisionNativeResult(owner.prefix, request.parent);
     const envelope = parent === null ? null : isSemanticJobRevisionEnvelope(parent.result.value) ? parent.result.value.current : parent.result.value;
     if (parent?.result.resultClass !== "success" || parent.judgment.judgment !== "advance" || !isSemanticJobEnvelope(envelope) ||
-      hash(envelope.job) !== hash(owner.root.rawInputValue) || envelope.basis.rootExecutionBasisRef !== owner.root.basisRef ||
-      hash(envelope.declaration) !== hash(owner.lifecycle)) return null;
+      !canonicalEquals(envelope.job as unknown as JsonValue, owner.root.rawInputValue) || envelope.basis.rootExecutionBasisRef !== owner.root.basisRef ||
+      !canonicalEquals(envelope.declaration as unknown as JsonValue, owner.lifecycle as unknown as JsonValue)) return null;
     const parentBasis = rehydrateExecutionBasisAtPrefix(owner.prefix, parent.cCall.basisId);
     const construction = semanticJobConstructionSourceAtPrefix(owner.prefix, envelope);
     const priorWorksite = envelope.worksite ?? construction?.worksite ?? null;
     const current = isSemanticJobRevisionEnvelope(input) ? input.current.worksite : request.currentWorksite;
     if (parentBasis === null || construction === null || priorWorksite === null || current === null ||
       !worksiteRevisionMeaningMatches(priorWorksite, current) ||
-      hash(owner.environment.workspaceAuthorityBasis) !== hash(current.workspaceAuthorityBasis) ||
-      hash(owner.environment.workspaceBinding) !== hash(current.workspaceBinding) || hash(owner.grant) !== hash(current.capabilityGrant) ||
+      !canonicalEquals(owner.environment.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue) ||
+      !canonicalEquals(owner.environment.workspaceBinding as unknown as JsonValue, current.workspaceBinding as unknown as JsonValue) || !canonicalEquals(owner.grant as unknown as JsonValue, current.capabilityGrant as unknown as JsonValue) ||
       worksiteRevisionEntryBindingDisposition(owner.prefix,basis.graphFunction,input,current.workspaceBinding) === "basis_fork_detected") return null;
     const causes = request.causes.map(c => projectWorksiteRevisionNativeResult(owner.prefix,c));
     const eligible = new Set([parentBasis.invocationAdmissionRef, construction.seed.invocationAdmissionRef]);
@@ -462,17 +468,17 @@ function jobRevisionEvidenceSubjectAtBasis(basis: SemanticStageNativeBasis, inpu
     const { original, subject, construction, execution } = parts, owner = subject.owner;
     const { assets: _assets, bindingVersions: _versions, ...currentCoordinates } = input.current;
     const { assets: _oldAssets, bindingVersions: _oldVersions, ...originalCoordinates } = original.current;
-    if (hash(input.revisionBasis) !== hash(original.revisionBasis) ||
-      hash(currentCoordinates) !== hash({ ...originalCoordinates, evidence }) ||
+    if (!canonicalEquals(input.revisionBasis as unknown as JsonValue, original.revisionBasis as unknown as JsonValue) ||
+      !canonicalEquals(currentCoordinates as unknown as JsonValue, { ...originalCoordinates, evidence } as unknown as JsonValue) ||
       evidence.constructionResultRef !== construction.previous.result.resultRef ||
       evidence.constructionResultDigest !== construction.previous.result.resultDigest ||
       evidence.executionResultRef !== execution.previous.result.resultRef ||
       evidence.executionResultDigest !== execution.previous.result.resultDigest ||
-      hash(evidence.constructionResult) !== hash(observation.task.sourceConstructionResult)) return null;
+      !canonicalEquals(evidence.constructionResult, observation.task.sourceConstructionResult as unknown as JsonValue)) return null;
     const originalWithEvidence = { ...original, current: { ...original.current, evidence } };
     const admittedEvidence = selectedSemanticPredecessor(basis, ids.evidenceInputImplementationRef, originalWithEvidence);
     if (admittedEvidence === null || admittedEvidence.event.admissionOrdinal <= execution.event.admissionOrdinal ||
-      hash(admittedEvidence.execution.rawInputValue) !== hash(observation) ||
+      !canonicalEquals(admittedEvidence.execution.rawInputValue, observation) ||
       !worksiteExecutionSourcesCurrent(owner.prefix, observation.task)) return null;
     // The existing Evidence owner admitted these exact snapshot bodies. Cold
     // reconstruction validates their content identities without rereading I/O.
@@ -483,12 +489,12 @@ function jobRevisionEvidenceSubjectAtBasis(basis: SemanticStageNativeBasis, inpu
         const bytes = Buffer.from(artifact.base64, "base64");
         return artifact.subjectRef === source.subject.subjectRef && artifact.observationRef === member.sourceObservationRef &&
           source.observation.observationRef === member.sourceObservationRef && source.designTargetRef === member.designTargetRef &&
-          hash(source.source) === hash(member.source) && bytes.toString("base64") === artifact.base64 &&
+          canonicalEquals(source.source, member.source) && bytes.toString("base64") === artifact.base64 &&
           bytes.length === member.byteLength && sha256Bytes(bytes) === member.digest;
       })) return null;
     const historical = subject.currentWorksite;
     const targets = historical.targets.map(row => {
-      const ordinal = observation.task.snapshotSources.findIndex(source => hash(source.subject) === hash(row.target.subject));
+      const ordinal = observation.task.snapshotSources.findIndex(source => canonicalEquals(source.subject as unknown as JsonValue, row.target.subject as unknown as JsonValue));
       const source = observation.task.snapshotSources[ordinal], artifact = evidence.artifacts[ordinal];
       if (source === undefined || artifact === undefined) throw new TypeError("revision target has no admitted snapshot source");
       const task = constructWorksiteConstructionTask({ workspaceAuthorityBasis: historical.workspaceAuthorityBasis,
@@ -509,7 +515,7 @@ export function jobRevisionSelectionMatchesBasis(basis: SemanticStageNativeBasis
   const subject = projectOwnedJobRevisionSubject(basis,input);
   if (subject === null || !isSemanticRevisionSelectionInput(input) || !isSemanticRevisionSelection(output) ||
     subject.owner.call.implementationRef !== ids.selectionImplementationRef || basis.graphFunction.declarations["abg.semantic_revision_selection"] !== subject.owner.lifecycle.declarationRef ||
-    hash(input.parent) !== hash(output.parent) || hash(input.causes) !== hash(output.causes)) return false;
+    !canonicalEquals(input.parent as unknown as JsonValue, output.parent as unknown as JsonValue) || !canonicalEquals(input.causes as unknown as JsonValue, output.causes as unknown as JsonValue)) return false;
   const active = projectSemanticJobBindings(subject.envelope);
   if ("nativeWorksite" in subject) {
     const phase = subject.nativeWorksite.construction === null ? "preconstruction" : "postconstruction";
@@ -557,9 +563,9 @@ export function projectSemanticJobRevision(basis: SemanticStageNativeBasis,input
 export function semanticJobRevisionInputMatchesBasis(basis: SemanticStageNativeBasis,input: unknown): input is SemanticJobRevisionEnvelope {
   try {
     const owner = authenticateOwnedSemanticJobBasis(basis);
-    if (owner === null || !isSemanticJobRevisionEnvelope(input) || !(same(owner.inputValue,input) || [ids.nativeExecutionImplementationRef,ids.nativeEvidenceImplementationRef].some(r=>r===owner.call.implementationRef) && isRetainedGraphInput(owner.inputValue) && same(owner.inputValue.entry,input)) ||
-      hash(input.current.job) !== hash(owner.root.rawInputValue) || hash(input.current.declaration) !== hash(owner.lifecycle)) return false;
-    const sources = owner.events.filter(e => e.kind === "c_call_result_admitted" && recordJob(e.payload) && hash(e.payload.value) === hash(input)).flatMap(event => {
+    if (owner === null || !isSemanticJobRevisionEnvelope(input) || !(canonicalEquals(owner.inputValue, input as unknown as JsonValue) || [ids.nativeExecutionImplementationRef,ids.nativeEvidenceImplementationRef].some(r=>r===owner.call.implementationRef) && isRetainedGraphInput(owner.inputValue) && canonicalEquals(owner.inputValue.entry, input as unknown as JsonValue)) ||
+      !canonicalEquals(input.current.job as unknown as JsonValue, owner.root.rawInputValue) || !canonicalEquals(input.current.declaration as unknown as JsonValue, owner.lifecycle as unknown as JsonValue)) return false;
+    const sources = owner.events.filter(e => e.kind === "c_call_result_admitted" && recordJob(e.payload) && canonicalEquals(e.payload.value as JsonValue, input as unknown as JsonValue)).flatMap(event => {
       const judgment = owner.events.find(e => e.kind === "c_call_judged" && e.aggregateId === event.aggregateId);
       if (judgment === undefined || !recordJob(event.payload)) return [];
       const result = projectWorksiteRevisionNativeResult(owner.prefix,{cCallRef:event.aggregateId,resultRef:event.payload.resultRef as string,
@@ -629,7 +635,7 @@ export function projectNativeRevisionExecutionTask(basis: SemanticStageNativeBas
     if (construction === null || construction.sourceBasis.invocationAdmissionRef !== owner.execution.invocationAdmissionRef ||
       construction.sourceResult.runId !== owner.call.runId) return null;
     const prepared = selectedSemanticPredecessor(basis,ids.nativeConstructionImplementationRef,input.source.task);
-    if (prepared === null || !same(prepared.execution.rawInputValue,input.entry)) return null;
+    if (prepared === null || !canonicalEquals(prepared.execution.rawInputValue, input.entry)) return null;
     return constructNativeRevisionExecutionTask(input.entry,input.source);
   } catch { return null; }
 }
@@ -642,7 +648,7 @@ export function projectNativeRevisionEvidence(basis: SemanticStageNativeBasis, i
     const construction = projectNativeWorkspaceWorkSourceAtPrefix(owner.prefix,input.source.task.sourceNativeWork);
     const preparation = selectedSemanticPredecessor(basis,ids.nativeExecutionImplementationRef,input.source.task);
     if (execution === null || construction === null || preparation === null ||
-      !same(preparation.execution.rawInputValue,input.entry) ||
+      !canonicalEquals(preparation.execution.rawInputValue, input.entry) ||
       construction.sourceResult.runId !== owner.call.runId || construction.sourceBasis.invocationAdmissionRef !== owner.execution.invocationAdmissionRef ||
       construction.sourceClosedEvent.admissionOrdinal >= execution.event.admissionOrdinal) return null;
     const payload = construction.sourceResult.payload;
@@ -660,18 +666,18 @@ export function semanticJobRevisionResultMatchesBasis(basis: SemanticStageNative
     owner.call.implementationRef === ids.nativeConstructionImplementationRef ? projectNativeRevisionConstructionTask :
     owner.call.implementationRef === ids.nativeExecutionImplementationRef ? projectNativeRevisionExecutionTask :
     owner.call.implementationRef === ids.nativeEvidenceImplementationRef ? projectNativeRevisionEvidence : null;
-  if (nativeProjection !== null) { const value = nativeProjection(basis,input); return value !== null && same(value,output); }
+  if (nativeProjection !== null) { const value = nativeProjection(basis,input); return value !== null && canonicalEquals(value as unknown as JsonValue, output as JsonValue); }
   if (owner.call.implementationRef === ids.selectionImplementationRef) return jobRevisionSelectionMatchesBasis(basis,input,output);
-  if (owner.call.implementationRef === ids.projectionImplementationRef) { const value=projectSemanticJobRevision(basis,input);return value!==null&&hash(value)===hash(output); }
-  if (owner.call.implementationRef === ids.bridgeImplementationRef) { const value=projectJobRevisionPreparation(basis,input);return value!==null&&hash(value)===hash(output); }
-  if (owner.call.implementationRef === ids.evidenceInputImplementationRef) { const value=projectRevisionEvidenceInput(basis,input);return value!==null&&hash(value)===hash(output); }
+  if (owner.call.implementationRef === ids.projectionImplementationRef) { const value=projectSemanticJobRevision(basis,input);return value!==null&&canonicalEquals(value as unknown as JsonValue, output as JsonValue); }
+  if (owner.call.implementationRef === ids.bridgeImplementationRef) { const value=projectJobRevisionPreparation(basis,input);return value!==null&&canonicalEquals(value as unknown as JsonValue, output as JsonValue); }
+  if (owner.call.implementationRef === ids.evidenceInputImplementationRef) { const value=projectRevisionEvidenceInput(basis,input);return value!==null&&canonicalEquals(value as unknown as JsonValue, output as JsonValue); }
   if (!semanticJobRevisionInputMatchesBasis(basis,input)) return false;
-  if (owner.call.implementationRef === ids.terminalImplementationRef) return hash(input)===hash(output);
+  if (owner.call.implementationRef === ids.terminalImplementationRef) return canonicalEquals(input as unknown as JsonValue, output as JsonValue);
   if (!isSemanticJobRevisionEnvelope(output) || owner.stage===undefined) return false;
   const asset=output.current.assets.at(-1),source=owner.role==="author"?asset?.source:asset?.assessment?.source;
   if(source===undefined||source.cCallRef!==owner.call.cCallRef||source.inputDigest!==owner.inputDigest)return false;
   const value=owner.role==="author"?deriveJobRevisionAsset(input,owner.stage.declarationRef,asset!.candidate,source):deriveJobRevisionAssessment(input,owner.stage.declarationRef,asset!.assessment?.candidate,source);
-  return value!==null&&hash(value)===hash(output);
+  return value!==null&&canonicalEquals(value as unknown as JsonValue, output as unknown as JsonValue);
 }
 export function isSemanticRevisionCommandCause(value: unknown): boolean {
   return isWorksiteCommandExecutionObservation(value) || isWorksiteRevisionCommandExecutionObservation(value);
@@ -692,9 +698,9 @@ function revisionWorksiteProjection(basis: SemanticStageNativeBasis, parentCoord
   const env = projectExactPrefixWorkspaceEnvironment(basis.predecessorPrefix,
     { ref: owner.execution.workspaceBindingId, digest: owner.execution.workspaceBindingDigest });
   const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
-  if (env.kind !== "exact_prefix_workspace_environment" || hash(env.workspaceBinding) !== hash(current.workspaceBinding) ||
-    hash(env.workspaceAuthorityBasis) !== hash(current.workspaceAuthorityBasis) || invocation?.capabilityGrants.length !== 1 ||
-    hash(invocation.capabilityGrants[0]) !== hash(current.capabilityGrant)) return null;
+  if (env.kind !== "exact_prefix_workspace_environment" || !canonicalEquals(env.workspaceBinding as unknown as JsonValue, current.workspaceBinding as unknown as JsonValue) ||
+    !canonicalEquals(env.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue) || invocation?.capabilityGrants.length !== 1 ||
+    !canonicalEquals(invocation.capabilityGrants[0] as unknown as JsonValue, current.capabilityGrant as unknown as JsonValue)) return null;
   if(worksiteRevisionEntryBindingDisposition(cut??owner.prefix,basis.graphFunction,semanticInputValueAtBasis(basis),current.workspaceBinding)==="basis_fork_detected")return null;
   const parentExecution = rehydrateExecutionBasisAtPrefix(owner.prefix, parent.cCall.basisId);
   if (parentExecution === null) return null;
@@ -711,9 +717,9 @@ function revisionWorksiteProjection(basis: SemanticStageNativeBasis, parentCoord
   const visited = new Set<string>();
   while (isSemanticRevisionEnvelope(ancestor.result.value)) {
     const revision = ancestor.result.value;
-    if (visited.has(revision.revisionBasis.basisRef) || hash(revision.current.lifecycle) !== hash(owner.lifecycle) ||
-      hash(revision.current.sourceHandoff.declaration) !== hash(owner.source) || revision.current.worksite === null ||
-      hash(revision.current.worksite.workspaceAuthorityBasis) !== hash(current.workspaceAuthorityBasis) ||
+    if (visited.has(revision.revisionBasis.basisRef) || !canonicalEquals(revision.current.lifecycle as unknown as JsonValue, owner.lifecycle as unknown as JsonValue) ||
+      !canonicalEquals(revision.current.sourceHandoff.declaration as unknown as JsonValue, owner.source as unknown as JsonValue) || revision.current.worksite === null ||
+      !canonicalEquals(revision.current.worksite.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue) ||
       projectSemanticWorksiteCoordinates(revision.current.worksite,current)===null) return null;
     visited.add(revision.revisionBasis.basisRef);
     const ancestorOrdinal = owner.events.find(event => event.eventId === ancestor.result.admissionEventRef)?.admissionOrdinal;
@@ -730,8 +736,8 @@ function revisionWorksiteProjection(basis: SemanticStageNativeBasis, parentCoord
     ancestor = previous;
     seedBasis = execution;
   }
-  if (!isSemanticStageEnvelope(ancestor.result.value) || hash(ancestor.result.value.lifecycle) !== hash(owner.lifecycle) ||
-    hash(ancestor.result.value.sourceHandoff.declaration) !== hash(owner.source) ||
+  if (!isSemanticStageEnvelope(ancestor.result.value) || !canonicalEquals(ancestor.result.value.lifecycle as unknown as JsonValue, owner.lifecycle as unknown as JsonValue) ||
+    !canonicalEquals(ancestor.result.value.sourceHandoff.declaration as unknown as JsonValue, owner.source as unknown as JsonValue) ||
     ancestor.result.value.worksite===null||
     !worksiteRevisionSeedMatches(seedBasis, ancestor.result.value, ancestor.result.value.worksite)) return null;
   const origins = projectWorksiteRevisionOrigins(cut ?? owner.prefix, seedBasis, prior, current, [...eligible]);
@@ -742,7 +748,7 @@ export function projectSemanticRevision(basis: SemanticStageNativeBasis, input: 
   readPhysical = true): Readonly<SemanticRevisionEnvelope> | null {
   try {
     const owner = authenticateOwnedSemanticStageBasis(basis);
-    if (owner === null || !isSemanticRevisionRequest(input) || hash(semanticInputValueAtBasis(basis)) !== hash(input) ||
+    if (owner === null || !isSemanticRevisionRequest(input) || !canonicalEquals(semanticInputValueAtBasis(basis) as JsonValue, input as unknown as JsonValue) ||
       owner.call.implementationRef !== ids.projectionImplementationRef) return null;
     const parent = admitted(basis, input.parent), decision = admitted(basis, input.selection);
     if (parent === null || decision === null || parent.result.resultClass !== "success" || parent.judgment.judgment !== "advance" ||
@@ -752,7 +758,7 @@ export function projectSemanticRevision(basis: SemanticStageNativeBasis, input: 
       !isSemanticRevisionSelection(decision.result.value)) return null;
     const selection = decision.result.value;
     const prior = isSemanticRevisionEnvelope(parent.result.value) ? parent.result.value.current : parent.result.value;
-    if (hash(prior.lifecycle) !== hash(owner.lifecycle) || hash(prior.sourceHandoff.declaration) !== hash(owner.source)) return null;
+    if (!canonicalEquals(prior.lifecycle as unknown as JsonValue, owner.lifecycle as unknown as JsonValue) || !canonicalEquals(prior.sourceHandoff.declaration as unknown as JsonValue, owner.source as unknown as JsonValue)) return null;
     const decisionExecution = rehydrateExecutionBasisAtPrefix(owner.prefix, decision.cCall.basisId);
     const decisionGraph = basis.declarationGraphFunctions.find(g => g.name === decision.cCall.graphFunctionRef &&
       g.declarations["abg.semantic_revision_selection"] === owner.lifecycle.declarationRef);
@@ -781,9 +787,9 @@ export function projectSemanticRevision(basis: SemanticStageNativeBasis, input: 
 export function semanticRevisionInputMatchesBasis(basis: SemanticStageNativeBasis, input: unknown): input is SemanticRevisionEnvelope {
   try {
     const owner = authenticateOwnedSemanticStageBasis(basis);
-    if (owner === null || !isSemanticRevisionEnvelope(input) || hash(semanticInputValueAtBasis(basis)) !== hash(input) ||
-      hash(input.current.lifecycle) !== hash(owner.lifecycle) || hash(input.current.sourceHandoff.declaration) !== hash(owner.source)) return false;
-    const sources = owner.events.filter(e => e.kind === "c_call_result_admitted" && hash((e.payload as { value?: unknown }).value) === hash(input)).filter(event => {
+    if (owner === null || !isSemanticRevisionEnvelope(input) || !canonicalEquals(semanticInputValueAtBasis(basis) as JsonValue, input as unknown as JsonValue) ||
+      !canonicalEquals(input.current.lifecycle as unknown as JsonValue, owner.lifecycle as unknown as JsonValue) || !canonicalEquals(input.current.sourceHandoff.declaration as unknown as JsonValue, owner.source as unknown as JsonValue)) return false;
+    const sources = owner.events.filter(e => e.kind === "c_call_result_admitted" && canonicalEquals((e.payload as { value?: unknown }).value as JsonValue, input as unknown as JsonValue)).filter(event => {
       const source = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, event.aggregateId, basis.declarationGraphFunctions);
       return source !== null && source.result.resultClass === "success" && source.judgment.judgment === "advance" &&
         [ids.projectionImplementationRef, ids.authorImplementationRef, ids.assessorImplementationRef, ids.evidenceInputImplementationRef].some(r => r === source.cCall.implementationRef);
@@ -797,19 +803,19 @@ export function semanticRevisionResultMatchesBasis(basis: SemanticStageNativeBas
   if (owner.call.implementationRef === ids.selectionImplementationRef) return semanticRevisionSelectionMatchesBasis(basis, input, output);
   if (owner.call.implementationRef === ids.projectionImplementationRef) {
     const expected = projectSemanticRevision(basis, input);
-    return expected !== null && hash(expected) === hash(output);
+    return expected !== null && canonicalEquals(expected as unknown as JsonValue, output as JsonValue);
   }
-  if (owner.call.implementationRef === ids.evidenceInputImplementationRef) { const expected = projectRevisionEvidenceInput(basis, input); return expected !== null && hash(expected) === hash(output); }
+  if (owner.call.implementationRef === ids.evidenceInputImplementationRef) { const expected = projectRevisionEvidenceInput(basis, input); return expected !== null && canonicalEquals(expected as unknown as JsonValue, output as JsonValue); }
   if (!semanticRevisionInputMatchesBasis(basis, input)) return false;
-  if (owner.call.implementationRef === ids.bridgeImplementationRef) { const expected = projectRevisionWorksitePreparation(basis, input); return expected !== null && hash(expected) === hash(output); }
-  if (owner.call.implementationRef === ids.terminalImplementationRef) return hash(input) === hash(output);
+  if (owner.call.implementationRef === ids.bridgeImplementationRef) { const expected = projectRevisionWorksitePreparation(basis, input); return expected !== null && canonicalEquals(expected as unknown as JsonValue, output as JsonValue); }
+  if (owner.call.implementationRef === ids.terminalImplementationRef) return canonicalEquals(input as unknown as JsonValue, output as JsonValue);
   if (!isSemanticRevisionEnvelope(output) || owner.stage === undefined) return false;
   const asset = output.current.assets.at(-1), role = owner.role;
   const source = role === "author" ? asset?.source : asset?.assessment?.source;
   if (asset === undefined || source === undefined || source.cCallRef !== owner.call.cCallRef || source.inputDigest !== owner.inputDigest) return false;
   const expected = role === "author" ? deriveRevisionAsset(input, owner.stage.declarationRef, asset.candidate, source)
     : role === "assessor" ? deriveRevisionAssessment(input, owner.stage.declarationRef, asset.assessment?.candidate, source) : null;
-  return expected !== null && hash(expected) === hash(output);
+  return expected !== null && canonicalEquals(expected as unknown as JsonValue, output as unknown as JsonValue);
 }
 /** Pure mapping is reconstructed from the native parent, never caller currentness. */
 export function projectRevisionHistoricalContext(basis: SemanticStageNativeBasis, input: SemanticRevisionEnvelope) {
@@ -847,15 +853,15 @@ export function projectRevisionDesignCoordinates(basis: SemanticStageNativeBasis
       ![SEMANTIC_STAGE_IDS.authorImplementationRef, ids.authorImplementationRef].some(ref => ref === author.cCall.implementationRef)) return null;
     const authored = isSemanticRevisionEnvelope(author.result.value) ? author.result.value.current : author.result.value;
     if (!isSemanticStageEnvelope(authored) || authored.worksite === null ||
-      hash(authored.assets.at(-1)) !== hash({ ...asset, assessment: null }) ||
-      hash(authored.lifecycle) !== hash(owner.lifecycle) || hash(authored.lifecycle) !== hash(input.current.lifecycle) ||
-      hash(authored.sourceHandoff) !== hash(input.current.sourceHandoff) || hash(authored.sourceHandoff.declaration) !== hash(owner.source) ||
-      hash(authored.worksite.workspaceAuthorityBasis) !== hash(input.current.worksite.workspaceAuthorityBasis)) return null;
+      !canonicalEquals(authored.assets.at(-1) as unknown as JsonValue, { ...asset, assessment: null } as unknown as JsonValue) ||
+      !canonicalEquals(authored.lifecycle as unknown as JsonValue, owner.lifecycle as unknown as JsonValue) || !canonicalEquals(authored.lifecycle as unknown as JsonValue, input.current.lifecycle as unknown as JsonValue) ||
+      !canonicalEquals(authored.sourceHandoff as unknown as JsonValue, input.current.sourceHandoff as unknown as JsonValue) || !canonicalEquals(authored.sourceHandoff.declaration as unknown as JsonValue, owner.source as unknown as JsonValue) ||
+      !canonicalEquals(authored.worksite.workspaceAuthorityBasis as unknown as JsonValue, input.current.worksite.workspaceAuthorityBasis as unknown as JsonValue)) return null;
     const history = authored.worksite, current = input.current.worksite;
-    const crosses=hash(history.workspaceBinding)!==hash(current.workspaceBinding);
+    const crosses=!canonicalEquals(history.workspaceBinding as unknown as JsonValue, current.workspaceBinding as unknown as JsonValue);
     if(crosses&&projectWorksiteRevisionBindingOrigin(owner.prefix,input)===null)return null;
     const projectedHistory=crosses?projectSemanticWorksiteCoordinates(history,current):history;
-    const projectedPrior=hash(prior.worksite!.workspaceBinding)!==hash(current.workspaceBinding)?projectSemanticWorksiteCoordinates(prior.worksite!,current):prior.worksite!;
+    const projectedPrior=!canonicalEquals(prior.worksite!.workspaceBinding as unknown as JsonValue, current.workspaceBinding as unknown as JsonValue)?projectSemanticWorksiteCoordinates(prior.worksite!,current):prior.worksite!;
     if(projectedHistory===null||projectedPrior===null)return null;
     const inventory = new Set([...design.targets.map(t => t.targetRef), ...design.dependencyTargetRefs]);
     const rows = history.targets.filter(row => inventory.has(row.target.targetRef));
@@ -863,7 +869,7 @@ export function projectRevisionDesignCoordinates(basis: SemanticStageNativeBasis
     const sameSubject = (a: SemanticWorksiteBasis["targets"][number], b: SemanticWorksiteBasis["targets"][number]) => {
       const source=history.targets.indexOf(a),previous=prior.worksite!.targets.indexOf(b);
       const left=source<0?a:projectedHistory.targets[source]!,right=previous<0?b:projectedPrior.targets[previous]!;
-      return hash(left.target.subject)===hash(right.target.subject)&&hash(left.target.territory)===hash(right.target.territory)&&left.role===right.role;
+      return canonicalEquals(left.target.subject as unknown as JsonValue, right.target.subject as unknown as JsonValue)&&canonicalEquals(left.target.territory as unknown as JsonValue, right.target.territory as unknown as JsonValue)&&left.role===right.role;
     };
     if (rows.some(row => prior.worksite!.targets.filter(t => sameSubject(row, t)).length !== 1 ||
       current.targets.filter(t => sameSubject(row, t)).length !== 1)) return null;
@@ -925,7 +931,7 @@ export function projectRevisionEvidenceInput(basis: SemanticStageNativeBasis, in
     const job = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined;
     const owner = job ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
     if (owner === null || owner.call.implementationRef !== ids.evidenceInputImplementationRef ||
-      !isWorksiteRevisionCommandExecutionObservation(input) || hash(input) !== owner.inputDigest || hash(semanticInputValueAtBasis(basis)) !== hash(input)) return null;
+      !isWorksiteRevisionCommandExecutionObservation(input) || hash(input) !== owner.inputDigest || !canonicalEquals(semanticInputValueAtBasis(basis) as JsonValue, input as unknown as JsonValue)) return null;
     const parts = revisionEvidenceComponentsAtBasis(basis, input);
     if (parts === null) return null;
     const { original, construction, execution } = parts;
@@ -942,7 +948,7 @@ export function projectRevisionEvidenceInput(basis: SemanticStageNativeBasis, in
         entry.relativePath === source?.subject.relativePath && entry.state === "file") : undefined;
       const expectedBytes = row?.base64 ?? (read?.state === "file" ? read.bytes : null);
       if (source === undefined || expectedBytes === null || source.designTargetRef !== member.designTargetRef ||
-        hash(source.source) !== hash(member.source) || (source.source.kind === "retained_dependency" && expectedBytes !== bytes.toString("base64"))) throw new TypeError("snapshot dependency or source tag changed");
+        !canonicalEquals(source.source, member.source) || (source.source.kind === "retained_dependency" && expectedBytes !== bytes.toString("base64"))) throw new TypeError("snapshot dependency or source tag changed");
       return { subjectRef: source.subject.subjectRef, observationRef: member.sourceObservationRef, base64: bytes.toString("base64"), role: row?.role === "verifier" ? "verifier_artifact" as const : "realization" as const };
     });
     const result = { ...original, current: { ...original.current, evidence: { kind: "semantic_worksite_evidence" as const,
@@ -976,13 +982,13 @@ function revisionEvidenceComponentsAtBasis(basis: SemanticStageNativeBasis,
       const expected = isSemanticJobRevisionEnvelope(original) ? subject === null ? null : jobRevisionPreparationFromSubject(subject, original)
         : revisionPreparationAtBasis(basis, original, false,
           selectValidatedRuntimeEventPrefix(Object.freeze(owner.events.filter(e => e.admissionOrdinal < bridge.event.admissionOrdinal))));
-      if (expected === null || hash(expected) !== hash(value)) return null;
+      if (expected === null || !canonicalEquals(expected as unknown as JsonValue, value as unknown as JsonValue)) return null;
       return { original, expected, subject };
     }).filter((v): v is NonNullable<typeof v> => v !== null);
     if (candidates.length !== 1) return null;
     const { original, expected, subject } = candidates[0]!;
     const prepared = prepareWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult });
-    if (hash(prepared) !== hash(input.task)) return null;
+    if (!canonicalEquals(prepared as unknown as JsonValue, input.task as unknown as JsonValue)) return null;
     if (original.current.worksite === null) return null;
     if (!isSemanticJobRevisionEnvelope(original)) {
       const parent = admitted(basis, original.revisionBasis.request.parent);
@@ -1003,7 +1009,7 @@ export function projectRevisionSelectionSubject(basis: SemanticStageNativeBasis,
 export function projectOwnedRevisionSelectionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical = false) {
   const owner = authenticateOwnedSemanticStageBasis(basis);
   if (owner === null || owner.call.implementationRef !== ids.selectionImplementationRef || !isSemanticRevisionSelectionInput(input) ||
-    hash(semanticInputValueAtBasis(basis)) !== hash(input) || basis.graphFunction.declarations["abg.semantic_revision_selection"] !== owner.lifecycle.declarationRef) return null;
+    !canonicalEquals(semanticInputValueAtBasis(basis) as JsonValue, input as unknown as JsonValue) || basis.graphFunction.declarations["abg.semantic_revision_selection"] !== owner.lifecycle.declarationRef) return null;
   const parent = admitted(basis, input.parent), causes = input.causes.map(c => admitted(basis, c));
   if (parent === null || parent.result.resultClass !== "success" || parent.judgment.judgment !== "advance" || causes.some(c => c === null)) return null;
   const parentExecution = rehydrateExecutionBasisAtPrefix(owner.prefix, parent.cCall.basisId);
@@ -1018,7 +1024,7 @@ export function projectOwnedRevisionSelectionSubject(basis: SemanticStageNativeB
       (isSemanticStageEnvelope(cause.result.value) && cause.result.value.assets.some(a => a.assessment !== null && a.assessment.disposition !== "satisfied")))) return null;
   }
   const envelope = isSemanticRevisionEnvelope(parent.result.value) ? parent.result.value.current : parent.result.value;
-  if (!isSemanticStageEnvelope(envelope) || hash(envelope.lifecycle) !== hash(owner.lifecycle) || hash(envelope.sourceHandoff.declaration) !== hash(owner.source)) return null;
+  if (!isSemanticStageEnvelope(envelope) || !canonicalEquals(envelope.lifecycle as unknown as JsonValue, owner.lifecycle as unknown as JsonValue) || !canonicalEquals(envelope.sourceHandoff.declaration as unknown as JsonValue, owner.source as unknown as JsonValue)) return null;
   const environment=projectExactPrefixWorkspaceEnvironment(basis.predecessorPrefix,{ref:owner.execution.workspaceBindingId,digest:owner.execution.workspaceBindingDigest});
   if(environment.kind!=="exact_prefix_workspace_environment"||worksiteRevisionEntryBindingDisposition(owner.prefix,basis.graphFunction,input,environment.workspaceBinding)==="basis_fork_detected")return null;
   const origins = revisionWorksiteProjection(basis, input.parent, envelope.worksite, input.currentWorksite, readPhysical, input.causes);
@@ -1029,7 +1035,7 @@ export function projectOwnedRevisionSelectionSubject(basis: SemanticStageNativeB
 export function semanticRevisionSelectionMatchesBasis(basis: SemanticStageNativeBasis, input: unknown, output: unknown): boolean {
   const subject = projectOwnedRevisionSelectionSubject(basis, input);
   if (subject === null || !isSemanticRevisionSelectionInput(input) || !isSemanticRevisionSelection(output) ||
-    hash(input.parent) !== hash(output.parent) || hash(input.causes) !== hash(output.causes)) return false;
+    !canonicalEquals(input.parent as unknown as JsonValue, output.parent as unknown as JsonValue) || !canonicalEquals(input.causes as unknown as JsonValue, output.causes as unknown as JsonValue)) return false;
   const bindings = [...subject.envelope.sourceHandoff.declaration.fulfillmentBindings, ...subject.envelope.assets.flatMap(a => a.discoveredBindings), ...(isSemanticRevisionEnvelope(subject.parent.result.value) ? subject.parent.result.value.revisionBasis.retainedBindings : [])];
   return output.selectedObligationRefs.every(r => bindings.some(b => b.obligationRef === r)) &&
     output.selectedTargetRefs.every(r => subject.envelope.worksite?.targets.some(t => t.target.targetRef === r)) &&

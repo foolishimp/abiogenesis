@@ -1,5 +1,4 @@
 import {
-  canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../../shared/canonical_json.js";
@@ -22,6 +21,7 @@ import type {
   PublicEventAdmission,
 } from "../../shared/public_function_contracts.js";
 import type { PublicDefinitionKeyLike } from "../../shared/public_invocation.js";
+import { canonicalEquals } from "../../shared/value/index.js";
 
 const FAMILY_REQUIREMENT_AUTHORITY_REFS = Object.freeze([
   "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-009",
@@ -172,10 +172,6 @@ function publicDefinitionRef(
   return `public-function://abiogenesis/${operationPath}/${definitionKey.memberKey}@5`;
 }
 
-function sameCanonical(left: unknown, right: unknown): boolean {
-  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-}
-
 function contractReferenceProjection(
   binding: ResolvedOwnerContractBinding,
 ): ExactOwnerContractReference {
@@ -214,15 +210,15 @@ function assertSourceAgreement(source: ResolvedOwnerContractSource): void {
       (bindings.nonTerminal === null) ||
     contracts.some(([slot, contract, binding]) =>
       contract.slot !== slot ||
-      !sameCanonical(contract.definitionKey, packet.definitionKey) ||
-      !sameCanonical(contract, contractReferenceProjection(binding)) ||
-      !sameCanonical(contract.source, packet.metadata.source) ||
+      !canonicalEquals(contract.definitionKey as unknown as JsonValue, packet.definitionKey as unknown as JsonValue) ||
+      !canonicalEquals(contract as unknown as JsonValue, contractReferenceProjection(binding) as unknown as JsonValue) ||
+      !canonicalEquals(contract.source as unknown as JsonValue, packet.metadata.source as unknown as JsonValue) ||
       contract.ownerAuthorityRef !== source.metadata.ownerAuthorityRef ||
       contract.ownerAuthorityDigest !== source.metadata.ownerAuthorityDigest
     ) ||
-    !sameCanonical(
-      packet.executionBindingSpecification.definitionKey,
-      packet.definitionKey,
+    !canonicalEquals(
+      packet.executionBindingSpecification.definitionKey as unknown as JsonValue,
+      packet.definitionKey as unknown as JsonValue,
     ) ||
     packet.executionBindingSpecification.semanticOwnerRef !==
       source.metadata.ownerAuthorityRef ||
@@ -470,7 +466,7 @@ export function selectIntrinsicPublicFunctionDefinition(
   definitionKey: PublicDefinitionKeyLike,
 ): IntrinsicPublicFunctionDefinition | null {
   const matches = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.filter(
-    (definition) => sameCanonical(definition.definitionKey, definitionKey),
+    (definition) => canonicalEquals(definition.definitionKey as unknown as JsonValue, definitionKey as unknown as JsonValue),
   );
   return matches.length === 1 ? matches[0]! : null;
 }

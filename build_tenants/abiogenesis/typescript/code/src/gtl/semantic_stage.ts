@@ -1,10 +1,10 @@
 import { SEMANTIC_STAGE_IDS, SEMANTIC_IMPLEMENTATION_REFS } from "./semantic_stage_identity.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export { SEMANTIC_STAGE_IDS, SEMANTIC_IMPLEMENTATION_REFS } from "./semantic_stage_identity.js";
 import * as v from "valibot";
 import type { ContractDeclaration, GtlProgram, ModulePublication } from "./contracts.js";
 import { REQUIREMENT_TERM_SCHEMA, type RequirementTerm } from "./requirement_handoff.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { validSemanticJobLifecyclePublication, validSemanticJobProgramOwners } from "./semantic_job.js";
 
@@ -141,7 +141,7 @@ export function semanticLifecycleRefForProgram(publication: Readonly<ModulePubli
 export function validSemanticProgramOwners(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>,
   lifecyclePublication: Readonly<ModulePublication>, sourcePublication: Readonly<ModulePublication>): boolean {
   if (lifecyclePublication.semanticJobLifecycle !== undefined)
-    return sha256Canonical(sourcePublication as unknown as JsonValue) === sha256Canonical(lifecyclePublication as unknown as JsonValue) &&
+    return canonicalEquals(sourcePublication as unknown as JsonValue, lifecyclePublication as unknown as JsonValue) &&
       validSemanticJobProgramOwners(publication, program, lifecyclePublication);
   const ref = semanticLifecycleRefForProgram(publication, program);
   return ref !== undefined && lifecyclePublication.semanticLifecycle?.declarationRef === ref &&

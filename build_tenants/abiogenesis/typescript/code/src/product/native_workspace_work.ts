@@ -12,11 +12,11 @@ import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
 import type { LeafExecutionAuthority } from "../implementation/contracts.js";
 
 import { NATIVE_WORKSPACE_WORK_IDS, NATIVE_WORKSPACE_WORK_HANDLER_DIGEST } from "./native_workspace_work_identity.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export { NATIVE_WORKSPACE_WORK_IDS, NATIVE_WORKSPACE_WORK_HANDLER_DIGEST } from "./native_workspace_work_identity.js";
 const scope = "abiogenesis/worksite/native-work";
 const ref = v.pipe(v.string(), v.minLength(1), v.check(x => !x.includes("\0")));
 const paths = v.array(v.pipe(ref, v.check(x => normalizeWorksiteRelativePath(x, true) === x)));
-const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
 export const nativeWorkspacePathWithin = (path: string, roots: readonly string[]) =>
   roots.some(root => root === "." || root === path || path.startsWith(root + "/"));
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
@@ -125,15 +125,15 @@ export function nativeWorkspaceWorkAuthorityMatches(task: NativeWorkspaceWorkTas
     a.programRef === e.programRef && a.programDigest === e.programDigest &&
     a.cCallRef === c.cCallRef && a.cCallDigest === c.cCallDigest &&
     a.workspaceBindingIdentity === e.workspaceBindingId && a.workspaceBindingDigest === e.workspaceBindingDigest &&
-    same(task.workspaceBinding, a.workspaceBinding) && task.workspaceBinding.bindingId === a.workspaceBindingIdentity &&
+    canonicalEquals(task.workspaceBinding as unknown as JsonValue, a.workspaceBinding as unknown as JsonValue) && task.workspaceBinding.bindingId === a.workspaceBindingIdentity &&
     task.workspaceBinding.bindingDigest === a.workspaceBindingDigest && task.capabilityGrant.actorRef === a.actorRef &&
     a.actorRef === e.actorRef && a.capabilityGrantRef === task.capabilityGrant.grantRef &&
-    a.capabilityGrantDigest === task.capabilityGrant.grantDigest && same(task, e.rawInputValue);
+    a.capabilityGrantDigest === task.capabilityGrant.grantDigest && canonicalEquals(task as unknown as JsonValue, e.rawInputValue);
 }
 export function nativeWorkspaceChangedPaths(before: WorksiteContextObservation, after: WorksiteContextObservation): readonly string[] {
   const rows = (context: WorksiteContextObservation) => new Map(context.entries.map(e => [e.relativePath, e]));
   const a = rows(before), b = rows(after);
-  return [...new Set([...a.keys(), ...b.keys()])].sort().filter(path => !same(a.get(path) ?? null, b.get(path) ?? null));
+  return [...new Set([...a.keys(), ...b.keys()])].sort().filter(path => !canonicalEquals(a.get(path) ?? null, b.get(path) ?? null));
 }
 export function nativeWorkspaceScopeViolations(task: NativeWorkspaceWorkTask, after: WorksiteContextObservation): readonly string[] {
   return nativeWorkspaceChangedPaths(task.context, after).filter(path => {
@@ -188,13 +188,13 @@ export function isNativeWorkspaceWorkObservation(value: unknown): value is Nativ
         (o.report !== null || o.assessment === undefined || parseNativeWorkspaceAssessmentResult(nativeWorkspaceWorkResponseSchema(o.task), canonicalJson(o.assessment)) === null ||
           o.provenance.cCallRef === o.task.assessment.producer.cCallRef || o.provenance.actorInvocationRef === o.task.assessment.producer.actorInvocationRef)) ||
       !v.is(provenanceSchema, o.provenance) ||
-      !same(o.before, o.task.context) || o.after.workspaceBindingIdentity !== o.before.workspaceBindingIdentity ||
-      o.after.workspaceBindingDigest !== o.before.workspaceBindingDigest || !same(o.after.readRoots, o.before.readRoots) ||
+      !canonicalEquals(o.before as unknown as JsonValue, o.task.context as unknown as JsonValue) || o.after.workspaceBindingIdentity !== o.before.workspaceBindingIdentity ||
+      o.after.workspaceBindingDigest !== o.before.workspaceBindingDigest || !canonicalEquals(o.after.readRoots, o.before.readRoots) ||
       o.after.workspaceAuthorityBasisRef !== o.before.workspaceAuthorityBasisRef ||
       o.after.workspaceAuthorityBasisDigest !== o.before.workspaceAuthorityBasisDigest ||
       o.after.maxFiles !== o.before.maxFiles || o.after.maxBytes !== o.before.maxBytes ||
       nativeWorkspaceScopeViolations(o.task, o.after).length !== 0) return false;
-    return same(o, constructNativeWorkspaceWorkObservation(o.task, o.after, o.report, o.provenance, o.assessment));
+    return canonicalEquals(o as unknown as JsonValue, constructNativeWorkspaceWorkObservation(o.task, o.after, o.report, o.provenance, o.assessment) as unknown as JsonValue);
   } catch { return false; }
 }
 export function isNativeWorkspaceWorkFailure(value: unknown): value is NativeWorkspaceWorkFailure {
@@ -202,31 +202,33 @@ export function isNativeWorkspaceWorkFailure(value: unknown): value is NativeWor
     return f?.kind === "native_workspace_work_failure" && f.schemaVersion === "5.0.0" &&
       typeof f.failureClass === "string" && typeof f.diagnosticRef === "string" && isNativeWorkspaceWorkTask(f.task) &&
       v.is(provenanceSchema, f.provenance) &&
-      same(f.before, f.task.context) && (f.after === null ? f.changedPaths === null && f.observationFailure !== null :
-        isWorksiteContextObservation(f.after) && same(f.changedPaths, nativeWorkspaceChangedPaths(f.before, f.after))) &&
+      canonicalEquals(f.before as unknown as JsonValue, f.task.context as unknown as JsonValue) && (f.after === null ? f.changedPaths === null && f.observationFailure !== null :
+        isWorksiteContextObservation(f.after) && canonicalEquals(f.changedPaths, nativeWorkspaceChangedPaths(f.before, f.after))) &&
       (f.report === null || isNativeWorkspaceWorkReport(f.report));
   } catch { return false; }
 }
 export function nativeWorkspaceWorkResultMatches(input: unknown, output: unknown, cCallRef: string,
   observation: ActorProcessCarrierValidation["observation"] | null): boolean {
   if (!isNativeWorkspaceWorkTask(input) || observation === null ||
-    !(isNativeWorkspaceWorkObservation(output) || isNativeWorkspaceWorkFailure(output)) || !same(input, output.task)) return false;
+    !(isNativeWorkspaceWorkObservation(output) || isNativeWorkspaceWorkFailure(output)) || !canonicalEquals(input as unknown as JsonValue, output.task as unknown as JsonValue)) return false;
   const p = output.provenance;
   if (p.cCallRef !== cCallRef || p.actorInvocationRef !== observation.actorInvocationRef ||
     p.transportBindingRef !== observation.transportBindingRef || p.transportBindingDigest !== observation.transportBindingDigest ||
     p.promptDigest !== observation.promptDigest || p.transportDigest !== observation.transportDigest ||
     observation.implementationRef !== NATIVE_WORKSPACE_WORK_IDS.implementationRef ||
     observation.inputDigest !== sha256Canonical(input as unknown as JsonValue) || observation.transportLane !== "worker_executes") return false;
-  return (input.assessment === undefined ? same(output.report, parseNativeWorkspaceWorkReport(observation.finalOutput)) :
-    output.report === null && (output.kind === "native_workspace_work_failure" || same(output.assessment ?? null,
-      parseNativeWorkspaceAssessmentResult(nativeWorkspaceWorkResponseSchema(input), observation.finalOutput)))) &&
+  return (input.assessment === undefined ? canonicalEquals(output.report as unknown as JsonValue, parseNativeWorkspaceWorkReport(observation.finalOutput) as unknown as JsonValue) :
+    output.report === null && (output.kind === "native_workspace_work_failure" || canonicalEquals(
+      output.assessment ?? null,
+      parseNativeWorkspaceAssessmentResult(nativeWorkspaceWorkResponseSchema(input), observation.finalOutput),
+    ))) &&
     (output.kind === "native_workspace_work_failure" || observation.disposition === "success");
 }
 export function resolveNativeWorkspaceWorkJudgmentRelation(predicateRef: string) {
   return predicateRef !== NATIVE_WORKSPACE_WORK_IDS.judgmentPredicateRef ? null : Object.freeze({ predicateRef,
     advanceReasonRef: `reason://${scope}/observed@5`, rejectionReasonRef: `reason://${scope}/not-observed@5`,
     evaluate: (input: unknown, output: unknown) => isNativeWorkspaceWorkTask(input) &&
-      isNativeWorkspaceWorkObservation(output) && same(input, output.task),
+      isNativeWorkspaceWorkObservation(output) && canonicalEquals(input as unknown as JsonValue, output.task as unknown as JsonValue),
   });
 }
 

@@ -16,6 +16,7 @@ import { isWorksiteEffectAuthorization, isWorksiteFileReplaceReceipt, isWorksite
 import { WORKER_TRANSPORT_FAILURE_CLASS_VALUES } from "./transport_contracts.js";
 import { LEGACY_ROOT_EVENT_CONTRACT_DIGEST, ROOT_CURRENT_EVENT_PROFILE_REF, ROOT_EVENT_PROFILE_DECLARATION_REF, ROOT_EVENT_PROFILE_UPGRADE_REASON, constructRootCurrentEventContractDescriptor, isUndispatchedOwnerObservation, } from "./event_contract_profiles.js";
 import { isRuntimeLivenessBinding, isRuntimeProbeObservation, isRuntimeSystemProbeContract, isRuntimeThresholdObservation, } from "./runtime_liveness_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export { LEGACY_ROOT_EVENT_CONTRACT_DIGEST } from "./event_contract_profiles.js";
 export const LEGACY_ROOT_EVENT_KIND_VALUES = [
     "public_operation_artifact_admitted",
@@ -2456,7 +2457,7 @@ function constructRuntimeHistory(source, inlineByEvent) {
         if (!isRecord(value) || !hasOnlyRuntimeEventKeys(value))
             throw new TypeError("selected logical event is invalid");
         const { payload, ...envelope } = value;
-        if (canonicalJson(envelope) !== canonicalJson(row.envelope) ||
+        if (!canonicalEquals(envelope, row.envelope) ||
             sha256Canonical(payload) !== row.envelope.payloadDigest)
             throw new TypeError("selected logical event differs from its authenticated envelope");
         const event = deepFreeze(value);

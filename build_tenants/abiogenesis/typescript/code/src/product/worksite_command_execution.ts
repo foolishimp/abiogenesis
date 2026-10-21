@@ -65,6 +65,7 @@ import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
   type ExecutableWorksiteSnapshotMember as WorksiteExecutionSnapshotMember,
   type WorksiteCommandForwardObservation } from "./worksite_command_forward.js";
 import { isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const SCHEMA_VERSION = "5.0.0" as const;
 // Technical Node timer representation limit; execution policy belongs to callers.
@@ -697,7 +698,7 @@ function nonempty(value: unknown): value is string {
 
 function same(left: unknown, right: unknown): boolean {
   if (left === right || isDeepStrictEqual(left, right)) return true;
-  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
+  return canonicalEquals(left as JsonValue, right as JsonValue);
 }
 
 function identity(prefix: string, digest: Sha256Digest): string {

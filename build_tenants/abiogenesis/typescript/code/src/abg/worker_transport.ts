@@ -22,6 +22,7 @@ import {
   type WorkerTransportFailureClass,
   type NativeWorkerResultAssessment,
 } from "./transport_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export type { WorkerTransportFailureClass } from "./transport_contracts.js";
 
@@ -584,7 +585,7 @@ async function executeWorkerTransport(
         }
         else {
           let sameOutput = fileOutput === finalOutput;
-          try { sameOutput ||= canonicalJson(JSON.parse(fileOutput)) === canonicalJson(JSON.parse(finalOutput)); } catch { /* no parser repair */ }
+          try { sameOutput ||= canonicalEquals(JSON.parse(fileOutput), JSON.parse(finalOutput)); } catch { /* no parser repair */ }
           if (!sameOutput) throw new TypeError("distinct worker output channels disagree; no first/last result selection");
         }
       }
@@ -822,8 +823,10 @@ export async function runPreparedWorkerTransport(
   }, result => {
     if (
       result.command !== plan.command ||
-      canonicalJson(result.args as unknown as JsonValue) !==
-        canonicalJson(plan.args as unknown as JsonValue)
+      !canonicalEquals(
+        result.args as unknown as JsonValue,
+        plan.args as unknown as JsonValue,
+      )
     ) {
       throw new TypeError("executed worker transport differs from the prepared binding");
     }

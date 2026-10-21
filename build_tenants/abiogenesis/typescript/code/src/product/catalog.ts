@@ -16,6 +16,7 @@ import { constructProductSet, isResolvedProductLock } from "./environment.js";
 import type { ProductInstallCandidate, VerifiedProductArtifact } from "./contracts.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
 import { isVerifiedProductArtifact } from "./verify_product.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface GraphFunctionCatalogEntry {
   readonly kind: "graph_function_catalog_entry";
@@ -468,9 +469,10 @@ export function admitGraphFunctionCatalog(
     verifiedProducts.some((verified) => {
       if (!isVerifiedProductArtifact(verified)) return true;
       const rows = resolvedLock.rows.filter((row) => row.productId === verified.productId);
-      return rows.length !== 1 || canonicalJson(
+      return rows.length !== 1 || !canonicalEquals(
         lockComparableProduct(verified),
-      ) !== canonicalJson(rows[0] as unknown as JsonValue);
+        rows[0] as unknown as JsonValue,
+      );
     })
   ) {
     return refusal(
@@ -489,8 +491,10 @@ export function admitGraphFunctionCatalog(
         install.resolvedLockId !== resolvedLock.lockId ||
         install.resolvedLockDigest !== resolvedLock.lockDigest ||
         verified.length !== 1 ||
-        canonicalJson(lockComparableProduct(install)) !==
-          canonicalJson(lockComparableProduct(verified[0]!));
+        !canonicalEquals(
+          lockComparableProduct(install),
+          lockComparableProduct(verified[0]!),
+        );
     })
   ) {
     return refusal(
@@ -614,40 +618,42 @@ export function admitGraphFunctionCatalog(
         declared.declarationOrContractRef !== contribution.declarationOrContractRef ||
         declared.owningProductId !== contribution.owningProductId ||
         declared.provenanceRef !== lockRow.provenanceRef ||
-        canonicalJson(orderedStrings(
-          declared.programMembershipRefs,
-        ) as unknown as JsonValue) !==
-          canonicalJson(
-            contribution.programMembershipRefs as unknown as JsonValue,
-          ) ||
-        canonicalJson(contribution.provenanceRefs as unknown as JsonValue) !==
-          canonicalJson(orderedStrings([
+        !canonicalEquals(
+          orderedStrings(
+            declared.programMembershipRefs,
+          ) as unknown as JsonValue,
+          contribution.programMembershipRefs as unknown as JsonValue,
+        ) ||
+        !canonicalEquals(
+          contribution.provenanceRefs as unknown as JsonValue,
+          orderedStrings([
             lockRow.artifactDigest,
             lockRow.manifestDigest,
-          ]) as unknown as JsonValue)
+          ]) as unknown as JsonValue,
+        )
       ) {
         pushDisposition(publication, contribution, "rejected", "manifest_or_provenance_mismatch");
         continue;
       }
       if (
-        canonicalJson(orderedStrings(
-          declared.compatibilityRefs,
-        ) as unknown as JsonValue) !==
-          canonicalJson(
-            contribution.compatibilityRefs as unknown as JsonValue,
-          ) ||
+        !canonicalEquals(
+          orderedStrings(
+            declared.compatibilityRefs,
+          ) as unknown as JsonValue,
+          contribution.compatibilityRefs as unknown as JsonValue,
+        ) ||
         declared.compatibilityRefs.some((ref) => !lockRow.compatibilityRefs.includes(ref))
       ) {
         pushDisposition(publication, contribution, "incompatible", "compatibility_mismatch");
         continue;
       }
       if (
-        canonicalJson(orderedStrings(
-          declared.readinessPrerequisiteRefs,
-        ) as unknown as JsonValue) !==
-          canonicalJson(
-            contribution.readinessPrerequisiteRefs as unknown as JsonValue,
-          )
+        !canonicalEquals(
+          orderedStrings(
+            declared.readinessPrerequisiteRefs,
+          ) as unknown as JsonValue,
+          contribution.readinessPrerequisiteRefs as unknown as JsonValue,
+        )
       ) {
         pushDisposition(publication, contribution, "unready", "readiness_declaration_mismatch");
         continue;

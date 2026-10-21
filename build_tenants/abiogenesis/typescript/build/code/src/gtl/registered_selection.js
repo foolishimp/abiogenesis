@@ -2,6 +2,7 @@ import { graphFunctionApplicationRef } from "./graph_applications.js";
 import { rootCSourcePath } from "./source_path.js";
 import {} from "../shared/digests.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const refs = (value) => Array.isArray(value) && value.every(v => typeof v === "string" && v.length > 0) && new Set(value).size === value.length;
 export function isRegisteredGraphChoice(value) {
     if (!isRecord(value) || value.kind !== "registered_graph_choice" || value.schemaVersion !== "5.0.0" ||
@@ -20,7 +21,7 @@ export function isRegisteredGraphChoice(value) {
 /** Establish declaration applicability before examining any response fields. */
 export function registeredSelectionAtSource(template, source, contractRef) {
     const node = template.nodes.find(n => n.nodeRef === source.currentNodeRef);
-    if (node?.term.kind !== "c_of" || source.termPath.join("\0") !== rootCSourcePath(node.nodeRef).join("\0"))
+    if (node?.term.kind !== "c_of" || !canonicalEquals(source.termPath, rootCSourcePath(node.nodeRef)))
         return null;
     const locus = node.term.programLocusRef;
     const matches = template.applications.filter((a) => a.relationKind === "registered_selection" && a.sourceProgramLocusRef === locus);

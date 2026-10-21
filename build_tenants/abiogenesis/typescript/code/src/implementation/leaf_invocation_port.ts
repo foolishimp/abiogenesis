@@ -111,6 +111,7 @@ import {
   constructLeafExecutionAuthority,
   isLeafExecutionAuthority,
 } from "./leaf_execution_authority.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export {
   constructLeafExecutionAuthority,
@@ -161,8 +162,10 @@ export function isClosedProbabilisticLeafInvocation(
     exchange.schemaVersion === "5.0.0" &&
     exchange.disposition === "valid" &&
     validated.kind === "actor_process_carrier_validation" &&
-    sha256Canonical(validated as unknown as JsonValue) ===
-      sha256Canonical(exchange as unknown as JsonValue);
+    canonicalEquals(
+      validated as unknown as JsonValue,
+      exchange as unknown as JsonValue,
+    );
 }
 
 function hasExactDataFields(
@@ -1139,7 +1142,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     if (native) {
       const invocation = rehydrateInvocationAdmissionAtPrefix(authorityPrefix, executionAuthority.executionBasis.invocationAdmissionRef);
       return invocation !== null && invocation.capabilityGrants.some(grant =>
-        sha256Canonical(grant as unknown as JsonValue) === sha256Canonical(call.input.capabilityGrant as unknown as JsonValue)) &&
+        canonicalEquals(grant as unknown as JsonValue, call.input.capabilityGrant as unknown as JsonValue)) &&
       nativeWorkspaceWorkAuthorityMatches(call.input, executionAuthority) &&
       graphFunction.name === nativeWorkspaceWorkGraphFunctionRef(call.input) && graphFunction.effects.includes(nativeIds.effectUri) &&
       projectCCallCarrierPhaseAtPrefix(runtimePrefix, executionAuthority.cCall)?.phase === "selected_no_evidence" &&
@@ -1259,9 +1262,10 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         authority.implementationSet.implementationSetRef &&
       executionAuthority.implementationSetDigest ===
         authority.implementationSet.implementationSetDigest &&
-      sha256Canonical(
+      canonicalEquals(
         executionAuthority.implementationSet as unknown as JsonValue,
-      ) === sha256Canonical(authority.implementationSet as unknown as JsonValue) &&
+        authority.implementationSet as unknown as JsonValue,
+      ) &&
       carrierResolutionDigest === resolutionDigest &&
       executionAuthority.implementationResolutionDigest === resolutionDigest &&
       executionAuthority.implementationResolutionRef ===
@@ -1389,7 +1393,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         verificationDigest,
         ...body,
       });
-      return verified === null || sha256Canonical(verified as unknown as JsonValue) === sha256Canonical(result as unknown as JsonValue)
+      return verified === null || canonicalEquals(verified as unknown as JsonValue, result as unknown as JsonValue)
         ? result : preimageRefusal("contract_identity_mismatch");
     } catch {
       return preimageRefusal("owner_boundary_exception");
@@ -1459,7 +1463,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       const coordinates = authority.executionResolution.declarationClosure.graphFunctionOwners.filter(c => c.declarationRef === source.graphFunctionRef && c.moduleRef === publication.moduleRef);
       if (coordinates.length !== 1) return null;
       const bound = exactOwnerBinding(authority.executionResolution, coordinates[0]!);
-      return bound !== null && sha256Canonical(bound.publication as unknown as JsonValue) === sha256Canonical(publication as unknown as JsonValue) ? bound.publication : null;
+      return bound !== null && canonicalEquals(bound.publication as unknown as JsonValue, publication as unknown as JsonValue) ? bound.publication : null;
     },
     semanticPublicationByDeclarationRef(declarationRef: string) {
       const matches = authority.executionResolution.declarationClosure.publications.filter(p => (p.semanticLifecycle ?? p.semanticJobLifecycle)?.declarationRef === declarationRef);
@@ -1473,7 +1477,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           c.declarationRef === graphFunctionRef && c.moduleRef === publication.moduleRef);
         if (coordinates.length !== 1) return null;
         const bound = exactOwnerBinding(authority.executionResolution, coordinates[0]!);
-        if (bound === null || sha256Canonical(bound.publication as unknown as JsonValue) !== sha256Canonical(publication as unknown as JsonValue)) return null;
+        if (bound === null || !canonicalEquals(bound.publication as unknown as JsonValue, publication as unknown as JsonValue)) return null;
       }
       return publication;
     },
@@ -1609,7 +1613,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
                 ));
           },
           validateSuccess: (value) => (!isQualification || (isSelfQualification ? isSelfConformanceResult(value) &&
-            sha256Canonical(value.owner as unknown as JsonValue) === sha256Canonical(qualificationOwner as unknown as JsonValue)
+            canonicalEquals(value.owner as unknown as JsonValue, qualificationOwner as unknown as JsonValue)
             : qualificationOwner !== null && qualificationResultRelation((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix,
               nativeJudgmentProofOperations((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix, authority.historicalSource, authority.qualificationResources, qualificationPreparation)))) && port.validateContractValue(
             admittedResolution.outputContractRef,

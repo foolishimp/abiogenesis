@@ -3,7 +3,7 @@ import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { ClosureContract } from "../gtl/contracts.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
@@ -39,6 +39,7 @@ import {
   isTraversalCursorCandidate,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ReplayContinuationState {
   readonly continuationRef: string;
@@ -345,7 +346,7 @@ function exactClosureContract(
     stringKeys.some((key) =>
       typeof value[key] !== "string" || (value[key] as string).length === 0
     ) ||
-    canonicalJson(value.eventKindRefs) !== canonicalJson(expectedKinds) ||
+    !canonicalEquals(value.eventKindRefs, expectedKinds) ||
     value.closureContractRef !== executionBasis.closureContractRef ||
     value.predicateRef !== executionBasis.terminalPredicateRef ||
     value.evidenceContractRef !== executionBasis.evidenceContractRef ||
@@ -400,8 +401,10 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
     );
     if (
       exactResume === undefined ||
-      canonicalJson(exactResume as unknown as JsonValue) !==
-        canonicalJson(resumeEvent as unknown as JsonValue)
+      !canonicalEquals(
+        exactResume as unknown as JsonValue,
+        resumeEvent as unknown as JsonValue,
+      )
     ) return false;
     const payload = resumeEvent.payload;
     const continuationRef = stringField(resumeEvent, "continuationRef");
@@ -530,8 +533,10 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
     const heldCursor = isRecord(opened.payload.heldCursor)
       ? opened.payload.heldCursor as unknown as TraversalCursorCandidate
       : null;
-    return canonicalJson(suppliedInput as unknown as JsonValue) ===
-        canonicalJson(expectedInput as unknown as JsonValue) &&
+    return canonicalEquals(
+      suppliedInput as unknown as JsonValue,
+      expectedInput as unknown as JsonValue,
+    ) &&
       heldCursor !== null &&
       isTraversalCursorCandidate(heldCursor) &&
       isInteractionResumeCursorSuccessorAtPrefix(

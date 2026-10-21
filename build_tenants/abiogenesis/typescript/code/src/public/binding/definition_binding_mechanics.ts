@@ -2,8 +2,7 @@ import { admitContract, admitRef, hasExactKeys, isRecord } from "../../shared/ad
 import { resolveExactMatch } from "../../shared/select/exact_match.js";
 import * as v from "valibot";
 
-import { canonicalJson, type JsonValue } from
-  "../../shared/canonical_json.js";
+import { canonicalEquals, type JsonValue } from "../../shared/value/index.js";
 import type {
   DefinitionCall,
   DefinitionExecutionFault,
@@ -40,9 +39,14 @@ import type {
   ReferenceDigest,
 } from "../../shared/public_invocation.js";
 
+/**
+ * The binding lift of `canonicalEquals` over unchecked call values: an
+ * encoding failure on either side is inequality. Its callers' fault surface
+ * depends on that, so it does not admit through `admitJson`.
+ */
 export function sameJson(left: unknown, right: unknown): boolean {
   try {
-    return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
+    return canonicalEquals(left as JsonValue, right as JsonValue);
   } catch {
     return false;
   }

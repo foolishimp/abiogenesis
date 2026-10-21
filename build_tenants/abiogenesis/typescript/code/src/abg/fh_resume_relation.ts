@@ -21,6 +21,7 @@ import {
   isTraversalCursorCandidate,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface FhResumeSuccessorInput {
   readonly kind: "fh_resume_successor_input";
@@ -201,10 +202,12 @@ export function deriveFhResumeSuccessorInputAtPrefix(
     composition.compositionRef !== intent.constructionCompositionRef ||
     composition.compositionDigest !== intent.constructionCompositionDigest ||
     declaredPolicy === null ||
-    sha256Canonical(declaredPolicy) !==
-      sha256Canonical(composition.closurePolicy as unknown as JsonValue) ||
+    !canonicalEquals(
+      declaredPolicy,
+      composition.closurePolicy as unknown as JsonValue,
+    ) ||
     semanticEvidenceAssetRefs === null ||
-    semanticEvidenceAssetRefs.join("\0") !== intent.outputAssetRefs.join("\0")
+    !canonicalEquals(semanticEvidenceAssetRefs, intent.outputAssetRefs)
   ) {
     throw new TypeError(
       "construction successor input requires its exact admitted basis, Product policy, and observed evidence",

@@ -41,6 +41,7 @@ import {
   type PendingInteractionAdmissionPlan,
   type RehydratedAdmittedCCallState,
 } from "./c_call.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 function graphFunctionCatalogViewRef(view: GraphFunctionCatalogView): string {
   return `graph-function-catalog-view://abiogenesis/${view.viewDigest.slice("sha256:".length)}`;
@@ -625,8 +626,10 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     event: RuntimeEvent,
     payload: Readonly<Record<string, JsonValue>>,
   ): boolean => isRecord(event.payload) &&
-    sha256Canonical(event.payload as unknown as JsonValue) ===
-      sha256Canonical(payload as unknown as JsonValue);
+    canonicalEquals(
+      event.payload as unknown as JsonValue,
+      payload as unknown as JsonValue,
+    );
   const exactEnvelope = (event: RuntimeEvent): boolean =>
     event.parentAggregateId === scope.frameId &&
     event.basisId === basis.basisRef && event.runId === scope.runId &&
@@ -884,8 +887,10 @@ function resolvePreparedContinuationOperationCoordinateAtPrefix(
     predecessor,
   );
   return coordinate !== null &&
-      sha256Canonical(prepared.event as unknown as JsonValue) ===
-        sha256Canonical(coordinate.event as unknown as JsonValue)
+      canonicalEquals(
+        prepared.event as unknown as JsonValue,
+        coordinate.event as unknown as JsonValue,
+      )
     ? coordinate
     : null;
 }
@@ -1332,8 +1337,10 @@ export function prepareContinuationPublicOperation(
   if (invocationTruth.disposition !== "available") return invocationTruth;
   if (
     reconstructedContinuation === undefined ||
-    sha256Canonical(reconstructedContinuation as unknown as JsonValue) !==
-      sha256Canonical(continuation as unknown as JsonValue)
+    !canonicalEquals(
+      reconstructedContinuation as unknown as JsonValue,
+      continuation as unknown as JsonValue,
+    )
   ) {
     throw new TypeError(
       "continuation public operation requires the exact current durable continuation lifecycle",
@@ -1748,14 +1755,14 @@ export function admitOwnedFhInteractionHold(
       runtimeEventPrefixDigest(predecessorPrefix) ||
     evidence?.evidenceClass !== "hold" ||
     evidence.cCall.cCallRef !== cCall.cCallRef ||
-    sha256Canonical(evidence.result as unknown as JsonValue) !==
-      sha256Canonical(
-        input.pendingPlan.pending.result as unknown as JsonValue,
-      ) ||
-    sha256Canonical(evidence.judgment as unknown as JsonValue) !==
-      sha256Canonical(
-        input.pendingPlan.pending.judgment as unknown as JsonValue,
-      )
+    !canonicalEquals(
+      evidence.result as unknown as JsonValue,
+      input.pendingPlan.pending.result as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      evidence.judgment as unknown as JsonValue,
+      input.pendingPlan.pending.judgment as unknown as JsonValue,
+    )
   ) {
     throw new TypeError(
       "F_H hold candidate differs from its exact pending interaction plan",
@@ -1782,8 +1789,10 @@ export function admitOwnedFhInteractionHold(
         projectRuntimeReplayGuard(selectRuntimeEventPrefixFromAuthority(stagedPrefix,{runId:input.cursor.runId}),stagedPrefix),
       ) ?? input.routeCandidate;
       if (routeCandidate.transitionClass !== "route" ||
-          sha256Canonical(routeCandidate.evidence as unknown as JsonValue) !==
-            sha256Canonical(input.routeCandidate.evidence as unknown as JsonValue)) {
+          !canonicalEquals(
+            routeCandidate.evidence as unknown as JsonValue,
+            input.routeCandidate.evidence as unknown as JsonValue,
+          )) {
         throw new TypeError("F_H staged selection changed its planned owner evidence");
       }
       const transition = admitTraversalTransitionInActiveTransaction({
@@ -2065,12 +2074,14 @@ export function commitFhInteractionResponseAtExpectedPrefix(
         runtimeEventCandidate(prepared.event),
       );
       if (
-        sha256Canonical(operationEvent as unknown as JsonValue) !==
-            sha256Canonical(
-              prepared.publicOperation.event as unknown as JsonValue,
-            ) ||
-        sha256Canonical(responseEvent as unknown as JsonValue) !==
-            sha256Canonical(prepared.event as unknown as JsonValue)
+        !canonicalEquals(
+          operationEvent as unknown as JsonValue,
+          prepared.publicOperation.event as unknown as JsonValue,
+        ) ||
+        !canonicalEquals(
+          responseEvent as unknown as JsonValue,
+          prepared.event as unknown as JsonValue,
+        )
       ) {
         throw new TypeError(
           "F_H response append differs from its exact prefix plan",
@@ -2357,12 +2368,14 @@ export function commitFhInteractionResumeAtExpectedPrefix(
         runtimeEventCandidate(prepared.event),
       );
       if (
-        sha256Canonical(operationEvent as unknown as JsonValue) !==
-            sha256Canonical(
-              prepared.publicOperation.event as unknown as JsonValue,
-            ) ||
-        sha256Canonical(resumeEvent as unknown as JsonValue) !==
-            sha256Canonical(prepared.event as unknown as JsonValue)
+        !canonicalEquals(
+          operationEvent as unknown as JsonValue,
+          prepared.publicOperation.event as unknown as JsonValue,
+        ) ||
+        !canonicalEquals(
+          resumeEvent as unknown as JsonValue,
+          prepared.event as unknown as JsonValue,
+        )
       ) {
         throw new TypeError(
           "F_H resume append differs from its exact prefix plan",

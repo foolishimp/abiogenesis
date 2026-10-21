@@ -13,6 +13,7 @@ import { isQualificationBasisReady, qualificationCoverageIsPublished, qualificat
 import { QUALIFICATION_RULE_CATALOG_SCHEMA, qualificationIdentityDigest,
   type SelfConformanceInput, type SelfConformanceResult, type SelfConformanceOwner,
   type SelfConformanceFinding, type QualificationRuleCatalog } from "./self_conformance_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export const SELF_CONFORMANCE_CATALOG_ASSET_PATH = "contracts/qualification/rule-catalog.json";
 export const SELF_CONFORMANCE_CATALOG_CONTRACT_ID = "abg.asset.qualification.rule-catalog";
@@ -22,7 +23,6 @@ export function readSelfConformanceCatalog(): { catalog: QualificationRuleCatalo
   const bytes = readFileSync(resolve(packageRoot, SELF_CONFORMANCE_CATALOG_ASSET_PATH));
   return { catalog: v.parse(QUALIFICATION_RULE_CATALOG_SCHEMA, JSON.parse(bytes.toString("utf8"))), bytes };
 }
-function same(a: unknown, b: unknown): boolean { return sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue); }
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 /** Finite native relation. Citations remain unadmitted; no caller flag can establish J/O truth. */
 export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: SelfConformanceOwner, resources?: QualificationResources): Readonly<SelfConformanceResult> {
@@ -44,7 +44,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
   if (scope !== undefined) {
     for (const diagnostic of qualificationScopeCorrespondence(scope, catalog, sha256Bytes(bytes), resolvedInput.normalizedScope))
       add(diagnostic, diagnostic.includes("incomplete") ? "blocked_incomplete" : "failed", "Explicit grouped scope does not conserve its exact declared domain.");
-    if (!same(scope.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) || !same(scope.lawBasis, basis.lawBasis) || !same(scope.inventory, input.inventory))
+    if (!canonicalEquals(scope.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) || !canonicalEquals(scope.lawBasis, basis.lawBasis) || !canonicalEquals(scope.inventory, input.inventory))
       add("scope_subject_basis_mismatch", "failed", "Scope differs from the exact evaluated subject/law/inventory.");
   }
   const applicationRows = new Map<string, SelfConformanceEmbeddedInput["applications"]>();
@@ -67,17 +67,17 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
   const executionMaterial = executionProof?.evidence ?? null, verification = executionProof?.verification ?? null;
   const coverage = input.qualification?.coverageCatalog;
   const coverageBound = coverage !== undefined && qualificationCoverageIsPublished(coverage) &&
-    same(basis.coverageCatalog, { ref: coverage.catalogRef, digest: coverage.catalogDigest }) && same(basis.lawBasis, coverage.lawBasis);
+    canonicalEquals(basis.coverageCatalog, { ref: coverage.catalogRef, digest: coverage.catalogDigest }) && canonicalEquals(basis.lawBasis, coverage.lawBasis);
   if (coverageBound) declarationMaterials.push(typedMaterial(coverage!.catalogRef, coverage));
   const resolved = input.qualification === undefined ? null : resolveQualificationAssessments(input.qualification.proof,
     input.qualification.plan, owner.nativeBasis, resources)?.map(j => ({ ...j, task: resolveQualificationAssessment({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: j.task, plan: j.plan }, resources).task }));
-  const assessment = input.qualification === undefined || !same(input.qualification.plan.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) ||
-    !same(input.qualification.plan.lawBasis, basis.lawBasis) || !coverageBound || executionMaterial === null ? null : resolved?.filter(j =>
-      same(j.task.inventory, basis.sourceInventory) && (j.task.scope === undefined ? scope === undefined : scope !== undefined && j.task.scope.scopeRef === scope.scopeRef && j.task.scope.scopeDigest === scope.scopeDigest) && input.law !== null && same(j.task.catalog, { ref: input.law.catalog.ref, digest: input.law.catalog.digest }) &&
-      j.task.subjectMembers.every(m => input.inventory?.members.some(i => same(m, { ref: i.ref, path: i.path, digest: i.digest, byteCount: i.byteCount }))) &&
+  const assessment = input.qualification === undefined || !canonicalEquals(input.qualification.plan.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) ||
+    !canonicalEquals(input.qualification.plan.lawBasis, basis.lawBasis) || !coverageBound || executionMaterial === null ? null : resolved?.filter(j =>
+      canonicalEquals(j.task.inventory, basis.sourceInventory) && (j.task.scope === undefined ? scope === undefined : scope !== undefined && j.task.scope.scopeRef === scope.scopeRef && j.task.scope.scopeDigest === scope.scopeDigest) && input.law !== null && canonicalEquals(j.task.catalog, { ref: input.law.catalog.ref, digest: input.law.catalog.digest }) &&
+      j.task.subjectMembers.every(m => input.inventory?.members.some(i => canonicalEquals(m, { ref: i.ref, path: i.path, digest: i.digest, byteCount: i.byteCount }))) &&
       j.task.material.every(m => [...declarationMaterials, ...input.authorityMembers, ...input.qualification!.sourceMembers,
         ...(executionMaterial ?? []),
-        ...(j.task.provenance.kind === "external_construction" ? j.task.provenance.records : [])].some(a => same(a, m)))) ?? null;
+        ...(j.task.provenance.kind === "external_construction" ? j.task.provenance.records : [])].some(a => canonicalEquals(a, m)))) ?? null;
   type AssessmentRow = { j: NonNullable<typeof assessment>[number]; c: NonNullable<typeof assessment>[number]["raw"]["criteria"][number] };
   const assessmentIndex = new Map<string, AssessmentRow[]>();
   for (const j of assessment ?? []) for (const c of j.raw.criteria) {
@@ -133,7 +133,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
   if (basis.basisDigest !== qualificationIdentityDigest(basis, "basisRef", "basisDigest")) add("subject_basis_digest_mismatch", "failed", "Qualification basis content identity differs.");
   if (basis.productContentDigest !== owner.productContentDigest || basis.productManifest.digest !== owner.manifestDigest || basis.toolchain.digest !== owner.manifestDigest)
     add("installed_candidate_basis_mismatch", "failed", "Subject does not match the actual native owner package content and manifest.");
-  if (basis.productId !== owner.productId || basis.productVersion !== owner.productVersion || basis.artifact.digest !== owner.artifactDigest || basis.installedProduct?.ref !== owner.installId || basis.installedProduct.digest !== owner.installDigest || !same(basis.workspaceBinding, owner.workspaceBinding))
+  if (basis.productId !== owner.productId || basis.productVersion !== owner.productVersion || basis.artifact.digest !== owner.artifactDigest || basis.installedProduct?.ref !== owner.installId || basis.installedProduct.digest !== owner.installDigest || !canonicalEquals(basis.workspaceBinding, owner.workspaceBinding))
     add("installed_admission_basis_mismatch", "failed", "Qualification input differs from actual current admitted install, artifact, or workspace truth.");
   else add("installed_admission_basis_bound", "passed", "Exact native prefix, self-conformance CCall, publication, artifact, install and workspace are authenticated.");
   if (!isQualificationBasisReady(basis))
@@ -160,7 +160,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
       add("published_method_basis_mismatch", "failed", "Exact selected published STDO release differs.");
     if (law.catalog.ref !== owner.catalogRef || law.catalog.digest !== owner.catalogDigest || law.catalog.version !== owner.catalogVersion || law.catalog.ownerRef !== catalog.ownerRef || law.catalog.assetPath !== owner.catalogAssetPath)
       add("published_catalog_basis_mismatch", "failed", "Law does not bind this actual native catalog publication.");
-    if (!same(law.sources, catalog.sources)) add("law_source_inventory_mismatch", "failed", "Law member inventory must equal the selected published catalog source inventory.");
+    if (!canonicalEquals(law.sources, catalog.sources)) add("law_source_inventory_mismatch", "failed", "Law member inventory must equal the selected published catalog source inventory.");
   }
   if (!unique(input.authorityMembers.map(x => x.ref))) add("duplicate_authority_member", "failed", "Authority members must have singular identities.");
   for (const source of catalog.sources) {
@@ -171,7 +171,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     const path = resolve(packageRoot, source.path);
     if (relative(packageRoot, path).startsWith("..")) throw new TypeError("catalog source path escapes owner asset inventory");
     const published = readFileSync(path);
-    if (!same(coordinate, source) || raw.toString("base64") !== member.contentBase64 || sha256Bytes(raw) !== source.digest || raw.length !== source.byteCount || sha256Bytes(published) !== source.digest)
+    if (!canonicalEquals(coordinate, source) || raw.toString("base64") !== member.contentBase64 || sha256Bytes(raw) !== source.digest || raw.length !== source.byteCount || sha256Bytes(published) !== source.digest)
       add("authority_member_digest_mismatch", "failed", "Selected and packaged law member bytes do not agree.", [source.ref], null, source.ref);
     else add("authority_member_bytes_bound", "passed", "Exact selected source bytes equal the packaged law member; this is no semantic assessment.", [source.ref], null, source.ref);
   }

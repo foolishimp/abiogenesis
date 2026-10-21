@@ -24,6 +24,7 @@ import {
   type ResolvedExecutionDeclarationClosure,
 } from "./declaration_closure.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface PackagedLeafImplementationDescriptor {
   readonly kind: "packaged_leaf_implementation_descriptor";
@@ -390,8 +391,10 @@ function resolveValidatedLeaf(
   const implementationOwnerMatches = publications.filter((publication) =>
     publication.implementationBindings.some((candidate) =>
       candidate.bindingRef === binding.bindingRef &&
-      sha256Canonical(candidate as unknown as JsonValue) ===
-        sha256Canonical(binding as unknown as JsonValue)
+      canonicalEquals(
+        candidate as unknown as JsonValue,
+        binding as unknown as JsonValue,
+      )
     )
   );
   if (implementationOwnerMatches.length !== 1) {

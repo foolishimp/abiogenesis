@@ -36,6 +36,7 @@ import {
 import { modulePublicationSemanticDigest } from "./publication.js";
 import { isWorksiteCommandForwardGraphFunction } from "../gtl/worksite_command_forward.js";
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "./worksite_command_forward_identity.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 /** Supplied declarations are reconstructed against facts supplied by the native
  * environment owner. This pure relation is shared by conformance and replay;
@@ -48,21 +49,19 @@ export function reconstructHistoricalDeclarationCatalog(
     installedProducts: CatalogReadinessBasis["installedProducts"];
   }>,
 ): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }> {
-  const same = (left: unknown, right: unknown) =>
-    canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
   const catalog = admitGraphFunctionCatalog(supplied.catalog.readinessBasis);
-  if (catalog.kind !== "graph_function_catalog" || !same(catalog, supplied.catalog) ||
-      !same(catalog.readinessBasis.workspaceBinding, environment.workspaceBinding) ||
-      !same(catalog.readinessBasis.resolvedLock, environment.resolvedLock) ||
+  if (catalog.kind !== "graph_function_catalog" || !canonicalEquals(catalog as unknown as JsonValue, supplied.catalog as unknown as JsonValue) ||
+      !canonicalEquals(catalog.readinessBasis.workspaceBinding as unknown as JsonValue, environment.workspaceBinding as unknown as JsonValue) ||
+      !canonicalEquals(catalog.readinessBasis.resolvedLock as unknown as JsonValue, environment.resolvedLock as unknown as JsonValue) ||
       catalog.readinessBasis.installedProducts.length !== environment.installedProducts.length ||
       new Set(environment.installedProducts.map((row) => canonicalJson(row as unknown as JsonValue))).size !==
         environment.installedProducts.length ||
       catalog.readinessBasis.installedProducts.some((candidate) =>
-        environment.installedProducts.filter((install) => same(install, candidate)).length !== 1)) {
+        environment.installedProducts.filter((install) => canonicalEquals(install as unknown as JsonValue, candidate as unknown as JsonValue)).length !== 1)) {
     throw new TypeError("declaration Catalog differs from its exact admitted workspace, installs or lock");
   }
   const catalogView = narrowGraphFunctionCatalog(catalog, supplied.catalogView.allowlist);
-  if (catalogView.kind !== "graph_function_catalog_view" || !same(catalogView, supplied.catalogView)) {
+  if (catalogView.kind !== "graph_function_catalog_view" || !canonicalEquals(catalogView as unknown as JsonValue, supplied.catalogView as unknown as JsonValue)) {
     throw new TypeError("declaration Catalog View differs from exact narrowing");
   }
   return deepFreeze({ catalog, catalogView });
@@ -245,10 +244,12 @@ function isResolvedDeclarationClosure(
         `execution-declaration-closure://abiogenesis/${candidate.closureDigest.slice("sha256:".length)}` &&
       candidate.programPublicationDigest ===
         modulePublicationSemanticDigest(candidate.programPublication) &&
-      canonicalJson(candidate.publicationDigests as unknown as JsonValue) ===
-        canonicalJson(candidate.publications.map((publication) =>
+      canonicalEquals(
+        candidate.publicationDigests as unknown as JsonValue,
+        candidate.publications.map((publication) =>
           modulePublicationSemanticDigest(publication)
-        ) as unknown as JsonValue);
+        ) as unknown as JsonValue,
+      );
   } catch {
     return false;
   }
@@ -269,8 +270,10 @@ export function validateResolvedExecutionDeclarationClosure(
     value.selectedGraphFunctionRef,
   );
   return reconstructed.kind === "resolved_execution_declaration_closure" &&
-    canonicalJson(reconstructed as unknown as JsonValue) ===
-      canonicalJson(value as unknown as JsonValue);
+    canonicalEquals(
+      reconstructed as unknown as JsonValue,
+      value as unknown as JsonValue,
+    );
 }
 
 export function validateResolvedProgramDeclarationClosure(
@@ -287,8 +290,10 @@ export function validateResolvedProgramDeclarationClosure(
     value.programRef,
   );
   return reconstructed.kind === "resolved_program_declaration_closure" &&
-    canonicalJson(reconstructed as unknown as JsonValue) ===
-      canonicalJson(value as unknown as JsonValue);
+    canonicalEquals(
+      reconstructed as unknown as JsonValue,
+      value as unknown as JsonValue,
+    );
 }
 
 function refusal(
@@ -575,8 +580,10 @@ function resolveDeclarationClosure(
       entry.publicationDigest === publicationDigest &&
       entry.definitionDigest ===
         sha256Canonical(graphFunction as unknown as JsonValue) &&
-      canonicalJson(entry.definition as unknown as JsonValue) ===
-        canonicalJson(graphFunction as unknown as JsonValue)
+      canonicalEquals(
+        entry.definition as unknown as JsonValue,
+        graphFunction as unknown as JsonValue,
+      )
     );
     if (
       catalogRequiredGraphFunctionRefs.has(graphFunctionRef) &&
@@ -820,8 +827,10 @@ function resolveDeclarationClosure(
     // an external provider. Distinct publications remain distinct witnesses.
     const externalOwners = [...selectedPublicationMap.values()].flatMap((publication) => {
       if (!reachable.has(publication.owningProductId) ||
-          canonicalJson(publication.productSemanticsBinding as unknown as JsonValue) !==
-            canonicalJson(semanticsBinding as unknown as JsonValue)) return [];
+          !canonicalEquals(
+            publication.productSemanticsBinding as unknown as JsonValue,
+            semanticsBinding as unknown as JsonValue,
+          )) return [];
       return catalog.readinessBasis.installedProducts.filter((install) =>
         install.productId === publication.owningProductId &&
         install.productContentDigest === publication.productContentDigest &&

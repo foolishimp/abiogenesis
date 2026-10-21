@@ -4,6 +4,7 @@ import { rootCSourcePath } from "./source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { type Sha256Digest } from "../shared/digests.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 type RecordValue = Readonly<Record<string, JsonValue>>;
 const refs = (value: unknown): value is readonly string[] =>
@@ -28,7 +29,7 @@ export function registeredSelectionAtSource(template: GraphTemplate, source: Rea
   currentNodeRef: string; termPath: readonly string[];
 }>, contractRef: string): RegisteredSelectionApplication | null {
   const node = template.nodes.find(n => n.nodeRef === source.currentNodeRef);
-  if (node?.term.kind !== "c_of" || source.termPath.join("\0") !== rootCSourcePath(node.nodeRef).join("\0")) return null;
+  if (node?.term.kind !== "c_of" || !canonicalEquals(source.termPath, rootCSourcePath(node.nodeRef))) return null;
   const locus = node.term.programLocusRef;
   const matches = template.applications.filter((a): a is RegisteredSelectionApplication =>
     a.relationKind === "registered_selection" && a.sourceProgramLocusRef === locus);

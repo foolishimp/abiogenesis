@@ -30,6 +30,7 @@ import {
   type ProgramValidationInput,
   type StaticValidationRefusal,
 } from "./validation.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ConformanceDeclarationBasis {
   readonly catalog: ReadyGraphFunctionCatalog;
@@ -283,8 +284,10 @@ function evaluateWithValidationInput(
     : null;
   const programDigest = sha256Canonical(packet.program as unknown as JsonValue);
   if (declarationBasis !== undefined &&
-      sha256Canonical(declarationBasis.declarationClosure.programPublication as unknown as JsonValue) !==
-        sha256Canonical(packet.publication as unknown as JsonValue)) {
+      !canonicalEquals(
+        declarationBasis.declarationClosure.programPublication as unknown as JsonValue,
+        packet.publication as unknown as JsonValue,
+      )) {
     return refusal("invalid_packet", programRef, programDigest, [{
       code: "invalid_packet", path: "$.publication", message: "conformance closure differs from the original Program publication",
     }]);

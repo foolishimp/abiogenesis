@@ -56,6 +56,7 @@ import {
   selectValidatedRuntimeEventPrefix,
   runtimePrefixComputation,
 } from "./event_prefix.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export type PublicOperationId =
   | "abg.operation.release.snapshot"
@@ -581,8 +582,10 @@ function deriveWorkspaceEnvironment(
   if (
     resolvedProductLock === undefined ||
     resolvedLocks.some((lock) =>
-      canonicalJson(lock as unknown as JsonValue) !==
-        canonicalJson(resolvedProductLock as unknown as JsonValue)
+      !canonicalEquals(
+        lock as unknown as JsonValue,
+        resolvedProductLock as unknown as JsonValue,
+      )
     )
   ) {
     return exactPrefixEnvironmentRefusal(
@@ -610,9 +613,10 @@ function deriveWorkspaceEnvironment(
   );
   if (
     bindingTruth === null ||
-    canonicalJson(
+    !canonicalEquals(
       bindingTruth.installAdmissionEventRefs as unknown as JsonValue,
-    ) !== canonicalJson(bindingRow.causationEventRefs as unknown as JsonValue)
+      bindingRow.causationEventRefs as unknown as JsonValue,
+    )
   ) {
     return exactPrefixEnvironmentRefusal(
       "workspace_binding_invalid",
@@ -1282,8 +1286,10 @@ export function admitWorkspaceBinding(
       productSet,
       authority,
     ) ||
-    sha256Canonical(reconstructedCandidate as unknown as JsonValue) !==
-      sha256Canonical(candidate as unknown as JsonValue) ||
+    !canonicalEquals(
+      reconstructedCandidate as unknown as JsonValue,
+      candidate as unknown as JsonValue,
+    ) ||
     basis.authorityScopeRef !== candidate.bindingId ||
     basis.authorityScopeDigest !== candidate.bindingDigest
   ) {

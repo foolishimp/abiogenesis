@@ -12,6 +12,7 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { deriveRequirementHandoffCandidate, isRequirementHandoffInput } from "../product/requirement_handoff.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const hash = (value: unknown) => sha256Canonical(value as JsonValue);
 export interface RequirementHandoffDeclarationBasis {
   readonly publication: Readonly<ModulePublication>;
@@ -33,10 +34,10 @@ export function authenticateRequirementHandoffBasis(basis: RequirementHandoffDec
       invocationAdmissionRef: execution.invocationAdmissionRef, admittedInputRef: execution.rawInputAdmissionRef,
       admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue,
     });
-    if (hash(basis.graph) !== hash(graph) || graph.materializationRef !== execution.graphRef ||
+    if (!canonicalEquals(basis.graph as unknown as JsonValue, graph as unknown as JsonValue) || graph.materializationRef !== execution.graphRef ||
       graph.materializationDigest !== execution.graphDigest) return null;
     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCall.cCallRef);
-    if (call === null || hash(execution) !== hash(basis.executionBasis) || hash(call) !== hash(basis.cCall) ||
+    if (call === null || !canonicalEquals(execution as unknown as JsonValue, basis.executionBasis) || !canonicalEquals(call as unknown as JsonValue, basis.cCall) ||
       call.basisId !== execution.basisRef || call.regime !== "F_D" || call.callClass !== "leaf" ||
       call.graphFunctionRef !== execution.graphFunctionRef || call.inputContractRef !== REQUIREMENT_HANDOFF_IDS.inputContractRef ||
       call.outputContractRef !== REQUIREMENT_HANDOFF_IDS.outputContractRef ||
@@ -82,5 +83,5 @@ export function projectRequirementHandoffCandidate(basis: RequirementHandoffDecl
 /** ABG alone compares against its current admitted source, never output-owned declarations. */
 export function requirementHandoffResultMatches(basis: RequirementHandoffDeclarationBasis, input: unknown, value: unknown): boolean {
   const expected = projectRequirementHandoffCandidate(basis, input);
-  return expected !== null && hash(value) === hash(expected);
+  return expected !== null && canonicalEquals(value as JsonValue, expected as unknown as JsonValue);
 }

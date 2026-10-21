@@ -17,6 +17,7 @@ import { sha256Bytes, sha256Canonical, } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { hasExactKeys } from "../shared/admit/index.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const descriptorBody = {
     implementationRef: WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,
     packageName: ABI5_PACKAGE_NAME,
@@ -133,7 +134,7 @@ function failure(failureClass) {
 function exactExchange(task, inputDigest, request, plan, exchange) {
     const observation = exchange.observation;
     const tool = observation.toolInvocations[0];
-    return canonicalJson(exchange.request) === canonicalJson(request) &&
+    return canonicalEquals(exchange.request, request) &&
         observation.actorRef === task.workerActorRef &&
         observation.workerBindingRef === task.workerBindingRef &&
         observation.implementationRef === worksiteExecutionImplementationRef(task) &&
@@ -384,8 +385,7 @@ function assertManifestPairCurrent(task, occurrence, plan) {
     const taskBytes = taskManifestBytes(task);
     const launchBytes = launchManifestBytes(plan);
     if (!isWorksiteCommandExecutionHelperPlan(task, plan.helperPlan) ||
-        canonicalJson(plan) !==
-            canonicalJson(expectedPlan) ||
+        !canonicalEquals(plan, expectedPlan) ||
         plan.launchManifest.taskRef !== task.taskRef ||
         plan.launchManifest.taskDigest !== task.taskDigest ||
         plan.launchManifest.taskManifestPath !== plan.helperPlan.taskManifestPath ||
@@ -469,7 +469,7 @@ export function realizeWorksiteCommandExecution(input, occurrence, prepareAssemb
     const nativeAssembly = occurrence.nativeInstructionAssemblyBasis === undefined ? null
         : (prepareAssembly === undefined ? requireWorksiteNativeInstructionAssembly(occurrence.nativeInstructionAssemblyBasis, input) : prepareAssembly());
     const before = worksiteExecutionSources(input).map((row) => observeWorksiteSubjectSync(input, row.subject));
-    if (before.some((observation, ordinal) => canonicalJson(observation) !== canonicalJson(worksiteExecutionSources(input)[ordinal].observation))) {
+    if (before.some((observation, ordinal) => !canonicalEquals(observation, worksiteExecutionSources(input)[ordinal].observation))) {
         throw new TypeError("protected worksite observation changed before Worker dispatch");
     }
     const productInventoryBefore = installedProductInventoryDigest(input.workspaceBinding.roots.productRoot);
@@ -494,7 +494,7 @@ export function realizeWorksiteCommandExecution(input, occurrence, prepareAssemb
         workerRequest,
         async complete(exchange) {
             const current = await Promise.all(worksiteExecutionSources(input).map((row) => observeWorksiteSubject(input.workspaceAuthorityBasis, input.workspaceBinding, row.subject)));
-            if (current.some((row, ordinal) => canonicalJson(row) !== canonicalJson(worksiteExecutionSources(input)[ordinal].observation))) {
+            if (current.some((row, ordinal) => !canonicalEquals(row, worksiteExecutionSources(input)[ordinal].observation))) {
                 return failure("protected_observation_mismatch");
             }
             let productInventoryAfter;

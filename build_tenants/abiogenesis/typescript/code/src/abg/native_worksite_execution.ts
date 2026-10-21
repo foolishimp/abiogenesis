@@ -5,7 +5,7 @@ import { projectWorksiteSelectedOccurrence, worksiteSelectedOccurrenceDependenci
 import { nativeWorkUnknownEffectDependencies, projectNativeWorkUnknownEffectTask } from "./native_work_effect.js";
 import { projectReacquiredNativeWorkCommandSourceAtPrefix } from "./native_work_reacquisition.js";
 /** Native-work source alternative at the existing C2 admission boundary. */
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { isNativeWorksiteCommandExecutionTask, type NativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure, nativeWorkspacePathWithin } from "../product/native_workspace_work.js";
@@ -15,8 +15,9 @@ import { runtimePrefixComputation, type ValidatedRuntimeEventPrefix } from "./ev
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix, hasAdmittedGovernanceSourceUse } from "./invocation_execution_truth.js";
 import type { ExecutionBasis } from "./execution_basis.js";
 import type { DurablePrefixCoordinate, RuntimeEvent } from "./event_store.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const record = (v: unknown): v is Readonly<Record<string, JsonValue>> => typeof v === "object" && v !== null && !Array.isArray(v);
-const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
+const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a as JsonValue, b as JsonValue);
 const one = <T>(events: readonly T[], predicate: (e: T) => boolean) => {
   const rows = events.filter(predicate); return rows.length === 1 ? rows[0]! : null;
 };

@@ -10,6 +10,7 @@ import { indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixExtent,
 import type { RuntimeEvent } from "./event_store.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 function causeActor(event: RuntimeEvent): string | null {
   if (!isRecord(event.payload) || typeof event.payload.actorInvocationRef !== "string" ||
@@ -116,7 +117,7 @@ export function projectNativeWorkUnknownEffectTask(event: RuntimeEvent, priorEve
       bp.inputDigest !== basis.rawInputDigest || ap.inputDigest !== basis.rawInputDigest || invocation === null ||
       invocation.workspaceBindingId !== basis.workspaceBindingId || invocation.workspaceBindingDigest !== basis.workspaceBindingDigest ||
       invocation.actorRef !== basis.actorRef || !invocation.capabilityGrants.some(grant =>
-        sha256Canonical(grant as unknown as JsonValue) === sha256Canonical(task.capabilityGrant as unknown as JsonValue)) ||
+        canonicalEquals(grant as unknown as JsonValue, task.capabilityGrant as unknown as JsonValue)) ||
       set?.implementationSetDigest !== basis.implementationSetDigest || selected?.length !== 1 ||
       selected[0]!.implementationRef !== nativeIds.implementationRef || selected[0]!.inputContractRef !== nativeIds.taskContractRef) return null;
     const basisEvent = runtimeEventAtPrefix(prefix, basis.admissionEventRef);

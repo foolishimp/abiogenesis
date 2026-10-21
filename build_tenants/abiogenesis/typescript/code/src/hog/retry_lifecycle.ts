@@ -9,7 +9,6 @@ import { deepFreeze } from "../shared/immutable.js";
 import type { CCallRetryRequest } from "./ccall_lifecycle.js";
 import {
   admissionBasis,
-  sameCanonical,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
 import {
@@ -26,6 +25,7 @@ import {
   type ExecutableTraversalCompletion,
 } from "./traversal_completion.js";
 import { failTraversal } from "./traversal_failure.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface RetryResumeStep {
   readonly kind: "retry_resume";
@@ -240,7 +240,7 @@ export function resumeProjectedRetry(
   }
   if (
     fresh.kind !== "executable_retry_input" ||
-    !sameCanonical(fresh, request.retry)
+    !canonicalEquals(fresh as unknown as JsonValue, request.retry as unknown as JsonValue)
   ) {
     return projectedRetryRefusal(
       request,
@@ -307,8 +307,8 @@ export function resumeProjectedRetry(
   if (
     executionBasis === null ||
     openedTraversalScope === null ||
-    !sameCanonical(executionBasis, request.runtime.executionBasis) ||
-    !sameCanonical(openedTraversalScope, request.runtime.openedTraversalScope) ||
+    !canonicalEquals(executionBasis as unknown as JsonValue, request.runtime.executionBasis as unknown as JsonValue) ||
+    !canonicalEquals(openedTraversalScope as unknown as JsonValue, request.runtime.openedTraversalScope as unknown as JsonValue) ||
     executionBasis.basisRef !== fresh.executionBasisRef ||
     executionBasis.basisDigest !== fresh.executionBasisDigest ||
     openedTraversalScope.scopeRef !== fresh.traversalScopeRef ||
@@ -351,7 +351,7 @@ export function resumeProjectedRetry(
   if (
     target.kind !== "traversal_cursor" ||
     target.attempt !== fresh.nextAttempt ||
-    !sameCanonical(target.retryPath, fresh.nextRetryPath) ||
+    !canonicalEquals(target.retryPath, fresh.nextRetryPath) ||
     target.inputRef !== fresh.inputRef ||
     target.inputDigest !== fresh.inputDigest
   ) {
@@ -391,7 +391,7 @@ export function resumeProjectedRetry(
   const projectedTarget = targetTraversal.kind === "traversal_cursor"
     ? targetTraversal
     : targetTraversal.cursor;
-  if (!sameCanonical(projectedTarget, target)) {
+  if (!canonicalEquals(projectedTarget as unknown as JsonValue, target as unknown as JsonValue)) {
     return projectedRetryRefusal(
       request,
       "retry_step_refused",

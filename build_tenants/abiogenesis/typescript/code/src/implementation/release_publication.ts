@@ -22,14 +22,14 @@ import { assertDurableRuntimePrefixBytes,type DurablePrefixCoordinate } from "..
 import { QUALIFICATION_PROOF_RESOURCE_SCHEMA,type QualificationProofResource,type QualificationEvidenceSelection } from "../validator/qualification_contracts.js";
 import { isQualificationBasisReady } from "../validator/qualification.js";
 import { refDigestSchema,admitRuntimeContract } from "../shared/public_function_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const exec=promisify(execFile);
-const same=(a:unknown,b:unknown)=>canonicalJson(a as JsonValue)===canonicalJson(b as JsonValue);
 /** Output-only field selection shared by the physical snapshot and its bounded
  * copy check. It does not authenticate or reevaluate qualification. */
 export function releaseVerificationSnapshotFields(qualification: ExactCandidateQualification<"verdict">) {
  const material=qualification.selfConformance.verification;
  if(!v.is(QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA,material)||material.disposition!=="passed"||
-   !same(material.subjectBasis,qualification.subjectBasis)||!same(material.lawBasis,qualification.lawBasis))
+   !canonicalEquals(material.subjectBasis, qualification.subjectBasis)||!canonicalEquals(material.lawBasis, qualification.lawBasis))
    throw new TypeError("release snapshot requires selected same-subject verification material");
  return {verificationFacts:qualification,verificationMaterial:material,assessmentCitation:qualification.selfConformance};
 }
@@ -53,7 +53,7 @@ export async function publishReleaseSnapshot(request:PublishedRcSnapshotRequest,
  const result=(disposition:ReleasePhysicalObservation["disposition"],message:string)=>({disposition,phase,message,effects,unknownEffects,sourceCommit,sourceTree,refs:observedRefs,snapshotManifest,snapshotFiles});
  try{
   const identity=request.requestedIdentity,basis=request.qualificationBasis,rcRef=`refs/tags/v${identity.version}`,selectorRef=`refs/tags/v${identity.versionLine}`;
-  requireRelation(same({ref:qualification.verdictRef,digest:qualification.verdictDigest},request.verdict)&&qualification.disposition==="green"&&qualification.bypassRefs.length===0&&same(qualification.subjectBasis,{ref:basis.basisRef,digest:basis.basisDigest})&&same(qualification.lawBasis,request.lawBasis),"physical owner requires the selected D5 projection");
+  requireRelation(canonicalEquals({ref:qualification.verdictRef,digest:qualification.verdictDigest}, request.verdict)&&qualification.disposition==="green"&&qualification.bypassRefs.length===0&&canonicalEquals(qualification.subjectBasis, {ref:basis.basisRef,digest:basis.basisDigest})&&canonicalEquals(qualification.lawBasis, request.lawBasis),"physical owner requires the selected D5 projection");
   const verificationFields=releaseVerificationSnapshotFields(qualification);
   requireRelation(isAbsolute(grant.remote)||/^(?:https|ssh|file):\/\//.test(grant.remote),"remote must be an explicit path or URL, never an ambient alias");
   requireRelation(identity.version===`5.0.0-rc.${identity.ordinal}`&&identity.namespace==="abiogenesis"&&identity.profile==="one_project_unqualified"&&identity.projectSubtree==="."&&grant.pushMode==="atomic","release namespace/profile/version mismatch");
@@ -62,12 +62,12 @@ export async function publishReleaseSnapshot(request:PublishedRcSnapshotRequest,
   sourceCommit=await git(grant.sourceRoot,["rev-parse","HEAD"]);sourceTree=await git(grant.sourceRoot,["rev-parse","HEAD^{tree}"]);
   requireRelation(sourceCommit===grant.sourceCommit&&sourceTree===grant.sourceTree,"source commit/tree differs from effect grant");
   requireRelation(grant.sourceInventory.inventoryDigest===qualificationIdentityDigest(grant.sourceInventory,"inventoryRef","inventoryDigest")&&grant.sourceInventory.coverage==="complete_claim"&&
-   same({ref:grant.sourceInventory.inventoryRef,digest:grant.sourceInventory.inventoryDigest},basis.sourceInventory),"source inventory differs from qualified subject");
+   canonicalEquals({ref:grant.sourceInventory.inventoryRef,digest:grant.sourceInventory.inventoryDigest}, basis.sourceInventory),"source inventory differs from qualified subject");
   for(const member of grant.sourceInventory.members){requireRelation(safeRelative(member.path),"source member must be a confined relative path");const path=join(grant.sourceRoot,member.path);requireRelation(inside(grant.sourceRoot,await realpath(path))&&(await lstat(path)).isFile(),"source member is not a confined regular file");const bytes=await readFile(path);requireRelation(bytes.length===member.byteCount&&sha256Bytes(bytes)===member.digest,"qualifying source member changed");await git(grant.sourceRoot,["ls-files","--error-unmatch","--",member.path]);
    const committed=(await exec("git",["-C",grant.sourceRoot,"cat-file","blob",`${sourceCommit}:${member.path}`],{encoding:"buffer",maxBuffer:Math.max(member.byteCount+1024,4*1024*1024)})).stdout;
    requireRelation(committed.length===member.byteCount&&sha256Bytes(committed)===member.digest,"qualified member differs from committed release carrier");}
   requireRelation(safeRelative(grant.artifact.snapshotName)&&basename(grant.artifact.snapshotName)===grant.artifact.snapshotName&&!["release-snapshot.json","SHA256SUMS","release-claim"].includes(grant.artifact.snapshotName),"snapshot artifact name is invalid");
-  requireRelation(same({ref:grant.artifact.ref,digest:grant.artifact.digest},basis.artifact),"artifact differs from qualified subject");
+  requireRelation(canonicalEquals({ref:grant.artifact.ref,digest:grant.artifact.digest}, basis.artifact),"artifact differs from qualified subject");
   const artifact=await readFile(grant.artifact.path),claim=await readFile(grant.releaseClaimPath),manifest=JSON.parse(await readFile(grant.manifestPath,"utf8"));
   requireRelation(sha256Bytes(artifact)===basis.artifact.digest&&sha256Bytes(claim)===identity.releaseClaim.digest,"artifact or release-claim bytes changed");
   requireRelation(sha256Bytes(Buffer.from(canonicalJson(manifest)))===basis.productManifest.digest&&manifest.productContentDigest===basis.productContentDigest&&manifest.packageVersion===identity.version&&manifest.productId===identity.productId&&manifest.packageName===grant.artifact.packageName,"package/manifest release identity differs from qualified subject");
@@ -81,7 +81,7 @@ export async function publishReleaseSnapshot(request:PublishedRcSnapshotRequest,
   await emptyTarget(grant.snapshotRoot);
   requireRelation(grant.carrierRefs.every(r=>/^refs\/heads\/[^\s~^:?*\[\\]+$/.test(r.ref))&&new Set(grant.carrierRefs.map(r=>r.ref)).size===grant.carrierRefs.length,"carrier refs must be unique explicit branches");
   const local=await refs(grant,false),remote=await refs(grant,true);
-  requireRelation(same(local,[...grant.expectedLocalRefs].sort((a,b)=>a.ref.localeCompare(b.ref)))&&same(remote,[...grant.expectedRemoteRefs].sort((a,b)=>a.ref.localeCompare(b.ref))),"local or remote ref objects changed");
+  requireRelation(canonicalEquals(local, [...grant.expectedLocalRefs].sort((a,b)=>a.ref.localeCompare(b.ref)))&&canonicalEquals(remote, [...grant.expectedRemoteRefs].sort((a,b)=>a.ref.localeCompare(b.ref))),"local or remote ref objects changed");
   for(const row of [...local,...remote]){
    requireRelation(!/^refs\/tags\/.+\/v5\.0\.0(?:-rc\.[^/]*)?$/.test(row.ref),"historical project-qualified release profile conflicts");
    if(row.ref.startsWith("refs/tags/v5.0.0-rc.")){const match=/^refs\/tags\/v5\.0\.0-rc\.([1-9][0-9]*)$/.exec(row.ref);requireRelation(match!==null&&Number(match[1])<identity.ordinal,"RC ordinal must exceed every preserved RC");}
@@ -130,12 +130,12 @@ export function projectReleaseQualification(request:PublishedRcSnapshotRequest,p
   if(admitRuntimeContract(RELEASE_OPERATION_CONTRACTS.snapshot[member].requestSchema,request).disposition!=="admitted"||!v.is(QUALIFICATION_PROOF_RESOURCE_SCHEMA,proof)||selection.kind!=="verdict_selection")return null;
   const basis=request.qualificationBasis;
   const subjectKind=member==="published_rc"?"pre_rc_candidate":"installed_rc";
-  if(basis.subjectKind!==subjectKind||!isQualificationBasisReady(basis)||!same(basis.prospectiveRelease,request.requestedIdentity)||!same(basis.lawBasis,request.lawBasis))return null;
-  const q=proof.prefix as DurablePrefixCoordinate;if(q.eventLogRef!==current.eventLogRef||!same(q.storeIdentity,current.storeIdentity)||q.prefixLength>current.prefixLength)return null;
+  if(basis.subjectKind!==subjectKind||!isQualificationBasisReady(basis)||!canonicalEquals(basis.prospectiveRelease, request.requestedIdentity)||!canonicalEquals(basis.lawBasis, request.lawBasis))return null;
+  const q=proof.prefix as DurablePrefixCoordinate;if(q.eventLogRef!==current.eventLogRef||!canonicalEquals(q.storeIdentity, current.storeIdentity)||q.prefixLength>current.prefixLength)return null;
   assertDurableRuntimePrefixBytes(q);assertDurableRuntimePrefixBytes(current);
   const verdict=projectQualificationVerdict({proof,selection,subjectBasis:{ref:basis.basisRef,digest:basis.basisDigest},lawBasis:request.lawBasis});
   return verdict!==null&&verdict.subjectKind===subjectKind&&verdict.disposition==="green"&&verdict.bypassRefs.length===0&&
-   same({ref:verdict.verdictRef,digest:verdict.verdictDigest},request.verdict)?verdict:null;
+   canonicalEquals({ref:verdict.verdictRef,digest:verdict.verdictDigest}, request.verdict)?verdict:null;
  }catch{return null;}
 }
 /** Closed observation validity, not an assertion that publication is complete. */
@@ -152,26 +152,26 @@ export function isReleaseOperationArtifact(value:unknown):value is ReleaseOperat
  let environment;
  try { environment=approved.basis.boundEnvironment===null?null:admitCapabilityEnvironment(approved.basis.boundEnvironment,null,false); }
  catch { return false; }
- if(!same(approved.grants,grants)||!same(approved.basis.request,a.request)||approved.basis.resourceScope.resourcesDigest!==a.resourceDigest||
-    !same(approved.basis.resourceScope.authoritySlots,admissionAuthoritySlots(slots))||approved.basis.definition.definitionDigest!==a.invocation.definitionDigest||
-    environment?.workspaceAuthorityBasis.authorizedActorRef!==a.actorRef||!same(environment?.prefix,a.entryPrefix)||
+ if(!canonicalEquals(approved.grants, grants as unknown as JsonValue)||!canonicalEquals(approved.basis.request, a.request)||approved.basis.resourceScope.resourcesDigest!==a.resourceDigest||
+    !canonicalEquals(approved.basis.resourceScope.authoritySlots, admissionAuthoritySlots(slots))||approved.basis.definition.definitionDigest!==a.invocation.definitionDigest||
+    environment?.workspaceAuthorityBasis.authorizedActorRef!==a.actorRef||!canonicalEquals(environment?.prefix as unknown as JsonValue, a.entryPrefix)||
     authority.actorRef!==a.actorRef||authority.authority.value.actorRef!==a.actorRef||authority.approval.value.actorRef!==a.actorRef||
     authority.authority.digest!==sha256Canonical(authority.authority.value)||authority.approval.digest!==sha256Canonical(authority.approval.value)||
     authority.approval.value.definitionDigest!==a.invocation.definitionDigest||authority.approval.value.requestDigest!==a.invocation.invocationPayloadDigest||authority.approval.value.scopeDigest!==scope.digest||
     a.resourceDigest!==sha256Canonical(releaseArtifactResources(a) as unknown as JsonValue)||
     grants.some(g=>g.scopeRef!==scope.ref||g.scopeDigest!==scope.digest||g.approvalRef!==authority.approval.ref||g.approvalDigest!==authority.approval.digest||g.authorityBasisRef!==authority.authority.ref||g.authorityBasisDigest!==authority.authority.digest))return false;
- if(!same(slots.capability_grants,{requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))})||grants.some(g=>g.actorRef!==a.actorRef||g.definitionDigest!==a.invocation.definitionDigest||!same(g.definitionKey,p.definitionKey)))return false;
- return isExactOperationInvocationCoordinate(a.invocation)&&same(a.scope,a.memberKey==="published_rc"?releaseAuthorityScope(a.request,a.proof,a.selection,a.effectGrant):releaseAcceptanceScope(a.request,a.proof,a.selection,a.effectGrant))&&
+ if(!canonicalEquals(slots.capability_grants as JsonValue, {requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))})||grants.some(g=>g.actorRef!==a.actorRef||g.definitionDigest!==a.invocation.definitionDigest||!canonicalEquals(g.definitionKey as unknown as JsonValue, p.definitionKey as JsonValue)))return false;
+ return isExactOperationInvocationCoordinate(a.invocation)&&canonicalEquals(a.scope, a.memberKey==="published_rc"?releaseAuthorityScope(a.request,a.proof,a.selection,a.effectGrant):releaseAcceptanceScope(a.request,a.proof,a.selection,a.effectGrant))&&
   (a.memberKey==="published_rc"||releaseRulingDecision(a.request,a.publication,a.ruling,a.effectGrant)===a.decision&&
     (a.observation.disposition!=="complete"||a.addendum!==null))&&
   isRecord(p)&&p.invocationRef===a.invocation.invocationRef&&p.definitionDigest===a.invocation.definitionDigest&&p.requestDigest===a.invocation.invocationPayloadDigest&&
-  same(p.request,a.request)&&isRecord(p.invocationAuthority)&&isRecord(p.invocationAuthority.slots)&&
-  same(p.invocationAuthority.slots.workspace_binding,a.workspaceBinding)&&same(p.invocationAuthority.slots.product_set,a.productSet)&&
-  same(p.invocationAuthority.slots.dependency_lock,a.dependencyLock)&&same(p.invocationAuthority.slots.capability_grants,a.capabilityGrants)&&
+  canonicalEquals(p.request as JsonValue, a.request)&&isRecord(p.invocationAuthority)&&isRecord(p.invocationAuthority.slots)&&
+  canonicalEquals(p.invocationAuthority.slots.workspace_binding as JsonValue, a.workspaceBinding)&&canonicalEquals(p.invocationAuthority.slots.product_set as JsonValue, a.productSet)&&
+  canonicalEquals(p.invocationAuthority.slots.dependency_lock as JsonValue, a.dependencyLock)&&canonicalEquals(p.invocationAuthority.slots.capability_grants as JsonValue, a.capabilityGrants)&&
   isRecord(p.invocationAuthority.slots.actor)&&isRecord(p.invocationAuthority.slots.actor.actor)&&p.invocationAuthority.slots.actor.actor.ref===a.actorRef;
 }
 export function readReleaseArtifactBytes(path:string,coordinate:ReferenceDigest):ReleaseOperationArtifact|null{
- try{const bytes=readFileSync(path),value:unknown=JSON.parse(bytes.toString("utf8"));return isReleaseOperationArtifact(value)&&same(releaseArtifactCoordinate(value),coordinate)&&bytes.toString("utf8")===canonicalJson(value as unknown as JsonValue)?value:null;}catch{return null;}
+ try{const bytes=readFileSync(path),value:unknown=JSON.parse(bytes.toString("utf8"));return isReleaseOperationArtifact(value)&&canonicalEquals(releaseArtifactCoordinate(value), coordinate as unknown as JsonValue)&&bytes.toString("utf8")===canonicalJson(value as unknown as JsonValue)?value:null;}catch{return null;}
 }
 
 /** The resource body is conserved once across live admission and historical reads. */
@@ -181,8 +181,8 @@ export function releaseArtifactResources(a:ReleaseOperationArtifact){
   : {kind:"release_acceptance_resources",schemaVersion:"5.0.0",eventResource:a.eventResource,proof:a.proof,selection:a.selection,effectGrant:a.effectGrant,publication:a.publication,ruling:a.ruling};
 }
 export function releaseRulingDecision(request:TappedReleaseSnapshotRequest,publication:PublishedReleaseOperationArtifact,ruling:ReleaseOwnerRuling|null,grant:ReleaseAcceptanceGrant){
- if(ruling===null||grant.sourceApproval===null||!same(request.acceptance,releaseOwnerRulingCoordinate(ruling))||
-    !same(grant.sourceAuthority,grant.sourceApproval.authority)||!same(grant.humanAuthority,ruling.owner))return null;
+ if(ruling===null||grant.sourceApproval===null||!canonicalEquals(request.acceptance, releaseOwnerRulingCoordinate(ruling))||
+    !canonicalEquals(grant.sourceAuthority, grant.sourceApproval.authority)||!canonicalEquals(grant.humanAuthority, ruling.owner))return null;
  return resolveReleaseOwnerRuling(releaseAcceptanceRequest(request,publication,grant.humanAuthority,grant.requiredEvidence),ruling,grant.sourceApproval);
 }
 export interface ReleaseArtifactPremise {readonly operationId:string;readonly memberKey:string;readonly artifactRef:string;readonly artifactDigest:string;readonly artifact:JsonValue;}
@@ -191,15 +191,15 @@ export interface ReleaseArtifactPremise {readonly operationId:string;readonly me
 export function releaseAcceptancePublicationMatches(request:TappedReleaseSnapshotRequest,publication:PublishedReleaseOperationArtifact,
  rows:readonly ReleaseArtifactPremise[]):boolean{
  const selected=rows.filter(r=>r.operationId==="abg.operation.release.snapshot"&&r.memberKey==="published_rc"&&
-  same({ref:r.artifactRef,digest:r.artifactDigest},request.acceptedRc));
+  canonicalEquals({ref:r.artifactRef,digest:r.artifactDigest}, request.acceptedRc));
  const basis=request.qualificationBasis,published=publication.request.qualificationBasis;
- if(selected.length!==1||!same(selected[0]!.artifact,publication)||publication.observation.disposition!=="complete"||
-    publication.observation.snapshotManifest===null||!same(releaseArtifactCoordinate(publication),request.acceptedRc)||
-    !same(request.requestedIdentity,publication.request.requestedIdentity)||basis.subjectKind!=="installed_rc"||
-    !["artifact","productManifest","productContentDigest","productId","productVersion"].every(key=>same(basis[key as keyof typeof basis],published[key as keyof typeof published])))return false;
+ if(selected.length!==1||!canonicalEquals(selected[0]!.artifact, publication as unknown as JsonValue)||publication.observation.disposition!=="complete"||
+    publication.observation.snapshotManifest===null||!canonicalEquals(releaseArtifactCoordinate(publication), request.acceptedRc)||
+    !canonicalEquals(request.requestedIdentity, publication.request.requestedIdentity)||basis.subjectKind!=="installed_rc"||
+    !["artifact","productManifest","productContentDigest","productId","productVersion"].every(key=>canonicalEquals(basis[key as keyof typeof basis], published[key as keyof typeof published])))return false;
  const prior=rows.filter(r=>r.operationId==="abg.operation.release.snapshot"&&r.memberKey==="tapped_release"&&
-  isRecord(r.artifact)&&isRecord(r.artifact.request)&&same(r.artifact.request.acceptedRc,request.acceptedRc)).at(-1);
- return prior===undefined?request.predecessor===null:same(request.predecessor,{ref:prior.artifactRef,digest:prior.artifactDigest})&&
+  isRecord(r.artifact)&&isRecord(r.artifact.request)&&canonicalEquals(r.artifact.request.acceptedRc as JsonValue, request.acceptedRc)).at(-1);
+ return prior===undefined?request.predecessor===null:canonicalEquals(request.predecessor, {ref:prior.artifactRef,digest:prior.artifactDigest})&&
   isRecord(prior.artifact)&&isRecord(prior.artifact.observation)&&prior.artifact.observation.disposition==="complete";
 }
 export function projectReleaseAcceptance(request:TappedReleaseSnapshotRequest,proof:QualificationProofResource,selection:QualificationEvidenceSelection,
@@ -207,7 +207,7 @@ export function projectReleaseAcceptance(request:TappedReleaseSnapshotRequest,pr
  const qualification=projectReleaseQualification(request,proof,selection,current,"tapped_release");
  if(qualification===null||!releaseAcceptancePublicationMatches(request,publication,rows)||
     new Set(grant.requiredEvidence.map(e=>e.ref)).size!==grant.requiredEvidence.length||
-    ![request.verdict,request.acceptedRc,qualification.selfConformance.assessment].every(e=>grant.requiredEvidence.some(s=>same(s,e))))return null;
+    ![request.verdict,request.acceptedRc,qualification.selfConformance.assessment].every(e=>grant.requiredEvidence.some(s=>canonicalEquals(s, e))))return null;
  const decision=releaseRulingDecision(request,publication,ruling,grant);
  return decision===null?null:{qualification,decision};
 }
@@ -224,7 +224,7 @@ export async function recordReleaseAcceptance(request:TappedReleaseSnapshotReque
  try{
   requireRelation(releaseRulingDecision(request,publication,ruling,grant)===decision,"original owner ruling/source differs from its exact request or external attribution");
   const original=publication.effectGrant,identity=request.requestedIdentity,rcRef=`refs/tags/v${identity.version}`;
-  requireRelation(publication.observation.disposition==="complete"&&same(identity,publication.request.requestedIdentity),"complete exact published RC is required");
+  requireRelation(publication.observation.disposition==="complete"&&canonicalEquals(identity, publication.request.requestedIdentity),"complete exact published RC is required");
   requireRelation(isAbsolute(original.remote)||/^(?:https|ssh|file):\/\//.test(original.remote),"publication remote is not explicit");
   const retained=publication.observation.refs.filter(r=>r.ref===rcRef);
   requireRelation(retained.length===1,"publication requires one immutable annotated RC identity");

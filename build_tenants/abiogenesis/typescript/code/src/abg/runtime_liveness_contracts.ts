@@ -2,6 +2,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import * as v from "valibot";
 import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 /** Fixed native declaration vocabulary, never a runtime registration API. */
 export const RUNTIME_PROBE_SOURCE_VALUES = Object.freeze([
@@ -154,10 +155,13 @@ export function constructRuntimeWatchdogPolicy(input: Readonly<{
 export function isRuntimeWatchdogPolicy(value: unknown): value is RuntimeWatchdogPolicy {
   if (!exact(value, ["kind", "schemaVersion", "startupMs", "inactivityMs", "hardCapMs", "terminationGraceMs", "policyRef", "policyDigest"])) return false;
   try {
-    return runtimeLivenessDigest(value) === runtimeLivenessDigest(constructRuntimeWatchdogPolicy({
-      startupMs: value.startupMs as number, inactivityMs: value.inactivityMs as number,
-      hardCapMs: value.hardCapMs as number, terminationGraceMs: value.terminationGraceMs as number,
-    }));
+    return canonicalEquals(
+      value as unknown as JsonValue,
+      constructRuntimeWatchdogPolicy({
+        startupMs: value.startupMs as number, inactivityMs: value.inactivityMs as number,
+        hardCapMs: value.hardCapMs as number, terminationGraceMs: value.terminationGraceMs as number,
+      }) as unknown as JsonValue,
+    );
   } catch { return false; }
 }
 export function isRuntimeInvocationScope(value: unknown): value is RuntimeInvocationScope {
@@ -188,7 +192,7 @@ export function isRuntimeSystemProbeContract(value: unknown): value is RuntimeSy
   if (!exact(value, ["kind", "schemaVersion", "probeRef", "probeDigest", "scope", "clockOriginRef", "source", "sourceRef", "declarationEventRef", "required"])) return false;
   try {
     const { kind: _kind, schemaVersion: _version, probeRef: _ref, probeDigest: _digest, ...input } = value;
-    return runtimeLivenessDigest(value) === runtimeLivenessDigest(constructRuntimeSystemProbeContract(input as never));
+    return canonicalEquals(value as unknown as JsonValue, constructRuntimeSystemProbeContract(input as never) as unknown as JsonValue);
   } catch { return false; }
 }
 export function isRuntimeProbeObservation(value: unknown): value is RuntimeProbeObservation {

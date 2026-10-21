@@ -17,6 +17,7 @@ import type {
   ProductSemanticsBinding,
   RuleDeclaration,
 } from "./contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const CONTRACT_KINDS = [
   "closure",
@@ -146,7 +147,7 @@ export function closureContract(
   if (
     input.kind !== "closure_contract" ||
     input.terminalKind !== "completed" ||
-    input.eventKindRefs.join("\0") !== expectedEvents.join("\0")
+    !canonicalEquals(input.eventKindRefs, expectedEvents)
   ) {
     throw new TypeError(
       "ClosureContract scope requires its exact terminal event sequence",

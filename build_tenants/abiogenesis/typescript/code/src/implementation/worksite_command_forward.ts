@@ -6,10 +6,10 @@ import { WORKSITE_COMMAND_EXECUTION_IDS as C2 } from "../product/worksite_comman
 import { authenticateWorksiteCommandForwardBasis } from "../abg/worksite_command_forward.js";
 import { realizeWorksiteCommandExecution, installedProductInventoryDigest } from "./worksite_command_execution.js";
 import type { LeafExecutionOccurrence, LeafRealizationCandidate } from "./contracts.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-const same=(a:unknown,b:unknown)=>canonicalJson(a as JsonValue)===canonicalJson(b as JsonValue);
+import { canonicalEquals } from "../shared/value/index.js";
 function descriptor(prepare:boolean):PackagedLeafImplementationDescriptor {
   const body={implementationRef:prepare?F.prepareImplementationRef:F.implementationRef,packageName:ABI5_PACKAGE_NAME,
     packageVersion:ABI5_PACKAGE_VERSION,modulePath:"build/code/src/implementation/worksite_command_forward.js",
@@ -23,7 +23,7 @@ export const WORKSITE_COMMAND_FORWARD_EXECUTE_DESCRIPTOR=descriptor(false);
 export function prepareWorksiteCommandForward(input:unknown,occurrence:LeafExecutionOccurrence):Readonly<LeafRealizationCandidate> {
   const basis=occurrence.worksiteCommandForwardBasis,owner=basis===undefined?null:authenticateWorksiteCommandForwardBasis(basis,true);
   if(owner===null||owner.call.implementationRef!==F.prepareImplementationRef||owner.call.cCallRef!==occurrence.cCallRef||
-    !same(input,owner.relation.task.request))throw new TypeError("forward preparation requires its current native occurrence");
+    !canonicalEquals(input as JsonValue, owner.relation.task.request as unknown as JsonValue))throw new TypeError("forward preparation requires its current native occurrence");
   const resultCandidate=owner.relation.task as unknown as Readonly<Record<string,JsonValue>>;
   return deepFreeze({kind:"leaf_realization_candidate",schemaVersion:"5.0.0",disposition:"success",
     evidenceCandidates:[{kind:"deterministic_evidence_candidate",schemaVersion:"5.0.0",implementationRef:F.prepareImplementationRef,
@@ -32,7 +32,7 @@ export function prepareWorksiteCommandForward(input:unknown,occurrence:LeafExecu
 export function realizeWorksiteCommandForward(input:unknown,occurrence:LeafExecutionOccurrence) {
   const basis=occurrence.worksiteCommandForwardBasis,owner=basis===undefined?null:authenticateWorksiteCommandForwardBasis(basis,true);
   if(owner===null||owner.call.implementationRef!==F.implementationRef||owner.call.cCallRef!==occurrence.cCallRef||
-    !isWorksiteCommandForwardTask(input)||!same(input,owner.relation.task))throw new TypeError("forward command requires its admitted preparation source");
+    !isWorksiteCommandForwardTask(input)||!canonicalEquals(input as unknown as JsonValue, owner.relation.task as unknown as JsonValue))throw new TypeError("forward command requires its admitted preparation source");
   const inventories=owner.relation.installedRoots.map(root=>({root,digest:installedProductInventoryDigest(root)}));
   const {worksiteCommandForwardBasis:_basis,...plain}=occurrence;
   const prepared=realizeWorksiteCommandExecution(input,plain);

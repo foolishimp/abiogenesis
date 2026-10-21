@@ -4,7 +4,7 @@ import {
   isMaterializedGtlGraph,
   retainedMaterializedGraphShape,
 } from "../gtl/materialize.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -12,6 +12,7 @@ import {
   type ProgramValidation,
   type StaticValidationRefusal,
 } from "./validation.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface GraphValidationBasis {
   readonly invocationAdmissionRef: string;
@@ -102,11 +103,15 @@ export function validateGraph(
     graph.admittedInputRef !== basis.admittedInputRef ||
     graph.admittedInputDigest !== basis.admittedInputDigest ||
     (graph.fanOutMaterializations !== expectedShape.fanOutMaterializations &&
-      canonicalJson(graph.fanOutMaterializations as unknown as JsonValue) !==
-        canonicalJson(expectedShape.fanOutMaterializations as unknown as JsonValue)) ||
+      !canonicalEquals(
+        graph.fanOutMaterializations as unknown as JsonValue,
+        expectedShape.fanOutMaterializations as unknown as JsonValue,
+      )) ||
     (graph.template !== expectedShape.template &&
-      canonicalJson(graph.template as unknown as JsonValue) !==
-        canonicalJson(expectedShape.template as unknown as JsonValue))
+      !canonicalEquals(
+        graph.template as unknown as JsonValue,
+        expectedShape.template as unknown as JsonValue,
+      ))
   ) {
     return invalid(graph.materializationDigest, "materialized Graph does not preserve exact function, topology, input, and invocation basis");
   }

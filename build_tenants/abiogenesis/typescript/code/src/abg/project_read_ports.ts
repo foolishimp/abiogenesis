@@ -3,7 +3,7 @@ import type { RuntimeEventPrefix } from "./event_prefix.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
 import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "../shared/admission_predicates.js";
-import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
+import { compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { projectNativeLivenessRead } from "./runtime_liveness.js";
 import { constructRuntimeFailureDiagnosticRef, projectRuntimeFailureEvidenceAtPrefix } from "./runtime_failure.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
@@ -54,6 +54,7 @@ import {
   type ReplayState,
   type RunSemanticReplayProjection,
 } from "./replay.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export const ABG_PROJECT_READ_MEMBER_KEYS = Object.freeze([
   "run_status",
@@ -216,10 +217,6 @@ function hasExactDataFields(value: object, fields: readonly string[]): boolean {
   });
 }
 
-function sameJson(left: unknown, right: unknown): boolean {
-  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-}
-
 function one<T>(rows: readonly T[], label: string): T {
   if (rows.length !== 1) throw new TypeError(`terminal projection requires one exact ${label}`);
   return rows[0]!;
@@ -352,7 +349,7 @@ function terminalDeclaration(
   if (sha256Canonical(program as unknown as JsonValue) !== root.programDigest) throw new TypeError("historical Program digest differs");
   const rootOutput = selectExactClosureContract(closure, root.resultContractRef);
   if (rootOutput === null || sha256Canonical(rootOutput.contract as unknown as JsonValue) !== invocation.outputContractDigest ||
-      !sameJson(rootOutput.owner, invocation.outputContractOwner)) {
+      !canonicalEquals(rootOutput.owner as unknown as JsonValue, invocation.outputContractOwner as unknown as JsonValue)) {
     throw new TypeError("historical declaration proof crosses the admitted root output owner");
   }
   const implementationSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, root.rootImplementationSetRef);
@@ -382,8 +379,8 @@ function terminalDeclaration(
     const interactions = interactionSet.rows.filter((row) => row.graphFunctionRef === child.graphFunctionRef)
       .sort((a, b) => compareUnicodeCodeUnits(a.requirementKey, b.requirementKey));
     if (inheritedSets.some((key) => child[key] !== root[key]) ||
-        !sameJson(child.localExecutableLeafKeys, executable.map((row) => row.requirementKey)) ||
-        !sameJson(child.localInteractionLeafKeys, interactions.map((row) => row.requirementKey)) ||
+        !canonicalEquals(child.localExecutableLeafKeys, executable.map((row) => row.requirementKey)) ||
+        !canonicalEquals(child.localInteractionLeafKeys, interactions.map((row) => row.requirementKey)) ||
         child.localImplementationSubsetDigest !== sha256Canonical({ rootImplementationSetRef: root.rootImplementationSetRef,
           rootImplementationSetDigest: root.rootImplementationSetDigest, executableLeafKeys: child.localExecutableLeafKeys, rows: executable } as unknown as JsonValue) ||
         child.localInteractionSubsetDigest !== sha256Canonical({ rootInteractionSetRef: root.rootInteractionSetRef,
@@ -650,7 +647,7 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
     // Only the internal owner may retain its exact immutable coordinate. Raw
     // packet admission and byte equality remain mandatory; copies stay cold.
     if (retainedPrefix !== undefined) {
-      if (canonicalJson(retainedPrefix as unknown as JsonValue) !== canonicalJson(admitted.prefix as unknown as JsonValue))
+      if (!canonicalEquals(retainedPrefix as unknown as JsonValue, admitted.prefix as unknown as JsonValue))
         throw new TypeError("retained prefix differs from admitted read packet");
       packet = deepFreeze({ ...admitted, prefix: retainedPrefix });
     }
@@ -1316,7 +1313,7 @@ function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: Canon
   }
   const next = gapCall(context, route, route.cCallRef, prepared.fullPrefix);
   const projection = route.nextActionProjection;
-  if (projection?.disposition !== "no_action" || !sameJson(next.value, projection) ||
+  if (projection?.disposition !== "no_action" || !canonicalEquals(next.value, projection as unknown as JsonValue) ||
       next.outcome.result.valueKind !== "next_action_projection" || next.outcome.judgment.judgmentRef !== route.judgmentRef ||
       eventRecord(next.open).cursorRef !== route.sourceCursorRef || eventRecord(next.open).cursorDigest !== route.sourceCursorDigest ||
       !route.causationEventRefs.includes(next.judgment.eventId) || next.judgment.admissionOrdinal >= route.admissionOrdinal) {
@@ -1375,13 +1372,13 @@ function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: Canon
         basis.outcome.result.contractRef !== next.implementation.inputContractRef ||
         basis.outcome.cCall.implementationSetRef !== execution.implementationSetRef ||
         !isRecord(basis.value.gapProjection) || basis.value.gapProjection.gapRef !== projection.gapRef ||
-        !sameJson(basis.value.targetObligationRefs, projection.targetObligationRefs)) {
+        !canonicalEquals(basis.value.targetObligationRefs as JsonValue, projection.targetObligationRefs)) {
       throw new TypeError("no-action input does not join its exact admitted gap basis");
     }
     return basis.value;
   });
   const content = contents[0]!;
-  if (contents.some(value => !sameJson(value, content))) throw new TypeError("no-action input content is ambiguous");
+  if (contents.some(value => !canonicalEquals(value, content))) throw new TypeError("no-action input content is ambiguous");
   const basis = { contractRef: next.implementation.inputContractRef, valueKind: "next_action_basis", valueDigest: inputDigest,
     value: content, inputEvidence: inputs.map(event => ({
       evidence: truthCoordinate(String(eventRecord(event).evidenceRef), eventRecord(event).evidenceDigest as Sha256Digest),

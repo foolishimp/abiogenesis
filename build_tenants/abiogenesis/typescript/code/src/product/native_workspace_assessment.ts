@@ -5,11 +5,12 @@ import { Ajv2020, type ValidateFunction } from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import * as v from "valibot";
 import type { ContractDeclaration, ModulePublication } from "../gtl/contracts.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
 import type { ProductInstall } from "./environment.js";
 import { normalizeWorksiteRelativePath, type WorksiteContextObservation } from "./worksite_effect.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 /** Consumer contract and exact observed subject, not a core semantic rubric. */
 export interface NativeWorkspaceAssessmentSelection {
@@ -88,7 +89,7 @@ export function resolveNativeWorkspaceAssessmentSchema(selection: NativeWorkspac
     if (declarations.length !== 1) return null;
     const declaration = declarations[0]!;
     if (declaration.publication.owningProductId !== selection.schemaAsset.productId ||
-      canonicalJson(declaration.contract as unknown as JsonValue) !== canonicalJson(selection.resultContract as unknown as JsonValue)) return null;
+      !canonicalEquals(declaration.contract as unknown as JsonValue, selection.resultContract as unknown as JsonValue)) return null;
     const owners = installs.filter(install => install.productId === selection.schemaAsset.productId);
     if (owners.length !== 1) return null;
     const install = owners[0]!;

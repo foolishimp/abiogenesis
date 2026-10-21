@@ -32,6 +32,7 @@ import type {
   FanOutStoppingTaskRow,
   PartialFanOutAdmission,
 } from "./fan_out.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 interface FanOutProjectionAuthority {
   readonly graph: Readonly<GtlGraph>;
@@ -906,8 +907,10 @@ function completedRowFromPayload(
   };
   const expected = completedRow(truth, member, truth.resultContractRef);
   return expected !== null &&
-      sha256Canonical(expected as unknown as JsonValue) ===
-        sha256Canonical(value)
+      canonicalEquals(
+        expected as unknown as JsonValue,
+        value,
+      )
     ? expected
     : null;
 }
@@ -1218,8 +1221,10 @@ function deriveCanonicalAdmission(
     const outputVectorDigest = sha256Canonical(outputVector as JsonValue);
     if (
       sha256Canonical(payload.outputVector) !== outputVectorDigest ||
-      sha256Canonical(payload.outputVector) !==
-        sha256Canonical(outputVector as JsonValue) ||
+      !canonicalEquals(
+        payload.outputVector,
+        outputVector as JsonValue,
+      ) ||
       payload.outputVectorDigest !== outputVectorDigest ||
       payload.outputVectorRef !==
         `graph-vector-value://abiogenesis/${outputVectorDigest.slice("sha256:".length)}`
@@ -1281,8 +1286,10 @@ function deriveCanonicalAdmission(
     });
     if (
       expectedStopping === null ||
-      sha256Canonical(expectedStopping as unknown as JsonValue) !==
-        sha256Canonical(stoppingValue) ||
+      !canonicalEquals(
+        expectedStopping as unknown as JsonValue,
+        stoppingValue,
+      ) ||
       (
         materialization !== null &&
         (

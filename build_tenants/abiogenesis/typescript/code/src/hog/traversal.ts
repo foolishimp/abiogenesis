@@ -47,6 +47,7 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export type TraversalCursor = TraversalCursorCandidate;
 
@@ -167,8 +168,10 @@ export function rehydrateHeldInteractionCursor(
   if (
     !hasAdmittedTraversalCursorAtPrefix(prefix, candidate) ||
     !isTraversalCursorCandidate(candidate) ||
-    sha256Canonical(cursor as unknown as JsonValue) !==
-      sha256Canonical(candidate as unknown as JsonValue) ||
+    !canonicalEquals(
+      cursor as unknown as JsonValue,
+      candidate as unknown as JsonValue,
+    ) ||
     candidate.position !== "at_term" ||
     candidate.programRef.length === 0 ||
     candidate.executionBasisRef.length === 0 ||
@@ -264,8 +267,10 @@ export function deriveStructuralTargetCursor(
   const declaredTerm = resolveTraversalTerm(graph, sourceCursor);
   if (
     declaredTerm.kind === "traversal_refusal" ||
-    sha256Canonical(declaredTerm as unknown as JsonValue) !==
-      sha256Canonical(term as unknown as JsonValue)
+    !canonicalEquals(
+      declaredTerm as unknown as JsonValue,
+      term as unknown as JsonValue,
+    )
   ) {
     return refusal(
       "traversal_cursor_mismatch",
@@ -682,8 +687,10 @@ function traversalResultAtCursor(
   if (declaredTerm.kind === "traversal_refusal") return declaredTerm;
   const term = suppliedTerm ?? declaredTerm;
   if (
-    sha256Canonical(term as unknown as JsonValue) !==
-      sha256Canonical(declaredTerm as unknown as JsonValue)
+    !canonicalEquals(
+      term as unknown as JsonValue,
+      declaredTerm as unknown as JsonValue,
+    )
   ) {
     return refusal(
       "traversal_cursor_mismatch",

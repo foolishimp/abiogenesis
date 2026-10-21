@@ -34,6 +34,7 @@ import {
   selectOwnedProductVerification,
   verifyProduct,
 } from "./verify_product.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 function refusal(
   code: ProductInstallRefusalCode,
@@ -133,15 +134,17 @@ async function installedPayloadMatchesGraphCarrier(
       ...installedManifest.productRelativeLocators,
       graphAsset.path,
     ].sort();
-    if (canonicalJson(actualFiles) !== canonicalJson(expectedFiles)) return false;
+    if (!canonicalEquals(actualFiles, expectedFiles)) return false;
     const graphBytes = await readFile(join(installedRoot, graphAsset.path));
     const graph = JSON.parse(graphBytes.toString("utf8")) as unknown;
     if (
       !isCapabilityDefinitionGraph(graph) ||
       canonicalJson(graph as unknown as JsonValue) !== graphBytes.toString("utf8") ||
       sha256Bytes(graphBytes) !== graphAsset.contentDigest ||
-      canonicalJson(graph as unknown as JsonValue) !==
-        canonicalJson(expectedGraph as unknown as JsonValue) ||
+      !canonicalEquals(
+        graph as unknown as JsonValue,
+        expectedGraph as unknown as JsonValue,
+      ) ||
       sha256Bytes(serializeCapabilityDefinitionGraph(graph)) !==
         expectedGraphAsset.contentDigest
     ) {
@@ -332,8 +335,10 @@ async function installProductWithMembership(
   const currentVerification = owned ?? await verifyProduct(verificationRequest);
   if (
     currentVerification.kind !== "verified_product_artifact" ||
-    (owned === null && canonicalJson(currentVerification as unknown as JsonValue) !==
-      canonicalJson(request.verifiedArtifact as unknown as JsonValue))
+    (owned === null && !canonicalEquals(
+      currentVerification as unknown as JsonValue,
+      request.verifiedArtifact as unknown as JsonValue,
+    ))
   ) {
     return refusal(
       "artifact_mismatch",

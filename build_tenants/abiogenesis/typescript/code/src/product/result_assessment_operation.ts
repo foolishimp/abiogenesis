@@ -29,6 +29,7 @@ import {
 } from "../abg/c_call.js";
 import type { ProductPublicContract } from "./contracts.js";
 import { parseProductPublicContract } from "./verify_product.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export const RESULT_ASSESS_CAPABILITY =
   "abg.capability.runtime.admit-fp-result@5" as const;
@@ -638,7 +639,7 @@ export function assessResult(
     .sort(compareUnicodeCodeUnits);
   if (
     evidenceEvents === null ||
-    resultEvidence.join("\0") !== suppliedEvidence.join("\0")
+    !canonicalEquals(resultEvidence, suppliedEvidence)
   ) {
     return refusal(
       "evidence_mismatch",

@@ -14,7 +14,7 @@ import { randomUUID } from "node:crypto";
 import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { CCall } from "../abg/c_call.js";
@@ -70,6 +70,7 @@ import {
   type WorksiteContextEntry,
   type WorksiteContextObservation,
 } from "./worksite_effect.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface WorksiteFileReplaceInput {
   /** Admitted owner roots supplied only by the guarded internal writer. */
@@ -96,10 +97,6 @@ export type WorksiteFileReplaceResult =
   | WorksiteEffectRefusal
   | WorksiteFileReplaceSuccess;
 
-function sameCanonical(left: unknown, right: unknown): boolean {
-  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-}
-
 function exactSubjectForBinding(
   workspaceAuthorityBasis: WorkspaceAuthorityBasis,
   workspaceBinding: WorkspaceBinding,
@@ -113,7 +110,7 @@ function exactSubjectForBinding(
     relativePath: subject.relativePath,
   });
   return expected.kind === "worksite_subject" &&
-    sameCanonical(expected, subject);
+    canonicalEquals(expected as unknown as JsonValue, subject as unknown as JsonValue);
 }
 
 function exactTerritoryForBinding(
@@ -129,7 +126,7 @@ function exactTerritoryForBinding(
     relativeRoot: territory.relativeRoot,
   });
   return expected.kind === "worksite_territory" &&
-    sameCanonical(expected, territory);
+    canonicalEquals(expected as unknown as JsonValue, territory as unknown as JsonValue);
 }
 
 function errnoCode(error: unknown): string | null {
@@ -397,7 +394,7 @@ function sameResolvedTarget(
 ): boolean {
   return left.canonicalRoot === right.canonicalRoot &&
     left.targetPath === right.targetPath &&
-    sameCanonical(left.protectedRoots, right.protectedRoots);
+    canonicalEquals(left.protectedRoots, right.protectedRoots);
 }
 
 function observationFromInspection(
@@ -566,9 +563,9 @@ export function isWorksiteFileReplaceInput(
         input.workspaceBinding,
         input.request.territory,
       ) ||
-      !sameCanonical(
-        input.workspaceAuthorityBasis,
-        input.request.workspaceAuthorityBasis,
+      !canonicalEquals(
+        input.workspaceAuthorityBasis as unknown as JsonValue,
+        input.request.workspaceAuthorityBasis as unknown as JsonValue,
       ) ||
       !worksiteSubjectWithinTerritory(
         input.request.subject,
@@ -583,7 +580,7 @@ export function isWorksiteFileReplaceInput(
       implementationSet: input.implementationSet,
     });
     return expected.kind === "worksite_effect_authorization" &&
-      sameCanonical(expected, input.authorization);
+      canonicalEquals(expected as unknown as JsonValue, input.authorization as unknown as JsonValue);
   } catch {
     return false;
   }
@@ -638,7 +635,7 @@ export async function replaceWorksiteFile(
   );
   if ("kind" in initialLocus) return initialLocus;
   const immediate = initialLocus.observation;
-  if (!sameCanonical(immediate, predecessorObservation)) {
+  if (!canonicalEquals(immediate as unknown as JsonValue, predecessorObservation as unknown as JsonValue)) {
     return worksiteRefusal(
       "stale_observation",
       "worksite subject changed after O0; replacement requires fresh observation and authorization",
@@ -731,7 +728,7 @@ export async function replaceWorksiteFile(
     );
     if ("kind" in atCommitLocus) return atCommitLocus;
     const atCommit = atCommitLocus.observation;
-    if (!sameCanonical(atCommit, predecessorObservation)) {
+    if (!canonicalEquals(atCommit as unknown as JsonValue, predecessorObservation as unknown as JsonValue)) {
       return worksiteRefusal(
         "stale_observation",
         "worksite subject changed before atomic commit",
@@ -778,7 +775,7 @@ export async function replaceWorksiteFile(
       input.protectedInstallRoots,
     );
     if ("kind" in publicationLocus) return publicationLocus;
-    if (!sameCanonical(publicationLocus.observation, predecessorObservation) ||
+    if (!canonicalEquals(publicationLocus.observation as unknown as JsonValue, predecessorObservation as unknown as JsonValue) ||
       publicationLocus.parent.fileIdentity !==
         initialLocus.parent.fileIdentity ||
       publicationLocus.targetFileIdentity !== initialLocus.targetFileIdentity) {
@@ -1008,9 +1005,9 @@ export interface WorksiteFileParentsInput extends WorksiteReadBasis {
 /** Internal physical owner; the guarded selected C0 leaf is the runtime entry. */
 export async function createWorksiteFileParents(input: WorksiteFileParentsInput): Promise<WorksiteFileParentsResult> {
   if (!isWorksiteFileParentsRequest(input.request) || !isWorksiteFileParentsAuthorization(input.authorization) ||
-    !sameCanonical(input.workspaceAuthorityBasis, input.request.workspaceAuthorityBasis)) return worksiteRefusal("authorization_mismatch", "file parents require their own exact authorization");
+    !canonicalEquals(input.workspaceAuthorityBasis as unknown as JsonValue, input.request.workspaceAuthorityBasis as unknown as JsonValue)) return worksiteRefusal("authorization_mismatch", "file parents require their own exact authorization");
   const expected = constructWorksiteFileParentsAuthorization(input);
-  if (expected.kind !== "worksite_file_parents_authorization" || !sameCanonical(expected, input.authorization)) return worksiteRefusal("authorization_mismatch", "file-parent authorization does not reproduce from its basis and request");
+  if (expected.kind !== "worksite_file_parents_authorization" || !canonicalEquals(expected, input.authorization)) return worksiteRefusal("authorization_mismatch", "file-parent authorization does not reproduce from its basis and request");
   const { request, authorization } = input;
   const outcomes: WorksiteFileParentOutcome[] = [];
   const failed = (failure: WorksiteEffectRefusal): WorksiteFileParentsResult => worksiteFileParentsFailure(request, authorization, outcomes, failure);
@@ -1023,7 +1020,7 @@ export async function createWorksiteFileParents(input: WorksiteFileParentsInput)
     }
     const current = await observeWorksiteFileParents({ ...input, ...request });
     if (current.kind !== "worksite_file_parents_request") return failed(current);
-    if (!sameCanonical(current, request)) return failed(worksiteRefusal("stale_observation", "file-parent ancestor chain changed before any effect"));
+    if (!canonicalEquals(current as unknown as JsonValue, request as unknown as JsonValue)) return failed(worksiteRefusal("stale_observation", "file-parent ancestor chain changed before any effect"));
     const revalidateKnown = async (): Promise<WorksiteEffectRefusal | null> => {
       for (const outcome of outcomes) {
         const path = checkedWorksitePath(resolved.root, resolved.protectedRoots, outcome.relativePath);
@@ -1113,7 +1110,7 @@ export async function observeWorksiteContext(input: WorksiteContextInput): Promi
       }
       const after = await inspectPhysicalDirectory(path);
       if ("kind" in after) return after;
-      if (after.fileIdentity !== fileIdentity || !sameCanonical(members, (await readdir(path)).sort())) return worksiteRefusal("stale_observation", "worksite directory changed during context observation");
+      if (after.fileIdentity !== fileIdentity || !canonicalEquals(members, (await readdir(path)).sort())) return worksiteRefusal("stale_observation", "worksite directory changed during context observation");
       return null;
     }
     if (!status.isFile()) return worksiteRefusal("target_not_file", "worksite context admits only concrete directories and regular files");

@@ -11,7 +11,7 @@ import type {
   ResolvedSemanticSelection,
 } from "./declaration_exports.js";
 import type { ProductDeclaredDependency } from "./contracts.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 
 import {
@@ -32,6 +32,7 @@ import {
   typedResidualSetSchema,
   uniqueArray,
 } from "../shared/public_function_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const ENVIRONMENT_AUTHORITY =
   "authority://abiogenesis/product/environment-resolution@5";
@@ -247,7 +248,7 @@ export function admitResolvedNativeContractClosure(
   if (
     expectedSelectors.length !== new Set(expectedSelectors).size ||
     dispositionSelectors.length !== new Set(dispositionSelectors).size ||
-    canonicalJson(expectedSelectors) !== canonicalJson(dispositionSelectors)
+    !canonicalEquals(expectedSelectors, dispositionSelectors)
   ) issues.add("/selectorDispositions");
 
   const occurrenceRefs = value.occurrences.map(({ occurrenceRef }) => occurrenceRef);
@@ -257,8 +258,10 @@ export function admitResolvedNativeContractClosure(
   if (
     occurrenceRefs.length !== new Set(occurrenceRefs).size ||
     bindingRefs.length !== new Set(bindingRefs).size ||
-    canonicalJson([...occurrenceRefs].sort()) !==
-      canonicalJson([...bindingRefs].sort())
+    !canonicalEquals(
+      [...occurrenceRefs].sort(),
+      [...bindingRefs].sort(),
+    )
   ) issues.add("/nativeBindings");
   const dispositionOccurrenceRefs = new Set(
     value.selectorDispositions.flatMap((row) =>
@@ -324,8 +327,10 @@ export function admitResolvedNativeContractClosure(
     );
     if (
       occurrence === undefined ||
-      canonicalJson(occurrence.checkerTarget as unknown as JsonValue) !==
-        canonicalJson(binding.checkerTarget as unknown as JsonValue)
+      !canonicalEquals(
+        occurrence.checkerTarget as unknown as JsonValue,
+        binding.checkerTarget as unknown as JsonValue,
+      )
     ) issues.add(`/nativeBindings/${index}/checkerTarget`);
   }
 

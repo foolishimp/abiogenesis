@@ -2,6 +2,7 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { RuntimeEvent, RuntimeEventCandidate } from "./event_store.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 /** Storage-only vocabulary. Product values never reserve a marker or JSON path. */
 const REFERENCE_RECORD = "abg_admitted_body_reference_record";
@@ -127,7 +128,7 @@ export function captureRuntimeEventCandidate(
   const source = committed.get(inlineEventBodyKey({ slot, digest: sha256Canonical(value) }));
   if (source !== undefined && compatibleSlots(source.slot, slot)) {
     const shared = bodyValue(source, read);
-    if (canonicalJson(shared) === canonicalJson(value))
+    if (canonicalEquals(shared, value))
       return { ...captured, payload: replaceValue(captured.payload, slot, shared) };
   }
   return captured;
@@ -139,7 +140,7 @@ export function encodeEventBody(event: RuntimeEvent, committed: InlineEventBodie
   const inline = canonicalJson(event as unknown as JsonValue), body = inlineEventBody(event);
   if (body === null) return inline + "\n";
   const key = inlineEventBodyKey(body), source = staged.get(key) ?? committed.get(key);
-  if (source !== undefined && compatibleSlots(source.slot, body.slot) && canonicalJson(bodyValue(source, read)) === canonicalJson(body.value!)) {
+  if (source !== undefined && compatibleSlots(source.slot, body.slot) && canonicalEquals(bodyValue(source, read), body.value!)) {
     const payload = omitValue(event.payload as Record<string, JsonValue>, body.slot);
     const encoded = canonicalJson({ kind: REFERENCE_RECORD, codecVersion: body.slot === "native_definition_material" ? 2 : 1, event: { ...event, payload },
       bodyReference: { sourceEventRef: source.eventRef, sourcePayloadDigest: source.payloadDigest,

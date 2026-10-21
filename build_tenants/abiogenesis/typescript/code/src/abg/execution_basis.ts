@@ -66,14 +66,13 @@ import type {
   WorkspaceBinding,
 } from "../product/environment.js";
 import {
-  canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { isRecord } from "../shared/admit/index.js";
+import { admitJson, isRecord } from "../shared/admit/index.js";
 import {
   isGraphValidation,
   type GraphValidation,
@@ -141,6 +140,7 @@ import {
   rehydrateOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
 } from "./open_call.js";
+import { canonicalEquals, canonicalRecordDigest, type JsonRecord } from "../shared/value/index.js";
 
 export interface RuntimeAdmissionBasis {
   readonly eventTime: string;
@@ -172,20 +172,20 @@ function deriveOwnedNativeInstructionAssemblyBasis(basis: NativeInstructionAssem
     const prefix = runtimePrefixFromOwnedArtifactTruth(artifactTruth);
     if (prefix === null) return null;
     const execution = rehydrateExecutionBasisAtPrefix(prefix, basis.executionBasis.basisRef);
-    if (execution === null || hash(execution) !== hash(basis.executionBasis)) return null;
+    if (execution === null || !canonicalEquals(execution as unknown as JsonValue, basis.executionBasis)) return null;
     const program = basis.publication.programs.find(p => p.programRef === execution.programRef);
     const functions = basis.declarationGraphFunctions.filter(g => g.name === execution.graphFunctionRef &&
       hash(g) === execution.graphFunctionDigest);
     if (program === undefined || hash(program) !== execution.programDigest || functions.length !== 1 ||
-      hash(functions[0]) !== hash(basis.graphFunction)) return null;
+      !canonicalEquals(functions[0] as JsonValue, basis.graphFunction)) return null;
     const graph = materializeGraph(functions[0]!, { invocationAdmissionRef: execution.invocationAdmissionRef,
       admittedInputRef: execution.rawInputAdmissionRef, admittedInputDigest: execution.rawInputDigest,
       admittedInput: execution.rawInputValue });
     if (graph.materializationRef !== execution.graphRef || graph.materializationDigest !== execution.graphDigest ||
-      hash(graph) !== hash(basis.graph)) return null;
+      !canonicalEquals(graph as unknown as JsonValue, basis.graph as unknown as JsonValue)) return null;
     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCall.cCallRef);
     const opened = call === null ? undefined : runtimeEventAtPrefix(prefix, call.openedEventRef);
-    if (call === null || hash(call) !== hash(basis.cCall) || call.callClass !== "leaf" ||
+    if (call === null || !canonicalEquals(call as unknown as JsonValue, basis.cCall) || call.callClass !== "leaf" ||
       !hasAdmittedTraversalCursorAtPrefix(prefix, basis.cursor) || !isRecord(opened?.payload) ||
       opened.payload.cursorRef !== basis.cursor.cursorRef || opened.payload.cursorDigest !== basis.cursor.cursorDigest ||
       basis.cursor.executionBasisRef !== execution.basisRef || basis.cursor.graphCallId !== call.graphCallId ||
@@ -525,10 +525,6 @@ interface WorksiteAuthorityCarrier {
   readonly workspaceBindingDigest: Sha256Digest;
 }
 
-function sameCanonical(left: unknown, right: unknown): boolean {
-  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-}
-
 function worksiteAuthorityCarrier(
   value: Readonly<Record<string, JsonValue>>,
 ): WorksiteAuthorityCarrier | null {
@@ -595,13 +591,13 @@ function exactWorksiteEnvironmentAtPrefix(
     digest: carrier.workspaceBindingDigest,
   });
   if (environment.kind !== "exact_prefix_workspace_environment" ||
-    !sameCanonical(
-      environment.workspaceAuthorityBasis,
-      carrier.workspaceAuthorityBasis,
+    !canonicalEquals(
+      environment.workspaceAuthorityBasis as unknown as JsonValue,
+      carrier.workspaceAuthorityBasis as unknown as JsonValue,
     ) ||
-    carrier.workspaceBinding !== null && !sameCanonical(
-      environment.workspaceBinding,
-      carrier.workspaceBinding,
+    carrier.workspaceBinding !== null && !canonicalEquals(
+      environment.workspaceBinding as unknown as JsonValue,
+      carrier.workspaceBinding as unknown as JsonValue,
     ) ||
     carrier.workspaceAuthorityBasis.workspaceId !==
       environment.workspaceBinding.workspaceId ||
@@ -749,12 +745,12 @@ function exactC2SourceEnvironment(
   if (nativeTask !== null) {
     const basis = invocation.sourceResultBasis;
     const source = projectNativeWorkCommandSourceAtPrefix(authorityPrefix, nativeTask);
-    if (basis === null || source === null || !sameCanonical(basis.sourceResultValue, nativeTask.sourceNativeWork) ||
+    if (basis === null || source === null || !canonicalEquals(basis.sourceResultValue, nativeTask.sourceNativeWork as unknown as JsonValue) ||
       basis.sourceResultAdmissionEventRef !== source.sourceResult.eventId ||
       basis.sourceResultJudgmentEventRef !== source.sourceJudgment.eventId ||
       basis.sourceCCallRef !== nativeTask.sourceNativeWork.provenance.cCallRef) return false;
     const rehydrated = rehydrateInvocationSourceResultBasisAtDurablePrefix(durablePrefix, basis);
-    return rehydrated !== null && sameCanonical(rehydrated, basis);
+    return rehydrated !== null && canonicalEquals(rehydrated as unknown as JsonValue, basis as unknown as JsonValue);
   }
   if (task.kind === "worksite_revision_command_execution_task") return false; // D2 is an authenticated child arm only.
   if (task.readDependencyBasis !== undefined) return false; // Initial-job reads require their same-invocation native bridge.
@@ -781,7 +777,7 @@ function exactC2SourceEnvironment(
     basis.sourceResultValueDigest !== sha256Canonical(
       task.sourceConstructionResult as unknown as JsonValue,
     ) ||
-    !sameCanonical(basis.sourceResultValue, task.sourceConstructionResult)) {
+    !canonicalEquals(basis.sourceResultValue, task.sourceConstructionResult as unknown as JsonValue)) {
     return false;
   }
   const sourceRunClosures = indexedRuntimeEvents(authorityPrefix, "run:" + basis.sourceRunId)
@@ -800,11 +796,14 @@ function exactC2SourceEnvironment(
     sourceDurablePrefix = durableRuntimeEventPrefixThroughEvent(
       durablePrefix, sourceRunClosures[0]!.eventId,
     );
-    if (!validateDurablePrefixCoordinate(sourceDurablePrefix) ||
-      !sameCanonical(
-        readRuntimeEventsAtDurablePrefix(sourceDurablePrefix),
-        sourceEvents,
-      )) return false;
+    if (!validateDurablePrefixCoordinate(sourceDurablePrefix)) return false;
+    // C2 currentness: the durable read and the materialized body view are each
+    // admitted to JsonValue before comparison; a refused side (an
+    // unmaterialized view, a non-I-JSON body) is not current.
+    const durableEvents = admitJson(readRuntimeEventsAtDurablePrefix(sourceDurablePrefix));
+    const viewEvents = admitJson(sourceEvents);
+    if (durableEvents.kind !== "ok" || viewEvents.kind !== "ok" ||
+      !canonicalEquals(durableEvents.value, viewEvents.value)) return false;
   } catch {
     return false;
   }
@@ -812,7 +811,7 @@ function exactC2SourceEnvironment(
     sourceDurablePrefix,
     basis,
   );
-  if (sourceBasis === null || !sameCanonical(sourceBasis, basis)) return false;
+  if (sourceBasis === null || !canonicalEquals(sourceBasis as unknown as JsonValue, basis as unknown as JsonValue)) return false;
   const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(
     sourcePrefix,
     basis.sourceInvocationAdmissionRef,
@@ -919,19 +918,19 @@ function exactC2SourceEnvironment(
     },
   );
   return sourceEnvironment.kind === "exact_prefix_workspace_environment" &&
-    sameCanonical(
-      sourceEnvironment.workspaceAuthorityBasis,
-      sourceCarrier.workspaceAuthorityBasis,
+    canonicalEquals(
+      sourceEnvironment.workspaceAuthorityBasis as unknown as JsonValue,
+      sourceCarrier.workspaceAuthorityBasis as unknown as JsonValue,
     ) &&
-    sameCanonical(
-      sourceEnvironment.workspaceBinding,
-      sourceCarrier.workspaceBinding,
+    canonicalEquals(
+      sourceEnvironment.workspaceBinding as unknown as JsonValue,
+      sourceCarrier.workspaceBinding as unknown as JsonValue,
     ) &&
-    sameCanonical(
-      sourceEnvironment.workspaceAuthorityBasis,
-      task.workspaceAuthorityBasis,
+    canonicalEquals(
+      sourceEnvironment.workspaceAuthorityBasis as unknown as JsonValue,
+      task.workspaceAuthorityBasis as unknown as JsonValue,
     ) &&
-    sameCanonical(sourceEnvironment.workspaceBinding, task.workspaceBinding);
+    canonicalEquals(sourceEnvironment.workspaceBinding as unknown as JsonValue, task.workspaceBinding as unknown as JsonValue);
 }
 
 function worksiteCommandTask(
@@ -951,25 +950,15 @@ function isJsonRecord(
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function canonicalRecordDigest(value: unknown): Sha256Digest | null {
-  if (!isJsonRecord(value)) return null;
-  try {
-    return sha256Canonical(value);
-  } catch {
-    return null;
-  }
-}
-
-function detachJsonRecord(
-  value: unknown,
-): Readonly<Record<string, JsonValue>> | null {
-  if (!isJsonRecord(value)) return null;
-  try {
-    const detached = structuredClone(value);
-    return isJsonRecord(detached) ? deepFreeze(detached) : null;
-  } catch {
-    return null;
-  }
+/**
+ * Raw input ingress for the record digest: `admitJson` detaches and deeply
+ * freezes the value, and only its record member is admitted.
+ */
+function detachJsonRecord(value: unknown): JsonRecord | null {
+  const admitted = admitJson(value);
+  return admitted.kind === "ok" && isRecord(admitted.value)
+    ? admitted.value
+    : null;
 }
 
 /** Re-enters the current physical prefix before C2 creates any launch or observation artifact. */
@@ -992,13 +981,13 @@ export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
       event.basisId === opened.basisId && event.runId === opened.runId && isJsonRecord(event.payload) &&
       event.payload.implementationRef === worksiteExecutionImplementationRef(task) &&
       event.payload.implementationBindingRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef : WORKSITE_REVISION_IDS.implementationBindingRef) && event.payload.regime === "F_P");
-    if (execution === null || fibres.length !== 1 || !sameCanonical(execution.rawInputValue, value) ||
+    if (execution === null || fibres.length !== 1 || !canonicalEquals(execution.rawInputValue, value) ||
       events.some((event) => event.aggregateId === cCallRef && (event.kind === "c_call_evidenced" || event.kind === "c_call_result_admitted")) ||
       exactWorksiteEnvironmentAtPrefix(predecessor, worksiteAuthorityCarrier(task)!) === null) return false;
     // The native source branch below conjoins provenance and currentness once.
     if (nativeTask === null && !isObservedWorksiteCommandExecutionTask(value) && !worksiteExecutionSourcesCurrent(prefix, task)) return false;
     const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
-    if (invocation === null || invocation.capabilityGrants.length !== 1 || !sameCanonical(invocation.capabilityGrants[0], value.capabilityGrant)) return false;
+    if (invocation === null || invocation.capabilityGrants.length !== 1 || !canonicalEquals(invocation.capabilityGrants[0] as unknown as JsonValue, value.capabilityGrant as JsonValue)) return false;
     if (execution.basisClass === "root") return exactC2SourceEnvironment(predecessor, prefix, invocation, task);
     if (execution.parentExecutionBasisRef === null || execution.parentCCallRef === null || typeof opened.runId !== "string") return false;
     const parent = rehydrateExecutionBasisAtPrefix(prefix, execution.parentExecutionBasisRef);
@@ -1034,8 +1023,10 @@ export function hasExactInvocationObservationBasis(
       workspaceBindingDigest ||
     !isJsonRecord(value.actionCatalog) ||
     program.actionCatalog === undefined ||
-    sha256Canonical(value.actionCatalog) !==
-      sha256Canonical(program.actionCatalog as unknown as JsonValue)
+    !canonicalEquals(
+      value.actionCatalog,
+      program.actionCatalog as unknown as JsonValue,
+    )
   ) {
     return false;
   }
@@ -1150,11 +1141,14 @@ export function hasAdmittedImplementationSetAtPrefix(
     event.payload.implementationSetDigest === set.implementationSetDigest &&
     event.payload.implementationSet !== undefined &&
     isJsonRecord(event.payload.implementationSet) &&
-    sha256Canonical(event.payload.implementationSet) === sha256Canonical({
-      implementationSetRef: set.implementationSetRef,
-      implementationSetDigest: set.implementationSetDigest,
-      ...body,
-    } as unknown as JsonValue)
+    canonicalEquals(
+      event.payload.implementationSet,
+      {
+        implementationSetRef: set.implementationSetRef,
+        implementationSetDigest: set.implementationSetDigest,
+        ...body,
+      } as unknown as JsonValue,
+    )
   );
 }
 
@@ -1247,11 +1241,14 @@ export function hasAdmittedInteractionSetAtPrefix(
     event.payload.interactionSetDigest === set.interactionSetDigest &&
     event.payload.interactionSet !== undefined &&
     isJsonRecord(event.payload.interactionSet) &&
-    sha256Canonical(event.payload.interactionSet) === sha256Canonical({
-      interactionSetRef: set.interactionSetRef,
-      interactionSetDigest: set.interactionSetDigest,
-      ...body,
-    } as unknown as JsonValue)
+    canonicalEquals(
+      event.payload.interactionSet,
+      {
+        interactionSetRef: set.interactionSetRef,
+        interactionSetDigest: set.interactionSetDigest,
+        ...body,
+      } as unknown as JsonValue,
+    )
   );
 }
 
@@ -1403,8 +1400,10 @@ export function hasAdmittedExecutionBasisAtPrefix(
     basis.basisRef,
   );
   return projected !== null &&
-    sha256Canonical(projected as unknown as JsonValue) ===
-      sha256Canonical(basis as unknown as JsonValue);
+    canonicalEquals(
+      projected as unknown as JsonValue,
+      basis as unknown as JsonValue,
+    );
 }
 
 export function rehydrateExecutionBasis(
@@ -1576,8 +1575,10 @@ export function admitExecutionBasis(
         rawInputValue.capabilityGrant.grantRef ||
       admittedGrant.grantRef !== rawInputValue.capabilityGrant.grantRef ||
       admittedGrant.grantDigest !== rawInputValue.capabilityGrant.grantDigest ||
-      sha256Canonical(admittedGrant as unknown as JsonValue) !==
-        sha256Canonical(rawInputValue.capabilityGrant as unknown as JsonValue) ||
+      !canonicalEquals(
+        admittedGrant as unknown as JsonValue,
+        rawInputValue.capabilityGrant as unknown as JsonValue,
+      ) ||
       rawInputValue.capabilityGrant.actorRef !==
         input.invocationAdmission.actorRef ||
       rawInputValue.workspaceBindingIdentity !==
@@ -1607,8 +1608,10 @@ export function admitExecutionBasis(
         rawInputValue.capabilityGrant.grantRef ||
       admittedGrant.grantRef !== rawInputValue.capabilityGrant.grantRef ||
       admittedGrant.grantDigest !== rawInputValue.capabilityGrant.grantDigest ||
-      sha256Canonical(admittedGrant as unknown as JsonValue) !==
-        sha256Canonical(rawInputValue.capabilityGrant as unknown as JsonValue) ||
+      !canonicalEquals(
+        admittedGrant as unknown as JsonValue,
+        rawInputValue.capabilityGrant as unknown as JsonValue,
+      ) ||
       rawInputValue.workspaceBinding.bindingId !==
         input.invocationAdmission.workspaceBindingId ||
       rawInputValue.workspaceBinding.bindingDigest !==
@@ -1640,8 +1643,10 @@ export function admitExecutionBasis(
         rawInputValue.capabilityGrant.grantRef ||
       admittedGrant.grantRef !== rawInputValue.capabilityGrant.grantRef ||
       admittedGrant.grantDigest !== rawInputValue.capabilityGrant.grantDigest ||
-      sha256Canonical(admittedGrant as unknown as JsonValue) !==
-        sha256Canonical(rawInputValue.capabilityGrant as unknown as JsonValue) ||
+      !canonicalEquals(
+        admittedGrant as unknown as JsonValue,
+        rawInputValue.capabilityGrant as unknown as JsonValue,
+      ) ||
       rawInputValue.workspaceBinding.bindingId !==
         input.invocationAdmission.workspaceBindingId ||
       rawInputValue.workspaceBinding.bindingDigest !==
@@ -1671,7 +1676,7 @@ export function admitExecutionBasis(
       admittedGrant === undefined ||
       input.invocationAdmission.capabilityGrantRefs[0] !==
         rawInputValue.capabilityGrant.grantRef ||
-      !sameCanonical(admittedGrant, rawInputValue.capabilityGrant) ||
+      !canonicalEquals(admittedGrant as unknown as JsonValue, rawInputValue.capabilityGrant as unknown as JsonValue) ||
       rawInputValue.workspaceBinding.bindingId !==
         input.invocationAdmission.workspaceBindingId ||
       rawInputValue.workspaceBinding.bindingDigest !==
@@ -1713,9 +1718,10 @@ export function admitExecutionBasis(
     input.graph.template.startNodeRef,
   );
   if (
-    sha256Canonical(
+    !canonicalEquals(
       input.invocationAdmission.gtlEntryCoordinate as unknown as JsonValue,
-    ) !== sha256Canonical(gtlEntryCoordinate as unknown as JsonValue)
+      gtlEntryCoordinate as unknown as JsonValue,
+    )
   ) {
     return reject(
       input.graph.materializationDigest,
@@ -1770,10 +1776,14 @@ export function admitExecutionBasis(
   const selectedExecutableLeafKeys = selectedExecutableRows.map((row) => row.requirementKey);
   const selectedInteractionLeafKeys = selectedInteractionRows.map((row) => row.requirementKey);
   if (
-    sha256Canonical(input.resolutionSetCandidate.executableLeafKeys as unknown as JsonValue) !==
-      sha256Canonical(selectedExecutableLeafKeys as unknown as JsonValue) ||
-    sha256Canonical(input.resolutionSetValidation.executableLeafKeys as unknown as JsonValue) !==
-      sha256Canonical(selectedExecutableLeafKeys as unknown as JsonValue) ||
+    !canonicalEquals(
+      input.resolutionSetCandidate.executableLeafKeys as unknown as JsonValue,
+      selectedExecutableLeafKeys as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      input.resolutionSetValidation.executableLeafKeys as unknown as JsonValue,
+      selectedExecutableLeafKeys as unknown as JsonValue,
+    ) ||
     input.resolutionSetCandidate.rows.length !== selectedExecutableRows.length ||
     input.resolutionSetCandidate.rows.some((row, index) =>
       row.requirementKey !== selectedExecutableRows[index]!.requirementKey ||
@@ -1830,7 +1840,7 @@ export function admitExecutionBasis(
   if (isWorksitePreparationInput(rawInputValue)) {
     const tasks = preparationConstructionTasks(rawInputValue);
     const grants = input.invocationAdmission.capabilityGrants;
-    if (grants.length !== 1 || tasks.some((task) => !sameCanonical(task.capabilityGrant, grants[0]) ||
+    if (grants.length !== 1 || tasks.some((task) => !canonicalEquals(task.capabilityGrant as unknown as JsonValue, grants[0] as unknown as JsonValue) ||
       task.capabilityGrant.definitionKey.memberKey !== (input.invocationAdmission.invocationVariant === "direct" ? "invoke" : input.invocationAdmission.invocationVariant) ||
       task.workspaceBinding.bindingId !== input.invocationAdmission.workspaceBindingId ||
       task.workspaceBinding.bindingDigest !== input.invocationAdmission.workspaceBindingDigest ||
@@ -2166,10 +2176,6 @@ function childRefusal(
   };
 }
 
-function sameOrderedValues(left: readonly string[], right: readonly string[]): boolean {
-  return left.join("\0") === right.join("\0");
-}
-
 export function admitChildExecutionBasis(
   store: AbgEventStore,
   predecessorPrefix: DurablePrefixCoordinate,
@@ -2261,14 +2267,22 @@ function admitChildExecutionBasisUsing(
         parentScope === null ||
         rootImplementationSet === null ||
         rootInteractionSet === null ||
-        sha256Canonical(parent as unknown as JsonValue) !==
-          sha256Canonical(input.parentExecutionBasis as unknown as JsonValue) ||
-        sha256Canonical(parentScope as unknown as JsonValue) !==
-          sha256Canonical(input.parentTraversalScope as unknown as JsonValue) ||
-        sha256Canonical(rootImplementationSet as unknown as JsonValue) !==
-          sha256Canonical(input.rootImplementationSet as unknown as JsonValue) ||
-        sha256Canonical(rootInteractionSet as unknown as JsonValue) !==
-          sha256Canonical(input.rootInteractionSet as unknown as JsonValue)
+        !canonicalEquals(
+          parent as unknown as JsonValue,
+          input.parentExecutionBasis as unknown as JsonValue,
+        ) ||
+        !canonicalEquals(
+          parentScope as unknown as JsonValue,
+          input.parentTraversalScope as unknown as JsonValue,
+        ) ||
+        !canonicalEquals(
+          rootImplementationSet as unknown as JsonValue,
+          input.rootImplementationSet as unknown as JsonValue,
+        ) ||
+        !canonicalEquals(
+          rootInteractionSet as unknown as JsonValue,
+          input.rootInteractionSet as unknown as JsonValue,
+        )
       ) return null;
       const parentCCall = projectCurrentChildParentCCallAtPrefix(runPrefix, {
         parentCCallRef: input.parentCCallRef,
@@ -2525,8 +2539,8 @@ function admitChildExecutionBasisUsing(
     );
   const admittedInteractionKeys = admittedInteractionRows.map((row) => row.requirementKey);
   if (
-    !sameOrderedValues(localExecutableLeafKeys, admittedExecutableKeys) ||
-    !sameOrderedValues(localInteractionLeafKeys, admittedInteractionKeys)
+    !canonicalEquals(localExecutableLeafKeys, admittedExecutableKeys) ||
+    !canonicalEquals(localInteractionLeafKeys, admittedInteractionKeys)
   ) {
     return childRefusal(
       "child_subset_mismatch",

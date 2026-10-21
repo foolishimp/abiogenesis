@@ -3,11 +3,12 @@ import type { WorksiteConstructionTask, WorksiteConstructionResult } from "./wor
 import type { WorksiteBranchConstructionTask } from "./worksite_branch_construction.js";
 import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput, WorksiteReadDependencyBasis } from "./worksite_command_execution.js";
 import { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from "./worksite_construction_identity.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { WORKSITE_REVISION_IDS } from "./worksite_revision_identity.js";
 import type { WorksiteRevisionCommandPreparationInput,
   WorksiteRevisionCommandPreparationBoundInput, WorksiteRevisionDependencyObservation } from "./worksite_revision.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface WorksiteCommandPreparationInput {
   readonly kind: "worksite_command_preparation_input";
@@ -137,7 +138,7 @@ export function isWorksiteRetentionContractRelation(binding: GtlEdgeInputBinding
     binding.sourceContractRef !== bound.fields.source.declaration.contractRef) return false;
   return contracts === undefined || [bound.declaration, bound.fields.entry.declaration, bound.fields.source.declaration].every((expected) => {
     const matches = contracts.filter((candidate) => candidate.contractRef === expected.contractRef);
-    return matches.length === 1 && canonicalJson(matches[0] as unknown as JsonValue) === canonicalJson(expected as unknown as JsonValue);
+    return matches.length === 1 && canonicalEquals(matches[0] as unknown as JsonValue, expected as unknown as JsonValue);
   });
 }
 
@@ -174,7 +175,7 @@ export function isGraphInputRetentionContractRelation(binding: GtlEdgeInputBindi
     binding.entryContractRef === binding.targetContractRef || binding.sourceContractRef === binding.targetContractRef) return false;
   if (contracts === undefined) return true;
   const target=contracts.filter(c=>c.contractRef===binding.targetContractRef);
-  return target.length===1 && canonicalJson(target[0] as unknown as JsonValue)===canonicalJson(RETAINED_GRAPH_INPUT_CONTRACT) &&
+  return target.length===1 && canonicalEquals(target[0] as unknown as JsonValue, RETAINED_GRAPH_INPUT_CONTRACT) &&
     [binding.entryContractRef,binding.sourceContractRef].every(ref=>contracts.filter(c=>c.contractRef===ref).length===1);
 }
 export function constructRetainedGraphInput(entry: unknown, source: unknown): RetainedGraphInput {

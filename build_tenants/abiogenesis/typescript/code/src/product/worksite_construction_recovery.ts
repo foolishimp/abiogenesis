@@ -1,8 +1,9 @@
 import { WORKSITE_PRESERVED_RESULT_IDS, constructWorksitePreservedResultSource, isWorksitePreservedResultSource,
   type WorksitePreservedResultSource } from "../gtl/worksite_construction_recovery.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export { WORKSITE_PRESERVED_RESULT_IDS, WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS, constructWorksitePreservedResultSource,
   isWorksitePreservedResultSource, type WorksitePreservedResultSource } from "../gtl/worksite_construction_recovery.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { WORKSITE_CONSTRUCTION_IDS, constructWorksiteCandidateBundle, constructWorksiteConstructionWorkerResult,
@@ -54,7 +55,6 @@ export interface WorksitePreservedResultArtifact extends WorksitePreservedResult
   readonly targetJoin: readonly Readonly<{ originalTargetRef: string; currentTargetRef: string }>[];
 }
 const hash = (value: unknown) => sha256Canonical(value as JsonValue);
-const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
 function record(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
@@ -68,7 +68,7 @@ const ref = (x: unknown): x is string => typeof x === "string" && x.length > 0 &
 /** This relation changes coordinates only; native bridge admission supplies meaning and authority. */
 export function preservedWorksiteTargetJoin(original: WorksiteConstructionTask, current: WorksiteConstructionTask) {
   if (!isWorksiteConstructionTask(original) || !isWorksiteConstructionTask(current) ||
-    !same(original.workspaceAuthorityBasis, current.workspaceAuthorityBasis) || original.targets.length !== current.targets.length ||
+    !canonicalEquals(original.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue) || original.targets.length !== current.targets.length ||
     original.workspaceBinding.workspaceId !== current.workspaceBinding.workspaceId) throw new TypeError("preserved source crosses worksite");
   const physical = (target: WorksiteConstructionTask["targets"][number]) => {
     const observation = target.predecessorObservation;
@@ -79,7 +79,7 @@ export function preservedWorksiteTargetJoin(original: WorksiteConstructionTask, 
   };
   const used = new Set<string>();
   const rows = original.targets.map(target => {
-    const matches = current.targets.filter(other => same(physical(target), physical(other)));
+    const matches = current.targets.filter(other => canonicalEquals(physical(target), physical(other)));
     if (matches.length !== 1 || used.has(matches[0]!.targetRef)) throw new TypeError("preserved targets require a physical bijection");
     used.add(matches[0]!.targetRef);
     return { originalTargetRef: target.targetRef, currentTargetRef: matches[0]!.targetRef };
@@ -127,7 +127,7 @@ export function isWorksitePreservedResultArtifact(value: unknown): value is Work
     if (!exact(value, ["kind", "schemaVersion", "artifactRef", "artifactDigest", "source", "proof", "originalTask", "currentTask", "workerResult", "owner", "targetJoin"]) ||
       value.kind !== "worksite_preserved_result_artifact" || value.schemaVersion !== "5.0.0") return false;
     const { kind: _kind, schemaVersion: _version, artifactRef: _ref, artifactDigest: _digest, targetJoin: _join, ...body } = value;
-    return same(constructWorksitePreservedResultArtifact(body as unknown as WorksitePreservedResultArtifactBody), value);
+    return canonicalEquals(constructWorksitePreservedResultArtifact(body as unknown as WorksitePreservedResultArtifactBody) as unknown as JsonValue, value as unknown as JsonValue);
   } catch { return false; }
 }
 export function derivePreservedWorksiteCandidateBundle(artifact: WorksitePreservedResultArtifact) {
@@ -147,10 +147,10 @@ export function resolveWorksitePreservedResultJudgmentRelation(predicateRef: str
   if (predicateRef === WORKSITE_PRESERVED_RESULT_IDS.authenticatePredicateRef) return Object.freeze({
     ...reasons,
     inputContractRef: WORKSITE_CONSTRUCTION_IDS.taskContractRef, outputContractRef: WORKSITE_PRESERVED_RESULT_IDS.artifactContractRef,
-    evaluate: (input: unknown, output: unknown) => isWorksiteConstructionTask(input) && isWorksitePreservedResultArtifact(output) && same(input, output.currentTask) });
+    evaluate: (input: unknown, output: unknown) => isWorksiteConstructionTask(input) && isWorksitePreservedResultArtifact(output) && canonicalEquals(input as unknown as JsonValue, output.currentTask as unknown as JsonValue) });
   if (predicateRef === WORKSITE_PRESERVED_RESULT_IDS.derivePredicateRef) return Object.freeze({
     ...reasons,
     inputContractRef: WORKSITE_PRESERVED_RESULT_IDS.artifactContractRef, outputContractRef: WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef,
-    evaluate: (input: unknown, output: unknown) => { try { return isWorksitePreservedResultArtifact(input) && same(derivePreservedWorksiteCandidateBundle(input), output); } catch { return false; } } });
+    evaluate: (input: unknown, output: unknown) => { try { return isWorksitePreservedResultArtifact(input) && canonicalEquals(derivePreservedWorksiteCandidateBundle(input) as unknown as JsonValue, output as JsonValue); } catch { return false; } } });
   return null;
 }

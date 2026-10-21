@@ -19,6 +19,7 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_ide
 import type { ProductInstall } from "./environment.js";
 import { parseProductManifest } from "./verify_product.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const ref = v.pipe(v.string(), v.minLength(1));
 const path = v.pipe(ref, v.check(isAbsolute));
@@ -64,8 +65,8 @@ async function inventoryPaths(root: string, prefix = ""): Promise<string[]> {
 async function verifyCompanion(root: string, d: StdoRunEnvironmentDeclaration["axiom"] | StdoRunEnvironmentDeclaration["representation"],
   role: "axiom" | "representation", recordPath: string): Promise<{record: StdoEnvironmentEvidence["records"][number]; members: StdoEnvironmentEvidence["observedMembers"]}> {
   const recordBytes = await readFile(recordPath);
-  if (sha256Bytes(recordBytes) !== d.recordDigest || hash(stdoRecordInventory(recordBytes.toString("utf8"))) !== hash(d.members) ||
-    hash(await inventoryPaths(root)) !== hash(d.members.map(m=>m.path).sort()))
+  if (sha256Bytes(recordBytes) !== d.recordDigest || !canonicalEquals(stdoRecordInventory(recordBytes.toString("utf8")), d.members) ||
+    !canonicalEquals(await inventoryPaths(root), d.members.map(m=>m.path).sort()))
     throw new ObservationFailure("identity_mismatch", "/stdoEnvironmentResources/" + role + "/inventory");
   const members: StdoEnvironmentEvidence["observedMembers"] = [];
   for (const m of d.members) {
@@ -103,7 +104,7 @@ export async function observeStdoEnvironment(input: {
     const r = input.resources, p = r.permission;
     if (p.authorityRef !== input.authority.authorityRef || p.authorityDigest !== input.authority.authorityDigest ||
       p.actorRef !== input.authority.actorRef || p.programRef !== input.program.programRef ||
-      p.environmentRef !== d.declarationRef || p.environmentDigest !== hash(d) || hash(p.roots) !== hash(r.roots) ||
+      p.environmentRef !== d.declarationRef || p.environmentDigest !== hash(d) || !canonicalEquals(p.roots, r.roots) ||
       !inside(resolve(input.archiveRoot),resolve(r.roots.temporaryRoot)))
       throw new ObservationFailure("access_not_permitted","/stdoEnvironmentResources/permission");
     // Permission is checked before filesystem access. Canonical roots prevent hidden aliases.
@@ -115,7 +116,7 @@ export async function observeStdoEnvironment(input: {
     const sourceManifest = await fileAt(physical.sourceRoot,"manifest.json");
     if (sha256Bytes(sourceManifest) !== d.source.manifestDigest) throw new ObservationFailure("identity_mismatch","/stdoEnvironmentResources/source/manifest");
     const sourceRows = stdoSourceInventory(JSON.parse(sourceManifest.toString("utf8")));
-    if (hash(await inventoryPaths(physical.sourceRoot)) !== hash([...sourceRows.map(m=>m.path),"manifest.json"].sort()))
+    if (!canonicalEquals(await inventoryPaths(physical.sourceRoot), [...sourceRows.map(m=>m.path),"manifest.json"].sort()))
       throw new ObservationFailure("identity_mismatch","/stdoEnvironmentResources/source/inventory");
     const sourceBytes = new Map<string,Buffer>();
     const observedMembers: StdoEnvironmentEvidence["observedMembers"] = [];
@@ -223,7 +224,7 @@ export function runEnvironmentRecordMembers(format: RunEnvironmentDeclaration["d
 
 function checkRunEnvironmentRecord(dependency: RunEnvironmentDeclaration["dependencies"][number], bytes: Buffer): void {
   if (sha256Bytes(bytes) !== dependency.recordDigest ||
-      hash(runEnvironmentRecordMembers(dependency.recordFormat, bytes)) !== hash(dependency.members))
+      !canonicalEquals(runEnvironmentRecordMembers(dependency.recordFormat, bytes), dependency.members))
     throw new ObservationFailure("identity_mismatch", "/runEnvironmentResources/dependencies/" + dependency.dependencyRef + "/record");
 }
 function checkRunEnvironmentMember(member: RunEnvironmentDeclaration["contexts"][number]["members"][number], bytes: Buffer): void {
@@ -305,7 +306,7 @@ export function compareInstalledC2ContextMaterial(
       return { span, meaning };
     };
     const old = acquire(historical, historicalInstall), next = acquire(current, currentInstall);
-    return old.span.equals(next.span) && hash(old.meaning) === hash(next.meaning) ? old.meaning as unknown as JsonValue : null;
+    return old.span.equals(next.span) && canonicalEquals(old.meaning, next.meaning) ? old.meaning as unknown as JsonValue : null;
   } catch { return null; }
 }
 export type RunEnvironmentObservation = Readonly<{ kind: "run_environment_observed"; evidence: RunEnvironmentEvidence | null }> |
@@ -330,8 +331,8 @@ export async function observeRunEnvironment(input: {
     if (!v.is(RUN_ENVIRONMENT_RESOURCES_SCHEMA, r) || p.authorityRef !== input.authority.authorityRef ||
       p.authorityDigest !== input.authority.authorityDigest || p.actorRef !== input.authority.actorRef ||
       p.programRef !== input.program.programRef || p.environmentRef !== d.declarationRef || p.environmentDigest !== hash(d) ||
-      hash(p.dependencies) !== hash(r.dependencies) || p.pythonPath !== r.pythonPath || p.temporaryRoot !== r.temporaryRoot ||
-      hash(p.operations) !== hash([...new Set(["read_context", ...d.accesses.map(a => a.operation)])].sort()) ||
+      !canonicalEquals(p.dependencies, r.dependencies) || p.pythonPath !== r.pythonPath || p.temporaryRoot !== r.temporaryRoot ||
+      !canonicalEquals(p.operations, [...new Set(["read_context", ...d.accesses.map(a => a.operation)])].sort()) ||
       !inside(resolve(input.archiveRoot), r.temporaryRoot) || r.dependencies.length !== d.dependencies.length ||
       new Set(r.dependencies.map(x => x.dependencyRef)).size !== r.dependencies.length ||
       !r.dependencies.every(x => d.dependencies.some(dep => dep.dependencyRef === x.dependencyRef)))

@@ -1,10 +1,10 @@
 import { isRecord, hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
 import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction_identity.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from "./worksite_construction_identity.js";
 import { isAbsolute } from "node:path";
 
 import {
-  canonicalJson,
   type JsonValue,
 } from "../shared/canonical_json.js";
 import {
@@ -195,10 +195,6 @@ function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
 }
 
-function sameCanonical(left: unknown, right: unknown): boolean {
-  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-}
-
 function isExactWorkspaceBinding(
   value: unknown,
 ): value is WorkspaceBinding {
@@ -337,8 +333,8 @@ function constructTarget(
   });
   if (exactSubject.kind !== "worksite_subject" ||
     exactTerritory.kind !== "worksite_territory" ||
-    !sameCanonical(exactSubject, input.subject) ||
-    !sameCanonical(exactTerritory, input.territory)) {
+    !canonicalEquals(exactSubject as unknown as JsonValue, input.subject as unknown as JsonValue) ||
+    !canonicalEquals(exactTerritory as unknown as JsonValue, input.territory as unknown as JsonValue)) {
     throw new TypeError(
       "worksite construction target must reproduce under the exact canonical worksite authority",
     );
@@ -388,7 +384,7 @@ function isWorksiteConstructionTarget(
       territory: value.territory as WorksiteTerritory,
       predecessorObservation: value.predecessorObservation as WorksiteObservation,
     });
-    return sameCanonical(expected, value);
+    return canonicalEquals(expected as unknown as JsonValue, value as unknown as JsonValue);
   } catch {
     return false;
   }
@@ -726,7 +722,7 @@ export function isWorksiteCandidateBundle(
         files: value.files as readonly WorksiteCandidateFile[],
       },
     );
-    return sameCanonical(expected, value);
+    return canonicalEquals(expected as unknown as JsonValue, value as unknown as JsonValue);
   } catch {
     return false;
   }
@@ -819,9 +815,9 @@ export function isWorksiteFileReplaceVector(
       1 ||
     new Set(members.map((member) => member.value.workspaceBindingDigest)).size !==
       1 ||
-    members.some((member) => !sameCanonical(
-      member.value.workspaceAuthorityBasis,
-      members[0]!.value.workspaceAuthorityBasis,
+    members.some((member) => !canonicalEquals(
+      member.value.workspaceAuthorityBasis as unknown as JsonValue,
+      members[0]!.value.workspaceAuthorityBasis as unknown as JsonValue,
     )) ||
     new Set(members.map((member) => member.value.capabilityGrant.grantRef)).size !==
       1 ||
@@ -1036,14 +1032,14 @@ export function isWorksiteConstructionVectorApplicationFailure(
 function exactCandidateRelation(input: unknown, output: unknown): boolean {
   return isWorksiteConstructionTask(input) &&
     isWorksiteCandidateBundle(output) &&
-    sameCanonical(output.task, input);
+    canonicalEquals(output.task as unknown as JsonValue, input as unknown as JsonValue);
 }
 
 function exactJoinRelation(input: unknown, output: unknown): boolean {
   if (!isWorksiteCandidateBundle(input) ||
     !isWorksiteFileReplaceVector(output)) return false;
   try {
-    return sameCanonical(constructWorksiteFileReplaceVector(input), output);
+    return canonicalEquals(constructWorksiteFileReplaceVector(input) as unknown as JsonValue, output as unknown as JsonValue);
   } catch {
     return false;
   }
@@ -1053,7 +1049,7 @@ function exactReducerRelation(input: unknown, output: unknown): boolean {
   if (!isWorksiteFileReplaceOutputVector(input) ||
     !isWorksiteConstructionResult(output)) return false;
   try {
-    return sameCanonical(reduceWorksiteFileReplaceResults(input), output);
+    return canonicalEquals(reduceWorksiteFileReplaceResults(input) as unknown as JsonValue, output as unknown as JsonValue);
   } catch {
     return false;
   }

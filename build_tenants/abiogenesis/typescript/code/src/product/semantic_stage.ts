@@ -13,6 +13,7 @@ import { constructWorksiteSubject, constructWorksiteTerritory, constructWorksite
 import { constructWorksiteConstructionTask, type WorksiteConstructionTarget } from "./worksite_construction.js";
 import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
 import { constructWorksiteCommandPreparationInput, type WorksiteCommandPreparationInput } from "./worksite_preparation.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface SemanticSourceQuote { readonly memberRef: string; readonly quote: string }
 export interface SemanticStatementCandidate {
@@ -189,7 +190,7 @@ export function isSemanticStageEnvelope(value: unknown): value is SemanticStageE
     value.kind !== "semantic_stage_envelope" || value.schemaVersion !== "5.0.0" ||
     !isRequirementHandoffOutput(value.sourceHandoff) || !isSemanticLifecycleDeclaration(value.lifecycle) ||
     (value.worksite !== null && !isSemanticWorksiteBasis(value.worksite)) || !Array.isArray(value.assets) ||
-    value.applicationCoverage !== "non_closing" || hash(value.remainingGaps) !== hash(SEMANTIC_REMAINING_GAPS)) return false;
+    value.applicationCoverage !== "non_closing" || !canonicalEquals(value.remainingGaps as JsonValue, SEMANTIC_REMAINING_GAPS)) return false;
   const typed = value as unknown as SemanticStageEnvelope;
   return hash(typed.taskData) === typed.lifecycle.taskDataDigest && hash(typed.evaluationData) === typed.lifecycle.evaluationDataDigest &&
     typed.sourceHandoff.declaration.declarationRef === typed.lifecycle.sourceDeclarationRef &&
@@ -219,12 +220,12 @@ export function projectSemanticWorksiteCoordinates(historical: SemanticWorksiteB
       workspaceBinding: current.workspaceBinding,
       capabilityGrant: current.capabilityGrant,
     };
-    if (hash(historical.workspaceAuthorityBasis) !== hash(current.workspaceAuthorityBasis) ||
+    if (!canonicalEquals(historical.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue) ||
       historical.workspaceBinding.workspaceId !== current.workspaceBinding.workspaceId ||
       historical.capabilityGrant.actorRef !== current.capabilityGrant.actorRef ||
       historical.capabilityGrant.capabilityRef !== current.capabilityGrant.capabilityRef ||
       historical.capabilityGrant.operationId !== current.capabilityGrant.operationId ||
-      hash(historical.capabilityGrant.definitionKey) !== hash(current.capabilityGrant.definitionKey) ||
+      !canonicalEquals(historical.capabilityGrant.definitionKey as unknown as JsonValue, current.capabilityGrant.definitionKey as unknown as JsonValue) ||
       historical.capabilityGrant.authorityBasisRef !== current.capabilityGrant.authorityBasisRef ||
       historical.capabilityGrant.authorityBasisDigest !== current.capabilityGrant.authorityBasisDigest ||
       !unique(historical.targets.map(row => row.target.subject.relativePath)) ||
@@ -234,7 +235,7 @@ export function projectSemanticWorksiteCoordinates(historical: SemanticWorksiteB
       const subject = constructWorksiteSubject({ ...operatingBasis, subjectUri: old.subject.subjectUri, relativePath: old.subject.relativePath });
       const territory = constructWorksiteTerritory({ ...operatingBasis, territoryUri: old.territory.territoryUri, relativeRoot: old.territory.relativeRoot });
       if (subject.kind !== "worksite_subject" || territory.kind !== "worksite_territory" ||
-        hash(territory.operations) !== hash(old.territory.operations)) throw new TypeError("current target crossed historical territory");
+        !canonicalEquals(territory.operations, old.territory.operations)) throw new TypeError("current target crossed historical territory");
       const observation = old.predecessorObservation;
       const predecessorObservation = observation.state === "absent" ? constructWorksiteObservation({ subject, state: "absent" })
         : constructWorksiteObservation({ subject, state: "file", fileIdentity: observation.fileIdentity,

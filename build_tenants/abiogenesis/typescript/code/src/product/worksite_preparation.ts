@@ -1,7 +1,7 @@
 import { RETAINED_GRAPH_INPUT_CONTRACT, isRetainedGraphInput } from "./worksite_preparation_contracts.js";
 import { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from "./worksite_construction_identity.js";
 import type { GtlEdgeInputBinding } from "../gtl/contracts.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { hasExactKeys } from "../shared/admit/index.js";
 import { isSha256Digest } from "../shared/digests.js";
@@ -37,6 +37,7 @@ import { worksitePreparationSchemaSources, worksitePreparationContractDeclaratio
   isWorksiteRetentionContractRelation, WORKSITE_PREPARATION_IDS,
   type WorksiteCommandPreparationInput, type WorksiteBranchCommandPreparationInput,
   type WorksitePreparationInput, type WorksitePreparationBoundInput } from "./worksite_preparation_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export function preparationConstructionTasks(input: WorksitePreparationInput): readonly WorksiteConstructionTask[] {
   return input.constructionTask.kind === "worksite_construction_task"
@@ -49,16 +50,18 @@ function validConfiguration(input: WorksitePreparationInput): boolean {
     const tasks = preparationConstructionTasks(input);
     const first = tasks[0];
     if (first === undefined || tasks.some((task) =>
-      canonicalJson(task.workspaceAuthorityBasis as unknown as JsonValue) !== canonicalJson(first.workspaceAuthorityBasis as unknown as JsonValue) ||
-      canonicalJson(task.workspaceBinding as unknown as JsonValue) !== canonicalJson(first.workspaceBinding as unknown as JsonValue) ||
-      canonicalJson(task.capabilityGrant as unknown as JsonValue) !== canonicalJson(first.capabilityGrant as unknown as JsonValue))) return false;
+      !canonicalEquals(task.workspaceAuthorityBasis as unknown as JsonValue, first.workspaceAuthorityBasis as unknown as JsonValue) ||
+      !canonicalEquals(task.workspaceBinding as unknown as JsonValue, first.workspaceBinding as unknown as JsonValue) ||
+      !canonicalEquals(task.capabilityGrant as unknown as JsonValue, first.capabilityGrant as unknown as JsonValue))) return false;
     const dependencies = input.kind === "worksite_revision_command_preparation_input" ? input.dependencyObservations : [];
     const readBasis = input.kind === "worksite_command_preparation_input" ? input.readDependencyBasis : undefined;
     if (readBasis !== undefined && (!isWorksiteReadDependencyBasis(readBasis) || readBasis.members.some(row =>
       tasks.some(task => task.targets.some(target => target.subject.relativePath === row.subject.relativePath)) ||
-      canonicalJson(constructWorksiteSubject({ workspaceAuthorityBasis: first.workspaceAuthorityBasis,
-        workspaceBinding: first.workspaceBinding, subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath }) as unknown as JsonValue) !==
-        canonicalJson(row.subject as unknown as JsonValue)))) return false;
+      !canonicalEquals(
+        constructWorksiteSubject({ workspaceAuthorityBasis: first.workspaceAuthorityBasis,
+          workspaceBinding: first.workspaceBinding, subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath }) as unknown as JsonValue,
+        row.subject as unknown as JsonValue,
+      )))) return false;
     if (input.kind === "worksite_revision_command_preparation_input") {
       if (!isSha256Digest(input.revisionBasisDigest) || input.revisionBasisRef !== `semantic-revision://abiogenesis/${input.revisionBasisDigest.slice(7)}` ||
         !Array.isArray(input.snapshotTargetRefs) || input.snapshotTargetRefs.some(r=>typeof r!=="string"||r.trim()!==r||r.length===0||r.includes("\0")) ||
@@ -68,7 +71,7 @@ function validConfiguration(input: WorksitePreparationInput): boolean {
         input.snapshotTargetRefs.length!==first.targets.length+dependencies.length ||
         !dependencies.every(d=>input.snapshotTargetRefs.includes(d.designTargetRef)) ||
         dependencies.some((d,i)=>i>0&&input.snapshotTargetRefs.indexOf(dependencies[i-1]!.designTargetRef)>=input.snapshotTargetRefs.indexOf(d.designTargetRef)) ||
-        dependencies.some(d=>canonicalJson(constructWorksiteSubject({workspaceAuthorityBasis:first.workspaceAuthorityBasis,workspaceBinding:first.workspaceBinding,subjectUri:d.subject.subjectUri,relativePath:d.subject.relativePath}) as unknown as JsonValue)!==canonicalJson(d.subject as unknown as JsonValue))) return false;
+        dependencies.some(d=>!canonicalEquals(constructWorksiteSubject({workspaceAuthorityBasis:first.workspaceAuthorityBasis,workspaceBinding:first.workspaceBinding,subjectUri:d.subject.subjectUri,relativePath:d.subject.relativePath}) as unknown as JsonValue, d.subject as unknown as JsonValue))) return false;
     }
     constructWorksiteCommandConfiguration({
       workspaceAuthorityBasis: first.workspaceAuthorityBasis,
@@ -228,7 +231,7 @@ export function resolveWorksitePreparationJudgmentRelation(predicateRef: string)
           : branch ? "worksite_branch_command_preparation_bound_input" : "worksite_command_preparation_bound_input")) return false;
         const expected = select && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
           : prepare && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input) : null;
-        return expected !== null && canonicalJson(expected as unknown as JsonValue) === canonicalJson(output as JsonValue);
+        return expected !== null && canonicalEquals(expected as unknown as JsonValue, output as JsonValue);
       } catch { return false; }
     },
   });

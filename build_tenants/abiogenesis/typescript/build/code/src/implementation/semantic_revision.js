@@ -11,6 +11,7 @@ import { materializeSemanticJobDesignResponse, semanticJobUsesDesignResponse } f
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, ABI5_PRODUCT_ID } from "../product/contracts.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const hash = (x) => sha256Canonical(x);
 const placeholder = `sha256:${"0".repeat(64)}`;
 export const SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS = semanticRevisionImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
@@ -48,7 +49,7 @@ function actor(input, occurrence, role, prepareAssembly) {
     return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,
         complete(exchange) {
             const o = exchange.observation;
-            if (hash(exchange.request) !== hash(assembly.request) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
+            if (!canonicalEquals(exchange.request, assembly.request) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
                 o.toolCallCount !== 0 || o.inputDigest !== owner.inputDigest || o.implementationRef !== owner.call.implementationRef ||
                 o.actorRef !== old.workerActorRef || o.workerBindingRef !== old.workerBindingRef || o.transportLane !== "closed_prompt_proof")
                 return result(input, null, owner.call.implementationRef, false);
@@ -89,7 +90,7 @@ export function realizeSemanticRevisionSelection(input, occurrence, prepareAssem
     return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,
         complete(exchange) {
             const o = exchange.observation;
-            if (hash(exchange.request) !== hash(assembly.request) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
+            if (!canonicalEquals(exchange.request, assembly.request) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
                 o.toolCallCount !== 0 || o.inputDigest !== owner.inputDigest || o.implementationRef !== ids.selectionImplementationRef ||
                 o.actorRef !== old.workerActorRef || o.workerBindingRef !== old.workerBindingRef || o.transportLane !== "closed_prompt_proof")
                 return result(input, null, ids.selectionImplementationRef, false);
@@ -111,7 +112,7 @@ export function realizeSemanticRevisionNativeRequest(input, occurrence) {
     return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticRevisionRequest(occurrence.semanticStageBasis, input), ids.nativeRequestImplementationRef, true);
 }
 export function realizeSemanticRevisionNativeConstruction(input, occurrence) {
-    if (!isSemanticJobRevisionEnvelope(input) || hash(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits) !== hash(selectedWorksiteCommandExecutionLimits()))
+    if (!isSemanticJobRevisionEnvelope(input) || !canonicalEquals(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits, selectedWorksiteCommandExecutionLimits()))
         return result(input, null, ids.nativeConstructionImplementationRef, true);
     return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeRevisionConstructionTask(occurrence.semanticStageBasis, input), ids.nativeConstructionImplementationRef, true);
 }

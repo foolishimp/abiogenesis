@@ -12,7 +12,7 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution.js"
 import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction.js";
 import { ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "./contracts.js";
 import { resolveProgramStart, } from "../gtl/public_start.js";
-import { canonicalJson, compareUnicodeCodeUnits } from "../shared/canonical_json.js";
+import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { validateImplementationResolutionSet, validateProgram, } from "../validator/index.js";
@@ -22,6 +22,7 @@ import { resolveExecutionDeclarationClosure, resolveProgramDeclarationClosure, s
 import { implementationDescriptorsFromProduct, resolveImplementationSet, } from "./implementation_resolution.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
 import { productSemanticsFromModules, } from "./semantics.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export function isProductExecutionResolution(value) {
     try {
         const candidate = value;
@@ -114,8 +115,7 @@ export function graphFunctionSemanticsOwner(closure, graphFunctionRef, ownerBind
         ...closure.evaluatorOwners, ...closure.ruleOwners, ...closure.implementationBindingOwners,
         ...closure.closureContractOwners, closure.semanticsOwner];
     const matches = closure.publications.flatMap(publication => {
-        if (sha256Canonical(publication.productSemanticsBinding) !==
-            sha256Canonical(binding))
+        if (!canonicalEquals(publication.productSemanticsBinding, binding))
             return [];
         const coordinate = coordinates.find(owner => owner.moduleRef === publication.moduleRef &&
             owner.productId === publication.owningProductId &&
@@ -166,8 +166,7 @@ async function resolveProductExecution(input) {
     if (reconstructedCatalog === null ||
         reconstructedCatalog.kind !== "graph_function_catalog" ||
         (reconstructedCatalog !== input.catalog &&
-            canonicalJson(reconstructedCatalog) !==
-                canonicalJson(input.catalog))) {
+            !canonicalEquals(reconstructedCatalog, input.catalog))) {
         return refusal("incompatible_or_unproven", "catalog", "execution resolution requires the exact reconstructed ready Catalog");
     }
     const reconstructedView = (() => {
@@ -181,8 +180,7 @@ async function resolveProductExecution(input) {
     if (reconstructedView === null ||
         reconstructedView.kind !== "graph_function_catalog_view" ||
         (reconstructedView !== input.catalogView &&
-            canonicalJson(reconstructedView) !==
-                canonicalJson(input.catalogView))) {
+            !canonicalEquals(reconstructedView, input.catalogView))) {
         return refusal("incompatible_or_unproven", "catalog", "execution resolution requires the exact reconstructed CatalogView");
     }
     if (input.admittedInstalls.length !==
@@ -191,9 +189,8 @@ async function resolveProductExecution(input) {
             input.admittedInstalls.length ||
         new Set(input.admittedInstalls.map((install) => install.admissionEventRef)).size !== input.admittedInstalls.length ||
         input.admittedInstalls.some((install) => !input.verifyInstallAdmission(install) ||
-            reconstructedCatalog.readinessBasis.installedProducts.filter((candidate) => canonicalJson(candidate) ===
-                canonicalJson(candidateFromInstall(install))).length !== 1) ||
-        reconstructedCatalog.readinessBasis.installedProducts.some((candidate) => input.admittedInstalls.filter((install) => canonicalJson(candidateFromInstall(install)) === canonicalJson(candidate)).length !== 1)) {
+            reconstructedCatalog.readinessBasis.installedProducts.filter((candidate) => canonicalEquals(candidate, candidateFromInstall(install))).length !== 1) ||
+        reconstructedCatalog.readinessBasis.installedProducts.some((candidate) => input.admittedInstalls.filter((install) => canonicalEquals(candidateFromInstall(install), candidate)).length !== 1)) {
         return refusal("incompatible_or_unproven", "dependency", "execution resolution requires one ABG-admitted install per exact Catalog readiness candidate");
     }
     const programDeclarationClosure = resolveProgramDeclarationClosure(reconstructedCatalog, reconstructedView, input.programRef);
@@ -293,8 +290,7 @@ async function resolveProductExecution(input) {
         selectedCatalogEntry.moduleRef !== graphFunctionOwner.moduleRef ||
         selectedCatalogEntry.publicationDigest !==
             graphFunctionOwner.publicationDigest ||
-        canonicalJson(selectedCatalogEntry.definition) !==
-            canonicalJson(graphFunction)) {
+        !canonicalEquals(selectedCatalogEntry.definition, graphFunction)) {
         return refusal("wrong_owner", "catalog", "Program-aware GraphFunction selection disagrees with its declaration owner");
     }
     if (graphFunction.inputs.length !== 1 ||

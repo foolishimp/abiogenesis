@@ -11,8 +11,9 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_exec
 import { deepFreeze } from "../shared/immutable.js";
 import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, graphInputRetentionBinding } from "../product/worksite_preparation_contracts.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export type SemanticRevisionRole = "selection" | "projection" | "author" | "assessor" | "bridge" | "evidenceInput" | "terminal" | "nativeIntake" | "nativeRequest" | "nativeConstruction" | "nativeExecution" | "nativeEvidence";
 const inputs = (role: SemanticRevisionRole) => role === "selection" ? ids.selectionInputContractRef : role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef :
   role === "nativeIntake" ? ids.nativeIntakeContractRef : role === "nativeRequest" ? ids.selectionContractRef :
@@ -116,6 +117,6 @@ function nativeConstructionGraph(input: {readonly graphFunctionRef:string; reado
 /** Retention has this exact factory as owner, never a free-form marker. */
 export function isNativeSemanticRevisionGraphFunction(publication: Readonly<ModulePublication>, graph: Readonly<GraphFunction>): boolean {
   try { return publication.semanticJobLifecycle !== undefined && graph.declarations["abg.semantic_native_revision_construction"] === "5.0.0" &&
-    canonicalJson(canonicalizeAuthoredGtlCarrier(nativeConstructionGraph({graphFunctionRef:graph.name,closureContractRef:graph.declarations["abg.closure_contract"]!}),"graph_function") as unknown as JsonValue) === canonicalJson(graph as unknown as JsonValue);
+    canonicalEquals(canonicalizeAuthoredGtlCarrier(nativeConstructionGraph({graphFunctionRef:graph.name,closureContractRef:graph.declarations["abg.closure_contract"]!}),"graph_function") as unknown as JsonValue, graph as unknown as JsonValue);
   } catch { return false; }
 }

@@ -11,7 +11,7 @@ import {
   type PackagedLeafImplementationDescriptor,
 } from "../product/implementation_resolution.js";
 import type { GraphFunctionCatalogView } from "../product/catalog.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -30,6 +30,7 @@ import {
   type StaticDiagnostic,
   type StaticValidationRefusal,
 } from "./validation.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ImplementationResolutionValidation {
   readonly kind: "implementation_resolution_validation";
@@ -300,10 +301,12 @@ export function validateImplementationResolutionSet(
     candidate.catalogBasisDigest !== catalogView.catalogBasisDigest ||
     candidate.catalogViewDigest !== catalogView.viewDigest ||
     catalogViewDigest !== catalogView.viewDigest ||
-    canonicalJson(candidate.executableLeafKeys as unknown as JsonValue) !==
-      canonicalJson(selectedExecutableRows.map((row) =>
+    !canonicalEquals(
+      candidate.executableLeafKeys as unknown as JsonValue,
+      selectedExecutableRows.map((row) =>
         row.requirementKey
-      ) as unknown as JsonValue) ||
+      ) as unknown as JsonValue,
+    ) ||
     candidate.rows.length !== selectedExecutableRows.length
   ) {
     return invalid(subjectDigest, {
@@ -350,8 +353,10 @@ export function validateImplementationResolutionSet(
       : publications.filter((publication) =>
           publication.implementationBindings.some((value) =>
             value.bindingRef === binding.bindingRef &&
-            sha256Canonical(value as unknown as JsonValue) ===
-              sha256Canonical(binding as unknown as JsonValue)
+            canonicalEquals(
+              value as unknown as JsonValue,
+              binding as unknown as JsonValue,
+            )
           )
         );
     const matchingDescriptors = descriptors.filter((descriptor) =>

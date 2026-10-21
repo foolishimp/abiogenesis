@@ -4,6 +4,7 @@ import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA, isRequirementHandoffDeclaration
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const ref = v.pipe(v.string(), v.minLength(1));
 const digest = v.pipe(v.string(), v.regex(/^sha256:[0-9a-f]{64}$/));
 const schemaVersion = v.literal("5.0.0");
@@ -118,5 +119,5 @@ export function isRequirementHandoffOutput(value: unknown): value is Requirement
   // The closed schema above checked all digest lexemes; retain the native public types.
   const typed = value as unknown as RequirementHandoffOutput;
   const expected = deriveRequirementHandoffCandidate(typed.source, typed.declaration, typed.basis);
-  return expected !== null && sha256Canonical(expected as unknown as JsonValue) === sha256Canonical(value as unknown as JsonValue);
+  return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as unknown as JsonValue);
 }

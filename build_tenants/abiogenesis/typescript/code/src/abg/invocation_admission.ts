@@ -61,7 +61,6 @@ import {
   validateCapabilityGrantForProductBasis,
 } from "../product/invocation.js";
 import {
-  canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
@@ -111,6 +110,7 @@ import { runEnvironmentEvidenceMatchesInvocation, type RunEnvironmentEvidence } 
 import type { GovernanceCoveredSourceUse } from "../product/semantics.js";
 import type { AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import { projectGovernanceCoveredSourceUse, hasAdmittedGovernanceCoveredSourceUse } from "./invocation_execution_truth.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface InvocationAdmissionInput {
   readonly runEnvironment?: RunEnvironmentEvidence;
@@ -521,15 +521,17 @@ function deriveSourceResultBasisAtPrefix(
       // an older snapshot. Read-only preparation and a new selection without
       // additions do not manufacture another completed work result.
       if ([governanceRef("implementation", "fold"), governanceRef("implementation", "evaluate-parent")].includes(implementation as string) &&
-        isGovernanceWorkState(value)) return canonicalJson(value as unknown as JsonValue) !== canonicalJson(retainedState as unknown as JsonValue);
+        isGovernanceWorkState(value)) return !canonicalEquals(value as unknown as JsonValue, retainedState as unknown as JsonValue);
       if (implementation === governanceRef("implementation", "select") && isFramedSynthesisResult(value)) return (
-        canonicalJson(value.state as unknown as JsonValue) !== canonicalJson(retainedState as unknown as JsonValue) ||
+        !canonicalEquals(value.state as unknown as JsonValue, retainedState as unknown as JsonValue) ||
         (value.judgment.requirementProposals?.length ?? 0) !== 0);
       if (implementation === governanceRef("implementation", "project-choice") && isRecord(value) && value.kind === "registered_graph_choice" && value.disposition === "selected" &&
         isRecord(value.input) && isGovernanceWorkState(value.input.value)) {
         const next = value.input.value as unknown as GovernanceWorkState;
-        return canonicalJson({ ...next, synthesis: retainedState.synthesis } as unknown as JsonValue) !==
-          canonicalJson(retainedState as unknown as JsonValue);
+        return !canonicalEquals(
+          { ...next, synthesis: retainedState.synthesis } as unknown as JsonValue,
+          retainedState as unknown as JsonValue,
+        );
       }
       return implementation === NATIVE_WORKSPACE_WORK_IDS.implementationRef && e.payload.contractRef === NATIVE_WORKSPACE_WORK_IDS.observationContractRef ||
         implementation === WORKSITE_COMMAND_EXECUTION_IDS.implementationRef && e.payload.contractRef === WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef;
@@ -670,8 +672,10 @@ export function rehydrateInvocationSourceResultBasisAtDurablePrefix(
     },
   );
   return projected !== null &&
-      canonicalJson(projected as unknown as JsonValue) ===
-        canonicalJson(asserted as unknown as JsonValue)
+      canonicalEquals(
+        projected as unknown as JsonValue,
+        asserted as unknown as JsonValue,
+      )
     ? projected
     : null;
 }
@@ -733,20 +737,23 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
     input.policy.programRef !== input.program.programRef ||
     input.policy.programDigest !==
       sha256Canonical(input.program as unknown as JsonValue) ||
-    input.policy.allowedComputeRegimes.join("\0") !== exactComputeRegimes.join("\0") ||
-    sha256Canonical(
+    !canonicalEquals(input.policy.allowedComputeRegimes, exactComputeRegimes) ||
+    !canonicalEquals(
       input.policy.interactionCapabilities as unknown as JsonValue,
-    ) !== sha256Canonical(
       exactInteractionCapabilities as unknown as JsonValue,
     ) ||
-    input.policy.catalogApplicationRefs.join("\0") !==
+    !canonicalEquals(
+      input.policy.catalogApplicationRefs,
       exactCatalogApplications.map(
         (application) => application.applicationRef,
-      ).join("\0") ||
-    input.policy.catalogApplicationDigests.join("\0") !==
+      ),
+    ) ||
+    !canonicalEquals(
+      input.policy.catalogApplicationDigests,
       exactCatalogApplications.map(
         (application) => application.applicationDigest,
-      ).join("\0") ||
+      ),
+    ) ||
     input.policy.graphMaterialization !== "after_invocation_admission"
   ) {
     return refusal(
@@ -879,10 +886,14 @@ function admitInvocationWithRequest(
   );
   if (
     environment.kind !== "exact_prefix_workspace_environment" ||
-    canonicalJson(environment.artifactTruth as unknown as JsonValue) !==
-      canonicalJson(input.artifactTruth as unknown as JsonValue) ||
-    canonicalJson(environment.workspaceBinding as unknown as JsonValue) !==
-      canonicalJson(input.workspaceBinding as unknown as JsonValue)
+    !canonicalEquals(
+      environment.artifactTruth as unknown as JsonValue,
+      input.artifactTruth as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      environment.workspaceBinding as unknown as JsonValue,
+      input.workspaceBinding as unknown as JsonValue,
+    )
   ) {
     return refusal(
       "workspace_not_admitted",
@@ -916,9 +927,9 @@ function admitInvocationWithRequest(
     try {
       const resources = applicationResources[index];
       if (resources === undefined || resources.construction.programRef !== input.program.programRef ||
-          canonicalJson(resources.catalogView as unknown as JsonValue) !== canonicalJson(input.catalogView as unknown as JsonValue)) return false;
+          !canonicalEquals(resources.catalogView as unknown as JsonValue, input.catalogView as unknown as JsonValue)) return false;
       const reconstructed = reconstructCatalogApplication(resources, input.artifactTruth.prefix);
-      return canonicalJson(reconstructed as unknown as JsonValue) === canonicalJson(application as unknown as JsonValue);
+      return canonicalEquals(reconstructed as unknown as JsonValue, application as unknown as JsonValue);
     } catch { return false; }
   });
   if (
@@ -965,12 +976,14 @@ function admitInvocationWithRequest(
   const inputContract = executionResolution.inputContract;
   const outputContract = executionResolution.outputContract;
   const inputOwnerMatches = executionResolution.declarationOwners.filter(
-    (owner) => canonicalJson(owner as unknown as JsonValue) === canonicalJson(
+    (owner) => canonicalEquals(
+      owner as unknown as JsonValue,
       executionResolution.inputContractOwner as unknown as JsonValue,
     ),
   );
   const outputOwnerMatches = executionResolution.declarationOwners.filter(
-    (owner) => canonicalJson(owner as unknown as JsonValue) === canonicalJson(
+    (owner) => canonicalEquals(
+      owner as unknown as JsonValue,
       executionResolution.outputContractOwner as unknown as JsonValue,
     ),
   );
@@ -1389,13 +1402,14 @@ function admitInvocationWithRequest(
       sourceInvocation === null ||
       sourceInvocation.invocationVariant !== "start" ||
       sourceInvocation.publicStart === null ||
-      sha256Canonical(
+      !canonicalEquals(
         sourceInvocation.publicStart as unknown as JsonValue,
-      ) !== sha256Canonical(
         reentry.sourceStart as unknown as JsonValue,
       ) ||
-      sha256Canonical(publicStart as unknown as JsonValue) !==
-        sha256Canonical(reentry.sourceStart as unknown as JsonValue) ||
+      !canonicalEquals(
+        publicStart as unknown as JsonValue,
+        reentry.sourceStart as unknown as JsonValue,
+      ) ||
       sourceInvocation.workspaceBindingId !==
         input.workspaceBinding.bindingId ||
       sourceInvocation.workspaceBindingDigest !==
@@ -1464,8 +1478,10 @@ function admitInvocationWithRequest(
       suppliedSourceProjectionAuthority === null ||
       suppliedSourceResultRef === null ||
       exactBasis === null ||
-      canonicalJson(exactBasis as unknown as JsonValue) !==
-        canonicalJson(suppliedBasis as unknown as JsonValue) ||
+      !canonicalEquals(
+        exactBasis as unknown as JsonValue,
+        suppliedBasis as unknown as JsonValue,
+      ) ||
       suppliedSourceProjectionAuthority.authorityDigest !==
         suppliedBasis.publicAuthorityDigest ||
       suppliedSourceResultRef !== suppliedBasis.sourceResultRef
@@ -1488,10 +1504,10 @@ function admitInvocationWithRequest(
       if (retained === null || sourceInvocation === null ||
         input.graphFunction.declarations["abg.supported_fulfillment_profile"] !== GOVERNANCE_FULFILLMENT_PROFILE ||
         input.rawInput.contractRef !== governanceContract("state") ||
-        canonicalJson(input.rawInput.value as JsonValue) !== canonicalJson(retained as unknown as JsonValue) ||
+        !canonicalEquals(input.rawInput.value as JsonValue, retained as unknown as JsonValue) ||
         sourceInvocation.programRef !== input.program.programRef || sourceInvocation.programDigest !== sha256Canonical(input.program as unknown as JsonValue) ||
         (!exactCurrent && (currentUse === null || input.currentSourceUse === undefined ||
-          canonicalJson(currentUse as unknown as JsonValue) !== canonicalJson(input.currentSourceUse as unknown as JsonValue) ||
+          !canonicalEquals(currentUse as unknown as JsonValue, input.currentSourceUse as unknown as JsonValue) ||
           currentUse.currentCatalogBasisDigest !== input.catalogView.catalogBasisDigest || currentUse.currentCatalogViewDigest !== input.catalogView.viewDigest)) ||
         (exactCurrent && input.currentSourceUse !== undefined)) {
         return refusal("authority_mismatch", "retained library work requires its exact current input, declared entry, Program and workspace authority");
@@ -1513,8 +1529,8 @@ function admitInvocationWithRequest(
     capabilityRefusal !== null ||
     input.policy.policyRef !== input.invocation.sessionPolicyRef ||
     input.policy.policyDigest !== input.invocation.sessionPolicyDigest ||
-    input.invocation.capabilityGrantRefs.join("\0") !== input.capabilityGrants.map((grant) => grant.grantRef).join("\0") ||
-    input.invocation.capabilityGrantDigests.join("\0") !== input.capabilityGrants.map((grant) => grant.grantDigest).join("\0")
+    !canonicalEquals(input.invocation.capabilityGrantRefs, input.capabilityGrants.map((grant) => grant.grantRef)) ||
+    !canonicalEquals(input.invocation.capabilityGrantDigests, input.capabilityGrants.map((grant) => grant.grantDigest))
   ) {
     return capabilityRefusal ?? refusal(
       "capability_mismatch",
@@ -1540,7 +1556,7 @@ function admitInvocationWithRequest(
     input.authority.graphFunctionRef !== input.graphFunction.name ||
     input.authority.policyRef !== input.policy.policyRef ||
     input.authority.policyDigest !== input.policy.policyDigest ||
-    input.authority.capabilityGrantRefs.join("\0") !== input.capabilityGrants.map((grant) => grant.grantRef).join("\0")
+    !canonicalEquals(input.authority.capabilityGrantRefs, input.capabilityGrants.map((grant) => grant.grantRef))
   ) {
     return refusal("authority_mismatch", "invocation authority does not cover the exact actor, environment, and target");
   }

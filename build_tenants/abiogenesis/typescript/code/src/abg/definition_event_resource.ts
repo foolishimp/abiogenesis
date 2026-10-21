@@ -27,6 +27,7 @@ import {
   type DurablePrefixCoordinate,
   type EventStoreCloseHandoff,
 } from "./event_store.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export type AbgEventResourceAssertion =
   | Readonly<{
@@ -334,8 +335,10 @@ export function acquireAbgEventResource(
     return refusal("acquisition_refused", `${reopened.code}: ${reopened.message}`);
   }
   if (
-    sha256Canonical(reopened.prefix as unknown as JsonValue) !==
-      sha256Canonical(assertion.closeHandoff.prefix as unknown as JsonValue)
+    !canonicalEquals(
+      reopened.prefix as unknown as JsonValue,
+      assertion.closeHandoff.prefix as unknown as JsonValue,
+    )
   ) {
     reopened.store.closeDurableLog();
     return refusal(
@@ -456,7 +459,7 @@ export async function recoverInterruptedAbgEventResource(requestInput: unknown, 
     const manifest = JSON.parse(await readFile(new URL("../../../../product-toolchain-manifest.json", import.meta.url), "utf8"));
     const pkg = JSON.parse(await readFile(new URL("../../../../package.json", import.meta.url), "utf8"));
     if (observed.kind !== "verified_product_artifact" ||
-        canonicalJson(observed as unknown as JsonValue) !== canonicalJson(request.ownerArtifact.verified as unknown as JsonValue) ||
+        !canonicalEquals(observed as unknown as JsonValue, request.ownerArtifact.verified as unknown as JsonValue) ||
         sha256Canonical(manifest) !== observed.manifestDigest || pkg.name !== observed.packageName || pkg.version !== observed.packageVersion ||
         pkg.exports?.[ABG_EVENT_RESOURCE_RECOVERY.packageExport]?.import !== "./build/code/src/abg/index.js") {
       throw new TypeError("native maintenance owner differs from the verified executing artifact/export");

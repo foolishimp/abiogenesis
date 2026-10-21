@@ -24,7 +24,6 @@ import {
   type WorksiteFileReplaceVector,
 } from "../product/worksite_construction.js";
 import {
-  canonicalJson,
   type JsonValue,
 } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
@@ -34,6 +33,7 @@ import type {
   LeafRealizationCandidate,
   PreparedProbabilisticLeafInvocation,
 } from "./contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 function descriptor(input: Readonly<{
   implementationRef: string;
@@ -154,8 +154,10 @@ function exactActorExchange(
   exchange: Readonly<ActorProcessCarrierValidation>,
 ): boolean {
   const observation = exchange.observation;
-  return canonicalJson(exchange.request as unknown as JsonValue) ===
-      canonicalJson(expectedRequest as unknown as JsonValue) &&
+  return canonicalEquals(
+    exchange.request as unknown as JsonValue,
+    expectedRequest as unknown as JsonValue,
+  ) &&
     observation.actorRef === WORKSITE_CONSTRUCTION_IDS.workerActorRef &&
     observation.workerBindingRef ===
       WORKSITE_CONSTRUCTION_IDS.workerBindingRef &&

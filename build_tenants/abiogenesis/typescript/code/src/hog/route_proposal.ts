@@ -54,6 +54,7 @@ import {
   type TraversalTransitionCandidate,
 } from "../abg/traversal_transition.js";
 import { deriveGraphSpanReentryCursor } from "./traversal.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 type RouteSourceLocus = Readonly<{
   stopClass: "executable" | "interaction";
@@ -400,7 +401,7 @@ export function proposeJudgedRoute(
   const declared = selected === null ? isDeclaredCompletion(graph, sourceCursor, targetCursor, {
     inputRef: boundInput?.admissionRef ?? result.resultRef, inputDigest: boundInput?.subjectDigest ?? result.valueDigest,
   }) : selected.disposition === "selected" && targetCursor !== null && boundInput !== undefined &&
-    targetCursor.currentNodeRef === selected.nodeRef && targetCursor.termPath.join("\0") === selected.termPath.join("\0") &&
+    targetCursor.currentNodeRef === selected.nodeRef && canonicalEquals(targetCursor.termPath, selected.termPath) &&
     targetCursor.inputRef === boundInput.admissionRef && targetCursor.inputDigest === boundInput.subjectDigest;
   const routeKind = targetCursor === null ? "terminal" as const : "advance" as const;
   if (

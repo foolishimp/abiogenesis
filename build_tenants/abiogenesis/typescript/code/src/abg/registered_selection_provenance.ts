@@ -1,15 +1,15 @@
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRegisteredGraphChoice } from "../gtl/registered_selection.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { rawAdmitValue } from "../validator/raw_admission.js";
 import { indexedRuntimeEvents, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { projectExactExecutionBasisAtPrefix } from "./invocation_execution_truth.js";
 import type { RuntimeEvent } from "./event_store.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const record = (x: unknown): x is Readonly<Record<string, JsonValue>> =>
   x !== null && typeof x === "object" && !Array.isArray(x);
-const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
 const scope = (a: RuntimeEvent, b: RuntimeEvent) =>
   a.runId === b.runId && a.basisId === b.basisId && a.graphCallId === b.graphCallId && a.frameId === b.frameId;
 
@@ -38,7 +38,7 @@ export function projectRegisteredSelectionInputAtPrefix(prefix: RuntimeEventPref
   if (route.kind !== "traversal_route_admitted" || !record(route.payload) ||
     typeof route.payload.registeredSelectionApplicationRef !== "string" ||
     route.payload.registeredSelectionApplicationRef.length === 0 || route.payload.routeKind !== "advance" ||
-    typeof route.basisId !== "string" || !indexedRuntimeEvents(prefix, "id:" + route.eventId).some(e => same(e, route))) return null;
+    typeof route.basisId !== "string" || !indexedRuntimeEvents(prefix, "id:" + route.eventId).some(e => canonicalEquals(e as unknown as JsonValue, route as unknown as JsonValue))) return null;
   const payload = route.payload;
   const basis = projectExactExecutionBasisAtPrefix(prefix, route.basisId);
   if (basis === null || basis.graphRef !== payload.declarationRef || basis.graphDigest !== payload.declarationDigest ||
@@ -62,5 +62,5 @@ export function projectRegisteredSelectionInputAtPrefix(prefix: RuntimeEventPref
   if (typeof choice.graphFunctionRef !== "string" || basis.registeredSelectionDefinitionDigests?.[choice.graphFunctionRef] !== choice.definitionDigest ||
     !record(choice.input) || choice.input.contractRef !== payload.boundInput.contractRef || !record(choice.input.value)) return null;
   const admitted = rawAdmitValue(choice.input.value, "invocation_input", payload.boundInput.contractRef);
-  return admitted.kind === "raw_admitted_value" && same(admitted, payload.boundInput) ? admitted : null;
+  return admitted.kind === "raw_admitted_value" && canonicalEquals(admitted as unknown as JsonValue, payload.boundInput) ? admitted : null;
 }

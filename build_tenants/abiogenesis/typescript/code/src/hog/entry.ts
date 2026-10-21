@@ -42,7 +42,6 @@ import {
   canonicalDigest,
   materializedInputAtCursor,
   runtimePrefixAtDurable,
-  sameCanonical,
   traversalBasis,
 } from "./operator_support.js";
 import {
@@ -56,6 +55,7 @@ import {
   failTraversal,
   refuseTraversalEntry,
 } from "./traversal_failure.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export function prepareInteractionResumeTraversalEntry(
   input: InteractionResumeTraversalEntryInput,
@@ -168,7 +168,7 @@ export function enterTraversal(
         "diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5",
       );
     }
-    if (!sameCanonical(input.predecessorPrefix, candidate.successorPrefix)) {
+    if (!canonicalEquals(input.predecessorPrefix as unknown as JsonValue, candidate.successorPrefix as unknown as JsonValue)) {
       throw new TypeError(
         "diagnostic://abiogenesis/hog/projected-retry-prefix-mismatch@5",
       );
@@ -207,7 +207,7 @@ export function enterTraversal(
       canonicalDigest(initialInput.input) !== initialInput.inputDigest ||
       canonicalDigest(input.executionBasis.rawInputValue) !==
         input.executionBasis.rawInputDigest ||
-      !sameCanonical(initialInput.input, input.executionBasis.rawInputValue)
+      !canonicalEquals(initialInput.input, input.executionBasis.rawInputValue)
     )
   ) {
     throw new TypeError(
@@ -261,8 +261,8 @@ export function enterTraversal(
     if (
       traversalCursor === null ||
       targetTerm.kind === "traversal_refusal" ||
-      !sameCanonical(traversalCursor, candidate.nextCursor) ||
-      !sameCanonical(reprojected.cursor, candidate.nextCursor) ||
+      !canonicalEquals(traversalCursor as unknown as JsonValue, candidate.nextCursor as unknown as JsonValue) ||
+      !canonicalEquals(reprojected.cursor as unknown as JsonValue, candidate.nextCursor as unknown as JsonValue) ||
       traversalCursor.inputRef !== candidate.inputRef ||
       traversalCursor.inputDigest !== candidate.inputDigest ||
       targetTerm.inputCarrierRef !== candidate.inputContractRef ||
@@ -270,7 +270,7 @@ export function enterTraversal(
         candidate.inputDigest ||
       (
         materializedTargetInput !== null &&
-        !sameCanonical(materializedTargetInput.value, candidate.inputValue)
+        !canonicalEquals(materializedTargetInput.value, candidate.inputValue)
       )
     ) {
       throw new TypeError(

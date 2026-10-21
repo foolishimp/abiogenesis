@@ -16,6 +16,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const WORKSPACE_MANIFEST_FILE = "workspace-manifest.json";
 
@@ -423,8 +424,10 @@ export function reconstructWorkspaceManifest(
     configurationRef: null,
     configurationDigest: null,
   };
-  return canonicalJson(comparable as JsonValue) ===
-      canonicalJson(expected as unknown as JsonValue)
+  return canonicalEquals(
+    comparable as JsonValue,
+    expected as unknown as JsonValue,
+  )
     ? deepFreeze(value as unknown as WorkspaceManifest)
     : null;
 }

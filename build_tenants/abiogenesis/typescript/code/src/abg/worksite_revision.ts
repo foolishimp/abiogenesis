@@ -40,13 +40,12 @@ import { projectWorksiteTransitionForResult, deriveRuntimeHeldFluentProjection, 
 import type { ChildExecutionBasisInput, ExecutionBasis } from "./execution_basis.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
-
-const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
+import { canonicalEquals } from "../shared/value/index.js";
 const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === "object" && !Array.isArray(v);
 const isRevisionEnvelope = (value: unknown): value is SemanticRevisionEnvelope | SemanticJobRevisionEnvelope => isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value);
 function sameSemanticSubject(a: unknown,b: unknown): boolean {
-  if (isSemanticJobEnvelope(a) && isSemanticJobEnvelope(b)) return same(a.job,b.job) && same(a.basis,b.basis) && same(a.declaration,b.declaration);
-  return isSemanticStageEnvelope(a) && isSemanticStageEnvelope(b) && same(a.lifecycle,b.lifecycle) && same(a.sourceHandoff,b.sourceHandoff);
+  if (isSemanticJobEnvelope(a) && isSemanticJobEnvelope(b)) return canonicalEquals(a.job as unknown as JsonValue, b.job as unknown as JsonValue) && canonicalEquals(a.basis as unknown as JsonValue, b.basis as unknown as JsonValue) && canonicalEquals(a.declaration as unknown as JsonValue, b.declaration as unknown as JsonValue);
+  return isSemanticStageEnvelope(a) && isSemanticStageEnvelope(b) && canonicalEquals(a.lifecycle as unknown as JsonValue, b.lifecycle as unknown as JsonValue) && canonicalEquals(a.sourceHandoff as unknown as JsonValue, b.sourceHandoff as unknown as JsonValue);
 }
 const hash = (v: unknown) => sha256Canonical(v as JsonValue);
 const one = <T>(rows: { filter(predicate: (row: T) => boolean): T[] }, accepts: (row: T) => boolean): T | null => {
@@ -114,7 +113,7 @@ function nativeBinding(prefix: RuntimeEventPrefix, binding: WorkspaceBinding) {
     r.admissionEventRef === binding.admissionEventRef);
   if (row === null || !record(row.artifact) || !record(row.workspaceAuthorityBasis)) return null;
   const {kind: _kind,...body} = row.artifact;
-  return same({kind:"workspace_binding",...body,admissionEventRef:row.admissionEventRef},binding)
+  return canonicalEquals({kind:"workspace_binding",...body,admissionEventRef:row.admissionEventRef}, binding as unknown as JsonValue)
     ? { row, binding, authority: row.workspaceAuthorityBasis as unknown as WorkspaceAuthorityBasis } : null;
 }
 export function projectAdmittedWorkspaceBindingAtCoordinate(prefix:ValidatedRuntimeEventPrefix,ref:string,digest:string):WorkspaceBinding|null;
@@ -136,9 +135,9 @@ export function projectWorksiteRevisionBindingCover(prefix: RuntimeEventPrefix,
   before: WorkspaceBinding, after: WorkspaceBinding, historicalBases: readonly ExecutionBasis[]): readonly string[] | null;
 export function projectWorksiteRevisionBindingCover(prefix: RuntimeEventPrefix,
   before: WorkspaceBinding, after: WorkspaceBinding, historicalBases: readonly ExecutionBasis[]): readonly string[] | null {
-  if (same(before, after)) return [];
+  if (canonicalEquals(before as unknown as JsonValue, after as unknown as JsonValue)) return [];
   const old = nativeBinding(prefix, before), current = nativeBinding(prefix, after);
-  if (old === null || current === null || !same(old.authority, current.authority) ||
+  if (old === null || current === null || !canonicalEquals(old.authority as unknown as JsonValue, current.authority as unknown as JsonValue) ||
     before.workspaceId !== after.workspaceId || before.authorizedActorRef !== after.authorizedActorRef) return null;
   return projectWitnessedWorkspaceBindingCover(prefix, before, after, historicalBases);
 }
@@ -153,13 +152,13 @@ export function projectWitnessedWorkspaceBindingCover(prefix: RuntimeEventPrefix
 export function projectWitnessedWorkspaceBindingCover(prefix: RuntimeEventPrefix,
   before: WorkspaceBinding, after: WorkspaceBinding, historicalBases: readonly ExecutionBasis[]): readonly string[] | null {
   try {
-    if (same(before,after)) return [];
+    if (canonicalEquals(before as unknown as JsonValue, after as unknown as JsonValue)) return [];
     const old = nativeBinding(prefix,before), current = nativeBinding(prefix,after);
     if (old === null || current === null) return null;
     const events = runtimeEventBodiesAtPrefix(prefix);
     const bases = historicalBases.flatMap((b,index) => {
       const actual = projectExactExecutionBasisAtPrefix(prefix,b.basisRef);
-      return actual !== null && same(actual,b) && historicalBases.findIndex(row=>row.basisRef===b.basisRef)===index &&
+      return actual !== null && canonicalEquals(actual as unknown as JsonValue, b as unknown as JsonValue) && historicalBases.findIndex(row=>row.basisRef===b.basisRef)===index &&
         b.workspaceBindingId === before.bindingId && b.workspaceBindingDigest === before.bindingDigest ? [b] : [];
     });
     if (bases.length === 0) return null;
@@ -168,10 +167,13 @@ export function projectWitnessedWorkspaceBindingCover(prefix: RuntimeEventPrefix
       if (event.kind !== "declaration_reprice_admitted" || !record(p) || p.act !== "reprice" ||
         event.aggregateId !== after.bindingId || p.declarationRef !== before.bindingId || p.beforeDigest !== before.bindingDigest ||
         p.afterDigest !== after.bindingDigest || p.subjectKind !== "authority_basis" || !record(p.context) || p.context.kind !== "basis" ||
-        !record(p.context.basis) || !same(p.context.basis,{ref:p.subjectRef,digest:p.subjectDigest}) ||
+        !record(p.context.basis) || !canonicalEquals(p.context.basis, {ref:p.subjectRef,digest:p.subjectDigest} as unknown as JsonValue) ||
         p.contentKind !== "typed_payload" || p.contentContractRef !== WITNESS_CONTENT_CONTRACTS.reprice.ref || p.contentContractDigest !== WITNESS_CONTENT_CONTRACTS.reprice.digest ||
-        !record(p.contentValue) || !same(p.contentValue,{declarationRef:p.declarationRef,beforeDigest:p.beforeDigest,afterDigest:p.afterDigest,
-          changeClass:p.changeClass,owningTicketRef:p.owningTicketRef,reason:p.reason}) ||
+        !record(p.contentValue) || !canonicalEquals(
+          p.contentValue,
+          {declarationRef:p.declarationRef,beforeDigest:p.beforeDigest,afterDigest:p.afterDigest,
+            changeClass:p.changeClass,owningTicketRef:p.owningTicketRef,reason:p.reason} as unknown as JsonValue,
+        ) ||
         !Array.isArray(p.evidence)) return false;
       const evidence=p.evidence;
       if(![before,after].every(w => evidence.filter(c => record(c) && c.ref === w.bindingId && c.digest === w.bindingDigest).length === 1))return false;
@@ -191,7 +193,7 @@ export function projectWitnessedWorkspaceBindingCover(prefix: RuntimeEventPrefix
         operation.payload.actorRef !== p.actorRef || operation.payload.actorDigest !== p.actorDigest || p.operatorActorRef !== p.actorRef ||
         p.actorRef !== after.authorizedActorRef) return false;
       const {eventId:_eventId,admissionOrdinal:_ordinal,payloadDigest:_payloadDigest,eventContractDigest:_eventContractDigest,...candidate}=event;
-      if(!same(projectRuntimeEventFromValidatedHistory(events.filter(e=>e.admissionOrdinal<event.admissionOrdinal),candidate),event))return false;
+      if(!canonicalEquals(projectRuntimeEventFromValidatedHistory(events.filter(e=>e.admissionOrdinal<event.admissionOrdinal),candidate) as unknown as JsonValue, event as unknown as JsonValue))return false;
       return validatePublicOperationBasis({ ...operation.payload,
         eventTime:operation.eventTime, correlationId:operation.correlationId, causationEventRefs:operation.causationEventRefs } as never,
         "abg.operation.witness.admit","reprice") === null;
@@ -214,12 +216,12 @@ function inputWorksite(basis: ExecutionBasis, prefix?: RuntimeEventPrefix): Sema
 type WorksiteRow = SemanticWorksiteBasis["targets"][number];
 /** Binding coordinates may change; domain meaning and effect bounds may not. */
 export function worksiteRevisionMeaningMatches(prior:SemanticWorksiteBasis,current:SemanticWorksiteBasis):boolean {
-  return same(prior.workspaceAuthorityBasis,current.workspaceAuthorityBasis)&&
+  return canonicalEquals(prior.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue)&&
     prior.workspaceBinding.workspaceId===current.workspaceBinding.workspaceId&&prior.targets.length===current.targets.length&&
     prior.capabilityGrant.actorRef===current.capabilityGrant.actorRef&&prior.capabilityGrant.capabilityRef===current.capabilityGrant.capabilityRef&&
-    prior.capabilityGrant.operationId===current.capabilityGrant.operationId&&same(prior.capabilityGrant.definitionKey,current.capabilityGrant.definitionKey)&&
+    prior.capabilityGrant.operationId===current.capabilityGrant.operationId&&canonicalEquals(prior.capabilityGrant.definitionKey as unknown as JsonValue, current.capabilityGrant.definitionKey as unknown as JsonValue)&&
     prior.capabilityGrant.authorityBasisRef===current.capabilityGrant.authorityBasisRef&&prior.capabilityGrant.authorityBasisDigest===current.capabilityGrant.authorityBasisDigest&&
-    same(prior.commands,current.commands)&&same(prior.outcomePredicates,current.outcomePredicates)&&same(prior.allowedWriteTerritories,current.allowedWriteTerritories);
+    canonicalEquals(prior.commands as unknown as JsonValue, current.commands as unknown as JsonValue)&&canonicalEquals(prior.outcomePredicates as unknown as JsonValue, current.outcomePredicates as unknown as JsonValue)&&canonicalEquals(prior.allowedWriteTerritories as unknown as JsonValue, current.allowedWriteTerritories as unknown as JsonValue);
 }
 export type WorksiteRevisionOriginProof = WorksiteRevisionObservationOrigin | Readonly<{
   kind: "pending_binding_correspondence";
@@ -291,7 +293,7 @@ function nativeHistory(prefix: RuntimeEventPrefix, parentRef: SemanticRevisionCo
   } else {
     const initial=seed.rawInputValue;
     if(!isSemanticStageEnvelope(ancestor.result.value)||!isSemanticStageEnvelope(initial)||initial.worksite===null||
-      !same(initial.worksite,ancestor.result.value.worksite)||!sameSemanticSubject(initial,first))return null;
+      !canonicalEquals(initial.worksite as unknown as JsonValue, ancestor.result.value.worksite as unknown as JsonValue)||!sameSemanticSubject(initial,first))return null;
   }
   return {seed,prior:firstWorksite,bases,eligible:[...eligible],heads};
 }
@@ -324,7 +326,7 @@ function samePhysicalSubject(prefix:RuntimeEventPrefix,a:WorksiteSubject,b:Works
   const authority=(subject:WorksiteSubject)=>one(truth,r=>r.operationId==="abg.operation.workspace.bind"&&
     r.authorityScopeRef===subject.workspaceBindingIdentity&&r.authorityScopeDigest===subject.workspaceBindingDigest)?.workspaceAuthorityBasis;
   const left=authority(a),right=authority(b);
-  return left!==undefined&&right!==undefined&&same(left,right);
+  return left!==undefined&&right!==undefined&&canonicalEquals(left, right);
 }
 /** A known native write under any W for this physical subject invalidates an
  * older alias. It never provides a replacement from an unrelated invocation. */
@@ -352,23 +354,26 @@ function projectionFacts(prefix:RuntimeEventPrefix,result:RuntimeEvent,work:Proj
       state.result.resultClass!=="success"||state.judgment.judgment!=="advance"||state.judgment.predicateRef!==SEMANTIC_REVISION_IDS.projectionPredicateRef||
       !isRevisionEnvelope(state.result.value)||!isSemanticRevisionRequest(basis.rawInputValue))return null;
     const request=basis.rawInputValue,envelope=state.result.value;
-    if(!same(envelope.revisionBasis.request,request)||envelope.current.worksite===null)return null;
+    if(!canonicalEquals(envelope.revisionBasis.request as unknown as JsonValue, request)||envelope.current.worksite===null)return null;
     const before=selectValidatedRuntimeEventPrefix(Object.freeze(events.filter(e=>e.admissionOrdinal<result.admissionOrdinal)));
     const history=nativeHistory(before,request.parent,request.causes);
     const parent=projectWorksiteRevisionNativeResult(before,request.parent),selection=projectWorksiteRevisionNativeResult(before,request.selection);
     if(history===null||parent===null||selection===null||(!isSemanticStageEnvelope(parent.result.value)&&!isSemanticJobEnvelope(parent.result.value)&&!isRevisionEnvelope(parent.result.value))||!isSemanticRevisionSelection(selection.result.value)||
       selection.result.resultClass!=="success"||selection.judgment.judgment!=="advance"||
       !["F_P","F_H"].includes(selection.cCall.regime)||selection.cCall.outputContractRef!==SEMANTIC_REVISION_IDS.selectionContractRef||
-      !same(isSemanticJobRevisionEnvelope(envelope) && (isSemanticJobEnvelope(parent.result.value) || isSemanticJobRevisionEnvelope(parent.result.value))
-        ? deriveSemanticJobRevision(parent.result.value,request,selection.result.value,request.currentWorksite!,history.prior)
-        : deriveSemanticRevision(parent.result.value as import("../product/semantic_stage.js").SemanticStageEnvelope | SemanticRevisionEnvelope,request,selection.result.value),envelope))return null;
+      !canonicalEquals(
+        (isSemanticJobRevisionEnvelope(envelope) && (isSemanticJobEnvelope(parent.result.value) || isSemanticJobRevisionEnvelope(parent.result.value))
+          ? deriveSemanticJobRevision(parent.result.value,request,selection.result.value,request.currentWorksite!,history.prior)
+          : deriveSemanticRevision(parent.result.value as import("../product/semantic_stage.js").SemanticStageEnvelope | SemanticRevisionEnvelope,request,selection.result.value)) as unknown as JsonValue,
+        envelope,
+      ))return null;
     const selectionBasis=projectExactExecutionBasisAtPrefix(before,selection.cCall.basisId);
     if(selectionBasis===null||!semanticRevisionSelectionInputMatchesRequest(selectionBasis.rawInputValue,request))return null;
     const current=envelope.current.worksite,environment=nativeBinding(before,current.workspaceBinding);
     const invocation=projectExactInvocationAdmissionAtPrefix(before,basis.invocationAdmissionRef);
-    if(environment===null||!same(environment.authority,current.workspaceAuthorityBasis)||
+    if(environment===null||!canonicalEquals(environment.authority as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue)||
       current.workspaceBinding.bindingId!==basis.workspaceBindingId||current.workspaceBinding.bindingDigest!==basis.workspaceBindingDigest||
-      invocation?.capabilityGrants.length!==1||!same(invocation.capabilityGrants[0],current.capabilityGrant))return null;
+      invocation?.capabilityGrants.length!==1||!canonicalEquals(invocation.capabilityGrants[0] as unknown as JsonValue, current.capabilityGrant as unknown as JsonValue))return null;
     const evidence=one(indexedRuntimeEvents(prefix, "related:" + result.aggregateId),e=>e.kind==="c_call_evidenced"&&e.aggregateId===result.aggregateId);
     if(evidence===null||!record(evidence.payload)||!sameScope(evidence,result)||evidence.payload.evidenceClass!=="deterministic"||
       evidence.payload.cCallRef!==state.cCall.cCallRef||evidence.payload.contractRef!==state.cCall.evidenceContractRef||
@@ -386,13 +391,13 @@ function projectionFacts(prefix:RuntimeEventPrefix,result:RuntimeEvent,work:Proj
 function deriveCurrentOrigins(prefix:RuntimeEventPrefix,seedBasis:ExecutionBasis,historical:SemanticWorksiteBasis,
   current:SemanticWorksiteBasis,eligible:readonly string[],bases:readonly ExecutionBasis[],work:ProjectionSession):readonly OriginCandidate[]|null {
   const seed=inputWorksite(seedBasis,prefix),events=runtimeEventBodiesAtPrefix(prefix);
-  if(seed===null||!worksiteRevisionMeaningMatches(historical,current)||!same(seed.workspaceAuthorityBasis,current.workspaceAuthorityBasis))return null;
+  if(seed===null||!worksiteRevisionMeaningMatches(historical,current)||!canonicalEquals(seed.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue))return null;
   const results:OriginCandidate[]=[];
   for(const [ordinal,row] of current.targets.entries()){
     const prior=historical.targets[ordinal];
     if(prior===undefined||prior.role!==row.role||prior.target.subject.subjectUri!==row.target.subject.subjectUri||
       prior.target.subject.relativePath!==row.target.subject.relativePath||prior.target.territory.territoryUri!==row.target.territory.territoryUri||
-      prior.target.territory.relativeRoot!==row.target.territory.relativeRoot||!same(prior.target.territory.operations,row.target.territory.operations))return null;
+      prior.target.territory.relativeRoot!==row.target.territory.relativeRoot||!canonicalEquals(prior.target.territory.operations, row.target.territory.operations))return null;
     const candidates:OriginCandidate[]=[];
     const original=seed.targets.find(t=>samePhysicalSubject(prefix,t.target.subject,row.target.subject)&&t.role===row.role);
     const seedEvent=indexedRuntimeEvents(prefix, "id:" + seedBasis.admissionEventRef).find(e=>e.eventId===seedBasis.admissionEventRef);
@@ -409,7 +414,7 @@ function deriveCurrentOrigins(prefix:RuntimeEventPrefix,seedBasis:ExecutionBasis
           invalidatedAcrossBindings(prefix,row.target.subject,event.admissionOrdinal))continue;
         const request=b.rawInputValue;
         const sourceBinding=projectAdmittedWorkspaceBindingAtCoordinate(prefix,b.workspaceBindingId,b.workspaceBindingDigest);
-        if(sourceBinding===null||!same(request.workspaceAuthorityBasis,current.workspaceAuthorityBasis))continue;
+        if(sourceBinding===null||!canonicalEquals(request.workspaceAuthorityBasis as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue))continue;
         const source={...historical,workspaceAuthorityBasis:request.workspaceAuthorityBasis,workspaceBinding:sourceBinding,
           capabilityGrant:request.capabilityGrant} as unknown as SemanticWorksiteBasis;
         const target={...prior.target,subject:request.subject,territory:request.territory,predecessorObservation:transition.successorObservation} as unknown as WorksiteRow["target"];
@@ -419,7 +424,7 @@ function deriveCurrentOrigins(prefix:RuntimeEventPrefix,seedBasis:ExecutionBasis
         const b=typeof event.basisId==="string"?projectExactExecutionBasisAtPrefix(prefix,event.basisId):null;
         if(b===null||!eligible.includes(b.invocationAdmissionRef))continue;
         const projection=projectionFacts(prefix,event,work);
-        if(projection===null||projection.history.seed.basisRef!==seedBasis.basisRef||!same(projection.envelope.current.worksite!.workspaceAuthorityBasis,current.workspaceAuthorityBasis))continue;
+        if(projection===null||projection.history.seed.basisRef!==seedBasis.basisRef||!canonicalEquals(projection.envelope.current.worksite!.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue))continue;
         const source=projection.envelope.current.worksite!,sourceRow=source.targets.find(t=>samePhysicalSubject(prefix,t.target.subject,row.target.subject)&&t.role===row.role);
         if(sourceRow===undefined||invalidatedAcrossBindings(prefix,sourceRow.target.subject,event.admissionOrdinal))continue;
         const sourceProof=projection.origins[source.targets.indexOf(sourceRow)];if(sourceProof===undefined)continue;
@@ -430,7 +435,7 @@ function deriveCurrentOrigins(prefix:RuntimeEventPrefix,seedBasis:ExecutionBasis
     const matching=candidates.filter(candidate=>{
       if(!observationPhysicalEqual(candidate.row.target.predecessorObservation,row.target.predecessorObservation)||candidate.row.base64!==row.base64)return false;
       const projected=projectSemanticWorksiteCoordinates({...candidate.worksite,targets:[candidate.row]},current);
-      if(projected===null||!same(projected.targets[0]?.target,row.target))return false;
+      if(projected===null||!canonicalEquals(projected.targets[0]?.target as unknown as JsonValue, row.target as unknown as JsonValue))return false;
       return projectWorksiteRevisionBindingCover(prefix,candidate.worksite.workspaceBinding,current.workspaceBinding,[...bases,candidate.basis])!==null;
     });
     const survivors=matching.filter(c=>!matching.some(other=>other!==c&&other.ancestors.includes(originKey(c.origin))));
@@ -456,7 +461,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix:RuntimeEventPrefi
     const nativeRequest = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
     if ((isSemanticRevisionSelectionInput(nativeRequest) || isSemanticRevisionRequest(nativeRequest)) && nativeRequest.nativeWorksite !== undefined) {
       const native = nativeRequest.nativeWorksite;
-      if (!same(native.workspaceBinding,currentBinding)) return "basis_fork_detected";
+      if (!canonicalEquals(native.workspaceBinding as unknown as JsonValue, currentBinding as unknown as JsonValue)) return "basis_fork_detected";
       const {acquisition:_acquisition,...retained} = native;
       const prepared = {kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:nativeRequest.parent,causes:nativeRequest.causes,currentWorksite:null,nativeWorksite:retained};
       const events = runtimeEventBodiesAtPrefix(prefix);
@@ -464,21 +469,21 @@ export function worksiteRevisionEntryBindingDisposition(prefix:RuntimeEventPrefi
         admittedInput.admittedInputRef, admittedInput.admittedInputDigest);
       const candidates = admittedInput === undefined ? events : new RuntimeEventBodyView(inputSource === null ? [] : [inputSource]);
       const sources = native.acquisition === undefined ? candidates.flatMap(event=>{
-        if(event.kind!=="c_call_result_admitted"||!record(event.payload)||!same(event.payload.value,prepared))return [];
+        if(event.kind!=="c_call_result_admitted"||!record(event.payload)||!canonicalEquals(event.payload.value as JsonValue, prepared as unknown as JsonValue))return [];
         const c=coordinateFor(events,event),state=c===null?null:projectWorksiteRevisionNativeResult(prefix,c);
         return state===null?[]:[state];
       }) : [projectWorksiteRevisionNativeResult(prefix,native.acquisition)];
       return sources.length===1 && sources[0]?.cCall.implementationRef===SEMANTIC_REVISION_IDS.nativeIntakeImplementationRef &&
-        sources[0].result.resultClass==="success" && sources[0].judgment.judgment==="advance" && same(sources[0].result.value,prepared) ? "covered" : "basis_fork_detected";
+        sources[0].result.resultClass==="success" && sources[0].judgment.judgment==="advance" && canonicalEquals(sources[0].result.value, prepared as unknown as JsonValue) ? "covered" : "basis_fork_detected";
     }
     if(isWorksiteRevisionCommandExecutionObservation(input)){
       // Evidence-input consumes the actual C2 producer, not a request. Resolve
       // its earlier preparation revision; the existing evidence owner still
       // performs the complete C1/bridge/command/evidence join after this gate.
-      if(!same(input.task.workspaceBinding,currentBinding))return "basis_fork_detected";
+      if(!canonicalEquals(input.task.workspaceBinding as unknown as JsonValue, currentBinding as unknown as JsonValue))return "basis_fork_detected";
       const observed=input,events=runtimeEventBodiesAtPrefix(prefix);
       const sources=events.flatMap(e=>{
-        if(e.kind!=="c_call_result_admitted"||!record(e.payload)||!same(e.payload.value,observed))return [];
+        if(e.kind!=="c_call_result_admitted"||!record(e.payload)||!canonicalEquals(e.payload.value as JsonValue, observed as unknown as JsonValue))return [];
         const coordinate=coordinateFor(events,e),state=coordinate===null?null:projectWorksiteRevisionNativeResult(prefix,coordinate);
         return state!==null&&state.cCall.graphFunctionRef===WORKSITE_REVISION_IDS.graphFunctionRef&&state.cCall.regime==="F_P"&&
           state.cCall.implementationRef===WORKSITE_REVISION_IDS.implementationRef&&state.cCall.implementationBindingRef===WORKSITE_REVISION_IDS.implementationBindingRef&&
@@ -491,8 +496,8 @@ export function worksiteRevisionEntryBindingDisposition(prefix:RuntimeEventPrefi
         if(e.kind!=="c_call_result_admitted"||e.admissionOrdinal>=sourceOrdinal||!record(e.payload)||!isRevisionEnvelope(e.payload.value)||
           e.payload.value.revisionBasis.basisRef!==observed.task.revisionBasisRef||e.payload.value.revisionBasis.basisDigest!==observed.task.revisionBasisDigest)return [];
         const p=projectionFacts(prefix,e,work);
-        return p!==null&&same(p.envelope.current.worksite!.workspaceBinding,currentBinding)&&
-          same(p.envelope.current.worksite!.workspaceAuthorityBasis,observed.task.workspaceAuthorityBasis)?[p.envelope]:[];
+        return p!==null&&canonicalEquals(p.envelope.current.worksite!.workspaceBinding as unknown as JsonValue, currentBinding as unknown as JsonValue)&&
+          canonicalEquals(p.envelope.current.worksite!.workspaceAuthorityBasis as unknown as JsonValue, observed.task.workspaceAuthorityBasis as unknown as JsonValue)?[p.envelope]:[];
       });
       if(projections.length!==1)return "basis_fork_detected";
       input=projections[0];
@@ -500,7 +505,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix:RuntimeEventPrefi
     const request=isRevisionEnvelope(input)?input.revisionBasis.request:input;
     if(!isSemanticRevisionSelectionInput(request)&&!isSemanticRevisionRequest(request))return "basis_fork_detected";
     const carried=isRevisionEnvelope(input)?input.current.worksite:isSemanticRevisionRequest(input)?input.currentWorksite:null;
-    if(carried!==null&&!same(carried.workspaceBinding,currentBinding))return "basis_fork_detected";
+    if(carried!==null&&!canonicalEquals(carried.workspaceBinding as unknown as JsonValue, currentBinding as unknown as JsonValue))return "basis_fork_detected";
     const history=nativeHistory(prefix,request.parent,request.causes);if(history===null)return "basis_fork_detected";
     // Preserve the exact old same-W admission path; no foreign origin is minted.
     if(history.bases.every(b=>b.workspaceBindingId===currentBinding.bindingId&&b.workspaceBindingDigest===currentBinding.bindingDigest))return "covered";
@@ -535,7 +540,7 @@ export function projectWorksiteRevisionBindingOrigin(prefix:RuntimeEventPrefix,e
     if(e.kind!=="c_call_result_admitted"||!record(e.payload)||!isRevisionEnvelope(e.payload.value)||
       e.payload.value.revisionBasis.basisRef!==envelope.revisionBasis.basisRef||e.payload.value.revisionBasis.basisDigest!==envelope.revisionBasis.basisDigest)return [];
     const p=projectionFacts(prefix,e,work);
-    return p!==null&&same(p.envelope.current.worksite,envelope.current.worksite)?[p]:[];
+    return p!==null&&canonicalEquals(p.envelope.current.worksite as unknown as JsonValue, envelope.current.worksite as unknown as JsonValue)?[p]:[];
   });
   return matches.length===1?{kind:"admitted_binding_projection",resultAdmissionEventRef:matches[0]!.state.result.admissionEventRef,
     judgmentEventRef:matches[0]!.state.judgment.admissionEventRef}:null;
@@ -544,12 +549,12 @@ export function projectWorksiteRevisionBindingOrigin(prefix:RuntimeEventPrefix,e
 export function worksiteRevisionSeedMatches(seedBasis: ExecutionBasis, ancestor: unknown,
   current: SemanticWorksiteBasis): boolean {
   const input = seedBasis.rawInputValue;
-  if (isSemanticJobEnvelope(ancestor)) return isWorksiteFileParentsSuccess(input) && input.request.jobRef === ancestor.basis.jobRef && input.request.jobDigest === ancestor.basis.jobDigest && same(input.request.workspaceAuthorityBasis,current.workspaceAuthorityBasis) && input.request.workspaceBindingIdentity === current.workspaceBinding.bindingId && input.request.workspaceBindingDigest === current.workspaceBinding.bindingDigest;
+  if (isSemanticJobEnvelope(ancestor)) return isWorksiteFileParentsSuccess(input) && input.request.jobRef === ancestor.basis.jobRef && input.request.jobDigest === ancestor.basis.jobDigest && canonicalEquals(input.request.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue) && input.request.workspaceBindingIdentity === current.workspaceBinding.bindingId && input.request.workspaceBindingDigest === current.workspaceBinding.bindingDigest;
   return isSemanticStageEnvelope(input) && isSemanticStageEnvelope(ancestor) && input.worksite !== null &&
-    same(input.sourceHandoff, ancestor.sourceHandoff) && same(input.lifecycle, ancestor.lifecycle) &&
-    same(input.worksite, ancestor.worksite) &&
-    same(input.worksite.workspaceAuthorityBasis, current.workspaceAuthorityBasis) &&
-    same(input.worksite.workspaceBinding, current.workspaceBinding);
+    canonicalEquals(input.sourceHandoff as unknown as JsonValue, ancestor.sourceHandoff as unknown as JsonValue) && canonicalEquals(input.lifecycle as unknown as JsonValue, ancestor.lifecycle as unknown as JsonValue) &&
+    canonicalEquals(input.worksite as unknown as JsonValue, ancestor.worksite as unknown as JsonValue) &&
+    canonicalEquals(input.worksite.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue) &&
+    canonicalEquals(input.worksite.workspaceBinding as unknown as JsonValue, current.workspaceBinding as unknown as JsonValue);
 }
 interface RetainedOriginSession {
   readonly prefix:RuntimeEventPrefix;
@@ -570,7 +575,7 @@ function currentReplacement(prefix: RuntimeEventPrefix, observation: WorksiteObs
   const candidates = events.flatMap(event => {
     if (event.kind !== "c_call_result_admitted" || !record(event.payload) || event.payload.resultClass !== "success") return [];
     const transition = work===undefined?projectWorksiteTransitionForResult(event, events.filter(row => row.admissionOrdinal < event.admissionOrdinal)):retainedTransition(work,event);
-    if (transition?.successorObservation === null || transition === null || !same(transition.successorObservation, observation)) return [];
+    if (transition?.successorObservation === null || transition === null || !canonicalEquals(transition.successorObservation as unknown as JsonValue, observation as unknown as JsonValue)) return [];
     const basis = typeof event.basisId === "string" ? projectExactExecutionBasisAtPrefix(prefix, event.basisId) : null;
     const opened = events.filter(row => row.kind === "c_call_fibre_selected" && row.aggregateId === event.aggregateId && row.basisId === event.basisId);
     const evidenceRefs = event.payload.evidenceRefs;
@@ -591,8 +596,8 @@ export function projectClosedConstructionRetainedVector(prefix:ValidatedRuntimeE
   task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]) {
   try {
     const current=nativeBinding(prefix,request.workspaceBinding);
-    if(current===null||!same(current.authority,request.workspaceAuthorityBasis)||
-      !same(task.workspaceAuthorityBasis,request.workspaceAuthorityBasis)||
+    if(current===null||!canonicalEquals(current.authority as unknown as JsonValue, request.workspaceAuthorityBasis as unknown as JsonValue)||
+      !canonicalEquals(task.workspaceAuthorityBasis as unknown as JsonValue, request.workspaceAuthorityBasis as unknown as JsonValue)||
       task.workspaceBinding.workspaceId!==request.workspaceBinding.workspaceId||
       task.protectedObservations.length!==request.protectedObservations.length||
       task.sourceConstructionResult.members.length!==task.protectedObservations.length)return null;
@@ -603,23 +608,23 @@ export function projectClosedConstructionRetainedVector(prefix:ValidatedRuntimeE
     for(const [ordinal,old] of task.protectedObservations.entries()){
       const member=task.sourceConstructionResult.members[ordinal],asserted=request.protectedObservations[ordinal];
       if(member===undefined||asserted===undefined||member.inputMemberRef!==old.sourceMemberRef||
-        !same(member.successorObservation,old.observation))return null;
+        !canonicalEquals(member.successorObservation as unknown as JsonValue, old.observation as unknown as JsonValue))return null;
       const producer=currentReplacement(prefix,old.observation,work);
       if(producer===null||!bases.some(b=>b.invocationAdmissionRef===producer.basis.invocationAdmissionRef)||
         !record(producer.event.payload)||!record(producer.event.payload.value)||
-        !same(producer.event.payload.value.receipt,member.receipt)||
+        !canonicalEquals(producer.event.payload.value.receipt as JsonValue, member.receipt as unknown as JsonValue)||
         invalidatedAcrossBindings(prefix,old.subject,producer.event.admissionOrdinal,work))return null;
       // The C0 transition owner excludes workflow aliases; genuine producer
       // multiplicity is still a refusal even when the observed bytes agree.
       const producers=indexedRuntimeEvents(prefix, "kind:" + "c_call_result_admitted").filter(e=>e.kind==="c_call_result_admitted"&&
-        same(retainedTransition(work,e)?.successorObservation??null,old.observation));
+        canonicalEquals((retainedTransition(work,e)?.successorObservation??null) as unknown as JsonValue, old.observation as unknown as JsonValue));
       if(producers.length!==1||producers[0]!.eventId!==producer.event.eventId)return null;
       const subject=constructWorksiteSubject({workspaceAuthorityBasis:request.workspaceAuthorityBasis,workspaceBinding:request.workspaceBinding,
         subjectUri:old.subject.subjectUri,relativePath:old.subject.relativePath});
       if(subject.kind!=="worksite_subject")return null;
       const observation=constructWorksiteObservation({subject,state:"file",fileIdentity:old.observation.fileIdentity,
         fileDigest:old.observation.fileDigest,byteLength:old.observation.byteLength});
-      if(!same({subject,observation},asserted))return null;
+      if(!canonicalEquals({subject,observation} as unknown as JsonValue, asserted as unknown as JsonValue))return null;
       sourceBases.push(producer.basis);
       sources.push({sourceMemberRef:old.sourceMemberRef,subject,observation:observation as typeof old.observation,
         source:{kind:"retained_construction",resultAdmissionEventRef:producer.event.eventId,evidenceEventRef:producer.evidence.eventId,bindingCoverEventRefs:[]}});
@@ -651,14 +656,14 @@ export function worksiteRevisionOriginSurvives(prefix: RuntimeEventPrefix,
     const source = semanticJobReadDependenciesAtPrefix(prefix, value.readDependencyBasis);
     const member = value.readDependencyBasis.members.find(member => member.sourceMemberRef === row.designTargetRef);
     return source !== null && source.result.resultRef === result.result.resultRef && member !== undefined &&
-      same(member.subject, row.subject) && same(member.observation, row.observation) &&
+      canonicalEquals(member.subject as unknown as JsonValue, row.subject as unknown as JsonValue) && canonicalEquals(member.observation as unknown as JsonValue, row.observation as unknown as JsonValue) &&
       !invalidatedAcrossBindings(prefix, row.subject, source.contextEvent.admissionOrdinal);
   }
   if(origin.kind==="admitted_binding_projection"){
     const result=one(indexedRuntimeEvents(prefix, "id:" + origin.resultAdmissionEventRef),e=>e.kind==="c_call_result_admitted"&&e.eventId===origin.resultAdmissionEventRef);
     const p=result===null?null:projectionFacts(prefix,result,session());
     return p!==null&&p.state.judgment.admissionEventRef===origin.judgmentEventRef&&
-      p.envelope.current.worksite!.targets.filter(t=>same(t.target.subject,row.subject)&&same(t.target.predecessorObservation,row.observation)).length===1&&
+      p.envelope.current.worksite!.targets.filter(t=>canonicalEquals(t.target.subject as unknown as JsonValue, row.subject as unknown as JsonValue)&&canonicalEquals(t.target.predecessorObservation as unknown as JsonValue, row.observation as unknown as JsonValue)).length===1&&
       !invalidatedAcrossBindings(prefix,row.subject,p.ordinal);
   }
   const replacement = currentReplacement(prefix, row.observation);
@@ -671,7 +676,7 @@ export function worksiteRevisionOriginSurvives(prefix: RuntimeEventPrefix,
   const basis = event?.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prefix, event.basisId);
   const worksite = basis === null ? null : inputWorksite(basis,prefix);
   if (basis === null || worksite === null || basis.rawInputAdmissionRef !== origin.inputAdmissionRef || basis.rawInputDigest !== origin.inputDigest ||
-    !worksite.targets.some(t => same(t.target.subject, row.subject) && same(t.target.predecessorObservation, row.observation))) return false;
+    !worksite.targets.some(t => canonicalEquals(t.target.subject as unknown as JsonValue, row.subject as unknown as JsonValue) && canonicalEquals(t.target.predecessorObservation as unknown as JsonValue, row.observation as unknown as JsonValue))) return false;
   // Failure after publication terminates O0 but creates no successful O1.
   return !invalidatedAcrossBindings(prefix,row.subject,event!.admissionOrdinal)&&!indexedRuntimeEvents(prefix, "kind:" + "c_call_result_admitted").some(e => e.kind === "c_call_result_admitted" &&
     projectWorksiteTransitionForResult(e, events.filter(p => p.admissionOrdinal < e.admissionOrdinal))?.before === row.observation.observationRef);
@@ -692,30 +697,30 @@ export function projectWorksiteRevisionOrigins(prefix: RuntimeEventPrefix, seedB
     return b!==null&&eligibleInvocationRefs.includes(b.invocationAdmissionRef)&&
       (b.workspaceBindingId!==current.workspaceBinding.bindingId||b.workspaceBindingDigest!==current.workspaceBinding.bindingDigest);
   });
-  if(!same(seed.workspaceBinding,current.workspaceBinding)||crossedHistory){
+  if(!canonicalEquals(seed.workspaceBinding as unknown as JsonValue, current.workspaceBinding as unknown as JsonValue)||crossedHistory){
     const events=runtimeEventBodiesAtPrefix(prefix),bases=events.flatMap(e=>{
       const b=e.kind==="basis_admitted"&&typeof e.basisId==="string"?projectExactExecutionBasisAtPrefix(prefix,e.basisId):null;
       return b!==null&&eligibleInvocationRefs.includes(b.invocationAdmissionRef)?[b]:[];
     });
     const origins=deriveCurrentOrigins(prefix,seedBasis,historical,current,eligibleInvocationRefs,bases,session());
-    return origins===null?null:origins.map(origin=>same(origin.worksite.workspaceBinding,current.workspaceBinding)?origin.origin:
+    return origins===null?null:origins.map(origin=>canonicalEquals(origin.worksite.workspaceBinding as unknown as JsonValue, current.workspaceBinding as unknown as JsonValue)?origin.origin:
       {kind:"pending_binding_correspondence" as const,source:origin.origin});
   }
   const origins: WorksiteRevisionObservationOrigin[] = [];
   for (const [ordinal, row] of current.targets.entries()) {
     const prior = historical.targets[ordinal];
     if (prior === undefined || row.role !== prior.role || row.target.subject.relativePath !== prior.target.subject.relativePath ||
-      !same(row.target.territory.operations, prior.target.territory.operations) || row.target.territory.relativeRoot !== prior.target.territory.relativeRoot) return null;
+      !canonicalEquals(row.target.territory.operations, prior.target.territory.operations) || row.target.territory.relativeRoot !== prior.target.territory.relativeRoot) return null;
     const observation = row.target.predecessorObservation;
     const replacement = currentReplacement(prefix, observation);
     let origin: WorksiteRevisionObservationOrigin;
     if (replacement !== null) {
       if (!eligibleInvocationRefs.includes(replacement.basis.invocationAdmissionRef) ||
-        !record(replacement.basis.rawInputValue.subject) || !same(replacement.basis.rawInputValue.subject, row.target.subject)) return null;
+        !record(replacement.basis.rawInputValue.subject) || !canonicalEquals(replacement.basis.rawInputValue.subject, row.target.subject as unknown as JsonValue)) return null;
       origin = { kind: "admitted_replacement", resultAdmissionEventRef: replacement.event.eventId, evidenceEventRef: replacement.evidence.eventId };
       if(invalidatedAcrossBindings(prefix,row.target.subject,replacement.event.admissionOrdinal))return null;
     } else {
-      if (!seed.targets.some(t => same(t.target.subject, row.target.subject) && same(t.target.predecessorObservation, observation) && t.base64 === row.base64)) return null;
+      if (!seed.targets.some(t => canonicalEquals(t.target.subject as unknown as JsonValue, row.target.subject as unknown as JsonValue) && canonicalEquals(t.target.predecessorObservation as unknown as JsonValue, observation as unknown as JsonValue) && t.base64 === row.base64)) return null;
       origin = { kind: "admitted_input", basisAdmissionEventRef: seedBasis.admissionEventRef,
         inputAdmissionRef: seedBasis.rawInputAdmissionRef, inputDigest: seedBasis.rawInputDigest };
       // The initial file/absence seed is allowed only while no native transition invalidates it.
@@ -753,7 +758,7 @@ export function worksiteRevisionPhysicalMatches(current: SemanticWorksiteBasis):
         if ((error as NodeJS.ErrnoException).code !== "ENOENT" || row.base64 !== "") return false;
         observed = constructWorksiteObservation({ subject: row.target.subject, state: "absent" });
       }
-      return isWorksiteObservation(observed) && same(observed, row.target.predecessorObservation);
+      return isWorksiteObservation(observed) && canonicalEquals(observed as unknown as JsonValue, row.target.predecessorObservation as unknown as JsonValue);
     });
   } catch { return false; }
 }
@@ -773,8 +778,11 @@ export function retainedWorksitePhysicalMatches(authority:WorkspaceAuthorityBasi
       }
       const stat=lstatSync(target),bytes=readFileSync(target);
       return stat.isFile()&&!stat.isSymbolicLink()&&stat.nlink===1&&realpathSync(target)===target&&
-        same(constructWorksiteObservation({subject:row.subject,state:"file",fileIdentity:`${stat.dev}:${stat.ino}`,
-          fileDigest:sha256Bytes(bytes),byteLength:bytes.length}),row.observation);
+        canonicalEquals(
+          constructWorksiteObservation({subject:row.subject,state:"file",fileIdentity:`${stat.dev}:${stat.ino}`,
+            fileDigest:sha256Bytes(bytes),byteLength:bytes.length}) as unknown as JsonValue,
+          row.observation as unknown as JsonValue,
+        );
     });
   }catch{return false;}
 }
@@ -793,7 +801,7 @@ export function worksiteExecutionSourcesCurrent(prefix: RuntimeEventPrefix, task
   return worksiteExecutionSources(task).every(row => {
     if (readBasis?.members.some(member => member.sourceMemberRef === ("sourceMemberRef" in row ? row.sourceMemberRef : null))) {
       const member = readBasis.members.find(member => member.subject.subjectRef === row.subject.subjectRef);
-      return member !== undefined && same(member.observation, row.observation) &&
+      return member !== undefined && canonicalEquals(member.observation as unknown as JsonValue, row.observation as unknown as JsonValue) &&
         !invalidatedAcrossBindings(prefix, row.subject, readSource!.contextEvent.admissionOrdinal);
     }
     if("source" in row && row.source.kind === "retained_dependency")return worksiteRevisionOriginSurvives(prefix,

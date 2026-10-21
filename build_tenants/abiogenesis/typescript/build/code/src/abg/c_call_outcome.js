@@ -31,6 +31,7 @@ import { admitOwnedPlannedCompletedRetryProgressInActiveTransaction, } from "./r
 import { discardNativeFrameClock } from "./runtime_liveness.js";
 import { admitOwnedScopeClosure, } from "./closure.js";
 import { admitTraversalTransitionInActiveTransaction, } from "./traversal_route.js";
+import { canonicalEquals } from "../shared/value/index.js";
 function isJsonRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -80,8 +81,7 @@ export function projectWorksiteBasisObservation(event, priorEvents) {
                 row.payload.callClass === "workflow" &&
                 row.payload.childGraphFunctionRef === payload.graphFunctionRef).length === 1;
     return admittedGrant !== null && isJsonRecord(admittedGrant) &&
-        sha256Canonical(admittedGrant) ===
-            sha256Canonical(request.capabilityGrant) &&
+        canonicalEquals(admittedGrant, request.capabilityGrant) &&
         request.capabilityGrant.grantRef ===
             admittedGrant.grantRef &&
         request.capabilityGrant.grantDigest ===
@@ -145,8 +145,7 @@ export function projectWorksiteSelectedOccurrence(fibreEvent, priorEvents) {
     const implementationRow = one("implementation_admitted", row => isJsonRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef);
     if (!isWorksiteFileReplaceRequest(request) ||
         basisPayload.rawInputDigest !== sha256Canonical(request) ||
-        sha256Canonical(request.workspaceAuthorityBasis) !==
-            sha256Canonical(bindingRow.payload.workspaceAuthorityBasis) ||
+        !canonicalEquals(request.workspaceAuthorityBasis, bindingRow.payload.workspaceAuthorityBasis) ||
         implementationRow === null || !isJsonRecord(implementationRow.payload) ||
         !isJsonRecord(implementationRow.payload.implementationSet) ||
         implementationRow.admissionOrdinal >= basisRow.admissionOrdinal ||
@@ -702,7 +701,7 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
                     if (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")) {
                         if (input.cCall.implementationRef === SEMANTIC_REVISION_IDS.bridgeImplementationRef) {
                             const expected = projectRevisionWorksitePreparation(basis, input.input);
-                            return expected !== null && sha256Canonical(expected) === sha256Canonical(value);
+                            return expected !== null && canonicalEquals(expected, value);
                         }
                         return semanticRevisionResultMatchesBasis(basis, input.input, value) &&
                             (![SEMANTIC_REVISION_IDS.selectionImplementationRef, SEMANTIC_REVISION_IDS.authorImplementationRef, SEMANTIC_REVISION_IDS.assessorImplementationRef].some(r => r === input.cCall.implementationRef) ||
@@ -710,15 +709,15 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
                     }
                     if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.bridgeImplementationRef) {
                         const expected = projectSemanticWorksitePreparation(basis, input.input);
-                        return expected !== null && sha256Canonical(expected) === sha256Canonical(value);
+                        return expected !== null && canonicalEquals(expected, value);
                     }
                     if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.evidenceInputImplementationRef) {
                         const expected = projectSemanticEvidenceInput(basis, input.input);
-                        return expected !== null && sha256Canonical(expected) === sha256Canonical(value);
+                        return expected !== null && canonicalEquals(expected, value);
                     }
                     if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.terminalImplementationRef) {
                         const expected = projectSemanticEnvelopeOutput(basis, input.input);
-                        return expected !== null && sha256Canonical(expected) === sha256Canonical(value);
+                        return expected !== null && canonicalEquals(expected, value);
                     }
                     return semanticResultMatchesBasis(basis, input.input, value) && semanticInstructionResultMatches(basis, input.input, value);
                 })()) &&

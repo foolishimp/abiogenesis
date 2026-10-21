@@ -1,27 +1,26 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { sameCoordinate, sameJson } from '../../build/code/src/public/binding/definition_binding_mechanics.js';
+import { sameCoordinate } from '../../build/code/src/public/binding/definition_binding_mechanics.js';
 import { resolveExactMatch } from '../../build/code/src/shared/select/exact_match.js';
-import { hasExactKeys, hasUnicodeNulJoinedKeys } from '../../build/code/src/shared/admission_predicates.js';
+import { admitJson, hasExactKeys } from '../../build/code/src/shared/admit/index.js';
+import { canonicalEquals } from '../../build/code/src/shared/value/index.js';
 import { decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
 
-test('D02 shared canonical-text equality conserves values and encoding failures without an identity shortcut', () => {
-  assert.equal(sameJson({ z: [-0, 2], a: { x: 'value' } }, { a: { x: 'value' }, z: [0, 2] }), true);
-  assert.equal(sameJson({ x: [1, 2] }, { x: [2, 1] }), false);
-  assert.equal(sameJson({ x: { value: 1 } }, { x: { value: 2 } }), false);
-  assert.equal(sameJson(Array(1), []), true, 'retains the source-supported sparse-array encoding');
-  assert.equal(sameJson(Array(2), []), false);
-  assert.equal(sameJson(Number.MAX_SAFE_INTEGER + 1, 9007199254740992), true, 'does not introduce I-JSON admission');
-  for (const value of [NaN, Infinity, -Infinity, undefined, { x: undefined }, { x: [Infinity] }]) {
-    assert.equal(sameJson(value, value), false);
+test('D02 canonical equality is canonical text over JsonValue; unknown values are admitted first', () => {
+  assert.equal(canonicalEquals({ z: [-0, 2], a: { x: 'value' } }, { a: { x: 'value' }, z: [0, 2] }), true);
+  assert.equal(canonicalEquals({ x: [1, 2] }, { x: [2, 1] }), false);
+  assert.equal(canonicalEquals({ x: { value: 1 } }, { x: { value: 2 } }), false);
+  for (const value of [NaN, Infinity, -Infinity, { x: [Infinity] }]) {
+    assert.throws(() => canonicalEquals(value, value), TypeError, 'encoding failure propagates; no identity shortcut');
   }
-  const cycle = {}; cycle.self = cycle;
-  assert.equal(sameJson(cycle, cycle), false);
+  for (const value of [NaN, Infinity, -Infinity, undefined, { x: undefined }, { x: [Infinity] }, Array(1),
+    Number.MAX_SAFE_INTEGER + 1]) {
+    assert.equal(admitJson(value).kind, 'structural_refusal', 'a non-I-JSON value is refused before comparison');
+  }
   const trace = [];
   const left = { get x() { trace.push('left'); throw new Error('encoding failed'); } };
-  const right = { get x() { trace.push('right'); return 1; } };
-  assert.equal(sameJson(left, right), false);
-  assert.deepEqual(trace, ['left'], 'left failure does not acquire the right value');
+  assert.equal(admitJson(left).kind, 'structural_refusal');
+  assert.deepEqual(trace, [], 'admission refuses an accessor member without reading it');
 });
 
 test('D02 coordinate equality retains both strict coordinates and property faults', () => {
@@ -54,7 +53,7 @@ test('D03 finite selection preserves duplicate occurrences, identities, total sc
   assert.deepEqual(trace, [first, equal]);
 });
 
-test('D04 fixed JSON key domains retain exact names while E01 keeps its distinct legacy relation', () => {
+test('D04 fixed JSON key domains retain exact names; a NUL-containing key never matches split keys', () => {
   for (const keys of [['kind', 'codecVersion', 'event', 'bodyReference'],
     ['sourceEventRef', 'sourcePayloadDigest', 'sourceSlot', 'bodyDigest']]) {
     const valid = JSON.parse(JSON.stringify(Object.fromEntries([...keys].reverse().map(key => [key, null]))));
@@ -62,8 +61,9 @@ test('D04 fixed JSON key domains retain exact names while E01 keeps its distinct
     for (const key of keys) { const missing = { ...valid }; delete missing[key]; assert.equal(hasExactKeys(missing, keys), false); }
     assert.equal(hasExactKeys({ ...valid, extra: 0 }, keys), false);
   }
-  assert.equal(hasUnicodeNulJoinedKeys({ 'a\0b': 0 }, ['a', 'b']), true);
+  // P-KEYS counterexample: the retired NUL-joined bodies returned true here.
   assert.equal(hasExactKeys({ 'a\0b': 0 }, ['a', 'b']), false);
+  assert.equal(hasExactKeys({ a: 0, b: 0 }, ['a\0b']), false);
   for (const record of [
     { kind: 'abg_admitted_body_reference_record', codecVersion: 1, event: {}, bodyReference: {}, extra: 0 },
     { kind: 'abg_admitted_body_reference_record', codecVersion: 2, event: {}, bodyReference: { sourceEventRef: 'event:one' } },

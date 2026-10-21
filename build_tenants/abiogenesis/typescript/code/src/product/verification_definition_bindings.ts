@@ -4,7 +4,7 @@ import { join } from "node:path";
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import type {
   DefinitionCall, DefinitionExecutionFault, DefinitionReturn,
   ExactDefinitionCallable,
@@ -28,6 +28,7 @@ import {
   ProductVerificationPort, type ProductVerificationPacket,
 } from "./verification_operation.js";
 import { PRODUCT_VERIFICATION_CONTRACTS } from "./verification_operation_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 type VerifyPacket = typeof PRODUCT_VERIFICATION_CONTRACTS.verify;
 type PublicVerifyRefusalCode = OwnerRefusalOf<VerifyPacket>["code"];
@@ -150,10 +151,14 @@ function admitResources(
     artifact.productId !== install.productId ||
     artifact.packageName !== install.packageName ||
     artifact.packageVersion !== install.packageVersion ||
-    canonicalJson(request.declaredDependencies as unknown as JsonValue) !==
-      canonicalJson(install.declaredDependencies as unknown as JsonValue) ||
-    canonicalJson(request.compatibilityInputs as unknown as JsonValue) !==
-      canonicalJson(compatibilityInputs as unknown as JsonValue)
+    !canonicalEquals(
+      request.declaredDependencies as unknown as JsonValue,
+      install.declaredDependencies as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      request.compatibilityInputs as unknown as JsonValue,
+      compatibilityInputs as unknown as JsonValue,
+    )
   ) {
     return fault(call, "resource_admission", "resource_relation_mismatch", "the installed E22 request and supplied preimages disagree");
   }
@@ -269,10 +274,14 @@ function projectOwnerOutput(
     subjectRef: request.productContent.ref,
   }));
   if (
-    canonicalJson(artifact.declaredDependencies as unknown as JsonValue) !==
-      canonicalJson(request.declaredDependencies as unknown as JsonValue) ||
-    canonicalJson(compatibilityInputs as unknown as JsonValue) !==
-      canonicalJson(request.compatibilityInputs as unknown as JsonValue)
+    !canonicalEquals(
+      artifact.declaredDependencies as unknown as JsonValue,
+      request.declaredDependencies as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      compatibilityInputs as unknown as JsonValue,
+      request.compatibilityInputs as unknown as JsonValue,
+    )
   ) return mismatchOutput("invalid_declared_dependency", "/declaredDependencies", coordinates.verifiedArtifact.ref);
 
   if (admitted.resources.targetKind === "packed_artifact") {

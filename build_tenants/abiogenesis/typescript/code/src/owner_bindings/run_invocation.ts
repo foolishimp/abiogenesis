@@ -131,6 +131,7 @@ import {
 import { validateGraph } from "../validator/graph.js";
 import { RUN_ENVIRONMENT_SCHEMA } from "../gtl/stdo_run_environment.js";
 import { RUN_ENVIRONMENT_RESOURCES_SCHEMA } from "../product/stdo_environment.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 type InvokePacket = typeof RUN_OPERATION_CONTRACTS.invoke.invoke;
 type StartPacket = typeof RUN_OPERATION_CONTRACTS.invoke.start;
@@ -1834,7 +1835,7 @@ function runCurrentIntentOwner(call: DefinitionCall<ContinuePacket, RunInvocatio
       basisSlot?.ref !== prepared.child.basisRef || basisSlot.digest !== prepared.child.basisDigest ||
       slot === null || inputContracts.length !== 1 || slot.contract.ref !== prepared.failedCall.inputContractRef ||
       slot.contract.digest !== sha256Canonical(inputContracts[0] as unknown as JsonValue) ||
-      slot.valueDigest !== prepared.pending.input.inputDigest || sha256Canonical(slot.value) !== sha256Canonical(prepared.pendingInput))
+      slot.valueDigest !== prepared.pending.input.inputDigest || !canonicalEquals(slot.value, prepared.pendingInput))
       return yield* refuse("basis_mismatch", "/invocationAuthority");
     let qualificationResources;
     try { qualificationResources = prepareRunQualificationResources(call.resources, prepared.pendingInput); } catch { return yield* refuse("basis_mismatch", "/qualificationResources"); }
@@ -1914,7 +1915,7 @@ function runSelectedActionOwner(call: DefinitionCall<SelectedActionPacket, RunIn
         policy, [grant], use.invocation, call.resources.eventResource as unknown as JsonValue) ||
       basisSlot?.ref !== prepared.root.basisRef || basisSlot.digest !== prepared.root.basisDigest || slot === null || inputContracts.length !== 1 ||
       slot.contract.ref !== prepared.term.inputCarrierRef || slot.contract.digest !== sha256Canonical(inputContracts[0] as unknown as JsonValue) ||
-      slot.valueRef !== prepared.input.inputRef || slot.valueDigest !== prepared.input.inputDigest || sha256Canonical(slot.value) !== sha256Canonical(prepared.input.value))
+      slot.valueRef !== prepared.input.inputRef || slot.valueDigest !== prepared.input.inputDigest || !canonicalEquals(slot.value, prepared.input.value))
       return yield* refuse("basis_mismatch", "/invocationAuthority");
     let qualificationResources;
     try { qualificationResources = prepareRunQualificationResources(call.resources, prepared.inputValue); } catch { return yield* refuse("basis_mismatch", "/qualificationResources"); }

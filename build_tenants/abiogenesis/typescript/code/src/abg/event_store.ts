@@ -56,6 +56,7 @@ import {
   isRuntimeLivenessBinding, isRuntimeProbeObservation, isRuntimeSystemProbeContract,
   isRuntimeThresholdObservation,
 } from "./runtime_liveness_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export { LEGACY_ROOT_EVENT_CONTRACT_DIGEST } from "./event_contract_profiles.js";
 
 export const LEGACY_ROOT_EVENT_KIND_VALUES = [
@@ -3524,7 +3525,7 @@ function constructRuntimeHistory(source: RuntimeHistoryPhysicalSource, inlineByE
     const value = representation.event;
     if (!isRecord(value) || !hasOnlyRuntimeEventKeys(value)) throw new TypeError("selected logical event is invalid");
     const { payload, ...envelope } = value;
-    if (canonicalJson(envelope as JsonValue) !== canonicalJson(row.envelope as unknown as JsonValue) ||
+    if (!canonicalEquals(envelope as JsonValue, row.envelope as unknown as JsonValue) ||
         sha256Canonical(payload as JsonValue) !== row.envelope.payloadDigest)
       throw new TypeError("selected logical event differs from its authenticated envelope");
     const event = deepFreeze(value) as unknown as RuntimeEvent;

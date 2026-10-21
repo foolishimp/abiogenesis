@@ -11,6 +11,7 @@ import { validateDurablePrefixCoordinate } from "../abg/event_store.js";
 import { exactWorkspaceBinding, isWorksiteContextObservation } from "./worksite_effect.js";
 import { isWorkspaceAuthorityBasis } from "./environment.js";
 import { isCapabilityGrantValue } from "./invocation.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const hash = (x) => sha256Canonical(x);
 const ref = v.pipe(v.string(), v.minLength(1));
 const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/));
@@ -52,19 +53,19 @@ export function isSemanticRevisionSelectionInput(x) {
 export function semanticRevisionSelectionInputMatchesRequest(input, request) {
     try {
         if (!isSemanticRevisionSelectionInput(input) || !isSemanticRevisionRequest(request) ||
-            hash(input.parent) !== hash(request.parent) || hash(input.causes) !== hash(request.causes))
+            !canonicalEquals(input.parent, request.parent) || !canonicalEquals(input.causes, request.causes))
             return false;
         if (input.nativeWorksite !== undefined || request.nativeWorksite !== undefined) {
             if (input.nativeWorksite === undefined || request.nativeWorksite === undefined)
                 return false;
             const { capabilityGrant: _selectedGrant, acquisition: _selectedAcquisition, ...selected } = input.nativeWorksite;
             const { capabilityGrant: _currentGrant, acquisition: _currentAcquisition, ...current } = request.nativeWorksite;
-            return hash(selected) === hash(current);
+            return canonicalEquals(selected, current);
         }
         if (input.currentWorksite === null || request.currentWorksite === null)
             return input.currentWorksite === request.currentWorksite;
         const projected = projectSemanticWorksiteCoordinates(input.currentWorksite, request.currentWorksite);
-        return projected !== null && hash(projected) === hash(request.currentWorksite);
+        return projected !== null && canonicalEquals(projected, request.currentWorksite);
     }
     catch {
         return false;
@@ -132,7 +133,7 @@ function merge(xs, key) {
     const rows = new Map();
     for (const x of xs) {
         const prior = rows.get(key(x));
-        if (prior !== undefined && hash(prior) !== hash(x))
+        if (prior !== undefined && !canonicalEquals(prior, x))
             return null;
         rows.set(key(x), x);
     }
@@ -141,7 +142,7 @@ function merge(xs, key) {
 /** Pure projection only. ABG must authenticate every input and regenerate this value before admission. */
 export function deriveSemanticRevision(parent, request, selection) {
     if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || !requestChoiceMatchesSelection(request, selection) || request.nativeWorksite !== undefined || selection.nativePhase !== undefined ||
-        hash(request.parent) !== hash(selection.parent) || hash(request.causes) !== hash(selection.causes))
+        !canonicalEquals(request.parent, selection.parent) || !canonicalEquals(request.causes, selection.causes))
         return null;
     const priorRevision = isSemanticRevisionEnvelope(parent) ? parent : null;
     const prior = priorRevision?.current ?? parent;
@@ -203,8 +204,8 @@ export function isSemanticJobRevisionEnvelope(x) {
         return basisDigest === hash(body) && basisRef === `semantic-revision://abiogenesis/${basisDigest.slice(7)}` &&
             unique(b.historicalAssets.map(a => a.assetRef)) && unique(b.affectedStageRefs) && unique(b.preservedAssetRefs) &&
             unique(b.retainedTerms.map(t => t.requirementRef)) && active !== null &&
-            b.retainedBindings.every(binding => e.current.bindingVersions.some(version => hash(version.binding) === hash(binding))) &&
-            e.current.assets.filter(a => b.preservedAssetRefs.includes(a.assetRef)).every(a => b.historicalAssets.some(h => hash(h) === hash(a)));
+            b.retainedBindings.every(binding => e.current.bindingVersions.some(version => canonicalEquals(version.binding, binding))) &&
+            e.current.assets.filter(a => b.preservedAssetRefs.includes(a.assetRef)).every(a => b.historicalAssets.some(h => canonicalEquals(h, a)));
     }
     catch {
         return false;
@@ -216,7 +217,7 @@ export function deriveSemanticJobRevision(parent, request, selection, worksite, 
         if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || !requestChoiceMatchesSelection(request, selection) ||
             (native === undefined ? !isSemanticWorksiteBasis(worksite) || historicalWorksite === null || selection.nativePhase !== undefined :
                 worksite !== null || selection.nativePhase !== (native.construction === null ? "preconstruction" : "postconstruction")) ||
-            hash(request.parent) !== hash(selection.parent) || hash(request.causes) !== hash(selection.causes))
+            !canonicalEquals(request.parent, selection.parent) || !canonicalEquals(request.causes, selection.causes))
             return null;
         const priorRevision = isSemanticJobRevisionEnvelope(parent) ? parent : null;
         const prior = priorRevision?.current ?? parent;
@@ -237,7 +238,7 @@ export function deriveSemanticJobRevision(parent, request, selection, worksite, 
                 selection.mode !== "stage_revision" || selection.selectedTargetRefs.length !== 0 ||
                 selection.selectedStageRef !== operationalFailedStage.declarationRef ||
                 prior.declaration.stages[stageIndex] === undefined ||
-                hash(operationalFailedStage) !== hash(prior.declaration.stages[stageIndex]) ||
+                !canonicalEquals(operationalFailedStage, prior.declaration.stages[stageIndex]) ||
                 (operationalRole === "assessor" ? pending === undefined || pending.stageRef !== operationalFailedStage.declarationRef ||
                     pending.assessment !== null || !prior.assets.slice(0, -1).every(a => a.assessment?.disposition === "satisfied") :
                     !prior.assets.every(a => a.assessment?.disposition === "satisfied")) ||
@@ -296,7 +297,7 @@ export function nativeSemanticRevisionConstruction(input) {
     const selectedPaths = targets.filter(target => selection.nativePhase === "preconstruction" ||
         selection.selectedTargetRefs.includes(target.relativePath) || selection.mode === "stage_revision" &&
         (target.obligationRefs.some(ref => selection.selectedObligationRefs.includes(ref)) ||
-            !previous.some(old => old.relativePath === target.relativePath && hash(old) === hash(target)))).map(t => t.relativePath);
+            !previous.some(old => old.relativePath === target.relativePath && canonicalEquals(old, target)))).map(t => t.relativePath);
     return { selectedPaths, executionLimits: input.revisionBasis.request.nativeWorksite.commandExecutionLimits, feedback: { selection: selection,
             historicalAssets: input.revisionBasis.historicalAssets,
             retainedTerms: input.revisionBasis.retainedTerms } };
@@ -308,7 +309,7 @@ export function constructNativeRevisionConstructionTask(input, operating = input
     return constructNativeSemanticConstructionTask(input.current, operating, input.current.context, nativeSemanticRevisionConstruction(input));
 }
 export function constructNativeRevisionExecutionTask(input, source) {
-    if (!isNativeWorkspaceWorkObservation(source) || hash(source.task) !== hash(constructNativeRevisionConstructionTask(input, { ...input.revisionBasis.request.nativeWorksite, ...source.task })))
+    if (!isNativeWorkspaceWorkObservation(source) || !canonicalEquals(source.task, constructNativeRevisionConstructionTask(input, { ...input.revisionBasis.request.nativeWorksite, ...source.task })))
         throw new TypeError("actual selected native revision construction required");
     return constructNativeSemanticExecutionTask(input.current, source, nativeSemanticRevisionConstruction(input));
 }
@@ -316,7 +317,7 @@ export function constructNativeRevisionExecutionTask(input, source) {
 export function deriveNativeRevisionEvidence(input, execution, construction, command) {
     try {
         if (!isSemanticJobRevisionEnvelope(input) || !isNativeWorksiteCommandExecutionObservation(execution) ||
-            hash(execution.task) !== hash(constructNativeRevisionExecutionTask(input, execution.task.sourceNativeWork)))
+            !canonicalEquals(execution.task, constructNativeRevisionExecutionTask(input, execution.task.sourceNativeWork)))
             return null;
         const artifacts = nativeSemanticEvidenceArtifacts(input.current, execution, nativeSemanticRevisionConstruction(input));
         if (artifacts === null)
@@ -353,30 +354,29 @@ export function evaluateNativeSemanticRevisionRelation(predicate, input, output)
     const step = predicate === ids.stepPredicateRef;
     if (!step && !roles.some(ref => ref === predicate))
         return null;
-    const same = (a, b) => hash(a) === hash(b);
     try {
         if (predicate === ids.nativeIntakePredicateRef || step && isNativeSemanticRevisionIntake(input) && isSemanticRevisionSelectionInput(output))
-            return isNativeSemanticRevisionIntake(input) && isSemanticRevisionSelectionInput(output) && output.nativeWorksite !== undefined && same(input, output.nativeWorksite.source);
+            return isNativeSemanticRevisionIntake(input) && isSemanticRevisionSelectionInput(output) && output.nativeWorksite !== undefined && canonicalEquals(input, output.nativeWorksite.source);
         if (predicate === ids.nativeRequestPredicateRef || step && (isSemanticRevisionSelectionInput(input) || isSemanticRevisionSelection(input)) && isSemanticRevisionRequest(output))
             return isSemanticRevisionRequest(output) && output.nativeWorksite?.acquisition !== undefined &&
-                (isSemanticRevisionSelection(input) ? same(input.parent, output.parent) && same(input.causes, output.causes) && requestChoiceMatchesSelection(output, input) :
+                (isSemanticRevisionSelection(input) ? canonicalEquals(input.parent, output.parent) && canonicalEquals(input.causes, output.causes) && requestChoiceMatchesSelection(output, input) :
                     isSemanticRevisionSelectionInput(input) ? semanticRevisionSelectionInputMatchesRequest(input, output) :
-                        isNativeSemanticRevisionIntake(input) && same(input, output.nativeWorksite.source));
+                        isNativeSemanticRevisionIntake(input) && canonicalEquals(input, output.nativeWorksite.source));
         if (step && isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output))
-            return same(input.parent, output.parent) && same(input.causes, output.causes);
+            return canonicalEquals(input.parent, output.parent) && canonicalEquals(input.causes, output.causes);
         if (predicate === ids.nativeConstructionPredicateRef || step && isSemanticJobRevisionEnvelope(input) && isNativeWorkspaceWorkTask(output))
             return isSemanticJobRevisionEnvelope(input) && isNativeWorkspaceWorkTask(output) &&
-                same(constructNativeRevisionConstructionTask(input, { ...input.revisionBasis.request.nativeWorksite, ...output }), output);
+                canonicalEquals(constructNativeRevisionConstructionTask(input, { ...input.revisionBasis.request.nativeWorksite, ...output }), output);
         if (predicate === ids.nativeExecutionPredicateRef || step && isRetainedGraphInput(input) && isNativeWorksiteCommandExecutionTask(output))
             return isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(input.entry) && isNativeWorkspaceWorkObservation(input.source) &&
-                same(constructNativeRevisionExecutionTask(input.entry, input.source), output);
+                canonicalEquals(constructNativeRevisionExecutionTask(input.entry, input.source), output);
         if (predicate === ids.nativeEvidencePredicateRef || step && isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(output)) {
             if (isSemanticJobRevisionEnvelope(input) && isSemanticJobRevisionEnvelope(output) && output.current.evidence !== null)
                 input = constructRetainedGraphInput(input, output.current.evidence.executionObservation);
             if (!isRetainedGraphInput(input) || !isSemanticJobRevisionEnvelope(input.entry) || !isSemanticJobRevisionEnvelope(output) || output.current.evidence === null)
                 return false;
             const evidence = output.current.evidence;
-            return same(deriveNativeRevisionEvidence(input.entry, input.source, { resultRef: evidence.constructionResultRef, resultDigest: evidence.constructionResultDigest }, { resultRef: evidence.executionResultRef, resultDigest: evidence.executionResultDigest }), output);
+            return canonicalEquals(deriveNativeRevisionEvidence(input.entry, input.source, { resultRef: evidence.constructionResultRef, resultDigest: evidence.constructionResultDigest }, { resultRef: evidence.executionResultRef, resultDigest: evidence.executionResultDigest }), output);
         }
         if (step && isNativeWorkspaceWorkTask(input))
             return resolveNativeWorkspaceWorkJudgmentRelation(NATIVE_WORKSPACE_WORK_IDS.judgmentPredicateRef)?.evaluate(input, output) === true;

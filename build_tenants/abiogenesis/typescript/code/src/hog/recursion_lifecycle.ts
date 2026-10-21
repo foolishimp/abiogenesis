@@ -43,7 +43,6 @@ import {
   admissionBasis,
   ownedReplayAtDurable as replayAtDurable,
   ownedRuntimePrefixAtDurable as runtimePrefixAtDurable,
-  sameCanonical,
   type ExecutionClock,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
@@ -60,6 +59,7 @@ import {
   type HeldRecursionSuspension,
 } from "./traversal_completion.js";
 import { failTraversal } from "./traversal_failure.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface CompleteExecutableTraversalInput<Input> {
   readonly store: AbgEventStore;
@@ -340,13 +340,15 @@ function deferredRecursionCompletionsMatch(
   complete: boolean,
 ): boolean {
   if (complete) {
-    return sameCanonical(actual,
-      completePublicOutcome<ExecutableTraversalCompletion>(projected));
+    return canonicalEquals(
+      actual as unknown as JsonValue,
+      completePublicOutcome<ExecutableTraversalCompletion>(projected) as unknown as JsonValue,
+    );
   }
   const { replayState: actualReplay, ...actualFields } = actual;
   const { replayState: projectedReplay, ...projectedFields } = projected;
   return OwnedReplay.runtimeReplayGuardsHaveSameOwnedCut(actualReplay, projectedReplay) &&
-    sameCanonical(actualFields, projectedFields);
+    canonicalEquals(actualFields as unknown as JsonValue, projectedFields as unknown as JsonValue);
 }
 
 function finishRecursionTerminal(

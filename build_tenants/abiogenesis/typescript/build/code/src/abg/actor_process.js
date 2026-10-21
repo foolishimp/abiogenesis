@@ -24,6 +24,7 @@ import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from "./runt
 import { admitRuntimeActivityProbe, admitRuntimeThreshold, projectActorLivenessContext, runtimeAssetRevisionDigest } from "./runtime_liveness.js";
 import { sha256Bytes } from "../shared/digests.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const PROCESS_TIMEOUT_MS = 60_000;
 const PROCESS_ABSOLUTE_TIMEOUT_MS = 3_600_000;
 const PROCESS_TERMINATION_GRACE_MS = 1_000;
@@ -474,7 +475,7 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
             worksiteOwner.inputDigest !== input.expectedInputDigest))
             throw new TypeError("worksite assembly crosses actor coordinates");
         if ((assemblyRequired || preparedAssembly !== undefined) && (instructionAssembly === null ||
-            sha256Canonical(instructionAssembly.request) !== sha256Canonical(input.request))) {
+            !canonicalEquals(instructionAssembly.request, input.request))) {
             throw new TypeError("dependent dispatch requires exact native admitted instruction assembly");
         }
         const environment = Object.freeze({ ...process.env });

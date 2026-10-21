@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -11,6 +11,7 @@ import {
   type RuntimeEvent,
   type RuntimeEventScope,
 } from "./event_store.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface PersistedEventLog {
   readonly kind: "persisted_abg_event_log";
@@ -35,8 +36,10 @@ export async function persistEventLog(
   const encoded = await readFile(configuredPath);
   const durableEvents = validateHistoricalEvents(encoded);
   if (
-    canonicalJson(durableEvents as unknown as JsonValue) !==
-    canonicalJson(store.readAll() as unknown as JsonValue)
+    !canonicalEquals(
+      durableEvents as unknown as JsonValue,
+      store.readAll() as unknown as JsonValue,
+    )
   ) {
     throw new TypeError("durable ABG event log differs from admitted in-memory truth");
   }

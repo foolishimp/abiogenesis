@@ -48,6 +48,7 @@ import { projectProductManifestOperationCoordinate } from "../product/verify_pro
 import {
   bindExactPrefixRead,
 } from "./exact_prefix_bindings.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 type ReopenAbgEventResourceAssertion = Extract<
   AbgEventResourceAssertion,
@@ -226,14 +227,6 @@ function basisCoordinate(request: Readonly<Record<string, JsonValue>>) {
   );
 }
 
-function sameJson(left: unknown, right: unknown): boolean {
-  try {
-    return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-  } catch {
-    return false;
-  }
-}
-
 function closeReadEventResource(
   resource: AcquiredAbgEventResource,
 ): ReopenAbgEventResourceReceipt {
@@ -348,8 +341,8 @@ function resultProjection(
   );
   const terminalResult = value.terminalResult;
   if (replay === null || terminalRoute === null || result === null ||
-      !isAbgTypedTerminalResult(terminalResult) || !sameJson(result, terminalResult.result) ||
-      !sameJson(terminalRoute, terminalResult.producer.terminalRoute)) {
+      !isAbgTypedTerminalResult(terminalResult) || !canonicalEquals(result, terminalResult.result) ||
+      !canonicalEquals(terminalRoute, terminalResult.producer.terminalRoute)) {
     throw new TypeError("result projection lacks terminal owner coordinates");
   }
   return {
@@ -438,7 +431,8 @@ function gapProjection(
   const gaps = frontiers.map(frontier => {
     const row = asRecord(frontier);
     const route = row === null ? null : coordinateFrom(row.route, ["ref"], ["digest"]);
-    if (route === null || (memberKey === "run_gaps" && !sameJson(row!.run, sourceCoordinate(request)))) {
+    if (route === null || (memberKey === "run_gaps" &&
+      (row!.run === undefined || !canonicalEquals(row!.run, sourceCoordinate(request))))) {
       throw new TypeError("gap frontier crosses the selected source");
     }
     return route;
@@ -643,8 +637,8 @@ function runReadKernel(
           packet.definitionKey.operationId,
         );
         if (executingContract === null) throw new TypeError("executing read owner has invalid Product operation metadata");
-        if (!sameJson(executingContract.contractCatalog, call.invocation.contractCatalog) ||
-            !sameJson(executingContract.flatRow, call.invocation.requestContract.flatRow)) {
+        if (!canonicalEquals(executingContract.contractCatalog as unknown as JsonValue, call.invocation.contractCatalog as unknown as JsonValue) ||
+            !canonicalEquals(executingContract.flatRow, call.invocation.requestContract.flatRow)) {
           return finishRead(
             resource,
             refusalOutput(packet, "projection_basis_mismatch", "/contractCatalog"),
@@ -670,11 +664,11 @@ function runReadKernel(
         } as const;
         if (
           slots.actor !== null ||
-          !sameJson(slots.workspace_binding, expectedAuthority.workspace_binding) ||
-          !sameJson(slots.product_set, expectedAuthority.product_set) ||
-          !sameJson(slots.dependency_lock, expectedAuthority.dependency_lock) ||
-          !sameJson(
-            slots.capability_grants,
+          !canonicalEquals(slots.workspace_binding as unknown as JsonValue, expectedAuthority.workspace_binding) ||
+          !canonicalEquals(slots.product_set as unknown as JsonValue, expectedAuthority.product_set as unknown as JsonValue) ||
+          !canonicalEquals(slots.dependency_lock as unknown as JsonValue, expectedAuthority.dependency_lock) ||
+          !canonicalEquals(
+            slots.capability_grants as unknown as JsonValue,
             expectedAuthority.capability_grants,
           ) ||
           expectedGrants.some((grant, index) =>

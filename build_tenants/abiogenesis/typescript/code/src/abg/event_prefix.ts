@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { canonicalJson, writeCanonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { type Sha256Digest } from "../shared/digests.js";
 import { ownedRuntimeDerivationSource, runtimeDerivationSource, RuntimeDerivationSource, type RuntimeDerivationScope } from "./runtime_derivation.js";
 import {
   selectRuntimeEvents,
@@ -20,6 +20,7 @@ import {
   type RuntimeEventScope,
 } from "./event_store.js";
 import { RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistorySelectorKeys } from "./runtime_history.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const VALIDATED_RUNTIME_EVENT_PREFIX = Symbol(
   "validated_runtime_event_prefix",
@@ -127,7 +128,7 @@ export function runtimeEventPrefixesHaveSameOwnedCut(left: RuntimeEventPrefix, r
   }
   return left.selection.length === left.selection.through && a.scopeKey === "all" &&
     runtimeEventPrefixesHaveSameOwnedCut(a.predecessor, b.predecessor) &&
-    sha256Canonical(a.candidate as unknown as JsonValue) === sha256Canonical(b.candidate as unknown as JsonValue);
+    canonicalEquals(a.candidate as unknown as JsonValue, b.candidate as unknown as JsonValue);
 }
 function selectValidationPrefix(base: OwnedRuntimeEventPrefix, candidate: RuntimeEvent,
   selection: RuntimeHistorySelection, source = new RuntimeDerivationSource(), selectedScope = "all",

@@ -141,6 +141,7 @@ import {
   type WorksiteFileReplaceRequest,
   type WorksiteObservation,
 } from "../product/worksite_effect.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface CCall {
   readonly kind: "c_call";
@@ -1384,15 +1385,6 @@ interface CCallOpeningAuthority {
   readonly cursorAdmissionEventRef: string;
 }
 
-function sameCanonicalValue(left: unknown, right: unknown): boolean {
-  try {
-    return sha256Canonical(left as JsonValue) ===
-      sha256Canonical(right as JsonValue);
-  } catch {
-    return false;
-  }
-}
-
 function projectCCallOpeningAuthority(
   store: AbgEventStore,
   predecessorPrefix: DurablePrefixCoordinate,
@@ -1422,8 +1414,8 @@ function projectCCallOpeningAuthority(
       exactBasis === null ||
       exactScope === null ||
       cursorAdmissionEventRef === null ||
-      !sameCanonicalValue(exactBasis, executionBasis) ||
-      !sameCanonicalValue(exactScope, scope) ||
+      !canonicalEquals(exactBasis as unknown as JsonValue, executionBasis as unknown as JsonValue) ||
+      !canonicalEquals(exactScope as unknown as JsonValue, scope as unknown as JsonValue) ||
       exactScope.executionBasisRef !== exactBasis.basisRef ||
       cursor.executionBasisRef !== exactBasis.basisRef ||
       cursor.traversalScopeRef !== exactScope.scopeRef ||
@@ -1962,7 +1954,7 @@ function projectAdmittedActorTransport(
     artifact.payload.resultContractRef === source.resultContractRef &&
     (artifact.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST
       ? artifact.payload.nativeResultAssessment !== undefined && source.nativeResultAssessment !== undefined &&
-        sha256Canonical(artifact.payload.nativeResultAssessment) === sha256Canonical(source.nativeResultAssessment as JsonValue)
+        canonicalEquals(artifact.payload.nativeResultAssessment, source.nativeResultAssessment as JsonValue)
       : source.nativeResultAssessment === undefined && artifact.payload.nativeResultAssessment === undefined) &&
     artifact.payload.processRef === source.processRef &&
     artifact.payload.transportBindingRef === source.transportBindingRef &&
@@ -1988,10 +1980,14 @@ function projectAdmittedActorTransport(
     artifact.payload.apiRetryCount === source.apiRetryCount &&
     artifact.payload.stdoutByteLength === source.stdoutByteLength &&
     artifact.payload.stderrByteLength === source.stderrByteLength &&
-    sha256Canonical(artifact.payload.signalSequence as JsonValue) ===
-      sha256Canonical(source.signalSequence as JsonValue) &&
-    sha256Canonical(artifact.payload.artifactDigests as JsonValue) ===
-      sha256Canonical(source.artifactDigests as JsonValue);
+    canonicalEquals(
+      artifact.payload.signalSequence as JsonValue,
+      source.signalSequence as JsonValue,
+    ) &&
+    canonicalEquals(
+      artifact.payload.artifactDigests as JsonValue,
+      source.artifactDigests as JsonValue,
+    );
   if (!joined || typeof binding.payload.parser !== "string" ||
     typeof artifact.payload.finalOutput !== "string") return null;
   const actorRows = events.filter((event) =>
@@ -2045,8 +2041,10 @@ function projectAdmittedActorTransport(
     source.timedOut !== (timeoutRows.length === 1) ||
     source.timeoutClass !== timeoutClass ||
     !timeoutLimitMatchesBinding ||
-    sha256Canonical(signals as unknown as JsonValue) !==
-      sha256Canonical(source.signalSequence as JsonValue) ||
+    !canonicalEquals(
+      signals as unknown as JsonValue,
+      source.signalSequence as JsonValue,
+    ) ||
     streamBytes("actor_process_stdout_observed") !== source.stdoutByteLength ||
     streamBytes("actor_process_stderr_observed") !== source.stderrByteLength ||
     (lifecycle.processTerminalKind === "actor_process_exited" &&
@@ -2989,11 +2987,14 @@ function exactRuntimeFailureSource(
   );
   if (
     event === undefined || !isJsonRecord(event.payload) ||
-    sha256Canonical(event.payload) !== sha256Canonical({
-      evidenceRef: source.evidenceRef,
-      evidenceDigest: source.evidenceDigest,
-      ...admittedEvidencePayload(source),
-    } as unknown as JsonValue)
+    !canonicalEquals(
+      event.payload,
+      {
+        evidenceRef: source.evidenceRef,
+        evidenceDigest: source.evidenceDigest,
+        ...admittedEvidencePayload(source),
+      } as unknown as JsonValue,
+    )
   ) return null;
   return exactProbabilisticFailureSource(
     prefix,
@@ -3089,8 +3090,10 @@ export function planCCallRuntimeFailureClose(
         cCall.cCallRef,
       );
       return projected !== null &&
-        sha256Canonical(projected as unknown as JsonValue) ===
-          sha256Canonical(cCall as unknown as JsonValue);
+        canonicalEquals(
+          projected as unknown as JsonValue,
+          cCall as unknown as JsonValue,
+        );
     })() === false ||
     cCall.callClass !== "leaf" ||
     cCall.retryPath.length === 0 || !exactSourcePhase ||
@@ -3385,8 +3388,10 @@ export function admitPlannedCCallRuntimeFailureClose(
   );
   if (
     rederived.kind !== "c_call_runtime_failure_close_plan" ||
-    sha256Canonical(rederived as unknown as JsonValue) !==
-      sha256Canonical(plan as unknown as JsonValue)
+    !canonicalEquals(
+      rederived as unknown as JsonValue,
+      plan as unknown as JsonValue,
+    )
   ) throw runtimeFailureCloseError("source or plan no longer reprojects exactly");
   if (
     plan.eventCandidates.length !== plan.projectedEvents.length ||
@@ -3399,8 +3404,10 @@ export function admitPlannedCCallRuntimeFailureClose(
   });
   const admittedEvents = sampledEvents.map(({ event }) => event);
   if (admittedEvents.some((event, index) =>
-    sha256Canonical(event as unknown as JsonValue) !==
-      sha256Canonical(plan.projectedEvents[index] as unknown as JsonValue)
+    !canonicalEquals(
+      event as unknown as JsonValue,
+      plan.projectedEvents[index] as unknown as JsonValue,
+    )
   )) {
     throw runtimeFailureCloseError(
       "admitted close differs from its pre-effect plan",
@@ -4511,8 +4518,10 @@ export function rehydrateWorkflowCCallAtPrefix(
   );
   if (
     cursorEventRef === null ||
-    sha256Canonical(cCallValue as unknown as JsonValue) !==
-      sha256Canonical(expected as unknown as JsonValue) ||
+    !canonicalEquals(
+      cCallValue as unknown as JsonValue,
+      expected as unknown as JsonValue,
+    ) ||
     openedEvent.aggregateId !== cCallRef ||
     openedEvent.parentAggregateId !== scope.frameId ||
     openedEvent.basisId !== executionBasis.basisRef ||
@@ -4546,8 +4555,10 @@ function exactEventBody(
 ): boolean {
   return event?.kind === expectedKind &&
     isJsonRecord(event.payload) &&
-    sha256Canonical(event.payload) ===
-      sha256Canonical(expected as unknown as JsonValue);
+    canonicalEquals(
+      event.payload,
+      expected as unknown as JsonValue,
+    );
 }
 
 function admittedResultBody(
@@ -4657,7 +4668,7 @@ function projectAdmittedLeafCCallOutcomeFromPrefix(
     implementationSet.implementationSetRef !== basis.implementationSetRef ||
     implementationSet.implementationSetDigest !== basis.implementationSetDigest ||
     selectedResolution === null ||
-    !sameCanonicalValue(selectedResolution, resolution) ||
+    !canonicalEquals(selectedResolution as unknown as JsonValue, resolution as unknown as JsonValue) ||
     resolution.graphFunctionRef !== basis.graphFunctionRef ||
     resolution.nodeRef !== stop.nodeRef ||
     resolution.programLocusRef !== stop.programLocusRef ||
@@ -5387,7 +5398,7 @@ function openImplementationCCallLocus(
     stop.cursor.currentNodeRef !== stop.nodeRef ||
     stop.taskOrdinal !== stop.cursor.taskOrdinal ||
     stop.attempt !== stop.cursor.attempt ||
-    !sameCanonicalValue(stop.retryPath, stop.cursor.retryPath) ||
+    !canonicalEquals(stop.retryPath, stop.cursor.retryPath) ||
     stop.runId !== scope.runId ||
     stop.graphCallId !== scope.graphCallId ||
     stop.frameId !== scope.frameId ||
@@ -5438,8 +5449,8 @@ function openImplementationCCallLocus(
   if (
     exactImplementationSet === null ||
     exactResolution === null ||
-    !sameCanonicalValue(exactImplementationSet, implementationSet) ||
-    !sameCanonicalValue(exactResolution, resolution) ||
+    !canonicalEquals(exactImplementationSet as unknown as JsonValue, implementationSet as unknown as JsonValue) ||
+    !canonicalEquals(exactResolution as unknown as JsonValue, resolution as unknown as JsonValue) ||
     executionBasis.implementationSetRef !== implementationSet.implementationSetRef ||
     executionBasis.implementationSetDigest !== implementationSet.implementationSetDigest ||
     resolution.graphFunctionRef !== executionBasis.graphFunctionRef ||
@@ -5536,7 +5547,7 @@ function openInteractionCCallLocus(
     stop.cursor.currentNodeRef !== stop.nodeRef ||
     stop.taskOrdinal !== stop.cursor.taskOrdinal ||
     stop.attempt !== stop.cursor.attempt ||
-    !sameCanonicalValue(stop.retryPath, stop.cursor.retryPath) ||
+    !canonicalEquals(stop.retryPath, stop.cursor.retryPath) ||
     stop.runId !== scope.runId ||
     stop.graphCallId !== scope.graphCallId ||
     stop.frameId !== scope.frameId ||
@@ -5593,8 +5604,8 @@ function openInteractionCCallLocus(
   if (
     exactInteractionSet === null ||
     exactInteraction === null ||
-    !sameCanonicalValue(exactInteractionSet, interactionSet) ||
-    !sameCanonicalValue(exactInteraction, interaction) ||
+    !canonicalEquals(exactInteractionSet as unknown as JsonValue, interactionSet as unknown as JsonValue) ||
+    !canonicalEquals(exactInteraction as unknown as JsonValue, interaction as unknown as JsonValue) ||
     executionBasis.interactionSetRef !== interactionSet.interactionSetRef ||
     executionBasis.interactionSetDigest !== interactionSet.interactionSetDigest ||
     interaction.graphFunctionRef !== executionBasis.graphFunctionRef ||
@@ -5744,7 +5755,7 @@ function openWorkflowCCallLocus(
   );
   if (
     exactImplementationSet === null ||
-    !sameCanonicalValue(exactImplementationSet, implementationSet) ||
+    !canonicalEquals(exactImplementationSet as unknown as JsonValue, implementationSet as unknown as JsonValue) ||
     implementationSet.implementationSetRef !==
       executionBasis.rootImplementationSetRef ||
     implementationSet.implementationSetDigest !==
@@ -6158,12 +6169,18 @@ export function planOwnedPendingInteractionAdmission(
   if (
     projected === null || projected.requestRef !== requestRef ||
     projected.requestDigest !== requestDigest ||
-    sha256Canonical(projected.cCall as unknown as JsonValue) !==
-      sha256Canonical(cCall as unknown as JsonValue) ||
-    sha256Canonical(projected.result as unknown as JsonValue) !==
-      sha256Canonical(result as unknown as JsonValue) ||
-    sha256Canonical(projected.judgment as unknown as JsonValue) !==
-      sha256Canonical(judgment as unknown as JsonValue)
+    !canonicalEquals(
+      projected.cCall as unknown as JsonValue,
+      cCall as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      projected.result as unknown as JsonValue,
+      result as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      projected.judgment as unknown as JsonValue,
+      judgment as unknown as JsonValue,
+    )
   ) {
     throw new TypeError(
       "planned pending F_H admission does not project its exact result",
@@ -6258,8 +6275,10 @@ export function admitOwnedPlannedPendingInteraction(
   });
   const admittedEvents = sampledEvents.map(({ event }) => event);
   if (admittedEvents.some((event, index) =>
-    sha256Canonical(event as unknown as JsonValue) !==
-      sha256Canonical(plan.projectedEvents[index] as unknown as JsonValue)
+    !canonicalEquals(
+      event as unknown as JsonValue,
+      plan.projectedEvents[index] as unknown as JsonValue,
+    )
   )) {
     throw new TypeError(
       "pending F_H admission differs from its pre-effect plan",

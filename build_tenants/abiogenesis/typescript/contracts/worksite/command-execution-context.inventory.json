@@ -1,1 +1,1 @@
-{"kind":"run_environment_member_inventory","members":[{"digest":"sha256:f7b5d6ab2434fe5c5e2bf385e2acb1ca7d8bccd89fadb3f73162747f9dd46433","path":"build/code/src/product/worksite_command_execution.js","target":null,"type":"file"}],"schemaVersion":"5.0.0"}
+{"kind":"run_environment_member_inventory","members":[{"digest":"sha256:0fff758a2217a64946f1f1a31845c55a84ede460e61e0cea72ba55723bc03d98","path":"build/code/src/product/worksite_command_execution.js","target":null,"type":"file"}],"schemaVersion":"5.0.0"}

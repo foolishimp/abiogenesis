@@ -63,6 +63,7 @@ import { admitRuntimeActivityProbe, admitRuntimeThreshold, projectActorLivenessC
 import { sha256Bytes } from "../shared/digests.js";
 import type { LeafInvocationPort, LeafInvocationResolution } from "../implementation/contracts.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const PROCESS_TIMEOUT_MS = 60_000;
 const PROCESS_ABSOLUTE_TIMEOUT_MS = 3_600_000;
@@ -818,7 +819,7 @@ async function invokeActorProcessWithAssembly(
     worksiteOwner.execution.basisRef !== input.executionBasis.basisRef ||
     worksiteOwner.inputDigest !== input.expectedInputDigest)) throw new TypeError("worksite assembly crosses actor coordinates");
   if ((assemblyRequired || preparedAssembly !== undefined) && (instructionAssembly === null ||
-    sha256Canonical(instructionAssembly.request as unknown as JsonValue) !== sha256Canonical(input.request as unknown as JsonValue))) {
+    !canonicalEquals(instructionAssembly.request as unknown as JsonValue, input.request as unknown as JsonValue))) {
     throw new TypeError("dependent dispatch requires exact native admitted instruction assembly");
   }
   const environment = Object.freeze({ ...process.env });

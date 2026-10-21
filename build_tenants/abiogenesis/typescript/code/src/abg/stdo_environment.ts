@@ -10,6 +10,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isAbsolute, resolve, relative } from "node:path";
 import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const ref = v.pipe(v.string(), v.minLength(1));
 const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/u));
@@ -79,7 +80,7 @@ export function isStdoEnvironmentEvidence(value: unknown): value is StdoEnvironm
       !Object.values(resources.roots).every(p => typeof p === "string" && isAbsolute(p)) ||
       !keys(resources.permission,["authorityRef","authorityDigest","actorRef","programRef","environmentRef","environmentDigest","operation","roots"])) return false;
     const permission = resources.permission;
-    if (permission.operation !== "project" || hash(permission.roots) !== hash(resources.roots) ||
+    if (permission.operation !== "project" || !canonicalEquals(permission.roots as JsonValue, resources.roots as JsonValue) ||
       permission.authorityRef !== e.authority.authorityRef || permission.authorityDigest !== e.authority.authorityDigest || permission.actorRef !== e.authority.actorRef ||
       permission.programRef !== e.programRef || permission.environmentRef !== d.declarationRef || permission.environmentDigest !== e.environmentDigest) return false;
     const manifest = JSON.parse(exactStdoBytes(e.sourceManifest).toString("utf8"));
@@ -87,10 +88,10 @@ export function isStdoEnvironmentEvidence(value: unknown): value is StdoEnvironm
       ...d.representation.members.map(m => ({ ...m, rootRole: "representation" })),
       ...d.axiom.members.map(m => ({ ...m, rootRole: "axiom" }))];
     if (e.observedMembers.length !== expected.length || !unique(e.observedMembers.map(m => m.rootRole + "/" + m.path)) ||
-      expected.some(m => !e.observedMembers.some(o => hash(o) === hash(m)))) return false;
+      expected.some(m => !e.observedMembers.some(o => canonicalEquals(o, m)))) return false;
     for (const role of ["representation", "axiom"] as const) {
       const r = e.records.find(r => r.role === role)!;
-      if (r.digest !== d[role].recordDigest || hash(stdoRecordInventory(exactStdoBytes(r).toString("utf8"))) !== hash(d[role].members)) return false;
+      if (r.digest !== d[role].recordDigest || !canonicalEquals(stdoRecordInventory(exactStdoBytes(r).toString("utf8")), d[role].members)) return false;
     }
     if (e.contexts.length !== d.contexts.length || !unique(e.contexts.map(c => c.contextRef))) return false;
     for (const c of d.contexts) {
@@ -116,17 +117,20 @@ export function isStdoEnvironmentEvidence(value: unknown): value is StdoEnvironm
       if (typeof bindingsPath !== "string" || !isAbsolute(bindingsPath)) return false;
       const local = relative(resources.roots.temporaryRoot,bindingsPath);
       if (local === "" || local === ".." || local.startsWith("../") || isAbsolute(local) || observed.command.executablePath !== resources.roots.pythonPath ||
-        observed.command.cwd !== resources.roots.axiomRoot || hash(args) !== hash([
-          resolve(resources.roots.axiomRoot,d.axiom.executablePath),"project","--program",resolve(resources.roots.representationRoot,d.representation.program.path),
-          "--map",resolve(resources.roots.representationRoot,d.representation.map.path),"--bindings",bindingsPath,
-          ...a.frameIndexRefs.flatMap(ref => ["--frame-index",ref]),"--mode",a.mode])) return false;
-      if (hash(observed.bindings) !== hash({kind:"axiom-indexer.binding-set",schema_version:1,bindings:[{uri_prefix:d.source.releaseUri,path:resources.roots.sourceRoot}]})) return false;
+        observed.command.cwd !== resources.roots.axiomRoot || !canonicalEquals(
+          args,
+          [
+            resolve(resources.roots.axiomRoot,d.axiom.executablePath),"project","--program",resolve(resources.roots.representationRoot,d.representation.program.path),
+            "--map",resolve(resources.roots.representationRoot,d.representation.map.path),"--bindings",bindingsPath,
+            ...a.frameIndexRefs.flatMap(ref => ["--frame-index",ref]),"--mode",a.mode],
+        )) return false;
+      if (!canonicalEquals(observed.bindings, {kind:"axiom-indexer.binding-set",schema_version:1,bindings:[{uri_prefix:d.source.releaseUri,path:resources.roots.sourceRoot}]})) return false;
       const p = JSON.parse(exactStdoBytes(observed.stdout).toString("utf8"));
-      if (!record(p) || hash(p) !== hash(observed.projection) || p.kind !== "axiom-indexer.frame-projection" ||
+      if (!record(p) || !canonicalEquals(p, observed.projection) || p.kind !== "axiom-indexer.frame-projection" ||
         p.schema_version !== 1 || p.mode !== a.mode || p.program_uri !== d.representation.program.uri ||
         p.program_sha256 !== d.representation.program.canonicalDigest ||
         p.map_sha256 !== d.representation.map.canonicalDigest ||
-        !Array.isArray(p.frame_indexes) || hash(p.frame_indexes.map((r: any) => r.uri)) !== hash(a.frameIndexRefs) ||
+        !Array.isArray(p.frame_indexes) || !canonicalEquals(p.frame_indexes.map((r: any) => r.uri), a.frameIndexRefs) ||
         !Array.isArray(p.symbols) || !Array.isArray(p.clauses) || !Array.isArray(p.residuals) ||
         !Array.isArray(p.resolved_sources) || !record(p.source_routes) || !record(p.closure)) return false;
       const { projection_sha256, ...preimage } = p;
@@ -142,7 +146,7 @@ export function stdoEvidenceMatchesInvocation(evidence: unknown, publication: Re
   const d = stdoEnvironmentForProgram(publication, program);
   if (d === null) return evidence === undefined || evidence === null;
   return d !== false && isStdoEnvironmentEvidence(evidence) && evidence.environmentDigest === hash(d) &&
-    evidence.programRef === program.programRef && evidence.programDigest === hash(program) && hash(evidence.authority) === hash(authority);
+    evidence.programRef === program.programRef && evidence.programDigest === hash(program) && canonicalEquals(evidence.authority, authority);
 }
 export function projectStdoRoleEvidence(events: readonly {kind: string; payload: JsonValue}[], invocationAdmissionRef: string,
   publication: Readonly<ModulePublication>, programRef: string, graphFunctionRef: string, programLocusRef: string, role: string) {
@@ -205,13 +209,13 @@ export function isRunEnvironmentEvidence(value: unknown): value is RunEnvironmen
     const permission = r.permission;
     if (permission.authorityRef !== e.authority.authorityRef || permission.authorityDigest !== e.authority.authorityDigest ||
       permission.actorRef !== e.authority.actorRef || permission.programRef !== e.programRef || permission.environmentRef !== d.declarationRef ||
-      permission.environmentDigest !== e.environmentDigest || hash(permission.dependencies) !== hash(r.dependencies) ||
+      permission.environmentDigest !== e.environmentDigest || !canonicalEquals(permission.dependencies as JsonValue, r.dependencies) ||
       permission.pythonPath !== r.pythonPath || permission.temporaryRoot !== r.temporaryRoot ||
-      hash(permission.operations) !== hash([...new Set(["read_context", ...d.accesses.map(a => a.operation)])].sort())) return false;
+      !canonicalEquals(permission.operations as JsonValue, [...new Set(["read_context", ...d.accesses.map(a => a.operation)])].sort())) return false;
     if (e.dependencies.length !== d.dependencies.length || !unique(e.dependencies.map(x => x.dependencyRef))) return false;
     for (const dep of d.dependencies) {
       const observed = e.dependencies.find(x => x.dependencyRef === dep.dependencyRef);
-      if (!observed || observed.record.digest !== dep.recordDigest || hash(observed.members) !== hash(dep.members)) return false;
+      if (!observed || observed.record.digest !== dep.recordDigest || !canonicalEquals(observed.members, dep.members)) return false;
       exactStdoBytes(observed.record);
     }
     if (e.contexts.length !== d.contexts.length || !unique(e.contexts.map(c => c.contextRef))) return false;
@@ -250,26 +254,29 @@ export function isRunEnvironmentEvidence(value: unknown): value is RunEnvironmen
       const observed = e.accesses.find(x => x.accessRef === a.accessRef);
       if (!observed || observed.command.executablePath !== r.pythonPath || observed.command.executableDigest !== corpus.pythonExecutableDigest ||
         observed.command.cwd !== tool.root || exactStdoBytes(observed.stdout).length > a.maxOutputBytes ||
-        observed.durationMs > a.timeoutMs || observed.startedAt > observed.completedAt || hash(observed.bindings) !== hash(expectedBindings)) return false;
+        observed.durationMs > a.timeoutMs || observed.startedAt > observed.completedAt || !canonicalEquals(observed.bindings, expectedBindings)) return false;
       const args = observed.command.arguments, bindingPath = args[a.operation === "validate" ? 5 : 7];
       if (!bindingPath || !isAbsolute(bindingPath) || !confined(r.temporaryRoot, bindingPath)) return false;
       const p = JSON.parse(exactStdoBytes(observed.stdout).toString("utf8"));
-      if (!record(p) || hash(p) !== hash(observed.projection) || p.program_uri !== corpus.program.uri || p.program_sha256 !== corpus.program.canonicalDigest ||
+      if (!record(p) || !canonicalEquals(p, observed.projection) || p.program_uri !== corpus.program.uri || p.program_sha256 !== corpus.program.canonicalDigest ||
         !Array.isArray(p.resolved_sources) || !p.resolved_sources.every(sourceMatches)) return false;
       const prefix = [resolve(tool.root, corpus.executablePath), a.operation, "--program", resolve(rep.root, corpus.program.path)];
       if (a.operation === "validate") {
         const outputPath = args[7];
-        if (!outputPath || !confined(r.temporaryRoot, outputPath) || hash(args) !== hash([...prefix, "--bindings", bindingPath, "--emit-map", outputPath]) ||
+        if (!outputPath || !confined(r.temporaryRoot, outputPath) || !canonicalEquals(args, [...prefix, "--bindings", bindingPath, "--emit-map", outputPath]) ||
           p.kind !== "axiom-indexer.validation-report" || p.schema_version !== 1 || p.status !== "valid" ||
           !Array.isArray(p.diagnostics) || p.diagnostics.length !== 0 || observed.output === null ||
-          exactStdoBytes(observed.output).length > a.maxOutputBytes || hash(JSON.parse(exactStdoBytes(observed.output).toString("utf8"))) !== hash(map) ||
-          observed.projectionDigest !== hash(p) || hash(p.resolved_sources) !== hash(map.resolved_sources)) return false;
+          exactStdoBytes(observed.output).length > a.maxOutputBytes || !canonicalEquals(JSON.parse(exactStdoBytes(observed.output).toString("utf8")) as JsonValue, map as JsonValue) ||
+          observed.projectionDigest !== hash(p) || !canonicalEquals(p.resolved_sources, map.resolved_sources as JsonValue)) return false;
       } else {
         const { projection_sha256, ...projectionBody } = p;
-        if (hash(args) !== hash([...prefix, "--map", resolve(rep.root, corpus.map.path), "--bindings", bindingPath,
-          ...a.frameIndexRefs.flatMap(ref => ["--frame-index", ref]), "--mode", a.mode]) || observed.output !== null ||
+        if (!canonicalEquals(
+          args,
+          [...prefix, "--map", resolve(rep.root, corpus.map.path), "--bindings", bindingPath,
+            ...a.frameIndexRefs.flatMap(ref => ["--frame-index", ref]), "--mode", a.mode],
+        ) || observed.output !== null ||
           p.kind !== "axiom-indexer.frame-projection" || p.schema_version !== 1 || p.mode !== a.mode || p.map_sha256 !== corpus.map.canonicalDigest ||
-          !Array.isArray(p.frame_indexes) || hash(p.frame_indexes.map((x: any) => x.uri)) !== hash(a.frameIndexRefs) ||
+          !Array.isArray(p.frame_indexes) || !canonicalEquals(p.frame_indexes.map((x: any) => x.uri), a.frameIndexRefs) ||
           hash(projectionBody) !== projection_sha256 || observed.projectionDigest !== projection_sha256) return false;
       }
     }
@@ -281,7 +288,7 @@ export function runEnvironmentEvidenceMatchesInvocation(evidence: unknown, publi
   const d = runEnvironmentForProgram(publication, program);
   if (d === null) return evidence === undefined || evidence === null;
   return d !== false && isRunEnvironmentEvidence(evidence) && evidence.environmentDigest === hash(d) &&
-    evidence.programRef === program.programRef && evidence.programDigest === hash(program) && hash(evidence.authority) === hash(authority);
+    evidence.programRef === program.programRef && evidence.programDigest === hash(program) && canonicalEquals(evidence.authority, authority);
 }
 export function projectRunEnvironmentRoleEvidence(events: readonly { kind: string; payload: JsonValue }[], invocationAdmissionRef: string,
   publication: Readonly<ModulePublication>, programRef: string, graphFunctionRef: string, programLocusRef: string, role: string) {
@@ -300,7 +307,7 @@ export function projectRunEnvironmentRoleEvidence(events: readonly { kind: strin
   return deepFreeze({ invocationAdmissionRef, environmentRef: d.declarationRef, environmentDigest: e.environmentDigest, evidenceDigest: e.evidenceDigest,
     role, graphFunctionRef, programLocusRef, frameRefs: r.frameRefs, policy: r.policy,
     contextPolicy: r.contextPolicy, contextPolicyDigest: hash(r.contextPolicy),
-    sourceContent: r.sourceBindings.filter((b, i, rows) => rows.findIndex(row => hash(row) === hash(b)) === i).map(b => {
+    sourceContent: r.sourceBindings.filter((b, i, rows) => rows.findIndex(row => canonicalEquals(row, b)) === i).map(b => {
       const m = e.contexts.find(c => c.contextRef === b.contextRef)!.members.find(m => m.memberRef === b.memberRef)!;
       const bytes = exactStdoBytes(m).subarray(b.startByte, b.endByte);
       const text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);

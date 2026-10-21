@@ -89,6 +89,7 @@ import type {
   NextActionProjection,
   TraversalRouteKind,
 } from "./traversal_route.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ReplayCCallState {
   readonly cCallRef: string;
@@ -187,7 +188,7 @@ export function runtimeReplayGuardsHaveSameOwnedCut(left: RuntimeReplayGuard, ri
   const a = REPLAY_GUARD_PREFIXES.get(left), b = REPLAY_GUARD_PREFIXES.get(right);
   return a !== undefined && b !== undefined && runtimeEventPrefixesHaveSameOwnedCut(a.prefix, b.prefix) &&
     runtimeEventPrefixesHaveSameOwnedCut(a.authority, b.authority) &&
-    sha256Canonical(left as unknown as JsonValue) === sha256Canonical(right as unknown as JsonValue);
+    canonicalEquals(left as unknown as JsonValue, right as unknown as JsonValue);
 }
 /** @internal Explicit complete-output boundary, with exact prefix/digest proof. */
 export function materializeRuntimeReplayGuard(guard: RuntimeReplayGuard): ReplayState {
@@ -1946,8 +1947,10 @@ function projectOwnerFacts(
         })
       : null;
     if (invocation === null || invocation.admissionEventRef !== event.eventId ||
-      derived === null || sha256Canonical(derived as unknown as JsonValue) !==
-        sha256Canonical(asserted)) {
+      derived === null || !canonicalEquals(
+        derived as unknown as JsonValue,
+        asserted,
+      )) {
       throw new TypeError(
         "run semantic relation requires one exact admitted external source-result basis",
       );

@@ -1,5 +1,4 @@
 import {
-  canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
@@ -28,6 +27,7 @@ import {
   promoteApplication,
   substituteApplication,
 } from "./graph_applications.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ComposeGraphFunctionsInput {
   readonly name: string;
@@ -291,8 +291,10 @@ function mergeApplications(
     const existing = byRef.get(candidate.applicationRef);
     if (
       existing !== undefined &&
-      canonicalJson(existing as unknown as JsonValue) !==
-        canonicalJson(candidate as unknown as JsonValue)
+      !canonicalEquals(
+        existing as unknown as JsonValue,
+        candidate as unknown as JsonValue,
+      )
     ) {
       throw new TypeError(
         `${relation} application identity conflict at ${candidate.applicationRef}`,

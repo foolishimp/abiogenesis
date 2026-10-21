@@ -59,6 +59,7 @@ import {
 import { projectTraversalRouteBody } from "./traversal_transition.js";
 import { projectFhContinuations } from "./continuation.js";
 import type { FhInteractionResumeAdmission } from "./continuation.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ScopeClosureAdmission {
   readonly kind: "scope_closure_admission";
@@ -236,8 +237,10 @@ function exactAdmissionPayload(
   return event?.kind === eventKind &&
     event.eventId === admissionEventRef &&
     isRecord(event.payload) &&
-    sha256Canonical(event.payload) ===
-      sha256Canonical(payload as unknown as JsonValue);
+    canonicalEquals(
+      event.payload,
+      payload as unknown as JsonValue,
+    );
 }
 
 function projectCurrentClosureTruth(
@@ -319,11 +322,14 @@ function projectCurrentClosureTruth(
     routeEvent.graphCallId !== cCall.graphCallId ||
     routeEvent.frameId !== cCall.frameId ||
     !isRecord(routeEvent.payload) ||
-    sha256Canonical(routeEvent.payload) !== sha256Canonical({
-      routeRef: route.routeRef,
-      routeDigest: route.routeDigest,
-      ...exactRouteBody,
-    } as unknown as JsonValue) ||
+    !canonicalEquals(
+      routeEvent.payload,
+      {
+        routeRef: route.routeRef,
+        routeDigest: route.routeDigest,
+        ...exactRouteBody,
+      } as unknown as JsonValue,
+    ) ||
     currentRoute?.routeRef !== route.routeRef ||
     currentRoute.routeDigest !== route.routeDigest ||
     currentRoute.admissionEventRef !== route.admissionEventRef ||
@@ -533,7 +539,7 @@ export function admitOwnedScopeClosure(
     closureContract.judgmentContractRef !== expectedJudgmentContractRef ||
     closureContract.transitionContractRef !== route.contractRef ||
     closureContract.closureScope !== expectedScope ||
-    closureContract.eventKindRefs.join("\0") !== expectedEventKinds.join("\0") ||
+    !canonicalEquals(closureContract.eventKindRefs, expectedEventKinds) ||
     alreadyClosed
   ) {
     return refuseClosureWithoutEffects(

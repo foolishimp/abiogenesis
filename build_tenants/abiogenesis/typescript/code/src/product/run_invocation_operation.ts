@@ -14,7 +14,7 @@ import type {
   AbgRunTruthProjection,
   AbgRunTruthRefusal,
 } from "../abg/project_read_ports.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -55,6 +55,7 @@ import {
   type ProductInvocationSourceResultBasis,
   type GovernanceCoveredSourceUse,
 } from "./semantics.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export type RunInvocationMemberKey = "invoke" | "start";
 type InvokePacket = typeof RUN_OPERATION_CONTRACTS.invoke.invoke;
@@ -187,14 +188,6 @@ function preparationRefusal<M extends RunInvocationMemberKey>(
   });
 }
 
-function exactJson(left: unknown, right: unknown): boolean {
-  try {
-    return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-  } catch {
-    return false;
-  }
-}
-
 function catalogRef(digest: Sha256Digest): string {
   return `graph-function-catalog://abiogenesis/${digest.slice("sha256:".length)}`;
 }
@@ -219,7 +212,7 @@ function exactApplications(
             appliedValueDigest: application.appliedValueDigest,
           });
           return reconstructed.kind === "declaration_application" &&
-            exactJson(reconstructed, application);
+            canonicalEquals(reconstructed as unknown as JsonValue, application as unknown as JsonValue);
         });
   } catch {
     return false;
@@ -354,8 +347,11 @@ export function runOperationAuthorityMatches(
       ? inputSlot.valueDigest === sha256Canonical(inputSlot.value) // exact selected cursor/input joins in its owner
       : isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
     : invocation.definitionKey.memberKey === "start"
-    ? exactJson(inputSlot, authorityRequest.input)
-    : exactJson(inputSlot.contract, authorityRequest.inputContract) && exactJson(inputSlot.value, authorityRequest.input) &&
+    ? authorityRequest.input !== undefined &&
+      canonicalEquals(inputSlot as unknown as JsonValue, authorityRequest.input)
+    : authorityRequest.inputContract !== undefined &&
+      canonicalEquals(inputSlot.contract as unknown as JsonValue, authorityRequest.inputContract) &&
+      authorityRequest.input !== undefined && canonicalEquals(inputSlot.value, authorityRequest.input) &&
       inputSlot.valueDigest === sha256Canonical(authorityRequest.input!));
   const requestTarget = isRecord(authorityRequest.target)
     ? authorityRequest.target
@@ -386,14 +382,14 @@ export function runOperationAuthorityMatches(
     catalogScope.catalog.digest === resources.catalog.basisDigest &&
     catalogScope.view.ref === catalogViewRef(resources.catalogView.viewDigest) &&
     catalogScope.view.digest === resources.catalogView.viewDigest &&
-    exactJson(catalogScope.allowlist, resources.catalogView.allowlist) &&
+    canonicalEquals(catalogScope.allowlist, resources.catalogView.allowlist) &&
     program !== null && program.ref === resolution.resolution.programRef &&
     program.digest === resolution.resolution.programDigest &&
     exactGraphFunctionAuthority && exactInputAuthority &&
     sessionPolicy !== null && sessionPolicy.ref === policy.policyRef &&
     sessionPolicy.digest === policy.policyDigest &&
     capabilities !== null &&
-    exactJson(capabilities.requiredCapabilityRefs, requiredCapabilities) &&
+    canonicalEquals(capabilities.requiredCapabilityRefs, requiredCapabilities) &&
     capabilities.grants.length === grants.length &&
     grants.every((grant) => capabilities.grants.some((row) =>
       row.ref === grant.grantRef && row.digest === grant.grantDigest
@@ -508,7 +504,8 @@ export async function prepareProductRunInvocation<
     !isRecord(request.catalogView) ||
     request.catalogView.ref !== catalogViewRef(resolution.resolution.catalogViewDigest) ||
     request.catalogView.digest !== resolution.resolution.catalogViewDigest ||
-    !exactJson(request.allowlist, resources.catalogView.allowlist)
+    request.allowlist === undefined ||
+    !canonicalEquals(request.allowlist, resources.catalogView.allowlist)
   ) {
     return preparationRefusal(memberKey, "invalid_view", ["/catalogView"]);
   }

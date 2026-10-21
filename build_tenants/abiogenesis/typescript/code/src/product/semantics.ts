@@ -22,6 +22,7 @@ import type {
   DeclarationApplication,
   GraphFunctionCatalogView,
 } from "./catalog.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ProductInvocationSourceResultBasis {
   readonly kind: "invocation_source_result_basis";
@@ -99,7 +100,7 @@ export function compareGovernanceDeclarationPublications(
       if (next === undefined) return null;
       const hash = (p: unknown) => sha256Canonical(p as JsonValue);
       let contextMeaning: JsonValue | null = null;
-      if (canonicalJson((old.runEnvironments ?? []) as unknown as JsonValue) !== canonicalJson((next.runEnvironments ?? []) as unknown as JsonValue)) {
+      if (!canonicalEquals((old.runEnvironments ?? []) as unknown as JsonValue, (next.runEnvironments ?? []) as unknown as JsonValue)) {
         const installed = (p: Readonly<ModulePublication>, owners: readonly ProductInstall[]) => owners.filter(i =>
           i.productId === p.owningProductId && i.artifactDigest === p.artifactDigest &&
           i.productContentDigest === p.productContentDigest && i.manifestDigest === p.productManifestDigest);
@@ -125,7 +126,7 @@ export function compareGovernanceDeclarationPublications(
             ref === artifactDigest ? "publication:artifact" : ref === productManifestDigest ? "publication:manifest" : ref).sort(compareUnicodeCodeUnits) })) } as unknown as JsonValue;
       };
       const a = normalized(old), b = normalized(next);
-      if (canonicalJson(a) !== canonicalJson(b)) return null;
+      if (!canonicalEquals(a, b)) return null;
       meanings.push(a);
       owners.push({ moduleRef: old.moduleRef, productId: old.owningProductId,
         historicalPublicationDigest: hash(old), currentPublicationDigest: hash(next) });

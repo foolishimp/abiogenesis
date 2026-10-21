@@ -3,7 +3,7 @@ import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isDeepStrictEqual } from "node:util";
 /** Deterministic preparation of an existing closed native child, not new authorship. */
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { materializeGraph } from "../gtl/materialize.js";
 import { defaultGovernanceGraphFunctions } from "../gtl/default_library.js";
@@ -35,7 +35,8 @@ import { authenticateNativeInstructionAssemblyBasis, type NativeInstructionAssem
 import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
 import { constructAbgHistoricalDeclarationReference, hasUniqueHistoricalDeclarationDependencies,
   type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource } from "./terminal_result_contracts.js";
-const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
+import { canonicalEquals } from "../shared/value/index.js";
+const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a as JsonValue, b as JsonValue);
 const hash = (a: unknown) => sha256Canonical(a as JsonValue);
 const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === "object" && !Array.isArray(v);
 const one = <T>(rows: { filter(predicate: (row: T) => boolean): T[] }, predicate: (row: T) => boolean): T | null => { const selected = rows.filter(predicate); return selected.length === 1 ? selected[0]! : null; };

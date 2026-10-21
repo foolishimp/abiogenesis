@@ -35,6 +35,7 @@ import { runtimeEventPrefixDigest,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface OpenedRun {
   readonly runId: string;
@@ -148,15 +149,6 @@ const openedScopes = new WeakSet<object>();
 
 export function isOpenedTraversalScope(value: object): boolean {
   return openedScopes.has(value);
-}
-
-function sameCanonicalValue(left: unknown, right: unknown): boolean {
-  try {
-    return sha256Canonical(left as JsonValue) ===
-      sha256Canonical(right as JsonValue);
-  } catch {
-    return false;
-  }
 }
 
 type RunPhase = "not_open" | "active" | "closed" | "stopped" | "failed";
@@ -522,7 +514,7 @@ export function openTraversalScope(
     );
     if (
       exactBasis === null || exactBasis.basisClass !== "root" ||
-      !sameCanonicalValue(exactBasis, subject.executionBasis)
+      !canonicalEquals(exactBasis as unknown as JsonValue, subject.executionBasis as unknown as JsonValue)
     ) {
       return scopeOpenRefusal(
         "execution_basis_not_admitted",
@@ -577,8 +569,8 @@ export function openTraversalScope(
       exactBasis === null || exactBasis.basisClass !== "child" ||
       exactParentScope === null || exactBasis.parentCCallRef === null ||
       exactBasis.parentExecutionBasisRef === null ||
-      !sameCanonicalValue(exactBasis, subject.executionBasis) ||
-      !sameCanonicalValue(exactParentScope, subject.parentScope)
+      !canonicalEquals(exactBasis as unknown as JsonValue, subject.executionBasis as unknown as JsonValue) ||
+      !canonicalEquals(exactParentScope as unknown as JsonValue, subject.parentScope as unknown as JsonValue)
     ) {
       return scopeOpenRefusal(
         "child_basis_not_admitted",

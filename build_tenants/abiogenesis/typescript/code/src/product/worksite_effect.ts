@@ -3,7 +3,6 @@ import { isAbsolute, posix, relative, resolve, win32 } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import {
-  canonicalJson,
   type JsonValue,
 } from "../shared/canonical_json.js";
 import {
@@ -28,6 +27,7 @@ import {
   isCapabilityGrantValue,
   type CapabilityGrant,
 } from "./invocation.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export const WORKSITE_FILE_REPLACE_EFFECT_URI =
   "effect://abiogenesis/worksite/file.replace/v1" as const;
@@ -367,16 +367,20 @@ export function worksitePostPublicationFailureMatches(
 ): value is WorksitePostPublicationFailure {
   if (!isWorksitePostPublicationFailure(value) || !isWorksiteFileReplaceRequest(request) ||
     !isWorksiteEffectAuthorization(expectedAuthorization) ||
-    canonicalJson(worksiteFailureAuthorization(value) as unknown as JsonValue) !==
-      canonicalJson(expectedAuthorization as unknown as JsonValue)) return false;
+    !canonicalEquals(
+      worksiteFailureAuthorization(value) as unknown as JsonValue,
+      expectedAuthorization as unknown as JsonValue,
+    )) return false;
   const outcome = value.physicalOutcome;
   if (outcome.kind === "owner_completed") {
     const receipt = constructWorksiteFileReplaceReceipt(expectedAuthorization,
       request.predecessorObservation, outcome.completedOwner.successorObservation,
       request.replacementDigest);
     return receipt.kind === "worksite_file_replace_receipt" &&
-      canonicalJson(receipt as unknown as JsonValue) ===
-        canonicalJson(outcome.completedOwner.receipt as unknown as JsonValue) &&
+      canonicalEquals(
+        receipt as unknown as JsonValue,
+        outcome.completedOwner.receipt as unknown as JsonValue,
+      ) &&
       outcome.completedOwner.successorObservation.byteLength === request.replacementByteLength;
   }
   const publication = outcome.publication;
@@ -1089,10 +1093,14 @@ export function constructWorksiteFileReplaceRequest(
   if (
     exactSubject.kind !== "worksite_subject" ||
     exactTerritory.kind !== "worksite_territory" ||
-    canonicalJson(exactSubject as unknown as JsonValue) !==
-      canonicalJson(input.subject as unknown as JsonValue) ||
-    canonicalJson(exactTerritory as unknown as JsonValue) !==
-      canonicalJson(input.territory as unknown as JsonValue)
+    !canonicalEquals(
+      exactSubject as unknown as JsonValue,
+      input.subject as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      exactTerritory as unknown as JsonValue,
+      input.territory as unknown as JsonValue,
+    )
   ) {
     return worksiteRefusal(
       "invalid_coordinate",
@@ -1241,10 +1249,14 @@ export function constructWorksiteEffectAuthorization(
     !isWorksiteObservation(predecessorObservation) ||
     reproducedSubject.kind !== "worksite_subject" ||
     reproducedTerritory.kind !== "worksite_territory" ||
-    canonicalJson(reproducedSubject as unknown as JsonValue) !==
-      canonicalJson(subject as unknown as JsonValue) ||
-    canonicalJson(reproducedTerritory as unknown as JsonValue) !==
-      canonicalJson(territory as unknown as JsonValue) ||
+    !canonicalEquals(
+      reproducedSubject as unknown as JsonValue,
+      subject as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      reproducedTerritory as unknown as JsonValue,
+      territory as unknown as JsonValue,
+    ) ||
     !worksiteSubjectWithinTerritory(subject, territory)
   ) {
     return worksiteRefusal(
@@ -1829,7 +1841,7 @@ export function isWorksiteFileParentsSuccess(value: unknown): value is WorksiteF
     !isWorksiteFileParentsRequest(value.request) || !isWorksiteFileParentsAuthorization(value.authorization) || !isRecord(value.receipt)) return false;
   const outcomes = value.receipt.outcomes;
   if (!fileParentsOutcomesValid(value.request, outcomes, true)) return false;
-  return canonicalJson(value as unknown as JsonValue) === canonicalJson(constructWorksiteFileParentsSuccess(value.request, value.authorization, outcomes) as unknown as JsonValue);
+  return canonicalEquals(value as unknown as JsonValue, constructWorksiteFileParentsSuccess(value.request, value.authorization, outcomes) as unknown as JsonValue);
 }
 
 /** Keep first failure and ordered physical facts; never compensate by deletion. */

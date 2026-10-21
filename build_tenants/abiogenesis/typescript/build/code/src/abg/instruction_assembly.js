@@ -29,6 +29,7 @@ import { isNativeRegisteredSelectionTask, nativeRegisteredSelectionResponseSchem
 import { cLeafTerms } from "../gtl/c_algebra.js";
 import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionTask, worksiteConstructionWorkerResultSchema } from "../product/worksite_construction.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS, isC2WorksiteCommandExecutionTask, worksiteCommandExecutionHelperPlan, renderWorksiteCommandExecutionPrompt, worksiteCommandExecutionWorkerResultSchema } from "../product/worksite_command_execution.js";
+import { canonicalEquals } from "../shared/value/index.js";
 /** Pure bookkeeping after each branch establishes its own selection and content. */
 function assemblyIdentity(domain, plan, owner, predecessorPrefix, content) {
     const planDigest = sha256Canonical(plan), planRef = `prompt-plan://abiogenesis/${domain}/${planDigest.slice(7)}`;
@@ -70,7 +71,7 @@ export function constructWorksiteNativeInstructionAssembly(basis, supplied) {
         const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
         if (owner === null || owner.call.regime !== "F_P" ||
             sha256Canonical(supplied) !== owner.inputDigest ||
-            sha256Canonical(owner.inputValue) !== sha256Canonical(supplied))
+            !canonicalEquals(owner.inputValue, supplied))
             return null;
         if (isNativeWorkspaceWorkTask(supplied)) {
             if (owner.call.implementationRef !== nativeIds.implementationRef || owner.call.graphFunctionRef !== nativeWorkspaceWorkGraphFunctionRef(supplied) ||
@@ -431,11 +432,11 @@ export function registeredSelectionInstructionResultMatches(candidate, input, ou
             return false;
         const predecessorPrefix = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, stored.envelope.predecessorPrefix);
         const expected = evaluateRegisteredSelectionInstructionAssembly({ ...basis, predecessorPrefix }, input, contractByRef);
-        if (expected.kind !== "native_instruction_assembly" || sha256Canonical(stored) !== sha256Canonical(expected) ||
+        if (expected.kind !== "native_instruction_assembly" || !canonicalEquals(stored, expected) ||
             expected.manifest.promptDigest !== observed.promptDigest)
             return false;
         const choice = materializeNativeRegisteredChoice(input, expected.envelope.targetBindings, JSON.parse(observed.finalOutput));
-        return choice !== null && sha256Canonical(choice) === sha256Canonical(output);
+        return choice !== null && canonicalEquals(choice, output);
     }
     catch {
         return false;
@@ -512,7 +513,7 @@ export function renderSemanticEvidenceTextView(evidence) {
         : evidence.constructionResult;
     const executionTask = native ? (() => {
         const task = observation.task, source = task.sourceNativeWork;
-        const sourceView = sha256Canonical(source) === sha256Canonical(evidence.constructionResult)
+        const sourceView = canonicalEquals(source, evidence.constructionResult)
             ? { observationRef: source.observationRef, observationDigest: source.observationDigest,
                 presentationRef: "#/evidence/observed/constructionResult", disposition: "same_admitted_construction_evidence" }
             : nativeEvidenceWorkView(source);
@@ -894,7 +895,7 @@ export function renderNativeRevisionSelectionDecisionView(sections, envelope) {
     // semantic/construction counterevidence and the selected current W stay full.
     const completedDigest = originalEvidence.operationalFailure != null && completed?.kind === "native_workspace_work_observation" &&
         constructionResult?.valueKind === "native_workspace_work_observation" &&
-        sha256Canonical(constructionResult.value) === sha256Canonical(completed)
+        canonicalEquals(constructionResult.value, completed)
         ? sha256Canonical(completed) : null;
     const isCompleted = (value) => completedDigest !== null && sha256Canonical(value) === completedDigest;
     const bodies = [], materials = [];
@@ -1010,7 +1011,7 @@ export function renderNativeRevisionSelectionDecisionView(sections, envelope) {
         const text = fileDigest === undefined ? undefined : byteTexts.get(fileDigest);
         if (text !== undefined) {
             try {
-                if (sha256Canonical(admitIJsonText(text, "observed native candidate presentation")) === sha256Canonical(asset.candidate))
+                if (canonicalEquals(admitIJsonText(text, "observed native candidate presentation"), asset.candidate))
                     materials[i] = { ...asset, candidate: { ...byteViews.get(fileDigest), interpretation: "exact_json_candidate", candidateDigest: sha256Canonical(asset.candidate) } };
             }
             catch { /* Keep the full candidate beside an unparseable observed file. */ }
@@ -1096,7 +1097,7 @@ function constructRevisionSelectionAssembly(basis, input, readPhysical) {
 }
 export function nativeInstructionRequestMatches(basis, input, request) {
     const expected = constructNativeInstructionAssembly(basis, input);
-    return expected !== null && sha256Canonical(expected.request) === sha256Canonical(request);
+    return expected !== null && canonicalEquals(expected.request, request);
 }
 /** The wrapper's candidate/source must equal the one actual native transport.
  * Full transport admission remains the existing actor/CCall owner's check. */
@@ -1114,14 +1115,14 @@ export function semanticInstructionResultMatches(basis, input, output) {
             const bindings = indexedRuntimeEvents(owner.prefix, "related:" + o.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === o.transportBindingRef);
             const closes = indexedRuntimeEvents(owner.prefix, "related:" + o.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === o.actorInvocationRef);
             if (bindings.length !== 1 || closes.length !== 1 || o.disposition !== "success" || o.toolCallCount !== 0 || typeof o.finalOutput !== "string" ||
-                sha256Canonical(JSON.parse(o.finalOutput)) !== sha256Canonical(output))
+                !canonicalEquals(JSON.parse(o.finalOutput), output))
                 return false;
             const stored = bindings[0].payload.instructionAssembly;
             if (stored?.kind !== "native_instruction_assembly")
                 return false;
             const predecessorPrefix = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, stored.envelope.predecessorPrefix);
             const expected = constructNativeInstructionAssembly({ ...basis, predecessorPrefix }, input);
-            return expected !== null && sha256Canonical(stored) === sha256Canonical(expected) &&
+            return expected !== null && canonicalEquals(stored, expected) &&
                 expected.manifest.promptDigest === o.promptDigest && closes[0].payload.consumedArtifactEventRef === rows[0].eventId;
         }
         if (owner?.role === null || owner === null || (!isSemanticStageEnvelope(output) && !isSemanticRevisionEnvelope(output) && !isSemanticJobEnvelope(output) && !isSemanticJobRevisionEnvelope(output)))
@@ -1147,14 +1148,14 @@ export function semanticInstructionResultMatches(basis, input, output) {
         const observedCandidate = (isSemanticJobEnvelope(input) || isSemanticJobRevisionEnvelope(input)) &&
             owner.stage !== undefined && semanticJobUsesDesignResponse(owner.role, owner.stage.bodyCapabilities)
             ? materializeSemanticJobDesignResponse(input, owner.stage.declarationRef, raw) : raw;
-        if (observedCandidate === null || sha256Canonical(observedCandidate) !== sha256Canonical(candidate))
+        if (observedCandidate === null || !canonicalEquals(observedCandidate, candidate))
             return false;
         const stored = bindings[0].payload.instructionAssembly;
         if (stored?.kind !== "native_instruction_assembly")
             return false;
         const previous = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, stored.envelope.predecessorPrefix);
         const expected = constructNativeInstructionAssembly({ ...basis, predecessorPrefix: previous }, input);
-        return expected !== null && sha256Canonical(stored) === sha256Canonical(expected) &&
+        return expected !== null && canonicalEquals(stored, expected) &&
             expected.manifest.promptDigest === source.promptDigest &&
             closes[0].payload.consumedArtifactEventRef === rows[0].eventId;
     }

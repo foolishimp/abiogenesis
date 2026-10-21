@@ -21,6 +21,7 @@ import type {
   ProductNativeDeclarationInventoryRow,
   ProductPublicContract,
 } from "./contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface DeclarationSource {
   readonly path: string;
@@ -751,7 +752,7 @@ function packageMetadataBasis(
     typeof name !== "string" || packageImportCoordinate(name)?.packageName !== name
   ) || new Set(bundled).size !== bundled.length ||
     (rootMetadata?.bundleDependencies !== undefined && rootMetadata.bundledDependencies !== undefined &&
-      canonicalJson(rootMetadata.bundleDependencies as JsonValue) !== canonicalJson(rootMetadata.bundledDependencies as JsonValue))
+      !canonicalEquals(rootMetadata.bundleDependencies as JsonValue, rootMetadata.bundledDependencies as JsonValue))
   ) return null;
   const rootDependencies = declarationDependencyNames(rootMetadata?.dependencies);
   if (rootDependencies === null || bundled.some(name => !rootDependencies.includes(name as string))) return null;
@@ -1424,9 +1425,10 @@ export async function resolveNativeDeclarationClosures(
   const rootMetadata = packages.metadataText.get(
     posix.join(VIRTUAL_PACKAGE_ROOT, "package.json"),
   );
-  if (rootMetadata !== undefined && canonicalJson(
+  if (rootMetadata !== undefined && !canonicalEquals(
     (JSON.parse(rootMetadata) as { exports?: JsonValue }).exports ?? null,
-  ) !== canonicalJson(request.packageExports as JsonValue)) return null;
+    request.packageExports as JsonValue,
+  )) return null;
   const externalTypeDirectiveStubs = new Map<string, string>();
   for (const [sourcePath, source] of sourceText) {
     const preprocessed = ts.preProcessFile(source, true, true);
@@ -1945,8 +1947,10 @@ function nativeProductApplicability(
       admitted.length !== 1 || locator.packageName !== product.packageName ||
       closure === null || closure.declarationPath !== locator.declarationPath ||
       !evidence.sources.some(source => source.declarationPath === closure.declarationPath) ||
-      canonicalJson(closure.declarationInventory as unknown as JsonValue) !==
-        canonicalJson(locator.declarationInventory as unknown as JsonValue)
+      !canonicalEquals(
+        closure.declarationInventory as unknown as JsonValue,
+        locator.declarationInventory as unknown as JsonValue,
+      )
     ) return null;
   }
   return "native";

@@ -96,6 +96,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { ProductSemanticsProvider } from "./semantics.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 function admitInput(
   contractRef: string,
@@ -358,7 +359,8 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
           basis.input.sourceConstructionResult as unknown as JsonValue,
         ) &&
         sha256Canonical(source.sourceResultValue) === source.sourceResultValueDigest &&
-        sha256Canonical(source.sourceResultValue) === sha256Canonical(
+        canonicalEquals(
+          source.sourceResultValue,
           basis.input.sourceConstructionResult as unknown as JsonValue,
         ) &&
         source.sourceWorkspaceId === basis.workspaceId &&
@@ -414,16 +416,15 @@ export const ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS = Object.freeze({
 
 function resolveWorksiteCommandForwardJudgmentRelation(predicateRef:string) {
   if(!([forwardIds.stepPredicateRef,forwardIds.rootPredicateRef,forwardIds.judgmentPredicateRef] as readonly string[]).includes(predicateRef))return null;
-  const same=(a:unknown,b:unknown)=>sha256Canonical(a as JsonValue)===sha256Canonical(b as JsonValue);
   return Object.freeze({predicateRef,advanceReasonRef:"reason://abiogenesis/worksite/command-forward/observed@5",
     rejectionReasonRef:"reason://abiogenesis/worksite/command-forward/unjoined@5",
     evaluate:(input:unknown,output:unknown):boolean=>{
       if(predicateRef===forwardIds.stepPredicateRef&&isWorksiteCommandForwardRequest(input)&&isWorksiteCommandForwardTask(output))
-        return same(output.request,input);
+        return canonicalEquals(output.request as unknown as JsonValue, input as unknown as JsonValue);
       if(!isWorksiteCommandForwardObservation(output))return false;
       return predicateRef===forwardIds.rootPredicateRef
-        ? isWorksiteCommandForwardRequest(input)&&same(output.task.request,input)
-        : isWorksiteCommandForwardTask(input)&&same(output.task,input);
+        ? isWorksiteCommandForwardRequest(input)&&canonicalEquals(output.task.request as unknown as JsonValue, input as unknown as JsonValue)
+        : isWorksiteCommandForwardTask(input)&&canonicalEquals(output.task as unknown as JsonValue, input as unknown as JsonValue);
     }});
 }
 
@@ -656,10 +657,10 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
           basis.requestValue.decisionRef ||
         responseCandidate.roundDecision.decisionDigest !==
           basis.requestValue.decisionDigest ||
-        sha256Canonical(
+        !canonicalEquals(
           responseCandidate.roundDecision as unknown as JsonValue,
-        ) !==
-          sha256Canonical(basis.requestValue as unknown as JsonValue)
+          basis.requestValue as unknown as JsonValue,
+        )
       ) {
         return null;
       }
@@ -731,9 +732,10 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
           basis.input.consensusInvocation,
         ) &&
         basis.actionCatalog !== null &&
-        sha256Canonical(
+        canonicalEquals(
           basis.input.actionCatalog as unknown as JsonValue,
-        ) === sha256Canonical(basis.actionCatalog);
+          basis.actionCatalog,
+        );
     }
     return basis.sourceResultBasis === null;
   },
@@ -802,7 +804,7 @@ export const ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS: ProductSemanticsProvide
       predicateRef, advanceReasonRef: "reason://abiogenesis/requirement-handoff/transferred@5",
       rejectionReasonRef: "reason://abiogenesis/requirement-handoff/refused@5",
       evaluate(input: unknown, output: unknown) {
-        return isRequirementHandoffInput(input) && isRequirementHandoffOutput(output) && sha256Canonical(input as unknown as JsonValue) === sha256Canonical(output.source as unknown as JsonValue);
+        return isRequirementHandoffInput(input) && isRequirementHandoffOutput(output) && canonicalEquals(input as unknown as JsonValue, output.source as unknown as JsonValue);
       },
     } : null;
   },
@@ -848,7 +850,6 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
         rejectionReasonRef: "reason://abiogenesis/semantic-revision/step-refused@5",
         evaluate(input: unknown, output: unknown) {
           try {
-            const equal = (a: unknown, b: unknown) => sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue);
             const matches = (ref: string, before: unknown, after: unknown) =>
               ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS.resolveJudgmentRelation(ref)?.evaluate(before, after) === true;
             const native = evaluateNativeSemanticRevisionRelation(predicateRef,input,output);
@@ -866,10 +867,10 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
                 evidence.kind === "semantic_worksite_evidence" &&
                 observation.task.revisionBasisRef === envelope.revisionBasis.basisRef &&
                 observation.task.revisionBasisDigest === envelope.revisionBasis.basisDigest &&
-                equal(observation.task.workspaceAuthorityBasis, envelope.current.worksite.workspaceAuthorityBasis) &&
-                equal(observation.task.workspaceBinding, envelope.current.worksite.workspaceBinding) &&
-                equal(observation.task.capabilityGrant, envelope.current.worksite.capabilityGrant) &&
-                equal(evidence.constructionResult, observation.task.sourceConstructionResult) &&
+                canonicalEquals(observation.task.workspaceAuthorityBasis as unknown as JsonValue, envelope.current.worksite.workspaceAuthorityBasis as unknown as JsonValue) &&
+                canonicalEquals(observation.task.workspaceBinding as unknown as JsonValue, envelope.current.worksite.workspaceBinding as unknown as JsonValue) &&
+                canonicalEquals(observation.task.capabilityGrant as unknown as JsonValue, envelope.current.worksite.capabilityGrant as unknown as JsonValue) &&
+                canonicalEquals(evidence.constructionResult, observation.task.sourceConstructionResult as unknown as JsonValue) &&
                 resultCoordinate(evidence.constructionResultRef, evidence.constructionResultDigest) &&
                 resultCoordinate(evidence.executionResultRef, evidence.executionResultDigest) &&
                 matches(revisionIds.evidenceInputPredicateRef, observation, envelope);
@@ -880,7 +881,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
               isWorksiteRevisionCommandExecutionObservation(output)) {
               const task = prepareWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0",
                 entry: input, source: output.task.sourceConstructionResult });
-              return equal(task, output.task) &&
+              return canonicalEquals(task as unknown as JsonValue, output.task as unknown as JsonValue) &&
                 resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_REVISION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
             }
             if (!isSemanticRevisionEnvelope(input) && !isSemanticJobRevisionEnvelope(input)) return false;
@@ -888,13 +889,13 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
               const worksite = input.current.worksite;
               return worksite !== null && input.current.evidence === null &&
                 output.revisionBasisRef === input.revisionBasis.basisRef && output.revisionBasisDigest === input.revisionBasis.basisDigest &&
-                equal(output.constructionTask.workspaceAuthorityBasis, worksite.workspaceAuthorityBasis) &&
-                equal(output.constructionTask.workspaceBinding, worksite.workspaceBinding) &&
-                equal(output.constructionTask.capabilityGrant, worksite.capabilityGrant) &&
+                canonicalEquals(output.constructionTask.workspaceAuthorityBasis as unknown as JsonValue, worksite.workspaceAuthorityBasis as unknown as JsonValue) &&
+                canonicalEquals(output.constructionTask.workspaceBinding as unknown as JsonValue, worksite.workspaceBinding as unknown as JsonValue) &&
+                canonicalEquals(output.constructionTask.capabilityGrant as unknown as JsonValue, worksite.capabilityGrant as unknown as JsonValue) &&
                 matches(revisionIds.bridgePredicateRef, input, output);
             }
-            if ((!isSemanticRevisionEnvelope(output) && !isSemanticJobRevisionEnvelope(output)) || !equal(input.revisionBasis, output.revisionBasis)) return false;
-            if (equal(input, output)) {
+            if ((!isSemanticRevisionEnvelope(output) && !isSemanticJobRevisionEnvelope(output)) || !canonicalEquals(input.revisionBasis as unknown as JsonValue, output.revisionBasis as unknown as JsonValue)) return false;
+            if (canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue)) {
               // A byte-preserving terminal is not enough: all declared stages
               // must be assessed, and a worksite chain must carry its C2 evidence.
               // Failed command observations remain honest completed observations.
@@ -917,29 +918,28 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
       return { predicateRef, advanceReasonRef: "reason://abiogenesis/semantic-revision/relation-satisfied@5", rejectionReasonRef: "reason://abiogenesis/semantic-revision/relation-refused@5",
         evaluate(input: unknown, output: unknown) {
           try {
-            const equal = (a: unknown, b: unknown) => sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue);
-            if (predicateRef === revisionIds.selectionPredicateRef) return isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output) && equal(input.parent, output.parent) && equal(input.causes, output.causes);
-            if (predicateRef === revisionIds.projectionPredicateRef) return isSemanticRevisionRequest(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && equal(input, output.revisionBasis.request);
+            if (predicateRef === revisionIds.selectionPredicateRef) return isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output) && canonicalEquals(input.parent as unknown as JsonValue, output.parent as unknown as JsonValue) && canonicalEquals(input.causes as unknown as JsonValue, output.causes as unknown as JsonValue);
+            if (predicateRef === revisionIds.projectionPredicateRef) return isSemanticRevisionRequest(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && canonicalEquals(input as unknown as JsonValue, output.revisionBasis.request as unknown as JsonValue);
             if (predicateRef === revisionIds.bridgePredicateRef) return (isSemanticRevisionEnvelope(input) || isSemanticJobRevisionEnvelope(input)) && isWorksitePreparationInput(output) && output.kind === "worksite_revision_command_preparation_input";
-            if (predicateRef === revisionIds.evidenceInputPredicateRef) return isWorksiteRevisionCommandExecutionObservation(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && equal(input, output.current.evidence?.executionObservation);
+            if (predicateRef === revisionIds.evidenceInputPredicateRef) return isWorksiteRevisionCommandExecutionObservation(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && canonicalEquals(input as unknown as JsonValue, output.current.evidence?.executionObservation as JsonValue);
             if (isSemanticJobRevisionEnvelope(input) || isSemanticJobRevisionEnvelope(output)) {
               if (!isSemanticJobRevisionEnvelope(input) || !isSemanticJobRevisionEnvelope(output)) return false;
-              if (predicateRef === revisionIds.terminalPredicateRef) return equal(input, output);
+              if (predicateRef === revisionIds.terminalPredicateRef) return canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue);
               const asset = output.current.assets.at(-1);
               if (asset === undefined) return false;
-              if (predicateRef === revisionIds.authorPredicateRef) return equal(deriveJobRevisionAsset(input, asset.stageRef, asset.candidate, asset.source), output);
+              if (predicateRef === revisionIds.authorPredicateRef) return canonicalEquals(deriveJobRevisionAsset(input, asset.stageRef, asset.candidate, asset.source) as unknown as JsonValue, output as unknown as JsonValue);
               if (asset.assessment?.disposition !== "satisfied") return false;
               const prior = input.current.assets.at(-1)?.assetRef === asset.assetRef ? input : deriveJobRevisionAsset(input, asset.stageRef, asset.candidate, asset.source);
-              return prior !== null && equal(deriveJobRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
+              return prior !== null && canonicalEquals(deriveJobRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source) as unknown as JsonValue, output as unknown as JsonValue);
             }
             if (!isSemanticRevisionEnvelope(input) || !isSemanticRevisionEnvelope(output)) return false;
-            if (predicateRef === revisionIds.terminalPredicateRef) return equal(input, output);
+            if (predicateRef === revisionIds.terminalPredicateRef) return canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue);
             const asset = output.current.assets.at(-1);
             if (asset === undefined) return false;
-            if (predicateRef === revisionIds.authorPredicateRef) return equal(deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source), output);
+            if (predicateRef === revisionIds.authorPredicateRef) return canonicalEquals(deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source) as unknown as JsonValue, output as unknown as JsonValue);
             if (asset.assessment?.disposition !== "satisfied") return false;
             const prior = input.current.assets.at(-1)?.assetRef === asset.assetRef ? input : deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source);
-            return prior !== null && equal(deriveRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
+            return prior !== null && canonicalEquals(deriveRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source) as unknown as JsonValue, output as unknown as JsonValue);
           } catch { return false; }
         } };
     }
@@ -959,7 +959,6 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
       rejectionReasonRef: "reason://abiogenesis/semantic-stage/relation-refused@5",
       evaluate(input: unknown, output: unknown) {
         try {
-          const equal = (a: unknown, b: unknown) => sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue);
           const job = evaluateSemanticJobRelation(predicateRef, input, output);
           if (job !== null) return job;
           if (predicateRef === ids.lifecycleStepPredicateRef) {
@@ -968,7 +967,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
             if (isSemanticStageEnvelope(input) && isSemanticStageEnvelope(output)) {
               // The terminal wire projection is byte preserving. Its executed
               // foldback still requires the one full lifecycle completion law.
-              if (equal(input, output)) return matches(ids.lifecyclePredicateRef, input, output);
+              if (canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue)) return matches(ids.lifecyclePredicateRef, input, output);
               const next = input.lifecycle.stages[input.assets.length];
               return next !== undefined && output.assets.length === input.assets.length + 1 &&
                 output.assets.at(-1)?.stageRef === next.declarationRef &&
@@ -980,30 +979,33 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
               isWorksiteCommandExecutionObservation(output)) {
               const task = prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0",
                 entry: input, source: output.task.sourceConstructionResult });
-              return equal(task, output.task) &&
+              return canonicalEquals(task as unknown as JsonValue, output.task as unknown as JsonValue) &&
                 resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
             }
             return false;
           }
           if (predicateRef === ids.bridgePredicateRef) return isSemanticStageEnvelope(input) &&
             isWorksitePreparationInput(output) && output.kind === "worksite_command_preparation_input" &&
-            equal(deriveSemanticWorksitePreparation(input, output.constructionTask), output);
+            canonicalEquals(deriveSemanticWorksitePreparation(input, output.constructionTask) as unknown as JsonValue, output as unknown as JsonValue);
           if (!isSemanticStageEnvelope(output)) return false;
-          if (predicateRef === ids.evidenceInputPredicateRef) return isWorksiteCommandExecutionObservation(input) && output.evidence !== null && equal(output.evidence.executionObservation, input);
+          if (predicateRef === ids.evidenceInputPredicateRef) return isWorksiteCommandExecutionObservation(input) && output.evidence !== null && canonicalEquals(output.evidence.executionObservation, input as unknown as JsonValue);
           if (!isSemanticStageEnvelope(input)) return false;
-          if (predicateRef === ids.terminalPredicateRef) return equal(input, output);
+          if (predicateRef === ids.terminalPredicateRef) return canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue);
           const asset = output.assets.at(-1);
           if (asset === undefined) return false;
-          if (predicateRef === ids.authorPredicateRef) return equal(deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source), output);
+          if (predicateRef === ids.authorPredicateRef) return canonicalEquals(deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source) as unknown as JsonValue, output as unknown as JsonValue);
           if (predicateRef === ids.assessorPredicateRef) {
             if (asset.assessment?.disposition !== "satisfied") return false;
             const assessmentInput = input.assets.at(-1)?.assetRef === asset.assetRef ? input
               : deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source);
-            return assessmentInput !== null && equal(deriveSemanticAssessment(assessmentInput, asset.stageRef,
-              asset.assessment.candidate, asset.assessment.source), output);
+            return assessmentInput !== null && canonicalEquals(
+              deriveSemanticAssessment(assessmentInput, asset.stageRef,
+                asset.assessment.candidate, asset.assessment.source) as unknown as JsonValue,
+              output as unknown as JsonValue,
+            );
           }
-          return equal(input.sourceHandoff, output.sourceHandoff) && equal(input.lifecycle, output.lifecycle) &&
-            equal(input.taskData, output.taskData) && equal(input.evaluationData, output.evaluationData) && equal(input.worksite, output.worksite) &&
+          return canonicalEquals(input.sourceHandoff as unknown as JsonValue, output.sourceHandoff as unknown as JsonValue) && canonicalEquals(input.lifecycle as unknown as JsonValue, output.lifecycle as unknown as JsonValue) &&
+            canonicalEquals(input.taskData, output.taskData) && canonicalEquals(input.evaluationData, output.evaluationData) && canonicalEquals(input.worksite as unknown as JsonValue, output.worksite as unknown as JsonValue) &&
             (!output.lifecycle.stages.some(stage => stage.bodyCapabilities.includes("application_assessment")) || output.evidence !== null) &&
             output.assets.length === output.lifecycle.stages.length &&
             output.lifecycle.stages.every((stage, i) => output.assets[i]?.stageRef === stage.declarationRef && output.assets[i]?.assessment?.disposition === "satisfied");

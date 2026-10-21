@@ -54,6 +54,7 @@ import {
   isWorksiteObservation,
   type WorksiteObservation,
 } from "../product/worksite_effect.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 let activeCommand: ReturnType<typeof spawn> | null = null;
 
@@ -200,8 +201,10 @@ function isWorksiteCommandExecutionLaunchManifest(
       `worksite-command-launch-manifest://abiogenesis/${launchManifestDigest.slice("sha256:".length)}`,
     launchManifestDigest,
   };
-  return canonicalJson(value as JsonValue) ===
-    canonicalJson(expected as unknown as JsonValue);
+  return canonicalEquals(
+    value as JsonValue,
+    expected as unknown as JsonValue,
+  );
 }
 
 function exactLaunchManifestArgument(): string {
@@ -556,7 +559,7 @@ function worksiteDelta(
   for (const relativePath of paths) {
     const prior = before.get(relativePath) ?? null;
     const next = after.get(relativePath) ?? null;
-    if (canonicalJson(prior as unknown as JsonValue) === canonicalJson(next as unknown as JsonValue)) continue;
+    if (canonicalEquals(prior as unknown as JsonValue, next as unknown as JsonValue)) continue;
     rows.push(Object.freeze({
       kind: "worksite_path_delta" as const,
       schemaVersion: "5.0.0" as const,
@@ -1342,8 +1345,10 @@ async function main(): Promise<void> {
   const productInventoryBefore = await filesystemInventory(
     task.workspaceBinding.roots.productRoot,
   );
-  const beforeMatches = before.every((row, ordinal) => canonicalJson(row as unknown as JsonValue) ===
-    canonicalJson(worksiteExecutionSources(task)[ordinal]!.observation as unknown as JsonValue));
+  const beforeMatches = before.every((row, ordinal) => canonicalEquals(
+    row as unknown as JsonValue,
+    worksiteExecutionSources(task)[ordinal]!.observation as unknown as JsonValue,
+  ));
   const commandResults: WorksiteCommandResult[] = [];
   const predicateObservations: WorksitePredicateObservation[] = [];
   const snapshot = beforeMatches
@@ -1392,8 +1397,10 @@ async function main(): Promise<void> {
     task.workspaceBinding.roots.productRoot,
   );
   const productDelta = worksiteDelta(task, productInventoryBefore, productInventoryAfter, false);
-  const afterMatches = after.every((row, ordinal) => canonicalJson(row as unknown as JsonValue) ===
-    canonicalJson(worksiteExecutionSources(task)[ordinal]!.observation as unknown as JsonValue));
+  const afterMatches = after.every((row, ordinal) => canonicalEquals(
+    row as unknown as JsonValue,
+    worksiteExecutionSources(task)[ordinal]!.observation as unknown as JsonValue,
+  ));
   const artifact = constructWorksiteExecutionHelperArtifact({
     task,
     disposition: !beforeMatches || !afterMatches

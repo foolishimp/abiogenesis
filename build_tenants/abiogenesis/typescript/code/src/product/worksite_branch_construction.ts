@@ -1,7 +1,6 @@
 import { isRecord, hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
 import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction_identity.js";
 import {
-  canonicalJson,
   type JsonValue,
 } from "../shared/canonical_json.js";
 import {
@@ -19,6 +18,7 @@ import {
   type WorksiteConstructionResultMember,
   type WorksiteConstructionTask,
 } from "./worksite_construction.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const SCHEMA_VERSION = "5.0.0" as const;
 
@@ -224,10 +224,6 @@ function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
 }
 
-function sameCanonical(left: unknown, right: unknown): boolean {
-  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-}
-
 function pathIsAncestor(left: string, right: string): boolean {
   const leftParts = left.split("/");
   const rightParts = right.split("/");
@@ -323,15 +319,15 @@ export function constructWorksiteBranchConstructionTask(
   const inputs = input.branches as readonly WorksiteConstructionBranchInput[];
   const firstTask = inputs[0]!.constructionTask;
   if (
-    !sameCanonical(input.workspaceBinding, firstTask.workspaceBinding) ||
-    !sameCanonical(input.capabilityGrant, firstTask.capabilityGrant) ||
+    !canonicalEquals(input.workspaceBinding as unknown as JsonValue, firstTask.workspaceBinding as unknown as JsonValue) ||
+    !canonicalEquals(input.capabilityGrant as unknown as JsonValue, firstTask.capabilityGrant as unknown as JsonValue) ||
     inputs.some((branch) =>
-      !sameCanonical(
-        branch.constructionTask.workspaceAuthorityBasis,
-        firstTask.workspaceAuthorityBasis,
+      !canonicalEquals(
+        branch.constructionTask.workspaceAuthorityBasis as unknown as JsonValue,
+        firstTask.workspaceAuthorityBasis as unknown as JsonValue,
       ) ||
-      !sameCanonical(branch.constructionTask.workspaceBinding, input.workspaceBinding) ||
-      !sameCanonical(branch.constructionTask.capabilityGrant, input.capabilityGrant)
+      !canonicalEquals(branch.constructionTask.workspaceBinding as unknown as JsonValue, input.workspaceBinding as unknown as JsonValue) ||
+      !canonicalEquals(branch.constructionTask.capabilityGrant as unknown as JsonValue, input.capabilityGrant as unknown as JsonValue)
     )
   ) {
     throw new TypeError(
@@ -437,7 +433,7 @@ export function isWorksiteBranchConstructionTask(
         };
       }),
     });
-    return sameCanonical(expected, value);
+    return canonicalEquals(expected as unknown as JsonValue, value as unknown as JsonValue);
   } catch {
     return false;
   }
@@ -507,12 +503,12 @@ export function isWorksiteBranchConstructionVector(
   }
   const firstTask = members[0]!.value;
   if (members.some((member) =>
-    !sameCanonical(
-      member.value.workspaceAuthorityBasis,
-      firstTask.workspaceAuthorityBasis,
+    !canonicalEquals(
+      member.value.workspaceAuthorityBasis as unknown as JsonValue,
+      firstTask.workspaceAuthorityBasis as unknown as JsonValue,
     ) ||
-    !sameCanonical(member.value.workspaceBinding, firstTask.workspaceBinding) ||
-    !sameCanonical(member.value.capabilityGrant, firstTask.capabilityGrant)
+    !canonicalEquals(member.value.workspaceBinding as unknown as JsonValue, firstTask.workspaceBinding as unknown as JsonValue) ||
+    !canonicalEquals(member.value.capabilityGrant as unknown as JsonValue, firstTask.capabilityGrant as unknown as JsonValue)
   )) return false;
   const body = {
     sourceTaskRef: value.sourceTaskRef,
@@ -696,7 +692,7 @@ function exactPlanRelation(input: unknown, output: unknown): boolean {
     !isWorksiteBranchConstructionVector(output)
   ) return false;
   try {
-    return sameCanonical(constructWorksiteBranchConstructionVector(input), output);
+    return canonicalEquals(constructWorksiteBranchConstructionVector(input) as unknown as JsonValue, output as unknown as JsonValue);
   } catch {
     return false;
   }
@@ -708,7 +704,7 @@ function exactReducerRelation(input: unknown, output: unknown): boolean {
     !isWorksiteConstructionResult(output)
   ) return false;
   try {
-    return sameCanonical(reduceWorksiteBranchConstructionResults(input), output);
+    return canonicalEquals(reduceWorksiteBranchConstructionResults(input) as unknown as JsonValue, output as unknown as JsonValue);
   } catch {
     return false;
   }

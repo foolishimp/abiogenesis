@@ -8,6 +8,7 @@ import type { GraphFunction } from "./contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export const WORKSITE_CONSTRUCTION_GTL_IDS = Object.freeze({
   graphRef: "graph://abiogenesis/worksite/construction@5",
@@ -151,6 +152,6 @@ export function worksitePreservedResultSourceOfGraphFunction(graphFunction: Grap
   try {
     const source = constructWorksitePreservedResultSource(JSON.parse(graphFunction.declarations["abg.preserved_result_source"] ?? "null"));
     const expected = constructWorksitePreservedResultRecoveryGraphFunction({ graphFunctionRef: graphFunction.name, source });
-    return canonicalJson(expected as unknown as JsonValue) === canonicalJson(graphFunction as unknown as JsonValue) ? source : null;
+    return canonicalEquals(expected as unknown as JsonValue, graphFunction as unknown as JsonValue) ? source : null;
   } catch { return null; }
 }

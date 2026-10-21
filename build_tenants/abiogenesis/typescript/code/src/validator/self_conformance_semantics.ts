@@ -11,7 +11,7 @@ import { isSelfConformanceInput, isSelfConformanceResult } from "./self_conforma
 import { evaluateSelfConformance } from "./self_conformance.js";
 import { QUALIFICATION_RAW_JUDGMENT_SCHEMA, QUALIFICATION_RULING_REQUEST_SCHEMA, QUALIFICATION_OWNER_RULING_SCHEMA,
   QUALIFICATION_VERDICT_INPUT_SCHEMA, isQualificationJudgment, isQualificationVerdict,
-  qualificationHash as hash, sameQualificationValue as same, type QualificationVerdictInput } from "./qualification_contracts.js";
+  qualificationHash as hash, type QualificationVerdictInput } from "./qualification_contracts.js";
 import { isQualificationAssessmentInput, qualificationRawMatches, qualificationRulingMatches, qualificationWorkerRequest,
   isQualificationVerdictInput, qualificationCoverageIsPublished, isQualificationBasisReady,
   constructQualificationJudgment, isMalformedGtlAssessmentInput,
@@ -19,6 +19,7 @@ import { isQualificationAssessmentInput, qualificationRawMatches, qualificationR
   isMalformedGtlAssessment, evaluateMalformedGtlAssessment } from "./qualification.js";
 import { projectQualificationConsumer, projectExactCandidateQualification, projectNativeRuntimeAssessment } from "../abg/qualification_proof.js";
 import { reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
 export function isQualificationContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
   switch (valueKind) {
@@ -52,21 +53,21 @@ export function qualificationResultRelation(predicateRef: string, input: unknown
         prefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, input.proof.prefix as DurablePrefixCoordinate) } };
       const expected = nativeProof?.qualificationAssessment !== undefined ? nativeProof.qualificationAssessment()
         : projectNativeRuntimeAssessment(basis, selected);
-      return isDeepStrictEqual(expected, output) || same(expected, output);
+      return isDeepStrictEqual(expected, output) || canonicalEquals(expected as unknown as JsonValue, output as unknown as JsonValue);
     }
     if (predicateRef === q.malformedAssessPredicate) return isMalformedGtlAssessmentInput(input) && isMalformedGtlAssessment(output) &&
-      projectQualificationConsumer(output.nativeBasis, input) !== null && same(evaluateMalformedGtlAssessment(input, output.nativeBasis), output);
+      projectQualificationConsumer(output.nativeBasis, input) !== null && canonicalEquals(evaluateMalformedGtlAssessment(input, output.nativeBasis) as unknown as JsonValue, output as unknown as JsonValue);
     if (predicateRef === ids.judgmentPredicateRef) {
       if (!isSelfConformanceInput(input) || !isSelfConformanceResult(output)) return false;
-      if (nativeProof?.qualificationSelfConformance !== undefined) return same(nativeProof.qualificationSelfConformance(), output);
+      if (nativeProof?.qualificationSelfConformance !== undefined) return canonicalEquals(nativeProof.qualificationSelfConformance() as unknown as JsonValue, output as unknown as JsonValue);
       const owner = resolveSelfConformanceOwner(output.owner.nativeBasis as QualificationOwnerBasis, input);
-      return owner !== null && same(owner, output.owner) && same(evaluateSelfConformance(input, owner), output);
+      return owner !== null && canonicalEquals(owner, output.owner) && canonicalEquals(evaluateSelfConformance(input, owner) as unknown as JsonValue, output as unknown as JsonValue);
     }
     if (predicateRef === q.assessPredicate) {
       if (nativeProof?.qualificationJudgment !== undefined) return nativeProof.qualificationJudgment();
       if (!isQualificationAssessmentInput(input) || !isQualificationJudgment(output) ||
           projectQualificationConsumer(output.nativeBasis, input) === null || !qualificationRawMatches(input, output.raw)) return false;
-      return same(constructQualificationJudgment(input, output.raw, output.nativeBasis, output.source), output);
+      return canonicalEquals(constructQualificationJudgment(input, output.raw, output.nativeBasis, output.source) as unknown as JsonValue, output as unknown as JsonValue);
     }
     if (predicateRef === q.verdictPredicate) {
       if (!isQualificationVerdict(output)) return false;
@@ -74,11 +75,11 @@ export function qualificationResultRelation(predicateRef: string, input: unknown
         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, output.nativeBasis.predecessorPrefix as DurablePrefixCoordinate) };
       const expected = nativeProof?.qualificationVerdict !== undefined ? nativeProof.qualificationVerdict()
         : projectExactCandidateQualification(basis, input);
-      return isDeepStrictEqual(expected, output) || same(expected, output);
+      return isDeepStrictEqual(expected, output) || canonicalEquals(expected as unknown as JsonValue, output as unknown as JsonValue);
     }
     if (predicateRef === q.rulingPredicate) return v.is(QUALIFICATION_RULING_REQUEST_SCHEMA, input)
       ? qualificationRulingMatches(input, output, input.actorRef)
-      : v.is(QUALIFICATION_OWNER_RULING_SCHEMA, input) && same(input, output);
+      : v.is(QUALIFICATION_OWNER_RULING_SCHEMA, input) && canonicalEquals(input, output as JsonValue);
     return false;
   } catch { return false; }
 }

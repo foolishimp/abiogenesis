@@ -25,15 +25,6 @@ export interface ExecutionClock {
   readonly correlationId: string;
 }
 
-export function sameCanonical(left: unknown, right: unknown): boolean {
-  try {
-    return sha256Canonical(left as JsonValue) ===
-      sha256Canonical(right as JsonValue);
-  } catch {
-    return false;
-  }
-}
-
 export function canonicalDigest(
   value: unknown,
 ): `sha256:${string}` | null {

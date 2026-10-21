@@ -1,5 +1,5 @@
 /** Closed D2-only source carriers. Origins are evidence coordinates, not grants. */
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
@@ -14,6 +14,7 @@ import { constructWorksiteCommandExecutionTask, constructWorksiteCommandConfigur
   type WorksiteOutcomePredicateInput, type WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
 
 import { WORKSITE_REVISION_IDS } from "./worksite_revision_identity.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export { WORKSITE_REVISION_IDS } from "./worksite_revision_identity.js";
 
 export type WorksiteRevisionObservationOrigin = Readonly<{
@@ -131,10 +132,13 @@ export function constructWorksiteRevisionCommandExecutionTask(input: WorksiteRev
       subject: row.subject, observation: row.observation })) });
   for (const row of input.snapshotSources) {
     if (row.observation.workspaceBindingIdentity !== input.workspaceBinding.bindingId ||
-      canonicalJson(row.subject as unknown as JsonValue) !== canonicalJson(constructWorksiteSubject({
-        workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
-        subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath,
-      }) as unknown as JsonValue)) throw new TypeError("revision C2 snapshot source crosses its exact A/W subject");
+      !canonicalEquals(
+        row.subject as unknown as JsonValue,
+        constructWorksiteSubject({
+          workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
+          subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath,
+        }) as unknown as JsonValue,
+      )) throw new TypeError("revision C2 snapshot source crosses its exact A/W subject");
   }
   const configuration = constructWorksiteCommandConfiguration({ ...input,
     outcomePredicates: input.outcomePredicates ?? [], protectedSubjects: input.snapshotSources.map(row => row.subject) });
@@ -156,7 +160,7 @@ export function isWorksiteRevisionCommandExecutionTask(value: unknown): value is
       "sourceConstructionResultRef","sourceConstructionResultDigest","sourceConstructionResult","materializationPlanRef","rendererRef",
       "instructionContractRef","resultContractRef","workerActorRef","workerBindingRef","transportLane","commands","outcomePredicates",
       "allowedWriteTerritories","revisionBasisRef","revisionBasisDigest","snapshotSources"])) return false;
-  try { return canonicalJson(value as JsonValue) === canonicalJson(constructWorksiteRevisionCommandExecutionTask(value as unknown as WorksiteRevisionCommandExecutionTaskInput) as unknown as JsonValue); }
+  try { return canonicalEquals(value as JsonValue, constructWorksiteRevisionCommandExecutionTask(value as unknown as WorksiteRevisionCommandExecutionTaskInput) as unknown as JsonValue); }
   catch { return false; }
 }
 export function isWorksiteExecutionTask(value: unknown): value is WorksiteExecutionTask {

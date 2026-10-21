@@ -3,6 +3,7 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { digestSchema, nonblankSchema, refDigestSchema } from "../shared/public_function_contracts.js";
 import type { PublishedReleaseOperationArtifact, TappedReleaseSnapshotRequest } from "./release_snapshot_operations.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const rawRecord = v.strictObject({ ref: nonblankSchema, digest: digestSchema,
   byteCount: v.pipe(v.number(), v.integer(), v.minValue(1)), contentBase64: nonblankSchema });
@@ -24,7 +25,6 @@ export const RELEASE_RULING_SOURCE_APPROVAL_SCHEMA = v.strictObject({
 });
 export type ReleaseRulingSourceApproval = v.InferOutput<typeof RELEASE_RULING_SOURCE_APPROVAL_SCHEMA>;
 const hash = (value: unknown) => sha256Canonical(value as JsonValue);
-const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
 export function releaseOwnerRulingCoordinate(ruling: ReleaseOwnerRuling) {
   const digest = hash(ruling); return { ref: `release-owner-ruling://abiogenesis/${digest.slice(7)}`, digest };
 }
@@ -52,11 +52,11 @@ function rawText(record: ReleaseOwnerRuling["response"]): string | null {
 export function resolveReleaseOwnerRuling(request: ReturnType<typeof releaseAcceptanceRequest>,
   ruling: ReleaseOwnerRuling | null, source: ReleaseRulingSourceApproval | null): "accept" | "withhold" | null {
   if (!v.is(RELEASE_OWNER_RULING_SCHEMA, ruling) || !v.is(RELEASE_RULING_SOURCE_APPROVAL_SCHEMA, source) ||
-      !same(ruling.owner, request.value.owner) || !same(ruling.request, request.coordinate) ||
-      !same(source.request, request.coordinate) || !same(source.owner, ruling.owner) || !same(source.channel, ruling.channel) ||
-      !same(source.ruling, releaseOwnerRulingCoordinate(ruling)) ||
-      !same(source.presentation, { ref: ruling.presentation.ref, digest: ruling.presentation.digest }) ||
-      !same(source.response, { ref: ruling.response.ref, digest: ruling.response.digest }) ||
+      !canonicalEquals(ruling.owner, request.value.owner) || !canonicalEquals(ruling.request, request.coordinate) ||
+      !canonicalEquals(source.request, request.coordinate) || !canonicalEquals(source.owner, ruling.owner) || !canonicalEquals(source.channel, ruling.channel) ||
+      !canonicalEquals(source.ruling, releaseOwnerRulingCoordinate(ruling)) ||
+      !canonicalEquals(source.presentation, { ref: ruling.presentation.ref, digest: ruling.presentation.digest }) ||
+      !canonicalEquals(source.response, { ref: ruling.response.ref, digest: ruling.response.digest }) ||
       ruling.inReplyTo !== ruling.presentation.ref || ruling.response.ref === ruling.presentation.ref ||
       rawText(ruling.presentation) !== request.presentation) return null;
   const original = rawText(ruling.response);

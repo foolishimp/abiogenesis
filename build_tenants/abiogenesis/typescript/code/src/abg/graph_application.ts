@@ -62,6 +62,7 @@ import {
   hasAdmittedTraversalCursorAtPrefix,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ApplicationChildFoldbackAdmission {
   readonly kind: "application_child_foldback_admission";
@@ -329,8 +330,10 @@ export function isAdmittedApplicationChildFoldbackAtPrefix(
     foldbackRef: value.foldbackRef,
   });
   return projected !== null &&
-    sha256Canonical(projected as unknown as JsonValue) ===
-      sha256Canonical(value as unknown as JsonValue);
+    canonicalEquals(
+      projected as unknown as JsonValue,
+      value as unknown as JsonValue,
+    );
 }
 
 export function isAdmittedApplicationChildPreparationRefusal(
@@ -364,8 +367,10 @@ export function isAdmittedApplicationChildPreparationRefusalAtPrefix(
     refusalRef: value.refusalRef,
   });
   return projected !== null &&
-    sha256Canonical(projected as unknown as JsonValue) ===
-      sha256Canonical(value as unknown as JsonValue);
+    canonicalEquals(
+      projected as unknown as JsonValue,
+      value as unknown as JsonValue,
+    );
 }
 
 export function projectCurrentApplicationChildPreparationRefusal(
@@ -774,8 +779,10 @@ function admitRecursiveApplicationChildPreparationRefusal(
         );
         if (
           projected === null ||
-          sha256Canonical(projected as unknown as JsonValue) !==
-            sha256Canonical(admitted as unknown as JsonValue)
+          !canonicalEquals(
+            projected as unknown as JsonValue,
+            admitted as unknown as JsonValue,
+          )
         ) {
           throw new TypeError(
             "application child preparation refusal admission must equal its validated Event Calculus projection",
@@ -1100,8 +1107,10 @@ function admitRecursiveApplicationChildFoldback(
         );
         if (
           projected === null ||
-          sha256Canonical(projected as unknown as JsonValue) !==
-            sha256Canonical(admitted as unknown as JsonValue)
+          !canonicalEquals(
+            projected as unknown as JsonValue,
+            admitted as unknown as JsonValue,
+          )
         ) {
           throw new TypeError(
             "application child foldback admission must equal its exact Event Calculus projection",

@@ -5,10 +5,11 @@ import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "../product/contracts.js
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { qualificationHash as hash, sameQualificationValue as same, type QualificationJudgment } from "../validator/qualification_contracts.js";
+import { qualificationHash as hash, type QualificationJudgment } from "../validator/qualification_contracts.js";
 import { isQualificationAssessmentInput, qualificationWorkerRequest, constructQualificationJudgment, prepareQualificationAssessment,
   isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment, isMalformedGtlAssessment } from "../validator/qualification.js";
 import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation, NativeLeafProofOperations } from "./contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 function descriptor(implementationRef: string, namedSymbol: string, inputContractRef: string, outputContractRef: string, computeRegime: "F_D" | "F_P") {
   const body = { implementationRef, namedSymbol, inputContractRef, outputContractRef, computeRegime,
     packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION, modulePath: "build/code/src/implementation/qualification.js",
@@ -41,7 +42,7 @@ export function realizeQualificationAssessment(input: Readonly<Record<string, Js
   const nativeBasis = occurrence.qualificationOwnerBasis, preparation = nativeProof?.qualificationPreparation?.(input, occurrence) ?? prepareQualificationAssessment(input), workerRequest = preparation.request;
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest,
     complete(exchange: Readonly<ActorProcessCarrierValidation>) {
-      if (!same(exchange.request, workerRequest) || exchange.observation.disposition !== "success" ||
+      if (!canonicalEquals(exchange.request as unknown as JsonValue, workerRequest as unknown as JsonValue) || exchange.observation.disposition !== "success" ||
           exchange.observation.failureClass !== null || exchange.observation.inputDigest !== hash(input) ||
           exchange.observation.actorRef !== workerRequest.actorRef || exchange.observation.workerBindingRef !== workerRequest.workerBindingRef ||
           exchange.observation.implementationRef !== q.assessImplementation || exchange.observation.toolCallCount !== 0) return failure("assessment_transport_mismatch");

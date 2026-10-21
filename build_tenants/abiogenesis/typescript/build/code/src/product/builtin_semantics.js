@@ -31,6 +31,7 @@ import { CONSENSUS_IDS, bindConsensusReplay, consensusCatalogApplicationBindings
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, } from "./contracts.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { canonicalEquals } from "../shared/value/index.js";
 function admitInput(contractRef, value) {
     if (contractRef === reacquireIds.requestContractRef && isNativeWorksiteCommandReacquisitionRequest(value))
         return deepFreeze(value);
@@ -252,7 +253,7 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
                 source.sourceResultContractRef === WORKSITE_CONSTRUCTION_IDS.resultContractRef &&
                 source.sourceResultValueDigest === sha256Canonical(basis.input.sourceConstructionResult) &&
                 sha256Canonical(source.sourceResultValue) === source.sourceResultValueDigest &&
-                sha256Canonical(source.sourceResultValue) === sha256Canonical(basis.input.sourceConstructionResult) &&
+                canonicalEquals(source.sourceResultValue, basis.input.sourceConstructionResult) &&
                 source.sourceWorkspaceId === basis.workspaceId &&
                 source.workspaceBindingId === basis.workspaceBindingId &&
                 source.workspaceBindingDigest === basis.workspaceBindingDigest;
@@ -302,17 +303,16 @@ export const ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS = Object.freeze({
 function resolveWorksiteCommandForwardJudgmentRelation(predicateRef) {
     if (![forwardIds.stepPredicateRef, forwardIds.rootPredicateRef, forwardIds.judgmentPredicateRef].includes(predicateRef))
         return null;
-    const same = (a, b) => sha256Canonical(a) === sha256Canonical(b);
     return Object.freeze({ predicateRef, advanceReasonRef: "reason://abiogenesis/worksite/command-forward/observed@5",
         rejectionReasonRef: "reason://abiogenesis/worksite/command-forward/unjoined@5",
         evaluate: (input, output) => {
             if (predicateRef === forwardIds.stepPredicateRef && isWorksiteCommandForwardRequest(input) && isWorksiteCommandForwardTask(output))
-                return same(output.request, input);
+                return canonicalEquals(output.request, input);
             if (!isWorksiteCommandForwardObservation(output))
                 return false;
             return predicateRef === forwardIds.rootPredicateRef
-                ? isWorksiteCommandForwardRequest(input) && same(output.task.request, input)
-                : isWorksiteCommandForwardTask(input) && same(output.task, input);
+                ? isWorksiteCommandForwardRequest(input) && canonicalEquals(output.task.request, input)
+                : isWorksiteCommandForwardTask(input) && canonicalEquals(output.task, input);
         } });
 }
 function hasExactConsensusCatalogApplications(basis, invocation) {
@@ -469,8 +469,7 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
                     basis.requestValue.decisionRef ||
                 responseCandidate.roundDecision.decisionDigest !==
                     basis.requestValue.decisionDigest ||
-                sha256Canonical(responseCandidate.roundDecision) !==
-                    sha256Canonical(basis.requestValue)) {
+                !canonicalEquals(responseCandidate.roundDecision, basis.requestValue)) {
                 return null;
             }
             return deepFreeze(responseCandidate);
@@ -519,7 +518,7 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
                     basis.workspaceId &&
                 hasExactConsensusCatalogApplications(basis, basis.input.consensusInvocation) &&
                 basis.actionCatalog !== null &&
-                sha256Canonical(basis.input.actionCatalog) === sha256Canonical(basis.actionCatalog);
+                canonicalEquals(basis.input.actionCatalog, basis.actionCatalog);
         }
         return basis.sourceResultBasis === null;
     },
@@ -572,7 +571,7 @@ export const ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS = Object.freeze({
             predicateRef, advanceReasonRef: "reason://abiogenesis/requirement-handoff/transferred@5",
             rejectionReasonRef: "reason://abiogenesis/requirement-handoff/refused@5",
             evaluate(input, output) {
-                return isRequirementHandoffInput(input) && isRequirementHandoffOutput(output) && sha256Canonical(input) === sha256Canonical(output.source);
+                return isRequirementHandoffInput(input) && isRequirementHandoffOutput(output) && canonicalEquals(input, output.source);
             },
         } : null;
     },
@@ -620,7 +619,6 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
                 rejectionReasonRef: "reason://abiogenesis/semantic-revision/step-refused@5",
                 evaluate(input, output) {
                     try {
-                        const equal = (a, b) => sha256Canonical(a) === sha256Canonical(b);
                         const matches = (ref, before, after) => ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS.resolveJudgmentRelation(ref)?.evaluate(before, after) === true;
                         const native = evaluateNativeSemanticRevisionRelation(predicateRef, input, output);
                         if (native !== null)
@@ -639,10 +637,10 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
                                 evidence.kind === "semantic_worksite_evidence" &&
                                 observation.task.revisionBasisRef === envelope.revisionBasis.basisRef &&
                                 observation.task.revisionBasisDigest === envelope.revisionBasis.basisDigest &&
-                                equal(observation.task.workspaceAuthorityBasis, envelope.current.worksite.workspaceAuthorityBasis) &&
-                                equal(observation.task.workspaceBinding, envelope.current.worksite.workspaceBinding) &&
-                                equal(observation.task.capabilityGrant, envelope.current.worksite.capabilityGrant) &&
-                                equal(evidence.constructionResult, observation.task.sourceConstructionResult) &&
+                                canonicalEquals(observation.task.workspaceAuthorityBasis, envelope.current.worksite.workspaceAuthorityBasis) &&
+                                canonicalEquals(observation.task.workspaceBinding, envelope.current.worksite.workspaceBinding) &&
+                                canonicalEquals(observation.task.capabilityGrant, envelope.current.worksite.capabilityGrant) &&
+                                canonicalEquals(evidence.constructionResult, observation.task.sourceConstructionResult) &&
                                 resultCoordinate(evidence.constructionResultRef, evidence.constructionResultDigest) &&
                                 resultCoordinate(evidence.executionResultRef, evidence.executionResultDigest) &&
                                 matches(revisionIds.evidenceInputPredicateRef, observation, envelope);
@@ -655,7 +653,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
                             isWorksiteRevisionCommandExecutionObservation(output)) {
                             const task = prepareWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0",
                                 entry: input, source: output.task.sourceConstructionResult });
-                            return equal(task, output.task) &&
+                            return canonicalEquals(task, output.task) &&
                                 resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_REVISION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
                         }
                         if (!isSemanticRevisionEnvelope(input) && !isSemanticJobRevisionEnvelope(input))
@@ -664,14 +662,14 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
                             const worksite = input.current.worksite;
                             return worksite !== null && input.current.evidence === null &&
                                 output.revisionBasisRef === input.revisionBasis.basisRef && output.revisionBasisDigest === input.revisionBasis.basisDigest &&
-                                equal(output.constructionTask.workspaceAuthorityBasis, worksite.workspaceAuthorityBasis) &&
-                                equal(output.constructionTask.workspaceBinding, worksite.workspaceBinding) &&
-                                equal(output.constructionTask.capabilityGrant, worksite.capabilityGrant) &&
+                                canonicalEquals(output.constructionTask.workspaceAuthorityBasis, worksite.workspaceAuthorityBasis) &&
+                                canonicalEquals(output.constructionTask.workspaceBinding, worksite.workspaceBinding) &&
+                                canonicalEquals(output.constructionTask.capabilityGrant, worksite.capabilityGrant) &&
                                 matches(revisionIds.bridgePredicateRef, input, output);
                         }
-                        if ((!isSemanticRevisionEnvelope(output) && !isSemanticJobRevisionEnvelope(output)) || !equal(input.revisionBasis, output.revisionBasis))
+                        if ((!isSemanticRevisionEnvelope(output) && !isSemanticJobRevisionEnvelope(output)) || !canonicalEquals(input.revisionBasis, output.revisionBasis))
                             return false;
-                        if (equal(input, output)) {
+                        if (canonicalEquals(input, output)) {
                             // A byte-preserving terminal is not enough: all declared stages
                             // must be assessed, and a worksite chain must carry its C2 evidence.
                             // Failed command observations remain honest completed observations.
@@ -697,43 +695,42 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
             return { predicateRef, advanceReasonRef: "reason://abiogenesis/semantic-revision/relation-satisfied@5", rejectionReasonRef: "reason://abiogenesis/semantic-revision/relation-refused@5",
                 evaluate(input, output) {
                     try {
-                        const equal = (a, b) => sha256Canonical(a) === sha256Canonical(b);
                         if (predicateRef === revisionIds.selectionPredicateRef)
-                            return isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output) && equal(input.parent, output.parent) && equal(input.causes, output.causes);
+                            return isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output) && canonicalEquals(input.parent, output.parent) && canonicalEquals(input.causes, output.causes);
                         if (predicateRef === revisionIds.projectionPredicateRef)
-                            return isSemanticRevisionRequest(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && equal(input, output.revisionBasis.request);
+                            return isSemanticRevisionRequest(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && canonicalEquals(input, output.revisionBasis.request);
                         if (predicateRef === revisionIds.bridgePredicateRef)
                             return (isSemanticRevisionEnvelope(input) || isSemanticJobRevisionEnvelope(input)) && isWorksitePreparationInput(output) && output.kind === "worksite_revision_command_preparation_input";
                         if (predicateRef === revisionIds.evidenceInputPredicateRef)
-                            return isWorksiteRevisionCommandExecutionObservation(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && equal(input, output.current.evidence?.executionObservation);
+                            return isWorksiteRevisionCommandExecutionObservation(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && canonicalEquals(input, output.current.evidence?.executionObservation);
                         if (isSemanticJobRevisionEnvelope(input) || isSemanticJobRevisionEnvelope(output)) {
                             if (!isSemanticJobRevisionEnvelope(input) || !isSemanticJobRevisionEnvelope(output))
                                 return false;
                             if (predicateRef === revisionIds.terminalPredicateRef)
-                                return equal(input, output);
+                                return canonicalEquals(input, output);
                             const asset = output.current.assets.at(-1);
                             if (asset === undefined)
                                 return false;
                             if (predicateRef === revisionIds.authorPredicateRef)
-                                return equal(deriveJobRevisionAsset(input, asset.stageRef, asset.candidate, asset.source), output);
+                                return canonicalEquals(deriveJobRevisionAsset(input, asset.stageRef, asset.candidate, asset.source), output);
                             if (asset.assessment?.disposition !== "satisfied")
                                 return false;
                             const prior = input.current.assets.at(-1)?.assetRef === asset.assetRef ? input : deriveJobRevisionAsset(input, asset.stageRef, asset.candidate, asset.source);
-                            return prior !== null && equal(deriveJobRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
+                            return prior !== null && canonicalEquals(deriveJobRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
                         }
                         if (!isSemanticRevisionEnvelope(input) || !isSemanticRevisionEnvelope(output))
                             return false;
                         if (predicateRef === revisionIds.terminalPredicateRef)
-                            return equal(input, output);
+                            return canonicalEquals(input, output);
                         const asset = output.current.assets.at(-1);
                         if (asset === undefined)
                             return false;
                         if (predicateRef === revisionIds.authorPredicateRef)
-                            return equal(deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source), output);
+                            return canonicalEquals(deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source), output);
                         if (asset.assessment?.disposition !== "satisfied")
                             return false;
                         const prior = input.current.assets.at(-1)?.assetRef === asset.assetRef ? input : deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source);
-                        return prior !== null && equal(deriveRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
+                        return prior !== null && canonicalEquals(deriveRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
                     }
                     catch {
                         return false;
@@ -756,7 +753,6 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
             rejectionReasonRef: "reason://abiogenesis/semantic-stage/relation-refused@5",
             evaluate(input, output) {
                 try {
-                    const equal = (a, b) => sha256Canonical(a) === sha256Canonical(b);
                     const job = evaluateSemanticJobRelation(predicateRef, input, output);
                     if (job !== null)
                         return job;
@@ -765,7 +761,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
                         if (isSemanticStageEnvelope(input) && isSemanticStageEnvelope(output)) {
                             // The terminal wire projection is byte preserving. Its executed
                             // foldback still requires the one full lifecycle completion law.
-                            if (equal(input, output))
+                            if (canonicalEquals(input, output))
                                 return matches(ids.lifecyclePredicateRef, input, output);
                             const next = input.lifecycle.stages[input.assets.length];
                             return next !== undefined && output.assets.length === input.assets.length + 1 &&
@@ -780,7 +776,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
                             isWorksiteCommandExecutionObservation(output)) {
                             const task = prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0",
                                 entry: input, source: output.task.sourceConstructionResult });
-                            return equal(task, output.task) &&
+                            return canonicalEquals(task, output.task) &&
                                 resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
                         }
                         return false;
@@ -788,29 +784,29 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
                     if (predicateRef === ids.bridgePredicateRef)
                         return isSemanticStageEnvelope(input) &&
                             isWorksitePreparationInput(output) && output.kind === "worksite_command_preparation_input" &&
-                            equal(deriveSemanticWorksitePreparation(input, output.constructionTask), output);
+                            canonicalEquals(deriveSemanticWorksitePreparation(input, output.constructionTask), output);
                     if (!isSemanticStageEnvelope(output))
                         return false;
                     if (predicateRef === ids.evidenceInputPredicateRef)
-                        return isWorksiteCommandExecutionObservation(input) && output.evidence !== null && equal(output.evidence.executionObservation, input);
+                        return isWorksiteCommandExecutionObservation(input) && output.evidence !== null && canonicalEquals(output.evidence.executionObservation, input);
                     if (!isSemanticStageEnvelope(input))
                         return false;
                     if (predicateRef === ids.terminalPredicateRef)
-                        return equal(input, output);
+                        return canonicalEquals(input, output);
                     const asset = output.assets.at(-1);
                     if (asset === undefined)
                         return false;
                     if (predicateRef === ids.authorPredicateRef)
-                        return equal(deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source), output);
+                        return canonicalEquals(deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source), output);
                     if (predicateRef === ids.assessorPredicateRef) {
                         if (asset.assessment?.disposition !== "satisfied")
                             return false;
                         const assessmentInput = input.assets.at(-1)?.assetRef === asset.assetRef ? input
                             : deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source);
-                        return assessmentInput !== null && equal(deriveSemanticAssessment(assessmentInput, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
+                        return assessmentInput !== null && canonicalEquals(deriveSemanticAssessment(assessmentInput, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
                     }
-                    return equal(input.sourceHandoff, output.sourceHandoff) && equal(input.lifecycle, output.lifecycle) &&
-                        equal(input.taskData, output.taskData) && equal(input.evaluationData, output.evaluationData) && equal(input.worksite, output.worksite) &&
+                    return canonicalEquals(input.sourceHandoff, output.sourceHandoff) && canonicalEquals(input.lifecycle, output.lifecycle) &&
+                        canonicalEquals(input.taskData, output.taskData) && canonicalEquals(input.evaluationData, output.evaluationData) && canonicalEquals(input.worksite, output.worksite) &&
                         (!output.lifecycle.stages.some(stage => stage.bodyCapabilities.includes("application_assessment")) || output.evidence !== null) &&
                         output.assets.length === output.lifecycle.stages.length &&
                         output.lifecycle.stages.every((stage, i) => output.assets[i]?.stageRef === stage.declarationRef && output.assets[i]?.assessment?.disposition === "satisfied");

@@ -15,7 +15,6 @@ import type { InvocationAdmission } from "./invocation_admission.js";
 import { isInvocationSourceResultBasis } from "./invocation_admission.js";
 import type { RuntimeEvent } from "./event_store.js";
 import { governanceContract, governanceRef, isGovernanceWorkState, type GovernanceWorkState } from "../product/default_library.js";
-import { canonicalJson } from "../shared/canonical_json.js";
 import { compareGovernanceDeclarationPublications, type GovernanceCoveredSourceUse,
   type ProductInvocationSourceResultBasis } from "../product/semantics.js";
 import type { WorkspaceBinding } from "../product/environment.js";
@@ -29,8 +28,8 @@ import { projectOwnedPrefixArtifactTruth } from "./artifact_truth.js";
 import { projectAdmittedWorkspaceBindingAtCoordinate, projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
 import { validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import { runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./event_store.js";
-
-const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
+import { canonicalEquals, canonicalRecordDigest } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 
 /** @internal Existing Catalog reconstruction binds each complete preimage to
  * its actual admitted install/lock/W. No copied Catalog grants applicability. */
@@ -60,7 +59,7 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
     const result = indexedRuntimeEvents(prefix, "id:" + source.sourceResultAdmissionEventRef).filter(e => e.eventId === source.sourceResultAdmissionEventRef && e.kind === "c_call_result_admitted");
     if (invocation === null || result.length !== 1 || !isRecord(result[0]!.payload) ||
         result[0]!.payload.resultRef !== source.sourceResultRef || result[0]!.payload.resultDigest !== source.sourceResultDigest ||
-        result[0]!.payload.valueDigest !== source.sourceResultValueDigest || !same(result[0]!.payload.value, source.sourceResultValue) ||
+        result[0]!.payload.valueDigest !== source.sourceResultValueDigest || !canonicalEquals(result[0]!.payload.value as JsonValue, source.sourceResultValue) ||
         result[0]!.aggregateId !== source.sourceCCallRef || result[0]!.runId !== source.sourceRunId ||
         invocation.workspaceBindingId !== source.workspaceBindingId || invocation.workspaceBindingDigest !== source.workspaceBindingDigest ||
         invocation.workspaceId !== workspaceBinding.workspaceId || invocation.actorRef !== workspaceBinding.authorizedActorRef ||
@@ -76,7 +75,7 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
     const currentEnvironment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
       { ref: workspaceBinding.bindingId, digest: workspaceBinding.bindingDigest });
     if (oldEnvironment.kind !== "exact_prefix_workspace_environment" || currentEnvironment.kind !== "exact_prefix_workspace_environment" ||
-        !same(currentEnvironment.workspaceBinding, workspaceBinding)) return null;
+        !canonicalEquals(currentEnvironment.workspaceBinding as unknown as JsonValue, workspaceBinding as unknown as JsonValue)) return null;
     const reconstruct = (proof: AbgHistoricalDeclarationProof, env: typeof oldEnvironment) => reconstructHistoricalDeclarationCatalog(proof, {
       workspaceBinding: env.workspaceBindingCandidate, resolvedLock: env.resolvedProductLock,
       installedProducts: env.productInstalls.map(i => {
@@ -86,19 +85,19 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
       }),
     });
     const old = reconstruct(historical[0]!, oldEnvironment), current = reconstruct(currentDeclaration, currentEnvironment);
-    if (!same(old.catalogView.allowlist, current.catalogView.allowlist)) return null;
+    if (!canonicalEquals(old.catalogView.allowlist, current.catalogView.allowlist)) return null;
     const oldClosure = resolveProgramDeclarationClosure(old.catalog, old.catalogView, program.programRef);
     const newClosure = resolveProgramDeclarationClosure(current.catalog, current.catalogView, program.programRef);
     const selected = resolveExecutionDeclarationClosure(old.catalog, old.catalogView, program.programRef, graphFunction.name);
     if (oldClosure.kind !== "resolved_program_declaration_closure" || newClosure.kind !== "resolved_program_declaration_closure" ||
         selected.kind !== "resolved_execution_declaration_closure" ||
-        oldClosure.programPublication.programs.filter(p => same(p, program)).length !== 1 ||
-        newClosure.programPublication.programs.filter(p => same(p, program)).length !== 1) return null;
+        oldClosure.programPublication.programs.filter(p => canonicalEquals(p, program)).length !== 1 ||
+        newClosure.programPublication.programs.filter(p => canonicalEquals(p, program)).length !== 1) return null;
     const inputContract = selectExactClosureContract(selected, invocation.inputContractRef);
     const outputContract = selectExactClosureContract(selected, invocation.outputContractRef);
     if (inputContract === null || outputContract === null ||
-        sha256Canonical(inputContract.contract as unknown as JsonValue) !== invocation.inputContractDigest || !same(inputContract.owner, invocation.inputContractOwner) ||
-        sha256Canonical(outputContract.contract as unknown as JsonValue) !== invocation.outputContractDigest || !same(outputContract.owner, invocation.outputContractOwner)) return null;
+        sha256Canonical(inputContract.contract as unknown as JsonValue) !== invocation.inputContractDigest || !canonicalEquals(inputContract.owner as unknown as JsonValue, invocation.inputContractOwner as unknown as JsonValue) ||
+        sha256Canonical(outputContract.contract as unknown as JsonValue) !== invocation.outputContractDigest || !canonicalEquals(outputContract.owner as unknown as JsonValue, invocation.outputContractOwner as unknown as JsonValue)) return null;
     const compared = compareGovernanceDeclarationPublications(oldClosure.publications, newClosure.publications,
       { historical: oldEnvironment.productInstalls, current: currentEnvironment.productInstalls });
     const basis = result[0]!.basisId === null ? null : projectExactExecutionBasisAtPrefix(prefix, result[0]!.basisId);
@@ -125,7 +124,7 @@ function coveredGovernancePredecessor(prefix: RuntimeEventPrefix,
   invocation: InvocationAdmission): InvocationAdmission | null {
   const actual = projectExactInvocationAdmissionAtPrefix(prefix, invocation.invocationAdmissionRef);
   const source = actual?.sourceResultBasis;
-  if (actual === null || !same(actual, invocation) || source === null || source === undefined ||
+  if (actual === null || !canonicalEquals(actual as unknown as JsonValue, invocation as unknown as JsonValue) || source === null || source === undefined ||
       !isInvocationSourceResultBasis(source) || source.sourceResultContractRef !== governanceContract("state") ||
       !isGovernanceWorkState(source.sourceResultValue) || source.sourceResultValue.terminal ||
       actual.rawInputDigest !== source.sourceResultValueDigest) return null;
@@ -151,7 +150,7 @@ function coveredGovernancePredecessor(prefix: RuntimeEventPrefix,
       result.aggregateId !== source.sourceCCallRef || result.runId !== source.sourceRunId || result.graphCallId !== source.sourceGraphCallId ||
       result.payload.resultClass !== "success" || result.payload.contractRef !== source.sourceResultContractRef ||
       result.payload.resultRef !== source.sourceResultRef || result.payload.resultDigest !== source.sourceResultDigest ||
-      result.payload.valueDigest !== source.sourceResultValueDigest || !same(result.payload.value, source.sourceResultValue) ||
+      result.payload.valueDigest !== source.sourceResultValueDigest || !canonicalEquals(result.payload.value as JsonValue, source.sourceResultValue) ||
       judgment.aggregateId !== result.aggregateId || judgment.basisId !== result.basisId || judgment.runId !== result.runId ||
       judgment.graphCallId !== result.graphCallId || judgment.frameId !== result.frameId ||
       judgment.payload.judgment !== "advance" || judgment.payload.resultRef !== source.sourceResultRef ||
@@ -180,7 +179,7 @@ export function governanceHistoricalDeclarationReferenceAtPrefix(prefix: Runtime
     while (current !== null && !seen.has(current.invocationAdmissionRef)) {
       seen.add(current.invocationAdmissionRef);
       const actual = projectExactInvocationAdmissionAtPrefix(prefix, current.invocationAdmissionRef);
-      if (actual === null || !same(actual, current)) return null;
+      if (actual === null || !canonicalEquals(actual as unknown as JsonValue, current as unknown as JsonValue)) return null;
       if (actual.invocationAdmissionRef === sourceBasis.invocationAdmissionRef) {
         return actual.workspaceBindingId === sourceBasis.workspaceBindingId && actual.workspaceBindingDigest === sourceBasis.workspaceBindingDigest &&
             actual.catalogBasisDigest === sourceBasis.catalogBasisDigest && actual.catalogViewDigest === sourceBasis.catalogViewDigest
@@ -228,15 +227,6 @@ export function hasAdmittedGovernanceSourceUse(invocation: InvocationAdmission, 
   return state.observations.some(row => row.resultRef === payload.resultRef && row.resultDigest === payload.resultDigest &&
     row.cCallRef === event.aggregateId) || synthesis !== null && synthesis.resultRef === payload.resultRef &&
     synthesis.resultDigest === payload.resultDigest;
-}
-
-function canonicalRecordDigest(value: JsonValue | undefined): Sha256Digest | null {
-  if (!isRecord(value)) return null;
-  try {
-    return sha256Canonical(value);
-  } catch {
-    return null;
-  }
 }
 
 function sameStringArray(
@@ -423,12 +413,14 @@ export function projectExactInvocationAdmissionAtPrefix(
         admission.programValidationDigest &&
       isRecord(publicEvent.payload.gtlEntryCoordinate) &&
       isRecord(publicEvent.payload.gtlEntryTerm) &&
-      sha256Canonical(publicEvent.payload.gtlEntryCoordinate) ===
-        sha256Canonical(
-          admission.gtlEntryCoordinate as unknown as JsonValue,
-        ) &&
-      sha256Canonical(publicEvent.payload.gtlEntryTerm) ===
-        sha256Canonical(admission.gtlEntryTerm as unknown as JsonValue) &&
+      canonicalEquals(
+        publicEvent.payload.gtlEntryCoordinate,
+        admission.gtlEntryCoordinate as unknown as JsonValue,
+      ) &&
+      canonicalEquals(
+        publicEvent.payload.gtlEntryTerm,
+        admission.gtlEntryTerm as unknown as JsonValue,
+      ) &&
       event.payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
       event.payload.invocationAdmissionDigest ===
         admission.invocationAdmissionDigest
@@ -560,8 +552,10 @@ export function hasExactInvocationAdmissionAtPrefix(
     admission.invocationAdmissionRef,
   );
   return projected !== null &&
-    sha256Canonical(projected as unknown as JsonValue) ===
-      sha256Canonical(admission as unknown as JsonValue);
+    canonicalEquals(
+      projected as unknown as JsonValue,
+      admission as unknown as JsonValue,
+    );
 }
 
 export function hasExactInvocationRunBindingAtPrefix(
@@ -624,10 +618,12 @@ export function projectExactExecutionBasisAtPrefix(
   );
   if (matches.length !== 1) return null;
   const event = matches[0]!;
+  if (!isRecord(event.payload)) return null;
+  const rawInputValue = admitJson(event.payload.rawInputValue);
   if (
-    !isRecord(event.payload) ||
-    canonicalRecordDigest(event.payload.rawInputValue) !==
-      event.payload.rawInputDigest
+    rawInputValue.kind !== "ok" ||
+    !isRecord(rawInputValue.value) ||
+    canonicalRecordDigest(rawInputValue.value) !== event.payload.rawInputDigest
   ) return null;
   const basis = deepFreeze({
     kind: "execution_basis" as const,

@@ -1,5 +1,5 @@
 import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
 import { NATIVE_SEMANTIC_ASSESSMENT_CONTRACT } from "../product/semantic_job.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, graphInputRetentionBinding } from "../product/worksite_preparation_contracts.js";
@@ -13,6 +13,7 @@ import { WORKSITE_PREPARATION_IDS } from "../product/worksite_preparation_contra
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { WORKSITE_FILE_PARENTS_IDS } from "./worksite_c0.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const ids = SEMANTIC_STAGE_IDS;
 export function semanticStageImplementationBindings(artifact: RootModuleArtifactBasis): readonly ImplementationBinding[] {
@@ -193,6 +194,6 @@ export function isNativeSemanticGraphFunction(publication: Readonly<ModulePublic
       : constructNativeSemanticStageGraphFunctions(stage,
         publication.graphFunctions.find(g => g.name === stage.graphFunctionRef)?.declarations["abg.closure_contract"]!,
         publication.graphFunctions.find(g => g.name === stage.graphFunctionRef + "/native-assessment")?.declarations["abg.closure_contract"]!);
-    return candidates.some(candidate => canonicalJson(canonicalizeAuthoredGtlCarrier(candidate, "graph_function") as unknown as JsonValue) === canonicalJson(graph as unknown as JsonValue));
+    return candidates.some(candidate => canonicalEquals(canonicalizeAuthoredGtlCarrier(candidate, "graph_function") as unknown as JsonValue, graph as unknown as JsonValue));
   } catch { return false; }
 }

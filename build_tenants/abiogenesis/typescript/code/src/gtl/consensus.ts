@@ -48,6 +48,7 @@ import {
   isConsensusSubmitterResponseCandidate,
   REVIEW_RULING_KIND_VALUES,
 } from "./consensus_schema.js";
+import { canonicalEquals } from "../shared/value/index.js";
 export {
   CONSENSUS_CLASSIFICATION_VALUES,
   CONSENSUS_FH_DECISION_VALUES,
@@ -823,13 +824,17 @@ function isConsensusActionCatalog(
     row.graphFunctionRef !== CONSENSUS_IDS.graphFunctionRef ||
     row.targetProgramLocusRef !== CONSENSUS_IDS.graphFunctionRef ||
     !Array.isArray(row.targetObligationRefs) ||
-    row.targetObligationRefs.join("\0") !==
-      CONSENSUS_IDS.consensusObligationRef ||
+    !canonicalEquals(
+      row.targetObligationRefs,
+      [CONSENSUS_IDS.consensusObligationRef],
+    ) ||
     !Array.isArray(row.inputAssetRefs) ||
-    row.inputAssetRefs.join("\0") !== CONSENSUS_IDS.consensusInputAssetRef ||
+    !canonicalEquals(row.inputAssetRefs, [CONSENSUS_IDS.consensusInputAssetRef]) ||
     !Array.isArray(row.outputAssetRefs) ||
-    row.outputAssetRefs.join("\0") !==
-      CONSENSUS_IDS.consensusOutputAssetRef ||
+    !canonicalEquals(
+      row.outputAssetRefs,
+      [CONSENSUS_IDS.consensusOutputAssetRef],
+    ) ||
     row.expectedDeltaRef !== CONSENSUS_IDS.consensusExpectedDeltaRef ||
     row.progressConditionRef !==
       CONSENSUS_IDS.consensusProgressConditionRef ||
@@ -916,12 +921,16 @@ export function isConsensusObservationSnapshot(
     !isDigest(value.workspaceBinding.workspaceBindingDigest) ||
     value.targetOutcomeRef !== CONSENSUS_IDS.consensusTargetOutcomeRef ||
     !Array.isArray(value.targetObligationRefs) ||
-    value.targetObligationRefs.join("\0") !==
-      CONSENSUS_IDS.consensusObligationRef ||
+    !canonicalEquals(
+      value.targetObligationRefs,
+      [CONSENSUS_IDS.consensusObligationRef],
+    ) ||
     !isConsensusActionCatalog(value.actionCatalog) ||
     !Array.isArray(value.availableActionRefs) ||
-    value.availableActionRefs.join("\0") !==
-      CONSENSUS_IDS.consensusActionRef ||
+    !canonicalEquals(
+      value.availableActionRefs,
+      [CONSENSUS_IDS.consensusActionRef],
+    ) ||
     !isConsensusInvocation(value.consensusInvocation) ||
     (value.consensusResultRef !== null && !isRef(value.consensusResultRef)) ||
     (value.modelRef !== null && !isRef(value.modelRef)) ||
@@ -1087,17 +1096,19 @@ export function isConsensusNextActionBasis(
       String(value.runtimeFrontier.phase),
     ) ||
     !isRecord(value.declaredPolicy) ||
-    sha256Canonical(value.declaredPolicy as unknown as JsonValue) !==
-      sha256Canonical(
-        consensusConstructionPolicy() as unknown as JsonValue,
-      ) ||
+    !canonicalEquals(
+      value.declaredPolicy as unknown as JsonValue,
+      consensusConstructionPolicy() as unknown as JsonValue,
+    ) ||
     !isConsensusInvocation(value.targetInput) ||
     value.targetInputRef !== value.targetInput.invocationRef ||
     value.targetInputDigest !==
       sha256Canonical(value.targetInput as unknown as JsonValue) ||
     !Array.isArray(value.targetObligationRefs) ||
-    value.targetObligationRefs.join("\0") !==
-      CONSENSUS_IDS.consensusObligationRef
+    !canonicalEquals(
+      value.targetObligationRefs,
+      [CONSENSUS_IDS.consensusObligationRef],
+    )
   ) return false;
   const { basisRef: _basisRef, basisDigest: _basisDigest, ...body } = value;
   const digest = sha256Canonical(body as unknown as JsonValue);
@@ -1240,8 +1251,10 @@ export function isConsensusActionEvaluationBasis(
     evidence.responseDigest ===
       sha256Canonical(evidence.responseValue as unknown as JsonValue) &&
     Array.isArray(evidence.semanticEvidenceAssetRefs) &&
-    evidence.semanticEvidenceAssetRefs.join("\0") ===
-      CONSENSUS_IDS.consensusOutputAssetRef;
+    canonicalEquals(
+      evidence.semanticEvidenceAssetRefs,
+      [CONSENSUS_IDS.consensusOutputAssetRef],
+    );
 }
 
 export function evaluateConsensusAction(
@@ -1885,8 +1898,10 @@ export function isConsensusRoleInstruction(
     typeof value.instructionText !== "string" ||
     value.instructionText.length === 0 ||
     !isRecord(value.responseSchema) ||
-    sha256Canonical(value.responseSchema as unknown as JsonValue) !==
-      sha256Canonical(expectedSchema as unknown as JsonValue)
+    !canonicalEquals(
+      value.responseSchema as unknown as JsonValue,
+      expectedSchema as unknown as JsonValue,
+    )
   ) return false;
   const { instructionDigest: _instructionDigest, ...body } = value;
   return value.instructionDigest ===
@@ -2183,8 +2198,10 @@ function validateConsensusReviewerTask(
     task.subjectMaterialization.contentDigest === task.subject.subjectDigest &&
     task.subject.panelRef === task.panel.panelRef &&
     panelProfile !== undefined &&
-    sha256Canonical(panelProfile as unknown as JsonValue) ===
-      sha256Canonical(task.profile as unknown as JsonValue) &&
+    canonicalEquals(
+      panelProfile as unknown as JsonValue,
+      task.profile as unknown as JsonValue,
+    ) &&
     task.subject.roundPolicyRef === task.policy.policyRef &&
     task.instruction.instructionContractRef ===
       task.profile.instructionContractRef &&
@@ -2478,10 +2495,14 @@ export function isConsensusFindingsVector(
         member.value.reviewerTaskDigest === task.taskDigest &&
         member.value.panelRef === panel.panelRef &&
         member.value.panelPosition === ordinal &&
-        sha256Canonical(task.panel as unknown as JsonValue) ===
-          sha256Canonical(panel as unknown as JsonValue) &&
-        sha256Canonical(task.profile as unknown as JsonValue) ===
-          sha256Canonical(expectedProfile as unknown as JsonValue) &&
+        canonicalEquals(
+          task.panel as unknown as JsonValue,
+          panel as unknown as JsonValue,
+        ) &&
+        canonicalEquals(
+          task.profile as unknown as JsonValue,
+          expectedProfile as unknown as JsonValue,
+        ) &&
         consensusReviewerRoundBasisDigest(task) === roundBasisDigest;
     });
 }
@@ -2580,8 +2601,10 @@ function validateConsensusSubmitterTask(
   const task = value as unknown as ConsensusSubmitterTask;
   return task.priorRoundRefs.length === task.roundOrdinal - 1 &&
     task.priorSubmitterResponseRefs.length === task.roundOrdinal - 1 &&
-    sha256Canonical(task.findingsVector.members[0]!.value.task.panel as unknown as JsonValue) ===
-      sha256Canonical(task.panel as unknown as JsonValue) &&
+    canonicalEquals(
+      task.findingsVector.members[0]!.value.task.panel as unknown as JsonValue,
+      task.panel as unknown as JsonValue,
+    ) &&
     task.findingsVector.members[0]?.value.task.priorRoundRefs
     .every((ref, index) => ref === task.priorRoundRefs[index]) === true &&
     task.findingsVector.members[0]?.value.task.priorSubmitterResponses
@@ -2802,8 +2825,10 @@ export function isConsensusRoundDecision(
     !isConsensusRoundOutcome(value.outcome) ||
     !isConsensusResultCandidate(value.result) ||
     typeof value.resolutionTerminal !== "boolean" ||
-    sha256Canonical(value.outcome as unknown as JsonValue) !==
-      sha256Canonical(value.result.terminalOutcome as unknown as JsonValue) ||
+    !canonicalEquals(
+      value.outcome as unknown as JsonValue,
+      value.result.terminalOutcome as unknown as JsonValue,
+    ) ||
     value.resolutionTerminal !==
       (value.outcome.outcome !== "escalate_fh")
   ) return false;
@@ -2842,9 +2867,8 @@ export function isConsensusHumanFinalization(
     !isRef(value.rationaleRef) ||
     !isConsensusResultCandidate(value.result) ||
     value.resolutionTerminal !== true ||
-    sha256Canonical(
+    !canonicalEquals(
       value.result.terminalOutcome as unknown as JsonValue,
-    ) !== sha256Canonical(
       value.roundDecision.outcome as unknown as JsonValue,
     ) ||
     value.result.contractFailureRef !== null ||
@@ -3158,8 +3182,10 @@ function constructSubmitterRoleTask(
       member.value.roundOrdinal !== first.roundOrdinal ||
       member.value.task.subject.subjectRef !== first.subject.subjectRef ||
       member.value.task.subject.subjectDigest !== first.subject.subjectDigest ||
-      sha256Canonical(member.value.task.panel as unknown as JsonValue) !==
-        sha256Canonical(first.panel as unknown as JsonValue) ||
+      !canonicalEquals(
+        member.value.task.panel as unknown as JsonValue,
+        first.panel as unknown as JsonValue,
+      ) ||
       member.value.task.policy.policyDigest !== first.policy.policyDigest ||
       member.value.task.priorSubmitterResponses.length !==
         first.priorSubmitterResponses.length ||
@@ -3251,8 +3277,10 @@ export function reduceConsensusRound(
       row.roundOrdinal !== task.roundOrdinal ||
       row.task.subject.subjectRef !== task.subject.subjectRef ||
       row.task.subject.subjectDigest !== task.subject.subjectDigest ||
-      sha256Canonical(row.task.panel as unknown as JsonValue) !==
-        sha256Canonical(task.panel as unknown as JsonValue) ||
+      !canonicalEquals(
+        row.task.panel as unknown as JsonValue,
+        task.panel as unknown as JsonValue,
+      ) ||
       row.task.policy.policyDigest !== task.policy.policyDigest ||
       row.profileRef === findings[ordinal - 1]?.profileRef
     )
@@ -3581,10 +3609,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusInvocation(input) &&
           isConsensusRoundState(output) &&
-          sha256Canonical(output as unknown as JsonValue) ===
-            sha256Canonical(
-              initializeConsensus(input) as unknown as JsonValue,
-            ),
+          canonicalEquals(
+            output as unknown as JsonValue,
+            initializeConsensus(input) as unknown as JsonValue,
+          ),
         "initialization",
       );
     case CONSENSUS_IDS.roundEvaluatorPredicateRef:
@@ -3592,8 +3620,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusRoundState(input) &&
           isConsensusRoundState(output) &&
-          sha256Canonical(input as unknown as JsonValue) ===
-            sha256Canonical(output as unknown as JsonValue),
+          canonicalEquals(
+            input as unknown as JsonValue,
+            output as unknown as JsonValue,
+          ),
         "round-evaluation",
       );
     case CONSENSUS_IDS.rootWorkflowPredicateRef:
@@ -3612,8 +3642,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           (
             isConsensusReviewerTask(input) &&
             isReviewFindings(output) &&
-            sha256Canonical(output.task as unknown as JsonValue) ===
-              sha256Canonical(input as unknown as JsonValue) &&
+            canonicalEquals(
+              output.task as unknown as JsonValue,
+              input as unknown as JsonValue,
+            ) &&
             output.profileRef === input.profile.profileRef &&
             output.configurationDigest === input.profile.configurationDigest &&
             output.roundRef === input.roundRef
@@ -3621,16 +3653,18 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           (
             isConsensusFindingsVector(input) &&
             isConsensusSubmitterTask(output) &&
-            sha256Canonical(output as unknown as JsonValue) ===
-              sha256Canonical(
-                constructConsensusSubmitterTask(input) as unknown as JsonValue,
-              )
+            canonicalEquals(
+              output as unknown as JsonValue,
+              constructConsensusSubmitterTask(input) as unknown as JsonValue,
+            )
           ) ||
           (
             isConsensusSubmitterTask(input) &&
             isConsensusSubmitterResponse(output) &&
-            sha256Canonical(output.task as unknown as JsonValue) ===
-              sha256Canonical(input as unknown as JsonValue) &&
+            canonicalEquals(
+              output.task as unknown as JsonValue,
+              input as unknown as JsonValue,
+            ) &&
             output.task.invocationRef === input.invocationRef &&
             output.task.roundRef === input.roundRef &&
             output.task.roundOrdinal === input.roundOrdinal
@@ -3638,10 +3672,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           (
             isConsensusSubmitterResponse(input) &&
             isConsensusRoundState(output) &&
-            sha256Canonical(output as unknown as JsonValue) ===
-              sha256Canonical(
-                reduceConsensusRound(input) as unknown as JsonValue,
-              )
+            canonicalEquals(
+              output as unknown as JsonValue,
+              reduceConsensusRound(input) as unknown as JsonValue,
+            )
           ) ||
           (
             isConsensusRoundFold(input, output)
@@ -3654,8 +3688,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           (
             isConsensusSubmitterTask(input) &&
             isConsensusSubmitterResponse(output) &&
-            sha256Canonical(output.task as unknown as JsonValue) ===
-              sha256Canonical(input as unknown as JsonValue) &&
+            canonicalEquals(
+              output.task as unknown as JsonValue,
+              input as unknown as JsonValue,
+            ) &&
             output.submittingActorRef === input.profile.actorRef
           ) ||
           isConsensusRoundFold(input, output),
@@ -3666,8 +3702,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusReviewerTask(input) &&
           isReviewFindings(output) &&
-          sha256Canonical(output.task as unknown as JsonValue) ===
-            sha256Canonical(input as unknown as JsonValue) &&
+          canonicalEquals(
+            output.task as unknown as JsonValue,
+            input as unknown as JsonValue,
+          ) &&
           output.profileRef === input.profile.profileRef &&
           output.configurationDigest === input.profile.configurationDigest &&
           output.roundRef === input.roundRef,
@@ -3678,10 +3716,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusFindingsVector(input) &&
           isConsensusSubmitterTask(output) &&
-          sha256Canonical(output as unknown as JsonValue) ===
-            sha256Canonical(
-              constructConsensusSubmitterTask(input) as unknown as JsonValue,
-            ),
+          canonicalEquals(
+            output as unknown as JsonValue,
+            constructConsensusSubmitterTask(input) as unknown as JsonValue,
+          ),
         "submitter-task-preparation",
       );
     case CONSENSUS_IDS.submitterPredicateRef:
@@ -3689,8 +3727,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusSubmitterTask(input) &&
           isConsensusSubmitterResponse(output) &&
-          sha256Canonical(output.task as unknown as JsonValue) ===
-            sha256Canonical(input as unknown as JsonValue) &&
+          canonicalEquals(
+            output.task as unknown as JsonValue,
+            input as unknown as JsonValue,
+          ) &&
           output.task.invocationRef === input.invocationRef &&
           output.task.roundRef === input.roundRef &&
           output.task.roundOrdinal === input.roundOrdinal &&
@@ -3702,10 +3742,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusSubmitterResponse(input) &&
           isConsensusRoundState(output) &&
-          sha256Canonical(output as unknown as JsonValue) ===
-            sha256Canonical(
-              reduceConsensusRound(input) as unknown as JsonValue,
-        ),
+          canonicalEquals(
+            output as unknown as JsonValue,
+            reduceConsensusRound(input) as unknown as JsonValue,
+          ),
         "round-reduction",
       );
     case CONSENSUS_IDS.finalizationPreparationPredicateRef:
@@ -3713,10 +3753,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusRoundState(input) &&
           isConsensusRoundDecision(output) &&
-          sha256Canonical(output as unknown as JsonValue) ===
-            sha256Canonical(
-              prepareConsensusResolution(input) as unknown as JsonValue,
-            ),
+          canonicalEquals(
+            output as unknown as JsonValue,
+            prepareConsensusResolution(input) as unknown as JsonValue,
+          ),
         "finalization-preparation",
       );
     case CONSENSUS_IDS.finalizationEvaluatorPredicateRef:
@@ -3724,8 +3764,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusResolution(input) &&
           isConsensusResolution(output) &&
-          sha256Canonical(input as unknown as JsonValue) ===
-            sha256Canonical(output as unknown as JsonValue),
+          canonicalEquals(
+            input as unknown as JsonValue,
+            output as unknown as JsonValue,
+          ),
         "finalization-evaluation",
       );
     case CONSENSUS_IDS.projectorPredicateRef:
@@ -3733,10 +3775,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusResolution(input) &&
           isConsensusResultCandidate(output) &&
-          sha256Canonical(output as unknown as JsonValue) ===
-            sha256Canonical(
-              projectConsensusFinalResult(input) as unknown as JsonValue,
-            ),
+          canonicalEquals(
+            output as unknown as JsonValue,
+            projectConsensusFinalResult(input) as unknown as JsonValue,
+          ),
         "result-projection",
       );
     case CONSENSUS_IDS.escalationFinalizerPredicateRef:
@@ -3744,10 +3786,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
         (input, output) =>
           isConsensusEscalationDecision(input) &&
           isConsensusHumanFinalization(output) &&
-          sha256Canonical(output as unknown as JsonValue) ===
-            sha256Canonical(
-              finalizeConsensusEscalation(input) as unknown as JsonValue,
-        ),
+          canonicalEquals(
+            output as unknown as JsonValue,
+            finalizeConsensusEscalation(input) as unknown as JsonValue,
+          ),
         "fh-escalation",
       );
     case CONSENSUS_IDS.oneSurfacePredicateRef:
@@ -3756,16 +3798,14 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           try {
             if (isConsensusObservationSnapshot(input)) {
               if (isConsensusObservationSnapshot(output)) {
-                return sha256Canonical(
+                return canonicalEquals(
                   output as unknown as JsonValue,
-                ) === sha256Canonical(
                   synthesizeConsensusModel(input) as unknown as JsonValue,
                 );
               }
               if (isConsensusNextActionBasis(output)) {
-                return sha256Canonical(
+                return canonicalEquals(
                   output as unknown as JsonValue,
-                ) === sha256Canonical(
                   evaluateConsensusGap(input) as unknown as JsonValue,
                 );
               }
@@ -3778,8 +3818,10 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
                 ? selectConsensusNextAction(input)
                 : refreshConsensusNextAction(input);
               return isConsensusNextActionProjection(output) &&
-                sha256Canonical(output as unknown as JsonValue) ===
-                  sha256Canonical(expected as unknown as JsonValue);
+                canonicalEquals(
+                  output as unknown as JsonValue,
+                  expected as unknown as JsonValue,
+                );
             }
             if (
               isConsensusNextActionProjection(input) &&
@@ -3802,9 +3844,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
               isConsensusActionEvaluationBasis(input) &&
               isConsensusActionEvaluationProjection(output)
             ) {
-              return sha256Canonical(
+              return canonicalEquals(
                 output as unknown as JsonValue,
-              ) === sha256Canonical(
                 evaluateConsensusAction(input) as unknown as JsonValue,
               );
             }
@@ -3812,9 +3853,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
               isConsensusActionEvaluationProjection(input) &&
               isConsensusObservationSnapshot(output)
             ) {
-              return sha256Canonical(
+              return canonicalEquals(
                 output as unknown as JsonValue,
-              ) === sha256Canonical(
                 refreshConsensusModel(input) as unknown as JsonValue,
               );
             }

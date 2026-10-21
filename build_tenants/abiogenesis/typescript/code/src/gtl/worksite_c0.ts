@@ -27,7 +27,8 @@ import {
 } from "../product/worksite_effect.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const WORKSITE_C0_IMPLEMENTATION = Object.freeze({
   implementationRef: "implementation://abiogenesis/worksite/file-replace-fd@5",
@@ -103,7 +104,7 @@ export function resolveWorksiteC0JudgmentRelation(predicateRef: string) {
     advanceReasonRef: "reason://abiogenesis/worksite/file-parents-satisfied@5",
     rejectionReasonRef: "reason://abiogenesis/worksite/file-parents-rejected@5",
     evaluate: (input: unknown, output: unknown) => isWorksiteFileParentsRequest(input) && isWorksiteFileParentsSuccess(output) &&
-      canonicalJson(input as unknown as JsonValue) === canonicalJson(output.request as unknown as JsonValue),
+      canonicalEquals(input as unknown as JsonValue, output.request as unknown as JsonValue),
   });
   return predicateRef === WORKSITE_C0_IDS.judgmentPredicateRef
     ? Object.freeze({

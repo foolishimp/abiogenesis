@@ -17,7 +17,7 @@ import {
   isWorkspaceBindingCandidateInResolvedLock,
   productInstallCoordinate,
 } from "../product/environment.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isRecord } from "../shared/admit/index.js";
@@ -50,6 +50,7 @@ import {
   validateRuntimeEventPrefixExtension,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export type ArtifactTruthConflictField =
   | "operationId"
@@ -276,8 +277,10 @@ class RuntimeArtifactFacts {
       event.basisId !== authorityScopeRef ||
       payload.correlationId !== event.correlationId ||
       !Array.isArray(payload.causationEventRefs) ||
-      canonicalJson(payload.causationEventRefs) !==
-        canonicalJson(event.causationEventRefs)
+      !canonicalEquals(
+        payload.causationEventRefs,
+        event.causationEventRefs,
+      )
     ) {
       throw new TypeError(
         "artifact admission differs from its exact Public operation and event basis",
@@ -289,8 +292,10 @@ class RuntimeArtifactFacts {
       let checkedLock: ResolvedProductLock | undefined;
       const establishInlineLock = (value: unknown): value is ResolvedProductLock => {
         if (establishedLock !== undefined &&
-          (value === establishedLock || canonicalJson(value as JsonValue) ===
-            canonicalJson(establishedLock as unknown as JsonValue))) {
+          (value === establishedLock || canonicalEquals(
+            value as JsonValue,
+            establishedLock as unknown as JsonValue,
+          ))) {
           checkedLock = establishedLock;
           return true;
         }
@@ -380,7 +385,7 @@ class RuntimeArtifactFacts {
       });
     } else if (operationId === "abg.operation.release.snapshot") {
       if (!isReleaseOperationArtifact(artifact) || payload.resolvedLock !== undefined || payload.workspaceAuthorityBasis !== undefined ||
-          canonicalJson(artifact.invocation as unknown as JsonValue) !== canonicalJson({operationId,memberKey,definitionDigest,invocationRef,invocationPayloadDigest,invocationDigest}) ||
+          !canonicalEquals(artifact.invocation as unknown as JsonValue, {operationId,memberKey,definitionDigest,invocationRef,invocationPayloadDigest,invocationDigest}) ||
           artifact.scope.ref !== authorityScopeRef || artifact.scope.digest !== authorityScopeDigest ||
           releaseArtifactCoordinate(artifact).ref !== artifactRef || releaseArtifactCoordinate(artifact).digest !== artifactDigest ||
           (artifact.memberKey === "published_rc"
@@ -391,7 +396,7 @@ class RuntimeArtifactFacts {
       const environment = projectExactPrefixWorkspaceEnvironment(artifact.entryPrefix as DurablePrefixCoordinate, artifact.workspaceBinding);
       if (environment.kind !== "exact_prefix_workspace_environment" ||
           environment.workspaceAuthorityBasis.authorizedActorRef !== artifact.actorRef ||
-          canonicalJson(artifact.productSet) !== canonicalJson(environment.productInstalls.map(productInstallCoordinate) as unknown as JsonValue) ||
+          !canonicalEquals(artifact.productSet, environment.productInstalls.map(productInstallCoordinate) as unknown as JsonValue) ||
           artifact.dependencyLock.ref !== environment.resolvedProductLock.lockId || artifact.dependencyLock.digest !== environment.resolvedProductLock.lockDigest ||
           event.causationEventRefs.length !== 1 || event.causationEventRefs[0] !== environment.workspaceBinding.admissionEventRef) {
         throw new TypeError("release artifact actor/environment differs from its exact admitted predecessor");
@@ -414,8 +419,10 @@ class RuntimeArtifactFacts {
           causalInstalls.some((basis) =>
             basis === undefined ||
             (basis.resolvedLock !== resolvedLock &&
-              canonicalJson(basis.resolvedLock as unknown as JsonValue) !==
-                canonicalJson(resolvedLock as unknown as JsonValue))
+              !canonicalEquals(
+                basis.resolvedLock as unknown as JsonValue,
+                resolvedLock as unknown as JsonValue,
+              ))
           )
         ? null
         : constructProductSet(
@@ -453,8 +460,10 @@ class RuntimeArtifactFacts {
       );
       if (
         reconstructed.kind !== "workspace_binding_candidate" ||
-        canonicalJson(reconstructed as unknown as JsonValue) !==
-          canonicalJson(candidate as unknown as JsonValue) ||
+        !canonicalEquals(
+          reconstructed as unknown as JsonValue,
+          candidate as unknown as JsonValue,
+        ) ||
         authorityScopeRef !== candidate.bindingId ||
         authorityScopeDigest !== candidate.bindingDigest ||
         artifactRef !== candidate.bindingId ||
@@ -597,7 +606,7 @@ export function prepareArtifactTruthCandidate(
   const artifacts = facts.artifacts.filter(row => row.admissionOrdinal <= predecessor.lastAdmissionOrdinal);
   assertUniqueArtifactTruth([...artifacts, prepared.artifact]);
   return (appended) => {
-    if (sha256Canonical(appended.event as unknown as JsonValue) !== sha256Canonical(event as unknown as JsonValue)) {
+    if (!canonicalEquals(appended.event as unknown as JsonValue, event as unknown as JsonValue)) {
       throw new TypeError("artifact append differs from its exact pre-effect semantic projection");
     }
     const actualPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(appended.successorPrefix);
@@ -794,8 +803,10 @@ export function validateExactPrefixArtifactTruthProjection(
     if (options.requireCurrent && projected.kind === "exact_prefix_artifact_truth_projection")
       assertDurableRuntimePrefixCurrent(projected.prefix);
     return projected.kind === "exact_prefix_artifact_truth_projection" &&
-      canonicalJson(projected as unknown as JsonValue) ===
-        canonicalJson(value as JsonValue);
+      canonicalEquals(
+        projected as unknown as JsonValue,
+        value as JsonValue,
+      );
   } catch {
     return false;
   }

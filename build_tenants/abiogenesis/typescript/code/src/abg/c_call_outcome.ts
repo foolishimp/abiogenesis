@@ -132,6 +132,7 @@ import {
   type RouteTransitionResult,
 } from "./traversal_route.js";
 import type { TraversalTransitionCandidate } from "./traversal_transition.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 function isJsonRecord(
   value: JsonValue | undefined,
@@ -194,8 +195,10 @@ export function projectWorksiteBasisObservation(
         row.payload.childGraphFunctionRef === payload.graphFunctionRef
       ).length === 1;
   return admittedGrant !== null && isJsonRecord(admittedGrant) &&
-      sha256Canonical(admittedGrant) ===
-        sha256Canonical(request.capabilityGrant as unknown as JsonValue) &&
+      canonicalEquals(
+        admittedGrant,
+        request.capabilityGrant as unknown as JsonValue,
+      ) &&
       request.capabilityGrant.grantRef ===
         admittedGrant.grantRef &&
       request.capabilityGrant.grantDigest ===
@@ -262,8 +265,10 @@ export function projectWorksiteSelectedOccurrence(
     isJsonRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef);
   if (!isWorksiteFileReplaceRequest(request) ||
     basisPayload.rawInputDigest !== sha256Canonical(request as unknown as JsonValue) ||
-    sha256Canonical(request.workspaceAuthorityBasis as unknown as JsonValue) !==
-      sha256Canonical(bindingRow.payload.workspaceAuthorityBasis!) ||
+    !canonicalEquals(
+      request.workspaceAuthorityBasis as unknown as JsonValue,
+      bindingRow.payload.workspaceAuthorityBasis!,
+    ) ||
     implementationRow === null || !isJsonRecord(implementationRow.payload) ||
     !isJsonRecord(implementationRow.payload.implementationSet) ||
     implementationRow.admissionOrdinal >= basisRow.admissionOrdinal ||
@@ -1258,7 +1263,7 @@ function stageCCallResult(
                 if (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")) {
                   if (input.cCall.implementationRef === SEMANTIC_REVISION_IDS.bridgeImplementationRef) {
                     const expected = projectRevisionWorksitePreparation(basis, input.input);
-                    return expected !== null && sha256Canonical(expected as unknown as JsonValue) === sha256Canonical(value as JsonValue);
+                    return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as JsonValue);
                   }
                   return semanticRevisionResultMatchesBasis(basis, input.input, value) &&
                     (![SEMANTIC_REVISION_IDS.selectionImplementationRef, SEMANTIC_REVISION_IDS.authorImplementationRef, SEMANTIC_REVISION_IDS.assessorImplementationRef].some(r => r === input.cCall.implementationRef) ||
@@ -1266,15 +1271,15 @@ function stageCCallResult(
                 }
                 if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.bridgeImplementationRef) {
                   const expected = projectSemanticWorksitePreparation(basis, input.input);
-                  return expected !== null && sha256Canonical(expected as unknown as JsonValue) === sha256Canonical(value as JsonValue);
+                  return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as JsonValue);
                 }
                 if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.evidenceInputImplementationRef) {
                   const expected = projectSemanticEvidenceInput(basis, input.input);
-                  return expected !== null && sha256Canonical(expected as unknown as JsonValue) === sha256Canonical(value as JsonValue);
+                  return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as JsonValue);
                 }
                 if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.terminalImplementationRef) {
                   const expected = projectSemanticEnvelopeOutput(basis, input.input);
-                  return expected !== null && sha256Canonical(expected as unknown as JsonValue) === sha256Canonical(value as JsonValue);
+                  return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as JsonValue);
                 }
                 return semanticResultMatchesBasis(basis, input.input, value) && semanticInstructionResultMatches(basis, input.input, value);
               })()) &&

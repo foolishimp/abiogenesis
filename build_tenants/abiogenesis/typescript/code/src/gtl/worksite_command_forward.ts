@@ -2,13 +2,14 @@ import { WORKSITE_COMMAND_FORWARD_IDS as F } from "../product/worksite_command_f
 import { type WorksiteCommandForwardRequest, type WorksiteCommandForwardTask,
   type WorksiteCommandForwardObservation } from "../product/worksite_command_forward.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS as C2 } from "../product/worksite_command_execution.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { C, cCarrier, cGraphFunctionRef, workflow } from "./c_algebra.js";
 import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
 import { graphEdge } from "./graph_applications.js";
 import type { GraphFunction, RootModuleArtifactBasis } from "./contracts.js";
 import { modulePublication, implementationBinding, closureContract, contractDeclaration,
   productSemanticsBinding, catalogContribution } from "./declarations.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 /** Exactly one no-effect preparation and one nested C2; history grants no calls. */
 export function worksiteCommandForwardGraphFunctions(): readonly GraphFunction[] {
@@ -44,7 +45,7 @@ export function worksiteCommandForwardGraphFunctions(): readonly GraphFunction[]
   return [root,child].map(g=>canonicalizeAuthoredGtlCarrier(g,"graph_function"));
 }
 export function isWorksiteCommandForwardGraphFunction(value:GraphFunction):boolean {
-  return worksiteCommandForwardGraphFunctions().some(g=>canonicalJson(g as unknown as JsonValue)===canonicalJson(value as unknown as JsonValue));
+  return worksiteCommandForwardGraphFunctions().some(g=>canonicalEquals(g as unknown as JsonValue, value as unknown as JsonValue));
 }
 export function constructWorksiteCommandForwardModulePublication(artifact:RootModuleArtifactBasis) {
   const graphFunctions=worksiteCommandForwardGraphFunctions();

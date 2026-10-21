@@ -7,6 +7,7 @@ import { isUndispatchedOwnerObservation } from "./event_contract_profiles.js";
 import { runtimeEventBodiesAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { admitRuntimeEvent, admitRuntimeEventTransactionAtDurablePrefix, readRuntimeEventsAtDurablePrefix, type AbgEventStore, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 /** A projection of an actual selected but undispatched consumer. It grants no
  * execution. Declaration, support, input and current-operation admission remain
@@ -178,7 +179,7 @@ export function projectConstructionIntentContinuations(prefix: RuntimeEventPrefi
       const candidate = deriveConstructionIntentContinuations(validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId), runId)[0];
       if (candidate === undefined || !isRecord(event.payload)) throw new TypeError("construction continuation lacks its admitted failure relation");
       const { terminalEventRef: _terminal, status: _status, openedEventRef: _opened, ...body } = candidate;
-      if (event.aggregateId !== candidate.continuationRef || hash(body) !== hash(event.payload) ||
+      if (event.aggregateId !== candidate.continuationRef || !canonicalEquals(body, event.payload) ||
         event.causationEventRefs.length !== 1 || event.causationEventRefs[0] !== candidate.openedEventRef)
         throw new TypeError("construction continuation differs from its exact failure/input/intent identity");
       const links = indexedRuntimeEvents(prefix, "kind:continuation_reentry_link_admitted").filter(e =>
@@ -769,7 +770,7 @@ export function prepareConstructionIntentContinuation(
 }> | null {
   const current = projectConstructionIntentContinuations(prefix, selected.runId)
     .find(c => c.continuationRef === selected.continuationRef && c.continuationDigest === selected.continuationDigest);
-  if (current?.status !== "open" || hash(current) !== hash(selected)) return null;
+  if (current?.status !== "open" || !canonicalEquals(current as unknown as JsonValue, selected as unknown as JsonValue)) return null;
   const root = rehydrateExecutionBasisAtPrefix(prefix, current.parentExecutionBasisRef);
   const child = rehydrateExecutionBasisAtPrefix(prefix, current.executionBasisRef);
   if (root === null || child === null || root.basisClass !== "root" || root.constructionContinuationUse !== undefined ||

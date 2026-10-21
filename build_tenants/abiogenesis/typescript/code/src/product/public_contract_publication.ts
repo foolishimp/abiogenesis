@@ -39,6 +39,7 @@ import {
   type ProductPublicContractCatalog,
 } from "./contracts.js";
 import type { NativeDeclarationClosure } from "./declaration_exports.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export const PUBLIC_CATALOG_BINDING_FAILURE_CLASSES = Object.freeze([
   "forbidden_operation_identity",
@@ -413,10 +414,6 @@ export const PUBLIC_CATALOG_BINDING_CONTRACTS = deepFreeze({
   refusalNativeSource,
 });
 
-function sameCanonical(left: unknown, right: unknown): boolean {
-  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-}
-
 export function productPublicContractCatalogDigest(
   catalog: ProductPublicContractCatalog,
 ): Sha256Digest {
@@ -692,9 +689,9 @@ export function bindS06PublicFunctionCatalog(
     if (
       row.nativeTypedLocator === undefined ||
       row.assetLocator === undefined ||
-      !sameCanonical(
-        row.nativeTypedLocator,
-        expectedRow.nativeTypedLocator,
+      !canonicalEquals(
+        row.nativeTypedLocator as unknown as JsonValue,
+        expectedRow.nativeTypedLocator as unknown as JsonValue,
       )
     ) {
       return bindingRefusal(
@@ -728,7 +725,7 @@ export function bindS06PublicFunctionCatalog(
         [`/proposalSequence/${index}/contractDigest`],
       );
     }
-    if (!sameCanonical(row, expectedRow)) {
+    if (!canonicalEquals(row as unknown as JsonValue, expectedRow as unknown as JsonValue)) {
       return bindingRefusal(
         input,
         attempt,

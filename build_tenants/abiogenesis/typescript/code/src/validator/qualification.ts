@@ -24,7 +24,7 @@ import {
   MALFORMED_GTL_ASSESSMENT_INPUT_SCHEMA, MALFORMED_GTL_ASSESSMENT_SCHEMA,
   NATIVE_RUNTIME_ASSESSMENT_INPUT_SCHEMA, NATIVE_RUNTIME_ASSESSMENT_SCHEMA, type NativeRuntimeAssessmentInput, type NativeRuntimeAssessment,
   type MalformedGtlAssessmentInput, type MalformedGtlAssessment,
-  qualificationHash as hash, sameQualificationValue as same, uniqueQualificationRefs as unique,
+  qualificationHash as hash, uniqueQualificationRefs as unique,
   qualificationIdentity, constructQualificationIdentity, isQualificationAssessmentTask,
   type QualificationAssessmentInput, type QualificationAssessmentTask, type QualificationEmbeddedTask, type QualificationInternedScope, type QualificationAssessmentPlan,
   type QualificationJudgment, type QualificationNativeBasis, type QualificationRawJudgment, type QualificationConstructionProvenance,
@@ -32,6 +32,7 @@ import {
   type ExactCandidateQualification, type QualificationOwnerRuling,
   type QualificationRulingRequest,
 } from "./qualification_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const coordinate = (ref: string, digest: string) => ({ ref, digest });
 const count = v.pipe(v.number(), v.integer(), v.minValue(0));
 const text = v.pipe(v.string(), v.minLength(1));
@@ -78,8 +79,8 @@ export function parseQualificationTestReport(command: WorksiteCommandResult, fil
     result.cases = cases as unknown as JsonValue[]; result.summaries = summaries as unknown as JsonValue[];
     result.files = [...new Set(cases.flatMap(c => c.file === null ? [] : [c.file]))].sort();
     result.complete = true;
-    if (!unique(files) || !same(result.files, [...files].sort()) || !unique(perFile.map(s => s.file!)) ||
-        !same(perFile.map(s => s.file!).sort(), [...files].sort())) result.diagnostics.push("test_file_population_mismatch");
+    if (!unique(files) || !canonicalEquals(result.files, [...files].sort()) || !unique(perFile.map(s => s.file!)) ||
+        !canonicalEquals(perFile.map(s => s.file!).sort(), [...files].sort())) result.diagnostics.push("test_file_population_mismatch");
     const skipped = leaves.filter(c => Boolean(c.skip)).length, todo = leaves.filter(c => !c.skip && Boolean(c.todo)).length;
     const passed = leaves.filter(c => !c.skip && !c.todo && c.passed).length;
     const unsuccessful = leaves.filter(c => !c.skip && !c.todo && !c.passed).length;
@@ -112,7 +113,7 @@ export function constructQualificationVerificationMaterial(input: {
     if (!isObservedWorksiteCommandExecutionObservation(observation)) return null;
     const recipeBytes = Buffer.from(selection.recipe.contentBase64, "base64");
     if (recipeBytes.toString("base64") !== selection.recipe.contentBase64 || recipeBytes.length !== selection.recipe.byteCount ||
-        sha256Bytes(recipeBytes) !== selection.recipe.digest || !same(basis.sourceInventory, coordinate(inventory.inventoryRef, inventory.inventoryDigest)) ||
+        sha256Bytes(recipeBytes) !== selection.recipe.digest || !canonicalEquals(basis.sourceInventory, coordinate(inventory.inventoryRef, inventory.inventoryDigest)) ||
         !qualificationIdentity(inventory, "inventoryRef", "inventoryDigest", "qualification-inventory://abiogenesis/") ||
         inventory.members.filter(m => m.ref === selection.recipe.ref && m.path === selection.recipe.path &&
           m.digest === selection.recipe.digest && m.byteCount === selection.recipe.byteCount).length !== 1) return null;
@@ -126,18 +127,20 @@ export function constructQualificationVerificationMaterial(input: {
     const protectedInputs = [...selectedSources, ...recipe.auxiliaryInputs,
       { relativePath: selection.recipePath, digest: selection.recipe.digest, byteCount: selection.recipe.byteCount }];
     if (!unique(protectedInputs.map(s => s.relativePath)) || !unique(recipe.sourceInputs.map(s => s.memberRef)) ||
-        !same(protectedInputs.slice().sort((a, b) => a.relativePath.localeCompare(b.relativePath)),
+        !canonicalEquals(
+          protectedInputs.slice().sort((a, b) => a.relativePath.localeCompare(b.relativePath)),
           task.protectedObservations.map(p => ({ relativePath: p.subject.relativePath,
             digest: p.observation.state === "file" ? p.observation.fileDigest : null,
-            byteCount: p.observation.state === "file" ? p.observation.byteLength : null })).sort((a, b) => a.relativePath.localeCompare(b.relativePath))))
+            byteCount: p.observation.state === "file" ? p.observation.byteLength : null })).sort((a, b) => a.relativePath.localeCompare(b.relativePath)),
+        ))
       diagnostics.push("verification_source_inventory_mismatch");
     if (hash(task.commands) !== recipe.commandConfigurationDigest || hash(task.outcomePredicates) !== recipe.predicateConfigurationDigest ||
         hash(task.allowedWriteTerritories) !== recipe.writeTerritoriesDigest ||
-        !same(recipe.commands.map(c => c.commandId), task.commands.map(c => c.commandId)) ||
+        !canonicalEquals(recipe.commands.map(c => c.commandId), task.commands.map(c => c.commandId)) ||
         !unique(recipe.commands.map(c => c.commandId)) || ["build", "lint", "test", "compare"].some(role => !recipe.commands.some(c => c.role === role)) ||
         recipe.commands.filter(c => c.role === "lint").length !== 1 ||
         !recipe.commands.some(c => c.commandId === recipe.lint.commandId && c.role === "lint") ||
-        !same(recipe.commands.filter(c => c.role === "test").map(c => c.commandId), recipe.tests.map(c => c.commandId)))
+        !canonicalEquals(recipe.commands.filter(c => c.role === "test").map(c => c.commandId), recipe.tests.map(c => c.commandId)))
       diagnostics.push("verification_recipe_configuration_mismatch");
     if (observation.productDelta.length > 0) diagnostics.push("verification_product_changed");
     const commandOutcomes = observation.commandResults.map(c => ({ commandId: c.commandId,
@@ -157,10 +160,10 @@ export function constructQualificationVerificationMaterial(input: {
       let matched: boolean | null = null;
       switch (declaration.predicateKind) {
         case "stdout_exact":
-          if (typeof value === "string") matched = same(value, expected.equals);
+          if (typeof value === "string") matched = canonicalEquals(value, expected.equals as JsonValue);
           break;
         case "process_exit": case "file_count": case "test_report_failure_count": case "test_report_error_count":
-          if (typeof value === "number" && Number.isSafeInteger(value)) matched = same(value, expected.equals);
+          if (typeof value === "number" && Number.isSafeInteger(value)) matched = canonicalEquals(value, expected.equals as JsonValue);
           break;
         case "test_pass_count":
           if (typeof value === "number" && Number.isSafeInteger(value) && value >= 0)
@@ -168,12 +171,12 @@ export function constructQualificationVerificationMaterial(input: {
           break;
         case "module_set_exact": case "test_report_set_exact":
           if (Array.isArray(value) && value.every(v => typeof v === "string"))
-            matched = same([...new Set(value)].sort(), [...new Set(expected.equals as string[])].sort());
+            matched = canonicalEquals([...new Set(value)].sort(), [...new Set(expected.equals as string[])].sort());
           break;
         case "module_export_return_exact":
           // The existing helper also records null when import/call fails, so
           // null cannot establish even an expected-null successful return.
-          if (value !== null) matched = same(value, expected.equals);
+          if (value !== null) matched = canonicalEquals(value, expected.equals as JsonValue);
           break;
         // HTTP observations have their own probe/process structure. Retain
         // them for independent judgment; this material owner does not reduce it.
@@ -193,7 +196,7 @@ export function constructQualificationVerificationMaterial(input: {
       if (command === undefined) throw new TypeError("selected lint command is missing");
       const lint = v.parse(lintReport, JSON.parse(streamText(command, "stdout")));
       lintOutcome = lint;
-      if (!same(lint.files.map(({ path, kind }) => ({ path, kind })), recipe.lint.files) || !unique(recipe.lint.files.map(f => f.path)) ||
+      if (!canonicalEquals(lint.files.map(({ path, kind }) => ({ path, kind })), recipe.lint.files) || !unique(recipe.lint.files.map(f => f.path)) ||
           lint.passed !== lint.files.every(f => f.disposition === "passed" && f.diagnostic === null) || lint.passed !== successfulCommand(command))
         diagnostics.push("verification_lint_policy_mismatch");
       if (!lint.passed) diagnostics.push("verification_lint_failed");
@@ -212,8 +215,8 @@ export function isMalformedGtlAssessmentInput(value: unknown): value is Malforme
   return v.is(MALFORMED_GTL_ASSESSMENT_INPUT_SCHEMA, value) &&
     qualificationIdentity(value.basis, "basisRef", "basisDigest", "qualification-basis://abiogenesis/") &&
     qualificationCoverageIsPublished(value.coverage) &&
-    same(value.basis.coverageCatalog, coordinate(value.coverage.catalogRef, value.coverage.catalogDigest)) &&
-    same(value.basis.lawBasis, value.coverage.lawBasis) &&
+    canonicalEquals(value.basis.coverageCatalog, coordinate(value.coverage.catalogRef, value.coverage.catalogDigest)) &&
+    canonicalEquals(value.basis.lawBasis, value.coverage.lawBasis) &&
     unique(value.cases.map(c => c.caseRef)) && value.cases.some(c => c.expected.disposition === "refused") &&
     value.cases.every(c => c.expected.disposition === "accepted" ? c.expected.diagnostics.length === 0 : c.expected.diagnostics.length > 0);
 }
@@ -252,7 +255,7 @@ function malformedGtlCaseOutcome(c: MalformedGtlAssessmentInput["cases"][number]
 /** Computable case outcomes only; case-set adequacy remains its owning policy. */
 export function evaluateMalformedGtlAssessment(input: MalformedGtlAssessmentInput, nativeBasis: QualificationNativeBasis): Readonly<MalformedGtlAssessment> {
   if (!isMalformedGtlAssessmentInput(input)) throw new TypeError("invalid malformed-GTL qualification task");
-  const cases = input.cases.map(c => { const actual = malformedGtlCaseOutcome(c); return { caseRef: c.caseRef, actual, matched: same(actual, c.expected) }; });
+  const cases = input.cases.map(c => { const actual = malformedGtlCaseOutcome(c); return { caseRef: c.caseRef, actual, matched: canonicalEquals(actual, c.expected) }; });
   return constructQualificationIdentity({ kind: "malformed_gtl_assessment" as const, schemaVersion: "5.0.0" as const,
     input, nativeBasis, cases, disposition: cases.every(c => c.matched) ? "green" as const : "red" as const },
     "assessmentRef", "assessmentDigest", "malformed-gtl-assessment://abiogenesis/") as unknown as Readonly<MalformedGtlAssessment>;
@@ -261,14 +264,14 @@ export function isMalformedGtlAssessment(value: unknown): value is MalformedGtlA
   return v.is(MALFORMED_GTL_ASSESSMENT_SCHEMA, value) && isMalformedGtlAssessmentInput(value.input) &&
     qualificationIdentity(value, "assessmentRef", "assessmentDigest", "malformed-gtl-assessment://abiogenesis/") &&
     value.cases.length === value.input.cases.length && value.cases.every((c, i) => c.caseRef === value.input.cases[i]!.caseRef &&
-      c.matched === same(c.actual, value.input.cases[i]!.expected)) && value.disposition === (value.cases.every(c => c.matched) ? "green" : "red");
+      c.matched === canonicalEquals(c.actual, value.input.cases[i]!.expected)) && value.disposition === (value.cases.every(c => c.matched) ? "green" : "red");
 }
 export function isNativeRuntimeAssessmentInput(value: unknown): value is NativeRuntimeAssessmentInput {
   if (!v.is(NATIVE_RUNTIME_ASSESSMENT_INPUT_SCHEMA, value) ||
     !qualificationIdentity(value.basis, "basisRef", "basisDigest", "qualification-basis://abiogenesis/") ||
     !qualificationCoverageIsPublished(value.coverage) ||
-    !same(value.basis.coverageCatalog, coordinate(value.coverage.catalogRef, value.coverage.catalogDigest)) ||
-    !same(value.basis.lawBasis, value.coverage.lawBasis) || !unique(value.cases.map(c => c.caseRef)) ||
+    !canonicalEquals(value.basis.coverageCatalog, coordinate(value.coverage.catalogRef, value.coverage.catalogDigest)) ||
+    !canonicalEquals(value.basis.lawBasis, value.coverage.lawBasis) || !unique(value.cases.map(c => c.caseRef)) ||
     !unique(value.cases.map(c => hash([c.programRef, c.invocationAdmissionRef, "structure" in c ? c.structure.nodeRef : c.slotRef]))) ||
     value.cases.some(c => {
       const structural = "structure" in c;
@@ -301,8 +304,8 @@ export function isNativeRuntimeAssessment(value: unknown): value is NativeRuntim
       const last = actual.at(-1)!;
       return c.caseRef === selected.caseRef && ("structure" in selected) === (c.steps !== undefined) &&
         actual.length === expected.length && unique(actual.map(s => s.cCallRef)) && actual.every((s, n) =>
-          same(s.result, expected[n]!.result) && s.matched === (s.actualValueDigest === expected[n]!.expectedValueDigest)) &&
-        same(c.result, last.result) && c.cCallRef === last.cCallRef && same(c.evidence, last.evidence) &&
+          canonicalEquals(s.result, expected[n]!.result) && s.matched === (s.actualValueDigest === expected[n]!.expectedValueDigest)) &&
+        canonicalEquals(c.result, last.result) && c.cCallRef === last.cCallRef && canonicalEquals(c.evidence, last.evidence) &&
         c.actualValueDigest === last.actualValueDigest && c.matched === actual.every(s => s.matched) &&
         c.substituteRefused === actual.every(s => s.substituteRefused);
     }) &&
@@ -319,7 +322,7 @@ export function qualificationScopeCorrespondence(scope: QualificationScope, cata
     return unique(a) && required.size === b.length && a.length === b.length && a.every(x => required.has(x)); };
   check(normalized === undefined ? qualificationIdentity(scope, "scopeRef", "scopeDigest", "qualification-scope://abiogenesis/") :
     qualificationIdentity(normalized, "scopeRef", "scopeDigest", "qualification-scope://abiogenesis/") && normalized.scopeRef === scope.scopeRef && normalized.scopeDigest === scope.scopeDigest, "scope_identity_mismatch");
-  check(same(scope.catalog, coordinate(catalog.catalogRef, catalogDigest)), "scope_catalog_mismatch");
+  check(canonicalEquals(scope.catalog, coordinate(catalog.catalogRef, catalogDigest)), "scope_catalog_mismatch");
   check(qualificationIdentity(inventory, "inventoryRef", "inventoryDigest", "qualification-inventory://abiogenesis/"), "scope_inventory_identity_mismatch");
   check(unique(inventory.members.map(m => m.ref)) && unique(inventory.members.map(m => m.path)) &&
     unique(inventory.selectedRoots) && inventory.selectedRoots.length > 0, "scope_inventory_ambiguous");
@@ -356,8 +359,8 @@ function qualificationTaskScopeMatches(task: QualificationEmbeddedTask, catalog:
   const scope = task.scope;
   if (scope === undefined) return true;
   if (qualificationScopeCorrespondence(scope, catalog, catalogDigest, normalized).length > 0 ||
-      !same(scope.subjectBasis, task.subjectBasis) || !same(scope.lawBasis, task.lawBasis) || !same(scope.catalog, task.catalog) ||
-      !same(coordinate(scope.inventory.inventoryRef, scope.inventory.inventoryDigest), task.inventory)) return false;
+      !canonicalEquals(scope.subjectBasis, task.subjectBasis) || !canonicalEquals(scope.lawBasis, task.lawBasis) || !canonicalEquals(scope.catalog, task.catalog) ||
+      !canonicalEquals(coordinate(scope.inventory.inventoryRef, scope.inventory.inventoryDigest), task.inventory)) return false;
   const role = task.role.roleRef, surfaces = new Map(scope.surfaceGroups.map(g => [g.groupRef, g])),
     rules = new Map(scope.ruleGroups.map(g => [g.groupRef, g]));
   const grouped = role === "qualification-role://abiogenesis/rule@5" || role === "qualification-role://abiogenesis/inventory@5";
@@ -380,7 +383,7 @@ function qualificationTaskScopeMatches(task: QualificationEmbeddedTask, catalog:
   }
   const source = (m: QualificationSubjectInventory["members"][number]) => ({ ref: m.ref, path: m.path, digest: m.digest, byteCount: m.byteCount });
   const inventoryByRef = new Map(scope.inventory.members.map(m => [m.ref, source(m)])), materialRefs = new Set(task.material.map(m => m.ref));
-  return task.subjectMembers.every(m => inventoryByRef.has(m.ref) && same(inventoryByRef.get(m.ref), m)) &&
+  return task.subjectMembers.every(m => inventoryByRef.has(m.ref) && canonicalEquals(inventoryByRef.get(m.ref) as JsonValue, m)) &&
     (!grouped || task.subjectMembers.length === requiredMembers.size && task.subjectMembers.every(m => requiredMembers.has(m.ref))) &&
     [...requiredSources].every(ref => materialRefs.has(ref));
 }
@@ -442,7 +445,7 @@ export function qualificationMaterialMatches(task: QualificationEmbeddedTask, no
     if ((roleSources as unknown[]).some(s => s === undefined)) return false;
   } catch { return false; }
   return QUALIFICATION_ROLE_POLICY.roleRefs.includes(task.role.roleRef) && QUALIFICATION_ROLE_POLICY.actorRefs.includes(task.role.actorRef) &&
-    task.role.independence !== "not_required" && same(task.role.sourceBindings, roleSources) &&
+    task.role.independence !== "not_required" && canonicalEquals(task.role.sourceBindings, roleSources as JsonValue) &&
     task.role.workerBindingRef === QUALIFICATION_ROLE_POLICY.workerBindingRef && task.role.rendererRef === QUALIFICATION_ROLE_POLICY.rendererRef &&
     task.role.materializationPlanRef === QUALIFICATION_ROLE_POLICY.materializationPlanRef && task.role.authorityRef === QUALIFICATION_ROLE_POLICY.authorityRef &&
     task.context.inventoryDigest === hash(members) && unique(members.map(x => x.path)) &&
@@ -468,11 +471,11 @@ export function qualificationPlanMatches(plan: QualificationAssessmentPlan): boo
       !unique(plan.slots.map(x => x.slotRef)) || !unique(plan.slots.map(x => String(x.taskOrdinal))) ||
       !unique(plan.coverage.map(hash)) || plan.coverage.length === 0 || plan.slots.length === 0) return false;
   const all = plan.slots.flatMap(s => s.coverage);
-  if (plan.coverage.some(c => !all.some(a => same(a, c))) || all.some(a => !plan.coverage.some(c => same(a, c)))) return false;
+  if (plan.coverage.some(c => !all.some(a => canonicalEquals(a, c))) || all.some(a => !plan.coverage.some(c => canonicalEquals(a, c)))) return false;
   if (plan.sharedCoverage === "disjoint" && !unique(all.map(hash))) return false;
   if (plan.sharedCoverage === "declared_independent_peers") {
     for (const pair of plan.coverage) {
-      const peers = plan.slots.filter(s => s.coverage.some(c => same(c, pair)));
+      const peers = plan.slots.filter(s => s.coverage.some(c => canonicalEquals(c, pair)));
       if (peers.length < 2 || !unique(peers.map(s => s.role.actorRef)) ||
           peers.some(s => s.role.independence !== "author_and_peer_distinct")) return false;
     }
@@ -484,16 +487,16 @@ export function isQualificationAssessmentInput(value: unknown): value is Qualifi
   if (!v.is(QUALIFICATION_ASSESSMENT_INPUT_SCHEMA, value) || !isQualificationAssessmentTask(value.task) ||
       !qualificationPlanMatches(value.plan) || (!("representation" in value.task) && !qualificationMaterialMatches(value.task))) return false;
   const { task, plan } = value, slots = plan.slots.filter(s => s.slotRef === task.slotRef);
-  return slots.length === 1 && same(plan.subjectBasis, task.subjectBasis) && same(plan.lawBasis, task.lawBasis) &&
-    same(slots[0]!.task, coordinate(task.taskRef, task.taskDigest)) && slots[0]!.taskOrdinal === task.taskOrdinal &&
-    same(slots[0]!.coverage, task.coverage) && same(slots[0]!.role, task.role) &&
-    ("representation" in task ? [...task.material, task.provenance, ...(task.scope === undefined ? [] : [task.scope])].every(s => same(s.resource, task.resource))
-      : same(task.provenance.subjectInventory, task.inventory));
+  return slots.length === 1 && canonicalEquals(plan.subjectBasis, task.subjectBasis) && canonicalEquals(plan.lawBasis, task.lawBasis) &&
+    canonicalEquals(slots[0]!.task, coordinate(task.taskRef, task.taskDigest)) && slots[0]!.taskOrdinal === task.taskOrdinal &&
+    canonicalEquals(slots[0]!.coverage, task.coverage) && canonicalEquals(slots[0]!.role, task.role) &&
+    ("representation" in task ? [...task.material, task.provenance, ...(task.scope === undefined ? [] : [task.scope])].every(s => canonicalEquals(s.resource, task.resource))
+      : canonicalEquals(task.provenance.subjectInventory, task.inventory));
 }
 export function establishQualificationAssessment(input: QualificationAssessmentInput, resources?: QualificationResources): ResolvedQualificationAssessment {
   if (!isQualificationAssessmentInput(input)) throw new TypeError("invalid qualification assessment input (shape/identity)");
   const validate = (view: ResolvedQualificationAssessment) => {
-    if (!qualificationMaterialMatches(view.task, view.normalizedScope) || !same(view.task.provenance.subjectInventory, input.task.inventory))
+    if (!qualificationMaterialMatches(view.task, view.normalizedScope) || !canonicalEquals(view.task.provenance.subjectInventory, input.task.inventory))
       throw new TypeError("qualification resource material/scope correspondence differs");
   };
   if ("representation" in input.task) {
@@ -587,17 +590,17 @@ export function prepareQualificationAssessment(input: QualificationAssessmentInp
       if (source.requestDigest !== hash(request) || source.promptDigest !== hash(request.prompt)) throw new TypeError("qualification completion crosses owning request");
       completed = constructQualificationJudgment(input, raw, basis, source, view); return completed;
     },
-    matches(supplied: unknown, output: unknown) { return supplied === input && completed !== undefined && same(completed, output); },
+    matches(supplied: unknown, output: unknown) { return supplied === input && completed !== undefined && canonicalEquals(completed as unknown as JsonValue, output as JsonValue); },
   });
 }
 /** F_H candidate relation; actual authority and response admission stay native. */
 export function qualificationRulingMatches(request: unknown, response: unknown, actingActorRef: string): response is QualificationOwnerRuling {
   if (!v.is(QUALIFICATION_RULING_REQUEST_SCHEMA, request) || !v.is(QUALIFICATION_OWNER_RULING_SCHEMA, response) ||
       !qualificationIdentity(request, "requestRef", "requestDigest", "qualification-ruling-request://abiogenesis/")) return false;
-  if (!same(response.request, coordinate(request.requestRef, request.requestDigest)) || response.slotRef !== request.slotRef ||
-      !same(response.subjectBasis, request.subjectBasis) || !same(response.lawBasis, request.lawBasis) ||
+  if (!canonicalEquals(response.request, coordinate(request.requestRef, request.requestDigest)) || response.slotRef !== request.slotRef ||
+      !canonicalEquals(response.subjectBasis, request.subjectBasis) || !canonicalEquals(response.lawBasis, request.lawBasis) ||
       response.authorityRef !== request.authorityRef || response.actorRef !== request.actorRef || actingActorRef !== request.actorRef ||
-      !same(response.retainedObligationRefs, request.retainedObligationRefs)) return false;
+      !canonicalEquals(response.retainedObligationRefs, request.retainedObligationRefs)) return false;
   return request.decision === "external_attribution" ? ["acknowledged", "disputed", "insufficient"].includes(response.disposition)
     : request.decision === "lawful_reentry" ? ["accepted_reentry", "disputed", "insufficient"].includes(response.disposition)
     : ["justified_exclusion", "disputed", "insufficient"].includes(response.disposition);
@@ -612,7 +615,7 @@ export function isQualificationCoverageCatalog(value: unknown): value is Qualifi
 export function qualificationCoverageIsPublished(value: QualificationCoverageCatalog): boolean {
   try {
     const published: unknown = JSON.parse(readFileSync(fileURLToPath(new URL("../../../../contracts/qualification/coverage.json", import.meta.url)), "utf8"));
-    return isQualificationCoverageCatalog(published) && isQualificationCoverageCatalog(value) && same(published, value);
+    return isQualificationCoverageCatalog(published) && isQualificationCoverageCatalog(value) && canonicalEquals(published, value);
   } catch { return false; }
 }
 export function isQualificationBasisReady(basis: ExactCandidateQualification<"basis">): boolean {
@@ -627,11 +630,11 @@ export function isQualificationVerdictInput(value: unknown): value is Qualificat
   if (!v.is(QUALIFICATION_VERDICT_INPUT_SCHEMA, value) || !qualificationCoverageIsPublished(value.coverage)) return false;
   const { basis, coverage, selfConformance } = value;
   return qualificationIdentity(basis, "basisRef", "basisDigest", "qualification-basis://abiogenesis/") &&
-    same(basis.coverageCatalog, coordinate(coverage.catalogRef, coverage.catalogDigest)) &&
-    same(basis.lawBasis, coverage.lawBasis) && same(selfConformance.subjectBasis, coordinate(basis.basisRef, basis.basisDigest)) &&
-    same(selfConformance.lawBasis, basis.lawBasis) && unique(selfConformance.bypassRefs) &&
-    (selfConformance.verification == null || same(selfConformance.verification.subjectBasis, coordinate(basis.basisRef, basis.basisDigest)) &&
-      same(selfConformance.verification.lawBasis, basis.lawBasis));
+    canonicalEquals(basis.coverageCatalog, coordinate(coverage.catalogRef, coverage.catalogDigest)) &&
+    canonicalEquals(basis.lawBasis, coverage.lawBasis) && canonicalEquals(selfConformance.subjectBasis, coordinate(basis.basisRef, basis.basisDigest)) &&
+    canonicalEquals(selfConformance.lawBasis, basis.lawBasis) && unique(selfConformance.bypassRefs) &&
+    (selfConformance.verification == null || canonicalEquals(selfConformance.verification.subjectBasis, coordinate(basis.basisRef, basis.basisDigest)) &&
+      canonicalEquals(selfConformance.verification.lawBasis, basis.lawBasis));
 }
 /** AF22 alone computes qualification from its authenticated whole F11 result.
  * A computable assessment's green value never supplies semantic coverage. */
@@ -741,7 +744,7 @@ export function projectExternalConstructionAttribution(judgment: QualificationJu
     const a = assessed.length === 1 ? assessed[0]! : null;
     if (a === null || a.disposition !== "established" || a.authorRef !== chain.authorRef ||
         a.actorIdentityRef !== chain.actorIdentityRef || a.authorityRef !== chain.authorityRef ||
-        !same(a.scopeRefs, chain.scopeRefs) || ![chain.activationRef, chain.preimageRef, chain.deltaRef, chain.closureRef].every(r => a.sourceRefs.includes(r))) sufficient = false;
+        !canonicalEquals(a.scopeRefs, chain.scopeRefs) || ![chain.activationRef, chain.preimageRef, chain.deltaRef, chain.closureRef].every(r => a.sourceRefs.includes(r))) sufficient = false;
     authors.push(chain.actorIdentityRef);
     for (const scope of chain.scopeRefs) covered.add(scope);
   }

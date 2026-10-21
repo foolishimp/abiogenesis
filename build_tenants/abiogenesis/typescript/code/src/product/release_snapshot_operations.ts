@@ -2,7 +2,7 @@ import { RELEASE_OWNER_RULING_SCHEMA, RELEASE_RULING_SOURCE_APPROVAL_SCHEMA } fr
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import * as v from "valibot";
 import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isRecord } from "../shared/admission_predicates.js";
@@ -92,7 +92,6 @@ export const RELEASE_OPERATION_CONTRACTS=Object.freeze({snapshot:Object.freeze({
  tapped_release:ownerContractPacket({operationId:"abg.operation.release.snapshot",memberKey:"tapped_release"} as const,tappedRequestSchema,tappedCompleteSchema,refusalSchema,null,owner("tapped_release"),metadata("tapped_release")),
 })});
 export const releaseHash=(value:unknown)=>sha256Canonical(value as JsonValue);
-const same=(a:unknown,b:unknown)=>canonicalJson(a as JsonValue)===canonicalJson(b as JsonValue);
 export function releaseRefusal(memberKey:ReleaseSnapshotMember,code:ReleaseSnapshotRefusal["code"],message:string,observation:ReleasePhysicalObservation|null=null,artifact:ReferenceDigest|null=null):ReleaseSnapshotRefusal{
  return deepFreeze({kind:"release_snapshot_refusal",schemaVersion:"5.0.0",memberKey,disposition:observation?.disposition==="incomplete_effect"?"incomplete_effect":"refused",code,message,artifact,observation});
 }

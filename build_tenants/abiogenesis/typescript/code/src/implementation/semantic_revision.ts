@@ -18,6 +18,7 @@ import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabi
 import { sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const placeholder = `sha256:${"0".repeat(64)}` as const;
 export const SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS = semanticRevisionImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
@@ -56,7 +57,7 @@ function actor(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,
     complete(exchange) {
       const o = exchange.observation;
-      if (hash(exchange.request) !== hash(assembly.request) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
+      if (!canonicalEquals(exchange.request as unknown as JsonValue, assembly.request as unknown as JsonValue) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
         o.toolCallCount !== 0 || o.inputDigest !== owner.inputDigest || o.implementationRef !== owner.call.implementationRef ||
         o.actorRef !== old.workerActorRef || o.workerBindingRef !== old.workerBindingRef || o.transportLane !== "closed_prompt_proof") return result(input, null, owner.call.implementationRef!, false);
       try {
@@ -93,7 +94,7 @@ export function realizeSemanticRevisionSelection(input: Readonly<Record<string, 
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,
     complete(exchange) {
       const o = exchange.observation;
-      if (hash(exchange.request) !== hash(assembly.request) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
+      if (!canonicalEquals(exchange.request as unknown as JsonValue, assembly.request as unknown as JsonValue) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
         o.toolCallCount !== 0 || o.inputDigest !== owner.inputDigest || o.implementationRef !== ids.selectionImplementationRef ||
         o.actorRef !== old.workerActorRef || o.workerBindingRef !== old.workerBindingRef || o.transportLane !== "closed_prompt_proof") return result(input, null, ids.selectionImplementationRef, false);
       try { const raw = JSON.parse(o.finalOutput) as unknown; return result(input, (job ? jobRevisionSelectionMatchesBasis(basis, input, raw) : semanticRevisionSelectionMatchesBasis(basis, input, raw)) ? raw : null, ids.selectionImplementationRef, false); }
@@ -110,7 +111,7 @@ export function realizeSemanticRevisionNativeRequest(input: Readonly<Record<stri
   return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticRevisionRequest(occurrence.semanticStageBasis,input), ids.nativeRequestImplementationRef, true);
 }
 export function realizeSemanticRevisionNativeConstruction(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
-  if (!isSemanticJobRevisionEnvelope(input) || hash(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits) !== hash(selectedWorksiteCommandExecutionLimits())) return result(input,null,ids.nativeConstructionImplementationRef,true);
+  if (!isSemanticJobRevisionEnvelope(input) || !canonicalEquals(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits as unknown as JsonValue, selectedWorksiteCommandExecutionLimits() as unknown as JsonValue)) return result(input,null,ids.nativeConstructionImplementationRef,true);
   return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeRevisionConstructionTask(occurrence.semanticStageBasis,input), ids.nativeConstructionImplementationRef, true);
 }
 export function realizeSemanticRevisionNativeExecution(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {

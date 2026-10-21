@@ -7,7 +7,7 @@ import {
   QUALIFICATION_RESOURCE_ASSERTION_SCHEMA, QUALIFICATION_INTERNED_SCOPE_SCHEMA, QUALIFICATION_INVENTORY_SCHEMA,
   QUALIFICATION_MATERIAL_SCHEMA, QUALIFICATION_RESOURCE_PROVENANCE_SCHEMA, QUALIFICATION_LAW_BASIS_SCHEMA,
   TENANT_CONFORMANCE_MANIFEST_SCHEMA, QUALIFICATION_COVERAGE_CATALOG_SCHEMA, QUALIFICATION_VERIFICATION_RECIPE_SCHEMA,
-  qualificationHash as hash, sameQualificationValue as same, qualificationIdentity as identity, qualificationIdentityDigest, constructQualificationIdentity,
+  qualificationHash as hash, qualificationIdentity as identity, qualificationIdentityDigest, constructQualificationIdentity,
   type QualificationResourceAssertion, type QualificationResourceManifest, type QualificationResourceSelection,
   type QualificationDeclarationSelection, type QualificationInternedScope, type QualificationReferenceSet,
   type QualificationCoordinate, type QualificationScope, type QualificationSubjectInventory, type QualificationMaterial,
@@ -15,6 +15,7 @@ import {
   type QualificationEmbeddedProofResource, type QualificationConstructionProvenance,
 } from "./qualification_contracts.js";
 import { SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA, type SelfConformanceInput, type SelfConformanceEmbeddedInput } from "./self_conformance_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const coord = (ref: string, digest: string): QualificationCoordinate => ({ ref, digest });
 const unique = (xs: readonly unknown[]) => new Set(xs).size === xs.length;
 export function isQualificationReferenceForm(value: unknown): value is { representation: "resource_refs_v1" } {
@@ -103,7 +104,7 @@ export class QualificationResources {
         v.parse(QUALIFICATION_RESOURCE_PROVENANCE_SCHEMA, value);
         id = coord("qualification-provenance://abiogenesis/" + hash(value).slice(7), hash(value)); break;
     }
-    if (!same(id, c)) throw new TypeError("qualification_resource_entry_identity");
+    if (!canonicalEquals(id, c)) throw new TypeError("qualification_resource_entry_identity");
   }
   /** Complete views belong only to this explicit immutable acquisition. Raw
    * identity is rechecked by the calling owner; full dependencies are borrowed
@@ -134,7 +135,7 @@ export class QualificationResources {
     const m = this.manifest(resource);
     if (!unique(selections.map(hash))) throw new TypeError("qualification_declaration_selection_ambiguous");
     return selections.map(s => {
-      if (m.declarationSelections.filter(d => same(d, s)).length !== 1) throw new TypeError("qualification_declaration_selection_unbound");
+      if (m.declarationSelections.filter(d => canonicalEquals(d, s)).length !== 1) throw new TypeError("qualification_declaration_selection_unbound");
       const matched = this.proofs.filter(p => p.catalog.basisDigest === s.catalogBasisDigest && p.catalog.readinessBasisDigest === s.readinessBasisDigest &&
         p.catalogView.viewDigest === s.viewDigest && p.catalogView.catalogBasisDigest === s.catalogBasisDigest && this.proofDigests.get(p) === s.proofDigest);
       if (matched.length !== 1) throw new TypeError("qualification_declaration_preimage_missing_or_crossed");
@@ -145,14 +146,14 @@ export class QualificationResources {
     const normalized = this.value<QualificationInternedScope>(selection, "scope"), manifest = this.manifest(selection.resource);
     const key = manifest.resourceRef + ":" + selection.entry.ref, prior = this.scopeViews.get(key);
     if (prior !== undefined) return prior;
-    if (!same(normalized.subjectBasis, manifest.subjectBasis) || !same(normalized.lawBasis, manifest.lawBasis) ||
-        !same(normalized.catalog, manifest.catalog) || !same(normalized.inventory, manifest.inventory)) throw new TypeError("qualification_scope_resource_basis");
+    if (!canonicalEquals(normalized.subjectBasis, manifest.subjectBasis) || !canonicalEquals(normalized.lawBasis, manifest.lawBasis) ||
+        !canonicalEquals(normalized.catalog, manifest.catalog) || !canonicalEquals(normalized.inventory, manifest.inventory)) throw new TypeError("qualification_scope_resource_basis");
     const inventory = this.value<QualificationSubjectInventory>(this.selection(manifest, "inventory", normalized.inventory), "inventory");
     const sets = new Map<string, { set: QualificationReferenceSet; values: string[] }>();
     for (const set of normalized.referenceSets) {
       if (!identity(set, "setRef", "setDigest", "qualification-set://abiogenesis/") || sets.has(set.setRef) || !unique(set.values))
         throw new TypeError("qualification_scope_set_identity_or_ambiguity");
-      if (set.encoding === "member_ordinals" && (!same(set.inventory, normalized.inventory) || set.values.some(n => !Number.isSafeInteger(n) || n < 0 || n >= inventory.members.length)))
+      if (set.encoding === "member_ordinals" && (!canonicalEquals(set.inventory, normalized.inventory) || set.values.some(n => !Number.isSafeInteger(n) || n < 0 || n >= inventory.members.length)))
         throw new TypeError("qualification_scope_set_inventory_or_ordinal");
       const values = set.encoding === "member_ordinals" ? set.values.map(n => inventory.members[n]!.ref) : set.values;
       if (set.elementKind === "surfaceRoles" && values.some(x => !["constitutional", "design", "code", "proof", "execution_contract", "public_contract", "manifest", "qualification", "release_claim"].includes(x)))
@@ -200,10 +201,10 @@ export function resolveQualificationAssessment(input: QualificationAssessmentInp
   if (!isQualificationReferenceForm(input.task)) return { input, task: input.task };
   if (resources === undefined) throw new TypeError("qualification_resource_dependency_missing");
   const task = input.task, m = resources.manifest(task.resource);
-  if (!same(m.subjectBasis, task.subjectBasis) || !same(m.lawBasis, task.lawBasis) || !same(m.catalog, task.catalog) || !same(m.inventory, task.inventory))
+  if (!canonicalEquals(m.subjectBasis, task.subjectBasis) || !canonicalEquals(m.lawBasis, task.lawBasis) || !canonicalEquals(m.catalog, task.catalog) || !canonicalEquals(m.inventory, task.inventory))
     throw new TypeError("qualification_task_resource_basis");
   const selections = [...task.material, task.provenance, ...(task.scope === undefined ? [] : [task.scope])];
-  if (selections.some(s => !same(s.resource, task.resource))) throw new TypeError("qualification_task_resource_crossed");
+  if (selections.some(s => !canonicalEquals(s.resource, task.resource))) throw new TypeError("qualification_task_resource_crossed");
   const scoped = task.scope === undefined ? undefined : resources.scope(task.scope);
   const { representation: _representation, resource: _resource, ...rest } = task;
   const resolved: QualificationEmbeddedTask = { ...rest, declarations: [...resources.declarations(task.resource, task.declarations)],
@@ -215,11 +216,11 @@ export function resolveSelfConformanceInput(raw: SelfConformanceInput, resources
   if (!isQualificationReferenceForm(raw)) return { input: raw };
   if (resources === undefined || !v.is(SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA, raw)) throw new TypeError("qualification_resource_dependency_missing");
   const m = resources.manifest(raw.resource);
-  if (!same(m.subjectBasis, coord(raw.basis.basisRef, raw.basis.basisDigest)) || !same(m.lawBasis, raw.basis.lawBasis) || !same(m.inventory, raw.basis.sourceInventory))
+  if (!canonicalEquals(m.subjectBasis, coord(raw.basis.basisRef, raw.basis.basisDigest)) || !canonicalEquals(m.lawBasis, raw.basis.lawBasis) || !canonicalEquals(m.inventory, raw.basis.sourceInventory))
     throw new TypeError("self_conformance_resource_basis");
   const selections = [raw.law, raw.inventory, raw.tenantManifest, raw.scope, ...raw.authorityMembers,
     ...(raw.qualification === undefined ? [] : [...raw.qualification.sourceMembers, raw.qualification.coverageCatalog, raw.qualification.verification?.recipe])].filter(s => s !== null && s !== undefined);
-  if (selections.some(s => s !== null && s !== undefined && !same(s.resource, raw.resource)) || raw.qualification !== undefined && !isQualificationReferenceForm(raw.qualification.proof)) throw new TypeError("self_conformance_resource_crossed_or_mixed");
+  if (selections.some(s => s !== null && s !== undefined && !canonicalEquals(s.resource, raw.resource)) || raw.qualification !== undefined && !isQualificationReferenceForm(raw.qualification.proof)) throw new TypeError("self_conformance_resource_crossed_or_mixed");
   const scope = raw.scope === undefined ? undefined : resources.scope(raw.scope), { representation: _representation, resource: _resource, ...rest } = raw;
   return { input: { ...rest, law: raw.law === null ? null : resources.value(raw.law, "law"),
     inventory: raw.inventory === null ? null : resources.value(raw.inventory, "inventory"), tenantManifest: raw.tenantManifest === null ? null : resources.value(raw.tenantManifest, "tenant_manifest"),

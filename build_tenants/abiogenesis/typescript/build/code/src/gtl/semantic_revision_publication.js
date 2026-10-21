@@ -9,8 +9,9 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_exec
 import { deepFreeze } from "../shared/immutable.js";
 import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, graphInputRetentionBinding } from "../product/worksite_preparation_contracts.js";
-import { canonicalJson } from "../shared/canonical_json.js";
+import {} from "../shared/canonical_json.js";
 import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
+import { canonicalEquals } from "../shared/value/index.js";
 const inputs = (role) => role === "selection" ? ids.selectionInputContractRef : role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef :
     role === "nativeIntake" ? ids.nativeIntakeContractRef : role === "nativeRequest" ? ids.selectionContractRef :
         role === "nativeExecution" || role === "nativeEvidence" ? RETAINED_GRAPH_INPUT_CONTRACT.contractRef : ids.envelopeContractRef;
@@ -112,7 +113,7 @@ function nativeConstructionGraph(input) {
 export function isNativeSemanticRevisionGraphFunction(publication, graph) {
     try {
         return publication.semanticJobLifecycle !== undefined && graph.declarations["abg.semantic_native_revision_construction"] === "5.0.0" &&
-            canonicalJson(canonicalizeAuthoredGtlCarrier(nativeConstructionGraph({ graphFunctionRef: graph.name, closureContractRef: graph.declarations["abg.closure_contract"] }), "graph_function")) === canonicalJson(graph);
+            canonicalEquals(canonicalizeAuthoredGtlCarrier(nativeConstructionGraph({ graphFunctionRef: graph.name, closureContractRef: graph.declarations["abg.closure_contract"] }), "graph_function"), graph);
     }
     catch {
         return false;

@@ -8,7 +8,6 @@ import {
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
 import {
-  canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
@@ -40,6 +39,7 @@ import {
   selectIntrinsicPublicFunctionDefinition,
   type IntrinsicPublicFunctionDefinition,
 } from "../public/binding/public_function_family.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export const DIRECT_INVOKE_CAPABILITY =
   "abg.capability.catalog.invoke-graph-function@5";
@@ -308,12 +308,13 @@ export function isInvocationPolicyBasis(
     value.allowedComputeRegimes.some(
       (regime) => regime !== "F_D" && regime !== "F_P" && regime !== "F_H",
     ) ||
-    value.allowedComputeRegimes.join("\0") !==
+    !canonicalEquals(
+      value.allowedComputeRegimes,
       (["F_D", "F_P", "F_H"] as const)
         .filter((regime) =>
           (value.allowedComputeRegimes as readonly unknown[]).includes(regime)
-        )
-        .join("\0") ||
+        ),
+    ) ||
     !Array.isArray(value.interactionCapabilities) ||
     value.interactionCapabilities.some((row) =>
       !isRecord(row) ||
@@ -329,19 +330,22 @@ export function isInvocationPolicyBasis(
     new Set(value.interactionCapabilities.map((row) =>
       (row as Readonly<Record<string, unknown>>).requirementKey
     )).size !== value.interactionCapabilities.length ||
-    value.interactionCapabilities.map((row) =>
-      (row as Readonly<Record<string, unknown>>).requirementKey as string
-    ).join("\0") !== [...value.interactionCapabilities]
-      .map((row) =>
+    !canonicalEquals(
+      value.interactionCapabilities.map((row) =>
         (row as Readonly<Record<string, unknown>>).requirementKey as string
-      )
-      .sort(compareUnicodeCodeUnits)
-      .join("\0") ||
+      ),
+      [...value.interactionCapabilities]
+        .map((row) =>
+          (row as Readonly<Record<string, unknown>>).requirementKey as string
+        )
+        .sort(compareUnicodeCodeUnits),
+    ) ||
     !uniqueStrings(value.catalogApplicationRefs) ||
-    value.catalogApplicationRefs.join("\0") !==
+    !canonicalEquals(
+      value.catalogApplicationRefs,
       [...value.catalogApplicationRefs]
-        .sort(compareUnicodeCodeUnits)
-        .join("\0") ||
+        .sort(compareUnicodeCodeUnits),
+    ) ||
     !Array.isArray(value.catalogApplicationDigests) ||
     value.catalogApplicationDigests.length !==
       value.catalogApplicationRefs.length ||
@@ -762,8 +766,10 @@ function selectedCapabilityOwner(
       catalogDigest: install.catalogDigest,
     };
     if (row.owningPublicContracts.some((coordinate) =>
-      canonicalJson(coordinate.contractCatalog as unknown as JsonValue) !==
-        canonicalJson(exactCatalog as unknown as JsonValue)
+      !canonicalEquals(
+        coordinate.contractCatalog as unknown as JsonValue,
+        exactCatalog as unknown as JsonValue,
+      )
     )) return [];
     const coordinates = row.owningPublicContracts;
     const definitionCoordinates = coordinates.filter((coordinate) =>
@@ -806,8 +812,10 @@ function selectedCapabilityOwner(
     if (
       explicitOperationContracts.length > 1 ||
       explicitOperationContracts.some((coordinate) =>
-        canonicalJson(coordinate as unknown as JsonValue) !==
-          canonicalJson(operationContract as unknown as JsonValue)
+        !canonicalEquals(
+          coordinate as unknown as JsonValue,
+          operationContract as unknown as JsonValue,
+        )
       )
     ) return [];
     const exactSlots = expectedSlots.every((slot) =>
@@ -815,8 +823,10 @@ function selectedCapabilityOwner(
         coordinate.nestedSelector.selectorKind ===
           "operation_definition_slot" &&
         coordinate.nestedSelector.slot === slot &&
-        canonicalJson(coordinate.flatRow as unknown as JsonValue) ===
-          canonicalJson(operationContract.flatRow as unknown as JsonValue) &&
+        canonicalEquals(
+          coordinate.flatRow as unknown as JsonValue,
+          operationContract.flatRow as unknown as JsonValue,
+        ) &&
         admitRuntimeContract(publicContractCoordinateSchema, coordinate)
           .disposition === "admitted"
       ).length === 1
@@ -1041,8 +1051,10 @@ export function validateCapabilityGrantForProductBasis(
       capabilityRef,
       basis,
     );
-    return canonicalJson(grant as unknown as JsonValue) ===
-      canonicalJson(expected as unknown as JsonValue);
+    return canonicalEquals(
+      grant as unknown as JsonValue,
+      expected as unknown as JsonValue,
+    );
   } catch {
     return false;
   }
@@ -1082,8 +1094,10 @@ export function constructInvocationAuthority(
   }
   if (
     exactSelectedRow === null ||
-    sha256Canonical(exactSelectedRow as unknown as JsonValue) !==
-      sha256Canonical(selectedRow as unknown as JsonValue) ||
+    !canonicalEquals(
+      exactSelectedRow as unknown as JsonValue,
+      selectedRow as unknown as JsonValue,
+    ) ||
     selectedRow.definitionRef !== selectedRow.definition.name ||
     selectedRow.definitionDigest !==
       sha256Canonical(selectedRow.definition as unknown as JsonValue) ||
@@ -1158,8 +1172,10 @@ function constructInvocation(
     authority.catalogViewDigest !== catalogView.viewDigest ||
     authority.programRef !== program.programRef ||
     exactSelectedRow === null ||
-    sha256Canonical(exactSelectedRow as unknown as JsonValue) !==
-      sha256Canonical(selectedRow as unknown as JsonValue) ||
+    !canonicalEquals(
+      exactSelectedRow as unknown as JsonValue,
+      selectedRow as unknown as JsonValue,
+    ) ||
     selectedRow.definitionRef !== graphFunction.name ||
     selectedRow.definitionDigest !==
       sha256Canonical(graphFunction as unknown as JsonValue) ||
@@ -1171,7 +1187,7 @@ function constructInvocation(
     authority.graphFunctionRef !== selectedRow.definitionRef ||
     authority.policyRef !== policy.policyRef ||
     authority.policyDigest !== policy.policyDigest ||
-    authority.capabilityGrantRefs.join("\0") !== capabilityGrants.map((grant) => grant.grantRef).join("\0")
+    !canonicalEquals(authority.capabilityGrantRefs, capabilityGrants.map((grant) => grant.grantRef))
   ) {
     return refusal("authority_mismatch", "invocation authority differs from the selected environment or target");
   }

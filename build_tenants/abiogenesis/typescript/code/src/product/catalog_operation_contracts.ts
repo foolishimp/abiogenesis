@@ -21,6 +21,7 @@ import {
 } from "../shared/public_function_contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 const CATALOG_AUTHORITY =
   "authority://abiogenesis/product/catalog-operations@5";
@@ -167,13 +168,17 @@ export function admitCatalogAdmissionResult(
   );
   const issues: string[] = [];
   if (
-    canonicalJson(value.conservation as unknown as JsonValue) !==
-      canonicalJson(expectedWitness as unknown as JsonValue)
+    !canonicalEquals(
+      value.conservation as unknown as JsonValue,
+      expectedWitness as unknown as JsonValue,
+    )
   ) issues.push("/conservation");
   if (
     outputKeys.length !== new Set(outputKeys).size ||
-    canonicalJson([...outputKeys].sort()) !==
-      canonicalJson([...expectedKeys].sort())
+    !canonicalEquals(
+      [...outputKeys].sort(),
+      [...expectedKeys].sort(),
+    )
   ) issues.push("/rows");
   return issues.length === 0
     ? Object.freeze({ disposition: "admitted" as const, value })

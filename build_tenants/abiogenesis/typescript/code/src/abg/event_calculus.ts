@@ -40,6 +40,7 @@ import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkObservatio
 import { worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import type { CCall } from "./c_call.js";
 import { nativeWorkUnknownEffectDependencies, projectNativeWorkUnknownEffectTask } from "./native_work_effect.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 interface EventCalculusEffectRefs {
   readonly initiates: readonly string[];
@@ -2130,7 +2131,7 @@ export function worksiteSelectedOccurrenceInputCurrent(authorityPrefix: RuntimeE
   const occurrence = projectWorksiteSelectedOccurrence(fibre, worksiteSelectedOccurrenceDependencies(authorityPrefix, fibre));
   if (occurrence === null || occurrence.cCall.cCallRef !== cCall.cCallRef ||
     occurrence.cCall.cCallDigest !== cCall.cCallDigest || occurrence.cCall.openedEventRef !== cCall.openedEventRef ||
-    sha256Canonical(occurrence.request as unknown as JsonValue) !== sha256Canonical(request as unknown as JsonValue)) return false;
+    !canonicalEquals(occurrence.request as unknown as JsonValue, request as unknown as JsonValue)) return false;
   const before = validatedRuntimeEventPrefixBeforeEvent(authorityPrefix, fibre.eventId);
   return holdsAt(deriveRuntimeHeldFluentProjection(before),
     constructWorksiteObservationCurrentFluent(request.predecessorObservation.observationRef)) &&

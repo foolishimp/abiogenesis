@@ -2,7 +2,7 @@ import { rehydrateInvocationAdmissionAtPrefix } from "../abg/invocation_admissio
 import { lstat, readFile, readdir, readlink, realpath } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { projectCCallCarrierPhaseAtPrefix } from "../abg/c_call.js";
@@ -73,6 +73,7 @@ import {
   WORKSITE_FILE_PARENTS_IDS,
 } from "../gtl/worksite_c0.js";
 import { isLeafExecutionAuthority } from "./leaf_execution_authority.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export const WORKSITE_C0_IMPLEMENTATION = Object.freeze({
   implementationRef: "implementation://abiogenesis/worksite/file-replace-fd@5",
@@ -354,11 +355,15 @@ export async function realizeWorksiteFileReplace(
       },
     );
     const executionBasisHeld = projectedExecutionBasis !== null &&
-      sha256Canonical(projectedExecutionBasis as unknown as JsonValue) ===
-        sha256Canonical(authority.executionBasis as unknown as JsonValue);
+      canonicalEquals(
+        projectedExecutionBasis as unknown as JsonValue,
+        authority.executionBasis as unknown as JsonValue,
+      );
     const implementationSetHeld = projectedImplementationSet !== null &&
-      sha256Canonical(projectedImplementationSet as unknown as JsonValue) ===
-        sha256Canonical(authority.implementationSet as unknown as JsonValue);
+      canonicalEquals(
+        projectedImplementationSet as unknown as JsonValue,
+        authority.implementationSet as unknown as JsonValue,
+      );
     const phase = projectCCallCarrierPhaseAtPrefix(
       runtimePrefix,
       authority.cCall,
@@ -393,7 +398,7 @@ export async function realizeWorksiteFileReplace(
       install.contributionManifest.publicationBindings.filter((binding) => binding.publicationDigest === selected.implementationPublicationDigest).length === 1);
     const rootInvocation = rootBasis === null ? null : rehydrateInvocationAdmissionAtPrefix(authorityPrefix, rootBasis.invocationAdmissionRef);
     const ownersHeld = rootInvocation !== null && rootInvocation.capabilityGrants.length === 1 &&
-      canonicalJson(rootInvocation.capabilityGrants[0] as unknown as JsonValue) === canonicalJson(value.capabilityGrant as unknown as JsonValue) &&
+      canonicalEquals(rootInvocation.capabilityGrants[0] as unknown as JsonValue, value.capabilityGrant as unknown as JsonValue) &&
       value.capabilityGrant.definitionKey.memberKey === (rootInvocation.invocationVariant === "direct" ? "invoke" : rootInvocation.invocationVariant) &&
       rootBasis !== null && rootBasis.programRef === authority.programRef &&
       rootBasis.programDigest === authority.programDigest && rootBasis.invocationAdmissionRef === authority.executionBasis.invocationAdmissionRef &&
@@ -402,10 +407,14 @@ export async function realizeWorksiteFileReplace(
     protectedInstallRoots = installs.map((install) => install.installedRoot);
     const environmentHeld = environment.kind ===
         "exact_prefix_workspace_environment" &&
-      canonicalJson(environment.workspaceAuthorityBasis as unknown as JsonValue) ===
-        canonicalJson(value.workspaceAuthorityBasis as unknown as JsonValue) &&
-      canonicalJson(environment.workspaceBinding as unknown as JsonValue) ===
-        canonicalJson(authority.workspaceBinding as unknown as JsonValue) &&
+      canonicalEquals(
+        environment.workspaceAuthorityBasis as unknown as JsonValue,
+        value.workspaceAuthorityBasis as unknown as JsonValue,
+      ) &&
+      canonicalEquals(
+        environment.workspaceBinding as unknown as JsonValue,
+        authority.workspaceBinding as unknown as JsonValue,
+      ) &&
       ownersHeld;
     installedProductRoot = environmentHeld
       ? programOwners[0]!.installedRoot
@@ -551,8 +560,10 @@ export async function realizeWorksiteFileReplace(
       observation: null,
     });
   }
-  if (canonicalJson(productInventoryBefore) !==
-    canonicalJson(productInventoryAfter)) {
+  if (!canonicalEquals(
+    productInventoryBefore,
+    productInventoryAfter,
+  )) {
     return productConservationFailure(resolution, inputDigest, {
       outcome, authorization, completedOwner, stage: "product_inventory",
       message: "post-publication installed Product inventories did not match",
@@ -595,8 +606,10 @@ export async function realizeWorksiteFileReplace(
     });
   }
   if (successor.kind !== "worksite_observation" ||
-    canonicalJson(successor as unknown as JsonValue) !==
-      canonicalJson(outcome.successorObservation as unknown as JsonValue)) {
+    !canonicalEquals(
+      successor as unknown as JsonValue,
+      outcome.successorObservation as unknown as JsonValue,
+    )) {
     return productConservationFailure(resolution, inputDigest, {
       outcome, authorization, completedOwner, stage: "owner_reobservation",
       message: successor.kind === "worksite_effect_refusal"
@@ -687,10 +700,10 @@ export async function realizeWorksiteFileParents(
     localSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, authority.implementationSetRef);
     const environment = projectExactPrefixWorkspaceEnvironment(authority.predecessorPrefix, { ref: authority.workspaceBindingIdentity, digest: authority.workspaceBindingDigest });
     if (localBasis === null || localSet === null || environment.kind !== "exact_prefix_workspace_environment" ||
-      canonicalJson(localBasis as unknown as JsonValue) !== canonicalJson(authority.executionBasis as unknown as JsonValue) ||
-      canonicalJson(localSet as unknown as JsonValue) !== canonicalJson(authority.implementationSet as unknown as JsonValue) ||
-      canonicalJson(environment.workspaceBinding as unknown as JsonValue) !== canonicalJson(authority.workspaceBinding as unknown as JsonValue) ||
-      canonicalJson(environment.workspaceAuthorityBasis as unknown as JsonValue) !== canonicalJson(value.workspaceAuthorityBasis as unknown as JsonValue) ||
+      !canonicalEquals(localBasis as unknown as JsonValue, authority.executionBasis as unknown as JsonValue) ||
+      !canonicalEquals(localSet as unknown as JsonValue, authority.implementationSet as unknown as JsonValue) ||
+      !canonicalEquals(environment.workspaceBinding as unknown as JsonValue, authority.workspaceBinding as unknown as JsonValue) ||
+      !canonicalEquals(environment.workspaceAuthorityBasis as unknown as JsonValue, value.workspaceAuthorityBasis as unknown as JsonValue) ||
       projectCCallCarrierPhaseAtPrefix(runtimePrefix, authority.cCall)?.phase !== "selected_no_evidence" ||
       !validateWorksiteFileParentsPlanAtPrefix(prefix, value, authority.programPublication)) return null;
     let rootBasis: typeof localBasis | null = localBasis;
@@ -713,7 +726,7 @@ export async function realizeWorksiteFileParents(
         row.owningProductId === install.productId && install.contributionManifest.publicationBindings.filter(binding => binding.moduleRef === row.moduleRef &&
           binding.publicationDigest === selected.graphFunctionPublicationDigest).length === 1).length === 1);
     if (invocation === null || invocation.capabilityGrants.length !== 1 || programOwner === null || implementations.length !== 1 || graphOwners.length !== 1 ||
-      canonicalJson(invocation.capabilityGrants[0] as unknown as JsonValue) !== canonicalJson(value.capabilityGrant as unknown as JsonValue) ||
+      !canonicalEquals(invocation.capabilityGrants[0] as unknown as JsonValue, value.capabilityGrant as unknown as JsonValue) ||
       value.capabilityGrant.definitionKey.memberKey !== (invocation.invocationVariant === "direct" ? "invoke" : invocation.invocationVariant)) return null;
     protectedInstallRoots = environment.productInstalls.map(install => install.installedRoot);
   } catch { return null; }

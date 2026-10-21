@@ -23,7 +23,7 @@ import {
   type ProgramStartRequest,
   type ResolvedProgramStart,
 } from "../gtl/public_start.js";
-import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
+import { compareUnicodeCodeUnits, type JsonValue } from
   "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -66,6 +66,7 @@ import {
   productSemanticsFromModules,
   type ProductSemanticsProvider,
 } from "./semantics.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export type ProductExecutionResolutionRefusalCode =
   | "absent"
@@ -356,8 +357,10 @@ export function graphFunctionSemanticsOwner(
     ...closure.evaluatorOwners, ...closure.ruleOwners, ...closure.implementationBindingOwners,
     ...closure.closureContractOwners, closure.semanticsOwner];
   const matches = closure.publications.flatMap(publication => {
-    if (sha256Canonical(publication.productSemanticsBinding as unknown as JsonValue) !==
-        sha256Canonical(binding as unknown as JsonValue)) return [];
+    if (!canonicalEquals(
+      publication.productSemanticsBinding as unknown as JsonValue,
+      binding as unknown as JsonValue,
+    )) return [];
     const coordinate = coordinates.find(owner => owner.moduleRef === publication.moduleRef &&
       owner.productId === publication.owningProductId &&
       owner.publicationDigest === modulePublicationSemanticDigest(publication));
@@ -430,8 +433,10 @@ async function resolveProductExecution(
     reconstructedCatalog === null ||
     reconstructedCatalog.kind !== "graph_function_catalog" ||
     (reconstructedCatalog !== input.catalog &&
-      canonicalJson(reconstructedCatalog as unknown as JsonValue) !==
-        canonicalJson(input.catalog as unknown as JsonValue))
+      !canonicalEquals(
+        reconstructedCatalog as unknown as JsonValue,
+        input.catalog as unknown as JsonValue,
+      ))
   ) {
     return refusal(
       "incompatible_or_unproven",
@@ -453,8 +458,10 @@ async function resolveProductExecution(
     reconstructedView === null ||
     reconstructedView.kind !== "graph_function_catalog_view" ||
     (reconstructedView !== input.catalogView &&
-      canonicalJson(reconstructedView as unknown as JsonValue) !==
-        canonicalJson(input.catalogView as unknown as JsonValue))
+      !canonicalEquals(
+        reconstructedView as unknown as JsonValue,
+        input.catalogView as unknown as JsonValue,
+      ))
   ) {
     return refusal(
       "incompatible_or_unproven",
@@ -474,17 +481,18 @@ async function resolveProductExecution(
       !input.verifyInstallAdmission(install) ||
       reconstructedCatalog.readinessBasis.installedProducts.filter(
         (candidate) =>
-          canonicalJson(candidate as unknown as JsonValue) ===
-            canonicalJson(
-              candidateFromInstall(install) as unknown as JsonValue,
-            ),
+          canonicalEquals(
+            candidate as unknown as JsonValue,
+            candidateFromInstall(install) as unknown as JsonValue,
+          ),
       ).length !== 1
     ) ||
     reconstructedCatalog.readinessBasis.installedProducts.some((candidate) =>
       input.admittedInstalls.filter((install) =>
-        canonicalJson(
+        canonicalEquals(
           candidateFromInstall(install) as unknown as JsonValue,
-        ) === canonicalJson(candidate as unknown as JsonValue)
+          candidate as unknown as JsonValue,
+        )
       ).length !== 1
     )
   ) {
@@ -666,8 +674,10 @@ async function resolveProductExecution(
     selectedCatalogEntry.moduleRef !== graphFunctionOwner.moduleRef ||
     selectedCatalogEntry.publicationDigest !==
       graphFunctionOwner.publicationDigest ||
-    canonicalJson(selectedCatalogEntry.definition as unknown as JsonValue) !==
-      canonicalJson(graphFunction as unknown as JsonValue)
+    !canonicalEquals(
+      selectedCatalogEntry.definition as unknown as JsonValue,
+      graphFunction as unknown as JsonValue,
+    )
   ) {
     return refusal(
       "wrong_owner",

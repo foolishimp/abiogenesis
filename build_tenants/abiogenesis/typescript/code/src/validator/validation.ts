@@ -49,6 +49,7 @@ import {
 import { resolveCProgramLocus } from "../gtl/source_path.js";
 import { isRawAdmittedValue, type RawAdmittedValue } from "./raw_admission.js";
 import { inspectCProgramTerm } from "./c_algebra.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export const GTL_PROGRAM_DIAGNOSTIC_REGISTER = deepFreeze([
   { id: "duplicate_identity", origin: "static" },
@@ -562,10 +563,6 @@ export function isProgramValidation(value: object): boolean {
   return programValidations.has(value);
 }
 
-function sameValue(left: unknown, right: unknown): boolean {
-  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-}
-
 function duplicates(values: readonly string[]): readonly string[] {
   const seen = new Set<string>();
   const duplicateValues = new Set<string>();
@@ -654,7 +651,7 @@ function validatePublicationSubject(
   const programByRef = new Map(value.programs.map((program) => [program.programRef, program]));
   for (const row of value.contributions) {
     const raw = rawByHandle.get(row.handle);
-    if (raw === undefined || !isRawAdmittedValue(raw) || raw.subjectKind !== "catalog_contribution" || !sameValue(raw.value, row)) {
+    if (raw === undefined || !isRawAdmittedValue(raw) || raw.subjectKind !== "catalog_contribution" || !canonicalEquals(raw.value, row)) {
       diagnostics.push({ code: "raw_subject_mismatch", path: `$.contributions[${row.handle}]`, message: "contribution lacks an exact raw admission" });
     }
     if (row.owningProductId !== value.owningProductId) {
@@ -808,7 +805,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   }
 
   const publishedProgram = publication.programs.find((candidate) => candidate.programRef === program.programRef);
-  if (publishedProgram === undefined || !sameValue(publishedProgram, program)) {
+  if (publishedProgram === undefined || !canonicalEquals(publishedProgram, program)) {
     diagnostics.push({ code: "raw_subject_mismatch", path: "$.program", message: "Program is not the exact published declaration" });
   }
   if (program.moduleRef !== publication.moduleRef) {
@@ -831,7 +828,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       publishedMatches.length !== 1 ||
       published === undefined ||
       raw === undefined ||
-      !sameValue(published, raw)
+      !canonicalEquals(published, raw)
     ) {
       diagnostics.push({ code: "missing_membership", path: "$.program.callableMembership", message: `missing exact GraphFunction ${graphFunctionRef}` });
     } else if (!programGraphFunctionRefs.has(graphFunctionRef)) {
@@ -1265,9 +1262,11 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
               leaf.stageRole !== "evaluate" ||
               leaf.outputCarrierRef !== application.inputContractRef,
           ) ||
-          canonicalJson(expectedExecutableBindings) !==
-            canonicalJson(attachedExecutableBindings) ||
-          canonicalJson(expectedRegimes) !== canonicalJson(attachedRegimes)
+          !canonicalEquals(
+            expectedExecutableBindings,
+            attachedExecutableBindings,
+          ) ||
+          !canonicalEquals(expectedRegimes, attachedRegimes)
         ) {
           diagnostics.push({
             code: "invalid_application",
@@ -1796,7 +1795,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         : null;
     if (
       expectedEventKinds === null ||
-      closureContract.eventKindRefs.join("\0") !== expectedEventKinds.join("\0")
+      !canonicalEquals(closureContract.eventKindRefs, expectedEventKinds)
     ) {
       diagnostics.push({
         code: "invalid_reference",

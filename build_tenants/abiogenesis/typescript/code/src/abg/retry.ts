@@ -136,6 +136,8 @@ import {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
   type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
+import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 
 export {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES as RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
@@ -626,6 +628,10 @@ export function isProjectedRetryResumeCarrier(
     if (!isRecord(value)) return false;
     const keys = Object.keys(value).sort();
     const nextCursor = value.nextCursor as unknown as TraversalCursorCandidate;
+    // O-TYPE (D3 ruled): `inputValue` enters through `admitJson`, and its
+    // digest is computed over the admitted value. A value that is not I-JSON
+    // has no canonical digest, so a refusal is not a carrier.
+    const inputValue = admitJson(value.inputValue);
     return keys.length === PROJECTED_RETRY_RESUME_KEYS.length &&
       keys.every((key, index) => key === PROJECTED_RETRY_RESUME_KEYS[index]) &&
       value.kind === "projected_retry_resume" &&
@@ -656,26 +662,14 @@ export function isProjectedRetryResumeCarrier(
       value.inputContractRef.length > 0 &&
       typeof value.inputRef === "string" && value.inputRef.length > 0 &&
       isSha256Digest(value.inputDigest) &&
-      isRecord(value.inputValue) &&
-      // O-TYPE residual (D3 open): the member is shape-checked only. The
-      // cast was hidden in the retired shape wrapper; admitting it through
-      // admitJson would refuse non-I-JSON values this digest accepts.
-      sha256Canonical(value.inputValue as JsonValue) === value.inputDigest &&
+      inputValue.kind === "ok" && isRecord(inputValue.value) &&
+      sha256Canonical(inputValue.value) === value.inputDigest &&
       isTraversalCursorCandidate(nextCursor) &&
       nextCursor.attempt === value.nextAttempt &&
       nextCursor.retryPath.at(-1) === value.nextAttempt &&
       nextCursor.inputRef === value.inputRef &&
       nextCursor.inputDigest === value.inputDigest &&
       validateDurablePrefixCoordinate(value.successorPrefix);
-  } catch {
-    return false;
-  }
-}
-
-function sameCanonicalRetryValue(left: unknown, right: unknown): boolean {
-  try {
-    return sha256Canonical(left as JsonValue) ===
-      sha256Canonical(right as JsonValue);
   } catch {
     return false;
   }
@@ -702,7 +696,7 @@ export function projectRetryResumeAtDurablePrefix(
       attemptEvent?.kind !== "retry_attempt_opened" ||
       attemptEvent.eventId !== carrier.retryAttemptAdmissionEventRef ||
       routeEvent.admissionOrdinal >= attemptEvent.admissionOrdinal ||
-      !sameCanonicalRetryValue(attemptEvent.causationEventRefs, [routeEvent.eventId])
+      !canonicalEquals(attemptEvent.causationEventRefs, [routeEvent.eventId])
     ) return null;
     const authorityPrefix = selectValidatedRuntimeEventPrefix(durableEvents);
     // The route owner observes its frame progress before opening the dependent
@@ -732,7 +726,7 @@ export function projectRetryResumeAtDurablePrefix(
     );
     if (
       executionBasis === null ||
-      !sameCanonicalRetryValue(executionBasis, expectedExecutionBasis) ||
+      !canonicalEquals(executionBasis as unknown as JsonValue, expectedExecutionBasis as unknown as JsonValue) ||
       executionBasis.graphRef !== graph.materializationRef ||
       executionBasis.graphDigest !== graph.materializationDigest ||
       executionBasis.rawInputAdmissionRef !== graph.admittedInputRef ||
@@ -778,10 +772,13 @@ export function projectRetryResumeAtDurablePrefix(
       route.targetCursorDigest !== carrier.nextCursor.cursorDigest ||
       route.cCallRef !== progress.cCallRef ||
       route.judgmentRef !== progress.judgmentRef ||
-      !sameCanonicalRetryValue(route.consumedAvailabilityRefs, [
-        progress.judgmentRef,
-        progress.progressRef,
-      ])
+      !canonicalEquals(
+        route.consumedAvailabilityRefs,
+        [
+          progress.judgmentRef,
+          progress.progressRef,
+        ],
+      )
     ) return null;
     const attempt = active.attempt;
     if (
@@ -795,10 +792,10 @@ export function projectRetryResumeAtDurablePrefix(
       attempt.inputContractRef !== carrier.inputContractRef ||
       attempt.inputRef !== carrier.inputRef ||
       attempt.inputDigest !== carrier.inputDigest ||
-      !sameCanonicalRetryValue(attempt.inputValue, carrier.inputValue) ||
-      !sameCanonicalRetryValue(attempt.retryPath, carrier.nextCursor.retryPath) ||
-      !sameCanonicalRetryValue(active.cursor, carrier.nextCursor) ||
-      !sameCanonicalRetryValue(active.currentCursor, carrier.nextCursor) ||
+      !canonicalEquals(attempt.inputValue, carrier.inputValue) ||
+      !canonicalEquals(attempt.retryPath, carrier.nextCursor.retryPath) ||
+      !canonicalEquals(active.cursor as unknown as JsonValue, carrier.nextCursor as unknown as JsonValue) ||
+      !canonicalEquals(active.currentCursor as unknown as JsonValue, carrier.nextCursor as unknown as JsonValue) ||
       progress.admissionEventRef !== carrier.progressEventRef
     ) return null;
     return deepFreeze({ cursor: carrier.nextCursor, executionBasis });
@@ -2923,8 +2920,10 @@ function projectExactInteractionResumeSuccessorAtPrefix(
       event.payload.continuationRef === event.aggregateId &&
       event.payload.heldCursorRef === heldCursor.cursorRef &&
       event.payload.heldCursorDigest === heldCursor.cursorDigest &&
-      sha256Canonical(event.payload.heldCursor as JsonValue) ===
-        sha256Canonical(heldCursor as unknown as JsonValue)
+      canonicalEquals(
+        event.payload.heldCursor as JsonValue,
+        heldCursor as unknown as JsonValue,
+      )
     );
     if (opened.length !== 1) return [];
     const body = {
@@ -4140,8 +4139,10 @@ export function projectDeclaredCRetryCCallWriteAtPrefix(
     exact.phase === phase &&
     exact.sourceCursor.cursorRef === cursor.cursorRef &&
     exact.sourceCursor.cursorDigest === cursor.cursorDigest &&
-    sha256Canonical(exact.cCall as unknown as JsonValue) ===
-      sha256Canonical(candidate as unknown as JsonValue)
+    canonicalEquals(
+      exact.cCall as unknown as JsonValue,
+      candidate as unknown as JsonValue,
+    )
   );
   return matches.length === 1 && matches[0] === frontier.active.cCalls.at(-1)
     ? frontier
@@ -5204,7 +5205,7 @@ export function projectRuntimeRetryBudgetFacts(prefix: RuntimeEventPrefix, scope
     event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId &&
     event.frameId === scope.frameId && event.admissionOrdinal < opened.admissionOrdinal &&
     event.payload.attempt === scope.attempt && event.payload.taskOrdinal === scope.taskOrdinal && Array.isArray(event.payload.retryPath) &&
-    sha256Canonical(event.payload.retryPath) === sha256Canonical(retryPath));
+    canonicalEquals(event.payload.retryPath, retryPath));
   if (rows.length !== 1 || !isRecord(rows[0]!.payload)) return absent;
   const { attemptRef, attemptDigest, ...body } = rows[0]!.payload;
   if (sha256Canonical(body) !== attemptDigest || attemptRef !== `retry-attempt://abiogenesis/${String(attemptDigest).slice(7)}` ||
@@ -5301,14 +5302,18 @@ export function planRetryRuntimeFailureTransition(
   if (
     !isMaterializedGtlGraph(graph) ||
     projectedBasis === null ||
-    sha256Canonical(projectedBasis as unknown as JsonValue) !==
-      sha256Canonical(executionBasis as unknown as JsonValue) ||
+    !canonicalEquals(
+      projectedBasis as unknown as JsonValue,
+      executionBasis as unknown as JsonValue,
+    ) ||
     activeRow === null || activeCCall === null ||
     activeRow.currentCursor.cursorRef !== cursor.cursorRef ||
     activeRow.currentCursor.cursorDigest !== cursor.cursorDigest ||
     activeCCall !== activeRow.cCalls.at(-1) ||
-    sha256Canonical(activeCCall.cCall as unknown as JsonValue) !==
-      sha256Canonical(cCall as unknown as JsonValue) ||
+    !canonicalEquals(
+      activeCCall.cCall as unknown as JsonValue,
+      cCall as unknown as JsonValue,
+    ) ||
     declaredTerm.kind === "c_source_path_refusal" ||
     !isExecutableCLeaf(declaredTerm) ||
     executionBasis.basisRef !== cursor.executionBasisRef ||
@@ -5688,19 +5693,20 @@ export function planRetryRuntimeFailureTransition(
     projectedSignal?.failureSignalRef !== closePlan.signal.failureSignalRef ||
     projectedSignal.failureClass !== closePlan.signal.failureClass ||
     projectedProgress?.state !== "progress_available" ||
-    sha256Canonical(
+    !canonicalEquals(
       projectedProgress.available.progress as unknown as JsonValue,
-    ) !==
-      sha256Canonical(progress as unknown as JsonValue) ||
+      progress as unknown as JsonValue,
+    ) ||
     stoppedProgresses.some((stopped) => {
       const projected = projectedFrontiers.find((candidate) =>
         candidate?.retryBoundaryRef === stopped.retryBoundaryRef
       );
       return projected?.state !== "progress_available" ||
         projected.available.progress.progressClass !== "stopped" ||
-        sha256Canonical(
+        !canonicalEquals(
           projected.available.progress as unknown as JsonValue,
-        ) !== sha256Canonical(stopped as unknown as JsonValue);
+          stopped as unknown as JsonValue,
+        );
     }) ||
     (disposition === "retry" && stoppedProgresses.length !== 0) ||
     (disposition === "blocked" &&
@@ -5741,7 +5747,7 @@ function ownedRetryRuntimeFailurePlansCorrespond(
   const { projectedPrefix: bPrefix, replayState: bReplay, ...bFinite } = right;
   return runtimeEventPrefixesHaveSameOwnedCut(aPrefix, bPrefix) &&
     runtimeReplayGuardsHaveSameOwnedCut(aReplay, bReplay) &&
-    sha256Canonical(aFinite as unknown as JsonValue) === sha256Canonical(bFinite as unknown as JsonValue);
+    canonicalEquals(aFinite as unknown as JsonValue, bFinite as unknown as JsonValue);
 }
 
 export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
@@ -5817,7 +5823,7 @@ export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
   if (
     exact.kind !== "retry_runtime_failure_transition_plan" ||
     (prefix.kind === "validated_runtime_event_prefix"
-      ? sha256Canonical(exact as unknown as JsonValue) !== sha256Canonical(plan as unknown as JsonValue)
+      ? !canonicalEquals(exact as unknown as JsonValue, plan as unknown as JsonValue)
       : !ownedRetryRuntimeFailurePlansCorrespond(exact, plan))
   ) {
     return refusal(
@@ -5832,8 +5838,10 @@ export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
       candidate,
     );
     if (
-      sha256Canonical(projected as unknown as JsonValue) !==
-        sha256Canonical(plan.projectedEvents[index] as unknown as JsonValue)
+      !canonicalEquals(
+        projected as unknown as JsonValue,
+        plan.projectedEvents[index] as unknown as JsonValue,
+      )
     ) {
       return refusal(
         "progress_mismatch",
@@ -5848,8 +5856,10 @@ export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
   });
   const admittedEvents = sampledEvents.map(({ event }) => event);
   if (admittedEvents.some((event, index) =>
-    sha256Canonical(event as unknown as JsonValue) !==
-      sha256Canonical(plan.projectedEvents[index] as unknown as JsonValue)
+    !canonicalEquals(
+      event as unknown as JsonValue,
+      plan.projectedEvents[index] as unknown as JsonValue,
+    )
   )) {
     throw retryRuntimeFailureTransitionError(
       "admission differs from its pre-effect plan",
@@ -6211,8 +6221,10 @@ function planCompletedRetryProgressFromHistory(
       "fan_out_success"
     ? projectedFanOutCompletion?.kind === "fan_out_completion_admission" &&
       projectedFanOutCompletion.completionKind === "complete_vector" &&
-      sha256Canonical(projectedFanOutCompletion as unknown as JsonValue) ===
-        sha256Canonical(completion.completion as unknown as JsonValue) &&
+      canonicalEquals(
+        projectedFanOutCompletion as unknown as JsonValue,
+        completion.completion as unknown as JsonValue,
+      ) &&
       projectedFanOutCompletion.taskRows.at(-1)?.cCallRef === cCall?.cCallRef &&
       projectedFanOutCompletion.taskRows.at(-1)?.resultRef === result?.resultRef &&
       projectedFanOutCompletion.taskRows.at(-1)?.judgmentRef === judgment?.judgmentRef
@@ -6391,12 +6403,18 @@ function planCompletedRetryProgressFromHistory(
       directPhase === directRow.cCalls.at(-1) &&
       directPhaseSourceMatches &&
       cCall !== null && result !== null && judgment !== null &&
-      sha256Canonical(directPhase.cCall as unknown as JsonValue) ===
-        sha256Canonical(cCall as unknown as JsonValue) &&
-      sha256Canonical(directPhase.result as unknown as JsonValue) ===
-        sha256Canonical(result as unknown as JsonValue) &&
-      sha256Canonical(directPhase.judgment as unknown as JsonValue) ===
-        sha256Canonical(judgment as unknown as JsonValue);
+      canonicalEquals(
+        directPhase.cCall as unknown as JsonValue,
+        cCall as unknown as JsonValue,
+      ) &&
+      canonicalEquals(
+        directPhase.result as unknown as JsonValue,
+        result as unknown as JsonValue,
+      ) &&
+      canonicalEquals(
+        directPhase.judgment as unknown as JsonValue,
+        judgment as unknown as JsonValue,
+      );
   if (!directCompletionOwned) return refusal(
     "attempt_mismatch",
     "completed retry progress requires the exact active owner phase",
@@ -6525,8 +6543,10 @@ function planCompletedRetryProgressFromHistory(
     return available === null ||
       available.progressEventRef !== projectedEvents[index]!.eventId ||
       available.progress.progressRef !== progresses[index]!.progressRef ||
-      sha256Canonical(available.progress as unknown as JsonValue) !==
-        sha256Canonical(progresses[index] as unknown as JsonValue);
+      !canonicalEquals(
+        available.progress as unknown as JsonValue,
+        progresses[index] as unknown as JsonValue,
+      );
   });
   if (ownerMismatch) {
     return refusal(
@@ -6618,7 +6638,7 @@ function ownedCompletedRetryProgressPlansCorrespond(left: OwnedCompletedRetryPro
   const { projectedPrefix: aPrefix, replayState: aReplay, ...aFinite } = left;
   const { projectedPrefix: bPrefix, replayState: bReplay, ...bFinite } = right;
   return runtimeEventPrefixesHaveSameOwnedCut(aPrefix, bPrefix) && runtimeReplayGuardsHaveSameOwnedCut(aReplay, bReplay) &&
-    sha256Canonical(aFinite as unknown as JsonValue) === sha256Canonical(bFinite as unknown as JsonValue);
+    canonicalEquals(aFinite as unknown as JsonValue, bFinite as unknown as JsonValue);
 }
 
 function admitPlannedCompletedRetryProgressFromHistory(
@@ -6669,8 +6689,10 @@ function admitPlannedCompletedRetryProgressFromHistory(
       candidate,
     );
     if (
-      sha256Canonical(projected as unknown as JsonValue) !==
-        sha256Canonical(plan.projectedEvents[index] as unknown as JsonValue) ||
+      !canonicalEquals(
+        projected as unknown as JsonValue,
+        plan.projectedEvents[index] as unknown as JsonValue,
+      ) ||
       plan.progresses[index]?.admissionEventRef !== projected.eventId
     ) {
       return refusal(
@@ -6684,8 +6706,10 @@ function admitPlannedCompletedRetryProgressFromHistory(
     admitRuntimeEvent(store, candidate)
   );
   if (admittedEvents.some((event, index) =>
-    sha256Canonical(event as unknown as JsonValue) !==
-      sha256Canonical(plan.projectedEvents[index] as unknown as JsonValue)
+    !canonicalEquals(
+      event as unknown as JsonValue,
+      plan.projectedEvents[index] as unknown as JsonValue,
+    )
   )) {
     throw new TypeError(
       "completed retry progress admission differs from its pre-effect plan",

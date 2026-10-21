@@ -41,6 +41,7 @@ import {
   type OpenedTraversalScope,
 } from "./open_call.js";
 import type { RuntimeEvent } from "./event_store.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface TraversalCursorCandidate {
   readonly kind: "traversal_cursor";
@@ -689,12 +690,16 @@ export function isInteractionResumeCursorSuccessorAtPrefix(
       successorCursor.inputDigest === successorInput.inputDigest &&
       successorCursor.currentNodeRef === heldCursor.currentNodeRef &&
       successorCursor.position === heldCursor.position &&
-      sha256Canonical(successorCursor.termPath as unknown as JsonValue) ===
-        sha256Canonical(heldCursor.termPath as unknown as JsonValue) &&
+      canonicalEquals(
+        successorCursor.termPath as unknown as JsonValue,
+        heldCursor.termPath as unknown as JsonValue,
+      ) &&
       successorCursor.taskOrdinal === heldCursor.taskOrdinal &&
       successorCursor.attempt === heldCursor.attempt &&
-      sha256Canonical(successorCursor.retryPath as unknown as JsonValue) ===
-        sha256Canonical(heldCursor.retryPath as unknown as JsonValue);
+      canonicalEquals(
+        successorCursor.retryPath as unknown as JsonValue,
+        heldCursor.retryPath as unknown as JsonValue,
+      );
   } catch {
     return false;
   }
@@ -773,8 +778,10 @@ function admitTraversalFrameCursor(
   if (
     cursor.position !== (source?.position ?? "at_term") ||
     cursor.currentNodeRef !== (source?.currentNodeRef ?? graph.template.startNodeRef) ||
-    cursor.termPath.join("\0") !==
-      (source?.termPath ?? ["node", graph.template.startNodeRef, "c"]).join("\0") ||
+    !canonicalEquals(
+      cursor.termPath,
+      (source?.termPath ?? ["node", graph.template.startNodeRef, "c"]),
+    ) ||
     cursor.taskOrdinal !== (source?.taskOrdinal ?? null) ||
     cursor.attempt !== (source?.attempt ?? 1) ||
     !sameCoordinates(cursor.retryPath, source?.retryPath ?? [])

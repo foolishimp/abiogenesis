@@ -47,6 +47,7 @@ import type {
   HeldRecursionSuspension,
   HeldWorkflowSuspension,
 } from "./traversal_completion.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface RehydrateParentReturnFramesInput {
   readonly predecessorPrefix: DurablePrefixCoordinate;
@@ -57,11 +58,6 @@ export interface RehydrateParentReturnFramesInput {
   readonly currentChildExecutionBasis: ExecutionBasis;
   readonly currentChildTraversalScope: OpenedTraversalScope;
   readonly suspensions: readonly HeldParentTraversalSuspension[];
-}
-
-function sameCanonical(left: object, right: object): boolean {
-  return sha256Canonical(left as unknown as JsonValue) ===
-    sha256Canonical(right as unknown as JsonValue);
 }
 
 export interface ParentRehydrationRefusal {
@@ -214,7 +210,7 @@ function exactWorkflowReturn(
     (suspension.application === null
       ? application !== null || parentCCall.batchRef !== null
       : application === null ||
-        !sameCanonical(application, suspension.application) ||
+        !canonicalEquals(application, suspension.application) ||
         parentCCall.batchRef !== application.batchRef) ||
     sha256Canonical(
         suspension.parentInput as unknown as JsonValue,
@@ -290,7 +286,7 @@ function exactRecursionReturn(
   if (
     sourceCursor === null ||
     application === undefined ||
-    !sameCanonical(application, suspension.application) ||
+    !canonicalEquals(application, suspension.application) ||
     outcome?.disposition !== "judged" ||
     outcome.admitted.cCall.cCallRef !== suspension.evaluatorCCall.cCallRef ||
     recursionTerminationDecision(
@@ -346,8 +342,15 @@ export function rehydrateParentReturnFrames(
   if (
     childExecutionBasis === null ||
     childScope === null ||
-    !sameCanonical(childExecutionBasis, input.currentChildExecutionBasis) ||
-    !sameCanonical(childScope, input.currentChildTraversalScope)
+    // O-TYPE (D3 left): the basis and scope carriers are not typed JsonValue.
+    !canonicalEquals(
+      childExecutionBasis as unknown as JsonValue,
+      input.currentChildExecutionBasis as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      childScope as unknown as JsonValue,
+      input.currentChildTraversalScope as unknown as JsonValue,
+    )
   ) {
     return rehydrationFailure("current-child");
   }
@@ -440,9 +443,10 @@ export function rehydrateParentReturnFrames(
   }
   const returns = Object.freeze(inward.reverse());
   if (
-    sha256Canonical(
-        projectParentSuspensions(returns) as unknown as JsonValue,
-      ) !== sha256Canonical(input.suspensions as unknown as JsonValue)
+    !canonicalEquals(
+      projectParentSuspensions(returns) as unknown as JsonValue,
+      input.suspensions as unknown as JsonValue,
+    )
   ) {
     return rehydrationFailure("outward-projection");
   }

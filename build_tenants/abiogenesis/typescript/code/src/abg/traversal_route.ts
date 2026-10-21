@@ -132,6 +132,7 @@ import {
   traversalCursorAdmissionEventRefAtPrefix,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export type TraversalRouteKind =
   | "advance"
@@ -656,8 +657,10 @@ function projectHistoricalTraversalRoute(
       `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}` ||
     projected.routeRef !== routeRef ||
     projected.routeDigest !== routeDigest ||
-    sha256Canonical(projectedBody as unknown as JsonValue) !==
-      sha256Canonical(body as unknown as JsonValue)
+    !canonicalEquals(
+      projectedBody as unknown as JsonValue,
+      body as unknown as JsonValue,
+    )
   ) return null;
   return deepFreeze({
     kind: "historical_traversal_route_projection" as const,
@@ -860,8 +863,10 @@ export function isAdmittedRoute(
     authorityPrefix,
   );
   return projected !== null &&
-    sha256Canonical(projected as unknown as JsonValue) ===
-      sha256Canonical(route as unknown as JsonValue);
+    canonicalEquals(
+      projected as unknown as JsonValue,
+      route as unknown as JsonValue,
+    );
 }
 
 export function isCurrentRecursionRouteSourceAtPrefix(
@@ -1636,12 +1641,14 @@ function constructionIntentForAdvance(
     snapshotActionCatalog.catalogRef !== executionBasis.actionCatalogRef ||
     snapshotActionCatalog.catalogDigest !==
       executionBasis.actionCatalogDigest ||
-    sha256Canonical(snapshotActionCatalog) !==
-      sha256Canonical(selectedActionCatalog) ||
-    sha256Canonical(selectedPolicy) !==
-      sha256Canonical(
-        composition.closurePolicy as unknown as JsonValue,
-      ) ||
+    !canonicalEquals(
+      snapshotActionCatalog,
+      selectedActionCatalog,
+    ) ||
+    !canonicalEquals(
+      selectedPolicy,
+      composition.closurePolicy as unknown as JsonValue,
+    ) ||
     runtimeFrontier.phase !== "initial" ||
     priorityScheme.kind !== "construction_priority_scheme" ||
     projectionPriority.kind !== "deterministic_priority_projection" ||
@@ -1651,7 +1658,7 @@ function constructionIntentForAdvance(
       targetObligationRefs,
     ) ||
     !hasAdmittedActionCandidates(projection, executionBasis) ||
-    !sameValues(
+    !canonicalEquals(
       projection.targetObligationRefs,
       targetObligationRefs.filter(
         (value): value is string => typeof value === "string",
@@ -1666,9 +1673,9 @@ function constructionIntentForAdvance(
     actionRow.programRef !== projection.programRef ||
     actionRow.graphFunctionRef !== projection.graphFunctionRef ||
     actionRow.targetProgramLocusRef !== projection.targetProgramLocusRef ||
-    !sameValues(actionRow.targetObligationRefs, projection.targetObligationRefs) ||
-    !sameValues(actionRow.inputAssetRefs, projection.inputAssetRefs) ||
-    !sameValues(actionRow.outputAssetRefs, projection.outputAssetRefs) ||
+    !canonicalEquals(actionRow.targetObligationRefs, projection.targetObligationRefs) ||
+    !canonicalEquals(actionRow.inputAssetRefs, projection.inputAssetRefs) ||
+    !canonicalEquals(actionRow.outputAssetRefs, projection.outputAssetRefs) ||
     actionRow.expectedDeltaRef !== projection.expectedDeltaRef ||
     actionRow.progressConditionRef !== projection.progressConditionRef ||
     actionRow.stopConditionRef !== projection.stopConditionRef ||
@@ -1921,12 +1928,14 @@ function noActionProjectionForStopRoute(
     snapshotActionCatalog.catalogRef !== executionBasis.actionCatalogRef ||
     snapshotActionCatalog.catalogDigest !==
       executionBasis.actionCatalogDigest ||
-    sha256Canonical(snapshotActionCatalog) !==
-      sha256Canonical(selectedActionCatalog) ||
-    sha256Canonical(selectedPolicy) !==
-      sha256Canonical(
-        composition.closurePolicy as unknown as JsonValue,
-      )
+    !canonicalEquals(
+      snapshotActionCatalog,
+      selectedActionCatalog,
+    ) ||
+    !canonicalEquals(
+      selectedPolicy,
+      composition.closurePolicy as unknown as JsonValue,
+    )
   ) {
     return refusal(
       "gap_environment_mismatch",
@@ -1938,7 +1947,7 @@ function noActionProjectionForStopRoute(
     priorityScheme.kind !== "construction_priority_scheme" ||
     gapProjection.gapRef !== projection.gapRef ||
     gapProjection.targetOutcomeRef !== projection.targetOutcomeRef ||
-    !sameValues(
+    !canonicalEquals(
       projection.targetObligationRefs,
       targetObligationRefs.filter(
         (value): value is string => typeof value === "string",
@@ -1949,7 +1958,7 @@ function noActionProjectionForStopRoute(
       !stringArray(binding.eligibleActionRefs) ||
       binding.eligibleActionRefs.length !== 0
     ) ||
-    !sameValues(
+    !canonicalEquals(
       projection.missingAssetRefs,
       Array.isArray(gapProjection.missingAssetRefs)
         ? gapProjection.missingAssetRefs.filter(
@@ -1968,7 +1977,7 @@ function noActionProjectionForStopRoute(
       sourceTerm.programLocusRef !==
         nextActionAuthority.initialProgramLocusRef ||
       targetBindings.some((binding) => binding.disposition !== "unbound") ||
-      !sameValues(
+      !canonicalEquals(
         projection.missingAssetRefs,
         Array.isArray(gapProjection.missingAssetRefs)
           ? gapProjection.missingAssetRefs.filter(
@@ -2570,21 +2579,24 @@ function constructionDeltaForAdvance(
     opened !== undefined &&
     responded !== undefined &&
     resumed !== undefined &&
-    sameValues(basisRuntimeEventRefs, [
-      intent?.admissionEventRef ?? "",
-      opened?.eventId ?? "",
-      String(
-        responded !== undefined && isJsonRecord(responded.payload)
-          ? responded.payload.publicOperationEventRef
-          : "",
-      ),
-      responded?.eventId ?? "",
-      String(
-        resumed !== undefined && isJsonRecord(resumed.payload)
-          ? resumed.payload.publicOperationEventRef
-          : "",
-      ),
-    ]);
+    canonicalEquals(
+      basisRuntimeEventRefs,
+      [
+        intent?.admissionEventRef ?? "",
+        opened?.eventId ?? "",
+        String(
+          responded !== undefined && isJsonRecord(responded.payload)
+            ? responded.payload.publicOperationEventRef
+            : "",
+        ),
+        responded?.eventId ?? "",
+        String(
+          resumed !== undefined && isJsonRecord(resumed.payload)
+            ? resumed.payload.publicOperationEventRef
+            : "",
+        ),
+      ],
+    );
   if (
     intent === null ||
     actionRow === undefined ||
@@ -2615,9 +2627,10 @@ function constructionDeltaForAdvance(
     evaluationWorkspace === null ||
     evaluationActionCatalog === null ||
     evaluationPolicy === null ||
-    sha256Canonical(
+    !canonicalEquals(
       evaluation.observationSnapshot as unknown as JsonValue,
-    ) !== sha256Canonical(evaluationObservation) ||
+      evaluationObservation,
+    ) ||
     evaluationWorkspace.workspaceBindingId !==
       executionBasis.workspaceBindingId ||
     evaluationWorkspace.workspaceBindingDigest !==
@@ -2635,10 +2648,10 @@ function constructionDeltaForAdvance(
       intent.actionCatalogRowDigest ||
     evaluationBasis.actionCatalog.selectedActionRef !==
       intent.selectedActionRef ||
-    sha256Canonical(evaluationPolicy) !==
-      sha256Canonical(
-        composition.closurePolicy as unknown as JsonValue,
-      ) ||
+    !canonicalEquals(
+      evaluationPolicy,
+      composition.closurePolicy as unknown as JsonValue,
+    ) ||
     !isJsonRecord(evaluationBasis.constructionIntent) ||
     evaluationBasis.constructionIntent.constructionIntentRef !==
       intent.constructionIntentRef ||
@@ -2659,21 +2672,21 @@ function constructionDeltaForAdvance(
           decision.correctionDisposition !==
             responseCorrectionDisposition ||
           runtimeArchiveInspection === null ||
-          !sameValues(
+          !canonicalEquals(
             runtimeArchiveInspection.runtimeEvidenceEventRefs as
               readonly string[],
             basisRuntimeEventRefs,
           )
     ) ||
-    !sameValues(ledgerObligations, actionRow.targetObligationRefs) ||
-    !sameValues(evaluation.admittedEvidenceRefs, basisEvidenceRefs) ||
-    !sameValues(
+    !canonicalEquals(ledgerObligations, actionRow.targetObligationRefs) ||
+    !canonicalEquals(evaluation.admittedEvidenceRefs, basisEvidenceRefs) ||
+    !canonicalEquals(
       evaluation.semanticEvidenceAssetRefs,
       basisEvidenceAssetRefs,
     ) ||
-    !sameValues(ledgerEvidenceRefs, evaluation.admittedEvidenceRefs) ||
-    !sameValues(semanticEvidenceAssetRefs, basisEvidenceAssetRefs) ||
-    !sameValues(semanticEvidenceAssetRefs, actionRow.outputAssetRefs)
+    !canonicalEquals(ledgerEvidenceRefs, evaluation.admittedEvidenceRefs) ||
+    !canonicalEquals(semanticEvidenceAssetRefs, basisEvidenceAssetRefs) ||
+    !canonicalEquals(semanticEvidenceAssetRefs, actionRow.outputAssetRefs)
   ) {
     return refusal(
       "candidate_mismatch",
@@ -2957,10 +2970,10 @@ function hasGovernedConstructionClosure(
       executionBasis.workspaceBindingId &&
     refreshedWorkspace.workspaceBindingDigest ===
       executionBasis.workspaceBindingDigest &&
-    sha256Canonical(refreshedPolicy) ===
-      sha256Canonical(
-        composition.closurePolicy as unknown as JsonValue,
-      ) &&
+    canonicalEquals(
+      refreshedPolicy,
+      composition.closurePolicy as unknown as JsonValue,
+    ) &&
     projection.nextActionBasisRef === refreshedBasis.basisRef &&
     projection.nextActionBasisDigest === refreshedBasis.basisDigest &&
     hasExactTargetObligationBindings(
@@ -2983,13 +2996,6 @@ function hasGovernedConstructionClosure(
       projection.edgeClosureDecisionRef,
     ) &&
     projection.lawfulBasisRefs.includes(projection.gapRef);
-}
-
-function sameValues(
-  left: readonly string[],
-  right: readonly string[],
-): boolean {
-  return left.join("\0") === right.join("\0");
 }
 
 function hasSameCursorLineage(
@@ -3200,8 +3206,10 @@ function hasCompletedRetryProgressChain(
       const retryDepth = projection.exitedRetryDepths[index];
       const ownerProgress = projection.progresses[index];
       return retryDepth !== undefined && ownerProgress !== undefined &&
-      sha256Canonical(ownerProgress as unknown as JsonValue) ===
-        sha256Canonical(progress as unknown as JsonValue) &&
+      canonicalEquals(
+        ownerProgress as unknown as JsonValue,
+        progress as unknown as JsonValue,
+      ) &&
       progress.progressClass === "completed" &&
       progress.completionClass === expected.completionClass &&
       progress.completionWitnessEventRef ===
@@ -3219,7 +3227,7 @@ function hasCompletedRetryProgressChain(
       progress.targetCursorDigest === (targetCursor?.cursorDigest ?? null) &&
       progress.predecessorProgressRef ===
         (index === 0 ? null : completedProgresses[index - 1]!.progressRef) &&
-      sameValues(
+      canonicalEquals(
         progress.retryPath.map(String),
         sourceCursor.retryPath.slice(0, retryDepth).map(String),
       );
@@ -3260,7 +3268,7 @@ function hasStructuralIdentityRouteEvidence(
     ) &&
     candidate.cCallRef === null && candidate.judgmentRef === null &&
     candidate.contractRef === null &&
-    sameValues(
+    canonicalEquals(
       candidate.consumedAvailabilityRefs,
       evidence.completedProgresses.map((progress) => progress.progressRef),
     ) &&
@@ -3331,13 +3339,16 @@ function hasJudgedRouteEvidence(
     outcome.cCall.graphCallId === sourceCursor.graphCallId &&
     outcome.cCall.taskOrdinal === sourceCursor.taskOrdinal &&
     outcome.cCall.attempt === sourceCursor.attempt &&
-    sameValues(outcome.cCall.retryPath.map(String), sourceCursor.retryPath.map(String)) &&
+    canonicalEquals(outcome.cCall.retryPath.map(String), sourceCursor.retryPath.map(String)) &&
     candidate.cCallRef === outcome.cCall.cCallRef &&
     candidate.judgmentRef === outcome.judgment.judgmentRef &&
-    sameValues(candidate.consumedAvailabilityRefs, [
-      outcome.judgment.judgmentRef,
-      ...completedProgresses.map((progress) => progress.progressRef),
-    ]) &&
+    canonicalEquals(
+      candidate.consumedAvailabilityRefs,
+      [
+        outcome.judgment.judgmentRef,
+        ...completedProgresses.map((progress) => progress.progressRef),
+      ],
+    ) &&
     candidate.contractRef === outcome.cCall.transitionContractRef;
 }
 
@@ -3391,10 +3402,13 @@ function hasBlockedRouteEvidence(
     candidate.judgmentRef !== evidence.judgmentRef ||
     candidate.targetCursorRef !== null ||
     candidate.targetCursorDigest !== null ||
-    !sameValues(candidate.consumedAvailabilityRefs, [
-      evidence.judgmentRef,
-      ...stoppedProgresses.map((progress) => progress.progressRef),
-    ]) ||
+    !canonicalEquals(
+      candidate.consumedAvailabilityRefs,
+      [
+        evidence.judgmentRef,
+        ...stoppedProgresses.map((progress) => progress.progressRef),
+      ],
+    ) ||
     candidate.contractRef !== evidence.cCall.transitionContractRef
   ) return false;
   const projected = projectReplayCCallGuardAtPrefix(prefix,evidence.cCall.cCallRef);
@@ -3406,7 +3420,7 @@ function hasBlockedRouteEvidence(
       (stoppedSuffixRequired ? exitProgress.exitedRetryDepths.length : 0) ||
     evidence.cCall.taskOrdinal !== sourceCursor.taskOrdinal ||
     evidence.cCall.attempt !== sourceCursor.attempt ||
-    !sameValues(
+    !canonicalEquals(
       evidence.cCall.retryPath.map(String),
       sourceCursor.retryPath.map(String),
     )
@@ -3420,14 +3434,16 @@ function hasBlockedRouteEvidence(
         0,
         retryDepth,
       );
-      return sha256Canonical(ownerProgress as unknown as JsonValue) ===
-          sha256Canonical(progress as unknown as JsonValue) &&
+      return canonicalEquals(
+        ownerProgress as unknown as JsonValue,
+        progress as unknown as JsonValue,
+      ) &&
         progress.cCallRef === evidence.cCall.cCallRef &&
         progress.resultRef === evidence.resultRef &&
         progress.judgmentRef === evidence.judgmentRef &&
         progress.failureSignalRef === evidence.reasonRef &&
         progress.attempt === expectedRetryPath.at(-1) &&
-        sameValues(
+        canonicalEquals(
           progress.retryPath.map(String),
           expectedRetryPath.map(String),
         ) &&
@@ -3553,12 +3569,18 @@ function hasInteractionResumeRouteEvidence(
   return term.kind !== "c_source_path_refusal" &&
     isInteractionCLeaf(term) &&
     projectedPending !== null &&
-    sha256Canonical(projectedPending.cCall as unknown as JsonValue) ===
-      sha256Canonical(evidence.cCall as unknown as JsonValue) &&
-    sha256Canonical(projectedPending.result as unknown as JsonValue) ===
-      sha256Canonical(evidence.result as unknown as JsonValue) &&
-    sha256Canonical(projectedPending.judgment as unknown as JsonValue) ===
-      sha256Canonical(evidence.judgment as unknown as JsonValue) &&
+    canonicalEquals(
+      projectedPending.cCall as unknown as JsonValue,
+      evidence.cCall as unknown as JsonValue,
+    ) &&
+    canonicalEquals(
+      projectedPending.result as unknown as JsonValue,
+      evidence.result as unknown as JsonValue,
+    ) &&
+    canonicalEquals(
+      projectedPending.judgment as unknown as JsonValue,
+      evidence.judgment as unknown as JsonValue,
+    ) &&
     evidence.cCall.basisId === executionBasis.basisRef &&
     evidence.cCall.regime === "F_H" &&
     evidence.cCall.frameId === sourceCursor.frameId &&
@@ -3602,11 +3624,14 @@ function hasInteractionResumeRouteEvidence(
     ) &&
     candidate.cCallRef === evidence.cCall.cCallRef &&
     candidate.judgmentRef === evidence.judgment.judgmentRef &&
-    sameValues(candidate.consumedAvailabilityRefs, [
-      evidence.judgment.judgmentRef,
-      evidence.resume.admissionEventRef,
-      ...completedProgresses.map((progress) => progress.progressRef),
-    ]) &&
+    canonicalEquals(
+      candidate.consumedAvailabilityRefs,
+      [
+        evidence.judgment.judgmentRef,
+        evidence.resume.admissionEventRef,
+        ...completedProgresses.map((progress) => progress.progressRef),
+      ],
+    ) &&
     candidate.contractRef === evidence.cCall.transitionContractRef &&
     isDeclaredInteractionResumeTarget(
       prefix,
@@ -3644,15 +3669,19 @@ function hasRetryRouteEvidence(
     evidence === null ||
     evidence.progress.progressClass !== "retry" ||
     available === null ||
-    sha256Canonical(available.failureCCall.cCall as unknown as JsonValue) !==
-      sha256Canonical(evidence.cCall as unknown as JsonValue) ||
-    sha256Canonical(available.progress as unknown as JsonValue) !==
-      sha256Canonical(evidence.progress as unknown as JsonValue) ||
+    !canonicalEquals(
+      available.failureCCall.cCall as unknown as JsonValue,
+      evidence.cCall as unknown as JsonValue,
+    ) ||
+    !canonicalEquals(
+      available.progress as unknown as JsonValue,
+      evidence.progress as unknown as JsonValue,
+    ) ||
     evidence.cCall.basisId !== executionBasis.basisRef ||
     evidence.cCall.frameId !== sourceCursor.frameId ||
     evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
     evidence.cCall.attempt !== sourceCursor.attempt ||
-    !sameValues(
+    !canonicalEquals(
       evidence.cCall.retryPath.map(String),
       sourceCursor.retryPath.map(String),
     ) ||
@@ -3662,10 +3691,13 @@ function hasRetryRouteEvidence(
     candidate.routeKind !== "retry" ||
     candidate.cCallRef !== evidence.cCall.cCallRef ||
     candidate.judgmentRef !== evidence.progress.judgmentRef ||
-    !sameValues(candidate.consumedAvailabilityRefs, [
-      evidence.progress.judgmentRef,
-      evidence.progress.progressRef,
-    ]) ||
+    !canonicalEquals(
+      candidate.consumedAvailabilityRefs,
+      [
+        evidence.progress.judgmentRef,
+        evidence.progress.progressRef,
+      ],
+    ) ||
     candidate.contractRef !== evidence.cCall.transitionContractRef
   ) return false;
   const declared = deriveCRetryTarget(
@@ -3690,10 +3722,10 @@ function hasRetryRouteEvidence(
   ) return false;
   return hasSameCursorLineage(sourceCursor, targetCursor) &&
     targetCursor.currentNodeRef === declared.nodeRef &&
-    sameValues(targetCursor.termPath, declared.termPath) &&
+    canonicalEquals(targetCursor.termPath, declared.termPath) &&
     targetCursor.taskOrdinal === declared.taskOrdinal &&
     targetCursor.attempt === declared.attempt &&
-    sameValues(
+    canonicalEquals(
       targetCursor.retryPath.map(String),
       declared.retryPath.map(String),
     ) &&
@@ -3731,8 +3763,10 @@ function hasFanOutRouteEvidence(
   if (
     outcome === null ||
     projectedCompletion?.kind !== "fan_out_completion_admission" ||
-    sha256Canonical(evidence.completion as unknown as JsonValue) !==
-      sha256Canonical(projectedCompletion as unknown as JsonValue) ||
+    !canonicalEquals(
+      evidence.completion as unknown as JsonValue,
+      projectedCompletion as unknown as JsonValue,
+    ) ||
     graph.template.applications.find(
       (application) =>
         application.applicationRef === evidence.application.applicationRef,
@@ -3748,13 +3782,16 @@ function hasFanOutRouteEvidence(
     evidence.completion.applicationRef !== evidence.application.applicationRef ||
     evidence.completion.batchRef !== evidence.application.batchRef ||
     candidate.cCallRef !== outcome.cCall.cCallRef ||
-    !sameValues(candidate.consumedAvailabilityRefs, [
-      evidence.completion.completionKind === "complete_vector"
-        ? evidence.completion.taskRows.at(-1)?.judgmentRef ?? ""
-        : evidence.completion.stoppingRow.judgmentRef,
-      evidence.application.applicationRef,
-      ...completedProgresses.map((progress) => progress.progressRef),
-    ]) ||
+    !canonicalEquals(
+      candidate.consumedAvailabilityRefs,
+      [
+        evidence.completion.completionKind === "complete_vector"
+          ? evidence.completion.taskRows.at(-1)?.judgmentRef ?? ""
+          : evidence.completion.stoppingRow.judgmentRef,
+        evidence.application.applicationRef,
+        ...completedProgresses.map((progress) => progress.progressRef),
+      ],
+    ) ||
     candidate.contractRef !== outcome.cCall.transitionContractRef
   ) return false;
   if (evidence.completion.completionKind === "partial_stop") {
@@ -3814,7 +3851,7 @@ function hasFanOutRouteEvidence(
     continuation.disposition !== "advance" ||
     continuation.relation !== "compose_next" ||
     continuation.targetPath === null ||
-    !sameValues(targetCursor.termPath, continuation.targetPath)
+    !canonicalEquals(targetCursor.termPath, continuation.targetPath)
   ) return false;
   const targetTerm = resolveCProgramTermAtSourcePath(
     graph.template,
@@ -3839,7 +3876,7 @@ function registeredSelectionContinuationMatches(basis: ExecutionBasis, graph: Re
   if (selected === null) return null;
   return selected.disposition === "selected" && target !== null && boundInput !== undefined &&
     hasSameCursorLineage(source, target) && target.currentNodeRef === selected.nodeRef &&
-    sameValues(target.termPath, selected.termPath) && target.taskOrdinal === null && target.retryPath.length === 0 && target.attempt === 1 &&
+    canonicalEquals(target.termPath, selected.termPath) && target.taskOrdinal === null && target.retryPath.length === 0 && target.attempt === 1 &&
     target.inputRef === boundInput.admissionRef && target.inputDigest === boundInput.subjectDigest &&
     boundInput.contractRef === selected.contractRef && sha256Canonical(selected.value) === boundInput.subjectDigest;
 }
@@ -3880,12 +3917,12 @@ function isDeclaredContinuationTarget(
     return false;
   }
   return target.currentNodeRef === continuation.nodeRef &&
-    sameValues(target.termPath, continuation.termPath) &&
+    canonicalEquals(target.termPath, continuation.termPath) &&
     target.inputRef === continuation.inputRef &&
     target.inputDigest === continuation.inputDigest &&
     target.taskOrdinal === continuation.taskOrdinal &&
     target.attempt === continuation.attempt &&
-    sameValues(target.retryPath.map(String), continuation.retryPath.map(String));
+    canonicalEquals(target.retryPath.map(String), continuation.retryPath.map(String));
 }
 
 function hasGraphSpanReentryRouteEvidence(
@@ -3924,8 +3961,10 @@ function hasGraphSpanReentryRouteEvidence(
       candidate.graphSpanReentryProjectionRef ||
     projection.projectionDigest !==
       candidate.graphSpanReentryProjectionDigest ||
-    sha256Canonical(evidence.result.value) !==
-      sha256Canonical(projection as unknown as JsonValue)
+    !canonicalEquals(
+      evidence.result.value,
+      projection as unknown as JsonValue,
+    )
   ) {
     return false;
   }
@@ -3962,7 +4001,7 @@ function hasGraphSpanReentryRouteEvidence(
     evidence.cCall.outputContractRef !== application.inputContractRef ||
     !hasSameCursorLineage(source, target) ||
     target.currentNodeRef !== targetLocus.nodeRef ||
-    !sameValues(target.termPath, targetLocus.termPath) ||
+    !canonicalEquals(target.termPath, targetLocus.termPath) ||
     target.inputRef !== projection.targetInputRef ||
     target.inputDigest !== projection.targetInputDigest ||
     target.taskOrdinal !== null ||
@@ -4071,10 +4110,10 @@ function recursionRouteCausation(input: Readonly<{
       input.source.attempt >= application.bound ||
       !hasSameCursorLineage(input.source, input.target) ||
       input.target.currentNodeRef !== input.source.currentNodeRef ||
-      !sameValues(input.target.termPath, input.source.termPath) ||
+      !canonicalEquals(input.target.termPath, input.source.termPath) ||
       input.target.taskOrdinal !== input.source.taskOrdinal ||
       input.target.attempt !== input.source.attempt + 1 ||
-      !sameValues(
+      !canonicalEquals(
         input.target.retryPath.map(String),
         input.source.retryPath.map(String),
       ) ||
@@ -4082,10 +4121,13 @@ function recursionRouteCausation(input: Readonly<{
       input.target.inputDigest !== foldback.outputDigest ||
       input.candidate.targetCursorRef !== input.target.cursorRef ||
       input.candidate.targetCursorDigest !== input.target.cursorDigest ||
-      !sameValues(input.candidate.consumedAvailabilityRefs, [
-        outcome.judgment.judgmentRef,
-        foldback.foldbackRef,
-      ])
+      !canonicalEquals(
+        input.candidate.consumedAvailabilityRefs,
+        [
+          outcome.judgment.judgmentRef,
+          foldback.foldbackRef,
+        ],
+      )
     ) {
       return refusal(
         "candidate_mismatch",
@@ -4123,20 +4165,29 @@ function recursionRouteCausation(input: Readonly<{
     (
       blockedByChild
         ? preparationRefusal !== null ||
-          !sameValues(input.candidate.consumedAvailabilityRefs, [
-            outcome.judgment.judgmentRef,
-            foldback.foldbackRef,
-          ])
+          !canonicalEquals(
+            input.candidate.consumedAvailabilityRefs,
+            [
+              outcome.judgment.judgmentRef,
+              foldback.foldbackRef,
+            ],
+          )
         : blockedByPreparation
-          ? !sameValues(input.candidate.consumedAvailabilityRefs, [
+          ? !canonicalEquals(
+            input.candidate.consumedAvailabilityRefs,
+            [
               outcome.judgment.judgmentRef,
               preparationRefusal.refusalRef,
-            ])
+            ],
+          )
           : foldback !== null ||
             input.source.attempt < application.bound ||
-            !sameValues(input.candidate.consumedAvailabilityRefs, [
-              outcome.judgment.judgmentRef,
-            ])
+            !canonicalEquals(
+              input.candidate.consumedAvailabilityRefs,
+              [
+                outcome.judgment.judgmentRef,
+              ],
+            )
     )
   ) {
     return refusal(
@@ -4344,7 +4395,7 @@ function admitRoute(
     if (candidate.registeredSelectionApplicationRef !== retained?.registeredSelectionApplicationRef ||
       (retained === null) !== (candidate.boundInput === undefined) ||
       retained !== null && retained.input !== candidate.boundInput &&
-        sha256Canonical(retained.input as unknown as JsonValue) !== sha256Canonical(candidate.boundInput as unknown as JsonValue)) {
+        !canonicalEquals(retained.input as unknown as JsonValue, candidate.boundInput as unknown as JsonValue)) {
       return refusal("candidate_mismatch", "route bound input is not the exact owner-derived entry/source binding");
     }
   } catch {
@@ -4783,10 +4834,10 @@ function admitRoute(
       candidate.nextActionProjectionDigest !==
         noActionStop.projection.projectionDigest ||
       candidate.nextActionProjection === undefined ||
-      sha256Canonical(
+      !canonicalEquals(
         candidate.nextActionProjection as unknown as JsonValue,
-      ) !==
-        sha256Canonical(noActionStop.projection as unknown as JsonValue)
+        noActionStop.projection as unknown as JsonValue,
+      )
     ) {
       return refusal(
         "gap_projection_mismatch",
@@ -5383,8 +5434,10 @@ export function admitTraversalTransitionInActiveTransaction(
   }
   if (
     admittedRoute === null ||
-    sha256Canonical(admittedRoute as unknown as JsonValue) !==
-      sha256Canonical(route as unknown as JsonValue)
+    !canonicalEquals(
+      admittedRoute as unknown as JsonValue,
+      route as unknown as JsonValue,
+    )
   ) {
     throw new TypeError(
       "traversal transition differs from its staged successor projection",
@@ -5547,10 +5600,10 @@ function admitCompletedRetryTraversalTransitionUsing(
           throw new RouteTransitionAbort(progresses);
         }
         if (
-          sha256Canonical(progresses as unknown as JsonValue) !==
-            sha256Canonical(
-              input.progressPlan.progresses as unknown as JsonValue,
-            )
+          !canonicalEquals(
+            progresses as unknown as JsonValue,
+            input.progressPlan.progresses as unknown as JsonValue,
+          )
         ) {
           throw new TypeError(
             "completed retry progress differs from its planned admission",
@@ -5657,9 +5710,8 @@ function admitBlockedRetryTraversalTransitionUsing(
           input.failurePlan.transition.disposition !== "blocked" ||
           input.failurePlan.predecessorEventDigest !==
             runtimeEventPrefixDigest(predecessor) ||
-          sha256Canonical(
+          !canonicalEquals(
             evidence.stoppedProgresses as unknown as JsonValue,
-          ) !== sha256Canonical(
             input.failurePlan.transition.stoppedProgresses as unknown as JsonValue,
           ) ||
           evidence.cCall.cCallRef !== input.failurePlan.transition.close.cCallRef ||
@@ -5704,8 +5756,10 @@ function admitBlockedRetryTraversalTransitionUsing(
           ? mode.input.selectRouteCandidate?.(replayValidatedRuntimeEventPrefix(stagedRun, stagedPrefix)) ?? input.candidate
           : mode.input.selectRouteCandidate?.(projectRuntimeReplayGuard(stagedRun, stagedPrefix)) ?? input.candidate;
         if (candidate.transitionClass !== "route" ||
-            sha256Canonical(candidate.evidence as unknown as JsonValue) !==
-              sha256Canonical(input.candidate.evidence as unknown as JsonValue)) {
+            !canonicalEquals(
+              candidate.evidence as unknown as JsonValue,
+              input.candidate.evidence as unknown as JsonValue,
+            )) {
           throw new RouteTransitionAbort(refusal(
             "candidate_mismatch", "blocked staged selection changed its planned owner evidence",
           ));

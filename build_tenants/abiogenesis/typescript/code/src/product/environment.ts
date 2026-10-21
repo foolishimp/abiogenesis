@@ -1,7 +1,7 @@
 import { isRecord, hasExactKeys, isNonblankString as nonEmptyString } from "../shared/admission_predicates.js";
 import { isAbsolute } from "node:path";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import {
   serializeCapabilityDefinitionGraph,
   capabilityRefsForContract,
@@ -37,6 +37,7 @@ import {
   type NativeLinkProduct,
   type NativeContractLinkResult,
 } from "./declaration_exports.js";
+import { canonicalEquals } from "../shared/value/index.js";
 
 export interface ProductInstall extends Omit<ProductInstallCandidate, "kind" | "disposition"> {
   readonly kind: "product_install";
@@ -617,13 +618,14 @@ export function isResolvedProductLock(
         row.contributionManifest.publicContractCatalogId !== row.catalogId ||
         row.contributionManifest.publicContractCatalogDigest !==
           row.catalogDigest ||
-        canonicalJson(
+        !canonicalEquals(
           row.contributionManifest.capabilityDefinitionGraph as unknown as JsonValue,
-        ) !== canonicalJson({
-          graphId: row.capabilityDefinitionGraph.graphId,
-          graphVersion: row.capabilityDefinitionGraph.graphVersion,
-          graphDigest: row.capabilityDefinitionGraph.graphDigest,
-        } as unknown as JsonValue) ||
+          {
+            graphId: row.capabilityDefinitionGraph.graphId,
+            graphVersion: row.capabilityDefinitionGraph.graphVersion,
+            graphDigest: row.capabilityDefinitionGraph.graphDigest,
+          } as unknown as JsonValue,
+        ) ||
         row.capabilityDefinitionGraphAsset.path !==
           "contracts/capabilities/capability-definition-graph.json" ||
         row.capabilityDefinitionGraphAsset.mediaType !== "application/json" ||
@@ -643,24 +645,30 @@ export function isResolvedProductLock(
         ) ||
         !isUniqueStringArray(row.publicContractRefs) ||
         !isUniqueStringArray(row.publicCapabilityRefs) ||
-        row.publicContractRefs.join("\0") !==
+        !canonicalEquals(
+          row.publicContractRefs,
           (row.publicContracts as readonly ProductPublicContract[])
             .map((contract) => contract.contractId)
-            .sort()
-            .join("\0") ||
-        row.publicCapabilityRefs.join("\0") !==
+            .sort(),
+        ) ||
+        !canonicalEquals(
+          row.publicCapabilityRefs,
           [...new Set(
             (row.publicContracts as readonly ProductPublicContract[])
               .flatMap((contract) => contract.capabilityIdentities),
-          )].sort().join("\0") ||
-        row.declaredCapabilityRefs.join("\0") !==
+          )].sort(),
+        ) ||
+        !canonicalEquals(
+          row.declaredCapabilityRefs,
           row.capabilityDefinitionGraph.rows
-            .map(({ capabilityId }) => capabilityId)
-            .join("\0") ||
+            .map(({ capabilityId }) => capabilityId),
+        ) ||
         (row.publicContracts as readonly ProductPublicContract[]).some(
           (contract) =>
-            contract.capabilityIdentities.join("\0") !==
-              capabilityRefsForContract(contract.contractId).join("\0"),
+            !canonicalEquals(
+              contract.capabilityIdentities,
+              capabilityRefsForContract(contract.contractId),
+            ),
         ) ||
         !lockRowGraphMatchesCatalog(
           row as unknown as ResolvedProductLockRow,
@@ -710,7 +718,7 @@ export function isResolvedProductLock(
   );
   if (
     new Set(edgeKeys).size !== edgeKeys.length ||
-    [...edgeKeys].sort().join("\0") !== edgeKeys.join("\0")
+    !canonicalEquals([...edgeKeys].sort(), edgeKeys)
   ) {
     return false;
   }
@@ -719,8 +727,10 @@ export function isResolvedProductLock(
   );
   if (
     !Array.isArray(expectedEdges) ||
-    canonicalJson(expectedEdges as unknown as JsonValue) !==
-      canonicalJson(edges as unknown as JsonValue)
+    !canonicalEquals(
+      expectedEdges as unknown as JsonValue,
+      edges as unknown as JsonValue,
+    )
   ) {
     return false;
   }
@@ -761,8 +771,10 @@ function lockRowGraphMatchesCatalog(row: ResolvedProductLockRow): boolean {
       if (coordinate.nestedSelector.selectorKind !== "flat_contract") return true;
       const contract = contracts.get(coordinate.flatRow.contractId);
       return contract !== undefined &&
-        canonicalJson(coordinate.contractCatalog as unknown as JsonValue) ===
-          canonicalJson(contractCatalog as unknown as JsonValue) &&
+        canonicalEquals(
+          coordinate.contractCatalog as unknown as JsonValue,
+          contractCatalog as unknown as JsonValue,
+        ) &&
         coordinate.flatRow.contractVersion === contract.contractVersion &&
         coordinate.flatRow.contractDigest === contract.contractDigest;
     }));
@@ -785,8 +797,10 @@ export function verifiedArtifactMatchesEstablishedLock(
 ): boolean {
   const matches = lock.rows.filter((row) => row.productId === artifact.productId);
   return matches.length === 1 &&
-    canonicalJson(matches[0] as unknown as JsonValue) ===
-      canonicalJson(lockRowFor(artifact) as unknown as JsonValue);
+    canonicalEquals(
+      matches[0] as unknown as JsonValue,
+      lockRowFor(artifact) as unknown as JsonValue,
+    );
 }
 
 export function isProductInstallCandidate(
@@ -860,9 +874,10 @@ function isProductInstallCandidateWithLockCheck(
   const expectedInstallId =
     `product-install://${candidate.packageName}/${candidate.packageVersion}/${candidate.productContentDigest.slice("sha256:".length)}/${lock.lockDigest.slice("sha256:".length)}`;
   return candidate.installId === expectedInstallId &&
-    canonicalJson(
+    canonicalEquals(
       lockRowFor(candidate as unknown as ProductInstall) as unknown as JsonValue,
-    ) === canonicalJson(rows[0] as unknown as JsonValue);
+      rows[0] as unknown as JsonValue,
+    );
 }
 
 function productInstallCandidateProjection(
@@ -927,9 +942,10 @@ export function constructProductSet(
         install.resolvedLockId !== lock.lockId ||
         install.resolvedLockDigest !== lock.lockDigest,
     ) ||
-    canonicalJson(
+    !canonicalEquals(
       installs.map(lockRowFor) as unknown as JsonValue,
-    ) !== canonicalJson(lock.rows as unknown as JsonValue)
+      lock.rows as unknown as JsonValue,
+    )
   ) {
     return refusal("lock_mismatch", "ProductSet installs and resolved lock rows disagree");
   }
@@ -1075,8 +1091,10 @@ export function isWorkspaceAuthorityBasis(
     authorityManifestDigest: value.authorityManifestDigest as Sha256Digest,
   });
   return reconstructed.kind === "workspace_authority_basis" &&
-    canonicalJson(reconstructed as unknown as JsonValue) ===
-      canonicalJson(value as JsonValue);
+    canonicalEquals(
+      reconstructed as unknown as JsonValue,
+      value as JsonValue,
+    );
 }
 
 export function constructWorkspaceBinding(
