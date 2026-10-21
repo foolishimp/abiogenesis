@@ -4,7 +4,7 @@ import { runtimeEventPrefixLastEnvelope, indexedRuntimeEvents, selectOwnedRuntim
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, constructRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
-import { hasJsonNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
+import { hasExactKeys } from "../shared/admission_predicates.js";
 import { constructRetainedWorksiteInput } from "../product/worksite_preparation.js";
 import { rawAdmitValue, type RawAdmittedValue } from "../validator/raw_admission.js";
 import type {

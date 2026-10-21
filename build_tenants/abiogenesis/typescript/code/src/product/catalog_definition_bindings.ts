@@ -27,7 +27,6 @@ import {
 import {
   admitExactDefinitionCall,
   definitionFault,
-  hasUnicodeNulJoinedKeys,
   isDefinitionFault,
   isRecord,
   reference,
@@ -35,6 +34,7 @@ import {
   sameJson,
   validatedOwnerOutput,
 } from "../public/binding/definition_binding_mechanics.js";
+import { hasExactKeys } from "../shared/admit/index.js";
 import type {
   DefinitionCall,
   DefinitionExecutionFault,
@@ -274,7 +274,7 @@ function validateAdmissionStructure(
   const resources = call.resources;
   if (
     !isRecord(resources) ||
-    !hasUnicodeNulJoinedKeys(resources, [
+    !hasExactKeys(resources, [
       "admittedInstalls",
       "eventResource",
       "kind",
@@ -698,7 +698,7 @@ const allowlist: ExactDefinitionCallable<
     const resources = call.resources;
     if (
       !isRecord(resources) ||
-      !hasUnicodeNulJoinedKeys(resources, ["catalog", "kind", "schemaVersion"]) ||
+      !hasExactKeys(resources, ["catalog", "kind", "schemaVersion"]) ||
       resources.kind !== "catalog_view_resource_assertion" ||
       resources.schemaVersion !== "5.0.0" ||
       !sameJson(resources, resources)
@@ -840,7 +840,7 @@ function createApplyBinding<TPacket extends ApplyPacket>(
       const request = call.invocation.request;
       if (
         !isRecord(resources) ||
-        !hasUnicodeNulJoinedKeys(resources, [
+        !hasExactKeys(resources, [
           "applicationBasis",
           "catalog",
           "catalogRow",

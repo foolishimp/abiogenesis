@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from "node:util";
-import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask,

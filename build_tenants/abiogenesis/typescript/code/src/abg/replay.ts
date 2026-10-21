@@ -8,7 +8,7 @@ import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_pr
 import { isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { projectRegisteredSelectionInputAtPrefix, registeredSelectionInputRelationVersion, registeredSelectionInputDependencyKeys } from "./registered_selection_provenance.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
-import { isOptionalJsonRecord as isRecord, hasExactJsonKeys as hasExactKeys } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 import { projectExactExecutionBasisAtPrefix } from "./invocation_execution_truth.js";
 import { projectNativeLivenessRead, projectFrameLivenessContext, projectRuntimeLivenessAtPrefix } from "./runtime_liveness.js";
 import type { RuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";

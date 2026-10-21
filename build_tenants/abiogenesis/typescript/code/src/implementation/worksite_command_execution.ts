@@ -62,6 +62,7 @@ import {
 } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys } from "../shared/admit/index.js";
 import type {
   LeafExecutionOccurrence,
   LeafRealizationCandidate,
@@ -149,11 +150,10 @@ function exactAuthorityFreeOccurrence(
       owner.call.programLocusRef !== occurrence.programLocusRef || owner.call.taskOrdinal !== occurrence.taskOrdinal ||
       owner.call.attempt !== occurrence.attempt) throw new TypeError("C2 assembly companion differs from admitted occurrence");
   }
-  const expectedKeys = [
+  if (!hasExactKeys(coordinates, [
     "attempt", "cCallRef", "executionAuthority", "frameId", "graphCallId",
     "programLocusRef", "runId", "taskOrdinal",
-  ].sort().join("\0");
-  if (Object.keys(coordinates).sort().join("\0") !== expectedKeys ||
+  ]) ||
     typeof occurrence.cCallRef !== "string" || occurrence.cCallRef.trim() === "" ||
     typeof occurrence.runId !== "string" || occurrence.runId.trim() === "" ||
     typeof occurrence.graphCallId !== "string" || occurrence.graphCallId.trim() === "" ||

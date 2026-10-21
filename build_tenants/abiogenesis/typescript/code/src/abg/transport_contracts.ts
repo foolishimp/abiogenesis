@@ -1,6 +1,7 @@
 import type { SpawnOptionsWithoutStdio } from "node:child_process";
 
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys } from "../shared/admit/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { VerifiedProbabilisticResultContractPreimage } from "../implementation/contracts.js";
@@ -17,17 +18,17 @@ export interface NativeWorkerResultAssessment {
 export function isNativeWorkerResultAssessment(value: unknown, output: string, resultContractRef: string, inputDigest: Sha256Digest): value is NativeWorkerResultAssessment {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
   const a = value as NativeWorkerResultAssessment;
-  if (Object.keys(a).sort().join("\0") !== ["kind", "schemaVersion", "resultContractRef", "inputDigest", "rawOutputDigest", "disposition", "verification"].sort().join("\0") ||
+  if (!hasExactKeys(a, ["kind", "schemaVersion", "resultContractRef", "inputDigest", "rawOutputDigest", "disposition", "verification"]) ||
       a.kind !== "native_worker_result_assessment" || a.schemaVersion !== "5.0.0" || a.resultContractRef !== resultContractRef ||
       a.inputDigest !== inputDigest || a.rawOutputDigest !== sha256Bytes(output)) return false;
   if (a.disposition !== "admitted") return a.verification === null &&
     (a.disposition === "absent" ? output.trim().length === 0 : a.disposition === "rejected" && output.trim().length !== 0);
   const p = a.verification;
-  if (p === null || typeof p !== "object" || Object.keys(p).sort().join("\0") !== ["kind", "schemaVersion", "verificationRef", "verificationDigest", "contractCapabilityBasis", "implementationResolutionDigest", "implementationRef", "inputContractRef", "targetOutputContractRef", "instructionContractRef", "rawResultContractRef", "inputDigest", "rawResultDigest"].sort().join("\0") ||
+  if (p === null || typeof p !== "object" || !hasExactKeys(p, ["kind", "schemaVersion", "verificationRef", "verificationDigest", "contractCapabilityBasis", "implementationResolutionDigest", "implementationRef", "inputContractRef", "targetOutputContractRef", "instructionContractRef", "rawResultContractRef", "inputDigest", "rawResultDigest"]) ||
       p.kind !== "verified_probabilistic_result_contract_preimage" || p.schemaVersion !== "5.0.0" ||
       p.inputDigest !== inputDigest || p.rawResultContractRef !== resultContractRef ||
       typeof p.contractCapabilityBasis !== "object" || p.contractCapabilityBasis === null ||
-      Object.keys(p.contractCapabilityBasis).sort().join("\0") !== ["installId", "implementationSetRef", "implementationSetDigest", "publicationDigest"].sort().join("\0")) return false;
+      !hasExactKeys(p.contractCapabilityBasis, ["installId", "implementationSetRef", "implementationSetDigest", "publicationDigest"])) return false;
   try {
     const {kind: _kind, schemaVersion: _schema, verificationRef, verificationDigest, ...body} = p;
     return sha256Canonical(JSON.parse(output) as JsonValue) === p.rawResultDigest &&

@@ -1,4 +1,4 @@
-import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonblankString as nonEmptyString } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys, isNonblankString as nonEmptyString } from "../shared/admission_predicates.js";
 import type {
   ComputeRegime,
   GtlProgram,

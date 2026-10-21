@@ -1,5 +1,5 @@
 import { indexedRuntimeEvents } from "./event_prefix.js";
-import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {

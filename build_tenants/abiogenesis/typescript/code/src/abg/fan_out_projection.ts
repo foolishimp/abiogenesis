@@ -1,6 +1,6 @@
 import type { RuntimeEventScan } from "./runtime_history.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import { isOptionalJsonRecord as isRecord, isNonEmptyJsonString as isNonEmptyString, hasExactJsonKeys as exactKeys } from "../shared/admission_predicates.js";
+import { isRecord, isNonEmptyJsonString as isNonEmptyString, hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
 import type {
   FanOutApplication,
   FanOutMaterialization,
@@ -1293,7 +1293,7 @@ function deriveCanonicalAdmission(
         )
       )
     ) return null;
-    const unstartedRows = payload.unstartedRows.map((value, offset) => {
+    const unstartedRows = payload.unstartedRows.map((value: JsonValue, offset) => {
       if (!isRecord(value) || !exactKeys(value, [
         "inputMemberDigest",
         "inputMemberRef",

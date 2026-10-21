@@ -2,6 +2,7 @@ import * as v from "valibot";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isRequirementHandoffOutput, type RequirementHandoffOutput } from "./requirement_handoff.js";
 import type { RequirementTerm, GtlContractFulfillmentBinding } from "../gtl/requirement_handoff.js";
 import type { SemanticLifecycleDeclaration, SemanticStageDeclaration } from "../gtl/semantic_stage.js";
@@ -131,8 +132,7 @@ const assessmentSchema = v.strictObject({ kind: v.literal("semantic_stage_assess
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 function exactRecord(value: unknown, fields: readonly string[]): value is Record<string, unknown> {
-  return value !== null && typeof value === "object" && !Array.isArray(value) &&
-    Object.keys(value).sort().join("\0") === [...fields].sort().join("\0");
+  return isRecord(value) && hasExactKeys(value, fields);
 }
 export function isSemanticAssetCandidate(value: unknown): value is SemanticAssetCandidate {
   return v.is(assetSchema, value) && unique(value.statements.map(x => x.statementRef)) &&

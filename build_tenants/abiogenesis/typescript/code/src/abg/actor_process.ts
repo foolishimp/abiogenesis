@@ -20,6 +20,7 @@ import {
 } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import type { OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { isNonBlankRef } from "../shared/references.js";
 import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
@@ -465,10 +466,9 @@ export function validateActorProcessCarrierPair(
     !Array.isArray(observation.toolInvocations) ||
     observation.toolInvocations.length !== observation.toolCallCount ||
     observation.toolInvocations.some((row, ordinal) =>
-      typeof row !== "object" || row === null || Array.isArray(row) ||
-      Object.keys(row).sort().join("\0") !== [
+      !isRecord(row) || !hasExactKeys(row, [
         "inputByteLength", "inputDigest", "kind", "ordinal", "schemaVersion", "toolName", "toolUseRef",
-      ].sort().join("\0") ||
+      ]) ||
       row.kind !== "worker_tool_invocation_evidence" ||
       row.schemaVersion !== "5.0.0" || row.ordinal !== ordinal ||
       !carrierRef(row.toolUseRef) || !carrierRef(row.toolName) ||

@@ -11,6 +11,7 @@ import type {
   DefinitionReturn,
   ExactDefinitionCallable,
 } from "../../shared/effect_definition.js";
+import { admitContract } from "../../shared/admit/index.js";
 import { deepFreeze } from "../../shared/immutable.js";
 import type { OwnerContractSourceDeclaration } from
   "../../shared/public_function_contracts.js";
@@ -44,11 +45,11 @@ export function bindStaticOwner<
       ));
     }
 
-    const admittedResources = v.safeParse(
+    const admittedResources = admitContract(
       resourceAssertionSchema,
       call.resources,
     );
-    if (!admittedResources.success) {
+    if (admittedResources.kind !== "ok") {
       return Effect.fail(definitionFault(
         packet.definitionKey,
         "resource_admission",
@@ -59,15 +60,15 @@ export function bindStaticOwner<
 
     const admittedCall: DefinitionCall<TPacket, TResources> = deepFreeze({
       invocation: admittedInvocation,
-      resources: admittedResources.output,
+      resources: admittedResources.value,
     });
     return Effect.suspend(() => owner(admittedCall)).pipe(
       Effect.flatMap((result) => {
-        const admittedReceipt = v.safeParse(
+        const admittedReceipt = admitContract(
           resourceReceiptSchema,
           result.resources,
         );
-        if (!admittedReceipt.success) {
+        if (admittedReceipt.kind !== "ok") {
           return Effect.fail(definitionFault(
             packet.definitionKey,
             "receipt_admission",
@@ -82,7 +83,7 @@ export function bindStaticOwner<
               result.ownerOutput,
               "module-static definition owner",
             ),
-            resources: admittedReceipt.output,
+            resources: admittedReceipt.value,
           }),
           catch: () => definitionFault(
             packet.definitionKey,

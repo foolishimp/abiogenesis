@@ -2,6 +2,7 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isWorksiteObservation, isWorksiteSubject, constructWorksiteSubject,
   type WorksiteSubject, type FileWorksiteObservation } from "./worksite_effect.js";
 import type { WorksiteConstructionTask, WorksiteConstructionResult } from "./worksite_construction.js";
@@ -82,28 +83,26 @@ export type WorksiteExecutionObservation = WorksiteCommandExecutionObservation |
 export type WorksiteExecutionHelperArtifact = WorksiteCommandHelperArtifact | WorksiteRevisionCommandHelperArtifact;
 export type WorksiteExecutionSnapshotMember = WorksiteSnapshotMember | WorksiteRevisionSnapshotMember;
 
-const record = (x: unknown): x is Record<string, unknown> => typeof x === "object" && x !== null && !Array.isArray(x);
 const text = (x: unknown): x is string => typeof x === "string" && x.trim() === x && x.length > 0 && !x.includes("\0");
-const keys = (x: Record<string, unknown>, names: readonly string[]) => Object.keys(x).sort().join("\0") === [...names].sort().join("\0");
 export function isWorksiteRevisionObservationOrigin(x: unknown): x is WorksiteRevisionObservationOrigin {
-  return record(x) && (x.kind === "admitted_input"
-    ? keys(x,["kind","basisAdmissionEventRef","inputAdmissionRef","inputDigest"]) && text(x.basisAdmissionEventRef) && text(x.inputAdmissionRef) && isSha256Digest(x.inputDigest)
+  return isRecord(x) && (x.kind === "admitted_input"
+    ? hasExactKeys(x,["kind","basisAdmissionEventRef","inputAdmissionRef","inputDigest"]) && text(x.basisAdmissionEventRef) && text(x.inputAdmissionRef) && isSha256Digest(x.inputDigest)
     : x.kind === "admitted_replacement"
-      ? keys(x,["kind","resultAdmissionEventRef","evidenceEventRef"]) && text(x.resultAdmissionEventRef) && text(x.evidenceEventRef)
-      : (x.kind === "admitted_binding_projection" || x.kind === "admitted_initial_job_bridge") && keys(x,["kind","resultAdmissionEventRef","judgmentEventRef"]) && text(x.resultAdmissionEventRef) && text(x.judgmentEventRef));
+      ? hasExactKeys(x,["kind","resultAdmissionEventRef","evidenceEventRef"]) && text(x.resultAdmissionEventRef) && text(x.evidenceEventRef)
+      : (x.kind === "admitted_binding_projection" || x.kind === "admitted_initial_job_bridge") && hasExactKeys(x,["kind","resultAdmissionEventRef","judgmentEventRef"]) && text(x.resultAdmissionEventRef) && text(x.judgmentEventRef));
 }
 export function isWorksiteRevisionDependencyObservation(x: unknown): x is WorksiteRevisionDependencyObservation {
-  return record(x) && keys(x,["designTargetRef","subject","observation","origin"]) && text(x.designTargetRef) &&
+  return isRecord(x) && hasExactKeys(x,["designTargetRef","subject","observation","origin"]) && text(x.designTargetRef) &&
     isWorksiteSubject(x.subject) && isWorksiteObservation(x.observation) && x.observation.state === "file" &&
     x.observation.subjectRef === x.subject.subjectRef && x.observation.subjectDigest === x.subject.subjectDigest &&
     isWorksiteRevisionObservationOrigin(x.origin);
 }
 export function isWorksiteRevisionSnapshotSource(x: unknown): x is WorksiteRevisionSnapshotSource {
-  if(!record(x) || !keys(x,["designTargetRef","subject","observation","source"]) || !text(x.designTargetRef) ||
+  if(!isRecord(x) || !hasExactKeys(x,["designTargetRef","subject","observation","source"]) || !text(x.designTargetRef) ||
     !isWorksiteSubject(x.subject) || !isWorksiteObservation(x.observation) || x.observation.state !== "file" ||
-    x.observation.subjectRef !== x.subject.subjectRef || x.observation.subjectDigest !== x.subject.subjectDigest || !record(x.source)) return false;
-  return x.source.kind === "construction_member" ? keys(x.source,["kind","sourceMemberRef"]) && text(x.source.sourceMemberRef)
-    : x.source.kind === "retained_dependency" && keys(x.source,["kind","origin"]) && isWorksiteRevisionObservationOrigin(x.source.origin);
+    x.observation.subjectRef !== x.subject.subjectRef || x.observation.subjectDigest !== x.subject.subjectDigest || !isRecord(x.source)) return false;
+  return x.source.kind === "construction_member" ? hasExactKeys(x.source,["kind","sourceMemberRef"]) && text(x.source.sourceMemberRef)
+    : x.source.kind === "retained_dependency" && hasExactKeys(x.source,["kind","origin"]) && isWorksiteRevisionObservationOrigin(x.source.origin);
 }
 /** Authority-free view used by unchanged snapshot/command mechanics. */
 export function worksiteExecutionSources(task: WorksiteExecutionTask) {
@@ -152,8 +151,8 @@ export function constructWorksiteRevisionCommandExecutionTask(input: WorksiteRev
     taskRef: `worksite-revision-command-execution-task://abiogenesis/${taskDigest.slice(7)}`, taskDigest, ...body });
 }
 export function isWorksiteRevisionCommandExecutionTask(value: unknown): value is WorksiteRevisionCommandExecutionTask {
-  if (!record(value) || value.kind !== "worksite_revision_command_execution_task" || value.schemaVersion !== "5.0.0" ||
-    !keys(value, ["kind","schemaVersion","taskRef","taskDigest","workspaceAuthorityBasis","workspaceBinding","capabilityGrant",
+  if (!isRecord(value) || value.kind !== "worksite_revision_command_execution_task" || value.schemaVersion !== "5.0.0" ||
+    !hasExactKeys(value, ["kind","schemaVersion","taskRef","taskDigest","workspaceAuthorityBasis","workspaceBinding","capabilityGrant",
       "sourceConstructionResultRef","sourceConstructionResultDigest","sourceConstructionResult","materializationPlanRef","rendererRef",
       "instructionContractRef","resultContractRef","workerActorRef","workerBindingRef","transportLane","commands","outcomePredicates",
       "allowedWriteTerritories","revisionBasisRef","revisionBasisDigest","snapshotSources"])) return false;

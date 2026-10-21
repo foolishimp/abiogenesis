@@ -6,6 +6,7 @@ import { validRunEnvironmentPublication, validRunEnvironmentProgram } from "../g
 import { worksitePreservedResultSourceOfGraphFunction, WORKSITE_PRESERVED_RESULT_IDS } from "../gtl/worksite_construction_recovery.js";
 import { semanticLifecycleRefForProgram, validSemanticProgramOwners, validSemanticLifecyclePublication } from "../gtl/semantic_stage.js";
 import { isGraphInputRetentionContractRelation } from "../product/worksite_preparation_contracts.js";
+import { hasExactKeys } from "../shared/admit/index.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -96,10 +97,6 @@ export interface StaticValidationRefusal {
   readonly stage: "graph" | "implementation_resolution" | "publication" | "program";
   readonly subjectDigest: Sha256Digest;
   readonly diagnostics: readonly StaticDiagnostic[];
-}
-
-function hasExactKeys(value: object, expected: readonly string[]): boolean {
-  return Object.keys(value).sort().join("\0") === [...expected].sort().join("\0");
 }
 
 function hasExactGraphEdgeShape(edge: Readonly<GtlEdge>): boolean {

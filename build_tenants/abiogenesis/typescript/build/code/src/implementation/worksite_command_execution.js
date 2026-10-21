@@ -16,6 +16,7 @@ import { canonicalJson } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys } from "../shared/admit/index.js";
 const descriptorBody = {
     implementationRef: WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,
     packageName: ABI5_PACKAGE_NAME,
@@ -45,11 +46,10 @@ function exactAuthorityFreeOccurrence(occurrence, verifyNativeOccurrence) {
             owner.call.attempt !== occurrence.attempt)
             throw new TypeError("C2 assembly companion differs from admitted occurrence");
     }
-    const expectedKeys = [
+    if (!hasExactKeys(coordinates, [
         "attempt", "cCallRef", "executionAuthority", "frameId", "graphCallId",
         "programLocusRef", "runId", "taskOrdinal",
-    ].sort().join("\0");
-    if (Object.keys(coordinates).sort().join("\0") !== expectedKeys ||
+    ]) ||
         typeof occurrence.cCallRef !== "string" || occurrence.cCallRef.trim() === "" ||
         typeof occurrence.runId !== "string" || occurrence.runId.trim() === "" ||
         typeof occurrence.graphCallId !== "string" || occurrence.graphCallId.trim() === "" ||

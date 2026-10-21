@@ -1,6 +1,6 @@
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromStore, runtimeEventBodiesAtPrefix, indexedRuntimeEvents, selectRuntimeEventPrefixFromAuthority } from "./event_prefix.js";
 import { projectRuntimeReplayGuard, type RuntimeReplayGuard } from "./replay.js";
-import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import type {
   FanOutApplication,
   GtlGraph,

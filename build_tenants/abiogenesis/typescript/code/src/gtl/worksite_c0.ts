@@ -26,6 +26,7 @@ import {
   WORKSITE_FILE_PARENTS_EFFECT_URI,
 } from "../product/worksite_effect.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 
 const WORKSITE_C0_IMPLEMENTATION = Object.freeze({
@@ -71,15 +72,14 @@ export interface WorksiteC0PublicationParts {
 export function isWorksiteFileReplaceOutput(
   value: unknown,
 ): value is Readonly<Record<string, unknown>> {
-  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+  if (!isRecord(value)) {
     return false;
   }
-  const record = value as Readonly<Record<string, unknown>>;
+  const record = value;
   const authorization = record.authorization;
   const receipt = record.receipt;
   const successorObservation = record.successorObservation;
-  return Object.keys(record).sort().join("\0") ===
-      ["authorization", "kind", "receipt", "schemaVersion", "successorObservation"].join("\0") &&
+  return hasExactKeys(record, ["authorization", "kind", "receipt", "schemaVersion", "successorObservation"]) &&
     record.kind === "worksite_file_replace_output" &&
     record.schemaVersion === "5.0.0" &&
     isWorksiteEffectAuthorization(authorization) &&

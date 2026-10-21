@@ -1,4 +1,4 @@
-import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
 import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction_identity.js";
 export { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from "./worksite_construction_identity.js";
 import { isAbsolute } from "node:path";

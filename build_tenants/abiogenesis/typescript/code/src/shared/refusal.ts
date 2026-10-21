@@ -25,8 +25,12 @@ export function refused(outcome: unknown): outcome is StructuralRefusal {
     (outcome as Readonly<{ kind?: unknown }>).kind === "structural_refusal";
 }
 
-/** Sequential composition: a refusal passes through unchanged. */
-export function then<A, B>(
+/**
+ * Sequential composition: a refusal passes through unchanged. Named `andThen`
+ * because a module namespace exporting `then` is a thenable, and `import()` of
+ * it would never settle.
+ */
+export function andThen<A, B>(
   outcome: Outcome<A>,
   next: (value: A) => Outcome<B>,
 ): Outcome<B> {

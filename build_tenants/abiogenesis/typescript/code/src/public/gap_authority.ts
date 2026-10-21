@@ -1,4 +1,4 @@
-import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonEmptyString as nonEmptyString } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys, isNonEmptyString as nonEmptyString } from "../shared/admission_predicates.js";
 import {
   validateEventStoreCloseHandoff,
   type DurablePrefixCoordinate,

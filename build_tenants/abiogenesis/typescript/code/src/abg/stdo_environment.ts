@@ -7,6 +7,7 @@ import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { jsonValueSchema } from "../shared/public_function_contracts.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isAbsolute, resolve, relative } from "node:path";
 import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
 
@@ -36,7 +37,7 @@ export type StdoEnvironmentEvidence = v.InferOutput<typeof STDO_ENVIRONMENT_EVID
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const record = (x: unknown): x is Record<string, any> => typeof x === "object" && x !== null && !Array.isArray(x);
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
-const keys = (x: unknown, names: readonly string[]) => record(x) && Object.keys(x).sort().join("\0") === [...names].sort().join("\0");
+const keys = (x: unknown, names: readonly string[]) => isRecord(x) && hasExactKeys(x, names);
 export function exactStdoBytes(value: { base64: string; digest: string }): Buffer {
   const b = Buffer.from(value.base64, "base64");
   if (b.toString("base64") !== value.base64 || sha256Bytes(b) !== value.digest) throw new TypeError("STDO evidence byte mismatch");

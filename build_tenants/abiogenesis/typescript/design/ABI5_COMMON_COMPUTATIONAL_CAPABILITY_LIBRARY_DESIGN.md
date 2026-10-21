@@ -37,7 +37,7 @@ Each library module realizes one operator family of §5.6.1. The role column use
 
 | Module | Operator family | Role | Imports | Effect class |
 |---|---|---|---|---|
-| `shared/refusal.ts` | carrier | carrier | none | pure |
+| `shared/refusal.ts` | carrier | carrier | `value` (types only) | pure |
 | `shared/value/` | `derive` over `JsonValue` | semantic kernel | `refusal` | pure |
 | `shared/admit/` | `validate` | ingress | `refusal`, `value` | pure; Valibot and jsonc-parser as foundations |
 | `shared/select/` | `select` | semantic kernel | `refusal` | pure |
@@ -56,7 +56,7 @@ Owner contract tables live in owner directories and are data; owner definition-b
 
 `shared/` imports nothing from `abg/`, `product/`, `hog/`, `gtl/`, `validator/` or `public/`. Three moves establish this direction:
 
-1. `bindExactPrefixRead` and `bindExactPrefixTransition` move from [static_definition_bindings.ts](../code/src/shared/static_definition_bindings.ts) to `abg/exact_prefix_bindings.ts`.
+1. `bindExactPrefixRead` and `bindExactPrefixTransition` move from [static_definition_bindings.ts](../code/src/public/binding/static_definition_bindings.ts) to `abg/exact_prefix_bindings.ts`.
 2. [product/exact_match.ts](../code/src/product/exact_match.ts) moves to `shared/select/exact_match.ts`.
 3. `shared/owner_contract_source_set.ts`, `shared/public_function_family.ts`, `shared/public_function_projections.ts`, `shared/definition_binding_mechanics.ts` and `shared/static_definition_bindings.ts` after move 1 move to `public/binding/`.
 
@@ -90,8 +90,10 @@ type StructuralRefusal = Readonly<{
 type Outcome<A> = Readonly<{ kind: "ok"; value: A }> | StructuralRefusal;
 function ok<A>(value: A): Outcome<A>;
 function refused(outcome: unknown): outcome is StructuralRefusal;
-function then<A, B>(outcome: Outcome<A>, next: (value: A) => Outcome<B>): Outcome<B>;
+function andThen<A, B>(outcome: Outcome<A>, next: (value: A) => Outcome<B>): Outcome<B>;
 ```
+
+The sequencing export is named `andThen`, not `then`, because a module namespace with an export named `then` is a thenable, so `import()` of the module never settles while static imports still work.
 
 Admitted domain: the pure layer, `validate`, `select` and `derive`. Process facts reach the log as their owner's terminal event and, on a failure, inside the admitted failure's diagnostic subject, not through this carrier (§9.3). A `StructuralRefusal` carries no owner meaning ([FS-11](ABI5_REALIZATION_CONSTITUTION.md#55-axioms)). An owner maps it into its own union exactly once at the owner boundary. A binder maps the refusal of its own `admitContract` call to its existing resource or receipt fault (§4.5); no other `StructuralRefusal` crosses `DefinitionExecutionFault`. Defects keep `throw`; expected refusals never do.
 
@@ -246,8 +248,8 @@ The lifetime's closed material cases:
 
 | Category | Library combinator | Laws | Owner of anything beyond |
 |---|---|---|---|
-| unit, lift | `ok`, `exactMatchOutcome`; `Effect.succeed` at the binder | `then(ok(a), f) = f(a)` | none |
-| sequential | `then`, Kleisli composition over `Outcome` | associative: `then(then(o, f), g) = then(o, a => then(f(a), g))`; refusal-absorbing: `then(r, f) = r` for every refusal `r`; identity: `then(o, ok) = o` | Effect `flatMap` for the lifted layer, existing |
+| unit, lift | `ok`, `exactMatchOutcome`; `Effect.succeed` at the binder | `andThen(ok(a), f) = f(a)` | none |
+| sequential | `andThen`, Kleisli composition over `Outcome` | associative: `andThen(andThen(o, f), g) = andThen(o, a => andThen(f(a), g))`; refusal-absorbing: `andThen(r, f) = r` for every refusal `r`; identity: `andThen(o, ok) = o` | Effect `flatMap` for the lifted layer, existing |
 | parallel, applicative | none | none | `C.batch`, graph fan-out and fan-in |
 | fold | `foldStep` | `fold(L ++ s) = foldStep*(fold(L), s)`; cold equals warm at the same cut | ABG |
 | retry, recovery | none | none | `C.retry`, the HoG retry lifecycle |
@@ -256,7 +258,7 @@ The lifetime's closed material cases:
 
 Authority law for every row: a composed function has no more authority than its inputs and constituents (FS-11; DESIGN_MODULE §5, Authority model). Nothing here reads a prefix, appends an event, selects a target or decides a continuation. The [seven C constructors](../../../../specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md) keep their GTL and HoG owners; the library adds no constructor and no traversal algorithm.
 
-Falsifier for the sequential row: a `then` whose refusal branch is not the identity. Falsifier for the fold row: an admitted prefix split `L ++ s` where `fold(L ++ s)` and `foldStep*(fold(L), s)` differ, or a cut where cold replay and the warm fork differ.
+Falsifier for the sequential row: an `andThen` whose refusal branch is not the identity. Falsifier for the fold row: an admitted prefix split `L ++ s` where `fold(L ++ s)` and `foldStep*(fold(L), s)` differ, or a cut where cold replay and the warm fork differ.
 
 ## 6. Prime atoms, admitted domains, falsifiers
 
@@ -273,7 +275,7 @@ Falsifier for the sequential row: a `then` whose refusal branch is not the ident
 | `effectOf`, `foldStep` | an admitted event in prefix order with its declared dependencies | a prefix split where the fold law of §5 fails; a cut where cold replay and the warm fork differ; or an effect differing from the expected-effect table of counterexample A or B (§4.4) |
 | `holdsAt` | a `FoldState` at an admitted prefix cut and a pattern `{ kind: "runtime_fluent_pattern", name, identity }` | any module outside `abg/calculus/` that decides one of the lifecycle fluents of §4.4 (`actor_process_spawn_failed`, `actor_process_live`, `actor_process_terminated`, `actor_process_termination_unconfirmed`, `actor_cleanup_pending`) from a copied payload field, from the presence of an event kind in a prefix, from its own recomputation over the log or from a second store, instead of calling `holdsAt` with a pattern naming that fluent; the owner's report of a terminal outcome from its physical observation (§4.6) is not such a reader |
 | `encodeOwnedProcessFacts` | `OwnedProcessFacts` from one lifetime | a member renamed or dropped; an `Error` encoded other than as `{ name, message, code, errno, syscall, path }` with string or `null` members; a `stack` member present; a `bigint` encoded other than as `{ "kind": "bigint", "value": "<base-10 digits>" }`; a changed `null`; or a second encoding of the facts in any adapter |
-| `then` | any `Outcome` | the laws in §5 |
+| `andThen` | any `Outcome` | the laws in §5 |
 
 Whole-family Prime contraction. No atom duplicates another's domain: digest comparison is native `===` on a branded string and is not an atom. No atom adds an authority centre: all are pure and read nothing. `holdsAt` is the only admitted reader of "is this actor process gone"; for a helper-run process the answer is a projection of its admitted leaf result or failure (§9.3). The atoms in this table replace roughly 400 private bodies by census.
 
@@ -633,7 +635,7 @@ For each row of §10.1, `U(B)` is the set of material relations still unresolved
 
 | Row | `U(B)` | Decided by, and when | Sequencing |
 |---|---|---|---|
-| 1 | acceptance of the `catalog_addition_proposal` for the failure carrier, with its constitution §10.1 cost ledger (§10.7); placement of call admission: `public/binding/`, above the owner contract tables, decided by the Executive at step 2 (2026-10-22) because `admitExactDefinitionCall` reads the instantiated family, whose digests range over the whole owner set | the constitution owner, before this row is coded | design-gated on that acceptance |
+| 1 | empty: the `catalog_addition_proposal` for the failure carrier, with its constitution §10.1 cost ledger (§10.7), was accepted through the [constitution §16.14](ABI5_REALIZATION_CONSTITUTION.md#1614-t-287-common-library-operator-family-amendment-record) record at step 2 (commit `69132360f`); placement of call admission: `public/binding/`, above the owner contract tables, decided by the Executive at step 2 (2026-10-22) because `admitExactDefinitionCall` reads the instantiated family, whose digests range over the whole owner set | the constitution owner accepted the addition and the Executive decided the placement, both at step 2 | co-evolution |
 | 2 | the ingress answer at each native composite comparison site this row touches (D3); the ingress or refusal decision for the default-library shallow custom JSON schema and the nullable project-read adapter (O-SCHEMA) | the owner of each site, when this row realizes it; the answer is recorded with that site's change | design-gated at those sites; co-evolution elsewhere |
 | 3 | the ingress answer at each native composite comparison site this row touches (D3) | the owner of each site, when this row realizes it | design-gated at those sites; co-evolution elsewhere |
 | 4 | empty | none | co-evolution |
@@ -654,7 +656,7 @@ Each function this design adds or moves declares one disposition under [constitu
 | `effectOf`, `foldStep`, `holdsAt`, `ROOT_DERIVED_RULES` | `catalog_extension` | typed Event Calculus projection: closed module law, no caller axioms |
 | `bindStaticOwner`, `bindExactPrefixRead`, `bindExactPrefixTransition` | `catalog_reuse`; the last two moved by move 1 of §2 | static exact definition-binding algebra |
 | `deriveCanonicalRootedTopologyPartition` | `catalog_reuse` | canonical rooted-topology partition |
-| `StructuralRefusal`, `Outcome`, `ok`, `refused`, `then` | `catalog_addition_proposal` | none: the library's one expected-failure carrier |
+| `StructuralRefusal`, `Outcome`, `ok`, `refused`, `andThen` | `catalog_addition_proposal` | none: the library's one expected-failure carrier |
 | `hasConfirmedOwnedProcessBoundary`, `encodeOwnedProcessFacts` | `catalog_addition_proposal` | none: subprocess mechanics (`N11`) stay with their owners |
 
 The two addition proposals state the recurrence they replace and their law and contract in §3 to §6, their substrate, owner seams and authority-neutral role in §2 and §5, the deletion of equivalent helpers in §10.1 and their proof in §10.5. No catalog relation holds a failure carrier or a process-fact function, so neither extends one. The candidate and total-lifecycle-cost ledger of constitution §10.1 accompanies each with the coding plan of its row, and neither is coded before its acceptance.

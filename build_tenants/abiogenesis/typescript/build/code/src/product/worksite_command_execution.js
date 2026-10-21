@@ -2,7 +2,7 @@ import { isDeepStrictEqual } from "node:util";
 import { validateDurablePrefixCoordinate } from "../abg/event_store.js";
 import { isAbgHistoricalDeclarationProof, isAbgHistoricalDeclarationReference } from "../abg/terminal_result_contracts.js";
 import { isWorksiteContextObservation } from "./worksite_effect.js";
-import { isRecord, hasNulJoinedFields as exactKeys } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
 import { delimiter as pathDelimiter, dirname, isAbsolute, join, posix, relative, resolve, win32, } from "node:path";
 import { canonicalJson, } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Bytes, sha256Canonical, } from "../shared/digests.js";

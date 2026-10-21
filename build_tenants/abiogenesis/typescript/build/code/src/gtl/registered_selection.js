@@ -1,22 +1,21 @@
 import { graphFunctionApplicationRef } from "./graph_applications.js";
 import { rootCSourcePath } from "./source_path.js";
 import {} from "../shared/digests.js";
-const record = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 const refs = (value) => Array.isArray(value) && value.every(v => typeof v === "string" && v.length > 0) && new Set(value).size === value.length;
-const keys = (value, expected) => Object.keys(value).sort().join("\0") === [...expected].sort().join("\0");
 export function isRegisteredGraphChoice(value) {
-    if (!record(value) || value.kind !== "registered_graph_choice" || value.schemaVersion !== "5.0.0" ||
+    if (!isRecord(value) || value.kind !== "registered_graph_choice" || value.schemaVersion !== "5.0.0" ||
         typeof value.reason !== "string" || value.reason.trim().length === 0 || !refs(value.evidenceRefs))
         return false;
     const base = ["kind", "schemaVersion", "disposition", "reason", "evidenceRefs"];
     return value.disposition === "gap"
-        ? keys(value, [...base, "missingSupportRefs"]) && refs(value.missingSupportRefs) && value.missingSupportRefs.length > 0
-        : value.disposition === "selected" && keys(value, [...base, "graphFunctionRef", "definitionDigest", "input"]) &&
+        ? hasExactKeys(value, [...base, "missingSupportRefs"]) && refs(value.missingSupportRefs) && value.missingSupportRefs.length > 0
+        : value.disposition === "selected" && hasExactKeys(value, [...base, "graphFunctionRef", "definitionDigest", "input"]) &&
             typeof value.graphFunctionRef === "string" && value.graphFunctionRef.length > 0 &&
             typeof value.definitionDigest === "string" && /^sha256:[a-f0-9]{64}$/.test(value.definitionDigest) &&
-            record(value.input) && keys(value.input, ["contractRef", "value"]) &&
+            isRecord(value.input) && hasExactKeys(value.input, ["contractRef", "value"]) &&
             typeof value.input.contractRef === "string" && value.input.contractRef.length > 0 &&
-            record(value.input.value) && typeof value.input.value.kind === "string" && value.input.value.kind.length > 0;
+            isRecord(value.input.value) && typeof value.input.value.kind === "string" && value.input.value.kind.length > 0;
 }
 /** Establish declaration applicability before examining any response fields. */
 export function registeredSelectionAtSource(template, source, contractRef) {

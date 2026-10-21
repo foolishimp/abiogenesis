@@ -1,5 +1,6 @@
 import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
 import { resolveExactMatch } from "../shared/select/exact_match.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";
@@ -178,11 +179,8 @@ export function isProductExecutionResolution(
       typeof candidate.resolutionDigest !== "string" ||
       typeof candidate.programRef !== "string" ||
       typeof candidate.graphFunctionRef !== "string" ||
-      typeof candidate.programGraphFunctionMembership !== "object" ||
-      candidate.programGraphFunctionMembership === null ||
-      Array.isArray(candidate.programGraphFunctionMembership) ||
-      Object.keys(candidate.programGraphFunctionMembership).sort().join("\0") !==
-        "digest\0ref" ||
+      !isRecord(candidate.programGraphFunctionMembership) ||
+      !hasExactKeys(candidate.programGraphFunctionMembership, ["digest", "ref"]) ||
       candidate.inputContract === undefined ||
       candidate.inputContractOwner === undefined ||
       candidate.outputContract === undefined ||

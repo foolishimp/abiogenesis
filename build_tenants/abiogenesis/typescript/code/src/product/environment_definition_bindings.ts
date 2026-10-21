@@ -1,4 +1,4 @@
-import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 import { withAdmissionAuthority, type AdmissionDefinitionOwner } from "./admission_authority.js";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
-import { hasNulJoinedFields as exactKeys } from "../shared/admission_predicates.js";
+import { hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
 import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,

@@ -1,4 +1,4 @@
-import { isRecord, hasUnicodeNulJoinedKeys } from "../../shared/admission_predicates.js";
+import { admitContract, admitRef, hasExactKeys, isRecord } from "../../shared/admit/index.js";
 import { resolveExactMatch } from "../../shared/select/exact_match.js";
 import * as v from "valibot";
 
@@ -137,10 +137,13 @@ function requiredSlot(
   request: unknown,
 ): PublicAuthoritySlot | null {
   if (typeof requirement === "string") return requirement;
-  const selected = valueAtPath(request, requirement.requiredWhen.requestPath);
-  return requirement.requiredWhen.equalsAny.some((value) =>
-      sameJson(selected, value)
-    )
+  // The request is already admitted by its packet schema; the selected member
+  // is a discriminator ref. An absent or non-ref selection requires no slot.
+  const selected = admitRef(valueAtPath(request, requirement.requiredWhen.requestPath));
+  return selected.kind === "ok" &&
+      requirement.requiredWhen.equalsAny.some((value) =>
+        sameJson(selected.value, value)
+      )
     ? requirement.slot
     : null;
 }
@@ -149,7 +152,8 @@ function exactContractCoordinate(
   value: unknown,
   expected: PublicContractCoordinate,
 ): boolean {
-  return sameJson(value, expected);
+  const admitted = admitContract(publicContractCoordinateSchema, value);
+  return admitted.kind === "ok" && sameJson(admitted.value, expected);
 }
 
 function expectedContractCoordinates(
@@ -328,7 +332,7 @@ export function admitExactDefinitionCall<
   call: unknown,
   packet: TPacket,
 ): DefinitionCall<TPacket, never>["invocation"] | null {
-  if (!isRecord(call) || !hasUnicodeNulJoinedKeys(call, ["invocation", "resources"]) ||
+  if (!isRecord(call) || !hasExactKeys(call, ["invocation", "resources"]) ||
     !isRecord(call.invocation)) return null;
   const rawInvocation = call.invocation as unknown as AdmittedPublicInvocation<
     PublicDefinitionKeyLike,
@@ -427,4 +431,4 @@ export function exactDefinitionCallMatches(
   return admitExactDefinitionCall(call, packet) !== null;
 }
 
-export { isRecord, hasUnicodeNulJoinedKeys };
+export { isRecord };

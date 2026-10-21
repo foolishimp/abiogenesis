@@ -73,6 +73,7 @@ import {
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { isRecord } from "../shared/admit/index.js";
 import {
   isGraphValidation,
   type GraphValidation,
@@ -166,8 +167,6 @@ export interface NativeInstructionAssemblyBasis {
 function deriveOwnedNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
   try {
     const hash = (value: unknown) => sha256Canonical(value as JsonValue);
-    const isRecord = (value: unknown): value is Readonly<Record<string, JsonValue>> =>
-      value !== null && typeof value === "object" && !Array.isArray(value);
     const artifactTruth = projectOwnedPrefixArtifactTruth(basis.predecessorPrefix);
     if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return null;
     const prefix = runtimePrefixFromOwnedArtifactTruth(artifactTruth);

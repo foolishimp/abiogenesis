@@ -1,4 +1,4 @@
-import { hasNulJoinedKeys as hasExactKeys, isMutableRecord as isRecord } from "../shared/admission_predicates.js";
+import { hasExactKeys, isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isNonBlankRef } from "../shared/references.js";

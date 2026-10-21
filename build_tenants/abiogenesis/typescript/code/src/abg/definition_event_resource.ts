@@ -6,7 +6,7 @@ import { absolutePathSchema, digestSchema, nonblankSchema, refDigestSchema } fro
 import { ADMISSION_CAPABILITY_DATA_SCHEMA, RESOLVED_ADMISSION_AUTHORITY_SCHEMA, type ResolvedAdmissionAuthority } from "../product/admission_authority.js";
 import { verifyProduct, isVerifiedProductArtifact } from "../product/verify_product.js";
 import type { VerifiedProductArtifact } from "../product/contracts.js";
-import { isRecord } from "../shared/admission_predicates.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isAbsolute, resolve } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
@@ -148,7 +148,7 @@ export function acquiredAbgEventResourceCompletionCorresponds(
 export function validateAbgEventResourceOutcome(value: unknown): value is AbgEventResourceOutcome {
   if (validateAbgEventResourceReceipt(value)) return true;
   if (!isRecord(value) || value.kind !== "abg_event_resource_completion" || value.schemaVersion !== "5.0.0" ||
-      Object.keys(value).sort().join("\0") !== ["kind", "schemaVersion", "acquisitionKind", "entryPrefix", "successor", "receiptDigest"].sort().join("\0") ||
+      !hasExactKeys(value, ["kind", "schemaVersion", "acquisitionKind", "entryPrefix", "successor", "receiptDigest"]) ||
       (value.acquisitionKind !== "new" && value.acquisitionKind !== "reopen") ||
       !validateDurablePrefixCoordinate(value.entryPrefix) || !isAcquiredAbgEventResourceSelection(value.successor)) return false;
   const { receiptDigest, ...body } = value;
@@ -223,18 +223,14 @@ export function validateAbgEventResourceAssertion(
   if (!isRecord(value) || !exactIJson(value)) return false;
   if (value.kind === "new_abg_event_resource") {
     return value.schemaVersion === "5.0.0" &&
-      Object.keys(value).sort().join("\0") ===
-        ["eventLogPath", "kind", "locatorDigest", "schemaVersion"].sort()
-          .join("\0") &&
+      hasExactKeys(value, ["eventLogPath", "kind", "locatorDigest", "schemaVersion"]) &&
       typeof value.eventLogPath === "string" &&
       isAbsolute(value.eventLogPath) &&
       value.locatorDigest === abgEventLocatorDigest(value.eventLogPath);
   }
   return value.kind === "reopen_abg_event_resource" &&
     value.schemaVersion === "5.0.0" &&
-    Object.keys(value).sort().join("\0") ===
-      ["closeHandoff", "handoffDigest", "kind", "schemaVersion"].sort()
-        .join("\0") &&
+    hasExactKeys(value, ["closeHandoff", "handoffDigest", "kind", "schemaVersion"]) &&
     validateEventStoreCloseHandoff(value.closeHandoff) &&
     value.handoffDigest === abgEventHandoffDigest(value.closeHandoff);
 }
@@ -246,15 +242,14 @@ export function validateAbgEventResourceReceipt(
   if (
     !isRecord(value) ||
     !exactIJson(value) ||
-    Object.keys(value).sort().join("\0") !==
-      [
-        "acquisitionKind",
-        "closeHandoff",
-        "entryPrefix",
-        "kind",
-        "receiptDigest",
-        "schemaVersion",
-      ].sort().join("\0") ||
+    !hasExactKeys(value, [
+      "acquisitionKind",
+      "closeHandoff",
+      "entryPrefix",
+      "kind",
+      "receiptDigest",
+      "schemaVersion",
+    ]) ||
     value.kind !== "abg_event_resource_receipt" ||
     value.schemaVersion !== "5.0.0" ||
     (value.acquisitionKind !== "new" && value.acquisitionKind !== "reopen") ||
@@ -293,8 +288,7 @@ export function acquireAbgEventResource(
   if (assertion.kind === "new_abg_event_resource") {
     if (
       assertion.schemaVersion !== "5.0.0" ||
-      Object.keys(assertion).sort().join("\0") !==
-        ["eventLogPath", "kind", "locatorDigest", "schemaVersion"].sort().join("\0") ||
+      !hasExactKeys(assertion, ["eventLogPath", "kind", "locatorDigest", "schemaVersion"]) ||
       !isAbsolute(assertion.eventLogPath) ||
       assertion.locatorDigest !== abgEventLocatorDigest(assertion.eventLogPath)
     ) {
@@ -326,8 +320,7 @@ export function acquireAbgEventResource(
   if (
     assertion.kind !== "reopen_abg_event_resource" ||
     assertion.schemaVersion !== "5.0.0" ||
-    Object.keys(assertion).sort().join("\0") !==
-      ["closeHandoff", "handoffDigest", "kind", "schemaVersion"].sort().join("\0") ||
+    !hasExactKeys(assertion, ["closeHandoff", "handoffDigest", "kind", "schemaVersion"]) ||
     !validateEventStoreCloseHandoff(assertion.closeHandoff) ||
     assertion.handoffDigest !== abgEventHandoffDigest(assertion.closeHandoff)
   ) {

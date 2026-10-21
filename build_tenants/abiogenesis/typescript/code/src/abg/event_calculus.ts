@@ -1,4 +1,4 @@
-import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import { runtimeEventAtPrefixIndex, indexedRuntimeEvents } from "./event_prefix.js";
 import {
   compareUnicodeCodeUnits,

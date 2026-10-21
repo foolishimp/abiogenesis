@@ -1,4 +1,4 @@
-import { hasNulJoinedKeys as hasExactKeys, isMutableRecord as isRecord } from "../shared/admission_predicates.js";
+import { hasExactKeys, isRecord } from "../shared/admission_predicates.js";
 import { execFile } from "node:child_process";
 import { createReadStream } from "node:fs";
 import { readFile } from "node:fs/promises";

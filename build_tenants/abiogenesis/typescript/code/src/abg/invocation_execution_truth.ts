@@ -1,7 +1,7 @@
 import { isOwnedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix } from "./event_prefix.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -230,7 +230,7 @@ export function hasAdmittedGovernanceSourceUse(invocation: InvocationAdmission, 
     synthesis.resultDigest === payload.resultDigest;
 }
 
-function canonicalRecordDigest(value: unknown): Sha256Digest | null {
+function canonicalRecordDigest(value: JsonValue | undefined): Sha256Digest | null {
   if (!isRecord(value)) return null;
   try {
     return sha256Canonical(value);

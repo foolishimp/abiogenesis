@@ -1,4 +1,4 @@
-import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
@@ -27,10 +27,8 @@ export function rehydrateMaterializedGtlGraph(
   value: unknown,
 ): Readonly<GtlGraph> | null {
   if (
-    typeof value !== "object" ||
-    value === null ||
-    Array.isArray(value) ||
-    Object.keys(value).sort().join("\0") !== [
+    !isRecord(value) ||
+    !hasExactKeys(value, [
       "admittedInputDigest",
       "admittedInputRef",
       "fanOutMaterializations",
@@ -42,7 +40,7 @@ export function rehydrateMaterializedGtlGraph(
       "materializationRef",
       "schemaVersion",
       "template",
-    ].join("\0")
+    ])
   ) {
     return null;
   }
@@ -124,7 +122,7 @@ function fanOutMembers(
       "fan_out materialization requires one admitted non-empty ordered member vector",
     );
   }
-  return deepFreeze(rows.map((row, ordinal) => {
+  return deepFreeze(rows.map((row: JsonValue, ordinal) => {
     if (!isRecord(row)) {
       throw new TypeError(
         "fan_out members require stable zero-based ordinals, refs, and record values",

@@ -1,6 +1,6 @@
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import { isJsonRecord as isRecord, isNonEmptyJsonString as isNonEmptyString, hasJsonNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
+import { isRecord, isNonEmptyJsonString as isNonEmptyString, hasExactKeys } from "../shared/admission_predicates.js";
 import type {
   GraphFunction,
   GtlGraph,

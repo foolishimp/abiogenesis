@@ -1,4 +1,4 @@
-import { isRecord, hasNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 import {
   validateEventStoreCloseHandoff,
   type DurablePrefixCoordinate,

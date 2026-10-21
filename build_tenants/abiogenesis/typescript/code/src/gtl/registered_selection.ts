@@ -3,27 +3,24 @@ import { graphFunctionApplicationRef } from "./graph_applications.js";
 import { rootCSourcePath } from "./source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { type Sha256Digest } from "../shared/digests.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 
 type RecordValue = Readonly<Record<string, JsonValue>>;
-const record = (value: unknown): value is RecordValue =>
-  value !== null && typeof value === "object" && !Array.isArray(value);
 const refs = (value: unknown): value is readonly string[] =>
   Array.isArray(value) && value.every(v => typeof v === "string" && v.length > 0) && new Set(value).size === value.length;
-const keys = (value: RecordValue, expected: readonly string[]) =>
-  Object.keys(value).sort().join("\0") === [...expected].sort().join("\0");
 
 export function isRegisteredGraphChoice(value: unknown): value is RecordValue {
-  if (!record(value) || value.kind !== "registered_graph_choice" || value.schemaVersion !== "5.0.0" ||
+  if (!isRecord(value) || value.kind !== "registered_graph_choice" || value.schemaVersion !== "5.0.0" ||
     typeof value.reason !== "string" || value.reason.trim().length === 0 || !refs(value.evidenceRefs)) return false;
   const base = ["kind", "schemaVersion", "disposition", "reason", "evidenceRefs"];
   return value.disposition === "gap"
-    ? keys(value, [...base, "missingSupportRefs"]) && refs(value.missingSupportRefs) && value.missingSupportRefs.length > 0
-    : value.disposition === "selected" && keys(value, [...base, "graphFunctionRef", "definitionDigest", "input"]) &&
+    ? hasExactKeys(value, [...base, "missingSupportRefs"]) && refs(value.missingSupportRefs) && value.missingSupportRefs.length > 0
+    : value.disposition === "selected" && hasExactKeys(value, [...base, "graphFunctionRef", "definitionDigest", "input"]) &&
       typeof value.graphFunctionRef === "string" && value.graphFunctionRef.length > 0 &&
       typeof value.definitionDigest === "string" && /^sha256:[a-f0-9]{64}$/.test(value.definitionDigest) &&
-      record(value.input) && keys(value.input, ["contractRef", "value"]) &&
+      isRecord(value.input) && hasExactKeys(value.input, ["contractRef", "value"]) &&
       typeof value.input.contractRef === "string" && value.input.contractRef.length > 0 &&
-      record(value.input.value) && typeof value.input.value.kind === "string" && value.input.value.kind.length > 0;
+      isRecord(value.input.value) && typeof value.input.value.kind === "string" && value.input.value.kind.length > 0;
 }
 
 /** Establish declaration applicability before examining any response fields. */

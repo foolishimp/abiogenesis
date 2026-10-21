@@ -3,7 +3,7 @@ import { projectRuntimeReplayGuard, materializeRuntimeReplayGuard, type RuntimeR
 import type { OwnedEffectfulPublicInvocationTruth } from "./effectful_invocation_truth.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import type {
   ClosureContract,
   GraphFunction,

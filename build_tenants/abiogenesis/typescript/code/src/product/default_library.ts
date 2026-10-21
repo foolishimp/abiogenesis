@@ -2,6 +2,7 @@ import * as v from "valibot";
 import { isDeepStrictEqual } from "node:util";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
 import type { NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
 import { isNativeWorkspaceWorkReport } from "./native_workspace_work.js";
@@ -41,7 +42,7 @@ const synthesisBasisSchema = v.strictObject({ inputRef: text, inputDigest: diges
   environmentRef: text, environmentDigest: digest, frameEvidenceDigest: digest, frameRefs: texts,
   contextRef: text, previousResultRef: v.nullable(text) });
 const currentSynthesisSchema = v.strictObject({ resultRef: text, resultDigest: digest, basis: synthesisBasisSchema, judgment: judgmentSchema });
-const jsonRecord = v.custom<Readonly<Record<string, JsonValue>>>(x => typeof x === "object" && x !== null && !Array.isArray(x));
+const jsonRecord = v.custom<Readonly<Record<string, JsonValue>>>(isRecord);
 const workOrder = v.strictObject({ outcome: text, instructions: texts, readFirst: texts, writeRoots: texts, checks: texts });
 const source = v.strictObject({ path: text, digest });
 const originalSchema = v.strictObject({ taskRef: text, task: text, sources: v.pipe(v.array(source), v.minLength(1)),
@@ -114,7 +115,6 @@ export interface FramedSynthesisResult {
   readonly kind: "framed_synthesis_result"; readonly schemaVersion: "5.0.0";
   readonly state: GovernanceWorkState; readonly basis: FramedSynthesisBasis; readonly judgment: FramedSynthesisJudgment;
 }
-const exactKeys = (value: object, keys: readonly string[]) => Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
 const unique = (values: readonly string[]) => new Set(values).size === values.length;
 export function isFramedSynthesisJudgment(value: unknown): value is FramedSynthesisJudgment {
   return v.is(judgmentSchema, value) && unique(value.contributions.map(c => c.graphFunctionRef)) &&
@@ -130,7 +130,7 @@ export function isFramedSynthesisTask(value: unknown): value is FramedSynthesisT
     state: v.custom<GovernanceWorkState>(isGovernanceWorkState), context: v.custom<WorksiteContextObservation>(isWorksiteContextObservation) }), value) && !value.state.terminal;
 }
 export function isFramedSynthesisResult(value: unknown): value is FramedSynthesisResult {
-  if (typeof value !== "object" || value === null || !exactKeys(value, ["kind", "schemaVersion", "state", "basis", "judgment"])) return false;
+  if (typeof value !== "object" || value === null || !hasExactKeys(value, ["kind", "schemaVersion", "state", "basis", "judgment"])) return false;
   const r = value as FramedSynthesisResult;
   return r.kind === "framed_synthesis_result" && r.schemaVersion === "5.0.0" && isGovernanceWorkState(r.state) &&
     v.is(synthesisBasisSchema, r.basis) && isFramedSynthesisJudgment(r.judgment) && r.basis.taskRef === r.state.original.taskRef &&

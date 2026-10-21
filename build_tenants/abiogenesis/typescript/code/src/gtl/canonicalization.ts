@@ -1,4 +1,4 @@
-import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -66,7 +66,7 @@ function canonicalizeRecordInventory(
   const values = carrier[field];
   if (!Array.isArray(values)) return;
 
-  const entries = values.map((value) => {
+  const entries = values.map((value: JsonValue) => {
     if (!isRecord(value)) return value;
     const entry = mutable(value);
     canonicalizeEntry?.(entry);

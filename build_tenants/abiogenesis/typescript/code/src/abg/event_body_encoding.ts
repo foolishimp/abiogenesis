@@ -1,5 +1,5 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { isRecord, isJsonRecordShape, hasExactKeys } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { RuntimeEvent, RuntimeEventCandidate } from "./event_store.js";
 
@@ -23,11 +23,12 @@ const slotFor = (kind: unknown): BodySlot | null => kind === "basis_admitted" ? 
   : kind === "actor_transport_binding_admitted" ? "native_definition_material" : null;
 const fieldFor = (slot: Exclude<BodySlot, "native_definition_material">): "rawInputValue" | "value" => slot === "basis_input" ? "rawInputValue" : "value";
 
+// Shape checks only: members stay unknown; the store validates restored events.
 function nativeParts(payload: unknown) {
-  if (!isJsonRecordShape(payload) || !isJsonRecordShape(payload.instructionAssembly)) return null;
+  if (!isRecord(payload) || !isRecord(payload.instructionAssembly)) return null;
   const assembly = payload.instructionAssembly;
   if (assembly.kind !== "native_instruction_assembly" || assembly.schemaVersion !== "5.0.0" ||
-      !isJsonRecordShape(assembly.envelope) || !isJsonRecordShape(assembly.envelope.nativeBasis)) return null;
+      !isRecord(assembly.envelope) || !isRecord(assembly.envelope.nativeBasis)) return null;
   return { assembly, envelope: assembly.envelope, basis: assembly.envelope.nativeBasis };
 }
 
@@ -42,12 +43,12 @@ function valueAtSlot(payload: Record<string, JsonValue>, slot: BodySlot): JsonVa
   if (slot !== "native_definition_material") return payload[fieldFor(slot)];
   const parts = nativeParts(payload);
   if (parts === null) return undefined;
-  const bundle: Record<string, JsonValue> = {};
-  for (const field of NATIVE_DEFINITION_FIELDS) if (Object.hasOwn(parts.basis, field)) bundle[field] = parts.basis[field]!;
+  const bundle: Record<string, unknown> = {};
+  for (const field of NATIVE_DEFINITION_FIELDS) if (Object.hasOwn(parts.basis, field)) bundle[field] = parts.basis[field];
   return isNativeDefinitionBundle(bundle) ? bundle : undefined;
 }
 
-function replaceValue(payload: Record<string, JsonValue>, slot: BodySlot, value: JsonValue): Record<string, JsonValue> {
+function replaceValue<P extends Readonly<Record<string, unknown>>>(payload: P, slot: BodySlot, value: JsonValue): P {
   if (slot !== "native_definition_material") return { ...payload, [fieldFor(slot)]: value };
   const parts = nativeParts(payload);
   if (parts === null || !isNativeDefinitionBundle(value)) throw new TypeError("native definition body slot is malformed");
@@ -55,7 +56,7 @@ function replaceValue(payload: Record<string, JsonValue>, slot: BodySlot, value:
     nativeBasis: { ...parts.basis, ...value } } } };
 }
 
-function omitValue(payload: Record<string, JsonValue>, slot: BodySlot): Record<string, JsonValue> {
+function omitValue(payload: Readonly<Record<string, unknown>>, slot: BodySlot): Record<string, unknown> {
   if (slot !== "native_definition_material") { const { [fieldFor(slot)]: _value, ...rest } = payload; return rest; }
   const parts = nativeParts(payload);
   if (parts === null) throw new TypeError("native definition body slot is malformed");
@@ -64,7 +65,7 @@ function omitValue(payload: Record<string, JsonValue>, slot: BodySlot): Record<s
   return { ...payload, instructionAssembly: { ...parts.assembly, envelope: { ...parts.envelope, nativeBasis: basis } } };
 }
 
-function targetIsAbsent(payload: Record<string, JsonValue>, slot: BodySlot): boolean {
+function targetIsAbsent(payload: Readonly<Record<string, unknown>>, slot: BodySlot): boolean {
   if (slot !== "native_definition_material") return !Object.hasOwn(payload, fieldFor(slot));
   const parts = nativeParts(payload);
   return parts !== null && NATIVE_DEFINITION_FIELDS.every(field => !Object.hasOwn(parts.basis, field));
@@ -160,7 +161,7 @@ export function decodeEventBody(record: unknown, inlineByEvent: InlineEventBodie
   const reference = record.bodyReference, event = record.event;
   if (!hasExactKeys(record, ["kind", "codecVersion", "event", "bodyReference"]) || (record.codecVersion !== 1 && record.codecVersion !== 2) ||
       !isRecord(reference) || !hasExactKeys(reference, ["sourceEventRef", "sourcePayloadDigest", "sourceSlot", "bodyDigest"]) ||
-      typeof reference.sourceEventRef !== "string" || !isRecord(event) || !isJsonRecordShape(event.payload)) {
+      typeof reference.sourceEventRef !== "string" || !isRecord(event) || !isRecord(event.payload)) {
     throw new TypeError("durable body reference record is malformed");
   }
   const target = slotFor(event.kind), source = inlineByEvent.get(reference.sourceEventRef);

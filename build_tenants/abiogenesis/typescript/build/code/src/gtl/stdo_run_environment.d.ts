@@ -463,7 +463,7 @@ export declare function runEnvironmentForProgram(publication: Readonly<ModulePub
     } | null;
     accesses: {
         accessRef: string;
-        operation: "project" | "validate";
+        operation: "validate" | "project";
         mode: "validation" | "materialized";
         frameIndexRefs: string[];
         maxOutputBytes: number;

@@ -1,5 +1,5 @@
 import { createHash, type Hash } from "node:crypto";
-import { isRecord } from "../shared/admission_predicates.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { RuntimeDerivationSource } from "./runtime_derivation.js";
 import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineEventBody, inlineEventBodyCoordinate, inlineEventBodyKey, inlineEventBodyValue,
@@ -3850,7 +3850,7 @@ export function recoverInterruptedEventStore(selection: InterruptedEventStoreSel
     const initialRequest = origin?.newResourceRequest;
     if (selected === undefined || (handoff !== undefined && origin !== undefined) ||
         (handoff !== undefined && (!validateEventStoreCloseHandoff(handoff) || selection.expectedCurrent.byteLength < old!.durableByteLength)) ||
-        (origin !== undefined && (!isRecord(initialRequest) || Object.keys(initialRequest).sort().join("\0") !== ["eventLogPath", "kind", "schemaVersion"].join("\0") ||
+        (origin !== undefined && (!isRecord(initialRequest) || !hasExactKeys(initialRequest, ["eventLogPath", "kind", "schemaVersion"]) ||
           initialRequest.kind !== "new_empty_append_sink_request" || initialRequest.schemaVersion !== "5.0.0" ||
           typeof initialRequest.eventLogPath !== "string" || initialRequest.eventLogPath.length === 0 || resolve(initialRequest.eventLogPath) !== initialRequest.eventLogPath ||
           !Number.isSafeInteger(origin.device) || origin.device < 0 || !Number.isSafeInteger(origin.inode) || origin.inode < 0)) ||

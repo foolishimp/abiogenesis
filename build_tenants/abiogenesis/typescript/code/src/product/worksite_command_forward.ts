@@ -2,6 +2,7 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, isSha256Digest, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { isAbgHistoricalDeclarationProof, type AbgHistoricalDeclarationProof } from "../abg/terminal_result_contracts.js";
 import { isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
@@ -81,12 +82,10 @@ export type ExecutableWorksiteCommandArtifact = PriorArtifact | WorksiteCommandF
 export type ExecutableWorksiteSnapshotMember = PriorMember | WorksiteCommandForwardSnapshotMember;
 const same = (a: unknown,b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
 const hash = (a: unknown) => sha256Canonical(a as JsonValue);
-const record = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
 const text = (v: unknown): v is string => typeof v === "string" && v.length > 0 && v.trim() === v && !v.includes("\0");
-const exact = (v: Record<string,unknown>, fields: readonly string[]) => Object.keys(v).sort().join("\0") === [...fields].sort().join("\0");
 export function constructWorksiteCommandForwardRequest(input: Omit<WorksiteCommandForwardRequest,"kind"|"schemaVersion"|"requestRef"|"requestDigest">): WorksiteCommandForwardRequest {
   const s = input.source;
-  if (!record(s) || !exact(s,["prefix","invocationRef","invocationAdmissionRef","runId","failedCCallRef","failureEventRef",
+  if (!isRecord(s) || !hasExactKeys(s,["prefix","invocationRef","invocationAdmissionRef","runId","failedCCallRef","failureEventRef",
     "runFailureEventRef","constructionGraphCallRef","preparationResultEventRef","preparationJudgmentEventRef","declarationProof"]) ||
     !validateDurablePrefixCoordinate(s.prefix) || !isAbgHistoricalDeclarationProof(s.declarationProof) ||
     Object.entries(s).some(([key,value]) => key !== "prefix" && key !== "declarationProof" && !text(value)) ||
@@ -97,7 +96,7 @@ export function constructWorksiteCommandForwardRequest(input: Omit<WorksiteComma
     !["invoke","start"].includes(input.capabilityGrant.definitionKey.memberKey) ||
     input.capabilityGrant.actorRef !== input.workspaceBinding.authorizedActorRef ||
     !Array.isArray(input.protectedObservations) || input.protectedObservations.length === 0 ||
-    input.protectedObservations.some(row => !record(row) || !exact(row,["subject","observation"]) ||
+    input.protectedObservations.some(row => !isRecord(row) || !hasExactKeys(row,["subject","observation"]) ||
       !isWorksiteSubject(row.subject) || !isWorksiteObservation(row.observation) || row.observation.state !== "file" ||
       row.observation.subjectRef !== row.subject.subjectRef || row.observation.subjectDigest !== row.subject.subjectDigest ||
       !same(constructWorksiteSubject({...input,subjectUri:row.subject.subjectUri,relativePath:row.subject.relativePath}),row.subject)) ||
@@ -110,8 +109,8 @@ export function constructWorksiteCommandForwardRequest(input: Omit<WorksiteComma
     requestRef:`worksite-command-forward-request://abiogenesis/${requestDigest.slice(7)}`,requestDigest,...body});
 }
 export function isWorksiteCommandForwardRequest(value: unknown): value is WorksiteCommandForwardRequest {
-  if(!record(value)||value.kind!=="worksite_command_forward_request"||value.schemaVersion!=="5.0.0"||
-    !exact(value,["kind","schemaVersion","requestRef","requestDigest","source","workspaceAuthorityBasis","workspaceBinding","capabilityGrant","protectedObservations"]))return false;
+  if(!isRecord(value)||value.kind!=="worksite_command_forward_request"||value.schemaVersion!=="5.0.0"||
+    !hasExactKeys(value,["kind","schemaVersion","requestRef","requestDigest","source","workspaceAuthorityBasis","workspaceBinding","capabilityGrant","protectedObservations"]))return false;
   try{return same(value,constructWorksiteCommandForwardRequest(value as unknown as WorksiteCommandForwardRequest));}catch{return false;}
 }
 export function constructWorksiteCommandForwardTask(input: Readonly<{request:WorksiteCommandForwardRequest;originalTask:WorksiteCommandExecutionTask;
@@ -124,13 +123,13 @@ export function constructWorksiteCommandForwardTask(input: Readonly<{request:Wor
     !Array.isArray(snapshotSources)||snapshotSources.length!==originalTask.sourceConstructionResult.members.length||
     snapshotSources.length!==request.protectedObservations.length||snapshotSources.some((row,i)=>{
       const old=originalTask.protectedObservations[i],current=request.protectedObservations[i];
-      return !record(row)||!exact(row,["sourceMemberRef","subject","observation","source"])||old===undefined||current===undefined||
+      return !isRecord(row)||!hasExactKeys(row,["sourceMemberRef","subject","observation","source"])||old===undefined||current===undefined||
         !isWorksiteSubject(row.subject)||!isWorksiteObservation(row.observation)||row.observation.state!=="file"||
         row.sourceMemberRef!==old.sourceMemberRef||!same({subject:row.subject,observation:row.observation},current)||
         row.subject.subjectUri!==old.subject.subjectUri||row.subject.relativePath!==old.subject.relativePath||
         row.observation.fileIdentity!==old.observation.fileIdentity||row.observation.fileDigest!==old.observation.fileDigest||
-        row.observation.byteLength!==old.observation.byteLength||!record(row.source)||
-        !exact(row.source,["kind","resultAdmissionEventRef","evidenceEventRef","bindingCoverEventRefs"])||
+        row.observation.byteLength!==old.observation.byteLength||!isRecord(row.source)||
+        !hasExactKeys(row.source,["kind","resultAdmissionEventRef","evidenceEventRef","bindingCoverEventRefs"])||
         row.source.kind!=="retained_construction"||!text(row.source.resultAdmissionEventRef)||!text(row.source.evidenceEventRef)||
         !same(row.source.bindingCoverEventRefs,bindingCoverEventRefs);
     }))throw new TypeError("forward task requires the complete unchanged construction vector and explicit native proof coordinates");
@@ -148,7 +147,7 @@ export function constructWorksiteCommandForwardTask(input: Readonly<{request:Wor
   return deepFreeze({kind:"worksite_command_forward_task",schemaVersion:"5.0.0",taskRef:`worksite-command-forward-task://abiogenesis/${taskDigest.slice(7)}`,taskDigest,...body});
 }
 export function isWorksiteCommandForwardTask(value:unknown):value is WorksiteCommandForwardTask {
-  if(!record(value)||value.kind!=="worksite_command_forward_task"||value.schemaVersion!=="5.0.0")return false;
+  if(!isRecord(value)||value.kind!=="worksite_command_forward_task"||value.schemaVersion!=="5.0.0")return false;
   try{return same(value,constructWorksiteCommandForwardTask(value as unknown as WorksiteCommandForwardTask));}catch{return false;}
 }
 export function isExecutableWorksiteCommandTask(value:unknown):value is ExecutableWorksiteCommandTask {
@@ -167,7 +166,7 @@ export function executableWorksiteCommandImplementationRef(task:ExecutableWorksi
   return task.kind==="worksite_command_forward_task"?WORKSITE_COMMAND_FORWARD_IDS.implementationRef:priorImplementation(task);
 }
 export function isWorksiteCommandForwardWorkerResult(value:unknown):boolean {
-  return record(value)&&exact(value,["attemptRef","helperArtifactDigest","helperArtifactRef","kind","schemaVersion","taskDigest","taskRef"])&&
+  return isRecord(value)&&hasExactKeys(value,["attemptRef","helperArtifactDigest","helperArtifactRef","kind","schemaVersion","taskDigest","taskRef"])&&
     value.kind==="worksite_command_execution_worker_result"&&value.schemaVersion==="5.0.0"&&text(value.taskRef)&&
     isSha256Digest(value.taskDigest)&&text(value.attemptRef)&&isSha256Digest(value.helperArtifactDigest)&&
     value.helperArtifactRef===`worksite-command-forward-helper-artifact://abiogenesis/${value.helperArtifactDigest.slice(7)}`;

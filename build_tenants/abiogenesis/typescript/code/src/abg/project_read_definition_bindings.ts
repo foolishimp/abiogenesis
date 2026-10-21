@@ -11,6 +11,7 @@ import {
 } from "../shared/effect_definition.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import {
   admitRuntimeContract,
   type OwnerSemanticOutput,
@@ -146,10 +147,9 @@ function fault(
   });
 }
 
-function asRecord(value: unknown): Readonly<Record<string, JsonValue>> | null {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-    ? value as Readonly<Record<string, JsonValue>>
-    : null;
+/** D3: a plain JSON record, or null; no cast. */
+function asRecord(value: JsonValue | undefined): Readonly<Record<string, JsonValue>> | null {
+  return isRecord(value) ? value : null;
 }
 
 function stringValue(
@@ -174,7 +174,7 @@ function reference(ref: string, digest: Sha256Digest) {
 }
 
 function coordinateFrom(
-  value: unknown,
+  value: JsonValue | undefined,
   refKeys: readonly string[],
   digestKeys: readonly string[],
 ): Readonly<{ readonly ref: string; readonly digest: Sha256Digest }> | null {
@@ -760,8 +760,7 @@ function binding(
   return (call) => Effect.try({
     try: (): DefinitionReturn<AnyReadPacket, AbgProjectReadResourceReceipt> => {
       if (
-        Object.keys(call.resources).sort().join("\0") !==
-          ["eventResource", "kind", "schemaVersion"].sort().join("\0") ||
+        !hasExactKeys(call.resources, ["eventResource", "kind", "schemaVersion"]) ||
         call.resources.kind !== "abg_project_read_resource_assertion" ||
         call.resources.schemaVersion !== "5.0.0" ||
         call.resources.eventResource.kind !== "reopen_abg_event_resource"

@@ -1,4 +1,4 @@
-import { isJsonRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import { readFileSync } from "node:fs";
 import { isAbsolute, relative, resolve } from "node:path";
 import { Ajv2020, type ValidateFunction } from "ajv/dist/2020.js";
@@ -46,14 +46,14 @@ export function nativeWorkspaceAssessmentSchema(selection: NativeWorkspaceAssess
       if (bytes.toString("base64") !== bytesBase64) return null;
       return admitIJsonText(bytes.toString("utf8"), "native assessment response schema");
     })();
-    if (!isJsonRecord(schema) ||
+    if (!isRecord(schema) ||
       schema.$id !== selection.resultContract.contractRef || schema.$id !== selection.schemaAsset.contractId ||
       (Object.hasOwn(schema, "$schema") && schema.$schema !== "https://json-schema.org/draft/2020-12/schema") || schema.$async !== undefined ||
       schema.type !== "object" || schema.additionalProperties !== false) return null;
     const properties = schema.properties;
-    if (properties === undefined || !isJsonRecord(properties)) return null;
+    if (properties === undefined || !isRecord(properties)) return null;
     const kind = properties.kind;
-    if (kind === undefined || !isJsonRecord(kind) || kind.const !== selection.resultContract.valueKind ||
+    if (kind === undefined || !isRecord(kind) || kind.const !== selection.resultContract.valueKind ||
       !Array.isArray(schema.required) || !schema.required.includes("kind")) return null;
     if (!preparedSchemas.has(schema)) preparedSchemas.set(schema, {});
     if (Object.isFrozen(asset) && known?.schema !== schema) assetSchemas.set(asset, { bytesBase64, schema });
@@ -109,6 +109,6 @@ export function resolveNativeWorkspaceAssessmentSchema(selection: NativeWorkspac
 export function parseNativeWorkspaceAssessmentResult(schema: Readonly<Record<string, JsonValue>>, text: string): Readonly<Record<string, JsonValue>> | null {
   try {
     const result = admitIJsonText(text, "native assessment result");
-    return isJsonRecord(result) && validator(schema)(result) ? result : null;
+    return isRecord(result) && validator(schema)(result) ? result : null;
   } catch { return null; }
 }

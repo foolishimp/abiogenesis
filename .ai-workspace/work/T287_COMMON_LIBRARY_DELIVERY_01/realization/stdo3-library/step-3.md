@@ -185,3 +185,113 @@ Do these first, before any admit code; they are in your grant:
    `69132360f`), so the row's `U(B)` is empty and it co-evolves.
 
 List each of these lines in Return. Head for this step is `69132360f`.
+
+## Return
+
+- commit: the commit that carries this Return, first line `Step 3: admit family; one owner for record shape, exact keys, JSON ingress and contract admission`, parent `572203825`; the hash is in the Worker's report.
+- atoms: `code/src/shared/admit/record.ts`: `isRecord`, `hasExactKeys`; `code/src/shared/admit/json.ts`: `admitJson`, plus `JSON_ADMISSION_CODES` and `JsonAdmissionCode` for the D4 lift; `code/src/shared/admit/contract.ts`: `admitContract`, `admitRef`; `code/src/shared/admit/index.ts`: the five atoms and the code type; `code/src/shared/admit/validate_refusal.ts`: private refusal constructor of the family. Signatures are those of design §4.1. `hasExactKeys` is the existing element-wise body of `admission_predicates.ts:82` with its parameter widened to `object`. It compares own enumerable string keys with both sides in the default string sort (UTF-16 code units). `admission_predicates.ts` re-exports `isRecord` and `hasExactKeys` and keeps four string predicates that are outside the family.
+- retired: `Object.keys(...).sort().join("\0")` bodies in `code/src`: 34 before, 0 after. The count is multi-line aware; the single-line grep of self-check 1 misses ten of them.
+  - `shared/admission_predicates.ts:17` `hasNulJoinedKeys`, `:44` `hasObjectUnicodeNulJoinedKeys`, `:56` `hasJsonNulJoinedKeys`, `:67` `hasNulJoinedFields`, `:78` `hasUnicodeNulJoinedKeys` -> `hasExactKeys`; `:97` `hasExactJsonKeys` -> `hasExactKeys`; `:82` `hasExactKeys` -> moved to `admit/record.ts`
+  - `shared/admission_predicates.ts:7` `isRecord` -> moved; `:20` `isJsonRecord`, `:26` `isJsonRecordShape`, `:32` `isOptionalJsonRecord`, `:59` `isMutableRecord` -> `isRecord`
+  - `validator/validation.ts:102` -> `hasExactKeys`
+  - `product/worksite_preparation.ts:89` -> `hasExactKeys`
+  - `product/worksite_revision.ts:87` -> `hasExactKeys`; `:85` local `record` -> `isRecord`
+  - `product/registered_selection_native.ts:10` -> `hasExactKeys`; `:7` local `record` -> `isRecord`
+  - `product/default_library.ts:117` -> `hasExactKeys` (O-KEY); `:44` `jsonRecord` -> `v.custom(isRecord)`
+  - `product/semantic_stage.ts:135` -> `isRecord` + `hasExactKeys`; `exactRecord` stays as a one-line composition
+  - `product/workspace_operations.ts:194` -> `hasExactKeys`
+  - `product/worksite_command_forward.ts:86` -> `hasExactKeys`; `:84` local `record` -> `isRecord`
+  - `product/execution_resolution.ts:184` -> `hasExactKeys`; guard at 181-183 -> `isRecord`
+  - `abg/stdo_environment.ts:39` -> `isRecord` + `hasExactKeys`; `keys` stays as a one-line composition
+  - `abg/invocation_admission.ts:365` -> `hasExactKeys`
+  - `abg/transport_contracts.ts:20`, `:26`, `:30` -> `hasExactKeys`
+  - `abg/c_call.ts:6294`, `:6299` -> `hasExactKeys`
+  - `abg/event_store.ts:3853` -> `hasExactKeys`
+  - `abg/definition_event_resource.ts:151`, `:226`, `:235`, `:249`, `:296`, `:329` -> `hasExactKeys`
+  - `abg/actor_process.ts:469` -> `hasExactKeys`; guard at 468 -> `isRecord`
+  - `abg/project_read_definition_bindings.ts:763` -> `hasExactKeys`; `:149` `asRecord` body -> `isRecord`
+  - `implementation/worksite_command_execution.ts:155-156` -> `hasExactKeys`
+  - `gtl/worksite_c0.ts:81-82` -> `hasExactKeys`; guard at 74 -> `isRecord`
+  - `gtl/materialize.ts:33-45` -> `hasExactKeys`; guard at 30-32 -> `isRecord`
+  - `gtl/registered_selection.ts:13` -> `hasExactKeys`; `:8` local `record` -> `isRecord`
+  - `abg/execution_basis.ts:169` local `isRecord` -> `isRecord`; `abg/artifact_truth.ts:167` local `isRecord` -> `isRecord`
+  - `shared/i_json.ts` value path (`admitIJsonValue` body, `admitIJsonArray`, `assertUnicodeScalarString`, `isJsonObject`, `isDataDescriptor`) -> `admitJson`
+  - `public/binding/static_definition_bindings.ts:47`, `:66` `v.safeParse` -> `admitContract`
+  - Every NUL-joined replacement differs from its old body only when keys collide, which is the change P-KEYS and O-KEY require: `"a\0b"` against `a`,`b`, or an empty key against an empty list. Such an input's key set differs from the expected set, so it is not a valid input at any site. Valid inputs keep their outcomes.
+  - Census: 34 exact-key bodies retired. 29 inline sites in 21 files migrated.
+  - Record guards retired: 4 typed aliases, 6 local definitions and 5 inline guards. The shallow casts in `asRecord` and `jsonRecord` went with them.
+  - Importers switched: 37 alias import lines plus 6 importers that used the retired names directly (listed under residuals).
+- obligations:
+  - O-RESOURCE: closed for the activation's sites. In `public/binding/definition_binding_mechanics.ts`, `requiredSlot` (135) admits the selected discriminator through `admitRef`, and `exactContractCoordinate` (148) admits through `admitContract(publicContractCoordinateSchema, ·)` before the comparison. An absent or non-ref selection still yields `null`. The design's seven self-comparison encodability probes were not in this census and are untouched.
+  - O-SHAPE: closed except one site. Shallow bodies were retired into `isRecord`. Six of the seven shape-wrapper consumers have unknown members unless their input is truthfully `JsonValue`; `abg/retry.ts:663` keeps an explicit `as JsonValue` cast (see D3 and residuals):
+    - `product/builtin_semantics.ts`, `abg/continuation.ts`, `abg/invocation_execution_truth.ts` (`:233` parameter is `JsonValue | undefined`), `gtl/canonicalization.ts` (`:69` callback parameter `JsonValue`), `gtl/materialize.ts` (`:124` callback parameter `JsonValue`), `abg/event_body_encoding.ts`
+    - `abg/fan_out_projection.ts:1296` takes the same callback typing.
+    - No recursive validator was added on a read path.
+  - O-SCHEMA: closed by decision.
+    - `product/default_library.ts:44` is a plain record (`v.custom(isRecord)`) with identical acceptance.
+    - `abg/project_read_definition_bindings.ts:149` `asRecord(value: JsonValue | undefined)` is a plain JSON record or `null`, with no cast. `coordinateFrom` now takes `JsonValue | undefined`.
+  - O-KEY: closed. `product/default_library.ts:117` is gone, and `:133` uses `hasExactKeys` with the same five keys over own keys. Valid results stay true. The collided or inherited `basis`/`judgment` form is refused. All 34 bodies listed above are retired the same way.
+  - O-CODEC: closed. In `abg/event_body_encoding.ts`, `nativeParts` (26) and `decodeEventBody` (163) use `isRecord` and `hasExactKeys` for shape only.
+    - `valueAtSlot` builds its bundle with unknown members.
+    - `omitValue` and `targetIsAbsent` take records with unknown members.
+    - `replaceValue` is generic over the payload type, so the decoded event stays `unknown` until the store validates it.
+- D3 decisions:
+  - `abg/retry.ts:659-663` (`isProjectedRetryResumeCarrier`, `inputValue` digest): open. The site keeps `isRecord` plus `sha256Canonical(value.inputValue as JsonValue)` inside the existing `try`, which is the old behaviour; the cast was hidden in the retired `isJsonRecordShape` and is now visible. `admitJson` here would refuse a non-I-JSON record that the digest accepts today (lone surrogate, array hole, non-plain object such as a class instance), and no I-JSON admission of the value upstream is shown: `abg/execution_basis.ts:1525` detaches the invocation input through `detachJsonRecord` (`:964`, `structuredClone`, shallow record check, freeze), not `admitIJsonValue`. Admitting here is a stop-(a) change, so the D3 choice is left to the owner.
+  - `abg/project_read_definition_bindings.ts:149` `asRecord`: plain JSON record (`isRecord`, `JsonValue` parameter).
+  - `product/default_library.ts:44` `jsonRecord`: plain record (`isRecord`). The schema output still claims `JsonValue` members (see residuals).
+  - `abg/invocation_execution_truth.ts:233` `canonicalRecordDigest`: plain JSON record (callers hold `JsonValue`).
+  - `abg/event_body_encoding.ts` decode path: plain record, members unknown.
+  - `public/binding/static_definition_bindings.ts` resource assertion and receipt: typed contract (the owner's `resourceAssertionSchema` and `resourceReceiptSchema`).
+  - `public/binding/definition_binding_mechanics.ts` `exactContractCoordinate`: typed contract (`publicContractCoordinateSchema`).
+  - `requiredSlot`: ref (`admitRef`). The discriminator domain narrows to nonblank strings. Both declarations use strings (`product/run_operation_contracts.ts:93` `["graph_function"]`, `product/verification_operation_contracts.ts:123` `["installed_artifact"]`), so outcomes are unchanged.
+- catalog relation (Executive note 1):
+  - The step 2 record's §16.14 "affected catalog/entity rows" field, part (b), covers the admit atoms in the entry "`admitJson`, `admitContract`, `admitRef`, `isRecord`, `hasExactKeys`: `catalog_extension` of `N05`, row 2".
+  - They extend the `N05` leaf instance of Table 5.6.3-B: strict schema and I-JSON admission, `shared/i_json.ts::admitIJsonValue` and the owner Valibot schemas.
+  - Their `Outcome` return depends on the carrier entry of the same (b) field: `StructuralRefusal`, `Outcome`, `ok`, `refused`, `andThen`, `catalog_addition_proposal`, row 1.
+  - No constitution text changed beyond the `andThen` token.
+- Executive note 2:
+  1. `then` -> `andThen`:
+     - `code/src/shared/refusal.ts`.
+     - Design §3 code block, plus one sentence after it giving the reason.
+     - §5 unit/lift law, sequential row (name and the three laws) and falsifier.
+     - §6 prime-atom row: not named in the note, but a design mention.
+     - §10.7 carrier row.
+     - §4 has no mention of the export.
+     - Constitution §16.14 (b) token at line 4390.
+     - No importer of `then` existed in `code/src`, `build/` or `test_env/`. A dynamic `import()` of `shared/refusal.js` and of `shared/admit/index.js` settles.
+  2. Design §2 `shared/refusal.ts` row Imports: `value` (types only).
+  3. Design §2 move 1 link now points at `public/binding/static_definition_bindings.ts`.
+  4. Design §10.6 row 1: `U(B)` is empty. The row records that the addition was accepted through the constitution §16.14 record at step 2 (`69132360f`) and that the Executive decided the call-admission placement at step 2. Sequencing is co-evolution.
+- D4: `admitIJsonValue` is `liftIJson(admitJson(input), label)`. `admitIJsonText` keeps its jsonc parse, duplicate-key and framing front end, and calls `admitJson` for property names and leaves. Signatures and `IJsonAdmissionError` are unchanged. The lift renders `${label}${evidence.at}: ${evidence.reason}`. An old-versus-new differential (`admitIJsonValue` and `admitIJsonText`, three labels, 202 comparisons covering code, message, value and frozen state, including -0, `__proto__` keys, getters, symbols, holes and a throwing proxy) found 0 differences.
+- gate (in `build_tenants/abiogenesis/typescript`, final tree): build rc 0, 32 s; lint:imports rc 0, <1 s (21 modules); test:installed:language rc 0, 45 s, 1/1 pass.
+- self-check:
+  1. The grep lists only `product/environment.ts:713` and `product/verify_product.ts:1235`. Both are sortedness checks on value arrays (sequence equality, step 4); neither is on `Object.keys`. The multi-line count is 0.
+  2. Noted fail. The grep shows `shared/admit/record.ts:6` and `product/release_snapshot_definition_bindings.ts:91` `isRecordEvidence`. The second matches by prefix, but its body is the `isRecord` algorithm: a private copy outside the census, left in place and listed under residuals.
+  3. No output. The named path `code/src/shared/static_definition_bindings.ts` does not exist; the owning file `code/src/public/binding/static_definition_bindings.ts` has no `safeParse`.
+  4. Passed.
+  5. Noted fail. `git diff --stat` touches the grant files plus the files listed under residuals, each required by Executive note 2, by the retirement, or by the build.
+- residuals:
+  - Two out-of-gate tests now fail by design; their assertions cannot be repaired with import-path edits:
+    - `test_env/tests/t288-admission-predicates.test.mjs` (3/3 fail): imports retired names, asserts NUL-collision results, and asserts pre-step types, including `hasExactKeys(value: Readonly<Record<…>>)` where the design has `object`.
+    - `test_env/tests/t287-common-computational-library.test.mjs` (import of the retired `hasUnicodeNulJoinedKeys`; collision assertion at :65).
+    - A differential over t288's case corpus: `isRecord` classes show 0 differences. Exact-key classes differ only on NUL or empty-key collisions, non-string expected elements, and the `TypeError` parameter name for a non-iterable expected list.
+  - `admitJson(raw: unknown)` cannot distinguish JSON text from a string value. Three of the seven codes (`duplicate_object_key`, `invalid_json_framing`, `malformed_json`) therefore come from the text front end kept in `admitIJsonText`. A text-form entry, or a design note, is the owner's call.
+  - Changes outside the literal grant list, each required by item 2, by the retirement, or by the build:
+    - 37 alias import lines.
+    - `product/catalog_definition_bindings.ts`, `product/install_definition_bindings.ts`, `product/project_read_definition_bindings.ts` and `validator/conformance_definition_bindings.ts` imported `hasUnicodeNulJoinedKeys` through `definition_binding_mechanics`. They now import `hasExactKeys` from `shared/admit/`, and `definition_binding_mechanics` no longer re-exports it.
+    - `product/native_workspace_assessment.ts`: `isJsonRecord` -> `isRecord`.
+    - `abg/fan_out_projection.ts:1296` typing (O-SHAPE).
+    - `gtl/worksite_command_execution.ts` C2 context pin: digest, `byteCount` 110016 -> 110010, span 100071-102379 -> 100065-102373, span digest unchanged. The import line of `product/worksite_command_execution.ts` shortened by 6 bytes, as at step 2.
+  - Not retired: outside the census, or a different algorithm.
+    - `abg/artifact_truth.ts:171` and `abg/traversal_transition.ts:85` local `hasExactKeys` (`Object.hasOwn` with length; counts non-enumerable keys).
+    - Local `isJsonRecord` in `abg/c_call.ts:1561`, `abg/c_call_outcome.ts:136`, `abg/traversal_route.ts:934`, `abg/traversal_cursor.ts:104`, `abg/execution_basis.ts:949`, `hog/recursion_lifecycle.ts:139` and `hog/workflow_lifecycle.ts:135`.
+    - Remaining local `record` guards, among them `abg/stdo_environment.ts:37` (typed `any`, 13 uses), and the remaining inline guards.
+    - Guards kept so admission and casts stay as they were: `abg/transport_contracts.ts:18`, `:26`, `:29`; `product/default_library.ts:133`; `product/worksite_preparation.ts:87`. Each is cast-dependent or lacks `Array.isArray`.
+    - `shared/references.ts` `requireRef` is not lifted over `admitRef`; it is not in the grant.
+  - `abg/retry.ts:663` `as JsonValue` (O-TYPE, D3 open). Old and current behaviour: any own-enumerable record whose canonical digest matches is accepted. `admitJson` behaviour: the same records are accepted only when every member is I-JSON. The owner decides whether the retry carrier's input is admitted as I-JSON here or upstream at `abg/execution_basis.ts:1525`.
+  - `product/release_snapshot_definition_bindings.ts:91` `isRecordEvidence` is a private copy of `isRecord` outside the census (self-check 2).
+  - `jsonRecord` still declares `Readonly<Record<string, JsonValue>>` output. Its consumers `abg/default_library.ts:51`, `abg/instruction_assembly.ts:325` and `product/default_library.ts:224` read members as `JsonValue` and are outside this grant (O-TYPE).
+  - In `event_body_encoding`, the native-slot spread of `replaceValue` is typed through generic-spread intersection, not member by member.
+  - `build/code/src/gtl/stdo_run_environment.d.ts` reorders one union: a tsc artifact.
+  - The plan post and `step-5.md` changed in the working tree during this step. They are not mine and were not staged.
+- return route: this file

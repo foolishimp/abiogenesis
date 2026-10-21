@@ -22,7 +22,6 @@ import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,
   exactDefinitionCallMatches,
-  hasUnicodeNulJoinedKeys,
   isDefinitionFault,
   isRecord,
   reference,
@@ -30,6 +29,7 @@ import {
   sameJson,
   validatedOwnerOutput,
 } from "../public/binding/definition_binding_mechanics.js";
+import { hasExactKeys } from "../shared/admit/index.js";
 import type {
   DefinitionExecutionFault,
   DefinitionCall,
@@ -184,7 +184,7 @@ function canonicalCoordinateSet(
     !Array.isArray(value) ||
     value.some((coordinate) =>
       !isRecord(coordinate) ||
-      !hasUnicodeNulJoinedKeys(coordinate, ["digest", "ref"]) ||
+      !hasExactKeys(coordinate, ["digest", "ref"]) ||
       typeof coordinate.ref !== "string" ||
       !isSha256Digest(coordinate.digest)
     )
@@ -284,7 +284,7 @@ function reconstructDeclarationBasis(
   environment: ExactPrefixWorkspaceEnvironment,
 ): ConformanceDeclarationBasis {
   const supplied = resources.declarationCatalog;
-  if (!isRecord(supplied) || !hasUnicodeNulJoinedKeys(supplied, ["catalog", "catalogView"])) {
+  if (!isRecord(supplied) || !hasExactKeys(supplied, ["catalog", "catalogView"])) {
     throw new TypeError("declared inventory requires its exact admitted catalog and view");
   }
   const installs = environment.productInstalls.map(install =>
@@ -326,7 +326,7 @@ const gtl_program = (
     const resources = call.resources;
     if (
       !isRecord(resources) ||
-      !hasUnicodeNulJoinedKeys(resources, [
+      !hasExactKeys(resources, [
         "conformanceLaw",
         "declaredInventory",
         "kind",

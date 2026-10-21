@@ -1,5 +1,5 @@
 import type { RuntimeEventScan } from "./runtime_history.js";
-import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { RuntimeEvent } from "./event_store.js";
 

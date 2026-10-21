@@ -1,4 +1,4 @@
-import { isRecord } from "../shared/admission_predicates.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import {
   mkdir,
   readFile,
@@ -185,13 +185,6 @@ function refusal(
     code,
     message,
   });
-}
-
-function hasExactKeys(
-  value: object,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
 }
 
 function isCleanCreatePacket(

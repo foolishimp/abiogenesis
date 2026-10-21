@@ -4,7 +4,7 @@ import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { admittedNativeTask } from "./native_worksite_execution.js";
 import { projectSameRunNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
-import { isRecord } from "../shared/admission_predicates.js";
+import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { retainedGovernanceWorkInput, isGovernanceWorkState, isFramedSynthesisResult,
   governanceRef, governanceContract, type GovernanceWorkState } from "../product/default_library.js";
 import { GOVERNANCE_FULFILLMENT_PROFILE } from "../product/default_library_fulfillment.js";
@@ -362,7 +362,7 @@ export function isInvocationSourceResultBasis(
       "workspaceBindingDigest",
       "workspaceBindingId",
     ];
-    if (Object.keys(value).sort().join("\0") !== expectedKeys.join("\0")) {
+    if (!hasExactKeys(value, expectedKeys)) {
       return false;
     }
     const digestFields = [

@@ -20,6 +20,7 @@ import {
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { isRecord } from "../shared/admit/index.js";
 import { isExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
 import {
   constructRuntimeFluent,
@@ -162,10 +163,6 @@ function requiredString(
     throw new TypeError(`artifact admission requires non-empty ${field}`);
   }
   return value;
-}
-
-function isRecord(value: JsonValue): value is { [key: string]: JsonValue } {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function hasExactKeys(value: Readonly<Record<string, JsonValue>>, keys: readonly string[]): boolean {

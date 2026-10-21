@@ -29,6 +29,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys } from "../shared/admit/index.js";
 import { isUndispatchedOwnerObservation, type UndispatchedOwnerObservation } from "./event_contract_profiles.js";
 import { observeNativeCCallLiveness, observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import {
@@ -6291,12 +6292,12 @@ export function undispatchedOwnerEvidenceMatches(
   try {
     const expectedKeys = ["kind", "schemaVersion", "implementationRef", "inputDigest", "outputDigest",
       "failureContractRef", "failureValue", "ownerObservation"].sort();
-    if (Object.keys(candidate).sort().join("\0") !== expectedKeys.join("\0") ||
+    if (!hasExactKeys(candidate, expectedKeys) ||
         candidate.kind !== "undispatched_owner_refusal_evidence_candidate" || candidate.schemaVersion !== "5.0.0" ||
         cCall.callClass !== "leaf" || cCall.regime !== "F_P" || !isUndispatchedOwnerObservation(candidate.ownerObservation) ||
         candidate.implementationRef !== cCall.implementationRef || candidate.inputDigest !== expectedInputDigest ||
         candidate.failureContractRef !== cCall.failureContractRef || !isJsonRecord(candidate.failureValue) ||
-        Object.keys(candidate.failureValue).sort().join("\0") !== ["kind", "schemaVersion", "failureClass", "diagnosticRef"].sort().join("\0") ||
+        !hasExactKeys(candidate.failureValue, ["kind", "schemaVersion", "failureClass", "diagnosticRef"]) ||
         candidate.failureValue.schemaVersion !== "5.0.0" || typeof candidate.failureValue.kind !== "string" ||
         candidate.outputDigest !== sha256Canonical(candidate.failureValue)) return false;
     const o = candidate.ownerObservation;

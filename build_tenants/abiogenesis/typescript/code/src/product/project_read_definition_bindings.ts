@@ -27,7 +27,6 @@ import { sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,
   exactDefinitionCallMatches,
-  hasUnicodeNulJoinedKeys,
   isDefinitionFault,
   isRecord,
   reference,
@@ -35,6 +34,7 @@ import {
   sameJson,
   validatedOwnerOutput,
 } from "../public/binding/definition_binding_mechanics.js";
+import { hasExactKeys } from "../shared/admit/index.js";
 import type {
   DefinitionCall,
   DefinitionExecutionFault,
@@ -121,7 +121,7 @@ function validResources<TPacket extends ProjectReadPacket>(
   )[] = [],
 ): value is ProductProjectReadResourceAssertion<TPacket> {
   return isRecord(value) &&
-    hasUnicodeNulJoinedKeys(value, ["kind", "packet", "schemaVersion", ...additionalKeys]) &&
+    hasExactKeys(value, ["kind", "packet", "schemaVersion", ...additionalKeys]) &&
     value.kind === "product_project_read_resource_assertion" &&
     value.schemaVersion === "5.0.0" &&
     isRecord(value.packet) &&
@@ -375,7 +375,7 @@ function catalogAuthorityMatches(
   const scope = slots.catalog_scope;
   if (packet.selector.visibility.kind === "workspace_catalog") {
     return isRecord(scope) &&
-      hasUnicodeNulJoinedKeys(scope, ["digest", "ref"]) &&
+      hasExactKeys(scope, ["digest", "ref"]) &&
       sameCoordinate(scope as unknown as ReferenceDigest, catalogCoordinate);
   }
   const request = isRecord(call.invocation) && isRecord(call.invocation.request)

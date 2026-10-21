@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { writeCanonicalJson, compareUnicodeCodeUnits } from "../shared/canonical_json.js";
 import { indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import { isJsonRecordShape as isRecord, isNonEmptyJsonString as nonEmptyString } from "../shared/admission_predicates.js";
+import { isRecord, isNonEmptyJsonString as nonEmptyString } from "../shared/admission_predicates.js";
 import type {
   FanOutApplication,
   GraphFunction,
@@ -657,7 +657,10 @@ export function isProjectedRetryResumeCarrier(
       typeof value.inputRef === "string" && value.inputRef.length > 0 &&
       isSha256Digest(value.inputDigest) &&
       isRecord(value.inputValue) &&
-      sha256Canonical(value.inputValue) === value.inputDigest &&
+      // O-TYPE residual (D3 open): the member is shape-checked only. The
+      // cast was hidden in the retired shape wrapper; admitting it through
+      // admitJson would refuse non-I-JSON values this digest accepts.
+      sha256Canonical(value.inputValue as JsonValue) === value.inputDigest &&
       isTraversalCursorCandidate(nextCursor) &&
       nextCursor.attempt === value.nextAttempt &&
       nextCursor.retryPath.at(-1) === value.nextAttempt &&

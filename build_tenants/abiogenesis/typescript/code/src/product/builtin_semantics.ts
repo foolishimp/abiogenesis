@@ -6,7 +6,7 @@ import { isDeepStrictEqual as governanceSame } from "node:util";
 import type { NativeJudgmentProofOperations } from "../implementation/contracts.js";
 import { NATIVE_WORK_REACQUISITION_IDS as reacquireIds, isNativeWorksiteCommandReacquisitionRequest } from "./worksite_command_execution.js";
 import { nativeWorkReacquisitionResultMatches } from "../abg/native_work_reacquisition.js";
-import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, nativeWorkspaceWorkResultContractRef, isNativeWorkspaceWorkReport,
   isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure, resolveNativeWorkspaceWorkJudgmentRelation } from "./native_workspace_work.js";
 import { WORKSITE_PRESERVED_RESULT_IDS, isWorksitePreservedResultArtifact, resolveWorksitePreservedResultJudgmentRelation } from "./worksite_construction_recovery.js";

@@ -3,6 +3,7 @@ import { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from
 import type { GtlEdgeInputBinding } from "../gtl/contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { hasExactKeys } from "../shared/admit/index.js";
 import { isSha256Digest } from "../shared/digests.js";
 import { constructWorksiteSubject } from "./worksite_effect.js";
 import { WORKSITE_REVISION_IDS, isWorksiteRevisionDependencyObservation, constructWorksiteRevisionCommandExecutionTask,
@@ -86,7 +87,7 @@ function schemaAccepts(contractRef: string, value: unknown): boolean {
   const source = worksitePreparationSchemaSources().find((candidate) => candidate.declaration.contractRef === contractRef);
   if (source === undefined || typeof value !== "object" || value === null || Array.isArray(value)) return false;
   const readArm = contractRef === WORKSITE_PREPARATION_IDS.inputContractRef && Object.hasOwn(value, "readDependencyBasis");
-  if (Object.keys(value).sort().join("\0") !== [...Object.keys(source.fields), ...(readArm ? ["readDependencyBasis"] : [])].sort().join("\0")) return false;
+  if (!hasExactKeys(value, [...Object.keys(source.fields), ...(readArm ? ["readDependencyBasis"] : [])])) return false;
   if (readArm && !isWorksiteReadDependencyBasis((value as Record<string, unknown>).readDependencyBasis)) return false;
   const fields = value as Record<string, unknown>;
   const valid = Object.entries(source.fields).every(([key, node]) => {

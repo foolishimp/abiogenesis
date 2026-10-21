@@ -3,7 +3,7 @@ import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from ".
 import { isAbgHistoricalDeclarationProof, isAbgHistoricalDeclarationReference,
   type AbgHistoricalDeclarationProof, type AbgHistoricalDeclarationReference } from "../abg/terminal_result_contracts.js";
 import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
-import { isRecord, hasNulJoinedFields as exactKeys } from "../shared/admission_predicates.js";
+import { isRecord, hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
 import {
   delimiter as pathDelimiter,
   dirname,
