@@ -218,3 +218,74 @@ For 8b (ticket, GOALS, design closure after the review):
     wording in the ticket section. (vii) Step 7 review F9: stale citations
     (`design:549`, `:553-558`, `:566`, `:589`, `:270-285`, `:189`, `:199`;
     `c_call.ts:7047` is `:7052`).
+- Step 7 repair residuals (`dddb05dfd`): (viii) for 8a, inside the test
+  files: `t287-owned-process-lifetime` fails 3 of 18 (`:415`, `:490`,
+  `:533`) because the fixtures at `:490` and `:533` pass tasks without
+  `taskRef`/`taskDigest` (or `{}`), so the new diagnostic's `canonicalJson`
+  throws `Cannot convert undefined or null to object` and masks the first
+  error, and all three assertions expect the bare error that F3 retired.
+  `m5-worker-transport`'s owned-group test calls `runHttpProbe({}, …)` and
+  `runCommand` with the same shape (passed this run; same exposure). Fix:
+  give every fixture task `taskRef` and `taskDigest` as the helper's input
+  contract requires, and assert the new diagnostic (prefix, `diagnostic.message`,
+  `processFacts.firstError.message`); no change in the helper. (ix) for 8b:
+  P-LIFECYCLE's helper clause (`design:634`) says the helper negatives
+  "yield the admitted leaf result or failure subject with the encoded facts";
+  for a no-child launch failure the outcome is a leaf result, and §9.3 item
+  4 now says the encoding is not a `result.json` member. Reword: the no-child
+  negative yields the leaf result whose existing members (`exitStatus` 127,
+  `terminationConfirmed` true) carry the outcome; the encoded facts travel on
+  the failure subject only.
+
+## Activation 8a addendum (Executive, 2026-10-23)
+
+Head is the Executive's bookkeeping commit after the step 7 repair
+`dddb05dfd`. The items above marked "for 8a" are part of this activation.
+Do them in this order after rule 1 (D4) and rule 2 (lint) and before rule 3
+(the integrated run): (viii) the two test files' fixtures and assertions;
+(i) the fold working state; (ii) `admitJson` at the `unknown`-typed
+validators of `gtl/consensus.ts`; (iv) the exported member list; (iii) the
+C2 owner-reuse suite in the run and one bounded owner case; and the
+preimage file deletion.
+
+For (i): keep one effect law. Add an in-place `applyStep(working, event,
+dependencies)` in `calculus/fold.ts` that mutates a working state;
+`foldStep` becomes "copy the state once, then `applyStep`" and stays the
+exported pure step; `advance` (`event_calculus.ts:241`) copies once per call
+and runs `applyStep` per event, then freezes. `t287-calculus-fold` (P-FOLD:
+cold pure fold equals the class's `project` at every cut, and `forkAt`)
+must pass unchanged; it is the proof that the two drivers agree. No other
+structural change (no persistent map, no library).
+
+For (ii): only validators in `gtl/consensus.ts` whose parameter is
+`unknown` and that pass a member to `canonicalEquals` without refining it;
+`admitJson` on the comparand first, a refusal returns `false`; list each
+site in Return under O-TYPE as "closed at <site>". Sites in other files stay
+on the O-TYPE per-site list.
+
+For (iii): the shortest owner path that reaches `exactC2SourceEnvironment`
+in `abg/execution_basis.ts` with materialization kept. One passing case, in
+`t287-c2-core-environment.test.mjs` or a new `t287-c2-owner-path.test.mjs`
+(say which). Prove the reach by a temporary counter removed before the
+commit, or by an assertion on an effect only that comparison produces. If
+the baseline defect of `t287-c2-owner-coordinate-reuse` (`replay.js:1330`,
+red at `97b1200bc`) blocks every owner path, stop that item: record the
+assertion and the cause in Return, do not fix the baseline defect, and
+continue with the rest of the step.
+
+Grant additions: `code/src/abg/event_calculus.ts`, `code/src/abg/calculus/fold.ts`;
+`code/src/gtl/consensus.ts`; `code/src/shared/process/facts.ts` and
+`code/src/abg/worksite_construction_recovery.ts:58-60` (the list and its
+import only); `test_env/tests/t287-owned-process-lifetime.test.mjs`,
+`test_env/tests/m5-worker-transport.test.mjs` (fixtures and the three
+assertions only); the one C2 case file; `test_env/support/t288-admission-helper-preimages.json`
+(delete). Run-list additions: `t287-c2-owner-coordinate-reuse` (expected
+baseline-red; attribution rule applies) and the new C2 case file. A built
+pre-code baseline for attribution is at
+`/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/wt-base-97b1200bc/build_tenants/abiogenesis/typescript`
+(`97b1200bc`, `tsc` built, `node_modules` symlinked); run a suite there only
+when the attribution of a failure needs it.
+
+Return additions: under `- integrated run`, one line per item (viii), (i)
+with the P-FOLD result, (ii) with the sites, (iv), (iii) with the case or
+the stop; under `- residuals`, anything left.

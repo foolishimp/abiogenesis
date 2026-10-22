@@ -733,3 +733,136 @@ last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append:
 - residuals
 - return route: this file
 ```
+
+## Repair return
+
+- commit: `dddb05dfd` (parent `e8f56543b`), first line `Step 7 repair: helper failures carry processFacts; D8 archive tolerance; §9.3 item 4`. Not pushed. This section is uncommitted. Lines below are at `dddb05dfd`; `helper` = `code/src/implementation/worksite_command_helper.ts`.
+- repairs:
+  1. F3: done.
+     - The command throw is at helper `:764-770` (`worksite command failed; dependent work stopped: `). The HTTP throw is at `:1126-1132` (`worksite HTTP probe failed; dependent work stopped: `).
+     - Each throw's JSON is `{ taskRef, taskDigest, attemptRef, command | request, diagnostic: { name, message }, processFacts }`.
+     - `command` is the declared `task.commands[ordinal]`, because no process observation exists at that point. `request` is the declared request record.
+     - `ownerError` is unchanged at `:1133`.
+  2. F4: done. The HTTP cleanup throw is at helper `:1163-1169` in `runHttpProbe`. Its JSON is `{ taskRef, taskDigest, attemptRef, observation, diagnostic, processFacts }`.
+     - `observation` is now the probe value (the predicate's `observedValue`), not the predicate observation `main` held.
+     - `main`'s guard is unchanged at `:1411`.
+     - This is the one change beyond the cited lines, and the throw shape requires it so `attemptRef` reaches the probe:
+       - `_task` is renamed `task` (`:1019`).
+       - `attemptRef: string | null = null` is added to `runHttpProbe` (`:1022`) and to `predicateObservation` (`:1178`).
+       - The value is passed at `:1247` and `:1407`.
+       - Existing three-argument callers are unaffected.
+  3. F7: done.
+     - `commandProcessFacts` is gone: the declaration and comment (`:61-63` at `ffb767171`), and the `set` before `return result`.
+     - `main`'s `processFacts` member and its `get` are gone. `main`'s guard stays at `:1398`.
+     - The `OwnedProcessFacts` import stays because `unconfirmedScopeDiagnostic` uses it.
+  4. F1 (D8): done.
+     - `abg/worksite_construction_recovery.ts:65` is `if (transport.processFacts === undefined) return true;`. The call site is now `:285`.
+     - The design sentence is appended to §9.3 item 7 (`design:572`). In the same item, its reconstruction citation `:284` is refreshed to `:285`, the line this round moved.
+  5. F2: done.
+     - §9.3 item 4 (`design:569`) is one sentence. It describes the throw as "the failure thrown when the lifetime records a first error after launch" and does not say "item 1 above".
+     - The P-LIFECYCLE sentence is added verbatim (`design:634`).
+     - §10.6 row 6 (`design:649`) cites:
+       - the cleanup throw `:801`, plus the HTTP probe's `:1164`, which carries `processFacts` after repair 2;
+       - the two error-after-launch throws `:765` and `:1127`.
+     - "of the failing command's facts" now reads "of the failing process's facts".
+  6. F5: done.
+     - `driveActor('unconfirmed')` emits `child.stdout` `error` between `exit` and `close` (`test:111`; error at `:64`). `fail()` is not gated by `observe()`, so the lifetime sets `firstError` after exit and no reordering was needed.
+     - Case b asserts:
+       - the transport threw that error (`:263`);
+       - `effect.processFacts.firstError.message` carries it (`:274`).
+     - The `firstError === null` assertion is removed.
+     - Consequences:
+       - The refusal message is now the stream error.
+       - The lifetime's SIGKILL `onSignalRequested` is suppressed by `observe()`. No assertion reads it.
+  7. Case e: done. It is a separate test (`test:337`). It uses:
+     - case c's component harness;
+     - `spawn` stubbed with a controlled emitter, so no real process is unowned;
+     - a lifetime stub with 13-member facts (`scopeAbsence: 'unknown'`, `firstError` set).
+
+     It asserts:
+     - the `TypeError` prefix;
+     - `taskRef`, `attemptRef` and `command.commandId`;
+     - `processFacts.scopeAbsence`;
+     - `processFacts.firstError.message` and `diagnostic.message` equal to the error's message;
+     - `processFacts` equal to `encodeOwnedProcessFacts(facts)`.
+  8. F8 and F6: done.
+     - Case a asserts `effect.kind === 'actor_process_effect_receipt'` (`test:191`). The either-branch check and its diagnostic line are removed.
+     - The header (`test:25-28`) states that case b uses two stores and calls `failActorProcessEffect` directly, not from `evaluateOwnedExecutableCCall`.
+- reader check: `grep -rn "dependent work stopped\|cleanup unresolved\|worksite command failed\|worksite HTTP\|HTTP probe failed\|firstError"` over `code/src/abg/c_call*.ts`, `code/src/hog/` and `code/src/implementation/worksite_construction*.ts` returns nothing.
+  - Across all of `code/src`, the messages occur only in the helper.
+  - `firstError` occurs only in:
+    - `shared/` (the lifetime, the atoms, `i_json.ts`);
+    - `abg/worker_transport.ts`;
+    - the recovery member list (`abg/worksite_construction_recovery.ts:59`).
+  - None of these keys on helper text.
+- gate (final source, run once after all eight repairs):
+  - `npm run build`: rc 0, 32 s.
+  - `npm run lint:imports`: rc 0, under 1 s.
+  - Scenario: rc 0, 5 pass, 0 fail, 0.4 s.
+  - `m5-worker-transport`: rc 0, 21 tests, 21 pass, 0 fail, 6 s. No baseline attribution was needed. Each test passed:
+    - B-001 lane-owned Claude execution posture;
+    - native report host schema presentation;
+    - schema literal placeholders;
+    - structured output final carrier;
+    - B-001 append argument bounds;
+    - B-001 sandbox binding precedence;
+    - transport identity;
+    - B-001 real worker process;
+    - Bash tool identity;
+    - B-001 closed-prompt tool activity;
+    - closed-prompt StructuredOutput;
+    - selected result text final carrier;
+    - force-terminate on SIGTERM;
+    - inactivity lease from progress;
+    - no renewal from unacknowledged output;
+    - output after the timeout boundary;
+    - owned process groups descendant cleanup;
+    - descendant output after direct-process exit;
+    - long inactivity, absolute and grace values;
+    - native wakeup above the host timer domain;
+    - early stdin close EPIPE.
+  - `npm run test:installed:language`: rc 0, 45 s, 1 pass.
+  - The regenerated outputs `capability-definition-graph.json` and `product-toolchain-manifest.json` change only in digests and digest-derived refs.
+- self-checks:
+  1. pass: no match.
+  2. pass: no match.
+  3. pass: the commit touches only granted paths:
+     - recovery;
+     - the helper;
+     - the design;
+     - the scenario;
+     - the two regenerated outputs.
+  4. pass: 5/5.
+  5. pass: the diff is empty.
+- residuals:
+  1. `t287-owned-process-lifetime` (a step 8 suite, outside this gate) was run once after the repair: rc 1, 15 pass, 3 fail. All three failures come from repair 1. It was not run at `ffb767171`.
+     - `:384` (assert `:415`): `ownerFailure` expects the bare error identity.
+     - `:443` (assert `:490`): command and HTTP expect the bare error identity.
+     - `:509` (assert `:533`): the HTTP `owner-error` mode expects the original message.
+     - At `:490` and `:533` the fixture tasks lack `taskDigest`, or are `{}`. `canonicalJson` therefore throws `Cannot convert undefined or null to object`, and that error replaces the first error. Production tasks carry both members.
+     - Step 8 updates these tests to the new shape with full tasks, or decides that diagnostic construction must not mask the first error.
+     - `m5-worker-transport`'s owned-group test has the same exposure:
+       - It calls `runHttpProbe({}, …)`, and `runCommand` with a task that has no `taskRef` or `taskDigest`.
+       - An unconfirmed HTTP outcome now throws from `canonicalJson` instead of returning `terminationConfirmed: false` to that test's `!alive(-leaderPid)` check.
+       - The HTTP half is new in repair 2. The test passed in this run.
+  2. The HTTP route's second negative is not exercised here. P-LIFECYCLE leaves it to step 8's integrated run.
+  3. P-LIFECYCLE's helper clause (`design:634`, kept as written by the disposition) says the helper negatives "yield the admitted leaf result or failure subject with the encoded facts".
+     - For a helper no-child launch failure the outcome is a leaf result.
+     - The new §9.3 item 4 says the encoding is not a `result.json` member.
+     - This is the same class as F2. It goes to step 8b.
+  4. The parent's admission of the thrown helper failures into a failure subject in `L` is still shown only by reading (step 7 residual 1, F6).
+  5. F9 and F10 stand for step 8.
+- return route: this file
+
+## Disposition of the repair (Executive, 2026-10-23)
+
+Accepted: `ffb767171` + `dddb05dfd`. The `attemptRef` threading in
+`runHttpProbe` and `predicateObservation` is inside the granted file and the
+throw shape needs it; row 6 citing the HTTP cleanup throw as well is correct
+after F4. Residual 1 (`t287-owned-process-lifetime` 15/18; `m5-worker-transport`
+fixtures with `{}` tasks) is a step 8a fix inside the test files: the
+helper's input contract carries `taskRef` and `taskDigest`, the fixtures do
+not, and the three assertions expect the bare error that F3 retired; no
+masking change in the helper. Residual 3 (P-LIFECYCLE's helper clause for a
+no-child launch failure) is 8b wording. Residuals 2, 4 and 5 stand as
+recorded. Ledger row 7 closed in the plan post.
