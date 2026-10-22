@@ -903,7 +903,8 @@ test('owned process groups retain descendant cleanup after normal and TERM leade
       assert.equal(result.status, mode === 'normal' ? 0 : null);
       assert.equal(result.signal, mode === 'normal' ? null : 'SIGTERM');
     } else if (owner === 'command') {
-      const task = { commands: [{ commandId: `command://fixture/${label}`, executable: process.execPath, args: [leader],
+      const task = { taskRef: `task://fixture/${label}`, taskDigest: 'sha256:' + '4'.repeat(64),
+        commands: [{ commandId: `command://fixture/${label}`, executable: process.execPath, args: [leader],
         relativeCwd: '.', environment: [], timeoutMs: 700, terminationGraceMs: 150, expectedReports: [] }] };
       result = await module.namespace.runCommand(task, scratch, 0);
       leaderPid = JSON.parse(await readFile(leaderFile, 'utf8')).pid;
@@ -912,7 +913,7 @@ test('owned process groups retain descendant cleanup after normal and TERM leade
       assert.equal(result.processSignal, mode === 'normal' ? null : 'SIGTERM');
     } else {
       const { WORKSITE_COMMAND_EXECUTION_IDS } = await import('../../build/code/src/product/worksite_command_execution.js');
-      const probe = await module.namespace.runHttpProbe({}, scratch, {
+      const probe = await module.namespace.runHttpProbe({ taskRef: `task://fixture/${label}`, taskDigest: 'sha256:' + '4'.repeat(64) }, scratch, {
         launch: { executable: process.execPath, args: [leader, WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder],
           relativeCwd: '.', environment: [], timeoutMs: 700, terminationGraceMs: 150, portFile: { relativePath: `${label}.port` } },
         request: { hostname: '127.0.0.1', method: 'GET', path: '/', timeoutMs: 500 },

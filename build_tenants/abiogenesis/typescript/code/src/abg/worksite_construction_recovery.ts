@@ -33,6 +33,7 @@ import { canonicalEquals } from "../shared/value/index.js";
 import { onlyExactMatch, resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
 import { hasExactKeys } from "../shared/admit/index.js";
 import { classifyOwnedProcessTerminal, type OwnedProcessFacts } from "../shared/process/index.js";
+import { OWNED_PROCESS_FACT_MEMBERS } from "../shared/process/facts.js";
 import { constructRuntimeFluentPattern, deriveRuntimeHeldFluentProjection, holdsAt } from "./event_calculus.js";
 
 export interface WorksitePreservedResultNativeBasis {
@@ -55,16 +56,13 @@ function actorProcessTerminated(prefix: RuntimeEventPrefix, processRef: string):
   return processRef.length !== 0 && holdsAt(deriveRuntimeHeldFluentProjection(prefix),
     constructRuntimeFluentPattern({ name: "actor_process_terminated", identity: processRef })).length !== 0;
 }
-const PROCESS_FACT_MEMBERS = Object.freeze(["cleanupDeadlineNs", "cleanupElapsedMs", "closeObserved", "directExit",
-  "drainExpired", "firstError", "launchFailure", "noChildEstablished", "probeCount", "scopeAbsence", "scopeKind",
-  "signalAttempts", "streamsDisposed"]);
 /** The digest-bound transport artifact's encoded facts report its exit. The
  * encoding keeps every member the classifier reads under its own name and
  * value domain, so the shared classifier reads the encoded facts directly. */
 function transportProcessFactsMatchExit(transport: Readonly<Record<string, JsonValue>>): boolean {
   if (transport.processFacts === undefined) return true;
   const facts = transport.processFacts;
-  return record(facts) && hasExactKeys(facts, PROCESS_FACT_MEMBERS) &&
+  return record(facts) && hasExactKeys(facts, OWNED_PROCESS_FACT_MEMBERS) &&
     record(facts.directExit) && hasExactKeys(facts.directExit, ["signal", "status"]) &&
     classifyOwnedProcessTerminal(facts as unknown as OwnedProcessFacts) === "exited" &&
     facts.directExit.status === transport.status && facts.directExit.signal === transport.signal;

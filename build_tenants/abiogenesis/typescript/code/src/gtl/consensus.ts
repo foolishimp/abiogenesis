@@ -49,6 +49,7 @@ import {
   REVIEW_RULING_KIND_VALUES,
 } from "./consensus_schema.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 export {
   CONSENSUS_CLASSIFICATION_VALUES,
   CONSENSUS_FH_DECISION_VALUES,
@@ -823,18 +824,25 @@ function isConsensusActionCatalog(
     row.programRef !== CONSENSUS_IDS.oneSurfaceProgramRef ||
     row.graphFunctionRef !== CONSENSUS_IDS.graphFunctionRef ||
     row.targetProgramLocusRef !== CONSENSUS_IDS.graphFunctionRef ||
-    !Array.isArray(row.targetObligationRefs) ||
-    !canonicalEquals(
-      row.targetObligationRefs,
-      [CONSENSUS_IDS.consensusObligationRef],
-    ) ||
-    !Array.isArray(row.inputAssetRefs) ||
-    !canonicalEquals(row.inputAssetRefs, [CONSENSUS_IDS.consensusInputAssetRef]) ||
-    !Array.isArray(row.outputAssetRefs) ||
-    !canonicalEquals(
-      row.outputAssetRefs,
-      [CONSENSUS_IDS.consensusOutputAssetRef],
-    ) ||
+    !Array.isArray(row.targetObligationRefs)
+  ) return false;
+  // `unknown` members are admitted before comparison; a refusal is not equal.
+  const targetObligationRefs = admitJson(row.targetObligationRefs);
+  if (
+    targetObligationRefs.kind !== "ok" ||
+    !canonicalEquals(targetObligationRefs.value, [CONSENSUS_IDS.consensusObligationRef]) ||
+    !Array.isArray(row.inputAssetRefs)
+  ) return false;
+  const inputAssetRefs = admitJson(row.inputAssetRefs);
+  if (
+    inputAssetRefs.kind !== "ok" ||
+    !canonicalEquals(inputAssetRefs.value, [CONSENSUS_IDS.consensusInputAssetRef]) ||
+    !Array.isArray(row.outputAssetRefs)
+  ) return false;
+  const outputAssetRefs = admitJson(row.outputAssetRefs);
+  if (
+    outputAssetRefs.kind !== "ok" ||
+    !canonicalEquals(outputAssetRefs.value, [CONSENSUS_IDS.consensusOutputAssetRef]) ||
     row.expectedDeltaRef !== CONSENSUS_IDS.consensusExpectedDeltaRef ||
     row.progressConditionRef !==
       CONSENSUS_IDS.consensusProgressConditionRef ||
@@ -920,17 +928,20 @@ export function isConsensusObservationSnapshot(
     !isRef(value.workspaceBinding.workspaceBindingId) ||
     !isDigest(value.workspaceBinding.workspaceBindingDigest) ||
     value.targetOutcomeRef !== CONSENSUS_IDS.consensusTargetOutcomeRef ||
-    !Array.isArray(value.targetObligationRefs) ||
-    !canonicalEquals(
-      value.targetObligationRefs,
-      [CONSENSUS_IDS.consensusObligationRef],
-    ) ||
+    !Array.isArray(value.targetObligationRefs)
+  ) return false;
+  // `unknown` members are admitted before comparison; a refusal is not equal.
+  const targetObligationRefs = admitJson(value.targetObligationRefs);
+  if (
+    targetObligationRefs.kind !== "ok" ||
+    !canonicalEquals(targetObligationRefs.value, [CONSENSUS_IDS.consensusObligationRef]) ||
     !isConsensusActionCatalog(value.actionCatalog) ||
-    !Array.isArray(value.availableActionRefs) ||
-    !canonicalEquals(
-      value.availableActionRefs,
-      [CONSENSUS_IDS.consensusActionRef],
-    ) ||
+    !Array.isArray(value.availableActionRefs)
+  ) return false;
+  const availableActionRefs = admitJson(value.availableActionRefs);
+  if (
+    availableActionRefs.kind !== "ok" ||
+    !canonicalEquals(availableActionRefs.value, [CONSENSUS_IDS.consensusActionRef]) ||
     !isConsensusInvocation(value.consensusInvocation) ||
     (value.consensusResultRef !== null && !isRef(value.consensusResultRef)) ||
     (value.modelRef !== null && !isRef(value.modelRef)) ||
@@ -1095,20 +1106,23 @@ export function isConsensusNextActionBasis(
     !["initial", "post_evidence"].includes(
       String(value.runtimeFrontier.phase),
     ) ||
-    !isRecord(value.declaredPolicy) ||
-    !canonicalEquals(
-      value.declaredPolicy as unknown as JsonValue,
-      consensusConstructionPolicy() as unknown as JsonValue,
-    ) ||
+    !isRecord(value.declaredPolicy)
+  ) return false;
+  // `unknown` members are admitted before comparison; a refusal is not equal.
+  const declaredPolicy = admitJson(value.declaredPolicy);
+  if (
+    declaredPolicy.kind !== "ok" ||
+    !canonicalEquals(declaredPolicy.value, consensusConstructionPolicy() as unknown as JsonValue) ||
     !isConsensusInvocation(value.targetInput) ||
     value.targetInputRef !== value.targetInput.invocationRef ||
     value.targetInputDigest !==
       sha256Canonical(value.targetInput as unknown as JsonValue) ||
-    !Array.isArray(value.targetObligationRefs) ||
-    !canonicalEquals(
-      value.targetObligationRefs,
-      [CONSENSUS_IDS.consensusObligationRef],
-    )
+    !Array.isArray(value.targetObligationRefs)
+  ) return false;
+  const targetObligationRefs = admitJson(value.targetObligationRefs);
+  if (
+    targetObligationRefs.kind !== "ok" ||
+    !canonicalEquals(targetObligationRefs.value, [CONSENSUS_IDS.consensusObligationRef])
   ) return false;
   const { basisRef: _basisRef, basisDigest: _basisDigest, ...body } = value;
   const digest = sha256Canonical(body as unknown as JsonValue);
@@ -1243,18 +1257,18 @@ export function isConsensusActionEvaluationBasis(
   const intent = value.constructionIntent;
   const { basisRef: _basisRef, basisDigest: _basisDigest, ...body } = value;
   const digest = sha256Canonical(body as unknown as JsonValue);
-  return value.basisDigest === digest &&
+  if (!(value.basisDigest === digest &&
     value.basisRef ===
       `action-evaluation-basis://abiogenesis/${digest.slice("sha256:".length)}` &&
     intent.actionKind === "invoke_graph_function" &&
     intent.selectedGraphFunctionRef === CONSENSUS_IDS.graphFunctionRef &&
     evidence.responseDigest ===
       sha256Canonical(evidence.responseValue as unknown as JsonValue) &&
-    Array.isArray(evidence.semanticEvidenceAssetRefs) &&
-    canonicalEquals(
-      evidence.semanticEvidenceAssetRefs,
-      [CONSENSUS_IDS.consensusOutputAssetRef],
-    );
+    Array.isArray(evidence.semanticEvidenceAssetRefs))) return false;
+  // An `unknown` member is admitted before comparison; a refusal is not equal.
+  const semanticEvidenceAssetRefs = admitJson(evidence.semanticEvidenceAssetRefs);
+  return semanticEvidenceAssetRefs.kind === "ok" &&
+    canonicalEquals(semanticEvidenceAssetRefs.value, [CONSENSUS_IDS.consensusOutputAssetRef]);
 }
 
 export function evaluateConsensusAction(
@@ -1897,11 +1911,13 @@ export function isConsensusRoleInstruction(
     !isDigest(value.instructionDigest) ||
     typeof value.instructionText !== "string" ||
     value.instructionText.length === 0 ||
-    !isRecord(value.responseSchema) ||
-    !canonicalEquals(
-      value.responseSchema as unknown as JsonValue,
-      expectedSchema as unknown as JsonValue,
-    )
+    !isRecord(value.responseSchema)
+  ) return false;
+  // An `unknown` member is admitted before comparison; a refusal is not equal.
+  const responseSchema = admitJson(value.responseSchema);
+  if (
+    responseSchema.kind !== "ok" ||
+    !canonicalEquals(responseSchema.value, expectedSchema as unknown as JsonValue)
   ) return false;
   const { instructionDigest: _instructionDigest, ...body } = value;
   return value.instructionDigest ===

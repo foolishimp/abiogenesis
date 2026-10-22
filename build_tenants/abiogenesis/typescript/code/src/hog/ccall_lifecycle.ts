@@ -224,20 +224,6 @@ function failCCall(
   });
 }
 
-/** The C-call failure branch of an actor refusal (design §9.3 item 3). The
- * reference encodes the exact subject failTraversal admits, { stage, candidate },
- * from the same values failCCall passes on, so admission retains the refusal,
- * its processFacts included, inline. */
-function failActorProcessEffect(
-  input: ExecutableCCallContext,
-  refusal: Readonly<Abg.ActorProcessEffectRefusal>,
-): never {
-  const stage = `leaf-effect-${input.ordinal}`;
-  const candidate = refusal as unknown as JsonValue;
-  return failCCall(input, refusal.successorPrefix, stage,
-    constructRuntimeFailureDiagnosticRef({ stage, candidate }), candidate);
-}
-
 function projectBlockedCCallCompletion(
   replayState: RuntimeReplayGuard,
   successorPrefix: DurablePrefixCoordinate,
@@ -831,6 +817,20 @@ export function evaluateOwnedExecutableCCall(
       outputContractRef: input.stop.outputContractRef,
     };
   });
+}
+
+/** The C-call failure branch of an actor refusal (design §9.3 item 3). The
+ * reference encodes the exact subject failTraversal admits, { stage, candidate },
+ * from the same values failCCall passes on, so admission retains the refusal,
+ * its processFacts included, inline. */
+function failActorProcessEffect(
+  input: ExecutableCCallContext,
+  effectResult: Readonly<Abg.ActorProcessEffectRefusal>,
+): never {
+  const stage = `leaf-effect-${input.ordinal}`;
+  const candidate = effectResult as unknown as JsonValue;
+  return failCCall(input, effectResult.successorPrefix, stage,
+    constructRuntimeFailureDiagnosticRef({ stage, candidate }), candidate);
 }
 
 export function projectCCallCompletion(

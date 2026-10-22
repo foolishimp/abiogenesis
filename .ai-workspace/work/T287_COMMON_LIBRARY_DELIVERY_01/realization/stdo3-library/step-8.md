@@ -289,3 +289,181 @@ when the attribution of a failure needs it.
 Return additions: under `- integrated run`, one line per item (viii), (i)
 with the P-FOLD result, (ii) with the sites, (iv), (iii) with the case or
 the stop; under `- residuals`, anything left.
+
+## Return 8a
+
+- commit: the commit carrying this Return (first line `Step 8a: D4 disposition, lifecycle boundary check, integrated run`, parent `7deeff589`); its hash is in the final report. Not pushed. Staged by path.
+- D4: retired for: none. Bridge kept for all 22 call sites in 12 modules, plus the internal leaf path in `shared/i_json.ts` (`admitIJsonText` -> `reconstructIJsonNode` -> `admitIJsonValue`). The activation's "21 importers" does not match head: 12 modules under `code/src` import it. The step 3 Return proves the lift (`admitIJsonValue` = `liftIJson(admitJson(input), label)`, 202 inputs, 0 differences) but demonstrates no caller contract, so no caller is retired. A retirement must replace a `try`/`catch` on the thrown error with a branch on the `Outcome`. `admitJson` still throws on defects (a proxy trap, a cycle), so dropping the `catch` would change those callers' observable refusal, which stop (c) forbids. Per caller:
+  - The `catch` returns the caller's own refusal:
+    - `validator/conformance_operation.ts:248` -> `invalid_packet`
+    - `product/result_assessment_operation.ts:501` -> `value_mismatch`
+    - `abg/witness_admission_operation.ts:436` -> `content_invalid`
+    - `abg/project_read_ports.ts:599` -> `invalid_packet`
+    - `abg/actor_process.ts:370` -> `invalid_actor_process_request`
+    - `abg/actor_process.ts:415` -> `invalid_actor_process_observation`
+  - The refusal carries the message: `validator/raw_admission.ts:184`. Its `catch` at `:227` returns `non_canonical_value` with `error.message`, so the lift's label text is observable.
+  - The `catch` returns null, false or rejected:
+    - `abg/actor_process.ts:1058` (rejected)
+    - `abg/probabilistic_result.ts:285` (null)
+    - `implementation/leaf_invocation_port.ts:687` (null)
+    - `implementation/leaf_invocation_port.ts:768` (`malformed_return`)
+    - `abg/execution_basis.ts:250` (null)
+    - `product/worksite_command_execution.ts:1749-1750` (false)
+  - The throw is the fault:
+    - `product/worksite_command_execution.ts:1023`, `:1026`, `:1954` and `:2005`. The file is also pinned through the gtl C2 context pin.
+    - `abg/event_store.ts:1736` and `:2544`
+    - `abg/project_read_ports.ts:1555`
+    - `implementation/worksite_command_execution.ts:168`
+  - Two test importers use the export: `t287-ordered-reconstruction` (in the run) and `t287-f04a`.
+- lint:lifecycle:
+  - New `scripts/check-lifecycle-boundary.mjs` and `npm run lint:lifecycle`. It reads the TypeScript AST of `code/src/**/*.ts`, excluding `code/src/abg/calculus/`. A file fails when:
+    - it writes a lifecycle fluent name (`actor_process_live`, `actor_process_terminated`, `actor_process_termination_unconfirmed`, `actor_cleanup_pending`, `terminationConfirmed_copy_disagrees`) anywhere other than the `name` of a pattern passed to `holdsAt`, directly or through `constructRuntimeFluentPattern`. One exception: `actor_process_termination_unconfirmed` is also an event kind, so it passes in event-kind positions.
+    - it reads `scopeAbsence` or `directExit` outside the process owners: `shared/process/`, `shared/owned_process_lifetime.ts`, `abg/worker_transport.ts`, `abg/actor_process.ts`, `implementation/worksite_command_helper.ts`.
+  - Offenders on head: 10. None is a one-line switch. All 10 are allow-listed by exact line text, each with its reason:
+    - `abg/actor_process.ts:638-640`: arguments of the local `lifecycle` reader (`:636-637`), whose only use of the name is the `holdsAt` pattern `name`.
+    - `abg/replay.ts:322`, `:329`, `:349`, `:350`, `:362`: the Run quiescence name table. It classifies each fluent of the folded held set as blocking or historical, and constructs no fluent.
+    - `abg/worksite_construction_recovery.ts:66`, `:68`: they check the digest-bound transport artifact's encoded facts against that artifact's exit. This is referenced evidence (§9.1), not a lifecycle question.
+  - An allow-list entry that matches no line fails the check.
+  - Head result: `284 modules under code/src; 10 allow-listed site(s), no offender`.
+  - Falsifier: three offenders injected into `replay.ts` exit 1 with 3 offenders. They were an object-literal fluent name, a `facts.scopeAbsence` read and a pattern not passed to `holdsAt`. The file was restored.
+- integrated run: `step-8-run.log` is the gate run of the committed tree: build, `lint:imports`, `lint:lifecycle`, one `node --experimental-vm-modules --test --test-concurrency=1` invocation over 34 files, then `test:uat:harness`.
+  - Gate steps:
+    - build: rc 0, 34 s.
+    - `lint:imports`: rc 0.
+    - `lint:lifecycle`: rc 0.
+    - Run: rc 1, 941 s wall. The node summary, which counts subtests, is tests 286, pass 228, fail 44, cancelled 2, skipped 12.
+  - An earlier full run, on the tree before the C2A fix (945 s), differs from this one only in the C2A test (fail -> pass), compared by file and test name over all 241 top-level results.
+  - Per file, top-level pass/fail[/skip]:
+    - `forward-command-contracts` 8/0, `forward-command-owners` 2/4, `installed-language-smoke` 1/0
+    - `m5-c-algebra-validation` 18/0/3, `m5-consensus-module` 0/1 (load), `m5-event-calculus-runtime` 13/5/1, `m5-event-store-reopen` 18/0
+    - `m5-fresh-process-reconstruction` 0/1, `m5-installed-graph-edge` 0/1, `m5-installed-portability` 5/3, `m5-retry-lifecycle-authority` 4/5
+    - `m5-s03-authority` 1/4, `m5-s06-prime` 10/1, `m5-terminal-quiescence-owner` 5/2, `m5-worker-transport` 21/0
+    - `t287-c2-owner-coordinate-reuse` 0/6, `t287-c2a-fp-source-contract` 4/0, `t287-calculus-fold` 6/0
+    - `t287-calculus-state-transfer` 0/1 (timeout at 300000 ms), `t287-common-computational-library` 4/0
+    - `t287-event-calculus-owner-continuation` 0/1 (load), `t287-generic-job-lifecycle` 0/0/1, `t287-lifecycle-failure-carrier` 5/0
+    - `t287-native-runtime-gate` 6/0/1, `t287-native-semantic-revision` 4/4/1, `t287-native-structural-gates` 9/0
+    - `t287-observed-worksite-command` 7/1, `t287-ordered-reconstruction` 0/4/3, `t287-owned-process-lifetime` 18/0
+    - `t287-reconstruction-conservation` 0/0/2, `t287-runtime-activity-quiescence` 1/0, `t287-select-family` 7/0
+    - `t287-value-equality` 4/0, `t287-worksite-command-execution` 3/1
+  - Baseline failures are recorded under the attribution rule and not returned to a seam. Each file below fails the same set of tests at `97b1200bc`, with the same first error. The comparison was one invocation over the red files plus the harness in the built baseline worktree, 742 s; `t287-worksite-command-execution` was checked in its own run there.
+    - `forward-command-owners` (4)
+    - `m5-consensus-module`: fails at load; `ROOT_PUBLIC_OPERATION_IDS` is not exported.
+    - `m5-event-calculus-runtime` (5): `abg.openCall is not a function`, and the terminal projection row.
+    - `m5-fresh-process-reconstruction` (1)
+    - `m5-installed-graph-edge` (1)
+    - `m5-installed-portability` (3)
+    - `m5-retry-lifecycle-authority` (5): missing source boundaries.
+    - `m5-s03-authority` (4)
+    - `m5-s06-prime` (1)
+    - `t287-c2-owner-coordinate-reuse` (6): "child C2 source does not reproduce at its admitted preparation cut".
+    - `t287-calculus-state-transfer` (1): timeout.
+    - `t287-event-calculus-owner-continuation`: fails at load at `:18`, "exact preimage territory and a digest-bound CLOSED JSONL fixture are required".
+    - `t287-native-semantic-revision` (4)
+    - `t287-observed-worksite-command` (1)
+    - `t287-ordered-reconstruction` (4)
+    - `t287-worksite-command-execution` (1): `:826`, `'failure' !== 'success'`.
+  - Failures absent at the baseline. Each was bisected over the ledger's step commits (`10efed8b2`, `c2432eb85`, `8eede7fdb`, `ffb767171`), running only its suite, in a scratch worktree built at each commit.
+    - `t287-c2a-fp-source-contract`, "C2A F_P effect handoff is one direct exact-prefix ABG invocation". Fixed.
+      - It is 4/0 through `8eede7fdb` and 3/1 at step 7 (`ffb767171`).
+      - Cause: the source assertion `:40-43` requires `effectResult.kind === "actor_process_effect_refusal"` followed by `effectResult.successorPrefix`. Step 7 moved the branch body into `failActorProcessEffect(input, refusal)`, above its caller.
+      - Fix, one attempt, inside step 7's grant (`hog/ccall_lifecycle.ts`, with its tracked `build/code/src/hog/ccall_lifecycle.js`): the function now sits below `evaluateOwnedExecutableCCall`, and its parameter is named `effectResult`. This changes source order and one parameter name only; the semantics are unchanged.
+      - Result: the suite is 4/0. `t287-lifecycle-failure-carrier`, which exports the function into its harness, is 5/0.
+    - `m5-terminal-quiescence-owner`: 7/0 at `10efed8b2`, 5/2 from step 6 (`c2432eb85`). Stopped; not fixed.
+      - "unconfirmed cleanup stays live until a genuine confirmed Process terminal, including cold replay", `assertCut` called at `:173`, after the `actor_process_exited` that follows `actor_process_termination_unconfirmed`:
+        - At step 6 it fails at `:166` (`false !== true`). `actor_process_termination_unconfirmed` no longer holds after the exit, by the law `terminationUnconfirmed = not T and U`.
+        - From step 7 it fails earlier, at `:162`: `projectRuntimeActorProcessFactsAtPrefix(...)[0].terminationConfirmed` is `false`. Step 7 switched `abg/replay.ts`'s `terminationConfirmed` to `holdsAt(actor_process_terminated)`. The step 6 rule (`calculus/rules.ts:127-152`) initiates `actor_process_terminated` only when no termination-unconfirmed precedes the exit, and this test expects a later exit to confirm. step-6.md:395 and `:445` record `:166-167` and `:222` as expected step 8 flips. `:162` is not recorded in step 6 or step 7.
+      - "unjoined process uncertainty preserves cleanup without claiming a native write scope", `:222`. It expects the axiom effect of `actor_process_termination_unconfirmed` to initiate `actor_cleanup_pending`. Since step 6 the rule initiates it, not the axiom.
+      - Why it is stopped:
+        - The test file is in no step 2 to 7 grant. Step 6's grant (step-6.md:177-181) names only the new `t287-calculus-fold` test.
+        - A code fix would reverse the step 6 lifecycle law and step 7's reader. That is not a bounded fix.
+        - Whether a termination-unconfirmed followed by a genuine exit confirms termination is a design question for the Executive. The test says yes; the rule says no.
+  - Stop scope. Activation stop (a) reads: "Stop without committing and write the reason if: (a) the integrated run fails and the bounded fix of rule 3 does not clear it". The relayed rule reads: "a failure absent at the baseline returns to its seam and is fixed only if bounded and inside a step 2 to 7 grant, one attempt, else stop that item and record it". I applied the relayed per-item rule. The quiescence item is stopped and recorded, and the step is committed. If the Executive reads (a) as a whole-step stop, the commit is local and unpushed.
+  - (viii) Done. Fixtures and the three assertions:
+    - `t287-owned-process-lifetime`: fixtures:
+      - the stream-failure task gains `taskDigest` and is passed to `runHttpProbe`;
+      - the physical HTTP probe gains `taskRef` and `taskDigest`.
+    - `t287-owned-process-lifetime`: the assertions on the owner failure, `observed.error` and the HTTP owner error now read the per-owner prefix "... failed; dependent work stopped: ". They parse the JSON body and require `processFacts.firstError.message` to equal `diagnostic.message`.
+    - `m5-worker-transport`: the command task gains `taskRef` and `taskDigest`, which are passed to `runHttpProbe`.
+    - Results: `t287-owned-process-lifetime` 18/18 (it was 15/18); `m5-worker-transport` 21/21.
+  - (i) Done. One effect law:
+    - `calculus/fold.ts` adds `applyStep(working, event, dependencies)`. It computes the effect, the declip keys and the probe and interruption facts first, then mutates a `WorkingFoldState` in place and returns the frozen transition.
+    - `workingFoldState` copies every carrier once; `frozenFoldState` freezes. `withScope` is removed.
+    - `foldStep` is `workingFoldState` -> `applyStep` -> `frozenFoldState` and stays the exported pure step.
+    - `RuntimeEventCalculusDerivation.advance` (`event_calculus.ts`) copies once per call, runs `applyStep` per event with `memoize`, and freezes in `finally`.
+    - P-FOLD (`t287-calculus-fold`): 6/6 unchanged, in the integrated run.
+  - (ii) Done. Each `unknown` comparand is admitted with `admitJson` at its original evaluation position, before `canonicalEquals`; a refusal returns `false`. There is no file-local helper. Closed at `gtl/consensus.ts`:
+    - `isConsensusActionCatalog`: `:833`, `:839`, `:845`
+    - `isConsensusObservationSnapshot`: `:937`, `:944`
+    - `isConsensusNextActionBasis`: `:1115` (`declaredPolicy`) and `:1125`
+    - `isConsensusActionEvaluationBasis`: `:1271`
+    - `isConsensusRoleInstruction`: `:1920` (`responseSchema`)
+    - In-process check: a valid reviewer instruction gives `true`; a `NaN` or `undefined` `responseSchema` gives `false` and does not throw.
+    - No green suite runs this file: `m5-consensus-module` fails at load at the baseline.
+  - (iv) Done:
+    - `shared/process/facts.ts` exports `OWNED_PROCESS_FACT_MEMBERS`: the 13 members of `encodeOwnedProcessFacts`, in default sort.
+    - `abg/worksite_construction_recovery.ts` imports it (`:36`); the local `PROCESS_FACT_MEMBERS` (head `:58-60`) is removed. `hasExactKeys(facts, OWNED_PROCESS_FACT_MEMBERS)` is at `:65`.
+    - The barrel `shared/process/index.ts` is unchanged.
+  - (iii) Stopped. No case file was added. The reach is shown; a passing case is not one bounded case.
+    - Reach: the shortest owner path to `exactC2SourceEnvironment` is the installed Public C1 -> C2 run in `t287-worksite-command-execution.test.mjs:407`. A temporary counter in the built `abg/execution_basis.js`, with the manifest regenerated, recorded two production comparisons of the durable source against the view:
+      - both sides admitted `ok`; `equal: true`; 186 events;
+      - the callers were `admitExecutionBasis` (through `owner_bindings/run_invocation`) and `hasExactWorksiteCommandLeafSourceAtDurablePrefix` (through `leaf_invocation_port` `verifyAuthority`).
+      - The counter was then removed and the build and manifest regenerated. `grep c2-probe` over `build/`, `contracts/` and the manifest is empty.
+    - Why no passing case: that C2 run closes and its fresh replay passes. The case then fails at `:826` in its owner-local negatives (`'failure' !== 'success'`), and this failure is red at `97b1200bc`. A passing copy would duplicate several hundred lines of that suite's private helpers and phases.
+    - `t287-c2-core-environment.test.mjs`, the addendum's other host, has no owner path. It is a component test whose header labels invocation and native-owner authentication as premises. Its assembly case replaces `./execution_basis.js` with a supplied `authenticateOwnedNativeInstructionAssemblyBasis`, so `exactC2SourceEnvironment` never runs there. An owner case in that file would need the same installed Product and run-invocation setup.
+    - `t287-c2-owner-coordinate-reuse` runs the native-reacquisition task and returns on the `admittedNativeTask` branch before the C1/C3 comparison. It would not reach this comparison even when green, so step 4's route ("unproven until owner-reuse is green") does not lead here.
+    - Executive options: accept the `:407` phases plus the counter as the production proof; authorize a separate case; or take `:826` to Jim as a baseline defect.
+  - Preimage file: `test_env/support/t288-admission-helper-preimages.json` is deleted. Only historical binary snapshots name it.
+- uat harness: rc 1. 34 tests: 30 pass, 1 fail, 3 skip. The failure is `harness.test.mjs:471`/`:490` "canonical C2 budget fits" (18025250 !== 18015000). It is identical at `97b1200bc`, so it is a baseline failure.
+- completion condition: O-RESOURCE is open, so the library does not close.
+  - O-RESOURCE open:
+    - Seven self-comparison encodability probes `sameJson(resources, resources)` / `sameJson(value, value)` are unchanged since `97b1200bc`:
+      - `product/catalog_definition_bindings.ts:290`, `:704`, `:856`
+      - `product/environment_definition_bindings.ts:240`, `:535`
+      - `product/install_definition_bindings.ts:143`
+      - `product/project_read_definition_bindings.ts:128`
+    - Each one detects a non-encodable resource by whether `canonicalEquals` throws inside `sameJson`. No step was granted these sites.
+    - The closed part is in `public/binding/definition_binding_mechanics.ts` (step 3): `requiredSlot` uses `admitRef` and `exactContractCoordinate` uses `admitContract`.
+  - O-SHAPE closed:
+    - step 3's `isRecord` retirements;
+    - `abg/retry.ts:663` by the D3 ruling (`admitJson`, step 4).
+  - O-CODEC closed at `abg/event_body_encoding.ts`: `nativeParts` (`:26`) and `decodeEventBody` (`:163`).
+  - O-SCHEMA closed by ingress premise at `product/default_library.ts:45` (`jsonRecord`, shallow `isRecord`):
+    - `isGovernanceWorkState` is reached only through the Product's `admitInput` and `validateContractValue` with parsed I-JSON, so a function member cannot cross the boundary. An in-process `{ hidden: () => 7 }` passes the check.
+    - `abg/project_read_definition_bindings.ts:152` `asRecord` takes `JsonValue | undefined`.
+    - If Jim wants refusal at the schema, the alternative is a one-line `admitJson` inside the custom check.
+  - O-KEY closed:
+    - the 34 NUL-joined bodies are retired;
+    - `product/default_library.ts:133` uses five keys.
+  - O-TYPE closed at:
+    - `abg/retry.ts` `isProjectedRetryResumeCarrier`
+    - `abg/execution_basis.ts` `exactC2SourceEnvironment` (both sides) and `detachJsonRecord`
+    - `abg/invocation_execution_truth.ts` (the basis projection)
+    - `product/verify_product.ts` `makeCoordinate`
+    - `hog/parent_rehydration.ts` (both `application` sites)
+    - `gtl/consensus.ts` `:833`, `:839`, `:845`, `:937`, `:944`, `:1115`, `:1125`, `:1271`, `:1920` (8a)
+  - O-TYPE open, per step 4's per-file cast list:
+    - 867 of 1204 calls are cast;
+    - about 65 `unknown`-typed sites still cast;
+    - the binding `sameJson` lift;
+    - the `parent_rehydration` carrier;
+    - the `jsonRecord` consumers `abg/default_library.ts:51`, `abg/instruction_assembly.ts:325` and `product/default_library.ts:224`;
+    - the guard-refined `gtl/consensus.ts` sites `:2201`, `:2498`, `:2502`, `:2604`, `:2828`, `:2870`, `:3185`, `:3280`, and the relation evaluators at `:3612-3860`.
+- residuals:
+  - Stopped items, for the Executive:
+    - `m5-terminal-quiescence-owner`, both assertions.
+    - (iii), the C2 owner case.
+    - O-RESOURCE.
+    - Whether stop (a) applies to the whole step, quoted under integrated run.
+  - Baseline worktree:
+    - For the manifest generator to run, its `node_modules` symlink was replaced by a real copy, because `@standard-schema/spec` resolved outside its package root. Its `product-toolchain-manifest.json` and contracts inventories were regenerated in that worktree.
+    - The plan ledger's baseline run used the symlinked tree, so installed suites compare only against the worktree as it is now.
+    - The bisect used a separate scratch worktree, removed after use.
+  - Step 4's "0 hits" mechanism: a counter edited into compiled JS without regenerating the manifest makes every installed suite refuse with `product_content_mismatch` before it reaches the comparison. Step 4's Return does not say which of the two produced its zero.
+  - `t287-native-work-unknown-effect` (step-6.md:395 expected flip near `:69`) is not in the 8a run list and was not run.
+  - The `t287-event-calculus-owner-continuation` source patch (step-6.md:395) is still unapplied. The suite fails at load at `:18` on its fixture precondition, both at head and at `97b1200bc`.
+  - No green suite exercises `gtl/consensus.ts` (`m5-consensus-module` fails at load on `ROOT_PUBLIC_OPERATION_IDS`, baseline).
+  - D4 premise: the activation counts 21 importers; head has 12 modules and 22 call sites.
+  - Single-suite runs outside the integrated run were for investigation, attribution, bisect and the pre-commit C2A check (9/9). The committed log is the full rerun of the committed tree. The first full run, before the fix, is not committed.
+  - The `m5-terminal-quiescence-owner:162` flip, which step 7's `holdsAt` reader in `replay.ts` caused, is unrecorded in step-6.md and step-7.md. It is the same design question as `:166`: does a genuine exit after a termination-unconfirmed confirm termination?
+  - Tracked build output: `build/code/src/hog/ccall_lifecycle.js` is regenerated and committed. It is one of the 40 tracked build files recorded for Jim in the step 8 items. Its `.d.ts` is unchanged.
+- return route: this file
