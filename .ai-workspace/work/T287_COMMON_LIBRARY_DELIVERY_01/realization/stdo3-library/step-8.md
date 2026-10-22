@@ -467,3 +467,111 @@ the stop; under `- residuals`, anything left.
   - The `m5-terminal-quiescence-owner:162` flip, which step 7's `holdsAt` reader in `replay.ts` caused, is unrecorded in step-6.md and step-7.md. It is the same design question as `:166`: does a genuine exit after a termination-unconfirmed confirm termination?
   - Tracked build output: `build/code/src/hog/ccall_lifecycle.js` is regenerated and committed. It is one of the 40 tracked build files recorded for Jim in the step 8 items. Its `.d.ts` is unchanged.
 - return route: this file
+
+## Disposition of 8a (Executive, 2026-10-23)
+
+Accepted: `37ef7d760`. Stop (a) is read per item, as relayed; the commit
+stands. Rulings on the stopped items:
+
+1. **`m5-terminal-quiescence-owner` (D9, Executive, recorded in the plan).**
+   The step 6 law stands: an `actor_process_exited` after an
+   `actor_process_termination_unconfirmed` for the same process does not
+   initiate `actor_process_terminated`. The exit event carries no scope
+   evidence (`status`, `signal` only); the unconfirmed verdict is about the
+   owned scope (§4.6, `hasConfirmedOwnedProcessBoundary`); the owner reports
+   one terminal event, so the sequence occurs only in prior-law stores and
+   reads as unconfirmed. The test encodes the pre-step-6 law at `:162`,
+   `:166-167` and `:222` (the latter two recorded at step 6 as expected
+   flips; `:162` is step 7's reader following the fluent under D5). The test
+   follows the ratified law. Reversal: drop the `!unconfirmed` guard in
+   `calculus/rules.ts` (one line) and restore the three expectations.
+2. **C2 production proof (item iii).** Accepted on the Return's evidence:
+   the installed Public C1 to C2 run in `t287-worksite-command-execution:407`
+   reaches `exactC2SourceEnvironment` twice with both sides admitted and
+   equal (186 events), through `admitExecutionBasis` and
+   `hasExactWorksiteCommandLeafSourceAtDurablePrefix`; the counter was
+   removed and the manifest regenerated. That is the positive C2 path
+   through its owner with materialization kept (B14). Step 4's "zero hits"
+   was a measurement artifact: a counter in compiled JS without the manifest
+   regenerated makes every installed suite refuse with
+   `product_content_mismatch`. Record both in 8b (design §10.5 P-EQUAL, step
+   4 ticket note). The suite's later `:826` failure is baseline-red and is
+   Jim's decision; it does not block the proof. No separate case.
+3. **O-RESOURCE.** The seven self-comparison probes are repaired in 8a-2
+   below under design §10.3's wording: "require existing checked data or
+   resource and handle premises ... An equality probe is not admission."
+4. **D4.** Bridge kept at all 22 sites, as the Return demonstrates; the
+   activation's "21 importers" was the step 3 count. Closed as recorded.
+5. Everything else in the Return stands as recorded. The unapplied
+   `t287-event-calculus-owner-continuation` patch is moot while the suite
+   fails at load on its fixture at the baseline; 8b records it.
+
+## Activation 8a-2 (Executive, 2026-10-23)
+
+Worker: Opus 5.5, xhigh, fresh context, Writer grant. Head is the
+Executive's bookkeeping commit after `37ef7d760`. Read this section, the
+`## Disposition of 8a` above, and the `## Return 8a` entries it cites
+(O-RESOURCE open; `m5-terminal-quiescence-owner`; residuals). Tenant root
+`build_tenants/abiogenesis/typescript`; every test runs with
+`node --experimental-vm-modules --test`. Change class: `realization_refactor`
+plus the two design sentences named here.
+
+1. **O-RESOURCE, seven sites:** `product/catalog_definition_bindings.ts:290`,
+   `:704`, `:856`; `product/environment_definition_bindings.ts:240`, `:535`;
+   `product/install_definition_bindings.ts:143`;
+   `product/project_read_definition_bindings.ts:128` (lines at `37ef7d760`).
+   Each is `sameJson(x, x)`, true unless `canonicalEquals` throws, and
+   `canonical_json.ts` throws only on a non-finite number. For each site,
+   read the producer of `x`. If `x` is already admitted or typed data
+   (parsed I-JSON through `admitIJsonText`/`admitJson`, or built from typed
+   `JsonValue` members), delete the probe: its false branch is unreachable
+   and every outcome is preserved. If the producer cannot be shown, replace
+   the probe with `admitJson(x).kind === "ok"` (the admit family's refusal
+   set is wider: unsafe integers, lone surrogates, non-I-JSON values) and
+   state that the site's refusal set widened. Record each site's answer
+   in Return. No new helper.
+2. **Quiescence test (D9):** in `test_env/tests/m5-terminal-quiescence-owner.test.mjs`,
+   change the three expectations to the ratified law: after the late exit,
+   `terminationConfirmed` is `false`, `actor_process_terminated` does not
+   hold, `actor_process_termination_unconfirmed` holds, cleanup stays
+   pending until the actor terminal (`:162`, `:166-167`); at `:222` the
+   `actor_cleanup_pending` initiation is the rule's, not the axiom's:
+   assert it through `deriveRuntimeEventCalculusProjection` and `holdsAt`
+   over a two-event prefix, not through `eventCalculusEffect` alone. Keep
+   every other assertion. Add one sentence to design §10.6 row 5
+   (`ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:648`): "An
+   `actor_process_exited` after an `actor_process_termination_unconfirmed`
+   for the same process initiates no `actor_process_terminated`: the exit
+   carries no scope evidence and the owner reports one terminal event, so
+   the sequence reads as unconfirmed (D9, Executive, 2026-10-23)."
+3. **Run once and record:** `t287-native-work-unknown-effect` (step 6's
+   expected flip near `:69`, never run). Attribution rule applies: compare
+   with the built baseline worktree at
+   `/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/wt-base-97b1200bc/build_tenants/abiogenesis/typescript`
+   only if it fails; a failure absent at the baseline and caused by the
+   step 6 law gets its expectations updated in the same way as item 2 if
+   the flip is the one step 6 recorded, else stop that item and record.
+
+**Grant:** the four `product/*_definition_bindings.ts` files (the seven
+lines only), `test_env/tests/m5-terminal-quiescence-owner.test.mjs`,
+`test_env/tests/t287-native-work-unknown-effect.test.mjs` (item 3 only),
+the one design sentence, the build outputs the gate regenerates, this
+file's `## Return 8a-2`. Nothing else.
+
+**Gate (in order):** `npm run build`; `npm run lint:imports`;
+`npm run lint:lifecycle`; `m5-terminal-quiescence-owner`;
+`t287-native-work-unknown-effect`; `t287-calculus-fold`;
+`t287-common-computational-library`; `m5-event-store-reopen`;
+`npm run test:installed:language`. The full integrated run is not repeated
+here; it runs once more at the close.
+
+**Stop:** a probe's producer is neither shown nor replaceable without a
+behavior change beyond the stated widening; a gate suite fails with a
+failure absent at the baseline that is not the recorded step 6 flip.
+
+**Return contract.** One commit on `main`, no push. First line
+`Step 8a-2: O-RESOURCE probes; quiescence expectations under D9`, last line
+`Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append
+`## Return 8a-2` with: commit; the seven sites (deleted / replaced, producer
+shown); the quiescence changes; item 3's result with attribution; gate per
+suite; residuals.
