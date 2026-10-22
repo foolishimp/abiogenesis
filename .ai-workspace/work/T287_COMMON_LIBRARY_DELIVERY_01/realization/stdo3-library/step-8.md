@@ -1090,3 +1090,67 @@ recorded, not a seam; a suite that cannot load at the baseline is not a
 gate of this plan. Residuals: the `rules.ts:127-129` comment to 8b (addendum
 above); the fixture-link note and the three load failures to the ticket
 close. Ledger row 8 closed.
+
+## Return 8b
+
+- commit: the commit carrying this Return (first line `Step 8b: ticket close, GOAL-035, design notes`, parent `6a161fcbc`); its hash is in the final report. Not pushed. Staged by path. Path key: `design` = `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`; lines are at this commit.
+- Item 1, ticket: `.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md:5302-5388`, a new subsection `### Library delivery close (2026-10-23)` (`:5303`) at the end of `## STDO 3 Library Re-entry (2026-10-22)`. In order:
+  - commit chain (`:5312`), steps 2 to 8, ending at `562d4515a`;
+  - decisions D0 to D9 (`:5324`), with decided by and reversal path; D9 marked reversed; "none recorded" where the records give no reversal (D0 to D3);
+  - completion condition (`:5339`): O-RESOURCE, O-SHAPE, O-CODEC, O-SCHEMA by ingress premise, O-KEY with sites; O-TYPE closed and open per site;
+  - proofs (`:5348`), P-EQUAL to P-LIFECYCLE, one line each;
+  - baseline attribution (`:5360`): 16 files, the step 7 seam, the nine F7 suites, the uat harness failure, and a pointer to the review's evaluation 6 for behavior changes (it names the published `native-runtime-observation.json` change);
+  - C2 production proof and the step 4 zero-hit correction (`:5362`);
+  - remainders migrated as touched (`:5364`);
+  - records for later work (`:5371`): the addendum's three load failures and the cross-cut fixture links; also the `ABI5_OWNED_ADMISSION_PREIMAGE` preimage, the unapplied owner-continuation patch, F8, the liveness read and `gtl/consensus.ts` coverage;
+  - items for the owner (`:5381`).
+- Item 2, `specification/GOALS.md`:
+  - `:18`: in the `GOAL-035` row, "Realization proceeds by the eight-step plan." becomes the delivered state at `562d4515a`: five obligations closed, O-TYPE per site, the proofs hold, not a release. The rest of the row is verbatim.
+  - `:34-44`: the conjunction sentences with the six obligations OPEN are replaced by the current reality, with a link to the ticket subsection. The first sentence and the closing coverage-critique sentence are verbatim.
+- Item 3, design notes:
+  - §10.1 row 3 (`design:588`): the change cell adds `canonicalRecordDigest`. The retires cell reads "2 record-digest copies". The 3 record writers and the installed-codec pair stay.
+    - Consistency edits: §4.3's `writeCanonicalRecord` Replaces cell (`:163`) carried the same false "3 hand-rolled record writers". §4.3's installed-equality sentence (`:167`) gains the installed-codec pair's exception (`public/installed_definition_call_transport.ts:144`, `public/installed_public_definition_call.ts:65`).
+  - §4.3 inline digest comparisons (`:162`): a computed-against-stored digest comparison stays `===`; a comparison that digests both sides is `canonicalEquals`.
+  - §10.6 row 5 emission premise: no edit. The repair's sentence (`:650`) states the result.
+  - D7 clause: "proposed" becomes "proposed or, for `sourceReplayDigest`, when the source-result basis is admitted".
+    - §4.4 (`:190`). The same line also gets `replay.ts:1387` to `:1389` and `c_call.ts:7047` to `:7052`.
+    - Consistency edit: §10.6 row 5 (`:650`), which restates the clause.
+  - R2 (`:200`): the R branch (`rules.ts:174-185`) has no `not A`. It is vacuous on admitted prefixes: the actor terminal is appended only after a process terminal (`actor_process.ts:1344`, `:1391`), and the projection treats the converse as a defect (`:629-630`).
+  - R5 (`:186`): the law is the two tables. The published contract embeds the axiom table alone as `eventCalculus` (`scripts/generate-product-manifest.mjs:145`).
+  - R6 (`:200`): counterexamples A and B and the lifecycle fluents' single producer, anchored to `actor_process.ts:636-640`, `calculus/rules.ts:47`, `:133-189`, `:174-185` and `calculus/axioms.ts:208-250`.
+  - R7 (`:186`): axiom entries read the event, its dependencies and `AxiomFoldContext` (`axioms.ts:1722`, `:1731`). Rules read the fold state.
+  - F9, step 7:
+    - `:189` is now `:190` (`:7052`).
+    - `:199` is now `:200` (`actor_process.ts:1331`).
+    - §6 gains a `classifyOwnedProcessTerminal` row (`:283`).
+    - `:549` is now `:551` ("No lifecycle reader consumes the field").
+    - §9.2 four forms (`:553-560`): rewritten as the head census. The target sentence becomes "The field of form 2 stays where it is recorded...".
+    - §9.3 item 1 (`:568`): `worker_transport.ts:459`, `actor_process.ts:1323-1340`, `:1322`.
+    - §10.1 row 6 (`:591`): three atoms, "through the classifier", and the `replay.ts:2444` line cite restated by content.
+  - (ix) P-LIFECYCLE (`:636`), the helper clause:
+    - The no-child failure yields the leaf result, whose `exitStatus` 127 and `terminationConfirmed` true carry the outcome. The encoded facts travel on the failure subject only.
+    - "step 8's integrated run" is replaced by the test locations: `t287-lifecycle-failure-carrier:337`; `t287-owned-process-lifetime:500-501`, `:547`.
+  - F2: the §2 row's Imports cell (`:46`) lists the actual set. `:55` states the departure and the function-level cycle through `runtime_liveness.ts`; `lint:imports` is not extended.
+  - F3, P-INGRESS (`:631`): "`tsc --noEmit` plus the signature grep ... at the library's close; no lint script checks it".
+  - F4: a §4.3 row (`:164`), a §10.7 row (`:661`, `catalog_extension` of `N02`), and constitution §16.14 (b) at `ABI5_REALIZATION_CONSTITUTION.md:4390`.
+  - F5, §4.1 `admitContract` (`:127`): "in `bindStaticOwner`; owner sites as touched".
+  - F6, P-RECORD (`:634`): holds by reading (`invocation_execution_truth.ts:671`); no lane reaches the negative.
+  - F9, review, `advance` (`:188`): copy once, `applyStep` in place, freeze (`event_calculus.ts:238`, `fold.ts:191`, `:261`).
+  - F10, P-LAYER (`:638`): names `lint:imports` and `lint:lifecycle` with the allow-list's three classes.
+  - C2 note, P-EQUAL (`:630`): the route through `t287-worksite-command-execution:407` to `execution_basis.ts:727` / `:805-806` / `:808`, via `:1921` and `:993`.
+- Item 4, step 5 wording: ticket `:5368` gives the static `RecordCheck` reason (design §4.2, §6; constitution line 1861). The step files are unchanged.
+- Item 5, `code/src/abg/calculus/rules.ts:128-129`:
+  - The comment now reads "...holds from an actor_process_exited preceded by the process start." The guard clause is gone; no code changed.
+  - `npm run build`: rc 0. It regenerated `contracts/capabilities/capability-definition-graph.json` and `product-toolchain-manifest.json`, both committed. No tracked `build/` file changed.
+  - `npm run lint:lifecycle`: rc 0 (284 modules, 10 allow-listed sites, no offender).
+- Gate: each edit read back by diff. Every table touched keeps one line per row and its pipe count. `git diff --stat` touches only the grant.
+- Residuals:
+  - F5's count is 13 at head, not 8. The five further sites (`product/verify_product.ts:1805`, `abg/terminal_result_contracts.ts:35`, `:55`, `:68`, `implementation/release_publication.ts:149`) exist at `97b1200bc` too. The ticket lists all 13.
+  - `## Return 8a` O-TYPE open list, line numbers:
+    - The `gtl/consensus.ts` lines sit 16 lower than head. The ticket cites head lines `:2217` to `:3296` and `:3628-3872`.
+    - The three `jsonRecord` consumer lines point at no comparison at head. The ticket names those modules only.
+  - §9.3 item 7 (`design:574`) cites `worksite_construction_recovery.ts:285`; the call is at `:283`. It is not on the F9 list and is left.
+  - `GOALS.md:18`: "Lifecycle implementation, complete source conjunction, combined candidate/P1/P5/P4 and independent L5 remain open or held; release resumption is closed" is kept verbatim. It is not a library sentence and comes from the conjunction frame. `GOALS.md:46` onward (finite selected scope, source freezes) describes that frame too, outside the grant.
+  - The plan ledger row 5 ("8 need runtime values") and step-5.md's Disposition keep the superseded reason. Both are outside the grant; the ticket carries the corrected one.
+  - §10.6 row 5's "Decided by" and "Sequencing" cells still read as a gate before retention. Not edited.
+- return route: this file

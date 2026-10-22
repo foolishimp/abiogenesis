@@ -125,8 +125,8 @@ function deriveLiveness(state: FoldState, event: RuntimeEvent): EventCalculusEff
  * actor_invocation_failed; R the matching Run's terminal. A process is in R's
  * census when actor_process_live or actor_process_active held for it in that
  * Run when R was admitted. actor_process_terminated(processRef) holds from an
- * actor_process_exited preceded by the process start and by no termination
- * unconfirmed for it. G and O carry the facts of later derivations; they
+ * actor_process_exited preceded by the process start.
+ * G and O carry the facts of later derivations; they
  * derive no fluent here. The copied terminationConfirmed is a checked input
  * (D5, checkTerminationConfirmedCopy). Every input is read from the state
  * before the event. */
