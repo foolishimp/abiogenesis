@@ -5299,3 +5299,90 @@ the addendum states, because `admitRuntimeFailure` retains a `data:` reference
 only when it decodes to the admitted subject `{ stage, candidate }`
 (`runtime_failure.ts:239-241`, `traversal_failure.ts:87`); that site awaits
 ratification (design §10.6, row 6).
+
+### Library delivery close (2026-10-23)
+
+The common computational library is delivered on `main` at `562d4515a`, under
+the [library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
+and the [plan post](../../comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md)
+Ledger. The step records are in
+[stdo3-library](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/).
+Delivery is not a release; the items for the owner below stay open.
+
+**Commit chain.**
+
+| Step | Commits |
+|---|---|
+| 2, carrier and layering | `69132360f` |
+| 3, admit family | `a2516dbdc` |
+| 4, value family | `5f4a1d4c9` |
+| 5, select family | `10efed8b2` |
+| 6, calculus fold and rule table | `c2432eb85`; repair `8eede7fdb` |
+| 7, lifecycle failure carrier | `ffb767171`; repair `dddb05dfd` |
+| 8, close | `37ef7d760` (8a); `cac7802b2` (8a-2); repair `562d4515a` |
+
+**Decisions D0 to D9.**
+
+| Id | Decision as it stands | Decided by | Reversal path |
+|---|---|---|---|
+| D0 | The conjunction's cross-consumer handoff is withdrawn. Process facts reach `L` as one process terminal event and, on a failure, as the admitted failure's diagnostic subject (design §9.3). | the owner, 2026-10-22, at the plan's default; basis revised to B14 by the step 1 repair | none recorded |
+| D1 | `ROOT_DERIVED_RULES` carries every contextual Event Calculus effect. | the owner, 2026-10-22 | none recorded |
+| D2 | The digest leg of `checkExactRecord` runs after projection. | the owner, 2026-10-22 | none recorded |
+| D3 | The native composite comparisons are ingress questions, decided per site. | the owner, 2026-10-22 | none recorded |
+| D4 | The throwing `i_json` entry stays a lift over `admitJson`. No caller contract is demonstrated, so the bridge stays at all 22 call sites in 12 modules. | the owner, 2026-10-22; the bridge kept at 8a, closed as recorded by the Executive | retire a caller once its contract is demonstrated (`step-8.md`, `## Return 8a`, per caller) |
+| D5 | `terminationConfirmed` stays in event payloads and result artifacts; the lifecycle rule checks the copy at fold time; the field retires at the next root event contract profile change. | the owner, 2026-10-22 | a new root event profile with validators, permitted transitions and fresh-process reopening (plan, D5 row) |
+| D6 | The `binding` family lives in `public/binding/`, the prefix binders in `abg/exact_prefix_bindings.ts`. | the Executive, 2026-10-22, at step 2 | one directory move plus import lines |
+| D7 | The replay state witness states derived state under the law in force when the route or judgment is proposed or the source-result basis is admitted; no path compares a stored witness with a recomputation; no event-profile change. | the Executive, 2026-10-22, at step 6; trace corrected by the step 6 review | revert `c2432eb85` and `8eede7fdb` |
+| D8 | A transport artifact recorded before its `processFacts` member existed reads as facts not recorded. | the Executive, 2026-10-23, after the step 7 review | delete the one line in `transportProcessFactsMatchExit` and re-cut the D1 preimage |
+| D9 | **Reversed.** The guard that kept an exit after a termination unconfirmed from initiating `actor_process_terminated` is dropped; an exit given the admitted start initiates it, as design §4.4 states. | the Executive, 2026-10-23, after 8a; reversed by the Executive after the whole-diff review, 2026-10-23, at `562d4515a` | restore the `!unconfirmed` conjunct at `abg/calculus/rules.ts:151` and the three test expectations |
+
+**Completion condition** (design §10.3; `step-8.md` `## Return 8a`, `## Disposition of 8a`, `## Disposition of 8a-2`).
+
+- O-RESOURCE: closed. The six self-comparison probes in `product/catalog_definition_bindings.ts` (three), `product/environment_definition_bindings.ts` (two) and `product/install_definition_bindings.ts` (one) are deleted: `withAdmissionAuthority` digests the same resources first, so a non-encodable resource faults there. `product/project_read_definition_bindings.ts:128` admits through `admitJson`; a cyclic in-process value faults as `owner_execution_failure` (reversal: restore the probe).
+- O-SHAPE: closed: the step 3 `isRecord` retirements; `abg/retry.ts` `isProjectedRetryResumeCarrier` admits `inputValue` through `admitJson` (D3).
+- O-CODEC: closed: `abg/event_body_encoding.ts` `nativeParts` (`:28`) and `decodeEventBody` (`:157`) restore unknown event bodies for Event Store validation.
+- O-SCHEMA: closed by ingress premise at `product/default_library.ts:45` (`jsonRecord`, shallow `isRecord`). `isGovernanceWorkState` (`:66`) is reached only through the Product's `admitInput` and `validateContractValue` with parsed I-JSON, so a function member cannot cross the boundary; an in-process `{ hidden: () => 7 }` passes the check. `abg/project_read_definition_bindings.ts:152` (`asRecord`) takes `JsonValue | undefined`.
+- O-KEY: closed: the 34 NUL-joined bodies are retired and none remains; `product/default_library.ts:133` checks its five keys with `hasExactKeys`.
+- O-TYPE: per site. Closed at `abg/retry.ts` `isProjectedRetryResumeCarrier`; `abg/execution_basis.ts` `exactC2SourceEnvironment` (both sides) and `detachJsonRecord`; the basis projection of `abg/invocation_execution_truth.ts`; `product/verify_product.ts` `makeCoordinate`; both `application` sites of `hog/parent_rehydration.ts`; the nine `unknown`-typed comparands of `gtl/consensus.ts` (`:833`, `:839`, `:845`, `:937`, `:944`, `:1115`, `:1125`, `:1271`, `:1920`). Open per site: the `JsonValue` casts of step 4's per-file list (867 of 1204 `canonicalEquals` calls at `5f4a1d4c9`, about 65 of them on `unknown`-typed values); the binding `sameJson` lift; the carrier site of `hog/parent_rehydration.ts`; the `jsonRecord` consumers in `abg/default_library.ts`, `abg/instruction_assembly.ts` and `product/default_library.ts`; the guard-refined comparisons of `gtl/consensus.ts` (`:2217`, `:2514`, `:2518`, `:2620`, `:2844`, `:2886`, `:3201`, `:3296`) and its relation evaluators (`:3628-3872`).
+
+**Proofs** (the whole-diff review's Proofs, with the step 8 repair).
+
+- P-EQUAL holds: one body (`shared/value/equality.ts:16`), typed `JsonValue`, no identity shortcut; lane `t287-value-equality`; the C2 production path below.
+- P-ADMIT and P-INGRESS hold for the atoms: seven closed codes, `admitIJsonValue` as the lift, no `derive` or `select` export takes `unknown`. P-INGRESS rests on `tsc --noEmit` and the signature grep; no lint script checks it.
+- P-KEYS holds: lane `t287-common-computational-library` carries the NUL counterexample; no NUL join remains.
+- P-SELECT holds: lane `t287-select-family`.
+- P-RECORD: the atom holds; the execution-basis adapter's mapping of `invalid` to `null` holds by reading, and no lane reaches its negative.
+- P-FOLD holds: `t287-calculus-fold` 6/6 at `562d4515a`; the cold fold, `project` and `forkAt` agree at 22 cuts; two expectations follow the D9 reversal.
+- P-BIND holds: `bindStaticOwner` consumes `admitContract`; one `Effect.run*` site (`shared/effect_definition.ts:102`).
+- P-LAYER holds for `shared/` (`lint:imports`, 28 modules). `abg/calculus/` departs from the order of design §2, with a function-level cycle through `abg/runtime_liveness.ts` that design §2 states.
+- P-LIFECYCLE holds on the worker route and for the D5 check; the second negatives of the command and HTTP routes hold at the helper's throw; the parent's admission of the helper's thrown failure into `L` holds by reading; `lint:lifecycle` finds no offender (284 modules, 10 allow-listed sites).
+
+**Baseline attribution.** The final integrated run (`step-8-run-final.log`, 44 files, 1096 s, at `562d4515a`) applies the attribution rule of `## Activation 8a`: a file red at `97b1200bc` with the same failure set is a baseline failure. Sixteen files are baseline-red: `forward-command-owners`, `m5-consensus-module`, `m5-event-calculus-runtime`, `m5-fresh-process-reconstruction`, `m5-installed-graph-edge`, `m5-installed-portability`, `m5-retry-lifecycle-authority`, `m5-s03-authority`, `m5-s06-prime`, `t287-c2-owner-coordinate-reuse`, `t287-calculus-state-transfer`, `t287-event-calculus-owner-continuation`, `t287-native-semantic-revision`, `t287-observed-worksite-command`, `t287-ordered-reconstruction` and `t287-worksite-command-execution`. One failure was a step 7 seam: `t287-c2a-fp-source-contract`, fixed at 8a (4/0). `m5-terminal-quiescence-owner` is 7/7 after the D9 reversal. Of the ten suites the review's F7 added, `t287-w2-05-static-binding-algebra` passes and nine are baseline-red with the same failure set. The uat harness failure, "canonical C2 budget fits" (`test_env/uat/harness.test.mjs:471`, `:490`, 18025250 against 18015000), is baseline. The whole-diff review's evaluation 6 lists every behavior change outside `realization_refactor`; among them, the published `contracts/schemas/native-runtime-observation.json` no longer carries the rule-owned lifecycle fluents.
+
+**C2 production proof.** The installed Public C1 to C2 run in `t287-worksite-command-execution` (`:407`) reaches the production comparison in `exactC2SourceEnvironment` (`abg/execution_basis.ts:727`) twice, through `admitExecutionBasis` and `hasExactWorksiteCommandLeafSourceAtDurablePrefix`, with both sides admitted and equal (186 events) and materialization kept. That is the positive C2 path through its owner that B14 requires; design §10.5 P-EQUAL records it. The suite's later failure at `:826` is baseline-red. Step 4's "zero hits" is a measurement artifact: a counter in compiled JS without a regenerated manifest makes every installed suite refuse with `product_content_mismatch` before it reaches the comparison.
+
+**Remainders migrated as touched.**
+
+- Step 3: `isRecordEvidence` (`product/release_snapshot_definition_bindings.ts:91`); seven local `isJsonRecord` (`abg/c_call_outcome.ts:139`, `abg/traversal_route.ts:944`, `abg/c_call.ts:1558`, `abg/execution_basis.ts:949`, `abg/traversal_cursor.ts:110`, `hog/recursion_lifecycle.ts:139`, `hog/workflow_lifecycle.ts:135`); the local `record` guard of `abg/worksite_construction_recovery.ts:49`. The `jsonRecord` schema still claims `JsonValue` members.
+- Step 4: the `JsonValue` casts of the O-TYPE open list; the three record writers that produce persisted plan digests (`abg/retry.ts:6665`, `abg/c_call.ts:7338`, `abg/replay.ts:2313`), kept for digest stability; the installed-codec pair, which runs on the installed Product's encoder; four fast-path equality wrappers and 41 single-parameter digest aliases (step 4 Return).
+- Step 5: eight checked-record readers keep their own code, in `abg/c_call_outcome.ts`, `abg/worksite_revision.ts`, `abg/retry.ts`, `abg/invocation_execution_truth.ts` (two), `abg/c_call.ts`, `abg/traversal_cursor.ts` and `abg/project_read_ports.ts` (step 5 Return, per reader). The constraint is the atom's static `RecordCheck` (design §4.2, §6): `project` and `digest` are a module constant per reader, so an expected digest or a projection input that comes from the call has no parameter to flow through. Runtime data is lawful ("A runtime call supplies data only", constitution line 1861); extending the check with typed context is a design change to the atom, deferred. The double hash in the two admitted-set readers and the first-match census (212 sites in 31 files) stay recorded.
+- Review F5: 13 owner `safeParse` sites remain outside the binders; the review named eight, and five more are at head: `owner_bindings/run_invocation.ts:1127`, `validator/raw_admission.ts:132`, `shared/public_function_contracts.ts:685`, `shared/capability_contracts.ts:217`, `:401`, `:410`, `product/public_contract_publication.ts:517`, `product/verify_product.ts:815`, `:1805`, `abg/terminal_result_contracts.ts:35`, `:55`, `:68` and `implementation/release_publication.ts:149`.
+
+**Records for later work.**
+
+- Three suites fail at load at head and at `97b1200bc`, so their step 2 path edits are unexercised past load: `r10-projection-contracts` (`:24`, fixture coordinate), `t287-conformance-owner-reuse` (`:20`, environment precondition) and `t287-wave2-owner-contract-source-set` (`:47`, `product/release_snapshot_operations.js` exports no `ReleaseSnapshotPort`).
+- A baseline attribution of `t287-cross-cut-public-read` needs its two gitignored fixture files, `events-01/runtime.events.jsonl` and `attempt-01/program-ready-16.json` under `.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/`, linked into the baseline worktree.
+- With `ABI5_OWNED_ADMISSION_PREIMAGE` set, `t287-w2-05-static-binding-algebra` loads a preimage transport whose `../shared/definition_binding_mechanics.js` specifier no longer resolves; that path needs a new preimage.
+- The `t287-event-calculus-owner-continuation` source patch recorded at step 6 is unapplied; the suite fails at load at `:18` on its fixture precondition at head and at `97b1200bc`.
+- `t287-c2a-fp-source-contract` (`:40-43`) asserts a source-text regex that the parameter name and position of `failActorProcessEffect` satisfy; it no longer discriminates the handoff it names (review F8).
+- The liveness read of `abg/runtime_liveness.ts:813-827` runs under no gate lane; `m5-event-calculus-runtime` exercises it, with its five baseline-red cases.
+- No green suite exercises `gtl/consensus.ts`: `m5-consensus-module` fails at load at the baseline.
+
+**Items for the owner.**
+
+- The Executive's decisions D6, D7 and D8 and the D9 reversal, each with its reversal path above.
+- `sameQualificationValue` is no longer exported by the `validator` barrel, so the package `"."` and `"./validator"` entries drop it. No consumer outside `code/src` imports it; restoring it is one line.
+- `build/` is in `.gitignore`, yet 40 files under `build/code/src/` are tracked from an older force-add, so every code step commits regenerated copies of exactly those 40 and a fresh checkout has a partial build tree. The fix, `git rm --cached` of the 40 or tracking all of `build/`, is a separate decision.
+- `t287-worksite-command-execution` fails at `:826` (`'failure' !== 'success'`) at head and at `97b1200bc`, after the C2 phase the production proof uses. Whether that baseline defect enters this wave is the owner's decision.
+- O-SCHEMA refusal at the schema, if wanted: one `admitJson` inside the custom check of `product/default_library.ts:45`.
+- The function-level cycle from `abg/calculus/` through `abg/runtime_liveness.ts` and `abg/event_calculus.ts` back to `abg/calculus/` (review F2); breaking it is a `design_reframe` of its own.
