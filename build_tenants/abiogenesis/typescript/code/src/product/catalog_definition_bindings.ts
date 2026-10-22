@@ -287,7 +287,6 @@ function validateAdmissionStructure(
     resources.kind !== "catalog_admission_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
     !validateReopenedAbgEventResourceInput(resources.eventResource) ||
-    !sameJson(resources, resources) ||
     !isResolvedProductLock(resources.resolvedLock) ||
     !Array.isArray(resources.verifiedProducts) ||
     resources.verifiedProducts.length === 0 ||
@@ -700,8 +699,7 @@ const allowlist: ExactDefinitionCallable<
       !isRecord(resources) ||
       !hasExactKeys(resources, ["catalog", "kind", "schemaVersion"]) ||
       resources.kind !== "catalog_view_resource_assertion" ||
-      resources.schemaVersion !== "5.0.0" ||
-      !sameJson(resources, resources)
+      resources.schemaVersion !== "5.0.0"
     ) {
       throw fault(call, "resource_admission", "invalid_resource_assertion", "catalog view requires one exact immutable catalog resource");
     }
@@ -852,8 +850,7 @@ function createApplyBinding<TPacket extends ApplyPacket>(
           "validationReceipt",
         ]) ||
         resources.kind !== "catalog_application_resource_assertion" ||
-        resources.schemaVersion !== "5.0.0" ||
-        !sameJson(resources, resources)
+        resources.schemaVersion !== "5.0.0"
       ) {
         throw fault(call, "resource_admission", "invalid_resource_assertion", "catalog application requires exact immutable catalog, view, row, application, validation, and contributor resources");
       }

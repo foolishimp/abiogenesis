@@ -34,7 +34,7 @@ import {
   sameJson,
   validatedOwnerOutput,
 } from "../public/binding/definition_binding_mechanics.js";
-import { hasExactKeys } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import type {
   DefinitionCall,
   DefinitionExecutionFault,
@@ -125,7 +125,7 @@ function validResources<TPacket extends ProjectReadPacket>(
     value.kind === "product_project_read_resource_assertion" &&
     value.schemaVersion === "5.0.0" &&
     isRecord(value.packet) &&
-    sameJson(value, value);
+    admitJson(value).kind === "ok";
 }
 
 function baseRelationMatches<TContract extends ProjectReadContract>(
