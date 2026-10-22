@@ -1,4 +1,5 @@
 import { isRecord } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import type { ComputeRegime, ModulePublication } from "../gtl/contracts.js";
 import {
   isGraphValidation,
@@ -89,7 +90,7 @@ export interface ImplementationResolutionRefusal {
   readonly message: string;
 }
 
-export interface LeafImplementationResolutionCandidate {
+export type LeafImplementationResolutionCandidate = {
   readonly kind: "leaf_implementation_resolution_candidate";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "candidate";
@@ -122,7 +123,7 @@ export interface LeafImplementationResolutionCandidate {
   readonly implementationDescriptorDigest: Sha256Digest;
   readonly implementationOwnerProductId: string;
   readonly implementationPublicationDigest: Sha256Digest;
-}
+};
 
 export interface ImplementationResolutionSetCandidate {
   readonly kind: "implementation_resolution_set_candidate";
@@ -251,13 +252,14 @@ export function isPackagedLeafImplementationDescriptor(
     failureContractRef: value.failureContractRef,
     refusalContractRef: value.refusalContractRef,
   };
-  return value.kind === "packaged_leaf_implementation_descriptor" &&
+  if (!(value.kind === "packaged_leaf_implementation_descriptor" &&
     value.schemaVersion === "5.0.0" &&
     typeof value.descriptorDigest === "string" &&
     /^sha256:[a-f0-9]{64}$/u.test(value.descriptorDigest) &&
     Object.values(body).every((field) => typeof field === "string" && field.length > 0) &&
-    (value.computeRegime === "F_D" || value.computeRegime === "F_P") &&
-    value.descriptorDigest === sha256Canonical(body as unknown as JsonValue);
+    (value.computeRegime === "F_D" || value.computeRegime === "F_P"))) return false;
+  const admittedBody = admitJson(body);
+  return admittedBody.kind === "ok" && value.descriptorDigest === sha256Canonical(admittedBody.value);
 }
 
 export function isImplementationResolutionCandidate(value: object): boolean {
@@ -331,7 +333,7 @@ function resolveValidatedLeaf(
     (selectedRow !== null &&
       (selectedRow.kind !== "graph_function_catalog_entry" ||
         selectedRow.definitionRef !== declaration.graphFunctionRef)) ||
-    sha256Canonical(graphFunctionMatch.value as unknown as JsonValue) !==
+    sha256Canonical(graphFunctionMatch.value) !==
       declaration.graphFunctionDigest
   ) {
     return setRefusal(
@@ -343,7 +345,7 @@ function resolveValidatedLeaf(
   const graphFunctionOwnerMatches = publications.filter((publication) =>
     publication.graphFunctions.some((value) =>
       value.name === declaration.graphFunctionRef &&
-      sha256Canonical(value as unknown as JsonValue) ===
+      sha256Canonical(value) ===
         declaration.graphFunctionDigest
     )
   );
@@ -392,8 +394,8 @@ function resolveValidatedLeaf(
     publication.implementationBindings.some((candidate) =>
       candidate.bindingRef === binding.bindingRef &&
       canonicalEquals(
-        candidate as unknown as JsonValue,
-        binding as unknown as JsonValue,
+        candidate,
+        binding,
       )
     )
   );
@@ -506,13 +508,13 @@ function resolveValidatedLeaf(
     outputContractRef: binding.outputContractRef,
     failureContractRef: binding.failureContractRef,
     refusalContractRef: binding.refusalContractRef,
-    implementationBindingDigest: sha256Canonical(binding as unknown as JsonValue),
+    implementationBindingDigest: sha256Canonical(binding),
     implementationDescriptorDigest: descriptor.descriptorDigest,
     implementationOwnerProductId: implementationOwner.owningProductId,
     implementationPublicationDigest:
       modulePublicationSemanticDigest(implementationOwner),
   };
-  const leafResolutionCandidateDigest = sha256Canonical(body as unknown as JsonValue);
+  const leafResolutionCandidateDigest = sha256Canonical(body);
   const candidate = deepFreeze({
     kind: "leaf_implementation_resolution_candidate" as const,
     schemaVersion: "5.0.0" as const,
@@ -533,7 +535,7 @@ export function resolveImplementationSet(
 ): ImplementationResolutionSetResult {
   const publications = declarationClosure.publications;
   const rootPublicationMatches = publications.filter((publication) =>
-    sha256Canonical(publication as unknown as JsonValue) ===
+    sha256Canonical(publication) ===
       programValidation.publicationDigest
   );
   const selectedGraphFunctionRefs = new Set(
@@ -575,7 +577,7 @@ export function resolveImplementationSet(
     executableLeafKeys: selectedExecutableRows.map((row) => row.requirementKey),
     rows,
   };
-  const setCandidateDigest = sha256Canonical(body as unknown as JsonValue);
+  const setCandidateDigest = sha256Canonical(body);
   const candidate = deepFreeze({
     kind: "implementation_resolution_set_candidate" as const,
     schemaVersion: "5.0.0" as const,
@@ -604,7 +606,7 @@ export function resolveImplementation(
     declarationClosure.catalogViewDigest !== catalogView.viewDigest ||
     publications.filter((publication) =>
       programValidation.publicationDigest ===
-        sha256Canonical(publication as unknown as JsonValue)
+        sha256Canonical(publication)
     ).length !== 1 ||
     !isGraphValidation(graphValidation) ||
     graphValidation.programValidationRef !== programValidation.validationRef ||
@@ -619,7 +621,7 @@ export function resolveImplementation(
   if (
     graphFunctionMatch.kind !== "one" ||
     graphValidation.graphFunctionDigest !==
-      sha256Canonical(graphFunctionMatch.value as unknown as JsonValue)
+      sha256Canonical(graphFunctionMatch.value)
   ) {
     return refusal("invalid_program_validation", "GraphValidation does not bind the exact GraphFunction");
   }
@@ -674,7 +676,7 @@ export function resolveImplementation(
     implementationOwnerProductId: leaf.implementationOwnerProductId,
     implementationPublicationDigest: leaf.implementationPublicationDigest,
   };
-  const resolutionCandidateDigest = sha256Canonical(body as unknown as JsonValue);
+  const resolutionCandidateDigest = sha256Canonical(body);
   const candidate = deepFreeze({
     kind: "implementation_resolution_candidate" as const,
     schemaVersion: "5.0.0" as const,

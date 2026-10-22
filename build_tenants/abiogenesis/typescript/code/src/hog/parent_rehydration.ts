@@ -129,7 +129,7 @@ function exactParentTraversal(
     suspension.parentGraphInputDigest !==
       suspension.parentGraph.admittedInputDigest ||
     sha256Canonical(
-        suspension.parentGraphInput as unknown as JsonValue,
+        suspension.parentGraphInput,
       ) !== suspension.parentGraphInputDigest ||
     !hasAdmittedImplementationSetAtPrefix(prefix, input.implementationSet) ||
     input.implementationSet.implementationSetRef !==
@@ -192,7 +192,7 @@ function exactWorkflowReturn(
     traversal.graphFunction,
     traversal.graph,
     sourceCursor,
-    suspension.parentCCall as unknown as Readonly<Record<string, JsonValue>>,
+    suspension.parentCCall,
   );
   const application = suspension.application === null
     ? null
@@ -213,7 +213,7 @@ function exactWorkflowReturn(
         !canonicalEquals(application, suspension.application) ||
         parentCCall.batchRef !== application.batchRef) ||
     sha256Canonical(
-        suspension.parentInput as unknown as JsonValue,
+        suspension.parentInput,
       ) !== suspension.parentInputDigest ||
     suspension.parentInputDigest !== sourceCursor.inputDigest
   ) {
@@ -294,7 +294,7 @@ function exactRecursionReturn(
         suspension.evaluatorResult.value,
       ) !== false ||
     sha256Canonical(
-        suspension.evaluatorInput as unknown as JsonValue,
+        suspension.evaluatorInput,
       ) !== suspension.evaluatorInputDigest ||
     suspension.evaluatorInputDigest !== sourceCursor.inputDigest ||
     application.graphFunctionRef !== childExecutionBasis.graphFunctionRef
@@ -335,21 +335,18 @@ export function rehydrateParentReturnFrames(
   );
   let childScope = rehydrateOpenedTraversalScopeAtPrefix(
     prefix,
-    input.currentChildTraversalScope as unknown as Readonly<
-      Record<string, JsonValue>
-    >,
+    input.currentChildTraversalScope,
   );
   if (
     childExecutionBasis === null ||
     childScope === null ||
-    // O-TYPE (D3 left): the basis and scope carriers are not typed JsonValue.
     !canonicalEquals(
-      childExecutionBasis as unknown as JsonValue,
-      input.currentChildExecutionBasis as unknown as JsonValue,
+      childExecutionBasis,
+      input.currentChildExecutionBasis,
     ) ||
     !canonicalEquals(
-      childScope as unknown as JsonValue,
-      input.currentChildTraversalScope as unknown as JsonValue,
+      childScope,
+      input.currentChildTraversalScope,
     )
   ) {
     return rehydrationFailure("current-child");
@@ -362,9 +359,7 @@ export function rehydrateParentReturnFrames(
     );
     const parentScope = rehydrateOpenedTraversalScopeAtPrefix(
       prefix,
-      suspension.parentTraversalScope as unknown as Readonly<
-        Record<string, JsonValue>
-      >,
+      suspension.parentTraversalScope,
     );
     const parentCCallRef = suspension.kind === "held_workflow_suspension"
       ? suspension.parentCCall.cCallRef
@@ -388,7 +383,7 @@ export function rehydrateParentReturnFrames(
       childScope.executionBasisRef !== childExecutionBasis.basisRef ||
       suspension.terminalMode !== terminalMode ||
       sha256Canonical(
-          suspension.childInput as unknown as JsonValue,
+          suspension.childInput,
         ) !== suspension.childInputDigest ||
       suspension.childInputDigest !== childExecutionBasis.rawInputDigest
     ) {
@@ -444,8 +439,8 @@ export function rehydrateParentReturnFrames(
   const returns = Object.freeze(inward.reverse());
   if (
     !canonicalEquals(
-      projectParentSuspensions(returns) as unknown as JsonValue,
-      input.suspensions as unknown as JsonValue,
+      projectParentSuspensions(returns),
+      input.suspensions,
     )
   ) {
     return rehydrationFailure("outward-projection");

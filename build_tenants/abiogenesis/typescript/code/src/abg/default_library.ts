@@ -31,8 +31,7 @@ import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 /** Owner boundary: `absent` and `many` map to `undefined`. */
 const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
-const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
-const asJson = (x: unknown) => x as Readonly<Record<string, JsonValue>>;
+const record = (x: JsonValue | undefined): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
 function testingRefused(refusal: GovernanceTestingRefusal | undefined, stage: string, relation: string,
   selectors: Readonly<Record<string, string | number | boolean | null>> = {}): null {
   refusal?.(stage, relation, selectors); return null;
@@ -121,9 +120,12 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
     disposition: "gap", missingSupportRefs: [...new Set([...j.gaps.flatMap(g => g.supportRefs), ...(projected.fulfillment === undefined ? [] : projected.unresolvedSupportRefs)])] };
   const next: GovernanceWorkState = { ...projected, synthesis: { resultRef: o.inputRef, resultDigest: event.payload.resultDigest as `sha256:${string}`,
     basis: input.basis, judgment: j } };
+  // An unregistered target has no definition digest and is no selection.
+  const definitionDigest = o.execution.registeredSelectionDefinitionDigests?.[j.nextGraphFunctionRef];
+  if (definitionDigest === undefined) return null;
   const choice = { ...common, disposition: "selected", graphFunctionRef: j.nextGraphFunctionRef,
-    definitionDigest: o.execution.registeredSelectionDefinitionDigests?.[j.nextGraphFunctionRef], input: { contractRef: contract("state"), value: asJson(next) } };
-  try { return resolveRegisteredSelection(o.graph.template, basis.cursor, o.call.outputContractRef, choice as unknown as JsonValue,
+    definitionDigest, input: { contractRef: contract("state"), value: next } };
+  try { return resolveRegisteredSelection(o.graph.template, basis.cursor, o.call.outputContractRef, choice,
     o.execution.registeredSelectionDefinitionDigests ?? {})?.disposition === "selected" ? choice : null; } catch { return null; }
 }
 export async function projectGovernanceSelection(basis: NativeInstructionAssemblyBasis, input: unknown) {
@@ -268,11 +270,11 @@ export function projectGovernanceFold(basis: NativeInstructionAssemblyBasis, inp
       try { return { digest: row.digest, byteLength: row.byteLength, encoding: "utf8", text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes) }; }
       catch { return row; }
     };
-    value = asJson({ commandResults: source.commandResults.map(r => ({ ...r, stdout: stream(r.stdout), stderr: stream(r.stderr) })), predicateObservations: source.predicateObservations }); actorInvocationRef = source.provenance.actorInvocationRef;
+    value = { commandResults: source.commandResults.map(r => ({ ...r, stdout: stream(r.stdout), stderr: stream(r.stderr) })), predicateObservations: source.predicateObservations }; actorInvocationRef = source.provenance.actorInvocationRef;
   } else {
     if (!isNativeWorkspaceWorkObservation(source) || !same(source.task, nativeTask(o, input.entry, purpose, source.before))) return null;
-    value = purpose === "uat" ? source.assessment ?? null! : asJson({ report: source.report, changedPaths: source.changedPaths });
-    if (!record(value)) return null; actorInvocationRef = source.provenance.actorInvocationRef;
+    const candidate: JsonValue = purpose === "uat" ? source.assessment ?? null : { report: source.report, changedPaths: source.changedPaths };
+    if (!record(candidate)) return null; value = candidate; actorInvocationRef = source.provenance.actorInvocationRef;
   }
   const observation = { purpose, resultRef: event.payload.resultRef,
     resultDigest: event.payload.resultDigest as `sha256:${string}`, cCallRef: event.aggregateId, actorInvocationRef,

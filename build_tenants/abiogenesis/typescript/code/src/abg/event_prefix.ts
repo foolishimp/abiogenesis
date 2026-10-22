@@ -29,26 +29,26 @@ const PROFILE_SOURCE = Symbol("validated_runtime_profile_source");
 const IMMUTABILITY_RECEIPT = Symbol("validated_runtime_prefix_immutability");
 const RECEIPT_CONSTRUCTION = Symbol("owner_prefix_receipt_construction");
 
-export interface ValidatedRuntimeEventPrefix {
+export type ValidatedRuntimeEventPrefix = {
   readonly kind: "validated_runtime_event_prefix";
   readonly events: readonly RuntimeEvent[];
   readonly [VALIDATED_RUNTIME_EVENT_PREFIX]: true;
   readonly [PROFILE_SOURCE]: readonly RuntimeEvent[];
-}
+};
 
 /** @internal A different representation of the same authenticated owner cut.
  * It is neither a public prefix nor an array with partial/lazy Event values. */
-export interface OwnedRuntimeEventPrefix {
+export type OwnedRuntimeEventPrefix = {
   readonly kind: "owned_runtime_event_prefix";
   readonly selection: RuntimeHistorySelection;
-}
+};
 /** @internal Existing computations may consume either authentic representation. */
 export type RuntimeEventPrefix = ValidatedRuntimeEventPrefix | OwnedRuntimeEventPrefix | ValidationRuntimeEventPrefix;
 /** @internal A pure candidate view has no admitted-history or durable receipt. */
-export interface ValidationRuntimeEventPrefix {
+export type ValidationRuntimeEventPrefix = {
   readonly kind: "runtime_validation_event_prefix";
   readonly selection: RuntimeHistorySelection;
-}
+};
 const VALIDATION_PREFIXES = new WeakMap<ValidationRuntimeEventPrefix, {
   readonly source: RuntimeDerivationSource; readonly scopeKey: string; readonly selection: RuntimeHistorySelection;
   readonly base: OwnedRuntimeEventPrefix; readonly candidate: RuntimeEvent;
@@ -128,7 +128,7 @@ export function runtimeEventPrefixesHaveSameOwnedCut(left: RuntimeEventPrefix, r
   }
   return left.selection.length === left.selection.through && a.scopeKey === "all" &&
     runtimeEventPrefixesHaveSameOwnedCut(a.predecessor, b.predecessor) &&
-    canonicalEquals(a.candidate as unknown as JsonValue, b.candidate as unknown as JsonValue);
+    canonicalEquals(a.candidate, b.candidate);
 }
 function selectValidationPrefix(base: OwnedRuntimeEventPrefix, candidate: RuntimeEvent,
   selection: RuntimeHistorySelection, source = new RuntimeDerivationSource(), selectedScope = "all",
@@ -289,7 +289,7 @@ export function writeRuntimeEventPrefixValue(prefix: RuntimeEventPrefix, write: 
   write("{\"events\":["); let comma = false;
   for (let index = 0; index < runtimeEventPrefixExtent(prefix).count; index++) {
     if (comma) write(","); comma = true;
-    writeCanonicalJson(runtimeEventAtPrefixIndex(prefix, index)! as unknown as JsonValue, write);
+    writeCanonicalJson(runtimeEventAtPrefixIndex(prefix, index)!, write);
   }
   write("],\"kind\":\"validated_runtime_event_prefix\"}");
 }
@@ -749,7 +749,9 @@ class CanonicalPrefixDerivation {
   advance(events: readonly RuntimeEvent[]): void {
     for (let index = this.digests.length - 1; index < events.length; index++) {
       // Encode before mutating the hash, so a refused value cannot contaminate it.
-      const encoded = canonicalJson(events[index] as unknown as JsonValue);
+      const event = events[index];
+      if (event === undefined) throw new TypeError("runtime event prefix advance reached an absent event");
+      const encoded = canonicalJson(event);
       if (index !== 0) this.hash.update(",");
       this.hash.update(encoded);
       this.digests.push(`sha256:${this.hash.copy().update("]").digest("hex")}`);
@@ -760,7 +762,7 @@ class CanonicalPrefixDerivation {
       const event = selection.event(index)!;
       // Acquire one selected body at a time; the memo retains hash facts only.
       if (index !== 0) this.hash.update(",");
-      writeCanonicalJson(event as unknown as JsonValue, part => this.hash.update(part));
+      writeCanonicalJson(event, part => this.hash.update(part));
       this.digests.push(`sha256:${this.hash.copy().update("]").digest("hex")}`);
     }
   }

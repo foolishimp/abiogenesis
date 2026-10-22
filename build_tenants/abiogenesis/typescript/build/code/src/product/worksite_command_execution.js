@@ -7,6 +7,7 @@ import { delimiter as pathDelimiter, dirname, isAbsolute, join, posix, relative,
 import { canonicalJson, } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Bytes, sha256Canonical, } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
+import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isWorkspaceAuthorityBasis, } from "./environment.js";
 import { isCapabilityGrantValue, } from "./invocation.js";
@@ -78,7 +79,7 @@ export function isWorksiteReadDependencyBasis(value) {
         value.schemaVersion !== SCHEMA_VERSION || !Array.isArray(value.members) || value.members.some(row => !isRecord(row) || !exactKeys(row, ["sourceMemberRef", "subject", "observation"])))
         return false;
     try {
-        return same(value, constructWorksiteReadDependencyBasis(value));
+        return sameAdmitted(value, constructWorksiteReadDependencyBasis(value));
     }
     catch {
         return false;
@@ -137,7 +138,7 @@ export function isNativeWorksiteCommandReacquisitionRequest(value) {
     try {
         const { kind, schemaVersion, requestRef, requestDigest, ...body } = value;
         const expected = nativeReacquisitionBody(value);
-        return same(body, expected) && requestDigest === sha256Canonical(expected) &&
+        return sameAdmitted(body, expected) && requestDigest === sha256Canonical(expected) &&
             requestRef === identity("native-work-command-reacquisition://abiogenesis", requestDigest);
     }
     catch {
@@ -155,7 +156,7 @@ function reacquisitionTaskMatches(input) {
         same(proof.request.workspaceAuthorityBasis, input.workspaceAuthorityBasis) && same(proof.request.workspaceBinding, input.workspaceBinding) &&
         same(proof.request.capabilityGrant, input.capabilityGrant) && same(proof.request.sourceNativeWork, input.sourceNativeWork) &&
         same(proof.request.selectedSources, input.selectedSources) && same(proof.request.commands, input.commands) &&
-        same(proof.request.outcomePredicates, input.outcomePredicates ?? []) && same(proof.request.allowedWriteTerritories, input.allowedWriteTerritories);
+        proof.request.outcomePredicates !== undefined && same(proof.request.outcomePredicates, input.outcomePredicates ?? []) && same(proof.request.allowedWriteTerritories, input.allowedWriteTerritories);
 }
 function nativeCommandTaskBody(input) {
     const source = input.sourceNativeWork;
@@ -203,7 +204,7 @@ export function isNativeWorksiteCommandExecutionTask(value) {
         const expected = nativeCommandTaskBody({ ...input,
             selectedSources: input.protectedObservations.map(row => ({ subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath })) });
         const { kind, schemaVersion, taskRef, taskDigest, ...body } = value;
-        return same(body, expected) && taskDigest === sha256Canonical(expected) &&
+        return sameAdmitted(body, expected) && taskDigest === sha256Canonical(expected) &&
             taskRef === identity("worksite-command-execution-task://abiogenesis", taskDigest);
     }
     catch {
@@ -248,7 +249,7 @@ export function isObservedWorksiteCommandExecutionTask(value) {
         return false;
     try {
         const input = value;
-        return same(value, constructObservedWorksiteCommandExecutionTask({ ...input, observedFiles: input.protectedObservations }));
+        return sameAdmitted(value, constructObservedWorksiteCommandExecutionTask({ ...input, observedFiles: input.protectedObservations }));
     }
     catch {
         return false;
@@ -265,6 +266,14 @@ function same(left, right) {
     if (left === right || isDeepStrictEqual(left, right))
         return true;
     return canonicalEquals(left, right);
+}
+/**
+ * A guard's unchecked value against its reconstruction: the value is admitted
+ * through `admitJson` first, and a refusal is inequality.
+ */
+function sameAdmitted(value, expected) {
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" && same(admitted.value, expected);
 }
 function identity(prefix, digest) {
     return `${prefix}/${digest.slice("sha256:".length)}`;
@@ -324,7 +333,7 @@ export function isWorksiteCommandExecutionHelperPlan(task, value) {
         if (executableWord === undefined)
             return false;
         const executable = executableWord.replaceAll(`'"'"'`, "'");
-        return same(value, helperPlanForExecutable(task, value.attemptRef, executable));
+        return sameAdmitted(value, helperPlanForExecutable(task, value.attemptRef, executable));
     }
     catch {
         return false;
@@ -359,7 +368,10 @@ function isExactWorkspaceBinding(value) {
         lockDigest: value.lockDigest,
         roots: value.roots,
     };
-    const digest = sha256Canonical(body);
+    const admittedBody = admitJson(body);
+    if (admittedBody.kind !== "ok")
+        return false;
+    const digest = sha256Canonical(admittedBody.value);
     return value.bindingDigest === digest &&
         value.bindingId === identity("workspace-binding://abiogenesis", digest);
 }
@@ -536,7 +548,7 @@ function isCommand(value, ordinal) {
         !value.expectedReports.every(isExpectedReport))
         return false;
     try {
-        return same(value, constructCommand({
+        return sameAdmitted(value, constructCommand({
             commandId: value.commandId,
             executable: value.executable,
             args: value.args,
@@ -662,10 +674,13 @@ function isPredicate(value, ordinal) {
         value.ordinal !== ordinal)
         return false;
     try {
-        return same(value, constructPredicate({
+        const declaration = admitJson(value.declaration);
+        if (declaration.kind !== "ok")
+            return false;
+        return sameAdmitted(value, constructPredicate({
             predicateId: value.predicateId,
             predicateKind: value.predicateKind,
-            declaration: value.declaration,
+            declaration: declaration.value,
         }, ordinal));
     }
     catch {
@@ -1040,7 +1055,7 @@ export function isWorksiteCommandExecutionTask(value) {
             ...(Object.hasOwn(value, "readDependencyBasis") ? { readDependencyBasis: value.readDependencyBasis } : {}),
             allowedWriteTerritories: value.allowedWriteTerritories,
         });
-        return same(value, expected);
+        return sameAdmitted(value, expected);
     }
     catch {
         return false;
@@ -1117,7 +1132,8 @@ function isCommandResult(value, ordinal) {
         value.reportCount === value.reports.filter((row) => row.state === "file").length &&
         nonempty(value.observationRef) && isSha256Digest(value.observationDigest)))
         return false;
-    const observationDigest = sha256Canonical({
+    // The observation body is built from unchecked members: admitted before its digest.
+    const admittedObservation = admitJson({
         ordinal: value.ordinal,
         commandId: value.commandId,
         executable: value.executable,
@@ -1136,6 +1152,9 @@ function isCommandResult(value, ordinal) {
         reports: value.reports,
         reportCount: value.reportCount,
     });
+    if (admittedObservation.kind !== "ok")
+        return false;
+    const observationDigest = sha256Canonical(admittedObservation.value);
     return value.observationDigest === observationDigest &&
         value.observationRef === identity("worksite-command-observation://abiogenesis", observationDigest);
 }
@@ -1278,7 +1297,7 @@ export function isWorksiteExecutionHelperArtifact(task, value) {
         !isSha256Digest(value.artifactDigest) || !nonempty(value.artifactRef))
         return false;
     try {
-        return same(value, constructWorksiteExecutionHelperArtifact({
+        return sameAdmitted(value, constructWorksiteExecutionHelperArtifact({
             task,
             disposition: value.disposition,
             commandResults: value.commandResults,
@@ -1299,8 +1318,11 @@ export function isWorksiteExecutionHelperArtifact(task, value) {
 }
 export function helperArtifactPreservesProtectedObservations(task, artifact) {
     return isWorksiteExecutionHelperArtifact(task, artifact) && artifact.disposition === "success" &&
-        worksiteExecutionSources(task).every((protectedRow, ordinal) => same(artifact.protectedBefore[ordinal], protectedRow.observation) &&
-            same(artifact.protectedAfter[ordinal], protectedRow.observation));
+        worksiteExecutionSources(task).every((protectedRow, ordinal) => {
+            const before = artifact.protectedBefore[ordinal], after = artifact.protectedAfter[ordinal];
+            return before !== undefined && after !== undefined &&
+                same(before, protectedRow.observation) && same(after, protectedRow.observation);
+        });
 }
 export function isWorksiteCommandExecutionWorkerResult(value) {
     return isRecord(value) && exactKeys(value, [
@@ -1509,7 +1531,10 @@ export function isWorksiteExecutionObservation(value) {
             snapshotDigest: value.snapshotDigest,
             snapshotMembers: value.snapshotMembers,
         };
-        const digest = sha256Canonical(body);
+        const admittedBody = admitJson(body);
+        if (admittedBody.kind !== "ok")
+            return false;
+        const digest = sha256Canonical(admittedBody.value);
         return value.observationDigest === digest &&
             value.observationRef === identity(worksiteExecutionIdentityPrefix(value.task, "execution-observation"), digest);
     }
@@ -1585,7 +1610,7 @@ export function resolveWorksiteCommandExecutionJudgmentRelation(predicateRef) {
         evaluate: (input, output) => (predicateRef === WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef
             ? isC2WorksiteCommandExecutionTask(input) && (isWorksiteCommandExecutionObservation(output) || isNativeWorksiteCommandExecutionObservation(output) || isObservedWorksiteCommandExecutionObservation(output))
             : isWorksiteRevisionCommandExecutionTask(input) && isWorksiteRevisionCommandExecutionObservation(output)) &&
-            isWorksiteExecutionObservation(output) && same(output.task, input),
+            isWorksiteExecutionObservation(output) && sameAdmitted(input, output.task),
     });
 }
 /** Separate closed D2 rows; the existing old-row guard remains unchanged. */
@@ -1597,7 +1622,7 @@ function isExecutionSnapshotMember(task, value, ordinal) {
         return source !== undefined && isRecord(value) && exactKeys(value, ["kind", "schemaVersion", "ordinal", "sourceMemberRef", "source",
             "sourceObservationRef", "sourceObservationDigest", "relativePath", "byteLength", "digest"]) &&
             value.kind === "worksite_command_forward_snapshot_member" && value.schemaVersion === SCHEMA_VERSION &&
-            value.ordinal === ordinal && value.sourceMemberRef === source.sourceMemberRef && same(value.source, source.source) &&
+            value.ordinal === ordinal && value.sourceMemberRef === source.sourceMemberRef && sameAdmitted(value.source, source.source) &&
             value.sourceObservationRef === source.observation.observationRef && value.sourceObservationDigest === source.observation.observationDigest &&
             value.relativePath === source.subject.relativePath && value.byteLength === source.observation.byteLength && value.digest === source.observation.fileDigest;
     }

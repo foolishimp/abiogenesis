@@ -147,13 +147,13 @@ export function validateImplementationResolution(
     !isProgramValidation(programValidation) ||
     !isGraphValidation(graphValidation) ||
     !isPackagedLeafImplementationDescriptor(descriptor) ||
-    candidate.resolutionCandidateDigest !== sha256Canonical(candidateBody as unknown as JsonValue) ||
-    candidate.publicationDigest !== sha256Canonical(publication as unknown as JsonValue) ||
+    candidate.resolutionCandidateDigest !== sha256Canonical(candidateBody) ||
+    candidate.publicationDigest !== sha256Canonical(publication) ||
     candidate.programValidationRef !== programValidation.validationRef ||
     candidate.graphValidationRef !== graphValidation.validationRef ||
     candidate.graphValidationDigest !== graphValidation.validationDigest ||
     candidate.graphFunctionRef !== graphFunction.name ||
-    candidate.graphFunctionDigest !== sha256Canonical(graphFunction as unknown as JsonValue) ||
+    candidate.graphFunctionDigest !== sha256Canonical(graphFunction) ||
     graphValidation.graphFunctionRef !== graphFunction.name ||
     graphValidation.graphFunctionDigest !== candidate.graphFunctionDigest ||
     binding === undefined ||
@@ -161,7 +161,7 @@ export function validateImplementationResolution(
     !isExecutableCLeaf(term) ||
     term.requirement.implementationBindingRef !== binding.bindingRef ||
     binding.implementationRef !== candidate.implementationRef ||
-    candidate.implementationBindingDigest !== sha256Canonical(binding as unknown as JsonValue) ||
+    candidate.implementationBindingDigest !== sha256Canonical(binding) ||
     binding.implementationRef !== candidate.implementationRef ||
     binding.packageName !== candidate.packageName ||
     binding.packageVersion !== candidate.packageVersion ||
@@ -199,7 +199,7 @@ export function validateImplementationResolution(
     implementationBindingRef: candidate.implementationBindingRef,
     implementationRef: candidate.implementationRef,
   };
-  const validationDigest = sha256Canonical(body as unknown as JsonValue);
+  const validationDigest = sha256Canonical(body);
   const validation = deepFreeze({
     kind: "implementation_resolution_validation" as const,
     schemaVersion: "5.0.0" as const,
@@ -213,7 +213,7 @@ export function validateImplementationResolution(
   return validation;
 }
 
-function leafCandidateBody(candidate: LeafImplementationResolutionCandidate): Readonly<Record<string, unknown>> {
+function leafCandidateBody(candidate: LeafImplementationResolutionCandidate): Readonly<Record<string, JsonValue>> {
   return {
     requirementKey: candidate.requirementKey,
     requirementKeyDigest: candidate.requirementKeyDigest,
@@ -285,16 +285,16 @@ export function validateImplementationResolutionSet(
     declarationEntries: catalogView.declarationEntries.map(
       (entry) => entry.entryDigest,
     ),
-  } as unknown as JsonValue);
+  });
   if (
     !isProgramValidation(programValidation) ||
     !isResolvedExecutionDeclarationClosure(declarationClosure) ||
     declarationClosure.catalogViewDigest !== catalogView.viewDigest ||
     declarationClosure.programRef !== programValidation.programRef ||
-    candidate.setCandidateDigest !== sha256Canonical(setBody as unknown as JsonValue) ||
+    candidate.setCandidateDigest !== sha256Canonical(setBody) ||
     publications.filter((publication) =>
       candidate.publicationDigest ===
-        sha256Canonical(publication as unknown as JsonValue)
+        sha256Canonical(publication)
     ).length !== 1 ||
     candidate.publicationDigest !== programValidation.publicationDigest ||
     candidate.programValidationRef !== programValidation.validationRef ||
@@ -302,10 +302,10 @@ export function validateImplementationResolutionSet(
     candidate.catalogViewDigest !== catalogView.viewDigest ||
     catalogViewDigest !== catalogView.viewDigest ||
     !canonicalEquals(
-      candidate.executableLeafKeys as unknown as JsonValue,
+      candidate.executableLeafKeys,
       selectedExecutableRows.map((row) =>
         row.requirementKey
-      ) as unknown as JsonValue,
+      ),
     ) ||
     candidate.rows.length !== selectedExecutableRows.length
   ) {
@@ -338,7 +338,7 @@ export function validateImplementationResolutionSet(
     const graphFunctionOwners = publications.filter((publication) =>
       publication.graphFunctions.some((value) =>
         value.name === row.graphFunctionRef &&
-        sha256Canonical(value as unknown as JsonValue) ===
+        sha256Canonical(value) ===
           row.graphFunctionDigest
       )
     );
@@ -354,8 +354,8 @@ export function validateImplementationResolutionSet(
           publication.implementationBindings.some((value) =>
             value.bindingRef === binding.bindingRef &&
             canonicalEquals(
-              value as unknown as JsonValue,
-              binding as unknown as JsonValue,
+              value,
+              binding,
             )
           )
         );
@@ -382,12 +382,12 @@ export function validateImplementationResolutionSet(
       row.catalogViewDigest !== catalogView.viewDigest ||
       row.publicationDigest !== candidate.publicationDigest ||
       row.leafResolutionCandidateDigest !==
-        sha256Canonical(leafCandidateBody(row) as unknown as JsonValue) ||
+        sha256Canonical(leafCandidateBody(row)) ||
       graphFunctions.length !== 1 ||
       graphFunction === undefined ||
       row.graphFunctionRef !== declaration.graphFunctionRef ||
       row.graphFunctionDigest !== declaration.graphFunctionDigest ||
-      row.graphFunctionDigest !== sha256Canonical(graphFunction as unknown as JsonValue) ||
+      row.graphFunctionDigest !== sha256Canonical(graphFunction) ||
       graphFunctionOwners.length !== 1 ||
       row.graphFunctionOwnerProductId !==
         graphFunctionOwners[0]!.owningProductId ||
@@ -403,7 +403,7 @@ export function validateImplementationResolutionSet(
       row.programLocusRef !== declaration.programLocusRef ||
       bindings.length !== 1 ||
       binding === undefined ||
-      row.implementationBindingDigest !== sha256Canonical(binding as unknown as JsonValue) ||
+      row.implementationBindingDigest !== sha256Canonical(binding) ||
       binding.bindingRef !== declaration.requirement.implementationBindingRef ||
       binding.implementationRef !== row.implementationRef ||
       binding.packageName !== row.packageName ||
@@ -472,7 +472,7 @@ export function validateImplementationResolutionSet(
       (row) => row.leafResolutionCandidateDigest,
     ),
   };
-  const validationDigest = sha256Canonical(body as unknown as JsonValue);
+  const validationDigest = sha256Canonical(body);
   const validation = deepFreeze({
     kind: "implementation_resolution_set_validation" as const,
     schemaVersion: "5.0.0" as const,

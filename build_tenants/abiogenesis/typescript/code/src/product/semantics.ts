@@ -25,7 +25,7 @@ import type {
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 
-export interface ProductInvocationSourceResultBasis {
+export type ProductInvocationSourceResultBasis = {
   readonly kind: "invocation_source_result_basis";
   readonly schemaVersion: "5.0.0";
   readonly basisRef: string;
@@ -49,13 +49,13 @@ export interface ProductInvocationSourceResultBasis {
   readonly sourceWorkspaceId: string;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
-}
+};
 
 /** @internal Private pre-admission comparison result, not a persisted entity,
  * replacement source basis or implementation-equivalence judgment. The
  * existing invocation admission attests the complete owner validation.
  * Declaration preimages stay with the existing Catalog resource owners. */
-export interface GovernanceCoveredSourceUse {
+export type GovernanceCoveredSourceUse = {
   readonly kind: "governance_covered_source_use";
   readonly schemaVersion: "5.0.0";
   readonly predecessorPrefix: DurablePrefixCoordinate;
@@ -80,7 +80,7 @@ export interface GovernanceCoveredSourceUse {
   }>[];
   readonly bindingCoverEventRefs: readonly string[];
   readonly useDigest: Sha256Digest;
-}
+};
 
 /** @internal Total comparison of the selected declaration closure. Only the
  * canonical publication identities may change. A specifically authenticated
@@ -99,9 +99,9 @@ export function compareGovernanceDeclarationPublications(
     for (const old of [...historical].sort((a, b) => key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0)) {
       const next = current.find(p => key(p) === key(old));
       if (next === undefined) return null;
-      const hash = (p: unknown) => sha256Canonical(p as JsonValue);
+      const hash = (p: JsonValue) => sha256Canonical(p);
       let contextMeaning: JsonValue | null = null;
-      if (!canonicalEquals((old.runEnvironments ?? []) as unknown as JsonValue, (next.runEnvironments ?? []) as unknown as JsonValue)) {
+      if (!canonicalEquals((old.runEnvironments ?? []), (next.runEnvironments ?? []))) {
         const installed = (p: Readonly<ModulePublication>, owners: readonly ProductInstall[]) => owners.filter(i =>
           i.productId === p.owningProductId && i.artifactDigest === p.artifactDigest &&
           i.productContentDigest === p.productContentDigest && i.manifestDigest === p.productManifestDigest);
@@ -124,7 +124,7 @@ export function compareGovernanceDeclarationPublications(
         return { ...meaning, ...(contextMeaning === null ? {} : { runEnvironments: [contextMeaning] }),
           descriptorOwner: identityRef(descriptorRef, other.descriptorRef), contributionOwner: identityRef(contributionManifestRef, other.contributionManifestRef),
           contributions: contributions.map(row => ({ ...row, provenanceRefs: row.provenanceRefs.map(ref =>
-            ref === artifactDigest ? "publication:artifact" : ref === productManifestDigest ? "publication:manifest" : ref).sort(compareUnicodeCodeUnits) })) } as unknown as JsonValue;
+            ref === artifactDigest ? "publication:artifact" : ref === productManifestDigest ? "publication:manifest" : ref).sort(compareUnicodeCodeUnits) })) };
       };
       const a = normalized(old), b = normalized(next);
       if (!canonicalEquals(a, b)) return null;
@@ -317,7 +317,7 @@ function projectionBody(
     "kind" | "projectionDigest" | "projectionRef" | "schemaVersion"
   >,
 ): JsonValue {
-  return value as unknown as JsonValue;
+  return value;
 }
 
 function mintInstalledLeafSemanticsProjection(
@@ -411,7 +411,7 @@ async function loadProductSemantics(
     ? basis.publication.productSemanticsBinding
     : basis.productSemanticsBinding;
   const publicationDigest = "publication" in basis
-    ? sha256Canonical(basis.publication as unknown as JsonValue)
+    ? sha256Canonical(basis.publication)
     : basis.publicationDigest;
   if (
     !basis.verifyInstallAdmission(basis.install) ||

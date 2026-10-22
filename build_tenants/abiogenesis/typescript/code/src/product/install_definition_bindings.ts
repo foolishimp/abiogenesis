@@ -110,7 +110,7 @@ function candidateCoordinate(
 ): ReferenceDigest<"ProductInstallCandidate"> {
   return reference(
     candidate.installId,
-    sha256Canonical(candidate as unknown as JsonValue),
+    sha256Canonical(candidate),
   );
 }
 

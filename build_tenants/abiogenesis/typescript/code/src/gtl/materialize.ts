@@ -72,7 +72,7 @@ export function rehydrateMaterializedGtlGraph(
   };
   if (
     graph.materializationDigest !==
-      sha256Canonical(body as unknown as JsonValue) ||
+      sha256Canonical(body) ||
     graph.materializationRef !==
       `graph-materialization://abiogenesis/${graph.materializationDigest.slice("sha256:".length)}`
   ) {
@@ -103,11 +103,11 @@ export function retainedMaterializedGraphShape(
       graph.invocationAdmissionRef !== basis.invocationAdmissionRef ||
       graph.admittedInputRef !== basis.admittedInputRef ||
       graph.admittedInputDigest !== basis.admittedInputDigest ||
-      (!retained.immutableFunction && sha256Canonical(graphFunction as unknown as JsonValue) !== graph.graphFunctionDigest)) {
+      (!retained.immutableFunction && sha256Canonical(graphFunction) !== graph.graphFunctionDigest)) {
     return null;
   }
   if (retained.shape.fanOutMaterializations.length > 0 &&
-      sha256Canonical(basis.admittedInput as unknown as JsonValue) !== basis.admittedInputDigest) {
+      sha256Canonical(basis.admittedInput) !== basis.admittedInputDigest) {
     throw new TypeError("graph materialization input value differs from the admitted input digest");
   }
   return retained.shape;
@@ -256,7 +256,7 @@ export function deriveMaterializedGraphShape(
     });
   }
   if (
-    sha256Canonical(basis.admittedInput as unknown as JsonValue) !==
+    sha256Canonical(basis.admittedInput) !==
       basis.admittedInputDigest
   ) {
     throw new TypeError(
@@ -305,7 +305,7 @@ export function materializeGraph(
   graphFunction: Readonly<GraphFunction>,
   basis: GraphMaterializationBasis,
 ): Readonly<GtlGraph> {
-  const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
+  const graphFunctionDigest = sha256Canonical(graphFunction);
   const shape = deriveMaterializedGraphShape(graphFunction, basis);
   const body = {
     graphFunctionRef: graphFunction.name,
@@ -316,7 +316,7 @@ export function materializeGraph(
     fanOutMaterializations: shape.fanOutMaterializations,
     template: shape.template,
   };
-  const materializationDigest = sha256Canonical(body as unknown as JsonValue);
+  const materializationDigest = sha256Canonical(body);
   const graph = deepFreeze({
     kind: "gtl_graph" as const,
     schemaVersion: "5.0.0" as const,

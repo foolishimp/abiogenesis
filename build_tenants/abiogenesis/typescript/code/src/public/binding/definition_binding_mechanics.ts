@@ -1,4 +1,4 @@
-import { admitContract, admitRef, hasExactKeys, isRecord } from "../../shared/admit/index.js";
+import { admitContract, admitJson, admitRef, hasExactKeys, isRecord } from "../../shared/admit/index.js";
 import { resolveExactMatch } from "../../shared/select/exact_match.js";
 import * as v from "valibot";
 
@@ -40,16 +40,23 @@ import type {
 } from "../../shared/public_invocation.js";
 
 /**
- * The binding lift of `canonicalEquals` over unchecked call values: an
- * encoding failure on either side is inequality. Its callers' fault surface
- * depends on that, so it does not admit through `admitJson`.
+ * The binding lift of `canonicalEquals` over unchecked call values: both
+ * sides are admitted through `admitJson`, and a refusal on either side is
+ * inequality. `admitJson` throws on a cyclic value (stack exhaustion) and on
+ * a throwing proxy trap; the catch around the two admissions keeps those
+ * answers `false`. `canonicalEquals` over two admitted values does not throw.
  */
 export function sameJson(left: unknown, right: unknown): boolean {
+  let admittedLeft: ReturnType<typeof admitJson>;
+  let admittedRight: ReturnType<typeof admitJson>;
   try {
-    return canonicalEquals(left as JsonValue, right as JsonValue);
+    admittedLeft = admitJson(left);
+    admittedRight = admitJson(right);
   } catch {
     return false;
   }
+  return admittedLeft.kind === "ok" && admittedRight.kind === "ok" &&
+    canonicalEquals(admittedLeft.value, admittedRight.value);
 }
 
 export function sameCoordinate(
@@ -369,7 +376,7 @@ export function admitExactDefinitionCall<
   if (
     invocation.requestDigest !== sha256Canonical(invocation.request) ||
     invocation.invocationAuthority.authorityDigest !==
-      sha256Canonical(authorityBody as unknown as JsonValue) ||
+      sha256Canonical(authorityBody) ||
     (() => {
       const {
         invocationRef,
@@ -377,7 +384,7 @@ export function admitExactDefinitionCall<
         ...invocationBody
       } = invocation;
       const expectedDigest = sha256Canonical(
-        invocationBody as unknown as JsonValue,
+        invocationBody,
       );
       return invocationDigest !== expectedDigest ||
         invocationRef !==

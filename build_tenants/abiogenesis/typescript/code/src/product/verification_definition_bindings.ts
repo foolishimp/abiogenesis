@@ -152,12 +152,12 @@ function admitResources(
     artifact.packageName !== install.packageName ||
     artifact.packageVersion !== install.packageVersion ||
     !canonicalEquals(
-      request.declaredDependencies as unknown as JsonValue,
-      install.declaredDependencies as unknown as JsonValue,
+      request.declaredDependencies,
+      install.declaredDependencies,
     ) ||
     !canonicalEquals(
-      request.compatibilityInputs as unknown as JsonValue,
-      compatibilityInputs as unknown as JsonValue,
+      request.compatibilityInputs,
+      compatibilityInputs,
     )
   ) {
     return fault(call, "resource_admission", "resource_relation_mismatch", "the installed E22 request and supplied preimages disagree");
@@ -275,12 +275,12 @@ function projectOwnerOutput(
   }));
   if (
     !canonicalEquals(
-      artifact.declaredDependencies as unknown as JsonValue,
-      request.declaredDependencies as unknown as JsonValue,
+      artifact.declaredDependencies,
+      request.declaredDependencies,
     ) ||
     !canonicalEquals(
-      compatibilityInputs as unknown as JsonValue,
-      request.compatibilityInputs as unknown as JsonValue,
+      compatibilityInputs,
+      request.compatibilityInputs,
     )
   ) return mismatchOutput("invalid_declared_dependency", "/declaredDependencies", coordinates.verifiedArtifact.ref);
 

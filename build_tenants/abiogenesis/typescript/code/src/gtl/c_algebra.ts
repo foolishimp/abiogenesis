@@ -18,27 +18,27 @@ export const C_TERM_KIND_VALUES = [
 export type CTermKind = (typeof C_TERM_KIND_VALUES)[number];
 export type CResultCardinality = "zero" | "one" | "many";
 
-export interface ExecutableLeafRequirement extends structure.ContractValue<typeof structure.EXECUTABLE_LEAF_REQUIREMENT_SCHEMA> {}
+export type ExecutableLeafRequirement = structure.ContractValue<typeof structure.EXECUTABLE_LEAF_REQUIREMENT_SCHEMA> & {};
 
-export interface InteractionLeafRequirement extends structure.ContractValue<typeof structure.INTERACTION_LEAF_REQUIREMENT_SCHEMA> {}
+export type InteractionLeafRequirement = structure.ContractValue<typeof structure.INTERACTION_LEAF_REQUIREMENT_SCHEMA> & {};
 
 export type CLeafRequirement =
   | ExecutableLeafRequirement
   | InteractionLeafRequirement;
 
-export interface COfNode extends structure.ContractValue<typeof structure.C_OF_SCHEMA> {}
+export type COfNode = structure.ContractValue<typeof structure.C_OF_SCHEMA> & {};
 
-export interface CIdentityNode extends structure.ContractValue<typeof structure.C_IDENTITY_SCHEMA> {}
+export type CIdentityNode = structure.ContractValue<typeof structure.C_IDENTITY_SCHEMA> & {};
 
-export interface CComposeNode extends structure.ContractValue<typeof structure.C_COMPOSE_SCHEMA> {}
+export type CComposeNode = structure.ContractValue<typeof structure.C_COMPOSE_SCHEMA> & {};
 
-export interface CEdgeNode extends structure.ContractValue<typeof structure.C_EDGE_SCHEMA> {}
+export type CEdgeNode = structure.ContractValue<typeof structure.C_EDGE_SCHEMA> & {};
 
-export interface CWorkflowNode extends structure.ContractValue<typeof structure.C_WORKFLOW_SCHEMA> {}
+export type CWorkflowNode = structure.ContractValue<typeof structure.C_WORKFLOW_SCHEMA> & {};
 
-export interface CBatchNode extends structure.ContractValue<typeof structure.C_BATCH_SCHEMA> {}
+export type CBatchNode = structure.ContractValue<typeof structure.C_BATCH_SCHEMA> & {};
 
-export interface CRetryNode extends structure.ContractValue<typeof structure.C_RETRY_SCHEMA> {}
+export type CRetryNode = structure.ContractValue<typeof structure.C_RETRY_SCHEMA> & {};
 
 export type CProgramNode =
   | COfNode

@@ -28,7 +28,7 @@ import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../prod
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
 import { sha256Bytes } from "../shared/digests.js";
-import { canonicalEquals } from "../shared/value/index.js";
+import { canonicalEquals, presentMember } from "../shared/value/index.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
@@ -45,7 +45,7 @@ export interface SemanticStageNativeBasis {
   readonly cursor: Readonly<TraversalCursorCandidate>;
   readonly predecessorPrefix: Readonly<DurablePrefixCoordinate>;
 }
-const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+const hash = (x: JsonValue) => sha256Canonical(x);
 function record(value: unknown): value is Readonly<Record<string, JsonValue>> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
@@ -81,7 +81,7 @@ export function projectSemanticPredecessorAtPrefix(
     const result = selected.filter(e => e.kind === "c_call_result_admitted" && e.aggregateId === cCallRef);
     const judgment = selected.filter(e => e.kind === "c_call_judged" && e.aggregateId === cCallRef);
     if (call === null || result.length !== 1 || judgment.length !== 1 || !record(result[0]!.payload) || !record(judgment[0]!.payload)) return null;
-    return projectAdmittedCCallStateAtPrefix(prefix, call as unknown as Readonly<Record<string, JsonValue>>,
+    return projectAdmittedCCallStateAtPrefix(prefix, call,
       { kind: "admitted_c_call_result", schemaVersion: "5.0.0", disposition: "admitted", ...result[0]!.payload,
         admissionEventRef: result[0]!.eventId },
       { kind: "admitted_c_call_judgment", schemaVersion: "5.0.0", disposition: "admitted", ...judgment[0]!.payload,
@@ -132,17 +132,23 @@ export function constructSemanticStageNativeBasis(basis: SemanticStageNativeBasi
 }
 
 /** Private pure projection; only this owner's fresh authentication supplies it. */
-function semanticInputValueFromOwner(owner: NonNullable<ReturnType<typeof authenticateOwnedSemanticStageBasis>>): unknown {
+function semanticInputValueFromOwner(owner: NonNullable<ReturnType<typeof authenticateOwnedSemanticStageBasis>>): JsonValue | undefined {
   if (owner.inputRef === owner.execution.rawInputAdmissionRef) return owner.execution.rawInputValue;
   const event = owner.events.find(e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === owner.inputRef);
   return record(event?.payload) ? event.payload.value : undefined;
 }
 
-export function semanticInputValueAtBasis(basis: SemanticStageNativeBasis): unknown {
+export function semanticInputValueAtBasis(basis: SemanticStageNativeBasis): JsonValue | undefined {
   if ((basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined)
     return authenticateOwnedSemanticJobBasis(basis)?.inputValue;
   const owner = authenticateOwnedSemanticStageBasis(basis);
   return owner === null ? undefined : semanticInputValueFromOwner(owner);
+}
+
+/** The owner's admitted input at the basis is canonically `input`; an absent owner input is unequal. */
+export function semanticInputAtBasisEquals(basis: SemanticStageNativeBasis, input: JsonValue): boolean {
+  const value = semanticInputValueAtBasis(basis);
+  return value !== undefined && canonicalEquals(value, input);
 }
 
 /** A read-only whole-value projector over an independently admitted prefix.
@@ -158,12 +164,12 @@ export function semanticEnvelopeMatchesAdmittedPredecessor(prefix: RuntimeEventP
   events: RuntimeEventScan, publication: Readonly<ModulePublication>,
   graphFunctions: readonly Readonly<GraphFunction>[], input: SemanticStageEnvelope): boolean {
   const exactSources = events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
-    canonicalEquals(e.payload.value as JsonValue, input as unknown as JsonValue)).filter(event => {
+    canonicalEquals(presentMember(e.payload.value), input)).filter(event => {
     const source = projectSemanticPredecessorAtPrefix(prefix, events, publication, event.aggregateId, graphFunctions);
     return source !== null && source.result.resultClass === "success" && source.judgment.judgment === "advance" &&
       [SEMANTIC_STAGE_IDS.authorImplementationRef, SEMANTIC_STAGE_IDS.assessorImplementationRef,
         SEMANTIC_STAGE_IDS.evidenceInputImplementationRef].some(ref => ref === source.cCall.implementationRef) &&
-      canonicalEquals(source.result.value, input as unknown as JsonValue);
+      canonicalEquals(source.result.value, input);
   });
   return exactSources.length === 1;
 }
@@ -172,26 +178,26 @@ export function semanticEnvelopeMatchesAdmittedPredecessor(prefix: RuntimeEventP
 export function semanticInputMatchesBasis(basis: SemanticStageNativeBasis, input: unknown): input is SemanticStageEnvelope {
   try {
     const owner = authenticateOwnedSemanticStageBasis(basis);
-    if (owner === null || !isSemanticStageEnvelope(input) || !canonicalEquals(input.lifecycle as unknown as JsonValue, owner.lifecycle as unknown as JsonValue) ||
-      !canonicalEquals(input.sourceHandoff.declaration as unknown as JsonValue, owner.source as unknown as JsonValue)) return false;
+    if (owner === null || !isSemanticStageEnvelope(input) || !canonicalEquals(input.lifecycle, owner.lifecycle) ||
+      !canonicalEquals(input.sourceHandoff.declaration, owner.source)) return false;
     const expectedValue = semanticInputValueFromOwner(owner);
-    if (!canonicalEquals(expectedValue as JsonValue, input as unknown as JsonValue) || hash(input) !== owner.inputDigest) return false;
+    if (expectedValue === undefined || !canonicalEquals(expectedValue, input) || hash(input) !== owner.inputDigest) return false;
     const handoff = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, owner.sourcePublication, input.sourceHandoff.basis.cCallRef);
     if (handoff === null || handoff.result.resultClass !== "success" || handoff.judgment.judgment !== "advance" ||
-      !canonicalEquals(handoff.result.value, input.sourceHandoff as unknown as JsonValue) ||
+      !canonicalEquals(handoff.result.value, input.sourceHandoff) ||
       input.sourceHandoff.basis.publicationDigest !== hash(owner.sourcePublication) ||
       input.sourceHandoff.basis.graphFunctionRef !== owner.source.graphFunctionRef) return false;
     if (input.assets.length > 0 && !semanticEnvelopeMatchesAdmittedPredecessor(owner.prefix, owner.events,
       basis.publication, basis.declarationGraphFunctions, input)) return false;
     if (input.evidence !== null) {
       const evidenceSources = owner.events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
-        isSemanticStageEnvelope(e.payload.value) && canonicalEquals(e.payload.value.evidence as unknown as JsonValue, input.evidence as unknown as JsonValue)).filter(event => {
+        isSemanticStageEnvelope(e.payload.value) && canonicalEquals(e.payload.value.evidence, input.evidence)).filter(event => {
         const source = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, event.aggregateId, basis.declarationGraphFunctions);
         if (source === null || source.cCall.implementationRef !== SEMANTIC_STAGE_IDS.evidenceInputImplementationRef ||
           source.result.resultClass !== "success" || source.judgment.judgment !== "advance" || !isSemanticStageEnvelope(source.result.value)) return false;
         const value = source.result.value;
-        return canonicalEquals(value.sourceHandoff as unknown as JsonValue, input.sourceHandoff as unknown as JsonValue) && canonicalEquals(value.lifecycle as unknown as JsonValue, input.lifecycle as unknown as JsonValue) &&
-          canonicalEquals(value.worksite as unknown as JsonValue, input.worksite as unknown as JsonValue) && canonicalEquals(value.taskData, input.taskData) && canonicalEquals(value.evaluationData, input.evaluationData);
+        return canonicalEquals(value.sourceHandoff, input.sourceHandoff) && canonicalEquals(value.lifecycle, input.lifecycle) &&
+          canonicalEquals(value.worksite, input.worksite) && canonicalEquals(value.taskData, input.taskData) && canonicalEquals(value.evaluationData, input.evaluationData);
       });
       if (evidenceSources.length !== 1) return false;
     }
@@ -200,12 +206,12 @@ export function semanticInputMatchesBasis(basis: SemanticStageNativeBasis, input
       if (author === null || author.result.resultClass !== "success" || author.judgment.judgment !== "advance" ||
         !isSemanticStageEnvelope(author.result.value)) return false;
       const admittedAsset = author.result.value.assets.find(a => a.assetRef === asset.assetRef);
-      if (admittedAsset === undefined || !canonicalEquals({ ...asset, assessment: null } as unknown as JsonValue, admittedAsset as unknown as JsonValue)) return false;
+      if (admittedAsset === undefined || !canonicalEquals({ ...asset, assessment: null }, admittedAsset)) return false;
       if (asset.assessment !== null) {
         const assessment = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, asset.assessment.source.cCallRef, basis.declarationGraphFunctions);
         if (assessment === null || assessment.result.resultClass !== "success" || assessment.judgment.judgment !== "advance" ||
           !isSemanticStageEnvelope(assessment.result.value) ||
-          !canonicalEquals(assessment.result.value.assets.find(a => a.assetRef === asset.assetRef) as unknown as JsonValue, asset as unknown as JsonValue)) return false;
+          !canonicalEquals(assessment.result.value.assets.find(a => a.assetRef === asset.assetRef) ?? null, asset)) return false;
       }
     }
     return true;
@@ -221,13 +227,13 @@ export function semanticWorksiteContextMatchesBasis(basis: SemanticStageNativeBa
     if (owner === null) return false;
     const value = semanticInputValueFromOwner(owner);
     const input = record(value) && record(value.current) ? value.current : value;
-    if (!record(input) || !canonicalEquals(input.worksite as JsonValue, worksite as unknown as JsonValue)) return false;
+    if (!record(input) || input.worksite === undefined || !canonicalEquals(input.worksite, worksite)) return false;
     const environment = owner.environment;
     const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
     return environment.kind === "exact_prefix_workspace_environment" &&
-      canonicalEquals(environment.workspaceAuthorityBasis as unknown as JsonValue, worksite.workspaceAuthorityBasis as unknown as JsonValue) &&
-      canonicalEquals(environment.workspaceBinding as unknown as JsonValue, worksite.workspaceBinding as unknown as JsonValue) && invocation?.capabilityGrants.length === 1 &&
-      canonicalEquals(invocation.capabilityGrants[0] as unknown as JsonValue, worksite.capabilityGrant as unknown as JsonValue) &&
+      canonicalEquals(environment.workspaceAuthorityBasis, worksite.workspaceAuthorityBasis) &&
+      canonicalEquals(environment.workspaceBinding, worksite.workspaceBinding) && invocation?.capabilityGrants.length === 1 &&
+      invocation.capabilityGrants[0] !== undefined && canonicalEquals(invocation.capabilityGrants[0], worksite.capabilityGrant) &&
       (!readPhysical || worksiteRevisionPhysicalMatches(worksite));
   } catch { return false; }
 }
@@ -243,7 +249,7 @@ export function semanticResultMatchesBasis(basis: SemanticStageNativeBasis, inpu
     if (source === undefined || source.cCallRef !== owner.call.cCallRef || source.inputDigest !== owner.inputDigest) return false;
     const expected = owner.role === "author" ? deriveSemanticAsset(input, owner.stage.declarationRef, raw, source)
       : deriveSemanticAssessment(input, owner.stage.declarationRef, raw, source);
-    return expected !== null && canonicalEquals(expected as unknown as JsonValue, output as unknown as JsonValue);
+    return expected !== null && canonicalEquals(expected, output);
   } catch { return false; }
 }
 
@@ -265,7 +271,7 @@ export function projectSemanticWorksitePreparation(basis: SemanticStageNativeBas
     const worksite = input.worksite;
     const environment = owner.environment;
     const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
-    if (environment.kind !== "exact_prefix_workspace_environment" || !canonicalEquals(environment.workspaceAuthorityBasis as unknown as JsonValue, worksite.workspaceAuthorityBasis as unknown as JsonValue) ||
+    if (environment.kind !== "exact_prefix_workspace_environment" || !canonicalEquals(environment.workspaceAuthorityBasis, worksite.workspaceAuthorityBasis) ||
       environment.workspaceBinding.workspaceId !== worksite.workspaceBinding.workspaceId || invocation?.capabilityGrants.length !== 1) return null;
     const current = { workspaceAuthorityBasis: environment.workspaceAuthorityBasis, workspaceBinding: environment.workspaceBinding,
       capabilityGrant: invocation.capabilityGrants[0]! };
@@ -294,7 +300,7 @@ export function projectSemanticWorksitePreparation(basis: SemanticStageNativeBas
         if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
         actual = constructWorksiteObservation({ subject: row.target.subject, state: "absent" });
       }
-      if (!canonicalEquals(actual as unknown as JsonValue, expected as unknown as JsonValue)) return null;
+      if (!canonicalEquals(actual, expected)) return null;
     }
     return prepared;
   } catch { return null; }
@@ -308,11 +314,11 @@ function sameInvocation(a: ExecutionBasis, b: ExecutionBasis): boolean {
 }
 
 /** Finds only the named leaf's admitted, judged result in this invocation. */
-export function selectedSemanticPredecessor(basis: SemanticStageNativeBasis, implementationRef: string, value: unknown) {
+export function selectedSemanticPredecessor(basis: SemanticStageNativeBasis, implementationRef: string, value: JsonValue) {
   const owner = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined
     ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
   if (owner === null) return null;
-  const matches = owner.events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && canonicalEquals(e.payload.value as JsonValue, value as JsonValue))
+  const matches = owner.events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && canonicalEquals(presentMember(e.payload.value), value))
     .map(event => {
       const previous = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, event.aggregateId, basis.declarationGraphFunctions);
       if (previous === null || previous.cCall.implementationRef !== implementationRef || previous.result.resultClass !== "success" ||
@@ -330,13 +336,15 @@ export function projectSemanticEvidenceInput(basis: SemanticStageNativeBasis, in
     const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner === null || owner.call.implementationRef !== SEMANTIC_STAGE_IDS.evidenceInputImplementationRef ||
       !isWorksiteCommandExecutionObservation(input) || hash(input) !== owner.inputDigest ||
-      !canonicalEquals(semanticInputValueAtBasis(basis) as JsonValue, input as unknown as JsonValue)) return null;
+      !semanticInputAtBasisEquals(basis, input)) return null;
     const execution = selectedSemanticPredecessor(basis, WORKSITE_COMMAND_EXECUTION_IDS.implementationRef, input);
     const construction = selectedSemanticPredecessor(basis, WORKSITE_CONSTRUCTION_IDS.reducerImplementationRef, input.task.sourceConstructionResult);
     if (execution === null || construction === null || !isWorksiteConstructionResult(construction.previous.result.value)) return null;
     const candidates = owner.events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && record(e.payload.value) &&
       e.payload.value.kind === "worksite_command_preparation_input").map(event => {
-      const value = (event.payload as Readonly<Record<string, JsonValue>>).value;
+      const payload = event.payload;
+      if (!record(payload) || payload.value === undefined) return null;
+      const value = payload.value;
       const source = selectedSemanticPredecessor(basis, SEMANTIC_STAGE_IDS.bridgeImplementationRef, value);
       if (source === null || source.event.eventId !== event.eventId ||
         source.event.admissionOrdinal >= construction.event.admissionOrdinal) return null;
@@ -346,7 +354,7 @@ export function projectSemanticEvidenceInput(basis: SemanticStageNativeBasis, in
       // Current coordinates belong to the admitted bridge output. Reconstruct
       // the structural join from those saved bytes, not the now-mutated app.
       const expected = deriveSemanticWorksitePreparation(original, value.constructionTask);
-      if (expected === null || !canonicalEquals(expected as unknown as JsonValue, value) ||
+      if (expected === null || !canonicalEquals(expected, value) ||
         value.constructionTask.workspaceBinding.bindingId !== owner.execution.workspaceBindingId ||
         value.constructionTask.workspaceBinding.bindingDigest !== owner.execution.workspaceBindingDigest) return null;
       return { original, expected };
@@ -355,7 +363,7 @@ export function projectSemanticEvidenceInput(basis: SemanticStageNativeBasis, in
     const { original, expected } = candidates[0]!;
     const prepared = prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0",
       entry: expected, source: input.task.sourceConstructionResult });
-    if (!canonicalEquals(prepared as unknown as JsonValue, input.task as unknown as JsonValue)) return null;
+    if (!canonicalEquals(prepared, input.task)) return null;
     const root = input.provenance.helperPlan.sandboxRoot;
     if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return null;
     const artifacts = input.snapshotMembers.map(member => {
@@ -375,8 +383,8 @@ export function projectSemanticEvidenceInput(basis: SemanticStageNativeBasis, in
     });
     return deepFreeze({ ...original, evidence: { kind: "semantic_worksite_evidence", constructionResultRef: construction.previous.result.resultRef,
       constructionResultDigest: construction.previous.result.resultDigest, executionResultRef: execution.previous.result.resultRef,
-      executionResultDigest: execution.previous.result.resultDigest, constructionResult: input.task.sourceConstructionResult as unknown as Readonly<Record<string, JsonValue>>,
-      executionObservation: input as unknown as Readonly<Record<string, JsonValue>>, artifacts } });
+      executionResultDigest: execution.previous.result.resultDigest, constructionResult: input.task.sourceConstructionResult,
+      executionObservation: input, artifacts } });
   } catch { return null; }
 }
 

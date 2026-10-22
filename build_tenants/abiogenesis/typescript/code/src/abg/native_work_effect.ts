@@ -106,10 +106,8 @@ export function projectNativeWorkUnknownEffectTask(event: RuntimeEvent, priorEve
       !(opened.admissionOrdinal < fibre.admissionOrdinal && fibre.admissionOrdinal < binding.admissionOrdinal &&
         binding.admissionOrdinal < actor.admissionOrdinal && actor.admissionOrdinal < process.admissionOrdinal &&
         process.admissionOrdinal < event.admissionOrdinal)) return null;
-    const op = opened.payload as Readonly<Record<string, JsonValue>>;
-    const fp = fibre.payload as Readonly<Record<string, JsonValue>>;
-    const bp = binding.payload as Readonly<Record<string, JsonValue>>;
-    const pp = process.payload as Readonly<Record<string, JsonValue>>;
+    const op = opened.payload, fp = fibre.payload, bp = binding.payload, pp = process.payload;
+    if (!isRecord(op) || !isRecord(fp) || !isRecord(bp) || !isRecord(pp)) return null;
     if (opened.aggregateType !== "c_call" || fibre.aggregateType !== "c_call" || actor.aggregateType !== "actor_invocation" ||
       binding.aggregateType !== "transport_binding" || process.aggregateType !== "process" ||
       actor.parentAggregateId !== callRef || binding.parentAggregateId !== callRef ||
@@ -140,7 +138,7 @@ export function projectNativeWorkUnknownEffectTask(event: RuntimeEvent, priorEve
       bp.inputDigest !== basis.rawInputDigest || ap.inputDigest !== basis.rawInputDigest || invocation === null ||
       invocation.workspaceBindingId !== basis.workspaceBindingId || invocation.workspaceBindingDigest !== basis.workspaceBindingDigest ||
       invocation.actorRef !== basis.actorRef || !invocation.capabilityGrants.some(grant =>
-        canonicalEquals(grant as unknown as JsonValue, task.capabilityGrant as unknown as JsonValue)) ||
+        canonicalEquals(grant, task.capabilityGrant)) ||
       set?.implementationSetDigest !== basis.implementationSetDigest || selected?.length !== 1 ||
       selected[0]!.implementationRef !== nativeIds.implementationRef || selected[0]!.inputContractRef !== nativeIds.taskContractRef) return null;
     const basisEvent = runtimeEventAtPrefix(prefix, basis.admissionEventRef);

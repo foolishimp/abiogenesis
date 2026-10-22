@@ -451,7 +451,7 @@ export interface PublicationValidation {
   readonly diagnostics: readonly [];
 }
 
-export interface ProgramValidation {
+export type ProgramValidation = {
   readonly kind: "program_validation";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "valid";
@@ -469,9 +469,9 @@ export interface ProgramValidation {
   readonly transitiveReachableExecutableLeafKeys: readonly string[];
   readonly transitiveReachableInteractionLeafKeys: readonly string[];
   readonly diagnostics: readonly [];
-}
+};
 
-interface ValidatedLeafBase {
+type ValidatedLeafBase = {
   readonly requirementKey: string;
   readonly requirementKeyDigest: Sha256Digest;
   readonly graphFunctionRef: string;
@@ -485,19 +485,19 @@ interface ValidatedLeafBase {
   readonly judgmentPredicateRef: string;
   readonly inputCarrierRef: string;
   readonly outputCarrierRef: string;
-}
+};
 
-export interface ValidatedExecutableLeaf extends ValidatedLeafBase {
+export type ValidatedExecutableLeaf = ValidatedLeafBase & {
   readonly kind: "validated_executable_leaf";
   readonly fibre: "F_D" | "F_P";
   readonly requirement: ExecutableLeafRequirement;
-}
+};
 
-export interface ValidatedInteractionLeaf extends ValidatedLeafBase {
+export type ValidatedInteractionLeaf = ValidatedLeafBase & {
   readonly kind: "validated_interaction_leaf";
   readonly fibre: "F_H";
   readonly requirement: InteractionLeafRequirement;
-}
+};
 
 export interface ProgramValidationInput {
   readonly semanticLifecyclePublication?: RawAdmittedValue<ModulePublication>;
@@ -547,7 +547,7 @@ function validationAtBasis(facts: ProgramValidation, declarationBasisDigest: Sha
     closureContractDigests: facts.closureContractDigests,
     executableLeafRows: facts.executableLeafRows,
     interactionLeafRows: facts.interactionLeafRows,
-  } as unknown as JsonValue);
+  });
   if (sourceDigest === facts.sourceDigest) return facts;
   const validation = deepFreeze({ ...facts, sourceDigest,
     validationRef: `program-validation://abiogenesis/${sourceDigest.slice("sha256:".length)}` });
@@ -701,7 +701,7 @@ function validatePublicationSubject(
   const validationDigest = sha256Canonical({
     publicationDigest: publication.subjectDigest,
     contributionDispositions,
-  } as unknown as JsonValue);
+  });
   const validation = deepFreeze({
     kind: "publication_validation",
     schemaVersion: "5.0.0",
@@ -941,7 +941,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const executableLeafRows: ValidatedExecutableLeaf[] = [];
   const interactionLeafRows: ValidatedInteractionLeaf[] = [];
   for (const graphFunction of programGraphFunctions) {
-    const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
+    const graphFunctionDigest = sha256Canonical(graphFunction);
     diagnostics.push(...graphTemplateDiagnostics(
       graphFunction.template, `$.graphFunctions[${graphFunction.name}].template`,
     ));
@@ -1028,7 +1028,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
               failureContractRef: leaf.requirement.failureContractRef,
               refusalContractRef: leaf.requirement.refusalContractRef,
               judgmentContractRef: leaf.requirement.judgmentContractRef,
-            } as unknown as JsonValue);
+            });
             executableLeafRows.push({
               kind: "validated_executable_leaf",
               requirementKey: `executable-leaf://abiogenesis/${requirementKeyDigest.slice("sha256:".length)}`,
@@ -1055,7 +1055,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
               requestContractRef: leaf.requirement.requestContractRef,
               responseContractRef: leaf.requirement.responseContractRef,
               continuationContractRef: leaf.requirement.continuationContractRef,
-            } as unknown as JsonValue);
+            });
             interactionLeafRows.push({
               kind: "validated_interaction_leaf",
               requirementKey: `interaction-leaf://abiogenesis/${requirementKeyDigest.slice("sha256:".length)}`,
@@ -1625,7 +1625,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       composition.graphFunctionRef.length > 0 &&
       composition.interactionProgramLocusRef.length > 0 &&
       compositionDigest === sha256Canonical(
-        compositionBody as unknown as JsonValue,
+        compositionBody,
       ) &&
       hasExactKeys(composition.closurePolicy, [
         "kind",
@@ -1678,7 +1678,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   if (program.actionCatalog !== undefined) {
     const { catalogRef, catalogDigest, ...catalogBody } = program.actionCatalog;
     const expectedCatalogDigest = sha256Canonical(
-      catalogBody as unknown as JsonValue,
+      catalogBody,
     );
     if (
       program.actionCatalog.kind !== "action_catalog" ||
@@ -1890,7 +1890,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const transitiveReachableExecutableLeafKeys = executableLeafRows.map((row) => row.requirementKey);
   const transitiveReachableInteractionLeafKeys = interactionLeafRows.map((row) => row.requirementKey);
   const sourceDigest = sha256Canonical({
-    publicationDigest: sha256Canonical(publication as unknown as JsonValue),
+    publicationDigest: sha256Canonical(publication),
     declarationBasisDigest: input.declarationBasisDigest,
     programDigest: input.program.subjectDigest,
     graphFunctionDigests,
@@ -1899,14 +1899,14 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     closureContractDigests,
     executableLeafRows,
     interactionLeafRows,
-  } as unknown as JsonValue);
+  });
   const validation = deepFreeze({
     kind: "program_validation",
     schemaVersion: "5.0.0",
     disposition: "valid",
     validationRef: `program-validation://abiogenesis/${sourceDigest.slice("sha256:".length)}`,
     sourceDigest,
-    publicationDigest: sha256Canonical(publication as unknown as JsonValue),
+    publicationDigest: sha256Canonical(publication),
     programRef: program.programRef,
     programDigest: input.program.subjectDigest,
     graphFunctionDigests,

@@ -1,5 +1,6 @@
 import { retainedProductVerification } from "../product/verify_product.js";
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import * as abg from "../abg/index.js";
 import * as product from "../product/index.js";
 import {
@@ -29,7 +30,7 @@ export type InstalledDefinitionCallAcquisition =
     readonly closeHandoff: JsonValue;
   }>;
 
-export interface InstalledDefinitionCallTransportRefusal {
+export type InstalledDefinitionCallTransportRefusal = {
   readonly kind: "installed_definition_call_transport_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -39,14 +40,14 @@ export interface InstalledDefinitionCallTransportRefusal {
     | "installed_binding_unavailable"
     | "acquisition_mismatch";
   readonly message: string;
-}
+};
 
-export interface InstalledDefinitionCallTransportResult {
+export type InstalledDefinitionCallTransportResult = {
   readonly kind: "installed_definition_call_transport_result";
   readonly schemaVersion: "5.0.0";
   readonly acquisitionKind: "eventless" | "new" | "reopen" | "acquired";
   readonly receipt: DefinitionHostReceipt;
-}
+};
 
 export type InstalledDefinitionCallTransportOutcome =
   | InstalledDefinitionCallTransportResult
@@ -141,10 +142,15 @@ function refusal(
   });
 }
 
+/** Both sides are admitted through `admitJson` before the installed codec
+ * compares them; a refusal, or a throw (a cycle), is inequality. */
 function sameStructure(left: unknown, right: unknown): boolean {
   try {
-    return product.canonicalJson(left as JsonValue) ===
-      product.canonicalJson(right as JsonValue);
+    const admittedLeft = admitJson(left);
+    const admittedRight = admitJson(right);
+    return admittedLeft.kind === "ok" && admittedRight.kind === "ok" &&
+      product.canonicalJson(admittedLeft.value) ===
+        product.canonicalJson(admittedRight.value);
   } catch {
     return false;
   }

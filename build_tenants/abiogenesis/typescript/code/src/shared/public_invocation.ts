@@ -1,28 +1,28 @@
 import type { JsonValue } from "./canonical_json.js";
 import type { Sha256Digest } from "./digests.js";
 
-export interface PublicDefinitionKeyLike {
+export type PublicDefinitionKeyLike = {
   readonly operationId: string;
   readonly memberKey: string;
-}
+};
 
-export interface ReferenceDigest<T = unknown> {
+export type ReferenceDigest<T = unknown> = {
   readonly ref: string;
   readonly digest: Sha256Digest;
-}
+};
 
 export type NonEmptyReferenceDigestSet<T = unknown> = readonly [
   ReferenceDigest<T>,
   ...ReferenceDigest<T>[],
 ];
 
-export interface PublicContractCatalogCoordinate {
+export type PublicContractCatalogCoordinate = {
   readonly productId: string;
   readonly productContentDigest: Sha256Digest;
   readonly catalogId: string;
   readonly catalogVersion: "5.0.0";
   readonly catalogDigest: Sha256Digest;
-}
+};
 
 export type PublicContractSlot =
   | "request"
@@ -52,9 +52,7 @@ export type PublicContractNestedSelector<
     definitionRef: string;
   }>;
 
-export interface PublicContractCoordinate<
-  K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
-> {
+export type PublicContractCoordinate<K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike> = {
   readonly contractCatalog: PublicContractCatalogCoordinate;
   readonly flatRow: Readonly<{
     contractId: string;
@@ -62,7 +60,7 @@ export interface PublicContractCoordinate<
     contractDigest: Sha256Digest;
   }>;
   readonly nestedSelector: PublicContractNestedSelector<K>;
-}
+};
 
 export interface DefinitionContractCoordinateSet<
   K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
@@ -73,12 +71,12 @@ export interface DefinitionContractCoordinateSet<
   readonly nonTerminal: PublicContractCoordinate<K> | null;
 }
 
-export interface ContractBoundValue {
+export type ContractBoundValue = {
   readonly contract: ReferenceDigest<"PublicContract">;
   readonly valueRef: string;
   readonly valueDigest: Sha256Digest;
   readonly value: JsonValue;
-}
+};
 
 export interface SuccessfulPackedVerificationReference {
   readonly invocation: ReferenceDigest<"PackedArtifactVerificationInvocation">;
@@ -113,18 +111,18 @@ export interface GraphFunctionAuthority {
   readonly membership: ReferenceDigest<"ProgramGraphFunctionMembership">;
 }
 
-export interface CapabilityGrantAuthority {
+export type CapabilityGrantAuthority = {
   readonly requiredCapabilityRefs: readonly string[];
   readonly grants: readonly [
     ReferenceDigest<"CapabilityGrant">,
     ...ReferenceDigest<"CapabilityGrant">[],
   ];
-}
+};
 
-export interface ActorAuthority {
+export type ActorAuthority = {
   readonly actor: ReferenceDigest<"Actor">;
   readonly attribution: ReferenceDigest<"ActorAttribution">;
-}
+};
 
 export interface InvocationAuthorityValueBySlot {
   readonly workspace_binding: ReferenceDigest<"WorkspaceBinding">;
@@ -226,15 +224,12 @@ export type InvocationAuthoritySlotsOf<
   [S in InvocationAuthoritySlotName]: AuthorityFieldOf<K, R, S>;
 }>;
 
-export interface InvocationAuthorityOf<
-  K extends PublicDefinitionKeyLike,
-  R,
-> {
+export type InvocationAuthorityOf<K extends PublicDefinitionKeyLike, R> = {
   readonly kind: "invocation_authority";
   readonly definitionKey: K;
   readonly authorityDigest: Sha256Digest;
   readonly slots: InvocationAuthoritySlotsOf<K, R>;
-}
+};
 
 export type InvocationAuthorityCandidateSlots = Readonly<{
   [S in InvocationAuthoritySlotName]: S extends "capability_grants"
@@ -264,10 +259,7 @@ export interface PublicInvocationRequestCandidate<
   readonly provenanceRefs: readonly string[];
 }
 
-export interface AdmittedPublicInvocation<
-  K extends PublicDefinitionKeyLike,
-  R extends Readonly<Record<string, JsonValue>>,
-> {
+export type AdmittedPublicInvocation<K extends PublicDefinitionKeyLike, R extends Readonly<Record<string, JsonValue>>> = {
   readonly kind: "public_invocation";
   readonly schemaVersion: "5.0.0";
   readonly invocationContract: PublicContractCoordinate;
@@ -289,7 +281,7 @@ export interface AdmittedPublicInvocation<
   readonly correlationRef: string;
   readonly eventTime: string;
   readonly provenanceRefs: readonly string[];
-}
+};
 
 export type BoundPublicOwnerPort<
   K extends PublicDefinitionKeyLike,

@@ -1,6 +1,7 @@
 import { WORKSITE_PRESERVED_RESULT_IDS, constructWorksitePreservedResultSource, isWorksitePreservedResultSource,
   type WorksitePreservedResultSource } from "../gtl/worksite_construction_recovery.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 export { WORKSITE_PRESERVED_RESULT_IDS, WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS, constructWorksitePreservedResultSource,
   isWorksitePreservedResultSource, type WorksitePreservedResultSource } from "../gtl/worksite_construction_recovery.js";
 import { type JsonValue } from "../shared/canonical_json.js";
@@ -39,22 +40,22 @@ export interface WorksitePreservedSourceProof {
   readonly toolUseId: string;
   readonly sessionId: string;
 }
-export interface WorksitePreservedResultArtifactBody {
+export type WorksitePreservedResultArtifactBody = {
   readonly source: Readonly<WorksitePreservedResultSource>;
   readonly proof: Readonly<WorksitePreservedSourceProof>;
   readonly originalTask: Readonly<WorksiteConstructionTask>;
   readonly currentTask: Readonly<WorksiteConstructionTask>;
   readonly workerResult: Readonly<WorksiteConstructionWorkerResult>;
   readonly owner: Readonly<{ graphFunctionRef: string; executionBasisRef: string; executionBasisDigest: Sha256Digest; cCallRef: string }>;
-}
-export interface WorksitePreservedResultArtifact extends WorksitePreservedResultArtifactBody {
+};
+export type WorksitePreservedResultArtifact = WorksitePreservedResultArtifactBody & {
   readonly kind: "worksite_preserved_result_artifact";
   readonly schemaVersion: "5.0.0";
   readonly artifactRef: string;
   readonly artifactDigest: Sha256Digest;
   readonly targetJoin: readonly Readonly<{ originalTargetRef: string; currentTargetRef: string }>[];
-}
-const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+};
+const hash = (value: JsonValue) => sha256Canonical(value);
 function record(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
@@ -68,7 +69,7 @@ const ref = (x: unknown): x is string => typeof x === "string" && x.length > 0 &
 /** This relation changes coordinates only; native bridge admission supplies meaning and authority. */
 export function preservedWorksiteTargetJoin(original: WorksiteConstructionTask, current: WorksiteConstructionTask) {
   if (!isWorksiteConstructionTask(original) || !isWorksiteConstructionTask(current) ||
-    !canonicalEquals(original.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue) || original.targets.length !== current.targets.length ||
+    !canonicalEquals(original.workspaceAuthorityBasis, current.workspaceAuthorityBasis) || original.targets.length !== current.targets.length ||
     original.workspaceBinding.workspaceId !== current.workspaceBinding.workspaceId) throw new TypeError("preserved source crosses worksite");
   const physical = (target: WorksiteConstructionTask["targets"][number]) => {
     const observation = target.predecessorObservation;
@@ -127,7 +128,8 @@ export function isWorksitePreservedResultArtifact(value: unknown): value is Work
     if (!exact(value, ["kind", "schemaVersion", "artifactRef", "artifactDigest", "source", "proof", "originalTask", "currentTask", "workerResult", "owner", "targetJoin"]) ||
       value.kind !== "worksite_preserved_result_artifact" || value.schemaVersion !== "5.0.0") return false;
     const { kind: _kind, schemaVersion: _version, artifactRef: _ref, artifactDigest: _digest, targetJoin: _join, ...body } = value;
-    return canonicalEquals(constructWorksitePreservedResultArtifact(body as unknown as WorksitePreservedResultArtifactBody) as unknown as JsonValue, value as unknown as JsonValue);
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" && canonicalEquals(constructWorksitePreservedResultArtifact(body as unknown as WorksitePreservedResultArtifactBody), admitted.value);
   } catch { return false; }
 }
 export function derivePreservedWorksiteCandidateBundle(artifact: WorksitePreservedResultArtifact) {
@@ -147,10 +149,10 @@ export function resolveWorksitePreservedResultJudgmentRelation(predicateRef: str
   if (predicateRef === WORKSITE_PRESERVED_RESULT_IDS.authenticatePredicateRef) return Object.freeze({
     ...reasons,
     inputContractRef: WORKSITE_CONSTRUCTION_IDS.taskContractRef, outputContractRef: WORKSITE_PRESERVED_RESULT_IDS.artifactContractRef,
-    evaluate: (input: unknown, output: unknown) => isWorksiteConstructionTask(input) && isWorksitePreservedResultArtifact(output) && canonicalEquals(input as unknown as JsonValue, output.currentTask as unknown as JsonValue) });
+    evaluate: (input: unknown, output: unknown) => isWorksiteConstructionTask(input) && isWorksitePreservedResultArtifact(output) && canonicalEquals(input, output.currentTask) });
   if (predicateRef === WORKSITE_PRESERVED_RESULT_IDS.derivePredicateRef) return Object.freeze({
     ...reasons,
     inputContractRef: WORKSITE_PRESERVED_RESULT_IDS.artifactContractRef, outputContractRef: WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef,
-    evaluate: (input: unknown, output: unknown) => { try { return isWorksitePreservedResultArtifact(input) && canonicalEquals(derivePreservedWorksiteCandidateBundle(input) as unknown as JsonValue, output as JsonValue); } catch { return false; } } });
+    evaluate: (input: unknown, output: unknown) => { try { if (!isWorksitePreservedResultArtifact(input)) return false; const admitted = admitJson(output); return admitted.kind === "ok" && canonicalEquals(derivePreservedWorksiteCandidateBundle(input), admitted.value); } catch { return false; } } });
   return null;
 }

@@ -281,7 +281,7 @@ function productConservationFailure(
     ...preserved,
     diagnosticRef:
       `diagnostic://abiogenesis/worksite/${preserved.code}@5`,
-  }) as unknown as Readonly<Record<string, JsonValue>>;
+  });
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,
     schemaVersion: "5.0.0" as const,
@@ -315,9 +315,9 @@ export async function realizeWorksiteFileReplace(
     !isWorksiteFileReplaceRequest(value)
   ) return null;
   const selected = authority.implementationResolution;
-  const exactInputDigest = sha256Canonical(value as unknown as JsonValue);
+  const exactInputDigest = sha256Canonical(value);
   const exactResolutionDigest = sha256Canonical(
-    resolution as unknown as JsonValue,
+    resolution,
   );
   let currentAuthority = false;
   let localExecutionBasis: ReturnType<
@@ -356,13 +356,13 @@ export async function realizeWorksiteFileReplace(
     );
     const executionBasisHeld = projectedExecutionBasis !== null &&
       canonicalEquals(
-        projectedExecutionBasis as unknown as JsonValue,
-        authority.executionBasis as unknown as JsonValue,
+        projectedExecutionBasis,
+        authority.executionBasis,
       );
     const implementationSetHeld = projectedImplementationSet !== null &&
       canonicalEquals(
-        projectedImplementationSet as unknown as JsonValue,
-        authority.implementationSet as unknown as JsonValue,
+        projectedImplementationSet,
+        authority.implementationSet,
       );
     const phase = projectCCallCarrierPhaseAtPrefix(
       runtimePrefix,
@@ -398,7 +398,7 @@ export async function realizeWorksiteFileReplace(
       install.contributionManifest.publicationBindings.filter((binding) => binding.publicationDigest === selected.implementationPublicationDigest).length === 1);
     const rootInvocation = rootBasis === null ? null : rehydrateInvocationAdmissionAtPrefix(authorityPrefix, rootBasis.invocationAdmissionRef);
     const ownersHeld = rootInvocation !== null && rootInvocation.capabilityGrants.length === 1 &&
-      canonicalEquals(rootInvocation.capabilityGrants[0] as unknown as JsonValue, value.capabilityGrant as unknown as JsonValue) &&
+      rootInvocation.capabilityGrants[0] !== undefined && canonicalEquals(rootInvocation.capabilityGrants[0], value.capabilityGrant) &&
       value.capabilityGrant.definitionKey.memberKey === (rootInvocation.invocationVariant === "direct" ? "invoke" : rootInvocation.invocationVariant) &&
       rootBasis !== null && rootBasis.programRef === authority.programRef &&
       rootBasis.programDigest === authority.programDigest && rootBasis.invocationAdmissionRef === authority.executionBasis.invocationAdmissionRef &&
@@ -408,12 +408,12 @@ export async function realizeWorksiteFileReplace(
     const environmentHeld = environment.kind ===
         "exact_prefix_workspace_environment" &&
       canonicalEquals(
-        environment.workspaceAuthorityBasis as unknown as JsonValue,
-        value.workspaceAuthorityBasis as unknown as JsonValue,
+        environment.workspaceAuthorityBasis,
+        value.workspaceAuthorityBasis,
       ) &&
       canonicalEquals(
-        environment.workspaceBinding as unknown as JsonValue,
-        authority.workspaceBinding as unknown as JsonValue,
+        environment.workspaceBinding,
+        authority.workspaceBinding,
       ) &&
       ownersHeld;
     installedProductRoot = environmentHeld
@@ -432,7 +432,7 @@ export async function realizeWorksiteFileReplace(
     exactInputDigest !== inputDigest ||
     exactInputDigest !== authority.executionBasis.rawInputDigest ||
     sha256Canonical(
-      authority.executionBasis.rawInputValue as unknown as JsonValue,
+      authority.executionBasis.rawInputValue,
     ) !== inputDigest ||
     exactResolutionDigest !== authority.implementationResolutionDigest ||
     authority.cCallRef !== occurrence.cCallRef ||
@@ -518,7 +518,7 @@ export async function realizeWorksiteFileReplace(
     const resultCandidate = deepFreeze({
       ...authorization,
       diagnosticRef: `diagnostic://abiogenesis/worksite/${authorization.code}@5`,
-    }) as unknown as Readonly<Record<string, JsonValue>>;
+    });
     return deepFreeze({
       kind: "leaf_realization_candidate" as const,
       schemaVersion: "5.0.0" as const,
@@ -574,7 +574,7 @@ export async function realizeWorksiteFileReplace(
     const resultCandidate = deepFreeze({
       ...outcome,
       diagnosticRef: `diagnostic://abiogenesis/worksite/${outcome.code}@5`,
-    }) as unknown as Readonly<Record<string, JsonValue>>;
+    });
     return deepFreeze({
       kind: "leaf_realization_candidate" as const,
       schemaVersion: "5.0.0" as const,
@@ -607,8 +607,8 @@ export async function realizeWorksiteFileReplace(
   }
   if (successor.kind !== "worksite_observation" ||
     !canonicalEquals(
-      successor as unknown as JsonValue,
-      outcome.successorObservation as unknown as JsonValue,
+      successor,
+      outcome.successorObservation,
     )) {
     return productConservationFailure(resolution, inputDigest, {
       outcome, authorization, completedOwner, stage: "owner_reobservation",
@@ -622,7 +622,7 @@ export async function realizeWorksiteFileReplace(
     kind: "worksite_file_replace_output" as const,
     schemaVersion: "5.0.0" as const,
     ...completedOwner!,
-  }) as unknown as Readonly<Record<string, JsonValue>>;
+  });
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,
     schemaVersion: "5.0.0" as const,
@@ -668,10 +668,10 @@ export async function realizeWorksiteFileParents(
 ): Promise<Readonly<LeafRealizationCandidate> | null> {
   const authority = occurrence.executionAuthority;
   if (!isLeafExecutionAuthority(authority) || !isWorksiteFileParentsRequest(value) ||
-    sha256Canonical(value as unknown as JsonValue) !== inputDigest ||
+    sha256Canonical(value) !== inputDigest ||
     inputDigest !== authority.executionBasis.rawInputDigest ||
-    sha256Canonical(authority.executionBasis.rawInputValue as unknown as JsonValue) !== inputDigest ||
-    sha256Canonical(resolution as unknown as JsonValue) !== authority.implementationResolutionDigest ||
+    sha256Canonical(authority.executionBasis.rawInputValue) !== inputDigest ||
+    sha256Canonical(resolution) !== authority.implementationResolutionDigest ||
     authority.effectUri !== WORKSITE_FILE_PARENTS_EFFECT_URI || authority.handlerRef !== WORKSITE_FILE_PARENTS_HANDLER_REF ||
     authority.handlerDigest !== WORKSITE_FILE_PARENTS_HANDLER_DIGEST ||
     authority.cCallRef !== occurrence.cCallRef || authority.cCall.runId !== occurrence.runId ||
@@ -700,10 +700,10 @@ export async function realizeWorksiteFileParents(
     localSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, authority.implementationSetRef);
     const environment = projectExactPrefixWorkspaceEnvironment(authority.predecessorPrefix, { ref: authority.workspaceBindingIdentity, digest: authority.workspaceBindingDigest });
     if (localBasis === null || localSet === null || environment.kind !== "exact_prefix_workspace_environment" ||
-      !canonicalEquals(localBasis as unknown as JsonValue, authority.executionBasis as unknown as JsonValue) ||
-      !canonicalEquals(localSet as unknown as JsonValue, authority.implementationSet as unknown as JsonValue) ||
-      !canonicalEquals(environment.workspaceBinding as unknown as JsonValue, authority.workspaceBinding as unknown as JsonValue) ||
-      !canonicalEquals(environment.workspaceAuthorityBasis as unknown as JsonValue, value.workspaceAuthorityBasis as unknown as JsonValue) ||
+      !canonicalEquals(localBasis, authority.executionBasis) ||
+      !canonicalEquals(localSet, authority.implementationSet) ||
+      !canonicalEquals(environment.workspaceBinding, authority.workspaceBinding) ||
+      !canonicalEquals(environment.workspaceAuthorityBasis, value.workspaceAuthorityBasis) ||
       projectCCallCarrierPhaseAtPrefix(runtimePrefix, authority.cCall)?.phase !== "selected_no_evidence" ||
       !validateWorksiteFileParentsPlanAtPrefix(prefix, value, authority.programPublication)) return null;
     let rootBasis: typeof localBasis | null = localBasis;
@@ -726,7 +726,7 @@ export async function realizeWorksiteFileParents(
         row.owningProductId === install.productId && install.contributionManifest.publicationBindings.filter(binding => binding.moduleRef === row.moduleRef &&
           binding.publicationDigest === selected.graphFunctionPublicationDigest).length === 1).length === 1);
     if (invocation === null || invocation.capabilityGrants.length !== 1 || programOwner === null || implementations.length !== 1 || graphOwners.length !== 1 ||
-      !canonicalEquals(invocation.capabilityGrants[0] as unknown as JsonValue, value.capabilityGrant as unknown as JsonValue) ||
+      (invocation.capabilityGrants[0] === undefined || !canonicalEquals(invocation.capabilityGrants[0], value.capabilityGrant)) ||
       value.capabilityGrant.definitionKey.memberKey !== (invocation.invocationVariant === "direct" ? "invoke" : invocation.invocationVariant)) return null;
     protectedInstallRoots = environment.productInstalls.map(install => install.installedRoot);
   } catch { return null; }
@@ -750,7 +750,7 @@ export async function realizeWorksiteFileParents(
 }
 
 function fileParentsRealizationCandidate(outcome: WorksiteFileParentsResult, implementationRef: string, inputDigest: `sha256:${string}`): Readonly<LeafRealizationCandidate> {
-  const resultCandidate = outcome as unknown as Readonly<Record<string, JsonValue>>;
+  const resultCandidate = outcome;
   const common = { kind: "leaf_realization_candidate" as const, schemaVersion: "5.0.0" as const,
     evidenceCandidates: [{ kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0", implementationRef,
       inputDigest, outputDigest: sha256Canonical(resultCandidate) } as const], resultCandidate };

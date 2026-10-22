@@ -212,7 +212,7 @@ function exactApplications(
             appliedValueDigest: application.appliedValueDigest,
           });
           return reconstructed.kind === "declaration_application" &&
-            canonicalEquals(reconstructed as unknown as JsonValue, application as unknown as JsonValue);
+            canonicalEquals(reconstructed, application);
         });
   } catch {
     return false;
@@ -336,9 +336,7 @@ export function runOperationAuthorityMatches(
   const requiredCapabilities = (isContinue ? RUN_OPERATION_CONTRACTS.continue[invocation.definitionKey.memberKey as "current_intent" | "selected_action"]
     : packet(invocation.definitionKey.memberKey as RunInvocationMemberKey)).metadata.capabilityRefs;
   const steeringDigest = sha256Canonical(transportResourceAssertion);
-  const authorityRequest = invocation.request as Readonly<
-    Record<string, JsonValue>
-  >;
+  const authorityRequest = invocation.request;
   const inputSlot = slots.input_contract;
   // The public binder authenticates slot syntax/digests; this owner joins the
   // exact asserted input to the selected request, just as the other coordinates.
@@ -348,9 +346,9 @@ export function runOperationAuthorityMatches(
       : isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
     : invocation.definitionKey.memberKey === "start"
     ? authorityRequest.input !== undefined &&
-      canonicalEquals(inputSlot as unknown as JsonValue, authorityRequest.input)
+      canonicalEquals(inputSlot, authorityRequest.input)
     : authorityRequest.inputContract !== undefined &&
-      canonicalEquals(inputSlot.contract as unknown as JsonValue, authorityRequest.inputContract) &&
+      canonicalEquals(inputSlot.contract, authorityRequest.inputContract) &&
       authorityRequest.input !== undefined && canonicalEquals(inputSlot.value, authorityRequest.input) &&
       inputSlot.valueDigest === sha256Canonical(authorityRequest.input!));
   const requestTarget = isRecord(authorityRequest.target)
@@ -413,7 +411,7 @@ export function prepareRunQualificationResources(resources: ProductRunInvocation
         ...(resources.historicalSource === undefined ? [] : [resources.historicalSource.declarationProof, ...(resources.historicalSource.declarationDependencies ?? [])])];
       // Current/historical proofs are explicit alternate sources. Duplicate exact dependencies refuse.
       const selected = resources.qualificationResources.manifests.flatMap(m => m.declarationSelections);
-      const extras = existing.filter(p => selected.some(d => d.catalogBasisDigest === p.catalog.basisDigest && d.readinessBasisDigest === p.catalog.readinessBasisDigest && d.viewDigest === p.catalogView.viewDigest && d.proofDigest === sha256Canonical(p as unknown as JsonValue)));
+      const extras = existing.filter(p => selected.some(d => d.catalogBasisDigest === p.catalog.basisDigest && d.readinessBasisDigest === p.catalog.readinessBasisDigest && d.viewDigest === p.catalogView.viewDigest && d.proofDigest === sha256Canonical(p)));
       qualificationResources = acquireQualificationResources(resources.qualificationResources, extras);
     }
     const establish = (value: unknown): void => {
@@ -458,7 +456,7 @@ export async function prepareProductRunInvocation<
   ) {
     return preparationRefusal(memberKey, "invalid_view", ["/catalogView"]);
   }
-  const request = invocation.request as Readonly<Record<string, JsonValue>>;
+  const request = invocation.request;
   const programCoordinate = request.program;
   if (!isRecord(programCoordinate) || typeof programCoordinate.ref !== "string") {
     return preparationRefusal(memberKey, "invalid_program", ["/program"]);
@@ -500,7 +498,7 @@ export async function prepareProductRunInvocation<
   }
   if (
     programCoordinate.digest !==
-      sha256Canonical(resolution.program as unknown as JsonValue) ||
+      sha256Canonical(resolution.program) ||
     !isRecord(request.catalogView) ||
     request.catalogView.ref !== catalogViewRef(resolution.resolution.catalogViewDigest) ||
     request.catalogView.digest !== resolution.resolution.catalogViewDigest ||
@@ -545,7 +543,7 @@ export async function prepareProductRunInvocation<
       workspaceId: input.workspaceBinding.workspaceId,
       actionCatalog: resolution.program.actionCatalog === undefined
         ? null
-        : resolution.program.actionCatalog as unknown as JsonValue,
+        : resolution.program.actionCatalog,
       catalogView: resources.catalogView,
       catalogApplications: resources.applications,
       sourceResultBasis: admittedSource,

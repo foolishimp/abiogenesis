@@ -383,7 +383,8 @@ function positiveInteger(environment, key, fallback) {
 }
 function outputDigest(output) {
     try {
-        return sha256Canonical(JSON.parse(output));
+        const parsed = JSON.parse(output);
+        return sha256Canonical(parsed);
     }
     catch {
         return sha256Canonical(output);

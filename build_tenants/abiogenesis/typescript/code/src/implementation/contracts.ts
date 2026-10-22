@@ -59,7 +59,7 @@ export type LeafRealizationCandidate<
   >,
 > = LeafRealizationSuccessCandidate<Output> | LeafRealizationFailureCandidate;
 
-export interface ProbabilisticWorkerRequest {
+export type ProbabilisticWorkerRequest = {
   readonly actorRef: string;
   readonly workerBindingRef: string;
   readonly implementationRef: string;
@@ -71,8 +71,8 @@ export interface ProbabilisticWorkerRequest {
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly prompt: string;
   readonly responseJsonSchema: Readonly<Record<string, JsonValue>>;
-  readonly responsePresentation?: WorkerTransportRequest["responsePresentation"];
-}
+  readonly responsePresentation?: Exclude<WorkerTransportRequest["responsePresentation"], undefined>;
+};
 
 export interface ProbabilisticWorkerObservation {
   readonly actorInvocationRef: string;
@@ -310,7 +310,7 @@ export interface LeafInvocationResolution {
   readonly namedSymbol: string;
 }
 
-export interface VerifiedProbabilisticResultContractPreimage {
+export type VerifiedProbabilisticResultContractPreimage = {
   readonly kind: "verified_probabilistic_result_contract_preimage";
   readonly schemaVersion: "5.0.0";
   readonly verificationRef: string;
@@ -329,7 +329,7 @@ export interface VerifiedProbabilisticResultContractPreimage {
   readonly rawResultContractRef: string;
   readonly inputDigest: Sha256Digest;
   readonly rawResultDigest: Sha256Digest;
-}
+};
 
 export interface ProbabilisticResultContractPreimageRefusal {
   readonly kind: "probabilistic_result_contract_preimage_refusal";

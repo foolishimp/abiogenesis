@@ -29,7 +29,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import { isUndispatchedOwnerObservation, type UndispatchedOwnerObservation } from "./event_contract_profiles.js";
 import { observeNativeCCallLiveness, observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import {
@@ -142,12 +142,12 @@ import {
   type WorksiteFileReplaceRequest,
   type WorksiteObservation,
 } from "../product/worksite_effect.js";
-import { canonicalEquals } from "../shared/value/index.js";
+import { canonicalEquals, presentMember } from "../shared/value/index.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 /** Owner boundary: `absent` and `many` map to `undefined`. */
 const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 
-export interface CCall {
+export type CCall = {
   readonly kind: "c_call";
   readonly schemaVersion: "5.0.0";
   readonly cCallRef: string;
@@ -197,7 +197,7 @@ export interface CCall {
   readonly terminalKind: "completed";
   readonly openedEventRef: string;
   readonly fibreSelectedEventRef: string;
-}
+};
 
 export interface CCallAdmission {
   readonly kind: "c_call_admission";
@@ -207,7 +207,7 @@ export interface CCallAdmission {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-interface CCallLocusCandidateBase {
+type CCallLocusCandidateBase = {
   readonly kind: "traversal_stop_ref";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "at_compute_locus";
@@ -231,10 +231,9 @@ interface CCallLocusCandidateBase {
   readonly retryPath: readonly number[];
   readonly armId: string;
   readonly compositionRef: string | null;
-}
+};
 
-export interface ExecutableCCallLocusCandidate
-  extends CCallLocusCandidateBase {
+export type ExecutableCCallLocusCandidate = CCallLocusCandidateBase & {
   readonly stopClass: "executable";
   readonly computeRegime: "F_D" | "F_P";
   readonly implementationBindingRef: string;
@@ -244,10 +243,9 @@ export interface ExecutableCCallLocusCandidate
   readonly failureContractRef: string;
   readonly refusalContractRef: string;
   readonly judgmentContractRef: string;
-}
+};
 
-export interface InteractionCCallLocusCandidate
-  extends CCallLocusCandidateBase {
+export type InteractionCCallLocusCandidate = CCallLocusCandidateBase & {
   readonly stopClass: "interaction";
   readonly computeRegime: "F_H";
   readonly interactionKind: string;
@@ -255,7 +253,7 @@ export interface InteractionCCallLocusCandidate
   readonly requestContractRef: string;
   readonly responseContractRef: string;
   readonly continuationContractRef: string;
-}
+};
 
 export type CCallLocusCandidate =
   | ExecutableCCallLocusCandidate
@@ -305,7 +303,7 @@ function cCallLocusCandidateBody(
 export function constructCCallLocusCandidate(
   body: CCallLocusCandidateBody,
 ): CCallLocusCandidate {
-  const stopDigest = sha256Canonical(body as unknown as JsonValue);
+  const stopDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "traversal_stop_ref" as const,
     schemaVersion: "5.0.0" as const,
@@ -354,7 +352,7 @@ export function isCCallLocusCandidate(
   ) return false;
   const exact = candidate as unknown as CCallLocusCandidate;
   const body = cCallLocusCandidateBody(exact);
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return exact.stopDigest === digest && exact.stopRef ===
     `traversal-stop://abiogenesis/${digest.slice("sha256:".length)}`;
 }
@@ -408,7 +406,7 @@ export type CCallOpenInput = CCallOpenCommonInput & (
     }>
 );
 
-export interface CCallOpenRefusal {
+export type CCallOpenRefusal = {
   readonly kind: "c_call_open_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -418,9 +416,9 @@ export interface CCallOpenRefusal {
     | "locus_mismatch"
     | "scope_mismatch";
   readonly message: string;
-}
+};
 
-export interface WorkflowFailureContractResolution {
+export type WorkflowFailureContractResolution = {
   readonly kind: "workflow_failure_contract_resolution";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "resolved";
@@ -428,15 +426,15 @@ export interface WorkflowFailureContractResolution {
   readonly childGraphFunctionDigest: Sha256Digest;
   readonly failureContractRef: string;
   readonly source: "declared" | "declared_row_agreement" | "legacy_row";
-}
+};
 
-export interface WorkflowFailureContractRefusal {
+export type WorkflowFailureContractRefusal = {
   readonly kind: "workflow_failure_contract_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code: "workflow-failure-contract-ambiguous";
   readonly message: string;
-}
+};
 
 export type WorkflowFailureContractResult =
   | WorkflowFailureContractResolution
@@ -450,7 +448,7 @@ export function resolveWorkflowFailureContract(input: Readonly<{
 }>): WorkflowFailureContractResult {
   const { childGraphFunction, programValidation, implementationSet } = input;
   const childGraphFunctionDigest = sha256Canonical(
-    childGraphFunction as unknown as JsonValue,
+    childGraphFunction,
   );
   const declared = childGraphFunction.declarations["abg.failure_contract"];
   const rowRefs = implementationSet.rows
@@ -525,15 +523,15 @@ function workflowFailureContractRef(
   return legacy.size === 1 ? [...legacy][0]! : null;
 }
 
-export interface DeterministicEvidenceCandidate {
+export type DeterministicEvidenceCandidate = {
   readonly kind: "deterministic_evidence_candidate";
   readonly schemaVersion: "5.0.0";
   readonly implementationRef: string;
   readonly inputDigest: Sha256Digest;
   readonly outputDigest: Sha256Digest;
-}
+};
 
-export interface SubTraversalEvidenceCandidate {
+export type SubTraversalEvidenceCandidate = {
   readonly kind: "sub_traversal_evidence_candidate";
   readonly schemaVersion: "5.0.0";
   readonly inputDigest: Sha256Digest;
@@ -553,9 +551,9 @@ export interface SubTraversalEvidenceCandidate {
   readonly childClosureRef: string | null;
   readonly childReasonRef: string | null;
   readonly childTerminalEventRef: string;
-}
+};
 
-export interface ProbabilisticTransportEvidenceCandidate {
+export type ProbabilisticTransportEvidenceCandidate = {
   readonly nativeResultAssessment?: import("./transport_contracts.js").NativeWorkerResultAssessment;
   readonly kind: "probabilistic_transport_evidence_candidate";
   readonly schemaVersion: "5.0.0";
@@ -603,9 +601,9 @@ export interface ProbabilisticTransportEvidenceCandidate {
     stdout: Sha256Digest;
     transport: Sha256Digest;
   }>;
-}
+};
 
-export interface WorksiteFileReplaceEvidenceCandidate {
+export type WorksiteFileReplaceEvidenceCandidate = {
   readonly kind: "worksite_file_replace_evidence_candidate";
   readonly schemaVersion: "5.0.0";
   readonly implementationRef: string;
@@ -615,7 +613,7 @@ export interface WorksiteFileReplaceEvidenceCandidate {
   readonly authorization: WorksiteEffectAuthorization;
   readonly receipt: WorksiteFileReplaceReceipt;
   readonly successorObservation: WorksiteObservation;
-}
+};
 
 export type CCallEvidenceCandidate =
   | DeterministicEvidenceCandidate
@@ -624,7 +622,7 @@ export type CCallEvidenceCandidate =
   | SubTraversalEvidenceCandidate
   | UndispatchedOwnerRefusalEvidenceCandidate;
 
-export interface UndispatchedOwnerRefusalEvidenceCandidate {
+export type UndispatchedOwnerRefusalEvidenceCandidate = {
   readonly kind: "undispatched_owner_refusal_evidence_candidate";
   readonly schemaVersion: "5.0.0";
   readonly implementationRef: string;
@@ -633,7 +631,7 @@ export interface UndispatchedOwnerRefusalEvidenceCandidate {
   readonly failureContractRef: string;
   readonly failureValue: Readonly<Record<string, JsonValue>>;
   readonly ownerObservation: UndispatchedOwnerObservation;
-}
+};
 
 export interface ProbabilisticResultEvidenceBasis {
   readonly request: Readonly<ActorProcessRequest>;
@@ -641,7 +639,7 @@ export interface ProbabilisticResultEvidenceBasis {
   readonly admittedResultCarrier: unknown | null;
 }
 
-export interface PendingInteractionAdmission {
+export type PendingInteractionAdmission = {
   readonly kind: "pending_interaction_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "pending";
@@ -651,7 +649,7 @@ export interface PendingInteractionAdmission {
   readonly judgment: AdmittedCCallJudgment;
   readonly requestRef: string;
   readonly requestDigest: Sha256Digest;
-}
+};
 
 export interface PendingInteractionAdmissionPlan {
   readonly kind: "pending_interaction_admission_plan";
@@ -700,7 +698,7 @@ export interface RehydratedPendingInteraction {
   readonly requestDigest: Sha256Digest;
 }
 
-interface AdmittedCCallEvidenceDetails {
+type AdmittedCCallEvidenceDetails = {
   readonly kind: "admitted_c_call_evidence";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -759,7 +757,7 @@ interface AdmittedCCallEvidenceDetails {
   readonly receipt?: WorksiteFileReplaceReceipt;
   readonly successorObservation?: WorksiteObservation;
   readonly admissionEventRef: string;
-}
+};
 
 export type AdmittedCCallEvidence =
   AdmittedCCallEvidenceDetails & ResultEvidenceLineageSource;
@@ -768,7 +766,7 @@ type AdmittedCCallEvidenceBody = Omit<AdmittedCCallEvidenceDetails,
   "kind" | "schemaVersion" | "disposition" | "evidenceRef" | "evidenceDigest" | "admissionEventRef"
 > & ResultEvidenceLineageSource;
 
-export interface AdmittedCCallResult {
+export type AdmittedCCallResult = {
   readonly kind: "admitted_c_call_result";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -782,7 +780,7 @@ export interface AdmittedCCallResult {
   readonly value: JsonValue;
   readonly evidenceRefs: readonly string[];
   readonly admissionEventRef: string;
-}
+};
 
 export type CCallJudgment =
   | "advance"
@@ -807,7 +805,7 @@ export interface JudgmentCandidate {
   readonly replayStateDigest: Sha256Digest;
 }
 
-export interface AdmittedCCallJudgment {
+export type AdmittedCCallJudgment = {
   readonly kind: "admitted_c_call_judgment";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -823,9 +821,9 @@ export interface AdmittedCCallJudgment {
   readonly replayStateDigest: Sha256Digest;
   readonly retryAttemptRef: string | null;
   readonly admissionEventRef: string;
-}
+};
 
-export interface CCallAdmissionRejection {
+export type CCallAdmissionRejection = {
   readonly kind: "c_call_admission_rejection";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "rejected";
@@ -834,9 +832,9 @@ export interface CCallAdmissionRejection {
   readonly candidateDigest: Sha256Digest;
   readonly contractRef: string;
   readonly diagnosticRef: string;
-}
+};
 
-export interface CCallRuntimeFailureSignal {
+export type CCallRuntimeFailureSignal = {
   readonly kind: "c_call_runtime_failure_signal";
   readonly schemaVersion: "5.0.0";
   readonly failureClass: WorkerTransportFailureClass;
@@ -846,9 +844,9 @@ export interface CCallRuntimeFailureSignal {
   readonly sourceDigest: Sha256Digest;
   readonly failureSignalDigest: Sha256Digest;
   readonly failureSignalRef: string;
-}
+};
 
-export interface CCallRuntimeFailureClosePlan {
+export type CCallRuntimeFailureClosePlan = {
   readonly kind: "c_call_runtime_failure_close_plan";
   readonly schemaVersion: "5.0.0";
   readonly planRef: string;
@@ -865,7 +863,7 @@ export interface CCallRuntimeFailureClosePlan {
   readonly eventCandidates: readonly RuntimeEventCandidate[];
   readonly projectedEvents: readonly RuntimeEvent[];
   readonly close: AdmittedCCallRuntimeFailureClose;
-}
+};
 
 export interface CCallRuntimeFailureCloseRefusal {
   readonly kind: "c_call_runtime_failure_close_refusal";
@@ -878,7 +876,7 @@ export interface CCallRuntimeFailureCloseRefusal {
   readonly message: string;
 }
 
-export interface AdmittedCCallRuntimeFailureClose {
+export type AdmittedCCallRuntimeFailureClose = {
   readonly kind: "admitted_c_call_runtime_failure_close";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "blocked" | "retry";
@@ -886,7 +884,7 @@ export interface AdmittedCCallRuntimeFailureClose {
   readonly signal: CCallRuntimeFailureSignal;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
-}
+};
 
 export type CCallRuntimeFailureSource =
   | AdmittedCCallEvidence
@@ -928,15 +926,15 @@ export interface ChildFoldbackAdmission {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-export interface ChildFoldbackRefusal {
+export type ChildFoldbackRefusal = {
   readonly kind: "child_foldback_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code: "child_truth_mismatch" | "parent_call_mismatch";
   readonly message: string;
-}
+};
 
-export interface ChildPreparationRefusalCandidate {
+export type ChildPreparationRefusalCandidate = {
   readonly kind: "child_preparation_refusal_candidate";
   readonly schemaVersion: "5.0.0";
   readonly childGraphFunctionRef: string;
@@ -950,7 +948,7 @@ export interface ChildPreparationRefusalCandidate {
     | "scope_open";
   readonly diagnosticRef: string;
   readonly message: string;
-}
+};
 
 export interface ChildPreparationRefusalAdmission {
   readonly kind: "child_preparation_refusal_admission";
@@ -961,13 +959,13 @@ export interface ChildPreparationRefusalAdmission {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-export interface ChildPreparationRefusalRefusal {
+export type ChildPreparationRefusalRefusal = {
   readonly kind: "child_preparation_refusal_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code: "candidate_mismatch" | "parent_call_mismatch";
   readonly message: string;
-}
+};
 
 export type CCallEvidenceAdmissionResult =
   | AdmittedCCallEvidence
@@ -979,7 +977,7 @@ export type CCallJudgmentAdmissionResult =
   | AdmittedCCallJudgment
   | CCallAdmissionRejection;
 
-export interface CCallPhaseProjection {
+export type CCallPhaseProjection = {
   readonly kind: "c_call_phase_projection";
   readonly cCallRef: string;
   readonly phase:
@@ -994,7 +992,7 @@ export interface CCallPhaseProjection {
   readonly resultEventRef: string | null;
   readonly judgmentEventRef: string | null;
   readonly rejectionEventRef: string | null;
-}
+};
 
 export function projectCCallPhase(
   prefix: ValidatedRuntimeEventPrefix,
@@ -1408,7 +1406,7 @@ function projectCCallOpeningAuthority(
     );
     const exactScope = rehydrateOpenedTraversalScopeAtPrefix(
       runPrefix,
-      scope as unknown as Readonly<Record<string, JsonValue>>,
+      scope,
     );
     const cursorAdmissionEventRef = traversalCursorAdmissionEventRefAtPrefix(
       runPrefix,
@@ -1418,8 +1416,8 @@ function projectCCallOpeningAuthority(
       exactBasis === null ||
       exactScope === null ||
       cursorAdmissionEventRef === null ||
-      !canonicalEquals(exactBasis as unknown as JsonValue, executionBasis as unknown as JsonValue) ||
-      !canonicalEquals(exactScope as unknown as JsonValue, scope as unknown as JsonValue) ||
+      !canonicalEquals(exactBasis, executionBasis) ||
+      !canonicalEquals(exactScope, scope) ||
       exactScope.executionBasisRef !== exactBasis.basisRef ||
       cursor.executionBasisRef !== exactBasis.basisRef ||
       cursor.traversalScopeRef !== exactScope.scopeRef ||
@@ -1588,7 +1586,7 @@ export function isCCall(value: object): boolean {
         failureContractRef: cCall.failureContractRef,
       }
     : commonIdentity;
-  return cCall.cCallDigest === sha256Canonical(identity as unknown as JsonValue) &&
+  return cCall.cCallDigest === sha256Canonical(identity) &&
     cCall.cCallRef === `c-call:${cCall.cCallDigest}`;
 }
 
@@ -1600,7 +1598,7 @@ export function isAdmittedCCallResult(value: object): boolean {
     typeof result.admissionEventRef !== "string"
   ) return false;
   return result.resultDigest ===
-      sha256Canonical(admittedResultBody(result) as unknown as JsonValue) &&
+      sha256Canonical(admittedResultBody(result)) &&
     result.resultRef ===
       `result://abiogenesis/${result.resultDigest.slice("sha256:".length)}` &&
     result.valueDigest === sha256Canonical(result.value);
@@ -1615,7 +1613,7 @@ export function isAdmittedCCallJudgment(value: object): boolean {
     typeof judgment.admissionEventRef !== "string"
   ) return false;
   return judgment.judgmentDigest ===
-      sha256Canonical(admittedJudgmentBody(judgment) as unknown as JsonValue) &&
+      sha256Canonical(admittedJudgmentBody(judgment)) &&
     judgment.judgmentRef ===
       `judgment://abiogenesis/${judgment.judgmentDigest.slice("sha256:".length)}`;
 }
@@ -1629,7 +1627,7 @@ function isAdmittedCCallEvidence(value: object): value is AdmittedCCallEvidence 
     typeof evidence.admissionEventRef !== "string"
   ) return false;
   return evidence.evidenceDigest ===
-      sha256Canonical(admittedEvidencePayload(evidence) as unknown as JsonValue) &&
+      sha256Canonical(admittedEvidencePayload(evidence)) &&
     evidence.evidenceRef ===
       `evidence://abiogenesis/${evidence.evidenceDigest.slice("sha256:".length)}`;
 }
@@ -1666,7 +1664,7 @@ function isChildFoldbackAdmission(
     ...body
   } = foldback;
   return foldback.foldbackDigest ===
-      sha256Canonical(body as unknown as JsonValue) &&
+      sha256Canonical(body) &&
     foldback.foldbackRef ===
       `child-foldback://abiogenesis/${foldback.foldbackDigest.slice("sha256:".length)}`;
 }
@@ -1905,7 +1903,7 @@ function projectAdmittedActorTransport(
   const { transportBindingRef: _bindingRef, transportBindingDigest, ...bindingBody } =
     binding.payload;
   const bindingIdentityValid = transportBindingDigest ===
-      sha256Canonical(bindingBody as unknown as JsonValue) &&
+      sha256Canonical(bindingBody) &&
     source.transportBindingDigest === transportBindingDigest &&
     source.transportBindingRef ===
       `transport-binding://abiogenesis/${String(transportBindingDigest).slice("sha256:".length)}`;
@@ -1958,7 +1956,7 @@ function projectAdmittedActorTransport(
     artifact.payload.resultContractRef === source.resultContractRef &&
     (artifact.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST
       ? artifact.payload.nativeResultAssessment !== undefined && source.nativeResultAssessment !== undefined &&
-        canonicalEquals(artifact.payload.nativeResultAssessment, source.nativeResultAssessment as JsonValue)
+        canonicalEquals(artifact.payload.nativeResultAssessment, source.nativeResultAssessment)
       : source.nativeResultAssessment === undefined && artifact.payload.nativeResultAssessment === undefined) &&
     artifact.payload.processRef === source.processRef &&
     artifact.payload.transportBindingRef === source.transportBindingRef &&
@@ -1984,13 +1982,15 @@ function projectAdmittedActorTransport(
     artifact.payload.apiRetryCount === source.apiRetryCount &&
     artifact.payload.stdoutByteLength === source.stdoutByteLength &&
     artifact.payload.stderrByteLength === source.stderrByteLength &&
+    artifact.payload.signalSequence !== undefined &&
     canonicalEquals(
-      artifact.payload.signalSequence as JsonValue,
-      source.signalSequence as JsonValue,
+      artifact.payload.signalSequence,
+      source.signalSequence,
     ) &&
+    artifact.payload.artifactDigests !== undefined &&
     canonicalEquals(
-      artifact.payload.artifactDigests as JsonValue,
-      source.artifactDigests as JsonValue,
+      artifact.payload.artifactDigests,
+      source.artifactDigests,
     );
   if (!joined || typeof binding.payload.parser !== "string" ||
     typeof artifact.payload.finalOutput !== "string") return null;
@@ -2014,9 +2014,11 @@ function projectAdmittedActorTransport(
           ? binding.payload.absoluteTimeoutMs
           : null
     );
-  const signals = actorRows.filter((event) =>
+  const signals = actorRows.flatMap((event) =>
     event.kind === "actor_process_signal_requested" && isJsonRecord(event.payload)
-  ).map((event) => (event.payload as Readonly<Record<string, JsonValue>>).signal);
+      ? [event.payload.signal]
+      : []
+  );
   const streamBytes = (kind: RuntimeEvent["kind"]): number =>
     actorRows.filter((event) => event.kind === kind && isJsonRecord(event.payload))
       .reduce((sum, event) =>
@@ -2048,10 +2050,7 @@ function projectAdmittedActorTransport(
     source.timedOut !== (timeoutRows.length === 1) ||
     source.timeoutClass !== timeoutClass ||
     !timeoutLimitMatchesBinding ||
-    !canonicalEquals(
-      signals as unknown as JsonValue,
-      source.signalSequence as JsonValue,
-    ) ||
+    !canonicalEquals(signals.map(presentMember), source.signalSequence) ||
     streamBytes("actor_process_stdout_observed") !== source.stdoutByteLength ||
     streamBytes("actor_process_stderr_observed") !== source.stderrByteLength ||
     (lifecycle.processTerminalKind === "actor_process_exited" &&
@@ -2085,9 +2084,10 @@ function projectAdmittedProbabilisticTransport(
       typeof source.outputDigest !== "string") return null;
   const transport = projectAdmittedActorTransport(prefix, cCallRef, source);
   if (transport === null) return null;
-  const artifactDigests = source.artifactDigests as Readonly<Record<string, JsonValue>>;
+  const artifactDigests = source.artifactDigests;
+  if (!isJsonRecord(artifactDigests)) return null;
   const classified = transport.failureClass;
-  const stableFailureSource = classified === null ? null : deepFreeze({
+  const stableFailureCandidate = classified === null ? null : admitJson({
     failureClass: classified,
     sourceClass: "probabilistic_transport",
     candidateRef: source.candidateRef,
@@ -2116,7 +2116,13 @@ function projectAdmittedProbabilisticTransport(
     artifactOutputDigest: artifactDigests.output,
     artifactStdoutDigest: artifactDigests.stdout,
     artifactStderrDigest: artifactDigests.stderr,
-  } as unknown as Readonly<Record<string, JsonValue>>);
+  });
+  // An absent or non-I-JSON source member is no admitted failure source.
+  let stableFailureSource: Readonly<Record<string, JsonValue>> | null = null;
+  if (stableFailureCandidate !== null) {
+    if (stableFailureCandidate.kind !== "ok" || !isJsonRecord(stableFailureCandidate.value)) return null;
+    stableFailureSource = stableFailureCandidate.value;
+  }
   return deepFreeze({
     kind: "admitted_probabilistic_transport_projection" as const,
     cCallRef,
@@ -2134,7 +2140,7 @@ function hasAdmittedActorEvidence(
   return projectAdmittedProbabilisticTransport(
     prefix,
     cCall.cCallRef,
-    candidate as unknown as Readonly<Record<string, JsonValue>>,
+    candidate,
   ) !== null;
 }
 
@@ -2158,7 +2164,7 @@ function deriveRuntimeFailureSignal(
   sourceClass: CCallRuntimeFailureSignal["sourceClass"],
   stableSource: Readonly<Record<string, JsonValue>>,
 ): ExactCCallRuntimeFailureSource {
-  const sourceDigest = sha256Canonical(stableSource as unknown as JsonValue);
+  const sourceDigest = sha256Canonical(stableSource);
   const sourceRef =
     `runtime-failure-source://abiogenesis/${sourceDigest.slice("sha256:".length)}`;
   const failureSignalDigest = sha256Canonical({
@@ -2215,7 +2221,7 @@ function exactCCallEvidenceIdentity(event: RuntimeEvent): boolean {
   } = event.payload;
   return typeof evidenceRef === "string" &&
     typeof evidenceDigest === "string" &&
-    evidenceDigest === sha256Canonical(body as unknown as JsonValue) &&
+    evidenceDigest === sha256Canonical(body) &&
     evidenceRef ===
       `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
 }
@@ -2290,7 +2296,7 @@ function admittedEvidencePayload(
     admissionEventRef: _admissionEventRef,
     ...body
   } = evidence;
-  return body as unknown as Readonly<Record<string, JsonValue>>;
+  return body;
 }
 
 function hasUndispatchedEvidence(prefix: RuntimeEventPrefix, cCallRef: string): boolean {
@@ -2407,7 +2413,7 @@ function projectOpenedLeafCCallCarrier(
     programLocusRef: declaredTerm.programLocusRef,
     retryPath,
   };
-  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallDigest = sha256Canonical(identity);
   if (cCallRef !== `c-call:${cCallDigest}`) return null;
   const locusBody = {
     cCallRef,
@@ -2654,7 +2660,7 @@ function projectOpenedWorkflowCCallCarrier(
   if (
     !isMaterializedGtlGraph(graph) || cCallRef.length === 0 ||
     graphFunction.name !== graph.graphFunctionRef ||
-    sha256Canonical(graphFunction as unknown as JsonValue) !==
+    sha256Canonical(graphFunction) !==
       graph.graphFunctionDigest ||
     !hasAdmittedTraversalCursorAtPrefix(prefix, sourceCursor) ||
     sourceCursor.graphRef !== graph.materializationRef ||
@@ -2752,7 +2758,7 @@ function projectOpenedWorkflowCCallCarrier(
     nodeRef: sourceCursor.currentNodeRef,
     termPath: sourceCursor.termPath,
     childGraphFunctionRef: declaredTerm.graphFunctionRef,
-  } as unknown as JsonValue);
+  });
   const programLocusRef =
     `workflow-locus://abiogenesis/${programLocusDigest.slice("sha256:".length)}`;
   const identity = {
@@ -2768,7 +2774,7 @@ function projectOpenedWorkflowCCallCarrier(
     childGraphFunctionRef: declaredTerm.graphFunctionRef,
     failureContractRef,
   };
-  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallDigest = sha256Canonical(identity);
   if (cCallRef !== `c-call:${cCallDigest}`) return null;
   const locusBody = {
     cCallRef,
@@ -3000,7 +3006,7 @@ function exactRuntimeFailureSource(
         evidenceRef: source.evidenceRef,
         evidenceDigest: source.evidenceDigest,
         ...admittedEvidencePayload(source),
-      } as unknown as JsonValue,
+      },
     )
   ) return null;
   return exactProbabilisticFailureSource(
@@ -3020,7 +3026,7 @@ function runtimeFailurePlanBody(
     planDigest: _planDigest,
     ...body
   } = plan;
-  return body as unknown as Readonly<Record<string, JsonValue>>;
+  return body;
 }
 
 export function planCCallRuntimeFailureClose(
@@ -3098,8 +3104,8 @@ export function planCCallRuntimeFailureClose(
       );
       return projected !== null &&
         canonicalEquals(
-          projected as unknown as JsonValue,
-          cCall as unknown as JsonValue,
+          projected,
+          cCall,
         );
     })() === false ||
     cCall.callClass !== "leaf" ||
@@ -3166,7 +3172,7 @@ export function planCCallRuntimeFailureClose(
       diagnosticRef: source.diagnosticRef,
     };
     const rejectionEvidenceDigest = sha256Canonical(
-      rejectionEvidenceBody as unknown as JsonValue,
+      rejectionEvidenceBody,
     );
     const rejectionEvidenceRef =
       `evidence://abiogenesis/${rejectionEvidenceDigest.slice("sha256:".length)}`;
@@ -3209,17 +3215,20 @@ export function planCCallRuntimeFailureClose(
       ? [event.payload.evidenceRef]
       : []
   );
-  const immutableCandidate = deepFreeze(
-    JSON.parse(canonicalJson(failureCandidate)) as JsonValue,
-  );
+  const parsedCandidate: JsonValue = JSON.parse(canonicalJson(failureCandidate));
+  const immutableCandidate = deepFreeze(parsedCandidate);
+  const candidateRecord = isJsonRecord(immutableCandidate) ? immutableCandidate : null;
+  if (source.kind === "admitted_c_call_evidence" && candidateRecord === null) {
+    throw new TypeError("admitted runtime failure candidate is not one JSON record");
+  }
   const failureValue = source.kind === "admitted_c_call_evidence"
     ? deepFreeze({
-        ...(immutableCandidate as Readonly<Record<string, JsonValue>>),
+        ...candidateRecord,
         failureClass: resolved.signal.failureClass,
         failureSignalRef: resolved.signal.failureSignalRef,
         failureSourceRef: resolved.sourceRef,
         failureCandidateDigest,
-      }) as JsonValue
+      })
     : deepFreeze({
         kind: failureValueKind,
         schemaVersion: "5.0.0" as const,
@@ -3229,7 +3238,7 @@ export function planCCallRuntimeFailureClose(
         failureSourceRef: resolved.sourceRef,
         failureCandidateDigest,
         rejectedStage: source.stage,
-      }) as JsonValue;
+      });
   const valueDigest = sha256Canonical(failureValue);
   const resultBody = {
     cCallRef: cCall.cCallRef,
@@ -3240,7 +3249,7 @@ export function planCCallRuntimeFailureClose(
     value: failureValue,
     evidenceRefs,
   };
-  const resultDigest = sha256Canonical(resultBody as unknown as JsonValue);
+  const resultDigest = sha256Canonical(resultBody);
   const resultRef =
     `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
   const resultEvent = project({
@@ -3282,7 +3291,7 @@ export function planCCallRuntimeFailureClose(
     replayStateDigest: replayState.replayDigest,
     retryAttemptRef: activeRetryAttemptRef,
   };
-  const judgmentDigest = sha256Canonical(judgmentBody as unknown as JsonValue);
+  const judgmentDigest = sha256Canonical(judgmentBody);
   const judgmentRef =
     `judgment://abiogenesis/${judgmentDigest.slice("sha256:".length)}`;
   const judgmentEvent = project({
@@ -3322,7 +3331,7 @@ export function planCCallRuntimeFailureClose(
   });
   const body = {
     expectedPrefixDigest,
-    admissionBasisDigest: sha256Canonical(basis as unknown as JsonValue),
+    admissionBasisDigest: sha256Canonical(basis),
     disposition,
     cCallRef: cCall.cCallRef,
     sourceRef: resolved.sourceRef,
@@ -3334,7 +3343,7 @@ export function planCCallRuntimeFailureClose(
     projectedEvents,
     close,
   };
-  const planDigest = sha256Canonical(body as unknown as JsonValue);
+  const planDigest = sha256Canonical(body);
   const planRef =
     `c-call-runtime-failure-plan://abiogenesis/${planDigest.slice("sha256:".length)}`;
   return deepFreeze({
@@ -3371,13 +3380,13 @@ export function admitPlannedCCallRuntimeFailureClose(
   if (
     plan.kind !== "c_call_runtime_failure_close_plan" ||
     plan.schemaVersion !== "5.0.0" || plan.cCallRef !== cCall.cCallRef ||
-    plan.planDigest !== sha256Canonical(runtimeFailurePlanBody(plan) as JsonValue) ||
+    plan.planDigest !== sha256Canonical(runtimeFailurePlanBody(plan)) ||
     plan.planRef !==
       `c-call-runtime-failure-plan://abiogenesis/${plan.planDigest.slice("sha256:".length)}` ||
     store.digest() !== plan.expectedPrefixDigest ||
     plan.disposition !== disposition ||
     plan.admissionBasisDigest !==
-      sha256Canonical(basis as unknown as JsonValue)
+      sha256Canonical(basis)
   ) throw runtimeFailureCloseError("plan identity or expected prefix differs");
   const prefix = selectRuntimeEventPrefixFromStore(store);
   const rederived = planCCallRuntimeFailureClose(
@@ -3396,8 +3405,8 @@ export function admitPlannedCCallRuntimeFailureClose(
   if (
     rederived.kind !== "c_call_runtime_failure_close_plan" ||
     !canonicalEquals(
-      rederived as unknown as JsonValue,
-      plan as unknown as JsonValue,
+      rederived,
+      plan,
     )
   ) throw runtimeFailureCloseError("source or plan no longer reprojects exactly");
   if (
@@ -3411,10 +3420,7 @@ export function admitPlannedCCallRuntimeFailureClose(
   });
   const admittedEvents = sampledEvents.map(({ event }) => event);
   if (admittedEvents.some((event, index) =>
-    !canonicalEquals(
-      event as unknown as JsonValue,
-      plan.projectedEvents[index] as unknown as JsonValue,
-    )
+    !canonicalEquals(event, plan.projectedEvents[index] ?? null)
   )) {
     throw runtimeFailureCloseError(
       "admitted close differs from its pre-effect plan",
@@ -3487,16 +3493,17 @@ export function projectCCallRuntimeFailureSignal(
   ) return null;
   const resultPayload = result.payload;
   const judgmentPayload = judgment.payload;
-  const resultValue = resultPayload.value as Readonly<Record<string, JsonValue>>;
+  const resultValue = resultPayload.value;
+  if (!isJsonRecord(resultValue)) return null;
   const evidenceRefs = resultPayload.evidenceRefs as readonly JsonValue[];
   const { resultRef: _resultRef, resultDigest, ...resultBody } = resultPayload;
   const { judgmentRef: _judgmentRef, judgmentDigest, ...judgmentBody } =
     judgmentPayload;
   if (
-    resultDigest !== sha256Canonical(resultBody as unknown as JsonValue) ||
+    resultDigest !== sha256Canonical(resultBody) ||
     resultRef !==
       `result://abiogenesis/${String(resultDigest).slice("sha256:".length)}` ||
-    judgmentDigest !== sha256Canonical(judgmentBody as unknown as JsonValue) ||
+    judgmentDigest !== sha256Canonical(judgmentBody) ||
     judgmentRef !==
       `judgment://abiogenesis/${String(judgmentDigest).slice("sha256:".length)}`
   ) return null;
@@ -3529,7 +3536,7 @@ export function projectCCallRuntimeFailureSignal(
   >;
   const candidateMatches = source.signal.sourceClass === "probabilistic_transport"
     ? sourcePayload.outputDigest === resultValue.failureCandidateDigest &&
-      sha256Canonical(baseFailureCandidate as unknown as JsonValue) ===
+      sha256Canonical(baseFailureCandidate) ===
         resultValue.failureCandidateDigest &&
       baseFailureCandidate.diagnosticRef === resultValue.diagnosticRef
     : sourcePayload.candidateDigest === resultValue.failureCandidateDigest &&
@@ -3615,7 +3622,7 @@ function revalidateProbabilisticFailurePreimage(
     request.resultContractRef !== expectedResultContractRef ||
     observation.resultContractRef !== expectedResultContractRef
   ) return null;
-  const requestDigest = sha256Canonical(request as unknown as JsonValue);
+  const requestDigest = sha256Canonical(request);
   return {
     candidateRef: null,
     candidateDigest: null,
@@ -3698,11 +3705,11 @@ function revalidateProbabilisticResultCarrier(
     candidateDigest: _candidateDigest,
     ...body
   } = carrierValue;
-  const requestDigest = sha256Canonical(request as unknown as JsonValue);
+  const requestDigest = sha256Canonical(request);
   const observationDigest = sha256Canonical(
-    observation as unknown as JsonValue,
+    observation,
   );
-  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  const candidateDigest = sha256Canonical(body);
   if (
     carrierValue.requestDigest !== requestDigest ||
     carrierValue.requestRef !==
@@ -3713,7 +3720,7 @@ function revalidateProbabilisticResultCarrier(
     carrierValue.observationDigest !== observationDigest ||
     carrierValue.rawOutputDigest !== sha256Bytes(observation.finalOutput) ||
     carrierValue.valueDigest !==
-      sha256Canonical(carrierValue.value as unknown as JsonValue) ||
+      sha256Canonical(carrierValue.value) ||
     carrierValue.valueDigest !== observation.observedOutputDigest ||
     carrierValue.implementationResolutionRef !==
       `implementation-resolution-row://abiogenesis/${String(
@@ -3805,14 +3812,14 @@ export function projectActorTransportForResult(
   request: Readonly<ActorProcessRequest>,
   observation: Readonly<ActorProcessObservation>,
 ): AdmittedActorTransportProjection | null {
-  const requestDigest = sha256Canonical(request as unknown as JsonValue);
+  const requestDigest = sha256Canonical(request);
   const source = probabilisticTransportEvidenceValue(request, observation, {
     candidateRef: null, candidateDigest: null, requestDigest,
     requestRef: `probabilistic-request://abiogenesis/${requestDigest.slice(7)}`,
     rawOutputDigest: sha256Bytes(observation.finalOutput),
   }, observation.observedOutputDigest);
   return projectAdmittedActorTransport(prefix, cCall.cCallRef,
-    source as unknown as Readonly<Record<string, JsonValue>>);
+    source);
 }
 
 function probabilisticTransportEvidenceValue(
@@ -3934,7 +3941,7 @@ export function admitWorkflowChildPreparationRefusal(
       message: "child preparation refusal candidate differs from the declared workflow child",
     };
   }
-  const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
+  const candidateDigest = sha256Canonical(candidate);
   const admittedEvent = admitChildLifecycleEvent({
     store,
     expectedPrefixDigest: owner.expectedStorePrefixDigest,
@@ -3963,7 +3970,7 @@ export function admitWorkflowChildPreparationRefusal(
   const admissionRejection = rejection(
     parentCCall,
     "evidence",
-    candidate as unknown as JsonValue,
+    candidate,
     parentCCall.evidenceContractRef,
     candidate.diagnosticRef,
   );
@@ -4142,7 +4149,7 @@ function admitWorkflowChildFoldbackUsing(
     childTerminalEventRef: truth.childTerminalEventRef,
     outputDigest: truth.outputDigest,
   };
-  const foldbackDigest = sha256Canonical(body as unknown as JsonValue);
+  const foldbackDigest = sha256Canonical(body);
   const foldbackRef =
     `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}`;
   const admittedEvent = admitChildLifecycleEvent({
@@ -4367,7 +4374,7 @@ export function rehydrateWorkflowCCallAtPrefix(
     sourceCursor.traversalScopeRef !== scope.scopeRef ||
     sourceCursor.graphRef !== graph.materializationRef ||
     graphFunction.name !== graph.graphFunctionRef ||
-    sha256Canonical(graphFunction as unknown as JsonValue) !==
+    sha256Canonical(graphFunction) !==
       graph.graphFunctionDigest ||
     implementationSet.implementationSetRef !==
       executionBasis.rootImplementationSetRef ||
@@ -4398,7 +4405,7 @@ export function rehydrateWorkflowCCallAtPrefix(
     nodeRef: sourceCursor.currentNodeRef,
     termPath: sourceCursor.termPath,
     childGraphFunctionRef: declaredTerm.graphFunctionRef,
-  } as unknown as JsonValue);
+  });
   const programLocusRef =
     `workflow-locus://abiogenesis/${programLocusDigest.slice("sha256:".length)}`;
   const identity = {
@@ -4414,7 +4421,7 @@ export function rehydrateWorkflowCCallAtPrefix(
     childGraphFunctionRef: declaredTerm.graphFunctionRef,
     failureContractRef,
   };
-  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallDigest = sha256Canonical(identity);
   const cCallRef = `c-call:${cCallDigest}`;
   const events = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter(
     (event) => event.aggregateType === "c_call" && event.aggregateId === cCallRef,
@@ -4526,8 +4533,8 @@ export function rehydrateWorkflowCCallAtPrefix(
   if (
     cursorEventRef === null ||
     !canonicalEquals(
-      cCallValue as unknown as JsonValue,
-      expected as unknown as JsonValue,
+      cCallValue,
+      expected,
     ) ||
     openedEvent.aggregateId !== cCallRef ||
     openedEvent.parentAggregateId !== scope.frameId ||
@@ -4564,7 +4571,7 @@ function exactEventBody(
     isJsonRecord(event.payload) &&
     canonicalEquals(
       event.payload,
-      expected as unknown as JsonValue,
+      expected,
     );
 }
 
@@ -4580,7 +4587,7 @@ function admittedResultBody(
     admissionEventRef: _admissionEventRef,
     ...body
   } = result;
-  return body as unknown as Readonly<Record<string, JsonValue>>;
+  return body;
 }
 
 function admittedJudgmentBody(
@@ -4595,14 +4602,14 @@ function admittedJudgmentBody(
     admissionEventRef: _admissionEventRef,
     ...body
   } = judgment;
-  return body as unknown as Readonly<Record<string, JsonValue>>;
+  return body;
 }
 
-export interface RehydratedAdmittedCCallState {
+export type RehydratedAdmittedCCallState = {
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
-}
+};
 
 export interface AdmittedLeafCCallOutcomeProjectionInput {
   readonly executionBasis: ExecutionBasis;
@@ -4675,7 +4682,7 @@ function projectAdmittedLeafCCallOutcomeFromPrefix(
     implementationSet.implementationSetRef !== basis.implementationSetRef ||
     implementationSet.implementationSetDigest !== basis.implementationSetDigest ||
     selectedResolution === null ||
-    !canonicalEquals(selectedResolution as unknown as JsonValue, resolution as unknown as JsonValue) ||
+    !canonicalEquals(selectedResolution, resolution) ||
     resolution.graphFunctionRef !== basis.graphFunctionRef ||
     resolution.nodeRef !== stop.nodeRef ||
     resolution.programLocusRef !== stop.programLocusRef ||
@@ -4699,7 +4706,7 @@ function projectAdmittedLeafCCallOutcomeFromPrefix(
     programLocusRef: stop.programLocusRef,
     retryPath: stop.retryPath,
   };
-  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallDigest = sha256Canonical(identity);
   const cCallRef = `c-call:${cCallDigest}`;
   if (input.cCallRef !== cCallRef) return null;
   const events = runtimeEventBodiesAtPrefix(prefix);
@@ -4845,9 +4852,9 @@ function projectAdmittedLeafCCallOutcomeFromPrefix(
   }) as unknown as AdmittedCCallJudgment;
   return projectAdmittedCCallStateAtPrefix(
     prefix,
-    cCall as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
-    judgment as unknown as Readonly<Record<string, JsonValue>>,
+    cCall,
+    result,
+    judgment,
   );
 }
 
@@ -5087,7 +5094,7 @@ function constructPreparedCCallOpening(
         }
       : {}),
   };
-  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallDigest = sha256Canonical(identity);
   const cCallRef = `c-call:${cCallDigest}`;
   const locusBody = {
     cCallRef,
@@ -5412,7 +5419,7 @@ function openImplementationCCallLocus(
     stop.disposition !== "at_compute_locus" ||
     program.programRef !== executionBasis.programRef ||
     graphFunction.name !== graph.graphFunctionRef ||
-    sha256Canonical(graphFunction as unknown as JsonValue) !==
+    sha256Canonical(graphFunction) !==
       graph.graphFunctionDigest ||
     graph.materializationRef !== executionBasis.graphRef ||
     declaredNode === undefined ||
@@ -5456,8 +5463,8 @@ function openImplementationCCallLocus(
   if (
     exactImplementationSet === null ||
     exactResolution === null ||
-    !canonicalEquals(exactImplementationSet as unknown as JsonValue, implementationSet as unknown as JsonValue) ||
-    !canonicalEquals(exactResolution as unknown as JsonValue, resolution as unknown as JsonValue) ||
+    !canonicalEquals(exactImplementationSet, implementationSet) ||
+    !canonicalEquals(exactResolution, resolution) ||
     executionBasis.implementationSetRef !== implementationSet.implementationSetRef ||
     executionBasis.implementationSetDigest !== implementationSet.implementationSetDigest ||
     resolution.graphFunctionRef !== executionBasis.graphFunctionRef ||
@@ -5561,7 +5568,7 @@ function openInteractionCCallLocus(
     stop.disposition !== "at_compute_locus" ||
     program.programRef !== executionBasis.programRef ||
     graphFunction.name !== graph.graphFunctionRef ||
-    sha256Canonical(graphFunction as unknown as JsonValue) !==
+    sha256Canonical(graphFunction) !==
       graph.graphFunctionDigest ||
     graph.materializationRef !== executionBasis.graphRef ||
     declaredNode === undefined ||
@@ -5611,8 +5618,8 @@ function openInteractionCCallLocus(
   if (
     exactInteractionSet === null ||
     exactInteraction === null ||
-    !canonicalEquals(exactInteractionSet as unknown as JsonValue, interactionSet as unknown as JsonValue) ||
-    !canonicalEquals(exactInteraction as unknown as JsonValue, interaction as unknown as JsonValue) ||
+    !canonicalEquals(exactInteractionSet, interactionSet) ||
+    !canonicalEquals(exactInteraction, interaction) ||
     executionBasis.interactionSetRef !== interactionSet.interactionSetRef ||
     executionBasis.interactionSetDigest !== interactionSet.interactionSetDigest ||
     interaction.graphFunctionRef !== executionBasis.graphFunctionRef ||
@@ -5758,11 +5765,11 @@ function openWorkflowCCallLocus(
         implementationSet: exactImplementationSet,
       });
   const childClosureDigest = sha256Canonical(
-    childClosureContract as unknown as JsonValue,
+    childClosureContract,
   );
   if (
     exactImplementationSet === null ||
-    !canonicalEquals(exactImplementationSet as unknown as JsonValue, implementationSet as unknown as JsonValue) ||
+    !canonicalEquals(exactImplementationSet, implementationSet) ||
     implementationSet.implementationSetRef !==
       executionBasis.rootImplementationSetRef ||
     implementationSet.implementationSetDigest !==
@@ -5772,7 +5779,7 @@ function openWorkflowCCallLocus(
     failureResolution.failureContractRef !== proposal.failureContractRef ||
     childGraphFunction.name !== proposal.childGraphFunctionRef ||
     failureResolution.childGraphFunctionDigest !==
-      sha256Canonical(childGraphFunction as unknown as JsonValue) ||
+      sha256Canonical(childGraphFunction) ||
     childGraphFunction.declarations["abg.child_closure_contract"] !==
       childClosureContract.closureContractRef ||
     childClosureContract.closureScope !== "graph_call" ||
@@ -5795,7 +5802,7 @@ function openWorkflowCCallLocus(
     cursor.traversalScopeRef !== scope.scopeRef ||
     cursor.graphRef !== graph.materializationRef ||
     graphFunction.name !== graph.graphFunctionRef ||
-    sha256Canonical(graphFunction as unknown as JsonValue) !== graph.graphFunctionDigest ||
+    sha256Canonical(graphFunction) !== graph.graphFunctionDigest ||
     program.programRef !== executionBasis.programRef ||
     !program.callableMembership.includes(proposal.childGraphFunctionRef) ||
     declaredTerm.kind === "c_source_path_refusal" ||
@@ -5816,7 +5823,7 @@ function openWorkflowCCallLocus(
     nodeRef: cursor.currentNodeRef,
     termPath: cursor.termPath,
     childGraphFunctionRef: proposal.childGraphFunctionRef,
-  } as unknown as JsonValue);
+  });
   const programLocusRef =
     `workflow-locus://abiogenesis/${programLocusDigest.slice("sha256:".length)}`;
   const prepared = constructPreparedCCallOpening(executionBasis, scope, {
@@ -5955,9 +5962,11 @@ function pendingInteractionPlanBody(
     schemaVersion: _schemaVersion,
     planRef: _planRef,
     planDigest: _planDigest,
+    projectedPrefix: _projectedPrefix,
+    replayState: _replayState,
     ...body
   } = plan;
-  return body as unknown as Readonly<Record<string, JsonValue>>;
+  return body;
 }
 
 /** @internal Same pure planner and digest law, with selected operational fields. */
@@ -5990,7 +5999,7 @@ export function planOwnedPendingInteractionAdmission(
     cCall.interactionKind === null || cCall.actorCapabilityRef === null ||
     cCall.responseContractRef === null ||
     cCall.continuationContractRef === null ||
-    sha256Canonical(request as unknown as JsonValue) !== expectedInputDigest ||
+    sha256Canonical(request) !== expectedInputDigest ||
     owner.rows.length !== 2 ||
     (cCall.retryPath.length !== 0 && retryAttemptRef === null)
   ) {
@@ -6011,7 +6020,7 @@ export function planOwnedPendingInteractionAdmission(
     continuationContractRef: cCall.continuationContractRef,
   });
   const pendingValueDigest = sha256Canonical(
-    pendingValue as unknown as JsonValue,
+    pendingValue,
   );
   const evidenceBody = {
     cCallRef: cCall.cCallRef,
@@ -6023,7 +6032,7 @@ export function planOwnedPendingInteractionAdmission(
     requestRef,
     requestDigest,
   };
-  const evidenceDigest = sha256Canonical(evidenceBody as unknown as JsonValue);
+  const evidenceDigest = sha256Canonical(evidenceBody);
   const evidenceRef =
     `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
   const resultBody = {
@@ -6035,7 +6044,7 @@ export function planOwnedPendingInteractionAdmission(
     value: pendingValue,
     evidenceRefs: [evidenceRef],
   };
-  const resultDigest = sha256Canonical(resultBody as unknown as JsonValue);
+  const resultDigest = sha256Canonical(resultBody);
   const resultRef =
     `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
   const judgmentReasonRef =
@@ -6123,7 +6132,7 @@ export function planOwnedPendingInteractionAdmission(
     retryAttemptRef,
   };
   const judgmentDigest = sha256Canonical(
-    judgmentBody as unknown as JsonValue,
+    judgmentBody,
   );
   const judgmentRef =
     `judgment://abiogenesis/${judgmentDigest.slice("sha256:".length)}`;
@@ -6169,24 +6178,24 @@ export function planOwnedPendingInteractionAdmission(
   const replayState = projectRuntimeReplayGuard(projectedRunPrefix,projectedPrefix);
   const projected = projectPendingInteractionCarrier(
     projectedRunPrefix,
-    cCall as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
-    judgment as unknown as Readonly<Record<string, JsonValue>>,
+    cCall,
+    result,
+    judgment,
   );
   if (
     projected === null || projected.requestRef !== requestRef ||
     projected.requestDigest !== requestDigest ||
     !canonicalEquals(
-      projected.cCall as unknown as JsonValue,
-      cCall as unknown as JsonValue,
+      projected.cCall,
+      cCall,
     ) ||
     !canonicalEquals(
-      projected.result as unknown as JsonValue,
-      result as unknown as JsonValue,
+      projected.result,
+      result,
     ) ||
     !canonicalEquals(
-      projected.judgment as unknown as JsonValue,
-      judgment as unknown as JsonValue,
+      projected.judgment,
+      judgment,
     )
   ) {
     throw new TypeError(
@@ -6195,7 +6204,7 @@ export function planOwnedPendingInteractionAdmission(
   }
   const body = {
     expectedPrefixDigest: owner.expectedStorePrefixDigest,
-    admissionBasisDigest: sha256Canonical(basis as unknown as JsonValue),
+    admissionBasisDigest: sha256Canonical(basis),
     cCallRef: cCall.cCallRef,
     requestRef,
     requestDigest,
@@ -6243,7 +6252,7 @@ export function admitOwnedPlannedPendingInteraction(
     plan.planDigest !== pendingInteractionBodyDigest(plan) ||
     plan.planRef !==
       `pending-interaction-plan://abiogenesis/${plan.planDigest.slice("sha256:".length)}` ||
-    plan.admissionBasisDigest !== sha256Canonical(basis as unknown as JsonValue) ||
+    plan.admissionBasisDigest !== sha256Canonical(basis) ||
     store.digest() !== plan.expectedPrefixDigest
   ) {
     throw new TypeError(
@@ -6282,10 +6291,7 @@ export function admitOwnedPlannedPendingInteraction(
   });
   const admittedEvents = sampledEvents.map(({ event }) => event);
   if (admittedEvents.some((event, index) =>
-    !canonicalEquals(
-      event as unknown as JsonValue,
-      plan.projectedEvents[index] as unknown as JsonValue,
-    )
+    !canonicalEquals(event, plan.projectedEvents[index] ?? null)
   )) {
     throw new TypeError(
       "pending F_H admission differs from its pre-effect plan",
@@ -6450,7 +6456,7 @@ function admitEvidenceUsingTransport(
         cCall,
         owner.phase.phase,
       );
-  const candidateValue = candidate as unknown as JsonValue;
+  const candidateValue = candidate;
   const digestPattern = /^sha256:[a-f0-9]{64}$/u;
   const commonValid = candidate.schemaVersion === "5.0.0" &&
     candidate.inputDigest === expectedInputDigest &&
@@ -6498,7 +6504,7 @@ function admitEvidenceUsingTransport(
     worksiteBasis !== null &&
     worksiteImplementationSet !== null &&
     worksiteResolution !== null &&
-    sha256Canonical(candidate.request as unknown as JsonValue) ===
+    sha256Canonical(candidate.request) ===
       worksiteBasis.rawInputDigest &&
     candidate.request.workspaceBindingIdentity ===
       worksiteBasis.workspaceBindingId &&
@@ -6611,7 +6617,7 @@ function admitEvidenceUsingTransport(
     digestPattern.test(candidate.observedOutputDigest) &&
     typeof candidate.promptDigest === "string" && digestPattern.test(candidate.promptDigest) &&
     typeof candidate.transportDigest === "string" && digestPattern.test(candidate.transportDigest) &&
-    isJsonRecord(candidate.artifactDigests as unknown as JsonValue) &&
+    isJsonRecord(candidate.artifactDigests) &&
     candidate.transportDigest === candidate.artifactDigests.transport &&
     Object.values(candidate.artifactDigests).every(
       (digest) => typeof digest === "string" && digestPattern.test(digest),
@@ -6646,7 +6652,7 @@ function admitEvidenceUsingTransport(
     (transport === undefined ? hasAdmittedActorEvidence(store, cCall, candidate) :
       transport !== null && transport.cCallRef === cCall.cCallRef &&
       transport.prefixDigest === runtimeEventPrefixDigest(prefix) &&
-      transport.sourceDigest === actorTransportSourceDigest(candidate as unknown as Readonly<Record<string, JsonValue>>));
+      transport.sourceDigest === actorTransportSourceDigest(candidate));
   const foldbackEvent = candidate.kind === "sub_traversal_evidence_candidate"
     ? owner === null
       ? undefined
@@ -6777,7 +6783,7 @@ function admitEvidenceUsingTransport(
     childReasonRef: candidate.childReasonRef,
     childTerminalEventRef: candidate.childTerminalEventRef,
   }) satisfies AdmittedCCallEvidenceBody;
-  const evidenceDigest = sha256Canonical(body as unknown as JsonValue);
+  const evidenceDigest = sha256Canonical(body);
   const evidenceRef = `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
   const prior = owner.rows.at(-1)!;
   // hasAdmittedActorEvidence already authenticated this exact completed
@@ -6811,7 +6817,7 @@ function admitEvidenceUsingTransport(
     graphFunctionRef: cCall.graphFunctionRef,
     graphCallId: cCall.graphCallId,
     frameId: cCall.frameId,
-    payload: { evidenceRef, evidenceDigest, ...body } as unknown as JsonValue,
+    payload: { evidenceRef, evidenceDigest, ...body },
     },
   );
   const admitted = deepFreeze({
@@ -6904,7 +6910,8 @@ export function admitResult(
     evidence.length === 0 ||
     (undispatched.length !== 0 && (evidence.length !== 1 || resultClass !== "failure" ||
       undispatched[0]!.failureContractRef !== contractRef ||
-      sha256Canonical(undispatched[0]!.failureValue as JsonValue) !== valueDigest ||
+      undispatched[0]!.failureValue === undefined ||
+      sha256Canonical(undispatched[0]!.failureValue) !== valueDigest ||
       !isJsonRecord(candidate) || candidate.diagnosticRef !== undispatched[0]!.ownerObservation?.diagnosticRef)) ||
     evidence.length !== evidenceEvents.length ||
     new Set(evidence.map((row) => row.evidenceRef)).size !== evidence.length ||
@@ -6924,7 +6931,8 @@ export function admitResult(
       "diagnostic://abiogenesis/c-call/result-contract-mismatch@5",
     );
   }
-  const immutableValue = deepFreeze(JSON.parse(canonicalJson(candidate)) as JsonValue);
+  const parsedValue: JsonValue = JSON.parse(canonicalJson(candidate));
+  const immutableValue = deepFreeze(parsedValue);
   const body = {
     cCallRef: cCall.cCallRef,
     resultClass,
@@ -6934,7 +6942,7 @@ export function admitResult(
     value: immutableValue,
     evidenceRefs: evidence.map((row) => row.evidenceRef),
   };
-  const resultDigest = sha256Canonical(body as unknown as JsonValue);
+  const resultDigest = sha256Canonical(body);
   const resultRef = `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
   const prior = owner.rows.at(-1)!;
   const event = admitCCallProgressEvent(
@@ -7030,7 +7038,7 @@ export function admitJudgment(
     predicateRef: candidate.predicateRef,
     replayStateDigest: candidate.replayStateDigest,
   };
-  const candidateValue = candidateBody as unknown as JsonValue;
+  const candidateValue = candidateBody;
   const currentReplay = projectRuntimeReplayGuard(owner?.prefix ?? prefix, prefix);
   const currentCCall = projectReplayCCallGuardAtPrefix(owner?.prefix ?? prefix,cCall.cCallRef);
   const undispatchedEvidence = (owner?.rows ?? []).find(event => event.kind === "c_call_evidenced" &&
@@ -7065,7 +7073,7 @@ export function admitJudgment(
     ...candidateBody,
     retryAttemptRef: activeRetryAttemptRef,
   };
-  const judgmentDigest = sha256Canonical(judgmentBody as unknown as JsonValue);
+  const judgmentDigest = sha256Canonical(judgmentBody);
   const judgmentRef = `judgment://abiogenesis/${judgmentDigest.slice("sha256:".length)}`;
   const event = admitCCallProgressEvent(
     store,
@@ -7198,7 +7206,7 @@ export function completeRejectedCCall(
       diagnosticRef: admissionRejection.diagnosticRef,
     };
     const rejectionEvidenceDigest = sha256Canonical(
-      rejectionEvidenceBody as unknown as JsonValue,
+      rejectionEvidenceBody,
     );
     rejectionEvidenceRef =
       `evidence://abiogenesis/${rejectionEvidenceDigest.slice("sha256:".length)}`;
@@ -7231,7 +7239,7 @@ export function completeRejectedCCall(
       rejectedStage: admissionRejection.stage,
       candidateDigest: admissionRejection.candidateDigest,
       diagnosticRef: admissionRejection.diagnosticRef,
-    }) as JsonValue;
+    });
     const valueDigest = sha256Canonical(refusalValue);
     const refusalResultBody = {
       cCallRef: cCall.cCallRef,
@@ -7250,7 +7258,7 @@ export function completeRejectedCCall(
         rejectionEvidenceRef,
       ],
     };
-    resultDigest = sha256Canonical(refusalResultBody as unknown as JsonValue);
+    resultDigest = sha256Canonical(refusalResultBody);
     resultRef = `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
     const resultEvent = admitFrameObservedCCallEvent(store, {
       kind: "c_call_result_admitted",
@@ -7286,7 +7294,7 @@ export function completeRejectedCCall(
     retryAttemptRef,
   };
   const rejectionJudgmentDigest = sha256Canonical(
-    rejectionJudgmentBody as unknown as JsonValue,
+    rejectionJudgmentBody,
   );
   const rejectionJudgmentRef =
     `judgment://abiogenesis/${rejectionJudgmentDigest.slice("sha256:".length)}`;
@@ -7335,14 +7343,21 @@ export function completeRejectedCCall(
 
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, parseNativeWorkspaceWorkReport } from "../product/native_workspace_work.js";
 
-function pendingInteractionBodyDigest(plan: Pick<OwnedPendingInteractionAdmissionPlan,"projectedPrefix"|"replayState"> & object): Sha256Digest {
-  const body = "planRef" in plan ? pendingInteractionPlanBody(plan as OwnedPendingInteractionAdmissionPlan) : plan as unknown as Readonly<Record<string,JsonValue>>;
+type PendingInteractionDigestBody = Omit<OwnedPendingInteractionAdmissionPlan, "kind" | "schemaVersion" | "planRef" | "planDigest">;
+/** The finite members are canonical JSON; the prefix and replay guard are
+ * written by their owners, so the body digest needs no copied history. */
+function pendingInteractionBodyDigest(
+  plan: PendingInteractionDigestBody | PendingInteractionAdmissionPlan | OwnedPendingInteractionAdmissionPlan,
+): Sha256Digest {
+  let finite: Readonly<Record<string, JsonValue>>;
+  if ("planRef" in plan) finite = pendingInteractionPlanBody(plan);
+  else { const { projectedPrefix: _projectedPrefix, replayState: _replayState, ...rest } = plan; finite = rest; }
   const hash=createHash("sha256");const write=(part:string)=>{hash.update(part);};write("{");let comma=false;
-  for(const key of Object.keys(body).sort(compareUnicodeCodeUnits)) {
+  for(const key of [...Object.keys(finite), "projectedPrefix", "replayState"].sort(compareUnicodeCodeUnits)) {
     if(comma)write(",");comma=true;writeCanonicalJson(key,write);write(":");
-    if(key==="projectedPrefix") { if(plan.projectedPrefix.kind === "validated_runtime_event_prefix")writeCanonicalJson(body[key]!,write);else writeRuntimeEventPrefixValue(plan.projectedPrefix,write); }
-    else if(key==="replayState") { if("kind" in plan.replayState && plan.replayState.kind === "replay_state")writeCanonicalJson(body[key]!,write);else writeRuntimeReplayGuardValue(plan.replayState,write); }
-    else writeCanonicalJson(body[key]!,write);
+    if(key==="projectedPrefix") { if(plan.projectedPrefix.kind === "validated_runtime_event_prefix")writeCanonicalJson(plan.projectedPrefix,write);else writeRuntimeEventPrefixValue(plan.projectedPrefix,write); }
+    else if(key==="replayState") { if("kind" in plan.replayState && plan.replayState.kind === "replay_state")writeCanonicalJson(plan.replayState,write);else writeRuntimeReplayGuardValue(plan.replayState,write); }
+    else writeCanonicalJson(finite[key]!,write);
   }
   write("}");return `sha256:${hash.digest("hex")}`;
 }

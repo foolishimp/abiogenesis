@@ -37,6 +37,7 @@ import { modulePublicationSemanticDigest } from "./publication.js";
 import { isWorksiteCommandForwardGraphFunction } from "../gtl/worksite_command_forward.js";
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "./worksite_command_forward_identity.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 import { resolveExactMatch } from "../shared/select/index.js";
 
 /** Supplied declarations are reconstructed against facts supplied by the native
@@ -51,18 +52,18 @@ export function reconstructHistoricalDeclarationCatalog(
   }>,
 ): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }> {
   const catalog = admitGraphFunctionCatalog(supplied.catalog.readinessBasis);
-  if (catalog.kind !== "graph_function_catalog" || !canonicalEquals(catalog as unknown as JsonValue, supplied.catalog as unknown as JsonValue) ||
-      !canonicalEquals(catalog.readinessBasis.workspaceBinding as unknown as JsonValue, environment.workspaceBinding as unknown as JsonValue) ||
-      !canonicalEquals(catalog.readinessBasis.resolvedLock as unknown as JsonValue, environment.resolvedLock as unknown as JsonValue) ||
+  if (catalog.kind !== "graph_function_catalog" || !canonicalEquals(catalog, supplied.catalog) ||
+      !canonicalEquals(catalog.readinessBasis.workspaceBinding, environment.workspaceBinding) ||
+      !canonicalEquals(catalog.readinessBasis.resolvedLock, environment.resolvedLock) ||
       catalog.readinessBasis.installedProducts.length !== environment.installedProducts.length ||
-      new Set(environment.installedProducts.map((row) => canonicalJson(row as unknown as JsonValue))).size !==
+      new Set(environment.installedProducts.map((row) => canonicalJson(row))).size !==
         environment.installedProducts.length ||
       catalog.readinessBasis.installedProducts.some((candidate) =>
-        environment.installedProducts.filter((install) => canonicalEquals(install as unknown as JsonValue, candidate as unknown as JsonValue)).length !== 1)) {
+        environment.installedProducts.filter((install) => canonicalEquals(install, candidate)).length !== 1)) {
     throw new TypeError("declaration Catalog differs from its exact admitted workspace, installs or lock");
   }
   const catalogView = narrowGraphFunctionCatalog(catalog, supplied.catalogView.allowlist);
-  if (catalogView.kind !== "graph_function_catalog_view" || !canonicalEquals(catalogView as unknown as JsonValue, supplied.catalogView as unknown as JsonValue)) {
+  if (catalogView.kind !== "graph_function_catalog_view" || !canonicalEquals(catalogView, supplied.catalogView)) {
     throw new TypeError("declaration Catalog View differs from exact narrowing");
   }
   return deepFreeze({ catalog, catalogView });
@@ -93,16 +94,16 @@ export type ExecutionDeclarationKind =
   | "rule"
   | "semantics";
 
-export interface ExecutionDeclarationOwnerCoordinate {
+export type ExecutionDeclarationOwnerCoordinate = {
   readonly declarationKind: ExecutionDeclarationKind;
   readonly declarationRef: string;
   readonly productId: string;
   readonly installId: string;
   readonly moduleRef: string;
   readonly publicationDigest: Sha256Digest;
-}
+};
 
-interface ResolvedDeclarationClosureBase {
+type ResolvedDeclarationClosureBase = {
   readonly schemaVersion: "5.0.0";
   readonly closureRef: string;
   readonly closureDigest: Sha256Digest;
@@ -124,22 +125,20 @@ interface ResolvedDeclarationClosureBase {
     readonly ExecutionDeclarationOwnerCoordinate[];
   readonly closureContractOwners: readonly ExecutionDeclarationOwnerCoordinate[];
   readonly semanticsOwner: ExecutionDeclarationOwnerCoordinate;
-}
+};
 
-export interface ResolvedExecutionDeclarationClosure extends
-  ResolvedDeclarationClosureBase {
+export type ResolvedExecutionDeclarationClosure = ResolvedDeclarationClosureBase & {
   readonly kind: "resolved_execution_declaration_closure";
   readonly closureScope: "execution";
   readonly rootGraphFunctionRefs: readonly [string];
   readonly selectedGraphFunctionRef: string;
-}
+};
 
-export interface ResolvedProgramDeclarationClosure extends
-  ResolvedDeclarationClosureBase {
+export type ResolvedProgramDeclarationClosure = ResolvedDeclarationClosureBase & {
   readonly kind: "resolved_program_declaration_closure";
   readonly closureScope: "program";
   readonly selectedGraphFunctionRef: null;
-}
+};
 
 export type ResolvedDeclarationClosure =
   | ResolvedExecutionDeclarationClosure
@@ -239,17 +238,19 @@ function isResolvedDeclarationClosure(
       closureContractOwners: candidate.closureContractOwners,
       semanticsOwner: candidate.semanticsOwner,
     };
+    const admittedBody = admitJson(body);
+    if (admittedBody.kind !== "ok") return false;
     return candidate.closureDigest ===
-        sha256Canonical(body as unknown as JsonValue) &&
+        sha256Canonical(admittedBody.value) &&
       candidate.closureRef ===
         `execution-declaration-closure://abiogenesis/${candidate.closureDigest.slice("sha256:".length)}` &&
       candidate.programPublicationDigest ===
         modulePublicationSemanticDigest(candidate.programPublication) &&
       canonicalEquals(
-        candidate.publicationDigests as unknown as JsonValue,
+        candidate.publicationDigests,
         candidate.publications.map((publication) =>
           modulePublicationSemanticDigest(publication)
-        ) as unknown as JsonValue,
+        ),
       );
   } catch {
     return false;
@@ -272,8 +273,8 @@ export function validateResolvedExecutionDeclarationClosure(
   );
   return reconstructed.kind === "resolved_execution_declaration_closure" &&
     canonicalEquals(
-      reconstructed as unknown as JsonValue,
-      value as unknown as JsonValue,
+      reconstructed,
+      value,
     );
 }
 
@@ -292,8 +293,8 @@ export function validateResolvedProgramDeclarationClosure(
   );
   return reconstructed.kind === "resolved_program_declaration_closure" &&
     canonicalEquals(
-      reconstructed as unknown as JsonValue,
-      value as unknown as JsonValue,
+      reconstructed,
+      value,
     );
 }
 
@@ -585,10 +586,10 @@ function resolveDeclarationClosure(
       entry.owningProductId === publication.owningProductId &&
       entry.publicationDigest === publicationDigest &&
       entry.definitionDigest ===
-        sha256Canonical(graphFunction as unknown as JsonValue) &&
+        sha256Canonical(graphFunction) &&
       canonicalEquals(
-        entry.definition as unknown as JsonValue,
-        graphFunction as unknown as JsonValue,
+        entry.definition,
+        graphFunction,
       )
     );
     if (
@@ -834,8 +835,8 @@ function resolveDeclarationClosure(
     const externalOwners = [...selectedPublicationMap.values()].flatMap((publication) => {
       if (!reachable.has(publication.owningProductId) ||
           !canonicalEquals(
-            publication.productSemanticsBinding as unknown as JsonValue,
-            semanticsBinding as unknown as JsonValue,
+            publication.productSemanticsBinding,
+            semanticsBinding,
           )) return [];
       return catalog.readinessBasis.installedProducts.filter((install) =>
         install.productId === publication.owningProductId &&
@@ -949,7 +950,7 @@ function resolveDeclarationClosure(
     closureContractOwners,
     semanticsOwner,
   });
-  const closureDigest = sha256Canonical(body as unknown as JsonValue);
+  const closureDigest = sha256Canonical(body);
   const result = deepFreeze({
     kind: closureScope === "execution"
       ? "resolved_execution_declaration_closure" as const

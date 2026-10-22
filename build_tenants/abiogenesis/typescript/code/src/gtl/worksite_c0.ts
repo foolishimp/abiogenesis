@@ -104,7 +104,7 @@ export function resolveWorksiteC0JudgmentRelation(predicateRef: string) {
     advanceReasonRef: "reason://abiogenesis/worksite/file-parents-satisfied@5",
     rejectionReasonRef: "reason://abiogenesis/worksite/file-parents-rejected@5",
     evaluate: (input: unknown, output: unknown) => isWorksiteFileParentsRequest(input) && isWorksiteFileParentsSuccess(output) &&
-      canonicalEquals(input as unknown as JsonValue, output.request as unknown as JsonValue),
+      canonicalEquals(input, output.request),
   });
   return predicateRef === WORKSITE_C0_IDS.judgmentPredicateRef
     ? Object.freeze({

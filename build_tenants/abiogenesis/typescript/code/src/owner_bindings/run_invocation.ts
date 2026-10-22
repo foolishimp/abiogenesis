@@ -1328,7 +1328,7 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
         verifyInstallAdmission: (install) =>
           hasAdmittedProductInstall(setup.artifactTruth, install),
         transportResourceAssertion:
-          call.resources.eventResource as unknown as JsonValue,
+          call.resources.eventResource,
         deriveCurrentSourceUse: (basis, resolution) => projectGovernanceCoveredSourceUse(
           selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(entryPrefix)), {
             predecessorPrefix: entryPrefix, source: basis, workspaceBinding: setup.workspaceBinding,
@@ -1551,7 +1551,7 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
           execution.successorPrefix,
           admission,
           "open_call",
-          sha256Canonical(opened as unknown as JsonValue),
+          sha256Canonical(opened),
           [`diagnostic://abiogenesis/open-call/${opened.code}@5`],
           {
             eventTime: sampleNativeEventTime(),
@@ -1831,10 +1831,10 @@ function runCurrentIntentOwner(call: DefinitionCall<ContinuePacket, RunInvocatio
     const inputContracts = resolution.declarationPublications.flatMap(p => p.contracts).filter(c => c.contractRef === prepared.failedCall.inputContractRef);
     if (policy.policyRef !== prepared.invocation.policyRef || policy.policyDigest !== prepared.invocation.policyDigest ||
       !runOperationAuthorityMatches(call.invocation, call.resources, resolution, setup.workspaceBinding, setup.admittedInstalls,
-        policy, [grant], prepared.invocation, call.resources.eventResource as unknown as JsonValue) ||
+        policy, [grant], prepared.invocation, call.resources.eventResource) ||
       basisSlot?.ref !== prepared.child.basisRef || basisSlot.digest !== prepared.child.basisDigest ||
-      slot === null || inputContracts.length !== 1 || slot.contract.ref !== prepared.failedCall.inputContractRef ||
-      slot.contract.digest !== sha256Canonical(inputContracts[0] as unknown as JsonValue) ||
+      slot === null || inputContracts.length !== 1 || inputContracts[0] === undefined || slot.contract.ref !== prepared.failedCall.inputContractRef ||
+      slot.contract.digest !== sha256Canonical(inputContracts[0]) ||
       slot.valueDigest !== prepared.pending.input.inputDigest || !canonicalEquals(slot.value, prepared.pendingInput))
       return yield* refuse("basis_mismatch", "/invocationAuthority");
     let qualificationResources;
@@ -1912,9 +1912,10 @@ function runSelectedActionOwner(call: DefinitionCall<SelectedActionPacket, RunIn
     const inputContracts = resolution.declarationPublications.flatMap(p => p.contracts).filter(c => c.contractRef === prepared.term.inputCarrierRef);
     if (policy.policyRef !== use.invocation.policyRef || policy.policyDigest !== use.invocation.policyDigest ||
       !runOperationAuthorityMatches(call.invocation, call.resources, resolution, setup.workspaceBinding, setup.admittedInstalls,
-        policy, [grant], use.invocation, call.resources.eventResource as unknown as JsonValue) ||
+        policy, [grant], use.invocation, call.resources.eventResource) ||
       basisSlot?.ref !== prepared.root.basisRef || basisSlot.digest !== prepared.root.basisDigest || slot === null || inputContracts.length !== 1 ||
-      slot.contract.ref !== prepared.term.inputCarrierRef || slot.contract.digest !== sha256Canonical(inputContracts[0] as unknown as JsonValue) ||
+      inputContracts[0] === undefined ||
+      slot.contract.ref !== prepared.term.inputCarrierRef || slot.contract.digest !== sha256Canonical(inputContracts[0]) ||
       slot.valueRef !== prepared.input.inputRef || slot.valueDigest !== prepared.input.inputDigest || !canonicalEquals(slot.value, prepared.input.value))
       return yield* refuse("basis_mismatch", "/invocationAuthority");
     let qualificationResources;

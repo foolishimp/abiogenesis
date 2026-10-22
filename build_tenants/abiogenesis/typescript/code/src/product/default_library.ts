@@ -2,7 +2,7 @@ import * as v from "valibot";
 import { isDeepStrictEqual } from "node:util";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
 import type { NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
 import { isNativeWorkspaceWorkReport } from "./native_workspace_work.js";
@@ -37,7 +37,7 @@ const judgmentSchema = v.strictObject({ interpretation: text,
   gaps: v.array(v.strictObject({ supportRefs: texts, reason: text, evidenceRefs: texts })),
   nextGraphFunctionRef: v.nullable(text), nextReason: text, nextEvidenceRefs: texts, subjectEvidenceRef: v.nullable(text),
   revisionReason: text, revisionEvidenceRefs: texts,
-  requirementProposals: v.optional(v.array(GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA)) });
+  requirementProposals: v.exactOptional(v.array(GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA)) });
 const synthesisBasisSchema = v.strictObject({ inputRef: text, inputDigest: digest, taskRef: text,
   environmentRef: text, environmentDigest: digest, frameEvidenceDigest: digest, frameRefs: texts,
   contextRef: text, previousResultRef: v.nullable(text) });
@@ -53,13 +53,13 @@ const originalSchema = v.strictObject({ taskRef: text, task: text, sources: v.pi
   testing: v.strictObject({ selectedPaths: v.pipe(texts, v.minLength(1)), commands: v.array(jsonRecord), outcomePredicates: v.array(jsonRecord), allowedWriteTerritories: v.array(jsonRecord) }),
   assessment: v.strictObject({ sources: v.pipe(texts, v.minLength(1)), candidatePath: text, rubricPath: text,
     resultContract: jsonRecord, schemaAsset: jsonRecord, verdictField: text, satisfiedValue: text }),
-  fulfillment: v.optional(v.custom<GovernanceFulfillmentDeclaration>(isGovernanceFulfillmentDeclaration)) });
+  fulfillment: v.exactOptional(v.custom<GovernanceFulfillmentDeclaration>(isGovernanceFulfillmentDeclaration)) });
 const observationSchema = v.strictObject({ purpose: v.picklist(GOVERNANCE_PURPOSES), resultRef: text, resultDigest: digest,
   cCallRef: text, actorInvocationRef: v.nullable(text), synthesisResultRef: text, selectedGraphFunctionRef: text, value: jsonRecord,
-  fulfillmentEvidence: v.optional(GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA) });
+  fulfillmentEvidence: v.exactOptional(GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA) });
 const stateSchema = v.strictObject({ kind: v.literal("governance_work_state"), schemaVersion: v.literal("5.0.0"),
   original: originalSchema, synthesis: v.nullable(currentSynthesisSchema), observations: v.array(observationSchema), unresolvedSupportRefs: texts, terminal: v.boolean(),
-  fulfillment: v.optional(GOVERNANCE_FULFILLMENT_STATE_SCHEMA) });
+  fulfillment: v.exactOptional(GOVERNANCE_FULFILLMENT_STATE_SCHEMA) });
 export type GovernanceWorkState = v.InferOutput<typeof stateSchema>;
 export type GovernanceObservation = GovernanceWorkState["observations"][number];
 export type GovernanceOriginal = GovernanceWorkState["original"];
@@ -106,15 +106,16 @@ export function governanceVerdict(state: GovernanceWorkState): boolean {
 
 export type FramedSynthesisJudgment = v.InferOutput<typeof judgmentSchema>;
 export type FramedSynthesisBasis = v.InferOutput<typeof synthesisBasisSchema>;
-export interface FramedSynthesisTarget { readonly graphFunctionRef: string; readonly definitionDigest: `sha256:${string}`; readonly purpose: GovernancePurpose }
-export interface FramedSynthesisTask {
+export type FramedSynthesisTarget = { readonly graphFunctionRef: string; readonly definitionDigest: `sha256:${string}`; readonly purpose: GovernancePurpose };
+export type FramedSynthesisTask = {
   readonly kind: "framed_synthesis_task"; readonly schemaVersion: "5.0.0";
   readonly state: GovernanceWorkState; readonly context: WorksiteContextObservation;
-}
-export interface FramedSynthesisResult {
+};
+export type FramedSynthesisResult = {
   readonly kind: "framed_synthesis_result"; readonly schemaVersion: "5.0.0";
   readonly state: GovernanceWorkState; readonly basis: FramedSynthesisBasis; readonly judgment: FramedSynthesisJudgment;
-}
+};
+
 const unique = (values: readonly string[]) => new Set(values).size === values.length;
 export function isFramedSynthesisJudgment(value: unknown): value is FramedSynthesisJudgment {
   return v.is(judgmentSchema, value) && unique(value.contributions.map(c => c.graphFunctionRef)) &&
@@ -280,7 +281,9 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Rea
     coverage: state.fulfillment!.coverage.map(row => ({ obligationRef: row.obligationRef, disposition: row.disposition,
       gaps: row.gaps, assessmentResultRef: row.assessmentResultRef, supportResultRefs: row.supportResultRefs })),
   };
-  return deepFreeze({ taskRef: original.taskRef, originalTask: original.task, authorityRefs: original.authorityRefs,
+  // The selector view is admitted I-JSON: an absent or non-I-JSON member
+  // refuses the view, which the instruction assembly reports as its refusal.
+  const view = admitJson({ taskRef: original.taskRef, originalTask: original.task, authorityRefs: original.authorityRefs,
     protectedSources: original.sources.map(source => source.path), requiredSupportRefs: original.requiredSupportRefs,
     worksite: { observationRef: context.observationRef, files: context.entries.map(entry => ({ path: entry.relativePath,
       state: entry.state, ...(entry.state === "file" ? { byteLength: entry.byteLength, digest: entry.digest,
@@ -300,7 +303,9 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Rea
       verdictField: original.assessment.verdictField, satisfiedValue: original.assessment.satisfiedValue },
     fulfillment, observations: evidence, planningEvidenceMeaning: "Full raw streams and detailed predicate proof are explicitly omitted from this selector view and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.", unresolvedSupportRefs: state.unresolvedSupportRefs,
     priorJudgment: state.synthesis === null ? null : { resultRef: state.synthesis.resultRef, judgment: state.synthesis.judgment },
-  } as unknown as Readonly<Record<string, JsonValue>>);
+  });
+  if (view.kind !== "ok" || !isRecord(view.value)) throw new TypeError("framed synthesis selector view is not I-JSON");
+  return view.value;
 }
 /** One strict binder, shared by raw completion and admission. It transports no
  * provider edits to original state and stores no previous bound Result body. */
@@ -327,7 +332,7 @@ export function framedSynthesisResponseSchema(task: FramedSynthesisTask, targets
   const textSchema = { type: "string", minLength: 1 };
   const reference = (domain: readonly string[]) => domain.length ? { type: "string", enum: [...domain] } : false;
   const array = (domain: readonly string[]) => ({ type: "array", uniqueItems: true, items: reference(domain) });
-  const object = (properties: Record<string, unknown>) => ({ type: "object", additionalProperties: false, properties, required: Object.keys(properties) });
+  const object = (properties: Readonly<Record<string, JsonValue>>) => ({ type: "object", additionalProperties: false, properties, required: Object.keys(properties) });
   const graphs = targets.map(t => t.graphFunctionRef), evidence = framedSynthesisEvidenceRefs(task), support = task.state.unresolvedSupportRefs;
   const immediateGraphs = targets.filter(t => t.purpose !== "testing" || framedSynthesisMissingTestingPaths(task).length === 0).map(t => t.graphFunctionRef);
   const subjects = targets.map(target => ({ graphFunctionRef: target.graphFunctionRef, refs: governanceSubjectEvidenceRefs(task.state, target.purpose) }));
@@ -347,5 +352,5 @@ export function framedSynthesisResponseSchema(task: FramedSynthesisTask, targets
   });
   return deepFreeze({ ...response, anyOf: [...subjects.map(subject => ({ properties: {
     nextGraphFunctionRef: { const: subject.graphFunctionRef }, subjectEvidenceRef: subject.refs.length === 0 ? false : { enum: [...subject.refs] } } })),
-    { properties: { nextGraphFunctionRef: { const: null }, subjectEvidenceRef: { const: null } } }] } as unknown as Readonly<Record<string, JsonValue>>);
+    { properties: { nextGraphFunctionRef: { const: null }, subjectEvidenceRef: { const: null } } }] });
 }

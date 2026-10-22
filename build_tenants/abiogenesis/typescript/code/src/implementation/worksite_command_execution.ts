@@ -62,7 +62,7 @@ import {
 } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import type {
   LeafExecutionOccurrence,
   LeafRealizationCandidate,
@@ -90,7 +90,7 @@ export const WORKSITE_COMMAND_EXECUTION_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
   ...descriptorBody,
 }) satisfies PackagedLeafImplementationDescriptor;
 
-interface AuthorityFreeWorksiteCommandExecutionOccurrence {
+type AuthorityFreeWorksiteCommandExecutionOccurrence = {
   readonly cCallRef: string;
   readonly runId: string;
   readonly graphCallId: string;
@@ -99,9 +99,9 @@ interface AuthorityFreeWorksiteCommandExecutionOccurrence {
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly executionAuthority: null;
-}
+};
 
-interface WorksiteCommandExecutionLaunchManifest {
+type WorksiteCommandExecutionLaunchManifest = {
   readonly kind: "worksite_command_execution_launch_manifest";
   readonly schemaVersion: "5.0.0";
   readonly launchManifestRef: string;
@@ -123,9 +123,9 @@ interface WorksiteCommandExecutionLaunchManifest {
   readonly implementationBindingRef: string;
   readonly packageName: typeof ABI5_PACKAGE_NAME;
   readonly packageVersion: typeof ABI5_PACKAGE_VERSION;
-}
+};
 
-interface WorksiteCommandExecutionLaunchPlan {
+type WorksiteCommandExecutionLaunchPlan = {
   readonly helperPlan: WorksiteCommandExecutionHelperPlan;
   readonly occurrence: AuthorityFreeWorksiteCommandExecutionOccurrence;
   readonly attemptDigest: Sha256Digest;
@@ -136,7 +136,7 @@ interface WorksiteCommandExecutionLaunchPlan {
   readonly launchManifestDigest: Sha256Digest;
   readonly launchManifestByteDigest: Sha256Digest;
   readonly launchManifestByteLength: number;
-}
+};
 
 function exactAuthorityFreeOccurrence(
   occurrence: Readonly<LeafExecutionOccurrence>,
@@ -179,7 +179,7 @@ function constructWorksiteCommandExecutionLaunchPlan(
   if (occurrence.programLocusRef !== worksiteExecutionLocus(task)) throw new TypeError("C2 occurrence crosses task arm");
   const attemptRef = worksiteCommandExecutionAttemptRef(occurrence);
   const helperPlan = worksiteCommandExecutionHelperPlan(task, attemptRef);
-  const occurrenceDigest = sha256Canonical(occurrence as unknown as JsonValue);
+  const occurrenceDigest = sha256Canonical(occurrence);
   const attemptDigest = sha256Canonical({ attemptRef });
   const attemptRoot = dirname(helperPlan.taskManifestPath);
   const launchManifestPath = resolve(attemptRoot, "launch.json");
@@ -205,7 +205,7 @@ function constructWorksiteCommandExecutionLaunchPlan(
     packageName: ABI5_PACKAGE_NAME,
     packageVersion: ABI5_PACKAGE_VERSION,
   } as const;
-  const launchManifestDigest = sha256Canonical(body as unknown as JsonValue);
+  const launchManifestDigest = sha256Canonical(body);
   const launchManifest = deepFreeze({
     ...body,
     launchManifestRef:
@@ -213,7 +213,7 @@ function constructWorksiteCommandExecutionLaunchPlan(
     launchManifestDigest,
   });
   const bytes = Buffer.from(
-    `${canonicalJson(launchManifest as unknown as JsonValue)}\n`,
+    `${canonicalJson(launchManifest)}\n`,
     "utf8",
   );
   return deepFreeze({
@@ -257,7 +257,7 @@ function exactExchange(
 ): boolean {
   const observation = exchange.observation;
   const tool = observation.toolInvocations[0];
-  return canonicalEquals(exchange.request as unknown as JsonValue, request as unknown as JsonValue) &&
+  return canonicalEquals(exchange.request, request) &&
     observation.actorRef === task.workerActorRef &&
     observation.workerBindingRef === task.workerBindingRef &&
     observation.implementationRef === worksiteExecutionImplementationRef(task) &&
@@ -498,13 +498,13 @@ function launchManifestBytes(
   plan: WorksiteCommandExecutionLaunchPlan,
 ): Buffer {
   return Buffer.from(
-    `${canonicalJson(plan.launchManifest as unknown as JsonValue)}\n`,
+    `${canonicalJson(plan.launchManifest)}\n`,
     "utf8",
   );
 }
 
 function taskManifestBytes(task: WorksiteExecutionTask): Buffer {
-  return Buffer.from(`${canonicalJson(task as unknown as JsonValue)}\n`, "utf8");
+  return Buffer.from(`${canonicalJson(task)}\n`, "utf8");
 }
 
 function sameFilesystemNode(leftPath: string, rightPath: string): boolean {
@@ -537,8 +537,8 @@ function assertManifestPairCurrent(
   const launchBytes = launchManifestBytes(plan);
   if (!isWorksiteCommandExecutionHelperPlan(task, plan.helperPlan) ||
     !canonicalEquals(
-      plan as unknown as JsonValue,
-      expectedPlan as unknown as JsonValue,
+      plan,
+      expectedPlan,
     ) ||
     plan.launchManifest.taskRef !== task.taskRef ||
     plan.launchManifest.taskDigest !== task.taskDigest ||
@@ -633,7 +633,7 @@ export function realizeWorksiteCommandExecution(
     configuredAbsoluteTimeout <= configuredInactivityTimeout) {
     throw new TypeError("actor absolute timeout must exceed the task's closed helper execution budget");
   }
-  const inputDigest = sha256Canonical(input as unknown as JsonValue);
+  const inputDigest = sha256Canonical(input);
   const launchPlan = constructWorksiteCommandExecutionLaunchPlan(
     input,
     c2Occurrence,
@@ -646,8 +646,8 @@ export function realizeWorksiteCommandExecution(
   );
   if (before.some((observation, ordinal) =>
     !canonicalEquals(
-      observation as unknown as JsonValue,
-      worksiteExecutionSources(input)[ordinal]!.observation as unknown as JsonValue,
+      observation,
+      worksiteExecutionSources(input)[ordinal]!.observation,
     ))) {
     throw new TypeError(
       "protected worksite observation changed before Worker dispatch",
@@ -685,8 +685,8 @@ export function realizeWorksiteCommandExecution(
       ));
       if (current.some((row, ordinal) =>
         !canonicalEquals(
-          row as unknown as JsonValue,
-          worksiteExecutionSources(input)[ordinal]!.observation as unknown as JsonValue,
+          row,
+          worksiteExecutionSources(input)[ordinal]!.observation,
         ))) {
         return failure("protected_observation_mismatch");
       }
@@ -704,7 +704,7 @@ export function realizeWorksiteCommandExecution(
       if (!exactExchange(
         input,
         inputDigest,
-        workerRequest as unknown as Readonly<Record<string, JsonValue>>,
+        workerRequest,
         helperPlan,
         exchange,
       )) return failure("transport_identity_mismatch");
@@ -731,7 +731,7 @@ export function realizeWorksiteCommandExecution(
         return failure("helper_artifact_contract_failure");
       }
       const canonicalHelperBytes = Buffer.from(
-        `${canonicalJson(helperValue as unknown as JsonValue)}\n`,
+        `${canonicalJson(helperValue)}\n`,
         "utf8",
       );
       if (!helperBytes.equals(canonicalHelperBytes)) {
@@ -804,13 +804,15 @@ function realizePreparation(input: unknown, implementationRef: string, selection
       ? branch ? "worksite_branch_command_preparation_input" : "worksite_command_preparation_input"
       : branch ? "worksite_branch_command_preparation_bound_input" : "worksite_command_preparation_bound_input";
     if (!admitted || kind !== expectedKind) throw new TypeError("preparation input does not match its declared leaf");
-    const resultCandidate = (selection && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
-      : !selection && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input) : null) as unknown as Readonly<Record<string, JsonValue>>;
+    const resultCandidate = selection && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
+      : !selection && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input) : null;
     if (resultCandidate === null) throw new TypeError("preparation result absent");
+    const admittedInput = admitJson(input);
+    if (admittedInput.kind !== "ok") throw new TypeError("preparation input is not admitted JSON");
     return deepFreeze({ kind: "leaf_realization_candidate" as const, schemaVersion: "5.0.0" as const,
       disposition: "success" as const,
       evidenceCandidates: [{ kind: "deterministic_evidence_candidate" as const, schemaVersion: "5.0.0" as const,
-        implementationRef, inputDigest: sha256Canonical(input as JsonValue), outputDigest: sha256Canonical(resultCandidate) }], resultCandidate });
+        implementationRef, inputDigest: sha256Canonical(admittedInput.value), outputDigest: sha256Canonical(resultCandidate) }], resultCandidate });
   } catch {
     const diagnosticRef = "diagnostic://abiogenesis/worksite/command-execution/preparation-invalid@5";
     return deepFreeze({ kind: "leaf_realization_candidate" as const, schemaVersion: "5.0.0" as const,

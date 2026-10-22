@@ -18,7 +18,7 @@ import type { DurablePrefixCoordinate, RuntimeEvent } from "./event_store.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
 const record = (v: unknown): v is Readonly<Record<string, JsonValue>> => typeof v === "object" && v !== null && !Array.isArray(v);
-const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a as JsonValue, b as JsonValue);
+const same = (a: JsonValue, b: JsonValue) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a, b);
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 type EventEnvelope = Omit<RuntimeEvent, "payload">;
@@ -99,8 +99,8 @@ export function projectNativeWorkspaceWorkSourceAtPrefix(prefix: RuntimeEventPre
     exactOrNull(resolveExactMatch(bodies(prefix, "related:" + source.provenance.cCallRef, "c_call_result_admitted"), e => e.aggregateId === source.provenance.cCallRef));
   if (result === null || typeof result.basisId !== "string" || !record(result.payload) ||
     result.graphFunctionRef !== graphFunctionRef || result.payload.contractRef !== native.observationContractRef ||
-    result.payload.resultClass !== "success" || !same(result.payload.value, source) ||
-    result.payload.valueDigest !== sha256Canonical(source as unknown as JsonValue) || !Array.isArray(result.payload.evidenceRefs)) return null;
+    result.payload.resultClass !== "success" || result.payload.value === undefined || !same(result.payload.value, source) ||
+    result.payload.valueDigest !== sha256Canonical(source) || !Array.isArray(result.payload.evidenceRefs)) return null;
   const payload = result.payload;
   const basis = projectExactExecutionBasisAtPrefix(prefix, result.basisId);
   if (basis === null || basis.graphFunctionRef !== graphFunctionRef || !same(basis.rawInputValue, source.task) ||
@@ -202,7 +202,8 @@ export function projectSameRunNativeWorkCommandSourceAtPrefix(prefix: RuntimeEve
     e.aggregateId === input.parentCCallRef && e.basisId === input.parentBasis.basisRef && e.runId === input.runId &&
     record(e.payload) && e.payload.callClass === "workflow" && e.payload.childGraphFunctionRef === c2.graphFunctionRef));
   return call !== null && call.admissionOrdinal > source.sourceClosedEvent.admissionOrdinal &&
-    invocation !== null && invocation.capabilityGrants.length === 1 && same(invocation.capabilityGrants[0], input.task.capabilityGrant)
+    invocation !== null && invocation.capabilityGrants.length === 1 && invocation.capabilityGrants[0] !== undefined &&
+    same(invocation.capabilityGrants[0], input.task.capabilityGrant)
     ? source : null;
 }
 

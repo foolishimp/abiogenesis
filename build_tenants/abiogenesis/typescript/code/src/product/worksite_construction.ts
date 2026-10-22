@@ -1,4 +1,5 @@
 import { isRecord, hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction_identity.js";
 import { canonicalEquals } from "../shared/value/index.js";
 export { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from "./worksite_construction_identity.js";
@@ -43,14 +44,14 @@ import {
 
 const SCHEMA_VERSION = "5.0.0" as const;
 
-export interface WorksiteConstructionTarget {
+export type WorksiteConstructionTarget = {
   readonly kind: "worksite_construction_target";
   readonly schemaVersion: "5.0.0";
   readonly targetRef: string;
   readonly subject: WorksiteSubject;
   readonly territory: WorksiteTerritory;
   readonly predecessorObservation: WorksiteObservation;
-}
+};
 
 export interface WorksiteConstructionTargetInput {
   readonly subject: WorksiteSubject;
@@ -59,7 +60,7 @@ export interface WorksiteConstructionTargetInput {
   readonly targetRef?: string;
 }
 
-export interface WorksiteConstructionTask {
+export type WorksiteConstructionTask = {
   readonly kind: "worksite_construction_task";
   readonly schemaVersion: "5.0.0";
   readonly taskRef: string;
@@ -80,7 +81,7 @@ export interface WorksiteConstructionTask {
   readonly prompt: string;
   readonly promptDigest: Sha256Digest;
   readonly targets: readonly WorksiteConstructionTarget[];
-}
+};
 
 export interface WorksiteConstructionTaskInput {
   readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
@@ -90,12 +91,12 @@ export interface WorksiteConstructionTaskInput {
   readonly targets: readonly WorksiteConstructionTargetInput[];
 }
 
-export interface WorksiteCandidateFile {
+export type WorksiteCandidateFile = {
   readonly kind: "worksite_candidate_file";
   readonly schemaVersion: "5.0.0";
   readonly targetRef: string;
   readonly replacementBase64: string;
-}
+};
 
 export type WorksiteConstructionWorkerFile =
   | (WorksiteCandidateFile & { readonly replacementText?: never })
@@ -107,28 +108,29 @@ export type WorksiteConstructionWorkerFile =
     replacementBase64?: never;
   }>;
 
-export interface WorksiteConstructionWorkerResult {
+export type WorksiteConstructionWorkerResult = {
   readonly kind: "worksite_construction_worker_result";
   readonly schemaVersion: "5.0.0";
   readonly files: readonly WorksiteConstructionWorkerFile[];
-}
+};
 
-export interface WorksiteCandidateBundle {
+
+export type WorksiteCandidateBundle = {
   readonly kind: "worksite_candidate_bundle";
   readonly schemaVersion: "5.0.0";
   readonly candidateBundleRef: string;
   readonly candidateBundleDigest: Sha256Digest;
   readonly task: WorksiteConstructionTask;
   readonly files: readonly WorksiteCandidateFile[];
-}
+};
 
-export interface WorksiteFileReplaceVectorMember {
+export type WorksiteFileReplaceVectorMember = {
   readonly ordinal: number;
   readonly memberRef: string;
   readonly value: WorksiteFileReplaceRequest;
-}
+};
 
-export interface WorksiteFileReplaceVector {
+export type WorksiteFileReplaceVector = {
   readonly kind: "worksite_file_replace_vector";
   readonly schemaVersion: "5.0.0";
   readonly vectorRef: string;
@@ -136,46 +138,47 @@ export interface WorksiteFileReplaceVector {
   readonly sourceCandidateBundleRef: string;
   readonly sourceCandidateBundleDigest: Sha256Digest;
   readonly members: readonly WorksiteFileReplaceVectorMember[];
-}
+};
 
-export interface WorksiteFileReplaceOutput {
+export type WorksiteFileReplaceOutput = {
   readonly kind: "worksite_file_replace_output";
   readonly schemaVersion: "5.0.0";
-  readonly authorization: Readonly<Record<string, unknown>>;
+  readonly authorization: Readonly<Record<string, JsonValue>>;
   readonly receipt: WorksiteFileReplaceReceipt;
   readonly successorObservation: FileWorksiteObservation;
-}
+};
 
-export interface WorksiteFileReplaceOutputVectorMember {
+export type WorksiteFileReplaceOutputVectorMember = {
   readonly ordinal: number;
   readonly inputMemberRef: string;
   readonly outputMemberRef: string;
   readonly value: WorksiteFileReplaceOutput;
-}
+};
 
-export interface WorksiteFileReplaceOutputVector {
+export type WorksiteFileReplaceOutputVector = {
   readonly kind: "gtl_fan_out_vector";
   readonly schemaVersion: "5.0.0";
   readonly applicationRef: string;
   readonly members: readonly WorksiteFileReplaceOutputVectorMember[];
-}
+};
 
-export interface WorksiteConstructionResultMember {
+
+export type WorksiteConstructionResultMember = {
   readonly ordinal: number;
   readonly inputMemberRef: string;
   readonly outputMemberRef: string;
   readonly receipt: WorksiteFileReplaceReceipt;
   readonly successorObservation: FileWorksiteObservation;
-}
+};
 
-export interface WorksiteConstructionResult {
+export type WorksiteConstructionResult = {
   readonly kind: "worksite_construction_result";
   readonly schemaVersion: "5.0.0";
   readonly resultRef: string;
   readonly resultDigest: Sha256Digest;
   readonly sourceApplicationRef: string;
   readonly members: readonly WorksiteConstructionResultMember[];
-}
+};
 
 export interface WorksiteConstructionFailure {
   readonly kind: "worksite_construction_failure";
@@ -253,7 +256,9 @@ function isExactWorkspaceBinding(
     lockDigest: value.lockDigest,
     roots: value.roots,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.bindingDigest === digest &&
     value.bindingId === identity("workspace-binding://abiogenesis", digest);
 }
@@ -293,7 +298,7 @@ function targetBody(
     subject: value.subject,
     territory: value.territory,
     predecessorObservation: value.predecessorObservation,
-  } as unknown as JsonValue;
+  };
 }
 
 function constructTarget(
@@ -333,8 +338,8 @@ function constructTarget(
   });
   if (exactSubject.kind !== "worksite_subject" ||
     exactTerritory.kind !== "worksite_territory" ||
-    !canonicalEquals(exactSubject as unknown as JsonValue, input.subject as unknown as JsonValue) ||
-    !canonicalEquals(exactTerritory as unknown as JsonValue, input.territory as unknown as JsonValue)) {
+    !canonicalEquals(exactSubject, input.subject) ||
+    !canonicalEquals(exactTerritory, input.territory)) {
     throw new TypeError(
       "worksite construction target must reproduce under the exact canonical worksite authority",
     );
@@ -384,7 +389,8 @@ function isWorksiteConstructionTarget(
       territory: value.territory as WorksiteTerritory,
       predecessorObservation: value.predecessorObservation as WorksiteObservation,
     });
-    return canonicalEquals(expected as unknown as JsonValue, value as unknown as JsonValue);
+    const admittedValue = admitJson(value);
+    return admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
   } catch {
     return false;
   }
@@ -396,7 +402,7 @@ function taskBody(
     "kind" | "schemaVersion" | "taskDigest" | "taskRef"
   >,
 ): JsonValue {
-  return value as unknown as JsonValue;
+  return value;
 }
 
 export function constructWorksiteConstructionTask(
@@ -531,7 +537,9 @@ export function isWorksiteConstructionTask(
     taskDigest: _taskDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.taskDigest === digest &&
     value.taskRef === identity("worksite-construction-task://abiogenesis", digest);
 }
@@ -681,7 +689,7 @@ export function constructWorksiteCandidateBundle(
         : file.replacementBase64,
     })),
   };
-  const candidateBundleDigest = sha256Canonical(body as unknown as JsonValue);
+  const candidateBundleDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "worksite_candidate_bundle" as const,
     schemaVersion: SCHEMA_VERSION,
@@ -722,7 +730,8 @@ export function isWorksiteCandidateBundle(
         files: value.files as readonly WorksiteCandidateFile[],
       },
     );
-    return canonicalEquals(expected as unknown as JsonValue, value as unknown as JsonValue);
+    const admittedValue = admitJson(value);
+    return admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
   } catch {
     return false;
   }
@@ -763,7 +772,7 @@ export function constructWorksiteFileReplaceVector(
     sourceCandidateBundleDigest: candidate.candidateBundleDigest,
     members,
   };
-  const vectorDigest = sha256Canonical(body as unknown as JsonValue);
+  const vectorDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "worksite_file_replace_vector" as const,
     schemaVersion: SCHEMA_VERSION,
@@ -816,8 +825,8 @@ export function isWorksiteFileReplaceVector(
     new Set(members.map((member) => member.value.workspaceBindingDigest)).size !==
       1 ||
     members.some((member) => !canonicalEquals(
-      member.value.workspaceAuthorityBasis as unknown as JsonValue,
-      members[0]!.value.workspaceAuthorityBasis as unknown as JsonValue,
+      member.value.workspaceAuthorityBasis,
+      members[0]!.value.workspaceAuthorityBasis,
     )) ||
     new Set(members.map((member) => member.value.capabilityGrant.grantRef)).size !==
       1 ||
@@ -829,7 +838,7 @@ export function isWorksiteFileReplaceVector(
     sourceCandidateBundleDigest: value.sourceCandidateBundleDigest,
     members,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return value.vectorDigest === digest &&
     value.vectorRef ===
       identity("worksite-file-replace-vector://abiogenesis", digest);
@@ -926,7 +935,7 @@ export function reduceWorksiteFileReplaceResults(
       successorObservation: member.value.successorObservation,
     })),
   };
-  const resultDigest = sha256Canonical(body as unknown as JsonValue);
+  const resultDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "worksite_construction_result" as const,
     schemaVersion: SCHEMA_VERSION,
@@ -991,7 +1000,7 @@ export function isWorksiteConstructionResult(
     sourceApplicationRef: value.sourceApplicationRef,
     members,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return value.resultDigest === digest &&
     value.resultRef ===
       identity("worksite-construction-result://abiogenesis", digest);
@@ -1032,14 +1041,14 @@ export function isWorksiteConstructionVectorApplicationFailure(
 function exactCandidateRelation(input: unknown, output: unknown): boolean {
   return isWorksiteConstructionTask(input) &&
     isWorksiteCandidateBundle(output) &&
-    canonicalEquals(output.task as unknown as JsonValue, input as unknown as JsonValue);
+    canonicalEquals(output.task, input);
 }
 
 function exactJoinRelation(input: unknown, output: unknown): boolean {
   if (!isWorksiteCandidateBundle(input) ||
     !isWorksiteFileReplaceVector(output)) return false;
   try {
-    return canonicalEquals(constructWorksiteFileReplaceVector(input) as unknown as JsonValue, output as unknown as JsonValue);
+    return canonicalEquals(constructWorksiteFileReplaceVector(input), output);
   } catch {
     return false;
   }
@@ -1049,7 +1058,7 @@ function exactReducerRelation(input: unknown, output: unknown): boolean {
   if (!isWorksiteFileReplaceOutputVector(input) ||
     !isWorksiteConstructionResult(output)) return false;
   try {
-    return canonicalEquals(reduceWorksiteFileReplaceResults(input) as unknown as JsonValue, output as unknown as JsonValue);
+    return canonicalEquals(reduceWorksiteFileReplaceResults(input), output);
   } catch {
     return false;
   }

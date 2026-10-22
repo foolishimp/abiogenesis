@@ -30,6 +30,7 @@ import { cLeafTerms } from "../gtl/c_algebra.js";
 import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionTask, worksiteConstructionWorkerResultSchema } from "../product/worksite_construction.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS, isC2WorksiteCommandExecutionTask, worksiteCommandExecutionHelperPlan, renderWorksiteCommandExecutionPrompt, worksiteCommandExecutionWorkerResultSchema } from "../product/worksite_command_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson, isRecord } from "../shared/admit/index.js";
 import { onlyExactMatch } from "../shared/select/index.js";
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = (match) => match.kind === "one" ? match.value : null;
@@ -73,9 +74,10 @@ export function worksiteCommandExecutionAttemptRef(occurrence) {
 export function constructWorksiteNativeInstructionAssembly(basis, supplied) {
     try {
         const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
-        if (owner === null || owner.call.regime !== "F_P" ||
-            sha256Canonical(supplied) !== owner.inputDigest ||
-            !canonicalEquals(owner.inputValue, supplied))
+        const admittedSupplied = admitJson(supplied);
+        if (owner === null || owner.call.regime !== "F_P" || admittedSupplied.kind !== "ok" ||
+            sha256Canonical(admittedSupplied.value) !== owner.inputDigest ||
+            !canonicalEquals(owner.inputValue, admittedSupplied.value))
             return null;
         if (isNativeWorkspaceWorkTask(supplied)) {
             if (owner.call.implementationRef !== nativeIds.implementationRef || owner.call.graphFunctionRef !== nativeWorkspaceWorkGraphFunctionRef(supplied) ||
@@ -205,7 +207,9 @@ export function evaluateRegisteredSelectionInstructionAssembly(basis, supplied, 
         if (selected === false)
             return refusal("unknown_dependency", [basis.executionBasis.programRef]);
         const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
-        if (owner === null || owner.call.regime !== "F_P" || sha256Canonical(supplied) !== owner.inputDigest)
+        const admittedSupplied = admitJson(supplied);
+        if (owner === null || owner.call.regime !== "F_P" || admittedSupplied.kind !== "ok" ||
+            sha256Canonical(admittedSupplied.value) !== owner.inputDigest)
             return refusal("stale_basis");
         if (!isNativeRegisteredSelectionTask(supplied))
             return refusal("unavailable_required_content", [owner.call.inputContractRef]);
@@ -431,7 +435,10 @@ export function registeredSelectionInstructionResultMatches(candidate, input, ou
         if (bindings.length !== 1 || closes.length !== 1 || observed.disposition !== "success" || observed.toolCallCount !== 0 ||
             typeof observed.finalOutput !== "string" || closes[0].payload.consumedArtifactEventRef !== observations[0].eventId)
             return false;
-        const stored = bindings[0].payload.instructionAssembly;
+        const bindingPayload = bindings[0].payload;
+        if (!isRecord(bindingPayload))
+            return false;
+        const stored = bindingPayload.instructionAssembly;
         if (stored?.kind !== "native_instruction_assembly")
             return false;
         const predecessorPrefix = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, stored.envelope.predecessorPrefix);
@@ -440,7 +447,10 @@ export function registeredSelectionInstructionResultMatches(candidate, input, ou
             expected.manifest.promptDigest !== observed.promptDigest)
             return false;
         const choice = materializeNativeRegisteredChoice(input, expected.envelope.targetBindings, JSON.parse(observed.finalOutput));
-        return choice !== null && canonicalEquals(choice, output);
+        if (choice === null)
+            return false;
+        const admittedOutput = admitJson(output);
+        return admittedOutput.kind === "ok" && canonicalEquals(choice, admittedOutput.value);
     }
     catch {
         return false;
@@ -774,11 +784,12 @@ function constructJobInstructionAssembly(basis, supplied, readPhysical) {
     const termMaterial = (terms) => {
         if (revision === null || terms.length === 0)
             return terms;
-        const indices = terms.map(term => termIndices.get(canonicalJson(term)));
-        return indices.some(index => index === undefined) ? terms : { presentationRef: "#/obligations/retainedTerms",
+        const found = terms.map(term => termIndices.get(canonicalJson(term)));
+        const indices = found.filter((index) => index !== undefined);
+        return indices.length !== found.length ? terms : { presentationRef: "#/obligations/retainedTerms",
             indices, materialDigest: sha256Canonical(terms) };
     };
-    const historicalAssets = revision?.revisionBasis.historicalAssets.map(asset => ({ ...asset, groundedTerms: termMaterial(asset.groundedTerms) }));
+    const historicalAssets = revision === null ? [] : revision.revisionBasis.historicalAssets.map(asset => ({ ...asset, groundedTerms: termMaterial(asset.groundedTerms) }));
     const candidateViews = new Map(revision?.revisionBasis.historicalAssets.map((asset, index) => [
         canonicalJson(asset.candidate), { presentationRef: `#/task/historicalAssets/${index}/candidate`,
             materialDigest: sha256Canonical(asset.candidate) },
@@ -803,7 +814,8 @@ function constructJobInstructionAssembly(basis, supplied, readPhysical) {
     const nativeOrigins = revisionSubject !== null && "nativeWorksite" in revisionSubject ? revisionSubject.origins : null;
     const constructionDigest = construction?.kind === "native_workspace_work_observation" && nativeOrigins?.length
         ? sha256Canonical(construction) : null;
-    const origins = constructionDigest === null || nativeOrigins === null ? revisionSubject?.origins : nativeOrigins.map(origin => {
+    // Origins are shown only beside a revision subject; without one they are unused.
+    const origins = constructionDigest === null || nativeOrigins === null ? revisionSubject?.origins ?? [] : nativeOrigins.map(origin => {
         const result = origin.result, expected = construction;
         const value = result.value;
         if (result.resultClass !== "success" || origin.judgment.judgment !== "advance" ||
@@ -1121,7 +1133,10 @@ export function semanticInstructionResultMatches(basis, input, output) {
             if (bindings.length !== 1 || closes.length !== 1 || o.disposition !== "success" || o.toolCallCount !== 0 || typeof o.finalOutput !== "string" ||
                 !canonicalEquals(JSON.parse(o.finalOutput), output))
                 return false;
-            const stored = bindings[0].payload.instructionAssembly;
+            const bindingPayload = bindings[0].payload;
+            if (!isRecord(bindingPayload))
+                return false;
+            const stored = bindingPayload.instructionAssembly;
             if (stored?.kind !== "native_instruction_assembly")
                 return false;
             const predecessorPrefix = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, stored.envelope.predecessorPrefix);
@@ -1146,15 +1161,19 @@ export function semanticInstructionResultMatches(basis, input, output) {
             observation.promptDigest !== source.promptDigest || observation.transportDigest !== source.transportDigest ||
             observation.toolCallCount !== 0 || observation.disposition !== "success" || typeof observation.finalOutput !== "string")
             return false;
+        // JSON.parse yields only JSON values (worker final output, external text).
         const raw = JSON.parse(observation.finalOutput);
         // Compare the completion owner's canonical candidate, retaining its exact
         // input-derived domains rather than equating compact transport with output.
         const observedCandidate = (isSemanticJobEnvelope(input) || isSemanticJobRevisionEnvelope(input)) &&
             owner.stage !== undefined && semanticJobUsesDesignResponse(owner.role, owner.stage.bodyCapabilities)
             ? materializeSemanticJobDesignResponse(input, owner.stage.declarationRef, raw) : raw;
-        if (observedCandidate === null || !canonicalEquals(observedCandidate, candidate))
+        if (observedCandidate === null || candidate === undefined || !canonicalEquals(observedCandidate, candidate))
             return false;
-        const stored = bindings[0].payload.instructionAssembly;
+        const bindingPayload = bindings[0].payload;
+        if (!isRecord(bindingPayload))
+            return false;
+        const stored = bindingPayload.instructionAssembly;
         if (stored?.kind !== "native_instruction_assembly")
             return false;
         const previous = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, stored.envelope.predecessorPrefix);

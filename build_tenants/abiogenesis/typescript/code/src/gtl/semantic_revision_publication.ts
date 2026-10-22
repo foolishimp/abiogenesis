@@ -117,6 +117,6 @@ function nativeConstructionGraph(input: {readonly graphFunctionRef:string; reado
 /** Retention has this exact factory as owner, never a free-form marker. */
 export function isNativeSemanticRevisionGraphFunction(publication: Readonly<ModulePublication>, graph: Readonly<GraphFunction>): boolean {
   try { return publication.semanticJobLifecycle !== undefined && graph.declarations["abg.semantic_native_revision_construction"] === "5.0.0" &&
-    canonicalEquals(canonicalizeAuthoredGtlCarrier(nativeConstructionGraph({graphFunctionRef:graph.name,closureContractRef:graph.declarations["abg.closure_contract"]!}),"graph_function") as unknown as JsonValue, graph as unknown as JsonValue);
+    canonicalEquals(canonicalizeAuthoredGtlCarrier(nativeConstructionGraph({graphFunctionRef:graph.name,closureContractRef:graph.declarations["abg.closure_contract"]!}),"graph_function"), graph);
   } catch { return false; }
 }

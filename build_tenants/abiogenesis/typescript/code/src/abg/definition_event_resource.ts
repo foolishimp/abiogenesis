@@ -6,7 +6,7 @@ import { absolutePathSchema, digestSchema, nonblankSchema, refDigestSchema } fro
 import { ADMISSION_CAPABILITY_DATA_SCHEMA, RESOLVED_ADMISSION_AUTHORITY_SCHEMA, type ResolvedAdmissionAuthority } from "../product/admission_authority.js";
 import { verifyProduct, isVerifiedProductArtifact } from "../product/verify_product.js";
 import type { VerifiedProductArtifact } from "../product/contracts.js";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isAbsolute, resolve } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
@@ -60,11 +60,11 @@ export interface AcquiredAbgEventResource {
 
 /** Native physical correspondence, issued only from an actual acquisition.
  * Its explicit prefix selects one operation entry; a copied value is not held. */
-export interface AcquiredAbgEventResourceSelection {
+export type AcquiredAbgEventResourceSelection = {
   readonly kind: "acquired_abg_event_resource_selection";
   readonly schemaVersion: "5.0.0";
   readonly prefix: DurablePrefixCoordinate;
-}
+};
 
 export type AbgEventResourceInput = AbgEventResourceAssertion | AcquiredAbgEventResourceSelection;
 export type ReopenedAbgEventResourceInput = Extract<AbgEventResourceAssertion,
@@ -153,7 +153,8 @@ export function validateAbgEventResourceOutcome(value: unknown): value is AbgEve
       (value.acquisitionKind !== "new" && value.acquisitionKind !== "reopen") ||
       !validateDurablePrefixCoordinate(value.entryPrefix) || !isAcquiredAbgEventResourceSelection(value.successor)) return false;
   const { receiptDigest, ...body } = value;
-  return receiptDigest === sha256Canonical(body as JsonValue);
+  const admittedBody = admitJson(body);
+  return admittedBody.kind === "ok" && receiptDigest === sha256Canonical(admittedBody.value);
 }
 
 /** Only a borrowed operation completes without releasing its enclosing owner. */
@@ -165,7 +166,7 @@ export function completeAbgEventResource(
   const body = { kind: "abg_event_resource_completion" as const, schemaVersion: "5.0.0" as const,
     acquisitionKind: resource.acquisitionKind, entryPrefix: resource.entryPrefix,
     successor: selectAcquiredAbgEventResource(resource, finalPrefix) };
-  return deepFreeze({ ...body, receiptDigest: sha256Canonical(body as unknown as JsonValue) });
+  return deepFreeze({ ...body, receiptDigest: sha256Canonical(body) });
 }
 
 export type AbgEventResourceAdmission =
@@ -194,7 +195,7 @@ export function abgEventLocatorDigest(eventLogPath: string): Sha256Digest {
 export function abgEventHandoffDigest(
   handoff: EventStoreCloseHandoff,
 ): Sha256Digest {
-  return sha256Canonical(handoff as unknown as JsonValue);
+  return sha256Canonical(handoff);
 }
 
 function refusal(
@@ -208,10 +209,10 @@ function refusal(
   });
 }
 
+/** The value is I-JSON: `admitJson` admits it. A cyclic value or a throwing proxy trap is not. */
 function exactIJson(value: unknown): boolean {
   try {
-    canonicalJson(value as JsonValue);
-    return true;
+    return admitJson(value).kind === "ok";
   } catch {
     return false;
   }
@@ -264,7 +265,7 @@ export function validateAbgEventResourceReceipt(
     entryPrefix: value.entryPrefix,
     closeHandoff: value.closeHandoff,
   };
-  return value.receiptDigest === sha256Canonical(body as unknown as JsonValue);
+  return value.receiptDigest === sha256Canonical(body);
 }
 
 export function acquireAbgEventResource(
@@ -336,8 +337,8 @@ export function acquireAbgEventResource(
   }
   if (
     !canonicalEquals(
-      reopened.prefix as unknown as JsonValue,
-      assertion.closeHandoff.prefix as unknown as JsonValue,
+      reopened.prefix,
+      assertion.closeHandoff.prefix,
     )
   ) {
     reopened.store.closeDurableLog();
@@ -371,7 +372,7 @@ export function closeAbgEventResource(
   };
   return deepFreeze({
     ...body,
-    receiptDigest: sha256Canonical(body as unknown as JsonValue),
+    receiptDigest: sha256Canonical(body),
   });
 }
 
@@ -418,7 +419,7 @@ export const ABG_EVENT_RESOURCE_RECOVERY_DIGEST = sha256Canonical(ABG_EVENT_RESO
 export function abgEventRecoveryScope(request: AbgInterruptedEventResourceRecoveryRequest) {
   const selected = v.parse(recoveryRequestSchema, request);
   const digest = sha256Canonical({ definition: ABG_EVENT_RESOURCE_RECOVERY,
-    requestDigest: sha256Canonical(selected as unknown as JsonValue) });
+    requestDigest: sha256Canonical(selected) });
   return deepFreeze({ ref: `native-maintenance-scope://abiogenesis/${digest}`, digest });
 }
 export type AbgEventResourceRecoveryResult =
@@ -437,10 +438,10 @@ export async function recoverInterruptedAbgEventResource(requestInput: unknown, 
   const refuse = (code: "invalid_request" | "approval_mismatch" | "installed_owner_mismatch", message: string) =>
     deepFreeze({ kind: "abg_event_resource_recovery_refusal" as const, code, message });
   let request: AbgInterruptedEventResourceRecoveryRequest;
-  try { request = v.parse(recoveryRequestSchema, requestInput); canonicalJson(request as unknown as JsonValue); }
+  try { request = v.parse(recoveryRequestSchema, requestInput); canonicalJson(request); }
   catch (error) { return refuse("invalid_request", String(error)); }
   let authority: ResolvedAdmissionAuthority;
-  const requestDigest = sha256Canonical(request as unknown as JsonValue), scope = abgEventRecoveryScope(request);
+  const requestDigest = sha256Canonical(request), scope = abgEventRecoveryScope(request);
   try {
     authority = v.parse(RESOLVED_ADMISSION_AUTHORITY_SCHEMA, authorityInput);
     const actor = authority.actorRef, approval = authority.approval.value;
@@ -459,7 +460,7 @@ export async function recoverInterruptedAbgEventResource(requestInput: unknown, 
     const manifest = JSON.parse(await readFile(new URL("../../../../product-toolchain-manifest.json", import.meta.url), "utf8"));
     const pkg = JSON.parse(await readFile(new URL("../../../../package.json", import.meta.url), "utf8"));
     if (observed.kind !== "verified_product_artifact" ||
-        !canonicalEquals(observed as unknown as JsonValue, request.ownerArtifact.verified as unknown as JsonValue) ||
+        !canonicalEquals(observed, request.ownerArtifact.verified) ||
         sha256Canonical(manifest) !== observed.manifestDigest || pkg.name !== observed.packageName || pkg.version !== observed.packageVersion ||
         pkg.exports?.[ABG_EVENT_RESOURCE_RECOVERY.packageExport]?.import !== "./build/code/src/abg/index.js") {
       throw new TypeError("native maintenance owner differs from the verified executing artifact/export");
@@ -481,5 +482,5 @@ export async function recoverInterruptedAbgEventResource(requestInput: unknown, 
     approvalRef: authority.approval.ref, approvalDigest: authority.approval.digest, scopeDigest: scope.digest,
     executingOwner: { artifactRef: verified.artifactRef, artifactDigest: verified.artifactDigest, manifestDigest: verified.manifestDigest,
       packageExport: ABG_EVENT_RESOURCE_RECOVERY.packageExport, namedSymbol: ABG_EVENT_RESOURCE_RECOVERY.namedSymbol }, selection, outcome };
-  return deepFreeze({ ...body, receiptDigest: sha256Canonical(body as unknown as JsonValue) });
+  return deepFreeze({ ...body, receiptDigest: sha256Canonical(body) });
 }

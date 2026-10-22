@@ -56,10 +56,11 @@ import {
   type WorksiteObservation,
 } from "../product/worksite_effect.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson, isRecord } from "../shared/admit/index.js";
 
 let activeCommand: ReturnType<typeof spawn> | null = null;
 
-interface AuthorityFreeWorksiteCommandExecutionOccurrence {
+type AuthorityFreeWorksiteCommandExecutionOccurrence = {
   readonly cCallRef: string;
   readonly runId: string;
   readonly graphCallId: string;
@@ -68,7 +69,7 @@ interface AuthorityFreeWorksiteCommandExecutionOccurrence {
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly executionAuthority: null;
-}
+};
 
 interface WorksiteCommandExecutionLaunchManifest {
   readonly kind: "worksite_command_execution_launch_manifest";
@@ -162,8 +163,11 @@ function isWorksiteCommandExecutionLaunchManifest(
     !nonempty(candidate.taskManifestPath) || !nonempty(candidate.attemptRef) ||
     !nonempty(candidate.archiveRoot) || !nonempty(candidate.attemptRoot) ||
     !nonempty(candidate.launchManifestPath) || !nonempty(candidate.helperModulePath) ||
+    typeof candidate.taskManifestByteLength !== "number" ||
     !Number.isSafeInteger(candidate.taskManifestByteLength) ||
     Number(candidate.taskManifestByteLength) < 1 ||
+    typeof candidate.implementationRef !== "string" ||
+    typeof candidate.implementationBindingRef !== "string" ||
     candidate.implementationRef !== (candidate.occurrence.programLocusRef === WORKSITE_COMMAND_FORWARD_IDS.nodeRef ? WORKSITE_COMMAND_FORWARD_IDS.implementationRef : candidate.occurrence.programLocusRef === WORKSITE_COMMAND_EXECUTION_IDS.nodeRef
       ? WORKSITE_COMMAND_EXECUTION_IDS.implementationRef : WORKSITE_REVISION_IDS.implementationRef) ||
     candidate.implementationBindingRef !== (candidate.occurrence.programLocusRef === WORKSITE_COMMAND_FORWARD_IDS.nodeRef ? WORKSITE_COMMAND_FORWARD_IDS.implementationBindingRef : candidate.occurrence.programLocusRef === WORKSITE_COMMAND_EXECUTION_IDS.nodeRef
@@ -171,7 +175,7 @@ function isWorksiteCommandExecutionLaunchManifest(
     candidate.packageName !== ABI5_PACKAGE_NAME ||
     candidate.packageVersion !== ABI5_PACKAGE_VERSION) return false;
   const occurrence = candidate.occurrence;
-  const occurrenceDigest = sha256Canonical(occurrence as unknown as JsonValue);
+  const occurrenceDigest = sha256Canonical(occurrence);
   const attemptRef = worksiteCommandExecutionAttemptRef(occurrence);
   const attemptDigest = sha256Canonical({ attemptRef });
   const body = {
@@ -195,17 +199,15 @@ function isWorksiteCommandExecutionLaunchManifest(
     packageName: ABI5_PACKAGE_NAME,
     packageVersion: ABI5_PACKAGE_VERSION,
   } as const;
-  const launchManifestDigest = sha256Canonical(body as unknown as JsonValue);
+  const launchManifestDigest = sha256Canonical(body);
   const expected = {
     ...body,
     launchManifestRef:
       `worksite-command-launch-manifest://abiogenesis/${launchManifestDigest.slice("sha256:".length)}`,
     launchManifestDigest,
   };
-  return canonicalEquals(
-    value as JsonValue,
-    expected as unknown as JsonValue,
-  );
+  const admitted = admitJson(value);
+  return admitted.kind === "ok" && canonicalEquals(admitted.value, expected);
 }
 
 function exactLaunchManifestArgument(): string {
@@ -218,11 +220,11 @@ function exactLaunchManifestArgument(): string {
   return argv[1];
 }
 
-function record(value: JsonValue): Readonly<Record<string, JsonValue>> {
-  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+function record(value: JsonValue | undefined): Readonly<Record<string, JsonValue>> {
+  if (!isRecord(value)) {
     throw new TypeError("predicate declaration must be one object");
   }
-  return value as unknown as Readonly<Record<string, JsonValue>>;
+  return value;
 }
 
 function contained(root: string, relativePath: string): string {
@@ -396,7 +398,7 @@ async function admitLaunchManifest(): Promise<Readonly<{
   }
   const manifest = manifestValue;
   const canonicalBytes = Buffer.from(
-    `${canonicalJson(manifest as unknown as JsonValue)}\n`,
+    `${canonicalJson(manifest)}\n`,
     "utf8",
   );
   if (!manifestBytes.equals(canonicalBytes) ||
@@ -442,7 +444,7 @@ async function admitLaunchManifest(): Promise<Readonly<{
   }
   const task = taskValue;
   const canonicalTaskBytes = Buffer.from(
-    `${canonicalJson(task as unknown as JsonValue)}\n`,
+    `${canonicalJson(task)}\n`,
     "utf8",
   );
   const expectedAttemptRoot = join(
@@ -560,7 +562,7 @@ function worksiteDelta(
   for (const relativePath of paths) {
     const prior = before.get(relativePath) ?? null;
     const next = after.get(relativePath) ?? null;
-    if (canonicalEquals(prior as unknown as JsonValue, next as unknown as JsonValue)) continue;
+    if (canonicalEquals(prior, next)) continue;
     rows.push(Object.freeze({
       kind: "worksite_path_delta" as const,
       schemaVersion: "5.0.0" as const,
@@ -620,7 +622,7 @@ async function materializeSnapshot(
     }));
   }
   const snapshotMembers = Object.freeze(members);
-  const snapshotDigest = sha256Canonical(snapshotMembers as unknown as JsonValue);
+  const snapshotDigest = sha256Canonical(snapshotMembers);
   return Object.freeze({
     snapshotRef: `${worksiteExecutionIdentityPrefix(task, "snapshot")}/${snapshotDigest.slice("sha256:".length)}`,
     snapshotDigest,
@@ -659,7 +661,7 @@ async function reportObservation(
       byteLength,
       digest,
     };
-    const observationDigest = sha256Canonical(body as unknown as JsonValue);
+    const observationDigest = sha256Canonical(body);
     return Object.freeze({
       kind: "worksite_report_observation" as const,
       schemaVersion: "5.0.0" as const,
@@ -712,7 +714,7 @@ function unconfirmedScopeDiagnostic(facts: OwnedProcessFacts): Buffer {
     directExit: facts.directExit, scopeKind: facts.scopeKind, scopeAbsence: facts.scopeAbsence,
     noChildEstablished: facts.noChildEstablished, closeObserved: facts.closeObserved,
     streamsDisposed: facts.streamsDisposed, drainExpired: facts.drainExpired,
-  } as JsonValue)}\n`, "utf8");
+  })}\n`, "utf8");
 }
 
 async function runCommand(
@@ -766,7 +768,7 @@ async function runCommand(
         taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, command,
         diagnostic: { name: facts.firstError.name, message: facts.firstError.message },
         processFacts: encodeOwnedProcessFacts(facts),
-      } as unknown as JsonValue)}`);
+      })}`);
     }
   } finally {
     timeoutTimer.cancel(); clearInterval(heartbeat); activeCommand = null; captureOpen = false;
@@ -803,7 +805,7 @@ async function runCommand(
       taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
       command: processObservation, diagnostic: decodeStream(processObservation.stderr),
       processFacts: encodeOwnedProcessFacts(facts),
-    } as unknown as JsonValue)}`);
+    })}`);
   }
   const reports = await Promise.all(command.expectedReports.map((row) =>
     reportObservation(executionRoot, command, row)
@@ -813,7 +815,7 @@ async function runCommand(
     reports,
     reportCount: reports.filter((row) => row.state === "file").length,
   };
-  const observationDigest = sha256Canonical(body as unknown as JsonValue);
+  const observationDigest = sha256Canonical(body);
   const result = Object.freeze({
     kind: "worksite_command_result" as const,
     schemaVersion: "5.0.0" as const,
@@ -925,7 +927,7 @@ async function reportSet(
   }>;
 }>> {
   const baseRelative = declaration.base as string;
-  const selector = record(declaration.selector as JsonValue);
+  const selector = record(declaration.selector);
   const substrings = selector.includeSubstrings as readonly string[];
   const suffixes = selector.includeSuffixes as readonly string[];
   let base: string;
@@ -957,7 +959,7 @@ async function reportSet(
       digest,
       ...counts,
     };
-    const observationDigest = sha256Canonical(evidenceBody as unknown as JsonValue);
+    const observationDigest = sha256Canonical(evidenceBody);
     rows.push(Object.freeze({
       kind: "worksite_report_set_member_observation" as const,
       schemaVersion: "5.0.0" as const,
@@ -1021,9 +1023,9 @@ async function runHttpProbe(
   declaration: Readonly<Record<string, JsonValue>>,
   attemptRef: string | null = null,
 ): Promise<JsonValue> {
-  const launch = record(declaration.launch as JsonValue);
-  const request = record(declaration.request as JsonValue);
-  const portFile = record(launch.portFile as JsonValue);
+  const launch = record(declaration.launch);
+  const request = record(declaration.request);
+  const portFile = record(launch.portFile);
   const portFileRelativePath = portFile.relativePath as string;
   const portFileParent = dirname(portFileRelativePath);
   await confinedExistingPath(executionRoot, portFileParent, "directory");
@@ -1128,7 +1130,7 @@ async function runHttpProbe(
       taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, request,
       diagnostic: { name: facts.firstError.name, message: facts.firstError.message },
       processFacts: encodeOwnedProcessFacts(facts),
-    } as unknown as JsonValue)}`);
+    })}`);
   }
   if (ownerError !== null) throw ownerError;
   const timedOut = launchExpired && portFileIssue === null;
@@ -1165,9 +1167,9 @@ async function runHttpProbe(
       taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
       observation: probe, diagnostic: decodeStream(probe.process.stderr),
       processFacts: encodeOwnedProcessFacts(facts),
-    } as unknown as JsonValue)}`);
+    })}`);
   }
-  return probe as unknown as JsonValue;
+  return probe;
 }
 
 async function predicateObservation(
@@ -1248,7 +1250,7 @@ async function predicateObservation(
     const probeDigest = sha256Canonical({
       predicateId: predicate.predicateId,
       observedValue,
-    } as unknown as JsonValue);
+    });
     evidence = [commandEvidence(command), {
       kind: "worksite_http_probe_observation",
       schemaVersion: "5.0.0",
@@ -1261,7 +1263,7 @@ async function predicateObservation(
       `http-probe-observation://abiogenesis/${probeDigest.slice("sha256:".length)}`,
     ];
   } else if (predicate.predicateKind === "module_set_exact") {
-    const selector = record(declaration.selector as JsonValue);
+    const selector = record(declaration.selector);
     const prefix = selector.prefix as string;
     const suffix = selector.suffix as string;
     const segmentIndex = selector.segmentIndex as number;
@@ -1279,7 +1281,7 @@ async function predicateObservation(
       digest: row.observation.observationDigest,
     }));
   } else if (predicate.predicateKind === "file_count") {
-    const selector = record(declaration.selector as JsonValue);
+    const selector = record(declaration.selector);
     const suffixes = selector.includeSuffixes as readonly string[];
     const substrings = selector.includeSubstrings as readonly string[];
     const selected = worksiteExecutionSources(task).filter((row) => {
@@ -1374,8 +1376,8 @@ async function main(): Promise<void> {
     task.workspaceBinding.roots.productRoot,
   );
   const beforeMatches = before.every((row, ordinal) => canonicalEquals(
-    row as unknown as JsonValue,
-    worksiteExecutionSources(task)[ordinal]!.observation as unknown as JsonValue,
+    row,
+    worksiteExecutionSources(task)[ordinal]!.observation,
   ));
   const commandResults: WorksiteCommandResult[] = [];
   const predicateObservations: WorksitePredicateObservation[] = [];
@@ -1384,7 +1386,7 @@ async function main(): Promise<void> {
     : await (async () => {
         await mkdir(sandboxRoot);
         const snapshotMembers = Object.freeze([]) as readonly WorksiteExecutionSnapshotMember[];
-        const snapshotDigest = sha256Canonical(snapshotMembers as unknown as JsonValue);
+        const snapshotDigest = sha256Canonical(snapshotMembers);
         return Object.freeze({
           snapshotRef: `${worksiteExecutionIdentityPrefix(task, "snapshot")}/${snapshotDigest.slice("sha256:".length)}`,
           snapshotDigest,
@@ -1399,7 +1401,7 @@ async function main(): Promise<void> {
         throw new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
           taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
           command, diagnostic: decodeStream(command.stderr),
-        } as unknown as JsonValue)}`);
+        })}`);
       }
       commandResults.push(command);
     }
@@ -1407,12 +1409,12 @@ async function main(): Promise<void> {
       const observation = await predicateObservation(task, sandboxRoot, commandResults, ordinal, preflight.manifest.attemptRef);
       if (observation.predicateKind === "http_response_exact") {
         const probe = record(observation.observedValue);
-        const processObservation = record(probe.process as JsonValue);
+        const processObservation = record(probe.process);
         if (processObservation.terminationConfirmed !== true) {
           throw new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({
             taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
             observation, diagnostic: decodeStream(processObservation.stderr as unknown as WorksiteObservedStream),
-          } as unknown as JsonValue)}`);
+          })}`);
         }
       }
       predicateObservations.push(observation);
@@ -1426,8 +1428,8 @@ async function main(): Promise<void> {
   );
   const productDelta = worksiteDelta(task, productInventoryBefore, productInventoryAfter, false);
   const afterMatches = after.every((row, ordinal) => canonicalEquals(
-    row as unknown as JsonValue,
-    worksiteExecutionSources(task)[ordinal]!.observation as unknown as JsonValue,
+    row,
+    worksiteExecutionSources(task)[ordinal]!.observation,
   ));
   const artifact = constructWorksiteExecutionHelperArtifact({
     task,
@@ -1449,7 +1451,7 @@ async function main(): Promise<void> {
     protectedBefore: before,
     protectedAfter: after,
   });
-  const bytes = Buffer.from(`${canonicalJson(artifact as unknown as JsonValue)}\n`, "utf8");
+  const bytes = Buffer.from(`${canonicalJson(artifact)}\n`, "utf8");
   await publishCreateOnly(artifactPath, bytes);
   await canonicalExistingPathWithinRoot(
     preflight.manifest.archiveRoot,
@@ -1466,7 +1468,7 @@ async function main(): Promise<void> {
     helperArtifactDigest: artifact.artifactDigest,
   }) satisfies WorksiteCommandExecutionWorkerResult;
   process.stdout.write(
-    `${canonicalJson(workerReturnProjection as unknown as JsonValue)}\n`,
+    `${canonicalJson(workerReturnProjection)}\n`,
   );
 }
 

@@ -18,7 +18,7 @@ import { type ScopeClosureAdmission, type ScopeClosureAdmissionRefusal } from ".
 import { type RouteTransitionAdmission, type RouteTransitionResult } from "./traversal_route.js";
 import type { TraversalTransitionCandidate } from "./traversal_transition.js";
 export declare function projectWorksiteFailureBasis(events: readonly RuntimeEvent[], cCallRef: string, value: unknown): {
-    request: (JsonValue | undefined) & WorksiteFileReplaceRequest;
+    request: WorksiteFileReplaceRequest;
     authorization: import("../product/worksite_effect.js").WorksiteEffectAuthorization;
     executionBasis: ExecutionBasis;
     implementationSet: AdmittedImplementationSet;

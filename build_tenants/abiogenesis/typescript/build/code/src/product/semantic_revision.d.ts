@@ -9,14 +9,14 @@ import { type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { type WorksiteContextObservation } from "./worksite_effect.js";
 import { type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
 import { type CapabilityGrant } from "./invocation.js";
-export interface SemanticRevisionCoordinate {
+export type SemanticRevisionCoordinate = {
     readonly cCallRef: string;
     readonly resultRef: string;
     readonly resultDigest: Sha256Digest;
     readonly resultAdmissionEventRef: string;
     readonly judgmentEventRef: string;
-}
-export interface NativeSemanticRevisionIntake {
+};
+export type NativeSemanticRevisionIntake = {
     readonly kind: "native_semantic_revision_intake";
     readonly schemaVersion: "5.0.0";
     readonly sourceRun: {
@@ -24,9 +24,9 @@ export interface NativeSemanticRevisionIntake {
         readonly digest: Sha256Digest;
     };
     readonly sourcePrefix: DurablePrefixCoordinate;
-}
+};
 export declare function isNativeSemanticRevisionIntake(value: unknown): value is NativeSemanticRevisionIntake;
-export interface SemanticRevisionSelection {
+export type SemanticRevisionSelection = {
     readonly kind: "semantic_revision_selection";
     readonly schemaVersion: "5.0.0";
     readonly parent: SemanticRevisionCoordinate;
@@ -37,10 +37,10 @@ export interface SemanticRevisionSelection {
     readonly selectedTargetRefs: readonly string[];
     readonly reasonRef: string;
     readonly nativePhase?: "preconstruction" | "postconstruction";
-}
+};
 /** Native observation evidence stays native. This is an input to authenticate,
  * not a synthetic C0/C1 worksite or a new currentness owner. */
-export interface NativeSemanticRevisionWorksite {
+export type NativeSemanticRevisionWorksite = {
     readonly kind: "native_semantic_revision_worksite";
     readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
     readonly workspaceBinding: WorkspaceBinding;
@@ -50,9 +50,9 @@ export interface NativeSemanticRevisionWorksite {
     readonly construction: SemanticRevisionCoordinate | null;
     readonly source: NativeSemanticRevisionIntake;
     readonly acquisition?: SemanticRevisionCoordinate;
-}
+};
 export declare function isNativeSemanticRevisionWorksite(value: unknown): value is NativeSemanticRevisionWorksite;
-export interface SemanticRevisionRequest {
+export type SemanticRevisionRequest = {
     readonly kind: "semantic_revision_request";
     readonly schemaVersion: "5.0.0";
     readonly parent: SemanticRevisionCoordinate;
@@ -69,21 +69,21 @@ export interface SemanticRevisionRequest {
     };
     readonly currentWorksite: SemanticWorksiteBasis | null;
     readonly nativeWorksite?: NativeSemanticRevisionWorksite;
-}
-export interface SemanticRevisionSelectionInput {
+};
+export type SemanticRevisionSelectionInput = {
     readonly kind: "semantic_revision_selection_input";
     readonly schemaVersion: "5.0.0";
     readonly parent: SemanticRevisionCoordinate;
     readonly causes: readonly SemanticRevisionCoordinate[];
     readonly currentWorksite: SemanticWorksiteBasis | null;
     readonly nativeWorksite?: NativeSemanticRevisionWorksite;
-}
+};
 export declare function isSemanticRevisionSelectionInput(x: unknown): x is SemanticRevisionSelectionInput;
 /** Compare the selected observation, not two Programs' different permissions.
  * ABG authenticates each invocation's own operating basis separately. */
 export declare function semanticRevisionSelectionInputMatchesRequest(input: unknown, request: SemanticRevisionRequest): boolean;
 export declare function semanticRevisionSelectionSchema(nativePhase?: "preconstruction" | "postconstruction"): Readonly<Record<string, JsonValue>>;
-export interface SemanticRevisionBasis {
+export type SemanticRevisionBasis = {
     readonly basisRef: string;
     readonly basisDigest: Sha256Digest;
     readonly request: SemanticRevisionRequest;
@@ -93,13 +93,13 @@ export interface SemanticRevisionBasis {
     readonly retainedTerms: readonly RequirementTerm[];
     readonly retainedBindings: readonly GtlContractFulfillmentBinding[];
     readonly parentRevisionRef: string | null;
-}
-export interface SemanticRevisionEnvelope {
+};
+export type SemanticRevisionEnvelope = {
     readonly kind: "semantic_revision_envelope";
     readonly schemaVersion: "5.0.0";
     readonly revisionBasis: SemanticRevisionBasis;
     readonly current: SemanticStageEnvelope;
-}
+};
 export declare function isSemanticRevisionSelection(x: unknown): x is SemanticRevisionSelection;
 export declare function isSemanticRevisionRequest(x: unknown): x is SemanticRevisionRequest;
 export declare function isSemanticRevisionEnvelope(x: unknown): x is SemanticRevisionEnvelope;
@@ -118,14 +118,14 @@ export declare function deriveRevisionAssessment(input: SemanticRevisionEnvelope
     revisionBasis: SemanticRevisionBasis;
 }> | null;
 /** Closed job arm; legacy fixed binding equality above is unchanged. */
-export interface SemanticJobRevisionEnvelope {
+export type SemanticJobRevisionEnvelope = {
     readonly kind: "semantic_revision_envelope";
     readonly schemaVersion: "5.0.0";
     readonly revisionBasis: SemanticRevisionBasis & {
         readonly historicalAssets: readonly SemanticJobAsset[];
     };
     readonly current: SemanticJobEnvelope;
-}
+};
 export declare function isSemanticJobRevisionEnvelope(x: unknown): x is SemanticJobRevisionEnvelope;
 export declare function deriveSemanticJobRevision(parent: SemanticJobEnvelope | SemanticJobRevisionEnvelope, request: SemanticRevisionRequest, selection: SemanticRevisionSelection, worksite: SemanticWorksiteBasis | null, historicalWorksite?: SemanticWorksiteBasis | null, counterevidenceAssets?: readonly SemanticJobAsset[], counterevidence?: SemanticJobEnvelope, operationalFailedStage?: SemanticJobEnvelope["declaration"]["stages"][number], operationalRole?: "author" | "assessor"): Readonly<SemanticJobRevisionEnvelope> | null;
 export declare function semanticJobRevisionNativeTargets(envelope: SemanticJobEnvelope): readonly {

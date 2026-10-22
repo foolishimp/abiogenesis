@@ -239,7 +239,7 @@ function exactAdmissionPayload(
     isRecord(event.payload) &&
     canonicalEquals(
       event.payload,
-      payload as unknown as JsonValue,
+      payload,
     );
 }
 
@@ -304,17 +304,17 @@ function projectCurrentClosureTruth(
     cCallTruth.resultDigest !== result.resultDigest ||
     cCallTruth.judgmentRef !== judgment.judgmentRef ||
     cCallTruth.judgment !== judgment.judgment ||
-    result.resultDigest !== sha256Canonical(resultBody as unknown as JsonValue) ||
+    result.resultDigest !== sha256Canonical(resultBody) ||
     result.resultRef !==
       `result://abiogenesis/${result.resultDigest.slice("sha256:".length)}` ||
     result.valueDigest !== sha256Canonical(result.value) ||
     judgment.judgmentDigest !==
-      sha256Canonical(judgmentBody as unknown as JsonValue) ||
+      sha256Canonical(judgmentBody) ||
     judgment.judgmentRef !==
       `judgment://abiogenesis/${judgment.judgmentDigest.slice("sha256:".length)}` ||
     !exactAdmissionPayload(resultEvent, "c_call_result_admitted", result) ||
     !exactAdmissionPayload(judgmentEvent, "c_call_judged", judgment) ||
-    route.routeDigest !== sha256Canonical(exactRouteBody as unknown as JsonValue) ||
+    route.routeDigest !== sha256Canonical(exactRouteBody) ||
     route.routeRef !==
       `traversal-route://abiogenesis/${route.routeDigest.slice("sha256:".length)}` ||
     routeEvent?.kind !== "traversal_route_admitted" ||
@@ -328,7 +328,7 @@ function projectCurrentClosureTruth(
         routeRef: route.routeRef,
         routeDigest: route.routeDigest,
         ...exactRouteBody,
-      } as unknown as JsonValue,
+      },
     ) ||
     currentRoute?.routeRef !== route.routeRef ||
     currentRoute.routeDigest !== route.routeDigest ||
@@ -384,13 +384,13 @@ export function admitOwnedScopeClosure(
 
   const projectedCCall = projectAdmittedCCallStateAtPrefix(
     exactPrefix.runPrefix,
-    sourceCCall as unknown as Readonly<Record<string, JsonValue>>,
-    sourceResult as unknown as Readonly<Record<string, JsonValue>>,
-    sourceJudgment as unknown as Readonly<Record<string, JsonValue>>,
+    sourceCCall,
+    sourceResult,
+    sourceJudgment,
   );
   const exactScope = rehydrateOpenedTraversalScopeAtPrefix(
     exactPrefix.runPrefix,
-    subject.scope as unknown as Readonly<Record<string, JsonValue>>,
+    subject.scope,
   );
   const scopeClass = exactScope === null
     ? null
@@ -415,7 +415,7 @@ export function admitOwnedScopeClosure(
   const childScope = scopeClass === "child" ? exactScope : null;
   const resultRef = resume?.responseRef ?? result.resultRef;
   const closureContractDigest = sha256Canonical(
-    closureContract as unknown as JsonValue,
+    closureContract,
   );
 
   const commonOutcomeIsExact =
@@ -433,7 +433,7 @@ export function admitOwnedScopeClosure(
       judgment.judgment === "pending" &&
       resume !== null &&
       resume.responseDigest === sha256Canonical(
-        resume.responseValue as unknown as JsonValue,
+        resume.responseValue,
       ) &&
       route.sourceCursorRef === resume.successorCursorRef &&
       route.sourceCursorDigest === resume.successorCursorDigest
@@ -573,7 +573,7 @@ export function admitOwnedScopeClosure(
         }),
     terminalKind: closureContract.terminalKind,
   };
-  const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
+  const closureDigest = sha256Canonical(closureBody);
   const closureRef =
     `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
   const graphCallId = childScope?.graphCallId ?? cCall.graphCallId;

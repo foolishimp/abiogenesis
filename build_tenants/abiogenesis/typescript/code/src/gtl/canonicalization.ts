@@ -74,17 +74,14 @@ function canonicalizeRecordInventory(
   });
   if (
     entries.every(
-      (entry) =>
+      // A record entry is the mutable copy made above.
+      (entry): entry is MutableJsonRecord =>
         isRecord(entry) &&
         identityKeys.every((key) => typeof entry[key] === "string"),
     )
   ) {
     entries.sort((left, right) =>
-      compareRecordsByIdentity(
-        left as Readonly<Record<string, JsonValue>>,
-        right as Readonly<Record<string, JsonValue>>,
-        identityKeys,
-      )
+      compareRecordsByIdentity(left, right, identityKeys)
     );
   }
   carrier[field] = entries;
@@ -202,10 +199,11 @@ export function canonicalizeAuthoredGtlCarrier(
   subjectKind: CanonicalAuthoredGtlSubjectKind,
 ): JsonValue;
 export function canonicalizeAuthoredGtlCarrier(
-  value: unknown,
+  value: JsonValue,
   subjectKind: CanonicalAuthoredGtlSubjectKind,
 ): unknown {
-  const cloned = JSON.parse(canonicalJson(value as JsonValue)) as JsonValue;
+  // JSON.parse yields only JSON values: the parse of canonical text is in the domain.
+  const cloned: JsonValue = JSON.parse(canonicalJson(value));
   if (!isRecord(cloned)) return deepFreeze(cloned);
   const carrier = mutable(cloned);
   switch (subjectKind) {

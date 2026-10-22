@@ -13,25 +13,30 @@ import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { admitJson } from "../shared/admit/index.js";
 import type { SelfConformanceOwner } from "./self_conformance_contracts.js";
 import { SELF_CONFORMANCE_CATALOG_ASSET_PATH, SELF_CONFORMANCE_CATALOG_CONTRACT_ID } from "./self_conformance.js";
 import { resolveQualificationSelfConformanceOwner } from "../abg/qualification_proof.js";
 
 export type { QualificationNativeBasis as QualificationOwnerBasis } from "./qualification_contracts.js";
 import type { QualificationNativeBasis as QualificationOwnerBasis } from "./qualification_contracts.js";
-const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+const hash = (value: JsonValue) => sha256Canonical(value);
 /** Rehydrates actual native owner truth. A consistent caller data tuple is insufficient. */
 export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): SelfConformanceOwner | null {
   if (typeof input === "object" && input !== null && "qualification" in input) {
     return resolveQualificationSelfConformanceOwner(basis, input, requireCurrent, resources);
   }
   try {
+    // The caller's input is unchecked: it is admitted as I-JSON before its
+    // digest is compared with the root input digest, and a refusal is null.
+    const admittedInput = admitJson(input);
+    if (admittedInput.kind !== "ok") return null;
     const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
     const prefix = selectValidatedRuntimeEventPrefix(events);
     const opened = events.find(e => e.kind === "c_call_opened" && e.aggregateId === basis.cCallRef);
     if (opened === undefined) return null;
     const execution = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
-    if (execution === null || execution.basisClass !== "root" || execution.programRef !== ids.programRef || execution.graphFunctionRef !== ids.graphFunctionRef || hash(input) !== execution.rawInputDigest) return null;
+    if (execution === null || execution.basisClass !== "root" || execution.programRef !== ids.programRef || execution.graphFunctionRef !== ids.graphFunctionRef || hash(admittedInput.value) !== execution.rawInputDigest) return null;
     const environment = projectExactPrefixWorkspaceEnvironment(basis.predecessorPrefix as DurablePrefixCoordinate, { ref: execution.workspaceBindingId, digest: execution.workspaceBindingDigest });
     if (environment.kind !== "exact_prefix_workspace_environment") return null;
     const set = rehydrateAdmittedImplementationSetAtPrefix(prefix, execution.implementationSetRef);
@@ -49,9 +54,9 @@ export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, inpu
       install.contributionManifest.publicationBindings.filter(p => p.moduleRef === publication.moduleRef && p.publicationDigest === modulePublicationSemanticDigest(publication)).length !== 1) return null;
     const functions = publication.graphFunctions.filter(g => g.name === ids.graphFunctionRef);
     const programs = publication.programs.filter(p => p.programRef === ids.programRef);
-    if (functions.length !== 1 || programs.length !== 1) return null;
-    const graphFunction = functions[0]!;
-    if (hash(graphFunction) !== execution.graphFunctionDigest || hash(programs[0]) !== execution.programDigest) return null;
+    const graphFunction = functions.length === 1 ? functions[0] : undefined, program = programs.length === 1 ? programs[0] : undefined;
+    if (graphFunction === undefined || program === undefined) return null;
+    if (hash(graphFunction) !== execution.graphFunctionDigest || hash(program) !== execution.programDigest) return null;
     const graph = materializeGraph(graphFunction, { invocationAdmissionRef: execution.invocationAdmissionRef,
       admittedInputRef: execution.rawInputAdmissionRef, admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue });
     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCallRef);

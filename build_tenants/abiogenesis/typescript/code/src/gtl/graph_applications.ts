@@ -71,7 +71,7 @@ export function graphEdgeRef(input: {
     fromNodeRef: input.fromNodeRef,
     toNodeRef: input.toNodeRef,
     ...(input.inputBinding === undefined ? {} : { inputBinding: input.inputBinding }),
-  } as unknown as JsonValue);
+  });
   return `graph-vector://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
@@ -85,7 +85,7 @@ function constructApplication<T extends GraphFunctionApplication>(
     relationKind,
     ...input,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     applicationRef:
@@ -97,12 +97,12 @@ export function graphFunctionApplicationRef(
   application: Readonly<GraphFunctionApplication>,
 ): string {
   const { applicationRef: _applicationRef, ...body } = application;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return `graph-function-application://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
 export function foldbackRef(foldback: Readonly<FoldbackDeclaration>): string {
-  const digest = sha256Canonical(foldback as unknown as JsonValue);
+  const digest = sha256Canonical(foldback);
   return `foldback://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 

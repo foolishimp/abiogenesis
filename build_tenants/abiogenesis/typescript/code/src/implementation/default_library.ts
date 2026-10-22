@@ -14,7 +14,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 import { sanitizeUndispatchedOwnerError } from "../abg/event_contract_profiles.js";
 import type { GovernanceTestingRefusal } from "../abg/native_work_reacquisition.js";
-const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+const hash = (x: JsonValue) => sha256Canonical(x);
 const descriptors = defaultLibraryImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION })
   .map(({ kind: _kind, bindingRef: _bindingRef, ...body }) => deepFreeze({ kind: "packaged_leaf_implementation_descriptor", schemaVersion: "5.0.0", ...body, descriptorDigest: hash(body) }) as PackagedLeafImplementationDescriptor);
 export const GOVERNANCE_SELECTION_TASK_DESCRIPTOR = descriptors[0]!;
@@ -24,9 +24,9 @@ export const GOVERNANCE_NATIVE_TASK_DESCRIPTOR = descriptors[3]!;
 export const GOVERNANCE_TESTING_TASK_DESCRIPTOR = descriptors[4]!;
 export const GOVERNANCE_FOLD_DESCRIPTOR = descriptors[5]!;
 export const GOVERNANCE_CHOICE_DESCRIPTOR = descriptors[6]!;
-function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: unknown, output: unknown, refusalDiagnosticRef?: string): LeafRealizationCandidate {
+function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: JsonValue, output: Readonly<Record<string, JsonValue>> | null, refusalDiagnosticRef?: string): LeafRealizationCandidate {
   const diagnosticRef = refusalDiagnosticRef ?? ref("diagnostic", "missing-owned-" + operation), success = output !== null;
-  const resultCandidate = (output ?? { kind: "governance_failure", schemaVersion: "5.0.0", diagnosticRef }) as Readonly<Record<string, JsonValue>>;
+  const resultCandidate: Readonly<Record<string, JsonValue>> = output ?? { kind: "governance_failure", schemaVersion: "5.0.0", diagnosticRef };
   const evidenceCandidates = operation === "select" ? [] : [{ kind: "deterministic_evidence_candidate" as const, schemaVersion: "5.0.0" as const,
     implementationRef: ref("implementation", operation), inputDigest: hash(input), outputDigest: hash(resultCandidate) }];
   return success ? { kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success", resultCandidate, evidenceCandidates }

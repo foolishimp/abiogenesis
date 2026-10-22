@@ -93,7 +93,7 @@ import type {
 import { canonicalEquals } from "../shared/value/index.js";
 import { onlyExactMatch } from "../shared/select/index.js";
 
-export interface ReplayCCallState {
+export type ReplayCCallState = {
   readonly cCallRef: string;
   readonly batchRef: string | null;
   readonly taskOrdinal: number | null;
@@ -111,7 +111,7 @@ export interface ReplayCCallState {
   readonly judgmentRef: string | null;
   readonly judgment: string | null;
   readonly status: "fibre_selected" | "judged" | "opened" | "result_admitted";
-}
+};
 
 export interface ActiveRuntimeTransactionProjection {
   readonly authorityPrefix: ValidatedRuntimeEventPrefix;
@@ -179,6 +179,10 @@ export type RuntimeReplayGuard = Pick<ReplayState,
   "graphCallClosedEventRef" | "runClosedEventRef" | "runStoppedEventRef" | "runStoppedDisposition" |
   "invocationRefusalEventRef" | "runtimeFailureEventRef" | "runtimeStatus">;
 const REPLAY_GUARD_PREFIXES = new WeakMap<RuntimeReplayGuard, { prefix: RuntimeEventPrefix; authority: RuntimeEventPrefix }>();
+/** A guard that carries the replay owner's `kind` is the owner's whole replay state. */
+function isFullReplayState(guard: RuntimeReplayGuard): guard is ReplayState {
+  return "kind" in guard && guard.kind === "replay_state";
+}
 /** @internal Full logical digest remains the existing replay owner's meaning.
  * Historical values stream through its canonical writer without a full vector. */
 export function projectRuntimeReplayGuard(prefix: RuntimeEventPrefix, authority: RuntimeEventPrefix = prefix): RuntimeReplayGuard {
@@ -190,7 +194,7 @@ export function runtimeReplayGuardsHaveSameOwnedCut(left: RuntimeReplayGuard, ri
   const a = REPLAY_GUARD_PREFIXES.get(left), b = REPLAY_GUARD_PREFIXES.get(right);
   return a !== undefined && b !== undefined && runtimeEventPrefixesHaveSameOwnedCut(a.prefix, b.prefix) &&
     runtimeEventPrefixesHaveSameOwnedCut(a.authority, b.authority) &&
-    canonicalEquals(left as unknown as JsonValue, right as unknown as JsonValue);
+    canonicalEquals(left, right);
 }
 /** @internal Explicit complete-output boundary, with exact prefix/digest proof. */
 export function materializeRuntimeReplayGuard(guard: RuntimeReplayGuard): ReplayState {
@@ -208,7 +212,7 @@ export function materializeRuntimeReplayGuard(guard: RuntimeReplayGuard): Replay
 export function writeRuntimeReplayGuardValue(guard: RuntimeReplayGuard, write: (part: string) => void): void {
   const receipt = REPLAY_GUARD_PREFIXES.get(guard);
   if (receipt === undefined) {
-    if ("kind" in guard && guard.kind === "replay_state") { writeCanonicalJson(guard as unknown as JsonValue, write); return; }
+    if (isFullReplayState(guard)) { writeCanonicalJson(guard, write); return; }
     throw new TypeError("replay canonical output requires its original owner receipt");
   }
   deriveReplayPrefixFacts(receipt.prefix, receipt.authority, undefined, undefined, true, { guard, write });
@@ -231,7 +235,7 @@ export function projectOwnedActiveRuntimeTransaction(store: AbgEventStore, prede
   return Object.freeze({ authorityPrefix, runtimePrefix, replayState: projectRuntimeReplayGuard(runtimePrefix, authorityPrefix) });
 }
 
-export interface ReplayRouteState {
+export type ReplayRouteState = {
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly registeredSelectionApplicationRef?: string;
   readonly routeRef: string;
@@ -259,9 +263,9 @@ export interface ReplayRouteState {
   readonly constructionIntent?: ConstructionIntent;
   readonly constructionIntentAdmissionEventRef?: string;
   readonly admissionEventRef: string;
-}
+};
 
-export interface ReplayConstructionDeltaState {
+export type ReplayConstructionDeltaState = {
   readonly deltaRef: string;
   readonly deltaDigest: Sha256Digest;
   readonly actionEvaluationAdmissionRef: string;
@@ -281,9 +285,9 @@ export interface ReplayConstructionDeltaState {
   readonly semanticEvidenceAssetRefs: readonly string[];
   readonly runtimeEvidenceEventRefs: readonly string[];
   readonly admissionEventRef: string;
-}
+};
 
-export interface ReplayActorProcessState {
+export type ReplayActorProcessState = {
   readonly actorInvocationRef: string;
   readonly actorRef: string | null;
   readonly transportBindingRef: string | null;
@@ -298,12 +302,12 @@ export interface ReplayActorProcessState {
   readonly terminationConfirmed: boolean;
   readonly transportDigest: Sha256Digest | null;
   readonly status: "active" | "closed" | "failed";
-}
+};
 
-export interface ReplayCurrentWorksiteObservation {
+export type ReplayCurrentWorksiteObservation = {
   readonly observation: WorksiteObservation;
   readonly sourceEventRef: string;
-}
+};
 
 export interface RunQuiescenceProjection {
   readonly kind: "run_quiescence_projection";
@@ -443,7 +447,7 @@ export function projectRunQuiescence(
         context.scope.graphCallId === rootGraphCallId && context.scope.runId === runId &&
         liveness.activeSystems.includes(context.probes[0]!.sourceRef)) {
       closureSpineKeys.add(runtimeFluentKey(constructRuntimeFluent({ name: "runtime_invocation_active",
-        identity: sha256Canonical(context.scope as unknown as JsonValue) })));
+        identity: sha256Canonical(context.scope) })));
     }
   }
   const unknownFluents = projection.holds.filter((fluent) =>
@@ -487,7 +491,7 @@ export function projectRunQuiescence(
   });
 }
 
-export interface ReplayState {
+export type ReplayState = {
   readonly nativeLiveness?: RuntimeLivenessReadProjection;
   readonly kind: "replay_state";
   readonly schemaVersion: "5.0.0";
@@ -528,7 +532,7 @@ export interface ReplayState {
     | "refused"
     | "stopped"
     | "workspace";
-}
+};
 
 function stringField(event: RuntimeEvent, name: string): string | null {
   if (!isRecord(event.payload)) return null;
@@ -604,8 +608,8 @@ class ReplayDerivation {
     this.#state = state;
     this.#runtimeDigest = runtimeEventPrefixDigest(prefix);
     this.#authorityDigest = runtimeEventPrefixDigest(authorityPrefix);
-    this.#runtimeProfile = sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(prefix) as unknown as JsonValue);
-    this.#authorityProfile = sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(authorityPrefix) as unknown as JsonValue);
+    this.#runtimeProfile = sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(prefix));
+    this.#authorityProfile = sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(authorityPrefix));
     Object.freeze(this);
   }
   static matches(state: ReplayState, prefix: RuntimeEventPrefix, authorityPrefix: RuntimeEventPrefix): boolean {
@@ -613,8 +617,8 @@ class ReplayDerivation {
     if (typeof proof !== "object" || proof === null || !(#state in proof) || proof.#state !== state) return false;
     return proof.#runtimeDigest === runtimeEventPrefixDigest(prefix) &&
       proof.#authorityDigest === runtimeEventPrefixDigest(authorityPrefix) &&
-      proof.#runtimeProfile === sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(prefix) as unknown as JsonValue) &&
-      proof.#authorityProfile === sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(authorityPrefix) as unknown as JsonValue);
+      proof.#runtimeProfile === sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(prefix)) &&
+      proof.#authorityProfile === sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(authorityPrefix));
   }
 }
 
@@ -932,11 +936,11 @@ function deriveReplayPrefixFacts(
   const facts = runtimePrefixComputation(prefix, REPLAY_FACTS, () => new RuntimeReplayFacts(!owned));
   const authority = runtimePrefixComputation(authorityPrefix, AUTHORITY_ID, () => ({}));
   const authorityEnd = runtimeEventPrefixLastEnvelope(authorityPrefix);
-  const profileEnd = sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(prefix) as unknown as JsonValue);
+  const profileEnd = sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(prefix));
   const ownedRouteCut = routeOnly !== undefined && isOwnedRuntimeEventPrefix(prefix) && isOwnedRuntimeEventPrefix(authorityPrefix)
     ? { runtime: prefix.selection, authoritySelection: authorityPrefix.selection,
         runtimeEnd: runtimeEventPrefixLastEnvelope(prefix)?.eventId, authorityEnd: authorityEnd?.eventId,
-        profileEnd, authorityProfileEnd: sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(authorityPrefix) as unknown as JsonValue), authority }
+        profileEnd, authorityProfileEnd: sha256Canonical(runtimeEventProfileScheduleFromValidatedPrefix(authorityPrefix)), authority }
     : undefined;
   const checkedRouteCut = facts.lastRouteValidation;
   if (ownedRouteCut !== undefined && checkedRouteCut !== undefined &&
@@ -1049,7 +1053,7 @@ function deriveReplayPrefixFacts(
           values.actionEvaluationAdmissionRef ||
         actionEvaluationAdmissionDigest !==
           values.actionEvaluationAdmissionDigest ||
-        sha256Canonical(actionEvaluationAdmissionBody as JsonValue) !==
+        sha256Canonical(actionEvaluationAdmissionBody) !==
           values.actionEvaluationAdmissionDigest ||
         actionEvaluationAdmissionBody.constructionCompositionRef !==
           values.constructionCompositionRef ||
@@ -1431,23 +1435,23 @@ function deriveReplayPrefixFacts(
         const projected = projectReplayCCallGuardAtPrefix(prefix, cCallRef);
         const { resultEventRef, ...fields } = projected;
         const result = resultEventRef === null ? undefined : runtimeEventAtPrefix(prefix, resultEventRef);
-        yield { ...fields, resultValue: result !== undefined && isRecord(result.payload) ? result.payload.value ?? null : null } as unknown as JsonValue;
+        yield { ...fields, resultValue: result !== undefined && isRecord(result.payload) ? result.payload.value ?? null : null };
       }
     },
     routes: function* () {
       for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:traversal_route_admitted"))
-        yield projectReplayRouteAtPrefix(prefix, runtimeEventAtPrefix(prefix, envelope.eventId)!, authorityPrefix) as unknown as JsonValue;
+        yield projectReplayRouteAtPrefix(prefix, runtimeEventAtPrefix(prefix, envelope.eventId)!, authorityPrefix);
     },
     fanOutCompletions: function* () {
-      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:fan_out_completion_admitted")) yield projectReplayFanOut(envelope) as unknown as JsonValue;
+      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:fan_out_completion_admitted")) yield projectReplayFanOut(envelope);
     },
     constructionDeltas: function* () {
-      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:construction_delta_observed")) yield projectReplayDelta(envelope) as unknown as JsonValue;
+      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:construction_delta_observed")) yield projectReplayDelta(envelope);
     },
   };
-  const replayDigest = output?.guard.replayDigest ?? digestReplayBody(body as unknown as Readonly<Record<string, JsonValue>>, selected);
+  const replayDigest = output?.guard.replayDigest ?? digestReplayBody(body, selected);
   if (output !== undefined) writeReplayBody({ kind: "replay_state", schemaVersion: "5.0.0",
-    replayRef: output.guard.replayRef, replayDigest, ...body } as unknown as Readonly<Record<string, JsonValue>>, selected, output.write);
+    replayRef: output.guard.replayRef, replayDigest, ...body }, selected, output.write);
   if (guardOnly) {
     const { cCalls: _calls, routes: _routes, constructionDeltas: _deltas, fanOutCompletions: _fanout,
       continuations: _continuations, actorProcesses: _actors, currentWorksiteObservations: _worksite, nativeLiveness: _liveness, ...current } = body;
@@ -1486,7 +1490,7 @@ export interface RunSemanticReplayPhysicalCoordinates {
   readonly events: readonly RunSemanticReplayPhysicalEventCoordinate[];
 }
 
-export interface RunSemanticEventAtom {
+export type RunSemanticEventAtom = {
   readonly atomRef: string;
   readonly eventKind: RootEventKind;
   readonly semanticPayloadDigest: Sha256Digest;
@@ -1503,13 +1507,13 @@ export interface RunSemanticEventAtom {
   readonly materializationRef: string | null;
   readonly graphCallId: string | null;
   readonly frameId: string | null;
-}
+};
 
-export interface RunSemanticRelationEdge {
+export type RunSemanticRelationEdge = {
   readonly sourceAtom: string;
   readonly relation: string;
   readonly targetAtom: string;
-}
+};
 
 export interface RunSemanticRelationView {
   readonly kind: "run_semantic_relation_view";
@@ -1704,7 +1708,7 @@ function relationEdges(
     ];
     for (const spec of specs) {
       const located = locateClosedTypedReferences(
-        event as unknown as JsonValue,
+        event,
         spec,
       );
       for (const reference of located) {
@@ -1832,7 +1836,7 @@ function semanticPayloadDigest(
   fullEventIds: ReadonlySet<string>,
   externalIntentRef?: string,
 ): Sha256Digest {
-  let payload = event.payload as JsonValue;
+  let payload = event.payload;
   if (event.kind === "fh_interaction_resume_admitted") {
     if (!isSemanticRecord(payload)) {
       throw new TypeError(
@@ -1956,7 +1960,7 @@ function projectOwnerFacts(
       : null;
     if (invocation === null || invocation.admissionEventRef !== event.eventId ||
       derived === null || !canonicalEquals(
-        derived as unknown as JsonValue,
+        derived,
         asserted,
       )) {
       throw new TypeError(
@@ -1966,8 +1970,8 @@ function projectOwnerFacts(
     return [{
       owner: "invocation_source_result",
       ownerAtom: requiredAtom(event.eventId, correspondence, "source_result"),
-      sourceResultBasis: derived as unknown as JsonValue,
-    } as Readonly<Record<string, JsonValue>>];
+      sourceResultBasis: derived,
+    }];
   });
   const runEnvironments = runtimeEventBodiesAtPrefix(prefix).flatMap((event) => {
     if (event.kind !== "invocation_admitted" || !isSemanticRecord(event.payload) || event.payload.runEnvironment === undefined) return [];
@@ -1975,7 +1979,7 @@ function projectOwnerFacts(
       ? rehydrateInvocationAdmissionAtPrefix(validatedRuntimeEventPrefixThroughEvent(authorityPrefix, event.eventId), event.payload.invocationAdmissionRef) : null;
     if (invocation?.runEnvironment === undefined) throw new TypeError("STDO environment lacks its exact invocation admission");
     return [{ owner: "invocation_run_environment", ownerAtom: requiredAtom(event.eventId, correspondence, "stdo_environment"),
-      invocationAdmissionRef: invocation.invocationAdmissionRef, runEnvironment: invocation.runEnvironment as unknown as JsonValue } as Readonly<Record<string, JsonValue>>];
+      invocationAdmissionRef: invocation.invocationAdmissionRef, runEnvironment: invocation.runEnvironment }];
   });
   const runEnvironmentAssemblies = runtimeEventBodiesAtPrefix(prefix).flatMap((event) => {
     if (event.kind !== "actor_transport_binding_admitted" || !isSemanticRecord(event.payload) ||
@@ -1986,9 +1990,9 @@ function projectOwnerFacts(
     if (invocation === null || invocation.runEnvironment === undefined || invocation.runEnvironment.evidenceDigest !== identity.evidenceDigest ||
       invocation.runEnvironment.environmentDigest !== identity.environmentDigest) throw new TypeError("STDO assembly lacks its exact environment evidence");
     return [{ owner: "run_environment_instruction_assembly", ownerAtom: requiredAtom(event.eventId, correspondence, "stdo_assembly"),
-      instructionAssembly: event.payload.instructionAssembly } as Readonly<Record<string, JsonValue>>];
+      instructionAssembly: event.payload.instructionAssembly }];
   });
-  const sameRunSources = runtimeEventBodiesAtPrefix(prefix).flatMap((event) => {
+  const sameRunSources = runtimeEventBodiesAtPrefix(prefix).flatMap((event): readonly Readonly<Record<string, JsonValue>>[] => {
     if (event.kind !== "basis_admitted" || !isSemanticRecord(event.payload) || event.payload.basisClass !== "child" ||
       !isWorksiteExecutionTask(event.payload.rawInputValue)) return [];
     const basis = typeof event.basisId === "string" ? projectExactExecutionBasisAtPrefix(authorityPrefix, event.basisId) : null;
@@ -2001,14 +2005,14 @@ function projectOwnerFacts(
       return [{ owner: "same_run_observed_input", ownerAtom: requiredAtom(event.eventId, correspondence, "child_observed_input"),
         preparationResultRef: (observed.preparationResult.payload as Record<string, JsonValue>).resultRef!,
         acquisitionEventRef: observed.acquisitionEvent.eventId, inputRef: observed.inputRef,
-        sourceObservedInput: observed.sourceObservedInput, protectedObservations: observed.protectedObservations } as unknown as Readonly<Record<string, JsonValue>>];
+        sourceObservedInput: observed.sourceObservedInput, protectedObservations: observed.protectedObservations }];
     }
     const source = parent === null || basis?.parentCCallRef == null || typeof event.runId !== "string" ? null
       : deriveSameRunWorksiteCommandSourceBasisAtPrefix(cut, { parentBasis: parent, parentCCallRef: basis.parentCCallRef,
           runId: event.runId, task: event.payload.rawInputValue }, currentOwnerPrefix);
     if (source === null) throw new TypeError("child C2 source does not reproduce at its admitted preparation cut");
     return [{ owner: "same_run_source_result", ownerAtom: requiredAtom(event.eventId, correspondence, "child_source_result"),
-      sourceResultBasis: source as unknown as JsonValue } as Readonly<Record<string, JsonValue>>];
+      sourceResultBasis: source }];
   });
   const cCalls = replayState.cCalls.map((cCall) => {
     const phase = projectCCallPhase(prefix, cCall.cCallRef);
@@ -2020,7 +2024,7 @@ function projectOwnerFacts(
       ownerAtom: requiredAtom(phase.openedEventRef, correspondence, "c_call"),
       cCallRef: cCall.cCallRef,
       phase: phase.phase,
-    } as Readonly<Record<string, JsonValue>>;
+    };
   });
   const routes = replayState.routes.map((route) => ({
     owner: "route",
@@ -2035,7 +2039,7 @@ function projectOwnerFacts(
       contractRef: route.boundInput.contractRef,
       subjectDigest: route.boundInput.subjectDigest, value: route.boundInput.value,
     } }),
-  } as Readonly<Record<string, JsonValue>>));
+  }));
   const continuationFacts = continuations.map((continuation) => ({
     owner: continuation.continuationKind === "fh_interaction" ? "fh_continuation" : "construction_continuation",
     ownerAtom: requiredAtom(
@@ -2052,7 +2056,7 @@ function projectOwnerFacts(
       }),
     constructionIntentRef: continuation.constructionIntentRef,
     status: continuation.status,
-  } as Readonly<Record<string, JsonValue>>));
+  }));
   const fanOut = replayState.fanOutCompletions.map((completion) => ({
     owner: "fan_out_completion",
     ownerAtom: requiredAtom(
@@ -2069,7 +2073,7 @@ function projectOwnerFacts(
           ...completion.completedRows.map((row) => row.ordinal),
           completion.stoppingRow.ordinal,
         ],
-  } as Readonly<Record<string, JsonValue>>));
+  }));
   const deltas = replayState.constructionDeltas.map((delta) => ({
     owner: "construction_delta",
     ownerAtom: requiredAtom(
@@ -2080,7 +2084,7 @@ function projectOwnerFacts(
     constructionIntentRef: delta.constructionIntentRef,
     targetOutcomeRef: delta.targetOutcomeRef,
     semanticEvidenceAssetRefs: delta.semanticEvidenceAssetRefs,
-  } as Readonly<Record<string, JsonValue>>));
+  }));
   return Object.freeze([
     ...sourceResults,
     ...runEnvironments,
@@ -2280,7 +2284,7 @@ function projectRunSemanticReplay(
     ),
     runtimeStatus: replayState.runtimeStatus,
   };
-  const viewDigest = sha256Canonical(semanticBody as unknown as JsonValue);
+  const viewDigest = sha256Canonical(semanticBody);
   const physicalCoordinates = {
     kind: "run_semantic_replay_physical_coordinates" as const,
     fullEventHistoryDigest: runtimeEventPrefixDigest(fullPrefix),

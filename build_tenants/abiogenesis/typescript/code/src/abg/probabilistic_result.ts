@@ -266,7 +266,7 @@ function exactVerifiedContractPreimage(
     verificationDigest: _verificationDigest,
     ...body
   } = candidate as VerifiedProbabilisticResultContractPreimage;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return candidate.verificationDigest === digest &&
     candidate.verificationRef ===
       `probabilistic-result-contract-preimage://abiogenesis/${digest.slice("sha256:".length)}`;
@@ -368,7 +368,7 @@ function admitResultCandidate(
   let implementationResolutionDigest: Sha256Digest;
   try {
     implementationResolutionDigest = sha256Canonical(
-      supplied.resolution as unknown as JsonValue,
+      supplied.resolution,
     );
   } catch {
     return refusal(
@@ -377,7 +377,7 @@ function admitResultCandidate(
     );
   }
   const resolutionMatches = supplied.implementationSet.rows.filter((row) =>
-    sha256Canonical(row as unknown as JsonValue) ===
+    sha256Canonical(row) ===
       implementationResolutionDigest
   );
   const admittedResolution = exactOrNull(onlyExactMatch(resolutionMatches));
@@ -463,7 +463,7 @@ function admitResultCandidate(
       "request, observation, and installed Product contract identities differ",
     );
   }
-  const inputDigest = sha256Canonical(admittedInput as unknown as JsonValue);
+  const inputDigest = sha256Canonical(admittedInput);
   if (
     request.inputDigest !== inputDigest ||
     observation.inputDigest !== inputDigest
@@ -579,9 +579,9 @@ function admitResultCandidate(
         );
     }
   }
-  const requestDigest = sha256Canonical(request as unknown as JsonValue);
+  const requestDigest = sha256Canonical(request);
   const observationDigest = sha256Canonical(
-    observation as unknown as JsonValue,
+    observation,
   );
   if (
     !exactVerifiedContractPreimage(contractPreimage) ||
@@ -660,7 +660,7 @@ function admitResultCandidate(
     valueDigest,
     value,
   });
-  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  const candidateDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "contract_admitted_probabilistic_result_candidate" as const,
     schemaVersion: "5.0.0" as const,

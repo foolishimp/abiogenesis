@@ -19,7 +19,9 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { canonicalEquals } from "../shared/value/index.js";
-const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+import { isRecord } from "../shared/admit/index.js";
+
+const hash = (x: JsonValue) => sha256Canonical(x);
 const placeholder = `sha256:${"0".repeat(64)}` as const;
 export const SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS = semanticRevisionImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
   productId: ABI5_PRODUCT_ID, artifactDigest: placeholder, productContentDigest: placeholder, productManifestDigest: placeholder }).map(({ kind: _kind, bindingRef: _ref, ...body }) => deepFreeze({
@@ -29,14 +31,15 @@ export const [SEMANTIC_REVISION_SELECTION_DESCRIPTOR, SEMANTIC_REVISION_PROJECTI
   SEMANTIC_REVISION_TERMINAL_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_INTAKE_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_REQUEST_DESCRIPTOR,
   SEMANTIC_REVISION_NATIVE_CONSTRUCTION_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_EXECUTION_DESCRIPTOR,
   SEMANTIC_REVISION_NATIVE_EVIDENCE_DESCRIPTOR] = SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
-function result(input: Readonly<Record<string, JsonValue>>, output: unknown, implementationRef: string, deterministic: boolean, failureClass = "revision_basis_or_evidence_unavailable"): Readonly<LeafRealizationCandidate> {
+function result(input: Readonly<Record<string, JsonValue>>, output: Readonly<Record<string, JsonValue>> | null, implementationRef: string, deterministic: boolean, failureClass = "revision_basis_or_evidence_unavailable"): Readonly<LeafRealizationCandidate> {
   const failure = output === null;
-  const value = failure ? { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass,
-    diagnosticRef: failureClass === "revision_basis_or_evidence_unavailable" ? "diagnostic://abiogenesis/semantic-revision/basis-or-evidence-unavailable@5" : `diagnostic://abiogenesis/semantic-revision/${failureClass}@5` } : output;
+  const failureValue = { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass,
+    diagnosticRef: failureClass === "revision_basis_or_evidence_unavailable" ? "diagnostic://abiogenesis/semantic-revision/basis-or-evidence-unavailable@5" : `diagnostic://abiogenesis/semantic-revision/${failureClass}@5` };
+  const value: Readonly<Record<string, JsonValue>> = output ?? failureValue;
   const evidenceCandidates = deterministic ? [{ kind: "deterministic_evidence_candidate" as const, schemaVersion: "5.0.0" as const, implementationRef, inputDigest: hash(input), outputDigest: hash(value) }] : [];
-  if (failure) return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure", resultCandidate: value as Readonly<Record<string, JsonValue>>, evidenceCandidates, diagnosticRef: (value as {diagnosticRef:string}).diagnosticRef });
+  if (failure) return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure", resultCandidate: value, evidenceCandidates, diagnosticRef: failureValue.diagnosticRef });
   return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
-    resultCandidate: value as Readonly<Record<string, JsonValue>>, evidenceCandidates: deterministic ? [{
+    resultCandidate: value, evidenceCandidates: deterministic ? [{
       kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0", implementationRef, inputDigest: hash(input), outputDigest: hash(value) }] : [],
     ...(failure ? { diagnosticRef: "diagnostic://abiogenesis/semantic-revision/basis-or-evidence-unavailable@5" } : {}) });
 }
@@ -57,7 +60,7 @@ function actor(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,
     complete(exchange) {
       const o = exchange.observation;
-      if (!canonicalEquals(exchange.request as unknown as JsonValue, assembly.request as unknown as JsonValue) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
+      if (!canonicalEquals(exchange.request, assembly.request) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
         o.toolCallCount !== 0 || o.inputDigest !== owner.inputDigest || o.implementationRef !== owner.call.implementationRef ||
         o.actorRef !== old.workerActorRef || o.workerBindingRef !== old.workerBindingRef || o.transportLane !== "closed_prompt_proof") return result(input, null, owner.call.implementationRef!, false);
       try {
@@ -94,10 +97,10 @@ export function realizeSemanticRevisionSelection(input: Readonly<Record<string, 
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,
     complete(exchange) {
       const o = exchange.observation;
-      if (!canonicalEquals(exchange.request as unknown as JsonValue, assembly.request as unknown as JsonValue) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
+      if (!canonicalEquals(exchange.request, assembly.request) || o.disposition !== "success" || o.promptDigest !== assembly.manifest.promptDigest ||
         o.toolCallCount !== 0 || o.inputDigest !== owner.inputDigest || o.implementationRef !== ids.selectionImplementationRef ||
         o.actorRef !== old.workerActorRef || o.workerBindingRef !== old.workerBindingRef || o.transportLane !== "closed_prompt_proof") return result(input, null, ids.selectionImplementationRef, false);
-      try { const raw = JSON.parse(o.finalOutput) as unknown; return result(input, (job ? jobRevisionSelectionMatchesBasis(basis, input, raw) : semanticRevisionSelectionMatchesBasis(basis, input, raw)) ? raw : null, ids.selectionImplementationRef, false); }
+      try { const raw: JsonValue = JSON.parse(o.finalOutput); return result(input, isRecord(raw) && (job ? jobRevisionSelectionMatchesBasis(basis, input, raw) : semanticRevisionSelectionMatchesBasis(basis, input, raw)) ? raw : null, ids.selectionImplementationRef, false); }
       catch { return result(input, null, ids.selectionImplementationRef, false); }
     } });
 }
@@ -111,7 +114,7 @@ export function realizeSemanticRevisionNativeRequest(input: Readonly<Record<stri
   return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticRevisionRequest(occurrence.semanticStageBasis,input), ids.nativeRequestImplementationRef, true);
 }
 export function realizeSemanticRevisionNativeConstruction(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
-  if (!isSemanticJobRevisionEnvelope(input) || !canonicalEquals(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits as unknown as JsonValue, selectedWorksiteCommandExecutionLimits() as unknown as JsonValue)) return result(input,null,ids.nativeConstructionImplementationRef,true);
+  if (!isSemanticJobRevisionEnvelope(input) || (input.revisionBasis.request.nativeWorksite?.commandExecutionLimits === undefined || !canonicalEquals(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits, selectedWorksiteCommandExecutionLimits()))) return result(input,null,ids.nativeConstructionImplementationRef,true);
   return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeRevisionConstructionTask(occurrence.semanticStageBasis,input), ids.nativeConstructionImplementationRef, true);
 }
 export function realizeSemanticRevisionNativeExecution(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {

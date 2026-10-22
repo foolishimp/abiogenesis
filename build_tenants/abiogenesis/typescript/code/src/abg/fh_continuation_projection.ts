@@ -41,7 +41,7 @@ import {
 } from "./traversal_cursor.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-export interface ReplayContinuationState {
+export type ReplayContinuationState = {
   readonly continuationRef: string;
   readonly continuationDigest: Sha256Digest;
   readonly continuationKind: "fh_interaction";
@@ -75,7 +75,7 @@ export interface ReplayContinuationState {
   readonly resumedPublicOperationEventRef: string | null;
   readonly terminalEventRef: string | null;
   readonly status: "abandoned" | "open" | "responded" | "resolved" | "superseded";
-}
+};
 
 export interface FhEffectfulPublicInvocationFact {
   readonly operationId:
@@ -188,6 +188,8 @@ function exactOpenedBasis(
     opened,
     "constructionIntentDigest",
   );
+  if (opened.runId === undefined || opened.graphCallId === undefined || opened.frameId === undefined ||
+      openedPayload.executionBasisRef === undefined) return null;
   const identity = {
     continuationKind: "fh_interaction" as const,
     runId: opened.runId,
@@ -203,9 +205,7 @@ function exactOpenedBasis(
     executionBasisRef: openedPayload.executionBasisRef,
     constructionIntentRef,
   };
-  const continuationDigest = sha256Canonical(
-    identity as unknown as JsonValue,
-  );
+  const continuationDigest = sha256Canonical(identity);
   const exactContinuationRef =
     `continuation://abiogenesis/${continuationDigest.slice("sha256:".length)}`;
   if (
@@ -402,8 +402,8 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
     if (
       exactResume === undefined ||
       !canonicalEquals(
-        exactResume as unknown as JsonValue,
-        resumeEvent as unknown as JsonValue,
+        exactResume,
+        resumeEvent,
       )
     ) return false;
     const payload = resumeEvent.payload;
@@ -534,8 +534,8 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
       ? opened.payload.heldCursor as unknown as TraversalCursorCandidate
       : null;
     return canonicalEquals(
-      suppliedInput as unknown as JsonValue,
-      expectedInput as unknown as JsonValue,
+      suppliedInput,
+      expectedInput,
     ) &&
       heldCursor !== null &&
       isTraversalCursorCandidate(heldCursor) &&

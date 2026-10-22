@@ -52,8 +52,8 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     const rows = applicationRows.get(application.ruleRef) ?? [];
     rows.push(application); applicationRows.set(application.ruleRef, rows);
   }
-  const typedMaterial = (ref: string, value: unknown) => {
-    const bytes = Buffer.from(canonicalJson(value as JsonValue));
+  const typedMaterial = (ref: string, value: JsonValue) => {
+    const bytes = Buffer.from(canonicalJson(value));
     return { ref, path: ref, digest: sha256Bytes(bytes), byteCount: bytes.length, contentBase64: bytes.toString("base64") };
   };
   const declarationMaterials = [
@@ -259,11 +259,11 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
   }
   const body = { kind: "self_conformance_result" as const, schemaVersion: "5.0.0" as const,
     subjectBasis: { ref: basis.basisRef, digest: basis.basisDigest }, lawBasis: basis.lawBasis,
-    inventoryDigest: inventory?.inventoryDigest ?? null, inputDigest: sha256Canonical(rawInput as unknown as JsonValue), owner,
+    inventoryDigest: inventory?.inventoryDigest ?? null, inputDigest: sha256Canonical(rawInput), owner,
     ruleApplications: input.applications, ...("representation" in rawInput ? { representation: "resource_refs_v1" as const, ...(rawInput.scope === undefined ? {} : { scope: rawInput.scope }) } : scope === undefined ? {} : { scope }), evidenceCitations: input.evidenceCitations, findings,
     disposition: findings.some(x => x.disposition === "failed") ? "failed" as const
       : findings.some(x => x.disposition === "blocked_incomplete" || x.disposition === "accepted_reentry") ? "blocked_incomplete" as const : "passed" as const,
     qualificationVerdict: false as const, verification };
-  const resultDigest = sha256Canonical(body as unknown as JsonValue);
+  const resultDigest = sha256Canonical(body);
   return deepFreeze({ ...body, resultDigest, resultRef: `self-conformance-result://abiogenesis/${resultDigest.slice(7)}` });
 }

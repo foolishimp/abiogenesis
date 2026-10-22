@@ -32,10 +32,10 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
   const observationInput = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
     readRoots: input.context.readRoots, maxFiles: input.context.maxFiles, maxBytes: input.context.maxBytes };
   const before = await observeWorksiteContext(observationInput);
-  if (!isWorksiteContextObservation(before) || !canonicalEquals(before as unknown as JsonValue, input.context as unknown as JsonValue))
+  if (!isWorksiteContextObservation(before) || !canonicalEquals(before, input.context))
     throw new TypeError("native workspace input context is unavailable or stale before dispatch");
   const workerRequest = prepareAssembly().request;
-  if (workerRequest.implementationRef !== ids.implementationRef || workerRequest.inputDigest !== sha256Canonical(input as unknown as JsonValue) ||
+  if (workerRequest.implementationRef !== ids.implementationRef || workerRequest.inputDigest !== sha256Canonical(input) ||
     workerRequest.transportLane !== "worker_executes" || workerRequest.resultContractRef !== nativeWorkspaceWorkResultContractRef(input) ||
     !canonicalEquals(workerRequest.responseJsonSchema, nativeWorkspaceWorkResponseSchema(input)) ||
     workerRequest.responsePresentation !== (input.assessment === undefined ? undefined : "result_text"))
@@ -48,7 +48,7 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
       const after = isWorksiteContextObservation(observed) ? observed : null;
       const report = input.assessment === undefined ? parseNativeWorkspaceWorkReport(exchange.observation.finalOutput) : null;
       const assessment = input.assessment === undefined ? null : parseNativeWorkspaceAssessmentResult(nativeWorkspaceWorkResponseSchema(input), exchange.observation.finalOutput);
-      const sameExchange = canonicalEquals(exchange.request as unknown as JsonValue, workerRequest as unknown as JsonValue);
+      const sameExchange = canonicalEquals(exchange.request, workerRequest);
       const failureClass = !sameExchange ? "transport_identity_mismatch" : exchange.observation.disposition !== "success"
         ? exchange.observation.failureClass ?? "transport_failure" : after === null ? "post_work_observation_failed"
         : nativeWorkspaceScopeViolations(input, after).length !== 0 ? "write_scope_violation" : (input.assessment === undefined ? report === null : assessment === null) ? "result_contract_failure"
@@ -64,7 +64,7 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
           resultCandidate: value as unknown as Readonly<Record<string, JsonValue>>, diagnosticRef });
       }
       return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success", evidenceCandidates: [],
-        resultCandidate: constructNativeWorkspaceWorkObservation(input, after, report, provenance, assessment ?? undefined) as unknown as Readonly<Record<string, JsonValue>> });
+        resultCandidate: constructNativeWorkspaceWorkObservation(input, after, report, provenance, assessment ?? undefined) });
     },
   });
 }

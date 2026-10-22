@@ -64,7 +64,7 @@ import {
 } from "./traversal_cursor.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-export interface ApplicationChildFoldbackAdmission {
+export type ApplicationChildFoldbackAdmission = {
   readonly kind: "application_child_foldback_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -89,9 +89,9 @@ export interface ApplicationChildFoldbackAdmission {
   readonly childTerminalEventRef: string;
   readonly outputDigest: Sha256Digest;
   readonly admissionEventRef: string;
-}
+};
 
-export interface ApplicationChildFoldbackRefusal {
+export type ApplicationChildFoldbackRefusal = {
   readonly kind: "application_child_foldback_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -100,7 +100,7 @@ export interface ApplicationChildFoldbackRefusal {
     | "child_truth_mismatch"
     | "parent_truth_mismatch";
   readonly message: string;
-}
+};
 
 export type ApplicationChildFoldbackResult =
   | ApplicationChildFoldbackReceipt
@@ -114,7 +114,7 @@ export interface ApplicationChildFoldbackReceipt {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-export interface ApplicationChildPreparationRefusalAdmission {
+export type ApplicationChildPreparationRefusalAdmission = {
   readonly kind: "application_child_preparation_refusal_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -136,15 +136,15 @@ export interface ApplicationChildPreparationRefusalAdmission {
   readonly diagnosticRef: string;
   readonly message: string;
   readonly admissionEventRef: string;
-}
+};
 
-export interface ApplicationChildPreparationRefusalRefusal {
+export type ApplicationChildPreparationRefusalRefusal = {
   readonly kind: "application_child_preparation_refusal_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code: "application_mismatch" | "candidate_mismatch";
   readonly message: string;
-}
+};
 
 export type ApplicationChildPreparationRefusalResult =
   | ApplicationChildPreparationRefusalReceipt
@@ -331,8 +331,8 @@ export function isAdmittedApplicationChildFoldbackAtPrefix(
   });
   return projected !== null &&
     canonicalEquals(
-      projected as unknown as JsonValue,
-      value as unknown as JsonValue,
+      projected,
+      value,
     );
 }
 
@@ -368,8 +368,8 @@ export function isAdmittedApplicationChildPreparationRefusalAtPrefix(
   });
   return projected !== null &&
     canonicalEquals(
-      projected as unknown as JsonValue,
-      value as unknown as JsonValue,
+      projected,
+      value,
     );
 }
 
@@ -415,7 +415,7 @@ export function projectApplicationChildPreparationRefusalAtPrefix(
     typeof refusalRef !== "string" ||
     typeof refusalDigest !== "string" ||
     refusalRef !== coordinates.refusalRef ||
-    refusalDigest !== sha256Canonical(body as unknown as JsonValue) ||
+    refusalDigest !== sha256Canonical(body) ||
     refusalRef !==
       `child-preparation-refusal://abiogenesis/${refusalDigest.slice("sha256:".length)}` ||
     typeof body.applicationRef !== "string" ||
@@ -499,7 +499,7 @@ export function projectApplicationChildFoldbackAtPrefix(
     !isSha256Digest(foldbackDigest) ||
     foldbackRef !== coordinates.foldbackRef ||
     !isApplicationChildFoldbackBody(body) ||
-    foldbackDigest !== sha256Canonical(body as unknown as JsonValue) ||
+    foldbackDigest !== sha256Canonical(body) ||
     foldbackRef !==
       `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}` ||
     !holdsAt(
@@ -738,7 +738,7 @@ function admitRecursiveApplicationChildPreparationRefusal(
           sourceCursorRef: sourceCursor.cursorRef,
           ...candidate,
         };
-        const refusalDigest = sha256Canonical(body as unknown as JsonValue);
+        const refusalDigest = sha256Canonical(body);
         const refusalRef =
           `child-preparation-refusal://abiogenesis/${refusalDigest.slice("sha256:".length)}`;
         const event = admitRuntimeEvent(store, {
@@ -780,8 +780,8 @@ function admitRecursiveApplicationChildPreparationRefusal(
         if (
           projected === null ||
           !canonicalEquals(
-            projected as unknown as JsonValue,
-            admitted as unknown as JsonValue,
+            projected,
+            admitted,
           )
         ) {
           throw new TypeError(
@@ -1065,7 +1065,7 @@ function admitRecursiveApplicationChildFoldback(
           childTerminalEventRef: childLifecycleEvent.eventId,
           outputDigest: outputDigest as Sha256Digest,
         };
-        const foldbackDigest = sha256Canonical(body as unknown as JsonValue);
+        const foldbackDigest = sha256Canonical(body);
         const foldbackRef =
           `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}`;
         const event = admitRuntimeEvent(store, {
@@ -1108,8 +1108,8 @@ function admitRecursiveApplicationChildFoldback(
         if (
           projected === null ||
           !canonicalEquals(
-            projected as unknown as JsonValue,
-            admitted as unknown as JsonValue,
+            projected,
+            admitted,
           )
         ) {
           throw new TypeError(

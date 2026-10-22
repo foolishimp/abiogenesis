@@ -1,4 +1,5 @@
 import { isRecord, hasExactKeys, isNonblankString as nonEmptyString } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import { isAbsolute } from "node:path";
 
 import { type JsonValue } from "../shared/canonical_json.js";
@@ -39,13 +40,13 @@ import {
 } from "./declaration_exports.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-export interface ProductInstall extends Omit<ProductInstallCandidate, "kind" | "disposition"> {
+export type ProductInstall = Omit<ProductInstallCandidate, "kind" | "disposition"> & {
   readonly kind: "product_install";
   readonly disposition: "admitted";
   readonly admissionEventRef: string;
-}
+};
 
-export interface ResolvedProductLockRow {
+export type ResolvedProductLockRow = {
   readonly productId: string;
   readonly packageName: string;
   readonly packageVersion: string;
@@ -68,9 +69,9 @@ export interface ResolvedProductLockRow {
   readonly publicContracts: readonly ProductPublicContract[];
   readonly publicContractRefs: readonly string[];
   readonly publicCapabilityRefs: readonly string[];
-}
+};
 
-export interface ProductDependencyEdge {
+export type ProductDependencyEdge = {
   readonly kind: "requires";
   readonly fromProductId: string;
   readonly toProductId: string;
@@ -79,9 +80,9 @@ export interface ProductDependencyEdge {
   readonly compatibilityDisposition: "compatible";
   readonly requiredContractRefs: readonly string[];
   readonly requiredCapabilityRefs: readonly string[];
-}
+};
 
-export interface ResolvedProductLock {
+export type ResolvedProductLock = {
   readonly kind: "resolved_product_lock";
   readonly schemaVersion: "5.0.0";
   readonly lockId: string;
@@ -89,9 +90,9 @@ export interface ResolvedProductLock {
   readonly nativeContractClosureDigest: Sha256Digest;
   readonly rows: readonly ResolvedProductLockRow[];
   readonly dependencyEdges: readonly ProductDependencyEdge[];
-}
+};
 
-export interface ProductSet {
+export type ProductSet = {
   readonly kind: "product_set";
   readonly schemaVersion: "5.0.0";
   readonly productSetId: string;
@@ -99,34 +100,34 @@ export interface ProductSet {
   readonly orderedInstallRefs: readonly string[];
   readonly lockId: string;
   readonly lockDigest: Sha256Digest;
-}
+};
 
-export interface WorkspaceAuthorityBasisInput {
+export type WorkspaceAuthorityBasisInput = {
   readonly workspaceId: string;
   readonly canonicalRoot: string;
   readonly authorityMode: "trusted_developer";
   readonly authorizedActorRef: string;
   readonly authorityManifestRef: string;
   readonly authorityManifestDigest: Sha256Digest;
-}
+};
 
-export interface WorkspaceAuthorityBasis extends WorkspaceAuthorityBasisInput {
+export type WorkspaceAuthorityBasis = WorkspaceAuthorityBasisInput & {
   readonly kind: "workspace_authority_basis";
   readonly schemaVersion: "5.0.0";
   readonly authorityBasisId: string;
   readonly authorityBasisDigest: Sha256Digest;
-}
+};
 
-export interface WorkspaceDeclaredRoots {
+export type WorkspaceDeclaredRoots = {
   readonly toolchainRoot: string;
   readonly productRoot: string;
   readonly eventLogRoot: string;
   readonly runtimeStateRoot: string;
   readonly projectionRoot: string;
   readonly archiveRoot: string;
-}
+};
 
-export interface WorkspaceBindingCandidate {
+export type WorkspaceBindingCandidate = {
   readonly kind: "workspace_binding_candidate";
   readonly schemaVersion: "5.0.0";
   readonly bindingId: string;
@@ -140,12 +141,12 @@ export interface WorkspaceBindingCandidate {
   readonly lockId: string;
   readonly lockDigest: Sha256Digest;
   readonly roots: WorkspaceDeclaredRoots;
-}
+};
 
-export interface WorkspaceBinding extends Omit<WorkspaceBindingCandidate, "kind"> {
+export type WorkspaceBinding = Omit<WorkspaceBindingCandidate, "kind"> & {
   readonly kind: "workspace_binding";
   readonly admissionEventRef: string;
-}
+};
 
 export const ENVIRONMENT_REFUSAL_CODES = [
   "empty_product_set",
@@ -509,7 +510,7 @@ export function resolveProductArtifacts(
     rows,
     dependencyEdges,
     nativeContractClosureDigest,
-  } as unknown as JsonValue);
+  });
   const lock: ResolvedProductLock = deepFreeze({
     kind: "resolved_product_lock",
     schemaVersion: "5.0.0",
@@ -606,7 +607,7 @@ export function isResolvedProductLock(
         !nonEmptyString(row.contributionManifestRef) ||
         !isSha256Digest(row.contributionManifestDigest) ||
         !isProductContributionManifest(row.contributionManifest) ||
-        sha256Canonical(row.contributionManifest as unknown as JsonValue) !==
+        sha256Canonical(row.contributionManifest) !==
           row.contributionManifestDigest ||
         row.contributionManifest.contributionManifestRef !==
           row.contributionManifestRef ||
@@ -619,12 +620,12 @@ export function isResolvedProductLock(
         row.contributionManifest.publicContractCatalogDigest !==
           row.catalogDigest ||
         !canonicalEquals(
-          row.contributionManifest.capabilityDefinitionGraph as unknown as JsonValue,
+          row.contributionManifest.capabilityDefinitionGraph,
           {
             graphId: row.capabilityDefinitionGraph.graphId,
             graphVersion: row.capabilityDefinitionGraph.graphVersion,
             graphDigest: row.capabilityDefinitionGraph.graphDigest,
-          } as unknown as JsonValue,
+          },
         ) ||
         row.capabilityDefinitionGraphAsset.path !==
           "contracts/capabilities/capability-definition-graph.json" ||
@@ -728,8 +729,8 @@ export function isResolvedProductLock(
   if (
     !Array.isArray(expectedEdges) ||
     !canonicalEquals(
-      expectedEdges as unknown as JsonValue,
-      edges as unknown as JsonValue,
+      expectedEdges,
+      edges,
     )
   ) {
     return false;
@@ -746,7 +747,7 @@ export function isResolvedProductLock(
     rows,
     dependencyEdges: edges,
     nativeContractClosureDigest: value.nativeContractClosureDigest,
-  } as unknown as JsonValue);
+  });
   return value.lockDigest === expectedDigest &&
     value.lockId === identity("product-lock://abiogenesis", expectedDigest);
 }
@@ -772,8 +773,8 @@ function lockRowGraphMatchesCatalog(row: ResolvedProductLockRow): boolean {
       const contract = contracts.get(coordinate.flatRow.contractId);
       return contract !== undefined &&
         canonicalEquals(
-          coordinate.contractCatalog as unknown as JsonValue,
-          contractCatalog as unknown as JsonValue,
+          coordinate.contractCatalog,
+          contractCatalog,
         ) &&
         coordinate.flatRow.contractVersion === contract.contractVersion &&
         coordinate.flatRow.contractDigest === contract.contractDigest;
@@ -798,8 +799,8 @@ export function verifiedArtifactMatchesEstablishedLock(
   const matches = lock.rows.filter((row) => row.productId === artifact.productId);
   return matches.length === 1 &&
     canonicalEquals(
-      matches[0] as unknown as JsonValue,
-      lockRowFor(artifact) as unknown as JsonValue,
+      matches[0] ?? null,
+      lockRowFor(artifact),
     );
 }
 
@@ -875,8 +876,8 @@ function isProductInstallCandidateWithLockCheck(
     `product-install://${candidate.packageName}/${candidate.packageVersion}/${candidate.productContentDigest.slice("sha256:".length)}/${lock.lockDigest.slice("sha256:".length)}`;
   return candidate.installId === expectedInstallId &&
     canonicalEquals(
-      lockRowFor(candidate as unknown as ProductInstall) as unknown as JsonValue,
-      rows[0] as unknown as JsonValue,
+      lockRowFor(candidate as unknown as ProductInstall),
+      rows[0] ?? null,
     );
 }
 
@@ -921,7 +922,7 @@ export function productInstallCoordinate(
   const candidate = productInstallCandidateProjection(install);
   return deepFreeze({
     ref: install.installId,
-    digest: sha256Canonical(candidate as unknown as JsonValue),
+    digest: sha256Canonical(candidate),
   });
 }
 
@@ -943,8 +944,8 @@ export function constructProductSet(
         install.resolvedLockDigest !== lock.lockDigest,
     ) ||
     !canonicalEquals(
-      installs.map(lockRowFor) as unknown as JsonValue,
-      lock.rows as unknown as JsonValue,
+      installs.map(lockRowFor),
+      lock.rows,
     )
   ) {
     return refusal("lock_mismatch", "ProductSet installs and resolved lock rows disagree");
@@ -1017,7 +1018,7 @@ function isProductSetWithLockCheck(
     orderedInstallRefs: value.orderedInstallRefs,
     lockId: value.lockId,
     lockDigest: value.lockDigest,
-  } as unknown as JsonValue);
+  });
   return value.productSetDigest === expectedDigest &&
     value.productSetId ===
       identity("product-set://abiogenesis", expectedDigest);
@@ -1039,11 +1040,11 @@ export function constructWorkspaceAuthorityBasis(
     input.authorityManifestRef.length === 0 ||
     !isSha256Digest(input.authorityManifestDigest) ||
     input.authorityManifestDigest !==
-      sha256Canonical(authorityManifest as unknown as JsonValue)
+      sha256Canonical(authorityManifest)
   ) {
     return refusal("invalid_workspace_authority", "workspace authority fields must be explicit");
   }
-  const authorityBasisDigest = sha256Canonical(input as unknown as JsonValue);
+  const authorityBasisDigest = sha256Canonical(input);
   return {
     kind: "workspace_authority_basis",
     schemaVersion: "5.0.0",
@@ -1090,10 +1091,12 @@ export function isWorkspaceAuthorityBasis(
     authorityManifestRef: value.authorityManifestRef as string,
     authorityManifestDigest: value.authorityManifestDigest as Sha256Digest,
   });
-  return reconstructed.kind === "workspace_authority_basis" &&
+  // The candidate is unchecked: admitted before comparison with its reconstruction.
+  const admittedValue = admitJson(value);
+  return reconstructed.kind === "workspace_authority_basis" && admittedValue.kind === "ok" &&
     canonicalEquals(
-      reconstructed as unknown as JsonValue,
-      value as JsonValue,
+      reconstructed,
+      admittedValue.value,
     );
 }
 
@@ -1158,7 +1161,7 @@ function constructWorkspaceBindingWithSetCheck(
     lockDigest: lock.lockDigest,
     roots,
   };
-  const bindingDigest = sha256Canonical(bindingBody as unknown as JsonValue);
+  const bindingDigest = sha256Canonical(bindingBody);
   return {
     kind: "workspace_binding_candidate",
     schemaVersion: "5.0.0",
@@ -1269,7 +1272,9 @@ function workspaceBindingCandidateMatches(
     lockDigest: value.lockDigest,
     roots: value.roots,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   // Exact keys and the checked authority/ProductSet coordinates reproduce the
   // constructor body; compare its digest/identity without constructing it again.
   return value.bindingDigest === digest &&

@@ -1,6 +1,7 @@
 import { toJsonSchema, type JsonSchema } from "@valibot/to-json-schema";
 import * as v from "valibot";
 
+import { admitJson, isRecord } from "./admit/index.js";
 import { canonicalJson, type JsonValue } from "./canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "./digests.js";
 import type {
@@ -36,13 +37,13 @@ export type PublicEventAdmission =
   | "owning_semantic_authority"
   | "immutable_artifact_boundary";
 export type PublicAdapterProfile = "terminal_only" | "runtime_nonterminal";
-export interface PublicAdapterExitMap {
+export type PublicAdapterExitMap = {
   readonly acceptedTerminal: 0;
   readonly refused: 1;
   readonly invalidInvocation: 2;
   readonly acceptedNonTerminal: 3 | null;
   readonly adapterFailure: 70;
-}
+};
 
 export const TERMINAL_ONLY_ADAPTER_EXIT_MAP = Object.freeze({
   acceptedTerminal: 0,
@@ -180,8 +181,18 @@ const jsonValueDefinition: v.GenericSchema<JsonValue, JsonValue> = v.union([
     v.record(v.string(), jsonValueSchema),
   ]);
 
-function canonicalIdentity(value: unknown): string {
-  return canonicalJson(value as JsonValue);
+/**
+ * Members are compared by canonical identity after `admitJson`; a member that
+ * is not I-JSON fails the uniqueness check.
+ */
+function uniqueCanonicalMembers(values: readonly unknown[]): boolean {
+  const identities = new Set<string>();
+  for (const value of values) {
+    const admitted = admitJson(value);
+    if (admitted.kind !== "ok") return false;
+    identities.add(canonicalJson(admitted.value));
+  }
+  return identities.size === values.length;
 }
 
 /** @internal */
@@ -190,12 +201,7 @@ export function uniqueArray<
 >(item: TSchema) {
   return v.pipe(
     v.array(item),
-    v.check(
-      (values) =>
-        new Set(values.map((value) => canonicalIdentity(value))).size ===
-          values.length,
-      "unique_items",
-    ),
+    v.check((values) => uniqueCanonicalMembers(values), "unique_items"),
   );
 }
 
@@ -456,7 +462,7 @@ export interface OwnerContractSourceDeclaration<
   }>;
 }
 
-export interface CompleteDefinitionContractCoordinateMap {
+export type CompleteDefinitionContractCoordinateMap = {
   readonly operations: readonly Readonly<{
     readonly operationId: string;
     readonly members: readonly Readonly<{
@@ -469,7 +475,7 @@ export interface CompleteDefinitionContractCoordinateMap {
       }>;
     }>[];
   }>[];
-}
+};
 
 export type OwnerDefinitionMetadata = OwnerContractSourceDeclaration["metadata"] &
   Readonly<{
@@ -727,12 +733,8 @@ function normalizeGeneratedDefinitionRefs(
   schema: PublicJsonSchema,
 ): PublicJsonSchema {
   const definitions = schema.$defs;
-  if (
-    typeof definitions !== "object" ||
-    definitions === null ||
-    Array.isArray(definitions)
-  ) return schema;
-  const sourceDefinitions = definitions as Readonly<Record<string, JsonValue>>;
+  if (!isRecord(definitions)) return schema;
+  const sourceDefinitions = definitions;
   const assigned = new Map<string, string>();
   const pending: string[] = [];
   const assign = (sourceKey: string): void => {
@@ -760,7 +762,7 @@ function normalizeGeneratedDefinitionRefs(
   };
   const rootWithoutDefinitions = Object.fromEntries(
     Object.entries(schema).filter(([key]) => key !== "$defs"),
-  ) as JsonValue;
+  );
   visit(rootWithoutDefinitions);
   for (let index = 0; index < pending.length; index += 1) {
     visit(sourceDefinitions[pending[index]!]!);
@@ -776,7 +778,7 @@ function normalizeGeneratedDefinitionRefs(
           /^#\/\$defs\/[^/]+$/u.test(record[key])
         ? "#/$defs/_"
         : neutral(record[key]!),
-    ])) as JsonValue;
+    ]));
   };
   const remaining = Object.keys(sourceDefinitions)
     .filter((key) => !assigned.has(key))
@@ -802,7 +804,7 @@ function normalizeGeneratedDefinitionRefs(
         if (replacement !== undefined) return [key, `#/$defs/${replacement}`];
       }
       return [key, rewrite(child)];
-    })) as JsonValue;
+    }));
   };
   const normalizedDefinitions = Object.fromEntries(
     [...assigned.entries()].map(([sourceKey, targetKey]) => [

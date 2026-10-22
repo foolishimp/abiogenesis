@@ -1,4 +1,5 @@
 import { isRecord, hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction_identity.js";
 import {
   type JsonValue,
@@ -74,10 +75,10 @@ export const WORKSITE_BRANCH_CONSTRUCTION_IDS = Object.freeze({
     "graph-function://abiogenesis/worksite/branch-construction/reduce@5",
   batchRef: FAN_OUT_APPLICATION_BODY.batchRef,
   fanOutApplicationRef: applicationRef(
-    FAN_OUT_APPLICATION_BODY as unknown as JsonValue,
+    FAN_OUT_APPLICATION_BODY,
   ),
   fanInApplicationRef: applicationRef(
-    FAN_IN_APPLICATION_BODY as unknown as JsonValue,
+    FAN_IN_APPLICATION_BODY,
   ),
   taskContractRef:
     "contract://abiogenesis/worksite/branch-construction-task@5",
@@ -129,16 +130,16 @@ export interface WorksiteConstructionBranchInput {
   readonly constructionTask: WorksiteConstructionTask;
 }
 
-export interface WorksiteConstructionBranch {
+export type WorksiteConstructionBranch = {
   readonly ordinal: number;
   readonly branchRef: string;
   readonly branchDigest: Sha256Digest;
   readonly dependsOn: readonly string[];
   readonly topologicalLevel: number;
   readonly constructionTask: WorksiteConstructionTask;
-}
+};
 
-export interface WorksiteConstructionTargetAllocationMember {
+export type WorksiteConstructionTargetAllocationMember = {
   readonly ordinal: number;
   readonly branchOrdinal: number;
   readonly branchRef: string;
@@ -151,15 +152,15 @@ export interface WorksiteConstructionTargetAllocationMember {
   readonly territoryDigest: Sha256Digest;
   readonly predecessorObservationRef: string;
   readonly predecessorObservationDigest: Sha256Digest;
-}
+};
 
-export interface WorksiteConstructionTargetAllocation {
+export type WorksiteConstructionTargetAllocation = {
   readonly allocationRef: string;
   readonly allocationDigest: Sha256Digest;
   readonly members: readonly WorksiteConstructionTargetAllocationMember[];
-}
+};
 
-export interface WorksiteBranchConstructionTask {
+export type WorksiteBranchConstructionTask = {
   readonly kind: "worksite_branch_construction_task";
   readonly schemaVersion: "5.0.0";
   readonly taskRef: string;
@@ -168,7 +169,7 @@ export interface WorksiteBranchConstructionTask {
   readonly capabilityGrant: CapabilityGrant;
   readonly branches: readonly WorksiteConstructionBranch[];
   readonly targetAllocation: WorksiteConstructionTargetAllocation;
-}
+};
 
 export interface WorksiteBranchConstructionTaskInput {
   readonly workspaceBinding: WorkspaceBinding;
@@ -176,13 +177,13 @@ export interface WorksiteBranchConstructionTaskInput {
   readonly branches: readonly WorksiteConstructionBranchInput[];
 }
 
-export interface WorksiteBranchConstructionVectorMember {
+export type WorksiteBranchConstructionVectorMember = {
   readonly ordinal: number;
   readonly memberRef: string;
   readonly value: WorksiteConstructionTask;
-}
+};
 
-export interface WorksiteBranchConstructionVector {
+export type WorksiteBranchConstructionVector = {
   readonly kind: "worksite_branch_construction_vector";
   readonly schemaVersion: "5.0.0";
   readonly vectorRef: string;
@@ -190,14 +191,14 @@ export interface WorksiteBranchConstructionVector {
   readonly sourceTaskRef: string;
   readonly sourceTaskDigest: Sha256Digest;
   readonly members: readonly WorksiteBranchConstructionVectorMember[];
-}
+};
 
-export interface WorksiteBranchConstructionOutputVectorMember {
+export type WorksiteBranchConstructionOutputVectorMember = {
   readonly ordinal: number;
   readonly inputMemberRef: string;
   readonly outputMemberRef: string;
   readonly value: WorksiteConstructionResult;
-}
+};
 
 export interface WorksiteBranchConstructionOutputVector {
   readonly kind: "gtl_fan_out_vector";
@@ -243,7 +244,7 @@ function requireUnique<T>(
 function branchBody(
   branch: Omit<WorksiteConstructionBranch, "branchDigest">,
 ): JsonValue {
-  return branch as unknown as JsonValue;
+  return branch;
 }
 
 function constructAllocation(
@@ -287,7 +288,7 @@ function constructAllocation(
       }
     }
   }
-  const allocationDigest = sha256Canonical({ members } as unknown as JsonValue);
+  const allocationDigest = sha256Canonical({ members });
   return deepFreeze({
     allocationRef: identity(
       "worksite-branch-target-allocation://abiogenesis",
@@ -319,15 +320,15 @@ export function constructWorksiteBranchConstructionTask(
   const inputs = input.branches as readonly WorksiteConstructionBranchInput[];
   const firstTask = inputs[0]!.constructionTask;
   if (
-    !canonicalEquals(input.workspaceBinding as unknown as JsonValue, firstTask.workspaceBinding as unknown as JsonValue) ||
-    !canonicalEquals(input.capabilityGrant as unknown as JsonValue, firstTask.capabilityGrant as unknown as JsonValue) ||
+    !canonicalEquals(input.workspaceBinding, firstTask.workspaceBinding) ||
+    !canonicalEquals(input.capabilityGrant, firstTask.capabilityGrant) ||
     inputs.some((branch) =>
       !canonicalEquals(
-        branch.constructionTask.workspaceAuthorityBasis as unknown as JsonValue,
-        firstTask.workspaceAuthorityBasis as unknown as JsonValue,
+        branch.constructionTask.workspaceAuthorityBasis,
+        firstTask.workspaceAuthorityBasis,
       ) ||
-      !canonicalEquals(branch.constructionTask.workspaceBinding as unknown as JsonValue, input.workspaceBinding as unknown as JsonValue) ||
-      !canonicalEquals(branch.constructionTask.capabilityGrant as unknown as JsonValue, input.capabilityGrant as unknown as JsonValue)
+      !canonicalEquals(branch.constructionTask.workspaceBinding, input.workspaceBinding) ||
+      !canonicalEquals(branch.constructionTask.capabilityGrant, input.capabilityGrant)
     )
   ) {
     throw new TypeError(
@@ -386,7 +387,7 @@ export function constructWorksiteBranchConstructionTask(
     branches,
     targetAllocation,
   } as const;
-  const taskDigest = sha256Canonical(body as unknown as JsonValue);
+  const taskDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "worksite_branch_construction_task" as const,
     schemaVersion: SCHEMA_VERSION,
@@ -433,7 +434,8 @@ export function isWorksiteBranchConstructionTask(
         };
       }),
     });
-    return canonicalEquals(expected as unknown as JsonValue, value as unknown as JsonValue);
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" && canonicalEquals(expected, admitted.value);
   } catch {
     return false;
   }
@@ -454,7 +456,7 @@ export function constructWorksiteBranchConstructionVector(
       value: branch.constructionTask,
     })),
   };
-  const vectorDigest = sha256Canonical(body as unknown as JsonValue);
+  const vectorDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "worksite_branch_construction_vector" as const,
     schemaVersion: SCHEMA_VERSION,
@@ -504,18 +506,18 @@ export function isWorksiteBranchConstructionVector(
   const firstTask = members[0]!.value;
   if (members.some((member) =>
     !canonicalEquals(
-      member.value.workspaceAuthorityBasis as unknown as JsonValue,
-      firstTask.workspaceAuthorityBasis as unknown as JsonValue,
+      member.value.workspaceAuthorityBasis,
+      firstTask.workspaceAuthorityBasis,
     ) ||
-    !canonicalEquals(member.value.workspaceBinding as unknown as JsonValue, firstTask.workspaceBinding as unknown as JsonValue) ||
-    !canonicalEquals(member.value.capabilityGrant as unknown as JsonValue, firstTask.capabilityGrant as unknown as JsonValue)
+    !canonicalEquals(member.value.workspaceBinding, firstTask.workspaceBinding) ||
+    !canonicalEquals(member.value.capabilityGrant, firstTask.capabilityGrant)
   )) return false;
   const body = {
     sourceTaskRef: value.sourceTaskRef,
     sourceTaskDigest: value.sourceTaskDigest,
     members,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return value.vectorDigest === digest &&
     value.vectorRef === identity(
       "worksite-branch-construction-vector://abiogenesis",
@@ -591,7 +593,7 @@ export function reduceWorksiteBranchConstructionResults(
     sourceApplicationRef: WORKSITE_CONSTRUCTION_IDS.fanOutApplicationRef,
     members,
   };
-  const resultDigest = sha256Canonical(body as unknown as JsonValue);
+  const resultDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "worksite_construction_result" as const,
     schemaVersion: SCHEMA_VERSION,
@@ -692,7 +694,7 @@ function exactPlanRelation(input: unknown, output: unknown): boolean {
     !isWorksiteBranchConstructionVector(output)
   ) return false;
   try {
-    return canonicalEquals(constructWorksiteBranchConstructionVector(input) as unknown as JsonValue, output as unknown as JsonValue);
+    return canonicalEquals(constructWorksiteBranchConstructionVector(input), output);
   } catch {
     return false;
   }
@@ -704,7 +706,7 @@ function exactReducerRelation(input: unknown, output: unknown): boolean {
     !isWorksiteConstructionResult(output)
   ) return false;
   try {
-    return canonicalEquals(reduceWorksiteBranchConstructionResults(input) as unknown as JsonValue, output as unknown as JsonValue);
+    return canonicalEquals(reduceWorksiteBranchConstructionResults(input), output);
   } catch {
     return false;
   }

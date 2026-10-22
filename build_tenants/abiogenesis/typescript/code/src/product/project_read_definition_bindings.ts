@@ -1006,7 +1006,7 @@ const releaseReadOwner:ExactDefinitionCallable<typeof PRODUCT_PROJECT_READ_CONTR
  try {
   const request=call.invocation.request,prefix=acquired.resource.entryPrefix;
   const packet:ReleaseEvidenceProjectReadPacket={kind:"product_project_read_packet",schemaVersion:"5.0.0",memberKey:"release_evidence",sourceRef:request.source.sourceRef,sourceDigest:request.source.sourceDigest,
-   projectionBasis:{basisRef:request.projectionBasis.projectionBasisRef,basisDigest:request.projectionBasis.projectionBasisDigest,value:prefix as unknown as JsonValue},
+   projectionBasis:{basisRef:request.projectionBasis.projectionBasisRef,basisDigest:request.projectionBasis.projectionBasisDigest,value:prefix},
    prefix,artifact:request.selector.artifact,artifactPath:call.resources.artifactPath,selector:request.selector};
   const result=projectReleaseEvidence(packet);
   const ownerOutput=result.kind==="product_project_read_refusal"?nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,result):

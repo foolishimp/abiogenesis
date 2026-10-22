@@ -19,14 +19,14 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { OpenedTraversalScope } from "../abg/open_call.js";
 
-export interface HeldInteractionTraversal {
+export type HeldInteractionTraversal = {
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
   readonly cursor: TraversalCursorCandidate;
-}
+};
 
-export interface HeldWorkflowSuspension {
+export type HeldWorkflowSuspension = {
   readonly kind: "held_workflow_suspension";
   readonly schemaVersion: "5.0.0";
   readonly parentExecutionBasisRef: string;
@@ -45,9 +45,9 @@ export interface HeldWorkflowSuspension {
   readonly childInput: Readonly<Record<string, JsonValue>>;
   readonly childInputDigest: `sha256:${string}`;
   readonly terminalMode: "close_run" | "return_to_parent";
-}
+};
 
-export interface HeldRecursionSuspension {
+export type HeldRecursionSuspension = {
   readonly kind: "held_recursion_suspension";
   readonly schemaVersion: "5.0.0";
   readonly parentExecutionBasisRef: string;
@@ -68,13 +68,13 @@ export interface HeldRecursionSuspension {
   readonly childInput: Readonly<Record<string, JsonValue>>;
   readonly childInputDigest: `sha256:${string}`;
   readonly terminalMode: "close_run" | "return_to_parent";
-}
+};
 
 export type HeldParentTraversalSuspension =
   | HeldRecursionSuspension
   | HeldWorkflowSuspension;
 
-export interface ExecutableTraversalCompletion {
+export type ExecutableTraversalCompletion = {
   readonly kind: "executable_traversal_completion";
   readonly schemaVersion: "5.0.0";
   readonly disposition:
@@ -103,7 +103,7 @@ export interface ExecutableTraversalCompletion {
   readonly heldGraph: Readonly<GtlGraph> | null;
   readonly heldClosureContract: Readonly<ClosureContract> | null;
   readonly parentSuspensions: readonly HeldParentTraversalSuspension[];
-}
+};
 
 type CompletionValues = Partial<Readonly<{
   cCallRef: string;

@@ -32,6 +32,7 @@ import { discardNativeFrameClock } from "./runtime_liveness.js";
 import { admitOwnedScopeClosure, } from "./closure.js";
 import { admitTraversalTransitionInActiveTransaction, } from "./traversal_route.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 import { ok } from "../shared/refusal.js";
 import { checkExactRecord, onlyExactMatch, resolveExactMatch } from "../shared/select/index.js";
 function isJsonRecord(value) {
@@ -718,7 +719,8 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
                     if (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")) {
                         if (input.cCall.implementationRef === SEMANTIC_REVISION_IDS.bridgeImplementationRef) {
                             const expected = projectRevisionWorksitePreparation(basis, input.input);
-                            return expected !== null && canonicalEquals(expected, value);
+                            const admittedValue = admitJson(value);
+                            return expected !== null && admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
                         }
                         return semanticRevisionResultMatchesBasis(basis, input.input, value) &&
                             (![SEMANTIC_REVISION_IDS.selectionImplementationRef, SEMANTIC_REVISION_IDS.authorImplementationRef, SEMANTIC_REVISION_IDS.assessorImplementationRef].some(r => r === input.cCall.implementationRef) ||
@@ -726,15 +728,18 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
                     }
                     if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.bridgeImplementationRef) {
                         const expected = projectSemanticWorksitePreparation(basis, input.input);
-                        return expected !== null && canonicalEquals(expected, value);
+                        const admittedValue = admitJson(value);
+                        return expected !== null && admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
                     }
                     if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.evidenceInputImplementationRef) {
                         const expected = projectSemanticEvidenceInput(basis, input.input);
-                        return expected !== null && canonicalEquals(expected, value);
+                        const admittedValue = admitJson(value);
+                        return expected !== null && admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
                     }
                     if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.terminalImplementationRef) {
                         const expected = projectSemanticEnvelopeOutput(basis, input.input);
-                        return expected !== null && canonicalEquals(expected, value);
+                        const admittedValue = admitJson(value);
+                        return expected !== null && admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
                     }
                     return semanticResultMatchesBasis(basis, input.input, value) && semanticInstructionResultMatches(basis, input.input, value);
                 })()) &&

@@ -13,14 +13,14 @@ import { type WorksiteCommandExecutionLimits, type WorksiteDeclaredCommandInput,
 import { type WorksiteContextObservation } from "./worksite_effect.js";
 export declare function semanticJobRelativePath(path: string, root?: boolean): boolean;
 export declare function semanticJobPathWithin(path: string, roots: readonly string[]): boolean;
-export interface SemanticJobExecutionCapability {
+export type SemanticJobExecutionCapability = {
     readonly executable: string;
     readonly relativeCwdRoots: readonly string[];
     readonly environment: Readonly<Record<string, string>>;
     readonly maxTimeoutMs: number;
     readonly maxTerminationGraceMs: number;
-}
-export interface SemanticJobInput {
+};
+export type SemanticJobInput = {
     readonly kind: "semantic_job_input";
     readonly schemaVersion: "5.0.0";
     readonly lifecycleRef: string;
@@ -40,7 +40,7 @@ export interface SemanticJobInput {
         readonly evidenceWriteRoots: readonly string[];
         readonly executableCapabilities: readonly SemanticJobExecutionCapability[];
     };
-}
+};
 export declare const SEMANTIC_JOB_INPUT_SCHEMA: v.StrictObjectSchema<{
     readonly kind: v.LiteralSchema<"semantic_job_input", undefined>;
     readonly schemaVersion: v.LiteralSchema<"5.0.0", undefined>;
@@ -83,7 +83,7 @@ export declare const SEMANTIC_JOB_INPUT_SCHEMA: v.StrictObjectSchema<{
 }, undefined>;
 export declare function isSemanticJobInput(value: unknown): value is SemanticJobInput;
 export declare function constructSemanticJobInput(value: SemanticJobInput): Readonly<SemanticJobInput>;
-export interface SemanticJobBasis {
+export type SemanticJobBasis = {
     readonly jobRef: string;
     readonly jobDigest: Sha256Digest;
     readonly invocationAdmissionRef: string;
@@ -94,7 +94,7 @@ export interface SemanticJobBasis {
     readonly intakeCCallRef: string;
     readonly intakeCCallDigest: Sha256Digest;
     readonly intakeExecutionBasisRef: string;
-}
+};
 export declare function semanticJobIdentity(input: SemanticJobInput, declaration: SemanticJobLifecycleDeclaration, coordinate: Pick<SemanticJobBasis, "invocationAdmissionRef" | "rootExecutionBasisRef" | "rootInputRef" | "rootInputDigest">): {
     jobRef: string;
     jobDigest: `sha256:${string}`;
@@ -107,7 +107,7 @@ export declare function semanticJobSourceText(envelope: SemanticJobEnvelope): {
     text: string;
 }[];
 export declare function groundSemanticJobQuote(envelope: SemanticJobEnvelope, selected: SemanticSourceQuote): RequirementTerm["sourceBindings"][number] | null;
-export interface SemanticJobBindingCandidate {
+export type SemanticJobBindingCandidate = {
     readonly requirement: {
         readonly kind: "existing" | "candidate";
         readonly ref: string;
@@ -120,8 +120,8 @@ export interface SemanticJobBindingCandidate {
     readonly unprovedScope: readonly string[];
     readonly closureRule: string;
     readonly requiredContent: readonly string[];
-}
-export interface SemanticJobDesign {
+};
+export type SemanticJobDesign = {
     readonly targets: readonly {
         readonly relativePath: string;
         readonly role: "implementation" | "verifier" | "configuration";
@@ -133,14 +133,14 @@ export interface SemanticJobDesign {
     readonly dependencyDisposition: "sufficient" | "unknown";
     readonly commands: readonly WorksiteDeclaredCommandInput[];
     readonly outcomePredicates: readonly WorksiteOutcomePredicateInput[];
-}
-export interface SemanticJobAssetCandidate {
+};
+export type SemanticJobAssetCandidate = {
     readonly kind: "semantic_job_asset_candidate";
     readonly schemaVersion: "5.0.0";
     readonly asset: SemanticAssetCandidate;
     readonly bindings: readonly SemanticJobBindingCandidate[];
     readonly design: SemanticJobDesign | null;
-}
+};
 export declare function isSemanticJobAssetCandidate(value: unknown): value is SemanticJobAssetCandidate;
 declare const designResponseSchema: v.StrictObjectSchema<{
     readonly kind: v.LiteralSchema<"semantic_job_design_response", undefined>;
@@ -236,7 +236,7 @@ export declare function semanticJobUsesDesignResponse(role: "author" | "assessor
 /** Expand only declared reference fields; arbitrary JSON and all authored
  * meaning remain untouched. Canonical admission/assessment are separate. */
 export declare function materializeSemanticJobDesignResponse(input: SemanticJobEnvelope | SemanticJobRevisionEnvelope, stageRef: string, raw: unknown): Readonly<SemanticJobAssetCandidate> | null;
-export interface SemanticJobAsset {
+export type SemanticJobAsset = {
     readonly assetRef: string;
     readonly assetDigest: Sha256Digest;
     readonly stageRef: string;
@@ -248,8 +248,8 @@ export interface SemanticJobAsset {
         readonly source: SemanticActorSource;
         readonly disposition: "satisfied" | "falsified" | "indeterminate";
     } | null;
-}
-export interface SemanticJobBindingVersion {
+};
+export type SemanticJobBindingVersion = {
     readonly versionRef: string;
     readonly versionDigest: Sha256Digest;
     readonly jobRef: string;
@@ -265,8 +265,8 @@ export interface SemanticJobBindingVersion {
     readonly binding: GtlContractFulfillmentBinding;
     readonly policy: SemanticProofPolicy;
     readonly shape: SemanticProofShape;
-}
-export interface SemanticJobEnvelope {
+};
+export type SemanticJobEnvelope = {
     readonly kind: "semantic_stage_envelope";
     readonly schemaVersion: "5.0.0";
     readonly job: SemanticJobInput;
@@ -280,16 +280,16 @@ export interface SemanticJobEnvelope {
     readonly evidence: SemanticEvidenceInput | null;
     readonly applicationCoverage: "non_closing";
     readonly remainingGaps: readonly string[];
-}
+};
 export declare function projectSemanticJobBindings(envelope: SemanticJobEnvelope): readonly SemanticJobBindingVersion[] | null;
 export declare function isSemanticJobEnvelope(value: unknown): value is SemanticJobEnvelope;
 export declare function constructSemanticJobEnvelope(job: SemanticJobInput, declaration: SemanticJobLifecycleDeclaration, coordinate: Omit<SemanticJobBasis, "jobRef" | "jobDigest" | "declarationDigest">): Readonly<SemanticJobEnvelope>;
-export interface SemanticJobContractIssue {
+export type SemanticJobContractIssue = {
     readonly path: string;
     readonly rule: string;
     readonly expected: JsonValue;
     readonly actual: JsonValue;
-}
+};
 /** One Product-owned reference and coverage relation. Assembly renders this
  * projection; native validators consume the same domains, not prompt copies. */
 export declare function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor", retainedTerms?: readonly RequirementTerm[], executionLimits?: WorksiteCommandExecutionLimits): Readonly<{

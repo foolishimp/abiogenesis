@@ -29,7 +29,7 @@ const FAMILY_REQUIREMENT_AUTHORITY_REFS = Object.freeze([
 ]);
 
 export type IntrinsicOwnerContractSlot = OwnerContractSlot;
-export interface IntrinsicOwnerContractIdentity {
+export type IntrinsicOwnerContractIdentity = {
   readonly definitionKey: PublicDefinitionKeyLike;
   readonly slot: IntrinsicOwnerContractSlot;
   readonly contractId: string;
@@ -37,12 +37,12 @@ export interface IntrinsicOwnerContractIdentity {
   readonly ownerAuthorityRef: string;
   readonly ownerAuthorityDigest: Sha256Digest;
   readonly nativeSchemaIdentity: OwnerNativeSchemaIdentity;
-}
+};
 export type IntrinsicExecutionBindingSpecification =
   ExecutionBindingSpecification;
 export type IntrinsicOwnerNativeSchemaIdentity = OwnerNativeSchemaIdentity;
 
-export interface IntrinsicSchemaCoordinate {
+export type IntrinsicSchemaCoordinate = {
   readonly schemaId: string;
   readonly schemaVersion: "5.0.0";
   readonly definitionRef: string;
@@ -52,7 +52,7 @@ export interface IntrinsicSchemaCoordinate {
     memberKey: string,
     slot: IntrinsicOwnerContractSlot,
   ];
-}
+};
 
 export interface IntrinsicSchemaCoordinateSet {
   readonly request: IntrinsicSchemaCoordinate;
@@ -102,19 +102,19 @@ export interface IntrinsicPublicFunctionFamily {
   readonly definitions: readonly IntrinsicPublicFunctionDefinition[];
 }
 
-export interface IntrinsicPublicFunctionFamilyCoordinate {
+export type IntrinsicPublicFunctionFamilyCoordinate = {
   readonly requirementAuthorityRefs: readonly string[];
   readonly familyRef: string;
   readonly familyVersion: "5.0.0";
   readonly familyDigest: Sha256Digest;
-}
+};
 
-export interface IntrinsicProjectedDefinitionSlot {
+export type IntrinsicProjectedDefinitionSlot = {
   readonly identity: IntrinsicOwnerContractIdentity;
   readonly definitionRef: string;
-}
+};
 
-export interface IntrinsicPublicOperationContractProjection {
+export type IntrinsicPublicOperationContractProjection = {
   readonly rowKind: "public_operation_contract";
   readonly rowRef: string;
   readonly rowDigest: Sha256Digest;
@@ -161,7 +161,7 @@ export interface IntrinsicPublicOperationContractProjection {
     readonly cliCoordinate: string;
     readonly adapterExitMap: PublicAdapterExitMap;
   }>[];
-}
+};
 
 function publicDefinitionRef(
   definitionKey: PublicDefinitionKeyLike,
@@ -210,22 +210,22 @@ function assertSourceAgreement(source: ResolvedOwnerContractSource): void {
       (bindings.nonTerminal === null) ||
     contracts.some(([slot, contract, binding]) =>
       contract.slot !== slot ||
-      !canonicalEquals(contract.definitionKey as unknown as JsonValue, packet.definitionKey as unknown as JsonValue) ||
-      !canonicalEquals(contract as unknown as JsonValue, contractReferenceProjection(binding) as unknown as JsonValue) ||
-      !canonicalEquals(contract.source as unknown as JsonValue, packet.metadata.source as unknown as JsonValue) ||
+      !canonicalEquals(contract.definitionKey, packet.definitionKey) ||
+      !canonicalEquals(contract, contractReferenceProjection(binding)) ||
+      !canonicalEquals(contract.source, packet.metadata.source) ||
       contract.ownerAuthorityRef !== source.metadata.ownerAuthorityRef ||
       contract.ownerAuthorityDigest !== source.metadata.ownerAuthorityDigest
     ) ||
     !canonicalEquals(
-      packet.executionBindingSpecification.definitionKey as unknown as JsonValue,
-      packet.definitionKey as unknown as JsonValue,
+      packet.executionBindingSpecification.definitionKey,
+      packet.definitionKey,
     ) ||
     packet.executionBindingSpecification.semanticOwnerRef !==
       source.metadata.ownerAuthorityRef ||
     packet.executionBindingSpecification.callable.ownerAuthorityRef !==
       source.metadata.ownerAuthorityRef ||
     sha256Canonical(
-      packet.executionBindingSpecification as unknown as JsonValue,
+      packet.executionBindingSpecification,
     ) !== packet.executionBindingSpecificationDigest
   ) {
     throw new TypeError(
@@ -310,7 +310,7 @@ function definitionFromSource(
   return deepFreeze({
     ...definitionFields,
     definitionDigest: sha256Canonical(
-      digestProjection as unknown as JsonValue,
+      digestProjection,
     ),
   });
 }
@@ -332,7 +332,7 @@ function familyDigestProjection(
           definitionDigest: definition.definitionDigest,
         })),
     })),
-  } as JsonValue;
+  };
 }
 
 function constructFamily(): IntrinsicPublicFunctionFamily {
@@ -449,7 +449,7 @@ function constructOperationProjection(
       adapterExitMap: definition.adapterExitMap,
     })),
   });
-  const rowDigest = sha256Canonical(body as unknown as JsonValue);
+  const rowDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     rowRef:
@@ -466,7 +466,7 @@ export function selectIntrinsicPublicFunctionDefinition(
   definitionKey: PublicDefinitionKeyLike,
 ): IntrinsicPublicFunctionDefinition | null {
   const matches = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.filter(
-    (definition) => canonicalEquals(definition.definitionKey as unknown as JsonValue, definitionKey as unknown as JsonValue),
+    (definition) => canonicalEquals(definition.definitionKey, definitionKey),
   );
   return matches.length === 1 ? matches[0]! : null;
 }

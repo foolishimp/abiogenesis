@@ -114,7 +114,7 @@ export function completeOwnedInteractionResume(
     return fail(
       "interaction-resume-continuation",
       `diagnostic://abiogenesis/hog/${target.code}@5`,
-      target as unknown as JsonValue,
+      target,
     );
   }
   const outcome = OwnedOutcome.projectOwnedCCallOutcomeReceiptAtPrefix(
@@ -154,7 +154,7 @@ export function completeOwnedInteractionResume(
     return fail(
       "interaction-resume-retry-progress",
       `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
-      retryExit as unknown as JsonValue,
+      retryExit,
     );
   }
   const proposal = proposeInteractionResumeRoute(
@@ -176,7 +176,7 @@ export function completeOwnedInteractionResume(
     return fail(
       "interaction-resume-route",
       `diagnostic://abiogenesis/hog/${proposal.code}@5`,
-      proposal as unknown as JsonValue,
+      proposal,
     );
   }
   const candidate = Abg.completeTraversalTransitionCandidate({
@@ -218,7 +218,7 @@ export function completeOwnedInteractionResume(
     return fail(
       "interaction-resume-transition",
       `diagnostic://abiogenesis/hog/${admitted.code}@5`,
-      admitted as unknown as JsonValue,
+      admitted,
     );
   }
   if (admitted.disposition === "application_ready") {

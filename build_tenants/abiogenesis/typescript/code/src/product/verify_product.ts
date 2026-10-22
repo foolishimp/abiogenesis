@@ -83,7 +83,7 @@ import { admitJson } from "../shared/admit/index.js";
 
 type JsonRecord = { readonly [key: string]: JsonValue };
 
-export interface ProductManifestView {
+export type ProductManifestView = {
   readonly kind: "abg_product_toolchain_manifest";
   readonly schemaVersion: "5.0.0";
   readonly productId: string;
@@ -111,13 +111,13 @@ export interface ProductManifestView {
     readonly catalogSchemaDigest: Sha256Digest;
     readonly rows: readonly JsonRecord[];
   };
-}
+};
 
 interface PackageJsonView {
   readonly name: string;
   readonly version: string;
   readonly packageType: "commonjs" | "module";
-  readonly exports: Readonly<Record<string, unknown>>;
+  readonly exports: Readonly<Record<string, JsonValue>>;
 }
 
 const TAR_MAX_BUFFER = 64 * 1024 * 1024;
@@ -141,7 +141,8 @@ export function selectOwnedProductVerification(
   const verifiedRequest = ownedProductVerifications.get(artifact);
   if (verifiedRequest === undefined) return null;
   try {
-    return canonicalJson(request as JsonValue) === verifiedRequest
+    const admittedRequest = admitJson(request);
+    return admittedRequest.kind === "ok" && canonicalJson(admittedRequest.value) === verifiedRequest
       ? artifact as VerifiedProductArtifact : null;
   } catch {
     return null;
@@ -221,7 +222,7 @@ function isUniqueStringArray(value: unknown): value is readonly string[] {
 function verificationBody(
   value: Omit<VerifiedProductArtifact, "verificationDigest" | "verificationRef">,
 ): JsonValue {
-  return value as unknown as JsonValue;
+  return value;
 }
 
 function coordinateRef(prefix: string, digest: Sha256Digest): string {
@@ -258,7 +259,7 @@ export function productVerificationCoordinates(
     publicCapabilityRefs: artifact.publicCapabilityRefs,
   } as const;
   const descriptorDigest = sha256Canonical(
-    descriptorBody as unknown as JsonValue,
+    descriptorBody,
   );
 
   const localNativeEvidenceBody = {
@@ -272,7 +273,7 @@ export function productVerificationCoordinates(
     nativeDeclarationEvidence: artifact.nativeDeclarationEvidence,
   } as const;
   const localNativeEvidenceDigest = sha256Canonical(
-    localNativeEvidenceBody as unknown as JsonValue,
+    localNativeEvidenceBody,
   );
 
   const provenanceBody = {
@@ -301,7 +302,7 @@ export function productVerificationCoordinates(
     checkedPayloadFiles: artifact.checkedPayloadFiles,
   } as const;
   const provenanceDigest = sha256Canonical(
-    provenanceBody as unknown as JsonValue,
+    provenanceBody,
   );
 
   return deepFreeze({
@@ -342,7 +343,7 @@ function isNativeDeclarationEvidence(
     typeof candidate === "number" &&
     Number.isSafeInteger(candidate) &&
     candidate >= 0;
-  const isOrigin = (candidate: unknown): boolean => {
+  const isOrigin = (candidate: unknown): candidate is Readonly<Record<string, string | boolean>> => {
     if (!isRecord(candidate) || !isNonblankString(candidate.kind)) return false;
     if (candidate.kind === "import_declaration") {
       return hasExactKeys(candidate, [
@@ -385,7 +386,7 @@ function isNativeDeclarationEvidence(
       candidate.kind === "module_augmentation"
     ) && hasExactKeys(candidate, ["kind"]);
   };
-  const isSelection = (candidate: unknown): boolean => {
+  const isSelection = (candidate: unknown): candidate is Readonly<Record<string, string>> => {
     if (!isRecord(candidate) || !isNonblankString(candidate.kind)) return false;
     if (candidate.kind === "module" || candidate.kind === "all") {
       return hasExactKeys(candidate, ["kind"]);
@@ -559,9 +560,7 @@ function isNativeDeclarationEvidence(
         origin: relationCandidate.origin,
         selection: relationCandidate.selection,
       };
-      const expectedDigest = sha256Canonical(
-        physicalBody as unknown as JsonValue,
-      );
+      const expectedDigest = sha256Canonical(physicalBody);
       if (
         relationCandidate.physicalRelationDigest !== expectedDigest ||
         relationCandidate.physicalRelationRef !==
@@ -688,14 +687,10 @@ function isNativeDeclarationEvidence(
       if (
         relation === undefined ||
         selectorCandidate.externalModuleSpecifier !== relation.moduleSpecifier ||
-        !canonicalEquals(
-          selectorCandidate.origin as JsonValue,
-          relation.origin as JsonValue,
-        ) ||
-        !canonicalEquals(
-          selectorCandidate.selection as JsonValue,
-          relation.selection as JsonValue,
-        )
+        !isOrigin(relation.origin) ||
+        !isSelection(relation.selection) ||
+        !canonicalEquals(selectorCandidate.origin, relation.origin) ||
+        !canonicalEquals(selectorCandidate.selection, relation.selection)
       ) {
         return false;
       }
@@ -714,7 +709,7 @@ function isNativeDeclarationEvidence(
       };
       if (
         selectorCandidate.selectorRef !==
-          sha256Canonical(selectorBody as unknown as JsonValue)
+          sha256Canonical(selectorBody)
       ) {
         return false;
       }
@@ -791,7 +786,7 @@ export function isVerifiedProductArtifact(
     !isNonblankString(value.contributionManifestRef) ||
     !isSha256Digest(value.contributionManifestDigest) ||
     !isProductContributionManifest(value.contributionManifest) ||
-    sha256Canonical(value.contributionManifest as unknown as JsonValue) !==
+    sha256Canonical(value.contributionManifest) !==
       value.contributionManifestDigest ||
     !isUniqueStringArray(value.compatibilityRefs) ||
     !Array.isArray(value.declaredDependencies) ||
@@ -878,8 +873,8 @@ export function isVerifiedProductArtifact(
   }
   if (
     !canonicalEquals(
-      expectedGraph as unknown as JsonValue,
-      artifact.capabilityDefinitionGraph as unknown as JsonValue,
+      expectedGraph,
+      artifact.capabilityDefinitionGraph,
     ) ||
     artifact.capabilityDefinitionGraphAsset.mediaType !== "application/json" ||
     artifact.capabilityDefinitionGraphAsset.schemaVersion !== "5.0.0" ||
@@ -887,25 +882,25 @@ export function isVerifiedProductArtifact(
       capabilityDefinitionGraphAssetBytes(artifact.capabilityDefinitionGraph),
     ) ||
     !canonicalEquals(
-      artifact.contributionManifest.capabilityDefinitionGraph as unknown as JsonValue,
+      artifact.contributionManifest.capabilityDefinitionGraph,
       {
         graphId: artifact.capabilityDefinitionGraph.graphId,
         graphVersion: artifact.capabilityDefinitionGraph.graphVersion,
         graphDigest: artifact.capabilityDefinitionGraph.graphDigest,
-      } as unknown as JsonValue,
+      },
     ) ||
     !canonicalEquals(
-      graphIds as unknown as JsonValue,
-      artifact.declaredCapabilityRefs as unknown as JsonValue,
+      graphIds,
+      artifact.declaredCapabilityRefs,
     ) ||
     !canonicalEquals(
-      graphIds as unknown as JsonValue,
-      artifact.publicCapabilityRefs as unknown as JsonValue,
+      graphIds,
+      artifact.publicCapabilityRefs,
     ) ||
     artifact.publicContracts.some((contract) =>
       !canonicalEquals(
-        contract.capabilityIdentities as unknown as JsonValue,
-        capabilityRefsForContract(contract.contractId) as unknown as JsonValue,
+        contract.capabilityIdentities,
+        capabilityRefsForContract(contract.contractId),
       )
     )
   ) {
@@ -1087,7 +1082,7 @@ export function parseProductManifest(value: unknown): ProductManifestView | null
     contributionManifest.publicContractCatalogId !== catalog.catalogId ||
     contributionManifest.publicContractCatalogDigest !== catalog.catalogDigest ||
     !canonicalEquals(
-      contributionManifest.capabilityDefinitionGraph as unknown as JsonValue,
+      contributionManifest.capabilityDefinitionGraph,
       {
         graphId: value.capabilityDefinitionGraph.graphId,
         graphVersion: value.capabilityDefinitionGraph.graphVersion,
@@ -1103,7 +1098,7 @@ export function parseProductManifest(value: unknown): ProductManifestView | null
   return value as unknown as ProductManifestView;
 }
 
-function parsePackageJson(value: unknown): PackageJsonView | null {
+function parsePackageJson(value: JsonValue): PackageJsonView | null {
   if (
     !isRecord(value) ||
     typeof value.name !== "string" ||
@@ -1345,14 +1340,14 @@ export function parseProductPublicContract(
   };
 }
 
-interface ArtifactPublicAdapterProjection {
+type ArtifactPublicAdapterProjection = {
   readonly kind: "public_adapter_projection";
   readonly schemaVersion: "5.0.0";
   readonly family: IntrinsicPublicFunctionFamilyCoordinate;
   readonly sdkMembers: readonly PublicSdkMemberProjection[];
   readonly cliGrammar: readonly PublicCliGrammarProjection[];
   readonly documentationInventory: readonly PublicDocumentationInventoryRow[];
-}
+};
 
 interface DefinitionContractBindingFailure {
   readonly message: string;
@@ -1375,14 +1370,14 @@ function bindingFailure(message: string): DefinitionContractBindingFailure {
 }
 
 function parseCanonicalPayload(bytes: Uint8Array): unknown | null {
-  let value: unknown;
+  let value: JsonValue;
   const sourceText = new TextDecoder().decode(bytes);
   try {
     value = JSON.parse(sourceText);
   } catch {
     return null;
   }
-  return isRecord(value) && `${canonicalJson(value as JsonValue)}\n` === sourceText
+  return isRecord(value) && `${canonicalJson(value)}\n` === sourceText
     ? value
     : null;
 }
@@ -1433,7 +1428,7 @@ function projectionRowDigest(
   projection: IntrinsicPublicOperationContractProjection,
 ): Sha256Digest {
   const { rowRef: _rowRef, rowDigest: _rowDigest, ...body } = projection;
-  return sha256Canonical(body as unknown as JsonValue);
+  return sha256Canonical(body);
 }
 
 function parseOperationProjection(
@@ -1519,7 +1514,7 @@ function bindDefinitionContractCoordinates(
   if (
     manifestCatalog.schemaVersion !== "5.0.0" ||
     manifestCatalog.catalogVersion !== "5.0.0" ||
-    !canonicalEquals(manifestCatalog.rows, publicContracts as unknown as JsonValue)
+    !canonicalEquals(manifestCatalog.rows, publicContracts)
   ) {
     return bindingFailure(
       "the verified public catalog is not the selected 5.0 Product catalog",
@@ -1536,7 +1531,7 @@ function bindDefinitionContractCoordinates(
   };
   const { catalogDigest: _catalogDigest, ...catalogBody } = catalog;
   if (
-    sha256Canonical(catalogBody as unknown as JsonValue) !==
+    sha256Canonical(catalogBody) !==
       catalog.catalogDigest
   ) {
     return bindingFailure("the verified public catalog identity diverged");
@@ -1553,7 +1548,7 @@ function bindDefinitionContractCoordinates(
   }
 
   const hostAdapter = PUBLIC_PROJECTION_PAYLOADS.adapterAsset.content;
-  if (!canonicalEquals(adapter as unknown as JsonValue, hostAdapter)) {
+  if (!canonicalEquals(adapter, hostAdapter)) {
     return bindingFailure(
       "the artifact does not declare the selected exact 18/56 public-function family",
     );
@@ -1677,7 +1672,7 @@ function bindDefinitionContractCoordinates(
     if (
       projection === null ||
       projection.operationId !== operationId ||
-      !canonicalEquals(projection.family as unknown as JsonValue, adapter.family as unknown as JsonValue) ||
+      !canonicalEquals(projection.family, adapter.family) ||
       hostProjection === undefined
     ) {
       return bindingFailure(
@@ -1732,7 +1727,7 @@ function bindDefinitionContractCoordinates(
       ): PublicContractCoordinate | null => {
         if (
           selected.identity.slot !== slot ||
-          !canonicalEquals(selected.identity.definitionKey as unknown as JsonValue, definitionKey as unknown as JsonValue) ||
+          !canonicalEquals(selected.identity.definitionKey, definitionKey) ||
           seenPointers.has(selected.definitionRef)
         ) {
           return null;
@@ -1742,7 +1737,7 @@ function bindDefinitionContractCoordinates(
         const fragment = admitJson(resolveJsonFragment(projection, selected.definitionRef));
         if (
           fragment.kind !== "ok" ||
-          !canonicalEquals(fragment.value, selected.identity as unknown as JsonValue)
+          !canonicalEquals(fragment.value, selected.identity)
         ) {
           return null;
         }
@@ -1794,7 +1789,7 @@ function bindDefinitionContractCoordinates(
         },
       });
     }
-    if (!canonicalEquals(projection as unknown as JsonValue, hostProjection as unknown as JsonValue)) {
+    if (!canonicalEquals(projection, hostProjection)) {
       return bindingFailure(
         `the content-verified operation projection is not selected: ${operationId}`,
       );
@@ -2060,7 +2055,7 @@ async function bufferValidatedArchiveEntries(
   };
 }
 
-function parseJsonBytes(bytes: Uint8Array): unknown {
+function parseJsonBytes(bytes: Uint8Array): JsonValue {
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
@@ -2160,7 +2155,7 @@ export async function verifyProduct(
   if (manifest === null) {
     return refusal(request, "manifest_malformed", "product manifest shape is invalid");
   }
-  const manifestDigest = sha256Canonical(manifest as unknown as JsonValue);
+  const manifestDigest = sha256Canonical(manifest);
   if (
     !isSha256Digest(request.expectedManifestDigest) ||
     manifestDigest !== request.expectedManifestDigest
@@ -2172,7 +2167,7 @@ export async function verifyProduct(
     );
   }
   if (
-    sha256Canonical(manifest.contributionManifest as unknown as JsonValue) !==
+    sha256Canonical(manifest.contributionManifest) !==
       manifest.contributionManifestDigest
   ) {
     return refusal(
@@ -2406,8 +2401,8 @@ export async function verifyProduct(
           declarationClosure === null ||
           declarationClosure.declarationPath !== nativeLocator.declarationPath ||
           !canonicalEquals(
-            declarationClosure.declarationInventory as unknown as JsonValue,
-            nativeLocator.declarationInventory as unknown as JsonValue,
+            declarationClosure.declarationInventory,
+            nativeLocator.declarationInventory,
           )
         ) {
           return refusal(request, "catalog_mismatch", "native typed locator is invalid");
@@ -2439,7 +2434,7 @@ export async function verifyProduct(
         nativeDigestByContract.set(
           contract.contractId,
           sha256Canonical(
-            declarationClosure.declarationInventory as unknown as JsonValue,
+            declarationClosure.declarationInventory,
           ),
         );
         selectedExportPaths.add(nativeLocator.packageExportPath);
@@ -2563,7 +2558,7 @@ export async function verifyProduct(
     const graphUnknown = JSON.parse(decodedGraph) as unknown;
     if (
       !isCapabilityDefinitionGraph(graphUnknown) ||
-      canonicalJson(graphUnknown as unknown as JsonValue) !== decodedGraph
+      canonicalJson(graphUnknown) !== decodedGraph
     ) {
       return refusal(
         request,
@@ -2624,13 +2619,13 @@ export async function verifyProduct(
     ]);
     if (
       !canonicalEquals(
-        expectedGraph as unknown as JsonValue,
-        graph as unknown as JsonValue,
+        expectedGraph,
+        graph,
       ) ||
       publicContracts.some((contract) =>
         !canonicalEquals(
-          contract.capabilityIdentities as unknown as JsonValue,
-          capabilityRefsForContract(contract.contractId) as unknown as JsonValue,
+          contract.capabilityIdentities,
+          capabilityRefsForContract(contract.contractId),
         )
       )
     ) {
@@ -2643,12 +2638,12 @@ export async function verifyProduct(
     const graphCapabilityIds = graph.rows.map(({ capabilityId }) => capabilityId);
     if (
       !canonicalEquals(
-        graphCapabilityIds as unknown as JsonValue,
-        manifest.declaredCapabilityRefs as unknown as JsonValue,
+        graphCapabilityIds,
+        manifest.declaredCapabilityRefs,
       ) ||
       !canonicalEquals(
-        graphCapabilityIds as unknown as JsonValue,
-        [...publicCapabilityRefs].sort() as unknown as JsonValue,
+        graphCapabilityIds,
+        [...publicCapabilityRefs].sort(),
       )
     ) {
       return refusal(
@@ -2722,6 +2717,6 @@ export async function verifyProduct(
       `product-verification://abiogenesis/${verificationDigest.slice("sha256:".length)}`,
     verificationDigest,
   });
-  ownedProductVerifications.set(verified, canonicalJson(request as unknown as JsonValue));
+  ownedProductVerifications.set(verified, canonicalJson(request));
   return verified;
 }

@@ -51,7 +51,7 @@ import { canonicalEquals } from "../shared/value/index.js";
 
 export type TraversalCursor = TraversalCursorCandidate;
 
-export interface TraversalRefusal {
+export type TraversalRefusal = {
   readonly kind: "traversal_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -64,7 +64,7 @@ export interface TraversalRefusal {
     | "scope_not_admitted"
     | "traversal_cursor_mismatch";
   readonly message: string;
-}
+};
 
 export interface TraverseInput {
   readonly program: Readonly<GtlProgram>;
@@ -169,8 +169,8 @@ export function rehydrateHeldInteractionCursor(
     !hasAdmittedTraversalCursorAtPrefix(prefix, candidate) ||
     !isTraversalCursorCandidate(candidate) ||
     !canonicalEquals(
-      cursor as unknown as JsonValue,
-      candidate as unknown as JsonValue,
+      cursor,
+      candidate,
     ) ||
     candidate.position !== "at_term" ||
     candidate.programRef.length === 0 ||
@@ -268,8 +268,8 @@ export function deriveStructuralTargetCursor(
   if (
     declaredTerm.kind === "traversal_refusal" ||
     !canonicalEquals(
-      declaredTerm as unknown as JsonValue,
-      term as unknown as JsonValue,
+      declaredTerm,
+      term,
     )
   ) {
     return refusal(
@@ -616,7 +616,7 @@ function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
   }
   if (
     input.program.programRef !== input.executionBasis.programRef ||
-    sha256Canonical(input.program as unknown as JsonValue) !== input.executionBasis.programDigest ||
+    sha256Canonical(input.program) !== input.executionBasis.programDigest ||
     !input.program.callableMembership.includes(input.executionBasis.graphFunctionRef)
   ) {
     return refusal("program_mismatch", "HoG Program differs from the admitted execution basis");
@@ -688,8 +688,8 @@ function traversalResultAtCursor(
   const term = suppliedTerm ?? declaredTerm;
   if (
     !canonicalEquals(
-      term as unknown as JsonValue,
-      declaredTerm as unknown as JsonValue,
+      term,
+      declaredTerm,
     )
   ) {
     return refusal(

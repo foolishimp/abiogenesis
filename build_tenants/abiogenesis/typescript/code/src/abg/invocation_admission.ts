@@ -1,4 +1,5 @@
 import { selectRuntimeEventPrefixFromStore, selectRuntimeEventPrefixFromAuthority, runtimeEventAtPrefix, indexedRuntimeEventEnvelopes } from "./event_prefix.js";
+import { admitJson } from "../shared/admit/index.js";
 import { projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, projectRuntimeActorProcessFactsAtPrefix, projectValidatedReplayRouteAtPrefix } from "./replay.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
@@ -117,7 +118,7 @@ export interface InvocationAdmissionInput {
   readonly runEnvironment?: RunEnvironmentEvidence;
   readonly invocation: PublicInvocationCandidate;
   readonly rawRequest: RawAdmittedValue<unknown>;
-  readonly rawInput: RawAdmittedValue<unknown>;
+  readonly rawInput: RawAdmittedValue<JsonValue>;
   readonly programPublication: Readonly<ModulePublication>;
   readonly executionResolution: ProductExecutionResolution;
   readonly program: Readonly<GtlProgram>;
@@ -159,7 +160,7 @@ type InvocationRequestBasis =
       | ExactStartRunInvocation;
   }>;
 
-export interface InvocationReentryBasis {
+export type InvocationReentryBasis = {
   readonly kind: "invocation_reentry_basis";
   readonly schemaVersion: "5.0.0";
   readonly publicAuthorityDigest: Sha256Digest;
@@ -177,9 +178,9 @@ export interface InvocationReentryBasis {
   readonly lockId: string;
   readonly lockDigest: Sha256Digest;
   readonly sourceStart: PublicStartAdmissionIdentity;
-}
+};
 
-export interface PublicStartAdmissionIdentity {
+export type PublicStartAdmissionIdentity = {
   readonly kind: "public_start_identity";
   readonly schemaVersion: "5.0.0";
   readonly programRef: string;
@@ -189,9 +190,9 @@ export interface PublicStartAdmissionIdentity {
   readonly target: string;
   readonly until: "converged";
   readonly rootMode: "direct" | "supervised";
-}
+};
 
-export interface InvocationAdmission {
+export type InvocationAdmission = {
   readonly kind: "invocation_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -246,7 +247,7 @@ export interface InvocationAdmission {
   readonly runEnvironment?: RunEnvironmentEvidence;
   readonly publicOperationEventRef: string;
   readonly admissionEventRef: string;
-}
+};
 
 export interface InvocationAdmissionReceipt {
   readonly kind: "invocation_admission_receipt";
@@ -400,9 +401,13 @@ export function isInvocationSourceResultBasis(
       refFields.some((field) =>
         typeof value[field] !== "string" ||
         (value[field] as string).length === 0
-      ) ||
-      value.sourceResultValueDigest !==
-        sha256Canonical(value.sourceResultValue as JsonValue)
+      )
+    ) return false;
+    // The retained source value is unchecked here: admitted before its digest.
+    const admittedSourceResultValue = admitJson(value.sourceResultValue);
+    if (
+      admittedSourceResultValue.kind !== "ok" ||
+      value.sourceResultValueDigest !== sha256Canonical(admittedSourceResultValue.value)
     ) return false;
     const {
       kind: _kind,
@@ -411,7 +416,9 @@ export function isInvocationSourceResultBasis(
       basisDigest: _basisDigest,
       ...body
     } = value;
-    const basisDigest = sha256Canonical(body as unknown as JsonValue);
+    const admittedBody = admitJson(body);
+    if (admittedBody.kind !== "ok") return false;
+    const basisDigest = sha256Canonical(admittedBody.value);
     return value.basisDigest === basisDigest &&
       value.basisRef ===
         `invocation-source-result://abiogenesis/${basisDigest.slice("sha256:".length)}`;
@@ -525,16 +532,16 @@ function deriveSourceResultBasisAtPrefix(
       // an older snapshot. Read-only preparation and a new selection without
       // additions do not manufacture another completed work result.
       if ([governanceRef("implementation", "fold"), governanceRef("implementation", "evaluate-parent")].includes(implementation as string) &&
-        isGovernanceWorkState(value)) return !canonicalEquals(value as unknown as JsonValue, retainedState as unknown as JsonValue);
+        isGovernanceWorkState(value)) return !canonicalEquals(value, retainedState);
       if (implementation === governanceRef("implementation", "select") && isFramedSynthesisResult(value)) return (
-        !canonicalEquals(value.state as unknown as JsonValue, retainedState as unknown as JsonValue) ||
+        !canonicalEquals(value.state, retainedState) ||
         (value.judgment.requirementProposals?.length ?? 0) !== 0);
       if (implementation === governanceRef("implementation", "project-choice") && isRecord(value) && value.kind === "registered_graph_choice" && value.disposition === "selected" &&
         isRecord(value.input) && isGovernanceWorkState(value.input.value)) {
         const next = value.input.value as unknown as GovernanceWorkState;
         return !canonicalEquals(
-          { ...next, synthesis: retainedState.synthesis } as unknown as JsonValue,
-          retainedState as unknown as JsonValue,
+          { ...next, synthesis: retainedState.synthesis },
+          retainedState,
         );
       }
       return implementation === NATIVE_WORKSPACE_WORK_IDS.implementationRef && e.payload.contractRef === NATIVE_WORKSPACE_WORK_IDS.observationContractRef ||
@@ -560,6 +567,8 @@ function deriveSourceResultBasisAtPrefix(
     sourceCall.resultValue === null ||
     resultEvent === undefined ||
     resultEvent.graphCallId === null ||
+    resultEvent.graphCallId === undefined ||
+    resultEvent.graphFunctionRef === undefined ||
     sourceResultValueDigest !==
       sha256Canonical(sourceCall.resultValue) ||
     sourceResultAdmissionDigest !== sourceCall.resultDigest ||
@@ -588,7 +597,7 @@ function deriveSourceResultBasisAtPrefix(
     workspaceBindingId: sourceInvocation.workspaceBindingId,
     workspaceBindingDigest: sourceInvocation.workspaceBindingDigest,
   };
-  const basisDigest = sha256Canonical(body as unknown as JsonValue);
+  const basisDigest = sha256Canonical(body);
   const basis = deepFreeze({
     kind: "invocation_source_result_basis" as const,
     schemaVersion: "5.0.0" as const,
@@ -677,8 +686,8 @@ export function rehydrateInvocationSourceResultBasisAtDurablePrefix(
   );
   return projected !== null &&
       canonicalEquals(
-        projected as unknown as JsonValue,
-        asserted as unknown as JsonValue,
+        projected,
+        asserted,
       )
     ? projected
     : null;
@@ -740,11 +749,11 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
     input.policy.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||
     input.policy.programRef !== input.program.programRef ||
     input.policy.programDigest !==
-      sha256Canonical(input.program as unknown as JsonValue) ||
+      sha256Canonical(input.program) ||
     !canonicalEquals(input.policy.allowedComputeRegimes, exactComputeRegimes) ||
     !canonicalEquals(
-      input.policy.interactionCapabilities as unknown as JsonValue,
-      exactInteractionCapabilities as unknown as JsonValue,
+      input.policy.interactionCapabilities,
+      exactInteractionCapabilities,
     ) ||
     !canonicalEquals(
       input.policy.catalogApplicationRefs,
@@ -891,12 +900,12 @@ function admitInvocationWithRequest(
   if (
     environment.kind !== "exact_prefix_workspace_environment" ||
     !canonicalEquals(
-      environment.artifactTruth as unknown as JsonValue,
-      input.artifactTruth as unknown as JsonValue,
+      environment.artifactTruth,
+      input.artifactTruth,
     ) ||
     !canonicalEquals(
-      environment.workspaceBinding as unknown as JsonValue,
-      input.workspaceBinding as unknown as JsonValue,
+      environment.workspaceBinding,
+      input.workspaceBinding,
     )
   ) {
     return refusal(
@@ -931,9 +940,9 @@ function admitInvocationWithRequest(
     try {
       const resources = applicationResources[index];
       if (resources === undefined || resources.construction.programRef !== input.program.programRef ||
-          !canonicalEquals(resources.catalogView as unknown as JsonValue, input.catalogView as unknown as JsonValue)) return false;
+          !canonicalEquals(resources.catalogView, input.catalogView)) return false;
       const reconstructed = reconstructCatalogApplication(resources, input.artifactTruth.prefix);
-      return canonicalEquals(reconstructed as unknown as JsonValue, application as unknown as JsonValue);
+      return canonicalEquals(reconstructed, application);
     } catch { return false; }
   });
   if (
@@ -965,7 +974,7 @@ function admitInvocationWithRequest(
     !isProgramValidation(input.programValidation) ||
     input.programValidation.programRef !== input.program.programRef ||
     input.programValidation.programDigest !== input.invocation.programDigest ||
-    input.programValidation.publicationDigest !== sha256Canonical(input.programPublication as unknown as JsonValue) ||
+    input.programValidation.publicationDigest !== sha256Canonical(input.programPublication) ||
     !input.programValidation.graphFunctionDigests.includes(input.invocation.graphFunctionDigest)
   ) {
     return refusal("validation_mismatch", "Invocation requires the exact non-lowering ProgramValidation");
@@ -981,14 +990,14 @@ function admitInvocationWithRequest(
   const outputContract = executionResolution.outputContract;
   const inputOwnerMatches = executionResolution.declarationOwners.filter(
     (owner) => canonicalEquals(
-      owner as unknown as JsonValue,
-      executionResolution.inputContractOwner as unknown as JsonValue,
+      owner,
+      executionResolution.inputContractOwner,
     ),
   );
   const outputOwnerMatches = executionResolution.declarationOwners.filter(
     (owner) => canonicalEquals(
-      owner as unknown as JsonValue,
-      executionResolution.outputContractOwner as unknown as JsonValue,
+      owner,
+      executionResolution.outputContractOwner,
     ),
   );
   if (
@@ -1011,10 +1020,10 @@ function admitInvocationWithRequest(
     inputOwnerMatches.length !== 1 ||
     outputOwnerMatches.length !== 1 ||
     executionResolution.inputContractDigest !== sha256Canonical(
-      inputContract as unknown as JsonValue,
+      inputContract,
     ) ||
     executionResolution.outputContractDigest !== sha256Canonical(
-      outputContract as unknown as JsonValue,
+      outputContract,
     ) ||
     input.graphFunction.inputs.length !== 1 ||
     input.graphFunction.inputs[0] !== inputContract.contractRef ||
@@ -1174,10 +1183,10 @@ function admitInvocationWithRequest(
   if (
     input.invocation.programRef !== input.program.programRef ||
     input.invocation.programDigest !==
-      sha256Canonical(input.program as unknown as JsonValue) ||
+      sha256Canonical(input.program) ||
     input.invocation.graphFunctionRef !== input.graphFunction.name ||
     input.invocation.graphFunctionDigest !==
-      sha256Canonical(input.graphFunction as unknown as JsonValue) ||
+      sha256Canonical(input.graphFunction) ||
     input.invocation.catalogHandle !== selectedRow?.handle ||
     input.invocation.selectedDefinitionRef !== selectedRow?.definitionRef ||
     input.invocation.selectedDefinitionDigest !== selectedRow?.definitionDigest ||
@@ -1264,7 +1273,7 @@ function admitInvocationWithRequest(
           requestBasis.publicInvocation.invocationRef !==
             input.invocation.publicRequestInvocationRef ||
           requestBasis.publicInvocation.requestDigest !==
-            sha256Canonical(request as unknown as JsonValue) ||
+            sha256Canonical(request) ||
           basis.definitionDigest !==
             requestBasis.publicInvocation.definitionDigest ||
           basis.invocationPayloadDigest !==
@@ -1407,12 +1416,12 @@ function admitInvocationWithRequest(
       sourceInvocation.invocationVariant !== "start" ||
       sourceInvocation.publicStart === null ||
       !canonicalEquals(
-        sourceInvocation.publicStart as unknown as JsonValue,
-        reentry.sourceStart as unknown as JsonValue,
+        sourceInvocation.publicStart,
+        reentry.sourceStart,
       ) ||
       !canonicalEquals(
-        publicStart as unknown as JsonValue,
-        reentry.sourceStart as unknown as JsonValue,
+        publicStart,
+        reentry.sourceStart,
       ) ||
       sourceInvocation.workspaceBindingId !==
         input.workspaceBinding.bindingId ||
@@ -1483,8 +1492,8 @@ function admitInvocationWithRequest(
       suppliedSourceResultRef === null ||
       exactBasis === null ||
       !canonicalEquals(
-        exactBasis as unknown as JsonValue,
-        suppliedBasis as unknown as JsonValue,
+        exactBasis,
+        suppliedBasis,
       ) ||
       suppliedSourceProjectionAuthority.authorityDigest !==
         suppliedBasis.publicAuthorityDigest ||
@@ -1508,10 +1517,10 @@ function admitInvocationWithRequest(
       if (retained === null || sourceInvocation === null ||
         input.graphFunction.declarations["abg.supported_fulfillment_profile"] !== GOVERNANCE_FULFILLMENT_PROFILE ||
         input.rawInput.contractRef !== governanceContract("state") ||
-        !canonicalEquals(input.rawInput.value as JsonValue, retained as unknown as JsonValue) ||
-        sourceInvocation.programRef !== input.program.programRef || sourceInvocation.programDigest !== sha256Canonical(input.program as unknown as JsonValue) ||
+        !canonicalEquals(input.rawInput.value, retained) ||
+        sourceInvocation.programRef !== input.program.programRef || sourceInvocation.programDigest !== sha256Canonical(input.program) ||
         (!exactCurrent && (currentUse === null || input.currentSourceUse === undefined ||
-          !canonicalEquals(currentUse as unknown as JsonValue, input.currentSourceUse as unknown as JsonValue) ||
+          !canonicalEquals(currentUse, input.currentSourceUse) ||
           currentUse.currentCatalogBasisDigest !== input.catalogView.catalogBasisDigest || currentUse.currentCatalogViewDigest !== input.catalogView.viewDigest)) ||
         (exactCurrent && input.currentSourceUse !== undefined)) {
         return refusal("authority_mismatch", "retained library work requires its exact current input, declared entry, Program and workspace authority");
@@ -1570,7 +1579,7 @@ function admitInvocationWithRequest(
     return refusal("capability_mismatch", "required exact STDO environment access is not admitted for this invocation");
   }
   const programValidationDigest = sha256Canonical(
-    input.programValidation as unknown as JsonValue,
+    input.programValidation,
   );
   const admissionBody = {
     invocationRef: input.invocation.invocationRef,
@@ -1633,7 +1642,7 @@ function admitInvocationWithRequest(
     sourceResultBasis: input.sourceResultBasis ?? null,
     ...(input.runEnvironment === undefined ? {} : { runEnvironment: input.runEnvironment }),
   };
-  const invocationAdmissionDigest = sha256Canonical(admissionBody as unknown as JsonValue);
+  const invocationAdmissionDigest = sha256Canonical(admissionBody);
   const invocationAdmissionRef = `invocation-admission://abiogenesis/${invocationAdmissionDigest.slice("sha256:".length)}`;
   // These two events encode one admission and must retain one native sample.
   const invocationAdmissionEventTime = sampleNativeEventTime();
@@ -1682,7 +1691,7 @@ function admitInvocationWithRequest(
           programValidationDigest: admissionBody.programValidationDigest,
           gtlEntryCoordinate: admissionBody.gtlEntryCoordinate,
           gtlEntryTerm: admissionBody.gtlEntryTerm,
-        } as unknown as JsonValue,
+        },
       });
       const admissionEvent = admitRuntimeEvent(store, {
         kind: "invocation_admitted",
@@ -1699,7 +1708,7 @@ function admitInvocationWithRequest(
           invocationAdmissionRef,
           invocationAdmissionDigest,
           ...admissionBody,
-        } as unknown as JsonValue,
+        },
       });
       return { publicOperationEvent, admissionEvent };
     },

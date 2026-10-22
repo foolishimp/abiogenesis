@@ -43,7 +43,7 @@ import {
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
 
-export interface FanOutCompletedTaskRow {
+export type FanOutCompletedTaskRow = {
   readonly ordinal: number;
   readonly inputMemberRef: string;
   readonly inputMemberDigest: Sha256Digest;
@@ -56,9 +56,9 @@ export interface FanOutCompletedTaskRow {
   readonly outputMemberRef: string;
   readonly outputMemberDigest: Sha256Digest;
   readonly value: JsonValue;
-}
+};
 
-export interface FanOutStoppingTaskRow {
+export type FanOutStoppingTaskRow = {
   readonly ordinal: number;
   readonly inputMemberRef: string;
   readonly inputMemberDigest: Sha256Digest;
@@ -70,9 +70,9 @@ export interface FanOutStoppingTaskRow {
   readonly judgmentRef: string;
   readonly disposition: "blocked";
   readonly stoppingEventRef: string;
-}
+};
 
-interface FanOutCompletionBase {
+type FanOutCompletionBase = {
   readonly kind: "fan_out_completion_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -85,17 +85,17 @@ interface FanOutCompletionBase {
   readonly inputMemberContractRef: string;
   readonly outputMemberContractRef: string;
   readonly admissionEventRef: string;
-}
+};
 
-export interface CompleteFanOutAdmission extends FanOutCompletionBase {
+export type CompleteFanOutAdmission = FanOutCompletionBase & {
   readonly completionKind: "complete_vector";
   readonly taskRows: readonly FanOutCompletedTaskRow[];
   readonly outputVectorRef: string;
   readonly outputVectorDigest: Sha256Digest;
   readonly outputVector: Readonly<Record<string, JsonValue>>;
-}
+};
 
-export interface PartialFanOutAdmission extends FanOutCompletionBase {
+export type PartialFanOutAdmission = FanOutCompletionBase & {
   readonly completionKind: "partial_stop";
   readonly completedRows: readonly FanOutCompletedTaskRow[];
   readonly stoppingRow: FanOutStoppingTaskRow;
@@ -104,7 +104,7 @@ export interface PartialFanOutAdmission extends FanOutCompletionBase {
     readonly inputMemberRef: string;
     readonly inputMemberDigest: Sha256Digest;
   }[];
-}
+};
 
 export type FanOutCompletionAdmission =
   | CompleteFanOutAdmission
@@ -118,7 +118,7 @@ export interface FanOutCompletionReceipt {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-export interface FanOutCompletionRefusal {
+export type FanOutCompletionRefusal = {
   readonly kind: "fan_out_completion_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -129,7 +129,7 @@ export interface FanOutCompletionRefusal {
     | "task_census_mismatch"
     | "vector_contract_mismatch";
   readonly message: string;
-}
+};
 
 export type FanOutCompletionResult =
   | FanOutCompletionReceipt
@@ -339,6 +339,6 @@ function admitProjectedFanOutCompletion(
       completionRef: projection.completionRef,
       completionDigest: projection.completionDigest,
       ...projection.completionBody,
-    } as unknown as JsonValue,
+    },
   });
 }

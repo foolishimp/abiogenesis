@@ -702,7 +702,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
                         if (predicateRef === revisionIds.bridgePredicateRef)
                             return (isSemanticRevisionEnvelope(input) || isSemanticJobRevisionEnvelope(input)) && isWorksitePreparationInput(output) && output.kind === "worksite_revision_command_preparation_input";
                         if (predicateRef === revisionIds.evidenceInputPredicateRef)
-                            return isWorksiteRevisionCommandExecutionObservation(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && canonicalEquals(input, output.current.evidence?.executionObservation);
+                            return isWorksiteRevisionCommandExecutionObservation(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && output.current.evidence?.executionObservation !== undefined && canonicalEquals(input, output.current.evidence?.executionObservation);
                         if (isSemanticJobRevisionEnvelope(input) || isSemanticJobRevisionEnvelope(output)) {
                             if (!isSemanticJobRevisionEnvelope(input) || !isSemanticJobRevisionEnvelope(output))
                                 return false;

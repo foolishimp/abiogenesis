@@ -89,7 +89,7 @@ export function proposeJudgmentCandidate<Input, Output>(input: Readonly<{
     predicateRef,
     replayStateDigest: replayState.replayDigest,
   };
-  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  const candidateDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "judgment_candidate" as const,
     schemaVersion: "5.0.0" as const,

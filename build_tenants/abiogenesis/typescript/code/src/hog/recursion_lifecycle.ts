@@ -247,7 +247,7 @@ function deferredApplicationState(
     outcome.cCall.graphCallId !== traversal.openedTraversalScope.graphCallId ||
     outcome.cCall.frameId !== traversal.openedTraversalScope.frameId ||
     outcome.cCall.programLocusRef !== traversal.traversalStop.programLocusRef ||
-    sha256Canonical(traversal.input as unknown as JsonValue) !==
+    sha256Canonical(traversal.input) !==
       traversal.inputDigest ||
     traversal.inputDigest !== traversal.traversalStop.cursor.inputDigest
   ) return null;
@@ -341,14 +341,14 @@ function deferredRecursionCompletionsMatch(
 ): boolean {
   if (complete) {
     return canonicalEquals(
-      actual as unknown as JsonValue,
-      completePublicOutcome<ExecutableTraversalCompletion>(projected) as unknown as JsonValue,
+      actual,
+      completePublicOutcome<ExecutableTraversalCompletion>(projected),
     );
   }
   const { replayState: actualReplay, ...actualFields } = actual;
   const { replayState: projectedReplay, ...projectedFields } = projected;
   return OwnedReplay.runtimeReplayGuardsHaveSameOwnedCut(actualReplay, projectedReplay) &&
-    canonicalEquals(actualFields as unknown as JsonValue, projectedFields as unknown as JsonValue);
+    canonicalEquals(actualFields, projectedFields);
 }
 
 function finishRecursionTerminal(
@@ -363,7 +363,7 @@ function finishRecursionTerminal(
       clock,
       "terminal",
       "diagnostic://abiogenesis/hog/application-terminal-not-declared@5",
-      application as unknown as JsonValue,
+      application,
     );
   }
   const outcome = admittedDeferredCCallOutcome(state);
@@ -395,7 +395,7 @@ function finishRecursionTerminal(
       clock,
       "terminal-retry-progress",
       `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
-      retryExit as unknown as JsonValue,
+      retryExit,
     );
   }
   const candidate = Routes.proposeCCallOutcomeTransition({
@@ -416,7 +416,7 @@ function finishRecursionTerminal(
       clock,
       "terminal-route",
       `diagnostic://abiogenesis/hog/${candidate.code}@5`,
-      candidate as unknown as JsonValue,
+      candidate,
     );
   }
   const admitted = OwnedOutcome.admitOwnedCCallCompletion({
@@ -443,7 +443,7 @@ function finishRecursionTerminal(
       clock,
       "terminal-completion",
       `diagnostic://abiogenesis/hog/${admitted.code}@5`,
-      admitted as unknown as JsonValue,
+      admitted,
     );
   }
   return projectCCallCompletion(
@@ -494,7 +494,7 @@ function blockRecursion(
       clock,
       "preparation-refusal",
       `diagnostic://abiogenesis/hog/${preparationReceipt.code}@5`,
-      preparationReceipt as unknown as JsonValue,
+      preparationReceipt,
     );
   }
   const preparationAdmission = preparationReceipt?.admission ?? null;
@@ -520,7 +520,7 @@ function blockRecursion(
       clock,
       "blocked-route",
       `diagnostic://abiogenesis/hog/${route.code}@5`,
-      route as unknown as JsonValue,
+      route,
     );
   }
   const candidate = Abg.completeTraversalTransitionCandidate({
@@ -620,7 +620,7 @@ function beginRecursionApplicationUsing(
         coordinates.successorPrefix,
         `recursion-restoration-${leafOrdinal}`,
         "diagnostic://abiogenesis/hog/recursion-restoration-coordinates-absent@5",
-        coordinates as unknown as JsonValue,
+        coordinates,
       );
     }
     const restoration: RestoreDeferredRecursionInput = {
@@ -636,7 +636,7 @@ function beginRecursionApplicationUsing(
         coordinates.successorPrefix,
         `recursion-restoration-${leafOrdinal}`,
         "diagnostic://abiogenesis/hog/recursion-restoration-mismatch@5",
-        coordinates as unknown as JsonValue,
+        coordinates,
       );
     }
     const state = requireDeferredApplication(restored, restoration);
@@ -653,7 +653,7 @@ function beginRecursionApplicationUsing(
         coordinates.successorPrefix,
         `recursion-termination-${leafOrdinal}`,
         "diagnostic://abiogenesis/hog/recursion-termination-value-invalid@5",
-        application as unknown as JsonValue,
+        application,
       );
     }
     if (termination) {
@@ -674,7 +674,7 @@ function beginRecursionApplicationUsing(
         restored.successorPrefix,
         `recursion-child-${leafOrdinal}`,
         "diagnostic://abiogenesis/hog/recursion-child-preparation-absent@5",
-        application as unknown as JsonValue,
+        application,
       );
     }
     const childInput = restored.resultValue;
@@ -815,7 +815,7 @@ function completeRecursionChildUsing(
       evaluatorResult: state.result,
       evaluatorJudgment: state.judgment,
       sourceCursor: state.input.traversalStop.cursor,
-      evaluatorInput: state.input.input as Readonly<Record<string, JsonValue>>,
+      evaluatorInput: state.input.input,
       evaluatorInputDigest: state.input.inputDigest,
       childExecutionBasisRef: frame.childExecutionBasis.basisRef,
       childTraversalScopeRef: frame.childTraversalScope.scopeRef,
@@ -888,7 +888,7 @@ function completeRecursionChildUsing(
       clock,
       "child-completion",
       "diagnostic://abiogenesis/hog/application-foldback-mismatch@5",
-      child as unknown as JsonValue,
+      child,
     );
   }
   const foldbackReceipt = Abg.admitChildFoldback({
@@ -917,7 +917,7 @@ function completeRecursionChildUsing(
       clock,
       "foldback",
       `diagnostic://abiogenesis/hog/${foldbackReceipt.code}@5`,
-      foldbackReceipt as unknown as JsonValue,
+      foldbackReceipt,
     );
   }
   const foldback = foldbackReceipt.admission;
@@ -940,7 +940,7 @@ function completeRecursionChildUsing(
       clock,
       "reentry",
       `diagnostic://abiogenesis/hog/${target.code}@5`,
-      target as unknown as JsonValue,
+      target,
     );
   }
   const route = Routes.proposeRecursionRoute(
@@ -962,7 +962,7 @@ function completeRecursionChildUsing(
       clock,
       "child-route",
       `diagnostic://abiogenesis/hog/${route.code}@5`,
-      route as unknown as JsonValue,
+      route,
     );
   }
   const candidate = Abg.completeTraversalTransitionCandidate({
@@ -1004,7 +1004,7 @@ function completeRecursionChildUsing(
       clock,
       "child-completion",
       `diagnostic://abiogenesis/hog/${admitted.code}@5`,
-      admitted as unknown as JsonValue,
+      admitted,
     );
   }
   if (blocked) {
@@ -1069,7 +1069,7 @@ function completeRecursionChildUsing(
       clock,
       "advance-route",
       `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
-      nextCursor as unknown as JsonValue,
+      nextCursor,
     );
   }
   return completion(

@@ -1,0 +1,159 @@
+file:line (scan before the last cast removals, except rows marked as added by the completeness scan; the function is the key)	function	decision	channel or reason
+abg/artifact_truth.ts:294	establishInlineLock	T	unreachable (prior check in same expression/statement)
+abg/c_call.ts:1987	projectAdmittedActorTransport	A	projectAdmittedActorTransport false (transport mismatch)
+abg/c_call.ts:1992	projectAdmittedActorTransport	A	projectAdmittedActorTransport false (transport mismatch)
+abg/c_call.ts:2021	signals	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/c_call.ts:3419	admitPlannedCCallRuntimeFailureClose	T	unreachable (prior check in same expression/statement)
+abg/c_call.ts:6287	admitOwnedPlannedPendingInteraction	T	unreachable (prior check in same expression/statement)
+abg/c_call.ts:6906	admitResult	A	admitResult refusal
+abg/construction_continuation.ts:76	deriveConstructionIntentContinuations	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/default_library.ts:125	projectGovernanceChoice	A	projectGovernanceChoice null
+abg/default_library.ts:276	projectGovernanceFold	T	unreachable (prior check in same expression/statement)
+abg/event_prefix.ts:753	advance	T	TypeError (writer channel)
+abg/event_store.ts:3546	constructRuntimeHistory	T	unreachable (prior check in same expression/statement)
+abg/execution_basis.ts:182	deriveOwnedNativeInstructionAssemblyBasis	T	same answer as enclosing catch, or unreachable
+abg/execution_basis.ts:533	worksiteAuthorityCarrier	T	unreachable (prior check in same expression/statement)
+abg/execution_basis.ts:992	hasExactWorksiteCommandLeafSourceAtDurablePrefix	T	same answer as enclosing catch, or unreachable
+abg/execution_basis.ts:1896	admitExecutionBasis	T	unreachable (prior check in same expression/statement)
+abg/fan_out_projection.ts:546	exactTaskTruth	A	exactTaskTruth null
+abg/fh_continuation_projection.ts:191	exactOpenedBasis	A	exactOpenedBasis null
+abg/fh_continuation_projection.ts:192	exactOpenedBasis	A	exactOpenedBasis null
+abg/instruction_assembly.ts:479	revisionPromptMetadata	T	unreachable (prior check in same expression/statement)
+abg/instruction_assembly.ts:1146	semanticInstructionResultMatches	T	same answer as enclosing catch, or unreachable
+abg/invocation_admission.ts:570	deriveSourceResultBasisAtPrefix	A	deriveSourceResultBasisAtPrefix null
+abg/invocation_admission.ts:571	deriveSourceResultBasisAtPrefix	A	deriveSourceResultBasisAtPrefix null
+abg/invocation_execution_truth.ts:63	projectGovernanceCoveredSourceUse	T	same answer as enclosing catch, or unreachable
+abg/invocation_execution_truth.ts:65	projectGovernanceCoveredSourceUse	T	same answer as enclosing catch, or unreachable
+abg/invocation_execution_truth.ts:131	coveredGovernancePredecessor	T	unreachable (prior check in same expression/statement)
+abg/invocation_execution_truth.ts:157	coveredGovernancePredecessor	A	coveredGovernancePredecessor null
+abg/native_work_reacquisition.ts:165	projectNativeWorkReacquisitionOccurrence	T	same answer as enclosing catch, or unreachable
+abg/native_work_reacquisition.ts:303	nativeWorkReacquisitionResultMatches	A	nativeWorkReacquisitionResultMatches false
+abg/native_work_reacquisition.ts:385	projectReacquiredNativeWorkCommandSourceAtPrefix	T	same answer as enclosing catch, or unreachable
+abg/native_work_reacquisition.ts:394	projectReacquiredNativeWorkCommandSourceAtPrefix	T	same answer as enclosing catch, or unreachable
+abg/native_worksite_execution.ts:102	projectNativeWorkspaceWorkSourceAtPrefix	A	projectNativeWorkspaceWorkSourceAtPrefix null
+abg/native_worksite_execution.ts:205	projectSameRunNativeWorkCommandSourceAtPrefix	T	unreachable (prior check in same expression/statement)
+abg/project_read_ports.ts:1381	contents	A	no-action input TypeError (existing refusal)
+abg/qualification_proof.ts:143	graphOwner	T	unreachable (prior check in same expression/statement)
+abg/qualification_proof.ts:423	nativeRuntimeCases	A	nativeRuntimeCases null
+abg/qualification_proof.ts:442	projectNativeRuntimeAssessment	T	same answer as enclosing catch, or unreachable
+abg/qualification_proof.ts:606	projectQualificationOwnerRuling	T	same answer as enclosing catch, or unreachable
+abg/qualification_proof.ts:660	projectQualificationConstructionAuthors	T	same answer as enclosing catch, or unreachable
+abg/qualification_proof.ts:888	projectExactCandidateQualification	T	same answer as enclosing catch, or unreachable
+abg/qualification_proof.ts:889	projectExactCandidateQualification	T	same answer as enclosing catch, or unreachable
+abg/qualification_proof.ts:935	projectQualificationVerdict	T	same answer as enclosing catch, or unreachable
+abg/requirement_handoff.ts:63	authenticateRequirementHandoffBasis	T	same answer as enclosing catch, or unreachable
+abg/retry.ts:2912	opened	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/retry.ts:5880	admitPlannedRetryRuntimeFailureTransitionInActiveTransaction	T	unreachable (prior check in same expression/statement)
+abg/retry.ts:5898	admitPlannedRetryRuntimeFailureTransitionInActiveTransaction	T	unreachable (prior check in same expression/statement)
+abg/retry.ts:6585	ownerMismatch	T	unreachable (prior check in same expression/statement)
+abg/retry.ts:6731	admitPlannedCompletedRetryProgressFromHistory	T	unreachable (prior check in same expression/statement)
+abg/retry.ts:6748	admitPlannedCompletedRetryProgressFromHistory	T	unreachable (prior check in same expression/statement)
+abg/runtime_liveness.ts:102	deriveActorLivenessContext	T	same answer as enclosing catch, or unreachable
+abg/runtime_liveness.ts:103	deriveActorLivenessContext	T	same answer as enclosing catch, or unreachable
+abg/runtime_liveness.ts:104	deriveActorLivenessContext	T	same answer as enclosing catch, or unreachable
+abg/runtime_liveness.ts:641	createRuntimeLivenessEventValidator	A	runtime liveness validator false
+abg/semantic_job.ts:80	authenticateOwnedSemanticJobBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_job.ts:125	predecessor	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/semantic_job.ts:151	semanticJobInputMatchesBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_job.ts:157	semanticJobInputMatchesBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_job.ts:262	validateWorksiteFileParentsPlanAtPrefix	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/semantic_job.ts:331	semanticJobSavedWorksite	T	same answer as enclosing catch, or unreachable
+abg/semantic_job.ts:354	bridges	T	same answer as enclosing catch, or unreachable
+abg/semantic_job.ts:510	semanticJobReadDependenciesAtPrefix	T	same answer as enclosing catch, or unreachable
+abg/semantic_job.ts:549	projectNativeSemanticTask	T	same answer as enclosing catch, or unreachable
+abg/semantic_job.ts:595	nativeSemanticResultMatchesBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_revision.ts:115	conservedNativeRevisionParent	T	unreachable (prior check in same expression/statement)
+abg/semantic_revision.ts:279	nativeIntakeFacts	T	unreachable (prior check in same expression/statement): `!semanticJobLifecycle` refuses original_job_or_lifecycle_mismatch first
+abg/semantic_revision.ts:419	jobRevisionSubjectAtBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_revision.ts:576	semanticJobRevisionInputMatchesBasis	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/semantic_revision.ts:720	revisionWorksiteProjection	T	unreachable (prior check in same expression/statement)
+abg/semantic_revision.ts:809	semanticRevisionInputMatchesBasis	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/semantic_revision.ts:874	projectRevisionDesignCoordinates	T	same answer as enclosing catch, or unreachable
+abg/semantic_stage.ts:151	semanticInputAtBasisEquals	A	semanticInputAtBasisEquals false
+abg/semantic_stage.ts:167	exactSources	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/semantic_stage.ts:184	semanticInputMatchesBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_stage.ts:209	semanticInputMatchesBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_stage.ts:214	semanticInputMatchesBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_stage.ts:230	semanticWorksiteContextMatchesBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_stage.ts:236	semanticWorksiteContextMatchesBasis	T	same answer as enclosing catch, or unreachable
+abg/semantic_stage.ts:321	selectedSemanticPredecessor	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/semantic_stage.ts:346	candidates	T	same answer as enclosing catch, or unreachable
+abg/traversal_route.ts:4404	admitRoute	T	unreachable (prior check in same expression/statement): `(retained === null) !== (boundInput === undefined)` refuses with the bound-input detail first
+abg/witness_admission_operation.ts:486	validatePacket	T	unreachable (prior check in same expression/statement)
+abg/witness_admission_operation.ts:800	prepareSemanticEvent	T	unreachable (prior check in same expression/statement)
+abg/witness_admission_operation.ts:801	prepareSemanticEvent	T	unreachable (prior check in same expression/statement)
+abg/witness_admission_operation.ts:926	prepareSemanticEvent	T	TypeError (writer channel)
+abg/witness_admission_operation.ts:1019	prepareSemanticEvent	T	unreachable (prior check in same expression/statement)
+abg/witness_admission_operation.ts:1020	prepareSemanticEvent	T	unreachable (prior check in same expression/statement)
+abg/worker_transport.ts:187	collectToolUses	T	unreachable (prior check in same expression/statement)
+abg/worksite_command_forward.ts:193	projectWorksiteCommandForwardRelation	T	same answer as enclosing catch, or unreachable
+abg/worksite_command_forward.ts:240	authenticateWorksiteCommandForwardBasis	T	same answer as enclosing catch, or unreachable
+abg/worksite_construction_recovery.ts:107	taskBridge	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/worksite_construction_recovery.ts:282	projectPreservedWorksiteProposal	T	same answer as enclosing catch, or unreachable
+abg/worksite_construction_recovery.ts:300	projectPreservedWorksiteProposal	T	same answer as enclosing catch, or unreachable
+abg/worksite_construction_recovery.ts:348	authenticateWorksitePreservedResultBasis	T	same answer as enclosing catch, or unreachable
+abg/worksite_construction_recovery.ts:354	authenticateWorksitePreservedResultBasis	T	same answer as enclosing catch, or unreachable
+abg/worksite_construction_recovery.ts:421	nativeWorksiteRecoverySourceAtPrefix	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/worksite_input_provenance.ts:127	completedC3Child	A	completedC3Child null
+abg/worksite_input_provenance.ts:452	projectObservedWorksiteCommandChildAtPrefix	T	unreachable (prior check in same expression/statement)
+abg/worksite_input_provenance.ts:512	projectSameRunWorksiteCommandSourceAtPrefix	T	unreachable (prior check in same expression/statement)
+abg/worksite_input_provenance.ts:589	readDependencyPreparationHasNativeBridgeSourceAtPrefix	A	readDependencyPreparationHasNativeBridgeSource false
+abg/worksite_input_provenance.ts:593	readDependencyPreparationHasNativeBridgeSourceAtPrefix	A	readDependencyPreparationHasNativeBridgeSource false
+abg/worksite_revision.ts:170	covers	T	same answer as enclosing catch, or unreachable
+abg/worksite_revision.ts:173	covers	T	same answer as enclosing catch, or unreachable
+abg/worksite_revision.ts:440	matching	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/worksite_revision.ts:807	worksiteExecutionSourcesCurrent	A	worksiteExecutionSourcesCurrent false
+gtl/consensus.ts:1156	selectConsensusNextAction	T	unreachable (prior check in same expression/statement)
+gtl/consensus.ts:1284	evaluateConsensusAction	T	unreachable (prior check in same expression/statement)
+gtl/consensus.ts:1285	evaluateConsensusAction	T	unreachable (prior check in same expression/statement)
+gtl/consensus.ts:1464	refreshConsensusNextAction	T	unreachable (prior check in same expression/statement)
+gtl/consensus.ts:1465	refreshConsensusNextAction	T	unreachable (prior check in same expression/statement)
+implementation/leaf_invocation_port.ts:494	nativeJudgmentProofOperations	T	unreachable (prior check in same expression/statement)
+implementation/leaf_invocation_port.ts:495	nativeJudgmentProofOperations	T	unreachable (prior check in same expression/statement)
+implementation/leaf_invocation_port.ts:1152	hasExactWorksiteLeafExecutionAuthority	A	hasExactWorksiteLeafExecutionAuthority false
+implementation/release_publication.ts:163	isReleaseOperationArtifact	A	isReleaseOperationArtifact false
+implementation/release_publication.ts:168	isReleaseOperationArtifact	A	isReleaseOperationArtifact false
+implementation/release_publication.ts:169	isReleaseOperationArtifact	A	isReleaseOperationArtifact false
+implementation/release_publication.ts:170	isReleaseOperationArtifact	A	isReleaseOperationArtifact false
+implementation/release_publication.ts:201	prior	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+implementation/semantic_revision.ts:117	realizeSemanticRevisionNativeConstruction	T	unreachable (prior check in same expression/statement)
+implementation/worksite_file_replace.ts:401	realizeWorksiteFileReplace	T	same answer as enclosing catch, or unreachable
+implementation/worksite_file_replace.ts:729	realizeWorksiteFileParents	T	same answer as enclosing catch, or unreachable
+owner_bindings/run_invocation.ts:1836	runCurrentIntentOwner	T	unreachable (prior check in same expression/statement)
+owner_bindings/run_invocation.ts:1917	runSelectedActionOwner	T	unreachable (prior check in same expression/statement)
+product/builtin_semantics.ts:924	evaluate	T	same answer as enclosing catch, or unreachable
+product/catalog.ts:474	admitGraphFunctionCatalog	T	unreachable (prior check in same expression/statement)
+product/environment.ts:802	verifiedArtifactMatchesEstablishedLock	T	unreachable (prior check in same expression/statement)
+product/environment.ts:880	isProductInstallCandidateWithLockCheck	T	unreachable (prior check in same expression/statement)
+product/native_workspace_work.ts:220	nativeWorkspaceWorkResultMatches	T	unreachable (prior check in same expression/statement)
+product/semantic_job.ts:261	projectSemanticJobBindings	T	same answer as enclosing catch, or unreachable
+product/semantic_job.ts:401	predecessors	T	unreachable (prior check in same expression/statement)
+product/semantic_job.ts:720	evaluateSemanticJobRelation	T	same answer as enclosing catch, or unreachable
+product/semantic_job.ts:898	constructNativeSemanticTask	T	unreachable (prior check in same expression/statement)
+product/semantic_job.ts:982	evaluateNativeSemanticRelation	T	same answer as enclosing catch, or unreachable
+product/semantic_job.ts:994	evaluateNativeSemanticRelation	T	same answer as enclosing catch, or unreachable
+product/semantic_revision.ts:185	merge	T	unreachable (prior check in same expression/statement)
+product/semantic_revision.ts:389	evaluateNativeSemanticRevisionRelation	T	same answer as enclosing catch, or unreachable
+product/worksite_command_execution.ts:412	reacquisitionTaskMatches	A	reacquisitionTaskMatches false
+product/worksite_command_execution.ts:1938	helperArtifactPreservesProtectedObservations	A	helperArtifactPreservesProtectedObservations false
+product/worksite_preparation_contracts.ts:141	isWorksiteRetentionContractRelation	T	unreachable (prior check in same expression/statement)
+product/worksite_preparation_contracts.ts:178	isGraphInputRetentionContractRelation	T	unreachable (prior check in same expression/statement)
+validator/qualification.ts:164	predicateOutcomes	T	same answer as HEAD: an absent expected value throws; the material catch answers null
+validator/qualification.ts:167	predicateOutcomes	T	same answer as HEAD: an absent expected value throws; the material catch answers null
+validator/qualification.ts:180	predicateOutcomes	T	same answer as HEAD: an absent expected value throws; the material catch answers null
+validator/qualification.ts:389	qualificationTaskScopeMatches	T	unreachable (prior check in same expression/statement)
+validator/qualification.ts:449	qualificationMaterialMatches	T	same answer as enclosing catch, or unreachable
+validator/qualification.ts:604	matches	T	unreachable (prior check in same expression/statement)
+validator/self_conformance.ts:262	evaluateSelfConformance	T	unreachable (prior check in same expression/statement)
+validator/self_conformance_basis.ts:58	resolveSelfConformanceOwner	T	same answer as enclosing catch, or unreachable
+validator/self_conformance_semantics.ts:63	qualificationResultRelation	T	same answer as enclosing catch, or unreachable
+abg/instruction_assembly.ts:785	termMaterial	T	added by the completeness scan (final tree line): equivalent restructure; the filtered indices are used only when no term is absent, as at 0c362da15
+abg/instruction_assembly.ts:812	constructJobInstructionAssembly	T	added by the completeness scan (final tree line): `?? []` applies only without a revision subject, where origins are not emitted
+abg/retry.ts:6582	planCompletedRetryProgressFromHistory	T	added by the completeness scan (final tree line): unreachable; `progresses[index]!.progressRef` is read first and throws as at 0c362da15
+abg/worksite_command_forward.ts:209	worksiteCommandForwardEntryDisposition	T	added by the completeness scan (final tree line): unreachable after `grants.length!==1`
+abg/worksite_revision.ts:378	projectionFacts	T	added by the completeness scan (final tree line): unreachable after `capabilityGrants.length!==1`
+abg/worksite_revision.ts:419	deriveCurrentOrigins	T	added by the completeness scan (final tree line); same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/worksite_revision.ts:474	worksiteRevisionEntryBindingDisposition	T	added by the completeness scan (final tree line); same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/worksite_revision.ts:488	worksiteRevisionEntryBindingDisposition	T	added by the completeness scan (final tree line); same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/worksite_revision.ts:618	projectClosedConstructionRetainedVector	T	added by the completeness scan (final tree line): same answer as the enclosing catch (null)
+implementation/semantic_revision.ts:38	result	T	added by the completeness scan (final tree line): typed; `output` is a record or null, and `??` selects the failure value exactly where `output === null` did

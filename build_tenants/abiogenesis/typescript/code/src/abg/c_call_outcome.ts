@@ -133,6 +133,7 @@ import {
 } from "./traversal_route.js";
 import type { TraversalTransitionCandidate } from "./traversal_transition.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 import { ok, type StructuralRefusal } from "../shared/refusal.js";
 import { checkExactRecord, onlyExactMatch, resolveExactMatch, type CheckedRecord, type RecordCheck } from "../shared/select/index.js";
 
@@ -184,7 +185,7 @@ export function projectWorksiteBasisObservation(
       ), PAYLOAD_RECORD);
   if (admissionRow.kind !== "one" ||
     admissionRow.event.admissionOrdinal >= event.admissionOrdinal ||
-    payload.rawInputDigest !== sha256Canonical(request as unknown as JsonValue)) {
+    payload.rawInputDigest !== sha256Canonical(request)) {
     return null;
   }
   const admission = admissionRow.value;
@@ -220,7 +221,7 @@ export function projectWorksiteBasisObservation(
   return admittedGrant !== null && isJsonRecord(admittedGrant) &&
       canonicalEquals(
         admittedGrant,
-        request.capabilityGrant as unknown as JsonValue,
+        request.capabilityGrant,
       ) &&
       request.capabilityGrant.grantRef ===
         admittedGrant.grantRef &&
@@ -288,9 +289,9 @@ export function projectWorksiteSelectedOccurrence(
     row.kind === "implementation_admitted" &&
     isJsonRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef), PAYLOAD_RECORD));
   if (!isWorksiteFileReplaceRequest(request) ||
-    basisPayload.rawInputDigest !== sha256Canonical(request as unknown as JsonValue) ||
+    basisPayload.rawInputDigest !== sha256Canonical(request) ||
     !canonicalEquals(
-      request.workspaceAuthorityBasis as unknown as JsonValue,
+      request.workspaceAuthorityBasis,
       bindingRow.payload.workspaceAuthorityBasis!,
     ) ||
     implementationRow === null || !isJsonRecord(implementationRow.payload) ||
@@ -395,7 +396,7 @@ export function projectWorksiteFailureResultRequest(event: RuntimeEvent,
     authenticated.cCall.runId !== event.runId ||
     evidenceBody.cCallRef !== event.aggregateId || evidenceBody.evidenceClass !== "deterministic" ||
     evidenceBody.implementationRef !== authenticated.authorization.implementationRef ||
-    evidenceBody.inputDigest !== sha256Canonical(authenticated.request as unknown as JsonValue) ||
+    evidenceBody.inputDigest !== sha256Canonical(authenticated.request) ||
     evidenceBody.outputDigest !== event.payload.valueDigest ||
     evidenceDigest !== sha256Canonical(evidenceBody) ||
     evidenceRef !== `evidence://abiogenesis/${String(evidenceDigest).slice("sha256:".length)}`) return null;
@@ -903,9 +904,9 @@ function projectCCallOutcomeReceiptFromTruth(
   if (basis.disposition === "judged") {
     const admitted = projectAdmittedCCallStateAtPrefix(
       projection.runtimePrefix,
-      basis.admitted.cCall as unknown as Readonly<Record<string, JsonValue>>,
-      basis.admitted.result as unknown as Readonly<Record<string, JsonValue>>,
-      basis.admitted.judgment as unknown as Readonly<Record<string, JsonValue>>,
+      basis.admitted.cCall,
+      basis.admitted.result,
+      basis.admitted.judgment,
     );
     return admitted === null
       ? null
@@ -1092,7 +1093,7 @@ function stageCCallResult(
       input.graphFunction.name !== WORKSITE_C0_IDS.graphFunctionRef ||
       input.cCall.failureContractRef !== WORKSITE_C0_IDS.failureContractRef ||
       !input.graphFunction.effects.includes(WORKSITE_FILE_REPLACE_EFFECT_URI) ||
-      input.inputDigest !== sha256Canonical(authenticated.request as unknown as JsonValue) ||
+      input.inputDigest !== sha256Canonical(authenticated.request) ||
       sha256Canonical(input.input) !== input.inputDigest ||
       authenticated.executionBasis.basisDigest !== input.executionBasis.basisDigest ||
       authenticated.implementationSet.implementationSetDigest !== input.implementationSet.implementationSetDigest ||
@@ -1105,7 +1106,7 @@ function stageCCallResult(
   // foldback. Only the leaf performed this effect and owns its commit residue.
   const parentsPhysical = input.outcomeClass !== "leaf" ? null : isWorksiteFileParentsSuccess(resultCandidate) ? resultCandidate :
     isWorksiteFileParentsFailure(resultCandidate) ? resultCandidate.physicalOutcome : null;
-  if (parentsPhysical !== null && (input.outcomeClass !== "leaf" || sha256Canonical(parentsPhysical.request as unknown as JsonValue) !== input.inputDigest ||
+  if (parentsPhysical !== null && (input.outcomeClass !== "leaf" || sha256Canonical(parentsPhysical.request) !== input.inputDigest ||
     parentsPhysical.authorization.cCallRef !== input.cCall.cCallRef || parentsPhysical.authorization.cCallDigest !== input.cCall.cCallDigest ||
     parentsPhysical.authorization.executionBasisRef !== input.executionBasis.basisRef ||
     parentsPhysical.authorization.leafResolutionCandidateDigest !== input.resolution.leafResolutionCandidateDigest))
@@ -1205,7 +1206,7 @@ function stageCCallResult(
       disposition: "retry" as const,
       cCall: input.cCall,
       source: retrySource,
-      failureCandidate: resultCandidate as JsonValue,
+      failureCandidate: resultCandidate,
       failureValueKind: input.failureValueKind,
     });
   }
@@ -1287,7 +1288,8 @@ function stageCCallResult(
                 if (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")) {
                   if (input.cCall.implementationRef === SEMANTIC_REVISION_IDS.bridgeImplementationRef) {
                     const expected = projectRevisionWorksitePreparation(basis, input.input);
-                    return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as JsonValue);
+                    const admittedValue = admitJson(value);
+                    return expected !== null && admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
                   }
                   return semanticRevisionResultMatchesBasis(basis, input.input, value) &&
                     (![SEMANTIC_REVISION_IDS.selectionImplementationRef, SEMANTIC_REVISION_IDS.authorImplementationRef, SEMANTIC_REVISION_IDS.assessorImplementationRef].some(r => r === input.cCall.implementationRef) ||
@@ -1295,15 +1297,18 @@ function stageCCallResult(
                 }
                 if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.bridgeImplementationRef) {
                   const expected = projectSemanticWorksitePreparation(basis, input.input);
-                  return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as JsonValue);
+                  const admittedValue = admitJson(value);
+                  return expected !== null && admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
                 }
                 if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.evidenceInputImplementationRef) {
                   const expected = projectSemanticEvidenceInput(basis, input.input);
-                  return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as JsonValue);
+                  const admittedValue = admitJson(value);
+                  return expected !== null && admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
                 }
                 if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.terminalImplementationRef) {
                   const expected = projectSemanticEnvelopeOutput(basis, input.input);
-                  return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as JsonValue);
+                  const admittedValue = admitJson(value);
+                  return expected !== null && admittedValue.kind === "ok" && canonicalEquals(expected, admittedValue.value);
                 }
                 return semanticResultMatchesBasis(basis, input.input, value) && semanticInstructionResultMatches(basis, input.input, value);
               })()) &&
@@ -1314,7 +1319,7 @@ function stageCCallResult(
               ) &&
               input.leafPort.validateResultEvidenceLineage(
                 input.cCall.outputContractRef,
-                value as Readonly<Record<string, JsonValue>>,
+                value,
                 evidence.map((row): ResultEvidenceLineage => {
                   const common = {
                     cCallRef: input.cCall.cCallRef,

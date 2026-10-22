@@ -11,7 +11,7 @@ import {
 } from "../shared/effect_definition.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import {
   admitRuntimeContract,
   type OwnerSemanticOutput,
@@ -317,7 +317,9 @@ function statusProjection(
       if (fluentRef === null) {
         throw new TypeError("status projection lacks owner fluent identity");
       }
-      const digest = sha256Canonical(row as JsonValue);
+      const admittedRow = admitJson(row);
+      if (admittedRow.kind !== "ok") throw new TypeError("status projection fluent is not admitted JSON");
+      const digest = sha256Canonical(admittedRow.value);
       return reference(fluentRef, digest);
     }),
   };
@@ -351,7 +353,7 @@ function resultProjection(
       : "graph_call_result_projection",
     subject: sourceCoordinate(request),
     result,
-    terminalResult: terminalResult as unknown as JsonValue,
+    terminalResult: terminalResult,
     terminalRoute,
     replay,
   };
@@ -585,9 +587,7 @@ function runReadKernel(
       }
       const resource = acquired.resource;
       try {
-        const request = call.invocation.request as Readonly<
-          Record<string, JsonValue>
-        >;
+        const request = call.invocation.request;
         const source = sourceCoordinate(request);
         const basis = basisCoordinate(request);
         const slots = call.invocation.invocationAuthority.slots;
@@ -637,7 +637,7 @@ function runReadKernel(
           packet.definitionKey.operationId,
         );
         if (executingContract === null) throw new TypeError("executing read owner has invalid Product operation metadata");
-        if (!canonicalEquals(executingContract.contractCatalog as unknown as JsonValue, call.invocation.contractCatalog as unknown as JsonValue) ||
+        if (!canonicalEquals(executingContract.contractCatalog, call.invocation.contractCatalog) ||
             !canonicalEquals(executingContract.flatRow, call.invocation.requestContract.flatRow)) {
           return finishRead(
             resource,
@@ -664,11 +664,11 @@ function runReadKernel(
         } as const;
         if (
           slots.actor !== null ||
-          !canonicalEquals(slots.workspace_binding as unknown as JsonValue, expectedAuthority.workspace_binding) ||
-          !canonicalEquals(slots.product_set as unknown as JsonValue, expectedAuthority.product_set as unknown as JsonValue) ||
-          !canonicalEquals(slots.dependency_lock as unknown as JsonValue, expectedAuthority.dependency_lock) ||
+          !canonicalEquals(slots.workspace_binding, expectedAuthority.workspace_binding) ||
+          !canonicalEquals(slots.product_set, expectedAuthority.product_set) ||
+          !canonicalEquals(slots.dependency_lock, expectedAuthority.dependency_lock) ||
           !canonicalEquals(
-            slots.capability_grants as unknown as JsonValue,
+            slots.capability_grants,
             expectedAuthority.capability_grants,
           ) ||
           expectedGrants.some((grant, index) =>
@@ -777,7 +777,7 @@ function binding(
       }
       const resource = acquired.resource;
       try {
-        const request = call.invocation.request as Readonly<Record<string, JsonValue>>;
+        const request = call.invocation.request;
         const basis = basisCoordinate(request);
         if (
           basis.ref !== resource.entryPrefix.eventLogRef ||

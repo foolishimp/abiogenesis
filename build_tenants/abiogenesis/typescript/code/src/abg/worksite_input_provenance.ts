@@ -31,6 +31,7 @@ import { governanceRef, governanceContract, isGovernanceWorkState } from "../pro
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution_identity.js";
 import { worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 import { ok, type StructuralRefusal } from "../shared/refusal.js";
 import { checkExactRecord, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
 
@@ -123,7 +124,7 @@ function completedC3Child(prefix: RuntimeEventPrefix, parent: ExecutionBasis,
   if (completed === null || !record(completed.judgment.payload) || !record(completed.result.payload) ||
     completed.result.payload.resultDigest !== payload.childResultDigest ||
     completed.judgment.payload.judgmentRef !== payload.childJudgmentRef ||
-    !canonicalEquals(completed.value, parentResult.payload.value as JsonValue) || payload.outputDigest !== sha256Canonical(completed.value)) return null;
+    (parentResult.payload.value === undefined || !canonicalEquals(completed.value, parentResult.payload.value)) || payload.outputDigest !== sha256Canonical(completed.value)) return null;
   const terminal = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:resultRef:" + payload.childResultRef), (event) => event.kind === "terminal_reached" && sameScope(event, closed) &&
     record(event.payload) && event.payload.closureRef === payload.childClosureRef &&
     event.payload.closureContractRef === closureContractRef && event.payload.resultRef === payload.childResultRef &&
@@ -221,7 +222,7 @@ function retainedWorksiteInputRelations(prefix: RuntimeEventPrefix, route: Runti
       e.aggregateId === result.aggregateId && record(e.payload) && e.payload.resultDigest === digest &&
       e.payload.judgment === "advance" && e.admissionOrdinal > result.admissionOrdinal && e.causationEventRefs.includes(result.eventId));
   };
-  rows("id:" + route.eventId, e => canonicalEquals(e as unknown as JsonValue, route as unknown as JsonValue));
+  rows("id:" + route.eventId, e => canonicalEquals(e, route));
   if (!record(route.payload) || typeof route.basisId !== "string") return stamps.join("|");
   const payload = route.payload;
   basis(route.basisId);
@@ -291,7 +292,7 @@ export function projectRetainedWorksiteInputAtPrefix(
   const indexedRoutes = indexedRuntimeEvents(prefix, "id:" + route.eventId);
   // The prefix already owns this immutable event; check identity before any
   // whole-event serialization. Detached copies retain canonical comparison.
-  if ((!indexedRoutes.includes(route) && !indexedRoutes.some((event) => canonicalEquals(event as unknown as JsonValue, route as unknown as JsonValue))) ||
+  if ((!indexedRoutes.includes(route) && !indexedRoutes.some((event) => canonicalEquals(event, route))) ||
     !record(route.payload) || route.payload.routeKind !== "advance" || !record(route.payload.boundInput)) return null;
   const routePayload = route.payload;
   const asserted = route.payload.boundInput;
@@ -301,7 +302,7 @@ export function projectRetainedWorksiteInputAtPrefix(
   const value = asserted.value as unknown as import("../product/worksite_preparation_contracts.js").WorksitePreparationBoundInput;
   const entryBasis = projectExactExecutionBasisAtPrefix(prefix, route.basisId);
   if (entryBasis === null || (!generic && !isWorksitePreparationInput(entryBasis.rawInputValue)) ||
-    !canonicalEquals(entryBasis.rawInputValue, value.entry as unknown as JsonValue) || entryBasis.graphRef !== route.payload.declarationRef ||
+    !canonicalEquals(entryBasis.rawInputValue, value.entry) || entryBasis.graphRef !== route.payload.declarationRef ||
     entryBasis.graphDigest !== route.payload.declarationDigest || entryBasis.graphFunctionRef !== route.graphFunctionRef ||
     entryBasis.graphRef !== route.materializationRef) return null;
   const sourceOpen = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + routePayload.cCallRef), (event) => event.kind === "c_call_opened" && sameScope(event, route) &&
@@ -313,7 +314,7 @@ export function projectRetainedWorksiteInputAtPrefix(
     event.aggregateId === sourceOpen.aggregateId && record(event.payload) && event.payload.resultClass === "success"));
   if (resultEvent === null || !record(resultEvent.payload) || typeof resultEvent.payload.resultRef !== "string") return null;
   const source = successfulResult(events, resultEvent.payload.resultRef, sourceOpen);
-  if (source === null || !canonicalEquals(source.value, value.source as unknown as JsonValue) || !record(source.judgment.payload) ||
+  if (source === null || !canonicalEquals(source.value, value.source) || !record(source.judgment.payload) ||
     source.judgment.payload.judgmentRef !== route.payload.judgmentRef ||
     source.judgment.admissionOrdinal >= route.admissionOrdinal ||
     ![entryBasis.admissionEventRef, source.result.eventId, source.judgment.eventId].every((ref) => route.causationEventRefs.includes(ref))) return null;
@@ -331,7 +332,7 @@ export function projectRetainedWorksiteInputAtPrefix(
   if (sourceBasis === null || (sourceBasis.graphFunctionRef !== sourceGraph &&
       (generic || value.entry.kind === "worksite_branch_command_preparation_input" || !nativeWorksiteRecoverySourceAtPrefix(prefix, sourceBasis))) || !sameInvocation(entryBasis, sourceBasis) ||
     sourceBasis.parentExecutionBasisRef !== entryBasis.basisRef || sourceBasis.parentCCallRef !== sourceOpen.aggregateId ||
-    (!generic ? !canonicalEquals(sourceBasis.rawInputValue, value.entry.constructionTask as unknown as JsonValue) :
+    (!generic ? !canonicalEquals(sourceBasis.rawInputValue, value.entry.constructionTask) :
       typeof sourceBasis.resultContractRef !== "string" ||
       sourceInputDigest === null || sourceInputDigest !== sourceBasis.rawInputDigest) || sourceBasis.basisDigest !== foldback.payload.childExecutionBasisDigest) return null;
   const closed = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "basis:" + sourceBasis.basisRef), (event) => event.kind === "graph_call_closed" && event.runId === route.runId &&
@@ -352,7 +353,7 @@ export function projectRetainedWorksiteInputAtPrefix(
     constructRetainedWorksiteInput(binding, entryBasis.rawInputValue, source.value), "invocation_input",
     generic ? RETAINED_GRAPH_INPUT_CONTRACT.contractRef : binding.targetContractRef); }
   catch { return null; }
-  if (input.kind !== "raw_admitted_value" || !canonicalEquals(input as unknown as JsonValue, asserted)) return null;
+  if (input.kind !== "raw_admitted_value" || !canonicalEquals(input, asserted)) return null;
   if (typeof routePayload.targetCursorRef !== "string" || typeof route.runId !== "string" ||
     typeof route.graphCallId !== "string" || typeof route.frameId !== "string") return null;
   const targetCursors = traversalCursorAdmissionEventsAtPrefix(prefix, { cursorRef: routePayload.targetCursorRef,
@@ -436,7 +437,7 @@ export function projectObservedWorksiteCommandChildAtPrefix(prefix: RuntimeEvent
   const fibre = exactOrNull(resolveExactMatch(scoped, e => e.kind === "c_call_fibre_selected" && sameScope(e, call) && e.aggregateId === result.aggregateId && record(e.payload) &&
     e.payload.regime === "F_D" && e.payload.implementationRef === governanceRef("implementation", "prepare-testing") &&
     e.payload.implementationBindingRef === governanceRef("binding", "prepare-testing")));
-  if (prepared === null || !canonicalEquals(prepared.value, input.task as unknown as JsonValue) || !record(prepared.judgment.payload) ||
+  if (prepared === null || !canonicalEquals(prepared.value, input.task) || !record(prepared.judgment.payload) ||
     prepared.judgment.payload.judgmentRef !== routePayload.judgmentRef || !route.causationEventRefs.includes(prepared.judgment.eventId) ||
     opened === null || !record(opened.payload) || fibre === null ||
     opened.admissionOrdinal >= fibre.admissionOrdinal ||
@@ -448,7 +449,7 @@ export function projectObservedWorksiteCommandChildAtPrefix(prefix: RuntimeEvent
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, input.parentBasis.invocationAdmissionRef);
   if (entered === null || entered.admissionOrdinal >= opened.admissionOrdinal || invocation?.capabilityGrants.length !== 1 ||
     input.task.workspaceBinding.bindingId !== input.parentBasis.workspaceBindingId || input.task.workspaceBinding.bindingDigest !== input.parentBasis.workspaceBindingDigest ||
-    !canonicalEquals(input.task.capabilityGrant as unknown as JsonValue, invocation.capabilityGrants[0] as unknown as JsonValue) || worksiteCommandSourcesInvalidatedAfter(prefix, fibre.admissionOrdinal,
+    (invocation.capabilityGrants[0] === undefined || !canonicalEquals(input.task.capabilityGrant, invocation.capabilityGrants[0])) || worksiteCommandSourcesInvalidatedAfter(prefix, fibre.admissionOrdinal,
       input.task.workspaceAuthorityBasis.canonicalRoot, input.task.protectedObservations.map(r => r.subject.relativePath))) return null;
   return { preparationResult: result, preparationJudgment: prepared.judgment, preparationCall: opened, acquisitionEvent: fibre,
     inputRef: input.parentBasis.rawInputAdmissionRef, inputDigest: input.parentBasis.rawInputDigest, route,
@@ -480,7 +481,7 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEvent
     event.aggregateId === precedingPayload.cCallRef && record(event.payload) && event.payload.resultClass === "success"));
   if (preparationResult === null || !record(preparationResult.payload) || typeof preparationResult.payload.resultRef !== "string") return null;
   const preparation = successfulResult(events, preparationResult.payload.resultRef, parentCall);
-  if (preparation === null || !canonicalEquals(preparation.value, input.task as unknown as JsonValue) || !record(preparation.judgment.payload) ||
+  if (preparation === null || !canonicalEquals(preparation.value, input.task) || !record(preparation.judgment.payload) ||
     preparation.judgment.payload.judgmentRef !== precedingPayload.judgmentRef ||
     !precedingRoute.causationEventRefs.includes(preparation.judgment.eventId) || precedingRoute.admissionOrdinal >= parentCall.admissionOrdinal) return null;
   const preparationOpen = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + preparation.result.aggregateId), (event) => event.kind === "c_call_opened" && sameScope(event, parentCall) &&
@@ -494,7 +495,7 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEvent
     event.payload.targetCursorRef === preparationPayload.cursorRef && event.payload.targetCursorDigest === preparationPayload.cursorDigest));
   if (route === null || route.admissionOrdinal >= preparationOpen.admissionOrdinal) return null;
   const retained = projectRetainedWorksiteInputAtPrefix(prefix, route);
-  if (retained === null || !canonicalEquals(retained.entryBasis as unknown as JsonValue, input.parentBasis as unknown as JsonValue) || !isWorksitePreparationBoundInput(retained.input.value)) return null;
+  if (retained === null || !canonicalEquals(retained.entryBasis, input.parentBasis) || !isWorksitePreparationBoundInput(retained.input.value)) return null;
   const value = retained.input.value;
   const branch = value.entry.kind === "worksite_branch_command_preparation_input";
   const revision = value.entry.kind === "worksite_revision_command_preparation_input";
@@ -503,12 +504,12 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEvent
     !readDependencyEntryHasNativeBridge(prefix, retained.entryBasis)) return null;
   if (preparationFibre.payload.implementationRef !== (revision ? WORKSITE_REVISION_IDS.prepareImplementationRef : branch ? WORKSITE_PREPARATION_IDS.prepareBranchImplementationRef : WORKSITE_PREPARATION_IDS.prepareImplementationRef) ||
     preparationFibre.payload.implementationBindingRef !== (revision ? WORKSITE_REVISION_IDS.prepareBindingRef : branch ? WORKSITE_PREPARATION_IDS.prepareBranchBindingRef : WORKSITE_PREPARATION_IDS.prepareBindingRef)) return null;
-  try { if (!canonicalEquals(prepareWorksiteCommandTask(value) as unknown as JsonValue, input.task as unknown as JsonValue)) return null; } catch { return null; }
+  try { if (!canonicalEquals(prepareWorksiteCommandTask(value), input.task)) return null; } catch { return null; }
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, input.parentBasis.invocationAdmissionRef);
   const tasks = preparationConstructionTasks(value.entry);
   if (invocation === null || invocation.capabilityGrants.length !== 1 || tasks.some((task) =>
-    !canonicalEquals(task.workspaceAuthorityBasis as unknown as JsonValue, input.task.workspaceAuthorityBasis as unknown as JsonValue) || !canonicalEquals(task.workspaceBinding as unknown as JsonValue, input.task.workspaceBinding as unknown as JsonValue) ||
-    !canonicalEquals(task.capabilityGrant as unknown as JsonValue, input.task.capabilityGrant as unknown as JsonValue) || !canonicalEquals(task.capabilityGrant as unknown as JsonValue, invocation.capabilityGrants[0] as unknown as JsonValue))) return null;
+    !canonicalEquals(task.workspaceAuthorityBasis, input.task.workspaceAuthorityBasis) || !canonicalEquals(task.workspaceBinding, input.task.workspaceBinding) ||
+    !canonicalEquals(task.capabilityGrant, input.task.capabilityGrant) || (invocation.capabilityGrants[0] === undefined || !canonicalEquals(task.capabilityGrant, invocation.capabilityGrants[0])))) return null;
   if (!isWorksiteConstructionResult(value.source)) return null;
   // The serial C3 form additionally names the completed aggregate's actual reducer,
   // never a partial fan-out member or a child with merely equal bytes.
@@ -532,7 +533,7 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEvent
       completion.batchRef !== c3.batchRef || completion.inputVectorRef !== c3.vectorContractRef ||
       completion.outputVectorContractRef !== c3.outputVectorContractRef ||
       !canonicalEquals(reduction.basis.rawInputValue, completion.outputVector) || !isWorksiteBranchConstructionOutputVector(completion.outputVector)) return null;
-    try { if (!canonicalEquals(reduceWorksiteBranchConstructionResults(completion.outputVector) as unknown as JsonValue, value.source as unknown as JsonValue)) return null; } catch { return null; }
+    try { if (!canonicalEquals(reduceWorksiteBranchConstructionResults(completion.outputVector), value.source)) return null; } catch { return null; }
     resultProjection = { ...retained, sourceBasis: reduction.basis, sourceResult: reduction.result,
       sourceJudgment: reduction.judgment, foldback: reduction.foldback };
   }
@@ -585,9 +586,11 @@ export function readDependencyPreparationHasNativeBridgeSourceAtPrefix(prefix: R
   if (!isWorksitePreparationInput(input.entry) || input.entry.kind !== "worksite_command_preparation_input" || input.entry.readDependencyBasis === undefined) return false;
   const bridge = nativePreparationBridge(prefix, input, SEMANTIC_STAGE_IDS.jobBridgeImplementationRef, SEMANTIC_STAGE_IDS.jobBridgeBindingRef);
   const source = semanticJobReadDependenciesAtPrefix(prefix, input.entry.readDependencyBasis);
-  return bridge !== null && record(bridge.payload) && source !== null && sameInvocation(source.seed, input.parentBasis) &&
+  if (bridge === null || !record(bridge.payload) || source === null || bridge.basisId === undefined) return false;
+  const bridgeInputValue = projectExactExecutionBasisAtPrefix(prefix, bridge.basisId)?.rawInputValue;
+  return sameInvocation(source.seed, input.parentBasis) &&
     source.result.resultRef === bridge.payload.resultRef && source.result.resultDigest === bridge.payload.resultDigest &&
-    canonicalEquals(source.seed.rawInputValue, projectExactExecutionBasisAtPrefix(prefix, bridge.basisId!)?.rawInputValue as JsonValue);
+    bridgeInputValue !== undefined && canonicalEquals(source.seed.rawInputValue, bridgeInputValue);
 }
 function nativePreparationBridge(prefix: RuntimeEventPrefix, input: Readonly<{
   parentBasis: ExecutionBasis; parentCCallRef: string; entry: unknown;
@@ -618,7 +621,8 @@ function nativePreparationBridge(prefix: RuntimeEventPrefix, input: Readonly<{
   }
   const nativeFibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + nativeResult.aggregateId), e => e.kind === "c_call_fibre_selected" && e.aggregateId === nativeResult.aggregateId && sameScope(e, nativeResult) && record(e.payload) &&
     e.payload.implementationRef === implementationRef && e.payload.implementationBindingRef === bindingRef));
-  return nativeFibre !== null && canonicalEquals(bridge.value, input.entry as JsonValue) && record(bridge.judgment.payload) &&
+  const admittedEntry = admitJson(input.entry);
+  return nativeFibre !== null && admittedEntry.kind === "ok" && canonicalEquals(bridge.value, admittedEntry.value) && record(bridge.judgment.payload) &&
     bridge.judgment.payload.judgmentRef === routePayload.judgmentRef && route.causationEventRefs.includes(bridge.judgment.eventId) &&
     bridge.judgment.admissionOrdinal < route.admissionOrdinal && route.admissionOrdinal < call.admissionOrdinal ? nativeResult : null;
 }

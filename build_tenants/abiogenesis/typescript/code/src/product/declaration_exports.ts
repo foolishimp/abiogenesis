@@ -69,7 +69,7 @@ export type ExternalSelection =
   }>
   | Readonly<{ readonly kind: "all" }>;
 
-export interface PhysicalDeclarationRelation {
+export type PhysicalDeclarationRelation = {
   readonly physicalRelationRef: string;
   readonly physicalRelationDigest: Sha256Digest;
   readonly sourceProductContentDigest: Sha256Digest;
@@ -80,9 +80,9 @@ export interface PhysicalDeclarationRelation {
   readonly moduleSpecifier: string;
   readonly origin: ExternalRelationOrigin;
   readonly selection: ExternalSelection;
-}
+};
 
-export interface ContractIndexedPendingExternalSelector {
+export type ContractIndexedPendingExternalSelector = {
   readonly selectorRef: Sha256Digest;
   readonly sourceProductContentDigest: Sha256Digest;
   readonly sourceContractRef: string;
@@ -95,17 +95,17 @@ export interface ContractIndexedPendingExternalSelector {
   readonly origin: ExternalRelationOrigin;
   readonly selection: ExternalSelection;
   readonly localAccessPath: readonly string[];
-}
+};
 
-export interface NativeModuleAugmentation {
+export type NativeModuleAugmentation = {
   readonly packageExportPath: string;
   readonly declarationPath: string;
   readonly sourceOffset: number;
   readonly sourceEnd: number;
   readonly moduleSpecifier: string;
-}
+};
 
-export interface NativeDeclarationClosure {
+export type NativeDeclarationClosure = {
   readonly packageExportPath: string;
   readonly declarationPath: string;
   readonly exportedSymbols: readonly string[];
@@ -117,34 +117,34 @@ export interface NativeDeclarationClosure {
   readonly physicalRelations: readonly PhysicalDeclarationRelation[];
   readonly moduleAugmentations: readonly NativeModuleAugmentation[];
   readonly contributesGlobals: boolean;
-}
+};
 
 export interface NativeDeclarationClosureRequest {
   readonly packageName: string;
   readonly packageType: NativePackageType;
-  readonly packageExports: Readonly<Record<string, unknown>>;
+  readonly packageExports: Readonly<Record<string, JsonValue>>;
   readonly declarationSources: readonly DeclarationSource[];
   /** Exact package.json payload members; absence proves no bundled ownership. */
   readonly packageMetadataSources?: readonly DeclarationSource[];
   readonly sourceProductContentDigest: Sha256Digest;
 }
 
-export interface NativeDeclarationEvidenceSource {
+export type NativeDeclarationEvidenceSource = {
   readonly declarationPath: string;
   readonly declarationDigest: Sha256Digest;
   readonly sourceText: string;
-}
+};
 
-export interface NativeContractEvidence {
+export type NativeContractEvidence = {
   readonly contractId: string;
   readonly contractDigest: Sha256Digest;
   readonly packageExportPath: string;
   readonly namedSymbol: string;
   readonly localDisposition: "local" | "pending_external";
   readonly pendingSelectors: readonly ContractIndexedPendingExternalSelector[];
-}
+};
 
-export interface NativeProductDeclarationEvidence {
+export type NativeProductDeclarationEvidence = {
   readonly productId: string;
   readonly productContentDigest: Sha256Digest;
   readonly packageName: string;
@@ -153,7 +153,7 @@ export interface NativeProductDeclarationEvidence {
   readonly packageMetadata?: readonly NativeDeclarationEvidenceSource[];
   readonly closures: readonly NativeDeclarationClosure[];
   readonly contracts: readonly NativeContractEvidence[];
-}
+};
 
 export interface NativeLinkProduct {
   readonly productId: string;
@@ -164,7 +164,7 @@ export interface NativeLinkProduct {
   readonly evidence: NativeProductDeclarationEvidence;
 }
 
-export interface CanonicalSourceWitness {
+export type CanonicalSourceWitness = {
   readonly witnessDigest: Sha256Digest;
   readonly selectorRef: string;
   readonly physicalRelationRef: string;
@@ -174,9 +174,9 @@ export interface CanonicalSourceWitness {
   readonly sourceEnd: number;
   readonly origin: ExternalRelationOrigin;
   readonly selection: ExternalSelection;
-}
+};
 
-export interface ResolvedSemanticSelection {
+export type ResolvedSemanticSelection = {
   readonly derivation:
     | "named"
     | "namespace_member"
@@ -191,9 +191,9 @@ export interface ResolvedSemanticSelection {
     | "type_query"
     | "namespace_reference";
   readonly requiredSymbolSpace: "type" | "value" | "namespace";
-}
+};
 
-export interface CanonicalCheckerTargetIdentity {
+export type CanonicalCheckerTargetIdentity = {
   readonly targetProductContentDigest: Sha256Digest;
   readonly targetPackageName: string;
   readonly targetPackageExportPath: string;
@@ -206,9 +206,9 @@ export interface CanonicalCheckerTargetIdentity {
     readonly exportedName: string;
   }>[];
   readonly targetIdentityDigest: Sha256Digest;
-}
+};
 
-export interface ContractExternalOccurrence {
+export type ContractExternalOccurrence = {
   readonly occurrenceRef: string;
   readonly sourceProductContentDigest: Sha256Digest;
   readonly sourceContractRef: string;
@@ -218,7 +218,7 @@ export interface ContractExternalOccurrence {
   readonly sourceWitnesses: readonly CanonicalSourceWitness[];
   readonly semanticSelection: ResolvedSemanticSelection;
   readonly checkerTarget: CanonicalCheckerTargetIdentity;
-}
+};
 
 export type PendingSelectorDisposition =
   | Readonly<{
@@ -233,7 +233,7 @@ export type PendingSelectorDisposition =
     readonly checkerWitnessDigest: Sha256Digest;
   }>;
 
-export interface NativeContractBinding {
+export type NativeContractBinding = {
   readonly kind: "external_binding";
   readonly sourceOccurrenceRef: string;
   readonly directDependencyEdge: ProductDeclaredDependency;
@@ -243,16 +243,16 @@ export interface NativeContractBinding {
   readonly targetPackageExportPath: string;
   readonly targetNamedSymbol: string;
   readonly checkerTarget: CanonicalCheckerTargetIdentity;
-}
+};
 
-export interface NativeContractSymbolAdmission {
+export type NativeContractSymbolAdmission = {
   readonly kind: "symbol_admission";
   readonly productContentDigest: Sha256Digest;
   readonly contractRef: string;
   readonly contractDigest: Sha256Digest;
   readonly packageExportPath: string;
   readonly namedSymbol: string;
-}
+};
 
 export type NativeContractClosureRow =
   | NativeContractBinding
@@ -719,7 +719,7 @@ function packageMetadataBasis(
   sources: readonly DeclarationSource[],
 ): PackageMetadataBasis | null {
   const metadataText = new Map<string, string>();
-  const metadata = new Map<string, Readonly<Record<string, unknown>>>();
+  const metadata = new Map<string, Readonly<Record<string, JsonValue>>>();
   for (const source of sources) {
     if (
       !isNonblank(source.path) || source.path.includes("\\") ||
@@ -729,11 +729,11 @@ function packageMetadataBasis(
     ) return null;
     const path = posix.join(root, source.path);
     if (metadata.has(path)) return null;
-    let value: unknown;
+    let value: JsonValue;
     let text: string;
     try {
       text = new TextDecoder("utf-8", { fatal: true }).decode(source.bytes);
-      value = JSON.parse(text) as unknown;
+      value = JSON.parse(text);
     } catch { return null; }
     if (!metadataRecord(value) ||
       (value.type !== undefined && value.type !== "module" && value.type !== "commonjs")
@@ -752,7 +752,7 @@ function packageMetadataBasis(
     typeof name !== "string" || packageImportCoordinate(name)?.packageName !== name
   ) || new Set(bundled).size !== bundled.length ||
     (rootMetadata?.bundleDependencies !== undefined && rootMetadata.bundledDependencies !== undefined &&
-      !canonicalEquals(rootMetadata.bundleDependencies as JsonValue, rootMetadata.bundledDependencies as JsonValue))
+      !canonicalEquals(rootMetadata.bundleDependencies, rootMetadata.bundledDependencies))
   ) return null;
   const rootDependencies = declarationDependencyNames(rootMetadata?.dependencies);
   if (rootDependencies === null || bundled.some(name => !rootDependencies.includes(name as string))) return null;
@@ -867,7 +867,7 @@ function physicalRelation(
   >,
 ): PhysicalDeclarationRelation {
   const physicalRelationDigest = sha256Canonical(
-    basis as unknown as JsonValue,
+    basis,
   );
   const physicalRelationRef =
     `ts-relation://${physicalRelationDigest.slice("sha256:".length)}`;
@@ -1427,7 +1427,7 @@ export async function resolveNativeDeclarationClosures(
   );
   if (rootMetadata !== undefined && !canonicalEquals(
     (JSON.parse(rootMetadata) as { exports?: JsonValue }).exports ?? null,
-    request.packageExports as JsonValue,
+    request.packageExports,
   )) return null;
   const externalTypeDirectiveStubs = new Map<string, string>();
   for (const [sourcePath, source] of sourceText) {
@@ -1832,7 +1832,7 @@ export function contractIndexedPendingSelectors(
       localAccessPath: [locator.namedSymbol],
     } as const;
     selectors.push({
-      selectorRef: sha256Canonical(body as unknown as JsonValue),
+      selectorRef: sha256Canonical(body),
       ...body,
     });
   }
@@ -1948,8 +1948,8 @@ function nativeProductApplicability(
       closure === null || closure.declarationPath !== locator.declarationPath ||
       !evidence.sources.some(source => source.declarationPath === closure.declarationPath) ||
       !canonicalEquals(
-        closure.declarationInventory as unknown as JsonValue,
-        locator.declarationInventory as unknown as JsonValue,
+        closure.declarationInventory,
+        locator.declarationInventory,
       )
     ) return null;
   }
@@ -2574,7 +2574,7 @@ export function linkNativeContractSet(
       selection: relation.selection,
     } as const;
     return {
-      witnessDigest: sha256Canonical(body as unknown as JsonValue),
+      witnessDigest: sha256Canonical(body),
       ...body,
     };
   };
@@ -2769,7 +2769,7 @@ export function linkNativeContractSet(
     });
     const unique = new Map(
       rows.map((row) => [
-        sha256Canonical(row as unknown as JsonValue),
+        sha256Canonical(row),
         row,
       ]),
     );
@@ -2998,7 +2998,7 @@ export function linkNativeContractSet(
             const checkerTarget: CanonicalCheckerTargetIdentity = {
               ...checkerTargetBody,
               targetIdentityDigest: sha256Canonical(
-                checkerTargetBody as unknown as JsonValue,
+                checkerTargetBody,
               ),
             };
             const occurrenceKey = sha256Canonical({
@@ -3009,7 +3009,7 @@ export function linkNativeContractSet(
               sourceNamedSymbol: sourceContract.namedSymbol,
               semanticSelection,
               checkerTarget,
-            } as unknown as JsonValue);
+            });
             occurrenceKeys.add(occurrenceKey);
             occurrenceCandidates.push({
               source,
@@ -3098,14 +3098,14 @@ export function linkNativeContractSet(
       checkerTarget: representative.checkerTarget,
     } as const;
     const occurrenceRef = sha256Canonical(
-      occurrenceBody as unknown as JsonValue,
+      occurrenceBody,
     );
     const targetCoordinates = new Set(
       candidates.map((candidate) =>
         structuredKey([
           candidate.targetContract.contractId,
           candidate.targetContract.contractDigest,
-          sha256Canonical(candidate.dependency as unknown as JsonValue),
+          sha256Canonical(candidate.dependency),
         ])
       ),
     );
@@ -3256,7 +3256,7 @@ export function linkNativeContractSet(
       selectorDispositions,
       occurrences,
       bindings,
-    } as unknown as JsonValue),
+    }),
   };
 }
 

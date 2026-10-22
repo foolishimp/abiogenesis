@@ -93,8 +93,8 @@ export function realizeWorksiteBranchConstructionPlan(
   const result = constructWorksiteBranchConstructionVector(input);
   return deterministicSuccess(
     WORKSITE_BRANCH_CONSTRUCTION_IDS.planImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }
 
@@ -110,7 +110,7 @@ export function realizeWorksiteBranchConstructionReduction(
   const result = reduceWorksiteBranchConstructionResults(input);
   return deterministicSuccess(
     WORKSITE_BRANCH_CONSTRUCTION_IDS.reducerImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }

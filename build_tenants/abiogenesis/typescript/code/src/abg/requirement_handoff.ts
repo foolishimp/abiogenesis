@@ -10,10 +10,11 @@ import { readRuntimeEventsAtDurablePrefix } from "./event_store.js";
 import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { deriveRequirementHandoffCandidate, isRequirementHandoffInput } from "../product/requirement_handoff.js";
 import { canonicalEquals } from "../shared/value/index.js";
-const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+const hash = (value: JsonValue) => sha256Canonical(value);
 export interface RequirementHandoffDeclarationBasis {
   readonly publication: Readonly<ModulePublication>;
   readonly graph: Readonly<GtlGraph>;
@@ -34,10 +35,10 @@ export function authenticateRequirementHandoffBasis(basis: RequirementHandoffDec
       invocationAdmissionRef: execution.invocationAdmissionRef, admittedInputRef: execution.rawInputAdmissionRef,
       admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue,
     });
-    if (!canonicalEquals(basis.graph as unknown as JsonValue, graph as unknown as JsonValue) || graph.materializationRef !== execution.graphRef ||
+    if (!canonicalEquals(basis.graph, graph) || graph.materializationRef !== execution.graphRef ||
       graph.materializationDigest !== execution.graphDigest) return null;
     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCall.cCallRef);
-    if (call === null || !canonicalEquals(execution as unknown as JsonValue, basis.executionBasis) || !canonicalEquals(call as unknown as JsonValue, basis.cCall) ||
+    if (call === null || !canonicalEquals(execution, basis.executionBasis) || !canonicalEquals(call, basis.cCall) ||
       call.basisId !== execution.basisRef || call.regime !== "F_D" || call.callClass !== "leaf" ||
       call.graphFunctionRef !== execution.graphFunctionRef || call.inputContractRef !== REQUIREMENT_HANDOFF_IDS.inputContractRef ||
       call.outputContractRef !== REQUIREMENT_HANDOFF_IDS.outputContractRef ||
@@ -58,9 +59,10 @@ export function authenticateRequirementHandoffBasis(basis: RequirementHandoffDec
     if (rows.length !== 1) return null;
     const selected = basis.publication.requirementHandoffs?.filter(d =>
       d.declarationRef === basis.graphFunction.declarations["abg.requirement_handoff"] && d.graphFunctionRef === call.graphFunctionRef);
-    if (selected?.length !== 1) return null;
-    return deepFreeze({ declaration: selected[0]!, coordinate: {
-      publicationDigest: rootSet.publicationDigest, declarationDigest: hash(selected[0]),
+    const declaration = selected?.length === 1 ? selected[0] : undefined;
+    if (declaration === undefined) return null;
+    return deepFreeze({ declaration, coordinate: {
+      publicationDigest: rootSet.publicationDigest, declarationDigest: hash(declaration),
       executionBasisRef: execution.basisRef, executionBasisDigest: execution.basisDigest,
       programRef: execution.programRef, programDigest: execution.programDigest,
       graphFunctionRef: execution.graphFunctionRef, graphFunctionDigest: execution.graphFunctionDigest,
@@ -83,5 +85,7 @@ export function projectRequirementHandoffCandidate(basis: RequirementHandoffDecl
 /** ABG alone compares against its current admitted source, never output-owned declarations. */
 export function requirementHandoffResultMatches(basis: RequirementHandoffDeclarationBasis, input: unknown, value: unknown): boolean {
   const expected = projectRequirementHandoffCandidate(basis, input);
-  return expected !== null && canonicalEquals(value as JsonValue, expected as unknown as JsonValue);
+  if (expected === null) return false;
+  const admittedValue = admitJson(value);
+  return admittedValue.kind === "ok" && canonicalEquals(admittedValue.value, expected);
 }

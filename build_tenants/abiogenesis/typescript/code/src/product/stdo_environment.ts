@@ -41,7 +41,7 @@ export type StdoEnvironmentObservation = Readonly<{kind:"stdo_environment_observ
 class ObservationFailure extends Error {
   constructor(override readonly cause: StdoEnvironmentRefusalCause, readonly issuePath: string) { super(cause); }
 }
-const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+const hash = (x: JsonValue) => sha256Canonical(x);
 const encoded = (b: Buffer) => ({ base64: b.toString("base64"), digest: sha256Bytes(b) });
 const inside = (root: string, value: string) => {
   const r = relative(root, value); return r !== "" && !r.startsWith(".." + "/") && r !== ".." && !isAbsolute(r);
@@ -180,7 +180,7 @@ export async function observeStdoEnvironment(input: {
         bindings,exitCode:0,stdout:encoded(stdout),projection,projectionDigest,startedAt,completedAt,durationMs});
     }
     const body={kind:"stdo_environment_evidence" as const,schemaVersion:"5.0.0" as const,declaration:d,environmentDigest:hash(d),
-      programRef:input.program.programRef,programDigest:hash(input.program),authority:input.authority,resources:r as unknown as JsonValue,
+      programRef:input.program.programRef,programDigest:hash(input.program),authority:input.authority,resources:r,
       sourceManifest:encoded(sourceManifest),records:[representation.record,axiom.record],observedMembers,contexts,accesses};
     const evidence={...body,evidenceDigest:hash(body)};
     if (!isStdoEnvironmentEvidence(evidence)) throw new ObservationFailure("invalid_projection","/stdoEnvironmentResources/evidence");
@@ -306,7 +306,7 @@ export function compareInstalledC2ContextMaterial(
       return { span, meaning };
     };
     const old = acquire(historical, historicalInstall), next = acquire(current, currentInstall);
-    return old.span.equals(next.span) && canonicalEquals(old.meaning, next.meaning) ? old.meaning as unknown as JsonValue : null;
+    return old.span.equals(next.span) && canonicalEquals(old.meaning, next.meaning) ? old.meaning : null;
   } catch { return null; }
 }
 export type RunEnvironmentObservation = Readonly<{ kind: "run_environment_observed"; evidence: RunEnvironmentEvidence | null }> |
@@ -418,7 +418,7 @@ export async function observeRunEnvironment(input: {
       }
     }
     const body = { kind: "run_environment_evidence" as const, schemaVersion: "5.0.0" as const, declaration: d, environmentDigest: hash(d),
-      programRef: input.program.programRef, programDigest: hash(input.program), authority: input.authority, resources: r as unknown as JsonValue,
+      programRef: input.program.programRef, programDigest: hash(input.program), authority: input.authority, resources: r,
       dependencies, contexts, corpusDocuments, accesses };
     const evidence = { ...body, evidenceDigest: hash(body) };
     if (!isRunEnvironmentEvidence(evidence)) throw new ObservationFailure("invalid_projection", "/runEnvironmentResources/evidence");

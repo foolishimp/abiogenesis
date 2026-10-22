@@ -1,4 +1,5 @@
 import type { RuntimeReplayGuard } from "../abg/replay.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import type { OwnedJudgedCCallOutcomeReceipt, OwnedBlockedCCallOutcomeReceipt } from "../abg/c_call_outcome.js";
 import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
 import { constructTraversalCursorCandidate } from "../abg/traversal_cursor.js";
@@ -63,7 +64,7 @@ type RouteSourceLocus = Readonly<{
   cursor: TraversalCursor;
 }>;
 
-export interface RouteProposalRefusal {
+export type RouteProposalRefusal = {
   readonly kind: "traversal_route_proposal_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -77,7 +78,7 @@ export interface RouteProposalRefusal {
     | "structural_step_missing"
     | "terminal_not_declared";
   readonly message: string;
-}
+};
 
 function routeRefusal(
   code: RouteProposalRefusal["code"],
@@ -516,7 +517,7 @@ export function proposeGraphSpanReentryRoute(
       graphSpanReentryProjectionRef: projection.projectionRef,
       graphSpanReentryProjectionDigest: projection.projectionDigest,
       graphSpanReentryProjection:
-        projection as unknown as Readonly<Record<string, JsonValue>>,
+        projection,
     },
   });
 }
@@ -549,12 +550,7 @@ export function proposeGapStopRoute(
   replayState: RuntimeReplayGuard,
   contractRef: string,
 ): RouteCandidate | RouteProposalRefusal {
-  const projection =
-    typeof result.value === "object" &&
-      result.value !== null &&
-      !Array.isArray(result.value)
-      ? result.value as Readonly<Record<string, JsonValue>>
-      : null;
+  const projection = isRecord(result.value) ? result.value : null;
   if (
     !isMaterializedGtlGraph(graph) ||
     stop.cursor.graphRef !== graph.materializationRef ||
@@ -1360,7 +1356,7 @@ export function proposeRecursionRoute(
   const body = {
     routeKind,
     declarationRef: application.applicationRef,
-    declarationDigest: sha256Canonical(application as unknown as JsonValue),
+    declarationDigest: sha256Canonical(application),
     sourceCursorRef: sourceCursor.cursorRef,
     sourceCursorDigest: sourceCursor.cursorDigest,
     targetCursorRef: targetCursor?.cursorRef ?? null,

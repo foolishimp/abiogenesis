@@ -50,7 +50,7 @@ export type StdoRunEnvironmentDeclaration = v.InferOutput<typeof STDO_RUN_ENVIRO
 export const STDO_ENVIRONMENT_POLICY = "abg.stdo_run_environment";
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 const sorted = (xs: readonly string[]) => unique(xs) && xs.every((x, i) => i === 0 || xs[i - 1]! < x);
-const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+const hash = (x: JsonValue) => sha256Canonical(x);
 export function stdoInventoryDigest(members: StdoRunEnvironmentDeclaration["axiom"]["members"]) {
   return sha256Bytes(Buffer.from([...members].sort((a,b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0)
     .map(x => x.digest.slice(7) + "  " + x.type + "  " + x.path + "\n").join(""), "utf8"));

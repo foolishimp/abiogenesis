@@ -189,8 +189,8 @@ function worksiteLeafAuthority(
     implementationSetDigest: input.implementationSet.implementationSetDigest,
     leafResolutionCandidateRef: resolution.leafResolutionCandidateRef,
     leafResolutionCandidateDigest: resolution.leafResolutionCandidateDigest,
-    implementationResolutionRef: `implementation-resolution://abiogenesis/${sha256Canonical(resolution as unknown as JsonValue).slice("sha256:".length)}`,
-    implementationResolutionDigest: sha256Canonical(resolution as unknown as JsonValue),
+    implementationResolutionRef: `implementation-resolution://abiogenesis/${sha256Canonical(resolution).slice("sha256:".length)}`,
+    implementationResolutionDigest: sha256Canonical(resolution),
     implementationResolution: resolution,
     implementationBindingRef: resolution.implementationBindingRef,
     implementationBindingDigest: resolution.implementationBindingDigest,
@@ -416,7 +416,7 @@ export function evaluateOwnedExecutableCCall(
         input.predecessorPrefix,
         `leaf-resolution-${input.ordinal}`,
         "diagnostic://abiogenesis/implementation/admitted-row-absent@5",
-        input.stop as unknown as JsonValue,
+        input.stop,
       );
     }
     const opened = Abg.openCCall({
@@ -439,7 +439,7 @@ export function evaluateOwnedExecutableCCall(
         input.predecessorPrefix,
         `leaf-open-${input.ordinal}`,
         `diagnostic://abiogenesis/c-call/${opened.code}@5`,
-        opened as unknown as JsonValue,
+        opened,
       );
     }
     const requirementHandoffBasis = resolution.implementationRef === REQUIREMENT_HANDOFF_IDS.implementationRef && input.programPublication !== undefined
@@ -481,7 +481,7 @@ export function evaluateOwnedExecutableCCall(
           predecessorPrefix: opened.successorPrefix }) : null;
     if (nativeAssemblyRequired && nativeInstructionAssemblyBasis === null) return failCCall(input,
       opened.successorPrefix, `leaf-assembly-${input.ordinal}`,
-      "diagnostic://abiogenesis/instruction-assembly/stale-native-basis@5", input.stop as unknown as JsonValue);
+      "diagnostic://abiogenesis/instruction-assembly/stale-native-basis@5", input.stop);
     const occurrence = Object.freeze({
       ...(nativeInstructionAssemblyBasis === null ? {} : { nativeInstructionAssemblyBasis }),
       ...(worksiteCommandForwardBasis === null ? {} : {worksiteCommandForwardBasis}),
@@ -517,7 +517,7 @@ export function evaluateOwnedExecutableCCall(
         opened.successorPrefix,
         `leaf-owner-${input.ordinal}`,
         invocation.diagnosticRef,
-        invocation as unknown as JsonValue,
+        invocation,
       );
     }
     let completedOwner: Readonly<ClosedLeafOwnerReceipt>;
@@ -552,7 +552,7 @@ export function evaluateOwnedExecutableCCall(
           effectReceipt.successorPrefix,
           `leaf-completion-${input.ordinal}`,
           "diagnostic://abiogenesis/implementation/owner-boundary-exception@5",
-          effectReceipt as unknown as JsonValue,
+          effectReceipt,
         );
       }
       outcomePredecessor = effectReceipt.successorPrefix;
@@ -628,7 +628,7 @@ export function evaluateOwnedExecutableCCall(
               resultOutcome.successorPrefix,
               `leaf-judgment-relation-${input.ordinal}`,
               "diagnostic://abiogenesis/hog/judgment-relation-absent@5",
-              resultOutcome.cCall as unknown as JsonValue,
+              resultOutcome.cCall,
             );
           }
           const candidate = proposeJudgmentCandidate({
@@ -682,7 +682,7 @@ export function evaluateOwnedExecutableCCall(
       : Routes.deriveSelectedCCallOutcomeTarget(input.graph, input.stop.cursor, admitted, input.executionBasis.registeredSelectionDefinitionDigests, retained?.input);
     if (selectedTarget?.kind === "traversal_route_proposal_refusal") {
       return failCCall(input, admitted.successorPrefix, `leaf-continuation-${input.ordinal}`,
-        `diagnostic://abiogenesis/hog/${selectedTarget.code}@5`, selectedTarget as unknown as JsonValue);
+        `diagnostic://abiogenesis/hog/${selectedTarget.code}@5`, selectedTarget);
     }
     let target: TraversalCursor | null = selectedTarget ?? null;
     if (
@@ -706,7 +706,7 @@ export function evaluateOwnedExecutableCCall(
           admitted.successorPrefix,
           `leaf-continuation-${input.ordinal}`,
           `diagnostic://abiogenesis/hog/${derived.code}@5`,
-          derived as unknown as JsonValue,
+          derived,
         );
       }
       target = derived;
@@ -747,7 +747,7 @@ export function evaluateOwnedExecutableCCall(
         admitted.successorPrefix,
         `leaf-retry-progress-${input.ordinal}`,
         `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
-        retryExit as unknown as JsonValue,
+        retryExit,
       );
     }
     const proposedTransition = applicationReady
@@ -774,7 +774,7 @@ export function evaluateOwnedExecutableCCall(
         admitted.successorPrefix,
         `leaf-route-${input.ordinal}`,
         `diagnostic://abiogenesis/hog/${proposedTransition.code}@5`,
-        proposedTransition as unknown as JsonValue,
+        proposedTransition,
       );
     }
     const completionAdmission = OwnedOutcome.admitOwnedCCallCompletion({
@@ -803,7 +803,7 @@ export function evaluateOwnedExecutableCCall(
         admitted.successorPrefix,
         `leaf-completion-${input.ordinal}`,
         `diagnostic://abiogenesis/hog/${completionAdmission.code}@5`,
-        completionAdmission as unknown as JsonValue,
+        completionAdmission,
       );
     }
     return {
@@ -828,7 +828,7 @@ function failActorProcessEffect(
   effectResult: Readonly<Abg.ActorProcessEffectRefusal>,
 ): never {
   const stage = `leaf-effect-${input.ordinal}`;
-  const candidate = effectResult as unknown as JsonValue;
+  const candidate = effectResult;
   return failCCall(input, effectResult.successorPrefix, stage,
     constructRuntimeFailureDiagnosticRef({ stage, candidate }), candidate);
 }

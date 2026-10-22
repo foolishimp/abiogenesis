@@ -30,31 +30,31 @@ export const REQUIREMENT_HANDOFF_DECLARATION_SCHEMA = v.strictObject({
   terms: v.pipe(v.array(REQUIREMENT_TERM_SCHEMA), v.minLength(1)),
   fulfillmentBindings: v.pipe(v.array(GTL_CONTRACT_FULFILLMENT_BINDING_SCHEMA), v.minLength(1)),
 });
-export interface ContextDeclaration {
+export type ContextDeclaration = {
   readonly contextRef: string; readonly sourceLocator: string; readonly inventoryDigest: `sha256:${string}`;
   readonly members: readonly { readonly memberRef: string; readonly path: string; readonly byteCount: number; readonly digest: `sha256:${string}` }[];
-}
-export interface RequirementTerm {
+};
+export type RequirementTerm = {
   readonly requirementRef: string;
   readonly sourceBindings: readonly { readonly contextRef: string; readonly memberRef: string; readonly memberDigest: `sha256:${string}`;
     readonly startByte: number; readonly endByte: number; readonly spanDigest: `sha256:${string}` }[];
-}
-export interface GtlContractFulfillmentBinding {
+};
+export type GtlContractFulfillmentBinding = {
   readonly obligationRef: string; readonly requirementRef: string;
   readonly realizationContractRef: string | null; readonly proofContractRef: string | null;
   readonly proofPolicyRef: string | null; readonly proofShapeRef: string | null;
-}
-export interface GtlRequirementHandoffDeclaration {
+};
+export type GtlRequirementHandoffDeclaration = {
   readonly declarationRef: string; readonly graphFunctionRef: string; readonly sourceRoleRef: string;
   readonly context: ContextDeclaration; readonly terms: readonly RequirementTerm[];
   readonly fulfillmentBindings: readonly GtlContractFulfillmentBinding[];
-}
+};
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 export function isRequirementHandoffDeclaration(value: unknown): value is GtlRequirementHandoffDeclaration {
   if (!v.is(REQUIREMENT_HANDOFF_DECLARATION_SCHEMA, value)) return false;
   const { context, terms, fulfillmentBindings: bindings } = value;
   return unique(context.members.map(x => x.memberRef)) && unique(context.members.map(x => x.path)) &&
-    context.inventoryDigest === sha256Canonical(context.members as unknown as JsonValue) &&
+    context.inventoryDigest === sha256Canonical(context.members) &&
     unique(terms.map(x => x.requirementRef)) && unique(bindings.map(x => x.obligationRef)) &&
     bindings.length === terms.length && unique(bindings.map(x => x.requirementRef)) &&
     bindings.every((x, i) => x.requirementRef === terms[i]!.requirementRef) &&

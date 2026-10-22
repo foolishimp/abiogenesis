@@ -60,7 +60,7 @@ export interface GtlProgramConformanceResult {
   readonly repairAffordances: readonly [];
 }
 
-export interface GtlProgramConformanceRefusal {
+export type GtlProgramConformanceRefusal = {
   readonly kind: "gtl_program_conformance_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "failed";
@@ -76,7 +76,7 @@ export interface GtlProgramConformanceRefusal {
   readonly violatedContractRefs: readonly string[];
   readonly evidenceRefs: readonly string[];
   readonly repairAffordances: readonly [];
-}
+};
 
 export type GtlProgramConformanceOperationResult =
   | GtlProgramConformanceResult
@@ -282,11 +282,11 @@ function evaluateWithValidationInput(
   const programRef = typeof packet.program.programRef === "string"
     ? packet.program.programRef
     : null;
-  const programDigest = sha256Canonical(packet.program as unknown as JsonValue);
+  const programDigest = sha256Canonical(packet.program);
   if (declarationBasis !== undefined &&
       !canonicalEquals(
-        declarationBasis.declarationClosure.programPublication as unknown as JsonValue,
-        packet.publication as unknown as JsonValue,
+        declarationBasis.declarationClosure.programPublication,
+        packet.publication,
       )) {
     return refusal("invalid_packet", programRef, programDigest, [{
       code: "invalid_packet", path: "$.publication", message: "conformance closure differs from the original Program publication",

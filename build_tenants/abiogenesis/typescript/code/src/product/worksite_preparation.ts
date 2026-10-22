@@ -3,7 +3,7 @@ import { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from
 import type { GtlEdgeInputBinding } from "../gtl/contracts.js";
 import { type JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import { isSha256Digest } from "../shared/digests.js";
 import { constructWorksiteSubject } from "./worksite_effect.js";
 import { WORKSITE_REVISION_IDS, isWorksiteRevisionDependencyObservation, constructWorksiteRevisionCommandExecutionTask,
@@ -50,17 +50,17 @@ function validConfiguration(input: WorksitePreparationInput): boolean {
     const tasks = preparationConstructionTasks(input);
     const first = tasks[0];
     if (first === undefined || tasks.some((task) =>
-      !canonicalEquals(task.workspaceAuthorityBasis as unknown as JsonValue, first.workspaceAuthorityBasis as unknown as JsonValue) ||
-      !canonicalEquals(task.workspaceBinding as unknown as JsonValue, first.workspaceBinding as unknown as JsonValue) ||
-      !canonicalEquals(task.capabilityGrant as unknown as JsonValue, first.capabilityGrant as unknown as JsonValue))) return false;
+      !canonicalEquals(task.workspaceAuthorityBasis, first.workspaceAuthorityBasis) ||
+      !canonicalEquals(task.workspaceBinding, first.workspaceBinding) ||
+      !canonicalEquals(task.capabilityGrant, first.capabilityGrant))) return false;
     const dependencies = input.kind === "worksite_revision_command_preparation_input" ? input.dependencyObservations : [];
     const readBasis = input.kind === "worksite_command_preparation_input" ? input.readDependencyBasis : undefined;
     if (readBasis !== undefined && (!isWorksiteReadDependencyBasis(readBasis) || readBasis.members.some(row =>
       tasks.some(task => task.targets.some(target => target.subject.relativePath === row.subject.relativePath)) ||
       !canonicalEquals(
         constructWorksiteSubject({ workspaceAuthorityBasis: first.workspaceAuthorityBasis,
-          workspaceBinding: first.workspaceBinding, subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath }) as unknown as JsonValue,
-        row.subject as unknown as JsonValue,
+          workspaceBinding: first.workspaceBinding, subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath }),
+        row.subject,
       )))) return false;
     if (input.kind === "worksite_revision_command_preparation_input") {
       if (!isSha256Digest(input.revisionBasisDigest) || input.revisionBasisRef !== `semantic-revision://abiogenesis/${input.revisionBasisDigest.slice(7)}` ||
@@ -71,7 +71,7 @@ function validConfiguration(input: WorksitePreparationInput): boolean {
         input.snapshotTargetRefs.length!==first.targets.length+dependencies.length ||
         !dependencies.every(d=>input.snapshotTargetRefs.includes(d.designTargetRef)) ||
         dependencies.some((d,i)=>i>0&&input.snapshotTargetRefs.indexOf(dependencies[i-1]!.designTargetRef)>=input.snapshotTargetRefs.indexOf(d.designTargetRef)) ||
-        dependencies.some(d=>!canonicalEquals(constructWorksiteSubject({workspaceAuthorityBasis:first.workspaceAuthorityBasis,workspaceBinding:first.workspaceBinding,subjectUri:d.subject.subjectUri,relativePath:d.subject.relativePath}) as unknown as JsonValue, d.subject as unknown as JsonValue))) return false;
+        dependencies.some(d=>!canonicalEquals(constructWorksiteSubject({workspaceAuthorityBasis:first.workspaceAuthorityBasis,workspaceBinding:first.workspaceBinding,subjectUri:d.subject.subjectUri,relativePath:d.subject.relativePath}), d.subject))) return false;
     }
     constructWorksiteCommandConfiguration({
       workspaceAuthorityBasis: first.workspaceAuthorityBasis,
@@ -139,7 +139,7 @@ export function validateWorksitePreparationContractValue(valueKind: string, valu
 export function admitWorksitePreparationInput(contractRef: string, value: unknown): Readonly<Record<string, JsonValue>> | null {
   const declaration = worksitePreparationContractDeclarations().find((row) => row.contractRef === contractRef);
   return declaration !== undefined && validateWorksitePreparationContractValue(declaration.valueKind, value)
-    ? deepFreeze(value) as Readonly<Record<string, JsonValue>> : null;
+    ? deepFreeze(value) : null;
 }
 
 export function constructRetainedWorksiteInput(binding: GtlEdgeInputBinding, entry: unknown, source: unknown): WorksitePreparationBoundInput {
@@ -231,7 +231,9 @@ export function resolveWorksitePreparationJudgmentRelation(predicateRef: string)
           : branch ? "worksite_branch_command_preparation_bound_input" : "worksite_command_preparation_bound_input")) return false;
         const expected = select && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
           : prepare && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input) : null;
-        return expected !== null && canonicalEquals(expected as unknown as JsonValue, output as JsonValue);
+        if (expected === null) return false;
+        const admittedOutput = admitJson(output);
+        return admittedOutput.kind === "ok" && canonicalEquals(expected, admittedOutput.value);
       } catch { return false; }
     },
   });

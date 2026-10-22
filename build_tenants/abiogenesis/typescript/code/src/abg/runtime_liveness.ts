@@ -44,12 +44,12 @@ export function runtimeAssetRevisionDigest(stat: Pick<BigIntStats, "dev" | "ino"
 }
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
-export interface RuntimeLivenessContext {
+export type RuntimeLivenessContext = {
   readonly scope: RuntimeInvocationScope;
   readonly binding: RuntimeLivenessBinding;
   readonly probes: readonly RuntimeSystemProbeContract[];
   readonly declarationEventRef: string;
-}
+};
 
 interface RuntimeLivenessContextFacts {
   readonly context: RuntimeLivenessContext;
@@ -98,6 +98,10 @@ function deriveActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationR
         basis.graphFunctionRef !== started.graphFunctionRef || opened.runId !== started.runId ||
         opened.graphCallId !== started.graphCallId || opened.frameId !== started.frameId) return null;
     const op = opened.payload;
+    // An absent attempt member is no attempt: the digest is not taken over it.
+    if (p.cCallRef === undefined || op.attempt === undefined || p.dispatchOrdinal === undefined || p.actorRef === undefined ||
+        p.workerBindingRef === undefined || b.implementationBindingRef === undefined || p.implementationRef === undefined ||
+        p.inputDigest === undefined || p.promptDigest === undefined || b.transportPlanDigest === undefined) return null;
     const attemptDigest = digest({ basisRef: basis.basisRef, cCallRef: p.cCallRef, attempt: op.attempt,
       dispatchOrdinal: p.dispatchOrdinal, actorRef: p.actorRef, workerBindingRef: p.workerBindingRef,
       implementationBindingRef: b.implementationBindingRef, implementationRef: p.implementationRef,
@@ -255,7 +259,7 @@ export function observeNativeFrameLiveness(store: AbgEventStore, underlying: Run
   const physical = frameSamples.get(sample);
   if (physical?.store !== store) throw new TypeError("foreign frame clock sample");
   const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
-  if (!indexedRuntimeEvents(prefix, "id:" + underlying.eventId).some(e => canonicalEquals(e as unknown as JsonValue, underlying as unknown as JsonValue))) throw new TypeError("frame sample needs its admitted producer");
+  if (!indexedRuntimeEvents(prefix, "id:" + underlying.eventId).some(e => canonicalEquals(e, underlying))) throw new TypeError("frame sample needs its admitted producer");
   const context = projectFrameLivenessContext(prefix, underlying.frameId!);
   if (context === null) throw new TypeError("frame sample lacks its native opening");
   if (openingOrigin !== undefined && (underlying.kind !== "frame_opened" || openingOrigin !== sample || physical.openingRef !== undefined))
@@ -275,7 +279,7 @@ export function observeNativeFrameLiveness(store: AbgEventStore, underlying: Run
     causationEventRefs: [...new Set([context.declarationEventRef, underlying.eventId])], correlationId: underlying.correlationId,
     workflowVersion: "5.0.0", scopeClass: "run", basisId: context.scope.basisRef, runId: context.scope.runId,
     graphFunctionRef: context.scope.graphFunctionRef, graphCallId: context.scope.graphCallId, frameId: context.scope.frameId,
-    payload: { probeContract: probe, observation } as unknown as JsonValue });
+    payload: { probeContract: probe, observation } });
   if (openingOrigin === sample) physical.openingRef = underlying.eventId;
   else frameSamples.delete(sample);
 }
@@ -310,7 +314,7 @@ export function observeNativeCCallLiveness(store: AbgEventStore, underlying: Run
   assertRuntimeEventTransactionActive(store);
   if (underlying.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return;
   const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
-  if (!indexedRuntimeEvents(prefix, "id:" + underlying.eventId).some(e => canonicalEquals(e as unknown as JsonValue, underlying as unknown as JsonValue))) throw new TypeError("CCall progress needs its admitted native producer");
+  if (!indexedRuntimeEvents(prefix, "id:" + underlying.eventId).some(e => canonicalEquals(e, underlying))) throw new TypeError("CCall progress needs its admitted native producer");
   const context = projectCCallLivenessContext(prefix, underlying.aggregateId);
   if (context === null) return;
   let clocks = cCallClocks.get(store);
@@ -341,7 +345,7 @@ export function observeNativeCCallLiveness(store: AbgEventStore, underlying: Run
       correlationId: underlying.correlationId, workflowVersion: "5.0.0", scopeClass: "run",
       basisId: context.scope.basisRef, runId: context.scope.runId, graphFunctionRef: context.scope.graphFunctionRef,
       graphCallId: context.scope.graphCallId, frameId: context.scope.frameId,
-      payload: { probeContract: probe, observation } as unknown as JsonValue,
+      payload: { probeContract: probe, observation },
     });
   }
   if (underlying.kind === "c_call_judged") clocks.delete(context.scope.cCallRef!);
@@ -358,7 +362,7 @@ function probeObservationMatches(prefix: RuntimeEventPrefix, context: RuntimeLiv
   const findEvent = (ref: string) => reconstruction === undefined ? events.find(e => e.eventId === ref) : reconstruction.event(ref, cutOrdinal);
   const declared = context.probes.find(p => p.probeRef === contract?.probeRef);
   if (declared === undefined ||
-      (contract !== declared && (!isRuntimeSystemProbeContract(contract) || !canonicalEquals(declared as unknown as JsonValue, contract as unknown as JsonValue))) ||
+      (contract !== declared && (!isRuntimeSystemProbeContract(contract) || !canonicalEquals(declared, contract))) ||
       !isRuntimeProbeObservation(observation) ||
       observation.probeRef !== contract.probeRef || observation.scopeDigest !== digest(context.scope) ||
       observation.clockOriginRef !== context.binding.clockOriginRef) return false;
@@ -631,9 +635,12 @@ export function createRuntimeLivenessEventValidator(prefix: RuntimeEventPrefix):
 export function createRuntimeLivenessEventValidator(prefix: RuntimeEventPrefix): (event: RuntimeEvent) => boolean {
   const history = unscopedRuntimeEventPrefix(prefix);
   const reconstruction = livenessReconstruction(history);
-  return event => event.admissionOrdinal <= (runtimeEventBodiesAtPrefix(history).at(-1)?.admissionOrdinal ?? 0) &&
-    canonicalEquals(reconstruction.event(event.eventId, event.admissionOrdinal) as unknown as JsonValue, event as unknown as JsonValue) &&
-    validateRuntimeLivenessEvent(history, event, reconstruction);
+  return event => {
+    if (event.admissionOrdinal > (runtimeEventBodiesAtPrefix(history).at(-1)?.admissionOrdinal ?? 0)) return false;
+    const reconstructed = reconstruction.event(event.eventId, event.admissionOrdinal);
+    return reconstructed !== undefined && canonicalEquals(reconstructed, event) &&
+      validateRuntimeLivenessEvent(history, event, reconstruction);
+  };
 }
 
 function validateRuntimeLivenessEvent(prefix: RuntimeEventPrefix, event: RuntimeEvent,
@@ -731,7 +738,7 @@ function deriveRuntimeLivenessSemantics(
     const authenticated = reconstruction === undefined
       ? livenessContextFacts(contextForOccurrence(prefix, occurrence)) : reconstruction.contextFacts(ordinal, occurrence);
     if (authenticated === null || context !== authenticated.context &&
-        (livenessContextFacts(context) === null || !canonicalEquals(authenticated.context as unknown as JsonValue, context as unknown as JsonValue))) return null;
+        (livenessContextFacts(context) === null || !canonicalEquals(authenticated.context, context))) return null;
     // All later consumers use the established immutable owner value. Object
     // identity is useful only after the exact current declaration lookup above.
     context = authenticated.context;
@@ -781,7 +788,7 @@ function deriveRuntimeLivenessSemantics(
       sourceTimes.set(o.underlyingObservationRef, { elapsedMs: o.elapsedMs, sourceDigest: o.sourceDigest });
       const previous = seen.get(key);
       if (previous !== undefined) {
-        if (!canonicalEquals(previous as unknown as JsonValue, o as unknown as JsonValue)) return null; // delayed alias keeps original elapsed
+        if (!canonicalEquals(previous, o)) return null; // delayed alias keeps original elapsed
         continue;
       }
       if (o.elapsedMs < lastElapsed) return null;
@@ -1017,7 +1024,7 @@ export function admitRuntimeActivityProbe(input: Readonly<{
       basisId: context.scope.basisRef, runId: context.scope.runId, graphFunctionRef: context.scope.graphFunctionRef,
       graphCallId: context.scope.graphCallId, frameId: context.scope.frameId,
       payload: { ...(context.scope.actorInvocationRef === null ? {} : { actorInvocationRef: context.scope.actorInvocationRef }),
-        probeContract: probe, observation: input.observation } as unknown as JsonValue,
+        probeContract: probe, observation: input.observation },
     };
     return admitNativeRuntimeLivenessEvent(input.store, candidate);
   });
@@ -1056,7 +1063,7 @@ export function admitRuntimeThreshold(input: Readonly<{
         actorInvocationRef: input.actorInvocationRef, processRef: input.processRef, timeoutClass,
         timeoutMs: timeoutClass === "absolute" ? policy.hardCapMs : policy.inactivityMs,
         thresholdObservation: observation,
-      } as unknown as JsonValue,
+      },
     });
     return { kind: "runtime_threshold_staged" as const, event, timeoutClass };
   });

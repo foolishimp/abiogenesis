@@ -35,7 +35,7 @@ export const STDO_ENVIRONMENT_EVIDENCE_SCHEMA = v.strictObject({
   evidenceDigest: digest,
 });
 export type StdoEnvironmentEvidence = v.InferOutput<typeof STDO_ENVIRONMENT_EVIDENCE_SCHEMA>;
-const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+const hash = (x: JsonValue) => sha256Canonical(x);
 const record = (x: unknown): x is Record<string, any> => typeof x === "object" && x !== null && !Array.isArray(x);
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 const keys = (x: unknown, names: readonly string[]) => isRecord(x) && hasExactKeys(x, names);
@@ -80,7 +80,7 @@ export function isStdoEnvironmentEvidence(value: unknown): value is StdoEnvironm
       !Object.values(resources.roots).every(p => typeof p === "string" && isAbsolute(p)) ||
       !keys(resources.permission,["authorityRef","authorityDigest","actorRef","programRef","environmentRef","environmentDigest","operation","roots"])) return false;
     const permission = resources.permission;
-    if (permission.operation !== "project" || !canonicalEquals(permission.roots as JsonValue, resources.roots as JsonValue) ||
+    if (permission.operation !== "project" || !canonicalEquals(permission.roots, resources.roots) ||
       permission.authorityRef !== e.authority.authorityRef || permission.authorityDigest !== e.authority.authorityDigest || permission.actorRef !== e.authority.actorRef ||
       permission.programRef !== e.programRef || permission.environmentRef !== d.declarationRef || permission.environmentDigest !== e.environmentDigest) return false;
     const manifest = JSON.parse(exactStdoBytes(e.sourceManifest).toString("utf8"));
@@ -209,9 +209,9 @@ export function isRunEnvironmentEvidence(value: unknown): value is RunEnvironmen
     const permission = r.permission;
     if (permission.authorityRef !== e.authority.authorityRef || permission.authorityDigest !== e.authority.authorityDigest ||
       permission.actorRef !== e.authority.actorRef || permission.programRef !== e.programRef || permission.environmentRef !== d.declarationRef ||
-      permission.environmentDigest !== e.environmentDigest || !canonicalEquals(permission.dependencies as JsonValue, r.dependencies) ||
+      permission.environmentDigest !== e.environmentDigest || !canonicalEquals(permission.dependencies, r.dependencies) ||
       permission.pythonPath !== r.pythonPath || permission.temporaryRoot !== r.temporaryRoot ||
-      !canonicalEquals(permission.operations as JsonValue, [...new Set(["read_context", ...d.accesses.map(a => a.operation)])].sort())) return false;
+      !canonicalEquals(permission.operations, [...new Set(["read_context", ...d.accesses.map(a => a.operation)])].sort())) return false;
     if (e.dependencies.length !== d.dependencies.length || !unique(e.dependencies.map(x => x.dependencyRef))) return false;
     for (const dep of d.dependencies) {
       const observed = e.dependencies.find(x => x.dependencyRef === dep.dependencyRef);
@@ -266,8 +266,8 @@ export function isRunEnvironmentEvidence(value: unknown): value is RunEnvironmen
         if (!outputPath || !confined(r.temporaryRoot, outputPath) || !canonicalEquals(args, [...prefix, "--bindings", bindingPath, "--emit-map", outputPath]) ||
           p.kind !== "axiom-indexer.validation-report" || p.schema_version !== 1 || p.status !== "valid" ||
           !Array.isArray(p.diagnostics) || p.diagnostics.length !== 0 || observed.output === null ||
-          exactStdoBytes(observed.output).length > a.maxOutputBytes || !canonicalEquals(JSON.parse(exactStdoBytes(observed.output).toString("utf8")) as JsonValue, map as JsonValue) ||
-          observed.projectionDigest !== hash(p) || !canonicalEquals(p.resolved_sources, map.resolved_sources as JsonValue)) return false;
+          exactStdoBytes(observed.output).length > a.maxOutputBytes || !canonicalEquals(JSON.parse(exactStdoBytes(observed.output).toString("utf8")), map) ||
+          observed.projectionDigest !== hash(p) || !canonicalEquals(p.resolved_sources, map.resolved_sources)) return false;
       } else {
         const { projection_sha256, ...projectionBody } = p;
         if (!canonicalEquals(

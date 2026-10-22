@@ -47,10 +47,10 @@ export const WITNESS_ADMISSION_MEMBER_KEYS = Object.freeze([
 export type WitnessAdmissionMemberKey =
   (typeof WITNESS_ADMISSION_MEMBER_KEYS)[number];
 
-export interface ReferenceDigest {
+export type ReferenceDigest = {
   readonly ref: string;
   readonly digest: Sha256Digest;
-}
+};
 
 export type WitnessSubjectKind =
   | "authority_basis"
@@ -59,16 +59,16 @@ export type WitnessSubjectKind =
   | "intake_item"
   | "run";
 
-export interface WitnessSubject extends ReferenceDigest {
+export type WitnessSubject = ReferenceDigest & {
   readonly kind: WitnessSubjectKind;
-}
+};
 
 export interface WitnessContent {
   readonly kind: "typed_reason" | "typed_payload";
   readonly contentContract: ReferenceDigest;
   readonly valueRef: string;
   readonly valueDigest: Sha256Digest;
-  readonly value: Readonly<Record<string, JsonValue>>;
+  readonly value: JsonValue;
 }
 
 export type WitnessContext =
@@ -268,7 +268,7 @@ export const WITNESS_CONTENT_CONTRACTS = deepFreeze(
       contentKind: CONTENT_KIND_BY_MEMBER[memberKey],
       closedFields: CONTENT_FIELDS_BY_MEMBER[memberKey],
     };
-    const digest = sha256Canonical(body as unknown as JsonValue);
+    const digest = sha256Canonical(body);
     return [memberKey, {
       ref: `contract://abiogenesis/witness/${memberKey}@5`,
       digest,
@@ -483,9 +483,8 @@ function validatePacket(
     ) ||
     !exactRef(admitted.content.valueRef) ||
     !isSha256Digest(admitted.content.valueDigest) ||
-    admitted.content.valueDigest !== sha256Canonical(
-      admitted.content.value as JsonValue,
-    ) ||
+    admitted.content.value === undefined ||
+    admitted.content.valueDigest !== sha256Canonical(admitted.content.value) ||
     admitted.content.valueRef !==
       `witness-content://abiogenesis/${admitted.content.valueDigest.slice("sha256:".length)}` ||
     !validateContentValue(memberKey, admitted.content.value) ||
@@ -599,7 +598,7 @@ function validateAuthority(
 
 function eventPayload(event: RuntimeEvent): Readonly<Record<string, JsonValue>> | null {
   return isRecord(event.payload)
-    ? event.payload as Readonly<Record<string, JsonValue>>
+    ? event.payload
     : null;
 }
 
@@ -634,8 +633,8 @@ function selectRunOpen(
 function witnessedActBody(packet: WitnessAdmitPacket): Readonly<Record<string, JsonValue>> {
   return {
     act: packet.act,
-    actor: packet.actor as unknown as JsonValue,
-    subject: packet.subject as unknown as JsonValue,
+    actor: packet.actor,
+    subject: packet.subject,
     content: {
       kind: packet.content.kind,
       contractRef: packet.content.contentContract.ref,
@@ -644,9 +643,9 @@ function witnessedActBody(packet: WitnessAdmitPacket): Readonly<Record<string, J
       valueDigest: packet.content.valueDigest,
       value: packet.content.value,
     },
-    context: packet.context as unknown as JsonValue,
-    evidence: packet.evidence as unknown as JsonValue,
-    provenance: packet.provenance as unknown as JsonValue,
+    context: packet.context,
+    evidence: packet.evidence,
+    provenance: packet.provenance,
   };
 }
 
@@ -668,9 +667,9 @@ function commonWitnessPayload(
     contentValueRef: packet.content.valueRef,
     contentValueDigest: packet.content.valueDigest,
     contentValue: packet.content.value,
-    context: packet.context as unknown as JsonValue,
-    evidence: packet.evidence as unknown as JsonValue,
-    provenance: packet.provenance as unknown as JsonValue,
+    context: packet.context,
+    evidence: packet.evidence,
+    provenance: packet.provenance,
     witnessedActRef,
     witnessedActDigest,
   };
@@ -734,7 +733,7 @@ function prepareSemanticEvent(
   publicOperationEventRef: string,
 ): PreparedSemanticEvent | WitnessAdmissionRefusal {
   const body = witnessedActBody(packet);
-  const witnessedActDigest = sha256Canonical(body as unknown as JsonValue);
+  const witnessedActDigest = sha256Canonical(body);
   const witnessedActRef =
     `witnessed-act://abiogenesis/${witnessedActDigest.slice("sha256:".length)}`;
   const common = commonWitnessPayload(
@@ -743,6 +742,7 @@ function prepareSemanticEvent(
     witnessedActDigest,
   );
   const content = packet.content.value;
+  if (!isRecord(content)) throw new TypeError("witness content differs from its validated record");
   const operationBasis = authority.operationBasis;
   const causationEventRefs = Object.freeze([
     ...new Set([...operationBasis.causationEventRefs, publicOperationEventRef]),
@@ -796,13 +796,11 @@ function prepareSemanticEvent(
           "declaration reprice requires the exact admitted authority basis it changes",
         );
       }
-      const repriceBody = {
-        declarationRef: content.declarationRef,
-        beforeDigest: content.beforeDigest,
-        afterDigest: content.afterDigest,
-        changeClass: content.changeClass,
-        owningTicketRef: content.owningTicketRef,
-      };
+      const { declarationRef, beforeDigest, afterDigest, changeClass, owningTicketRef, reason } = content;
+      if (declarationRef === undefined || beforeDigest === undefined || afterDigest === undefined ||
+          changeClass === undefined || owningTicketRef === undefined || reason === undefined)
+        throw new TypeError("declaration reprice content lacks a validated member");
+      const repriceBody = { declarationRef, beforeDigest, afterDigest, changeClass, owningTicketRef };
       return {
         witnessedActRef,
         witnessedActDigest,
@@ -811,10 +809,10 @@ function prepareSemanticEvent(
           {
             ...common,
             ...repriceBody,
-            repriceRef: `declaration-reprice:${sha256Canonical(repriceBody as JsonValue)}`,
+            repriceRef: `declaration-reprice:${sha256Canonical(repriceBody)}`,
             operatorActorRef: packet.actor.ref,
-            reason: content.reason,
-          } as unknown as JsonValue,
+            reason,
+          },
         ),
       };
     }
@@ -836,7 +834,7 @@ function prepareSemanticEvent(
         kind: "canonical_replay_chain",
         schemaVersion: "5.0.0",
         events,
-      } as unknown as JsonValue);
+      });
       const attestationBody = {
         basisId: packet.context.basis.ref,
         chainDigest,
@@ -851,11 +849,11 @@ function prepareSemanticEvent(
           {
             ...common,
             attestationRef:
-              `replay-attestation:${sha256Canonical(attestationBody as JsonValue)}`,
+              `replay-attestation:${sha256Canonical(attestationBody)}`,
             chainDigest,
             eventCount: events.length,
             attestedBy: packet.actor.ref,
-          } as unknown as JsonValue,
+          },
         ),
       };
     }
@@ -924,10 +922,12 @@ function prepareSemanticEvent(
           copyOutRef: observation.copyOutRef,
         });
       }
+      const observedBy = content.observedBy;
+      if (observedBy === undefined) throw new TypeError("hygiene stamp content lacks its validated observer");
       const hygieneBody = {
         basisId: authority.workspaceBinding.ref,
         segmentRef: null,
-        observedBy: content.observedBy,
+        observedBy,
         rows,
       };
       return {
@@ -938,11 +938,11 @@ function prepareSemanticEvent(
           {
             ...common,
             hygieneRef:
-              `workspace-hygiene:${sha256Canonical(hygieneBody as JsonValue)}`,
+              `workspace-hygiene:${sha256Canonical(hygieneBody)}`,
             segmentRef: null,
-            observedBy: content.observedBy,
+            observedBy,
             rows,
-          } as unknown as JsonValue,
+          },
         ),
       };
     }
@@ -967,7 +967,7 @@ function prepareSemanticEvent(
         runOpen === null ||
         packet.context.segment.ref !== runOpen.eventId ||
         packet.context.segment.digest !==
-          sha256Canonical(runOpen as unknown as JsonValue)
+          sha256Canonical(runOpen)
       ) {
         return refusal(
           packet.memberKey,
@@ -1001,7 +1001,7 @@ function prepareSemanticEvent(
           row.resultRef === null ? [] : [row.resultRef]
         ),
       };
-      const haltDiagnosisDigest = sha256Canonical(haltBody as JsonValue);
+      const haltDiagnosisDigest = sha256Canonical(haltBody);
       const haltDiagnosisRef =
         `halt-diagnosis://abiogenesis/${haltDiagnosisDigest.slice("sha256:".length)}`;
       if (
@@ -1015,15 +1015,19 @@ function prepareSemanticEvent(
           "defect intake subject differs from the replay-derived halt diagnosis",
         );
       }
+      const { owner, changeClass, reEntryPoint, summary, triagedBy } = content;
+      if (owner === undefined || changeClass === undefined || reEntryPoint === undefined ||
+          summary === undefined || triagedBy === undefined)
+        throw new TypeError("defect intake content lacks a validated member");
       const intakeBody = {
         basisId: authority.executionBasis.ref,
         haltDiagnosisRef,
-        owner: content.owner,
-        changeClass: content.changeClass,
-        reEntryPoint: content.reEntryPoint,
-        summary: content.summary,
+        owner,
+        changeClass,
+        reEntryPoint,
+        summary,
         evidenceRefs: packet.evidence.map((row) => row.ref),
-        triagedBy: content.triagedBy,
+        triagedBy,
       };
       return {
         witnessedActRef,
@@ -1034,15 +1038,15 @@ function prepareSemanticEvent(
           authority.executionBasis.ref,
           {
             ...common,
-            intakeRef: `defect-intake:${sha256Canonical(intakeBody as JsonValue)}`,
+            intakeRef: `defect-intake:${sha256Canonical(intakeBody)}`,
             haltDiagnosisRef,
             haltDiagnosisDigest,
-            owner: content.owner,
-            changeClass: content.changeClass,
-            reEntryPoint: content.reEntryPoint,
-            summary: content.summary,
-            triagedBy: content.triagedBy,
-          } as unknown as JsonValue,
+            owner,
+            changeClass,
+            reEntryPoint,
+            summary,
+            triagedBy,
+          },
         ),
       };
     }
@@ -1085,6 +1089,9 @@ function prepareSemanticEvent(
             : "operator resume requires one currently operator-stopped Run",
         );
       }
+      const { reasonKind, reasonDetail } = content;
+      if (reasonKind === undefined || reasonDetail === undefined)
+        throw new TypeError("operator run content lacks a validated member");
       return {
         witnessedActRef,
         witnessedActDigest,
@@ -1095,9 +1102,9 @@ function prepareSemanticEvent(
           {
             ...common,
             operatorActorRef: packet.actor.ref,
-            reasonKind: content.reasonKind,
-            reasonDetail: content.reasonDetail,
-          } as unknown as JsonValue,
+            reasonKind,
+            reasonDetail,
+          },
         ),
       };
     }
@@ -1151,7 +1158,7 @@ export function admitWitnessedAct<K extends WitnessAdmissionMemberKey>(
       return prepared as WitnessAdmissionRefusal<K>;
     }
     const admittedPreparation = prepared as PreparedSemanticEvent;
-    const isProfileUpgrade = packet.memberKey === "reprice" &&
+    const isProfileUpgrade = packet.memberKey === "reprice" && isRecord(packet.content.value) &&
       packet.content.value.declarationRef === ROOT_EVENT_PROFILE_DECLARATION_REF;
     const committed = isProfileUpgrade
       ? (() => {

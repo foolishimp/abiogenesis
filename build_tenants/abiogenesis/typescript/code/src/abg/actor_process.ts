@@ -88,7 +88,7 @@ export interface ActorProcessRequest {
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly prompt: string;
   readonly responseJsonSchema: Readonly<Record<string, JsonValue>>;
-  readonly responsePresentation?: WorkerTransportRequest["responsePresentation"];
+  readonly responsePresentation?: Exclude<WorkerTransportRequest["responsePresentation"], undefined>;
 }
 
 export interface ActorProcessObservation {
@@ -139,13 +139,13 @@ export type ActorProcessCarrierValidationRefusalCode =
   | "invalid_actor_process_observation"
   | "invalid_actor_process_request";
 
-export interface ActorProcessCarrierValidation {
+export type ActorProcessCarrierValidation = {
   readonly kind: "actor_process_carrier_validation";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "valid";
   readonly request: Readonly<ActorProcessRequest>;
   readonly observation: Readonly<ActorProcessObservation>;
-}
+};
 
 export interface ActorProcessCarrierValidationRefusal {
   readonly kind: "actor_process_carrier_validation_refusal";
@@ -707,7 +707,8 @@ function positiveInteger(
 
 function outputDigest(output: string): Sha256Digest {
   try {
-    return sha256Canonical(JSON.parse(output) as JsonValue);
+    const parsed: JsonValue = JSON.parse(output);
+    return sha256Canonical(parsed);
   } catch {
     return sha256Canonical(output);
   }
@@ -831,13 +832,13 @@ async function invokeActorProcessWithAssembly(
     worksiteOwner.execution.basisRef !== input.executionBasis.basisRef ||
     worksiteOwner.inputDigest !== input.expectedInputDigest)) throw new TypeError("worksite assembly crosses actor coordinates");
   if ((assemblyRequired || preparedAssembly !== undefined) && (instructionAssembly === null ||
-    !canonicalEquals(instructionAssembly.request as unknown as JsonValue, input.request as unknown as JsonValue))) {
+    !canonicalEquals(instructionAssembly.request, input.request))) {
     throw new TypeError("dependent dispatch requires exact native admitted instruction assembly");
   }
   const environment = Object.freeze({ ...process.env });
   const promptDigest = sha256Canonical(input.request.prompt);
   const requestDigest = sha256Canonical(
-    input.request as unknown as JsonValue,
+    input.request,
   );
   const requestRef =
     `probabilistic-request://abiogenesis/${requestDigest.slice("sha256:".length)}`;
@@ -931,7 +932,7 @@ async function invokeActorProcessWithAssembly(
     paths: plan.paths,
   };
   const transportBindingDigest = sha256Canonical(
-    transportBindingBody as unknown as JsonValue,
+    transportBindingBody,
   );
   const transportBindingRef =
     `transport-binding://abiogenesis/${transportBindingDigest.slice("sha256:".length)}`;
@@ -972,7 +973,7 @@ async function invokeActorProcessWithAssembly(
           transportBindingRef,
           transportBindingDigest,
           ...transportBindingBody,
-        } as unknown as JsonValue,
+        },
       });
       const startedEvent = admitRuntimeEvent(input.store, {
         kind: "actor_invocation_started",
@@ -1083,7 +1084,7 @@ async function invokeActorProcessWithAssembly(
     const result = admitRuntimeActivityProbe({ store: input.store, predecessorPrefix: successorPrefix, actorInvocationRef,
       source, eventTime: event.eventTime, correlationId: common.correlationId,
       observation: { kind: "runtime_probe_observation", schemaVersion: "5.0.0", probeRef: declaration.probeRef,
-        scopeDigest: sha256Canonical(context.scope as unknown as JsonValue), clockOriginRef: context.binding.clockOriginRef,
+        scopeDigest: sha256Canonical(context.scope), clockOriginRef: context.binding.clockOriginRef,
         elapsedMs, underlyingObservationRef: event.eventId, underlyingEventRef: event.eventId, sourceDigest: event.payloadDigest, sourceRevisionDigest: null,
         evidenceRefs: [event.eventId], coverage, signal },
     });
@@ -1111,7 +1112,7 @@ async function invokeActorProcessWithAssembly(
     const result = admitRuntimeActivityProbe({ store: input.store, predecessorPrefix: successorPrefix, actorInvocationRef,
       source: "result_artifact", eventTime: sampleNativeEventTime(), correlationId: common.correlationId,
       observation: { kind: "runtime_probe_observation", schemaVersion: "5.0.0", probeRef: declaration.probeRef,
-        scopeDigest: sha256Canonical(context.scope as unknown as JsonValue), clockOriginRef: context.binding.clockOriginRef,
+        scopeDigest: sha256Canonical(context.scope), clockOriginRef: context.binding.clockOriginRef,
         elapsedMs: elapsed(), underlyingObservationRef, underlyingEventRef: null, sourceDigest, sourceRevisionDigest,
         evidenceRefs: [context.declarationEventRef], coverage: "observed", signal: "artifact_pending" },
     });
@@ -1178,7 +1179,7 @@ async function invokeActorProcessWithAssembly(
         requestRef,
         requestDigest,
         ...observationBody,
-      } as unknown as Readonly<Record<string, JsonValue>>,
+      },
     );
     // Retain the actual committed witness before a subsequent probe can fail.
     admittedArtifact = artifactEvent;

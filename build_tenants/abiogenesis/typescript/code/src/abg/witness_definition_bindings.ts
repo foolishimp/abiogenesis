@@ -260,7 +260,7 @@ function witnessOwner(
             valueDigest: contentDigest,
             // The native owner admits the closed content value and reports a
             // semantic content refusal; Public carries generic I-JSON here.
-            value: request.content.value as Readonly<Record<string, JsonValue>>,
+            value: request.content.value,
           },
           context: member === "run-stopped" && runMatches && request.context.kind === "run"
             ? { ...request.context, run: runIdentity!.nativeRun } : request.context,
@@ -320,7 +320,7 @@ function witnessOwner(
             value: {
               act: member,
               witnessedAct: reference(native.witnessedActRef, native.witnessedActDigest),
-              admittedEvent: reference(eventId, sha256Canonical(eventBody as unknown as JsonValue)),
+              admittedEvent: reference(eventId, sha256Canonical(eventBody)),
               evidence: [...native.evidence],
             },
           };

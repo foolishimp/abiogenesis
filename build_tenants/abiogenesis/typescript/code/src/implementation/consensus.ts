@@ -265,8 +265,8 @@ export function realizeConsensusInitialization(
   const result = initializeConsensus(input);
   return deterministicSuccess(
     CONSENSUS_IDS.initializerImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }
 
@@ -280,8 +280,8 @@ export function realizeConsensusRoundEvaluation(
   }
   return deterministicSuccess(
     CONSENSUS_IDS.roundEvaluatorImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    input as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    input,
   );
 }
 
@@ -409,7 +409,7 @@ function projectReviewerRoleResult(
     };
     const resultCandidate: ReviewFindings = deepFreeze({
       ...body,
-      outputDigest: sha256Canonical(body as unknown as JsonValue),
+      outputDigest: sha256Canonical(body),
     });
     return deepFreeze({
       kind: "leaf_realization_candidate" as const,
@@ -417,7 +417,7 @@ function projectReviewerRoleResult(
       disposition: "success" as const,
       evidenceCandidates: [] as const,
       resultCandidate:
-        resultCandidate as unknown as Readonly<Record<string, JsonValue>>,
+        resultCandidate,
     });
   }
   const evidenceRef =
@@ -446,7 +446,7 @@ function projectReviewerRoleResult(
   };
   const resultCandidate: ReviewFindings = deepFreeze({
     ...body,
-    outputDigest: sha256Canonical(body as unknown as JsonValue),
+    outputDigest: sha256Canonical(body),
   });
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,
@@ -454,7 +454,7 @@ function projectReviewerRoleResult(
     disposition: "success" as const,
     evidenceCandidates: [] as const,
     resultCandidate:
-      resultCandidate as unknown as Readonly<Record<string, JsonValue>>,
+      resultCandidate,
   });
 }
 
@@ -469,8 +469,8 @@ export function realizeConsensusSubmitterTaskPreparation(
   const result = constructConsensusSubmitterTask(input);
   return deterministicSuccess(
     CONSENSUS_IDS.submitterTaskImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }
 
@@ -501,7 +501,7 @@ function projectSubmitterRoleResult(
   const responseBody = {
     invocationRef: input.invocationRef,
     findingsVectorDigest:
-      sha256Canonical(input.findingsVector as unknown as JsonValue),
+      sha256Canonical(input.findingsVector),
     roundRef: input.roundRef,
     roundOrdinal: input.roundOrdinal,
     submittingActorRef: input.profile.actorRef,
@@ -512,7 +512,7 @@ function projectSubmitterRoleResult(
     residualFindingRefs: [...semantic.residualFindingRefs],
     evidenceRefs: [evidenceRef],
   };
-  const outputDigest = sha256Canonical(responseBody as unknown as JsonValue);
+  const outputDigest = sha256Canonical(responseBody);
   const resultCandidate: ConsensusSubmitterResponse = deepFreeze({
     kind: "consensus_submitter_response" as const,
     schemaVersion: "5.0.0" as const,
@@ -595,7 +595,7 @@ export function realizeConsensusRole(
     actorRef: input.profile.actorRef,
     workerBindingRef: input.profile.workerBindingRef,
     implementationRef,
-    inputDigest: sha256Canonical(input as unknown as JsonValue),
+    inputDigest: sha256Canonical(input),
     materializationPlanRef:
       `materialization-plan://abg/consensus/${promptKind}@5`,
     rendererRef: `renderer://abg/consensus/${promptKind}@5`,
@@ -647,8 +647,8 @@ export function realizeConsensusReduction(
   const result = reduceConsensusRound(input);
   return deterministicSuccess(
     CONSENSUS_IDS.reducerImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }
 
@@ -663,8 +663,8 @@ export function realizeConsensusFinalizationPreparation(
   const result = prepareConsensusResolution(input);
   return deterministicSuccess(
     CONSENSUS_IDS.finalizationPreparationImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }
 
@@ -678,8 +678,8 @@ export function realizeConsensusFinalizationEvaluation(
   }
   return deterministicSuccess(
     CONSENSUS_IDS.finalizationEvaluatorImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    input as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    input,
   );
 }
 
@@ -694,8 +694,8 @@ export function realizeConsensusResultProjection(
   const result = projectConsensusFinalResult(input);
   return deterministicSuccess(
     CONSENSUS_IDS.projectorImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }
 
@@ -710,8 +710,8 @@ export function realizeConsensusEscalationFinalization(
   const result = finalizeConsensusEscalation(input);
   return deterministicSuccess(
     CONSENSUS_IDS.escalationFinalizerImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }
 
@@ -726,9 +726,7 @@ export function realizeConsensusModelSynthesis(
   return deterministicSuccess(
     CONSENSUS_IDS.synthesizeModelImplementationRef,
     input,
-    synthesizeConsensusModel(input) as unknown as Readonly<
-      Record<string, JsonValue>
-    >,
+    synthesizeConsensusModel(input),
   );
 }
 
@@ -788,9 +786,7 @@ export function realizeConsensusModelRefresh(
   return deterministicSuccess(
     CONSENSUS_IDS.refreshModelImplementationRef,
     input,
-    refreshConsensusModel(input) as unknown as Readonly<
-      Record<string, JsonValue>
-    >,
+    refreshConsensusModel(input),
   );
 }
 

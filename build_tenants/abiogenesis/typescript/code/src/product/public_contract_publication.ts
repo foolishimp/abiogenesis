@@ -176,8 +176,8 @@ function canonicalProposalSequence(
     const identity = compareUnicodeCodeUnits(left.contractId, right.contractId);
     if (identity !== 0) return identity;
     return compareUnicodeCodeUnits(
-      canonicalJson(left as unknown as JsonValue),
-      canonicalJson(right as unknown as JsonValue),
+      canonicalJson(left),
+      canonicalJson(right),
     );
   });
 }
@@ -186,7 +186,7 @@ export function publicProposalSetDigest(
   proposals: readonly PublicContractCatalogRowProposal[],
 ): Sha256Digest {
   return sha256Canonical(
-    canonicalProposalSequence(proposals) as unknown as JsonValue,
+    canonicalProposalSequence(proposals),
   );
 }
 
@@ -283,7 +283,7 @@ export function derivePublicCatalogRowProposals(
   });
 }
 
-export interface PublicCatalogBindingAttempt {
+export type PublicCatalogBindingAttempt = {
   readonly schemaVersion: "5.0.0";
   readonly extantCatalog: PublicContractCatalogCoordinate;
   readonly family: IntrinsicPublicFunctionFamilyCoordinate;
@@ -293,15 +293,15 @@ export interface PublicCatalogBindingAttempt {
   readonly productContentDigest: Sha256Digest;
   readonly attemptRef: string;
   readonly attemptDigest: Sha256Digest;
-}
+};
 
-export interface ExactPublicCatalogBindingNativeSource {
+export type ExactPublicCatalogBindingNativeSource = {
   readonly abstractModule: "Product.PublicContractPublication";
   readonly exportName: "PUBLIC_CATALOG_BINDING_CONTRACTS";
   readonly memberPath: readonly ["refusal"];
   readonly sourceModuleDigest: Sha256Digest;
   readonly memberDigest: Sha256Digest;
-}
+};
 
 export interface PublicCatalogBindingRefusal {
   readonly kind: "public_catalog_binding_refusal";
@@ -395,11 +395,11 @@ const refusalMemberDigest = sha256Canonical({
   failureClasses: PUBLIC_CATALOG_BINDING_FAILURE_CLASSES,
   attemptSchema: projectStrictJsonSchema(bindingAttemptSchema),
   refusalSchema: projectStrictJsonSchema(bindingRefusalSchema),
-} as unknown as JsonValue);
+});
 const refusalSourceModuleDigest = sha256Canonical({
   abstractModule: "Product.PublicContractPublication",
   members: [{ exportName: "PUBLIC_CATALOG_BINDING_CONTRACTS", memberPath: ["refusal"], memberDigest: refusalMemberDigest }],
-} as JsonValue);
+});
 const refusalNativeSource: ExactPublicCatalogBindingNativeSource = deepFreeze({
   abstractModule: "Product.PublicContractPublication",
   exportName: "PUBLIC_CATALOG_BINDING_CONTRACTS",
@@ -418,7 +418,7 @@ export function productPublicContractCatalogDigest(
   catalog: ProductPublicContractCatalog,
 ): Sha256Digest {
   const { catalogDigest: _catalogDigest, ...projection } = catalog;
-  return sha256Canonical(projection as unknown as JsonValue);
+  return sha256Canonical(projection);
 }
 
 function catalogCoordinateMatches(
@@ -446,7 +446,7 @@ function exactAttempt(
     productId: input.productId,
     productContentDigest: input.productContentDigest,
   };
-  const attemptDigest = sha256Canonical(fields as unknown as JsonValue);
+  const attemptDigest = sha256Canonical(fields);
   return deepFreeze({
     ...fields,
     attemptRef: `public-catalog-binding-attempt://abiogenesis/${attemptDigest.slice(7)}`,
@@ -507,7 +507,7 @@ function bindingRefusal(
     failureClass,
     issuePaths: uniquePaths as [string, ...string[]],
   };
-  const refusalDigest = sha256Canonical(fields as unknown as JsonValue);
+  const refusalDigest = sha256Canonical(fields);
   const refusal = deepFreeze({
     ...fields,
     refusalRef:
@@ -569,7 +569,7 @@ function mandatoryGapSet(
   };
   return deepFreeze({
     ...fields,
-    diagnosticDigest: sha256Canonical(fields as unknown as JsonValue),
+    diagnosticDigest: sha256Canonical(fields),
   });
 }
 
@@ -690,8 +690,8 @@ export function bindS06PublicFunctionCatalog(
       row.nativeTypedLocator === undefined ||
       row.assetLocator === undefined ||
       !canonicalEquals(
-        row.nativeTypedLocator as unknown as JsonValue,
-        expectedRow.nativeTypedLocator as unknown as JsonValue,
+        row.nativeTypedLocator,
+        expectedRow.nativeTypedLocator,
       )
     ) {
       return bindingRefusal(
@@ -725,7 +725,7 @@ export function bindS06PublicFunctionCatalog(
         [`/proposalSequence/${index}/contractDigest`],
       );
     }
-    if (!canonicalEquals(row as unknown as JsonValue, expectedRow as unknown as JsonValue)) {
+    if (!canonicalEquals(row, expectedRow)) {
       return bindingRefusal(
         input,
         attempt,
@@ -763,7 +763,7 @@ export function bindS06PublicFunctionCatalog(
   };
   const catalog = deepFreeze({
     ...catalogFields,
-    catalogDigest: sha256Canonical(catalogFields as unknown as JsonValue),
+    catalogDigest: sha256Canonical(catalogFields),
   });
   return deepFreeze({
     kind: "s06_public_contract_catalog_binding" as const,

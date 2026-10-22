@@ -1,4 +1,5 @@
 import { isRecord, hasExactKeys, isNonblankString as nonEmptyString } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import type {
   ComputeRegime,
   GtlProgram,
@@ -63,11 +64,11 @@ import {
 export type RunInvocationVariant = "direct" | "start";
 export type CapabilityOperationId = PublicDefinitionKeyLike["operationId"];
 
-export interface InvocationInteractionCapability {
+export type InvocationInteractionCapability = {
   readonly requirementKey: string;
   readonly requirementKeyDigest: Sha256Digest;
   readonly actorCapabilityRef: string;
-}
+};
 
 export interface InvocationPolicyBasis {
   readonly kind: "invocation_policy_basis";
@@ -89,7 +90,7 @@ export interface InvocationPolicyBasis {
   readonly graphMaterialization: "after_invocation_admission";
 }
 
-export interface CapabilityGrant {
+export type CapabilityGrant = {
   readonly kind: "capability_grant";
   readonly schemaVersion: "5.0.0";
   readonly grantRef: string;
@@ -110,16 +111,16 @@ export interface CapabilityGrant {
   readonly scopeDigest: Sha256Digest;
   readonly authorityBasisRef: string;
   readonly authorityBasisDigest: Sha256Digest;
-}
+};
 
-export interface CapabilityDefinitionCoordinate {
+export type CapabilityDefinitionCoordinate = {
   readonly graphId: string;
   readonly graphVersion: "5.0.0";
   readonly graphDigest: Sha256Digest;
   readonly capabilityId: string;
   readonly capabilityDefinitionRef: string;
   readonly capabilityDefinitionDigest: Sha256Digest;
-}
+};
 
 export interface CapabilityGrantConstructionBasis {
   readonly admittedInstalls: readonly ProductInstall[];
@@ -361,7 +362,9 @@ export function isInvocationPolicyBasis(
     policyDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return policyDigest === digest &&
     policyRef === identity("invocation-policy://abiogenesis/root", digest);
 }
@@ -423,7 +426,9 @@ export function isInvocationAuthority(
     authorityDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return authorityDigest === digest &&
     authorityRef === identity("invocation-authority://abiogenesis", digest);
 }
@@ -521,7 +526,9 @@ export function isPublicInvocationCandidate(
     invocationDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.publicFunctionDefinitionDigest === expectedDefinitionDigest &&
     value.publicFunctionDefinitionRef ===
       `public-function://abiogenesis/run.invoke/${value.variant}@5` &&
@@ -592,7 +599,7 @@ export function constructRootInvocationPolicy(
     workspaceBindingId: workspaceBinding.bindingId,
     workspaceBindingDigest: workspaceBinding.bindingDigest,
     programRef: program.programRef,
-    programDigest: sha256Canonical(program as unknown as JsonValue),
+    programDigest: sha256Canonical(program),
     allowedComputeRegimes: canonicalRegimes,
     interactionCapabilities: canonicalInteractions,
     catalogApplicationRefs: canonicalApplications.map(
@@ -603,7 +610,7 @@ export function constructRootInvocationPolicy(
     ),
     graphMaterialization: "after_invocation_admission" as const,
   };
-  const policyDigest = sha256Canonical(body as unknown as JsonValue);
+  const policyDigest = sha256Canonical(body);
   const value = deepFreeze({
     kind: "invocation_policy_basis" as const,
     schemaVersion: "5.0.0" as const,
@@ -699,7 +706,9 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
     authorityBasisRef: value.authorityBasisRef,
     authorityBasisDigest: value.authorityBasisDigest,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return (
     value.grantDigest === digest &&
     value.grantRef === identity("capability-grant://abiogenesis", digest)
@@ -767,8 +776,8 @@ function selectedCapabilityOwner(
     };
     if (row.owningPublicContracts.some((coordinate) =>
       !canonicalEquals(
-        coordinate.contractCatalog as unknown as JsonValue,
-        exactCatalog as unknown as JsonValue,
+        coordinate.contractCatalog,
+        exactCatalog,
       )
     )) return [];
     const coordinates = row.owningPublicContracts;
@@ -813,8 +822,8 @@ function selectedCapabilityOwner(
       explicitOperationContracts.length > 1 ||
       explicitOperationContracts.some((coordinate) =>
         !canonicalEquals(
-          coordinate as unknown as JsonValue,
-          operationContract as unknown as JsonValue,
+          coordinate,
+          operationContract,
         )
       )
     ) return [];
@@ -824,8 +833,8 @@ function selectedCapabilityOwner(
           "operation_definition_slot" &&
         coordinate.nestedSelector.slot === slot &&
         canonicalEquals(
-          coordinate.flatRow as unknown as JsonValue,
-          operationContract.flatRow as unknown as JsonValue,
+          coordinate.flatRow,
+          operationContract.flatRow,
         ) &&
         admitRuntimeContract(publicContractCoordinateSchema, coordinate)
           .disposition === "admitted"
@@ -945,7 +954,7 @@ function admissionGrantFromBasis(
     scopeRef: scope.ref, scopeDigest: scope.digest,
     authorityBasisRef: authority.authority.ref, authorityBasisDigest: authority.authority.digest,
   };
-  const grantDigest = sha256Canonical(body as unknown as JsonValue);
+  const grantDigest = sha256Canonical(body);
   return deepFreeze({ kind: "capability_grant", schemaVersion: "5.0.0",
     grantRef: identity("capability-grant://abiogenesis", grantDigest), grantDigest, ...body });
 }
@@ -1024,7 +1033,7 @@ function constructInvocationCapabilityGrant(
     authorityBasisRef: basis.workspaceBinding.authorityBasisId,
     authorityBasisDigest: basis.workspaceBinding.authorityBasisDigest,
   };
-  const grantDigest = sha256Canonical(body as unknown as JsonValue);
+  const grantDigest = sha256Canonical(body);
   const value = deepFreeze({
     kind: "capability_grant" as const,
     schemaVersion: "5.0.0" as const,
@@ -1052,8 +1061,8 @@ export function validateCapabilityGrantForProductBasis(
       basis,
     );
     return canonicalEquals(
-      grant as unknown as JsonValue,
-      expected as unknown as JsonValue,
+      grant,
+      expected,
     );
   } catch {
     return false;
@@ -1095,12 +1104,12 @@ export function constructInvocationAuthority(
   if (
     exactSelectedRow === null ||
     !canonicalEquals(
-      exactSelectedRow as unknown as JsonValue,
-      selectedRow as unknown as JsonValue,
+      exactSelectedRow,
+      selectedRow,
     ) ||
     selectedRow.definitionRef !== selectedRow.definition.name ||
     selectedRow.definitionDigest !==
-      sha256Canonical(selectedRow.definition as unknown as JsonValue) ||
+      sha256Canonical(selectedRow.definition) ||
     !selectedRow.programMembershipRefs.includes(programRef)
   ) {
     return refusal(
@@ -1124,7 +1133,7 @@ export function constructInvocationAuthority(
     policyDigest: policy.policyDigest,
     capabilityGrantRefs: capabilityGrants.map((grant) => grant.grantRef),
   };
-  const authorityDigest = sha256Canonical(body as unknown as JsonValue);
+  const authorityDigest = sha256Canonical(body);
   const value = deepFreeze({
     kind: "invocation_authority" as const,
     schemaVersion: "5.0.0" as const,
@@ -1173,12 +1182,12 @@ function constructInvocation(
     authority.programRef !== program.programRef ||
     exactSelectedRow === null ||
     !canonicalEquals(
-      exactSelectedRow as unknown as JsonValue,
-      selectedRow as unknown as JsonValue,
+      exactSelectedRow,
+      selectedRow,
     ) ||
     selectedRow.definitionRef !== graphFunction.name ||
     selectedRow.definitionDigest !==
-      sha256Canonical(graphFunction as unknown as JsonValue) ||
+      sha256Canonical(graphFunction) ||
     !selectedRow.programMembershipRefs.includes(program.programRef) ||
     !program.callableMembership.includes(selectedRow.definitionRef) ||
     authority.catalogHandle !== selectedRow.handle ||
@@ -1219,7 +1228,7 @@ function constructInvocation(
     catalogBasisDigest: catalogView.catalogBasisDigest,
     catalogViewDigest: catalogView.viewDigest,
     programRef: program.programRef,
-    programDigest: sha256Canonical(program as unknown as JsonValue),
+    programDigest: sha256Canonical(program),
     catalogHandle: selectedRow.handle,
     selectedDefinitionRef: selectedRow.definitionRef,
     selectedDefinitionDigest: selectedRow.definitionDigest,
@@ -1240,7 +1249,7 @@ function constructInvocation(
     invocationAuthorityDigest: authority.authorityDigest,
     actorAttributionRef: authority.actorRef,
   };
-  const invocationDigest = sha256Canonical(body as unknown as JsonValue);
+  const invocationDigest = sha256Canonical(body);
   const value = deepFreeze({
     kind: "public_invocation_candidate" as const,
     schemaVersion: "5.0.0" as const,
@@ -1369,7 +1378,7 @@ export function constructExactDirectInvocation(
     publicInvocation.invocationRef.length === 0 ||
     !isSha256Digest(publicInvocation.requestDigest) ||
     publicInvocation.requestDigest !==
-      sha256Canonical(request as unknown as JsonValue) ||
+      sha256Canonical(request) ||
     !isRecord(request.program) ||
     request.program.ref !== program.programRef ||
     request.catalogHandle !== selectedRow.handle ||
@@ -1421,7 +1430,7 @@ export function constructExactStartInvocation(
     publicInvocation.invocationRef.length === 0 ||
     !isSha256Digest(publicInvocation.requestDigest) ||
     publicInvocation.requestDigest !==
-      sha256Canonical(request as unknown as JsonValue) ||
+      sha256Canonical(request) ||
     !isRecord(request.program) ||
     request.program.ref !== program.programRef ||
     !isRecord(request.input) ||

@@ -127,13 +127,13 @@ export function capabilityRefsForDefinition(
     .sort(compareUnicodeCodeUnits));
 }
 
-export interface CapabilityDefinitionDependencyCoordinate {
+export type CapabilityDefinitionDependencyCoordinate = {
   readonly capabilityId: string;
   readonly capabilityDefinitionRef: string;
   readonly capabilityDefinitionDigest: Sha256Digest;
-}
+};
 
-export interface CapabilityDefinitionGraphRow {
+export type CapabilityDefinitionGraphRow = {
   readonly capabilityId: string;
   readonly capabilityVersion: "5.0.0";
   readonly capabilityDefinitionRef: string;
@@ -146,22 +146,22 @@ export interface CapabilityDefinitionGraphRow {
     readonly CapabilityDefinitionDependencyCoordinate[];
   readonly effectRefs: readonly string[];
   readonly boundedProofRefs: readonly [string, ...string[]];
-}
+};
 
-export interface CapabilityDefinitionGraph {
+export type CapabilityDefinitionGraph = {
   readonly kind: "abg_capability_definition_graph";
   readonly schemaVersion: "5.0.0";
   readonly graphId: typeof CAPABILITY_DEFINITION_GRAPH_ID;
   readonly graphVersion: typeof CAPABILITY_DEFINITION_GRAPH_VERSION;
   readonly graphDigest: Sha256Digest;
   readonly rows: readonly CapabilityDefinitionGraphRow[];
-}
+};
 
-export interface CapabilityDefinitionGraphCoordinate {
+export type CapabilityDefinitionGraphCoordinate = {
   readonly graphId: typeof CAPABILITY_DEFINITION_GRAPH_ID;
   readonly graphVersion: typeof CAPABILITY_DEFINITION_GRAPH_VERSION;
   readonly graphDigest: Sha256Digest;
-}
+};
 
 const digestSchema = v.pipe(v.string(), v.regex(/^sha256:[0-9a-f]{64}$/u));
 const dependencyCoordinateSchema = v.strictObject({
@@ -197,14 +197,14 @@ function rowDefinitionBody(row: CapabilityDefinitionGraphRow): JsonValue {
     capabilityDefinitionDigest: _digest,
     ...body
   } = row;
-  return body as unknown as JsonValue;
+  return body;
 }
 
 export function capabilityDefinitionGraphDigest(
   graph: CapabilityDefinitionGraph,
 ): Sha256Digest {
   const { graphDigest: _graphDigest, ...body } = graph;
-  return sha256Canonical(body as unknown as JsonValue);
+  return sha256Canonical(body);
 }
 
 export function constructCapabilityDefinitionGraph(
@@ -220,7 +220,7 @@ export function constructCapabilityDefinitionGraph(
     }
     const admittedCoordinate = admitted.output as PublicContractCoordinate;
     const coordinateKey = canonicalJson(
-      admittedCoordinate as unknown as JsonValue,
+      admittedCoordinate,
     );
     if (coordinateKeys.has(coordinateKey)) {
       throw new TypeError("duplicate public contract coordinate in graph basis");
@@ -260,7 +260,7 @@ export function constructCapabilityDefinitionGraph(
     });
     return deepFreeze({
       ...body,
-      graphDigest: sha256Canonical(body as unknown as JsonValue),
+      graphDigest: sha256Canonical(body),
     });
   }
   for (const [key, coordinates] of definitionSlots) {
@@ -270,12 +270,12 @@ export function constructCapabilityDefinitionGraph(
       flat === undefined ||
       coordinates.some((coordinate) =>
         !canonicalEquals(
-          coordinate.contractCatalog as unknown as JsonValue,
-          flat.contractCatalog as unknown as JsonValue,
+          coordinate.contractCatalog,
+          flat.contractCatalog,
         ) ||
         !canonicalEquals(
-          coordinate.flatRow as unknown as JsonValue,
-          flat.flatRow as unknown as JsonValue,
+          coordinate.flatRow,
+          flat.flatRow,
         )
       )
     ) {
@@ -364,8 +364,8 @@ export function constructCapabilityDefinitionGraph(
       ...flatOwningPublicContracts,
       ...nestedOwningPublicContracts,
     ].sort((left, right) => compareUnicodeCodeUnits(
-      canonicalJson(left as unknown as JsonValue),
-      canonicalJson(right as unknown as JsonValue),
+      canonicalJson(left),
+      canonicalJson(right),
     )) as [PublicContractCoordinate, ...PublicContractCoordinate[]];
     const body = deepFreeze({
       capabilityId: definition.capabilityId,
@@ -375,7 +375,7 @@ export function constructCapabilityDefinitionGraph(
       effectRefs: [...definition.effectRefs].sort(compareUnicodeCodeUnits),
       boundedProofRefs: [...definition.boundedProofRefs].sort(compareUnicodeCodeUnits) as [string, ...string[]],
     });
-    const capabilityDefinitionDigest = sha256Canonical(body as unknown as JsonValue);
+    const capabilityDefinitionDigest = sha256Canonical(body);
     const row = deepFreeze({
       ...body,
       capabilityDefinitionRef:
@@ -396,7 +396,7 @@ export function constructCapabilityDefinitionGraph(
   });
   const graph = deepFreeze({
     ...body,
-    graphDigest: sha256Canonical(body as unknown as JsonValue),
+    graphDigest: sha256Canonical(body),
   });
   if (!v.safeParse(capabilityDefinitionGraphSchema, graph).success) {
     throw new TypeError("constructed capability graph violates its strict schema");
@@ -413,13 +413,13 @@ export function isCapabilityDefinitionGraph(
   try {
     const owners = graph.rows.flatMap((row) => row.owningPublicContracts);
     const uniqueOwners = [...new Map(owners.map((owner) => [
-      canonicalJson(owner as unknown as JsonValue),
+      canonicalJson(owner),
       owner,
     ])).values()];
     const expected = constructCapabilityDefinitionGraph(uniqueOwners);
     return canonicalEquals(
-      expected as unknown as JsonValue,
-      graph as unknown as JsonValue,
+      expected,
+      graph,
     ) &&
       graph.rows.every((row) =>
         row.capabilityDefinitionDigest === sha256Canonical(rowDefinitionBody(row))
@@ -456,5 +456,5 @@ export function capabilityDefinitionGraphAssetBytes(
 export function serializeCapabilityDefinitionGraph(
   graph: CapabilityDefinitionGraph,
 ): Uint8Array {
-  return new TextEncoder().encode(canonicalJson(graph as unknown as JsonValue));
+  return new TextEncoder().encode(canonicalJson(graph));
 }

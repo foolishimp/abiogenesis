@@ -1,4 +1,5 @@
 import { isRecord, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import { validateDurablePrefixCoordinate } from "../abg/event_store.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
@@ -172,7 +173,9 @@ function isExactAdmittedImplementationResolution(value: unknown): boolean {
     leafResolutionCandidateDigest: _candidateDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.leafResolutionCandidateDigest === digest &&
     value.leafResolutionCandidateRef ===
       `leaf-resolution-candidate://abiogenesis/${digest.slice("sha256:".length)}`;
@@ -181,7 +184,7 @@ function isExactAdmittedImplementationResolution(value: unknown): boolean {
 export function constructLeafExecutionAuthority(
   body: Readonly<LeafExecutionAuthorityBody>,
 ): Readonly<LeafExecutionAuthority> {
-  const authorityDigest = sha256Canonical(body as unknown as JsonValue);
+  const authorityDigest = sha256Canonical(body);
   const authority = deepFreeze({
     kind: "leaf_execution_authority" as const,
     schemaVersion: "5.0.0" as const,
@@ -259,19 +262,19 @@ export function isLeafExecutionAuthority(
     }
     const authority = value as unknown as LeafExecutionAuthority;
     const digest = sha256Canonical(
-      leafExecutionAuthorityBody(authority) as unknown as JsonValue,
+      leafExecutionAuthorityBody(authority),
     );
     const resolutionDigest = sha256Canonical(
-      authority.implementationResolution as unknown as JsonValue,
+      authority.implementationResolution,
     );
     const resolutionMatches = authority.implementationSet.rows.filter((row) =>
-      sha256Canonical(row as unknown as JsonValue) === resolutionDigest
+      sha256Canonical(row) === resolutionDigest
     );
     return authority.authorityDigest === digest &&
       authority.authorityRef ===
         `leaf-execution-authority://abiogenesis/${digest.slice("sha256:".length)}` &&
       authority.implementationResolutionDigest === resolutionDigest &&
-      sha256Canonical(authority.programPublication as unknown as JsonValue) ===
+      sha256Canonical(authority.programPublication) ===
         authority.implementationResolution.publicationDigest &&
       authority.implementationResolutionRef ===
         `implementation-resolution://abiogenesis/${resolutionDigest.slice("sha256:".length)}` &&

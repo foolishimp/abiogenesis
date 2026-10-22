@@ -103,73 +103,73 @@ function admitInput(
   value: unknown,
 ): Readonly<Record<string, JsonValue>> | null {
   if (contractRef === reacquireIds.requestContractRef && isNativeWorksiteCommandReacquisitionRequest(value))
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   if (contractRef === nativeIds.taskContractRef && isNativeWorkspaceWorkTask(value))
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   if ((contractRef === forwardIds.requestContractRef && isWorksiteCommandForwardRequest(value)) ||
       (contractRef === forwardIds.taskContractRef && isWorksiteCommandForwardTask(value)))
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   if (contractRef === WORKSITE_PRESERVED_RESULT_IDS.artifactContractRef && isWorksitePreservedResultArtifact(value)) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
-  if (contractRef === WORKSITE_REVISION_IDS.taskContractRef && isWorksiteRevisionCommandExecutionTask(value)) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  if (contractRef === WORKSITE_REVISION_IDS.taskContractRef && isWorksiteRevisionCommandExecutionTask(value)) return deepFreeze(value);
   const preparation = admitWorksitePreparationInput(contractRef, value);
   if (preparation !== null) return preparation;
   if (
     contractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef &&
     isC2WorksiteCommandExecutionTask(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef === WORKSITE_C0_IDS.inputContractRef &&
     isWorksiteFileReplaceRequest(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef === WORKSITE_BRANCH_CONSTRUCTION_IDS.taskContractRef &&
     isWorksiteBranchConstructionTask(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef === WORKSITE_BRANCH_CONSTRUCTION_IDS.vectorContractRef &&
     isWorksiteBranchConstructionVector(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef ===
         WORKSITE_BRANCH_CONSTRUCTION_IDS.outputVectorContractRef &&
     isWorksiteBranchConstructionOutputVector(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef === WORKSITE_CONSTRUCTION_IDS.taskContractRef &&
     isWorksiteConstructionTask(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef === WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef &&
     isWorksiteCandidateBundle(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef === WORKSITE_CONSTRUCTION_IDS.fileReplaceVectorContractRef &&
     isWorksiteFileReplaceVector(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef ===
         WORKSITE_CONSTRUCTION_IDS.fileReplaceOutputVectorContractRef &&
     isWorksiteFileReplaceOutputVector(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   return null;
 }
@@ -337,7 +337,7 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
         basis.input.workspaceBinding.workspaceId === basis.workspaceId;
       if (isNativeWorksiteCommandExecutionTask(basis.input)) return source !== null &&
         source.sourceGraphFunctionRef === nativeIds.graphFunctionRef && source.sourceResultContractRef === nativeIds.observationContractRef &&
-        source.sourceResultValueDigest === sha256Canonical(basis.input.sourceNativeWork as unknown as JsonValue) &&
+        source.sourceResultValueDigest === sha256Canonical(basis.input.sourceNativeWork) &&
         sha256Canonical(source.sourceResultValue) === source.sourceResultValueDigest &&
         source.sourceCCallRef === basis.input.sourceNativeWork.provenance.cCallRef &&
         source.sourceWorkspaceId === basis.workspaceId && source.workspaceBindingId === basis.workspaceBindingId &&
@@ -356,12 +356,12 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
         ) &&
         source.sourceResultContractRef === WORKSITE_CONSTRUCTION_IDS.resultContractRef &&
         source.sourceResultValueDigest === sha256Canonical(
-          basis.input.sourceConstructionResult as unknown as JsonValue,
+          basis.input.sourceConstructionResult,
         ) &&
         sha256Canonical(source.sourceResultValue) === source.sourceResultValueDigest &&
         canonicalEquals(
           source.sourceResultValue,
-          basis.input.sourceConstructionResult as unknown as JsonValue,
+          basis.input.sourceConstructionResult,
         ) &&
         source.sourceWorkspaceId === basis.workspaceId &&
         source.workspaceBindingId === basis.workspaceBindingId &&
@@ -410,7 +410,7 @@ export const ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS = Object.freeze({
     if (!isNativeWorkspaceWorkObservation(basis.value) || basis.admittedEvidence.length !== 1) return false;
     const p = basis.value.provenance, e = basis.admittedEvidence[0]!;
     return e.evidenceClass === "probabilistic_transport" && e.cCallRef === p.cCallRef &&
-      e.transportDigest === p.transportDigest && e.outputDigest === sha256Canonical(basis.value as unknown as JsonValue);
+      e.transportDigest === p.transportDigest && e.outputDigest === sha256Canonical(basis.value);
   },
 }) satisfies ProductSemanticsProvider;
 
@@ -420,11 +420,11 @@ function resolveWorksiteCommandForwardJudgmentRelation(predicateRef:string) {
     rejectionReasonRef:"reason://abiogenesis/worksite/command-forward/unjoined@5",
     evaluate:(input:unknown,output:unknown):boolean=>{
       if(predicateRef===forwardIds.stepPredicateRef&&isWorksiteCommandForwardRequest(input)&&isWorksiteCommandForwardTask(output))
-        return canonicalEquals(output.request as unknown as JsonValue, input as unknown as JsonValue);
+        return canonicalEquals(output.request, input);
       if(!isWorksiteCommandForwardObservation(output))return false;
       return predicateRef===forwardIds.rootPredicateRef
-        ? isWorksiteCommandForwardRequest(input)&&canonicalEquals(output.task.request as unknown as JsonValue, input as unknown as JsonValue)
-        : isWorksiteCommandForwardTask(input)&&canonicalEquals(output.task as unknown as JsonValue, input as unknown as JsonValue);
+        ? isWorksiteCommandForwardRequest(input)&&canonicalEquals(output.task.request, input)
+        : isWorksiteCommandForwardTask(input)&&canonicalEquals(output.task, input);
     }});
 }
 
@@ -458,7 +458,7 @@ function hasExactConsensusCatalogApplications(
         : CONSENSUS_IDS.rulingOverlayContractRef;
     const expectedTargetDigest = binding.nodeTypeTarget === null
       ? null
-      : sha256Canonical(binding.nodeTypeTarget as unknown as JsonValue);
+      : sha256Canonical(binding.nodeTypeTarget);
     const matching = applications.filter(
       (application) =>
         application.kind === "declaration_application" &&
@@ -488,25 +488,25 @@ function admitSystemInput(
     contractRef === CONSENSUS_IDS.invocationContractRef &&
     isConsensusInvocation(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef === CONSENSUS_IDS.observationContractRef &&
     isConsensusObservationSnapshot(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef === CONSENSUS_IDS.resolutionContractRef &&
     isConsensusEscalationRequest(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   if (
     contractRef === CONSENSUS_IDS.escalationDecisionContractRef &&
     isConsensusEscalationDecision(value)
   ) {
-    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return deepFreeze(value);
   }
   return null;
 }
@@ -658,15 +658,13 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
         responseCandidate.roundDecision.decisionDigest !==
           basis.requestValue.decisionDigest ||
         !canonicalEquals(
-          responseCandidate.roundDecision as unknown as JsonValue,
-          basis.requestValue as unknown as JsonValue,
+          responseCandidate.roundDecision,
+          basis.requestValue,
         )
       ) {
         return null;
       }
-      return deepFreeze(responseCandidate) as unknown as Readonly<
-        Record<string, JsonValue>
-      >;
+      return deepFreeze(responseCandidate);
     }
     return admitSystemInput(basis.responseContractRef, responseCandidate);
   },
@@ -733,7 +731,7 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
         ) &&
         basis.actionCatalog !== null &&
         canonicalEquals(
-          basis.input.actionCatalog as unknown as JsonValue,
+          basis.input.actionCatalog,
           basis.actionCatalog,
         );
     }
@@ -782,7 +780,7 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
         basis.projectionKind === "ticket.consensus"
           ? projectTicketConsensus(result)
           : result
-      ) as unknown as JsonValue,
+      ),
     };
   },
 }) satisfies ProductSemanticsProvider;
@@ -792,7 +790,7 @@ export const ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS: ProductSemanticsProvide
   packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
   admitInput(contractRef: string, value: unknown) {
     return contractRef === REQUIREMENT_HANDOFF_IDS.inputContractRef && isRequirementHandoffInput(value)
-      ? deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>> : null;
+      ? deepFreeze(value) : null;
   },
   evaluateInteractionResponse() { return null; },
   validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
@@ -804,7 +802,7 @@ export const ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS: ProductSemanticsProvide
       predicateRef, advanceReasonRef: "reason://abiogenesis/requirement-handoff/transferred@5",
       rejectionReasonRef: "reason://abiogenesis/requirement-handoff/refused@5",
       evaluate(input: unknown, output: unknown) {
-        return isRequirementHandoffInput(input) && isRequirementHandoffOutput(output) && canonicalEquals(input as unknown as JsonValue, output.source as unknown as JsonValue);
+        return isRequirementHandoffInput(input) && isRequirementHandoffOutput(output) && canonicalEquals(input, output.source);
       },
     } : null;
   },
@@ -815,10 +813,10 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
   bindingRef: SEMANTIC_STAGE_IDS.semanticsBindingRef,
   admitInput(contractRef: string, value: unknown) {
     if ((contractRef === revisionIds.nativeIntakeContractRef && isNativeSemanticRevisionIntake(value)) || (contractRef === revisionIds.selectionContractRef && isSemanticRevisionSelection(value)) || (contractRef === revisionIds.selectionInputContractRef && isSemanticRevisionSelectionInput(value)) || (contractRef === revisionIds.requestContractRef && isSemanticRevisionRequest(value)) ||
-      (contractRef === revisionIds.envelopeContractRef && (isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value)))) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
-    if (contractRef === SEMANTIC_STAGE_IDS.jobInputContractRef && isSemanticJobInput(value)) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+      (contractRef === revisionIds.envelopeContractRef && (isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value)))) return deepFreeze(value);
+    if (contractRef === SEMANTIC_STAGE_IDS.jobInputContractRef && isSemanticJobInput(value)) return deepFreeze(value);
     return contractRef === SEMANTIC_STAGE_IDS.envelopeContractRef && (isSemanticStageEnvelope(value) || isSemanticJobEnvelope(value))
-      ? deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>
+      ? deepFreeze(value)
       : ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS.admitInput(contractRef, value) ?? ABI5_PRODUCT_SEMANTICS.admitInput(contractRef, value);
   },
   validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
@@ -867,10 +865,10 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
                 evidence.kind === "semantic_worksite_evidence" &&
                 observation.task.revisionBasisRef === envelope.revisionBasis.basisRef &&
                 observation.task.revisionBasisDigest === envelope.revisionBasis.basisDigest &&
-                canonicalEquals(observation.task.workspaceAuthorityBasis as unknown as JsonValue, envelope.current.worksite.workspaceAuthorityBasis as unknown as JsonValue) &&
-                canonicalEquals(observation.task.workspaceBinding as unknown as JsonValue, envelope.current.worksite.workspaceBinding as unknown as JsonValue) &&
-                canonicalEquals(observation.task.capabilityGrant as unknown as JsonValue, envelope.current.worksite.capabilityGrant as unknown as JsonValue) &&
-                canonicalEquals(evidence.constructionResult, observation.task.sourceConstructionResult as unknown as JsonValue) &&
+                canonicalEquals(observation.task.workspaceAuthorityBasis, envelope.current.worksite.workspaceAuthorityBasis) &&
+                canonicalEquals(observation.task.workspaceBinding, envelope.current.worksite.workspaceBinding) &&
+                canonicalEquals(observation.task.capabilityGrant, envelope.current.worksite.capabilityGrant) &&
+                canonicalEquals(evidence.constructionResult, observation.task.sourceConstructionResult) &&
                 resultCoordinate(evidence.constructionResultRef, evidence.constructionResultDigest) &&
                 resultCoordinate(evidence.executionResultRef, evidence.executionResultDigest) &&
                 matches(revisionIds.evidenceInputPredicateRef, observation, envelope);
@@ -881,7 +879,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
               isWorksiteRevisionCommandExecutionObservation(output)) {
               const task = prepareWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0",
                 entry: input, source: output.task.sourceConstructionResult });
-              return canonicalEquals(task as unknown as JsonValue, output.task as unknown as JsonValue) &&
+              return canonicalEquals(task, output.task) &&
                 resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_REVISION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
             }
             if (!isSemanticRevisionEnvelope(input) && !isSemanticJobRevisionEnvelope(input)) return false;
@@ -889,13 +887,13 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
               const worksite = input.current.worksite;
               return worksite !== null && input.current.evidence === null &&
                 output.revisionBasisRef === input.revisionBasis.basisRef && output.revisionBasisDigest === input.revisionBasis.basisDigest &&
-                canonicalEquals(output.constructionTask.workspaceAuthorityBasis as unknown as JsonValue, worksite.workspaceAuthorityBasis as unknown as JsonValue) &&
-                canonicalEquals(output.constructionTask.workspaceBinding as unknown as JsonValue, worksite.workspaceBinding as unknown as JsonValue) &&
-                canonicalEquals(output.constructionTask.capabilityGrant as unknown as JsonValue, worksite.capabilityGrant as unknown as JsonValue) &&
+                canonicalEquals(output.constructionTask.workspaceAuthorityBasis, worksite.workspaceAuthorityBasis) &&
+                canonicalEquals(output.constructionTask.workspaceBinding, worksite.workspaceBinding) &&
+                canonicalEquals(output.constructionTask.capabilityGrant, worksite.capabilityGrant) &&
                 matches(revisionIds.bridgePredicateRef, input, output);
             }
-            if ((!isSemanticRevisionEnvelope(output) && !isSemanticJobRevisionEnvelope(output)) || !canonicalEquals(input.revisionBasis as unknown as JsonValue, output.revisionBasis as unknown as JsonValue)) return false;
-            if (canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue)) {
+            if ((!isSemanticRevisionEnvelope(output) && !isSemanticJobRevisionEnvelope(output)) || !canonicalEquals(input.revisionBasis, output.revisionBasis)) return false;
+            if (canonicalEquals(input, output)) {
               // A byte-preserving terminal is not enough: all declared stages
               // must be assessed, and a worksite chain must carry its C2 evidence.
               // Failed command observations remain honest completed observations.
@@ -918,28 +916,28 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
       return { predicateRef, advanceReasonRef: "reason://abiogenesis/semantic-revision/relation-satisfied@5", rejectionReasonRef: "reason://abiogenesis/semantic-revision/relation-refused@5",
         evaluate(input: unknown, output: unknown) {
           try {
-            if (predicateRef === revisionIds.selectionPredicateRef) return isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output) && canonicalEquals(input.parent as unknown as JsonValue, output.parent as unknown as JsonValue) && canonicalEquals(input.causes as unknown as JsonValue, output.causes as unknown as JsonValue);
-            if (predicateRef === revisionIds.projectionPredicateRef) return isSemanticRevisionRequest(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && canonicalEquals(input as unknown as JsonValue, output.revisionBasis.request as unknown as JsonValue);
+            if (predicateRef === revisionIds.selectionPredicateRef) return isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output) && canonicalEquals(input.parent, output.parent) && canonicalEquals(input.causes, output.causes);
+            if (predicateRef === revisionIds.projectionPredicateRef) return isSemanticRevisionRequest(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && canonicalEquals(input, output.revisionBasis.request);
             if (predicateRef === revisionIds.bridgePredicateRef) return (isSemanticRevisionEnvelope(input) || isSemanticJobRevisionEnvelope(input)) && isWorksitePreparationInput(output) && output.kind === "worksite_revision_command_preparation_input";
-            if (predicateRef === revisionIds.evidenceInputPredicateRef) return isWorksiteRevisionCommandExecutionObservation(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && canonicalEquals(input as unknown as JsonValue, output.current.evidence?.executionObservation as JsonValue);
+            if (predicateRef === revisionIds.evidenceInputPredicateRef) return isWorksiteRevisionCommandExecutionObservation(input) && (isSemanticRevisionEnvelope(output) || isSemanticJobRevisionEnvelope(output)) && output.current.evidence?.executionObservation !== undefined && canonicalEquals(input, output.current.evidence?.executionObservation);
             if (isSemanticJobRevisionEnvelope(input) || isSemanticJobRevisionEnvelope(output)) {
               if (!isSemanticJobRevisionEnvelope(input) || !isSemanticJobRevisionEnvelope(output)) return false;
-              if (predicateRef === revisionIds.terminalPredicateRef) return canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue);
+              if (predicateRef === revisionIds.terminalPredicateRef) return canonicalEquals(input, output);
               const asset = output.current.assets.at(-1);
               if (asset === undefined) return false;
-              if (predicateRef === revisionIds.authorPredicateRef) return canonicalEquals(deriveJobRevisionAsset(input, asset.stageRef, asset.candidate, asset.source) as unknown as JsonValue, output as unknown as JsonValue);
+              if (predicateRef === revisionIds.authorPredicateRef) return canonicalEquals(deriveJobRevisionAsset(input, asset.stageRef, asset.candidate, asset.source), output);
               if (asset.assessment?.disposition !== "satisfied") return false;
               const prior = input.current.assets.at(-1)?.assetRef === asset.assetRef ? input : deriveJobRevisionAsset(input, asset.stageRef, asset.candidate, asset.source);
-              return prior !== null && canonicalEquals(deriveJobRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source) as unknown as JsonValue, output as unknown as JsonValue);
+              return prior !== null && canonicalEquals(deriveJobRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
             }
             if (!isSemanticRevisionEnvelope(input) || !isSemanticRevisionEnvelope(output)) return false;
-            if (predicateRef === revisionIds.terminalPredicateRef) return canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue);
+            if (predicateRef === revisionIds.terminalPredicateRef) return canonicalEquals(input, output);
             const asset = output.current.assets.at(-1);
             if (asset === undefined) return false;
-            if (predicateRef === revisionIds.authorPredicateRef) return canonicalEquals(deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source) as unknown as JsonValue, output as unknown as JsonValue);
+            if (predicateRef === revisionIds.authorPredicateRef) return canonicalEquals(deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source), output);
             if (asset.assessment?.disposition !== "satisfied") return false;
             const prior = input.current.assets.at(-1)?.assetRef === asset.assetRef ? input : deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source);
-            return prior !== null && canonicalEquals(deriveRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source) as unknown as JsonValue, output as unknown as JsonValue);
+            return prior !== null && canonicalEquals(deriveRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
           } catch { return false; }
         } };
     }
@@ -967,7 +965,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
             if (isSemanticStageEnvelope(input) && isSemanticStageEnvelope(output)) {
               // The terminal wire projection is byte preserving. Its executed
               // foldback still requires the one full lifecycle completion law.
-              if (canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue)) return matches(ids.lifecyclePredicateRef, input, output);
+              if (canonicalEquals(input, output)) return matches(ids.lifecyclePredicateRef, input, output);
               const next = input.lifecycle.stages[input.assets.length];
               return next !== undefined && output.assets.length === input.assets.length + 1 &&
                 output.assets.at(-1)?.stageRef === next.declarationRef &&
@@ -979,33 +977,33 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
               isWorksiteCommandExecutionObservation(output)) {
               const task = prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0",
                 entry: input, source: output.task.sourceConstructionResult });
-              return canonicalEquals(task as unknown as JsonValue, output.task as unknown as JsonValue) &&
+              return canonicalEquals(task, output.task) &&
                 resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
             }
             return false;
           }
           if (predicateRef === ids.bridgePredicateRef) return isSemanticStageEnvelope(input) &&
             isWorksitePreparationInput(output) && output.kind === "worksite_command_preparation_input" &&
-            canonicalEquals(deriveSemanticWorksitePreparation(input, output.constructionTask) as unknown as JsonValue, output as unknown as JsonValue);
+            canonicalEquals(deriveSemanticWorksitePreparation(input, output.constructionTask), output);
           if (!isSemanticStageEnvelope(output)) return false;
-          if (predicateRef === ids.evidenceInputPredicateRef) return isWorksiteCommandExecutionObservation(input) && output.evidence !== null && canonicalEquals(output.evidence.executionObservation, input as unknown as JsonValue);
+          if (predicateRef === ids.evidenceInputPredicateRef) return isWorksiteCommandExecutionObservation(input) && output.evidence !== null && canonicalEquals(output.evidence.executionObservation, input);
           if (!isSemanticStageEnvelope(input)) return false;
-          if (predicateRef === ids.terminalPredicateRef) return canonicalEquals(input as unknown as JsonValue, output as unknown as JsonValue);
+          if (predicateRef === ids.terminalPredicateRef) return canonicalEquals(input, output);
           const asset = output.assets.at(-1);
           if (asset === undefined) return false;
-          if (predicateRef === ids.authorPredicateRef) return canonicalEquals(deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source) as unknown as JsonValue, output as unknown as JsonValue);
+          if (predicateRef === ids.authorPredicateRef) return canonicalEquals(deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source), output);
           if (predicateRef === ids.assessorPredicateRef) {
             if (asset.assessment?.disposition !== "satisfied") return false;
             const assessmentInput = input.assets.at(-1)?.assetRef === asset.assetRef ? input
               : deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source);
             return assessmentInput !== null && canonicalEquals(
               deriveSemanticAssessment(assessmentInput, asset.stageRef,
-                asset.assessment.candidate, asset.assessment.source) as unknown as JsonValue,
-              output as unknown as JsonValue,
+                asset.assessment.candidate, asset.assessment.source),
+              output,
             );
           }
-          return canonicalEquals(input.sourceHandoff as unknown as JsonValue, output.sourceHandoff as unknown as JsonValue) && canonicalEquals(input.lifecycle as unknown as JsonValue, output.lifecycle as unknown as JsonValue) &&
-            canonicalEquals(input.taskData, output.taskData) && canonicalEquals(input.evaluationData, output.evaluationData) && canonicalEquals(input.worksite as unknown as JsonValue, output.worksite as unknown as JsonValue) &&
+          return canonicalEquals(input.sourceHandoff, output.sourceHandoff) && canonicalEquals(input.lifecycle, output.lifecycle) &&
+            canonicalEquals(input.taskData, output.taskData) && canonicalEquals(input.evaluationData, output.evaluationData) && canonicalEquals(input.worksite, output.worksite) &&
             (!output.lifecycle.stages.some(stage => stage.bodyCapabilities.includes("application_assessment")) || output.evidence !== null) &&
             output.assets.length === output.lifecycle.stages.length &&
             output.lifecycle.stages.every((stage, i) => output.assets[i]?.stageRef === stage.declarationRef && output.assets[i]?.assessment?.disposition === "satisfied");

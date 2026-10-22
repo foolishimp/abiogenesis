@@ -345,7 +345,7 @@ export function worksiteSelectedOccurrenceInputCurrent(authorityPrefix: RuntimeE
   const occurrence = projectWorksiteSelectedOccurrence(fibre, worksiteSelectedOccurrenceDependencies(authorityPrefix, fibre));
   if (occurrence === null || occurrence.cCall.cCallRef !== cCall.cCallRef ||
     occurrence.cCall.cCallDigest !== cCall.cCallDigest || occurrence.cCall.openedEventRef !== cCall.openedEventRef ||
-    !canonicalEquals(occurrence.request as unknown as JsonValue, request as unknown as JsonValue)) return false;
+    !canonicalEquals(occurrence.request, request)) return false;
   const before = validatedRuntimeEventPrefixBeforeEvent(authorityPrefix, fibre.eventId);
   return holdsAt(deriveRuntimeHeldFluentProjection(before),
     constructWorksiteObservationCurrentFluent(request.predecessorObservation.observationRef)) &&

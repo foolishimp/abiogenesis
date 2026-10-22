@@ -13,24 +13,24 @@ export const SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA = v.strictObject({
   kind: v.literal("self_conformance_input"), schemaVersion: v.literal("5.0.0"),
   basis: EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, law: v.nullable(QUALIFICATION_LAW_BASIS_SCHEMA),
   inventory: v.nullable(QUALIFICATION_INVENTORY_SCHEMA), tenantManifest: v.nullable(TENANT_CONFORMANCE_MANIFEST_SCHEMA),
-  scope: v.optional(QUALIFICATION_SCOPE_SCHEMA),
+  scope: v.exactOptional(QUALIFICATION_SCOPE_SCHEMA),
   authorityMembers: v.array(v.strictObject({ ...QUALIFICATION_SOURCE_SCHEMA.entries, contentBase64: v.string() })),
   applications: v.array(v.strictObject({ ruleRef: ref, surfaceRef: ref,
     applicability: v.picklist(["applicable", "inapplicable", "unknown"]), premiseEvidenceRefs: v.array(ref),
     evaluationEvidenceRefs: v.array(ref), rulingEvidenceRefs: v.array(ref) })),
   evidenceCitations: v.array(QUALIFICATION_EVIDENCE_CITATION_SCHEMA),
-  qualification: v.optional(v.strictObject({ plan: QUALIFICATION_ASSESSMENT_PLAN_SCHEMA, proof: QUALIFICATION_PROOF_RESOURCE_SCHEMA,
+  qualification: v.exactOptional(v.strictObject({ plan: QUALIFICATION_ASSESSMENT_PLAN_SCHEMA, proof: QUALIFICATION_PROOF_RESOURCE_SCHEMA,
     sourceMembers: v.array(QUALIFICATION_MATERIAL_SCHEMA), coverageCatalog: QUALIFICATION_COVERAGE_CATALOG_SCHEMA,
-    verification: v.optional(QUALIFICATION_VERIFICATION_SELECTION_SCHEMA) })),
+    verification: v.exactOptional(QUALIFICATION_VERIFICATION_SELECTION_SCHEMA) })),
 });
 const selection = <K extends string>(kind: K) => v.strictObject({ ...QUALIFICATION_RESOURCE_SELECTION_SCHEMA.entries, entryKind: v.literal(kind) });
 export const SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA = v.strictObject({ ...SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA.entries,
   representation: v.literal("resource_refs_v1"), resource: QUALIFICATION_COORDINATE_SCHEMA,
   law: v.nullable(selection("law")), inventory: v.nullable(selection("inventory")), tenantManifest: v.nullable(selection("tenant_manifest")),
-  scope: v.optional(selection("scope")), authorityMembers: v.array(selection("material")),
-  qualification: v.optional(v.strictObject({ plan: QUALIFICATION_ASSESSMENT_PLAN_SCHEMA, proof: QUALIFICATION_REFERENCE_PROOF_RESOURCE_SCHEMA,
+  scope: v.exactOptional(selection("scope")), authorityMembers: v.array(selection("material")),
+  qualification: v.exactOptional(v.strictObject({ plan: QUALIFICATION_ASSESSMENT_PLAN_SCHEMA, proof: QUALIFICATION_REFERENCE_PROOF_RESOURCE_SCHEMA,
     sourceMembers: v.array(selection("material")), coverageCatalog: selection("coverage_catalog"),
-    verification: v.optional(v.strictObject({ ...QUALIFICATION_VERIFICATION_SELECTION_SCHEMA.entries, recipe: selection("verification_recipe") })) })) });
+    verification: v.exactOptional(v.strictObject({ ...QUALIFICATION_VERIFICATION_SELECTION_SCHEMA.entries, recipe: selection("verification_recipe") })) })) });
 export const SELF_CONFORMANCE_INPUT_SCHEMA = v.union([SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA, SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA]);
 const selfConformanceEmbeddedDataSchema = SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA;
 export type SelfConformanceEmbeddedInput = v.InferOutput<typeof selfConformanceEmbeddedDataSchema>;
@@ -57,15 +57,15 @@ export const SELF_CONFORMANCE_EMBEDDED_RESULT_SCHEMA = v.strictObject({
   subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA,
   inventoryDigest: v.nullable(digest), inputDigest: digest, owner: SELF_CONFORMANCE_OWNER_SCHEMA,
   ruleApplications: SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA.entries.applications,
-  scope: v.optional(QUALIFICATION_SCOPE_SCHEMA),
+  scope: v.exactOptional(QUALIFICATION_SCOPE_SCHEMA),
   evidenceCitations: SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA.entries.evidenceCitations,
   findings: v.array(SELF_CONFORMANCE_FINDING_SCHEMA), disposition: v.picklist(["passed", "failed", "blocked_incomplete"]),
   qualificationVerdict: v.literal(false),
-  verification: v.optional(v.nullable(QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA)),
+  verification: v.exactOptional(v.nullable(QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA)),
 });
 
 export const SELF_CONFORMANCE_REFERENCE_RESULT_SCHEMA = v.strictObject({ ...SELF_CONFORMANCE_EMBEDDED_RESULT_SCHEMA.entries,
-  representation: v.literal("resource_refs_v1"), scope: v.optional(selection("scope")) });
+  representation: v.literal("resource_refs_v1"), scope: v.exactOptional(selection("scope")) });
 export const SELF_CONFORMANCE_RESULT_SCHEMA = v.union([SELF_CONFORMANCE_EMBEDDED_RESULT_SCHEMA, SELF_CONFORMANCE_REFERENCE_RESULT_SCHEMA]);
 // Keep data inference portable without exposing the internal parser exports.
 const selfConformanceDataSchemas = {

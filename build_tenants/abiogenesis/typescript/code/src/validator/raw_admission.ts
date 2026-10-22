@@ -32,7 +32,7 @@ export const RAW_SUBJECT_KIND_VALUES = [
 
 export type RawSubjectKind = (typeof RAW_SUBJECT_KIND_VALUES)[number];
 
-export interface RawAdmittedValue<S> {
+export type RawAdmittedValue<S> = {
   readonly kind: "raw_admitted_value";
   readonly schemaVersion: "5.0.0";
   readonly admissionRef: string;
@@ -40,7 +40,7 @@ export interface RawAdmittedValue<S> {
   readonly contractRef: string;
   readonly subjectDigest: Sha256Digest;
   readonly value: Readonly<S>;
-}
+};
 
 export interface RawAdmissionRefusal {
   readonly kind: "raw_admission_refusal";
@@ -180,9 +180,8 @@ export function rawAdmitValue<S>(
     };
   }
   try {
-    const json = Object.hasOwn(structuralSchemas, expectedKind)
-      ? admitIJsonValue(value, "$")
-      : value as JsonValue;
+    // Every raw kind is admitted as I-JSON; a refusal is `non_canonical_value`.
+    const json = admitIJsonValue(value, "$");
     try {
       assertStructuralValue(json, expectedKind);
     } catch (error) {
@@ -207,7 +206,7 @@ export function rawAdmitValue<S>(
     })();
     assertStructuralValue(admittedJson, expectedKind);
     const admittedValue = deepFreeze(admittedJson as S);
-    const subjectDigest = sha256Canonical(admittedValue as unknown as JsonValue);
+    const subjectDigest = sha256Canonical(admittedJson);
     const admissionDigest = sha256Canonical({
       contractRef,
       expectedKind,

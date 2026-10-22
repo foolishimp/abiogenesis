@@ -18,7 +18,7 @@ import { modulePublicationSemanticDigest } from "./publication.js";
 import { isVerifiedProductArtifact } from "./verify_product.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-export interface GraphFunctionCatalogEntry {
+export type GraphFunctionCatalogEntry = {
   readonly kind: "graph_function_catalog_entry";
   readonly handle: string;
   readonly definitionRef: string;
@@ -31,9 +31,9 @@ export interface GraphFunctionCatalogEntry {
   readonly compatibilityRefs: readonly string[];
   readonly provenanceRefs: readonly string[];
   readonly entryDigest: Sha256Digest;
-}
+};
 
-export interface DeclarationCatalogEntry {
+export type DeclarationCatalogEntry = {
   readonly kind: "declaration_catalog_entry";
   readonly handle: string;
   readonly declarationKind: "node_type" | "overlay";
@@ -45,9 +45,9 @@ export interface DeclarationCatalogEntry {
   readonly compatibilityRefs: readonly string[];
   readonly provenanceRefs: readonly string[];
   readonly entryDigest: Sha256Digest;
-}
+};
 
-export interface GraphFunctionCatalog {
+export type GraphFunctionCatalog = {
   readonly kind: "graph_function_catalog";
   readonly schemaVersion: "5.0.0";
   readonly basisDigest: Sha256Digest;
@@ -56,17 +56,17 @@ export interface GraphFunctionCatalog {
   readonly byHandle: Readonly<Record<string, GraphFunctionCatalogEntry>>;
   readonly declarationEntries: readonly DeclarationCatalogEntry[];
   readonly declarationsByHandle: Readonly<Record<string, DeclarationCatalogEntry>>;
-}
+};
 
-export interface CatalogReadinessBasis {
+export type CatalogReadinessBasis = {
   readonly workspaceBinding: WorkspaceBindingCandidate;
   readonly resolvedLock: ResolvedProductLock;
   readonly verifiedProducts: readonly VerifiedProductArtifact[];
   readonly installedProducts: readonly ProductInstallCandidate[];
   readonly publications: readonly Readonly<ModulePublication>[];
-}
+};
 
-export interface CatalogReadinessRowDisposition {
+export type CatalogReadinessRowDisposition = {
   readonly handle: string;
   readonly owningProductId: string;
   readonly moduleRef: string;
@@ -81,9 +81,9 @@ export interface CatalogReadinessRowDisposition {
   readonly reason: string | null;
   readonly readinessPrerequisiteRefs: readonly string[];
   readonly rowDigest: Sha256Digest;
-}
+};
 
-export interface ReadyGraphFunctionCatalog extends GraphFunctionCatalog {
+export type ReadyGraphFunctionCatalog = GraphFunctionCatalog & {
   readonly readinessBasisDigest: Sha256Digest;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
@@ -94,9 +94,9 @@ export interface ReadyGraphFunctionCatalog extends GraphFunctionCatalog {
   readonly readinessBasis: CatalogReadinessBasis;
   readonly boundPublications: readonly Readonly<ModulePublication>[];
   readonly rowDispositions: readonly CatalogReadinessRowDisposition[];
-}
+};
 
-export interface GraphFunctionCatalogView {
+export type GraphFunctionCatalogView = {
   readonly kind: "graph_function_catalog_view";
   readonly catalogBasisDigest: Sha256Digest;
   readonly allowlist: readonly string[];
@@ -105,7 +105,7 @@ export interface GraphFunctionCatalogView {
   readonly declarationEntries: readonly DeclarationCatalogEntry[];
   readonly declarationsByHandle: Readonly<Record<string, DeclarationCatalogEntry>>;
   readonly viewDigest: Sha256Digest;
-}
+};
 
 export interface GraphFunctionDefinitionLookupExact {
   readonly kind: "graph_function_definition_lookup_exact";
@@ -172,7 +172,7 @@ export interface DeclarationApplicationInput {
   readonly appliedValueDigest: Sha256Digest;
 }
 
-export interface DeclarationApplication {
+export type DeclarationApplication = {
   readonly kind: "declaration_application";
   readonly catalogBasisDigest: Sha256Digest;
   readonly viewDigest: Sha256Digest;
@@ -183,7 +183,7 @@ export interface DeclarationApplication {
   readonly appliedValueDigest: Sha256Digest;
   readonly applicationRef: string;
   readonly applicationDigest: Sha256Digest;
-}
+};
 
 export interface DeclarationApplicationRefusal {
   readonly kind: "declaration_application_refusal";
@@ -297,7 +297,7 @@ function graphFunctionEntry(
   const body = {
     handle: contribution.handle,
     definitionRef: contribution.declarationOrContractRef,
-    definitionDigest: sha256Canonical(definition as unknown as JsonValue),
+    definitionDigest: sha256Canonical(definition),
     definition,
     owningProductId: contribution.owningProductId,
     moduleRef: publication.moduleRef,
@@ -311,7 +311,7 @@ function graphFunctionEntry(
   return deepFreeze({
     kind: "graph_function_catalog_entry" as const,
     ...body,
-    entryDigest: sha256Canonical(body as unknown as JsonValue),
+    entryDigest: sha256Canonical(body),
   }) as GraphFunctionCatalogEntry;
 }
 
@@ -338,7 +338,7 @@ function declarationEntry(
   return deepFreeze({
     kind: "declaration_catalog_entry" as const,
     ...body,
-    entryDigest: sha256Canonical(body as unknown as JsonValue),
+    entryDigest: sha256Canonical(body),
   }) as DeclarationCatalogEntry;
 }
 
@@ -368,7 +368,7 @@ function lockComparableProduct(
     publicContracts: value.publicContracts,
     publicContractRefs: value.publicContractRefs,
     publicCapabilityRefs: value.publicCapabilityRefs,
-  } as unknown as JsonValue;
+  };
 }
 
 export function directSatisfiedDependencyRefs(
@@ -447,7 +447,7 @@ export function admitGraphFunctionCatalog(
     roots: workspaceBinding.roots,
   };
   const expectedWorkspaceBindingDigest = sha256Canonical(
-    workspaceBindingBody as unknown as JsonValue,
+    workspaceBindingBody,
   );
   if (
     !isResolvedProductLock(resolvedLock) ||
@@ -471,7 +471,7 @@ export function admitGraphFunctionCatalog(
       const rows = resolvedLock.rows.filter((row) => row.productId === verified.productId);
       return rows.length !== 1 || !canonicalEquals(
         lockComparableProduct(verified),
-        rows[0] as unknown as JsonValue,
+        rows[0] ?? null,
       );
     })
   ) {
@@ -543,7 +543,7 @@ export function admitGraphFunctionCatalog(
     };
     rowDispositions.push({
       ...rowBody,
-      rowDigest: sha256Canonical(rowBody as unknown as JsonValue),
+      rowDigest: sha256Canonical(rowBody),
     });
   };
   for (const publication of publications) {
@@ -597,7 +597,7 @@ export function admitGraphFunctionCatalog(
       );
       if (
         collisions.length > 1 &&
-        new Set(collisions.map((candidate) => canonicalJson(candidate.contribution as unknown as JsonValue))).size > 1
+        new Set(collisions.map((candidate) => canonicalJson(candidate.contribution))).size > 1
       ) {
         pushDisposition(publication, contribution, "conflicting", "canonical_handle_conflict");
         continue;
@@ -621,15 +621,15 @@ export function admitGraphFunctionCatalog(
         !canonicalEquals(
           orderedStrings(
             declared.programMembershipRefs,
-          ) as unknown as JsonValue,
-          contribution.programMembershipRefs as unknown as JsonValue,
+          ),
+          contribution.programMembershipRefs,
         ) ||
         !canonicalEquals(
-          contribution.provenanceRefs as unknown as JsonValue,
+          contribution.provenanceRefs,
           orderedStrings([
             lockRow.artifactDigest,
             lockRow.manifestDigest,
-          ]) as unknown as JsonValue,
+          ]),
         )
       ) {
         pushDisposition(publication, contribution, "rejected", "manifest_or_provenance_mismatch");
@@ -639,8 +639,8 @@ export function admitGraphFunctionCatalog(
         !canonicalEquals(
           orderedStrings(
             declared.compatibilityRefs,
-          ) as unknown as JsonValue,
-          contribution.compatibilityRefs as unknown as JsonValue,
+          ),
+          contribution.compatibilityRefs,
         ) ||
         declared.compatibilityRefs.some((ref) => !lockRow.compatibilityRefs.includes(ref))
       ) {
@@ -651,8 +651,8 @@ export function admitGraphFunctionCatalog(
         !canonicalEquals(
           orderedStrings(
             declared.readinessPrerequisiteRefs,
-          ) as unknown as JsonValue,
-          contribution.readinessPrerequisiteRefs as unknown as JsonValue,
+          ),
+          contribution.readinessPrerequisiteRefs,
         )
       ) {
         pushDisposition(publication, contribution, "unready", "readiness_declaration_mismatch");
@@ -675,7 +675,7 @@ export function admitGraphFunctionCatalog(
   }
   const catalog = buildGraphFunctionCatalog(admittedPublications);
   if (catalog.kind !== "graph_function_catalog") return catalog;
-  const readinessBasisDigest = sha256Canonical(canonicalBasis as unknown as JsonValue);
+  const readinessBasisDigest = sha256Canonical(canonicalBasis);
   const ready = deepFreeze({
     ...catalog,
     basisDigest: readinessBasisDigest,
@@ -932,7 +932,7 @@ export function narrowGraphFunctionCatalog(
     byHandle: frozenIndex(entries),
     declarationEntries,
     declarationsByHandle: frozenIndex(declarationEntries),
-    viewDigest: sha256Canonical(body as unknown as JsonValue),
+    viewDigest: sha256Canonical(body),
   }) as GraphFunctionCatalogView;
   if (ownedCatalogs.has(catalog)) catalogViews.set(catalog, { allowlist: allowlistKey, view });
   return view;
@@ -992,5 +992,5 @@ export function graphFunctionCatalogCanonicalSnapshot(
     publicationDigests: catalog.publicationDigests,
     entries: catalog.entries,
     declarationEntries: catalog.declarationEntries,
-  } as unknown as JsonValue);
+  });
 }

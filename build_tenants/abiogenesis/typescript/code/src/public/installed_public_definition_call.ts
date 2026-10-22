@@ -1,3 +1,4 @@
+import { admitJson } from "../shared/admit/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import type {
@@ -62,9 +63,18 @@ function exact<T>(
   return matches[0]!;
 }
 
+/** Both sides are admitted through `admitJson` before the installed codec
+ * compares them; a refusal, or a throw (a cycle), is inequality. */
 function sameJson(product: ConstructionProduct, left: unknown, right: unknown): boolean {
-  return product.canonicalJson(left as JsonValue) ===
-    product.canonicalJson(right as JsonValue);
+  try {
+    const admittedLeft = admitJson(left);
+    const admittedRight = admitJson(right);
+    return admittedLeft.kind === "ok" && admittedRight.kind === "ok" &&
+      product.canonicalJson(admittedLeft.value) ===
+        product.canonicalJson(admittedRight.value);
+  } catch {
+    return false;
+  }
 }
 
 function requireSlot({

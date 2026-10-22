@@ -11,6 +11,7 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
+import { isRecord } from "../shared/admit/index.js";
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts, hasConfirmedOwnedProcessBoundary } from "../shared/process/index.js";
 import type { RuntimeLivenessObserverProjection } from "./runtime_liveness_contracts.js";
@@ -29,11 +30,11 @@ export type { WorkerTransportFailureClass } from "./transport_contracts.js";
 
 export type WorkerTransportTimeoutClass = "absolute" | "inactivity";
 
-export interface WorkerTransportArtifact {
+export type WorkerTransportArtifact = {
   readonly path: string;
   readonly byteLength: number;
   readonly digest: Sha256Digest;
-}
+};
 
 export interface WorkerTransportRequest {
   readonly contract: WorkerTransportContract;
@@ -45,7 +46,7 @@ export interface WorkerTransportRequest {
   readonly timeoutMs: number;
   readonly absoluteTimeoutMs?: number;
   readonly terminationGraceMs?: number;
-  readonly responseJsonSchema?: unknown;
+  readonly responseJsonSchema?: Readonly<Record<string, JsonValue>>;
   readonly responsePresentation?: "result_text";
   readonly environment?: Readonly<Record<string, string | undefined>>;
   readonly explicitAppendArgs?: readonly string[];
@@ -115,7 +116,7 @@ export interface WorkerTransportResult {
   }>;
 }
 
-export interface WorkerToolInvocationEvidence {
+export type WorkerToolInvocationEvidence = {
   readonly [key: string]: JsonValue;
   readonly kind: "worker_tool_invocation_evidence";
   readonly schemaVersion: "5.0.0";
@@ -124,7 +125,7 @@ export interface WorkerToolInvocationEvidence {
   readonly toolName: string;
   readonly inputDigest: Sha256Digest;
   readonly inputByteLength: number;
-}
+};
 
 interface ProcessObservation {
   readonly facts: OwnedProcessFacts;
@@ -150,12 +151,12 @@ interface StructuredObservation {
   readonly finalOutput: string;
 }
 
-function toolUseIdentityInput(toolName: string, input: unknown): JsonValue {
-  if (toolName !== "Bash") return input as JsonValue;
-  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+function toolUseIdentityInput(toolName: string, input: JsonValue): JsonValue {
+  if (toolName !== "Bash") return input;
+  if (!isRecord(input)) {
     throw new TypeError("Bash tool input must be one object");
   }
-  const record = input as Readonly<Record<string, unknown>>;
+  const record = input;
   if (!Object.hasOwn(record, "command") || typeof record.command !== "string") {
     throw new TypeError("Bash tool input must carry one exact command string");
   }
@@ -164,11 +165,11 @@ function toolUseIdentityInput(toolName: string, input: unknown): JsonValue {
   }
   return Object.fromEntries(
     Object.entries(record).filter(([key]) => key !== "description"),
-  ) as JsonValue;
+  );
 }
 
 function collectToolUses(
-  value: unknown,
+  value: JsonValue,
   structuredOutputExpected: boolean,
   rows: WorkerToolInvocationEvidence[],
 ): void {
@@ -176,14 +177,14 @@ function collectToolUses(
     for (const entry of value) collectToolUses(entry, structuredOutputExpected, rows);
     return;
   }
-  if (typeof value !== "object" || value === null) return;
-  const record = value as Readonly<Record<string, unknown>>;
+  if (!isRecord(value)) return;
+  const record = value;
   const protocolStructuredOutput = structuredOutputExpected &&
     record.type === "tool_use" && record.name === "StructuredOutput";
   if (record.type === "tool_use" && !protocolStructuredOutput &&
     typeof record.id === "string" && record.id.length > 0 &&
     typeof record.name === "string" && record.name.length > 0 &&
-    Object.hasOwn(record, "input")) {
+    Object.hasOwn(record, "input") && record.input !== undefined) {
     try {
       const inputBytes = Buffer.from(
         canonicalJson(toolUseIdentityInput(record.name, record.input)),
@@ -270,7 +271,7 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
   let apiRetryCount = 0;
   const observeLine = (line: string): void => {
     if (line.trim().length === 0) return;
-    let value: unknown;
+    let value: JsonValue;
     try { value = JSON.parse(line); } catch { return; }
     structuredEventCount += 1;
     if (typeof value !== "object" || value === null || Array.isArray(value)) return;
@@ -289,7 +290,7 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
     // assistant tool_use. Only the complete message supplies effect evidence.
     if (record.type !== "stream_event") {
       rawToolCallCount += countToolUses(record, structuredOutputExpected);
-      collectToolUses(record, structuredOutputExpected, rawToolInvocations);
+      collectToolUses(value, structuredOutputExpected, rawToolInvocations);
     }
     if (record.type === "result") {
       if (structuredOutputExpected) {
@@ -300,9 +301,8 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
         if (record.subtype !== "success" || record.is_error !== false) return;
         try {
           const admitted = admitIJsonText(line, "worker structured result");
-          if (admitted !== null && typeof admitted === "object" && !Array.isArray(admitted) &&
-              Object.hasOwn(admitted, "structured_output")) {
-            finalOutput = canonicalJson((admitted as Readonly<Record<string, JsonValue>>).structured_output!);
+          if (isRecord(admitted) && Object.hasOwn(admitted, "structured_output")) {
+            finalOutput = canonicalJson(admitted.structured_output!);
           }
         } catch { /* retain the raw stream; never repair or fall back */ }
       } else if (typeof record.result === "string") {
@@ -648,7 +648,7 @@ async function executeWorkerTransport(
         stderr: artifact(paths.stderr, stderrBytes),
       },
     };
-    const transportBytes = Buffer.from(`${canonicalJson(body as unknown as JsonValue)}\n`, "utf8");
+    const transportBytes = Buffer.from(`${canonicalJson(body)}\n`, "utf8");
     await writeFile(paths.transport, transportBytes);
     const result = deepFreeze({
       ...body,
@@ -759,7 +759,7 @@ export async function prepareWorkerTransport(
     sanitizeWorkerTransportEnvironment(contract, sourceEnvironment) ?? {},
   );
   const body = {
-    contractDigest: sha256Canonical(contract as unknown as JsonValue),
+    contractDigest: sha256Canonical(contract),
     agentKey: contract.agentKey,
     parser: contract.parser,
     promptTransport: contract.promptTransport,
@@ -775,18 +775,18 @@ export async function prepareWorkerTransport(
     promptDigest: sha256Canonical(input.prompt),
     responseJsonSchemaDigest: input.responseJsonSchema === undefined
       ? null
-      : sha256Canonical(input.responseJsonSchema as JsonValue),
+      : sha256Canonical(input.responseJsonSchema),
     environmentPolicyDigest: sha256Canonical({
       agentKey: contract.agentKey,
       sanitizedEnvironmentPrefixes: contract.sanitizedEnvironmentPrefixes,
     }),
-    environmentDigest: sha256Canonical(sanitizedEnvironment as unknown as JsonValue),
+    environmentDigest: sha256Canonical(sanitizedEnvironment),
     paths,
   };
   const plan = deepFreeze({
     kind: "prepared_worker_transport" as const,
     schemaVersion: "5.0.0" as const,
-    planDigest: sha256Canonical(body as unknown as JsonValue),
+    planDigest: sha256Canonical(body),
     ...body,
   }) as PreparedWorkerTransport;
   const request: Omit<WorkerTransportRequest, "observer"> = {
@@ -827,8 +827,8 @@ export async function runPreparedWorkerTransport(
     if (
       result.command !== plan.command ||
       !canonicalEquals(
-        result.args as unknown as JsonValue,
-        plan.args as unknown as JsonValue,
+        result.args,
+        plan.args,
       )
     ) {
       throw new TypeError("executed worker transport differs from the prepared binding");

@@ -4,6 +4,7 @@ import { authenticateOwnedNativeWorkReacquisition, nativeWorkReacquisitionContex
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
 import type { LeafExecutionOccurrence, LeafRealizationCandidate, NativeLeafProofOperations } from "./contracts.js";
 import { sha256Canonical } from "../shared/digests.js";
+import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { AbgHistoricalGraphCallSourceResource } from "../abg/terminal_result_contracts.js";
@@ -23,8 +24,10 @@ export async function prepareNativeWorksiteCommandReacquisition(input: unknown, 
     : basis === undefined ? null : authenticateOwnedNativeWorkReacquisition(basis, input, true, historicalSource);
   if (owner === null || owner.call.cCallRef !== occurrence.cCallRef || !await nativeWorkReacquisitionContextCurrent(owner.task.sourceReacquisition!.request))
     throw new TypeError("native reacquisition requires its current admitted owner, preserved child and complete current context");
-  const resultCandidate = owner.task as unknown as Readonly<Record<string, JsonValue>>;
+  const resultCandidate = owner.task;
+  const admittedInput = admitJson(input);
+  if (admittedInput.kind !== "ok") throw new TypeError("native reacquisition requires one admitted JSON input");
   return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
     evidenceCandidates: [{ kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0", implementationRef: ids.implementationRef,
-      inputDigest: sha256Canonical(input as JsonValue), outputDigest: sha256Canonical(resultCandidate) }], resultCandidate });
+      inputDigest: sha256Canonical(admittedInput.value), outputDigest: sha256Canonical(resultCandidate) }], resultCandidate });
 }

@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The common computational library precedes release work. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md) supersedes the [design conjunction’s](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) bounded contracts and withdraws its cross-consumer handoff. The library is delivered on `main` at `562d4515a` by the [eight-step plan](../.ai-workspace/comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md): O-RESOURCE, O-SHAPE, O-CODEC, O-SCHEMA and O-KEY are closed, O-TYPE is recorded per site and the design's proofs hold; this is not a release. Lifecycle implementation, complete source conjunction, combined candidate/P1/P5/P4 and independent L5 remain open or held; release resumption is closed. [Current checkpoint handoff](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md) owns transport status. Fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The common computational library precedes release work. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md) supersedes the [design conjunction’s](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) bounded contracts and withdraws its cross-consumer handoff. The library is delivered on `main` at `562d4515a` by the [eight-step plan](../.ai-workspace/comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md): O-RESOURCE, O-SHAPE, O-CODEC, O-SCHEMA and O-KEY are closed, O-TYPE is closed by post-close repair C (D11) and the design's proofs hold; this is not a release. Lifecycle implementation, complete source conjunction, combined candidate/P1/P5/P4 and independent L5 remain open or held; release resumption is closed. [Current checkpoint handoff](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md) owns transport status. Fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
 
 ## Current Selection
 
@@ -36,9 +36,12 @@ supersedes the bounded C1 to C5 contracts of Root’s [conjunction](../.ai-works
 The library is on `main` at the commit that
 [post-close repair A](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-a)
 records. O-RESOURCE, O-SHAPE, O-CODEC and O-KEY are closed with their sites.
-O-SCHEMA is closed at the raw owner boundary. O-TYPE is open at the step 4
-cast sites, decided per site under D3; the owner's D11 discharges them by one
-census activation. The
+O-SCHEMA is closed at the raw owner boundary. O-TYPE is closed (D11) at every
+cast site that feeds an equality, digest or admission atom
+([post-close repair C](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-c));
+nine casts stop: five on lifecycle subjects need a subject contract change,
+and four in the qualification owners need `admitJson` to accept a plain record
+of another realm. The
 post-close review's helper-route finding is in repair, and its streaming-fold
 finding is open. The
 [T-287 delivery close](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#library-delivery-close-2026-10-23)

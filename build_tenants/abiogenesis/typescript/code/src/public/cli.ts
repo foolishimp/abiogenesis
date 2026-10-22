@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 
 import { readFile } from "node:fs/promises";
 
@@ -122,7 +123,9 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
           >[0],
           request.invocation,
         );
-        writeJsonLine(outcome as unknown as JsonValue);
+        const admittedOutcome = admitJson(outcome);
+        if (admittedOutcome.kind !== "ok") throw new TypeError("transport outcome is not one I-JSON value");
+        writeJsonLine(admittedOutcome.value);
         process.exitCode = outcome.kind ===
             "installed_definition_call_transport_refusal"
           ? 2

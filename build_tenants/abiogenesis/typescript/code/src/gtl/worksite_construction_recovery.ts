@@ -9,6 +9,7 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 
 export const WORKSITE_CONSTRUCTION_GTL_IDS = Object.freeze({
   graphRef: "graph://abiogenesis/worksite/construction@5",
@@ -58,7 +59,7 @@ export interface WorksitePreservedResultSource {
   readonly sourceCCallRef: string;
   readonly actorInvocationRef: string;
 }
-const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+const hash = (value: JsonValue) => sha256Canonical(value);
 function record(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
@@ -78,7 +79,8 @@ function prefixValid(value: unknown): value is DurablePrefixCoordinate {
     !Number.isSafeInteger(value.storeIdentity.device) || !Number.isSafeInteger(value.storeIdentity.inode) ||
     !isSha256Digest(value.storeIdentity.eventContractDigest)) return false;
   const { coordinateDigest, ...body } = value;
-  return hash(body) === coordinateDigest;
+  const admittedBody = admitJson(body);
+  return admittedBody.kind === "ok" && hash(admittedBody.value) === coordinateDigest;
 }
 export function constructWorksitePreservedResultSource(value: unknown): Readonly<WorksitePreservedResultSource> {
   if (!exact(value, ["kind", "schemaVersion", "historicalPrefix", "sourceCCallRef", "actorInvocationRef"]) ||
@@ -105,7 +107,7 @@ export function constructWorksitePreservedResultRecoveryGraphFunction(input: Rea
     throw new TypeError("preserved recovery requires a distinct caller-owned GraphFunction identity");
   }
   const source = constructWorksitePreservedResultSource(input.source);
-  const suffix = sha256Canonical({ graphFunctionRef: input.graphFunctionRef, source } as unknown as JsonValue).slice(7);
+  const suffix = sha256Canonical({ graphFunctionRef: input.graphFunctionRef, source }).slice(7);
   const task = cCarrier<WorksiteConstructionTask>(WORKSITE_CONSTRUCTION_IDS.taskContractRef);
   const artifact = cCarrier<WorksitePreservedResultArtifact>(recoveryIds.artifactContractRef);
   const candidate = cCarrier<WorksiteCandidateBundle>(WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef);
@@ -138,7 +140,7 @@ export function constructWorksitePreservedResultRecoveryGraphFunction(input: Rea
       term: C.compose(auth, C.compose(derive, C.compose(join, workflow.C(cGraphFunctionRef({
         graphFunctionRef: WORKSITE_CONSTRUCTION_IDS.vectorApplicationGraphFunctionRef, input: vector, output: result }))))) }], edges: [], applications: [] },
     effects: ["effect://abiogenesis/worksite/file.replace/v1"], declarations: {
-      "abg.compute_regime": "F_D", "abg.preserved_result_source": canonicalJson(source as unknown as JsonValue),
+      "abg.compute_regime": "F_D", "abg.preserved_result_source": canonicalJson(source),
       "abg.closure_contract": WORKSITE_CONSTRUCTION_IDS.closureContractRef,
       "abg.child_closure_contract": WORKSITE_CONSTRUCTION_IDS.childClosureContractRef,
       "abg.evidence_contract": WORKSITE_CONSTRUCTION_IDS.evidenceContractRef,
@@ -152,6 +154,6 @@ export function worksitePreservedResultSourceOfGraphFunction(graphFunction: Grap
   try {
     const source = constructWorksitePreservedResultSource(JSON.parse(graphFunction.declarations["abg.preserved_result_source"] ?? "null"));
     const expected = constructWorksitePreservedResultRecoveryGraphFunction({ graphFunctionRef: graphFunction.name, source });
-    return canonicalEquals(expected as unknown as JsonValue, graphFunction as unknown as JsonValue) ? source : null;
+    return canonicalEquals(expected, graphFunction) ? source : null;
   } catch { return null; }
 }

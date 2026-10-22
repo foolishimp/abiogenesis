@@ -89,14 +89,14 @@ export interface ProductExecutionResolutionRefusal {
   readonly message: string;
 }
 
-export interface ProductExecutionOwnerCoordinate {
+export type ProductExecutionOwnerCoordinate = {
   readonly productId: string;
   readonly installId: string;
   readonly packageName: string;
   readonly packageVersion: string;
   readonly moduleRef: string;
   readonly publicationDigest: Sha256Digest;
-}
+};
 
 export interface ProgramGraphFunctionMembership {
   readonly programRef: string;
@@ -205,11 +205,11 @@ export function isProductExecutionResolution(
         membershipDigest &&
       candidate.programGraphFunctionMembership.ref === membershipRef &&
       candidate.inputContractDigest === sha256Canonical(
-      candidate.inputContract as unknown as JsonValue,
+      candidate.inputContract,
     ) && candidate.outputContractDigest === sha256Canonical(
-      candidate.outputContract as unknown as JsonValue,
+      candidate.outputContract,
     ) && candidate.resolutionDigest === sha256Canonical(
-      body as unknown as JsonValue,
+      body,
     ) && candidate.resolutionRef ===
       `product-execution-resolution://abiogenesis/${candidate.resolutionDigest.slice("sha256:".length)}`;
   } catch {
@@ -358,8 +358,8 @@ export function graphFunctionSemanticsOwner(
     ...closure.closureContractOwners, closure.semanticsOwner];
   const matches = closure.publications.flatMap(publication => {
     if (!canonicalEquals(
-      publication.productSemanticsBinding as unknown as JsonValue,
-      binding as unknown as JsonValue,
+      publication.productSemanticsBinding,
+      binding,
     )) return [];
     const coordinate = coordinates.find(owner => owner.moduleRef === publication.moduleRef &&
       owner.productId === publication.owningProductId &&
@@ -434,8 +434,8 @@ async function resolveProductExecution(
     reconstructedCatalog.kind !== "graph_function_catalog" ||
     (reconstructedCatalog !== input.catalog &&
       !canonicalEquals(
-        reconstructedCatalog as unknown as JsonValue,
-        input.catalog as unknown as JsonValue,
+        reconstructedCatalog,
+        input.catalog,
       ))
   ) {
     return refusal(
@@ -459,8 +459,8 @@ async function resolveProductExecution(
     reconstructedView.kind !== "graph_function_catalog_view" ||
     (reconstructedView !== input.catalogView &&
       !canonicalEquals(
-        reconstructedView as unknown as JsonValue,
-        input.catalogView as unknown as JsonValue,
+        reconstructedView,
+        input.catalogView,
       ))
   ) {
     return refusal(
@@ -482,16 +482,16 @@ async function resolveProductExecution(
       reconstructedCatalog.readinessBasis.installedProducts.filter(
         (candidate) =>
           canonicalEquals(
-            candidate as unknown as JsonValue,
-            candidateFromInstall(install) as unknown as JsonValue,
+            candidate,
+            candidateFromInstall(install),
           ),
       ).length !== 1
     ) ||
     reconstructedCatalog.readinessBasis.installedProducts.some((candidate) =>
       input.admittedInstalls.filter((install) =>
         canonicalEquals(
-          candidateFromInstall(install) as unknown as JsonValue,
-          candidate as unknown as JsonValue,
+          candidateFromInstall(install),
+          candidate,
         )
       ).length !== 1
     )
@@ -669,14 +669,14 @@ async function resolveProductExecution(
   if (
     selectedCatalogEntry.definitionRef !== graphFunctionOwner.declarationRef ||
     selectedCatalogEntry.definitionDigest !==
-      sha256Canonical(graphFunction as unknown as JsonValue) ||
+      sha256Canonical(graphFunction) ||
     selectedCatalogEntry.owningProductId !== graphFunctionOwner.productId ||
     selectedCatalogEntry.moduleRef !== graphFunctionOwner.moduleRef ||
     selectedCatalogEntry.publicationDigest !==
       graphFunctionOwner.publicationDigest ||
     !canonicalEquals(
-      selectedCatalogEntry.definition as unknown as JsonValue,
-      graphFunction as unknown as JsonValue,
+      selectedCatalogEntry.definition,
+      graphFunction,
     )
   ) {
     return refusal(
@@ -1049,7 +1049,7 @@ async function resolveProductExecution(
     ...(Object.keys(registeredSelectionDefinitionDigests).length === 0 ? {} : { registeredSelectionDefinitionDigests }),
     catalogViewDigest: reconstructedView.viewDigest,
     programRef: program.programRef,
-    programDigest: sha256Canonical(program as unknown as JsonValue),
+    programDigest: sha256Canonical(program),
     programOwner: ownerCoordinate(programInstallMatch.value, programPublication),
     graphFunctionRef: selectedCatalogEntry.definitionRef,
     graphFunctionDigest: selectedCatalogEntry.definitionDigest,
@@ -1060,12 +1060,12 @@ async function resolveProductExecution(
     programGraphFunctionMembership,
     inputContract: inputContract.contract,
     inputContractDigest: sha256Canonical(
-      inputContract.contract as unknown as JsonValue,
+      inputContract.contract,
     ),
     inputContractOwner: inputContract.owner,
     outputContract: outputContract.contract,
     outputContractDigest: sha256Canonical(
-      outputContract.contract as unknown as JsonValue,
+      outputContract.contract,
     ),
     outputContractOwner: outputContract.owner,
     declarationClosureRef: declarationClosure.closureRef,
@@ -1083,10 +1083,10 @@ async function resolveProductExecution(
       implementationSetValidation.validationDigest,
     closureContractRef: closureContract.closureContractRef,
     closureContractDigest: sha256Canonical(
-      closureContract as unknown as JsonValue,
+      closureContract,
     ),
   });
-  const resolutionDigest = sha256Canonical(body as unknown as JsonValue);
+  const resolutionDigest = sha256Canonical(body);
   const resolution = deepFreeze({
     kind: "product_execution_resolution" as const,
     schemaVersion: "5.0.0" as const,

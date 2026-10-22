@@ -309,7 +309,7 @@ function resolveReceipt(
     ),
     resolvedLock: lock === null ? null : resolvedLockCoordinate(lock),
     nativeContractClosureDigest: sha256Canonical(
-      resources.nativeContractClosure as unknown as JsonValue,
+      resources.nativeContractClosure,
     ),
   });
 }
@@ -731,7 +731,7 @@ const bind: AdmissionDefinitionOwner<
             call,
             "abg_admission",
             "workspace_binding_coordinate_refusal",
-            canonicalJson(admitted.refusal as unknown as JsonValue),
+            canonicalJson(admitted.refusal),
           );
         }
         if (admitted.kind === "artifact_owner_refusal") {
