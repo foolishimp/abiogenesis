@@ -147,3 +147,19 @@ one Opus activation with many bounded items; an Executive mid-step ruling
 is a claim a Worker verifies before it applies; Fable stays in the Reviewer
 slot and reviews the design step too, the one step this plan reviewed with
 Opus and the one that leaked three classes into the build.
+
+## Addendum: post-close review (Executive, 2026-10-23)
+
+A third external review, pasted by Jim after this post was written, found
+six S2 and the Executive verified all six by reading. The Result section
+above is superseded until the repairs land: the helper route's facts do not
+reach an admitted failure subject (the helper exits uncaught before
+publishing its artifact); public liveness reads the predecessor cut;
+streaming `advance` copies the fold state per call; the O-SCHEMA closure
+premise is false at `admitInput`; consensus reference arrays throw on a
+cycle where the baseline answered false; and O-TYPE is open at the step 4
+cast sites while GOALS claims delivery. Disposition, priorities and the two
+repair activations are in `step-8.md`. The claim stands as: the library is
+on `main`; the design's proofs hold except P-FOLD's cost property and
+P-LIFECYCLE's helper route, both in repair; delivery is not declared until
+the repairs land and Jim decides D11 (discharge of the O-TYPE sites).
