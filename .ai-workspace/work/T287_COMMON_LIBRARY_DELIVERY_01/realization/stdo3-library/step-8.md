@@ -973,6 +973,21 @@ only the grant.
 `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append
 `## Return 8b` with: commit; each item with the lines edited; residuals.
 
+**Addendum (Executive, after the repair, 2026-10-23).** Item 5 overrides
+"no code, no build" for one clause: `code/src/abg/calculus/rules.ts:127-129`,
+drop "and by no termination unconfirmed for it" so the comment states the
+unguarded rule; then `npm run build` (commit the outputs it regenerates) and
+`npm run lint:lifecycle`, both rc 0. Item 1's residual list also carries:
+the three F7 suites that fail at load at head and at the baseline
+(`r10-projection-contracts:24` fixture coordinate,
+`t287-conformance-owner-reuse:20` environment precondition,
+`t287-wave2-owner-contract-source-set:47` missing export
+`ReleaseSnapshotPort`), whose step 2 path edits are therefore unexercised
+past load; and that a baseline attribution of `t287-cross-cut-public-read`
+needs its two gitignored fixture files linked into the baseline worktree.
+The commit chain in item 1 ends at the repair `562d4515a`; item 2 names that
+commit. Grant adds the one comment clause and the regenerated build outputs.
+
 ## Repair return (step 8)
 
 - commit: the commit carrying this Return (first line `Step 8 repair: D9 reversed; final integrated run`, parent `068062323`); its hash is in the final report. Not pushed. Staged by path.
@@ -1060,3 +1075,18 @@ only the grant.
   - Several F7 suites are red at the baseline on fixture or environment preconditions: `r10-projection-contracts` (`:24`), `t287-conformance-owner-reuse` (`:20`) and `t287-wave2-owner-contract-source-set` (`:47`, a missing export). Their bodies did not run at head or at the baseline, so their step 2 edits (import paths, `build/` path strings) remain unexercised past load.
   - The baseline worktree does not carry the gitignored R10 fixture. Any later baseline attribution of `t287-cross-cut-public-read` needs the same two links.
 - return route: this file
+
+## Disposition of the repair (step 8) (Executive, 2026-10-23)
+
+Accepted at `562d4515a`. Items 1 to 4 land as activated: `rules.ts:151`
+now states §4.4 (`design:199`) and the row 5 sentence is in place; §4.4
+itself is unchanged. Item 3's two flips are the guard's own expectations in
+the U1 store and the P-LIFECYCLE case, inside the grant. The final run: the
+34 files of the 8a run match it except the quiescence suite, now 7/7; the
+nine red F7 suites are baseline-red with the same failure set (the
+cross-cut suite attributed with the two fixture links). Three of the nine
+fail at load, so their step 2 path edits are unexercised past load:
+recorded, not a seam; a suite that cannot load at the baseline is not a
+gate of this plan. Residuals: the `rules.ts:127-129` comment to 8b (addendum
+above); the fixture-link note and the three load failures to the ticket
+close. Ledger row 8 closed.
