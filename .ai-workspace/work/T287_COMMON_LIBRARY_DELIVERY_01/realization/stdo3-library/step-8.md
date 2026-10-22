@@ -1154,3 +1154,16 @@ close. Ledger row 8 closed.
   - The plan ledger row 5 ("8 need runtime values") and step-5.md's Disposition keep the superseded reason. Both are outside the grant; the ticket carries the corrected one.
   - §10.6 row 5's "Decided by" and "Sequencing" cells still read as a gate before retention. Not edited.
 - return route: this file
+
+## Disposition of 8b (Executive, 2026-10-23)
+
+Accepted at `c8d3f8ecd`; `git show --stat` is inside the grant plus the
+addendum's build outputs. Item 5's consistency edits (the §4.3 cell and
+sentence, the D7 clause in row 5, stale line numbers inside sentences
+already being edited) are the smallest edits that keep one fact consistent
+and are accepted. Residuals: F5's count of 13 stands as recorded (the extra
+five are at the baseline); O-TYPE at head lines stands; §9.3 item 7's cite,
+§10.6 row 5's gate cells and `GOALS.md:18`'s conjunction-frame sentence are
+left for the next design or GOALS touch and recorded in the closing post;
+plan ledger row 5 is corrected in the close commit; `step-5.md` is history.
+Step 8 closed; the plan closes with the post named in the ledger.
