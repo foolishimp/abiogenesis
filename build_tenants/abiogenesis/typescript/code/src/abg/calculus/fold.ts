@@ -128,25 +128,95 @@ export function effectOf(state: FoldState, event: RuntimeEvent, dependencies: re
   });
 }
 
-function withScope(map: ReadonlyMap<string, ReadonlySet<string>>, key: string, digest: string): ReadonlyMap<string, ReadonlySet<string>> {
-  const next = new Map(map);
-  next.set(key, new Set([...(map.get(key) ?? []), digest]));
-  return next;
+/** @internal A fold state under construction: the members of FoldState in
+ * mutable carriers, changed in place by applyStep. */
+export interface WorkingFoldState {
+  readonly kind: "event_calculus_fold_state";
+  source: RuntimeEventPrefix | null;
+  readonly holds: Map<string, RuntimeFluent>;
+  ordinal: number;
+  transition: FoldTransition | null;
+  readonly contextualFluentRunIds: Map<string, string>;
+  readonly clippedFluentRefs: string[];
+  readonly declippedPatternRefs: string[];
+  readonly interruptedScopes: Set<string>;
+  readonly frameProbeScopes: Map<string, Set<string>>;
+  readonly cCallProbeScopes: Map<string, Set<string>>;
+  readonly actorProbeScopes: Map<string, Set<string>>;
 }
 
-/** One step: terminates, clips, declips, then initiates, and the probe and
- * interruption facts of the event. The input state is not changed. */
-export function foldStep(state: FoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]): FoldState {
-  const effect = effectOf(state, event, dependencies);
-  const holds = new Map(state.holds);
-  let runIds: Map<string, string> | undefined;
+function copyScopes(map: ReadonlyMap<string, ReadonlySet<string>>): Map<string, Set<string>> {
+  return new Map([...map].map(([key, digests]) => [key, new Set(digests)]));
+}
+
+/** @internal A working copy of `state` over `source`. Every carrier is copied,
+ * so applying steps to the copy never changes `state` or a shared constant. */
+export function workingFoldState(state: FoldState, source: RuntimeEventPrefix | null = state.source): WorkingFoldState {
+  return {
+    kind: "event_calculus_fold_state",
+    source,
+    holds: new Map(state.holds),
+    ordinal: state.ordinal,
+    transition: state.transition,
+    contextualFluentRunIds: new Map(state.contextualFluentRunIds),
+    clippedFluentRefs: [...state.clippedFluentRefs],
+    declippedPatternRefs: [...state.declippedPatternRefs],
+    interruptedScopes: new Set(state.interruptedScopes),
+    frameProbeScopes: copyScopes(state.frameProbeScopes),
+    cCallProbeScopes: copyScopes(state.cCallProbeScopes),
+    actorProbeScopes: copyScopes(state.actorProbeScopes),
+  };
+}
+
+/** @internal The frozen FoldState of a working copy; the copy takes no
+ * further step. */
+export function frozenFoldState(working: WorkingFoldState): FoldState {
+  return Object.freeze({
+    ...working,
+    clippedFluentRefs: Object.freeze(working.clippedFluentRefs),
+    declippedPatternRefs: Object.freeze(working.declippedPatternRefs),
+  });
+}
+
+function addScope(map: Map<string, Set<string>>, key: string, digest: string): void {
+  const digests = map.get(key);
+  if (digests === undefined) map.set(key, new Set([digest]));
+  else digests.add(digest);
+}
+
+/** @internal One step applied in place: terminates, clips, declips, then
+ * initiates, and the probe and interruption facts of the event. The effect,
+ * the declip keys and the event's facts are computed before any change, so a
+ * refused step leaves `working` as it was. Returns the step's transition. */
+export function applyStep(working: WorkingFoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]): FoldTransition {
+  const effect = effectOf(working, event, dependencies);
+  const declipped = effect.declips.map(ownedRuntimeFluentPatternKey);
+  // A native observation has just completed its exact liveness source
+  // relation. Other profiles retain the raw contract guards used by the
+  // exported effect helper. Later closures consume only these scoped facts.
+  let probe: FoldProbeFact | null = null;
+  if (event.kind === "runtime_activity_probe_observed" && isRecord(event.payload) &&
+      (event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST ||
+        isRuntimeSystemProbeContract(event.payload.probeContract) && isRuntimeProbeObservation(event.payload.observation))) {
+    const contract = event.payload.probeContract as unknown as RuntimeSystemProbeContract;
+    const observation = event.payload.observation as unknown as RuntimeProbeObservation;
+    const { scope } = contract;
+    const actor = typeof event.payload.actorInvocationRef === "string" ? event.payload.actorInvocationRef : null;
+    const target = scope.cCallRef !== null ? "call" as const : scope.actorInvocationRef === null ? "frame" as const : null;
+    const key = scope.cCallRef ?? frameProbeScopeKey(scope);
+    probe = Object.freeze({ ordinal: event.admissionOrdinal, actor, target, key, digest: observation.scopeDigest });
+  }
+  let interruption: FoldInterruptionFact | null = null;
+  if (event.kind === "runtime_external_interruption_observed" && isRecord(event.payload) &&
+      isRuntimeProbeObservation(event.payload.observation)) {
+    interruption = Object.freeze({ ordinal: event.admissionOrdinal, digest: event.payload.observation.scopeDigest });
+  }
+  const { holds, contextualFluentRunIds: runIds } = working;
   const fluents: FoldFluentTransition[] = [];
   for (const fluent of effect.terminates) {
     fluents.push({ fluent, held: false });
     holds.delete(fluent.fluentRef);
-    if ((runIds ?? state.contextualFluentRunIds).has(fluent.fluentRef)) {
-      (runIds ??= new Map(state.contextualFluentRunIds)).delete(fluent.fluentRef);
-    }
+    runIds.delete(fluent.fluentRef);
   }
   const clipped: string[] = [];
   for (const pattern of effect.clips) {
@@ -158,64 +228,40 @@ export function foldStep(state: FoldState, event: RuntimeEvent, dependencies: re
       }
     }
   }
-  const declipped = effect.declips.map(ownedRuntimeFluentPatternKey);
   for (const fluent of effect.initiates) {
     fluents.push(event.runId === undefined ? { fluent, held: true } : { fluent, held: true, runId: event.runId });
     holds.set(fluent.fluentRef, fluent);
-    if (event.runId !== undefined) (runIds ??= new Map(state.contextualFluentRunIds)).set(fluent.fluentRef, event.runId);
+    if (event.runId !== undefined) runIds.set(fluent.fluentRef, event.runId);
   }
-  // A native observation has just completed its exact liveness source
-  // relation. Other profiles retain the raw contract guards used by the
-  // exported effect helper. Later closures consume only these scoped facts.
-  let probe: FoldProbeFact | null = null;
-  let { actorProbeScopes, frameProbeScopes, cCallProbeScopes } = state;
-  if (event.kind === "runtime_activity_probe_observed" && isRecord(event.payload) &&
-      (event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST ||
-        isRuntimeSystemProbeContract(event.payload.probeContract) && isRuntimeProbeObservation(event.payload.observation))) {
-    const contract = event.payload.probeContract as unknown as RuntimeSystemProbeContract;
-    const observation = event.payload.observation as unknown as RuntimeProbeObservation;
-    const { scope } = contract;
-    const actor = typeof event.payload.actorInvocationRef === "string" ? event.payload.actorInvocationRef : null;
-    const target = scope.cCallRef !== null ? "call" as const : scope.actorInvocationRef === null ? "frame" as const : null;
-    const key = scope.cCallRef ?? frameProbeScopeKey(scope);
-    probe = Object.freeze({ ordinal: event.admissionOrdinal, actor, target, key, digest: observation.scopeDigest });
-    if (actor !== null) actorProbeScopes = withScope(actorProbeScopes, actor, observation.scopeDigest);
-    if (target === "call") cCallProbeScopes = withScope(cCallProbeScopes, key, observation.scopeDigest);
-    if (target === "frame") frameProbeScopes = withScope(frameProbeScopes, key, observation.scopeDigest);
+  if (probe !== null) {
+    if (probe.actor !== null) addScope(working.actorProbeScopes, probe.actor, probe.digest);
+    if (probe.target === "call") addScope(working.cCallProbeScopes, probe.key, probe.digest);
+    if (probe.target === "frame") addScope(working.frameProbeScopes, probe.key, probe.digest);
   }
-  let interruption: FoldInterruptionFact | null = null;
-  let interruptedScopes = state.interruptedScopes;
-  if (event.kind === "runtime_external_interruption_observed" && isRecord(event.payload) &&
-      isRuntimeProbeObservation(event.payload.observation)) {
-    const digest = event.payload.observation.scopeDigest;
-    interruptedScopes = new Set([...interruptedScopes, digest]);
-    interruption = Object.freeze({ ordinal: event.admissionOrdinal, digest });
-  }
-  return Object.freeze({
-    kind: "event_calculus_fold_state" as const,
-    source: state.source,
-    holds,
+  if (interruption !== null) working.interruptedScopes.add(interruption.digest);
+  working.clippedFluentRefs.push(...clipped);
+  working.declippedPatternRefs.push(...declipped);
+  working.ordinal = event.admissionOrdinal;
+  working.transition = Object.freeze({
+    eventKind: event.kind,
+    sourceEventRef: event.eventId,
     ordinal: event.admissionOrdinal,
-    transition: Object.freeze({
-      eventKind: event.kind,
-      sourceEventRef: event.eventId,
-      ordinal: event.admissionOrdinal,
-      effect,
-      fluents: Object.freeze(fluents),
-      clipped: Object.freeze(clipped),
-      declipped: Object.freeze(declipped),
-      probe,
-      interruption,
-    }),
-    contextualFluentRunIds: runIds ?? state.contextualFluentRunIds,
-    clippedFluentRefs: clipped.length === 0 ? state.clippedFluentRefs : Object.freeze([...state.clippedFluentRefs, ...clipped]),
-    declippedPatternRefs: declipped.length === 0 ? state.declippedPatternRefs
-      : Object.freeze([...state.declippedPatternRefs, ...declipped]),
-    interruptedScopes,
-    frameProbeScopes,
-    cCallProbeScopes,
-    actorProbeScopes,
+    effect,
+    fluents: Object.freeze(fluents),
+    clipped: Object.freeze(clipped),
+    declipped: Object.freeze(declipped),
+    probe,
+    interruption,
   });
+  return working.transition;
+}
+
+/** One step: the state is copied once and the step applied to the copy
+ * (applyStep). The input state is not changed. */
+export function foldStep(state: FoldState, event: RuntimeEvent, dependencies: readonly RuntimeEvent[]): FoldState {
+  const working = workingFoldState(state);
+  applyStep(working, event, dependencies);
+  return frozenFoldState(working);
 }
 
 function isFoldState(value: FoldState | RuntimeHeldFluentProjection): value is FoldState {

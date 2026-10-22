@@ -30,7 +30,6 @@ import { canonicalEquals } from "../shared/value/index.js";
 import {
   constructWorksiteObservationCurrentFluent,
   emptyFoldState,
-  foldStep,
   holdsAt,
   runtimeFluentKey,
   type EventCalculusEffect,
@@ -43,6 +42,7 @@ import {
   type RuntimeFluent,
 } from "./calculus/index.js";
 import { stringArrayField } from "./calculus/axioms.js";
+import { applyStep, frozenFoldState, workingFoldState } from "./calculus/fold.js";
 
 // The Event Calculus law (carriers, ROOT_EVENT_CALCULUS, ROOT_DERIVED_RULES
 // and the pure fold) lives in abg/calculus/. This module re-exports its
@@ -230,17 +230,24 @@ class RuntimeEventCalculusDerivation {
     while (low < high) { const middle = (low + high) >>> 1; if (rows[middle]!.ordinal <= ordinal) low = middle + 1; else high = middle; }
     return low > 0 ? rows[low - 1]!.fluent : this.base?.fluentAt(key, Math.min(ordinal, this.baseOrdinal)) ?? null;
   }
-  /** For each event after the folded count: state = foldStep(state, event,
-   * dependencies). The source is this call's prefix, held in the state per
-   * step, so a nested read of an earlier cut never changes a later step. */
+  /** For each event after the folded count, the step of foldStep: the state
+   * is copied once per call, each event is applied to the copy in place
+   * (applyStep), and the copy is frozen when the call ends. The source is this
+   * call's prefix, so a nested read of an earlier cut never changes a later
+   * step; during the call the state is the working copy at the folded count. */
   advance(prefix: RuntimeEventPrefix): void {
     const count = runtimeEventPrefixExtent(prefix).count;
-    for (let index = this.effectCount; index < count; index++) {
-      const event = runtimeEventAtPrefixIndex(prefix, index)!;
-      const dependencies = eventCalculusDependencies(prefix, event, this.priorEvents);
-      const state = foldStep(this.state.source === prefix ? this.state : { ...this.state, source: prefix }, event, dependencies);
-      this.state = state;
-      this.memoize(state.transition!, event, prefix);
+    if (this.effectCount >= count) return;
+    const working = workingFoldState(this.state, prefix);
+    this.state = working;
+    try {
+      for (let index = this.effectCount; index < count; index++) {
+        const event = runtimeEventAtPrefixIndex(prefix, index)!;
+        const dependencies = eventCalculusDependencies(prefix, event, this.priorEvents);
+        this.memoize(applyStep(working, event, dependencies), event, prefix);
+      }
+    } finally {
+      this.state = frozenFoldState(working);
     }
   }
   private memoize(transition: FoldTransition, event: RuntimeEvent, prefix: RuntimeEventPrefix): void {

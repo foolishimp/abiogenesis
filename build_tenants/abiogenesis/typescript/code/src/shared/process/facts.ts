@@ -45,6 +45,14 @@ function encodeError(error: Error | null): JsonValue {
   };
 }
 
+/** The members of the encoding below, in default string sort. A reader that
+ * checks an encoding's exact keys takes this list. */
+export const OWNED_PROCESS_FACT_MEMBERS = Object.freeze([
+  "cleanupDeadlineNs", "cleanupElapsedMs", "closeObserved", "directExit", "drainExpired", "firstError",
+  "launchFailure", "noChildEstablished", "probeCount", "scopeAbsence", "scopeKind", "signalAttempts",
+  "streamsDisposed",
+] as const);
+
 /** The one encoding of the facts as admitted evidence. Every member keeps its
  * name; an Error is described without `stack`; the bigint is tagged. */
 export function encodeOwnedProcessFacts(facts: OwnedProcessFacts): JsonValue {

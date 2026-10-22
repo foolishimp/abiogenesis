@@ -1,0 +1,1232 @@
+Step 8a integrated run. HEAD 7deeff5898670cfc54c097dc4c20970ce83e527a; working tree carries the uncommitted 8a changes.
+node v24.7.0; platform Darwin 25.6.0
+===== build: start 2026-10-22T02:35:56Z
+$ npm run build
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 build
+> npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs
+
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 clean
+> node scripts/clean.mjs
+
+===== build: end 2026-10-22T02:36:30Z rc=0 wall=34s
+===== lint:imports: start 2026-10-22T02:36:30Z
+$ npm run lint:imports
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 lint:imports
+> node scripts/check-import-direction.mjs
+
+check-import-direction: 28 modules under code/src/shared/ import only code/src/shared/ and packages
+===== lint:imports: end 2026-10-22T02:36:30Z rc=0 wall=0s
+===== lint:lifecycle: start 2026-10-22T02:36:30Z
+$ npm run lint:lifecycle
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 lint:lifecycle
+> node scripts/check-lifecycle-boundary.mjs
+
+check-lifecycle-boundary: 284 modules under code/src; 10 allow-listed site(s), no offender
+===== lint:lifecycle: end 2026-10-22T02:36:31Z rc=0 wall=1s
+===== integrated run (34 files, one invocation): start 2026-10-22T02:36:31Z
+$ node --experimental-vm-modules --test --test-concurrency=1 --test-reporter=spec --test-reporter-destination=stdout --test-reporter=tap --test-reporter-destination=/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/step8-run.tap test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/m5-installed-graph-edge.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/m5-event-store-reopen.test.mjs test_env/tests/m5-event-calculus-runtime.test.mjs test_env/tests/m5-retry-lifecycle-authority.test.mjs test_env/tests/m5-s03-authority.test.mjs test_env/tests/m5-consensus-module.test.mjs test_env/tests/m5-s06-prime.test.mjs test_env/tests/m5-installed-portability.test.mjs test_env/tests/m5-terminal-quiescence-owner.test.mjs test_env/tests/m5-fresh-process-reconstruction.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs test_env/tests/t287-owned-process-lifetime.test.mjs test_env/tests/t287-event-calculus-owner-continuation.test.mjs test_env/tests/t287-calculus-state-transfer.test.mjs test_env/tests/t287-reconstruction-conservation.test.mjs test_env/tests/t287-ordered-reconstruction.test.mjs test_env/tests/t287-worksite-command-execution.test.mjs test_env/tests/t287-observed-worksite-command.test.mjs test_env/tests/t287-runtime-activity-quiescence.test.mjs test_env/tests/t287-generic-job-lifecycle.test.mjs test_env/tests/t287-common-computational-library.test.mjs test_env/tests/t287-value-equality.test.mjs test_env/tests/t287-select-family.test.mjs test_env/tests/t287-calculus-fold.test.mjs test_env/tests/t287-lifecycle-failure-carrier.test.mjs test_env/tests/installed-language-smoke.test.mjs test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs
+✔ native whole-Program validator accepts exactly prepare plus nested C2, with no historical call rights (7.226833ms)
+✔ native validator rejects crossed raw/output and child closure; exact declaration owner refuses extra calls (3.822042ms)
+✔ closed Product carriers preserve all controlled supplied source observations; no fabricated cover qualifies native currentness (12.568833ms)
+✔ explicit zero write territory survives C1 and forward cold carrier round-trip without adding rights (7.596667ms)
+✔ missing reordered duplicate changed or crossed retained members refuse at real Product constructor (15.156792ms)
+✔ real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm (37.93975ms)
+✔ raw namespaces, attempt/task/artifact and actor/tool mismatches remain refused (54.943958ms)
+✔ step and terminal predicates preserve honest command failure but reject incomplete or crossed final carriers (51.209209ms)
+(node:7450) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ synthetic current native lookup maps all controlled retained C0 owners only under exact witness (20.30925ms)
+✖ synthetic cover wrong direction, scope, missing member and unrelated origin refuse in unchanged native owners (3.981959ms)
+✖ synthetic workflow alias does not add a C0 owner; distinct same-value producer is ambiguity (3.292709ms)
+✖ synthetic later cross-W post-publication failure invalidates the old subject alias without fabricating O1 (3.557291ms)
+✔ synthetic current-prefix consumption refuses another exact producer, unresolved admission and ignores unrelated scope (3.99425ms)
+✔ canonical native entry and occurrence owners refuse same-Run transfer, standalone task, foreign GF and missing native basis (2.292917ms)
+✔ Hello World is an external minimal GTL program through installed Public execution and fresh reads (47420.927291ms)
+✔ M5 GTL exposes exactly seven direct C constructors (1.18575ms)
+✔ M5 C.compose is canonical, flat, and identity-eliding (0.138208ms)
+✔ M5 GraphFunction composition preserves exact left and right identity (39.342459ms)
+✔ M5 GraphFunction promotion preserves topology and semantic truth (27.868584ms)
+✔ M5 native constructors refuse invalid batch, retry, and F_H realization (0.189709ms)
+✔ M5 native GTL constructs all ten graph relations with derived identities (0.627458ms)
+✔ M5 same-object relation is one validator-owned canonical identity witness (26.018959ms)
+✔ M5 closure validation distinguishes run and child GraphCall scope (48.55025ms)
+✔ M5 whole-program validation admits exact recursion law and refuses its substitutes (62.864167ms)
+✔ M5 whole-program validation binds gate law to published Rule and Evaluator declarations (58.186042ms)
+✔ M5 fan-out materialization derives one exact task per admitted input member (15.485917ms)
+✔ M5 fan-out and fan-in outer contracts equal their declared vectors (36.578ms)
+✔ M5 native GraphFunction composition materializes source GTL without a second executable carrier (25.216291ms)
+✔ M5 native GraphFunction substitution replaces one typed graph vector with visible source GTL (24.547209ms)
+✔ M5 whole-program validation refuses forged or widened graph-edge declarations (27.885334ms)
+✔ M5 raw admission and validator reject invented or contradictory C data (2.428583ms)
+✔ M4 independently authored data fixture remains one valid direct C.of Program (11.938167ms)
+✔ M5 whole-root validation keeps F_H interaction keys out of executable resolution (14.272417ms)
+﹣ M5 resolves and independently validates the complete executable root set (0.062875ms) # requires retained Thread 2 installed consumer proof
+﹣ M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases (0.023458ms) # requires retained Thread 2 installed consumer proof
+﹣ M5 F_H-only roots produce one valid empty executable-resolution set (0.026167ms) # requires retained Thread 2 installed consumer proof
+file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-consensus-module.test.mjs:26
+import { ROOT_PUBLIC_OPERATION_IDS } from "../../build/code/src/public/index.js";
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: The requested module '../../build/code/src/public/index.js' does not provide an export named 'ROOT_PUBLIC_OPERATION_IDS'
+    at #_instantiate (node:internal/modules/esm/module_job:254:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:363:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0
+✖ test_env/tests/m5-consensus-module.test.mjs (207.265958ms)
+﹣ nominal prefix reuse preserves full historical EC and replay including fresh process (0.511666ms) # SKIP
+✖ A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat or stale prefixes with zero append (40412.467042ms)
+✔ validated event-prefix selection is immutable, ordered, and causally run-local (3.708959ms)
+✔ closed typed Event Calculus law refuses missing, duplicate, malformed, and contradictory input (3.539209ms)
+✔ historical traversal-route projection ignores later construction enrichment and still refuses a forged admission body (8.690916ms)
+✔ structural retry lineage selects its Run while retaining workspace authority (11.376958ms)
+ℹ Real structural/replay owners over supplied immutable event facts; no store, actor or installed lifecycle.
+✔ retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruction-stable (3.265459ms)
+✔ retry fluent identity is exact across graph-call, frame, and boundary scopes before and after consumption (3.07625ms)
+✔ retry handoff route matrix keeps retry, blocked, advance, and terminal effects decision-exact (2.254291ms)
+✔ retry judgment preserves attempt activity until exact progress consumption (2.830542ms)
+✔ run_stopped terminates every exact active retry attempt and available retry progress (14.856125ms)
+✖ terminal projection rows realize static locus law for the exact Run and preserve unrelated loci (2.923834ms)
+✖ run HoldsAt truth survives durable reopen and a lawful closure (40137.30075ms)
+✖ runtime_failure_observed terminates the exact active Run (42642.757833ms)
+✖ run_stopped makes runtime failure throw before memory or durable append (40470.862958ms)
+✔ M5 application preparation refusal is exact across fresh processes until its route consumes it (414.833083ms)
+✔ M5 generic CCall child foldback cannot project as application foldback (12.557125ms)
+✔ M5 incomplete application child foldback cannot project through an open payload cast (13.008166ms)
+✔ M5 application foldback projection rejects every empty semantic reference and malformed digest (204.036291ms)
+✔ M5 new-empty acquisition returns one genuine readable zero prefix (11.034458ms)
+✔ M5 EventStore batch factory interruption leaves the exact prefix unchanged (10.832541ms)
+✔ owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence (36.019834ms)
+{"kind":"owned_causation_lookup_growth","measurements":[{"events":128,"causalReferences":127,"live":{"admissionCauseLookups":127,"locationCauseLookups":127,"historyOrdinalEntries":128,"stagedBodyEntries":128,"stagedEventEntries":128,"coldCauseLookups":0,"coldEventEntries":0,"unattributed":0},"cold":{"admissionCauseLookups":0,"locationCauseLookups":0,"historyOrdinalEntries":0,"stagedBodyEntries":0,"stagedEventEntries":0,"coldCauseLookups":127,"coldEventEntries":128,"unattributed":0}},{"events":256,"causalReferences":255,"live":{"admissionCauseLookups":255,"locationCauseLookups":255,"historyOrdinalEntries":256,"stagedBodyEntries":256,"stagedEventEntries":256,"coldCauseLookups":0,"coldEventEntries":0,"unattributed":0},"cold":{"admissionCauseLookups":0,"locationCauseLookups":0,"historyOrdinalEntries":0,"stagedBodyEntries":0,"stagedEventEntries":0,"coldCauseLookups":255,"coldEventEntries":256,"unattributed":0}}],"limit":"lookup and index-entry counts only; immutable array copying and end-to-end latency unmeasured"}
+✔ owned causation lookup grows with causal references in live admission and cold reconstruction (81.13875ms)
+✔ held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback (40.702833ms)
+✔ M5 effectful truth rejects a mechanically valid forged Product install for every query (2.349708ms)
+✔ M5 effectful truth rejects forged artifact operation identity before query selection (39377.855917ms)
+✔ M5 exact owner projections preserve valid facts, conflicts, and whole-prefix masking (14817.670958ms)
+✔ M5 reopens one exact durable prefix without restamping and appends at max ordinal plus one (24.17925ms)
+✔ M5 rolls back an incomplete atomic F_H hold admission without a replay-visible prefix (20.630583ms)
+✔ M5 exact-prefix two-stage transaction rolls back its first stage when second staging fails (17.401125ms)
+✔ M5 durable reopen refuses changed prefix bytes without changing replay truth (16.44525ms)
+✔ M5 durable reopen refuses a second active append owner (22.938667ms)
+✔ M5 durable reopen refuses a modified authority carrier (10.366166ms)
+✔ M5 durable reopen does not steal ownership from an abandoned lock (16.465041ms)
+✔ M5 event contract refuses blank history and malformed kind/scope/payload variants (16.980291ms)
+{"kind":"trusted_desktop_owned_history","events":5,"ownedHistoricalReadBytes":0,"explicitOutputReadBytes":45583,"coldReadBytes":4315,"unattributedReadBytes":0,"eventLogBytes":4315,"reads":[{"kind":"owned_coordinate_or_transition","label":"stale, foreign, profile and malformed coordinates","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"immutable predecessor","bytes":851,"expectedBytes":851},{"kind":"explicit_complete_output","label":"held output 0","bytes":851,"expectedBytes":851},{"kind":"explicit_complete_output","label":"complete comparison 0","bytes":851,"expectedBytes":851},{"kind":"owned_coordinate_or_transition","label":"held coordinate 0","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"callback predecessor 0","bytes":851,"expectedBytes":851},{"kind":"explicit_complete_output","label":"callback complete comparison 0","bytes":851,"expectedBytes":851},{"kind":"owned_coordinate_or_transition","label":"durable append 0","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"held output 1","bytes":1717,"expectedBytes":1717},{"kind":"explicit_complete_output","label":"complete comparison 1","bytes":1717,"expectedBytes":1717},{"kind":"owned_coordinate_or_transition","label":"held coordinate 1","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"callback predecessor 1","bytes":1717,"expectedBytes":1717},{"kind":"explicit_complete_output","label":"callback complete comparison 1","bytes":1717,"expectedBytes":1717},{"kind":"owned_coordinate_or_transition","label":"durable append 1","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"held output 2","bytes":2583,"expectedBytes":2583},{"kind":"explicit_complete_output","label":"complete comparison 2","bytes":2583,"expectedBytes":2583},{"kind":"owned_coordinate_or_transition","label":"held coordinate 2","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"callback predecessor 2","bytes":2583,"expectedBytes":2583},{"kind":"explicit_complete_output","label":"callback complete comparison 2","bytes":2583,"expectedBytes":2583},{"kind":"owned_coordinate_or_transition","label":"durable append 2","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"held output 3","bytes":3449,"expectedBytes":3449},{"kind":"explicit_complete_output","label":"complete comparison 3","bytes":3449,"expectedBytes":3449},{"kind":"owned_coordinate_or_transition","label":"held coordinate 3","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"callback predecessor 3","bytes":3449,"expectedBytes":3449},{"kind":"explicit_complete_output","label":"callback complete comparison 3","bytes":3449,"expectedBytes":3449},{"kind":"owned_coordinate_or_transition","label":"durable append 3","bytes":0,"expectedBytes":0},{"kind":"owned_coordinate_or_transition","label":"current selection and stale-current refusal","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"historical output","bytes":851,"expectedBytes":851},{"kind":"owned_coordinate_or_transition","label":"historical reidentification","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"reidentified historical output","bytes":851,"expectedBytes":851},{"kind":"owned_coordinate_or_transition","label":"ancestry and empty transaction","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"committed comparison value","bytes":4315,"expectedBytes":4315},{"kind":"owned_coordinate_or_transition","label":"committed canonical digest","bytes":0,"expectedBytes":0},{"kind":"owned_coordinate_or_transition","label":"tentative rollback","bytes":0,"expectedBytes":0},{"kind":"explicit_complete_output","label":"rollback complete output","bytes":4315,"expectedBytes":4315},{"kind":"owned_coordinate_or_transition","label":"close and closed-owner refusal","bytes":0,"expectedBytes":0},{"kind":"cold_recovery","label":"closed coordinate","bytes":4315,"expectedBytes":4315}]}
+✔ trusted owned history conserves currentness, callback publication, rollback and cold reconstruction (369.488375ms)
+✔ owned append I/O failures restore committed bytes and hash or poison admission (99.390333ms)
+✖ M5 exact catalog basis and retained runtime truth reconstruct equally in two fresh processes (39704.7015ms)
+✖ M5 installed HoG traverses an independently declared composed GraphFunction (39573.241625ms)
+✔ S06 verified Product and resolved lock truth are deeply immutable (31116.035708ms)
+✔ S06 catalog construction rejects unequal publications with one module identity (9796.2675ms)
+✖ S06 external side-effect declaration imports refuse during Product resolution (30963.824292ms)
+✖ S06 Product verification resolves contract authority and exact locators (10056.514125ms)
+✖ S06 Product verification resolves JSON Schema array pointers (9959.45225ms)
+✔ S06 catalog narrowing refuses unknown handles without an admission fallback (9999.241375ms)
+✔ S06 catalog applications are pure reconstructible values (10036.692375ms)
+✔ S06 Codex delegate and flavored Product keep their public boundaries (0.960166ms)
+✖ declared C.retry frontier is the sole retry-attempt lifecycle owner (288.94525ms)
+✔ stopped retry foldback bridge requires the exact consumed causal suffix (0.620708ms)
+✖ CCall retry writes require the exact current declared retry frontier (0.785625ms)
+✖ production judgment writers remain closed behind the CCall owner (0.96775ms)
+✔ runtime package exports expose no raw or candidate-factory event writer (5.253625ms)
+✖ raw executor resume remains closed to every retry cursor (0.459709ms)
+✔ entry frame runtime is an exact common projection and retry composition stays disjoint (0.910167ms)
+✔ projected retry entry consumes only its exact admitted successor prefix without effects (41.306625ms)
+✖ F04 payload refusal composes one pure result rejection while authority refusal cannot retry (0.955417ms)
+✖ S03 capability policy is exact over admitted Program interaction requirements (0.751792ms)
+✖ S03 continuation operation authority requires the exact admitted grant and lifecycle state (0.159209ms)
+✖ S03 HoG accepts one Product-sealed projection and rejects its forged twin (40779.618667ms)
+✔ S03 Product semantics requires a loaded provider and is absent from HoG's public port (0.507834ms)
+✖ S03 Run semantic projection maps only typed R references and preserves opaque event-shaped domain strings (122.327167ms)
+✔ S06 exact coordinate lookup distinguishes zero, one, and many (0.68975ms)
+✔ S06 resolved locks require verifier evidence and reject forged cycles (0.63775ms)
+✔ S06 catalog construction is a pure projection of exact publications (2.347125ms)
+✔ S06 native export resolution is TypeScript-program derived (3409.504209ms)
+✔ S06 native declaration closure binds package roots and reachable bytes (2735.055834ms)
+✔ Product native analysis preserves exact contract-indexed pending selectors (2167.228166ms)
+✔ S06 native external meaning requires one direct named-symbol contract (4633.336625ms)
+✔ S06 namespace coverage and augmentation remain owner-relative (9360.3735ms)
+▶ S06 native applicability preserves complete nested suppliers and exact native boundaries
+  ✔ complete nested supplier contributes nothing and preserves native results in either position (1467.220708ms)
+  ✔ substituted metadata digest (3.712709ms)
+  ✔ wrong root name (3.547625ms)
+  ✔ wrong root type (3.415834ms)
+  ✔ blank root version (3.423917ms)
+  ✔ missing current root (3.403708ms)
+  ✔ omitted current metadata (3.392709ms)
+  ✔ duplicate metadata path (3.354166ms)
+  ✔ escaped metadata path (3.361959ms)
+  ✔ unnormalized metadata path (3.371584ms)
+  ✔ malformed JSON body (6.090042ms)
+  ✔ nonobject metadata body (3.579917ms)
+  ✔ conflicting bundle spellings (3.439583ms)
+  ✔ duplicate bundle name (3.37825ms)
+  ✔ undeclared bundle (3.376292ms)
+  ✔ invalid dependency version (3.45625ms)
+  ✔ identity substitution (3.430459ms)
+  ✔ source contradiction (3.381375ms)
+  ✔ closure contradiction (3.358625ms)
+  ✔ contract contradiction (3.312541ms)
+  ✔ array-like sources (3.352ms)
+  ✔ missing closures (3.393125ms)
+  ✔ null contracts (3.402917ms)
+  ✔ array-like metadata (3.330708ms)
+  ✔ array-like advertised rows (3.3435ms)
+  ✔ advertised native sources erased (3.335375ms)
+  ✔ advertised native closures erased (5.189584ms)
+  ✔ advertised native contracts erased (3.442167ms)
+  ✔ native advertisement erased (3.377833ms)
+  ✔ native locator erased (3.396708ms)
+  ✔ mismatched contract digest (3.561334ms)
+  ✔ mismatched named symbol (3.415834ms)
+  ✔ surplus contract evidence (3.385042ms)
+  ✔ array-like pending selectors (3.424834ms)
+  ✔ array-like native sources (3.354625ms)
+  ✔ genuine external direct binding stays native and an empty target cannot supply it (594.200584ms)
+  ✔ unsupported selected native declaration targets still refuse (1278.68525ms)
+  ✔ empty Products retain the original multi-Product global boundary (505.037458ms)
+✔ S06 native applicability preserves complete nested suppliers and exact native boundaries (5940.218208ms)
+✖ S06 installed module loading binds content, confinement, and import once (91.12625ms)
+✔ S06 declaration builders preserve Product meaning and reject malformed mechanics (1.237084ms)
+✔ CCall opening is one atomic open-and-fibre transition (1.402125ms)
+✔ timeout and termination-unconfirmed never prove a started process absent (2.150792ms)
+✔ preterminal Process exit is the single cleanup confirmation (0.265541ms)
+✔ duplicate Process terminality and Actor terminal before confirmation fail closed (0.156375ms)
+✖ unconfirmed cleanup stays live until a genuine confirmed Process terminal, including cold replay (1.106625ms)
+✔ owned actor selection preserves complete lifecycle truth across unrelated history and cold bytes (51.297542ms)
+✖ unjoined process uncertainty preserves cleanup without claiming a native write scope (0.152625ms)
+✔ M5 B-001 preserves lane-owned Claude execution posture (0.61575ms)
+✔ M5 native report keeps its original host schema presentation (0.080292ms)
+✔ M5 schema literal placeholders remain opaque while ordinary templates and append positions expand (0.404458ms)
+✔ M5 requested structured output uses only the final carrier and preserves raw/schema refusal (29.160375ms)
+✔ M5 B-001 bounds append arguments for all four transport contracts (0.331167ms)
+✔ M5 B-001 gives agent-specific sandbox binding precedence (0.125167ms)
+✔ M5 transport identity changes with parser and prompt-delivery semantics (3.161125ms)
+✔ M5 B-001 crosses a real worker process, parser, tool event, and archive (30.980917ms)
+✔ M5 Bash tool identity ignores only optional string description metadata (392.35225ms)
+✔ M5 B-001 rejects tool activity only in the closed-prompt lane (28.21ms)
+✔ M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool (114.237958ms)
+✔ M5 selected result text cannot admit a valid file without its final carrier (148.48525ms)
+✔ M5 ABG transport force-terminates a worker that ignores SIGTERM (434.587541ms)
+✔ M5 ABG transport renews its inactivity lease only from observed progress (291.813916ms)
+✔ M5 ABG transport does not renew from unacknowledged output (161.7045ms)
+✔ M5 ABG transport excludes semantic output emitted after its timeout boundary (173.646208ms)
+(node:15589) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ owned process groups retain descendant cleanup after normal and TERM leader exits (3352.641667ms)
+✔ M5 ABG transport excludes descendant output emitted after direct-process exit (103.301125ms)
+✔ M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts (75.560375ms)
+✔ M5 a finite native wakeup above the host timer domain does not fire before its owner deadline (129.771125ms)
+ℹ Controlled owner wakeup value with a real local process; no native provider or admitted native threshold claim.
+✔ M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive (96.340583ms)
+ℹ {"exit":{"code":0,"signal":null},"deadlineExpired":false,"hostPid":15700,"identity":{"pid":15701,"pgid":15701},"stdout":"","stderr":"","owner":{"kind":"rejected","name":"Error","code":"EPIPE","errno":-32,"syscall":"write","message":"write EPIPE","stack":"Error: write EPIPE\n    at WriteWrap.onWriteComplete [as oncomplete] (node:internal/stream_base_commons:87:19)"},"finalized":{"directExit":{"status":null,"signal":"SIGKILL"},"launchFailure":null,"noChildEstablished":false,"scopeKind":"posix_process_group","scopeAbsence":"absent","closeObserved":true,"streamsDisposed":true,"drainExpired":false,"firstError":{"name":"Error","code":"EPIPE","message":"write EPIPE"},"cleanupDeadlineNs":"1469000867173166","cleanupElapsedMs":1.726708,"probeCount":4,"signalAttempts":1},"survived":{"survived":true,"pid":15700},"samples":[{"group":"absent","pid":"absent"}]}
+(node:15703) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ post-stop Run and Workspace replay retain the JSON-cloned preparation owner and identical cold semantics (151.664625ms)
+✖ C2 consumer reidentifies its copied preparation cut while preserving source/output and cold fallback (90.553959ms)
+✖ reopened C2 consumer retains the original native and preparation cuts without another physical read (88.051292ms)
+✖ a later duplicate producer invalidates current C2 consumption while its historical cut remains valid (90.931083ms)
+✖ C2 coordinate reuse preserves wrong/foreign cut, absent advancing producer, binding-cover and latest failed-mutation refusal (106.576834ms)
+✖ separate installed reacquisition realization and judgment use exact original owner; C2 occurrence stays owner-bound (498.598041ms)
+✔ C2A F_P effect handoff is one direct exact-prefix ABG invocation (2.751916ms)
+✔ C2A F_P receipt rejects missing and forged carrier pairs (289.5555ms)
+✔ C2A implementation owner preserves exact exception and malformed-return failures (5.3945ms)
+✔ C2A owner boundary preserves structural F_P proposals and totalizes exceptions (9.12175ms)
+✔ P-FOLD: the U1 recorded store folds cold, warm and forked to the same holds at every cut (938.56875ms)
+ℹ {"store":"createU1Fixture (t287-native-work-currentness-consumers.mjs) + cause, exit, actor failure","cuts":22,"prefixes":["validated","owned"]}
+✔ P-LIFECYCLE counterexample A: exit, no actor terminal, then the Run stop (0.754ms)
+✔ P-LIFECYCLE counterexample B: no exit, then the Run stop (0.229167ms)
+✔ P-LIFECYCLE negative: spawn failure without start, then the actor terminal (0.203875ms)
+✔ P-LIFECYCLE negative: termination unconfirmed, then an exit (0.281917ms)
+✔ one producer: only actor_process_lifecycle initiates or terminates the four rule-owned fluents (0.2925ms)
+▶ real admitted compose and shared batches conserve changing inputs under one basis
+  ✔ compose (45936.903916ms)
+  ℹ {"shape":"compose","inputs":["seed","seed!"],"basis":"execution-basis://abiogenesis/fc0feaa5d927865b3b69c6b3defc5e29feb5684985cb87b3f4787269b90ae700","result":{"kind":"data_output","message":"seed!!","schemaVersion":"5.0.0"},"timings":{"fixtureArtifactPreparationMs":0.014417000000001678,"setupMs":40682.647375,"traversalMs":4473.878125000003,"accounting":{"wallMs":{"provisioning_pack":3771.574917,"provisioning_extract":558.5649999999996,"bootstrap_owner_loading_and_candidate_preparation":504.17533300000014,"provisioning_verify_artifact":25142.338084,"provisioning_install":2909.130291999998,"provisioning_installed_content_check":613.5345830000006,"provisioning_additional_products":2158.4240409999984,"installed_owner_loading":282.1186660000021,"environment_install_and_workspace_admission":2318.926249999997,"execution_preparation_publication_program_and_catalog":477.66291700000147,"execution_preparation_resolution_and_program_validation":825.0721669999984,"execution_preparation_invocation_admission":843.2672499999971,"execution_preparation_graph_and_implementation_resolution":215.94825000000128,"execution_preparation_basis_and_leaf_port":60.01445799999783,"execution_preparation_open_scope":163.0210420000003},"volumes":{"archiveBytes":10761394,"archiveUnpackedBytes":70954037,"archiveMemberCount":5309,"installedTreeBytes":null,"preTraversalEventCount":7,"preTraversalLogBytes":3223224,"finalEventCount":87,"finalLogBytes":3472401},"cpuAttribution":"unmeasured; wall intervals include I/O and subprocess waits"}},"scope":"scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"}
+  ✔ batch (45673.242917ms)
+  ℹ {"shape":"batch","inputs":["seed","seed"],"basis":"execution-basis://abiogenesis/33f89265d47872a676a498d6429a87b7ca7c6c30b07276dbc745d573b8bf9f1e","result":{"kind":"data_output","message":"seed!","schemaVersion":"5.0.0"},"timings":{"fixtureArtifactPreparationMs":0.01862500000424916,"setupMs":40232.770625,"traversalMs":4666.47529100001,"accounting":{"wallMs":{"provisioning_pack":3531.7665409999972,"provisioning_extract":519.5479170000035,"bootstrap_owner_loading_and_candidate_preparation":495.6160829999935,"provisioning_verify_artifact":25036.963666999996,"provisioning_install":2809.3337499999907,"provisioning_installed_content_check":655.5926249999902,"provisioning_additional_products":2134.038415999996,"installed_owner_loading":288.40308400000504,"environment_install_and_workspace_admission":2309.303417000003,"execution_preparation_publication_program_and_catalog":475.1602920000005,"execution_preparation_resolution_and_program_validation":834.519082999992,"execution_preparation_invocation_admission":854.9738750000106,"execution_preparation_graph_and_implementation_resolution":222.0075419999921,"execution_preparation_basis_and_leaf_port":64.78208299999824,"execution_preparation_open_scope":166.51941599999554},"volumes":{"archiveBytes":10761394,"archiveUnpackedBytes":70954037,"archiveMemberCount":5309,"installedTreeBytes":null,"preTraversalEventCount":7,"preTraversalLogBytes":3223958,"finalEventCount":89,"finalLogBytes":3479334},"cpuAttribution":"unmeasured; wall intervals include I/O and subprocess waits"}},"scope":"scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"}
+  ✔ nested (49345.506541ms)
+  ℹ {"shape":"nested","inputs":["seed","seed!","seed","seed!"],"basis":"execution-basis://abiogenesis/3db983b36bb6fe8fff047788a059f3f050b71cc60fda199ea19622b1161f7d94","result":{"kind":"data_output","message":"seed!!","schemaVersion":"5.0.0"},"timings":{"fixtureArtifactPreparationMs":0.021958999990602024,"setupMs":41274.521208000006,"traversalMs":7126.92962499999,"accounting":{"wallMs":{"provisioning_pack":3801.28125,"provisioning_extract":523.2011659999989,"bootstrap_owner_loading_and_candidate_preparation":495.9955420000042,"provisioning_verify_artifact":25349.67675,"provisioning_install":2919.6692499999917,"provisioning_installed_content_check":650.7698329999985,"provisioning_additional_products":2211.4792910000106,"installed_owner_loading":283.87399999999616,"environment_install_and_workspace_admission":2354.926542000001,"execution_preparation_publication_program_and_catalog":492.7604160000046,"execution_preparation_resolution_and_program_validation":975.3420420000039,"execution_preparation_invocation_admission":839.4312079999945,"execution_preparation_graph_and_implementation_resolution":312.48266599999624,"execution_preparation_basis_and_leaf_port":62.82666699998663,"execution_preparation_open_scope":164.1746249999851},"volumes":{"archiveBytes":10761394,"archiveUnpackedBytes":70954037,"archiveMemberCount":5309,"installedTreeBytes":null,"preTraversalEventCount":7,"preTraversalLogBytes":3233722,"finalEventCount":127,"finalLogBytes":3611051},"cpuAttribution":"unmeasured; wall intervals include I/O and subprocess waits"}},"scope":"scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"}
+  ✔ progressed (46993.048166ms)
+  ℹ {"shape":"progressed","inputs":["seed","seed!","seed!"],"basis":"execution-basis://abiogenesis/e4b920aad26566e94703b8cee77e880456748e7ac806d7036327d556dbdea34c","result":{"kind":"data_output","message":"seed!!","schemaVersion":"5.0.0"},"timings":{"fixtureArtifactPreparationMs":0.017250000004423782,"setupMs":40283.002125,"traversalMs":5920.522916999995,"accounting":{"wallMs":{"provisioning_pack":3602.753874999995,"provisioning_extract":537.7905420000025,"bootstrap_owner_loading_and_candidate_preparation":481.88362500001676,"provisioning_verify_artifact":25012.828999999998,"provisioning_install":2760.4431249999907,"provisioning_installed_content_check":623.4110830000136,"provisioning_additional_products":2139.0090829999826,"installed_owner_loading":282.0182919999934,"environment_install_and_workspace_admission":2336.4502500000235,"execution_preparation_publication_program_and_catalog":475.9947089999914,"execution_preparation_resolution_and_program_validation":892.0286669999768,"execution_preparation_invocation_admission":816.1086669999931,"execution_preparation_graph_and_implementation_resolution":261.1292090000061,"execution_preparation_basis_and_leaf_port":60.471541000006255,"execution_preparation_open_scope":161.88858299999265},"volumes":{"archiveBytes":10761394,"archiveUnpackedBytes":70954037,"archiveMemberCount":5309,"installedTreeBytes":null,"preTraversalEventCount":7,"preTraversalLogBytes":3228498,"finalEventCount":106,"finalLogBytes":3538638},"cpuAttribution":"unmeasured; wall intervals include I/O and subprocess waits"}},"scope":"scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"}
+  ✔ batch_in_batch (49179.987542ms)
+  ℹ {"shape":"batch_in_batch","inputs":["seed","seed","seed","seed"],"basis":"execution-basis://abiogenesis/f3de022b7663c70d96bd13e5b52bd6c98bfb0dedad917ded5fd45e943443235d","result":{"kind":"data_output","message":"seed!","schemaVersion":"5.0.0"},"timings":{"fixtureArtifactPreparationMs":0.020041999989189208,"setupMs":40960.25133299999,"traversalMs":7295.8586249999935,"accounting":{"wallMs":{"provisioning_pack":3542.7515840000124,"provisioning_extract":557.524207999988,"bootstrap_owner_loading_and_candidate_preparation":465.9248329999973,"provisioning_verify_artifact":25290.992582999985,"provisioning_install":2903.9181670000253,"provisioning_installed_content_check":660.3929170000192,"provisioning_additional_products":2220.6471250000177,"installed_owner_loading":309.0867080000171,"environment_install_and_workspace_admission":2310.9296249999898,"execution_preparation_publication_program_and_catalog":475.6384160000016,"execution_preparation_resolution_and_program_validation":954.4937909999862,"execution_preparation_invocation_admission":879.1494999999995,"execution_preparation_graph_and_implementation_resolution":324.30608399998164,"execution_preparation_basis_and_leaf_port":63.791417000000365,"execution_preparation_open_scope":168.5762500000128},"volumes":{"archiveBytes":10761394,"archiveUnpackedBytes":70954037,"archiveMemberCount":5309,"installedTreeBytes":null,"preTraversalEventCount":7,"preTraversalLogBytes":3234484,"finalEventCount":127,"finalLogBytes":3611804},"cpuAttribution":"unmeasured; wall intervals include I/O and subprocess waits"}},"scope":"scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"}
+  ✔ recovery (45632.082208ms)
+  ℹ {"shape":"recovery","inputs":["seed","seed","seed!"],"basis":"execution-basis://abiogenesis/b207b91c0dff76d303f84e4d77357f449f67b2d83b8d360e41e9ee618a62d381","result":{"diagnosticRef":"data:application/json;charset=utf-8,%7B%22cause%22%3A%7B%22errorClass%22%3A%22TypeError%22%2C%22errorCode%22%3Anull%2C%22message%22%3A%22deterministic%20failed%20consumer%22%2C%22messageTruncated%22%3Afalse%7D%2C%22computeRegime%22%3A%22F_D%22%2C%22diagnosticClassRef%22%3A%22diagnostic%3A%2F%2Fabiogenesis%2Fimplementation%2Fimplementation-exception%405%22%2C%22implementationRef%22%3A%22implementation%3A%2F%2Fabi5-tests%2Fstructural%2Fpass%405%22%2C%22inputDigest%22%3A%22sha256%3A288aefa882b0011fd5f1c61d91a96eafc738dc529bfd7de7faccbf5a24f4e0e3%22%2C%22reason%22%3A%22thrown%22%2C%22stage%22%3A%22implementation_invocation%22%7D","failureClass":"implementation_exception","kind":"structural_failure","schemaVersion":"5.0.0"},"timings":{"fixtureArtifactPreparationMs":0.0005000000237487257,"setupMs":40445.752958,"traversalMs":4416.400792,"accounting":{"wallMs":{"provisioning_pack":3537.128667000012,"provisioning_extract":481.2616670000134,"bootstrap_owner_loading_and_candidate_preparation":508.5075829999987,"provisioning_verify_artifact":25152.55687499998,"provisioning_install":2834.701208000013,"provisioning_installed_content_check":625.0587090000045,"provisioning_additional_products":2206.3765419999836,"installed_owner_loading":286.169709000038,"environment_install_and_workspace_admission":2298.7625000000116,"execution_preparation_publication_program_and_catalog":473.81287500000326,"execution_preparation_resolution_and_program_validation":887.6063330000034,"execution_preparation_invocation_admission":829.9789170000004,"execution_preparation_graph_and_implementation_resolution":262.1674580000108,"execution_preparation_basis_and_leaf_port":60.975875000003725,"execution_preparation_open_scope":160.85962499998277},"volumes":{"archiveBytes":10761394,"archiveUnpackedBytes":70954037,"archiveMemberCount":5309,"installedTreeBytes":null,"preTraversalEventCount":7,"preTraversalLogBytes":3228508,"finalEventCount":85,"finalLogBytes":3477107},"cpuAttribution":"unmeasured; wall intervals include I/O and subprocess waits"}},"scope":"scratch-installed ABG deterministic admission/traversal/implementation; no odd_glc scenario, provider or native actor"}
+  ✖ identity_end (25290.717375ms)
+✖ real admitted compose and shared batches conserve changing inputs under one basis (308053.854ms)
+✔ D02 canonical equality is canonical text over JsonValue; unknown values are admitted first (0.8695ms)
+✔ D02 coordinate equality retains both strict coordinates and property faults (0.090042ms)
+✔ D03 finite selection preserves duplicate occurrences, identities, total scan and thrown predicates (0.20425ms)
+✔ D04 fixed JSON key domains retain exact names; a NUL-containing key never matches split keys (0.1975ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: exact preimage territory and a digest-bound CLOSED JSONL fixture are required
+    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-event-calculus-owner-continuation.test.mjs:18:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.7.0
+✖ test_env/tests/t287-event-calculus-owner-continuation.test.mjs (289.490584ms)
+﹣ installed ordinary job traverses full native semantic, parent, C1, C2 and Evidence owners (0.277458ms) # SKIP
+(node:20341) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ worker no-child launch failure: spawn_failed admitted; the bound transport artifact carries processFacts (20.47925ms)
+✔ worker error after launch with unresolved cleanup: termination_unconfirmed admitted; the refusal carries processFacts; failCCall retains it (76.978625ms)
+✔ helper route: the classifier reports spawn failure as confirmed and unresolved cleanup with processFacts (46.962791ms)
+✔ helper route: an error after launch with unresolved cleanup throws the command failure with processFacts (2.260083ms)
+✔ D5: a terminationConfirmed copy that disagrees with the fold initiates the diagnostic fluent; no prefix is refused (1.2145ms)
+(node:20351) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ ordinary native runtime declaration passes the existing raw/Program owner (10.116667ms)
+✔ native source joins and cloned judgment retain their actual assessment; no owning adapter (24.316791ms)
+✔ caller-editable qualification owner views cannot mutate retained input authority; warm and cold agree (19.340167ms)
+✔ declared wrong value computes red; foreign law, changed installed subject, stale frontier and result substitute refuse (47.838959ms)
+✔ same-valued duplicate witness after assessment invalidates current consumption; supplied prefix substitution refuses (21.785417ms)
+﹣ material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction (0.053583ms) # SKIP
+✔ different installed module URLs retain the invoking proof owner through realization, cloned judgment and owning continuation (354.979708ms)
+ℹ {"distinctModuleRoot":"/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-module-owner-UWbKw7/build/code/src","before":{"catalog":1,"execution":4,"state":1,"assessment":1,"verdict":0,"terminal":1,"replay":1,"sourceRead":8,"environment":2},"after":{"catalog":1,"execution":8,"state":3,"assessment":1,"verdict":0,"terminal":1,"replay":1,"sourceRead":17,"environment":3},"premises":"Native admission/environment/terminal mappings supplied by existing fixture. Actual invoking leaf boundary, Result clone, separately loaded implementation/semantics and unchanged native proof owner executed; no installed qualification claim."}
+(node:20370) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (91.430583ms)
+✔ native revision complete publication admits unique carriers and retains the exact factory graph (26.849833ms)
+✔ native revision installed descriptor loader discovers every declared leaf through module exports (5.00525ms)
+✖ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (95.676792ms)
+✖ native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings (110.268208ms)
+✔ Product author recovery values retain accepted stages under an explicit failed-stage premise (56.007084ms)
+ℹ Product derivation only: supplied failed-stage premise and value coordinates; no intake, call, prefix or producer admission claim.
+✔ Product assessor recovery values preserve pending Design and select assessment-first without reauthoring (107.949416ms)
+ℹ {"scope":"Product values and declared assessment-first graph only; operational role supplied, no intake or runtime admission claim","retainedInput":null,"successorDigest":"sha256:8e1e373b14a2c825e5670d43f28ac9bdf7a82837569c6bd3c5904fabc4ddcbd3","asset":"semantic-job-asset://abiogenesis/357dca9273d11d2918b1c2d8f6c00b7da1492056df3497487d6fce19f90250a7","assets":4,"program":"program://odd-glc/native-semantic-revision/from-design-assessment@5"}
+✖ native Evidence preparation recovery conserves its exact folded producer through intake and the declared Evidence-only suffix (192.586709ms)
+﹣ native D2 retained empty-obligation selector composes with all fifteen unchanged obligations (0.361625ms) # explicit retained Design/selector evidence directory required
+(node:20371) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ atomic_call: actual assessment owner remains evidence; no duplicate result leaf (75.998417ms)
+✔ flat_composition: actual assessment owner remains evidence; no duplicate result leaf (111.416042ms)
+✔ edge_program: actual assessment owner remains evidence; no duplicate result leaf (155.765708ms)
+✔ flat_composition: finite declaration passes actual raw/Program validation (29.816875ms)
+✔ edge_program: finite declaration passes actual raw/Program validation (26.320833ms)
+✔ same final value does not hide a missing first step, wrong composition or foreign Result (265.534083ms)
+✔ order, value chain, declared coverage and intermediate expectations remain material (320.195ms)
+✔ edge: the same final value cannot replace declared kind, role order or intermediate provenance (820.579458ms)
+✔ edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red (482.102584ms)
+✖ extended original C2 plan preserves all 26 sources through native and observed owners (153.834375ms)
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (10.865708ms)
+✔ observed C2 zero write declaration executes readonly helper and refuses real mirror mutation (750.492583ms)
+ℹ {"case":"readonly","taskDigest":"sha256:e97157ceeb3d0ad7e88aa119b08f79696e8cea58bd8d94b8ffc57a420395816f","artifactDigest":"sha256:57df5681200b4899f569158e2beb9d291c7dcf7d619bc080da238be4d7b0d3f6","disposition":"success","worksiteDelta":0,"productDelta":0}
+ℹ {"case":"unauthorized-write","taskDigest":"sha256:3e687612704097c5780085a9d9b8f43b07ff16c0e78ee1358580bd5a35fc6145","artifactDigest":"sha256:610bfca5ff1804220637fb2783f532123a3c7fb5f3341d90c10e991728c11b80","disposition":"territory_mismatch","worksiteDelta":1,"productDelta":0}
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (5.245833ms)
+(node:20394) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ observed root source gate binds actual input and refuses stale, crossed and child authority (53.636ms)
+✔ later admitted failed native residue invalidates observed inputs without requiring physical mismatch (33.200083ms)
+✔ changed physical observed source refuses before archive creation or command dispatch (3.915667ms)
+✔ observed C2 result, native acknowledgment and closure bind the same task without turning red execution green (21.068916ms)
+✖ snapshot proof identity rejects transplanted descriptors while raw and copied histories keep cold fallback (27.299667ms)
+✖ cold acquisition receipt detaches caller input and preserves pure, copied, explicit-fresh and current-prefix distinctions (14.497083ms)
+✖ historical durable cuts reidentify only exact owner history after physical authentication (24.230834ms)
+﹣ ordered owner advances exact suffixes and preserves historical, cold and unrelated-growth outputs (0.184083ms) # SKIP
+✖ held derivation preserves physical authentication and discards staged facts on rollback (11.66625ms)
+﹣ historical liveness folds conserve full/scoped/reverse reads and declaration refusals (0.143875ms) # SKIP
+﹣ liveness historical-cut intermediates are call-local while authentic current, older, lease and refusal answers agree (0.046583ms) # SKIP
+✔ controlled timing: host boundaries, finite huge and fractional delays never become early actions (0.791417ms)
+✔ controlled timing: independently literal nanosecond boundaries forbid fractional and long early firing (0.126834ms)
+✔ controlled timing: cancellation, chunk replacement and renewal cannot renew the absolute limit (0.087375ms)
+✔ controlled lifetime: strengthening before and during confirmation preserves the final bound and first failure (1.313542ms)
+✔ controlled lifetime: every owned stdio error keeps the first error and finalizes once before owner rejection (0.46ms)
+(node:20425) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure (22.202667ms)
+✔ controlled lifetime: launch errors, repeated postlaunch child errors and close guards remain distinct (0.170584ms)
+✔ controlled lifetime: disposal errors preserve publication cut and detach only at natural stream close (0.647958ms)
+✔ controlled lifetime: callback errors stop ordinary observations and retain the first error (0.276334ms)
+✔ controlled lifetime: no launch, close without exit, probe errors and Windows scope stay distinct (0.337958ms)
+✔ controlled helper continuation: uncertainty preserves diagnostics and stops dependent launches, reads and publication (282.442ms)
+✔ controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error (4.566458ms)
+✔ controlled owners: command and HTTP reject the original stream error before reports or a dependent request (7.243917ms)
+✔ physical lifetime: actual direct exit, stdio close, disposal and group absence are separately observed (23.309708ms)
+ℹ {"scope":"posix_process_group","probes":1,"signals":0,"cleanupMs":0.085333,"closeObserved":true,"bufferedBytes":13}
+✔ physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize (1110.452042ms)
+ℹ {"owner":"http","mode":"response","fixtureRoot":"/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-KGUntP","pid":20441,"pgid":20441,"scopeAbsent":true,"observation":{"request":{"hostname":"127.0.0.1","port":57691,"method":"GET","path":"/","timeoutMs":300},"portFile":{"relativePath":"response.port","port":57691,"state":"observed","issue":null,"byteLength":5,"digest":"sha256:66976b1929d30a2b7240afa3b9d58b58cb7867d481bcec1eaf510e91cc71e9e4"},"response":{"status":200,"body":"actual-http","bodyDigest":"sha256:e5ab4333bf8dcadb488fa653be055c239888ce705142af82536e39db927c44d0","byteLength":11},"process":{"exitStatus":0,"processSignal":null,"timedOut":false,"signalSequence":[],"terminationConfirmed":true,"stdout":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},"stderr":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}}},"failure":null}
+ℹ {"owner":"http","mode":"invalid","fixtureRoot":"/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-KGUntP","pid":20443,"pgid":20443,"scopeAbsent":true,"observation":{"request":null,"portFile":{"relativePath":"invalid.port","port":null,"state":"invalid","issue":"noncanonical_decimal_port","byteLength":7,"digest":"sha256:f1234d75178d892a133a410355a5a990cf75d2f33eba25d575943d4df632f3a4"},"response":null,"process":{"exitStatus":128,"processSignal":"SIGTERM","timedOut":false,"signalSequence":["SIGTERM"],"terminationConfirmed":true,"stdout":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},"stderr":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}}},"failure":null}
+ℹ {"owner":"http","mode":"missing","fixtureRoot":"/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-KGUntP","pid":20445,"pgid":20445,"scopeAbsent":true,"observation":{"request":null,"portFile":{"relativePath":"missing.port","port":null,"state":"absent","issue":"port_file_timeout","byteLength":null,"digest":null},"response":null,"process":{"exitStatus":128,"processSignal":"SIGTERM","timedOut":false,"signalSequence":["SIGTERM"],"terminationConfirmed":true,"stdout":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},"stderr":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}}},"failure":null}
+ℹ {"owner":"http","mode":"request-failure","fixtureRoot":"/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-KGUntP","pid":20447,"pgid":20447,"scopeAbsent":true,"observation":{"request":{"hostname":"127.0.0.1","port":1,"method":"GET","path":"/","timeoutMs":300},"portFile":{"relativePath":"request-failure.port","port":1,"state":"observed","issue":null,"byteLength":1,"digest":"sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"},"response":null,"process":{"exitStatus":124,"processSignal":"SIGTERM","timedOut":true,"signalSequence":["SIGTERM"],"terminationConfirmed":true,"stdout":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},"stderr":{"kind":"worksite_observed_stream","schemaVersion":"5.0.0","encoding":"base64","payload":"","byteLength":0,"digest":"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}}},"failure":null}
+ℹ {"owner":"http","mode":"owner-error","fixtureRoot":"/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-lifetime-KGUntP","pid":20449,"pgid":20449,"scopeAbsent":true,"observation":null,"failure":{"name":"TypeError","code":null,"message":"worksite HTTP probe failed; dependent work stopped: {\"attemptRef\":null,\"diagnostic\":{\"message\":\"Method must be a valid HTTP token [\\\"bad\\nmethod\\\"]\",\"name\":\"TypeError\"},\"processFacts\":{\"cleanupDeadlineNs\":{\"kind\":\"bigint\",\"value\":\"1469320918148291\"},\"cleanupElapsedMs\":1.215875,\"closeObserved\":true,\"directExit\":{\"signal\":\"SIGKILL\",\"status\":null},\"drainExpired\":false,\"firstError\":{\"code\":\"ERR_INVALID_HTTP_TOKEN\",\"errno\":null,\"message\":\"Method must be a valid HTTP token [\\\"bad\\nmethod\\\"]\",\"name\":\"TypeError\",\"path\":null,\"syscall\":null},\"launchFailure\":null,\"noChildEstablished\":false,\"probeCount\":4,\"scopeAbsence\":\"absent\",\"scopeKind\":\"posix_process_group\",\"signalAttempts\":1,\"streamsDisposed\":true},\"request\":{\"hostname\":\"127.0.0.1\",\"method\":\"bad\\nmethod\",\"path\":\"/\",\"timeoutMs\":300},\"taskDigest\":\"sha256:3333333333333333333333333333333333333333333333333333333333333333\",\"taskRef\":\"task://physical-http/owner-error\"}"}}
+✔ physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result (303.988667ms)
+ℹ {"owner":"worker","capturedBytes":14,"lateDiagnosticRetained":false}
+ℹ {"owner":"command","capturedBytes":14,"lateDiagnosticRetained":false}
+ℹ {"owner":"http","capturedBytes":30,"lateDiagnosticRetained":true}
+✔ controlled lifetime: both long grace phases and final drain recheck their exact monotonic bounds (0.20975ms)
+✔ physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded (373.559125ms)
+ℹ {"ownedGroupAbsent":true,"escapedGroup":20459,"closeObserved":false,"disposed":true,"cleanupMs":30.155041,"signals":0,"probes":1}
+﹣ owner derivation is exact-value bound, disposable, and cannot be copied or forged (0.26375ms) # SKIP
+﹣ artifact derivation removes repeated history reconstruction while every physical byte check remains operative (0.041834ms) # SKIP
+✔ retained activity is historical while live, blocked and unknown quiescence guards remain (6.918459ms)
+✔ P-SELECT: cardinality equals the filter-length classification for array and view sources (0.67825ms)
+✔ P-SELECT: no deduplication, predicate order kept, a throwing predicate propagates (0.214667ms)
+✔ exactMatchOutcome lifts absent and many to select refusals (0.092ms)
+✔ P-RECORD: absent, many and one (0.429959ms)
+✔ P-RECORD: a refused projection and a digest mismatch are invalid (0.092416ms)
+✔ P-RECORD: both malformed null-digest partitions are invalid (0.089084ms)
+✔ D2: the digest leg receives the projected value, after projection (0.115625ms)
+✔ P-EQUAL canonicalEquals is equality of canonical text and agrees with sha256Canonical equality (1.286209ms)
+✔ canonicalEquals writes both sides in full: an encoding failure on either side propagates (0.206292ms)
+✔ canonicalRecordDigest and writeCanonicalRecord are the canonical record encoding (0.439834ms)
+✔ P-EQUAL C2 positive and negative over one recorded prefix (27.887833ms)
+✔ C2 explicit zero write territory preserves array, report and HTTP port authorization (13.319583ms)
+✔ C2 finite host timer schema and constructor share bounds without changing grace (24.722584ms)
+✖ T-287 C2 compact acknowledgment preserves installed large-log observation and replay (79618.317958ms)
+✔ C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries (0.650791ms)
+ℹ tests 286
+ℹ suites 0
+ℹ pass 228
+ℹ fail 44
+ℹ cancelled 2
+ℹ skipped 12
+ℹ todo 0
+ℹ duration_ms 940590.008708
+
+✖ failing tests:
+
+test at test_env/tests/forward-command-owners.test.mjs:7:1
+✖ synthetic current native lookup maps all controlled retained C0 owners only under exact witness (20.30925ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(projection)
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/forward-command-owners.test.mjs:9:80)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/forward-command-owners.test.mjs:22:1
+✖ synthetic cover wrong direction, scope, missing member and unrelated origin refuse in unchanged native owners (3.981959ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.project())
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/forward-command-owners.test.mjs:23:55)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/forward-command-owners.test.mjs:37:1
+✖ synthetic workflow alias does not add a C0 owner; distinct same-value producer is ambiguity (3.292709ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.project())
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/forward-command-owners.test.mjs:38:49)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/forward-command-owners.test.mjs:45:1
+✖ synthetic later cross-W post-publication failure invalidates the old subject alias without fabricating O1 (3.557291ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(h.project())
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/forward-command-owners.test.mjs:46:49)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-consensus-module.test.mjs:1:1
+✖ test_env/tests/m5-consensus-module.test.mjs (207.265958ms)
+  'test failed'
+
+test at test_env/tests/m5-event-calculus-runtime.test.mjs:372:1
+✖ A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat or stale prefixes with zero append (40412.467042ms)
+  TypeError [Error]: abg.openCall is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs:386:22)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/m5-event-calculus-runtime.test.mjs:1316:1
+✖ terminal projection rows realize static locus law for the exact Run and preserve unrelated loci (2.923834ms)
+  AssertionError [ERR_ASSERTION]: runtime_failure_observed/runtime_invocation_active
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs:1453:14)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-event-calculus-runtime.test.mjs:1471:1
+✖ run HoldsAt truth survives durable reopen and a lawful closure (40137.30075ms)
+  TypeError [Error]: abg.openCall is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs:1474:21)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/m5-event-calculus-runtime.test.mjs:1548:1
+✖ runtime_failure_observed terminates the exact active Run (42642.757833ms)
+  TypeError [Error]: abg.openCall is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs:1551:22)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/m5-event-calculus-runtime.test.mjs:1590:1
+✖ run_stopped makes runtime failure throw before memory or durable append (40470.862958ms)
+  TypeError [Error]: abg.openCall is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs:1594:22)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/m5-fresh-process-reconstruction.test.mjs:13:1
+✖ M5 exact catalog basis and retained runtime truth reconstruct equally in two fresh processes (39704.7015ms)
+  TypeError [Error]: abg.openCall is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-fresh-process-reconstruction.test.mjs:27:22)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+
+test at test_env/tests/m5-installed-graph-edge.test.mjs:9:1
+✖ M5 installed HoG traverses an independently declared composed GraphFunction (39573.241625ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"product_execution_resolution_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"incompatible_or_unproven","stage":"catalog","message":"direct public control requires next or asset target with until converged and no caller-selected start"}
+  + actual - expected
+  
+  + 'product_execution_resolution_refusal'
+  - 'loaded_product_execution_resolution'
+  
+      at constructInstalledStartCall (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs:264:10)
+      at async runInstalledLanguageTest (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs:29:32)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs:10:17)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'product_execution_resolution_refusal',
+    expected: 'loaded_product_execution_resolution',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-installed-portability.test.mjs:89:1
+✖ S06 external side-effect declaration imports refuse during Product resolution (30963.824292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'product_verification_refusal'
+  - 'verified_product_artifact'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-portability.test.mjs:110:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'product_verification_refusal',
+    expected: 'verified_product_artifact',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-installed-portability.test.mjs:120:1
+✖ S06 Product verification resolves contract authority and exact locators (10056.514125ms)
+  AssertionError [ERR_ASSERTION]: missing-version
+  + actual - expected
+  
+  + 'manifest_malformed'
+  - 'catalog_mismatch'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-portability.test.mjs:294:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'manifest_malformed',
+    expected: 'catalog_mismatch',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-installed-portability.test.mjs:298:1
+✖ S06 Product verification resolves JSON Schema array pointers (9959.45225ms)
+  AssertionError [ERR_ASSERTION]: #/oneOf/0: {"kind":"product_verification_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"manifest_malformed","message":"product manifest shape is invalid","artifactRef":"abiogenesis-fixtures-flavored-catalog-product-5.0.0.tgz"}
+  + actual - expected
+  
+  + 'product_verification_refusal'
+  - 'verified_product_artifact'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-portability.test.mjs:332:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'product_verification_refusal',
+    expected: 'verified_product_artifact',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-retry-lifecycle-authority.test.mjs:21:1
+✖ declared C.retry frontier is the sole retry-attempt lifecycle owner (288.94525ms)
+  AssertionError [ERR_ASSERTION]: declared retry frontier lost owner relation: const calculus = deriveRuntimeEventCalculusProjection(prefix);
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs:53:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-retry-lifecycle-authority.test.mjs:238:1
+✖ CCall retry writes require the exact current declared retry frontier (0.785625ms)
+  AssertionError [ERR_ASSERTION]: missing source boundary: export function openInteractionCCall(
+      at sourceSlice (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs:17:10)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs:241:21)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: -1,
+    expected: -1,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-retry-lifecycle-authority.test.mjs:281:1
+✖ production judgment writers remain closed behind the CCall owner (0.96775ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'planCCallRuntimeFailureClose',
+  +   'planOwnedPendingInteractionAdmission',
+  -   'admitPlannedCCallRuntimeFailureClose',
+  -   'admitPlannedPendingInteraction',
+      'admitJudgment',
+      'completeRejectedCCall'
+    ]
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs:291:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'planCCallRuntimeFailureClose', 'planOwnedPendingInteractionAdmission', 'admitJudgment', 'completeRejectedCCall' ],
+    expected: [ 'admitPlannedCCallRuntimeFailureClose', 'admitPlannedPendingInteraction', 'admitJudgment', 'completeRejectedCCall' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-retry-lifecycle-authority.test.mjs:323:1
+✖ raw executor resume remains closed to every retry cursor (0.459709ms)
+  AssertionError [ERR_ASSERTION]: missing source boundary: else if (initialInput?.resume !== undefined)
+      at sourceSlice (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs:16:10)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs:328:27)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: -1,
+    expected: -1,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-retry-lifecycle-authority.test.mjs:533:1
+✖ F04 payload refusal composes one pure result rejection while authority refusal cannot retry (0.955417ms)
+  AssertionError [ERR_ASSERTION]: missing source boundary: /**
+   * Admits only the judgment candidate already derived by HoG
+      at sourceSlice (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs:17:10)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-retry-lifecycle-authority.test.mjs:572:21)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: -1,
+    expected: -1,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-s03-authority.test.mjs:96:1
+✖ S03 capability policy is exact over admitted Program interaction requirements (0.751792ms)
+  TypeError [Error]: capability grant requires exact workspace, policy, actor, and definition authority
+      at constructInvocationCapabilityGrant (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/invocation.js:564:15)
+      at Module.constructCapabilityGrant (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/invocation.js:472:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s03-authority.test.mjs:105:31)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17)
+
+test at test_env/tests/m5-s03-authority.test.mjs:218:1
+✖ S03 continuation operation authority requires the exact admitted grant and lifecycle state (0.159209ms)
+  TypeError [Error]: capability grant requires exact workspace, policy, actor, and definition authority
+      at constructInvocationCapabilityGrant (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/invocation.js:564:15)
+      at Module.constructCapabilityGrant (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/invocation.js:472:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s03-authority.test.mjs:232:33)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+
+test at test_env/tests/m5-s03-authority.test.mjs:285:1
+✖ S03 HoG accepts one Product-sealed projection and rejects its forged twin (40779.618667ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /exact admitted install/u. Input:
+  
+  "TypeError: Cannot read properties of undefined (reading 'declarationClosure')"
+  
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s03-authority.test.mjs:335:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: Cannot read properties of undefined (reading 'declarationClosure')
+        at Module.constructAdmittedLeafInvocationPort (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-66wsM2/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js?env=1792637090272:655:39)
+        at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s03-authority.test.mjs:337:30
+        at waitForActual (node:assert:630:21)
+        at strict.rejects (node:assert:767:31)
+        at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s03-authority.test.mjs:335:16)
+        at async Test.run (node:internal/test_runner/test:1113:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:788:7),
+    expected: /exact admitted install/u,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-s03-authority.test.mjs:415:1
+✖ S03 Run semantic projection maps only typed R references and preserves opaque event-shaped domain strings (122.327167ms)
+  TypeError [Error]: runtime event candidate has an invalid envelope
+      at projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:1505:15)
+      at admitRuntimeEventInternal (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:2988:36)
+      at admitRuntimeEvent (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:2961:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s03-authority.test.mjs:660:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/m5-s06-prime.test.mjs:1821:1
+✖ S06 installed module loading binds content, confinement, and import once (91.12625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'refused'
+  - 'loaded'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs:1846:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'refused',
+    expected: 'loaded',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-terminal-quiescence-owner.test.mjs:148:1
+✖ unconfirmed cleanup stays live until a genuine confirmed Process terminal, including cold replay (1.106625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at assertCut (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs:162:12)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs:173:3)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-terminal-quiescence-owner.test.mjs:215:1
+✖ unjoined process uncertainty preserves cleanup without claiming a native write scope (0.152625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs:222:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:120:1
+✖ post-stop Run and Workspace replay retain the JSON-cloned preparation owner and identical cold semantics (151.664625ms)
+  TypeError [Error]: child C2 source does not reproduce at its admitted preparation cut
+      at /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js:1330:19
+      at RuntimeEventBodyView.flatMap (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_history.js:746:26)
+      at projectOwnerFacts (/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js:1309:63)
+      at projectRunSemanticReplay (/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js:1514:21)
+      at Module.projectRunSemanticReplayProjection (/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js:1429:12)
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:162:32
+      at measure (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:118:20)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:162:13)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)
+
+test at test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:195:1
+✖ C2 consumer reidentifies its copied preparation cut while preserving source/output and cold fallback (90.553959ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(ordinary.value)
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:199:103)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:212:1
+✖ reopened C2 consumer retains the original native and preparation cuts without another physical read (88.051292ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(expected)
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:214:115)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:227:1
+✖ a later duplicate producer invalidates current C2 consumption while its historical cut remains valid (90.931083ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(expected)
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:230:40)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:238:1
+✖ C2 coordinate reuse preserves wrong/foreign cut, absent advancing producer, binding-cover and latest failed-mutation refusal (106.576834ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(consume())
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:241:2)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:266:1
+✖ separate installed reacquisition realization and judgment use exact original owner; C2 occurrence stays owner-bound (498.598041ms)
+  TypeError [Error]: operations.nativeWorkReacquisition is not a function
+      at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:281:36
+      at measure (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:118:20)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs:281:13)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-calculus-state-transfer.test.mjs:70:13
+✖ identity_end (25290.717375ms)
+  'test did not finish before its parent and was cancelled'
+
+test at test_env/tests/t287-calculus-state-transfer.test.mjs:64:1
+✖ real admitted compose and shared batches conserve changing inputs under one basis (308053.854ms)
+  'test timed out after 300000ms'
+
+test at test_env/tests/t287-event-calculus-owner-continuation.test.mjs:1:1
+✖ test_env/tests/t287-event-calculus-owner-continuation.test.mjs (289.490584ms)
+  'test failed'
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:122:1
+✖ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (91.430583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'native_revision_intake_basis_mismatch'
+  - 'native_revision_cause_absent'
+                     ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:129:115)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'native_revision_intake_basis_mismatch',
+    expected: 'native_revision_cause_absent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:270:1
+✖ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (95.676792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'native_revision_intake_basis_mismatch'
+  - 'native_revision_binding_cover_absent'
+                     ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:299:44)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'native_revision_intake_basis_mismatch',
+    expected: 'native_revision_binding_cover_absent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:332:1
+✖ native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings (110.268208ms)
+  AssertionError [ERR_ASSERTION]: exact ancestry gets as far as the new cover
+  + actual - expected
+  
+  + 'native_revision_intake_basis_mismatch'
+  - 'native_revision_binding_cover_absent'
+                     ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:401:44)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'native_revision_intake_basis_mismatch',
+    expected: 'native_revision_binding_cover_absent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:531:1
+✖ native Evidence preparation recovery conserves its exact folded producer through intake and the declared Evidence-only suffix (192.586709ms)
+  TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix
+      at runtimeEventsFromValidatedPrefix (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.js:294:15)
+      at runtimeEventBodiesAtPrefix (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_prefix.js:133:88)
+      at Module.projectWorksiteInputLeafResultAtPrefix (/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_input_provenance.js:126:20)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:588:28)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)
+
+test at test_env/tests/t287-observed-worksite-command.test.mjs:43:1
+✖ extended original C2 plan preserves all 26 sources through native and observed owners (153.834375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 18025250
+  - 18025000
+         ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs:121:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 18025250,
+    expected: 18025000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-ordered-reconstruction.test.mjs:22:1
+✖ snapshot proof identity rejects transplanted descriptors while raw and copied histories keep cold fallback (27.299667ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(key)
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs:43:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-ordered-reconstruction.test.mjs:74:1
+✖ cold acquisition receipt detaches caller input and preserves pure, copied, explicit-fresh and current-prefix distinctions (14.497083ms)
+  AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:
+  
+  [
+    {
+      admissionOrdinal: 1,
+      aggregateId: 'invocation://cold/first',
+      aggregateType: 'workspace',
+      basisId: 'basis://cold',
+      causationEventRefs: [],
+      correlationId: 'correlation://cold/first',
+      eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64',
+      eventId: 'event://abiogenesis/cace1d6ef9e31c14abec74f785d07e9a19b22e689929b5d5640e1592bcf2fcc4',
+      eventTime: '2026-09-19T20:00:00.000Z',
+      kind: 'public_operation_admitted',
+      parentAggregateId: null,
+      payload: {
+        invocationDigest: 'sha256:de5f2cbf4c10a0d146f2a671aac363e8640fefc469ad42ac25364f19e4bc194f',
+        invocationRef: 'invocation://cold/first',
+        operationId: 'abg.operation.project.read',
+        variant: 'status'
+      },
+      payloadDigest: 'sha256:698f84e3354ba8da8433b412f824134c661aeca1d1e3f9c4055589f8f5a89143',
+      scopeClass: 'workspace',
+      workflowVersion: '5.0.0'
+    }
+  ]
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs:86:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { admissionOrdinal: 1, aggregateId: 'invocation://cold/first', aggregateType: 'workspace', basisId: 'basis://cold', causationEventRefs: [], correlationId: 'correlation://cold/first', eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64', eventId: 'event://abiogenesis/cace1d6ef9e31c14abec74f785d07e9a19b22e689929b5d5640e1592bcf2fcc4', eventTime: '2026-09-19T20:00:00.000Z', kind: 'public_operation_admitted', parentAggregateId: null, payload: [Object], payloadDigest: 'sha256:698f84e3354ba8da8433b412f824134c661aeca1d1e3f9c4055589f8f5a89143', scopeClass: 'workspace', workflowVersion: '5.0.0' } ],
+    expected: [ { aggregateId: 'invocation://cold/first', aggregateType: 'workspace', basisId: 'basis://cold', causationEventRefs: [], correlationId: 'correlation://cold/first', eventTime: '2026-09-19T20:00:00.000Z', kind: 'public_operation_admitted', parentAggregateId: null, payload: [Object], scopeClass: 'workspace', workflowVersion: '5.0.0', eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64', eventId: 'event://abiogenesis/cace1d6ef9e31c14abec74f785d07e9a19b22e689929b5d5640e1592bcf2fcc4', admissionOrdinal: 1, payloadDigest: 'sha256:698f84e3354ba8da8433b412f824134c661aeca1d1e3f9c4055589f8f5a89143' } ],
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-ordered-reconstruction.test.mjs:103:1
+✖ historical durable cuts reidentify only exact owner history after physical authentication (24.230834ms)
+  AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:
+  
+  {
+    admissionOrdinal: 1,
+    aggregateId: 'invocation://history/first',
+    aggregateType: 'workspace',
+    basisId: 'basis://history',
+    causationEventRefs: [],
+    correlationId: 'correlation://history/first',
+    eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64',
+    eventId: 'event://abiogenesis/6f553d142daf7a4eff664dc433d116efff084c15ad052204a1a4ff530427bc26',
+    eventTime: '2026-09-19T20:00:00.000Z',
+    kind: 'public_operation_admitted',
+    parentAggregateId: null,
+    payload: {
+      invocationDigest: 'sha256:de5f2cbf4c10a0d146f2a671aac363e8640fefc469ad42ac25364f19e4bc194f',
+      invocationRef: 'invocation://history/first',
+      operationId: 'abg.operation.project.read',
+      variant: 'status'
+    },
+    payloadDigest: 'sha256:7e1d9f9bc57ec7a3ac06309fba87263d836a5842745905c29fd7852d63bd369c',
+    scopeClass: 'workspace',
+    workflowVersion: '5.0.0'
+  }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs:115:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { admissionOrdinal: 1, aggregateId: 'invocation://history/first', aggregateType: 'workspace', basisId: 'basis://history', causationEventRefs: [], correlationId: 'correlation://history/first', eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64', eventId: 'event://abiogenesis/6f553d142daf7a4eff664dc433d116efff084c15ad052204a1a4ff530427bc26', eventTime: '2026-09-19T20:00:00.000Z', kind: 'public_operation_admitted', parentAggregateId: null, payload: { invocationDigest: 'sha256:de5f2cbf4c10a0d146f2a671aac363e8640fefc469ad42ac25364f19e4bc194f', invocationRef: 'invocation://history/first', operationId: 'abg.operation.project.read', variant: 'status' }, payloadDigest: 'sha256:7e1d9f9bc57ec7a3ac06309fba87263d836a5842745905c29fd7852d63bd369c', scopeClass: 'workspace', workflowVersion: '5.0.0' },
+    expected: { admissionOrdinal: 1, aggregateId: 'invocation://history/first', aggregateType: 'workspace', basisId: 'basis://history', causationEventRefs: [], correlationId: 'correlation://history/first', eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64', eventId: 'event://abiogenesis/6f553d142daf7a4eff664dc433d116efff084c15ad052204a1a4ff530427bc26', eventTime: '2026-09-19T20:00:00.000Z', kind: 'public_operation_admitted', parentAggregateId: null, payload: { invocationDigest: 'sha256:de5f2cbf4c10a0d146f2a671aac363e8640fefc469ad42ac25364f19e4bc194f', invocationRef: 'invocation://history/first', operationId: 'abg.operation.project.read', variant: 'status' }, payloadDigest: 'sha256:7e1d9f9bc57ec7a3ac06309fba87263d836a5842745905c29fd7852d63bd369c', scopeClass: 'workspace', workflowVersion: '5.0.0' },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-ordered-reconstruction.test.mjs:158:1
+✖ held derivation preserves physical authentication and discards staged facts on rollback (11.66625ms)
+  AssertionError [ERR_ASSERTION]: exact held object, after physical byte authentication
+  
+  {
+    admissionOrdinal: 1,
+    aggregateId: 'invocation://ordered/first',
+    aggregateType: 'workspace',
+    basisId: 'basis://ordered/held',
+    causationEventRefs: [],
+    correlationId: 'correlation://ordered/first',
+    eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64',
+    eventId: 'event://abiogenesis/9539fc6ce5ff7274bb23e31463c2fcf00fe3cd7d07caead7f182e5b5e137f769',
+    eventTime: '2026-09-19T20:00:00.000Z',
+    kind: 'public_operation_admitted',
+    parentAggregateId: null,
+    payload: {
+      invocationDigest: 'sha256:de5f2cbf4c10a0d146f2a671aac363e8640fefc469ad42ac25364f19e4bc194f',
+      invocationRef: 'invocation://ordered/first',
+      operationId: 'abg.operation.project.read',
+      variant: 'status'
+    },
+    payloadDigest: 'sha256:7723a7e17c3ae11db9fcd7d0856612acc90192261cbbfe7d1e7bde2224e2b744',
+    scopeClass: 'workspace',
+    workflowVersion: '5.0.0'
+  }
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs:168:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { admissionOrdinal: 1, aggregateId: 'invocation://ordered/first', aggregateType: 'workspace', basisId: 'basis://ordered/held', causationEventRefs: [], correlationId: 'correlation://ordered/first', eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64', eventId: 'event://abiogenesis/9539fc6ce5ff7274bb23e31463c2fcf00fe3cd7d07caead7f182e5b5e137f769', eventTime: '2026-09-19T20:00:00.000Z', kind: 'public_operation_admitted', parentAggregateId: null, payload: { invocationDigest: 'sha256:de5f2cbf4c10a0d146f2a671aac363e8640fefc469ad42ac25364f19e4bc194f', invocationRef: 'invocation://ordered/first', operationId: 'abg.operation.project.read', variant: 'status' }, payloadDigest: 'sha256:7723a7e17c3ae11db9fcd7d0856612acc90192261cbbfe7d1e7bde2224e2b744', scopeClass: 'workspace', workflowVersion: '5.0.0' },
+    expected: { admissionOrdinal: 1, aggregateId: 'invocation://ordered/first', aggregateType: 'workspace', basisId: 'basis://ordered/held', causationEventRefs: [], correlationId: 'correlation://ordered/first', eventContractDigest: 'sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64', eventId: 'event://abiogenesis/9539fc6ce5ff7274bb23e31463c2fcf00fe3cd7d07caead7f182e5b5e137f769', eventTime: '2026-09-19T20:00:00.000Z', kind: 'public_operation_admitted', parentAggregateId: null, payload: { invocationDigest: 'sha256:de5f2cbf4c10a0d146f2a671aac363e8640fefc469ad42ac25364f19e4bc194f', invocationRef: 'invocation://ordered/first', operationId: 'abg.operation.project.read', variant: 'status' }, payloadDigest: 'sha256:7723a7e17c3ae11db9fcd7d0856612acc90192261cbbfe7d1e7bde2224e2b744', scopeClass: 'workspace', workflowVersion: '5.0.0' },
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-worksite-command-execution.test.mjs:407:1
+✖ T-287 C2 compact acknowledgment preserves installed large-log observation and replay (79618.317958ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'failure'
+  - 'success'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs:826:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failure',
+    expected: 'success',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+===== integrated run (34 files, one invocation): end 2026-10-22T02:52:12Z rc=1 wall=941s
+===== test:uat:harness: start 2026-10-22T02:52:12Z
+$ npm run test:uat:harness
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 test:uat:harness
+> node --test test_env/uat/harness.test.mjs
+
+✔ Oracle event acquisition records the authentic prefix without serializing or changing complete owner events (25.848417ms)
+✔ Oracle event acquisition preserves owner refusals and archive errors without writing alternate event evidence (17.11425ms)
+✔ Eventless read conservation hashes bounded chunks and detects tampering, append and identical-byte replacement (3.46975ms)
+﹣ One authentic cold read supplies caller artifact/environment/read preparation without another physical decode (0.0515ms) # SKIP
+﹣ Terminal-null admitted Run retains genuine C2 partial evidence and refuses foreign, invalid or fabricated observations (0.029291ms) # SKIP
+﹣ Owned XML acquisition consumes authentic C2 reports outside the application without earning full UAT (0.029666ms) # SKIP
+✔ Owned XML acquisition verifies literal report digest, length, identity, complete set and symlink confinement (80.8695ms)
+✔ Owned XML acquisition selects latest original red and its depth names, rejecting unadmitted and foreign sources (55.585667ms)
+✔ Owned XML inventory requires the original complete matching set from the same selected observation (109.334ms)
+✔ Owned XML mutation episodes require their own snapshot reports and distinct actual command experiments (47.873291ms)
+▶ Owned report repair preserves all six original Hello mechanical command and source cases
+  ✔ basic-cli (5.079ms)
+  ✔ js-tenant-test (4.770584ms)
+  ✔ js-sdlc-bootstrap (4.691375ms)
+  ✔ rust-cli (4.654625ms)
+  ✔ rust-service (4.106584ms)
+  ✔ parallel-js (4.704709ms)
+✔ Owned report repair preserves all six original Hello mechanical command and source cases (28.736375ms)
+✔ Source-use attribution refuses unauthenticated or unadmitted current invocations through actual installed owners (22.711916ms)
+✔ Source-use finite owner tuples preserve cross-Run consumer guards under an explicit admission projection premise (9.577625ms)
+✔ Caller execution policy omits optional actor caps, retains explicit positive flags and rejects invalid caps (2.629292ms)
+✖ Caller execution policy preserves acquired meaning and all command fields except explicit effective timeout; canonical C2 budget fits (2.607625ms)
+✔ Fresh supplied work transfers exact retained material into source-none empty owner state without old archive or producer changes (13.514167ms)
+✔ Resume refuses changed pins, symlinks, unauthorized paths and existing destinations before file transfer (11.893125ms)
+✔ Resume selection requires one explicit source archive and cannot be activated by ordinary run flags (0.194792ms)
+✔ Seven exact original workloads authenticate source, request and independent oracle before use (3.981917ms)
+✔ Resolved toolchain identity and configured environment flow into the canonical owner carrier (1.267625ms)
+✔ Archive paths are unique and failed subprocess streams survive before any assertion or teardown (26.983792ms)
+✔ Archived judgment conserves acquired module, manifest and rubric despite later ambient edits; tampering refuses (14.81625ms)
+✔ Both retained install roots are checked before dispatch and before fresh reads; missing or false owner results refuse (0.416542ms)
+✔ Rust-service mechanical oracle preserves coordinate spelling independence without inventing semantic UAT (5.800542ms)
+✔ Rust-service mechanical oracle conserves admission, execution, source, artifact and pass-floor guards (9.832375ms)
+✔ Caller run-environment support is canonical, strictly contained and admitted by the existing resource owner (11.951625ms)
+✔ Native refusal without an admitted Run is preserved before any refresh, reopen or read (0.226375ms)
+✔ Admitted failed and blocked Runs retain both fresh reads and unchanged event bytes (2.255125ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 30
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 3
+ℹ todo 0
+ℹ duration_ms 807.87725
+
+✖ failing tests:
+
+test at test_env/uat/harness.test.mjs:471:1
+✖ Caller execution policy preserves acquired meaning and all command fields except explicit effective timeout; canonical C2 budget fits (2.607625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 18025250
+  - 18015000
+       ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs:490:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 18025250,
+    expected: 18015000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+===== test:uat:harness: end 2026-10-22T02:52:13Z rc=1 wall=1s

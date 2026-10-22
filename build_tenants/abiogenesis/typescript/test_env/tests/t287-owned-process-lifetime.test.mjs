@@ -381,6 +381,16 @@ test('controlled helper continuation: uncertainty preserves diagnostics and stop
   }
 });
 
+// A helper owner's first error stops dependent work: the failure names the
+// task and carries the error's description and the encoded process facts.
+function assertDependentFailure(error, prefix, first) {
+  assert.equal(error.name, 'TypeError'); assert(error.message.startsWith(prefix), error.message);
+  const body = JSON.parse(error.message.slice(prefix.length));
+  if (first instanceof RegExp) assert.match(body.diagnostic.message, first);
+  else assert.equal(body.diagnostic.message, first.message);
+  assert.equal(body.processFacts.firstError.message, body.diagnostic.message);
+}
+
 test('controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error', async t => {
   for (const ownerFailure of [false, true]) {
     const clock = controlledClock(), child = new EventEmitter(), first = new Error('first report-owner failure');
@@ -412,7 +422,7 @@ test('controlled command continuation: unresolved cleanup stops before expected-
     child.emit('exit', 17, 'SIGTERM');
     clock.advance(400);
     await assert.rejects(result, error => {
-      if (ownerFailure) assert.equal(error, first);
+      if (ownerFailure) assertDependentFailure(error, 'worksite command failed; dependent work stopped: ', first);
       else for (const needle of ['cleanup unresolved', 'task://selected', 'attempt://selected', 'command://selected',
         '"exitStatus":17', '"processSignal":"SIGTERM"', 'SIGKILL', 'original inner diagnostic', 'scopeAbsence', 'unknown'])
         assert(error.message.includes(needle), needle);
@@ -467,11 +477,11 @@ test('controlled owners: command and HTTP reject the original stream error befor
         },
       },
     });
-    const task = { taskRef: 'task://stream-failure', commands: [{ commandId: 'command://stream-failure', executable: 'controlled',
+    const task = { taskRef: 'task://stream-failure', taskDigest: 'sha256:' + '2'.repeat(64), commands: [{ commandId: 'command://stream-failure', executable: 'controlled',
       args: [], environment: [], relativeCwd: '.', timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [{}] }] };
     const pending = owner === 'command'
       ? helper.controlledCommand({ confinedPath: async () => root, report: async () => { reports++; } }, task)
-      : helper.runHttpProbe({}, root, httpDeclaration('controlled', 'selected.port', { terminationGraceMs: 100 }));
+      : helper.runHttpProbe(task, root, httpDeclaration('controlled', 'selected.port', { terminationGraceMs: 100 }));
     // Install the rejection observer before the controlled failure is emitted.
     const outcome = pending.then(value => ({ value }), error => ({ error }));
     await started;
@@ -487,7 +497,9 @@ test('controlled owners: command and HTTP reject the original stream error befor
     assert.equal(lifetime.snapshot().firstError, first); assert.equal(lifetime.snapshot().launchFailure, null);
     absent = true; child.emit('exit', null, 'SIGKILL'); child.emit('close');
     const observed = await outcome;
-    assert.equal(observed.error, first); assert.equal(reports, 0); assert.equal(requests, 0);
+    assertDependentFailure(observed.error, owner === 'command' ? 'worksite command failed; dependent work stopped: '
+      : 'worksite HTTP probe failed; dependent work stopped: ', first);
+    assert.equal(reports, 0); assert.equal(requests, 0);
     assert.equal(lifetime.snapshot().scopeAbsence, 'absent'); assert.equal(clock.active(), 0);
     assert.equal(lifetime.snapshot().signalAttempts, 1);
   }
@@ -522,7 +534,8 @@ test('physical HTTP owner: response, invalid/missing port, failed request and ex
     const declaration = await httpInput(file, `${mode}.port`);
     if (mode === 'owner-error') declaration.request.method = 'bad\nmethod';
     let result = null, failure = null;
-    try { result = await helper.runHttpProbe({}, root, declaration); } catch (error) { failure = error; }
+    try { result = await helper.runHttpProbe({ taskRef: `task://physical-http/${mode}`, taskDigest: 'sha256:' + '3'.repeat(64) },
+      root, declaration); } catch (error) { failure = error; }
     identity = JSON.parse(await readFile(pidFile, 'utf8'));
     const scope = process.platform === 'win32' ? identity.pid : -identity.pgid, scopeAbsent = !alive(scope);
     t.diagnostic(JSON.stringify({ owner: 'http', mode, fixtureRoot: root, ...identity, scopeAbsent,
@@ -530,7 +543,9 @@ test('physical HTTP owner: response, invalid/missing port, failed request and ex
     assert.equal(scopeAbsent, true, 'owned scope absent before next case');
     if (process.platform !== 'win32') assert.equal(identity.pgid, identity.pid, 'actual detached owned process group');
     if (mode === 'owner-error') {
-      assert.notEqual(failure, null); assert.match(failure.message, /HTTP token|valid HTTP token|ERR_INVALID_HTTP_TOKEN/u);
+      assert.notEqual(failure, null);
+      assertDependentFailure(failure, 'worksite HTTP probe failed; dependent work stopped: ',
+        /HTTP token|valid HTTP token|ERR_INVALID_HTTP_TOKEN/u);
     } else {
       assert.equal(failure, null);
       assert.equal(result.process.terminationConfirmed, true); assert.equal(result.process.timedOut, mode === 'request-failure');

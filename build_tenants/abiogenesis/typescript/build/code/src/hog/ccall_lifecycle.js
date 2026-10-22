@@ -112,15 +112,6 @@ function failCCall(input, predecessorPrefix, stage, diagnosticRef, candidate) {
         candidate,
     });
 }
-/** The C-call failure branch of an actor refusal (design §9.3 item 3). The
- * reference encodes the exact subject failTraversal admits, { stage, candidate },
- * from the same values failCCall passes on, so admission retains the refusal,
- * its processFacts included, inline. */
-function failActorProcessEffect(input, refusal) {
-    const stage = `leaf-effect-${input.ordinal}`;
-    const candidate = refusal;
-    return failCCall(input, refusal.successorPrefix, stage, constructRuntimeFailureDiagnosticRef({ stage, candidate }), candidate);
-}
 function projectBlockedCCallCompletion(replayState, successorPrefix, cCall, resultRef, judgmentRef, reasonRef, resultValue) {
     return projectExecutableTraversalCompletion("blocked", replayState, successorPrefix, {
         cCallRef: cCall.cCallRef,
@@ -545,6 +536,15 @@ export function evaluateOwnedExecutableCCall(input) {
             outputContractRef: input.stop.outputContractRef,
         };
     });
+}
+/** The C-call failure branch of an actor refusal (design §9.3 item 3). The
+ * reference encodes the exact subject failTraversal admits, { stage, candidate },
+ * from the same values failCCall passes on, so admission retains the refusal,
+ * its processFacts included, inline. */
+function failActorProcessEffect(input, effectResult) {
+    const stage = `leaf-effect-${input.ordinal}`;
+    const candidate = effectResult;
+    return failCCall(input, effectResult.successorPrefix, stage, constructRuntimeFailureDiagnosticRef({ stage, candidate }), candidate);
 }
 export function projectCCallCompletion(source, admitted, target) {
     return completePublicOutcome(projectOwnedCCallCompletion(source, admitted, target));
