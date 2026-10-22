@@ -708,3 +708,31 @@ line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`; stage by
 path (the patch's files, the regenerated tracked build outputs). Append
 `## Return 8a-3` with the commit hash and the gate per suite. Stop without
 committing if the patch does not apply or a gate suite fails.
+
+## Return 8a-3
+
+- commit: `cac7802b2` on `main`, not pushed; parent `532928917`.
+- patch: `step-8a-2.patch` applied with `git apply --3way`; every hunk applied cleanly; the patch carries no step-file hunk.
+- applied files (staged by path, 9 files, +21 −22), under `build_tenants/abiogenesis/typescript/`:
+  - `code/src/product/catalog_definition_bindings.ts`
+  - `code/src/product/environment_definition_bindings.ts`
+  - `code/src/product/install_definition_bindings.ts`
+  - `code/src/product/project_read_definition_bindings.ts`
+  - `contracts/capabilities/capability-definition-graph.json`
+  - `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`
+  - `product-toolchain-manifest.json`
+  - `test_env/tests/m5-terminal-quiescence-owner.test.mjs`
+  - `test_env/tests/t287-native-work-unknown-effect.test.mjs`
+- design edit: §10.6 row 5 (`:648`) reads "...so `actor_process_termination_unconfirmed` holds and `terminationConfirmed` projects `false` (D9, Executive, 2026-10-23)". After the edit, `npm run build` left the capability graph and the manifest byte-equal to the patch's regenerated copies.
+- gate, in order, every test with `node --experimental-vm-modules --test`:
+  1. `npm run build`: pass
+  2. `npm run lint:imports`: pass (28 shared modules)
+  3. `npm run lint:lifecycle`: pass (284 modules, 10 allow-listed sites, no offender)
+  4. `m5-terminal-quiescence-owner`: 7/7
+  5. `t287-native-work-unknown-effect`: 10/10
+  6. `t287-calculus-fold`: 6/6
+  7. `t287-common-computational-library`: 4/4
+  8. `m5-event-store-reopen`: 18/18
+  9. `npm run test:installed:language`: 1/1
+- tracked tree: clean after the commit except for this Return. The 14 untracked entries were not touched.
+- return route: this file
