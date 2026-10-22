@@ -159,12 +159,14 @@ test('unconfirmed cleanup stays live until a genuine confirmed Process terminal,
     assert.equal(projected.processLive, !confirmed);
     assert.equal(projected.terminationUnconfirmed, !confirmed);
     assert.equal(projected.cleanupPending, !actorDone);
-    assert.equal(projectRuntimeActorProcessFactsAtPrefix(selected)[0].terminationConfirmed, confirmed);
+    assert.equal(projectRuntimeActorProcessFactsAtPrefix(selected)[0].terminationConfirmed, false,
+      'an exit after termination-unconfirmed confirms no termination (D9)');
+    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_terminated', identity: processRef })), false);
     assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_live', identity: processRef })), !confirmed);
     assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_cleanup_live', identity: processRef })), !confirmed);
     assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_cleanup_pending', identity: processRef })), !actorDone);
-    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_termination_unconfirmed', identity: processRef })), true,
-      'later physical confirmation does not erase the historical uncertainty fact');
+    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_termination_unconfirmed', identity: processRef })), !confirmed,
+      'a process terminal ends termination-unconfirmed (not T and U)');
   };
   assertCut(rows, false, false);
   // The owner admits this event only after owned-scope absence, not at raw child exit.
@@ -215,9 +217,12 @@ test('owned actor selection preserves complete lifecycle truth across unrelated 
 test('unjoined process uncertainty preserves cleanup without claiming a native write scope', () => {
   const unknown = event('actor_process_termination_unconfirmed', 2, 'process', processRef, actorRef,
     { actorInvocationRef: actorRef, processRef });
-  const effect = eventCalculusEffect(unknown, [event('actor_process_started', 1, 'process', processRef, actorRef,
-    { actorInvocationRef: actorRef, processRef, processId: 17 })]);
+  const started = event('actor_process_started', 1, 'process', processRef, actorRef,
+    { actorInvocationRef: actorRef, processRef, processId: 17 });
+  const effect = eventCalculusEffect(unknown, [started]);
   assert.deepEqual(effect.terminates, []);
   assert.deepEqual(effect.clips, []);
-  assert.equal(effect.initiates.some(f => f.name === 'actor_cleanup_pending'), true);
+  assert.equal(holdsAt(deriveRuntimeEventCalculusProjection(prefix([started, unknown])),
+    constructRuntimeFluent({ name: 'actor_cleanup_pending', identity: processRef })), true,
+    'the lifecycle rule initiates cleanup pending');
 });

@@ -236,8 +236,7 @@ function validateResolveResources(
     resources.kind !== "product_resolution_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
     !Array.isArray(resources.verifiedPreimages) ||
-    resources.verifiedPreimages.length === 0 ||
-    !sameJson(resources, resources)
+    resources.verifiedPreimages.length === 0
   ) {
     return resolveFault(
       call,
@@ -532,7 +531,6 @@ function validateBindResources(
     resources.kind !== "product_workspace_binding_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
     !validateReopenedAbgEventResourceInput(resources.eventResource) ||
-    !sameJson(resources, resources) ||
     !isResolvedProductLock(resources.resolvedLock) ||
     !isWorkspaceAuthorityBasis(resources.workspaceAuthority) ||
     !Array.isArray(resources.admittedInstalls) ||

@@ -66,8 +66,8 @@ test('U1 scope, currentness and cleanup agree at full, indexed, incremental and 
       assert.equal(holdsAt(later, constructRuntimeFluent({ name, identity: f.processRef })), false, 'confirmed absence ends physical liveness');
     assert.equal(holdsAt(later, constructRuntimeFluent({ name: 'actor_cleanup_pending', identity: f.processRef })), true,
       'Process confirmation does not complete Actor cleanup');
-    assert.equal(holdsAt(later, constructRuntimeFluent({ name: 'actor_process_termination_unconfirmed', identity: f.processRef })), true,
-      'historical uncertainty remains recorded');
+    assert.equal(holdsAt(later, constructRuntimeFluent({ name: 'actor_process_termination_unconfirmed', identity: f.processRef })), false,
+      'a process terminal ends termination-unconfirmed (not T and U)');
     assert.deepEqual(laterRows.find(row => row.eventId === cause.eventId), cause, 'the original unknown-effect event is preserved');
     const coordinate = clone(selectHeldEventStoreDurablePrefix(f.store)); f.store.closeDurableLog();
     const cold = readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate, { requireCurrent: true });

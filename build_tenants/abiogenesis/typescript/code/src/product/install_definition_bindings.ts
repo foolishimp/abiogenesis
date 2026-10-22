@@ -140,7 +140,6 @@ function validateResources(
     resources.kind !== "product_install_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
     !validateAbgEventResourceInput(resources.eventResource) ||
-    !sameJson(resources, resources) ||
     !isVerifiedProductArtifact(resources.verifiedArtifact) ||
     !isResolvedProductLock(resources.resolvedLock)
   ) {
