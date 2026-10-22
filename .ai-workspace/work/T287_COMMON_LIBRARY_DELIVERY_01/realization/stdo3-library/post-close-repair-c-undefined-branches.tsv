@@ -56,7 +56,7 @@ abg/semantic_job.ts:80	authenticateOwnedSemanticJobBasis	T	same answer as enclos
 abg/semantic_job.ts:125	predecessor	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
 abg/semantic_job.ts:151	semanticJobInputMatchesBasis	T	same answer as enclosing catch, or unreachable
 abg/semantic_job.ts:157	semanticJobInputMatchesBasis	T	same answer as enclosing catch, or unreachable
-abg/semantic_job.ts:262	validateWorksiteFileParentsPlanAtPrefix	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/semantic_job.ts:262	validateWorksiteFileParentsPlanAtPrefix	T	a `c_call_result_admitted` event without `value` is not a candidate (D13): the filter tests the member before comparing, and the lookup answers over the remaining events; at `0c362da15` such an event beside the match answered false through a caught TypeError
 abg/semantic_job.ts:331	semanticJobSavedWorksite	T	same answer as enclosing catch, or unreachable
 abg/semantic_job.ts:354	bridges	T	same answer as enclosing catch, or unreachable
 abg/semantic_job.ts:510	semanticJobReadDependenciesAtPrefix	T	same answer as enclosing catch, or unreachable
@@ -65,9 +65,9 @@ abg/semantic_job.ts:595	nativeSemanticResultMatchesBasis	T	same answer as enclos
 abg/semantic_revision.ts:115	conservedNativeRevisionParent	T	unreachable (prior check in same expression/statement)
 abg/semantic_revision.ts:279	nativeIntakeFacts	T	unreachable (prior check in same expression/statement): `!semanticJobLifecycle` refuses original_job_or_lifecycle_mismatch first
 abg/semantic_revision.ts:419	jobRevisionSubjectAtBasis	T	same answer as enclosing catch, or unreachable
-abg/semantic_revision.ts:576	semanticJobRevisionInputMatchesBasis	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/semantic_revision.ts:576	semanticJobRevisionInputMatchesBasis	T	a `c_call_result_admitted` event without `value` is not a candidate (D13): the filter tests the member before comparing, and the lookup answers over the remaining events; at `0c362da15` such an event beside the match answered false through a caught TypeError
 abg/semantic_revision.ts:720	revisionWorksiteProjection	T	unreachable (prior check in same expression/statement)
-abg/semantic_revision.ts:809	semanticRevisionInputMatchesBasis	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/semantic_revision.ts:809	semanticRevisionInputMatchesBasis	T	a `c_call_result_admitted` event without `value` is not a candidate (D13): the filter tests the member before comparing, and the lookup answers over the remaining events; at `0c362da15` such an event beside the match answered false through a caught TypeError
 abg/semantic_revision.ts:874	projectRevisionDesignCoordinates	T	same answer as enclosing catch, or unreachable
 abg/semantic_stage.ts:151	semanticInputAtBasisEquals	A	semanticInputAtBasisEquals false
 abg/semantic_stage.ts:167	exactSources	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
@@ -93,7 +93,7 @@ abg/worksite_construction_recovery.ts:282	projectPreservedWorksiteProposal	T	sam
 abg/worksite_construction_recovery.ts:300	projectPreservedWorksiteProposal	T	same answer as enclosing catch, or unreachable
 abg/worksite_construction_recovery.ts:348	authenticateWorksitePreservedResultBasis	T	same answer as enclosing catch, or unreachable
 abg/worksite_construction_recovery.ts:354	authenticateWorksitePreservedResultBasis	T	same answer as enclosing catch, or unreachable
-abg/worksite_construction_recovery.ts:421	nativeWorksiteRecoverySourceAtPrefix	T	same answer as 0c362da15: the branch would drop one element from a set the owner selects from, so `presentMember` throws on the absent member as the comparison or digest threw
+abg/worksite_construction_recovery.ts:421	nativeWorksiteRecoverySourceAtPrefix	T	a `c_call_result_admitted` event without `value` is not a candidate (D13): the filter tests the member before comparing, and the lookup answers over the remaining events; at `0c362da15` such an event beside the match answered false through a caught TypeError
 abg/worksite_input_provenance.ts:127	completedC3Child	A	completedC3Child null
 abg/worksite_input_provenance.ts:452	projectObservedWorksiteCommandChildAtPrefix	T	unreachable (prior check in same expression/statement)
 abg/worksite_input_provenance.ts:512	projectSameRunWorksiteCommandSourceAtPrefix	T	unreachable (prior check in same expression/statement)

@@ -1721,3 +1721,163 @@ Items, in this order. The Return carries one row per item: done or stopped, with
 **Stop:** item 4's contract rule; a seam in item 8 that one bounded attempt does not close; an unattributable failure in item 9; anything outside the grant; D14's five casts.
 
 **Return contract.** One commit on `main`, no push. First line `Post-close repair B: streaming fold; realm admission; helper failure handoff; final run`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append `## Post-close repair return B` with: commit; the ten-item table (done or stopped, lines at head); item 4's contract findings; the scenario and what it proves; item 8's counts and any seam; the run with every failure attributed; residuals. The final report's first line is the qualified answer: what landed, what stopped.
+
+## Post-close repair return B
+
+No: the helper failure handoff did not land. Items 5 and 6 are stopped at item 4's contract rule under the Executive's note: the Product failure guard accepts an exact member set, so carrying the helper's failure facts into the parent's failure changes an accepted contract shape. Items 1, 2 and 3 landed (streaming fold without a per-advance state copy; realm admission D12, tightened under the note; valueless result events D13). Item 7 landed for the §4.3 row and the O-SCHEMA sentence; its helper sentences stay at head. Items 8, 9 and 10 are done; item 8 has one seam, stopped outside the grant.
+
+- Commit: the commit carrying this Return (first line `Post-close repair B: streaming fold; realm admission; helper failure handoff; final run`, parent `2f1393061`, the Executive's plan-post commit on `837781a1a` that tightened D12's rule and took D14); its hash is in the final report. Not pushed. Staged by path. Path key: `T` = `build_tenants/abiogenesis/typescript`; `W` = this folder. Lines are at this commit unless marked.
+
+| Item | State | Lines at head |
+|---|---|---|
+| 1, streaming fold | done | `T/code/src/abg/event_calculus.ts`: the owned working state `RuntimeEventCalculusDerivation.state` (built once per derivation by `workingFoldState`, `abg/calculus/fold.ts:154`); `advance` (`:241`) applies each event in place with `applyStep` (`fold.ts:191`); `forkAt` (`:189`) is the one copy; `@internal` accessor `runtimeEventCalculusStateForModuleTest` (`:306`, not on `abg/index.ts`); design §4.4 (now `:191`; the activation cites `:188`, and `advance` is at `:241`, not `:238`) and §10.5 P-FOLD; `T/test_env/tests/t287-calculus-fold.test.mjs:84` |
+| 2, realm admission (D12) | done | `T/code/src/shared/admit/json.ts` `isRealmPrototype`, `isRealmObjectPrototype`, `isJsonObject`, `isRealmArrayPrototype` and `admitArray`; `abg/qualification_proof.ts` `sameFact` and `projectQualificationRulingForConsumer`; `validator/self_conformance_semantics.ts` `qualificationResultRelation`; census rows 1720, 1721, 1726, 1866; design §4.1, §10.3 O-TYPE; `T/test_env/tests/t287-common-computational-library.test.mjs:34` |
+| 3, valueless result events (D13) | done | `abg/semantic_job.ts:262`, `abg/semantic_revision.ts:578`, `:812`, `abg/worksite_construction_recovery.ts:421`; census rows 1102-1103, 1524-1525, 1567-1568, 1653-1654; undefined-branch rows 59, 68, 70, 96; design §10.3 O-TYPE; `t287-common-computational-library.test.mjs:81` |
+| 4, contract read | done; the delta changes the Product failure contract's accepted shape: stop | findings below |
+| 5, handoff | stopped (item 4's rule; the Executive's note 3b) | no change; delta below |
+| 6, scenario | stopped with item 5 | no change |
+| 7, design records | partly done | design §4.3 `presentMember` row; §10.3 O-SCHEMA sentence. §9.3 item 4, §10.5 P-LIFECYCLE's helper clause and §10.6 row 6 stay at head: they would state the item 5 mechanism, which did not land |
+| 8, pre-plan attribution | done; one seam stopped | `W/step-8-run-postclose-attribution.md` |
+| 9, final run | done; every failure attributed (`t287-calculus-state-transfer`'s three extra entries by load: run alone at both trees it gives the final log's set) | `W/step-8-run-postclose.log` |
+| 10, records | done | ticket `### Library delivery close (2026-10-23)`; `specification/GOALS.md` |
+
+- **Item 1.**
+  - `RuntimeEventCalculusDerivation` owns one `WorkingFoldState`. `advance` sets the source once per advancing call and applies each new event with `applyStep`, memoizing each transition; no fold state is copied per call. `forkAt` builds the fork's state with one `workingFoldState`.
+  - The P-FOLD case is unchanged and passes. The new case `P-FOLD streaming: single-event advances agree with one batched advance and the cold fold at every cut; one owned state` covers 22 cuts and asserts:
+    - one owned state object, not frozen;
+    - a fork at a middle cut equals that cut's projection;
+    - the fork leaves the source state unchanged.
+  - Before and after: on head with only the accessor added the case fails (`22 !== 1`: one state object per cut); after the change the lane is 7/7.
+  - What the case proves (the Executive's note 2): one persistent state, and agreement with the batched and cold folds. It does not prove linear growth. Held-fluent clipping still copies and scans the held entries per clip pattern (`abg/calculus/fold.ts:222`, the `[...holds.entries()]` spread at `:223`), reached per probe from `abg/actor_process.ts`, so a long stream's cost stays quadratic.
+  - The P-FOLD sentence claims only that the per-advance state copy is gone. The §4.4 sentence the activation gave says "copies nothing"; it reads "copies no fold state" here, because the clip scan copies held entries.
+- **Item 2.**
+  - `admitJson` admits a record whose prototype is `null` or a realm's `Object.prototype`, and an array whose prototype is a realm's `Array.prototype`. A prototype counts as a realm's when either holds:
+    - it is this realm's own prototype;
+    - its own data `constructor` is a function whose own data `name` is `Object` or `Array` and whose own data `prototype` is that same object.
+  - An `Object.prototype` must have a `null` prototype. An `Array.prototype` must be an array with such an `Object.prototype` above it. Any other prototype is refused with `non_ijson_value`. No getter runs: the probes read only own data descriptors.
+  - A prototype confers nothing: admission copies own data members into fresh ordinary containers. The throwing `i_json` entry lifts `admitJson` (`shared/i_json.ts:39`), so it inherits D12.
+  - The comparison owners:
+    - `sameFact` admits both operands; a refusal or a throw answers `false`; `isDeepStrictEqual` stays as the positive fast path;
+    - `projectQualificationRulingForConsumer` admits `input` and answers `null` on refusal;
+    - `qualificationResultRelation` admits `output` and answers `false` on refusal.
+    - No "O-TYPE stop: channel" comment remains (grep).
+  - Case `D12: a plain record or array of another realm is admitted by structure; a class instance of that realm is refused` (`node:vm`):
+    - The foreign record and array are admitted and equal their same-realm twins, and `sameJson` holds across realms.
+    - Refused: a foreign class instance, a same-realm and a foreign `Array` subclass, an accessor `constructor` (with no getter run), `Object.setPrototypeOf([1], [9])`, and a null-prototype object with an own `constructor` named `Object`.
+    - Before and after: on the head build the case fails at its first assertion (the foreign record is refused). The two probes added under the note failed on the looser build ("an array prototype that is a plain array"). The lane is 9/9 after.
+  - The nine qualification lanes, rerun on the tightened build, give the same results as repair C's batch 2 and the run before the tightening:
+    - green: `t287-native-runtime-gate` (6 pass, 1 skip), `t287-qualification-law` (2 pass, 4 skip), `t287-qualification-producer-context` 4/4, `t287-qualification-scopes` 17/17, `t287-qualification-contraction` 4/4, `t287-qual056-material` 7/7;
+    - `t287-malformed-gtl-gate` fails at `:60` (`'raw_admission_refused'` against `'validation_failed'`), as in `step-8-run-final.log`;
+    - `t287-qualification-parent-alias` fails at `:18` (`explicit frozen fixture and isolated emitted-owner binding required`);
+    - `t287-qualification-producer-acquisition-reuse` fails at `:1` (`'test failed'` after `explicit finite copied-history, retained context and exact historical owner fixtures required`).
+- **Item 3.**
+  - At the four lookups the filter is `e.payload.value !== undefined && canonicalEquals(e.payload.value, …)`. `presentMember` leaves those sites and stays at the other twelve: `abg/semantic_job.ts:125`, `abg/worksite_construction_recovery.ts:107`, `abg/worksite_revision.ts:419`, `:440`, `:474`, `:488`, `abg/retry.ts:2913`, `abg/construction_continuation.ts:76`, `abg/semantic_stage.ts:167`, `:321`, `abg/c_call.ts:2053`, `implementation/release_publication.ts:201`. `abg/semantic_revision.ts` no longer imports it.
+  - No lane drives one of the four functions with its own fixture. `d1-preserved-result-mechanics` fails at load (ENOENT on `build_tenants/abiogenesis/preimages/source-observation.json`), and the generic-job cases skip on their environment gates.
+  - The case is therefore in `t287-common-computational-library`: `D13: a valueless result event beside the matching one is not a candidate; the lookup answers the match`. It runs the built `semanticRevisionInputMatchesBasis`, linked with its stage authentication, predecessor projection and envelope guard replaced.
+  - Control: the match alone answers `true` on head and after. With a valueless `c_call_result_admitted` beside it, head answers `false` (the caught TypeError) and the changed build answers `true`.
+- **Item 4, contract read.**
+  - (a) The helper artifact's shape is pinned only by its Product owner:
+    - the type `WorksiteCommandHelperArtifact` in `product/worksite_command_execution.ts` (the revision and forward kinds are `Omit` types over it, `product/worksite_revision.ts:73`, `product/worksite_command_forward.ts:71`);
+    - `constructWorksiteExecutionHelperArtifact`;
+    - the exact-key validator `isWorksiteExecutionHelperArtifact`.
+  - (a), what does not pin it:
+    - No owner contract table, GTL contract declaration or schema names it, and `contracts/capabilities/capability-definition-graph.json` names neither the artifact nor any command-execution contract.
+    - The one stored digest over it is incidental. The C2 renderer context pins the whole built module (`gtl/worksite_command_execution.ts:37-41` digest and byte count, `:61` renderer span; `contracts/worksite/command-execution-context.inventory.json`), and the build checks the pin but does not regenerate it. Steps 3 and 4 and repair C each refreshed it when they touched the module.
+    - Recorded runs under `T/test_env/test_runs/` hold old module text as evidence, not as pins.
+  - (b) A `worksite_command_execution_failure` value is consumed in three places:
+    - its GTL declaration (`gtl/worksite_command_execution.ts:321`: reference, role `failure`, value kind only);
+    - the Product guard `isWorksiteCommandExecutionFailure` (`product/worksite_command_execution.ts:2193`), an exact-key guard over `diagnosticRef failureClass kind schemaVersion`, reached through `validateContractValue` (`product/builtin_semantics.ts:251`);
+    - test `w2-steel-single-start.test.mjs:165`.
+  - (b), the runtime reach:
+    - The leaf port's `isLeafRealizationCandidate` (`implementation/leaf_invocation_port.ts:208-245`) checks `kind`, `schemaVersion` and `diagnosticRef`, as does the outcome's failure validator (`abg/c_call_outcome.ts:1364-1376`).
+    - None of the six runtime callers of `validateContractValue`/`ByRef` reaches this failure value today: they validate outputs, output vectors, retry inputs and successor inputs.
+    - The guard is still the Product's accepted shape for the failure contract. Under the Executive's note (3b), adding a member changes that shape.
+  - (c) No:
+    - A failure candidate's `evidenceCandidates` must be empty under `F_P` (`implementation/leaf_invocation_port.ts:238`).
+    - Dispatched `F_P` admission derives its own transport evidence and does not read `evidenceCandidates` (`abg/c_call_outcome.ts:1116-1137`, `deriveProbabilisticTransportEvidence`; the Executive's note 3a, verified).
+    - The subject can therefore travel only as a member of the `resultCandidate` the parent constructs.
+  - Delta, for the Executive:
+    1. The helper artifact's disposition set gains `failure`, with one member `failure` (the subject `{ failureClass, taskRef, taskDigest, attemptRef, command | request | observation, diagnostic: { name, message }, processFacts }`) present on that disposition only. This part is confined to the artifact, and every other disposition's bytes are unchanged.
+    2. The parent's failure value (the `resultCandidate` of `failure`, `implementation/worksite_command_execution.ts:233`) gains `subject` on `failureClass: "helper_failure"`. `isWorksiteCommandExecutionFailure` must then admit that member on that class, which widens the Product failure contract's accepted member set.
+    - No event contract or payload key list changes: `c_call_result_admitted` keeps `cCallRef contractRef evidenceRefs resultClass resultDigest resultRef value valueDigest valueKind` (`abg/event_store.ts:771-775`), and the admitted `value` is the candidate. No owner contract table or capability graph entry is involved.
+    - Part 2 is a Product output contract shape change. The activation's rule names it only when an owner contract table or stored digest pins it; the note reads the exact-member guard as making it one. So item 5 stops, the guard is not widened, and nothing of item 5 is in this commit.
+  - An alternative that keeps every accepted shape: carry the admitted subject inline as the failure's `diagnosticRef`, a `data:` reference as §9.3 item 3 does.
+    - The guard needs only a nonempty string there, the port compares the reference, and the outcome takes `failureDiagnosticRef` from the leaf candidate (`abg/c_call_outcome.ts:1072-1074`).
+    - It changes what that reference means for this failure class.
+  - Either option needs a case that reaches `c_call_result_admitted` through actual parent completion (the note's acceptance for item 5).
+- **Items 5 and 6, stopped; the scenario and what it proves.**
+  - No scenario is in this commit.
+  - Before the note, items 5 and 6 were realized in the working tree and then reverted:
+    - the helper published the subject on a `failure` disposition, and the parent returned it as the failure's `subject` through `admitJson`;
+    - the case drove a real helper child whose command (`node -e ''`) exits 0 with its scope unresolved (a module hook replaced only the lifetime module the helper imports) through `realizeWorksiteCommandExecution(...).complete(exchange)`.
+  - Evidence from that implementation, at the adapter level only:
+    - on head the case failed with `helper_artifact_absent`;
+    - with the item 5 code it returned `helper_failure`, with subject class `command_cleanup_unresolved`, the helper's exit status 1, and `processFacts` equal to the facts the helper child wrote for its own command process.
+  - It did not reach `c_call_result_admitted`: C-call admission needs an opened, evidenced C-call in a store, which that harness lacks. Under the note, a parent return alone does not discharge item 5.
+- **Item 8.**
+  - Scope: the 68 lanes red in repair C's batches 2 to 4 that are not among the 44 files of `step-8-run-final.log`.
+  - Each lane ran alone on this commit's built tree (after the revert of items 5 and 6 and the D12 tightening) and at `97b1200bc`.
+  - Result: 67 lanes have the same failure set at both; 1 is a seam; none timed out.
+  - The seam, `t287-reacquisition-root-contract` `:39` (`ReferenceError: canonicalEquals is not defined`):
+    - Cause: step 4 `5f4a1d4c9` replaced `canonicalJson(a) === canonicalJson(b)` with `canonicalEquals(a, b)` in the span of the built `abg/invocation_admission.js` that the lane evaluates through `new Function`, and the lane's binding list lacks `canonicalEquals`.
+    - Bounded fix: one binding in the lane's own test file. A scratch copy with that binding gives the baseline's set on this build (1 pass, 1 skip).
+    - The file is outside the grant, so the lane stops with the seam named.
+  - `t287-historical-source-resource` fails at load at the baseline on its ignored fixture. With the 218 ignored fixture files linked into the baseline worktree, its rerun gives the head's set (`:64`).
+  - The table is in `W/step-8-run-postclose-attribution.md`.
+- **Item 9.**
+  - Gates, all rc 0: `npm run build`; `npm run lint:imports` (28 shared modules import only `shared` and packages); `npm run lint:lifecycle` (284 modules, 10 allow-listed sites, no offender).
+  - The four lanes:
+    - `t287-lifecycle-failure-carrier` 5/5;
+    - `m5-worker-transport` 21/21;
+    - `t287-worksite-command-execution` 3 pass, 1 fail at `:407` (assertion at `:826`, `'failure' !== 'success'`);
+    - `t287-observed-worksite-command` 7 pass, 1 fail at `:43` (`18025250 !== 18025000`).
+    - Both failures are the final log's sets.
+  - The integrated run covers 46 distinct files in one invocation: 329 tests, 251 pass, 58 fail, 2 cancelled, 18 skip, 60 failing entries. Every entry is attributed:
+    - 53 entries are entries of `step-8-run-final.log`, matched by file, title and first error.
+    - 3 are the frame-observation suite's `:189`, `:209`, `:237`. They are the baseline's `:187`, `:207`, `:235` by title and first error (`explicit proof-local territory`; `ERR_INVALID_ARG_TYPE` on an undefined path; `assert.ok(process.env.ABI5_FRAME_BASELINE_ROOT)`). The 2-line shift is repair A's `a1349e50b` edit of the file.
+    - 4 are `t287-calculus-state-transfer` entries; the final log has 1 there:
+      - In both runs the parent case at `:64` times out at 300000 ms. In the final log `identity_end` was cancelled.
+      - This run was under external load from other applications (load average 8 to 11; the integrated run took 1836 s against 1096 s, and the subtests about twice their standalone time). The timeout fell during `progressed` (cancelled), so `batch_in_batch`, `recovery` and `identity_end` were never started.
+      - Run alone back to back, this tree and the baseline worktree each give the final log's set: six subtests pass in 45 to 48 s each, `identity_end` is cancelled, and `:64` times out. Both runs are appended to the log.
+      - The two files with the largest slowdowns take the same time alone on both trees: `m5-installed-portability` 111292 / 112480 ms, `t287-w2-05-install-catalog-owner-chain` 6624 / 6540 ms.
+    - Every entry is the final log's or the baseline's, except state-transfer's three extra entries. Those are the final log's `:64` timeout reached earlier under load, and running only that suite at both trees gives the final log's set (rule 3's method). The integrated set itself is worse than the final log's at that file.
+  - `npm run test:uat:harness`: 34 tests, 30 pass, 1 fail (`harness.test.mjs:471`), 3 skip; this is the final log's set.
+- **Item 10.**
+  - The ticket subsection states:
+    - the commit;
+    - O-TYPE closed at every census site but the five D14 sites, with the four realm stops closed under D12 and the D12 rule as realized;
+    - the D13 sentence and twelve `presentMember` sites;
+    - P-FOLD 7/7, with the per-advance copy gone and the clip scan quadratic;
+    - review item 1 stopped with the guard named and the delta here; item 3 repaired; item 6 updated;
+    - the `:826` cause by reading;
+    - a D14 line: the five sites wait on D14, taken for post-close repair D at `2f1393061`.
+  - P-LIFECYCLE stays at head. GOALS states the same.
+  - The plan ledger is the Executive's and is untouched.
+- **Residuals.**
+  - Helper failure facts still do not reach the admitted failure on the command and HTTP routes. The delta and its alternative are above, for the Executive.
+  - Held-fluent clipping copies and scans held entries per clip pattern (`abg/calculus/fold.ts:222-223`), so streaming cost stays quadratic in held fluents and probes. This is outside item 1's claim and is not an item of this repair.
+  - The module-test fork from a middle cut to the end of a validated prefix (`forkRuntimeEventCalculusAtForModuleTest(source, middle, source)`) differs from the warm projection of the end. It does so at head before item 1 as after: head's `event_calculus.ts` with only the accessor added gave the same `false`. The case asserts the fork at the cut instead. The path is module-test only.
+  - The seam lane `t287-reacquisition-root-contract` needs one binding (`canonicalEquals`) in its own test file, which is outside the grant.
+  - `t287-worksite-command-execution` `:826` (`'failure' !== 'success'`, at head and at `97b1200bc`) has a likely cause by reading. The suite's `exactHelperExchange` sets `promptDigest` to `sha256Bytes` of the prompt (`:345`), and the parent's `exactExchange` compares `sha256Canonical` (`implementation/worksite_command_execution.ts:267`), so completion answers `transport_identity_mismatch`. The reverted scenario met that refusal with the byte digest and passed with the canonical one. The suite is outside the grant.
+  - The parent case of `t287-calculus-state-transfer` (`:64`) exceeds its 300000 ms timeout alone on both trees, as in the final log.
+  - D12: the plan's row at `2f1393061` and the realization differ by one refusing condition (a `null` prototype above a realm's `Object.prototype`; probe `new (function Object(){})()`), for the Executive's ruling. Design §4.1 and the ticket state the realization.
+  - D14's five casts are untouched.
+- **Applied from the Executive's note.**
+  1. D12, tightened:
+     - a prototype counts only when its own data `constructor` is a function named `Object`/`Array` whose own data `prototype` is that same object;
+     - an `Array.prototype` needs such an `Object.prototype` above it; a `null` prototype stays admitted;
+     - the probes `Object.setPrototypeOf([1], [9])` and a null-prototype object with own `constructor` named `Object` are `non_ijson_value` refusals in the D12 case; both failed before the tightening;
+     - the §4.1 sentence states the rule as realized, and that a prototype confers nothing because admission copies own data into ordinary containers;
+     - the nine qualification lanes were rerun;
+     - the plan's D12 row at `2f1393061` omits one condition the realization keeps: a realm's `Object.prototype` must itself have a `null` prototype. The probe that separates them is `new (function Object(){})()`. Its prototype has an own data `constructor` named `Object` whose `prototype` is that same object, with this realm's `Object.prototype` above it: the row admits it and the realization refuses it (`non_ijson_value`, checked on this build). The condition only refuses, and every realm's own `Object.prototype` meets it. It is for the Executive's ruling.
+  2. P-FOLD, narrowed:
+     - the P-FOLD sentence claims only removal of the per-advance state copy;
+     - the §4.4 sentence reads "copies no fold state";
+     - item 1 above states that the streaming case proves persistent state and cold/batch agreement, not linear growth, and names the clip scan.
+  3. Items 4 and 5:
+     - (a) is verified at `abg/c_call_outcome.ts:1116-1137`;
+     - (b) is verified at `product/worksite_command_execution.ts:2193` (exact keys);
+     - the delta changes the accepted shape, so items 5 and 6 stop and the guard is not widened;
+     - the item 5 and 6 code (helper, parent, Product module, C2 pin, scenario) was reverted to head;
+     - item 7's helper sentences stay at head;
+     - the ticket and GOALS state the stop.

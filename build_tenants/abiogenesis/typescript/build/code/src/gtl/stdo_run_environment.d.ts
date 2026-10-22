@@ -133,7 +133,7 @@ export declare const STDO_RUN_ENVIRONMENT_SCHEMA: v.StrictObjectSchema<{
     }, undefined>, undefined>, v.MinLengthAction<{
         graphFunctionRef: string;
         programLocusRef: string;
-        role: "author" | "assessor" | "constructor" | "command_executor";
+        role: "constructor" | "author" | "assessor" | "command_executor";
         frameRefs: string[];
         policy: {
             policyRef: string;
@@ -230,7 +230,7 @@ export declare function stdoEnvironmentForProgram(publication: Readonly<ModulePu
     roles: {
         graphFunctionRef: string;
         programLocusRef: string;
-        role: "author" | "assessor" | "constructor" | "command_executor";
+        role: "constructor" | "author" | "assessor" | "command_executor";
         frameRefs: string[];
         policy: {
             policyRef: string;
@@ -380,7 +380,7 @@ export declare const RUN_ENVIRONMENT_SCHEMA: v.StrictObjectSchema<{
             spanDigest: string;
         }[], 1, undefined>]>;
     }, undefined>, undefined>, v.MinLengthAction<{
-        role: "author" | "assessor" | "constructor" | "command_executor" | "selector";
+        role: "constructor" | "author" | "assessor" | "command_executor" | "selector";
         accessRefs: string[];
         contextPolicy: {
             policyRef: string;
@@ -470,7 +470,7 @@ export declare function runEnvironmentForProgram(publication: Readonly<ModulePub
         timeoutMs: number;
     }[];
     roles: {
-        role: "author" | "assessor" | "constructor" | "command_executor" | "selector";
+        role: "constructor" | "author" | "assessor" | "command_executor" | "selector";
         accessRefs: string[];
         contextPolicy: {
             policyRef: string;

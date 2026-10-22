@@ -5,7 +5,7 @@ import test from 'node:test';
 import { createU1Fixture, prefixOf } from '../support/t287-native-work-currentness-consumers.mjs';
 import { emptyFoldState, foldStep, ROOT_DERIVED_RULES } from '../../build/code/src/abg/calculus/index.js';
 import { constructRuntimeFluent, deriveRuntimeEventCalculusProjection, eventCalculusDependencies, eventCalculusEffect,
-  forkRuntimeEventCalculusAtForModuleTest } from '../../build/code/src/abg/event_calculus.js';
+  forkRuntimeEventCalculusAtForModuleTest, runtimeEventCalculusStateForModuleTest } from '../../build/code/src/abg/event_calculus.js';
 import { selectValidatedRuntimeEventPrefix, selectOwnedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent,
   runtimeEventAtPrefixIndex, runtimeEventPrefixExtent } from '../../build/code/src/abg/event_prefix.js';
 import { projectActorProcessLifecycle } from '../../build/code/src/abg/actor_process.js';
@@ -79,6 +79,36 @@ test('P-FOLD: the U1 recorded store folds cold, warm and forked to the same hold
     [true, true, false], 'the actor terminal completes cleanup');
   t.diagnostic(JSON.stringify({ store: 'createU1Fixture (t287-native-work-currentness-consumers.mjs) + cause, exit, actor failure',
     cuts: count, prefixes: ['validated', 'owned'] }));
+});
+
+test('P-FOLD streaming: single-event advances agree with one batched advance and the cold fold at every cut; one owned state', async t => {
+  const f = await createU1Fixture(t, ['target.txt']);
+  f.cause();
+  f.exit();
+  f.cause('actor_invocation_failed');
+  // Successive cuts of one source share one derivation, so projecting cut 1,
+  // 2, ... N of `streaming` advances it one event at a time. `batched` is a
+  // separately selected copy of the same rows, advanced once to the end.
+  const rows = f.store.readAll(), streaming = prefixOf(rows), batched = prefixOf(rows);
+  deriveRuntimeEventCalculusProjection(batched);
+  const states = [];
+  for (const row of events(streaming)) {
+    const cut = validatedRuntimeEventPrefixThroughEvent(streaming, row.eventId);
+    const warm = projectionView(deriveRuntimeEventCalculusProjection(cut));
+    states.push(runtimeEventCalculusStateForModuleTest(cut));
+    assert.deepEqual(warm, projectionView(deriveRuntimeEventCalculusProjection(
+      validatedRuntimeEventPrefixThroughEvent(batched, row.eventId))), `streaming equals batched at ${row.admissionOrdinal} ${row.kind}`);
+    assert.deepEqual(stateView(coldFold(cut)), warm, `streaming equals the cold fold at ${row.admissionOrdinal} ${row.kind}`);
+  }
+  assert.ok(states.length > 1);
+  assert.equal(new Set(states).size, 1, 'the derivation keeps one working state across the advances: no per-advance copy');
+  assert.equal(Object.isFrozen(states[0]), false, 'the owned state is the working state, not a frozen copy');
+  // The fork is the one copy: it reads the cut and leaves the source's state as it was.
+  const middle = validatedRuntimeEventPrefixThroughEvent(streaming, events(streaming)[1].eventId);
+  assert.deepEqual(projectionView(forkRuntimeEventCalculusAtForModuleTest(streaming, middle)),
+    projectionView(deriveRuntimeEventCalculusProjection(middle)), 'forkAt equals project at the cut');
+  assert.equal(runtimeEventCalculusStateForModuleTest(streaming), states[0], 'forking does not replace the source state');
+  t.diagnostic(JSON.stringify({ cuts: states.length, ownedStates: new Set(states).size }));
 });
 
 const runId = 'run://t287/fold', actorRef = 'actor-invocation://t287/fold', processRef = 'process://t287/fold';

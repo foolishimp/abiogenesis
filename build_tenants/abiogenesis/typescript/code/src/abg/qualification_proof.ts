@@ -47,6 +47,7 @@ import { qualificationCoverageIsPublished, isQualificationBasisReady, projectExt
   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment, constructNativeRuntimeAssessment } from "../validator/qualification.js";
 import { isSelfConformanceInput, isSelfConformanceResult, type SelfConformanceOwner } from "../validator/self_conformance_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 const ASSESS = "implementation://abiogenesis/qualification/assess-fp@5";
 const VERDICT = "implementation://abiogenesis/qualification/exact-candidate-fd@5";
@@ -112,10 +113,16 @@ class NativeProofDerivation {
 const nativeFacts = (prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>) =>
   runtimePrefixComputation(prefix, NATIVE_PROOF, () => new NativeProofDerivation());
 // Equality is only a positive reuse discriminator for an already authenticated
-// immutable fact. The canonical relation remains the fallback for all data.
-// O-TYPE stop: channel. The qualification owners compare records of another
-// realm, and `admitJson` refuses a plain record of another realm.
-const sameFact = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a as JsonValue, b as JsonValue);
+// immutable fact. The canonical relation remains the fallback for all data:
+// both operands are admitted (a record of any realm by structure, D12), and a
+// refusal or a throw is no relation.
+const sameFact = (a: unknown, b: unknown): boolean => {
+  if (a === b || isDeepStrictEqual(a, b)) return true;
+  try {
+    const left = admitJson(a), right = admitJson(b);
+    return left.kind === "ok" && right.kind === "ok" && canonicalEquals(left.value, right.value);
+  } catch { return false; }
+};
 // One operation borrows each authenticated source prefix and workspace
 // projection. These private associations cannot be supplied in JSON or confer
 // authority on copied coordinates. The existing cold owners still acquire it.
@@ -474,9 +481,10 @@ export function projectQualificationRulingForConsumer(basis: QualificationNative
     if (!referenceDependencies(input, resources)) return null;
     const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
     if (owner === null || owner.call.implementationRef !== RULING) return null;
-    // O-TYPE stop: channel. The input may be a record of another realm.
+    const admittedInput = admitJson(input);
+    if (admittedInput.kind !== "ok") return null;
     const rows = projectFhContinuations(owner.prefix, deriveRuntimeEventCalculusProjection(owner.prefix)).filter(c =>
-      c.runId === owner.call.runId && (c.status === "responded" || c.status === "resolved") && canonicalEquals(c.responseValue, input as JsonValue));
+      c.runId === owner.call.runId && (c.status === "responded" || c.status === "resolved") && canonicalEquals(c.responseValue, admittedInput.value));
     const row = exactOrNull(onlyExactMatch(rows)); if (row === null) return null;
     const requestOwner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, row.cCallRef, [owner.proof]);
     const response = exactOrNull(onlyExactMatch(owner.events.filter(e => e.eventId === row.respondedEventRef)));

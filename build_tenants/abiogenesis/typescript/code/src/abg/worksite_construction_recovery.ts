@@ -418,7 +418,7 @@ export function nativeWorksiteRecoverySourceAtPrefix(prefix: RuntimeEventPrefix,
     if (admitted === null || admitted.cCall.implementationRef !== ids.authenticateImplementationRef || admitted.result.resultClass !== "success" ||
       admitted.judgment.judgment !== "advance" || !canonicalEquals(admitted.result.value, artifact)) return false;
     const bundle = derivePreservedWorksiteCandidateBundle(artifact);
-    const candidates = events.filter(e => e.kind === "c_call_result_admitted" && e.basisId === execution.basisRef && record(e.payload) && canonicalEquals(presentMember(e.payload.value), bundle))
+    const candidates = events.filter(e => e.kind === "c_call_result_admitted" && e.basisId === execution.basisRef && record(e.payload) && e.payload.value !== undefined && canonicalEquals(e.payload.value, bundle))
       .map(event => admittedLeaf(prefix, event.aggregateId, graph)).filter(candidate => candidate !== null &&
         candidate.cCall.implementationRef === ids.deriveImplementationRef && candidate.result.resultClass === "success" && candidate.judgment.judgment === "advance" &&
         candidate.resultEvent.admissionOrdinal > admitted.resultEvent.admissionOrdinal);

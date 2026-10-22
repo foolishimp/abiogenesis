@@ -137,7 +137,7 @@ export declare function authenticateSemanticJobBasis(basis: SemanticStageNativeB
             roles: {
                 graphFunctionRef: string;
                 programLocusRef: string;
-                role: "author" | "assessor" | "constructor" | "command_executor";
+                role: "constructor" | "author" | "assessor" | "command_executor";
                 frameRefs: string[];
                 policy: {
                     policyRef: string;
@@ -215,7 +215,7 @@ export declare function authenticateSemanticJobBasis(basis: SemanticStageNativeB
                 timeoutMs: number;
             }[];
             roles: {
-                role: "author" | "assessor" | "constructor" | "command_executor" | "selector";
+                role: "constructor" | "author" | "assessor" | "command_executor" | "selector";
                 accessRefs: string[];
                 contextPolicy: {
                     policyRef: string;

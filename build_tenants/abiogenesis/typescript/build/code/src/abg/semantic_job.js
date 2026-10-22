@@ -280,7 +280,7 @@ export function validateWorksiteFileParentsPlanAtPrefix(prefix, request, publica
         if (!isWorksiteFileParentsRequest(request) || publication.semanticJobLifecycle === undefined)
             return false;
         const events = runtimeEventBodiesAtPrefix(prefix);
-        const rows = indexedRuntimeEvents(prefix, "kind:" + "c_call_result_admitted").filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && canonicalEquals(presentMember(e.payload.value), request)).map(event => projectSemanticPredecessorAtPrefix(prefix, events, publication, event.aggregateId)).filter(p => p !== null &&
+        const rows = indexedRuntimeEvents(prefix, "kind:" + "c_call_result_admitted").filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.value !== undefined && canonicalEquals(e.payload.value, request)).map(event => projectSemanticPredecessorAtPrefix(prefix, events, publication, event.aggregateId)).filter(p => p !== null &&
             p.cCall.implementationRef === ids.jobPlanImplementationRef && p.result.resultClass === "success" && p.judgment.judgment === "advance");
         if (rows.length !== 1)
             return false;
