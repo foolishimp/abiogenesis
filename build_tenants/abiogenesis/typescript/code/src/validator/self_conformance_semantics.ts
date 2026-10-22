@@ -20,6 +20,7 @@ import { isQualificationAssessmentInput, qualificationRawMatches, qualificationR
 import { projectQualificationConsumer, projectExactCandidateQualification, projectNativeRuntimeAssessment } from "../abg/qualification_proof.js";
 import { reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
 export function isQualificationContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
   switch (valueKind) {
@@ -77,10 +78,12 @@ export function qualificationResultRelation(predicateRef: string, input: unknown
         : projectExactCandidateQualification(basis, input);
       return isDeepStrictEqual(expected, output) || canonicalEquals(expected, output);
     }
-    // O-TYPE stop: channel. The output may be a record of another realm.
-    if (predicateRef === q.rulingPredicate) return v.is(QUALIFICATION_RULING_REQUEST_SCHEMA, input)
-      ? qualificationRulingMatches(input, output, input.actorRef)
-      : v.is(QUALIFICATION_OWNER_RULING_SCHEMA, input) && canonicalEquals(input, output as JsonValue);
+    if (predicateRef === q.rulingPredicate) {
+      if (v.is(QUALIFICATION_RULING_REQUEST_SCHEMA, input)) return qualificationRulingMatches(input, output, input.actorRef);
+      if (!v.is(QUALIFICATION_OWNER_RULING_SCHEMA, input)) return false;
+      const admittedOutput = admitJson(output);
+      return admittedOutput.kind === "ok" && canonicalEquals(input, admittedOutput.value);
+    }
     return false;
   } catch { return false; }
 }

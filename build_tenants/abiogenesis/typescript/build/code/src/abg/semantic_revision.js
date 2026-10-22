@@ -45,7 +45,7 @@ import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.
 import { observeWorksiteContext } from "../product/worksite_operations.js";
 import { readRuntimeFailureDiagnosticSubject } from "./runtime_failure.js";
 import { admitIJsonText } from "../shared/i_json.js";
-import { canonicalEquals, presentMember } from "../shared/value/index.js";
+import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 import { onlyExactMatch } from "../shared/select/index.js";
 const hash = (x) => sha256Canonical(x);
@@ -652,7 +652,7 @@ export function semanticJobRevisionInputMatchesBasis(basis, input) {
         if (owner === null || !isSemanticJobRevisionEnvelope(input) || !(canonicalEquals(owner.inputValue, input) || [ids.nativeExecutionImplementationRef, ids.nativeEvidenceImplementationRef].some(r => r === owner.call.implementationRef) && isRetainedGraphInput(owner.inputValue) && canonicalEquals(owner.inputValue.entry, input)) ||
             !canonicalEquals(input.current.job, owner.root.rawInputValue) || !canonicalEquals(input.current.declaration, owner.lifecycle))
             return false;
-        const sources = owner.events.filter(e => e.kind === "c_call_result_admitted" && recordJob(e.payload) && canonicalEquals(presentMember(e.payload.value), input)).flatMap(event => {
+        const sources = owner.events.filter(e => e.kind === "c_call_result_admitted" && recordJob(e.payload) && e.payload.value !== undefined && canonicalEquals(e.payload.value, input)).flatMap(event => {
             const judgment = owner.events.find(e => e.kind === "c_call_judged" && e.aggregateId === event.aggregateId);
             if (judgment === undefined || !recordJob(event.payload))
                 return [];
@@ -960,7 +960,7 @@ export function semanticRevisionInputMatchesBasis(basis, input) {
             !canonicalEquals(input.current.lifecycle, owner.lifecycle) || !canonicalEquals(input.current.sourceHandoff.declaration, owner.source))
             return false;
         const sources = owner.events.filter(e => e.kind === "c_call_result_admitted" && recordJob(e.payload) &&
-            canonicalEquals(presentMember(e.payload.value), input)).filter(event => {
+            e.payload.value !== undefined && canonicalEquals(e.payload.value, input)).filter(event => {
             const source = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, event.aggregateId, basis.declarationGraphFunctions);
             return source !== null && source.result.resultClass === "success" && source.judgment.judgment === "advance" &&
                 [ids.projectionImplementationRef, ids.authorImplementationRef, ids.assessorImplementationRef, ids.evidenceInputImplementationRef].some(r => r === source.cCall.implementationRef);

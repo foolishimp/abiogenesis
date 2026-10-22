@@ -92,7 +92,7 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
                 roles: {
                     graphFunctionRef: string;
                     programLocusRef: string;
-                    role: "author" | "assessor" | "constructor" | "command_executor";
+                    role: "constructor" | "author" | "assessor" | "command_executor";
                     frameRefs: string[];
                     policy: {
                         policyRef: string;
@@ -170,7 +170,7 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
                     timeoutMs: number;
                 }[];
                 roles: {
-                    role: "author" | "assessor" | "constructor" | "command_executor" | "selector";
+                    role: "constructor" | "author" | "assessor" | "command_executor" | "selector";
                     accessRefs: string[];
                     contextPolicy: {
                         policyRef: string;
@@ -714,7 +714,7 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
                 roles: {
                     graphFunctionRef: string;
                     programLocusRef: string;
-                    role: "author" | "assessor" | "constructor" | "command_executor";
+                    role: "constructor" | "author" | "assessor" | "command_executor";
                     frameRefs: string[];
                     policy: {
                         policyRef: string;
@@ -792,7 +792,7 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
                     timeoutMs: number;
                 }[];
                 roles: {
-                    role: "author" | "assessor" | "constructor" | "command_executor" | "selector";
+                    role: "constructor" | "author" | "assessor" | "command_executor" | "selector";
                     accessRefs: string[];
                     contextPolicy: {
                         policyRef: string;
@@ -1367,7 +1367,7 @@ export declare function projectRevisionSelectionSubject(basis: SemanticStageNati
                 roles: {
                     graphFunctionRef: string;
                     programLocusRef: string;
-                    role: "author" | "assessor" | "constructor" | "command_executor";
+                    role: "constructor" | "author" | "assessor" | "command_executor";
                     frameRefs: string[];
                     policy: {
                         policyRef: string;
@@ -1445,7 +1445,7 @@ export declare function projectRevisionSelectionSubject(basis: SemanticStageNati
                     timeoutMs: number;
                 }[];
                 roles: {
-                    role: "author" | "assessor" | "constructor" | "command_executor" | "selector";
+                    role: "constructor" | "author" | "assessor" | "command_executor" | "selector";
                     accessRefs: string[];
                     contextPolicy: {
                         policyRef: string;

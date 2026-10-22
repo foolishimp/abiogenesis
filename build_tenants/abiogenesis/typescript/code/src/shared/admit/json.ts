@@ -54,9 +54,40 @@ function admitScalarString(
   return ok(value);
 }
 
+// D12: a plain record or array of any realm is admitted by structure; a
+// prototype confers nothing, because admission copies own data members into
+// fresh ordinary containers. A prototype is a realm's `Object.prototype` when it
+// is this realm's, or when its own prototype is `null` and its own data
+// `constructor` is a function named `Object` whose own data `prototype` is that
+// same object. No getter runs.
+function isRealmPrototype(prototype: object, name: "Array" | "Object"): boolean {
+  const constructor = Object.getOwnPropertyDescriptor(prototype, "constructor");
+  if (!isDataDescriptor(constructor) || typeof constructor.value !== "function") return false;
+  const constructorName = Object.getOwnPropertyDescriptor(constructor.value, "name");
+  const constructorPrototype = Object.getOwnPropertyDescriptor(constructor.value, "prototype");
+  return isDataDescriptor(constructorName) && constructorName.value === name &&
+    isDataDescriptor(constructorPrototype) && constructorPrototype.value === prototype;
+}
+
+function isRealmObjectPrototype(prototype: object | null): boolean {
+  if (prototype === Object.prototype) return true;
+  return prototype !== null && Object.getPrototypeOf(prototype) === null && isRealmPrototype(prototype, "Object");
+}
+
+// A record's prototype is `null` or a realm's `Object.prototype`.
 function isJsonObject(input: object): boolean {
-  const prototype: unknown = Object.getPrototypeOf(input);
-  return prototype === Object.prototype || prototype === null;
+  const prototype = Object.getPrototypeOf(input) as object | null;
+  return prototype === null || isRealmObjectPrototype(prototype);
+}
+
+// An array's prototype is a realm's `Array.prototype`: this realm's, or an
+// array whose own data `constructor` is a function named `Array` whose own data
+// `prototype` is that same object, with a realm's `Object.prototype` above it.
+// A subclass prototype or a plain array prototype is not.
+function isRealmArrayPrototype(prototype: object | null): boolean {
+  if (prototype === Array.prototype) return true;
+  return prototype !== null && Array.isArray(prototype) && isRealmPrototype(prototype, "Array") &&
+    isRealmObjectPrototype(Object.getPrototypeOf(prototype) as object | null);
 }
 
 function isDataDescriptor(
@@ -86,7 +117,8 @@ function admitArray(
   path: readonly string[],
   at: string,
 ): Outcome<JsonValue> {
-  if (Object.getPrototypeOf(input) !== Array.prototype) {
+  // D12: an array of any realm (see `isRealmArrayPrototype`).
+  if (!isRealmArrayPrototype(Object.getPrototypeOf(input) as object | null)) {
     return refuse("non_ijson_value", path, at, "custom-prototype arrays are not I-JSON");
   }
   const ownKeys = Reflect.ownKeys(input);

@@ -42,7 +42,7 @@ import {
   type RuntimeFluent,
 } from "./calculus/index.js";
 import { stringArrayField } from "./calculus/axioms.js";
-import { applyStep, frozenFoldState, workingFoldState } from "./calculus/fold.js";
+import { applyStep, workingFoldState, type WorkingFoldState } from "./calculus/fold.js";
 
 // The Event Calculus law (carriers, ROOT_EVENT_CALCULUS, ROOT_DERIVED_RULES
 // and the pure fold) lives in abg/calculus/. This module re-exports its
@@ -138,10 +138,12 @@ export function eventCalculusDependencies(prefix: RuntimeEventPrefix, event: Run
   }
   return [...selected.values()].sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
 }
-/** The memoized realization of foldStep: it holds the current FoldState and
- * records every step's transition for historical cuts and forks. */
+/** The memoized realization of foldStep: it owns one working fold state,
+ * advanced in place, and records every step's transition for historical cuts
+ * and forks. The empty state shares module constants, so the owned state
+ * starts from its own copy; forkAt is the only other copy. */
 class RuntimeEventCalculusDerivation {
-  state: FoldState = emptyFoldState(null);
+  state: WorkingFoldState = workingFoldState(emptyFoldState(null));
   readonly effectRows: RuntimeEffectFact[] = [];
   readonly effectByEvent = new Map<string, RuntimeEffectFact>();
   readonly clippedFluentRefs: string[] = [];
@@ -205,9 +207,9 @@ class RuntimeEventCalculusDerivation {
     }
     const interruptedScopes = new Set<string>();
     for (const fact of this.allInterruptionFacts()) if (fact.ordinal <= extent.lastOrdinal) interruptedScopes.add(fact.digest);
-    fork.state = Object.freeze({ ...emptyFoldState(null), holds, ordinal: extent.lastOrdinal, contextualFluentRunIds: runIds,
+    fork.state = workingFoldState(Object.freeze({ ...emptyFoldState(null), holds, ordinal: extent.lastOrdinal, contextualFluentRunIds: runIds,
       clippedFluentRefs: Object.freeze(this.clippedAt(extent.count)), declippedPatternRefs: Object.freeze(this.declippedAt(extent.count)),
-      interruptedScopes, frameProbeScopes: scopes.frame, cCallProbeScopes: scopes.call, actorProbeScopes: scopes.actor });
+      interruptedScopes, frameProbeScopes: scopes.frame, cCallProbeScopes: scopes.call, actorProbeScopes: scopes.actor }));
     return fork;
   }
   private fluentRunAt(key: string, ordinal: number): string | undefined {
@@ -230,24 +232,20 @@ class RuntimeEventCalculusDerivation {
     while (low < high) { const middle = (low + high) >>> 1; if (rows[middle]!.ordinal <= ordinal) low = middle + 1; else high = middle; }
     return low > 0 ? rows[low - 1]!.fluent : this.base?.fluentAt(key, Math.min(ordinal, this.baseOrdinal)) ?? null;
   }
-  /** For each event after the folded count, the step of foldStep: the state
-   * is copied once per call, each event is applied to the copy in place
-   * (applyStep), and the copy is frozen when the call ends. The source is this
-   * call's prefix, so a nested read of an earlier cut never changes a later
-   * step; during the call the state is the working copy at the folded count. */
+  /** For each event after the folded count, the step of foldStep applied in
+   * place (applyStep) to the owned state; nothing is copied. The source is
+   * this call's prefix and is set only when the call advances: a nested read
+   * of an earlier cut during a step returns before that assignment and reads
+   * the owned state at the folded count. A refused step leaves the state at
+   * the folded count. */
   advance(prefix: RuntimeEventPrefix): void {
     const count = runtimeEventPrefixExtent(prefix).count;
     if (this.effectCount >= count) return;
-    const working = workingFoldState(this.state, prefix);
-    this.state = working;
-    try {
-      for (let index = this.effectCount; index < count; index++) {
-        const event = runtimeEventAtPrefixIndex(prefix, index)!;
-        const dependencies = eventCalculusDependencies(prefix, event, this.priorEvents);
-        this.memoize(applyStep(working, event, dependencies), event, prefix);
-      }
-    } finally {
-      this.state = frozenFoldState(working);
+    this.state.source = prefix;
+    for (let index = this.effectCount; index < count; index++) {
+      const event = runtimeEventAtPrefixIndex(prefix, index)!;
+      const dependencies = eventCalculusDependencies(prefix, event, this.priorEvents);
+      this.memoize(applyStep(this.state, event, dependencies), event, prefix);
     }
   }
   private memoize(transition: FoldTransition, event: RuntimeEvent, prefix: RuntimeEventPrefix): void {
@@ -302,6 +300,11 @@ export function forkRuntimeEventCalculusAtForModuleTest(source: RuntimeEventPref
   const fork = eventCalculusDerivation(source).forkAt(cut);
   fork.advance(through);
   return fork.project(through);
+}
+/** @internal Module test: the fold state the derivation of `prefix` holds
+ * after advancing to it. No barrel re-exports it. */
+export function runtimeEventCalculusStateForModuleTest(prefix: RuntimeEventPrefix): FoldState {
+  return eventCalculusDerivation(prefix).state;
 }
 export function deriveRuntimeEventCalculusProjection(prefix: ValidatedRuntimeEventPrefix): RuntimeEventCalculusProjection;
 /** @internal Explicit complete projection; the private fold does not retain its output. */
