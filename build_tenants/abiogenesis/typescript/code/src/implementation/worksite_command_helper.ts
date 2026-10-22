@@ -41,6 +41,7 @@ import {
   WORKSITE_COMMAND_EXECUTION_IDS,
   constructWorksiteExecutionHelperArtifact,
   type WorksiteCommandExecutionWorkerResult,
+  type WorksiteCommandHelperFailure,
   type WorksiteCommandResult,
   type WorksiteObservedStream,
   type WorksitePredicateObservation,
@@ -59,6 +60,18 @@ import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson, isRecord } from "../shared/admit/index.js";
 
 let activeCommand: ReturnType<typeof spawn> | null = null;
+
+/** A failure after launch (D15). The message is the throw site's text; `main`
+ * publishes `subject` as the helper artifact's `failure` disposition. */
+class WorksiteHelperFailure extends TypeError {
+  constructor(
+    prefix: string,
+    detail: Readonly<Record<string, JsonValue>>,
+    readonly subject: Omit<WorksiteCommandHelperFailure, "attemptRef"> & { readonly attemptRef: string | null },
+  ) {
+    super(`${prefix}: ${canonicalJson(detail)}`);
+  }
+}
 
 type AuthorityFreeWorksiteCommandExecutionOccurrence = {
   readonly cCallRef: string;
@@ -764,11 +777,13 @@ async function runCommand(
   try {
     facts = await lifetime.completion;
     if (facts.firstError !== null) {
-      throw new TypeError(`worksite command failed; dependent work stopped: ${canonicalJson({
+      const detail = {
         taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, command,
         diagnostic: { name: facts.firstError.name, message: facts.firstError.message },
         processFacts: encodeOwnedProcessFacts(facts),
-      })}`);
+      };
+      throw new WorksiteHelperFailure("worksite command failed; dependent work stopped", detail,
+        { failureClass: "command_failed", ...detail });
     }
   } finally {
     timeoutTimer.cancel(); clearInterval(heartbeat); activeCommand = null; captureOpen = false;
@@ -801,11 +816,13 @@ async function runCommand(
     stderr: stream(observed.stderr),
   };
   if (!observed.terminationConfirmed) {
-    throw new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
+    const detail = {
       taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
       command: processObservation, diagnostic: decodeStream(processObservation.stderr),
       processFacts: encodeOwnedProcessFacts(facts),
-    })}`);
+    };
+    throw new WorksiteHelperFailure("worksite command cleanup unresolved; dependent work stopped", detail,
+      { failureClass: "command_cleanup_unresolved", ...detail, diagnostic: { name: "TypeError", message: detail.diagnostic } });
   }
   const reports = await Promise.all(command.expectedReports.map((row) =>
     reportObservation(executionRoot, command, row)
@@ -1126,11 +1143,13 @@ async function runHttpProbe(
     }
   }
   if (facts.firstError !== null) {
-    throw new TypeError(`worksite HTTP probe failed; dependent work stopped: ${canonicalJson({
+    const detail = {
       taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, request,
       diagnostic: { name: facts.firstError.name, message: facts.firstError.message },
       processFacts: encodeOwnedProcessFacts(facts),
-    })}`);
+    };
+    throw new WorksiteHelperFailure("worksite HTTP probe failed; dependent work stopped", detail,
+      { failureClass: "http_probe_failed", ...detail });
   }
   if (ownerError !== null) throw ownerError;
   const timedOut = launchExpired && portFileIssue === null;
@@ -1163,11 +1182,13 @@ async function runHttpProbe(
     },
   };
   if (!probe.process.terminationConfirmed) {
-    throw new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({
+    const detail = {
       taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
       observation: probe, diagnostic: decodeStream(probe.process.stderr),
       processFacts: encodeOwnedProcessFacts(facts),
-    })}`);
+    };
+    throw new WorksiteHelperFailure("worksite HTTP cleanup unresolved; dependent work stopped", detail,
+      { failureClass: "http_cleanup_unresolved", ...detail, diagnostic: { name: "TypeError", message: detail.diagnostic } });
   }
   return probe;
 }
@@ -1394,7 +1415,10 @@ async function main(): Promise<void> {
         });
       })();
   const inventoryBefore = await filesystemInventory(sandboxRoot);
-  if (beforeMatches) {
+  // A failure after launch is published as the artifact's `failure`
+  // disposition, then rethrown: the helper still exits non-zero.
+  let failed: WorksiteHelperFailure | null = null;
+  if (beforeMatches) try {
     for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {
       const command = await runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);
       if (!command.terminationConfirmed) {
@@ -1419,6 +1443,9 @@ async function main(): Promise<void> {
       }
       predicateObservations.push(observation);
     }
+  } catch (error) {
+    if (!(error instanceof WorksiteHelperFailure)) throw error;
+    failed = error;
   }
   const after = await observations(task);
   const inventoryAfter = await filesystemInventory(sandboxRoot);
@@ -1433,7 +1460,11 @@ async function main(): Promise<void> {
   ));
   const artifact = constructWorksiteExecutionHelperArtifact({
     task,
-    disposition: !beforeMatches || !afterMatches
+    // The adapters ran under this manifest's attempt; the subject names it.
+    ...(failed === null ? {} : { failure: { ...failed.subject, attemptRef: preflight.manifest.attemptRef } }),
+    disposition: failed !== null
+      ? "failure"
+      : !beforeMatches || !afterMatches
       ? "protected_mismatch"
       : productDelta.length > 0
       ? "product_mismatch"
@@ -1458,6 +1489,7 @@ async function main(): Promise<void> {
     artifactPath,
     "file",
   );
+  if (failed !== null) throw failed;
   const workerReturnProjection = Object.freeze({
     kind: "worksite_command_execution_worker_result" as const,
     schemaVersion: "5.0.0" as const,

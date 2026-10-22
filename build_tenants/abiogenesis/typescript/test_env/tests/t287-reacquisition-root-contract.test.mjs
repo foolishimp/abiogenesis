@@ -6,6 +6,7 @@ import * as gtl from '../../build/code/src/gtl/index.js';
 import * as product from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
 import {canonicalJson} from '../../build/code/src/shared/canonical_json.js';
+import {canonicalEquals} from '../../build/code/src/shared/value/index.js';
 import {isRecord} from '../../build/code/src/shared/admission_predicates.js';
 import {isRawAdmittedValue} from '../../build/code/src/validator/raw_admission.js';
 import {ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS as semantics} from '../../build/code/src/product/builtin_semantics.js';
@@ -18,10 +19,10 @@ function boundary(source){
  assert(start>=0&&end>start,'exact production boundary markers required');
  const body=source.slice(start,end);
  assert(body.includes('inputOwnerMatches.length !== 1')&&body.includes('isRawAdmittedValue(input.rawInput)'));
- return new Function('input','executionResolution','canonicalJson','sha256Canonical','isRawAdmittedValue','isRecord','refusal',body+'\nreturn null;');
+ return new Function('input','executionResolution','canonicalJson','sha256Canonical','isRawAdmittedValue','isRecord','refusal','canonicalEquals',body+'\nreturn null;');
 }
 const source=readFileSync(new URL('build/code/src/abg/invocation_admission.js',root),'utf8'),guard=boundary(source);
-const check=(f,fn=guard)=>fn(f.input,f.resolution,canonicalJson,hash,isRawAdmittedValue,isRecord,(code,message)=>({code,message}));
+const check=(f,fn=guard)=>fn(f.input,f.resolution,canonicalJson,hash,isRawAdmittedValue,isRecord,(code,message)=>({code,message}),canonicalEquals);
 const artifact={productId:product.ABI5_PRODUCT_ID,packageName:product.ABI5_PACKAGE_NAME,packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:hash('component artifact'),productContentDigest:hash('component content'),productManifestDigest:hash('component manifest')};
 const publication=gtl.constructWorksiteCommandExecutionModulePublication(artifact),ids=product.NATIVE_WORK_REACQUISITION_IDS;
 function fixture(pub,value={kind:'native_worksite_command_reacquisition_request'}){

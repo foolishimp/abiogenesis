@@ -367,6 +367,23 @@ export type WorksiteCommandExecutionProvenance = {
     }>;
     readonly helperPlan: WorksiteCommandExecutionHelperPlan;
 };
+/** A helper failure after launch, as its throw site encodes it (D15): the
+ * declared command or HTTP request, or the observed command or probe, and the
+ * owned process facts encoded once at that site. */
+export type WorksiteCommandHelperFailure = {
+    readonly failureClass: "command_failed" | "command_cleanup_unresolved" | "http_probe_failed" | "http_cleanup_unresolved";
+    readonly taskRef: string;
+    readonly taskDigest: Sha256Digest;
+    readonly attemptRef: string;
+    readonly command?: JsonValue;
+    readonly request?: JsonValue;
+    readonly observation?: JsonValue;
+    readonly diagnostic: Readonly<{
+        name: string;
+        message: string;
+    }>;
+    readonly processFacts: JsonValue;
+};
 export type WorksiteCommandHelperArtifact = {
     readonly kind: "worksite_command_helper_artifact";
     readonly schemaVersion: "5.0.0";
@@ -374,7 +391,9 @@ export type WorksiteCommandHelperArtifact = {
     readonly artifactDigest: Sha256Digest;
     readonly taskRef: string;
     readonly taskDigest: Sha256Digest;
-    readonly disposition: "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch";
+    readonly disposition: "failure" | "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch";
+    /** Present on the `failure` disposition only. */
+    readonly failure?: WorksiteCommandHelperFailure;
     readonly commandResults: readonly WorksiteCommandResult[];
     readonly predicateObservations: readonly WorksitePredicateObservation[];
     readonly worksiteDelta: readonly WorksitePathDelta[];
@@ -467,7 +486,9 @@ export declare function constructWorksiteCommandExecutionTask(input: WorksiteCom
 export declare function isWorksiteCommandExecutionTask(value: unknown): value is WorksiteCommandExecutionTask;
 export interface WorksiteExecutionHelperArtifactInput {
     task: WorksiteExecutionTask;
-    disposition: "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch";
+    disposition: "failure" | "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch";
+    /** The `failure` disposition's subject; absent on every other disposition. */
+    failure?: WorksiteCommandHelperFailure;
     commandResults: readonly WorksiteCommandResult[];
     predicateObservations: readonly WorksitePredicateObservation[];
     worksiteDelta: readonly WorksitePathDelta[];

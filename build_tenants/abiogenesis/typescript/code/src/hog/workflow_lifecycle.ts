@@ -1,4 +1,5 @@
 import * as Abg from "../abg/index.js";
+import { projectRuntimeFailureCandidate } from "../abg/runtime_failure.js";
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority, indexedRuntimeEventEnvelopes } from "../abg/event_prefix.js";
 import type {
   AbgEventStore,
@@ -723,7 +724,7 @@ export function completeOwnedWorkflowLocus(
       resultOutcome.successorPrefix,
       `workflow-outcome-${ordinal}`,
       "diagnostic://abiogenesis/hog/workflow-retry-outcome-invalid@5",
-      resultOutcome as unknown as JsonValue,
+      projectRuntimeFailureCandidate(resultOutcome),
     );
   }
   if (resultOutcome.disposition === "blocked") {
@@ -1071,7 +1072,7 @@ export function completeOwnedWorkflowLocus(
         admitted.transition.successorPrefix,
         `fan-out-route-${ordinal}`,
         "diagnostic://abiogenesis/hog/fan-out-advance-without-vector@5",
-        admitted as unknown as JsonValue,
+        projectRuntimeFailureCandidate(admitted),
       );
     }
     const nextCursor = applyAdmittedRoute(

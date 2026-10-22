@@ -18,6 +18,7 @@ import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 const descriptorBody = {
     implementationRef: WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,
     packageName: ABI5_PACKAGE_NAME,
@@ -115,8 +116,9 @@ function constructWorksiteCommandExecutionLaunchPlan(task, rawOccurrence) {
         launchManifestByteLength: bytes.byteLength,
     });
 }
-function failure(failureClass) {
-    const diagnosticRef = `diagnostic://abiogenesis/worksite/command-execution/${failureClass.replaceAll("_", "-")}@5`;
+/** The class reference, or for a helper failure after launch the admitted
+ * subject inline (D15; the §9.3 item 3 mechanism). */
+function failure(failureClass, diagnosticRef = `diagnostic://abiogenesis/worksite/command-execution/${failureClass.replaceAll("_", "-")}@5`) {
     return deepFreeze({
         kind: "leaf_realization_candidate",
         schemaVersion: "5.0.0",
@@ -535,6 +537,13 @@ export function realizeWorksiteCommandExecution(input, occurrence, prepareAssemb
             const canonicalHelperBytes = Buffer.from(`${canonicalJson(helperValue)}\n`, "utf8");
             if (!helperBytes.equals(canonicalHelperBytes)) {
                 return failure("helper_artifact_contract_failure");
+            }
+            if (helperValue.disposition === "failure") {
+                const subject = admitJson(helperValue.failure);
+                if (subject.kind !== "ok" || helperValue.failure?.attemptRef !== helperPlan.attemptRef) {
+                    return failure("helper_artifact_contract_failure");
+                }
+                return failure("helper_failure", constructRuntimeFailureDiagnosticRef(subject.value));
             }
             if (helperValue.disposition !== "success") {
                 return failure(`helper_${helperValue.disposition}`);

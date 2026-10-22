@@ -74,6 +74,18 @@ test('missing reordered duplicate changed or crossed retained members refuse at 
   }
 });
 
+test('a sparse retained bindingCoverEventRefs throws at the real Product constructor; the dense control constructs',()=>{
+  const task=carrierTask();
+  const input=t=>({request:t.request,originalTask:t.originalTask,snapshotSources:t.snapshotSources,bindingCoverEventRefs:t.bindingCoverEventRefs});
+  const dense=p.constructWorksiteCommandForwardTask(input(structuredClone(task)));
+  assert.equal(dense.taskDigest,task.taskDigest);assert.equal(p.isWorksiteCommandForwardTask(dense),true);
+  const sparse=structuredClone(task);
+  sparse.snapshotSources[0].source.bindingCoverEventRefs=Array(sparse.bindingCoverEventRefs.length);
+  assert.equal(0 in sparse.snapshotSources[0].source.bindingCoverEventRefs,false);
+  assert.equal(p.isWorksiteCommandForwardTask(sparse),false);
+  assert.throws(()=>p.constructWorksiteCommandForwardTask(input(sparse)),TypeError);
+});
+
 test('real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm',()=>{
   const task=carrierTask(),row=observationFor(task,1),contracts=semantics.resolveProbabilisticWorkerContracts({
     inputContractRef:F.taskContractRef,outputContractRef:F.observationContractRef,input:task});

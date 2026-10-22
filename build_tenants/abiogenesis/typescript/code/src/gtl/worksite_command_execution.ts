@@ -34,9 +34,9 @@ import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 // packaged source, not an ambient method installation or a second policy text.
 // The generator verifies these exact member/span coordinates before publication.
 const commandSourceMember = { path: "build/code/src/product/worksite_command_execution.js", type: "file" as const,
-  digest: "sha256:519bb6c5e7261e825780bbfab8ba77ed85cc27cb0e030fd74c86fb9836b33306" as const, target: null };
+  digest: "sha256:84555f3ffd8af184f2a48d7b2b9a8e54643fa13e98f2c30ed1e842a6da40fdba" as const, target: null };
 const commandSource = { memberRef: "source-member://abiogenesis/worksite/command-execution/renderer@5",
-  path: commandSourceMember.path, byteCount: 111262, digest: commandSourceMember.digest };
+  path: commandSourceMember.path, byteCount: 113382, digest: commandSourceMember.digest };
 const commandContextRef = "context://abiogenesis/worksite/command-execution/renderer@5";
 const commandSourceBasisRef = "source://abiogenesis/worksite/command-execution/renderer@5/";
 const commandPolicy = renderWorksiteCommandExecutionPrompt.toString();
@@ -58,7 +58,7 @@ const commandEnvironment = constructRunEnvironmentDeclaration({ kind: "run_envir
     accessRefs: [], contextPolicy: { policyRef: "policy://abiogenesis/worksite/command-execution/context@5",
       selectors: ["current_worksite", "admitted_execution_evidence"] },
     sourceBindings: [{ contextRef: commandContextRef, memberRef: commandSource.memberRef, memberDigest: commandSource.digest,
-      startByte: 101301, endByte: 103609, spanDigest: "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345" }] }],
+      startByte: 103421, endByte: 105729, spanDigest: "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345" }] }],
 });
 
 function contract(

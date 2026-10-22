@@ -16,10 +16,21 @@ import {
   holdsAt,
 } from "./event_calculus.js";
 import {
+  indexedRuntimeEventEnvelopes,
   indexedRuntimeEvents,
+  runtimeEventPrefixDigest,
+  runtimeEventPrefixExtent,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
+import type {
+  OwnedBlockedCCallOutcomeReceipt,
+  OwnedCCallCompletionResult,
+  OwnedJudgedCCallOutcomeReceipt,
+  OwnedResultCCallOutcomeReceipt,
+  OwnedRetryCCallOutcomeReceipt,
+} from "./c_call_outcome.js";
+import { admitJson } from "../shared/admit/index.js";
 import {
   AbgEventStore,
   admitRuntimeEvent,
@@ -105,6 +116,47 @@ function retainedDiagnosticSubject(diagnosticRef: string, subjectDigest: Sha256D
     throw new TypeError("runtime failure diagnostic does not match its retained subject digest");
   }
   return subject;
+}
+
+type OwnedOutcomeReceipt =
+  | OwnedResultCCallOutcomeReceipt
+  | OwnedJudgedCCallOutcomeReceipt
+  | OwnedRetryCCallOutcomeReceipt
+  | OwnedBlockedCCallOutcomeReceipt;
+
+/** @internal D14: the JSON subject of a lifecycle failure candidate (an outcome
+ * receipt, or a C-call completion admission or refusal). Every member is kept
+ * except an outcome receipt's owned runtime prefix, which becomes that receipt's
+ * own cut: its full durable coordinate, the Run its selection holds (the
+ * selection's `run_segment_opened`, as the replay owner reads it), and the
+ * selected-event digest, count and last ordinal. A receipt carried inside a
+ * later transition keeps its own earlier cut. A value that is still not JSON is
+ * the owner's fault. Nothing is retained by this projection. */
+export function projectRuntimeFailureCandidate(
+  value: OwnedCCallCompletionResult | OwnedOutcomeReceipt,
+): JsonValue {
+  const receipt = (outcome: OwnedOutcomeReceipt) => {
+    const prefix = outcome.runtimePrefix, extent = runtimeEventPrefixExtent(prefix);
+    return {
+      ...outcome,
+      runtimePrefix: {
+        kind: "runtime_prefix_selection" as const,
+        coordinate: outcome.successorPrefix,
+        runId: indexedRuntimeEventEnvelopes(prefix, "kind:run_segment_opened")[0]?.runId ?? null,
+        eventStoreDigest: runtimeEventPrefixDigest(prefix),
+        eventCount: extent.count,
+        lastAdmissionOrdinal: extent.lastOrdinal,
+      },
+    };
+  };
+  const projected = value.kind === "admitted_c_call_outcome" ? receipt(value)
+    : value.kind === "c_call_completion_admission" ? { ...value, outcome: receipt(value.outcome) }
+    : value;
+  const admitted = admitJson(projected);
+  if (admitted.kind !== "ok") {
+    throw new TypeError(`lifecycle failure subject is not JSON after projection: ${admitted.code} at ${admitted.path.join(".")}`);
+  }
+  return admitted.value;
 }
 
 /** Diagnostic prose is evidence only; the admitted event owns failed truth. */
