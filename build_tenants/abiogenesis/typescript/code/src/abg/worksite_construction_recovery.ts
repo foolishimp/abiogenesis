@@ -31,6 +31,9 @@ import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js"
 import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { onlyExactMatch, resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { hasExactKeys } from "../shared/admit/index.js";
+import { classifyOwnedProcessTerminal, type OwnedProcessFacts } from "../shared/process/index.js";
+import { constructRuntimeFluentPattern, deriveRuntimeHeldFluentProjection, holdsAt } from "./event_calculus.js";
 
 export interface WorksitePreservedResultNativeBasis {
   readonly publication: Readonly<ModulePublication>;
@@ -47,6 +50,24 @@ function record(value: unknown): value is Readonly<Record<string, JsonValue>> {
 }
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
+/** The lifecycle fluent at the prefix in hand, not a recorded copy (D5). */
+function actorProcessTerminated(prefix: RuntimeEventPrefix, processRef: string): boolean {
+  return processRef.length !== 0 && holdsAt(deriveRuntimeHeldFluentProjection(prefix),
+    constructRuntimeFluentPattern({ name: "actor_process_terminated", identity: processRef })).length !== 0;
+}
+const PROCESS_FACT_MEMBERS = Object.freeze(["cleanupDeadlineNs", "cleanupElapsedMs", "closeObserved", "directExit",
+  "drainExpired", "firstError", "launchFailure", "noChildEstablished", "probeCount", "scopeAbsence", "scopeKind",
+  "signalAttempts", "streamsDisposed"]);
+/** The digest-bound transport artifact's encoded facts report its exit. The
+ * encoding keeps every member the classifier reads under its own name and
+ * value domain, so the shared classifier reads the encoded facts directly. */
+function transportProcessFactsMatchExit(transport: Readonly<Record<string, JsonValue>>): boolean {
+  const facts = transport.processFacts;
+  return record(facts) && hasExactKeys(facts, PROCESS_FACT_MEMBERS) &&
+    record(facts.directExit) && hasExactKeys(facts.directExit, ["signal", "status"]) &&
+    classifyOwnedProcessTerminal(facts as unknown as OwnedProcessFacts) === "exited" &&
+    facts.directExit.status === transport.status && facts.directExit.signal === transport.signal;
+}
 function materialized(execution: ExecutionBasis, graphFunction: GraphFunction) {
   if (graphFunction.name !== execution.graphFunctionRef || hash(graphFunction) !== execution.graphFunctionDigest) return null;
   const graph = materializeGraph(graphFunction, { invocationAdmissionRef: execution.invocationAdmissionRef,
@@ -225,7 +246,7 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
     const pair = validateActorProcessCarrierPair(request, observation);
     if (pair.kind !== "actor_process_carrier_validation" || pair.observation.disposition !== "failure" || pair.observation.failureClass !== "no_output" ||
       pair.observation.finalOutput !== "" || pair.observation.processStatus !== 0 || pair.observation.processSignal !== null ||
-      pair.observation.timedOut || !pair.observation.terminationConfirmed || !pair.observation.exitObserved || pair.observation.toolCallCount !== 0 ||
+      pair.observation.timedOut || !actorProcessTerminated(prefix, pair.observation.processRef) || !pair.observation.exitObserved || pair.observation.toolCallCount !== 0 ||
       pair.observation.toolInvocations.length !== 0 || b.lane !== "closed_prompt_proof" || b.parser !== "claude_stream_json" ||
       b.implementationBindingRef !== old.cCall.implementationBindingRef || b.implementationRef !== old.cCall.implementationRef ||
       b.inputDigest !== hash(task) || b.promptDigest !== hash(task.prompt) || b.responseJsonSchemaDigest !== hash(request.responseJsonSchema) ||
@@ -259,7 +280,8 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
       artifacts.stdout.length !== pair.observation.stdoutByteLength || artifacts.stderr.length !== pair.observation.stderrByteLength ||
       transport.stdout !== artifacts.stdout.toString("utf8") || transport.stderr !== artifacts.stderr.toString("utf8") || transport.finalOutput !== "" ||
       transport.disposition !== "failure" || transport.failureClass !== "no_output" || transport.status !== 0 || transport.signal !== null ||
-      transport.toolCallCount !== 0 || !canonicalEquals(transport.toolInvocations as JsonValue, []) || transport.timedOut !== false || transport.exitObserved !== true || transport.terminationConfirmed !== true) return null;
+      transport.toolCallCount !== 0 || !canonicalEquals(transport.toolInvocations as JsonValue, []) || transport.timedOut !== false || transport.exitObserved !== true ||
+      !actorProcessTerminated(prefix, pair.observation.processRef) || !transportProcessFactsMatchExit(transport)) return null;
     const chunks = events.filter(e => e.kind === "actor_process_stdout_observed" || e.kind === "actor_process_stderr_observed")
       .filter(e => record(e.payload) && e.payload.actorInvocationRef === source.actorInvocationRef);
     let stdoutOffset = 0, stderrOffset = 0;

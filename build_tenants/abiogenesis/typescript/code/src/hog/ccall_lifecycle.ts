@@ -64,6 +64,7 @@ import {
   type TraversalCursor,
 } from "./traversal.js";
 import { failTraversal } from "./traversal_failure.js";
+import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 import {
   projectOwnedExecutableTraversalCompletion as projectExecutableTraversalCompletion,
   type ExecutableTraversalCompletion,
@@ -221,6 +222,20 @@ function failCCall(
     diagnosticRef,
     candidate,
   });
+}
+
+/** The C-call failure branch of an actor refusal (design §9.3 item 3). The
+ * reference encodes the exact subject failTraversal admits, { stage, candidate },
+ * from the same values failCCall passes on, so admission retains the refusal,
+ * its processFacts included, inline. */
+function failActorProcessEffect(
+  input: ExecutableCCallContext,
+  refusal: Readonly<Abg.ActorProcessEffectRefusal>,
+): never {
+  const stage = `leaf-effect-${input.ordinal}`;
+  const candidate = refusal as unknown as JsonValue;
+  return failCCall(input, refusal.successorPrefix, stage,
+    constructRuntimeFailureDiagnosticRef({ stage, candidate }), candidate);
 }
 
 function projectBlockedCCallCompletion(
@@ -539,13 +554,7 @@ export function evaluateOwnedExecutableCCall(
           basis: admissionBasis(input.clock, "actor-process"),
         }));
       if (effectResult.kind === "actor_process_effect_refusal") {
-        return failCCall(
-          input,
-          effectResult.successorPrefix,
-          `leaf-effect-${input.ordinal}`,
-          effectResult.diagnosticRef,
-          effectResult as unknown as JsonValue,
-        );
+        return failActorProcessEffect(input, effectResult);
       }
       const effectReceipt = effectResult;
       try {

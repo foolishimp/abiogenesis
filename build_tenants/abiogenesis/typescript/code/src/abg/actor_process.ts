@@ -23,6 +23,7 @@ import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
 import type { OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
+import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { isNonBlankRef } from "../shared/references.js";
 import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import type { CCall } from "./c_call.js";
@@ -180,6 +181,8 @@ export interface ActorProcessEffectRefusal {
   readonly message: string;
   readonly predecessorPrefix: DurablePrefixCoordinate;
   readonly successorPrefix: DurablePrefixCoordinate;
+  /** The encoded final facts handed back by the transport, or null before them. */
+  readonly processFacts: JsonValue | null;
 }
 
 export type ActorProcessEffectResult =
@@ -191,6 +194,7 @@ function refuseActorProcessEffect(
   message: string,
   predecessorPrefix: DurablePrefixCoordinate,
   successorPrefix: DurablePrefixCoordinate,
+  processFacts: JsonValue | null,
 ): Readonly<ActorProcessEffectRefusal> {
   return deepFreeze({
     kind: "actor_process_effect_refusal" as const,
@@ -201,6 +205,7 @@ function refuseActorProcessEffect(
     message,
     predecessorPrefix,
     successorPrefix,
+    processFacts,
   });
 }
 
@@ -740,7 +745,7 @@ export function prepareActorProcessInvocation(
     },
     async invokeActorProcess(input: ActorProcessInvocationInput): Promise<Readonly<ActorProcessEffectResult>> {
       if (assembly === null) return refuseActorProcessEffect("actor_process_invocation_refused",
-        "native assembly preparation did not complete", input.predecessorPrefix, input.predecessorPrefix);
+        "native assembly preparation did not complete", input.predecessorPrefix, input.predecessorPrefix, null);
       const basis = semanticStageBasis ?? nativeInstructionAssemblyBasis;
       if (input.occurrence.semanticStageBasis !== semanticStageBasis ||
         input.occurrence.nativeInstructionAssemblyBasis !== nativeInstructionAssemblyBasis ||
@@ -751,7 +756,7 @@ export function prepareActorProcessInvocation(
           input.cCall.cCallDigest !== basis.cCall.cCallDigest)) ||
         (Object.keys(coordinates) as (keyof typeof coordinates)[]).some(key => input.occurrence[key] !== coordinates[key]))
         return refuseActorProcessEffect("actor_process_invocation_refused",
-          "prepared native assembly crosses actor coordinates", input.predecessorPrefix, input.predecessorPrefix);
+          "prepared native assembly crosses actor coordinates", input.predecessorPrefix, input.predecessorPrefix, null);
       return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined, contractByRef);
     },
   });
@@ -771,6 +776,11 @@ async function invokeActorProcessWithAssembly(
 ): Promise<Readonly<ActorProcessEffectResult>> {
   const predecessorPrefix = input.predecessorPrefix;
   let successorPrefix = predecessorPrefix;
+  // The final facts handed back by the transport, retained for every refusal
+  // after finalization, including the outer catch below.
+  let finalProcessFacts: OwnedProcessFacts | null = null;
+  const encodedFinalProcessFacts = (): JsonValue | null =>
+    finalProcessFacts === null ? null : encodeOwnedProcessFacts(finalProcessFacts);
   try {
   if (
     input.request.implementationRef !== input.cCall.implementationRef ||
@@ -999,7 +1009,6 @@ async function invokeActorProcessWithAssembly(
   const stdoutEventRefs: string[] = [];
   const stderrEventRefs: string[] = [];
   let processStarted = false;
-  let finalProcessFacts: OwnedProcessFacts | null = null;
   let processTerminalEvent: ReturnType<typeof append> | null = null;
   let admittedArtifact: ReturnType<typeof append> | null = null;
   let actorTerminalAdmitted = false;
@@ -1111,8 +1120,7 @@ async function invokeActorProcessWithAssembly(
 
   const admitTransportArtifact = (transport: WorkerTransportResult) => {
     if (admittedArtifact !== null) throw new TypeError("actor result artifact was already admitted");
-    if (finalProcessFacts === null || finalProcessFacts.scopeAbsence !== "absent" ||
-        (finalProcessFacts.directExit === null && !finalProcessFacts.noChildEstablished)) {
+    if (finalProcessFacts === null || classifyOwnedProcessTerminal(finalProcessFacts) === "unconfirmed") {
       throw new TypeError("actor result artifact lacks final confirmed physical facts");
     }
     const observedOutputDigest = outputDigest(transport.finalOutput);
@@ -1312,16 +1320,17 @@ async function invokeActorProcessWithAssembly(
         }
         // Keep the canonical facts even if their semantic admission fails.
         finalProcessFacts = facts;
-        if (facts.scopeAbsence === "absent" && facts.noChildEstablished && facts.launchFailure !== null) {
+        const terminal = classifyOwnedProcessTerminal(facts);
+        if (terminal === "spawn_failed") {
           if (processStarted) throw new TypeError("no-child launch failure cannot follow admitted process start");
           processTerminalEvent = append(
             "actor_process_spawn_failed", "process", processRef, actorInvocationRef,
-            { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(facts.launchFailure.message) },
+            { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(facts.launchFailure!.message) },
           );
-        } else if (facts.scopeAbsence === "absent" && facts.directExit !== null && processStarted) {
+        } else if (terminal === "exited" && processStarted) {
           processTerminalEvent = append(
             "actor_process_exited", "process", processRef, actorInvocationRef,
-            { actorInvocationRef, processRef, status: facts.directExit.status, signal: facts.directExit.signal },
+            { actorInvocationRef, processRef, status: facts.directExit!.status, signal: facts.directExit!.signal },
           );
         } else if (processStarted) {
           append("actor_process_termination_unconfirmed", "process", processRef,
@@ -1367,6 +1376,7 @@ async function invokeActorProcessWithAssembly(
         exchange.message,
         predecessorPrefix,
         successorPrefix,
+        encodedFinalProcessFacts(),
       );
     }
     return deepFreeze({
@@ -1409,6 +1419,7 @@ async function invokeActorProcessWithAssembly(
       error instanceof Error ? error.message : String(error),
       predecessorPrefix,
       successorPrefix,
+      encodedFinalProcessFacts(),
     );
   }
 }

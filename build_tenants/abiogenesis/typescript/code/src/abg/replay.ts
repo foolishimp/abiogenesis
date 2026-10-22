@@ -26,6 +26,7 @@ import {
 } from "../product/worksite_effect.js";
 import {
   constructRuntimeFluent,
+  constructRuntimeFluentPattern,
   constructRunActiveFluent,
   constructRunClosedFluent,
   constructRunTerminalFluent,
@@ -358,6 +359,7 @@ const RUN_QUIESCENCE_ALLOWED_HISTORICAL_FLUENTS = new Set([
   "runtime_activity_recent",
   "runtime_failure",
   "terminal_admitted",
+  "terminationConfirmed_copy_disagrees",
 ]);
 
 const RUN_QUIESCENCE_RUN_INDEPENDENT_FLUENTS = new Set([
@@ -2421,6 +2423,9 @@ function projectRuntimeActorProcessFields(prefix: RuntimeEventPrefix,actorInvoca
       const exitStatus = processExited === undefined || !isRecord(processExited.payload)
         ? null
         : processExited.payload.status;
+      const processRef = processStarted === undefined
+        ? actorRows.find((event) => event.aggregateType === "process")?.aggregateId ?? null
+        : stringField(processStarted, "processRef");
       return {
         actorInvocationRef,
         actorRef: opened === undefined ? null : stringField(opened, "actorRef"),
@@ -2430,9 +2435,7 @@ function projectRuntimeActorProcessFields(prefix: RuntimeEventPrefix,actorInvoca
         transportBindingDigest: opened === undefined
           ? null
           : stringField(opened, "transportBindingDigest") as Sha256Digest | null,
-        processRef: processStarted === undefined
-          ? actorRows.find((event) => event.aggregateType === "process")?.aggregateId ?? null
-          : stringField(processStarted, "processRef"),
+        processRef,
         streamEventRefs: actorRows
           .filter((event) =>
             event.kind === "actor_process_stdout_observed" ||
@@ -2450,7 +2453,9 @@ function projectRuntimeActorProcessFields(prefix: RuntimeEventPrefix,actorInvoca
           .filter((value): value is string => value !== null),
         exitStatus: Number.isSafeInteger(exitStatus) ? exitStatus as number : null,
         exitSignal: processExited === undefined ? null : stringField(processExited, "signal"),
-        terminationConfirmed: processExited !== undefined,
+        // The lifecycle fluent, not the presence of a process exit.
+        terminationConfirmed: processRef !== null && processRef.length !== 0 && holdsAt(deriveRuntimeHeldFluentProjection(prefix),
+          constructRuntimeFluentPattern({ name: "actor_process_terminated", identity: processRef })).length !== 0,
         transportDigest: artifact === undefined
           ? null
           : stringField(artifact, "transportDigest") as Sha256Digest | null,

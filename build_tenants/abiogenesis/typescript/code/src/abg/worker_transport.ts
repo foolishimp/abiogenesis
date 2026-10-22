@@ -12,6 +12,7 @@ import {
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
+import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts, hasConfirmedOwnedProcessBoundary } from "../shared/process/index.js";
 import type { RuntimeLivenessObserverProjection } from "./runtime_liveness_contracts.js";
 import {
   classifyWorkerTransportFailure,
@@ -103,6 +104,8 @@ export interface WorkerTransportResult {
   readonly stdout: string;
   readonly stderr: string;
   readonly finalOutput: string;
+  /** The encoded final facts, referenced evidence bound by the transport digest. */
+  readonly processFacts: JsonValue;
   readonly artifacts: Readonly<{
     output: WorkerTransportArtifact;
     prompt: WorkerTransportArtifact;
@@ -459,7 +462,7 @@ async function runProcess(input: {
       facts, ...finalization,
       status: facts.directExit?.status ?? null, signal: facts.directExit?.signal ?? null,
       timedOut, timeoutClass, exitObserved: facts.directExit !== null,
-      terminationConfirmed: facts.scopeAbsence === "absent" && facts.directExit !== null,
+      terminationConfirmed: hasConfirmedOwnedProcessBoundary(facts),
       launchError: facts.launchFailure?.message ?? launchError,
       resultBearingStdout: resultBearingStdout ?? stdout, stdout, stderr,
     };
@@ -549,8 +552,7 @@ async function executeWorkerTransport(
   });
   const failed = processObservation.facts.firstError !== null || Object.hasOwn(processObservation, "finalizationError");
   const firstError = processObservation.facts.firstError ?? processObservation.finalizationError;
-  if (processObservation.facts.scopeAbsence !== "absent" ||
-      (processObservation.facts.directExit === null && !processObservation.facts.noChildEstablished)) {
+  if (classifyOwnedProcessTerminal(processObservation.facts) === "unconfirmed") {
     if (failed) throw firstError;
     throw new TypeError("worker owned process scope remains unconfirmed");
   }
@@ -638,6 +640,7 @@ async function executeWorkerTransport(
       stdout: processObservation.stdout,
       stderr: processObservation.stderr,
       finalOutput,
+      processFacts: encodeOwnedProcessFacts(processObservation.facts),
       artifacts: {
         prompt: artifact(paths.prompt, promptBytes),
         output: artifact(paths.output, outputBytes),

@@ -15,6 +15,7 @@ import { isSha256Digest, sha256Canonical, } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { isNonBlankRef } from "../shared/references.js";
 import { hasAdmittedWorkspaceBinding } from "./environment_admission.js";
 import { admitNonEmptyRuntimeEventTransactionAtDurablePrefix, assertHeldEventStoreAtDurablePrefix, admitRuntimeEvent, ROOT_EVENT_CONTRACT_DIGEST, } from "./event_store.js";
@@ -29,7 +30,7 @@ import { canonicalEquals } from "../shared/value/index.js";
 const PROCESS_TIMEOUT_MS = 60_000;
 const PROCESS_ABSOLUTE_TIMEOUT_MS = 3_600_000;
 const PROCESS_TERMINATION_GRACE_MS = 1_000;
-function refuseActorProcessEffect(code, message, predecessorPrefix, successorPrefix) {
+function refuseActorProcessEffect(code, message, predecessorPrefix, successorPrefix, processFacts) {
     return deepFreeze({
         kind: "actor_process_effect_refusal",
         schemaVersion: "5.0.0",
@@ -39,6 +40,7 @@ function refuseActorProcessEffect(code, message, predecessorPrefix, successorPre
         message,
         predecessorPrefix,
         successorPrefix,
+        processFacts,
     });
 }
 const ACTOR_PROCESS_REQUEST_FIELDS = Object.freeze([
@@ -416,7 +418,7 @@ export function prepareActorProcessInvocation(value, occurrence, contractByRef) 
         },
         async invokeActorProcess(input) {
             if (assembly === null)
-                return refuseActorProcessEffect("actor_process_invocation_refused", "native assembly preparation did not complete", input.predecessorPrefix, input.predecessorPrefix);
+                return refuseActorProcessEffect("actor_process_invocation_refused", "native assembly preparation did not complete", input.predecessorPrefix, input.predecessorPrefix, null);
             const basis = semanticStageBasis ?? nativeInstructionAssemblyBasis;
             if (input.occurrence.semanticStageBasis !== semanticStageBasis ||
                 input.occurrence.nativeInstructionAssemblyBasis !== nativeInstructionAssemblyBasis ||
@@ -425,7 +427,7 @@ export function prepareActorProcessInvocation(value, occurrence, contractByRef) 
                     input.executionBasis.basisDigest !== basis.executionBasis.basisDigest ||
                     input.cCall.cCallDigest !== basis.cCall.cCallDigest)) ||
                 Object.keys(coordinates).some(key => input.occurrence[key] !== coordinates[key]))
-                return refuseActorProcessEffect("actor_process_invocation_refused", "prepared native assembly crosses actor coordinates", input.predecessorPrefix, input.predecessorPrefix);
+                return refuseActorProcessEffect("actor_process_invocation_refused", "prepared native assembly crosses actor coordinates", input.predecessorPrefix, input.predecessorPrefix, null);
             return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined, contractByRef);
         },
     });
@@ -437,6 +439,10 @@ export async function invokeActorProcess(input) {
 async function invokeActorProcessWithAssembly(input, preparedAssembly, contractByRef) {
     const predecessorPrefix = input.predecessorPrefix;
     let successorPrefix = predecessorPrefix;
+    // The final facts handed back by the transport, retained for every refusal
+    // after finalization, including the outer catch below.
+    let finalProcessFacts = null;
+    const encodedFinalProcessFacts = () => finalProcessFacts === null ? null : encodeOwnedProcessFacts(finalProcessFacts);
     try {
         if (input.request.implementationRef !== input.cCall.implementationRef ||
             input.request.inputDigest !== input.expectedInputDigest ||
@@ -633,7 +639,6 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
         const stdoutEventRefs = [];
         const stderrEventRefs = [];
         let processStarted = false;
-        let finalProcessFacts = null;
         let processTerminalEvent = null;
         let admittedArtifact = null;
         let actorTerminalAdmitted = false;
@@ -753,8 +758,7 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
         const admitTransportArtifact = (transport) => {
             if (admittedArtifact !== null)
                 throw new TypeError("actor result artifact was already admitted");
-            if (finalProcessFacts === null || finalProcessFacts.scopeAbsence !== "absent" ||
-                (finalProcessFacts.directExit === null && !finalProcessFacts.noChildEstablished)) {
+            if (finalProcessFacts === null || classifyOwnedProcessTerminal(finalProcessFacts) === "unconfirmed") {
                 throw new TypeError("actor result artifact lacks final confirmed physical facts");
             }
             const observedOutputDigest = outputDigest(transport.finalOutput);
@@ -916,12 +920,13 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
                     }
                     // Keep the canonical facts even if their semantic admission fails.
                     finalProcessFacts = facts;
-                    if (facts.scopeAbsence === "absent" && facts.noChildEstablished && facts.launchFailure !== null) {
+                    const terminal = classifyOwnedProcessTerminal(facts);
+                    if (terminal === "spawn_failed") {
                         if (processStarted)
                             throw new TypeError("no-child launch failure cannot follow admitted process start");
                         processTerminalEvent = append("actor_process_spawn_failed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(facts.launchFailure.message) });
                     }
-                    else if (facts.scopeAbsence === "absent" && facts.directExit !== null && processStarted) {
+                    else if (terminal === "exited" && processStarted) {
                         processTerminalEvent = append("actor_process_exited", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, status: facts.directExit.status, signal: facts.directExit.signal });
                     }
                     else if (processStarted) {
@@ -957,7 +962,7 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
             }
             const exchange = validateActorProcessCarrierPair(input.request, observation);
             if (exchange.kind !== "actor_process_carrier_validation") {
-                return refuseActorProcessEffect("actor_process_carrier_refused", exchange.message, predecessorPrefix, successorPrefix);
+                return refuseActorProcessEffect("actor_process_carrier_refused", exchange.message, predecessorPrefix, successorPrefix, encodedFinalProcessFacts());
             }
             return deepFreeze({
                 kind: "actor_process_effect_receipt",
@@ -989,6 +994,6 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
         }
     }
     catch (error) {
-        return refuseActorProcessEffect("actor_process_invocation_refused", error instanceof Error ? error.message : String(error), predecessorPrefix, successorPrefix);
+        return refuseActorProcessEffect("actor_process_invocation_refused", error instanceof Error ? error.message : String(error), predecessorPrefix, successorPrefix, encodedFinalProcessFacts());
     }
 }

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
+import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
@@ -57,6 +58,9 @@ import {
 import { canonicalEquals } from "../shared/value/index.js";
 
 let activeCommand: ReturnType<typeof spawn> | null = null;
+// The final facts of each command result, carried in memory beside the
+// observation object for its cleanup diagnostic; never a result.json member.
+const commandProcessFacts = new WeakMap<WorksiteCommandResult, OwnedProcessFacts>();
 
 interface AuthorityFreeWorksiteCommandExecutionOccurrence {
   readonly cCallRef: string;
@@ -765,11 +769,13 @@ async function runCommand(
     timeoutTimer.cancel(); clearInterval(heartbeat); activeCommand = null; captureOpen = false;
     child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
   }
-  if (facts.scopeAbsence !== "absent") stderr.push(unconfirmedScopeDiagnostic(facts));
+  // A spawn failure has no child to clean up; an exit needs a confirmed boundary.
+  const terminal = classifyOwnedProcessTerminal(facts);
+  if (terminal === "unconfirmed") stderr.push(unconfirmedScopeDiagnostic(facts));
   const observed = {
     status: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
     signal: facts.directExit?.signal ?? null, timedOut,
-    signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: facts.scopeAbsence === "absent",
+    signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== "unconfirmed",
     stdout: Buffer.concat(stdout), stderr: Buffer.concat(stderr),
   };
   const processObservation = {
@@ -793,6 +799,7 @@ async function runCommand(
     throw new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
       taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
       command: processObservation, diagnostic: decodeStream(processObservation.stderr),
+      processFacts: encodeOwnedProcessFacts(facts),
     } as unknown as JsonValue)}`);
   }
   const reports = await Promise.all(command.expectedReports.map((row) =>
@@ -804,13 +811,15 @@ async function runCommand(
     reportCount: reports.filter((row) => row.state === "file").length,
   };
   const observationDigest = sha256Canonical(body as unknown as JsonValue);
-  return Object.freeze({
+  const result = Object.freeze({
     kind: "worksite_command_result" as const,
     schemaVersion: "5.0.0" as const,
     ...body,
     observationRef: `worksite-command-observation://abiogenesis/${observationDigest.slice("sha256:".length)}`,
     observationDigest,
   });
+  commandProcessFacts.set(result, facts);
+  return result;
 }
 
 function decodeStream(value: WorksiteObservedStream): string {
@@ -1114,7 +1123,8 @@ async function runHttpProbe(
   if (facts.firstError !== null) throw facts.firstError;
   if (ownerError !== null) throw ownerError;
   const timedOut = launchExpired && portFileIssue === null;
-  if (facts.scopeAbsence !== "absent") stderr.push(unconfirmedScopeDiagnostic(facts));
+  const terminal = classifyOwnedProcessTerminal(facts);
+  if (terminal === "unconfirmed") stderr.push(unconfirmedScopeDiagnostic(facts));
   return {
     request: requestInput,
     portFile: {
@@ -1136,7 +1146,7 @@ async function runHttpProbe(
       processSignal: facts.directExit?.signal ?? null,
       timedOut,
       signalSequence,
-      terminationConfirmed: facts.scopeAbsence === "absent",
+      terminationConfirmed: terminal !== "unconfirmed",
       stdout: stream(Buffer.concat(stdout)),
       stderr: stream(Buffer.concat(stderr)),
     },
@@ -1368,9 +1378,11 @@ async function main(): Promise<void> {
     for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {
       const command = await runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);
       if (!command.terminationConfirmed) {
+        const facts = commandProcessFacts.get(command);
         throw new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
           taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
           command, diagnostic: decodeStream(command.stderr),
+          processFacts: facts === undefined ? null : encodeOwnedProcessFacts(facts),
         } as unknown as JsonValue)}`);
       }
       commandResults.push(command);

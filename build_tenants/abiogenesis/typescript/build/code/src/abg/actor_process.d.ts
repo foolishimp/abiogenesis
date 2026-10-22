@@ -108,6 +108,8 @@ export interface ActorProcessEffectRefusal {
     readonly message: string;
     readonly predecessorPrefix: DurablePrefixCoordinate;
     readonly successorPrefix: DurablePrefixCoordinate;
+    /** The encoded final facts handed back by the transport, or null before them. */
+    readonly processFacts: JsonValue | null;
 }
 export type ActorProcessEffectResult = ActorProcessEffectReceipt | ActorProcessEffectRefusal;
 /**

@@ -337,3 +337,213 @@ re-find every anchor by name before editing. Available atoms: `isRecord`,
 the copy check). Read the step 6 `## Return` section of `step-6.md` for the
 module cut and the rule's shape before touching `abg/calculus/rules.ts`;
 read nothing else of that file.
+
+## Return
+
+- commit: the commit carrying this Return (first line `Step 7: process facts into L; refusal carrier; D5 fold-time copy check`, parent `c6ff45521`); its hash is in the final report.
+- design lines changed: 16. `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` (post-edit lines): 213 (item 1, "three pure functions"), 218, 219, 220 (item 1, classifier signature and its two comment lines), 230 (item 1, the §4.6 report paragraph), 531 (item 6, §9.1 item 3), 554 (item 6, §9.2 form 2, S4 reword and helper-route sites), 556 (item 6, §9.2 form 4, helper cleanup checks), 567 (item 2, §9.3 item 2), 568 (item 3, §9.3 item 3), 571 (item 5, §9.3 item 6), 572 (item 4, new §9.3 item 7), 634 (item 7, §10.5 P-LIFECYCLE), 649 (item 8, §10.6 row 6), 666 (item 1, §10.7 row). `design/ABI5_REALIZATION_CONSTITUTION.md:4390` (the §16.14 row (b): three atoms, realized at step 7).
+- atoms: `code/src/shared/process/index.ts` exports the three atoms from `./facts.js`: `hasConfirmedOwnedProcessBoundary(facts: OwnedProcessFacts): boolean`, `classifyOwnedProcessTerminal(facts: OwnedProcessFacts): OwnedProcessTerminal`, `encodeOwnedProcessFacts(facts: OwnedProcessFacts): JsonValue`, and `type OwnedProcessTerminal = "spawn_failed" | "exited" | "unconfirmed"`. It also re-exports the lifetime from `../owned_process_lifetime.js`, which keeps its module: `createMonotonicDeadline`, `createOwnedProcessLifetime`, and the types `MonotonicTimerHost`, `OwnedProcessFacts`, `OwnedProcessHost`, `OwnedProcessLifetimeBounds`, `OwnedProcessObservations`, `OwnedProcessScopeAbsence`. `encodeOwnedProcessFacts` returns a frozen object with all 13 members under their own names: `directExit` as `{status, signal}` or `null`; `launchFailure` and `firstError` as `{name, message, code, errno, syscall, path}` with no stack, where a finite number becomes a string; `cleanupDeadlineNs` as `{kind: "bigint", value}` or `null`.
+- reporting sites (before -> after):
+  - Worker transport:
+    - `abg/worker_transport.ts:462` `facts.scopeAbsence === "absent" && facts.directExit !== null` -> `:465` `hasConfirmedOwnedProcessBoundary(facts)`.
+    - `abg/worker_transport.ts:552-553` `scopeAbsence !== "absent" || (directExit === null && !noChildEstablished)` -> `:555` `classifyOwnedProcessTerminal(...) === "unconfirmed"`.
+  - Actor:
+    - `abg/actor_process.ts:1114-1115` (the same formula) -> `:1123` (classifier `=== "unconfirmed"`).
+    - `abg/actor_process.ts:1315` (spawn-failed formula) and `:1321` (exit formula) -> `:1323-1340`, which branches on `const terminal = classifyOwnedProcessTerminal(facts)`.
+  - Helper:
+    - `implementation/worksite_command_helper.ts:768` and `:772` `scopeAbsence === "absent"` -> `:772-774` and `:778` `terminal !== "unconfirmed"`.
+    - `:1117` and `:1139` -> `:1126-1127` and `:1149`.
+  - Equivalence:
+    - Worker and actor: unchanged, because `noChildEstablished` implies `launchFailure !== null` (lifetime `noChild()`).
+    - Helper: a group probed absent without an observed exit now reports unconfirmed. The Executive decided this route at step 7 (§10.6 row 6).
+- refusal carrier:
+  - The type and the function:
+    - `ActorProcessEffectRefusal` gains `processFacts: JsonValue | null` (`abg/actor_process.ts:184-185`).
+    - `refuseActorProcessEffect(code, message, predecessorPrefix, successorPrefix, processFacts)` (`:192-208`) freezes it into the refusal.
+  - The calls:
+    - The two pre-launch invocation refusals (`:747`, `:758`) pass `null`.
+    - The carrier refusal (`:1374`) and the outer catch (`:1417`) pass `encodedFinalProcessFacts()`.
+  - The hoist:
+    - `finalProcessFacts` and the closure `encodedFinalProcessFacts` are declared before the outer `try` (`:779-783`).
+    - The inner declaration (head `:1002`) is removed.
+  - The class reference `diagnostic://abiogenesis/actor-process/<code>@5` (`:204`) is unchanged.
+- failCCall reference:
+  - The function: `hog/ccall_lifecycle.ts:231-239` `failActorProcessEffect(input, refusal)`:
+    - `stage` is `` `leaf-effect-${input.ordinal}` ``;
+    - `candidate` is the refusal;
+    - it calls `failCCall(input, refusal.successorPrefix, stage, constructRuntimeFailureDiagnosticRef({ stage, candidate }), candidate)`.
+    - The branch at `:557` calls it.
+  - Stage passthrough is verified at both hops:
+    - `failCCall` (`:207-225`) passes `stage` unchanged.
+    - `failTraversal` (`hog/traversal_failure.ts:81-94`) admits subject `{ stage: input.stage, candidate }` with admission stage `"hog_traversal"`.
+    - Scenario case b shows the subject retained.
+  - Consequences on this branch:
+    - The traversal failure's `diagnosticRef` and `message` become the `data:` URI.
+    - The evidence projection's `diagnosticClassRef` is `null`, because the subject has no such member. The class reference sits at `subject.candidate.diagnosticRef`.
+- receipt path:
+  - Writing the member:
+    - `WorkerTransportResult.processFacts` (`abg/worker_transport.ts:107-108`).
+    - The body member is `processFacts: encodeOwnedProcessFacts(processObservation.facts)` (`:643`), written before the canonical write of `${label}-transport.json`. `artifacts.transport.digest` therefore binds it, and so do the observation's `transportDigest` and `artifactDigests.transport`.
+    - The `actor_result_artifact_observed` payload is unchanged.
+  - Reconstruction:
+    - `abg/worksite_construction_recovery.ts:64-71` `transportProcessFactsMatchExit` requires:
+      - exactly the 13 members;
+      - `directExit` with exactly the keys `signal` and `status`;
+      - `classifyOwnedProcessTerminal` over the encoded facts equal to `"exited"`. The encoding keeps the classifier's members and their value domains.
+      - `directExit` equal to the artifact's `status` and `signal`.
+    - It is used at `:284` with `holdsAt` over `actor_process_terminated`. `:249` reads the fluent in place of the copy.
+  - Fixtures: no tracked fixture contains `-transport.json`, so none was regenerated.
+- class reference readers:
+  - `git grep -n "diagnostic://abiogenesis/actor-process" -- code/src test_env` returns only `code/src/abg/actor_process.ts:204`, the producer in `refuseActorProcessEffect`.
+  - Untracked installed copies under `test_env/test_runs/` and `test_env/uat/runs/` hold the same producer line and no reader.
+  - The scenario compares the reference by identity, not by literal.
+- terminationConfirmed census: 47 sites. Anchors are at the step 6 head, mapped from `97b1200bc`; each entry is head -> post-edit.
+  - Edge computation, now the shared atom (3):
+    - `abg/worker_transport.ts:462->465`
+    - `implementation/worksite_command_helper.ts:772->778`
+    - `implementation/worksite_command_helper.ts:1139->1149`
+  - Reader switched to `holdsAt` over `actor_process_terminated` (6):
+    - `abg/c_call.ts:2034->2036` (classifier input)
+    - `abg/c_call.ts:6631->6635` (`exitObserved` is compared to the fluent)
+    - `abg/replay.ts:2453->2457`
+    - `abg/invocation_admission.ts:512->515`
+    - `abg/worksite_construction_recovery.ts:228->249`
+    - `abg/worksite_construction_recovery.ts:262->284`
+  - Writer or copy kept, the recorded copy the rule checks (10):
+    - `abg/actor_process.ts:1152->1160`
+    - `abg/worker_transport.ts:599->601`
+    - `abg/worker_transport.ts:631->633`
+    - `abg/c_call.ts:1979->1980` (copy-to-copy join)
+    - `abg/c_call.ts:2103->2106`
+    - `abg/c_call.ts:3854->3857`
+    - `abg/c_call.ts:6732->6737`
+    - `implementation/worksite_command_helper.ts:788->794`
+    - `product/worksite_command_execution.ts:1730`
+    - `validator/qualification.ts:151`
+  - Helper-route consumers that stay, with no actor fluent (§9.3 item 4) (3):
+    - `implementation/worksite_command_helper.ts:792->798`
+    - `implementation/worksite_command_helper.ts:1370->1380`
+    - `implementation/worksite_command_helper.ts:1383->1395`
+  - Type declaration (9):
+    - `abg/actor_process.ts:119->120`
+    - `abg/c_call.ts:590->591`
+    - `abg/c_call.ts:732->733`
+    - `abg/replay.ts:297->298`
+    - `abg/transport_contracts.ts:56`
+    - `abg/worker_transport.ts:96->97`
+    - `abg/worker_transport.ts:134->137`
+    - `implementation/contracts.ts:92`
+    - `product/worksite_command_execution.ts:529`
+  - Payload or exact key list (4):
+    - `abg/event_store.ts:302`
+    - `abg/event_store.ts:733`
+    - `abg/actor_process.ts:246->251`
+    - `product/worksite_command_execution.ts:1694`
+  - Typed shape validation (5):
+    - `abg/actor_process.ts:460->465`
+    - `abg/c_call.ts:1829->1830`
+    - `abg/c_call.ts:6630->6633`
+    - `product/worksite_command_execution.ts:1710`
+    - `validator/qualification_contracts.ts:389`
+  - Copy-consistency validation over a candidate with no prefix, left as is (7):
+    - `abg/actor_process.ts:490->495`
+    - `abg/actor_process.ts:518->523`
+    - `abg/actor_process.ts:527->532`
+    - `abg/actor_process.ts:531->536`
+    - `abg/transport_contracts.ts:72`
+    - `abg/transport_contracts.ts:77`
+    - `validator/qualification.ts:53`
+  - New sites: `abg/calculus/rules.ts:130`, `:191` and `:201`, where the D5 check reads the copy.
+- scenario:
+  - Harness:
+    - It is the component harness of `t287-f04a-probabilistic-result-candidate` (finalized-artifact cases): `SourceTextModule` and `SyntheticModule` link the built owners with named lower premises replaced.
+    - It runs over this tenant's build without `setupInstalledRootExecutionBasis`.
+    - The rows are legacy-profile rows, with no `eventContractDigest`, so there is no liveness binding, no probe and no native assessment.
+    - No new support file; it uses `test_env/support/new-empty-append-sink.mjs`.
+  - Case a, worker no-child launch failure: pass.
+    - Setup: a controlled child with no pid emits ENOENT `error`, then `close`.
+    - Admitted events: `actor_process_spawn_failed` is admitted once, and no start, exit or unconfirmed event is admitted.
+    - The transport artifact:
+      - The observation payload has no `processFacts` key.
+      - The artifact's sha256 equals `transportDigest` and `artifactDigests.transport`.
+      - `body.processFacts` equals `encodeOwnedProcessFacts(finalFacts)`, with code `ENOENT`, errno `"-2"` and no stack.
+    - The effect is `actor_process_effect_receipt`.
+    - `holdsAt` answers:
+      - `spawn_failed`: true;
+      - `terminated`: false;
+      - `live`: false;
+      - `copy_disagrees`: false.
+  - Case b, worker unresolved cleanup: pass.
+    - Setup: spawn, exit 0 and close, with the group probe answering `unknown` and inert signals.
+    - Admitted events: `actor_process_started` and `actor_process_termination_unconfirmed` are admitted. No exit, spawn failure, artifact or `actor_invocation_failed` is admitted.
+    - The transport throws "worker owned process scope remains unconfirmed".
+    - The effect is `actor_process_invocation_refused`. Its `processFacts` equals the encoded final facts (`scopeAbsence: "unknown"`), and its `diagnosticRef` is not a `data:` URI.
+    - `holdsAt` answers:
+      - `termination_unconfirmed`: true;
+      - `terminated`: false;
+      - `cleanup_pending`: true.
+    - Retained subject:
+      - The refusal is rebased onto a second, real append-sink store's held prefix. Only its two prefix coordinates change.
+      - It passes through the real built `failActorProcessEffect`, `failCCall` and `failTraversal`.
+      - The `runtime_failure` owner instance replaces the execution-basis, opened-scope and replay premises, as in `t287-runtime-failure-diagnostic`.
+      - The `runtime_failure_observed` event carries `constructRuntimeFailureDiagnosticRef({ stage: "leaf-effect-3", candidate })`.
+      - The evidence is `retained`, and `subject.candidate.processFacts` equals the refusal's.
+  - Case c, helper route through the real built `runCommand` (main not run): pass.
+    - An absent executable gives exit status 127, `terminationConfirmed: true` and no unresolved diagnostic.
+    - `node -e ''` with the group probe answering `unknown` throws "worksite command cleanup unresolved". The thrown JSON carries:
+      - `command.terminationConfirmed: false`;
+      - the stderr diagnostic;
+      - `processFacts` with `scopeAbsence: "unknown"` and `directExit` `{0, null}`.
+  - Case d, D5 over `selectValidatedRuntimeEventPrefix` and `deriveRuntimeEventCalculusProjection`: pass.
+    - A `true` copy without an exit initiates `terminationConfirmed_copy_disagrees`.
+    - start, exit, then `true`: `terminated` holds and there is no disagreement.
+    - A `probabilistic_transport` `c_call_evidenced` with `true` and no exit initiates the disagreement.
+    - Another evidence class is ignored.
+    - No prefix is refused.
+  - Files read:
+    - the transport artifact, at its admitted digest (case a);
+    - the failure store's `L`, through `readRuntimeEventsAtDurablePrefix`;
+    - the built module sources, as code.
+- gate (final source):
+  - `npm run build`: rc 0, 33 s.
+  - `npm run lint:imports`: rc 0, under 1 s.
+  - Scenario: rc 0, 1 s, 4 pass, 0 fail.
+  - `npm run test:installed:language`: rc 0, 45 s, 1 pass, 0 fail.
+  - A first full gate also passed: rc 0 at 32 s, 0 s, 1 s and 46 s. Self-check 1 then changed recovery, so the full gate ran again.
+  - After a test-only edit that removed the class-reference literal, the scenario ran again: rc 0, 4 pass, 0 fail.
+  - No lifecycle suite was run.
+- self-check:
+  1. pass after one fix. Recovery first repeated the formula; it now calls the classifier. The only matches are `shared/process/facts.ts:15` and `:21`.
+  2. pass: `:747` and `:758` pass `null`; `:1374` and `:1417` pass `encodedFinalProcessFacts()`.
+  3. pass: no match.
+  4. pass: both diffs are empty.
+  5. pass: `replay.ts:298` is the type, `:362` the quiescence name, and `:2457` the `holdsAt` read.
+  6. pass.
+  7. pass. The changed paths, all granted:
+     - the shared atoms: `code/src/shared/process/` (new);
+     - the ABG owners: `abg/actor_process.ts`, `abg/worker_transport.ts`, `abg/calculus/rules.ts`, `abg/replay.ts`, `abg/c_call.ts`, `abg/worksite_construction_recovery.ts`, `abg/invocation_admission.ts`;
+     - the HOG lifecycle: `hog/ccall_lifecycle.ts`;
+     - the helper: `implementation/worksite_command_helper.ts`;
+     - the two design files;
+     - the scenario test;
+     - the regenerated tracked outputs: `build/code/src/abg/actor_process.{js,d.ts}`, `build/code/src/hog/ccall_lifecycle.js`, `contracts/capabilities/capability-definition-graph.json`, `product-toolchain-manifest.json`;
+     - this file.
+- residuals:
+  1. Stale design citations outside the eight closure items. "Change no design text beyond the eight items" keeps them unchanged:
+     - §9.2 forms 1, 3 and 4 still describe the pre-step-7 forms at their old lines, for example `worker_transport.ts:461`, `actor_process.ts:1318`, `replay.ts:2444` and `worksite_construction_recovery.ts:228`/`:262`.
+     - §9.3 item 1 still cites `actor_process.ts:1312-1328` and `:1306`.
+     - §10.1 row 6, the §6 prime-atom table and the generated views still name two atoms.
+     - §9.3 item 4 contradicts the realization and §10.6 row 6. It says the helper's encoded facts enter `L` as members of `result.json`. As realized, they stay out of `result.json` (an in-memory WeakMap, no Product output contract change), and only the thrown cleanup failure carries them.
+     - Case c shows the facts only in the in-process thrown message. The scenario does not exercise the parent admitting that message into a failure subject in `L`.
+  2. The helper's HTTP cleanup throw in `main` (`implementation/worksite_command_helper.ts:1395`) carries no `processFacts`. It lies outside the granted helper lines (`:769`, `:1136`, `:1362-1366` at `97b1200bc`).
+  3. Transport artifacts written before this step have no `processFacts` member, so they no longer pass reconstruction. Example: the D1 preserved-result source.
+  4. Sites that still read the copy:
+     - `abg/transport_contracts.ts:72`/`:77` and `validator/qualification.ts:53` are §9.2 form-4 consumers that row 6 replaces with `holdsAt`. Their files are outside the grant.
+     - `abg/actor_process.ts:495-536` is granted. It judges a candidate without a prefix, so a switch would change the signature of the exported `validateActorProcessCarrierPair`.
+  5. Behavior changes:
+     - Helper: a group probed absent without an observed exit reports unconfirmed, both in `terminationConfirmed` and in the stderr diagnostic.
+     - `c_call.ts:2036`: the classifier input reads the fluent. With a disagreeing copy, the recomputed failure class can differ from the recorded one, and that projection then yields `null`.
+     - On the actor-refusal branch, the traversal failure's `message` and `diagnosticRef` become the `data:` URI.
+  6. The lifecycle suites wait for step 8: `t287-owned-process-lifetime`, `m5-worker-transport`, `t287-worksite-command-execution`, `t287-observed-worksite-command`. The gate does not exercise the new recovery check.
+  7. Scenario case b uses two stores: the actor runs over controlled prefixes, and failure retention runs in a real append sink.
+- return route: this file.

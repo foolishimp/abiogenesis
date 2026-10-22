@@ -25,6 +25,7 @@ import * as Routes from "./route_proposal.js";
 import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import { applyAdmittedRoute, deriveCompletedTraversalCursor, } from "./traversal.js";
 import { failTraversal } from "./traversal_failure.js";
+import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 import { projectOwnedExecutableTraversalCompletion as projectExecutableTraversalCompletion, } from "./traversal_completion.js";
 import { completePublicOutcome } from "../abg/c_call_outcome.js";
 import * as OwnedOutcome from "../abg/c_call_outcome.js";
@@ -110,6 +111,15 @@ function failCCall(input, predecessorPrefix, stage, diagnosticRef, candidate) {
         diagnosticRef,
         candidate,
     });
+}
+/** The C-call failure branch of an actor refusal (design §9.3 item 3). The
+ * reference encodes the exact subject failTraversal admits, { stage, candidate },
+ * from the same values failCCall passes on, so admission retains the refusal,
+ * its processFacts included, inline. */
+function failActorProcessEffect(input, refusal) {
+    const stage = `leaf-effect-${input.ordinal}`;
+    const candidate = refusal;
+    return failCCall(input, refusal.successorPrefix, stage, constructRuntimeFailureDiagnosticRef({ stage, candidate }), candidate);
 }
 function projectBlockedCCallCompletion(replayState, successorPrefix, cCall, resultRef, judgmentRef, reasonRef, resultValue) {
     return projectExecutableTraversalCompletion("blocked", replayState, successorPrefix, {
@@ -320,7 +330,7 @@ export function evaluateOwnedExecutableCCall(input) {
                 basis: admissionBasis(input.clock, "actor-process"),
             }));
             if (effectResult.kind === "actor_process_effect_refusal") {
-                return failCCall(input, effectResult.successorPrefix, `leaf-effect-${input.ordinal}`, effectResult.diagnosticRef, effectResult);
+                return failActorProcessEffect(input, effectResult);
             }
             const effectReceipt = effectResult;
             try {

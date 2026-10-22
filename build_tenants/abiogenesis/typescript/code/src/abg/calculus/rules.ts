@@ -1,6 +1,7 @@
 // The rule table: every contextual Event Calculus effect. Each derive reads
 // the fold state before the event and the event; none reads its dependencies.
 // The table is a module constant; no caller supplies a rule.
+import { isRecord } from "../../shared/admit/index.js";
 import type { RuntimeEventPrefix } from "../event_prefix.js";
 import { ROOT_EVENT_CONTRACT_DIGEST, type RuntimeEvent } from "../event_store.js";
 import { createRuntimeLivenessEventValidator } from "../runtime_liveness.js";
@@ -126,7 +127,9 @@ function deriveLiveness(state: FoldState, event: RuntimeEvent): EventCalculusEff
  * Run when R was admitted. actor_process_terminated(processRef) holds from an
  * actor_process_exited preceded by the process start and by no termination
  * unconfirmed for it. G and O carry the facts of later derivations; they
- * derive no fluent here. Every input is read from the state before the event. */
+ * derive no fluent here. The copied terminationConfirmed is a checked input
+ * (D5, checkTerminationConfirmedCopy). Every input is read from the state
+ * before the event. */
 function deriveActorProcessLifecycle(state: FoldState, event: RuntimeEvent): EventCalculusEffect {
   const processTerminal = (processRef: string) =>
     held(state, "actor_process_exited", processRef) || held(state, "actor_process_spawn_failed", processRef);
@@ -165,6 +168,9 @@ function deriveActorProcessLifecycle(state: FoldState, event: RuntimeEvent): Eve
       const processRef = stringField(event, "processRef");
       return processRef === null ? NO_EFFECT : effect([], [processFluent("actor_cleanup_pending", processRef)]);
     }
+    case "actor_result_artifact_observed":
+    case "c_call_evidenced":
+      return checkTerminationConfirmedCopy(state, event);
     case "run_stopped":
     case "runtime_failure_observed": {
       if (!isRunCleanupTerminal(event) || event.runId === undefined) return NO_EFFECT;
@@ -180,6 +186,22 @@ function deriveActorProcessLifecycle(state: FoldState, event: RuntimeEvent): Eve
     default:
       return NO_EFFECT;
   }
+}
+
+/** D5: the copied terminationConfirmed in actor_result_artifact_observed and
+ * in probabilistic_transport c_call_evidenced is checked against
+ * actor_process_terminated(processRef) at the cut before the copy's event.
+ * The fluent wins: a disagreement initiates the diagnostic fluent
+ * terminationConfirmed_copy_disagrees(processRef), and no prefix is refused.
+ * An event without the copy or its process reference derives nothing. */
+function checkTerminationConfirmedCopy(state: FoldState, event: RuntimeEvent): EventCalculusEffect {
+  if (!isRecord(event.payload)) return NO_EFFECT;
+  if (event.kind === "c_call_evidenced" && event.payload.evidenceClass !== "probabilistic_transport") return NO_EFFECT;
+  const processRef = stringField(event, "processRef");
+  const copy = event.payload.terminationConfirmed;
+  if (processRef === null || processRef.length === 0 || typeof copy !== "boolean") return NO_EFFECT;
+  return copy === held(state, "actor_process_terminated", processRef) ? NO_EFFECT
+    : effect([processFluent("terminationConfirmed_copy_disagrees", processRef)], []);
 }
 
 export const ROOT_DERIVED_RULES: readonly DerivedEffectRule[] = Object.freeze([
@@ -204,7 +226,8 @@ export const ROOT_DERIVED_RULES: readonly DerivedEffectRule[] = Object.freeze([
     ruleRef: "actor_process_lifecycle",
     appliesTo: Object.freeze(["actor_process_started", "actor_process_exited", "actor_process_spawn_failed",
       "actor_process_termination_unconfirmed", "actor_process_signal_requested", "actor_process_timeout_observed",
-      "actor_invocation_closed", "actor_invocation_failed", "run_stopped", "runtime_failure_observed"] as const),
+      "actor_invocation_closed", "actor_invocation_failed", "run_stopped", "runtime_failure_observed",
+      "actor_result_artifact_observed", "c_call_evidenced"] as const),
     derive: deriveActorProcessLifecycle,
   }),
 ]);
