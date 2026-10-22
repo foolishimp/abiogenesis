@@ -736,3 +736,239 @@ committing if the patch does not apply or a gate suite fails.
   9. `npm run test:installed:language`: 1/1
 - tracked tree: clean after the commit except for this Return. The 14 untracked entries were not touched.
 - return route: this file
+
+## Whole-diff review
+
+Reviewer: Claude Fable 5.1, max effort, fresh context, same vendor family as every Worker (Opus 5.5) and the Executive (Fable); no cross-vendor independence; no Writer grant (this section is the only edit). Subject: the diff `97b1200bc..cac7802b2`, read with the twenty step commits of the plan's ledger as its structure; the tenant tree at HEAD `b9ea40f00` equals `cac7802b2` (HEAD differs in two commentary files only). Path keys: `design` = `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`; `src/` = `build_tenants/abiogenesis/typescript/code/src/`; `test/` = `build_tenants/abiogenesis/typescript/test_env/tests/`; lines at `cac7802b2`. Re-executed here: `lint:imports` (28 modules, rc 0), `lint:lifecycle` (284 modules, 10 allow-listed, rc 0), and one suite, `m5-event-calculus-runtime`, at the baseline worktree `wt-base-97b1200bc` (13 pass, 5 fail, the same five tests with the same first errors as `step-8-run.log:476-520`, including `:1316` `runtime_failure_observed/runtime_invocation_active false !== true` at `:1453`). Build, lanes and the integrated run are taken from the committed log and the Returns. No tracked file changed in this repository during the review.
+
+Summary: S0 0, S1 0, S2 1, S3 6, S4 4.
+New S2 or above: yes, one (F1): the ratified D9 sentence in §10.6 row 5 states a fluent holds at a cut where the rule terminates it.
+
+### Findings
+
+- F1. S2 | `design:648` (§10.6 row 5, the D9 clause); `src/abg/calculus/rules.ts:151`, `:156`; `test/m5-terminal-quiescence-owner.test.mjs:168-169`, `:176` | "An `actor_process_exited` after an `actor_process_termination_unconfirmed` for the same process initiates no `actor_process_terminated` ... so `actor_process_termination_unconfirmed` holds and `terminationConfirmed` projects `false`." | The rule terminates `actor_process_termination_unconfirmed` on the exit (`rules.ts:156`, the §4.4 formula `not T and U`), and the test at `cac7802b2` asserts the fluent is `false` after the late exit (`:168-169`, `!confirmed`, "a process terminal ends termination-unconfirmed"). At `37ef7d760` the same lines asserted `true` ("later physical confirmation does not erase the historical uncertainty fact"). The 8a-2 Return said so ("Discrepancy with the activation ... The fold says it does not") and asked for the wording to be settled; `## Disposition of 8a-2` item 3 read `:166` at the pre-exit cut and sharpened the sentence the other way; 8a-3 wrote it. After the sequence the only lifecycle fluent of the process that holds is `actor_cleanup_pending`, a state §4.4's three formulas do not name, and §4.4 (`design:199`) still says the rule initiates `actor_process_terminated` from `actor_process_exited` with no guard. The code and the test agree with each other; the ratified design text disagrees with both. | One sentence: in row 5 replace "so `actor_process_termination_unconfirmed` holds and `terminationConfirmed` projects `false`" with "so no `actor_process_terminated` is initiated, `actor_process_termination_unconfirmed` ends with the terminal (`not T and U`), `actor_cleanup_pending` holds until the actor terminal, and `terminationConfirmed` projects `false`"; and in §4.4 (`design:199`) qualify "initiates `actor_process_terminated(processRef)` from `actor_process_exited`" with "preceded by the process start and by no termination-unconfirmed for it (D9)". The alternative is D9's own reversal: drop `&& !unconfirmed` at `rules.ts:151` and restore the three expectations.
+
+- F2. S3 | `design:46` (§2 row `abg/calculus/`, Imports `shared/*`) and `design:52` (the order); `src/abg/calculus/axioms.ts:15`, `:20-29`; `rules.ts:5-7`; `fold.ts:7-10`; `src/abg/runtime_liveness.ts:12` | "a module imports only modules to its left"; the fold row imports `shared/*`. | `axioms.ts` imports `product/worksite_effect`, `product/native_workspace_work`, `abg/event_store`, `abg/event_prefix`, `abg/runtime_liveness_contracts`, `abg/c_call_outcome`, `abg/native_work_effect`; `rules.ts` imports `abg/runtime_liveness` (the liveness validator), which imports `holdsAt` from `./event_calculus.js`, which imports `./calculus/index.js`: a module cycle `calculus -> runtime_liveness -> event_calculus -> calculus`, created by the step 6 repair's R4 switch. `lint:imports` covers `shared/` only, so nothing checks this row. The `product/` and `abg/` imports were carried over from `event_calculus.ts` by the step 6 split; behavior is unchanged (function-level cycle, no top-level use; build and lanes pass). | Amend the §2 row's Imports cell to the actual set and state the function-level cycle with `runtime_liveness.ts`; or extend `scripts/check-import-direction.mjs` with an allow-listed rule for `abg/calculus/` at the close.
+
+- F3. S3 | `design:629` (P-INGRESS: "`tsc --noEmit` plus a lint rule on the two directories"); `build_tenants/abiogenesis/typescript/scripts/` | A lint rule enforces that no `derive` or `select` export takes `unknown`. | No script checks it; `check-import-direction.mjs` checks specifiers only. The property holds today by grep: no `unknown` in any signature under `src/shared/value/` or `src/shared/select/` (the two hits are comments), and step 5's self-check 3 was the same grep. | A short check in `check-import-direction.mjs` over exported signatures under `shared/value/` and `shared/select/`, or amend P-INGRESS to "tsc plus the grep at close".
+
+- F4. S3 | `src/shared/value/record.ts:46` (`canonicalRecordDigest`); `design:158-164` (§4.3 table), `design:733-746` (§10.7), constitution §16.14 (b) | "Each function this design adds or moves declares one disposition" (§10.7; constitution §10.2). | `canonicalRecordDigest(JsonRecord): Sha256Digest` is a new `shared/value/` export (step 4; the two record-digest copies retired into it; consumers `src/abg/execution_basis.ts` and `src/abg/invocation_execution_truth.ts`) and appears nowhere in the design or in §16.14's row list (grep: 0). | One row in §4.3 (equal to `sha256Canonical` over a record; replaces 2 copies) and `catalog_extension` of `N02` in §10.7 and §16.14 (b), with 8b.
+
+- F5. S3 | `design:127` (§4.1 `admitContract`, "Replaces: inline `v.safeParse` in the three binders and in owners") against `design:586` (§10.1 row 2: "inline `v.safeParse` in `bindStaticOwner`") | Owner `safeParse` sites were replaced. | Eight owner sites remain and no Return lists them as the "as touched" remainder: `src/owner_bindings/run_invocation.ts:1127`, `src/validator/raw_admission.ts:132`, `src/shared/public_function_contracts.ts:685`, `src/shared/capability_contracts.ts:217`, `:401`, `:410`, `src/product/public_contract_publication.ts:517`, `src/product/verify_product.ts:815`. The three binders are clean (`static_definition_bindings.ts:48`, `:67`; none in `exact_prefix_bindings.ts`). | Record the eight as row 2's "as touched" remainder in 8b's ticket section and change the §4.1 cell to "in `bindStaticOwner`; owner sites as touched".
+
+- F6. S3 | `design:632` (P-RECORD whole path: "the execution-basis adapter maps `invalid` to its existing refusal"); `test/t287-select-family.test.mjs:89-134`; `src/abg/invocation_execution_truth.ts:619` | Whole-path proof. | The lane proves the atom (`absent`, `many`, `one`, both null-digest partitions and the digest mismatch as `invalid`, D2 order) and touches no adapter; the adapter's `invalid -> null` mapping rests on reading (step 5 Return, reader 1) and no run-list suite is recorded as reaching its negative. | One case feeding `projectExactExecutionBasisAtPrefix` a prefix whose `basis_admitted` payload carries a forged `basisDigest` and asserting `null`; or restate the clause as "by reading" in 8b.
+
+- F7. S3 | plan step 8 run list; `## Activation 8a` rule 3; `git diff --stat 97b1200bc..cac7802b2 -- test_env/` | "the step 8 review covers their diff once" (plan, Execution configuration) and "the whole diff is read once, at step 8". | Ten suites edited in the range (import paths, `build/` path strings, override keys) are in no recorded run after their edit: `r10-projection-contracts`, `t287-conformance-owner-reuse`, `t287-cross-cut-public-read`, `t287-malformed-gtl-gate`, `t287-pfc-f08a-product-verification-boundary`, `t287-st2a-g-capability-definition-graph`, `t287-w2-05-generator-package-reproducibility`, `t287-w2-05-install-catalog-owner-chain`, `t287-wave2-owner-contract-source-set`, and `t287-w2-05-static-binding-algebra` (run once at step 2, before steps 3 to 8). Step 2's Return says two of them were "checked mechanically; not run". | Add the ten to the close's final integrated run (one invocation; the attribution rule applies).
+
+- F8. S4 | `test/t287-c2a-fp-source-contract.test.mjs:42-44`; `src/hog/ccall_lifecycle.ts` (8a fix, `37ef7d760`) | "C2A F_P effect handoff is one direct exact-prefix ABG invocation" restored. | The assertion is a source-text regex (`effectResult.kind === "actor_process_effect_refusal"[\s\S]*effectResult.successorPrefix`) satisfied by renaming `failActorProcessEffect`'s parameter to `effectResult` and moving the function below its caller; it no longer discriminates the handoff it names. | Assert on `failActorProcessEffect`'s text or behavior explicitly; 8b note.
+
+- F9. S4 | `design:187` (§4.4: "Its `advance` is 'for each event, state = foldStep(...)'") and `design:114` (§3 Lifecycle) | `advance` after 8a item (i) is "copy once, `applyStep` per event, freeze" (`src/abg/event_calculus.ts:238-252`; `fold.ts:191`, `:261`); `applyStep`, `workingFoldState`, `frozenFoldState` are `@internal` exports the design does not name. `foldStep` stays the pure step and P-FOLD proves the two drivers agree. | One clause in §4.4.
+
+- F10. S4 | `design:634` (P-LIFECYCLE, last sentence), `design:635` (P-LAYER) | The checks are realized as `npm run lint:lifecycle` (`scripts/check-lifecycle-boundary.mjs`: fluent-name positions and `scopeAbsence`/`directExit` reads, 10 allow-listed sites in three classes) and `npm run lint:imports`; the design names only `lint:imports` (§2). | Name `lint:lifecycle` in P-LIFECYCLE's last sentence with the allow-list's three classes.
+
+- F11. S4 | `test/m5-terminal-quiescence-owner.test.mjs:148`, `:174` | The title ("until a genuine confirmed Process terminal") and the comment at `:174` ("The owner admits this event only after owned-scope absence, not at raw child exit") state the premise D9 rejected, beside the D9 message at `:163`. The Executive recorded titles and messages as a residual (`## Disposition of 8a-2` item 5); `:174` is the premise itself, not a message. | With that residual.
+
+### Evaluations
+
+2. Retirement §10.1 against the tree. Row 1: the three moves landed as renames (`R090` `definition_binding_mechanics`, `R092` `owner_contract_source_set`, `R094` `public_function_family`, `R099` `public_function_projections`, `R069` `static_definition_bindings -> abg/exact_prefix_bindings`, `A public/binding/static_definition_bindings.ts`; `D product/exact_match.ts`); upward imports 0 (`lint:imports`). Row 2: NUL-joined bodies 0; binders on `admitContract`; owner `safeParse` sites 8 (F5); untouched copies as step 3 recorded: seven local `isJsonRecord` (`c_call_outcome.ts:139`, `traversal_route.ts:944`, `c_call.ts:1558`, `execution_basis.ts:949`, `traversal_cursor.ts:110`, `hog/recursion_lifecycle.ts:139`, `hog/workflow_lifecycle.ts:135`), `release_snapshot_definition_bindings.ts:91` `isRecordEvidence`, the recovery module's local `record` (`worksite_construction_recovery.ts:49`); recorded for 8b. Row 3: `sameCanonical*` bodies 0; the binding `sameJson` lift, the installed-codec pair and the three record writers (`abg/retry.ts:6665`, `abg/c_call.ts:7338`, `abg/replay.ts:2313`) remain and are recorded (step 4 Return and Disposition; 8b row 3 correction); step 4's casts (867 of 1204 calls) recorded per file. Row 4: local `one` helpers 0 (13 retired); checked-record readers 10 of 18, the eight recorded with the corrected reason (8b item vi); `length === 1` in `abg/` 59 lines, all count or arity clauses per step 5's census. Row 5: `advance` holds no contextual branch; the four lifecycle fluents are produced in `rules.ts` only (`lint:lifecycle` 0 offenders); the seven copy-consistency validators left (`actor_process.ts:495-536`, `transport_contracts.ts:72`, `:77`, `validator/qualification.ts:53`) are recorded (step 7 Return residual 4; review 3f). Row 6: `scopeAbsence === "absent"` outside `shared/process/` 0; `replay.ts:2457` reads `holdsAt`; the refusals carry `processFacts` (`actor_process.ts:1374`, `:1417`). Unrecorded remainder: the eight owner `safeParse` sites only (F5).
+
+3. Decisions D6 to D9: see the closing section. D1 (`rules.ts:207-233`), D2 (`exact_record.ts:50-59`, digest after projection), D3 (per site in the step 3 and 4 Returns and 8a item ii), D4 (`i_json.ts:39-47`, `:64-69`, the lift; bridge kept at 22 sites) and D5 (`rules.ts:197-205`) are realized as decided; the eight step 7 closure items are at the design lines the Return names.
+
+3a. C2 production proof: holds by reading. `exactC2SourceEnvironment` (`src/abg/execution_basis.ts:727`) keeps `.materialize()` (`:797`), admits both sides (`:805-806`) and compares with `canonicalEquals` (`:808`). It is reached unconditionally from `admitExecutionBasis` (`:1921`, inside the worksite-carrier branch at `:1905`) and from `hasExactWorksiteCommandLeafSourceAtDurablePrefix` (`:993`, root basis); the callers are `src/owner_bindings/run_invocation.ts:1489` and `src/implementation/leaf_invocation_port.ts:1607`. In `t287-worksite-command-execution:407` the C2 phase closes its Run and passes "fresh replay" (`:794-805`) before the baseline-red `:826` in "owner-local negatives"; a C2 invocation whose `sourceResultBasis` is the C1 result (`:760-762`) can close only if the comparison returned `true`, which requires both sides `ok` and equal. No re-instrumentation was needed; the 8a counter (two hits, equal, 186 events) is consistent with this reading.
+
+3b. O-RESOURCE at the seven probes: the producer argument holds for the six deletions. Each owner is module-private and composed only through `withAdmissionAuthority` (`catalog_definition_bindings.ts:957-959`, `environment_definition_bindings.ts:815-816`, `install_definition_bindings.ts:420`); the wrapper computes `digest(resources)` = `sha256Canonical` (`admission_authority.ts:143-145`, `:309`) over the same shallow-rest object it hands the owner (`:331`), inside `Effect.tryPromise`, so every `writeCanonicalJson` throw (non-finite number, `undefined` member, cycle, throwing accessor) becomes `resource_relation_mismatch` (`:336`) before the probe's false branch could run. Deleting the probes preserves every outcome. At `project_read_definition_bindings.ts:128` the widened refusal set and the fault channel for a cycle (`owner_execution_failure` in place of `invalid_resource_assertion`) are stated in `## Return 8a-2` and ratified in `## Disposition of 8a-2` item 1 with a one-line reversal. No unshown premise.
+
+4. Completion condition against §10.3: O-RESOURCE closed (six by the "existing checked resource" premise, one by admission; the ratified deviation from "preserving ... error outcomes" is the cycle's fault code, recorded with its reversal); O-SHAPE closed (the `retry.ts` site is closed under D3 as ingress admission, which O-SHAPE's "no recursive validator runs at each read" does not cover; wording only); O-CODEC closed (`decodeEventBody` returns `event: unknown`, `event_body_encoding.ts:157-160`); O-SCHEMA closed by the ingress decision §10.3 permits, with the schema-level alternative offered to Jim; O-KEY closed (0 NUL joins; `default_library.ts:133`; P-KEYS lane). O-TYPE is per site and not among the five; its open list is explicit in `## Return 8a`. No obligation the Returns call closed is open.
+
+5. Integrated run: every red file in `step-8-run.log` has an attribution: 16 baseline-red (checked here by reading at both commits: `m5-consensus-module`, `ROOT_PUBLIC_OPERATION_IDS` absent at `97b1200bc`; `t287-event-calculus-owner-continuation`, env-fixture precondition at `:18`; `m5-event-calculus-runtime`, `abg.openCall` absent from the `abg` barrel at both commits; and by rerun at the baseline worktree: all five `m5-event-calculus-runtime` failures reproduce with the same assertions), one step 7 seam fixed (`t287-c2a-fp-source-contract`, F8), one new failure stopped and disposed (`m5-terminal-quiescence-owner`, D9, F1), the uat harness failure baseline. The ledger's baseline paragraph covers `test:unit` only; the e2e attributions rest on the Worker's 742 s run in the baseline worktree, which the rerun above corroborates for the one suite whose failures a design change could have caused. `cac7802b2` after that run: the six deletions can change no outcome (3b); `:128` can change any suite that calls a project-read owner with non-I-JSON `resources` (none known in the run list); the two tests it changed ran at the 8a-3 gate (7/7, 10/10); the final integrated run at the close covers the rest, and should include F7's ten suites.
+
+6. Behavior changes outside `realization_refactor` and the decided items, each recorded: typed-carrier encoding failures now throw `TypeError` where retired try/catch bodies returned `false`, and both operands are evaluated before encoding (step 4 Return; Disposition: the derive family's defect channel); `sameQualificationValue` removed from the `validator` barrel and the package `"."`/`"./validator"` entries (step 4; flagged for Jim); NUL-join sequence comparisons distinguish `["a\0b"]`/`["a","b"]` and `[]`/`[""]` (P-KEYS correction; step 4 Disposition); `requiredSlot`'s discriminator domain narrows to nonblank strings and `detachJsonRecord` admits through `admitJson` instead of `structuredClone` (steps 3, 4); the digest leg runs before later pure checks in readers 4, 5, 8, 10 (step 5); root closure after a Run terminal waits for an exited actor's terminal (step 6 review (e), ledger row 6); the `runtime_liveness.ts` public-path cut (R3; unobservable); the helper reports a group probed absent without an observed exit as unconfirmed, so `runCommand` throws where it continued (§10.6 row 6); the traversal failure's `message` and `diagnosticRef` become the `data:` URI with `diagnosticClassRef: null` on the actor-refusal branch (row 6); `c_call.ts:2036` reads the fluent (step 7 residual 5); the two bare `firstError` throws and the HTTP cleanup throw now carry diagnostic JSON with `processFacts`, with `attemptRef` threaded (step 7 repair); the transport artifact and `ActorProcessEffectRefusal` gain `processFacts` (row 6 items 2, 4; D8 for prior artifacts); nine `gtl/consensus.ts` validators return `false` on a non-I-JSON comparand (8a item ii); `project_read:128`'s widened refusal set and cycle fault code (8a-2); the published `contracts/schemas/native-runtime-observation.json` lost the rule-owned lifecycle fluents (step 6 review R5, P3, 8b). No unrecorded behavior change found; `resolveExactMatch`'s old body (`97b1200bc` `product/exact_match.ts`) already filtered then classified, so move 2 changed no semantics.
+
+7. Proportionality: nothing material beyond the activations. `canonicalRecordDigest` lacks a design row (F4); `forkRuntimeEventCalculusAtForModuleTest`, `emptyFoldState` and the `@internal` fold exports serve the P-FOLD lane (step 6 review); `exactMatchCardinality`'s `RangeError` and `JSON_ADMISSION_CODES` are the atoms' defect channel and the D4 lift's closed set; `OWNED_PROCESS_FACT_MEMBERS` is F10's repair; the C2A rename is F8; the lifecycle lint's event-kind heuristics are proportional to the check it makes.
+
+### Proofs
+
+- P-EQUAL: holds. One body (`shared/value/equality.ts:16`), typed `JsonValue`, no identity shortcut; lane `t287-value-equality` covers `-0`, out-of-order nested keys, empty containers and a generated corpus against `canonicalJson`; the C2 positive path with materialization kept reaches production (3a); 0 `sameCanonical*` bodies; the binding `sameJson` lift kept as recorded.
+- P-ADMIT (P-INGRESS and the admit family): holds for the atoms (closed seven codes, `admit/json.ts:12-20`; `admitIJsonValue` is the lift; no `derive` or `select` export takes `unknown`); the lint rule the design names does not exist (F3).
+- P-KEYS: holds (`admit/record.ts:20-25`; lane `t287-common-computational-library:65-66` NUL counterexample; 0 NUL joins in the tree).
+- P-SELECT: holds (lane: array and view sources, predicate order, no deduplication, throwing predicate). P-RECORD: the atom holds (both null-digest partitions `invalid`, D2 order); the whole-path adapter clause holds by reading only (F6).
+- P-FOLD: holds. Lane `t287-calculus-fold` 6/6 at `cac7802b2` compares the cold `foldStep` fold, the class's `project` and `forkAt` at 22 cuts on the validated and owned U1 prefixes on `holds`, `clippedFluentRefs`, `declippedPatternRefs`; after the working-state change `applyStep` computes `effectOf` before any in-place mutation (`fold.ts:192`, `:214-235`), so a nested derivation during `advance` reads the pre-event holds.
+- P-BIND: holds. `bindStaticOwner` consumes `admitContract` at `:48` and `:67` and maps to `invalid_resource_assertion` and `invalid_resource_receipt`; the prefix binders are byte-identical moves; exactly one `Effect.run*` site (`shared/effect_definition.ts:102`).
+- P-LAYER: holds for `shared/` (`lint:imports`, 28 modules, no upward import; the three moves landed). The §2 order does not hold for `abg/calculus/` (F2).
+- P-LIFECYCLE: holds on the worker route (scenario cases a and b through the real `failActorProcessEffect`, `failCCall`, `failTraversal` and `admitRuntimeFailure`; `holdsAt` answers; no file read beyond the digest-bound artifact) and for the D5 check (case d); the command route's second negative is case e and the HTTP route's is `t287-owned-process-lifetime:500-501`, `:547` (18/18 in the integrated run), both at the helper's throw; the parent's admission of the helper's thrown failure into `L` is by reading (step 7 residual 4, F6 recorded); `lint:lifecycle` 0 offenders.
+
+### Decisions D6 to D9
+
+- D6: confirmed. Recorded in the plan's decisions table and design §10.6 row 1; the five modules are in `public/binding/` (renames above), `effect_definition.ts` stays in `shared/`, the prefix binders in `abg/exact_prefix_bindings.ts`; §16.14's migration consequence names the moves. Reversal is one directory move plus import lines.
+- D7: confirmed. Recorded in the plan, design §4.4 (`:189`) and §10.6 row 5. Code: the three comparisons are fresh against fresh (`traversal_route.ts:4438` in `admitRoute`; `:5371` against `predecessorReplay` computed in the same call, the candidate guarded as a `traversal_route_candidate`; `c_call.ts:7052`); every writer of `replayStateDigest` takes `replayState.replayDigest` from the proposing transaction (`hog/route_proposal.ts:131`, `:1378`, `hog/judgment.ts:90`); stored reads are projections or key lists (`replay.ts:658`, `:804`; `invocation_admission.ts:586`). The design still cites `c_call.ts:7047` (8b F9).
+- D8: confirmed. `worksite_construction_recovery.ts:65` is the one absence line; §9.3 item 7 carries the sentence; reversal as recorded. Not independently demonstrated (the D1 test needs its preimage), as the decision states.
+- D9: confirmed as recorded and realized (`rules.ts:151`; the three expectations rewritten; reversal one line plus three expectations), with F1 on the row 5 sentence. The physical argument does not hold as written: an `actor_process_exited` event's scope evidence is its kind, not its payload. §4.6 has the owner report that kind only for `hasConfirmedOwnedProcessBoundary` after an admitted start (`actor_process.ts:1331-1335`), §9.2 says "that kind already records the confirmed boundary", and the test's prior premise ("the owner admits `actor_process_exited` only after owned-scope absence") is the design's own sentence. What D9 decides is how the fold reads a two-terminal sequence that §4.6 forbids and no emitter in `code/src` produces (`actor_process.ts:1317-1340`, exclusive through `finalProcessFacts` and `processTerminalEvent`); the sequence exists in two synthetic fixtures only, and "prior-law stores" with it have not been shown. Under that reading the guard is a conservative policy for a defective store, not a physical fact, and the state it yields is one §4.4 does not name (F1). The test's premise is the better law: it is the design's, it makes the effect depend on the kind alone, and it settles §10.6 row 5's emission-premise clause (the effect then belongs in the axiom table under D1), which D9 leaves open. If D9 stands, §4.4 must carry the guard and row 5 must say what the fold does (F1); either is one bounded change.
+
+## Disposition of the whole-diff review (Executive, 2026-10-23)
+
+Severity is the Reviewer's; priority is the Executive's. One repair round
+(code and tests, then the close's final integrated run), then 8b (records).
+
+| Finding | Severity | Priority | Disposition |
+|---|---|---|---|
+| F1 and the D9 assessment | S2 | P1 | D9 reversed. The Reviewer is right: an `actor_process_exited` event's scope evidence is its kind, which §4.6 has the owner report only for a confirmed boundary after an admitted start, and §9.2 says so; the two-terminal sequence is produced by no emitter. The guard at `rules.ts:151` was a policy for a defective store, and it yielded a state §4.4 does not name. Repair: drop the guard (D9's one-line reversal), so the rule matches §4.4 as written; restore the test's late-exit expectation; replace the row 5 sentence. This round. |
+| F7 | S3 | P1 | The ten suites join the close's final integrated run, one invocation, attribution rule. This round. |
+| F11 | S4 | P2 | Falls with the D9 reversal: the title and the `:174` comment state the law; the D9 message at `:163` goes. This round. |
+| F2 | S3 | P2 | §2 row for `abg/calculus/` amended to the actual import set, with the function-level cycle through `runtime_liveness.ts` stated as a residue of the step 6 repair's R4 switch; `lint:imports` is not extended (breaking the cycle is a design reframe for a later wave). 8b. |
+| F3 | S3 | P3 | P-INGRESS amended to "`tsc --noEmit` plus the signature grep at close"; no new script. 8b. |
+| F4 | S3 | P2 | `canonicalRecordDigest` gets its §4.3 row and the `catalog_extension` of N02 in §10.7 and §16.14 (b). 8b. |
+| F5 | S3 | P3 | The eight owner `safeParse` sites recorded as row 2's "as touched" remainder; §4.1 cell amended. 8b. |
+| F6 | S3 | P4 | Recorded: P-RECORD's adapter clause holds by reading. 8b. |
+| F8 | S4 | P4 | Recorded: the C2A source regex is satisfied by order and name. 8b. |
+| F9, F10 | S4 | P4 | §4.4 `advance` wording; the design names `lint:lifecycle` beside `lint:imports` in P-LAYER. 8b. |
+
+Proofs: P-EQUAL, P-KEYS, P-SELECT, P-FOLD, P-BIND, P-LIFECYCLE hold;
+P-ADMIT holds for the atoms (F3 wording); P-RECORD atom holds, whole path
+by reading (F6); P-LAYER holds for `shared/`, stated truthfully for
+`abg/calculus/` after F2. C2 production proof holds by reading. O-RESOURCE
+closed. D6, D7, D8 confirmed; D9 reversed.
+
+## Repair activation (step 8)
+
+Worker: Opus 5.5, xhigh, fresh context, Writer grant. Head is the
+Executive's bookkeeping commit after `cac7802b2`. Read this section, the
+`## Disposition of the whole-diff review` above, and in `## Whole-diff review`
+the findings F1, F7, F11 and the "Decisions D6 to D9" paragraph on D9. Tenant
+root `build_tenants/abiogenesis/typescript`; every test runs with
+`node --experimental-vm-modules --test`. Change class: `realization_refactor`
+plus the one design sentence named here.
+
+1. **D9 reversal.** `code/src/abg/calculus/rules.ts:151`: drop the
+   `!unconfirmed` conjunct so `actor_process_terminated(processRef)` is
+   initiated by `actor_process_exited` given the held `actor_process_live`
+   (the admitted start), as design §4.4 (`design:199`) states. Delete the
+   now-unused `unconfirmed` binding if nothing else reads it. The formulas
+   `terminationUnconfirmed = not T and U` and the cleanup formula are
+   untouched.
+2. **Quiescence test.** `test_env/tests/m5-terminal-quiescence-owner.test.mjs`:
+   after the late exit, `terminationConfirmed` is `true` and
+   `actor_process_terminated` holds (restore `:162`'s prior expectation and
+   invert the assertion 8a-2 added); `actor_process_termination_unconfirmed`
+   follows `not T and U` (the `!confirmed` form 8a-2 wrote stays);
+   `actor_cleanup_pending` holds until the actor terminal; the `:222`
+   `holdsAt` form stays. Remove the D9 message at `:163`. The title and the
+   `:174` comment state the law and stay. Expected 7/7.
+3. **Lane check.** Run `t287-calculus-fold`. If a case asserted the guard
+   (an exit after an unconfirmed termination yielding no
+   `actor_process_terminated`), flip that expectation to the unguarded rule
+   and say so in Return; any other failure stops this item.
+4. **Row 5 sentence.** In `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:648`
+   (§10.6 row 5) replace the D9 sentence (from "An `actor_process_exited`
+   after" to "(D9, Executive, 2026-10-23)." inclusive) with: "The emission
+   premise holds at every emitter (`actor_process.ts:1317-1340`, exclusive
+   through `processTerminalEvent`): an `actor_process_exited` initiates
+   `actor_process_terminated` given the admitted start, with no guard on a
+   prior `actor_process_termination_unconfirmed`; that sequence is produced
+   by no emitter and reads, in a synthetic store, as a late confirmation
+   under `not T and U` (D9 reversed by the whole-diff review, 2026-10-23).
+   The start context keeps the effect in the rule table."
+5. **Final integrated run.** After `npm run build`, `npm run lint:imports`
+   and `npm run lint:lifecycle`: one invocation
+   `node --experimental-vm-modules --test --test-concurrency=1` over the 34
+   files of the 8a run (`step-8-run.log` lists them) plus, each once:
+   `r10-projection-contracts`, `t287-conformance-owner-reuse`,
+   `t287-cross-cut-public-read`, `t287-malformed-gtl-gate`,
+   `t287-pfc-f08a-product-verification-boundary`,
+   `t287-st2a-g-capability-definition-graph`,
+   `t287-w2-05-generator-package-reproducibility`,
+   `t287-w2-05-install-catalog-owner-chain`,
+   `t287-wave2-owner-contract-source-set`,
+   `t287-w2-05-static-binding-algebra`; then `npm run test:uat:harness`.
+   Log to `step-8-run-final.log` beside this file (committed). Attribution
+   rule as in `## Activation 8a` rule 3 and the addendum (the built
+   baseline worktree is named there): a baseline-red file with the same
+   failure set is recorded; a failure absent at the baseline returns to its
+   seam and is fixed only if bounded and inside a step 2 to 8 grant, one
+   attempt, else stop that item and record it. Expected: the 16 baseline-red
+   files of the 8a run unchanged; `m5-terminal-quiescence-owner` 7/7;
+   `t287-c2a-fp-source-contract` 4/0; the ten added suites attributed.
+
+**Grant.** `code/src/abg/calculus/rules.ts` (the one conjunct);
+`test_env/tests/m5-terminal-quiescence-owner.test.mjs`;
+`test_env/tests/t287-calculus-fold.test.mjs` (item 3 only); the one design
+sentence; bounded fixes item 5 allows (list each); the build outputs the
+gate regenerates; `step-8-run-final.log`; this file's `## Repair return (step 8)`.
+
+**Stop:** item 3's "any other failure"; an unattributed failure in item 5
+that is not bounded; anything outside the grant.
+
+**Return contract.** One commit on `main`, no push. First line
+`Step 8 repair: D9 reversed; final integrated run`, last line
+`Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append
+`## Repair return (step 8)` with: commit; items 1 to 4 (lines at head);
+the final run (wall time; per-file pass/fail; every failure with its
+attribution; uat rc); residuals.
+
+## Activation 8b (records; after the step 8 repair)
+
+Worker: Opus 5.5, xhigh, fresh context, Writer grant. Head is the
+Executive's bookkeeping commit after the step 8 repair. No code, no test,
+no build. Read: this file's `## Items accrued for step 8` (every "8b"
+item), `## Disposition of 8a`, `## Disposition of 8a-2`, `## Whole-diff review`
+(F2 to F10), `## Disposition of the whole-diff review`; the plan post's
+`## Decisions Jim owns` and `## Ledger`; the step 1 Return's list of the
+ticket section and the GOAL-035 row. Writing: the installed
+`WRITING_GUIDE` as step 1 applied it (present tense, role not name, no
+narration).
+
+1. **Ticket section.** `.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md`,
+   the section step 1 appended: add a closing subsection "Library delivery
+   close (2026-10-23)" with, in this order: the commit chain (steps 2 to 8
+   from the plan's ledger); the decisions D0 to D9 in one table (decided
+   by whom, reversal path), with D9 marked reversed; the completion
+   condition (O-RESOURCE, O-SHAPE, O-CODEC, O-SCHEMA by ingress premise,
+   O-KEY closed with sites; O-TYPE per site from the 8a Return); the proofs
+   P-EQUAL to P-LIFECYCLE with one line each (from the whole-diff review's
+   "proofs" lines); the baseline attribution (16 files baseline-red at
+   `97b1200bc`, the one step 7 seam fixed, the uat harness failure); the
+   C2 production proof route and the step 4 zero-hit correction; the
+   "as touched" remainders (step 3's untouched copies; step 4's casts and
+   the three record writers; step 5's eight readers with the corrected
+   reason: a static `RecordCheck`, not "needs a runtime value"; F5's eight
+   owner `safeParse` sites); the items for Jim (D6 to D9 reversals; the
+   `sameQualificationValue` barrel removal; the 40 tracked build files;
+   the baseline `:826` defect in `t287-worksite-command-execution`;
+   O-SCHEMA refusal at the schema if wanted; the F2 cycle). Dates absolute.
+2. **GOALS.** `specification/GOALS.md`: the `GOAL-035` row's library
+   sentences (line 18) and the paragraph at lines 32 to 40 that still lists
+   the six owner obligations as OPEN: state the current reality in present
+   tense (library delivered on `main` at the step 8 repair commit; five
+   obligations closed, O-TYPE per site recorded; the design's proofs hold;
+   not a release). No other row.
+3. **Design notes**, each the smallest edit, in
+   `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` unless named:
+   §10.1 row 3 count (three record writers and the installed-codec pair
+   stay); §4.3 wording on inline digest comparisons; §10.6 row 5's
+   emission-premise result from step 6 (if not already stated by the
+   repair's sentence); §4.4's D7 clause ("proposed" to "proposed or
+   admitted" for `sourceReplayDigest`); the step 6 review items R2 (the R
+   branch and `not A`), R5 (the published contract embeds the axiom table
+   without the rules: state the two tables), R6 (§4.4 anchors to
+   `calculus/axioms.ts` and `rules.ts`), R7 ("effects that depend only on
+   the event kind" reads pre-existing context through `AxiomFoldContext`);
+   step 7's F9 stale citations (`:549`, `:553-558`, `:566`, `:589`,
+   `:270-285`, `:189`, `:199`; `c_call.ts:7047` is `:7052`) and (ix)
+   P-LIFECYCLE's no-child clause; the whole-diff items F2 (§2 row and the
+   cycle), F3 (P-INGRESS wording), F4 (`canonicalRecordDigest` row, §10.7
+   and constitution §16.14 (b)), F5 (§4.1 cell), F6 (P-RECORD note), F9
+   (`advance` wording), F10 (`lint:lifecycle` named in P-LAYER); the C2
+   proof note in P-EQUAL (route through `t287-worksite-command-execution:407`).
+   Verify every line number you cite at head.
+4. **Step 5 wording** in the ticket (item 1) only; the step file is history.
+
+**Grant.** The ticket file (that section), `specification/GOALS.md` (the
+row and the paragraph), the design file, the constitution's §16.14 (b) row
+list, this file's `## Return 8b`. Nothing else.
+
+**Gate:** none beyond reading back each edit; `git diff --stat` touches
+only the grant.
+
+**Return contract.** One commit on `main`, no push. First line
+`Step 8b: ticket close, GOAL-035, design notes`, last line
+`Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append
+`## Return 8b` with: commit; each item with the lines edited; residuals.
