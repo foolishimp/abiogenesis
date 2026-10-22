@@ -5,6 +5,11 @@ import { resolveExactMatch } from '../../build/code/src/shared/select/exact_matc
 import { admitJson, hasExactKeys } from '../../build/code/src/shared/admit/index.js';
 import { canonicalEquals } from '../../build/code/src/shared/value/index.js';
 import { decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import * as product from '../../build/code/src/product/index.js';
+import { inspectProductLeafSemanticsProjection, productSemanticsFromModules } from '../../build/code/src/product/semantics.js';
+import { witnessInput } from '../support/default-library.mjs';
 
 test('D02 canonical equality is canonical text over JsonValue; unknown values are admitted first', () => {
   assert.equal(canonicalEquals({ z: [-0, 2], a: { x: 'value' } }, { a: { x: 'value' }, z: [0, 2] }), true);
@@ -69,4 +74,57 @@ test('D04 fixed JSON key domains retain exact names; a NUL-containing key never 
     { kind: 'abg_admitted_body_reference_record', codecVersion: 2, event: {}, bodyReference: { sourceEventRef: 'event:one' } },
   ]) assert.throws(() => decodeEventBody(JSON.parse(JSON.stringify(record)), new Map()),
     { name: 'TypeError', message: 'durable body reference record is malformed' });
+});
+
+// O-SCHEMA at the raw owner boundary (D10). The default-library provider is
+// loaded through its owner from a supplied module record; no install is read.
+test('O-SCHEMA: the Product boundary admits input and contract values to I-JSON before the provider guard', async () => {
+  const provider = product.ABI5_DEFAULT_LIBRARY_PRODUCT_SEMANTICS;
+  const install = { installId: 'install://t287/o-schema', packageName: provider.packageName, packageVersion: provider.packageVersion,
+    productContentDigest: 'sha256:' + '1'.repeat(64), manifestDigest: 'sha256:' + '2'.repeat(64) };
+  const binding = { kind: 'product_semantics_binding', bindingRef: provider.bindingRef, packageName: provider.packageName,
+    packageVersion: provider.packageVersion, modulePath: 'build/index.mjs', namedSymbol: 'SEMANTICS' };
+  const loaded = await productSemanticsFromModules({ install, verifyInstallAdmission: () => true,
+    publicationDigest: 'sha256:' + '3'.repeat(64), productSemanticsBinding: binding },
+  { kind: 'installed_product_module_loading', install, load: async () => ({ kind: 'loaded', module: { SEMANTICS: provider } }) });
+  const leaf = inspectProductLeafSemanticsProjection(product.projectInstalledLeafSemantics(loaded)).runtime;
+  const witnessRoot = new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/', import.meta.url).pathname;
+  const selection = JSON.parse(await readFile(join(witnessRoot, 'selection.json'), 'utf8'));
+  const parsed = JSON.parse(JSON.stringify(await witnessInput({ product, selection, seedRoot: join(witnessRoot, 'seed') })));
+  const contractRef = product.governanceContract('state');
+  const admitted = product.admitInstalledProductInput(loaded, contractRef, parsed);
+  assert.deepEqual(admitted, parsed, 'the complete state as parsed JSON is admitted');
+  assert.notStrictEqual(admitted, parsed, 'the provider receives the detached admitted value');
+  assert.ok(Object.isFrozen(admitted));
+  assert.equal(leaf.validateContractValue('governance_work_state', parsed), true);
+  // The reviewer's probe: a function member inside original.testing.commands.
+  const hidden = structuredClone(parsed);
+  hidden.original.testing.commands.push({ hidden: () => 7 });
+  assert.equal(provider.validateContractValue('governance_work_state', hidden), true, 'the shallow provider guard alone accepts it');
+  assert.equal(product.admitInstalledProductInput(loaded, contractRef, hidden), null, 'admitInput refuses through its null channel');
+  assert.equal(leaf.validateContractValue('governance_work_state', hidden), false, 'validateContractValue refuses');
+});
+
+test('O-SCHEMA: the Product boundary admits an interaction response candidate to I-JSON before the provider evaluates it', async () => {
+  const seen = [];
+  const provider = Object.freeze({ ...product.ABI5_DEFAULT_LIBRARY_PRODUCT_SEMANTICS,
+    evaluateInteractionResponse(_basis, candidate) { seen.push(candidate); return candidate; } });
+  const install = { installId: 'install://t287/o-schema-response', packageName: provider.packageName, packageVersion: provider.packageVersion,
+    productContentDigest: 'sha256:' + '4'.repeat(64), manifestDigest: 'sha256:' + '5'.repeat(64) };
+  const binding = { kind: 'product_semantics_binding', bindingRef: provider.bindingRef, packageName: provider.packageName,
+    packageVersion: provider.packageVersion, modulePath: 'build/index.mjs', namedSymbol: 'SEMANTICS' };
+  const loaded = await productSemanticsFromModules({ install, verifyInstallAdmission: () => true,
+    publicationDigest: 'sha256:' + '6'.repeat(64), productSemanticsBinding: binding },
+  { kind: 'installed_product_module_loading', install, load: async () => ({ kind: 'loaded', module: { SEMANTICS: provider } }) });
+  const basis = { requestContractRef: 'contract://t287/request', responseContractRef: 'contract://t287/response',
+    requestValue: {}, actingActorRef: 'actor://t287/human', constructionIntent: null, nextActionBasis: null };
+  const parsed = JSON.parse('{"decision":"accept","notes":["a",{"n":1}]}');
+  const answered = product.evaluateInstalledInteractionResponse(loaded, basis, parsed);
+  assert.equal(seen.length, 1);
+  assert.notStrictEqual(seen[0], parsed, 'the provider receives the detached admitted value');
+  assert.ok(Object.isFrozen(seen[0]) && Object.isFrozen(seen[0].notes[1]));
+  assert.deepEqual(answered, parsed);
+  const hidden = { decision: 'accept', notes: ['a', { hidden: () => 7 }] };
+  assert.equal(product.evaluateInstalledInteractionResponse(loaded, basis, hidden), null, 'a refused candidate takes the null channel');
+  assert.equal(seen.length, 1, 'a refused candidate never reaches the provider');
 });

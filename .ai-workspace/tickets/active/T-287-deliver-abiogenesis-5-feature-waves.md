@@ -5302,12 +5302,15 @@ ratification (design §10.6, row 6).
 
 ### Library delivery close (2026-10-23)
 
-The common computational library is delivered on `main` at `562d4515a`, under
+The common computational library is on `main` at `562d4515a` with post-close
+repair A (below), under
 the [library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 and the [plan post](../../comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md)
 Ledger. The step records are in
 [stdo3-library](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/).
-Delivery is not a release; the items for the owner below stay open.
+This is not a release. O-TYPE is open at the step 4 cast sites; the owner's
+D11 discharges them by one census activation, post-close repair C. The items
+for the owner below stay open.
 
 **Commit chain.**
 
@@ -5341,9 +5344,9 @@ Delivery is not a release; the items for the owner below stay open.
 - O-RESOURCE: closed. The six self-comparison probes in `product/catalog_definition_bindings.ts` (three), `product/environment_definition_bindings.ts` (two) and `product/install_definition_bindings.ts` (one) are deleted: `withAdmissionAuthority` digests the same resources first, so a non-encodable resource faults there. `product/project_read_definition_bindings.ts:128` admits through `admitJson`; a cyclic in-process value faults as `owner_execution_failure` (reversal: restore the probe).
 - O-SHAPE: closed: the step 3 `isRecord` retirements; `abg/retry.ts` `isProjectedRetryResumeCarrier` admits `inputValue` through `admitJson` (D3).
 - O-CODEC: closed: `abg/event_body_encoding.ts` `nativeParts` (`:28`) and `decodeEventBody` (`:157`) restore unknown event bodies for Event Store validation.
-- O-SCHEMA: closed by ingress premise at `product/default_library.ts:45` (`jsonRecord`, shallow `isRecord`). `isGovernanceWorkState` (`:66`) is reached only through the Product's `admitInput` and `validateContractValue` with parsed I-JSON, so a function member cannot cross the boundary; an in-process `{ hidden: () => 7 }` passes the check. `abg/project_read_definition_bindings.ts:152` (`asRecord`) takes `JsonValue | undefined`.
+- O-SCHEMA: closed at the raw owner boundary (D10, the Executive, 2026-10-23). `admitInstalledProductInput` (`product/semantics.ts:512`), `evaluateInstalledInteractionResponse` (`:530`) and the leaf runtime's `validateContractValue` (`:620`) admit each value through `admitJson` before the Product's guard, which receives the detached admitted value; a refused value takes the method's channel, `null` or `false`. These three carry every external dispatch: `admitInput` from `:514`, `evaluateInteractionResponse` from `:532`, `validateContractValue` from the leaf port (`implementation/leaf_invocation_port.ts:1504`, `:1519`) through the runtime that `projectInstalledLeafSemantics` binds (`:616`); the built-in providers' compositions call `admitInput` only inside a provider, behind the boundary. `isGovernanceWorkState` (`product/default_library.ts:66`) and its shallow `jsonRecord` (`:45`) stay behind the boundary. Lane `t287-common-computational-library` refuses a governance state with `{ hidden: () => 7 }` in `original.testing.commands` through `admitInput` and `validateContractValue` and admits the same state as parsed JSON; a second case refuses a function-bearing response candidate before the provider and passes a parsed one detached and frozen. `abg/project_read_definition_bindings.ts:152` (`asRecord`) takes `JsonValue | undefined`. Reversal: delete the three admission blocks and reopen O-SCHEMA.
 - O-KEY: closed: the 34 NUL-joined bodies are retired and none remains; `product/default_library.ts:133` checks its five keys with `hasExactKeys`.
-- O-TYPE: per site. Closed at `abg/retry.ts` `isProjectedRetryResumeCarrier`; `abg/execution_basis.ts` `exactC2SourceEnvironment` (both sides) and `detachJsonRecord`; the basis projection of `abg/invocation_execution_truth.ts`; `product/verify_product.ts` `makeCoordinate`; both `application` sites of `hog/parent_rehydration.ts`; the nine `unknown`-typed comparands of `gtl/consensus.ts` (`:833`, `:839`, `:845`, `:937`, `:944`, `:1115`, `:1125`, `:1271`, `:1920`). Open per site: the `JsonValue` casts of step 4's per-file list (867 of 1204 `canonicalEquals` calls at `5f4a1d4c9`, about 65 of them on `unknown`-typed values); the binding `sameJson` lift; the carrier site of `hog/parent_rehydration.ts`; the `jsonRecord` consumers in `abg/default_library.ts`, `abg/instruction_assembly.ts` and `product/default_library.ts`; the guard-refined comparisons of `gtl/consensus.ts` (`:2217`, `:2514`, `:2518`, `:2620`, `:2844`, `:2886`, `:3201`, `:3296`) and its relation evaluators (`:3628-3872`).
+- O-TYPE: per site. Closed at `abg/retry.ts` `isProjectedRetryResumeCarrier`; `abg/execution_basis.ts` `exactC2SourceEnvironment` (both sides) and `detachJsonRecord`; the basis projection of `abg/invocation_execution_truth.ts`; `product/verify_product.ts` `makeCoordinate`; both `application` sites of `hog/parent_rehydration.ts`; the nine `unknown`-typed comparands of `gtl/consensus.ts`: the seven reference arrays by the contract's shape, compared member by member without recursion (`isRefArrayEqual`, `:789`; at `:840`, `:841`, `:842`, `:928`, `:930`, `:1106`, `:1248`), and the two JSON values through `admitJson` (`:1098`, `:1894`). Open per site: the `JsonValue` casts of step 4's per-file list (867 of 1204 `canonicalEquals` calls at `5f4a1d4c9`, about 65 of them on `unknown`-typed values); the binding `sameJson` lift; the carrier site of `hog/parent_rehydration.ts`; the `jsonRecord` consumers in `abg/default_library.ts`, `abg/instruction_assembly.ts` and `product/default_library.ts`; the guard-refined comparisons of `gtl/consensus.ts` (`:2217`, `:2514`, `:2518`, `:2620`, `:2844`, `:2886`, `:3201`, `:3296`) and its relation evaluators (`:3628-3872`).
 
 **Proofs** (the whole-diff review's Proofs, with the step 8 repair).
 
@@ -5375,8 +5378,8 @@ Delivery is not a release; the items for the owner below stay open.
 - With `ABI5_OWNED_ADMISSION_PREIMAGE` set, `t287-w2-05-static-binding-algebra` loads a preimage transport whose `../shared/definition_binding_mechanics.js` specifier no longer resolves; that path needs a new preimage.
 - The `t287-event-calculus-owner-continuation` source patch recorded at step 6 is unapplied; the suite fails at load at `:18` on its fixture precondition at head and at `97b1200bc`.
 - `t287-c2a-fp-source-contract` (`:40-43`) asserts a source-text regex that the parameter name and position of `failActorProcessEffect` satisfy; it no longer discriminates the handoff it names (review F8).
-- The liveness read of `abg/runtime_liveness.ts:813-827` runs under no gate lane; `m5-event-calculus-runtime` exercises it, with its five baseline-red cases.
-- No green suite exercises `gtl/consensus.ts`: `m5-consensus-module` fails at load at the baseline.
+- The liveness read of `abg/runtime_liveness.ts:821-835` runs in `t287-native-frame-observation`, in a component harness that supplies the execution-basis rehydration and the retry budget; that suite's three other unskipped cases fail at their environment preconditions. `m5-event-calculus-runtime` also exercises the read, with its five baseline-red cases.
+- `t287-consensus-ref-shape` exercises six of the seven reference-array sites of `gtl/consensus.ts`; the action-evaluation site (`:1248`) needs admitted evidence and is not reached. `m5-consensus-module` fails at load at the baseline.
 
 **Items for the owner.**
 
@@ -5384,5 +5387,15 @@ Delivery is not a release; the items for the owner below stay open.
 - `sameQualificationValue` is no longer exported by the `validator` barrel, so the package `"."` and `"./validator"` entries drop it. No consumer outside `code/src` imports it; restoring it is one line.
 - `build/` is in `.gitignore`, yet 40 files under `build/code/src/` are tracked from an older force-add, so every code step commits regenerated copies of exactly those 40 and a fresh checkout has a partial build tree. The fix, `git rm --cached` of the 40 or tracking all of `build/`, is a separate decision.
 - `t287-worksite-command-execution` fails at `:826` (`'failure' !== 'success'`) at head and at `97b1200bc`, after the C2 phase the production proof uses. Whether that baseline defect enters this wave is the owner's decision.
-- O-SCHEMA refusal at the schema, if wanted: one `admitJson` inside the custom check of `product/default_library.ts:45`.
+- The Executive's D10 places the O-SCHEMA refusal at the raw owner boundary, not inside the custom check of `product/default_library.ts:45`; its reversal is in the O-SCHEMA line above.
 - The function-level cycle from `abg/calculus/` through `abg/runtime_liveness.ts` and `abg/event_calculus.ts` back to `abg/calculus/` (review F2); breaking it is a `design_reframe` of its own.
+
+**Post-close review (2026-10-23).** Six findings at `6a161fcbc`
+(`step-8.md`, `## Post-close review`); their state after post-close repair A:
+
+1. Helper failure facts do not reach the admitted failure subject on the command and HTTP routes: pending repair B.
+2. Public liveness reads one event before the requested prefix: repaired; the cut is an explicit argument (`abg/runtime_liveness.ts:715`, validator `:687`, public `:914`); case `public liveness reads process liveness at the requested prefix; the validator reads before its own event` in `t287-native-frame-observation`.
+3. Streaming advancement copies every fold carrier per `advance` call: open; repair A stopped at this item because design §4.4 states the per-call copy and §4.4 is outside its grant (`step-8.md`, `## Post-close repair return A`).
+4. O-SCHEMA's upstream-admission premise is false for exported APIs: repaired at the raw owner boundary (D10) for input, response and contract values; cases `O-SCHEMA: the Product boundary admits input and contract values to I-JSON before the provider guard` and `O-SCHEMA: the Product boundary admits an interaction response candidate to I-JSON before the provider evaluates it` in `t287-common-computational-library`.
+5. A self-referencing consensus reference array throws where the baseline answered `false`: repaired; case `consensus reference arrays: shape-checked and compared without recursion; a cycle or NaN member is unequal` in `t287-consensus-ref-shape`; the baseline answer `false` is confirmed at `97b1200bc`.
+6. Delivery is declared while O-TYPE is open: GOALS and this subsection state O-TYPE open at the step 4 cast sites; the owner's D11 discharges them by one census activation, post-close repair C.

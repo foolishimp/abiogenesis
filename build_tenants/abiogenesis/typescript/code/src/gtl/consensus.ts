@@ -782,6 +782,19 @@ function isRef(value: unknown): value is string {
   return isNonBlankRef(value);
 }
 
+/** The contract's reference-array shape, compared without recursion: an
+ * array of `expected.length` members, each a reference equal to its
+ * counterpart. A hole, a non-reference or a nested array is unequal; no member
+ * is encoded or walked. */
+function isRefArrayEqual(value: unknown, expected: readonly string[]): boolean {
+  if (!Array.isArray(value) || value.length !== expected.length) return false;
+  for (let index = 0; index < expected.length; index += 1) {
+    const member: unknown = value[index];
+    if (!isRef(member) || member !== expected[index]) return false;
+  }
+  return true;
+}
+
 function isConsensusActionCatalog(
   value: unknown,
 ): value is Readonly<Record<string, JsonValue>> {
@@ -824,25 +837,9 @@ function isConsensusActionCatalog(
     row.programRef !== CONSENSUS_IDS.oneSurfaceProgramRef ||
     row.graphFunctionRef !== CONSENSUS_IDS.graphFunctionRef ||
     row.targetProgramLocusRef !== CONSENSUS_IDS.graphFunctionRef ||
-    !Array.isArray(row.targetObligationRefs)
-  ) return false;
-  // `unknown` members are admitted before comparison; a refusal is not equal.
-  const targetObligationRefs = admitJson(row.targetObligationRefs);
-  if (
-    targetObligationRefs.kind !== "ok" ||
-    !canonicalEquals(targetObligationRefs.value, [CONSENSUS_IDS.consensusObligationRef]) ||
-    !Array.isArray(row.inputAssetRefs)
-  ) return false;
-  const inputAssetRefs = admitJson(row.inputAssetRefs);
-  if (
-    inputAssetRefs.kind !== "ok" ||
-    !canonicalEquals(inputAssetRefs.value, [CONSENSUS_IDS.consensusInputAssetRef]) ||
-    !Array.isArray(row.outputAssetRefs)
-  ) return false;
-  const outputAssetRefs = admitJson(row.outputAssetRefs);
-  if (
-    outputAssetRefs.kind !== "ok" ||
-    !canonicalEquals(outputAssetRefs.value, [CONSENSUS_IDS.consensusOutputAssetRef]) ||
+    !isRefArrayEqual(row.targetObligationRefs, [CONSENSUS_IDS.consensusObligationRef]) ||
+    !isRefArrayEqual(row.inputAssetRefs, [CONSENSUS_IDS.consensusInputAssetRef]) ||
+    !isRefArrayEqual(row.outputAssetRefs, [CONSENSUS_IDS.consensusOutputAssetRef]) ||
     row.expectedDeltaRef !== CONSENSUS_IDS.consensusExpectedDeltaRef ||
     row.progressConditionRef !==
       CONSENSUS_IDS.consensusProgressConditionRef ||
@@ -928,20 +925,9 @@ export function isConsensusObservationSnapshot(
     !isRef(value.workspaceBinding.workspaceBindingId) ||
     !isDigest(value.workspaceBinding.workspaceBindingDigest) ||
     value.targetOutcomeRef !== CONSENSUS_IDS.consensusTargetOutcomeRef ||
-    !Array.isArray(value.targetObligationRefs)
-  ) return false;
-  // `unknown` members are admitted before comparison; a refusal is not equal.
-  const targetObligationRefs = admitJson(value.targetObligationRefs);
-  if (
-    targetObligationRefs.kind !== "ok" ||
-    !canonicalEquals(targetObligationRefs.value, [CONSENSUS_IDS.consensusObligationRef]) ||
+    !isRefArrayEqual(value.targetObligationRefs, [CONSENSUS_IDS.consensusObligationRef]) ||
     !isConsensusActionCatalog(value.actionCatalog) ||
-    !Array.isArray(value.availableActionRefs)
-  ) return false;
-  const availableActionRefs = admitJson(value.availableActionRefs);
-  if (
-    availableActionRefs.kind !== "ok" ||
-    !canonicalEquals(availableActionRefs.value, [CONSENSUS_IDS.consensusActionRef]) ||
+    !isRefArrayEqual(value.availableActionRefs, [CONSENSUS_IDS.consensusActionRef]) ||
     !isConsensusInvocation(value.consensusInvocation) ||
     (value.consensusResultRef !== null && !isRef(value.consensusResultRef)) ||
     (value.modelRef !== null && !isRef(value.modelRef)) ||
@@ -1117,12 +1103,7 @@ export function isConsensusNextActionBasis(
     value.targetInputRef !== value.targetInput.invocationRef ||
     value.targetInputDigest !==
       sha256Canonical(value.targetInput as unknown as JsonValue) ||
-    !Array.isArray(value.targetObligationRefs)
-  ) return false;
-  const targetObligationRefs = admitJson(value.targetObligationRefs);
-  if (
-    targetObligationRefs.kind !== "ok" ||
-    !canonicalEquals(targetObligationRefs.value, [CONSENSUS_IDS.consensusObligationRef])
+    !isRefArrayEqual(value.targetObligationRefs, [CONSENSUS_IDS.consensusObligationRef])
   ) return false;
   const { basisRef: _basisRef, basisDigest: _basisDigest, ...body } = value;
   const digest = sha256Canonical(body as unknown as JsonValue);
@@ -1263,12 +1244,8 @@ export function isConsensusActionEvaluationBasis(
     intent.actionKind === "invoke_graph_function" &&
     intent.selectedGraphFunctionRef === CONSENSUS_IDS.graphFunctionRef &&
     evidence.responseDigest ===
-      sha256Canonical(evidence.responseValue as unknown as JsonValue) &&
-    Array.isArray(evidence.semanticEvidenceAssetRefs))) return false;
-  // An `unknown` member is admitted before comparison; a refusal is not equal.
-  const semanticEvidenceAssetRefs = admitJson(evidence.semanticEvidenceAssetRefs);
-  return semanticEvidenceAssetRefs.kind === "ok" &&
-    canonicalEquals(semanticEvidenceAssetRefs.value, [CONSENSUS_IDS.consensusOutputAssetRef]);
+      sha256Canonical(evidence.responseValue as unknown as JsonValue))) return false;
+  return isRefArrayEqual(evidence.semanticEvidenceAssetRefs, [CONSENSUS_IDS.consensusOutputAssetRef]);
 }
 
 export function evaluateConsensusAction(

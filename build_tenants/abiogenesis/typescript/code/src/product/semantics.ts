@@ -23,6 +23,7 @@ import type {
   GraphFunctionCatalogView,
 } from "./catalog.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 
 export interface ProductInvocationSourceResultBasis {
   readonly kind: "invocation_source_result_basis";
@@ -505,7 +506,12 @@ export function admitInstalledProductInput(
       "Product input admission requires the exact loaded Product semantics provider",
     );
   }
-  return semantics.admitInput(contractRef, value);
+  // O-SCHEMA: the raw owner boundary admits the value to I-JSON before the
+  // Product's guard, which receives the detached admitted value; a refused
+  // value takes the method's refusal, null.
+  const admitted = admitJson(value);
+  if (admitted.kind !== "ok") return null;
+  return semantics.admitInput(contractRef, admitted.value);
 }
 
 export function evaluateInstalledInteractionResponse(
@@ -518,7 +524,12 @@ export function evaluateInstalledInteractionResponse(
       "Product response evaluation requires the exact loaded Product semantics provider",
     );
   }
-  return semantics.evaluateInteractionResponse(basis, responseCandidate);
+  // O-SCHEMA: the raw owner boundary admits the response candidate to I-JSON
+  // before the Product's evaluation, which receives the detached admitted value;
+  // a refused candidate takes the method's refusal, null.
+  const admitted = admitJson(responseCandidate);
+  if (admitted.kind !== "ok") return null;
+  return semantics.evaluateInteractionResponse(basis, admitted.value);
 }
 
 export function validateInstalledInvocationBasis(
@@ -599,8 +610,17 @@ export function projectInstalledLeafSemantics(
     );
   }
   const install = basis.install;
-  const validateContractValue =
-    semantics.validateContractValue.bind(semantics);
+  // O-SCHEMA: every leaf validation admits the value to I-JSON before the
+  // Product's guard, which receives the detached admitted value; a refused
+  // value is not a contract value.
+  const validateContractValue = (
+    valueKind: string,
+    value: unknown,
+  ): value is Readonly<Record<string, JsonValue>> => {
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" &&
+      semantics.validateContractValue(valueKind, admitted.value);
+  };
   const resolveJudgmentRelation =
     semantics.resolveJudgmentRelation.bind(semantics);
   const validateResultEvidenceLineage =

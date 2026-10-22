@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {readFile,writeFile} from 'node:fs/promises';
-import {join,resolve} from 'node:path';
+import {join,resolve,dirname} from 'node:path';
 import {createHash} from 'node:crypto';
+import {pathToFileURL} from 'node:url';
+import {SourceTextModule,SyntheticModule} from 'node:vm';
 import {runControlledFrameEntry,loadFrameOwners,inspectFrameTrace} from '../support/t287-native-frame-observation.mjs';
 const root=resolve(import.meta.dirname,'../..'),proof=process.env.ABI5_FRAME_PROOF_ROOT;
 const sha=b=>createHash('sha256').update(b).digest('hex');
@@ -247,4 +249,85 @@ test('exact current D4 descriptor and retained historical EC rows/projections ar
   summaries.push({count,eventCalculusDigest:sha(JSON.stringify(ecAfter))});
  }
  await writeFile(join(proof,'historical-equality.json'),JSON.stringify({descriptorEqual:true,d4:after.events.ROOT_EVENT_CONTRACT_DIGEST,summaries},null,2)+'\n');
+});
+
+// Component harness: the built runtime_liveness owner is linked in a VM with
+// two lower premises replaced, the execution-basis rehydration (one fixed
+// basis) and the retry budget (one fixed budget). The event prefix, the Event
+// Calculus fold and the liveness contracts are the built modules. The rows are
+// controlled current-profile facts, not a store, an installed Run or a process.
+test('public liveness reads process liveness at the requested prefix; the validator reads before its own event',async()=>{
+ const built=name=>join(root,'build/code/src',name+'.js');
+ const ev=await import(built('abg/event_store')),px=await import(built('abg/event_prefix')),ec=await import(built('abg/event_calculus'));
+ const contracts=await import(built('abg/runtime_liveness_contracts')),{deepFreeze}=await import(built('shared/immutable'));
+ const {sha256Canonical:hash}=await import(built('shared/digests')),digest=contracts.runtimeLivenessDigest;
+ const basis={basisRef:'basis://t287/liveness-cut',programRef:'program://t287/liveness-cut',graphFunctionRef:'graph-function://t287/liveness-cut'};
+ const path=built('abg/runtime_liveness'),module=new SourceTextModule(await readFile(path,'utf8'),{identifier:path});
+ const overrides={'./execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>ref===basis.basisRef?basis:null},
+  './retry.js':{projectRuntimeRetryBudgetFacts:()=>({remaining:1,retryEligible:false,continuationRef:null,terminalPolicy:'block'})}};
+ await module.link(async specifier=>{
+  const actual=await import(specifier.startsWith('.')?pathToFileURL(resolve(dirname(path),specifier)).href:specifier),values={...actual,...overrides[specifier]};
+  return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
+ });
+ await module.evaluate();const live=module.namespace;
+ const scope={basisId:basis.basisRef,runId:'run://t287/liveness-cut',graphCallId:'graph-call://t287/liveness-cut',frameId:'frame://t287/liveness-cut',graphFunctionRef:basis.graphFunctionRef};
+ const common={eventTime:'2026-10-23T00:00:00.000Z',correlationId:'correlation://t287/liveness-cut',workflowVersion:'5.0.0',scopeClass:'run',...scope};
+ const event=(ordinal,kind,aggregateType,aggregateId,parentAggregateId,payload,causationEventRefs=[])=>deepFreeze({...common,kind,aggregateType,aggregateId,
+  parentAggregateId,causationEventRefs,payload,eventContractDigest:ev.ROOT_EVENT_CONTRACT_DIGEST,eventId:`event://t287/liveness-cut/${ordinal}/${kind}`,
+  admissionOrdinal:ordinal,payloadDigest:hash(payload)});
+ const rows=[],add=(...args)=>{const row=event(rows.length+1,...args);rows.push(row);return row;};
+ const cCallRef='c-call://t287/liveness-cut',processRef='process://t287/liveness-cut',parser='plain_text';
+ const ids={actorRef:'actor://t287/liveness-cut',workerBindingRef:'worker-binding://t287/liveness-cut',implementationRef:'implementation://t287/liveness-cut',
+  implementationBindingRef:'implementation-binding://t287/liveness-cut',inputDigest:hash('input'),promptDigest:hash('prompt'),dispatchOrdinal:1};
+ const opened=add('c_call_opened','c_call',cCallRef,scope.frameId,{cCallRef,attempt:1,programLocusRef:'locus://t287/liveness-cut',taskOrdinal:null,vectorIndex:null,edgeRef:null});
+ const fibre=add('c_call_fibre_selected','c_call',cCallRef,scope.frameId,{cCallRef,callClass:'leaf',regime:'F_P',
+  implementationRef:ids.implementationRef,implementationBindingRef:ids.implementationBindingRef},[opened.eventId]);
+ // The declared identities the actor context owner recomputes.
+ const attemptDigest=digest({basisRef:basis.basisRef,cCallRef,attempt:1,dispatchOrdinal:ids.dispatchOrdinal,actorRef:ids.actorRef,workerBindingRef:ids.workerBindingRef,
+  implementationBindingRef:ids.implementationBindingRef,implementationRef:ids.implementationRef,inputDigest:ids.inputDigest,promptDigest:ids.promptDigest});
+ const transportPlanDigest=hash('transport-plan');
+ const policy=contracts.constructRuntimeWatchdogPolicy({startupMs:1000,inactivityMs:1000,hardCapMs:5000,terminationGraceMs:100});
+ const bindingBody={cCallRef,actorRef:ids.actorRef,workerBindingRef:ids.workerBindingRef,implementationRef:ids.implementationRef,
+  implementationBindingRef:ids.implementationBindingRef,inputDigest:ids.inputDigest,dispatchOrdinal:ids.dispatchOrdinal,timeoutMs:1000,absoluteTimeoutMs:5000,
+  terminationGraceMs:100,parser,agentKey:'backend://t287/liveness-cut',transportPlanDigest,
+  paths:{output:'file:///t287/liveness-cut/output.json',transport:'file:///t287/liveness-cut/transport.json'},
+  livenessBinding:{kind:'runtime_liveness_binding',schemaVersion:'5.0.0',clockKind:'native_monotonic_elapsed',policy,
+   clockOriginRef:`runtime-clock://abiogenesis/${digest({attemptDigest,transportPlanDigest}).slice(7)}`,sources:[...contracts.actorRuntimeProbeSources(parser)]}};
+ const transportBindingDigest=digest(bindingBody),transportBindingRef=`transport-binding://abiogenesis/${transportBindingDigest.slice(7)}`;
+ const binding=add('actor_transport_binding_admitted','transport_binding',transportBindingRef,cCallRef,{...bindingBody,transportBindingRef,transportBindingDigest},[fibre.eventId]);
+ const actorRef=`actor-invocation://abiogenesis/${digest({attemptDigest,transportBindingRef,transportBindingDigest}).slice(7)}`;
+ const actor=add('actor_invocation_started','actor_invocation',actorRef,cCallRef,{actorInvocationRef:actorRef,cCallRef,actorRef:ids.actorRef,
+  workerBindingRef:ids.workerBindingRef,implementationRef:ids.implementationRef,inputDigest:ids.inputDigest,dispatchOrdinal:ids.dispatchOrdinal,
+  promptDigest:ids.promptDigest,transportBindingRef,transportBindingDigest},[binding.eventId]);
+ const started=add('actor_process_started','process',processRef,actorRef,{actorInvocationRef:actorRef,processRef,processId:4242,cCallRef},[actor.eventId]);
+ // A confirmed exit before the actor is finalized: no actor_invocation_closed or _failed follows.
+ const exited=add('actor_process_exited','process',processRef,actorRef,{actorInvocationRef:actorRef,processRef,status:0,signal:null},[started.eventId]);
+ const source=px.selectValidatedRuntimeEventPrefix(deepFreeze([...rows]));
+ const cases=[['the start',started,true,'controlled_terminate'],['the confirmed exit',exited,false,'continue_waiting']];
+ for(const [label,last,processLive,disposition]of cases){
+  const cut=px.validatedRuntimeEventPrefixThroughEvent(source,last.eventId),context=live.projectActorLivenessContext(cut,actorRef);
+  assert.notEqual(context,null,`${label}: the actor context authenticates`);
+  assert.equal(ec.holdsAt(ec.deriveRuntimeHeldFluentProjection(cut),ec.constructRuntimeFluentPattern({name:'actor_process_live',identity:processRef})).length!==0,processLive,
+   `${label}: the calculus answer for actor_process_live`);
+  // Public path: the hard cap is reached; controlled_terminate requires the process live at this prefix.
+  const sample={clockOriginRef:context.binding.clockOriginRef,elapsedMs:policy.hardCapMs,eventRef:null};
+  const projection=live.deriveRuntimeLiveness(cut,context,sample);
+  assert.notEqual(projection,null,`${label}: the public projection exists`);
+  assert.equal(projection.hardCapReached,true);
+  assert.equal(projection.disposition.disposition,disposition,`${label}: the public reader agrees with the calculus at the requested prefix`);
+  // Validator path at the same prefix, for an event appended to it. The timeout
+  // arm reads the public relation at its predecessor cut, this prefix.
+  const timeout=event(last.admissionOrdinal+1,'actor_process_timeout_observed','process',processRef,actorRef,{actorInvocationRef:actorRef,processRef,
+   timeoutClass:'absolute',timeoutMs:policy.hardCapMs,thresholdObservation:{kind:'runtime_threshold_observation',schemaVersion:'5.0.0',
+    clockOriginRef:sample.clockOriginRef,elapsedMs:sample.elapsedMs,policyRef:policy.policyRef,scopeDigest:digest(context.scope),
+    evaluatedPrefixDigest:px.runtimeEventPrefixDigest(cut),projectionDigest:projection.projectionDigest}},[started.eventId,...projection.evidenceRefs]);
+  assert.equal(live.validateRuntimeLivenessEventAtPrefix(cut,timeout),processLive,`${label}: a hard-cap timeout is admitted only while the process is live`);
+  // The probe arm reads before its own event; its answer does not depend on the cut fix.
+  const contract=context.probes.find(probe=>probe.source==='process_lifecycle');
+  const probe=event(last.admissionOrdinal+1,'runtime_activity_probe_observed','actor_invocation',actorRef,cCallRef,{actorInvocationRef:actorRef,probeContract:contract,
+   observation:{kind:'runtime_probe_observation',schemaVersion:'5.0.0',probeRef:contract.probeRef,scopeDigest:digest(context.scope),clockOriginRef:sample.clockOriginRef,
+    elapsedMs:sample.elapsedMs,underlyingObservationRef:last.eventId,underlyingEventRef:last.eventId,sourceDigest:last.payloadDigest,sourceRevisionDigest:null,
+    evidenceRefs:[last.eventId],coverage:'observed',signal:'activity'}},[binding.eventId,last.eventId]);
+  assert.equal(live.validateRuntimeLivenessEventAtPrefix(cut,probe),true,`${label}: the probe validator accepts its observation`);
+ }
 });

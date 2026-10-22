@@ -684,7 +684,7 @@ function validateRuntimeLivenessEvent(prefix: RuntimeEventPrefix, event: Runtime
         e.kind === "c_call_judged" && e.aggregateId === context.scope.cCallRef && e.eventId !== underlyingEventRef)) return false;
     const after = reconstruction.prefix;
     return deriveRuntimeLivenessSemantics(after, context, { clockOriginRef: p.observation.clockOriginRef,
-      elapsedMs: p.observation.elapsedMs, eventRef: event.eventId }, undefined, reconstruction, event.admissionOrdinal) !== null;
+      elapsedMs: p.observation.elapsedMs, eventRef: event.eventId }, "before_event", undefined, reconstruction, event.admissionOrdinal) !== null;
   } catch { return false; }
 }
 
@@ -707,12 +707,20 @@ interface RuntimeLivenessHistoryFold {
 }
 type RuntimeLivenessHistoryFolds = Map<string, RuntimeLivenessHistoryFold>;
 
+/** The cut at which the relation reads process liveness. The validator reads
+ * before its own event, the event at `ordinal`: the fold's liveness rule calls
+ * the validator while folding that event, so a read at the event would re-enter
+ * the fold. A public reader reads at the prefix it requested. The cut is chosen
+ * by the caller; a supplied reconstruction is reuse only and selects nothing. */
+type ProcessLivenessCut = "before_event" | "at_prefix";
+
 /** Shared IO-free semantic relation. Ordinary event validation consumes only
  * validity; full projection identity is materialized by the public owner below. */
 function deriveRuntimeLivenessSemantics(
   prefix: RuntimeEventPrefix,
   context: RuntimeLivenessContext,
   sample: RuntimeLivenessSample,
+  cut: ProcessLivenessCut,
   selectedBudget?: RuntimeLivenessBudgetFacts,
   reconstruction?: RuntimeLivenessReconstruction,
   ordinal = runtimeEventBodiesAtPrefix(prefix).at(-1)?.admissionOrdinal ?? 0,
@@ -810,19 +818,19 @@ function deriveRuntimeLivenessSemantics(
     const occurrenceDone = actorDone || actorRef === null && any(["frame_closed", "c_call_judged"], e => frameOccurrence
       ? e.kind === "frame_closed" && e.frameId === context.scope.frameId
       : e.kind === "c_call_judged" && e.aggregateId === context.scope.cCallRef);
-    // Process liveness is the fold's actor_process_live, read through holdsAt:
-    // in the validator path at the cut before the event at `ordinal`, so this
-    // relation, which the fold's liveness rule evaluates, never re-enters the
-    // fold at its own event; in the public path at the prefix itself. The start
-    // event only binds processRef.
+    // Process liveness is the fold's actor_process_live, read through holdsAt
+    // at `cut`: in the validator path at the cut before the event at `ordinal`,
+    // so this relation, which the fold's liveness rule evaluates, never re-enters
+    // the fold at its own event; in the public path at the prefix itself. The
+    // start event only binds processRef.
     const started = { processRef: null as string | null };
     const boundary = events.at(-1);
     const processLive = actorRef !== null && any(["actor_process_started"], e => {
       if (!record(e.payload) || e.payload.actorInvocationRef !== actorRef) return false;
       started.processRef = e.aggregateId; return true;
     }) && !actorDone && started.processRef !== null &&
-      (reconstruction === undefined || boundary !== undefined) &&
-      holdsAt(deriveRuntimeHeldFluentProjection(reconstruction === undefined ? prefix
+      (cut === "at_prefix" || boundary !== undefined) &&
+      holdsAt(deriveRuntimeHeldFluentProjection(cut === "at_prefix" ? prefix
           : validatedRuntimeEventPrefixBeforeEvent(prefix, boundary!.eventId)),
         constructRuntimeFluentPattern({ name: "actor_process_live", identity: started.processRef })).length !== 0;
     let disposition: RuntimeLivenessObserverProjection["disposition"]["disposition"] = "continue_waiting";
@@ -903,7 +911,7 @@ function deriveRuntimeLivenessWithPrefixDigest(
   prefixDigest: () => Sha256Digest,
 ): RuntimeLivenessObserverProjection | null {
   try {
-    const semantics = deriveRuntimeLivenessSemantics(prefix, context, sample, selectedBudget, livenessReconstruction(prefix));
+    const semantics = deriveRuntimeLivenessSemantics(prefix, context, sample, "at_prefix", selectedBudget, livenessReconstruction(prefix));
     if (semantics === null) return null;
     const { kind, schemaVersion, scope, policyRef, ...derived } = semantics;
     const body = { kind, schemaVersion, scope, policyRef,
