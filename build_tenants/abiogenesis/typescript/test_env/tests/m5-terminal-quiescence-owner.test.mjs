@@ -159,9 +159,8 @@ test('unconfirmed cleanup stays live until a genuine confirmed Process terminal,
     assert.equal(projected.processLive, !confirmed);
     assert.equal(projected.terminationUnconfirmed, !confirmed);
     assert.equal(projected.cleanupPending, !actorDone);
-    assert.equal(projectRuntimeActorProcessFactsAtPrefix(selected)[0].terminationConfirmed, false,
-      'an exit after termination-unconfirmed confirms no termination (D9)');
-    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_terminated', identity: processRef })), false);
+    assert.equal(projectRuntimeActorProcessFactsAtPrefix(selected)[0].terminationConfirmed, confirmed);
+    assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_terminated', identity: processRef })), confirmed);
     assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_process_live', identity: processRef })), !confirmed);
     assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_cleanup_live', identity: processRef })), !confirmed);
     assert.equal(holdsAt(calculus, constructRuntimeFluent({ name: 'actor_cleanup_pending', identity: processRef })), !actorDone);

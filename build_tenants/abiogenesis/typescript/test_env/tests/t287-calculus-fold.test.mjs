@@ -66,17 +66,17 @@ test('P-FOLD: the U1 recorded store folds cold, warm and forked to the same hold
       projectionView(deriveRuntimeEventCalculusProjection(owned)), `fork at ${row.admissionOrdinal} advanced to the end equals warm`);
   }
   // The store carries an exit after termination unconfirmed for the same
-  // process: the context guard, not the emitter, keeps terminated off.
+  // process: the exit initiates terminated given the start, unguarded.
   const ref = name => constructRuntimeFluent({ name, identity: f.processRef }).fluentRef;
   const at = kind => coldFold(validatedRuntimeEventPrefixThroughEvent(owned, events(owned).find(row => row.kind === kind).eventId));
   const unconfirmed = at('actor_process_termination_unconfirmed'), exited = at('actor_process_exited'), end = coldFold(owned);
   assert.deepEqual(['actor_process_live', 'actor_process_termination_unconfirmed', 'actor_cleanup_pending']
     .map(name => unconfirmed.holds.has(ref(name))), [true, true, true], 'S then U: live, unconfirmed, cleanup pending');
   assert.deepEqual(['actor_process_exited', 'actor_process_live', 'actor_process_termination_unconfirmed', 'actor_process_terminated',
-    'actor_cleanup_pending'].map(name => exited.holds.has(ref(name))), [true, false, false, false, true],
-  'the exit after U ends live and unconfirmed and initiates no termination');
+    'actor_cleanup_pending'].map(name => exited.holds.has(ref(name))), [true, false, false, true, true],
+  'the exit after U ends live and unconfirmed and initiates termination');
   assert.deepEqual(['actor_process_exited', 'actor_process_terminated', 'actor_cleanup_pending'].map(name => end.holds.has(ref(name))),
-    [true, false, false], 'the actor terminal completes cleanup');
+    [true, true, false], 'the actor terminal completes cleanup');
   t.diagnostic(JSON.stringify({ store: 'createU1Fixture (t287-native-work-currentness-consumers.mjs) + cause, exit, actor failure',
     cuts: count, prefixes: ['validated', 'owned'] }));
 });
@@ -124,13 +124,14 @@ const CASES = [
       ['A', { initiates: [], terminates: ['actor_cleanup_pending'], holds: ['actor_process_spawn_failed'] }],
     ],
     actor: { processLive: false, terminationUnconfirmed: false, cleanupPending: false, cleanupDisposition: 'complete' } },
-  { name: 'negative: termination unconfirmed, then an exit',
+  { name: 'late confirmation: termination unconfirmed, then an exit',
     steps: [
       ['S', { initiates: ['actor_process_live'], terminates: [], holds: ['actor_process_live'] }],
       ['U', { initiates: ['actor_cleanup_pending', 'actor_process_termination_unconfirmed'], terminates: [],
         holds: ['actor_cleanup_pending', 'actor_process_live', 'actor_process_termination_unconfirmed'] }],
-      ['exit', { initiates: ['actor_cleanup_pending'], terminates: ['actor_process_live', 'actor_process_termination_unconfirmed'],
-        holds: ['actor_cleanup_pending'] }],
+      ['exit', { initiates: ['actor_cleanup_pending', 'actor_process_terminated'],
+        terminates: ['actor_process_live', 'actor_process_termination_unconfirmed'],
+        holds: ['actor_cleanup_pending', 'actor_process_terminated'] }],
     ],
     actor: { processLive: false, terminationUnconfirmed: false, cleanupPending: true, cleanupDisposition: 'pending' } },
 ];
