@@ -1,4 +1,5 @@
 import * as Abg from "../abg/index.js";
+import { projectRuntimeFailureCandidate } from "../abg/runtime_failure.js";
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
 import { projectOwnedAdmittedLeafCCallOutcomeAtPrefix } from "../abg/c_call.js";
 import { projectOwnedDeferredApplicationAtPrefix } from "../abg/deferred_application.js";
@@ -567,7 +568,7 @@ function blockRecursion(
       admitted.kind === "c_call_completion_admission"
         ? "diagnostic://abiogenesis/hog/application-run-stop-absent@5"
         : `diagnostic://abiogenesis/hog/${admitted.code}@5`,
-      admitted as unknown as JsonValue,
+      projectRuntimeFailureCandidate(admitted),
     );
   }
   return completion(
@@ -1024,7 +1025,7 @@ function completeRecursionChildUsing(
         clock,
         "blocked-route",
         "diagnostic://abiogenesis/hog/application-run-stop-absent@5",
-        admitted as unknown as JsonValue,
+        projectRuntimeFailureCandidate(admitted),
       );
     }
     return completion(
@@ -1050,7 +1051,7 @@ function completeRecursionChildUsing(
       clock,
       "advance-route",
       "diagnostic://abiogenesis/hog/application-advance-route-absent@5",
-      admitted as unknown as JsonValue,
+      projectRuntimeFailureCandidate(admitted),
     );
   }
   const nextCursor = applyRecursionRoute(

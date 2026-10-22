@@ -34,21 +34,23 @@ and [exact L2 design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disp
 retain their historical acceptance. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 supersedes the bounded C1 to C5 contracts of Root’s [conjunction](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md).
 The library is on `main` at the commit that
-[post-close repair B](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-b)
+[post-close repair D](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-d)
 records. O-RESOURCE, O-SHAPE, O-CODEC and O-KEY are closed with their sites.
-O-SCHEMA is closed at the raw owner boundary. O-TYPE is closed (D11) at every
-census site that feeds an equality, digest or admission atom
-([post-close repair C](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-c))
-but five: the lifecycle subjects at `hog/recursion_lifecycle.ts:570`, `:1027`,
-`:1053` and `hog/workflow_lifecycle.ts:727`, `:1075` carry an owned runtime
-prefix object and wait on D14, taken for post-close repair D. The four qualification comparisons
-that stopped on `admitJson`'s realm check are closed under D12: a plain record
-or array of any realm is admitted by structure. The post-close review's
-helper-route finding is stopped at a contract change for the Executive:
-carrying the helper's failure facts into the admitted failure changes the
-Product failure value's exact member set. The streaming-fold finding is
-repaired: the derivation advances one owned working state in place, with no
-per-call copy of the fold state. The
+O-SCHEMA is closed at the raw owner boundary. O-TYPE is closed at every census
+site that feeds an equality, digest or admission atom (D11, D12, D13, D14;
+[post-close repair C](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-c)).
+The five lifecycle failure subjects carry the typed projection of their
+transition, with each outcome's own durable coordinate and Run selection in
+place of the owned prefix object. A plain record or array of any realm is
+admitted by structure. No private structural equality introduced by the plan
+remains. The post-close review's helper-route finding is repaired (D15): the
+helper publishes a failure after launch as its artifact's `failure`
+disposition, and the parent carries the admitted subject inline as the leaf
+failure's diagnostic reference, with the Product failure value unchanged; an
+installed C1 to C2 case reads the subject cold from the admitted result. The
+streaming-fold finding is repaired: the derivation advances one owned working
+state in place, with no per-call copy of the fold state. The C2 suite's
+prompt-digest fixture and the reacquisition seam lane are repaired. The
 [T-287 delivery close](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#library-delivery-close-2026-10-23)
 records the evidence, the remainders migrated as touched and the items the
 owner decides. This is not full migration, source-readiness acceptance or a

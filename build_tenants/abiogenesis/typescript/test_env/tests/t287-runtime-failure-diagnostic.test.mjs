@@ -364,3 +364,129 @@ test('successful deterministic returns and legacy opaque failure totalization re
   assert.equal(malformed.candidate.resultCandidate.failureClass, 'malformed_return');
   assert.equal(malformed.candidate.diagnosticRef, 'diagnostic://abiogenesis/implementation/malformed-return@5');assert.ok(malformed.receipt);
 });
+
+// D14. An outcome receipt's owned runtime prefix is a selection object the
+// canonical writer encodes as {}; the five lifecycle failure subjects carry the
+// receipt's own cut instead. The two route owners run from source with
+// controlled upstream receipts; the failure admission is the fixture owner's.
+test('lifecycle failure subjects carry each outcome receipt\'s own cut through both admission routes', async t => {
+  const f = await fixture(t), executionBasis = f.input().executionBasis;
+  const { canonicalJson } = await import('../../build/code/src/shared/canonical_json.js');
+  const runB = { ...f.scope, runId: 'run://diagnostic-b', graphCallId: 'graph-call://diagnostic-b', frameId: 'frame://diagnostic-b' };
+  events.admitRuntimeEvent(f.store, candidate('run_segment_opened', {
+    executionBasisDigest: hash('basis'), executionBasisRef: f.scope.executionBasisRef, graphDigest: hash('graph'),
+    graphFunctionRef: 'graph-function://diagnostic', graphRef: 'graph://diagnostic', invocationAdmissionRef: 'invocation-admission://diagnostic-b',
+    invocationRef: 'invocation://diagnostic-b', programRef: 'program://diagnostic', runDigest: hash('run-b'), runId: runB.runId,
+    workspaceBindingId: 'binding://diagnostic',
+  }, runB, { aggregateType: 'run', aggregateId: runB.runId, parentAggregateId: null }));
+  const cutOf = (store, runId) => ({ runId, coordinate: events.selectHeldEventStoreDurablePrefix(store), prefix: prefixes.selectOwnedRuntimeEventPrefix(store, { runId }) });
+  const cut = runId => cutOf(f.store, runId);
+  const earlier = cut(f.scope.runId), other = cut(runB.runId);
+  events.admitRuntimeEvent(f.store, candidate('traversal_cursor_entered', { cursorRef: 'cursor://later', cursorDigest: hash('later') },
+    { ...f.scope, frameId: 'frame://other' }));
+  const later = cut(f.scope.runId);
+  const guard = { runId: f.scope.runId, runtimeStatus: 'running', activeFluents: [] };
+  const cCall = { cCallRef: 'c-call://diagnostic/c2', runId: f.scope.runId, transitionContractRef: 'contract://diagnostic/transition' };
+  const result = { resultRef: 'result://diagnostic/c2', value: { kind: 'diagnostic_output' }, valueDigest: hash({ kind: 'diagnostic_output' }) };
+  const judgment = { judgmentRef: 'judgment://diagnostic/c2', admissionEventRef: f.frontier.eventId };
+  const receipt = (disposition, at, members) => ({ kind: 'admitted_c_call_outcome', schemaVersion: '5.0.0', replayState: guard,
+    runtimePrefix: at.prefix, successorPrefix: at.coordinate, disposition, ...members });
+  const judged = at => receipt('judged', at, { admitted: { cCall, result, judgment } });
+  const retry = at => receipt('retry', at, { cCall, source: { sourceKind: 'diagnostic' }, failureCandidate: { kind: 'diagnostic_failure' }, failureValueKind: 'diagnostic_failure' });
+  const transition = { kind: 'route_transition_admission', route: { routeRef: 'route://diagnostic', runStoppedEventRef: null }, retryAttempt: null,
+    replayState: guard, successorPrefix: later.coordinate };
+  const admission = (disposition, outcome, members) => ({ kind: 'c_call_completion_admission', schemaVersion: '5.0.0', disposition, outcome, ...members });
+  const selection = at => {
+    const extent = prefixes.runtimeEventPrefixExtent(at.prefix);
+    return { kind: 'runtime_prefix_selection', coordinate: at.coordinate, runId: at.runId,
+      eventStoreDigest: prefixes.runtimeEventPrefixDigest(at.prefix), eventCount: extent.count, lastAdmissionOrdinal: extent.lastOrdinal };
+  };
+  const ownedText = '"runtimePrefix":{"kind":"owned_runtime_event_prefix","selection":{}}';
+  const project = f.owner.projectRuntimeFailureCandidate;
+  // The five sites' shapes: recursion :571 (refusal, or a non-blocked admission),
+  // :1028 (application_ready), :1054 (blocked), workflow :727 (retry receipt), :1075 (advanced).
+  const refusal = { kind: 'route_transition_refusal', schemaVersion: '5.0.0', code: 'route_refused', message: 'refused' };
+  const shapes = {
+    'recursion:571': admission('advanced', judged(earlier), { transition, reentryInputContractRef: null }),
+    'recursion:1028': admission('application_ready', judged(earlier), { replayState: guard }),
+    'recursion:1054': admission('blocked', receipt('blocked', earlier, { cCall, result, completion: { kind: 'diagnostic_rejection' },
+      diagnosticRef: 'diagnostic://abiogenesis/hog/child-traversal-blocked@5' }), { transition }),
+    'workflow:727': retry(later),
+    'workflow:1075': admission('advanced', judged(earlier), { transition, reentryInputContractRef: 'contract://diagnostic/reentry' }),
+  };
+  assert.deepEqual(project(refusal), refusal);
+  for (const [site, value] of Object.entries(shapes)) {
+    assert.ok(canonicalJson(value).includes(ownedText), site + ': the unprojected receipt encodes its prefix as {}');
+    const projected = project(value), text = canonicalJson(projected);
+    assert.equal(text.includes('"selection":{}'), false, site);
+    const outcome = projected.kind === 'admitted_c_call_outcome' ? projected : projected.outcome;
+    const source = value.kind === 'admitted_c_call_outcome' ? value : value.outcome;
+    assert.deepEqual(outcome.runtimePrefix, selection(source === shapes['workflow:727'] ? later : earlier), site);
+    const { runtimePrefix: _p, ...rest } = outcome, { runtimePrefix: _s, ...sourceRest } = source;
+    assert.deepEqual(rest, JSON.parse(JSON.stringify(sourceRest)), site + ': members other than the prefix unchanged');
+    if (projected.kind === 'c_call_completion_admission') {
+      // The receipt admitted at the earlier cut keeps that cut inside the later transition.
+      assert.deepEqual(projected.outcome.runtimePrefix.coordinate, earlier.coordinate, site);
+      if (projected.transition) assert.deepEqual(projected.transition.successorPrefix, later.coordinate, site);
+    }
+  }
+  assert.ok(selection(earlier).eventCount < selection(later).eventCount);
+  assert.notDeepEqual(earlier.coordinate, later.coordinate);
+  // Two Run selectors over one physical prefix: one coordinate, distinct subjects.
+  assert.deepEqual(earlier.coordinate, other.coordinate);
+  assert.equal(hash(retry(earlier)), hash(retry(other)), 'the unprojected subjects collapse');
+  assert.notEqual(hash(project(retry(earlier))), hash(project(retry(other))));
+  assert.equal(project(retry(other)).runtimePrefix.runId, runB.runId);
+  assert.equal(project(retry(earlier)).runtimePrefix.runId, f.scope.runId);
+
+  const lastFailure = store => {
+    const row = store.readAll().at(-1);
+    assert.equal(row.kind, 'runtime_failure_observed');
+    return row;
+  };
+  // Recursion route: the :571 site, through admitRuntimeFailure.
+  const blockedCompletion = shapes['recursion:571'];
+  const recursion = await sourceOwner('hog/recursion_lifecycle', {
+    '../abg/index.js': { admitRuntimeFailure: f.owner.admitRuntimeFailure, completeTraversalTransitionCandidate: value => value },
+    '../abg/c_call_outcome.js': { projectOwnedCCallOutcomeReceiptAtPrefix: () => judged(later), admitOwnedCCallCompletion: () => blockedCompletion },
+    './route_proposal.js': { proposeRecursionRoute: () => ({ kind: 'traversal_route_candidate' }) },
+    './operator_support.js': { ownedReplayAtDurable: () => null },
+    './traversal_completion.js': { projectOwnedExecutableTraversalCompletion: (disposition, _replay, successorPrefix, value) => ({ disposition, successorPrefix, value }) },
+  }, ['blockRecursion']);
+  const state = { input: { store: f.store, predecessorPrefix: later.coordinate, executionBasis, openedTraversalScope: f.scope,
+    graph: {}, graphFunction: {}, traversalStop: { cursor: {} }, closureContract: {}, completionScopeClass: 'child' }, cCall, result, judgment };
+  const completion = recursion.blockRecursion(state, { applicationRef: 'application://diagnostic' }, { correlationId: 'correlation://diagnostic' });
+  assert.equal(completion.disposition, 'failed');
+  const recursionRow = lastFailure(f.store);
+  assert.equal(recursionRow.payload.diagnosticClassRef ?? recursionRow.payload.diagnosticRef, 'diagnostic://abiogenesis/hog/application-run-stop-absent@5');
+  assert.equal(recursionRow.payload.subjectDigest, hash({ stage: 'blocked-completion', candidate: project(blockedCompletion) }));
+  assert.notEqual(recursionRow.payload.subjectDigest, hash({ stage: 'blocked-completion', candidate: blockedCompletion }));
+  // Workflow route: the :727 site, through failTraversal. A failed scope admits
+  // no second failure, so this route uses its own store.
+  const g = await fixture(t), gAt = cutOf(g.store, g.scope.runId);
+  const workflowReceipt = retry(gAt);
+  const failureRoute = await sourceOwner('hog/traversal_failure', { '../abg/index.js': { admitRuntimeFailure: g.owner.admitRuntimeFailure } });
+  const workflow = await sourceOwner('hog/workflow_lifecycle', {
+    './traversal_failure.js': failureRoute,
+    '../abg/c_call.js': { prepareWorkflowChildFoldback: () => ({ intent: null, admit: () => ({ kind: 'child_foldback_admission',
+      childDisposition: 'blocked', childReasonRef: null, successorPrefix: gAt.coordinate }) }) },
+    '../abg/c_call_outcome.js': { admitOwnedCCallResult: () => workflowReceipt },
+  });
+  const frame = { authority: { store: g.store, executionBasis: g.input().executionBasis, openedTraversalScope: g.scope, eventTime: time, correlationId: 'correlation://diagnostic',
+    graph: {}, graphFunction: {}, leafPort: { contractValueKindByRef: () => 'diagnostic_output', contractValueKind: () => 'diagnostic_failure' } },
+    cursor: { inputDigest: hash('input') }, workflowTerm: { outputCarrierRef: 'contract://diagnostic/output', graphFunctionRef: 'graph-function://child' },
+    parentCCall: cCall, ordinal: 0, childExecutionBasis: {}, childTraversalScope: {}, value: {} };
+  const child = { disposition: 'blocked', resultRef: 'result://child', judgmentRef: 'judgment://child', resultValue: { kind: 'diagnostic_output' },
+    closureRef: null, successorPrefix: gAt.coordinate, diagnosticRef: null, replayState: guard };
+  assert.throws(() => workflow.completeOwnedWorkflowLocus(frame, child), error => error.kind === 'graph_traversal_failure' &&
+    error.diagnosticRef === 'diagnostic://abiogenesis/hog/workflow-retry-outcome-invalid@5');
+  const workflowRow = lastFailure(g.store);
+  assert.equal(workflowRow.payload.subjectDigest, hash({ stage: 'workflow-outcome-0', candidate: project(workflowReceipt) }));
+  assert.notEqual(workflowRow.payload.subjectDigest, hash({ stage: 'workflow-outcome-0', candidate: workflowReceipt }));
+  assert.equal(canonicalJson(project(workflowReceipt)).includes('"selection":{}'), false);
+  // Nothing is retained for these routes: the cold projection answers not_retained with the projected digest.
+  const evidence = f.owner.projectRuntimeFailureEvidenceAtPrefix(prefixes.selectValidatedRuntimeEventPrefix(f.store.readAll(), { runId: f.scope.runId }));
+  assert.equal(evidence.length, 1);
+  assert.equal(evidence[0].availability, 'not_retained');
+  assert.equal(evidence[0].subjectDigest, recursionRow.payload.subjectDigest);
+});

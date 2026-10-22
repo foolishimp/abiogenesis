@@ -174,6 +174,106 @@ function installedCommandConfiguration(c2) {
   };
 }
 
+// D15 whole path. The helper's one command exits 0 with its process scope
+// unresolved: a module hook, loaded in the helper process only, binds the
+// installed lifetime module to a host whose group probe answers 'unknown' and
+// records the final facts of that command process.
+const helperFailureConfiguration = () => ({
+  commands: [{ commandId: "command://c2-ack/helper-failure", executable: process.execPath, args: ["-e", ""],
+    relativeCwd: ".", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] }],
+  outcomePredicates: [],
+  allowedWriteTerritories: [],
+});
+const helperFailurePaths = (scratch) => ({ root: join(scratch, "c2-helper-failure"),
+  facts: join(scratch, "c2-helper-failure/helper-command-facts.json"), record: join(scratch, "c2-helper-failure/helper.json") });
+
+// The controlled worker runs the helper once under the hook, records its exit
+// and streams, and relays a schema-valid acknowledgment: the parent reads the
+// helper artifact's disposition before the acknowledgment.
+async function helperFailureTransport(scratch) {
+  const paths = helperFailurePaths(scratch);
+  await mkdir(paths.root);
+  await writeFile(join(paths.root, "loader.mjs"), [
+    "export async function load(url, context, next) {",
+    "  if (!url.endsWith('/build/code/src/shared/owned_process_lifetime.js')) return next(url, context);",
+    "  const real = JSON.stringify(url + '?real'), facts = JSON.stringify(new URL('./process/index.js', url).href);",
+    "  return { format: 'module', shortCircuit: true, source: [",
+    "    `import * as real from ${real};`, `import { encodeOwnedProcessFacts } from ${facts};`,",
+    "    `import { writeFileSync } from 'node:fs';`, `export * from ${real};`,",
+    "    'export function createOwnedProcessLifetime(child, bounds, observers) {',",
+    "    '  const lifetime = real.createOwnedProcessLifetime(child, { ...bounds, terminationGraceMs: 5, host: {',",
+    "    '    clock: { nowNs: () => process.hrtime.bigint(), arm: (f, ms) => setTimeout(f, ms), cancel: clearTimeout },',",
+    "    `    platform: 'posix', signal: () => {}, probeGroup: () => 'unknown' } }, observers);`,",
+    "    `  lifetime.completion.then((value) => writeFileSync(process.env.ABG_T287_HELPER_FACTS,`,",
+    "    `    JSON.stringify(encodeOwnedProcessFacts(value)), { flag: 'wx' }), () => {});`,",
+    "    '  return lifetime;', '}', ''].join('\\n') };",
+    "}", "",
+  ].join("\n"), "utf8");
+  await writeFile(join(paths.root, "register.mjs"),
+    "import { register } from 'node:module';\nregister(new URL('./loader.mjs', import.meta.url));\n", "utf8");
+  const helperEnvironment = `{...process.env,NODE_OPTIONS:${JSON.stringify(`--import=${pathToFileURL(join(paths.root, "register.mjs")).href}`)},` +
+    `ABG_T287_HELPER_FACTS:${JSON.stringify(paths.facts)}}`;
+  return [
+    "#!/usr/bin/env node",
+    "const {spawnSync}=require('node:child_process');const fs=require('node:fs');let prompt='';",
+    "process.stdin.setEncoding('utf8');process.stdin.on('data',chunk=>prompt+=chunk);",
+    "process.stdin.on('end',()=>{",
+    "const taskSections=prompt.split('\\n\\n').filter(section=>section.startsWith('## task\\n'));",
+    "if(taskSections.length!==1)throw Error('expected one canonical task section');",
+    "const input=JSON.parse(JSON.parse(taskSections[0].slice('## task\\n'.length)).ownerPrompt.split('\\n\\n')[1]);",
+    "const schema=JSON.parse(process.argv[process.argv.indexOf('--json-schema')+1]).properties;",
+    "console.log(JSON.stringify({type:'system',subtype:'init',model:'c2-helper-failure-proof'}));",
+    "console.log(JSON.stringify({type:'assistant',message:{content:[{type:'tool_use',id:'toolu_c2_failure',name:'Bash',input}]}}));",
+    `const helper=spawnSync('/bin/sh',['-c',input.command],{encoding:'utf8',maxBuffer:4*1024*1024,env:${helperEnvironment}});`,
+    `fs.writeFileSync(${JSON.stringify(paths.record)},JSON.stringify({status:helper.status,signal:helper.signal,stdout:helper.stdout,stderr:helper.stderr}),{flag:'wx'});`,
+    "if(helper.status===0)throw Error('the helper was expected to fail after launch');",
+    "const zeros='0'.repeat(64);",
+    "const ack={kind:schema.kind.const,schemaVersion:schema.schemaVersion.const,taskRef:schema.taskRef.const,taskDigest:schema.taskDigest.const,attemptRef:schema.attemptRef.const,",
+    "  helperArtifactRef:`${schema.helperArtifactRef.pattern.slice(1,-'/[a-f0-9]{64}$'.length)}/${zeros}`,helperArtifactDigest:`sha256:${zeros}`};",
+    "console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,structured_output:ack}));",
+    "});", "",
+  ].join("\n");
+}
+
+async function assertHelperFailureAdmitted(context, { environment, product, abg, task, outcome }) {
+  const paths = helperFailurePaths(environment.scratch);
+  const helperRecord = JSON.parse(await readFile(paths.record, "utf8"));
+  assert.notEqual(helperRecord.status, 0, JSON.stringify(helperRecord));
+  assert.match(helperRecord.stderr, /worksite command cleanup unresolved; dependent work stopped: /u);
+  assert.equal(helperRecord.stdout, "", "no acknowledgment after a failure");
+  const close = outcome.receipt?.resources?.eventResource?.closeHandoff;
+  assert.ok(close, JSON.stringify(outcome));
+  // Cold: the events are read back from the durable log through a JSON copy of the coordinate.
+  const events = abg.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(close.prefix)));
+  const admitted = events.filter((event) => event.kind === "c_call_result_admitted" &&
+    event.payload.value?.kind === "worksite_command_execution_failure");
+  assert.equal(admitted.length, 1, JSON.stringify(events.map((event) => event.kind)));
+  const value = admitted[0].payload.value;
+  assert.equal(admitted[0].payload.resultClass, "failure");
+  assert.equal(value.failureClass, "helper_failure", JSON.stringify(value));
+  assert.equal(product.isWorksiteCommandExecutionFailure(value), true);
+  const { readRuntimeFailureDiagnosticSubject } = await import(pathToFileURL(
+    join(environment.installedRoot, "build/code/src/abg/runtime_failure.js")).href);
+  const subject = readRuntimeFailureDiagnosticSubject(value.diagnosticRef);
+  assert.ok(subject, value.diagnosticRef);
+  assert.equal(subject.failureClass, "command_cleanup_unresolved");
+  assert.equal(subject.taskRef, task.taskRef);
+  assert.equal(subject.taskDigest, task.taskDigest);
+  assert.equal(subject.command.commandId, "command://c2-ack/helper-failure");
+  assert.equal(subject.command.terminationConfirmed, false);
+  assert.equal(subject.diagnostic.name, "TypeError");
+  assert.match(subject.diagnostic.message, /ABI owned process cleanup unresolved/u);
+  const helperFacts = JSON.parse(await readFile(paths.facts, "utf8"));
+  assert.deepEqual(subject.processFacts, helperFacts, "the helper's own command process facts");
+  assert.equal(subject.processFacts.scopeAbsence, "unknown");
+  assert.deepEqual(subject.processFacts.directExit, { status: 0, signal: null });
+  const artifact = JSON.parse(await readFile(product.worksiteCommandExecutionHelperPlan(task, subject.attemptRef).artifactPath, "utf8"));
+  assert.equal(artifact.disposition, "failure");
+  assert.deepEqual(artifact.failure, subject);
+  context.diagnostic(JSON.stringify({ helperFailureSubjectBytes: Buffer.byteLength(product.canonicalJson(subject)),
+    diagnosticRefBytes: Buffer.byteLength(value.diagnosticRef), resultEvent: admitted[0].eventId }));
+}
+
 test("C2 explicit zero write territory preserves array, report and HTTP port authorization", async (t) => {
   const c2 = await import("../../build/code/src/product/worksite_command_execution.js");
   const { loadWorksiteOwner, worksiteFixture } = await import("../support/t287-generic-job-worksite.mjs");
@@ -342,7 +442,7 @@ function exactHelperExchange(product, prepared, plan, label, finalOutput = "{}")
       failureClass: null,
       finalOutput,
       observedOutputDigest: product.sha256Bytes(Buffer.from(finalOutput, "utf8")),
-      promptDigest: product.sha256Bytes(Buffer.from(request.prompt, "utf8")),
+      promptDigest: product.sha256Canonical(request.prompt),
       transportDigest: product.sha256Canonical({ label, kind: "transport" }),
       transportLane: request.transportLane,
       processStatus: 0,
@@ -404,9 +504,7 @@ async function executeHelper(plan, proof = null) {
   return result;
 }
 
-test("T-287 C2 compact acknowledgment preserves installed large-log observation and replay", {
-  timeout: process.env.ABG_T287_C2_PROOF_CONFIG === undefined ? 180_000 : 600_000,
-}, async (context) => {
+async function installedC2Case(context, helperFailure = false) {
   const proof = await selectedInstalledProof();
   let environment;
   let replayStore;
@@ -593,7 +691,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
       subject: sourceTask.targets[ordinal].subject,
       observation: member.successorObservation,
     })),
-    ...installedCommandConfiguration(c2),
+    ...(helperFailure ? helperFailureConfiguration() : installedCommandConfiguration(c2)),
   });
   if (proof !== null) {
     await proof.write("task.json", task);
@@ -704,7 +802,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
   const command = join(environment.scratch, "c2-bin/claude-compact-command");
   const stdoutPath = join(environment.scratch, "actual-helper-stdout.txt");
   context.signal.throwIfAborted();
-  await writeFile(command, [
+  await writeFile(command, helperFailure ? await helperFailureTransport(environment.scratch) : [
     "#!/usr/bin/env node",
     "const {spawnSync}=require('node:child_process');const fs=require('node:fs');let prompt='';",
     "process.stdin.setEncoding('utf8');process.stdin.on('data',chunk=>prompt+=chunk);",
@@ -749,6 +847,11 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     if (processRow !== null) await retainProcessAbsence(proof, "command-transport", processRow.pid, true);
     const helperRow = await retainedTransportRecord(proof, "transport-helper.json");
     if (helperRow?.pid > 0) await retainProcessAbsence(proof, "helper-shell", helperRow.pid, false);
+  }
+  if (helperFailure) {
+    phase = "helper failure handoff";
+    await assertHelperFailureAdmitted(context, { environment, product, abg, task, outcome });
+    return;
   }
   assert.equal(outcome.kind, "installed_definition_call_transport_result", JSON.stringify(outcome));
   assert.equal(outcome.receipt.exitCode, 0, JSON.stringify(outcome));
@@ -955,7 +1058,18 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
       if (firstFailure === null && closeError !== null) throw closeError;
     }
   }
-});
+}
+
+test("T-287 C2 compact acknowledgment preserves installed large-log observation and replay", {
+  timeout: process.env.ABG_T287_C2_PROOF_CONFIG === undefined ? 180_000 : 600_000,
+}, (context) => installedC2Case(context));
+
+// One C1 source admits one C2 invocation: the source basis is re-derived at the
+// entry prefix and at the source Run's closure, and after a first C2 Run they
+// differ. The helper-failure run therefore has its own installed setup and C1.
+test("T-287 C2 helper failure after launch reaches result admission with its subject inline", {
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+}, (context) => installedC2Case(context, true));
 
 test('C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries', async () => {
   const { projectWorksiteCommandExecutionBudget: project, worksiteCommandExecutionBudgetFits: fits } =

@@ -620,6 +620,21 @@ export type WorksiteCommandExecutionProvenance = {
   readonly helperPlan: WorksiteCommandExecutionHelperPlan;
 };
 
+/** A helper failure after launch, as its throw site encodes it (D15): the
+ * declared command or HTTP request, or the observed command or probe, and the
+ * owned process facts encoded once at that site. */
+export type WorksiteCommandHelperFailure = {
+  readonly failureClass: "command_failed" | "command_cleanup_unresolved" | "http_probe_failed" | "http_cleanup_unresolved";
+  readonly taskRef: string;
+  readonly taskDigest: Sha256Digest;
+  readonly attemptRef: string;
+  readonly command?: JsonValue;
+  readonly request?: JsonValue;
+  readonly observation?: JsonValue;
+  readonly diagnostic: Readonly<{ name: string; message: string }>;
+  readonly processFacts: JsonValue;
+};
+
 export type WorksiteCommandHelperArtifact = {
   readonly kind: "worksite_command_helper_artifact";
   readonly schemaVersion: "5.0.0";
@@ -627,7 +642,9 @@ export type WorksiteCommandHelperArtifact = {
   readonly artifactDigest: Sha256Digest;
   readonly taskRef: string;
   readonly taskDigest: Sha256Digest;
-  readonly disposition: "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch";
+  readonly disposition: "failure" | "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch";
+  /** Present on the `failure` disposition only. */
+  readonly failure?: WorksiteCommandHelperFailure;
   readonly commandResults: readonly WorksiteCommandResult[];
   readonly predicateObservations: readonly WorksitePredicateObservation[];
   readonly worksiteDelta: readonly WorksitePathDelta[];
@@ -1809,9 +1826,28 @@ function isSnapshotMember(value: unknown, ordinal: number): value is WorksiteSna
     Number.isSafeInteger(value.byteLength) && Number(value.byteLength) >= 0 && isSha256Digest(value.digest);
 }
 
+const HELPER_FAILURE_CARRIERS = {
+  command_failed: "command", command_cleanup_unresolved: "command",
+  http_probe_failed: "request", http_cleanup_unresolved: "observation",
+} as const;
+
+function isHelperFailure(task: WorksiteExecutionTask, value: unknown): value is WorksiteCommandHelperFailure {
+  if (!isRecord(value) || typeof value.failureClass !== "string" ||
+    !Object.hasOwn(HELPER_FAILURE_CARRIERS, value.failureClass)) return false;
+  const carrier = HELPER_FAILURE_CARRIERS[value.failureClass as keyof typeof HELPER_FAILURE_CARRIERS];
+  return exactKeys(value, ["attemptRef", carrier, "diagnostic", "failureClass", "processFacts", "taskDigest", "taskRef"]) &&
+    value.taskRef === task.taskRef && value.taskDigest === task.taskDigest && nonempty(value.attemptRef) &&
+    isRecord(value[carrier]) && isRecord(value.processFacts) &&
+    isRecord(value.diagnostic) && exactKeys(value.diagnostic, ["message", "name"]) &&
+    typeof value.diagnostic.name === "string" && typeof value.diagnostic.message === "string" &&
+    admitJson(value).kind === "ok";
+}
+
 export interface WorksiteExecutionHelperArtifactInput {
   task: WorksiteExecutionTask;
-  disposition: "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch";
+  disposition: "failure" | "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch";
+  /** The `failure` disposition's subject; absent on every other disposition. */
+  failure?: WorksiteCommandHelperFailure;
   commandResults: readonly WorksiteCommandResult[];
   predicateObservations: readonly WorksitePredicateObservation[];
   worksiteDelta: readonly WorksitePathDelta[];
@@ -1852,12 +1888,20 @@ export function constructWorksiteExecutionHelperArtifact(input: Readonly<Worksit
         member.byteLength !== protectedRow.observation.byteLength ||
         member.digest !== protectedRow.observation.fileDigest;
     }) || input.snapshotDigest !== sha256Canonical(input.snapshotMembers) ||
-    (input.commandResults.length !== 0 && input.commandResults.length !== input.task.commands.length) ||
-    (input.predicateObservations.length !== 0 &&
-      input.predicateObservations.length !== input.task.outcomePredicates.length) ||
-    !((input.commandResults.length === 0 && input.predicateObservations.length === 0) ||
-      (input.commandResults.length === input.task.commands.length &&
-        input.predicateObservations.length === input.task.outcomePredicates.length)) ||
+    // A failure after launch keeps the rows observed before it: a prefix of
+    // the declared commands, then a prefix of the predicates.
+    (input.disposition === "failure"
+      ? !isHelperFailure(input.task, input.failure) ||
+        input.commandResults.length > input.task.commands.length ||
+        input.predicateObservations.length > input.task.outcomePredicates.length ||
+        (input.predicateObservations.length !== 0 && input.commandResults.length !== input.task.commands.length)
+      : input.failure !== undefined ||
+        (input.commandResults.length !== 0 && input.commandResults.length !== input.task.commands.length) ||
+        (input.predicateObservations.length !== 0 &&
+          input.predicateObservations.length !== input.task.outcomePredicates.length) ||
+        !((input.commandResults.length === 0 && input.predicateObservations.length === 0) ||
+          (input.commandResults.length === input.task.commands.length &&
+            input.predicateObservations.length === input.task.outcomePredicates.length))) ||
     (input.disposition === "success" && input.commandResults.length !== input.task.commands.length) ||
     (input.disposition === "success" && input.predicateObservations.length !== input.task.outcomePredicates.length) ||
     (input.disposition === "success" && input.worksiteDelta.some((row) => row.matchedTerritoryRef === null)) ||
@@ -1866,11 +1910,13 @@ export function constructWorksiteExecutionHelperArtifact(input: Readonly<Worksit
     (input.disposition === "product_mismatch" && input.productDelta.length === 0) ||
     input.snapshotRef !== identity(worksiteExecutionIdentityPrefix(input.task, "snapshot"), input.snapshotDigest) ||
     (input.disposition !== "success" && input.disposition !== "protected_mismatch" &&
-      input.disposition !== "territory_mismatch" && input.disposition !== "product_mismatch")) {
+      input.disposition !== "territory_mismatch" && input.disposition !== "product_mismatch" &&
+      input.disposition !== "failure")) {
     throw new TypeError("command helper artifact requires exact task-bound commands and protected observations");
   }
-  if (input.commandResults.length === input.task.commands.length) {
-    assertWorksiteCommandVectors(input.task, input.commandResults, input.predicateObservations);
+  if (input.disposition === "failure" || input.commandResults.length === input.task.commands.length) {
+    assertWorksiteCommandVectors(input.task, input.commandResults, input.predicateObservations,
+      input.disposition === "failure");
   }
   const body = {
     taskRef: input.task.taskRef,
@@ -1886,6 +1932,7 @@ export function constructWorksiteExecutionHelperArtifact(input: Readonly<Worksit
     snapshotMembers: input.snapshotMembers,
     protectedBefore: input.protectedBefore,
     protectedAfter: input.protectedAfter,
+    ...(input.disposition === "failure" ? { failure: input.failure } : {}),
   };
   const artifactDigest = sha256Canonical(body);
   return deepFreeze({
@@ -1906,6 +1953,7 @@ export function isWorksiteExecutionHelperArtifact(
     "artifactDigest", "artifactRef", "commandResults", "disposition", "kind", "predicateObservations",
     "productDelta", "protectedAfter", "protectedBefore", "schemaVersion", "taskDigest", "taskRef",
     "snapshotDigest", "snapshotMembers", "snapshotRef", "snapshotRoot", "worksiteDelta",
+    ...(value.disposition === "failure" ? ["failure"] : []),
   ]) || value.kind !== (task.kind === "worksite_command_forward_task" ? "worksite_command_forward_helper_artifact"
     : task.kind === "worksite_command_execution_task" ? "worksite_command_helper_artifact" : "worksite_revision_command_helper_artifact") || value.schemaVersion !== SCHEMA_VERSION ||
     value.taskRef !== task.taskRef || value.taskDigest !== task.taskDigest ||
@@ -1913,7 +1961,8 @@ export function isWorksiteExecutionHelperArtifact(
   try {
     return sameAdmitted(value, constructWorksiteExecutionHelperArtifact({
       task,
-      disposition: value.disposition as "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch",
+      disposition: value.disposition as WorksiteExecutionHelperArtifactInput["disposition"],
+      ...(value.disposition === "failure" ? { failure: value.failure as WorksiteCommandHelperFailure } : {}),
       commandResults: value.commandResults as readonly WorksiteCommandResult[],
       predicateObservations: value.predicateObservations as readonly WorksitePredicateObservation[],
       worksiteDelta: value.worksiteDelta as readonly WorksitePathDelta[],
@@ -1991,11 +2040,12 @@ function assertWorksiteCommandVectors(
   task: WorksiteExecutionTask,
   commandResults: readonly WorksiteCommandResult[],
   predicateObservations: readonly WorksitePredicateObservation[],
+  prefix = false,
 ): void {
   if (!isWorksiteExecutionTask(task) ||
     !Array.isArray(commandResults) || !commandResults.every(isCommandResult) ||
     !Array.isArray(predicateObservations) || !predicateObservations.every(isPredicateObservation) ||
-    commandResults.length !== task.commands.length ||
+    (prefix ? commandResults.length > task.commands.length : commandResults.length !== task.commands.length) ||
     !commandResults.every((result, ordinal) => {
       const declared = task.commands[ordinal];
       return declared !== undefined && result.ordinal === ordinal &&
@@ -2011,7 +2061,8 @@ function assertWorksiteCommandVectors(
             report.expectedReportIdentity === expected.reportIdentity &&
             report.relativePath === expected.relativePath;
         });
-    }) || predicateObservations.length !== task.outcomePredicates.length ||
+    }) || (prefix ? predicateObservations.length > task.outcomePredicates.length
+      : predicateObservations.length !== task.outcomePredicates.length) ||
     !predicateObservations.every((observation, ordinal) => {
       const declared = task.outcomePredicates[ordinal];
       return declared !== undefined && observation.ordinal === ordinal &&

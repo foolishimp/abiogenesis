@@ -69,6 +69,7 @@ import type {
   PreparedProbabilisticLeafInvocation,
 } from "./contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 
 const descriptorBody = {
   implementationRef: WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,
@@ -230,9 +231,12 @@ function constructWorksiteCommandExecutionLaunchPlan(
   });
 }
 
-function failure(failureClass: string): Readonly<LeafRealizationCandidate> {
-  const diagnosticRef =
-    `diagnostic://abiogenesis/worksite/command-execution/${failureClass.replaceAll("_", "-")}@5`;
+/** The class reference, or for a helper failure after launch the admitted
+ * subject inline (D15; the §9.3 item 3 mechanism). */
+function failure(
+  failureClass: string,
+  diagnosticRef = `diagnostic://abiogenesis/worksite/command-execution/${failureClass.replaceAll("_", "-")}@5`,
+): Readonly<LeafRealizationCandidate> {
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,
     schemaVersion: "5.0.0" as const,
@@ -736,6 +740,13 @@ export function realizeWorksiteCommandExecution(
       );
       if (!helperBytes.equals(canonicalHelperBytes)) {
         return failure("helper_artifact_contract_failure");
+      }
+      if (helperValue.disposition === "failure") {
+        const subject = admitJson(helperValue.failure);
+        if (subject.kind !== "ok" || helperValue.failure?.attemptRef !== helperPlan.attemptRef) {
+          return failure("helper_artifact_contract_failure");
+        }
+        return failure("helper_failure", constructRuntimeFailureDiagnosticRef(subject.value));
       }
       if (helperValue.disposition !== "success") {
         return failure(`helper_${helperValue.disposition}`);

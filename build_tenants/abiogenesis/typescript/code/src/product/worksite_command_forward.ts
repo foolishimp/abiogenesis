@@ -113,6 +113,11 @@ export function isWorksiteCommandForwardRequest(value: unknown): value is Worksi
     !hasExactKeys(value,["kind","schemaVersion","requestRef","requestDigest","source","workspaceAuthorityBasis","workspaceBinding","capabilityGrant","protectedObservations"]))return false;
   try{const admitted=admitJson(value);return admitted.kind==="ok"&&canonicalEquals(admitted.value, constructWorksiteCommandForwardRequest(value as unknown as WorksiteCommandForwardRequest));}catch{return false;}
 }
+/** The retained source's cover vector is unchecked: admitted, then compared canonically; a refusal is a mismatch. */
+function sameAdmittedRefs(candidate:unknown,refs:readonly string[]):boolean {
+  const admitted=admitJson(candidate);
+  return admitted.kind==="ok"&&canonicalEquals(admitted.value,refs);
+}
 export function constructWorksiteCommandForwardTask(input: Readonly<{request:WorksiteCommandForwardRequest;originalTask:WorksiteCommandExecutionTask;
   snapshotSources:readonly WorksiteCommandForwardSnapshotSource[];bindingCoverEventRefs:readonly string[]}>): WorksiteCommandForwardTask {
   const {request,originalTask,snapshotSources,bindingCoverEventRefs}=input;
@@ -131,8 +136,7 @@ export function constructWorksiteCommandForwardTask(input: Readonly<{request:Wor
         row.observation.byteLength!==old.observation.byteLength||!isRecord(row.source)||
         !hasExactKeys(row.source,["kind","resultAdmissionEventRef","evidenceEventRef","bindingCoverEventRefs"])||
         row.source.kind!=="retained_construction"||!text(row.source.resultAdmissionEventRef)||!text(row.source.evidenceEventRef)||
-        !Array.isArray(row.source.bindingCoverEventRefs)||row.source.bindingCoverEventRefs.length!==bindingCoverEventRefs.length||
-        !row.source.bindingCoverEventRefs.every((ref:unknown,j:number)=>ref===bindingCoverEventRefs[j]);
+        !sameAdmittedRefs(row.source.bindingCoverEventRefs,bindingCoverEventRefs);
     }))throw new TypeError("forward task requires the complete unchanged construction vector and explicit native proof coordinates");
   const configuration=constructWorksiteCommandConfiguration({...request,commands:originalTask.commands,
     outcomePredicates:originalTask.outcomePredicates,allowedWriteTerritories:originalTask.allowedWriteTerritories,
