@@ -575,3 +575,136 @@ failure absent at the baseline that is not the recorded step 6 flip.
 `## Return 8a-2` with: commit; the seven sites (deleted / replaced, producer
 shown); the quiescence changes; item 3's result with attribution; gate per
 suite; residuals.
+
+## Return 8a-2
+
+- commit: none. The stop fired at `product/project_read_definition_bindings.ts:128`. The one replacement the activation authorizes there changes behavior beyond the stated widening (see "Stop at `:128`" below).
+  - Items 1 to 3 are done, and the gate passed on the full change.
+  - The change is saved as a patch: `/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/8a2/step-8a-2.patch`. It has 9 files, sha256 `fe89ca2351c325fa3d86fad3c3cd2cd118ed4c127448c0aa29dd540a9d0298f6`, and `git apply --check` is clean at `1ee0265fa`.
+  - The tracked tree is restored to `1ee0265fa` and rebuilt, and the manifest and graph regenerate identical.
+  - Applying the patch ratifies four decisions, not only the one on `:128`:
+    - the ruling on `:128` (options below);
+    - the six probes deleted on the wrapper premise rather than replaced. The activation's delete test is admitted or typed data, and the wrapper's digest is neither;
+    - `:166` and native-work `:69` following the fold (`not T and U`), not the activation's "`actor_process_termination_unconfirmed` holds";
+    - edits outside "the seven lines only": the `admitJson` import at project_read `:37`; the trailing `||` removed from the lines before catalog `:704`, `:856` and environment `:240`; and one added `actor_process_terminated` assertion in m5.
+- Premise correction. `writeCanonicalJson` throws on more than a non-finite number:
+  - an `undefined` member (`Object.entries(undefined)`);
+  - a cycle (RangeError, stack overflow);
+  - a throwing accessor or proxy trap.
+
+  `sameJson` returns false for each. `admitJson` refuses `undefined` and accessors (`non_ijson_value`), but it throws on a cycle and on a proxy trap (its documented defects).
+- The seven sites. Lines are at `1ee0265fa`, the same as at `37ef7d760`, because the head commit changed only the plan and this file.
+  - Producer, for all seven: `call.resources`, the transport's sibling assertion (`shared/effect_definition.ts:35-37`).
+    - The installed transport detaches an `unknown` candidate with `structuredClone` (`public/installed_definition_call_transport.ts:238-283`, `:292-294`). That keeps cycles, NaN, `undefined`, Date, Map and BigInt, turns accessors into data and refuses proxies.
+    - The CLI parses with `JSON.parse` (`public/cli.ts:101`), not `admitIJsonText`.
+    - Nothing admits `call.resources`, so at the transport it is neither admitted nor typed data.
+  - Deleted, six sites:
+    - catalog `:290` (`validateAdmissionStructure`), `:704` (`allowlist`), `:856` (`createApplyBinding`);
+    - environment `:240` (`validateResolveResources`), `:535` (`validateBindResources`);
+    - install `:143` (`validateResources`).
+
+    The premise shown for these six:
+    - Each owner is reachable only through `withAdmissionAuthority` (catalog `:960-962`, environment `:817-818`, install `:421`). The inner consts and the validators are module-private.
+    - Before the owner runs, the wrapper computes `digest(resources)`, which is `sha256Canonical`: the same `writeCanonicalJson` traversal, over the identical object it hands the owner (`product/admission_authority.ts:308-310`, `:334`). It binds that digest to the authority's `resourcesDigest`.
+    - Any throw becomes `resource_relation_mismatch` (`:336`).
+    - So each probe's false branch is unreachable, and deleting the probe keeps every outcome, cycles included.
+
+    This premise is an existing check, not admission. I deleted the six instead of replacing them, because a replacement would widen six refusal sets without closing any reachable branch. If the Executive reads "admitted or typed" strictly, the alternative is `admitJson(resources).kind === "ok"` at each of the six. Behind the wrapper, that adds only the widening, because the wrapper already rules out every throw case.
+  - Replaced, one site: project_read `:128` (`validResources`) now reads `admitJson(value).kind === "ok"`.
+    - `admitJson` is added to the existing `../shared/admit/index.js` import at `:37`. That line is outside the seven, and the replacement needs it.
+    - The producer is not shown. There is no wrapper, and nothing on the transport path traverses `resources` before this check: `admitExactDefinitionCall` reads only `invocation`, and `validResources` is the first statement in each of the five owners' `Effect.try`.
+    - The refusal set widens to unsafe integers, lone surrogates and non-I-JSON values (Date, Map, BigInt, sparse arrays, class instances, accessors, symbol keys).
+  - Stop at `:128`.
+    - Before the change, a cyclic resource, which `structuredClone` keeps, was refused with `resource_admission`/`invalid_resource_assertion`.
+    - With the replacement, `admitJson` throws RangeError. The owner's `catch` maps that to `resource_admission`/`owner_execution_failure`, with the message "RangeError: Maximum call stack size exceeded".
+    - Measured on both builds by calling `PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_list` with a self-referencing `packet` (`8a2/probe-cycle.mjs`). NaN gives `invalid_resource_assertion` on both builds.
+    - A throwing proxy trap changes in the same way. Only direct in-process callers can pass one.
+    - 8a kept the D4 bridge on the same defect argument.
+
+    Options:
+    - (a) accept the changed fault code for cyclic input and commit the patch as is;
+    - (b) keep `sameJson(value, value)` at `:128`, leaving O-RESOURCE open at one site;
+    - (c) authorize a guard in the owner, which is outside this grant.
+- Quiescence (`m5-terminal-quiescence-owner`): 5/2 before, 7/7 after.
+  - `:162`: `terminationConfirmed` is `false` at every cut, with the message "an exit after termination-unconfirmed confirms no termination (D9)". One added line asserts that `holdsAt(actor_process_terminated)` is `false` at every cut.
+  - `:166-167`: `actor_process_termination_unconfirmed` holds as `!confirmed`, that is, true before the exit and false after it. The message is "a process terminal ends termination-unconfirmed (not T and U)".
+  - Discrepancy with the activation. The activation says this fluent holds after the late exit. The fold says it does not:
+    - The rule clips the fluent on the exit (`calculus/rules.ts:156`, beside the D9 guard at `:151`).
+    - Design §4.4 (`:195`) states `terminationUnconfirmed = not T and U`.
+    - Step 6's review recorded this flip: "`:166-167` asserts `actor_process_termination_unconfirmed` after the exit (now `not T and U`)".
+
+    The test follows the fold. After the late exit, the only lifecycle fluent of the process that holds is `actor_cleanup_pending`. The D9 design sentence, appended verbatim, says "the sequence reads as unconfirmed". Next to §4.4's formula, a reader can take that to mean the fluent holds, which is the same ambiguity, so the Executive may want to settle the wording before the patch lands. The sequence reads as unconfirmed only through `terminationConfirmed: false` and the absence of `actor_process_terminated`. If the Executive means the fluent to keep holding, that is a change to the rule and the design (drop the clip for an exit that follows termination-unconfirmed), outside this grant.
+  - `:222`: `actor_cleanup_pending` is now asserted with `holdsAt(deriveRuntimeEventCalculusProjection(prefix([started, unknown])), …)`. The axiom effect's `terminates` and `clips` assertions stay. The started event is bound to the name `started` so it can be reused.
+  - Every other assertion is unchanged. `:159-161` and `:163-165` pass as written: `processLive`, the projected `terminationUnconfirmed`, `actor_process_live` and `actor_cleanup_live` all follow the process terminal.
+  - Design §10.6 row 5 (`:648`): the sentence is appended verbatim to the `U(B)` cell, after the D7 clause.
+- Item 3 (`t287-native-work-unknown-effect`):
+  - Head: 4 pass, 6 fail, of 10 (TAP counts). The five scenario subtests of "U1 scope, currentness and cleanup agree…" and their parent fail at `:69` ("historical uncertainty remains recorded", `false !== true`). The other four top-level tests pass.
+  - Baseline worktree (`97b1200bc`): 10/10.
+  - Cause: the step 6 rule clips `actor_process_termination_unconfirmed` on the exit. This is the flip step 6 recorded ("near `:69`").
+  - Change: `:69` now expects `false`, with the item 2 message.
+  - Rerun: 10/10. Lines `:71-82`, which never ran at head, pass.
+- Gate, on the patched tree, in order:
+  - build: rc 0, 33 s. It regenerated `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json`; both are in the patch.
+  - `lint:imports`: rc 0.
+  - `lint:lifecycle`: rc 0 (284 modules, 10 allow-listed sites, no offender).
+  - `m5-terminal-quiescence-owner`: 7/7.
+  - `t287-native-work-unknown-effect`: 10/10.
+  - `t287-calculus-fold`: 6/6.
+  - `t287-common-computational-library`: 4/4.
+  - `m5-event-store-reopen`: 18/18.
+  - `test:installed:language`: 1/1.
+  - No result was baseline-red. The logs are `8a2/gate-*.log` and `8a2/gate-*.tap` in the same scratchpad.
+- residuals:
+  - The four decisions in the commit bullet. Once they are ruled, the patch is applied and committed with the contract message.
+  - The six deletions rely on the wrapper's canonical traversal of the same object. A direct in-process caller whose nested accessor returns a different value on a second read could pass the wrapper and no later check would catch it. On the transport path that cannot happen, because `structuredClone` turns accessors into data.
+  - Messages and names in the two tests still describe the exit as confirmation. None of them is an expectation, so all are unchanged:
+    - m5: the title at `:148` ("…until a genuine confirmed Process terminal"), the `confirmed` parameter (which now means that a process terminal was admitted) and the comment at `:170`;
+    - native-work: `:60`, `:66` and `:68`.
+  - No gate suite reaches the six deleted probes or `:128`'s widened refusals. The only evidence for cyclic input is the probe script.
+  - Tracked tree: restored to `1ee0265fa` and rebuilt, so `git status` shows no tracked change. The untracked files were not touched.
+- return route: this file
+
+## Disposition of 8a-2 (Executive, 2026-10-23)
+
+The stop is answered; the saved patch is applied and committed by 8a-3.
+
+1. `project_read_definition_bindings.ts:128`: (a) accept. A cyclic
+   in-process value cannot come through any I-JSON ingress; it is a
+   construction defect, and the owner fault `owner_execution_failure` is
+   the truthful channel. The prior `invalid_resource_assertion` reported a
+   defect as a data refusal. Recorded as the site's O-RESOURCE answer.
+   Reversal: restore the probe (one line).
+2. The six deletions: ratified. `withAdmissionAuthority` digests the same
+   object with the same traversal first (`admission_authority.ts:310`,
+   `:336`), so a non-finite number faults there and the probe's false branch
+   is unreachable. That is the "existing checked data or resource" premise
+   of design §10.3.
+3. `:166` follows the formula `not T and U`; under D9 it is `true` at that
+   cut, the same reading as the activation's. The D9 sentence in row 5 is
+   sharpened in 8a-3: "...so `actor_process_termination_unconfirmed` holds
+   and `terminationConfirmed` projects `false`".
+4. The import, the three trailing `||` removals and the added assertion are
+   the change's own lines; ratified.
+5. Residual for the step 8 repair round: the quiescence test's titles and
+   messages still describe the late exit as confirmation.
+
+## Activation 8a-3 (Executive, 2026-10-23)
+
+Worker: Opus 5.5, xhigh, fresh context, Writer grant. Apply
+`/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/8a2/step-8a-2.patch`
+at head with `git apply --3way` (if a hunk for this `.ai-workspace` file
+fails, apply the rest and skip it). Then one edit: in design §10.6 row 5
+(`ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:648`) replace the
+clause "so the sequence reads as unconfirmed" with "so
+`actor_process_termination_unconfirmed` holds and `terminationConfirmed`
+projects `false`". Gate, in order: `npm run build`; `npm run lint:imports`;
+`npm run lint:lifecycle`; `m5-terminal-quiescence-owner`;
+`t287-native-work-unknown-effect`; `t287-calculus-fold`;
+`t287-common-computational-library`; `m5-event-store-reopen`;
+`npm run test:installed:language` (every test with
+`node --experimental-vm-modules --test`). Commit on `main`, no push, first
+line `Step 8a-2: O-RESOURCE probes; quiescence expectations under D9`, last
+line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`; stage by
+path (the patch's files, the regenerated tracked build outputs). Append
+`## Return 8a-3` with the commit hash and the gate per suite. Stop without
+committing if the patch does not apply or a gate suite fails.
