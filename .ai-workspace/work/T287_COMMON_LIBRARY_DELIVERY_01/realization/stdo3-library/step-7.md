@@ -547,3 +547,189 @@ read nothing else of that file.
   6. The lifecycle suites wait for step 8: `t287-owned-process-lifetime`, `m5-worker-transport`, `t287-worksite-command-execution`, `t287-observed-worksite-command`. The gate does not exercise the new recovery check.
   7. Scenario case b uses two stores: the actor runs over controlled prefixes, and failure retention runs in a real append sink.
 - return route: this file.
+
+## Review
+
+Reviewer: Claude Fable 5.1, max effort, fresh context, same vendor family as the Worker (Opus 5.5) and the Executive (Fable); no cross-vendor independence. Subject: `ffb767171` (parent `c6ff45521`), one commit; HEAD equals it and the tenant tree is clean. Path keys: `design` = `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` at the subject; `src/` = `build_tenants/abiogenesis/typescript/code/src/`; `test` = `test_env/tests/t287-lifecycle-failure-carrier.test.mjs`. Re-run here: the scenario once (rc 0, 4 pass, 0.4 s; case a's effect printed as `actor_process_effect_receipt`); the two D1 tests once, which stop before the subject on this machine because `build_tenants/abiogenesis/preimages/source-observation.json` is not in the repo. Build, `lint:imports` and `test:installed:language` are taken from the Return.
+
+Summary: S0 0, S1 0, S2 1, S3 6, S4 3.
+New S2 or above: yes, one (F1), on the consequence the Return names as residual 3, graded here for its reach over a real recorded store and a tracked Product proof.
+
+### Findings
+
+- F1. S2 | `src/abg/worksite_construction_recovery.ts:64-70`, `:284`; `design:572` (§9.3 item 7) | "Reconstruction verifies the member against the bound digest as it verifies the rest of the artifact." | `transportProcessFactsMatchExit` returns false when `processFacts` is absent (`:65-66`). The member's only writer is `src/abg/worker_transport.ts:643`, added by this commit, so every transport artifact recorded before it makes `projectPreservedWorksiteProposal` return null. `test_env/tests/d1-preserved-result.test.mjs:21-22` asserts non-null over "the actual retained D1 proposal" (a real native store: 1891 events, 784 stdout chunks, 22 files); it fails at the subject wherever its preimage exists, and no gate suite runs it (`d1-*` is in no npm script). What reconstruction is for: `projectPreservedWorksiteProposal` is the historical read projection that recovers a prior attempt's native work, the worker's result files and their proof, for valid reuse by a later attempt without re-running the worker (`src/implementation/worksite_construction.ts:87-92` through `projectWorksitePreservedResultArtifact`). Footing: not D7's. D7 holds because no path re-reads a stored witness under a new law (`design:189`); here stored referenced evidence is re-read under a new structural requirement, so a projection over unchanged history changes with the law and a Product proof of valid reuse over actual history fails. No admitted truth is lost: the events fold unchanged, the digest still verifies, and the consequence is a declined reuse and a reobservation. | Two repairs, the Executive's choice. (a) One line in `transportProcessFactsMatchExit`: `transport.processFacts === undefined` reads as "facts not recorded" and the check passes on the exit members already compared at `:281-284`, with one sentence in §9.3 item 7 saying so. This is a read-only absence rule on one member, with no digest list, validator set or transition (the mechanism D5 rejected), serving a selected outcome (valid reuse of recorded work) rather than a store-failure model, so it is not the resilience GOALS froze; the activation's "not in general" addressed checked-in fixtures, and the D1 source is a real store. (b) Retain the requirement, state in §9.3 item 7 that artifacts recorded without the member are not reusable and the construction reobserves, and re-cut the D1 preimage under the new law.
+- F2. S3 | `design:569` (§9.3 item 4) against `design:649` (§10.6 row 6) and `src/implementation/worksite_command_helper.ts:61-63`, `:821` | Item 4: the helper's facts "encoded once by `encodeOwnedProcessFacts`, enter `L` as members of the admitted leaf result (`result.json` ...)". | A contradiction, not a stale citation. Row 6 as decided and the code keep the encoding out of `result.json` (the WeakMap comment at `:61-62`: "never a result.json member"); only the thrown cleanup failure carries it. `design:531` (§9.1 item 3) and `design:285` (§6 contraction) route readers to item 4. | Replace item 4's second sentence with: "Their facts enter `L` through the admitted leaf result (`result.json`, read once by the parent and admitted by `c_call_result_admitted`) as the members the command result already carries (`exitStatus`, `processSignal`, `timedOut`, `signalSequence`, `terminationConfirmed`, and the unconfirmed-scope diagnostic in `stderr`), or, on the helper's thrown cleanup failure, as `encodeOwnedProcessFacts` in the failure's diagnostic subject (§10.6 row 6)."
+- F3. S3 | `src/implementation/worksite_command_helper.ts:767`, `:1123`; `design:634` (P-LIFECYCLE, helper clause) | "The same two negatives on the command and HTTP routes yield the admitted leaf result or failure subject with the encoded facts." | The second negative as the proof defines it (`firstError` set) throws the bare `facts.firstError` at `:767` (command) and `:1123` (HTTP), before the classifier and before either cleanup throw; no `processFacts` leaves the helper on that path. Case c drives `firstError` null (`test:320-333`). Outside the grant. | At both sites throw the diagnostic JSON of `:798-804` with `processFacts: encodeOwnedProcessFacts(facts)` and `firstError.message` as `diagnostic`; or narrow P-LIFECYCLE's helper clause to the unresolved-cleanup negative until step 8 proves the route.
+- F4. S3 | `src/implementation/worksite_command_helper.ts:1395-1399`; `design:634` | Residual 2: the HTTP cleanup throw carries no `processFacts`. | Confirmed. `runHttpProbe` returns on `unconfirmed` with the seven-member stderr diagnostic (`:713-719`, `:1126-1127`), so `facts` are out of scope at `:1395`; the thrown JSON carries `observation` and that diagnostic only. Outside the grant. | Move the HTTP cleanup throw into `runHttpProbe` beside `facts`, as `runCommand` does at `:798-804`, with `processFacts`; keep `main`'s check as the guard.
+- F5. S3 | `test:256-262`; activation case (b); `design:634` | Case b drives "an error after launch with unresolved cleanup (`scopeAbsence` not `"absent"`, `firstError` set)". | The scenario asserts `finalFacts.firstError === null` (`:262`) and drives the sibling path, `TypeError("worker owned process scope remains unconfirmed")` (`src/abg/worker_transport.ts:555-557`). Both paths end at the outer catch (`src/abg/actor_process.ts:1417`) with `encodedFinalProcessFacts()`, so the carrier claim holds by reading, but the stated negative is not the one executed. | In `driveActor('unconfirmed')` emit a stream `error` after `exit` so the lifetime sets `firstError`; assert that the transport threw it and that `effect.processFacts.firstError.message` carries it.
+- F6. S3 | `test:199-254`, `:281` | Case b's retained subject. | Two stores: the owner's terminal event is in the recorder's rows; `runtime_failure_observed` is in a second real append sink with the refusal rebased onto its prefix (`:241`), and `failActorProcessEffect` is called directly with a synthetic `ExecutableCCallContext` (`:245`), not from `evaluateOwnedExecutableCCall` (`src/hog/ccall_lifecycle.ts:556-558`). The retention check (`src/abg/runtime_failure.ts:239-241`) and `projectRuntimeFailureEvidenceAtPrefix` are real. Not shown: §9.3 item 6's composition (`holdsAt` with the retained subject) over one prefix. Residual 7 confirmed. | No change now; state in the test header what is not shown, and leave the one-prefix composition to step 8's lifecycle suites.
+- F7. S3 | `src/implementation/worksite_command_helper.ts:61-63`, `:821`, `:1380-1386`; `design:649` | Proportionality: the WeakMap `commandProcessFacts` and `main`'s `processFacts` member. | `runCommand` throws at `:798-804` before constructing any result with `terminationConfirmed: false`, so `main`'s branch at `:1380` is unreachable; the WeakMap (`:63`, `:821`) and `:1385` serve that branch only. Row 6 cites `:1380` as a carrier; the closure's cited site (`:1362-1366` at `97b1200bc`) is this branch. | Delete the WeakMap, its `set` and the `:1381`/`:1385` lines; cite `:798` alone in row 6; keep or delete `main`'s guard as the owner prefers.
+- F8. S4 | `test:185-190` | The Return: "The effect is `actor_process_effect_receipt`." | The test accepts a refusal or a receipt (`:187-189`) and only prints the kind. | `assert.equal(effect.kind, 'actor_process_effect_receipt')`.
+- F9. S4 | `design:549`, `:553-558`, `:566`, `:589`, `:270-285`, `:189`, `:199` | Design lines outside the eight items describe the prior state or cite moved lines. | Form 1 (`:553`): `worker_transport.ts:461`, `actor_process.ts:1318`, helper `:769`/`:1136` no longer hold the formulas (now `shared/process/facts.ts:15`, `:21`, used at `worker_transport.ts:465`, `actor_process.ts:1323`, helper `:772`, `:1126`). Form 2 (`:554`): `c_call.ts:6607` no longer compares the copy (`:6635` compares `exitObserved` with the fluent); `actor_process.ts:1149` is `:1160`; `c_call.ts:2033` is `:2036` and reads the fluent. Form 3 (`:555`): `replay.ts:2444` is `:2457` and reads `holdsAt`. Form 4 (`:556`): recovery `:228`/`:262` are `:249`/`:284` and read `holdsAt`; `transport_contracts.ts:71`/`:76` are a pure classifier's parameter, not a consumer of a recorded copy. `:558` states a completed change as a target. `:549` "No reader consumes the field" over-claims while the candidate validators remain. §9.3 item 1 (`:566`): `:1312-1328` is `:1323-1340`, `:1306` is `:1322`. §10.1 row 6 (`:589`) names two atoms. §6 (`:270-284`) has no row for `classifyOwnedProcessTerminal`. §4.4: `actor_process.ts:1318` (`:199`) is `:1331`; `c_call.ts:7047` (`:189`) is `:7052`, moved by this step's own insertions. | Rewrite §9.2's four forms as the present census (the atom at three sites; the recorded copies; the `holdsAt` readers; the candidate validators left), drop or date the `:558` sentence, refresh the line numbers named here, add a §6 row for the classifier (domain: `OwnedProcessFacts` from one lifetime; falsifier: an outcome other than §4.6's three-case formula, or an adapter keeping its own formula), and name three atoms in §10.1 row 6.
+- F10. S4 | `src/abg/worksite_construction_recovery.ts:58-60`, `:68-69` | `PROCESS_FACT_MEMBERS` and the cast `facts as unknown as OwnedProcessFacts`. | A second hand-kept list of the 13 members, and the classifier applied to a decoded record outside its admitted domain. Correct today because the encoding keeps the four members the classifier reads in their value domains (`src/shared/process/facts.ts:52-65`); the list drifts silently if a member is added. The exit-consistency clause (`:69`) exceeds closure item 4's text and matches the neighbouring member checks. | Export the member list from `shared/process/facts.ts` beside the encoder and import it here.
+
+### Evaluations with no finding, in the activated order
+
+1. Claim against evidence. One commit; the changed paths are the granted ones plus the regenerated digests in `capability-definition-graph.json` and `product-toolchain-manifest.json` (digest-only diffs); `build/` is ignored except 40 tracked files, which is why the stat shows two rebuilt modules. Self-checks 1 to 5 and 7 re-run here: (1) the only matches are `facts.ts:15`, `:21`, and no other `scopeAbsence` comparison exists outside `shared/` (the two remaining mentions are the recovery member list and the stderr diagnostic's member copy); (2) `:747`, `:758` pass `null`, `:1374`, `:1417` pass `encodedFinalProcessFacts()`; (3) no match; (4) both diffs empty; (5) `replay.ts:298`, `:362`, `:2457`; (7) as listed. The scenario reruns at rc 0.
+2. Law. The changes are within `realization_refactor` plus the eight items. Behavior changes: the helper's reading of a group probed absent without an observed exit (item 1; because `runCommand:798` throws on `unconfirmed`, that case now stops dependent work where it continued, the divergent reading row 6 retires); the refusal member (item 2); the `data:` URI as the traversal failure's `message` and `diagnosticRef` on the actor-refusal branch (item 3, ratified in row 6); the transport artifact member (item 4) and its reconstruction requirement (F1); the six readers on the fluent (D5), which differ from the copies only where a copy disagrees, the emission premise row 5 holds open. The law paragraph holds: the terminal events are the facts' one existence in `L`; the in-memory handoff (`onProcessFinalized`, `finalProcessFacts`) is layer 1; one terminal per owner (`src/abg/actor_process.ts:1318-1341`); the failure carries the encoded facts as its subject (case b); the switched readers use `holdsAt`; the WeakMap is a process-local handoff inside one interface, not a store read back by another; the transport artifact is referenced evidence bound by digest.
+3a. Design closure. Each of the eight items is written where the closure says (design hunks at `:213`, `:218-220`, `:230`, `:531`, `:554`, `:556`, `:567-568`, `:571-572`, `:634`, `:649`, `:666`; constitution `:4390`), and the diff touches nothing else under `design/`. Closure item 6's six census sites from the step 1 re-review are in form 2, re-verified at head. Item 4 is F2; the stale citations are F9.
+3b. The reporting choice. The actor's three appends branch on the classifier (`:1323-1340`); the worker transport's formulas (`:465`, `:555`) and the actor's artifact premise (`:1123`) are equivalent to the old ones given the lifetime invariant `noChildEstablished` implies `launchFailure !== null` (`src/shared/owned_process_lifetime.ts:171`); the helper's two sites report `terminal !== "unconfirmed"` (`:778`, `:1149`); the transport's field is `hasConfirmedOwnedProcessBoundary(facts)` (`:465`). A no-child launch failure reports 127 and `true` (case c, `test:315-318`).
+3c. The encoding. `encodeOwnedProcessFacts` (`src/shared/process/facts.ts:50-67`) emits the 13 members of `OwnedProcessFacts` (`src/shared/owned_process_lifetime.ts:104-118`) under their names; an `Error` becomes the six string-or-null members with no `stack` (`:35-46`; a finite numeric `errno` as its base-10 string, within "string or null"); the `bigint` is tagged; `directExit` is `{status, signal}`; the result is frozen and passes `canonicalJson` (the artifact write at `worker_transport.ts:651`). No member dropped or renamed.
+3d. The refusal route. Both post-finalization refusals pass the encoded facts; the hoist at `:779-783` is the only declaration (`finalProcessFacts` at `:781`, `:783`, `:1123`, `:1309`, `:1318`, `:1322`). `failActorProcessEffect` (`src/hog/ccall_lifecycle.ts:231-239`) computes `stage` and `candidate` once and passes the same values to `failCCall` (`:207-225`, passthrough) and into `constructRuntimeFailureDiagnosticRef({ stage, candidate })`; `failTraversal` admits `{ stage: input.stage, candidate: input.candidate }` (`src/hog/traversal_failure.ts:81-94`); `admitRuntimeFailure` requires the `data:` reference to decode canonically to that subject's digest (`src/abg/runtime_failure.ts:239-241`, `:100-105`). The refusal's members are all JSON. No reader keys on the class reference (`git grep` over `code/src test_env`: `actor_process.ts:204` only). The projection's `diagnosticClassRef: null` on this branch is the ratified consequence.
+3e. F1.
+3f. The copy check lives in the lifecycle rule (`src/abg/calculus/rules.ts:197-205`; `appliesTo` at `:226-230`; dispatch `fold.ts:113`), reads only `actor_result_artifact_observed` and `probabilistic_transport` `c_call_evidenced` (both variants carry `processRef` and `terminationConfirmed`: `src/abg/event_store.ts:301`, `:731-735`), compares against `actor_process_terminated(processRef)` at the cut before the copy's event, initiates `terminationConfirmed_copy_disagrees` and refuses nothing; the fluent is in `RUN_QUIESCENCE_ALLOWED_HISTORICAL_FLUENTS` (`src/abg/replay.ts:362`), so a disagreement blocks no Run close. `replay.ts:2457` reads `holdsAt`, not the exit event. The census sums to 47; the "reader switched" rows read `holdsAt`: `c_call.ts:2036-2037`, `:6635-6636`, `replay.ts:2457-2458`, `invocation_admission.ts:514-516`, recovery `:249`, `:284` (through `:54-57`). Prefix-end reads are sound because no rule terminates `actor_process_terminated`. `transport_contracts.ts:72`/`:77`: correctly left; `classifyWorkerTransportFailure` is pure and reads its parameter, and after this step its callers pass the edge value (`worker_transport.ts:601`), the fluent (`c_call.ts:2036`) or a candidate's own field (`actor_process.ts:532`). `actor_process.ts:495-536`: correctly left; `validateActorProcessCarrierPair` checks a candidate's internal consistency (`terminalPairValid` at `:495`, the expected class from the candidate's fields at `:526-532`) without a prefix and decides no lifecycle fluent, so the §6 `holdsAt` falsifier does not reach it; switching would add a prefix to an exported validator. `validator/qualification.ts:53`: a helper-route consumer, correct by §9.3 item 4.
+3g. The harness drives the actor in-process: the real built `invokeActorProcessWithAssembly` (`test:116-137`, `:145`) over the real built worker transport (`:109-112`) and the real lifetime with a controlled host (`:47-54`); the event store is a recorder (`:120-125`) that skips `admitRuntimeEvent`'s payload validation, so case a's "payload key list unchanged" rests on `:174`, not on the store; the `holdsAt` answers run over `selectValidatedRuntimeEventPrefix` of legacy-profile rows (`:56-58`). Case c runs the real built `runCommand` with `main` stripped (`:305-309`) over real children. Case d is a synthetic prefix over the real fold. What weakens a claim: F5, F6, F8.
+3h. No contract change: `event_store.ts` and `product/` are untouched; the observation body names its members (`src/abg/actor_process.ts:1134` onward) and case a asserts the key is absent; `result.json` gains nothing. The transport artifact body and `WorkerTransportResult` gain `processFacts` (referenced evidence and an internal interface; item 4).
+3i. F3, F4.
+3j. D7 wording confirmed. `src/abg/traversal_route.ts:4438` compares the route candidate's `replayStateDigest` with the caller's `replayState.replayDigest` and the current replay; `:5371` compares the transition's `route.replayStateDigest` with `predecessorReplay`, computed in the same call; `src/abg/c_call.ts:7052` (the design's `:7047`, moved by this step) compares the judgment candidate's `replayStateDigest` with `replayState.replayDigest` and the current replay. Every other occurrence writes the field (`hog/route_proposal.ts:131`, `:1378`; `hog/judgment.ts:90`; `c_call.ts:3282`, `:6122`, `:7285`; `invocation_admission.ts:586`) or reads it into a projection (`replay.ts:658`, `:804`; `traversal_transition.ts:164` is a null check). No stored-versus-recomputed comparison.
+4. Proportionality: F7, F10.
+
+### Residuals confirmed/refuted
+
+1. Confirmed and extended (F9); §9.3 item 4 is a contradiction (F2); case c's in-process limit is F3 and F6.
+2. Confirmed (F4); the bare `firstError` throws are the same class (F3).
+3. Confirmed and graded (F1); the D1 tests are the consequence the Return does not name.
+4. Confirmed; all three correctly left (3f).
+5. Confirmed. On the second bullet: a null from `projectAdmittedActorTransport` reaches `hasAdmittedActorEvidence` (`c_call.ts:2128-2139`, false), the failure-source projection (`:2237-2250`, null) and the live F04 outcome (`c_call_outcome.ts:1414`); none refuses a prefix at replay, and on a live path the copy and the fluent agree, so the only reach is the emission premise row 5 holds open.
+6. Confirmed; `m5-worker-transport` is in `test:unit`, which the gate did not run; the D1 tests are in no script.
+7. Confirmed (F6).
+
+## Disposition of the review (Executive, 2026-10-23)
+
+Two reviews are disposed here: the Fable review above (subject `ffb767171`)
+and a second review Jim pasted on 2026-10-23, reviewer not named, taken at
+`c6ff45521` plus the uncommitted step 7 work. The second review's findings
+1 and 2 are F3/F4 and F1; its findings 3 to 7 concern steps 4, 5, 6 and 8
+and are recorded under `## Items accrued for step 8` in `step-8.md` with
+the Executive's verification. Severity is the Reviewer's; priority is the
+Executive's. One repair round.
+
+| Finding | Severity | Priority | Disposition |
+|---|---|---|---|
+| F1 (second review 2) | S2 | P1 | Executive decision D8 (plan post): repair (a). One line in `transportProcessFactsMatchExit`: an absent `processFacts` reads as "facts not recorded" and the check passes on the exit members already compared and the `actor_process_terminated` fluent; a present member is verified in full. One sentence in §9.3 item 7. Reason: unlike D7, a stored artifact is re-read under the new requirement, and a tracked Product proof over a real store (`d1-preserved-result.test.mjs`) would otherwise fail or need its preimage re-cut; no admitted truth is lost either way. The second review's "demonstrate recovery from a pre-change artifact" is that D1 test where its preimage exists; nothing else is built. Reversal: delete the line, re-cut the D1 preimage. This round. |
+| F2 | S3 | P1 | §9.3 item 4 replaced by one sentence: on the helper route the encoded facts enter `L` through the admitted failure's diagnostic subject; on success the command result's existing members are the admitted leaf result's members; the encoding is not a `result.json` member. This round. |
+| F3 (second review 1, graded S2 there) | S3 | P1 | The two bare `throw facts.firstError` sites (`:767` command, `:1123` HTTP) throw the `:798` diagnostic JSON with `processFacts: encodeOwnedProcessFacts(facts)` and the original error's name and message as `diagnostic`. The grant gap was the Executive's: the activation granted `:769` and `:1136`, not the two lines above them. P-LIFECYCLE's helper clause stays as written; the command route's second negative is exercised by a new scenario case; the HTTP route's exercise is step 8's integrated run, stated in P-LIFECYCLE. This round. |
+| F4 | S3 | P1 | The HTTP cleanup throw moves into `runHttpProbe` beside `facts`, with `processFacts`, as `runCommand` does at `:798`; `main`'s check stays as a guard. This round. |
+| F5 | S3 | P2 | `driveActor('unconfirmed')` emits a stream `error` after `exit` so the lifetime sets `firstError`; the case asserts the transport threw it and `effect.processFacts.firstError.message` carries it. This round. |
+| F6 | S3 | P3 | No code change. The test header states what is not shown (two stores; `failActorProcessEffect` called directly). The one-prefix composition of §9.3 item 6 is step 8's. This round, header only. |
+| F7 | S3 | P2 | Delete the WeakMap `commandProcessFacts`, its `set`, and `main`'s `processFacts` member; keep `main`'s guard; row 6 cites `:798` alone. This round. |
+| F8 | S4 | P3 | `assert.equal(effect.kind, 'actor_process_effect_receipt')`. This round. |
+| F9 | S4 | P4 | Stale citations: step 8b design notes (recorded in `step-8.md`). |
+| F10 | S4 | P3 | Export the member list beside the encoder and import it in recovery: step 8a (recorded in `step-8.md`). |
+
+Residuals: all seven confirmed by the review; 1 and 2 are repaired above
+(F2, F3, F4); 3 is D8; 4, 5 and 7 stand as recorded; 6
+(`m5-worker-transport` not run by the gate) is run once in this repair
+round's gate under the step 8 attribution rule.
+
+## Repair activation
+
+Executive: Claude Fable. Worker: Opus 5.5, xhigh, fresh context, Writer grant.
+Frozen base: `ffb767171` on `main` (HEAD; the Executive's bookkeeping commit on
+top carries only `.ai-workspace/` files). Read `## Activation`, `## Return`,
+`## Review` (F1 to F8 and 3b to 3j) and `## Disposition of the review` above
+before touching code. Design = `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`.
+Tenant root `build_tenants/abiogenesis/typescript`; every test runs with
+`node --experimental-vm-modules --test`.
+
+Change class: `realization_refactor` plus the design sentences named here.
+Do exactly the eight repairs in the disposition table marked "this round",
+in this order:
+
+1. F3: `implementation/worksite_command_helper.ts:767` and `:1123`. Replace
+   each bare `throw facts.firstError` with a `TypeError` whose message is
+   `worksite command failed; dependent work stopped: ` (command) or
+   `worksite HTTP probe failed; dependent work stopped: ` (HTTP) followed by
+   the canonical JSON of `{ taskRef, taskDigest, attemptRef, command (or
+   request), diagnostic: { name, message } of the original error,
+   processFacts: encodeOwnedProcessFacts(facts) }`, the same shape as the
+   cleanup throw at `:798-804`. Before changing the message, `grep -rn` the
+   parent for any reader that keys on the old thrown message or on
+   `firstError` text leaving the helper (`code/src/abg/c_call*.ts`,
+   `hog/`, `implementation/worksite_construction*.ts`); if one exists, stop
+   and report it. Keep `ownerError` at `:1124` as it is.
+2. F4: move the HTTP cleanup throw of `main` (`:1395-1399`) into
+   `runHttpProbe` beside `facts`, carrying `processFacts`; `main` keeps its
+   `terminationConfirmed !== true` check as a guard that can no longer fire.
+3. F7: delete `commandProcessFacts` (`:61-63`), its `set` (`:821`) and the
+   `processFacts` member of `main`'s cleanup throw (`:1381`, `:1385`);
+   `main`'s guard stays.
+4. F1 (D8): in `abg/worksite_construction_recovery.ts:64-70`, one line: if
+   `transport.processFacts === undefined` return `true` (the exit members at
+   `:281-284` and `actorProcessTerminated` already decide); a present member
+   is still checked in full. Add to design §9.3 item 7 (`design:572`) one
+   sentence: "A transport artifact recorded before this member exists reads
+   as facts not recorded; reconstruction decides on the exit members it
+   already compares and on `actor_process_terminated`; a present member is
+   verified in full (D8)."
+5. F2: replace design §9.3 item 4 (`design:569`) with one sentence stating:
+   helper-run processes have no `actor_process_*` events; on the helper
+   route their encoded facts enter `L` through the admitted failure's
+   diagnostic subject (the thrown cleanup failure and the error-after-launch
+   failure of item 1 above); on success the command result's existing
+   members (`exitStatus`, `processSignal`, `timedOut`, `signalSequence`,
+   `terminationConfirmed`) are the admitted leaf result's members; the
+   encoding is not a `result.json` member; the lifecycle question is a
+   projection of that admitted event. In §10.6 row 6 (`design:649`) cite the
+   helper's throw as `:798` alone (line at your head) and add the two
+   error-after-launch throws by line. In P-LIFECYCLE (`design:634`) add after
+   the helper sentence: "The command route's second negative is the
+   scenario's case e; the HTTP route's is proved by step 8's integrated run."
+6. F5: in `test_env/tests/t287-lifecycle-failure-carrier.test.mjs`,
+   `driveActor('unconfirmed')` emits a stream `error` after `exit` so the
+   lifetime sets `firstError`; case b asserts the transport threw it
+   (`assert.match(String(transportError), ...)` on its message) and
+   `effect.processFacts.firstError.message` carries it; remove the
+   `firstError === null` assertion. If the lifetime's `observe()` suppresses
+   the second error (`owned_process_lifetime.ts:216`), emit the stream
+   error first and say so in Return.
+7. New case e, command route, second negative: through the same component
+   harness as case c, run `runCommand` with a lifetime stub whose `facts`
+   have `scopeAbsence: 'unknown'` and `firstError` set; assert a `TypeError`
+   whose message starts `worksite command failed; dependent work stopped: `,
+   whose JSON carries `processFacts.scopeAbsence === 'unknown'` and
+   `processFacts.firstError.message` equal to the error's message, and
+   `diagnostic.message` the same. No HTTP case.
+8. F8 and F6: case a asserts `effect.kind === 'actor_process_effect_receipt'`;
+   the test header states in two lines what case b does not show (two
+   stores; `failActorProcessEffect` called directly, not from
+   `evaluateOwnedExecutableCCall`).
+
+**Grant.** Under `build_tenants/abiogenesis/typescript`:
+`code/src/implementation/worksite_command_helper.ts` (the sites above),
+`code/src/abg/worksite_construction_recovery.ts` (the one line),
+`design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` (§9.3 items 4
+and 7, §10.5 P-LIFECYCLE helper sentence, §10.6 row 6 citation),
+`test_env/tests/t287-lifecycle-failure-carrier.test.mjs`, the build outputs
+the gate regenerates. Plus this file's `## Repair return`. Nothing else.
+
+**Gate (in order):** `npm run build`; `npm run lint:imports`;
+`node --experimental-vm-modules --test test_env/tests/t287-lifecycle-failure-carrier.test.mjs`
+(5 cases); `node --experimental-vm-modules --test test_env/tests/m5-worker-transport.test.mjs`
+(report pass/fail per test; a failure present at `97b1200bc` with the same
+assertion is baseline, state it and continue; a new failure stops);
+`npm run test:installed:language`.
+
+**Self-checks:** (1) `grep -n "throw facts.firstError" code/src/implementation/worksite_command_helper.ts`
+returns nothing; (2) `grep -n "commandProcessFacts" code/src` returns
+nothing; (3) `git diff --stat` touches only granted paths; (4) the scenario
+is 5/5; (5) `git diff code/src/abg/event_store.ts` is empty.
+
+**Stop:** a reader keys on the old thrown message; the lifetime cannot set
+`firstError` after exit in the harness; `m5-worker-transport` has a failure
+absent at `97b1200bc`; anything outside the grant is needed.
+
+**Return contract.** One commit on `main`, no push. Message first line
+`Step 7 repair: helper failures carry processFacts; D8 archive tolerance; §9.3 item 4`,
+last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append:
+
+```
+## Repair return
+- commit: <hash>
+- repairs: <1 to 8, each: done / stopped with reason; the lines at head>
+- reader check: <grep result for the old message>
+- gate: <build s; lint; scenario 5/5; m5-worker-transport per test with attribution; smoke>
+- self-checks: <1 to 5>
+- residuals
+- return route: this file
+```

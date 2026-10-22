@@ -165,3 +165,56 @@ For 8b (ticket, GOALS, design closure after the review):
   proposed. One clause. The repaired `runtime_liveness.ts` lines 813 to 828
   run under no gate test; `m5-event-calculus-runtime` in the 8a run is their
   first execution.
+- Second review (pasted by Jim, 2026-10-23; taken at `c6ff45521` plus the
+  uncommitted step 7 work), items the Executive verified at `ffb767171`:
+  - For 8a, code: (i) `calculus/fold.ts:141` copies the held map on every
+    event; the old `advance` mutated in place (`98e0257d0`
+    `event_calculus.ts:1985-2002`); each stdout/stderr event adds a distinct
+    fluent keyed by event id (unchanged from the old axiom table), so one
+    advance over N output events costs O(N²). Repair: `advance`
+    (`event_calculus.ts:241`) folds into one working state copied once per
+    call and applied in place; `foldStep` stays the pure one-step function
+    that `t287-calculus-fold` (P-FOLD) proves against; rerun that lane.
+    Grant line: `code/src/abg/event_calculus.ts`, `code/src/abg/calculus/fold.ts`.
+    (ii) `gtl/consensus.ts:923` and the other `unknown`-typed validators in
+    that file that pass unrefined members to `canonicalEquals`: the old NUL
+    join returned false on `[NaN]`; `canonical_json.ts:28` throws. No I-JSON
+    ingress produces NaN or undefined, so only an in-process caller reaches
+    it, but the design's O-TYPE row is violated at an `unknown` ingress.
+    Repair: `admitJson` on the comparand before `canonicalEquals` at the
+    `unknown`-typed validators of `gtl/consensus.ts` only (a refusal returns
+    false); the typed-carrier casts elsewhere stay and are the O-TYPE per-site
+    list of the completion condition. (iii) Add
+    `t287-c2-owner-coordinate-reuse` to the integrated run. It is 0/6 at
+    `ffb767171` and 0/6 at the pre-code baseline `97b1200bc`, same first
+    failure (`child C2 source does not reproduce at its admitted preparation
+    cut`, `replay.js:1330`), so it is baseline-red and absent from
+    `test:unit`, which is why the attribution never listed it. B14 required
+    step 4 to prove the positive C2 path with materialization kept; step 4's
+    proof is the unit lane's copy of the sequence and the production
+    comparison in `exactC2SourceEnvironment` has zero hits. Repair: one
+    bounded passing case that reaches the production comparison through its
+    owner (shortest owner path; no campaign). If the baseline defect blocks
+    the owner path, stop with the assertion and the cause; the C2 production
+    proof stays open in the closing post and whether the baseline defect
+    enters this wave is Jim's decision. (iv) Step 7 review F10: export the
+    13-member list from `shared/process/facts.ts` beside the encoder and
+    import it in `worksite_construction_recovery.ts:58-60`.
+  - For 8b, records: (v) O-SCHEMA at `product/default_library.ts:45`
+    (`jsonRecord`, shallow `isRecord`): step 3 wrote "closed by decision"
+    without the premise. The premise: `isGovernanceWorkState(value: unknown)`
+    is reached through the Product's `admitInput` and `validateContractValue`
+    with parsed I-JSON, so a function member cannot arrive through the
+    boundary; an in-process probe (`{ hidden: () => 7 }`) passes. Record the
+    closure as "closed by ingress premise" in the completion table, or, if
+    Jim wants refusal at the schema, `admitJson` inside the custom check (one
+    line, 8a). O-TYPE was never claimed closed; the completion condition
+    carries it per site. (vi) Step 5's reason for the eight readers left
+    ("needs a runtime value") is the wrong reason: constitution line 1861
+    permits runtime data; the constraint is the atom's static `RecordCheck`
+    (design §3, "with a static RecordCheck"), so an expected digest from the
+    call has no parameter to flow through; extending the check with typed
+    context is a design change to the atom, deferred. Correct the step 5
+    wording in the ticket section. (vii) Step 7 review F9: stale citations
+    (`design:549`, `:553-558`, `:566`, `:589`, `:270-285`, `:189`, `:199`;
+    `c_call.ts:7047` is `:7052`).
