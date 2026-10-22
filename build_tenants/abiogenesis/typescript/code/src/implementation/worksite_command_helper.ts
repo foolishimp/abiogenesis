@@ -58,9 +58,6 @@ import {
 import { canonicalEquals } from "../shared/value/index.js";
 
 let activeCommand: ReturnType<typeof spawn> | null = null;
-// The final facts of each command result, carried in memory beside the
-// observation object for its cleanup diagnostic; never a result.json member.
-const commandProcessFacts = new WeakMap<WorksiteCommandResult, OwnedProcessFacts>();
 
 interface AuthorityFreeWorksiteCommandExecutionOccurrence {
   readonly cCallRef: string;
@@ -764,7 +761,13 @@ async function runCommand(
   let facts: Awaited<typeof lifetime.completion>;
   try {
     facts = await lifetime.completion;
-    if (facts.firstError !== null) throw facts.firstError;
+    if (facts.firstError !== null) {
+      throw new TypeError(`worksite command failed; dependent work stopped: ${canonicalJson({
+        taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, command,
+        diagnostic: { name: facts.firstError.name, message: facts.firstError.message },
+        processFacts: encodeOwnedProcessFacts(facts),
+      } as unknown as JsonValue)}`);
+    }
   } finally {
     timeoutTimer.cancel(); clearInterval(heartbeat); activeCommand = null; captureOpen = false;
     child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
@@ -818,7 +821,6 @@ async function runCommand(
     observationRef: `worksite-command-observation://abiogenesis/${observationDigest.slice("sha256:".length)}`,
     observationDigest,
   });
-  commandProcessFacts.set(result, facts);
   return result;
 }
 
@@ -1014,9 +1016,10 @@ async function oneHttpRequest(input: Readonly<{
 }
 
 async function runHttpProbe(
-  _task: WorksiteExecutionTask,
+  task: WorksiteExecutionTask,
   executionRoot: string,
   declaration: Readonly<Record<string, JsonValue>>,
+  attemptRef: string | null = null,
 ): Promise<JsonValue> {
   const launch = record(declaration.launch as JsonValue);
   const request = record(declaration.request as JsonValue);
@@ -1120,12 +1123,18 @@ async function runHttpProbe(
       child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
     }
   }
-  if (facts.firstError !== null) throw facts.firstError;
+  if (facts.firstError !== null) {
+    throw new TypeError(`worksite HTTP probe failed; dependent work stopped: ${canonicalJson({
+      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, request,
+      diagnostic: { name: facts.firstError.name, message: facts.firstError.message },
+      processFacts: encodeOwnedProcessFacts(facts),
+    } as unknown as JsonValue)}`);
+  }
   if (ownerError !== null) throw ownerError;
   const timedOut = launchExpired && portFileIssue === null;
   const terminal = classifyOwnedProcessTerminal(facts);
   if (terminal === "unconfirmed") stderr.push(unconfirmedScopeDiagnostic(facts));
-  return {
+  const probe = {
     request: requestInput,
     portFile: {
       relativePath: portFileRelativePath,
@@ -1150,7 +1159,15 @@ async function runHttpProbe(
       stdout: stream(Buffer.concat(stdout)),
       stderr: stream(Buffer.concat(stderr)),
     },
-  } as unknown as JsonValue;
+  };
+  if (!probe.process.terminationConfirmed) {
+    throw new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({
+      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
+      observation: probe, diagnostic: decodeStream(probe.process.stderr),
+      processFacts: encodeOwnedProcessFacts(facts),
+    } as unknown as JsonValue)}`);
+  }
+  return probe as unknown as JsonValue;
 }
 
 async function predicateObservation(
@@ -1158,6 +1175,7 @@ async function predicateObservation(
   executionRoot: string,
   commandResults: readonly WorksiteCommandResult[],
   ordinal: number,
+  attemptRef: string | null = null,
 ): Promise<WorksitePredicateObservation> {
   const predicate = task.outcomePredicates[ordinal]!;
   const declaration = record(predicate.declaration);
@@ -1226,7 +1244,7 @@ async function predicateObservation(
       }));
   } else if (predicate.predicateKind === "http_response_exact") {
     const command = commandFor(task, commandResults, declaration);
-    observedValue = await runHttpProbe(task, executionRoot, declaration);
+    observedValue = await runHttpProbe(task, executionRoot, declaration, attemptRef);
     const probeDigest = sha256Canonical({
       predicateId: predicate.predicateId,
       observedValue,
@@ -1378,17 +1396,15 @@ async function main(): Promise<void> {
     for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {
       const command = await runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);
       if (!command.terminationConfirmed) {
-        const facts = commandProcessFacts.get(command);
         throw new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
           taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
           command, diagnostic: decodeStream(command.stderr),
-          processFacts: facts === undefined ? null : encodeOwnedProcessFacts(facts),
         } as unknown as JsonValue)}`);
       }
       commandResults.push(command);
     }
     for (let ordinal = 0; ordinal < task.outcomePredicates.length; ordinal += 1) {
-      const observation = await predicateObservation(task, sandboxRoot, commandResults, ordinal);
+      const observation = await predicateObservation(task, sandboxRoot, commandResults, ordinal, preflight.manifest.attemptRef);
       if (observation.predicateKind === "http_response_exact") {
         const probe = record(observation.observedValue);
         const processObservation = record(probe.process as JsonValue);

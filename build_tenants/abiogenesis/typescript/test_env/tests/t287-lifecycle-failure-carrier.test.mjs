@@ -22,7 +22,10 @@ import { acquireNewEmptyAppendSinkFixture } from '../support/new-empty-append-si
 // physical child, the group probe, prefix acquisition and event recording are
 // controlled premises; the lifetime, the worker transport, the actor's
 // reporting and refusal carrier, the fold and the failure owner are real.
-// This is not an installed Run or OS-process proof.
+// This is not an installed Run or OS-process proof. Case b does not show one
+// store: the actor runs over controlled prefixes and failure retention runs in
+// a second, real append sink; and failActorProcessEffect is called directly,
+// not from evaluateOwnedExecutableCCall.
 
 const root = resolve(import.meta.dirname, '../..');
 const built = name => join(root, 'build/code/src', name + '.js');
@@ -57,6 +60,8 @@ const holds = (rows, name, identity) => calculus.holdsAt(
   calculus.deriveRuntimeEventCalculusProjection(prefixes.selectValidatedRuntimeEventPrefix(deepFreeze([...rows]))),
   calculus.constructRuntimeFluent({ name, identity }));
 const json = value => JSON.parse(JSON.stringify(value));
+// Case b's error after launch: a stream error after the direct exit.
+const afterExitStreamError = Object.assign(new Error('fixture stdout read failure after exit'), { code: 'EIO' });
 
 // Legacy-profile rows: no eventContractDigest member, so the prefix carries no
 // liveness binding, probes or native result assessment.
@@ -103,6 +108,7 @@ async function driveActor(t, mode) {
     } else {
       child.emit('spawn');
       child.emit('exit', 0, null);
+      child.stdout.emit('error', afterExitStreamError);
       child.emit('close', 0, null);
     }
   });
@@ -182,12 +188,7 @@ test('worker no-child launch failure: spawn_failed admitted; the bound transport
   assert.equal(Object.hasOwn(body.processFacts.launchFailure, 'stack'), false);
   assert.equal(observed[0].payload.terminationConfirmed, false);
   assert.equal(rows.some(row => row.kind === 'actor_invocation_failed'), true);
-  // The effect is the admitted receipt or a post-finalization refusal; either
-  // way the facts are not dropped.
-  if (effect.kind === 'actor_process_effect_refusal') {
-    assert.deepEqual(effect.processFacts, encodeOwnedProcessFacts(finalFacts));
-  } else assert.equal(effect.kind, 'actor_process_effect_receipt');
-  t.diagnostic(`spawn_failed effect: ${effect.kind}${effect.code === undefined ? '' : ' ' + effect.code}`);
+  assert.equal(effect.kind, 'actor_process_effect_receipt');
   // Derived state over the fold of L.
   const processRef = terminal.aggregateId;
   assert.equal(holds(rows, 'actor_process_spawn_failed', processRef), true);
@@ -253,14 +254,13 @@ async function retainAtFailCCall(t, refusal) {
     diagnosticRef: owner.constructRuntimeFailureDiagnosticRef };
 }
 
-test('worker unresolved cleanup: termination_unconfirmed admitted; the refusal carries processFacts; failCCall retains it', async t => {
+test('worker error after launch with unresolved cleanup: termination_unconfirmed admitted; the refusal carries processFacts; failCCall retains it', async t => {
   const { rows, effect, finalFacts, transportError } = await driveActor(t, 'unconfirmed');
   assert.notEqual(finalFacts, null);
   assert.equal(classifyOwnedProcessTerminal(finalFacts), 'unconfirmed');
   assert.equal(finalFacts.scopeAbsence, 'unknown');
   assert.deepEqual(finalFacts.directExit, { status: 0, signal: null });
-  assert.equal(finalFacts.firstError, null);
-  assert.match(String(transportError), /worker owned process scope remains unconfirmed/u);
+  assert.match(String(transportError), /fixture stdout read failure after exit/u);
   const kinds = rows.map(row => row.kind);
   assert.equal(kinds.filter(kind => kind === 'actor_process_started').length, 1);
   assert.equal(kinds.filter(kind => kind === 'actor_process_termination_unconfirmed').length, 1);
@@ -271,6 +271,7 @@ test('worker unresolved cleanup: termination_unconfirmed admitted; the refusal c
   assert.doesNotMatch(effect.diagnosticRef, /^data:/u, 'the refusal keeps its own class reference');
   assert.deepEqual(effect.processFacts, encodeOwnedProcessFacts(finalFacts));
   assert.equal(effect.processFacts.scopeAbsence, 'unknown');
+  assert.equal(effect.processFacts.firstError.message, afterExitStreamError.message);
   assert.equal(Object.isFrozen(effect.processFacts), true);
   const processRef = rows.find(row => row.kind === 'actor_process_started').aggregateId;
   assert.equal(holds(rows, 'actor_process_termination_unconfirmed', processRef), true);
@@ -331,6 +332,52 @@ test('helper route: the classifier reports spawn failure as confirmed and unreso
   assert.equal(detail.processFacts.scopeAbsence, 'unknown');
   assert.deepEqual(detail.processFacts.directExit, { status: 0, signal: null });
   assert.equal(detail.processFacts.noChildEstablished, false);
+});
+
+test('helper route: an error after launch with unresolved cleanup throws the command failure with processFacts', {
+  skip: process.platform === 'win32', timeout: 20_000,
+}, async t => {
+  const scratch = await realpath(await mkdtemp(join(tmpdir(), 'abi5-carrier-helper-error-')));
+  t.after(() => rm(scratch, { recursive: true, force: true }));
+  const priorSignals = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));
+  t.after(() => { for (const [signal, prior] of priorSignals) for (const listener of process.listeners(signal))
+    if (!prior.includes(listener)) process.removeListener(signal, listener); });
+  const exposeRunCommand = source => {
+    const replaced = source.replace(/await main\(\);\s*$/u, '');
+    assert.notEqual(replaced, source, 'helper main is not run');
+    return replaced;
+  };
+  // The lifetime stub hands back facts with an unresolved scope and a first
+  // error; the child is a controlled emitter, so no real process is unowned.
+  const failure = Object.assign(new Error('fixture command stream failure'), { code: 'EIO' });
+  const facts = Object.freeze({ directExit: Object.freeze({ status: 0, signal: null }), launchFailure: null,
+    noChildEstablished: false, scopeKind: 'posix_process_group', scopeAbsence: 'unknown', closeObserved: true,
+    streamsDisposed: true, drainExpired: false, firstError: failure, cleanupDeadlineNs: null, cleanupElapsedMs: 0,
+    probeCount: 1, signalAttempts: 1 });
+  const child = new EventEmitter();
+  child.pid = 4243;
+  for (const name of ['stdout', 'stderr']) child[name] = Object.assign(new EventEmitter(), { destroy: () => {} });
+  const stubLifetime = { createOwnedProcessLifetime: () => ({ completion: Promise.resolve(facts),
+    observe: () => undefined, fail: () => {}, requestTermination: () => {}, snapshot: () => facts }) };
+  const helper = await component('implementation/worksite_command_helper',
+    { 'node:child_process': { spawn: () => child }, '../shared/owned_process_lifetime.js': stubLifetime },
+    '\nexport { runCommand };', exposeRunCommand);
+  const task = { taskRef: 'task://t287/carrier', taskDigest: hash('task'), commands: [{
+    commandId: 'command://t287/carrier', executable: 'fixture-command', args: [], relativeCwd: '.', environment: [],
+    timeoutMs: 10_000, terminationGraceMs: 50, expectedReports: [] }] };
+  let thrown = null;
+  try { await helper.runCommand(task, scratch, 0, 'attempt://t287/carrier'); }
+  catch (error) { thrown = error; }
+  assert.equal(thrown instanceof TypeError, true, String(thrown));
+  assert.match(thrown.message, /^worksite command failed; dependent work stopped: /u);
+  const detail = JSON.parse(thrown.message.slice(thrown.message.indexOf('{')));
+  assert.equal(detail.taskRef, task.taskRef);
+  assert.equal(detail.attemptRef, 'attempt://t287/carrier');
+  assert.equal(detail.command.commandId, task.commands[0].commandId);
+  assert.equal(detail.processFacts.scopeAbsence, 'unknown');
+  assert.equal(detail.processFacts.firstError.message, failure.message);
+  assert.equal(detail.diagnostic.message, failure.message);
+  assert.deepEqual(detail.processFacts, json(encodeOwnedProcessFacts(facts)));
 });
 
 test('D5: a terminationConfirmed copy that disagrees with the fold initiates the diagnostic fluent; no prefix is refused', () => {

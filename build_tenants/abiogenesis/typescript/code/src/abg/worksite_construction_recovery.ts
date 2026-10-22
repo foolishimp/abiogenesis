@@ -62,6 +62,7 @@ const PROCESS_FACT_MEMBERS = Object.freeze(["cleanupDeadlineNs", "cleanupElapsed
  * encoding keeps every member the classifier reads under its own name and
  * value domain, so the shared classifier reads the encoded facts directly. */
 function transportProcessFactsMatchExit(transport: Readonly<Record<string, JsonValue>>): boolean {
+  if (transport.processFacts === undefined) return true;
   const facts = transport.processFacts;
   return record(facts) && hasExactKeys(facts, PROCESS_FACT_MEMBERS) &&
     record(facts.directExit) && hasExactKeys(facts.directExit, ["signal", "status"]) &&
