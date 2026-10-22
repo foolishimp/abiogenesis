@@ -148,7 +148,7 @@ function deriveActorProcessLifecycle(state: FoldState, event: RuntimeEvent): Eve
       const started = held(state, "actor_process_live", processRef);
       const unconfirmed = held(state, "actor_process_termination_unconfirmed", processRef);
       return effect([
-        ...(event.kind === "actor_process_exited" && started && !unconfirmed
+        ...(event.kind === "actor_process_exited" && started
           ? [processFluent("actor_process_terminated", processRef)] : []),
         ...(actorTerminal() ? [] : [processFluent("actor_cleanup_pending", processRef)]),
       ], [

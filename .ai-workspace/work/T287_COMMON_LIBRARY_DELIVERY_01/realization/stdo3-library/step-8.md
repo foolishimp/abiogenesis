@@ -972,3 +972,91 @@ only the grant.
 `Step 8b: ticket close, GOAL-035, design notes`, last line
 `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append
 `## Return 8b` with: commit; each item with the lines edited; residuals.
+
+## Repair return (step 8)
+
+- commit: the commit carrying this Return (first line `Step 8 repair: D9 reversed; final integrated run`, parent `068062323`); its hash is in the final report. Not pushed. Staged by path.
+- Item 1 (D9 reversal), `code/src/abg/calculus/rules.ts`:
+  - `:151` now reads `...(event.kind === "actor_process_exited" && started`. The `&& !unconfirmed` conjunct is gone.
+  - The `unconfirmed` binding (`:149`) stays because `:156` still reads it to terminate `actor_process_termination_unconfirmed` on the terminal (`not T and U`). The cleanup formula is untouched.
+  - The doc comment at `:127-129` still states the guard ("preceded by the process start and by no termination unconfirmed for it"). It is outside "the one conjunct", so it is left for 8b (see residuals).
+- Item 2, `test_env/tests/m5-terminal-quiescence-owner.test.mjs`: 7/7.
+  - `:162`: `terminationConfirmed` is `confirmed` again, the expectation before 8a-2. The D9 message is removed.
+  - `:163`: `holdsAt(actor_process_terminated)` is `confirmed`. It is `false` before the late exit and `true` after it, including after the actor terminal.
+  - Unchanged:
+    - `:167-168`: `actor_process_termination_unconfirmed` is `!confirmed`, with the `not T and U` message.
+    - `actor_cleanup_pending`: `!actorDone`.
+    - The title (`:148`) and the comment at `:171`.
+    - The `holdsAt` form of the last test (`:224-226`).
+- Item 3, `t287-calculus-fold`:
+  - Before the edit it was 4/2. Both failures asserted the guard; there was no other failure.
+  - Flipped to the unguarded rule:
+    - P-FOLD, the U1 store (`createU1Fixture`: start, termination-unconfirmed, exit, actor failure):
+      - `:76-77`: at the exit cut `actor_process_terminated` holds (`[true, false, false, true, true]`). The message is now "...and initiates termination".
+      - `:79`: at the end cut `[true, true, false]`. The actor terminal ends `actor_cleanup_pending` only.
+      - The comment at `:68-69` now reads "the exit initiates terminated given the start, unguarded".
+      - The cold, warm and forked fold agreement above these lines was not touched, and it passes.
+    - P-LIFECYCLE case `:127-135`:
+      - On the exit step, `actor_process_terminated` is added to both `initiates` and `holds` (`:132-134`).
+      - The case name changed from "negative: termination unconfirmed, then an exit" to "late confirmation: termination unconfirmed, then an exit".
+      - The actor projection row is unchanged.
+  - After the edit: 6/6.
+- Item 4: design §10.6 row 5 (`design:648`).
+  - The D9 sentence, from "An `actor_process_exited` after" through "(D9, Executive, 2026-10-23).", is replaced with the activation's text, verbatim.
+  - The row is still on one line with five `|` separators, as before.
+  - §4.4 (`design:199`) is unchanged, and the rule now matches it.
+  - The build regenerated `contracts/capabilities/capability-definition-graph.json` and `product-toolchain-manifest.json`, and both are committed.
+- Final run: `step-8-run-final.log`, run on the tree of this commit.
+  - Gate steps:
+    - build: rc 0, 33 s.
+    - `lint:imports`: rc 0 (28 modules).
+    - `lint:lifecycle`: rc 0 (284 modules, 10 allow-listed sites, no offender).
+    - Then one `node --experimental-vm-modules --test --test-concurrency=1` invocation over 44 files: the 34 of the 8a run plus the ten F7 suites.
+    - Run result: rc 1, wall 1096 s. Node summary: tests 313, pass 245, fail 52, cancelled 2, skipped 14.
+    - Whole log: 04:07:21Z to 04:26:12Z.
+  - Per file, top-level pass/fail[/skip], for the 34 files of the 8a run:
+    - `forward-command-contracts` 8/0, `forward-command-owners` 2/4, `installed-language-smoke` 1/0
+    - `m5-c-algebra-validation` 18/0/3, `m5-consensus-module` 0/1 (load), `m5-event-calculus-runtime` 13/5/1, `m5-event-store-reopen` 18/0
+    - `m5-fresh-process-reconstruction` 0/1, `m5-installed-graph-edge` 0/1, `m5-installed-portability` 5/3, `m5-retry-lifecycle-authority` 4/5
+    - `m5-s03-authority` 1/4, `m5-s06-prime` 10/1, `m5-terminal-quiescence-owner` 7/0, `m5-worker-transport` 21/0
+    - `t287-c2-owner-coordinate-reuse` 0/6, `t287-c2a-fp-source-contract` 4/0, `t287-calculus-fold` 6/0
+    - `t287-calculus-state-transfer` 0/1 (timeout), `t287-common-computational-library` 4/0
+    - `t287-event-calculus-owner-continuation` 0/1 (load), `t287-generic-job-lifecycle` 0/0/1, `t287-lifecycle-failure-carrier` 5/0
+    - `t287-native-runtime-gate` 6/0/1, `t287-native-semantic-revision` 4/4/1, `t287-native-structural-gates` 9/0
+    - `t287-observed-worksite-command` 7/1, `t287-ordered-reconstruction` 0/4/3, `t287-owned-process-lifetime` 18/0
+    - `t287-reconstruction-conservation` 0/0/2, `t287-runtime-activity-quiescence` 1/0, `t287-select-family` 7/0
+    - `t287-value-equality` 4/0, `t287-worksite-command-execution` 3/1
+  - Comparison with the committed 8a run:
+    - Method: top-level TAP result by file and test name, status, first error and first test-file frame.
+    - The only status changes are the two `m5-terminal-quiescence-owner` tests, fail -> pass. The renamed fold case passes under both names.
+    - The 16 baseline-red files of the 8a run fail the same tests with the same first errors. Their attribution in `## Return 8a` stands.
+    - `t287-c2a-fp-source-contract` is 4/0.
+  - The ten F7 suites:
+    - `t287-w2-05-static-binding-algebra` is green, 3/0/2.
+    - The other nine are red. All nine were run once, in one invocation, in the built baseline worktree, `97b1200bc`, each with its own copy of the test file; one rerun of `t287-cross-cut-public-read` followed (see below).
+    - All nine are baseline-red with the same failure set: the same tests, the same first error and the same test-file frame. No seam is opened and nothing was fixed:
+      - `r10-projection-contracts` 0/1: fails at load at `:24`, `DurablePrefixReadError` `file_identity_mismatch` (fixture coordinate).
+      - `t287-conformance-owner-reuse` 0/1: fails at load at `:20`, `assert.ok(predecessor && territory && process.env.ABI5_CONFORMANCE_METADATA)`. This is an environment precondition.
+      - `t287-cross-cut-public-read` 4/1: `:110`, "run_status must retain the acquired prefix through late proof admission", `1899 !== 1`.
+        - Its fixture files `events-01/runtime.events.jsonl` and `attempt-01/program-ready-16.json` (under `.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/`) are gitignored, so the baseline worktree lacks them. In the shared baseline run all five tests failed with `ENOENT` at `:38`.
+        - The two files were symlinked into the baseline worktree from this checkout, and the suite was rerun there once: 4/1, the same `:110` assertion with `1899 !== 1`.
+        - The links were then removed.
+      - `t287-malformed-gtl-gate` 5/1: `:107`, `'raw_admission_refused' !== 'validation_failed'`.
+      - `t287-pfc-f08a-product-verification-boundary` 0/1: `:398`, `product_verification_refusal` `manifest_malformed`.
+      - `t287-st2a-g-capability-definition-graph` 2/2:
+        - `:260`: "missing capability projection for abg.asset.gtl.language-conformance-corpus".
+        - `:370`: `parseProductPublicContract` returns an object where `null` is expected. The printed declaration inventory is longer at head (314 `./product` rows against 308), which follows the library's added declarations. The assertion and its outcome are the same.
+      - `t287-w2-05-generator-package-reproducibility` 1/1: `:99`, "generated declarations must form exact export closures".
+      - `t287-w2-05-install-catalog-owner-chain` 0/1: `:328`, `44 !== 39`.
+      - `t287-wave2-owner-contract-source-set` 0/1: fails at load at `:47`. `product/release_snapshot_operations.js` does not export `ReleaseSnapshotPort`.
+  - uat harness: rc 1. 34 tests: 30 pass, 1 fail, 3 skip. The failure is `harness.test.mjs:471`/`:490`, "canonical C2 budget fits", `18025250 !== 18015000`. It matches the 8a run and `97b1200bc`, so it is baseline.
+  - Bounded fixes in item 5: none.
+- Residuals:
+  - `rules.ts:127-129`: the doc comment still describes the guard. A one-clause edit for 8b or a later grant: drop "and by no termination unconfirmed for it".
+  - The quiescence test's title (`:148`) and the comment at `:171` stay as the activation directs. Under the reversal they state the law.
+  - Not run, read only:
+    - `t287-native-workspace-work` and `t287-f04a-probabilistic-result-candidate` match the termination-unconfirmed and terminated names. Neither asserts `actor_process_terminated` after a termination-unconfirmed. Their `terminationConfirmed` members are carrier fixtures.
+    - `t287-native-work-unknown-effect` (8a-2 item 3) asserts only `not T and U` at `:69`.
+  - Several F7 suites are red at the baseline on fixture or environment preconditions: `r10-projection-contracts` (`:24`), `t287-conformance-owner-reuse` (`:20`) and `t287-wave2-owner-contract-source-set` (`:47`, a missing export). Their bodies did not run at head or at the baseline, so their step 2 edits (import paths, `build/` path strings) remain unexercised past load.
+  - The baseline worktree does not carry the gitignored R10 fixture. Any later baseline attribution of `t287-cross-cut-public-read` needs the same two links.
+- return route: this file
