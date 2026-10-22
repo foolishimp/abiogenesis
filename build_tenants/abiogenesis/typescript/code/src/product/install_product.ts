@@ -139,11 +139,11 @@ async function installedPayloadMatchesGraphCarrier(
     const graph = JSON.parse(graphBytes.toString("utf8")) as unknown;
     if (
       !isCapabilityDefinitionGraph(graph) ||
-      canonicalJson(graph as unknown as JsonValue) !== graphBytes.toString("utf8") ||
+      canonicalJson(graph) !== graphBytes.toString("utf8") ||
       sha256Bytes(graphBytes) !== graphAsset.contentDigest ||
       !canonicalEquals(
-        graph as unknown as JsonValue,
-        expectedGraph as unknown as JsonValue,
+        graph,
+        expectedGraph,
       ) ||
       sha256Bytes(serializeCapabilityDefinitionGraph(graph)) !==
         expectedGraphAsset.contentDigest
@@ -188,7 +188,7 @@ export async function installedProductContentMatches(
       installedManifest.packageName !== install.packageName ||
       installedManifest.packageVersion !== install.packageVersion ||
       installedManifest.productContentDigest !== install.productContentDigest ||
-      sha256Canonical(installedManifest as unknown as JsonValue) !== install.manifestDigest
+      sha256Canonical(installedManifest) !== install.manifestDigest
     ) {
       return false;
     }
@@ -243,7 +243,7 @@ async function installedDependencyMatchesLockRow(
     manifest.packageName === row.packageName &&
     manifest.packageVersion === row.packageVersion &&
     manifest.productContentDigest === row.productContentDigest &&
-    sha256Canonical(manifest as unknown as JsonValue) === row.manifestDigest &&
+    sha256Canonical(manifest) === row.manifestDigest &&
     await installedPayloadMatchesGraphCarrier(
       installedRoot,
       manifest,
@@ -336,8 +336,8 @@ async function installProductWithMembership(
   if (
     currentVerification.kind !== "verified_product_artifact" ||
     (owned === null && !canonicalEquals(
-      currentVerification as unknown as JsonValue,
-      request.verifiedArtifact as unknown as JsonValue,
+      currentVerification,
+      request.verifiedArtifact,
     ))
   ) {
     return refusal(
@@ -404,7 +404,7 @@ async function installProductWithMembership(
   if (installedManifest === null) {
     return refusal("installed_manifest_mismatch", "installed manifest shape is invalid");
   }
-  const installedManifestDigest = sha256Canonical(installedManifest as unknown as JsonValue);
+  const installedManifestDigest = sha256Canonical(installedManifest);
   if (installedManifestDigest !== request.verifiedArtifact.manifestDigest) {
     return refusal("installed_manifest_mismatch", "installed manifest is not the verified manifest");
   }

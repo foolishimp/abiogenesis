@@ -1,6 +1,7 @@
 import { SEMANTIC_REVISION_IDS as ids } from "../gtl/semantic_revision_identity.js";
 import { isRetainedGraphInput, constructRetainedGraphInput } from "./worksite_preparation_contracts.js";
 import * as v from "valibot";
+import { admitJson } from "../shared/admit/index.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { deriveSemanticAsset, deriveSemanticAssessment, isSemanticStageEnvelope, isSemanticWorksiteBasis, projectSemanticWorksiteCoordinates } from "./semantic_stage.js";
@@ -204,7 +205,10 @@ export function isSemanticJobRevisionEnvelope(x) {
         return basisDigest === hash(body) && basisRef === `semantic-revision://abiogenesis/${basisDigest.slice(7)}` &&
             unique(b.historicalAssets.map(a => a.assetRef)) && unique(b.affectedStageRefs) && unique(b.preservedAssetRefs) &&
             unique(b.retainedTerms.map(t => t.requirementRef)) && active !== null &&
-            b.retainedBindings.every(binding => e.current.bindingVersions.some(version => canonicalEquals(version.binding, binding))) &&
+            b.retainedBindings.every((binding) => {
+                const admittedBinding = admitJson(binding);
+                return admittedBinding.kind === "ok" && e.current.bindingVersions.some(version => canonicalEquals(version.binding, admittedBinding.value));
+            }) &&
             e.current.assets.filter(a => b.preservedAssetRefs.includes(a.assetRef)).every(a => b.historicalAssets.some(h => canonicalEquals(h, a)));
     }
     catch {
@@ -367,9 +371,12 @@ export function evaluateNativeSemanticRevisionRelation(predicate, input, output)
         if (predicate === ids.nativeConstructionPredicateRef || step && isSemanticJobRevisionEnvelope(input) && isNativeWorkspaceWorkTask(output))
             return isSemanticJobRevisionEnvelope(input) && isNativeWorkspaceWorkTask(output) &&
                 canonicalEquals(constructNativeRevisionConstructionTask(input, { ...input.revisionBasis.request.nativeWorksite, ...output }), output);
-        if (predicate === ids.nativeExecutionPredicateRef || step && isRetainedGraphInput(input) && isNativeWorksiteCommandExecutionTask(output))
-            return isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(input.entry) && isNativeWorkspaceWorkObservation(input.source) &&
-                canonicalEquals(constructNativeRevisionExecutionTask(input.entry, input.source), output);
+        if (predicate === ids.nativeExecutionPredicateRef || step && isRetainedGraphInput(input) && isNativeWorksiteCommandExecutionTask(output)) {
+            if (!isRetainedGraphInput(input) || !isSemanticJobRevisionEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source))
+                return false;
+            const admittedOutput = admitJson(output);
+            return admittedOutput.kind === "ok" && canonicalEquals(constructNativeRevisionExecutionTask(input.entry, input.source), admittedOutput.value);
+        }
         if (predicate === ids.nativeEvidencePredicateRef || step && isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(output)) {
             if (isSemanticJobRevisionEnvelope(input) && isSemanticJobRevisionEnvelope(output) && output.current.evidence !== null)
                 input = constructRetainedGraphInput(input, output.current.evidence.executionObservation);

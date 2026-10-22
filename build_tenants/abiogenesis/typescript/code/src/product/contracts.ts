@@ -11,21 +11,21 @@ export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-rc
 export const ABI5_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
 export const ABI5_PACKAGE_VERSION = "5.0.0-rc.1";
 
-export interface ProductDeclaredDependency {
+export type ProductDeclaredDependency = {
   readonly kind: "requires";
   readonly productId: string;
   readonly packageVersion: string;
   readonly compatibilityRef: string;
   readonly requiredContractRefs: readonly string[];
   readonly requiredCapabilityRefs: readonly string[];
-}
+};
 
 export type ProductContributionKind =
   | "graph_function"
   | "node_type"
   | "overlay";
 
-export interface ProductContributionManifestRow {
+export type ProductContributionManifestRow = {
   readonly moduleRef: string;
   readonly handle: string;
   readonly kind: ProductContributionKind;
@@ -35,14 +35,14 @@ export interface ProductContributionManifestRow {
   readonly compatibilityRefs: readonly string[];
   readonly provenanceRef: string;
   readonly readinessPrerequisiteRefs: readonly string[];
-}
+};
 
-export interface ProductModulePublicationBinding {
+export type ProductModulePublicationBinding = {
   readonly moduleRef: string;
   readonly publicationDigest: Sha256Digest;
-}
+};
 
-export interface ProductContributionManifest {
+export type ProductContributionManifest = {
   readonly kind: "product_contribution_manifest";
   readonly schemaVersion: "5.0.0";
   readonly contributionManifestRef: string;
@@ -55,35 +55,34 @@ export interface ProductContributionManifest {
   readonly capabilityDefinitionGraph: CapabilityDefinitionGraphCoordinate;
   readonly publicationBindings: readonly ProductModulePublicationBinding[];
   readonly rows: readonly ProductContributionManifestRow[];
-}
+};
 
-export interface ProductNativeDeclarationInventoryRow {
+export type ProductNativeDeclarationInventoryRow = {
   readonly packageExportPath: string;
   readonly declarationPath: string;
   readonly declarationDigest: Sha256Digest;
-}
+};
 
-export interface ProductNativeTypedLocator {
+export type ProductNativeTypedLocator = {
   readonly packageName: string;
   readonly packageExportPath: string;
   readonly namedSymbol: string;
   readonly declarationPath: string;
   readonly declarationInventory:
     readonly ProductNativeDeclarationInventoryRow[];
-}
+};
 
-export interface ProductAssetLocator {
+export type ProductAssetLocator = {
   readonly path: string;
   readonly mediaType: string;
   readonly schemaVersion: string;
   readonly contentDigest: Sha256Digest;
   readonly definitionRef?: string;
-}
+};
 
-export interface ProductCapabilityDefinitionGraphManifestCoordinate
-  extends CapabilityDefinitionGraphCoordinate {
+export type ProductCapabilityDefinitionGraphManifestCoordinate = CapabilityDefinitionGraphCoordinate & {
   readonly assetLocator: ProductAssetLocator;
-}
+};
 
 export type ProductPublicContractKind =
   | "native_typed_group"
@@ -91,7 +90,7 @@ export type ProductPublicContractKind =
   | "serialized_native_contract"
   | "vocabulary_asset";
 
-export interface ProductPublicContract {
+export type ProductPublicContract = {
   readonly contractId: string;
   readonly contractVersion: "5.0.0";
   readonly contractDigest: Sha256Digest;
@@ -101,7 +100,7 @@ export interface ProductPublicContract {
   readonly capabilityIdentities: readonly string[];
   readonly nativeTypedLocator?: ProductNativeTypedLocator;
   readonly assetLocator?: ProductAssetLocator;
-}
+};
 
 /** The one flat public-contract catalog embedded in the Product manifest. */
 export interface ProductPublicContractCatalog {
@@ -114,7 +113,7 @@ export interface ProductPublicContractCatalog {
   readonly catalogDigest: Sha256Digest;
 }
 
-export interface VerifyProductRequest {
+export type VerifyProductRequest = {
   readonly artifactPath: string;
   readonly artifactRef: string;
   readonly expectedArtifactDigest: Sha256Digest;
@@ -123,9 +122,9 @@ export interface VerifyProductRequest {
   readonly expectedProductId: string;
   readonly expectedPackageName: string;
   readonly expectedPackageVersion: string;
-}
+};
 
-export interface VerifiedProductArtifact {
+export type VerifiedProductArtifact = {
   readonly kind: "verified_product_artifact";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "verified";
@@ -160,7 +159,7 @@ export interface VerifiedProductArtifact {
   readonly checkedPayloadFiles: number;
   readonly nativeDeclarationEvidence:
     import("./declaration_exports.js").NativeProductDeclarationEvidence;
-}
+};
 
 export const PRODUCT_VERIFICATION_REFUSAL_CODES = [
   "artifact_unreadable",
@@ -305,7 +304,7 @@ export interface InstallProductRequest {
   readonly resolvedLock: ResolvedProductLock;
 }
 
-export interface ProductInstallCandidate {
+export type ProductInstallCandidate = {
   readonly kind: "product_install_candidate";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "materialized";
@@ -335,7 +334,7 @@ export interface ProductInstallCandidate {
   readonly publicCapabilityRefs: readonly string[];
   readonly resolvedLockId: string;
   readonly resolvedLockDigest: Sha256Digest;
-}
+};
 
 export const PRODUCT_INSTALL_REFUSAL_CODES = [
   "target_not_empty",

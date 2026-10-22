@@ -110,7 +110,7 @@ function exactSubjectForBinding(
     relativePath: subject.relativePath,
   });
   return expected.kind === "worksite_subject" &&
-    canonicalEquals(expected as unknown as JsonValue, subject as unknown as JsonValue);
+    canonicalEquals(expected, subject);
 }
 
 function exactTerritoryForBinding(
@@ -126,7 +126,7 @@ function exactTerritoryForBinding(
     relativeRoot: territory.relativeRoot,
   });
   return expected.kind === "worksite_territory" &&
-    canonicalEquals(expected as unknown as JsonValue, territory as unknown as JsonValue);
+    canonicalEquals(expected, territory);
 }
 
 function errnoCode(error: unknown): string | null {
@@ -564,8 +564,8 @@ export function isWorksiteFileReplaceInput(
         input.request.territory,
       ) ||
       !canonicalEquals(
-        input.workspaceAuthorityBasis as unknown as JsonValue,
-        input.request.workspaceAuthorityBasis as unknown as JsonValue,
+        input.workspaceAuthorityBasis,
+        input.request.workspaceAuthorityBasis,
       ) ||
       !worksiteSubjectWithinTerritory(
         input.request.subject,
@@ -580,7 +580,7 @@ export function isWorksiteFileReplaceInput(
       implementationSet: input.implementationSet,
     });
     return expected.kind === "worksite_effect_authorization" &&
-      canonicalEquals(expected as unknown as JsonValue, input.authorization as unknown as JsonValue);
+      canonicalEquals(expected, input.authorization);
   } catch {
     return false;
   }
@@ -635,7 +635,7 @@ export async function replaceWorksiteFile(
   );
   if ("kind" in initialLocus) return initialLocus;
   const immediate = initialLocus.observation;
-  if (!canonicalEquals(immediate as unknown as JsonValue, predecessorObservation as unknown as JsonValue)) {
+  if (!canonicalEquals(immediate, predecessorObservation)) {
     return worksiteRefusal(
       "stale_observation",
       "worksite subject changed after O0; replacement requires fresh observation and authorization",
@@ -728,7 +728,7 @@ export async function replaceWorksiteFile(
     );
     if ("kind" in atCommitLocus) return atCommitLocus;
     const atCommit = atCommitLocus.observation;
-    if (!canonicalEquals(atCommit as unknown as JsonValue, predecessorObservation as unknown as JsonValue)) {
+    if (!canonicalEquals(atCommit, predecessorObservation)) {
       return worksiteRefusal(
         "stale_observation",
         "worksite subject changed before atomic commit",
@@ -775,7 +775,7 @@ export async function replaceWorksiteFile(
       input.protectedInstallRoots,
     );
     if ("kind" in publicationLocus) return publicationLocus;
-    if (!canonicalEquals(publicationLocus.observation as unknown as JsonValue, predecessorObservation as unknown as JsonValue) ||
+    if (!canonicalEquals(publicationLocus.observation, predecessorObservation) ||
       publicationLocus.parent.fileIdentity !==
         initialLocus.parent.fileIdentity ||
       publicationLocus.targetFileIdentity !== initialLocus.targetFileIdentity) {
@@ -1005,7 +1005,7 @@ export interface WorksiteFileParentsInput extends WorksiteReadBasis {
 /** Internal physical owner; the guarded selected C0 leaf is the runtime entry. */
 export async function createWorksiteFileParents(input: WorksiteFileParentsInput): Promise<WorksiteFileParentsResult> {
   if (!isWorksiteFileParentsRequest(input.request) || !isWorksiteFileParentsAuthorization(input.authorization) ||
-    !canonicalEquals(input.workspaceAuthorityBasis as unknown as JsonValue, input.request.workspaceAuthorityBasis as unknown as JsonValue)) return worksiteRefusal("authorization_mismatch", "file parents require their own exact authorization");
+    !canonicalEquals(input.workspaceAuthorityBasis, input.request.workspaceAuthorityBasis)) return worksiteRefusal("authorization_mismatch", "file parents require their own exact authorization");
   const expected = constructWorksiteFileParentsAuthorization(input);
   if (expected.kind !== "worksite_file_parents_authorization" || !canonicalEquals(expected, input.authorization)) return worksiteRefusal("authorization_mismatch", "file-parent authorization does not reproduce from its basis and request");
   const { request, authorization } = input;
@@ -1020,7 +1020,7 @@ export async function createWorksiteFileParents(input: WorksiteFileParentsInput)
     }
     const current = await observeWorksiteFileParents({ ...input, ...request });
     if (current.kind !== "worksite_file_parents_request") return failed(current);
-    if (!canonicalEquals(current as unknown as JsonValue, request as unknown as JsonValue)) return failed(worksiteRefusal("stale_observation", "file-parent ancestor chain changed before any effect"));
+    if (!canonicalEquals(current, request)) return failed(worksiteRefusal("stale_observation", "file-parent ancestor chain changed before any effect"));
     const revalidateKnown = async (): Promise<WorksiteEffectRefusal | null> => {
       for (const outcome of outcomes) {
         const path = checkedWorksitePath(resolved.root, resolved.protectedRoots, outcome.relativePath);
@@ -1163,7 +1163,7 @@ export async function observeWorksiteContext(input: WorksiteContextInput): Promi
       readRoots: input.readRoots, maxFiles: input.maxFiles, maxBytes: input.maxBytes,
       entries: [...entries.values()].sort((a, b) => a.relativePath < b.relativePath ? -1 : a.relativePath > b.relativePath ? 1 : 0),
     };
-    const observationDigest = sha256Canonical(body as unknown as JsonValue);
+    const observationDigest = sha256Canonical(body);
     const observation = deepFreeze({ kind: "worksite_context_observation" as const, schemaVersion: "5.0.0" as const,
       observationRef: `worksite-context-observation://abiogenesis/${observationDigest.slice("sha256:".length)}`, observationDigest, ...body });
     return isWorksiteContextObservation(observation) ? observation : worksiteRefusal("stale_observation", "worksite context did not produce a complete closed observation");

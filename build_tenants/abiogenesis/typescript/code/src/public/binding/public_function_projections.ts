@@ -70,7 +70,7 @@ export interface PublicProjectionAsset {
   readonly slot: "request" | "result" | "refusal" | "non_terminal" | null;
 }
 
-export interface PublicSdkMemberProjection {
+export type PublicSdkMemberProjection = {
   readonly definitionKey: Readonly<{ operationId: string; memberKey: string }>;
   readonly definitionRef: string;
   readonly sdkCoordinate: string;
@@ -78,15 +78,15 @@ export interface PublicSdkMemberProjection {
   readonly resultSchemaCoordinate: string;
   readonly refusalSchemaCoordinate: string;
   readonly nonTerminalSchemaCoordinate: string | null;
-}
+};
 
-export interface PublicCliGrammarProjection {
+export type PublicCliGrammarProjection = {
   readonly definitionKey: Readonly<{ operationId: string; memberKey: string }>;
   readonly cliCoordinate: string;
   readonly adapterExitMap: IntrinsicPublicFunctionDefinition["adapterExitMap"];
-}
+};
 
-export interface PublicDocumentationInventoryRow {
+export type PublicDocumentationInventoryRow = {
   readonly definitionKey: Readonly<{ operationId: string; memberKey: string }>;
   readonly definitionRef: string;
   readonly definitionDigest: Sha256Digest;
@@ -94,7 +94,7 @@ export interface PublicDocumentationInventoryRow {
   readonly capabilityRefs: readonly string[];
   readonly sdkCoordinate: string;
   readonly cliCoordinate: string;
-}
+};
 
 export interface PublicProjectionPayloads {
   readonly family: IntrinsicPublicFunctionFamilyCoordinate;
@@ -293,7 +293,7 @@ function invocationAuthoritySchema(
       : conditionalSlots.has(slot)
       ? { oneOf: [authorityValueSchema(slot, definition), { type: "null" }] }
       : { type: "null" },
-  ])) as Readonly<Record<string, JsonValue>>;
+  ]));
   const conditionalSchemas = conditionals.map((requirement) => ({
     if: {
       properties: {
@@ -331,7 +331,7 @@ function invocationAuthoritySchema(
         },
       },
     },
-  } as JsonValue));
+  }));
   return {
     schema: exactObject({
       kind: { const: "invocation_authority" },
@@ -417,7 +417,7 @@ function admittedInvocationBranch(
   }) as Readonly<Record<string, JsonValue>>;
   return authority.conditionals.length === 0
     ? schema
-    : { ...schema, allOf: authority.conditionals } as JsonValue;
+    : { ...schema, allOf: authority.conditionals };
 }
 
 function indexedRefusalBranch(
@@ -592,7 +592,7 @@ function commonPublicSchema(): JsonValue {
       ...publicInvocationDefinitions(),
       ...publicOutcomeDefinitions(),
     },
-  } as unknown as JsonValue;
+  };
 }
 
 function operationSuffix(operationId: string): string {
@@ -666,7 +666,7 @@ function slotAsset(
       $ref: `#/$defs/${pointerSegment(definition.definitionKey.memberKey)}`,
     })),
     $defs: definitionsByMember,
-  } as JsonValue;
+  };
   return projectionAsset({
     assetKind: "operation_slot_schema",
     path: `contracts/schemas/operations/${operationPath(operationId)}/${schemaSlot}.schema.json`,
@@ -714,7 +714,7 @@ function constructPayloads(): PublicProjectionPayloads {
         "operation-contract.json",
       mediaType: "application/json",
       schemaVersion: "5.0.0",
-      content: projection as unknown as JsonValue,
+      content: projection,
       operationId: projection.operationId,
       slot: null,
     }),
@@ -761,7 +761,7 @@ function constructPayloads(): PublicProjectionPayloads {
       sdkMembers,
       cliGrammar,
       documentationInventory,
-    } as unknown as JsonValue,
+    },
     operationId: null,
     slot: null,
   });
@@ -777,7 +777,7 @@ function constructPayloads(): PublicProjectionPayloads {
     sdkMembers,
     cliGrammar,
     documentationInventory,
-  } as unknown as JsonValue);
+  });
   return deepFreeze({
     family,
     nativeSchemas: PUBLIC_OPERATION_SCHEMAS,

@@ -154,8 +154,8 @@ function exactHashedPayload(
     Object.entries(event.payload).filter(
       ([key]) => key !== refKey && key !== digestKey,
     ),
-  ) as Readonly<Record<string, JsonValue>>;
-  return digest === sha256Canonical(body as unknown as JsonValue) &&
+  );
+  return digest === sha256Canonical(body) &&
       ref === `${refPrefix}${digest.slice("sha256:".length)}`
     ? body
     : null;
@@ -337,7 +337,7 @@ function exactDeclaredFanOutWorkflowLocus(
       nodeRef: row.nodeRef,
       termPath: row.termPath,
       childGraphFunctionRef: row.term.graphFunctionRef,
-    } as unknown as JsonValue);
+    });
     return openedPayload.programLocusRef ===
       `workflow-locus://abiogenesis/${locusDigest.slice("sha256:".length)}`;
   });
@@ -535,19 +535,21 @@ function exactTaskTruth(
     !isNonEmptyString(opened.payload.graphCallId) ||
     !isNonEmptyString(opened.payload.frameId) ||
     !isNonEmptyString(opened.payload.programLocusRef) ||
-    !Number.isSafeInteger(opened.payload.vectorIndex) ||
-    !Number.isSafeInteger(opened.payload.attempt) ||
+    typeof opened.payload.vectorIndex !== "number" || !Number.isSafeInteger(opened.payload.vectorIndex) ||
+    typeof opened.payload.attempt !== "number" || !Number.isSafeInteger(opened.payload.attempt) ||
     !Array.isArray(opened.payload.retryPath) ||
     !opened.payload.retryPath.every((value) =>
       Number.isSafeInteger(value) && Number(value) > 0
     )
   ) return null;
+  const stageRole = opened.payload.stageRole;
+  if (stageRole === undefined) return null;
   const cCallIdentity = {
     basisId: opened.payload.basisId,
     graphCallId: opened.payload.graphCallId,
     frameId: opened.payload.frameId,
     vectorIndex: opened.payload.vectorIndex,
-    stageRole: opened.payload.stageRole,
+    stageRole,
     taskOrdinal: opened.payload.taskOrdinal,
     attempt: opened.payload.attempt,
     programLocusRef: opened.payload.programLocusRef,
@@ -555,7 +557,7 @@ function exactTaskTruth(
     childGraphFunctionRef: opened.payload.childGraphFunctionRef,
     failureContractRef: opened.payload.failureContractRef,
   };
-  const cCallDigest = sha256Canonical(cCallIdentity as unknown as JsonValue);
+  const cCallDigest = sha256Canonical(cCallIdentity);
   if (
     opened.payload.cCallDigest !== cCallDigest ||
     opened.aggregateId !== `c-call:${cCallDigest}` ||
@@ -911,7 +913,7 @@ function completedRowFromPayload(
   const expected = completedRow(truth, member, truth.resultContractRef);
   return expected !== null &&
       canonicalEquals(
-        expected as unknown as JsonValue,
+        expected,
         value,
       )
     ? expected
@@ -1013,12 +1015,12 @@ function candidateProjection(
         outputMemberRef: row.outputMemberRef,
         value: row.value,
       })),
-    }) as Readonly<Record<string, JsonValue>>;
+    });
     if (!request.validateOutputVector(outputVector)) return null;
     const outputVectorDigest = sha256Canonical(outputVector);
     variant = {
       completionKind: "complete_vector",
-      taskRows: completedRows as unknown as JsonValue,
+      taskRows: completedRows,
       outputVectorRef:
         `graph-vector-value://abiogenesis/${outputVectorDigest.slice("sha256:".length)}`,
       outputVectorDigest,
@@ -1035,8 +1037,8 @@ function candidateProjection(
     ) return null;
     variant = {
       completionKind: "partial_stop",
-      completedRows: completedRows as unknown as JsonValue,
-      stoppingRow: stopped as unknown as JsonValue,
+      completedRows: completedRows,
+      stoppingRow: stopped,
       unstartedRows: materialization.members.slice(completedRows.length + 1)
         .map((unstarted) => ({
           ordinal: unstarted.ordinal,
@@ -1048,8 +1050,8 @@ function candidateProjection(
   const completionBody = deepFreeze({
     ...common,
     ...variant,
-  }) as Readonly<Record<string, JsonValue>>;
-  const completionDigest = sha256Canonical(completionBody as JsonValue);
+  });
+  const completionDigest = sha256Canonical(completionBody);
   const completionRef =
     `fan-out-completion://abiogenesis/${completionDigest.slice("sha256:".length)}`;
   return deepFreeze({
@@ -1221,12 +1223,12 @@ function deriveCanonicalAdmission(
         value: row.value,
       })),
     };
-    const outputVectorDigest = sha256Canonical(outputVector as JsonValue);
+    const outputVectorDigest = sha256Canonical(outputVector);
     if (
       sha256Canonical(payload.outputVector) !== outputVectorDigest ||
       !canonicalEquals(
         payload.outputVector,
-        outputVector as JsonValue,
+        outputVector,
       ) ||
       payload.outputVectorDigest !== outputVectorDigest ||
       payload.outputVectorRef !==
@@ -1235,7 +1237,7 @@ function deriveCanonicalAdmission(
     body = {
       ...common,
       completionKind,
-      taskRows: taskRows as unknown as JsonValue,
+      taskRows: taskRows,
       outputVectorRef: payload.outputVectorRef,
       outputVectorDigest,
       outputVector: payload.outputVector,
@@ -1290,7 +1292,7 @@ function deriveCanonicalAdmission(
     if (
       expectedStopping === null ||
       !canonicalEquals(
-        expectedStopping as unknown as JsonValue,
+        expectedStopping,
         stoppingValue,
       ) ||
       (
@@ -1333,13 +1335,13 @@ function deriveCanonicalAdmission(
     body = {
       ...common,
       completionKind,
-      completedRows: completedRows as unknown as JsonValue,
-      stoppingRow: expectedStopping as unknown as JsonValue,
-      unstartedRows: unstartedRows as unknown as JsonValue,
+      completedRows: completedRows,
+      stoppingRow: expectedStopping,
+      unstartedRows: unstartedRows,
     };
   }
   if (
-    completionDigest !== sha256Canonical(body as JsonValue) ||
+    completionDigest !== sha256Canonical(body) ||
     completionRef !==
       `fan-out-completion://abiogenesis/${completionDigest.slice("sha256:".length)}` ||
     truths.some((truth) =>

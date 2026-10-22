@@ -24,7 +24,7 @@ export const RELEASE_RULING_SOURCE_APPROVAL_SCHEMA = v.strictObject({
   presentation: refDigestSchema, response: refDigestSchema,
 });
 export type ReleaseRulingSourceApproval = v.InferOutput<typeof RELEASE_RULING_SOURCE_APPROVAL_SCHEMA>;
-const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+const hash = (value: JsonValue) => sha256Canonical(value);
 export function releaseOwnerRulingCoordinate(ruling: ReleaseOwnerRuling) {
   const digest = hash(ruling); return { ref: `release-owner-ruling://abiogenesis/${digest.slice(7)}`, digest };
 }
@@ -38,7 +38,7 @@ export function releaseAcceptanceRequest(request: TappedReleaseSnapshotRequest, 
       snapshotFiles: publication.observation.snapshotFiles },
     qualificationBasis: request.qualificationBasis, verdict: request.verdict, lawBasis: request.lawBasis, evidence };
   const digest = hash(value), coordinate = { ref: `release-acceptance-request://abiogenesis/${digest.slice(7)}`, digest };
-  const presentation = `Same unchanged RC Product-owner ruling request\n${canonicalJson(value as unknown as JsonValue)}\nRequest: ${digest}\nReply exactly "accept ${digest}" or "withhold ${digest}". Other wording or conditions require owner clarification; this request grants no effect.\n`;
+  const presentation = `Same unchanged RC Product-owner ruling request\n${canonicalJson(value)}\nRequest: ${digest}\nReply exactly "accept ${digest}" or "withhold ${digest}". Other wording or conditions require owner clarification; this request grants no effect.\n`;
   return { value, coordinate, presentation };
 }
 function rawText(record: ReleaseOwnerRuling["response"]): string | null {

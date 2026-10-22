@@ -31,7 +31,7 @@ import { projectRuntimeEventFromValidatedHistory } from "./event_store.js";
 import { projectWorksiteTransitionForResult, deriveRuntimeHeldFluentProjection, holdsAt, constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
-import { canonicalEquals } from "../shared/value/index.js";
+import { canonicalEquals, presentMember } from "../shared/value/index.js";
 import { onlyExactMatch, resolveExactMatch } from "../shared/select/index.js";
 const record = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
 const isRevisionEnvelope = (value) => isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value);
@@ -138,10 +138,12 @@ export function projectWitnessedWorkspaceBindingCover(prefix, before, after, his
             if (event.kind !== "declaration_reprice_admitted" || !record(p) || p.act !== "reprice" ||
                 event.aggregateId !== after.bindingId || p.declarationRef !== before.bindingId || p.beforeDigest !== before.bindingDigest ||
                 p.afterDigest !== after.bindingDigest || p.subjectKind !== "authority_basis" || !record(p.context) || p.context.kind !== "basis" ||
-                !record(p.context.basis) || !canonicalEquals(p.context.basis, { ref: p.subjectRef, digest: p.subjectDigest }) ||
+                !record(p.context.basis) || p.subjectRef === undefined || p.subjectDigest === undefined ||
+                !canonicalEquals(p.context.basis, { ref: p.subjectRef, digest: p.subjectDigest }) ||
                 p.contentKind !== "typed_payload" || p.contentContractRef !== WITNESS_CONTENT_CONTRACTS.reprice.ref || p.contentContractDigest !== WITNESS_CONTENT_CONTRACTS.reprice.digest ||
-                !record(p.contentValue) || !canonicalEquals(p.contentValue, { declarationRef: p.declarationRef, beforeDigest: p.beforeDigest, afterDigest: p.afterDigest,
-                changeClass: p.changeClass, owningTicketRef: p.owningTicketRef, reason: p.reason }) ||
+                !record(p.contentValue) || p.changeClass === undefined || p.owningTicketRef === undefined || p.reason === undefined ||
+                !canonicalEquals(p.contentValue, { declarationRef: p.declarationRef, beforeDigest: p.beforeDigest, afterDigest: p.afterDigest,
+                    changeClass: p.changeClass, owningTicketRef: p.owningTicketRef, reason: p.reason }) ||
                 !Array.isArray(p.evidence))
                 return false;
             const evidence = p.evidence;
@@ -350,7 +352,7 @@ function projectionFacts(prefix, result, work) {
         const invocation = projectExactInvocationAdmissionAtPrefix(before, basis.invocationAdmissionRef);
         if (environment === null || !canonicalEquals(environment.authority, current.workspaceAuthorityBasis) ||
             current.workspaceBinding.bindingId !== basis.workspaceBindingId || current.workspaceBinding.bindingDigest !== basis.workspaceBindingDigest ||
-            invocation?.capabilityGrants.length !== 1 || !canonicalEquals(invocation.capabilityGrants[0], current.capabilityGrant))
+            invocation?.capabilityGrants.length !== 1 || invocation.capabilityGrants[0] === undefined || !canonicalEquals(invocation.capabilityGrants[0], current.capabilityGrant))
             return null;
         const evidence = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + result.aggregateId), e => e.kind === "c_call_evidenced" && e.aggregateId === result.aggregateId));
         if (evidence === null || !record(evidence.payload) || !sameScope(evidence, result) || evidence.payload.evidenceClass !== "deterministic" ||
@@ -407,7 +409,7 @@ function deriveCurrentOrigins(prefix, seedBasis, historical, current, eligible, 
                     continue;
                 const request = b.rawInputValue;
                 const sourceBinding = projectAdmittedWorkspaceBindingAtCoordinate(prefix, b.workspaceBindingId, b.workspaceBindingDigest);
-                if (sourceBinding === null || !canonicalEquals(request.workspaceAuthorityBasis, current.workspaceAuthorityBasis))
+                if (sourceBinding === null || !canonicalEquals(presentMember(request.workspaceAuthorityBasis), current.workspaceAuthorityBasis))
                     continue;
                 const source = { ...historical, workspaceAuthorityBasis: request.workspaceAuthorityBasis, workspaceBinding: sourceBinding,
                     capabilityGrant: request.capabilityGrant };
@@ -436,7 +438,7 @@ function deriveCurrentOrigins(prefix, seedBasis, historical, current, eligible, 
             if (!observationPhysicalEqual(candidate.row.target.predecessorObservation, row.target.predecessorObservation) || candidate.row.base64 !== row.base64)
                 return false;
             const projected = projectSemanticWorksiteCoordinates({ ...candidate.worksite, targets: [candidate.row] }, current);
-            if (projected === null || !canonicalEquals(projected.targets[0]?.target, row.target))
+            if (projected === null || !canonicalEquals(presentMember(projected.targets[0]?.target), row.target))
                 return false;
             return projectWorksiteRevisionBindingCover(prefix, candidate.worksite.workspaceBinding, current.workspaceBinding, [...bases, candidate.basis]) !== null;
         });
@@ -462,7 +464,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, i
             const inputSource = admittedInput === undefined ? null : projectWorksiteInputLeafResultAtPrefix(prefix, admittedInput.admittedInputRef, admittedInput.admittedInputDigest);
             const candidates = admittedInput === undefined ? events : new RuntimeEventBodyView(inputSource === null ? [] : [inputSource]);
             const sources = native.acquisition === undefined ? candidates.flatMap(event => {
-                if (event.kind !== "c_call_result_admitted" || !record(event.payload) || !canonicalEquals(event.payload.value, prepared))
+                if (event.kind !== "c_call_result_admitted" || !record(event.payload) || !canonicalEquals(presentMember(event.payload.value), prepared))
                     return [];
                 const c = coordinateFor(events, event), state = c === null ? null : projectWorksiteRevisionNativeResult(prefix, c);
                 return state === null ? [] : [state];
@@ -478,7 +480,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, i
                 return "basis_fork_detected";
             const observed = input, events = runtimeEventBodiesAtPrefix(prefix);
             const sources = events.flatMap(e => {
-                if (e.kind !== "c_call_result_admitted" || !record(e.payload) || !canonicalEquals(e.payload.value, observed))
+                if (e.kind !== "c_call_result_admitted" || !record(e.payload) || !canonicalEquals(presentMember(e.payload.value), observed))
                     return [];
                 const coordinate = coordinateFor(events, e), state = coordinate === null ? null : projectWorksiteRevisionNativeResult(prefix, coordinate);
                 return state !== null && state.cCall.graphFunctionRef === WORKSITE_REVISION_IDS.graphFunctionRef && state.cCall.regime === "F_P" &&
@@ -617,7 +619,7 @@ export function projectClosedConstructionRetainedVector(prefix, task, request, b
             const producer = currentReplacement(prefix, old.observation, work);
             if (producer === null || !bases.some(b => b.invocationAdmissionRef === producer.basis.invocationAdmissionRef) ||
                 !record(producer.event.payload) || !record(producer.event.payload.value) ||
-                !canonicalEquals(producer.event.payload.value.receipt, member.receipt) ||
+                producer.event.payload.value.receipt === undefined || !canonicalEquals(producer.event.payload.value.receipt, member.receipt) ||
                 invalidatedAcrossBindings(prefix, old.subject, producer.event.admissionOrdinal, work))
                 return null;
             // The C0 transition owner excludes workflow aliases; genuine producer

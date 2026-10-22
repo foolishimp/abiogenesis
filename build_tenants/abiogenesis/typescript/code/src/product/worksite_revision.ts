@@ -2,7 +2,7 @@
 import { type JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isWorksiteObservation, isWorksiteSubject, constructWorksiteSubject,
   type WorksiteSubject, type FileWorksiteObservation } from "./worksite_effect.js";
 import type { WorksiteConstructionTask, WorksiteConstructionResult } from "./worksite_construction.js";
@@ -22,13 +22,13 @@ export type WorksiteRevisionObservationOrigin = Readonly<{
 }> | Readonly<{ kind: "admitted_replacement"; resultAdmissionEventRef: string; evidenceEventRef: string }>
   | Readonly<{ kind: "admitted_binding_projection"; resultAdmissionEventRef: string; judgmentEventRef: string }>
   | Readonly<{ kind: "admitted_initial_job_bridge"; resultAdmissionEventRef: string; judgmentEventRef: string }>;
-export interface WorksiteRevisionDependencyObservation {
+export type WorksiteRevisionDependencyObservation = {
   readonly designTargetRef: string;
   readonly subject: WorksiteSubject;
   readonly observation: FileWorksiteObservation;
   readonly origin: WorksiteRevisionObservationOrigin;
-}
-export interface WorksiteRevisionCommandPreparationInput {
+};
+export type WorksiteRevisionCommandPreparationInput = {
   readonly kind: "worksite_revision_command_preparation_input";
   readonly schemaVersion: "5.0.0";
   readonly revisionBasisRef: string;
@@ -39,7 +39,7 @@ export interface WorksiteRevisionCommandPreparationInput {
   readonly commands: readonly WorksiteDeclaredCommandInput[];
   readonly outcomePredicates: readonly WorksiteOutcomePredicateInput[];
   readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritoryInput[];
-}
+};
 export interface WorksiteRevisionCommandPreparationBoundInput {
   readonly kind: "worksite_revision_command_preparation_bound_input";
   readonly schemaVersion: "5.0.0";
@@ -48,14 +48,14 @@ export interface WorksiteRevisionCommandPreparationBoundInput {
 }
 export type WorksiteRevisionSnapshotSourceKind = Readonly<{ kind: "construction_member"; sourceMemberRef: string }> |
   Readonly<{ kind: "retained_dependency"; origin: WorksiteRevisionObservationOrigin }>;
-export interface WorksiteRevisionSnapshotSource {
+export type WorksiteRevisionSnapshotSource = {
   readonly designTargetRef: string;
   readonly subject: WorksiteSubject;
   readonly observation: FileWorksiteObservation;
   readonly source: WorksiteRevisionSnapshotSourceKind;
-}
-export interface WorksiteRevisionCommandExecutionTask extends Omit<WorksiteCommandExecutionTask,
-  "kind" | "protectedObservations" | "readDependencyBasis" | "materializationPlanRef" | "rendererRef" | "instructionContractRef" | "resultContractRef"> {
+};
+export type WorksiteRevisionCommandExecutionTask = Omit<WorksiteCommandExecutionTask,
+  "kind" | "protectedObservations" | "readDependencyBasis" | "materializationPlanRef" | "rendererRef" | "instructionContractRef" | "resultContractRef"> & {
   readonly kind: "worksite_revision_command_execution_task";
   readonly revisionBasisRef: string;
   readonly revisionBasisDigest: Sha256Digest;
@@ -64,21 +64,21 @@ export interface WorksiteRevisionCommandExecutionTask extends Omit<WorksiteComma
   readonly rendererRef: typeof WORKSITE_REVISION_IDS.rendererRef;
   readonly instructionContractRef: typeof WORKSITE_REVISION_IDS.taskContractRef;
   readonly resultContractRef: typeof WORKSITE_REVISION_IDS.workerResultContractRef;
-}
-export interface WorksiteRevisionSnapshotMember extends Omit<WorksiteSnapshotMember, "kind" | "sourceMemberRef"> {
+};
+export type WorksiteRevisionSnapshotMember = Omit<WorksiteSnapshotMember, "kind" | "sourceMemberRef"> & {
   readonly kind: "worksite_revision_snapshot_member";
   readonly designTargetRef: string;
   readonly source: WorksiteRevisionSnapshotSourceKind;
-}
-export interface WorksiteRevisionCommandHelperArtifact extends Omit<WorksiteCommandHelperArtifact, "kind" | "snapshotMembers"> {
+};
+export type WorksiteRevisionCommandHelperArtifact = Omit<WorksiteCommandHelperArtifact, "kind" | "snapshotMembers"> & {
   readonly kind: "worksite_revision_command_helper_artifact";
   readonly snapshotMembers: readonly WorksiteRevisionSnapshotMember[];
-}
-export interface WorksiteRevisionCommandExecutionObservation extends Omit<WorksiteCommandExecutionObservation, "kind" | "task" | "snapshotMembers"> {
+};
+export type WorksiteRevisionCommandExecutionObservation = Omit<WorksiteCommandExecutionObservation, "kind" | "task" | "snapshotMembers"> & {
   readonly kind: "worksite_revision_command_execution_observation";
   readonly task: WorksiteRevisionCommandExecutionTask;
   readonly snapshotMembers: readonly WorksiteRevisionSnapshotMember[];
-}
+};
 export type WorksiteExecutionTask = WorksiteCommandExecutionTask | NativeWorksiteCommandExecutionTask | ObservedWorksiteCommandExecutionTask | WorksiteRevisionCommandExecutionTask;
 export type WorksiteExecutionObservation = WorksiteCommandExecutionObservation | NativeWorksiteCommandExecutionObservation | ObservedWorksiteCommandExecutionObservation | WorksiteRevisionCommandExecutionObservation;
 export type WorksiteExecutionHelperArtifact = WorksiteCommandHelperArtifact | WorksiteRevisionCommandHelperArtifact;
@@ -133,11 +133,11 @@ export function constructWorksiteRevisionCommandExecutionTask(input: WorksiteRev
   for (const row of input.snapshotSources) {
     if (row.observation.workspaceBindingIdentity !== input.workspaceBinding.bindingId ||
       !canonicalEquals(
-        row.subject as unknown as JsonValue,
+        row.subject,
         constructWorksiteSubject({
           workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
           subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath,
-        }) as unknown as JsonValue,
+        }),
       )) throw new TypeError("revision C2 snapshot source crosses its exact A/W subject");
   }
   const configuration = constructWorksiteCommandConfiguration({ ...input,
@@ -150,7 +150,7 @@ export function constructWorksiteRevisionCommandExecutionTask(input: WorksiteRev
     commands: configuration.commands,
     outcomePredicates: configuration.predicates, allowedWriteTerritories: configuration.allowedWriteTerritories,
     snapshotSources: input.snapshotSources };
-  const taskDigest = sha256Canonical(body as unknown as JsonValue);
+  const taskDigest = sha256Canonical(body);
   return deepFreeze({ kind: "worksite_revision_command_execution_task", schemaVersion: "5.0.0",
     taskRef: `worksite-revision-command-execution-task://abiogenesis/${taskDigest.slice(7)}`, taskDigest, ...body });
 }
@@ -160,7 +160,7 @@ export function isWorksiteRevisionCommandExecutionTask(value: unknown): value is
       "sourceConstructionResultRef","sourceConstructionResultDigest","sourceConstructionResult","materializationPlanRef","rendererRef",
       "instructionContractRef","resultContractRef","workerActorRef","workerBindingRef","transportLane","commands","outcomePredicates",
       "allowedWriteTerritories","revisionBasisRef","revisionBasisDigest","snapshotSources"])) return false;
-  try { return canonicalEquals(value as JsonValue, constructWorksiteRevisionCommandExecutionTask(value as unknown as WorksiteRevisionCommandExecutionTaskInput) as unknown as JsonValue); }
+  try { const admitted = admitJson(value); return admitted.kind === "ok" && canonicalEquals(admitted.value, constructWorksiteRevisionCommandExecutionTask(value as unknown as WorksiteRevisionCommandExecutionTaskInput)); }
   catch { return false; }
 }
 export function isWorksiteExecutionTask(value: unknown): value is WorksiteExecutionTask {

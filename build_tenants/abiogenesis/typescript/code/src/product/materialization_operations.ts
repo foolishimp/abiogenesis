@@ -1,4 +1,5 @@
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import {
   mkdir,
   readFile,
@@ -87,14 +88,14 @@ export interface ProductMaterializationRefusal {
   readonly bindingRef: string | null;
 }
 
-export interface MaterializationRow {
+export type MaterializationRow = {
   readonly inputRef: string;
   readonly inputDigest: Sha256Digest;
   readonly assetRef: string;
   readonly assetDigest: Sha256Digest;
   readonly assetPath: string;
   readonly disposition: "created" | "preserved";
-}
+};
 
 export interface MaterializationManifestCoordinate {
   readonly manifestRef: string;
@@ -138,7 +139,8 @@ export type ProductMaterializationOperationResult<
 
 function digestJson(value: unknown): Sha256Digest | null {
   try {
-    return sha256Canonical(value as JsonValue);
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" ? sha256Canonical(admitted.value) : null;
   } catch {
     return null;
   }
@@ -196,7 +198,7 @@ function bindingBodyDigest(binding: WorkspaceBinding): Sha256Digest | null {
     lockId: binding.lockId,
     lockDigest: binding.lockDigest,
     roots: binding.roots,
-  } as unknown as JsonValue);
+  });
 }
 
 function validWorkspaceAndBinding(
@@ -316,7 +318,7 @@ async function persistManifest<M extends ProductMaterializationMember>(
     residuals: [] as const,
     provenance,
   };
-  const manifestDigest = sha256Canonical(manifestBody as unknown as JsonValue);
+  const manifestDigest = sha256Canonical(manifestBody);
   const manifestRef =
     `product-materialization-manifest://abiogenesis/${manifestDigest.slice("sha256:".length)}`;
   const manifestPath = join(
@@ -328,7 +330,7 @@ async function persistManifest<M extends ProductMaterializationMember>(
     ...manifestBody,
     manifestRef,
     manifestDigest,
-  } as unknown as JsonValue)}\n`;
+  })}\n`;
   try {
     const disposition = await persistExactFile(manifestPath, manifestBytes);
     if (disposition === "collision") {
@@ -432,7 +434,7 @@ export async function materializeContextBootstrap(
         inputDigest: input.inputDigest,
         content: input.content,
       };
-      const assetDigest = sha256Canonical(assetBody as unknown as JsonValue);
+      const assetDigest = sha256Canonical(assetBody);
       const assetRef =
         `generated-product-asset://abiogenesis/${assetDigest.slice("sha256:".length)}`;
       const assetPath = join(
@@ -444,7 +446,7 @@ export async function materializeContextBootstrap(
         ...assetBody,
         assetRef,
         assetDigest,
-      } as unknown as JsonValue)}\n`;
+      })}\n`;
       const disposition = await persistExactFile(assetPath, bytes);
       if (disposition === "collision") {
         return refusal(
@@ -472,7 +474,7 @@ export async function materializeContextBootstrap(
     );
   }
   const contentDigest = sha256Canonical(
-    rows.map((row) => row.assetDigest) as unknown as JsonValue,
+    rows.map((row) => row.assetDigest),
   );
   const content: MaterializationContentCoordinate = {
     contentRef:
@@ -563,7 +565,7 @@ export async function materializeConfiguration(
     inputsDigest,
     inputs: packet.inputs,
   };
-  const contentDigest = sha256Canonical(contentBody as unknown as JsonValue);
+  const contentDigest = sha256Canonical(contentBody);
   const contentRef =
     `configuration-content://abiogenesis/${contentDigest.slice("sha256:".length)}`;
   const contentPath = join(
@@ -575,7 +577,7 @@ export async function materializeConfiguration(
     ...contentBody,
     contentRef,
     contentDigest,
-  } as unknown as JsonValue)}\n`;
+  })}\n`;
   let rowDisposition: "created" | "preserved";
   try {
     const disposition = await persistExactFile(contentPath, bytes);

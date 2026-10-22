@@ -1,4 +1,5 @@
 import { admitPendingConstructionIntentContinuation } from "../abg/construction_continuation.js";
+import { isRecord } from "../shared/admit/index.js";
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
 import * as Exit from "effect/Exit";
@@ -242,7 +243,7 @@ function termFor(frame: MachineEvaluationFrame): Readonly<CProgramNode> {
         frame.runtime.predecessorPrefix,
         `term-${frame.ordinal}`,
         `diagnostic://abiogenesis/hog/${term.code}@5`,
-        term as unknown as JsonValue,
+        term,
       )
     : term;
 }
@@ -302,7 +303,7 @@ function recursionTraversalInput(
       completion.successorPrefix,
       `recursion-resolution-${frame.ordinal}`,
       "diagnostic://abiogenesis/implementation/admitted-row-absent@5",
-      context.stop as unknown as JsonValue,
+      context.stop,
     );
   }
   return Object.freeze({
@@ -343,7 +344,7 @@ function evaluateLocus(
           runtime.predecessorPrefix,
           `workflow-step-${frame.ordinal}`,
           "diagnostic://abiogenesis/hog/workflow-step-mismatch@5",
-          frame.cursor as unknown as JsonValue,
+          frame.cursor,
         ));
       }
       return Effect.sync(() => beginWorkflowLocus({
@@ -361,7 +362,7 @@ function evaluateLocus(
         runtime.predecessorPrefix,
         `direct-step-${frame.ordinal}`,
         "diagnostic://abiogenesis/hog/direct-c-step-mismatch@5",
-        frame.cursor as unknown as JsonValue,
+        frame.cursor,
       ));
     }
     const current = traverseFromCursor(
@@ -376,7 +377,7 @@ function evaluateLocus(
         runtime.predecessorPrefix,
         `direct-step-${frame.ordinal}`,
         "diagnostic://abiogenesis/hog/direct-c-step-mismatch@5",
-        current as unknown as JsonValue,
+        current,
       ));
     }
     if (term.fibre === "F_H") {
@@ -386,7 +387,7 @@ function evaluateLocus(
           runtime.predecessorPrefix,
           `interaction-step-${frame.ordinal}`,
           "diagnostic://abiogenesis/hog/interaction-step-mismatch@5",
-          current as unknown as JsonValue,
+          current,
         ));
       }
       return Effect.sync(() => ({
@@ -420,7 +421,7 @@ function evaluateLocus(
         runtime.predecessorPrefix,
         `executable-step-${frame.ordinal}`,
         "diagnostic://abiogenesis/hog/executable-step-mismatch@5",
-        current as unknown as JsonValue,
+        current,
       ));
     }
     const context = executableContext(frame, current);
@@ -544,7 +545,7 @@ function nextFromEvaluation(
         predecessorPrefix: completion.successorPrefix,
       }),
       cursor: completion.nextCursor,
-      input: selected.value as Readonly<Record<string, JsonValue>>,
+      input: selected.value,
       ordinal: frame.ordinal + 1,
       structuralOrdinal: 0,
     }),
@@ -650,7 +651,7 @@ function evaluateTraversalProgram(
           frame.runtime.graph, frame.runtime.executionBasis, advanced.cursor);
         if (selected === null || selected.value === null || typeof selected.value !== "object" || Array.isArray(selected.value))
           return Effect.sync(() => failFrame(frame, advanced.successorPrefix, `structural-input-${frame.ordinal}`,
-            "diagnostic://abiogenesis/hog/advanced-result-basis-absent@5", advanced.cursor as unknown as JsonValue));
+            "diagnostic://abiogenesis/hog/advanced-result-basis-absent@5", advanced.cursor));
         return Effect.succeed(Object.freeze({
           stateKind: "evaluate" as const,
           frame: Object.freeze({
@@ -842,7 +843,7 @@ function machineWorkflowReturn(
       predecessorPrefix,
       "workflow-resume-child",
       "diagnostic://abiogenesis/hog/workflow-resume-child-mismatch@5",
-      term as unknown as JsonValue,
+      term,
     );
   }
   return Object.freeze({
@@ -892,7 +893,7 @@ function machineRecursionReturn(
       predecessorPrefix,
       "recursion-resume-stop",
       "diagnostic://abiogenesis/hog/recursion-resume-stop-mismatch@5",
-      stop as unknown as JsonValue,
+      stop,
     );
   }
   const resolution = selectAdmittedImplementationResolution(
@@ -914,7 +915,7 @@ function machineRecursionReturn(
       predecessorPrefix,
       "recursion-resume-resolution",
       "diagnostic://abiogenesis/hog/recursion-resume-resolution-absent@5",
-      stop as unknown as JsonValue,
+      stop,
     );
   }
   const traversalInput: CompleteExecutableTraversalInput<
@@ -960,7 +961,7 @@ function machineRecursionReturn(
       predecessorPrefix,
       "recursion-resume-deferred",
       "diagnostic://abiogenesis/hog/recursion-resume-deferred-mismatch@5",
-      frame.application as unknown as JsonValue,
+      frame.application,
     );
   }
   return Object.freeze({
@@ -1088,7 +1089,7 @@ function prepareHeldInteractionResume(
       "owner_refusal",
       "run continuation could not rehydrate its exact HoG cursor",
         "diagnostic://abiogenesis/hog/interaction-resume-held-cursor@5",
-      authority.heldInteraction.cursor as unknown as JsonValue,
+      authority.heldInteraction.cursor,
     );
   }
   let successorInputContractRef: string | null;
@@ -1180,7 +1181,7 @@ function prepareHeldInteractionResume(
       "owner_refusal",
       `interaction resume cursor refused: ${successorCursor.message}`,
         "diagnostic://abiogenesis/hog/interaction-resume-successor-cursor@5",
-      successorCursor as unknown as JsonValue,
+      successorCursor,
     );
   }
   let committed;
@@ -1214,7 +1215,7 @@ function prepareHeldInteractionResume(
         "duplicate_invocation",
         `effectful Public invocation ${committed.invocationRef} already has one owning admission`,
         "diagnostic://abiogenesis/hog/interaction-resume-duplicate@5",
-        committed as unknown as JsonValue,
+        committed,
         committed.priorAdmission,
       );
     }
@@ -1222,7 +1223,7 @@ function prepareHeldInteractionResume(
       "owner_refusal",
       `effectful invocation truth refused: ${committed.code}`,
       "diagnostic://abiogenesis/hog/interaction-resume-invalid-history@5",
-      committed as unknown as JsonValue,
+      committed,
     );
   }
   const current = Object.freeze({
@@ -1266,10 +1267,7 @@ function seedParentContinuation(
       returns,
     });
   }
-  if (completion.nextCursor === null ||
-      completion.resultValue === null ||
-      typeof completion.resultValue !== "object" ||
-      Array.isArray(completion.resultValue)) {
+  if (completion.nextCursor === null || !isRecord(completion.resultValue)) {
     return failTraversal({
       store: parent.store,
       predecessorPrefix: completion.successorPrefix,
@@ -1283,7 +1281,7 @@ function seedParentContinuation(
       candidate: { faultClass: "interaction_resume_advance_incomplete" },
     });
   }
-  const input = completion.resultValue as Readonly<Record<string, JsonValue>>;
+  const input = completion.resultValue;
   const inputDigest = sha256Canonical(input);
   if (completion.nextCursor.inputDigest !== inputDigest) {
     return failTraversal({

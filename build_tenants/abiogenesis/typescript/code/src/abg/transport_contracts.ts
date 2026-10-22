@@ -6,7 +6,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { VerifiedProbabilisticResultContractPreimage } from "../implementation/contracts.js";
 
-export interface NativeWorkerResultAssessment {
+export type NativeWorkerResultAssessment = {
   readonly kind: "native_worker_result_assessment";
   readonly schemaVersion: "5.0.0";
   readonly resultContractRef: string;
@@ -14,7 +14,7 @@ export interface NativeWorkerResultAssessment {
   readonly rawOutputDigest: Sha256Digest;
   readonly disposition: "admitted" | "rejected" | "absent";
   readonly verification: VerifiedProbabilisticResultContractPreimage | null;
-}
+};
 export function isNativeWorkerResultAssessment(value: unknown, output: string, resultContractRef: string, inputDigest: Sha256Digest): value is NativeWorkerResultAssessment {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
   const a = value as NativeWorkerResultAssessment;
@@ -31,8 +31,9 @@ export function isNativeWorkerResultAssessment(value: unknown, output: string, r
       !hasExactKeys(p.contractCapabilityBasis, ["installId", "implementationSetRef", "implementationSetDigest", "publicationDigest"])) return false;
   try {
     const {kind: _kind, schemaVersion: _schema, verificationRef, verificationDigest, ...body} = p;
-    return sha256Canonical(JSON.parse(output) as JsonValue) === p.rawResultDigest &&
-      verificationDigest === sha256Canonical(body as unknown as JsonValue) &&
+    const parsedOutput: JsonValue = JSON.parse(output);
+    return sha256Canonical(parsedOutput) === p.rawResultDigest &&
+      verificationDigest === sha256Canonical(body) &&
       verificationRef === `probabilistic-result-contract-preimage://abiogenesis/${verificationDigest.slice(7)}`;
   } catch { return false; }
 }
@@ -87,7 +88,7 @@ export function classifyWorkerTransportFailure(
   return observation.finalOutput.trim().length === 0 ? "no_output" : null;
 }
 
-export interface WorkerTransportContract {
+export type WorkerTransportContract = {
   readonly kind: "worker_transport_contract";
   readonly schemaVersion: "5.0.0";
   readonly agentKey: KnownTransportAgentKey;
@@ -97,7 +98,7 @@ export interface WorkerTransportContract {
   readonly parser: "claude_stream_json" | "plain_text";
   readonly promptTransport: "argv" | "stdin";
   readonly sanitizedEnvironmentPrefixes: readonly string[];
-}
+};
 
 export interface WorkerTransportContractOptions {
   readonly command?: string;
@@ -324,7 +325,7 @@ export function composeWorkerTransportArgs(input: {
   readonly prompt: string;
   readonly outputPath: string;
   readonly lane: TransportCapabilityLane;
-  readonly responseJsonSchema?: unknown;
+  readonly responseJsonSchema?: Readonly<Record<string, JsonValue>>;
   /** Owner-selected result text keeps the declared schema out of host dialect validation. */
   readonly responsePresentation?: "result_text";
   readonly environment?: Readonly<Record<string, string | undefined>>;

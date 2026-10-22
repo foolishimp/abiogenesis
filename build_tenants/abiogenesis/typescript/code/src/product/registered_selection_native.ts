@@ -19,10 +19,10 @@ export interface NativeRegisteredSelectionTask {
   readonly childInput: Readonly<{ contractRef: string; value: RecordValue }>;
   readonly maxPromptBytes: number;
 }
-export interface NativeRegisteredSelectionTarget {
+export type NativeRegisteredSelectionTarget = {
   readonly graphFunctionRef: string;
   readonly definitionDigest: Sha256Digest;
-}
+};
 
 export function isNativeRegisteredSelectionTask(x: unknown): x is NativeRegisteredSelectionTask {
   return isRecord(x) && hasExactKeys(x, ["kind", "schemaVersion", "workerActorRef", "workerBindingRef", "task", "observations", "requiredSupportRefs", "childInput", "maxPromptBytes"]) &&

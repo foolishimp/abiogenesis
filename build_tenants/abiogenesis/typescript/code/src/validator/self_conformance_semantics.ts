@@ -53,21 +53,21 @@ export function qualificationResultRelation(predicateRef: string, input: unknown
         prefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, input.proof.prefix as DurablePrefixCoordinate) } };
       const expected = nativeProof?.qualificationAssessment !== undefined ? nativeProof.qualificationAssessment()
         : projectNativeRuntimeAssessment(basis, selected);
-      return isDeepStrictEqual(expected, output) || canonicalEquals(expected as unknown as JsonValue, output as unknown as JsonValue);
+      return isDeepStrictEqual(expected, output) || canonicalEquals(expected, output);
     }
     if (predicateRef === q.malformedAssessPredicate) return isMalformedGtlAssessmentInput(input) && isMalformedGtlAssessment(output) &&
-      projectQualificationConsumer(output.nativeBasis, input) !== null && canonicalEquals(evaluateMalformedGtlAssessment(input, output.nativeBasis) as unknown as JsonValue, output as unknown as JsonValue);
+      projectQualificationConsumer(output.nativeBasis, input) !== null && canonicalEquals(evaluateMalformedGtlAssessment(input, output.nativeBasis), output);
     if (predicateRef === ids.judgmentPredicateRef) {
       if (!isSelfConformanceInput(input) || !isSelfConformanceResult(output)) return false;
-      if (nativeProof?.qualificationSelfConformance !== undefined) return canonicalEquals(nativeProof.qualificationSelfConformance() as unknown as JsonValue, output as unknown as JsonValue);
+      if (nativeProof?.qualificationSelfConformance !== undefined) return canonicalEquals(nativeProof.qualificationSelfConformance(), output);
       const owner = resolveSelfConformanceOwner(output.owner.nativeBasis as QualificationOwnerBasis, input);
-      return owner !== null && canonicalEquals(owner, output.owner) && canonicalEquals(evaluateSelfConformance(input, owner) as unknown as JsonValue, output as unknown as JsonValue);
+      return owner !== null && canonicalEquals(owner, output.owner) && canonicalEquals(evaluateSelfConformance(input, owner), output);
     }
     if (predicateRef === q.assessPredicate) {
       if (nativeProof?.qualificationJudgment !== undefined) return nativeProof.qualificationJudgment();
       if (!isQualificationAssessmentInput(input) || !isQualificationJudgment(output) ||
           projectQualificationConsumer(output.nativeBasis, input) === null || !qualificationRawMatches(input, output.raw)) return false;
-      return canonicalEquals(constructQualificationJudgment(input, output.raw, output.nativeBasis, output.source) as unknown as JsonValue, output as unknown as JsonValue);
+      return canonicalEquals(constructQualificationJudgment(input, output.raw, output.nativeBasis, output.source), output);
     }
     if (predicateRef === q.verdictPredicate) {
       if (!isQualificationVerdict(output)) return false;
@@ -75,8 +75,9 @@ export function qualificationResultRelation(predicateRef: string, input: unknown
         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, output.nativeBasis.predecessorPrefix as DurablePrefixCoordinate) };
       const expected = nativeProof?.qualificationVerdict !== undefined ? nativeProof.qualificationVerdict()
         : projectExactCandidateQualification(basis, input);
-      return isDeepStrictEqual(expected, output) || canonicalEquals(expected as unknown as JsonValue, output as unknown as JsonValue);
+      return isDeepStrictEqual(expected, output) || canonicalEquals(expected, output);
     }
+    // O-TYPE stop: channel. The output may be a record of another realm.
     if (predicateRef === q.rulingPredicate) return v.is(QUALIFICATION_RULING_REQUEST_SCHEMA, input)
       ? qualificationRulingMatches(input, output, input.actorRef)
       : v.is(QUALIFICATION_OWNER_RULING_SCHEMA, input) && canonicalEquals(input, output as JsonValue);
@@ -96,7 +97,7 @@ export const ABI5_SELF_CONFORMANCE_PRODUCT_SEMANTICS: ProductSemanticsProvider =
   },
   evaluateInteractionResponse(basis, value) {
     return basis.requestContractRef === q.rulingRequest && basis.responseContractRef === q.rulingResponse &&
-      qualificationRulingMatches(basis.requestValue, value, basis.actingActorRef) ? deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>> : null;
+      qualificationRulingMatches(basis.requestValue, value, basis.actingActorRef) ? deepFreeze(value) : null;
   },
   validateContractValue: isQualificationContractValue,
   resolveProbabilisticWorkerContracts(basis) {

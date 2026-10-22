@@ -1,6 +1,7 @@
 import { projectExactPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import { sameJson } from "../public/binding/definition_binding_mechanics.js";
+import { admitJson } from "../shared/admit/index.js";
 import { readReleaseArtifactBytes,projectReleaseQualification,projectReleaseAcceptance } from "../implementation/release_publication.js";
 import { releaseArtifactCoordinate } from "./release_snapshot_operations.js";
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
@@ -302,7 +303,8 @@ type TicketConsensusOperationResult =
 
 function digestJson(value: unknown): Sha256Digest | null {
   try {
-    return sha256Canonical(value as JsonValue);
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" ? sha256Canonical(admitted.value) : null;
   } catch {
     return null;
   }
@@ -388,7 +390,7 @@ function projected<C extends ProductProjectReadCase, P extends JsonValue>(
     projectionBasisDigest: packet.projectionBasis.basisDigest,
     projection,
   };
-  const projectionDigest = sha256Canonical(projectionBody as JsonValue);
+  const projectionDigest = sha256Canonical(projectionBody);
   return deepFreeze({
     kind: "product_project_read_result" as const,
     schemaVersion: "5.0.0" as const,
@@ -401,9 +403,8 @@ function projected<C extends ProductProjectReadCase, P extends JsonValue>(
 }
 
 function catalogSnapshotDigest(catalog: GraphFunctionCatalog): Sha256Digest {
-  return sha256Canonical(
-    JSON.parse(graphFunctionCatalogCanonicalSnapshot(catalog)) as JsonValue,
-  );
+  const snapshot: JsonValue = JSON.parse(graphFunctionCatalogCanonicalSnapshot(catalog));
+  return sha256Canonical(snapshot);
 }
 
 function catalogRows(
@@ -799,7 +800,7 @@ export function projectReleaseEvidence(packet:ReleaseEvidenceProjectReadPacket):
       artifacts:[artifact.request.qualificationBasis.artifact],qualification:artifact.request.verdict,acceptance:artifact.memberKey==="published_rc"?"incomplete":artifact.decision==="accept"&&artifact.observation.disposition==="complete"&&!superseded?"accepted":artifact.decision==="withhold"?"withheld":"incomplete",
       ...(artifact.memberKey==="tapped_release"?{ownerRuling:artifact.request.acceptance,addendum:artifact.addendum,originalRuling:artifact.ruling,sourceApproval:artifact.effectGrant.sourceApproval}:{}),
       provenance:[{ref:row.admissionEventRef,digest:row.admissionEventDigest}],
-    } as JsonValue);
+    });
   } catch { return refusal("release_evidence","not_ready","release native proof could not be reconstructed",packet); }
 }
 

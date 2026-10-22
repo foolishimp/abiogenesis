@@ -149,7 +149,7 @@ export type TraversalRouteKind =
   | "failed"
   | "terminal";
 
-export interface RouteCandidate {
+export type RouteCandidate = {
   readonly kind: "traversal_route_candidate";
   readonly schemaVersion: "5.0.0";
   readonly candidateRef: string;
@@ -174,9 +174,9 @@ export interface RouteCandidate {
   readonly graphSpanReentryProjectionRef?: string;
   readonly graphSpanReentryProjectionDigest?: Sha256Digest;
   readonly graphSpanReentryProjection?: Readonly<Record<string, JsonValue>>;
-}
+};
 
-export interface AdmittedRoute {
+export type AdmittedRoute = {
   readonly kind: "admitted_traversal_route";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -207,9 +207,9 @@ export interface AdmittedRoute {
   readonly graphSpanReentryProjectionRef?: string;
   readonly graphSpanReentryProjectionDigest?: Sha256Digest;
   readonly graphSpanReentryProjection?: GraphSpanReentryProjection;
-}
+};
 
-export interface GraphSpanReentryProjection {
+export type GraphSpanReentryProjection = {
   readonly kind: "graph_span_selection";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "re_enter";
@@ -222,9 +222,9 @@ export interface GraphSpanReentryProjection {
   readonly targetInputRef: string;
   readonly targetInputDigest: Sha256Digest;
   readonly targetInput: Readonly<Record<string, JsonValue>>;
-}
+};
 
-export interface SelectedNextActionProjection {
+export type SelectedNextActionProjection = {
   readonly kind: "next_action_projection";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "selected";
@@ -251,9 +251,9 @@ export interface SelectedNextActionProjection {
   readonly rejectedAlternativeRefs: readonly string[];
   readonly nextActionBasisRef: string;
   readonly nextActionBasisDigest: Sha256Digest;
-}
+};
 
-export interface NoActionNextActionProjection {
+export type NoActionNextActionProjection = {
   readonly kind: "next_action_projection";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "no_action";
@@ -274,7 +274,7 @@ export interface NoActionNextActionProjection {
   readonly rejectedActionRefs: readonly string[];
   readonly nextActionBasisRef: string;
   readonly nextActionBasisDigest: Sha256Digest;
-}
+};
 
 export type NoActionDisposition =
   | "gap_stop"
@@ -297,7 +297,7 @@ export type NextActionProjection =
   | NoActionNextActionProjection
   | SelectedNextActionProjection;
 
-export interface ConstructionIntent {
+export type ConstructionIntent = {
   readonly kind: "construction_intent";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -347,20 +347,20 @@ export interface ConstructionIntent {
   readonly sourceJudgmentRef: string;
   readonly targetCursorRef: string;
   readonly targetCursorDigest: Sha256Digest;
-}
+};
 
-export interface ConstructionIntentAdmission extends ConstructionIntent {
+export type ConstructionIntentAdmission = ConstructionIntent & {
   readonly admissionEventRef: string;
-}
+};
 
-interface EdgeFulfillmentLedgerRow {
+type EdgeFulfillmentLedgerRow = {
   readonly obligationRef: string;
   readonly evidenceRefs: readonly string[];
   readonly evidenceAssetRefs: readonly string[];
   readonly disposition: "fulfilled";
-}
+};
 
-interface EdgeFulfillmentLedger {
+type EdgeFulfillmentLedger = {
   readonly kind: "edge_fulfillment_ledger";
   readonly schemaVersion: "5.0.0";
   readonly ledgerRef: string;
@@ -368,9 +368,9 @@ interface EdgeFulfillmentLedger {
   readonly constructionIntentRef: string;
   readonly targetOutcomeRef: string;
   readonly rows: readonly EdgeFulfillmentLedgerRow[];
-}
+};
 
-interface EdgeClosureDecision {
+type EdgeClosureDecision = {
   readonly kind: "edge_closure_decision";
   readonly schemaVersion: "5.0.0";
   readonly decisionRef: string;
@@ -385,9 +385,9 @@ interface EdgeClosureDecision {
     | "reprice"
     | "escalate"
     | null;
-}
+};
 
-interface ActionEvaluationProjection {
+type ActionEvaluationProjection = {
   readonly kind: "action_evaluation_projection";
   readonly schemaVersion: "5.0.0";
   readonly actionEvaluationRef: string;
@@ -404,7 +404,7 @@ interface ActionEvaluationProjection {
     | null;
   readonly edgeFulfillmentLedger: EdgeFulfillmentLedger;
   readonly edgeClosureDecision: EdgeClosureDecision;
-}
+};
 
 interface ConvergedNextActionProjection {
   readonly kind: "next_action_projection";
@@ -425,7 +425,7 @@ interface ConvergedNextActionProjection {
   readonly lawfulBasisRefs: readonly string[];
 }
 
-export interface RouteAdmissionRefusal {
+export type RouteAdmissionRefusal = {
   readonly kind: "traversal_route_admission_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -443,20 +443,20 @@ export interface RouteAdmissionRefusal {
     | "route_kind_not_supported"
     | "terminal_not_declared";
   readonly message: string;
-}
+};
 
 export type RouteAdmissionResult = AdmittedRoute | RouteAdmissionRefusal;
 
-export interface RouteAdmissionEvidence {
+export type RouteAdmissionEvidence = {
   readonly evidenceClass: "judged";
   readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
   readonly completedProgresses: readonly RetryCompletedProgressAdmission[];
-}
+};
 
-export interface BlockedRouteAdmissionEvidence {
+export type BlockedRouteAdmissionEvidence = {
   readonly evidenceClass: "blocked";
   readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
@@ -465,17 +465,17 @@ export interface BlockedRouteAdmissionEvidence {
   readonly judgmentEventRef: string;
   readonly reasonRef: string;
   readonly stoppedProgresses: readonly RetryStoppedProgressAdmission[];
-}
+};
 
-export interface HoldRouteAdmissionEvidence {
+export type HoldRouteAdmissionEvidence = {
   readonly evidenceClass: "hold";
   readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
-}
+};
 
-export interface InteractionResumeRouteAdmissionEvidence {
+export type InteractionResumeRouteAdmissionEvidence = {
   readonly evidenceClass: "interaction_resume";
   readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
@@ -483,16 +483,16 @@ export interface InteractionResumeRouteAdmissionEvidence {
   readonly judgment: AdmittedCCallJudgment;
   readonly resume: FhInteractionResumeAdmission;
   readonly completedProgresses: readonly RetryCompletedProgressAdmission[];
-}
+};
 
-export interface RetryRouteAdmissionEvidence {
+export type RetryRouteAdmissionEvidence = {
   readonly evidenceClass: "retry";
   readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
   readonly progress: RetryProgressAdmission;
-}
+};
 
-export interface FanOutRouteAdmissionEvidence {
+export type FanOutRouteAdmissionEvidence = {
   readonly evidenceClass: "fan_out";
   readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
@@ -501,21 +501,21 @@ export interface FanOutRouteAdmissionEvidence {
   readonly application: Readonly<FanOutApplication>;
   readonly completion: FanOutCompletionAdmission;
   readonly completedProgresses: readonly RetryCompletedProgressAdmission[];
-}
+};
 
-export interface StructuralIdentityRouteAdmissionEvidence {
+export type StructuralIdentityRouteAdmissionEvidence = {
   readonly evidenceClass: "structural_identity";
   readonly graphFunction: Readonly<GraphFunction>;
   readonly completionClass: "structural_identity_success";
   readonly completionWitnessEventRef: string;
   readonly completedProgresses: readonly RetryCompletedProgressAdmission[];
-}
+};
 
 export interface RouteAdmissionOptions {
   readonly terminalizeRun?: boolean;
 }
 
-export interface RecursionRouteAdmissionEvidence {
+export type RecursionRouteAdmissionEvidence = {
   readonly evidenceClass: "recursion";
   readonly application: Readonly<RecurseApplication>;
   readonly cCall: CCall;
@@ -525,9 +525,9 @@ export interface RecursionRouteAdmissionEvidence {
   readonly preparationRefusal:
     | ApplicationChildPreparationRefusalAdmission
     | null;
-}
+};
 
-export interface HistoricalTraversalRouteProjection {
+export type HistoricalTraversalRouteProjection = {
   readonly kind: "historical_traversal_route_projection";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "projected";
@@ -561,7 +561,7 @@ export interface HistoricalTraversalRouteProjection {
   readonly graphSpanReentryProjectionRef?: string;
   readonly graphSpanReentryProjectionDigest?: Sha256Digest;
   readonly graphSpanReentryProjection?: GraphSpanReentryProjection;
-}
+};
 
 export type DeclaredStructuralAdvanceRoute =
   HistoricalTraversalRouteProjection & Readonly<{
@@ -574,14 +574,14 @@ export type DeclaredStructuralAdvanceRoute =
     readonly contractRef: null;
   }>;
 
-export interface DeclaredStructuralAdvanceProjection {
+export type DeclaredStructuralAdvanceProjection = {
   readonly kind: "declared_structural_advance_projection";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "projected";
   readonly route: DeclaredStructuralAdvanceRoute;
   readonly sourceCursor: TraversalCursorCandidate;
   readonly targetCursor: TraversalCursorCandidate;
-}
+};
 
 export function projectHistoricalTraversalRouteAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
@@ -657,14 +657,14 @@ function projectHistoricalTraversalRoute(
     typeof routeDigest !== "string" ||
     projected === null ||
     projectedBody === null ||
-    routeDigest !== sha256Canonical(body as unknown as JsonValue) ||
+    routeDigest !== sha256Canonical(body) ||
     routeRef !==
       `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}` ||
     projected.routeRef !== routeRef ||
     projected.routeDigest !== routeDigest ||
     !canonicalEquals(
-      projectedBody as unknown as JsonValue,
-      body as unknown as JsonValue,
+      projectedBody,
+      body,
     )
   ) return null;
   return deepFreeze({
@@ -869,8 +869,8 @@ export function isAdmittedRoute(
   );
   return projected !== null &&
     canonicalEquals(
-      projected as unknown as JsonValue,
-      route as unknown as JsonValue,
+      projected,
+      route,
     );
 }
 
@@ -1652,7 +1652,7 @@ function constructionIntentForAdvance(
     ) ||
     !canonicalEquals(
       selectedPolicy,
-      composition.closurePolicy as unknown as JsonValue,
+      composition.closurePolicy,
     ) ||
     runtimeFrontier.phase !== "initial" ||
     priorityScheme.kind !== "construction_priority_scheme" ||
@@ -1721,7 +1721,7 @@ function constructionIntentForAdvance(
     actionCatalogRef: executionBasis.actionCatalogRef,
     actionCatalogDigest: executionBasis.actionCatalogDigest,
     actionCatalogRowDigest: sha256Canonical(
-      actionRow as unknown as JsonValue,
+      actionRow,
     ),
     constructionCompositionRef: composition.compositionRef,
     constructionCompositionDigest: composition.compositionDigest,
@@ -1748,7 +1748,7 @@ function constructionIntentForAdvance(
     targetCursorDigest: targetCursor.cursorDigest,
   };
   const constructionIntentDigest = sha256Canonical(
-    body as unknown as JsonValue,
+    body,
   );
   return {
     projection,
@@ -1939,7 +1939,7 @@ function noActionProjectionForStopRoute(
     ) ||
     !canonicalEquals(
       selectedPolicy,
-      composition.closurePolicy as unknown as JsonValue,
+      composition.closurePolicy,
     )
   ) {
     return refusal(
@@ -2215,7 +2215,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
       event.admissionOrdinal > terminalEvent.admissionOrdinal,
   );
   const resultValueDigest = sha256Canonical(
-    input.childResultValue as unknown as JsonValue,
+    input.childResultValue,
   );
   const resultPayload =
     resultEvent !== undefined && isJsonRecord(resultEvent.payload)
@@ -2240,7 +2240,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
   const body = {
     kind: "action_evaluation_basis" as const,
     schemaVersion: "5.0.0" as const,
-    constructionIntent: intent as unknown as JsonValue,
+    constructionIntent: intent,
     nextActionBasis: selectedNextActionBasis,
     admittedEvidence: [{
       kind: "admitted_semantic_evidence" as const,
@@ -2262,7 +2262,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
       actionCatalogRowDigest: intent.actionCatalogRowDigest,
       selectedActionRef: intent.selectedActionRef,
     },
-    closurePolicy: composition.closurePolicy as unknown as JsonValue,
+    closurePolicy: composition.closurePolicy,
     runtimeEvidenceEventRefs: [
       intent.admissionEventRef,
       resultEvent.eventId,
@@ -2271,7 +2271,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
       graphClosedEvent.eventId,
     ],
   };
-  const basisDigest = sha256Canonical(body as unknown as JsonValue);
+  const basisDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     basisRef:
@@ -2620,7 +2620,7 @@ function constructionDeltaForAdvance(
       sourceCursor.inputRef !== evaluationBasis.basisRef
     ) ||
     sourceCursor.inputDigest !==
-      sha256Canonical(evaluationBasis as unknown as JsonValue) ||
+      sha256Canonical(evaluationBasis) ||
     evaluation.actionEvaluationBasisRef !== evaluationBasis.basisRef ||
     evaluation.actionEvaluationBasisDigest !==
       evaluationBasis.basisDigest ||
@@ -2633,7 +2633,7 @@ function constructionDeltaForAdvance(
     evaluationActionCatalog === null ||
     evaluationPolicy === null ||
     !canonicalEquals(
-      evaluation.observationSnapshot as unknown as JsonValue,
+      evaluation.observationSnapshot,
       evaluationObservation,
     ) ||
     evaluationWorkspace.workspaceBindingId !==
@@ -2655,7 +2655,7 @@ function constructionDeltaForAdvance(
       intent.selectedActionRef ||
     !canonicalEquals(
       evaluationPolicy,
-      composition.closurePolicy as unknown as JsonValue,
+      composition.closurePolicy,
     ) ||
     !isJsonRecord(evaluationBasis.constructionIntent) ||
     evaluationBasis.constructionIntent.constructionIntentRef !==
@@ -2720,7 +2720,7 @@ function constructionDeltaForAdvance(
     edgeClosureDecisionRef: decision.decisionRef,
     edgeClosureDecisionDigest: decision.decisionDigest,
     observationSnapshotDigest: sha256Canonical(
-      evaluationObservation as unknown as JsonValue,
+      evaluationObservation,
     ),
     workspaceBindingId: executionBasis.workspaceBindingId,
     workspaceBindingDigest: executionBasis.workspaceBindingDigest,
@@ -2728,7 +2728,7 @@ function constructionDeltaForAdvance(
     runtimeEvidenceEventRefs,
   };
   const actionEvaluationAdmissionDigest = sha256Canonical(
-    actionEvaluationAdmissionBody as unknown as JsonValue,
+    actionEvaluationAdmissionBody,
   );
   const actionEvaluationAdmissionRef =
     `action-evaluation-admission://abiogenesis/${actionEvaluationAdmissionDigest.slice("sha256:".length)}`;
@@ -2770,7 +2770,7 @@ function constructionDeltaForAdvance(
     targetCursorRef: targetCursor.cursorRef,
     targetCursorDigest: targetCursor.cursorDigest,
   };
-  const deltaDigest = sha256Canonical(deltaBody as unknown as JsonValue);
+  const deltaDigest = sha256Canonical(deltaBody);
   return {
     causationEventRefs: executionBasis.constructionContinuationUse === undefined ? runtimeEvidenceEventRefs
       : [executionBasis.admissionEventRef, ...runtimeEvidenceEventRefs.filter(ref => ref !== intent.admissionEventRef)],
@@ -2779,12 +2779,12 @@ function constructionDeltaForAdvance(
         `construction-delta://abiogenesis/${deltaDigest.slice("sha256:".length)}`,
       deltaDigest,
       ...deltaBody,
-      actionEvaluation: evaluation as unknown as JsonValue,
+      actionEvaluation: evaluation,
       actionEvaluationAdmission:
-        actionEvaluationAdmission as unknown as JsonValue,
-      edgeFulfillmentLedger: ledger as unknown as JsonValue,
-      edgeClosureDecision: decision as unknown as JsonValue,
-    } as unknown as Readonly<Record<string, JsonValue>>,
+        actionEvaluationAdmission,
+      edgeFulfillmentLedger: ledger,
+      edgeClosureDecision: decision,
+    },
   };
 }
 
@@ -2977,7 +2977,7 @@ function hasGovernedConstructionClosure(
       executionBasis.workspaceBindingDigest &&
     canonicalEquals(
       refreshedPolicy,
-      composition.closurePolicy as unknown as JsonValue,
+      composition.closurePolicy,
     ) &&
     projection.nextActionBasisRef === refreshedBasis.basisRef &&
     projection.nextActionBasisDigest === refreshedBasis.basisDigest &&
@@ -3090,7 +3090,7 @@ export function projectDeclaredStructuralAdvanceAtPrefix(
     !hasAdmittedTraversalCursorAtPrefix(prefix, sourceCursor) ||
     sourceCursor.graphRef !== graph.materializationRef ||
     graphFunction.name !== graph.graphFunctionRef ||
-    sha256Canonical(graphFunction as unknown as JsonValue) !==
+    sha256Canonical(graphFunction) !==
       graph.graphFunctionDigest
   ) return null;
   // Structural replay belongs to the source Run; declaration authority may
@@ -3212,8 +3212,8 @@ function hasCompletedRetryProgressChain(
       const ownerProgress = projection.progresses[index];
       return retryDepth !== undefined && ownerProgress !== undefined &&
       canonicalEquals(
-        ownerProgress as unknown as JsonValue,
-        progress as unknown as JsonValue,
+        ownerProgress,
+        progress,
       ) &&
       progress.progressClass === "completed" &&
       progress.completionClass === expected.completionClass &&
@@ -3369,7 +3369,7 @@ function hasBlockedRouteEvidence(
   const stoppedProgresses = evidence?.stoppedProgresses ?? [];
   if (evidence === null) return false;
   const graphFunctionDigest = sha256Canonical(
-    evidence.graphFunction as unknown as JsonValue,
+    evidence.graphFunction,
   );
   if (
     evidence.graphFunction.kind !== "graph_function" ||
@@ -3440,8 +3440,8 @@ function hasBlockedRouteEvidence(
         retryDepth,
       );
       return canonicalEquals(
-        ownerProgress as unknown as JsonValue,
-        progress as unknown as JsonValue,
+        ownerProgress,
+        progress,
       ) &&
         progress.cCallRef === evidence.cCall.cCallRef &&
         progress.resultRef === evidence.resultRef &&
@@ -3567,24 +3567,24 @@ function hasInteractionResumeRouteEvidence(
   );
   const projectedPending = projectPendingInteractionCarrier(
     prefix,
-    evidence.cCall as unknown as Readonly<Record<string, JsonValue>>,
-    evidence.result as unknown as Readonly<Record<string, JsonValue>>,
-    evidence.judgment as unknown as Readonly<Record<string, JsonValue>>,
+    evidence.cCall,
+    evidence.result,
+    evidence.judgment,
   );
   return term.kind !== "c_source_path_refusal" &&
     isInteractionCLeaf(term) &&
     projectedPending !== null &&
     canonicalEquals(
-      projectedPending.cCall as unknown as JsonValue,
-      evidence.cCall as unknown as JsonValue,
+      projectedPending.cCall,
+      evidence.cCall,
     ) &&
     canonicalEquals(
-      projectedPending.result as unknown as JsonValue,
-      evidence.result as unknown as JsonValue,
+      projectedPending.result,
+      evidence.result,
     ) &&
     canonicalEquals(
-      projectedPending.judgment as unknown as JsonValue,
-      evidence.judgment as unknown as JsonValue,
+      projectedPending.judgment,
+      evidence.judgment,
     ) &&
     evidence.cCall.basisId === executionBasis.basisRef &&
     evidence.cCall.regime === "F_H" &&
@@ -3675,12 +3675,12 @@ function hasRetryRouteEvidence(
     evidence.progress.progressClass !== "retry" ||
     available === null ||
     !canonicalEquals(
-      available.failureCCall.cCall as unknown as JsonValue,
-      evidence.cCall as unknown as JsonValue,
+      available.failureCCall.cCall,
+      evidence.cCall,
     ) ||
     !canonicalEquals(
-      available.progress as unknown as JsonValue,
-      evidence.progress as unknown as JsonValue,
+      available.progress,
+      evidence.progress,
     ) ||
     evidence.cCall.basisId !== executionBasis.basisRef ||
     evidence.cCall.frameId !== sourceCursor.frameId ||
@@ -3769,8 +3769,8 @@ function hasFanOutRouteEvidence(
     outcome === null ||
     projectedCompletion?.kind !== "fan_out_completion_admission" ||
     !canonicalEquals(
-      evidence.completion as unknown as JsonValue,
-      projectedCompletion as unknown as JsonValue,
+      evidence.completion,
+      projectedCompletion,
     ) ||
     graph.template.applications.find(
       (application) =>
@@ -3958,7 +3958,7 @@ function hasGraphSpanReentryRouteEvidence(
     return false;
   }
   const projection = graphSpanReentryProjection(
-    candidate.graphSpanReentryProjection as unknown as JsonValue,
+    candidate.graphSpanReentryProjection,
   );
   if (
     projection === null ||
@@ -3968,7 +3968,7 @@ function hasGraphSpanReentryRouteEvidence(
       candidate.graphSpanReentryProjectionDigest ||
     !canonicalEquals(
       evidence.result.value,
-      projection as unknown as JsonValue,
+      projection,
     )
   ) {
     return false;
@@ -4401,7 +4401,7 @@ function admitRoute(
     if (candidate.registeredSelectionApplicationRef !== retained?.registeredSelectionApplicationRef ||
       (retained === null) !== (candidate.boundInput === undefined) ||
       retained !== null && retained.input !== candidate.boundInput &&
-        !canonicalEquals(retained.input as unknown as JsonValue, candidate.boundInput as unknown as JsonValue)) {
+        (candidate.boundInput === undefined || !canonicalEquals(retained.input, candidate.boundInput))) {
       return refusal("candidate_mismatch", "route bound input is not the exact owner-derived entry/source binding");
     }
   } catch {
@@ -4447,7 +4447,7 @@ function admitRoute(
     graph.materializationRef;
   const expectedDeclarationDigest = recursionEvidence === null
     ? graph.materializationDigest
-    : sha256Canonical(recursionEvidence.application as unknown as JsonValue);
+    : sha256Canonical(recursionEvidence.application);
   const body = routeCandidateBody(candidate);
   if (
     !isRouteCandidate(candidate) ||
@@ -4841,8 +4841,8 @@ function admitRoute(
         noActionStop.projection.projectionDigest ||
       candidate.nextActionProjection === undefined ||
       !canonicalEquals(
-        candidate.nextActionProjection as unknown as JsonValue,
-        noActionStop.projection as unknown as JsonValue,
+        candidate.nextActionProjection,
+        noActionStop.projection,
       )
     ) {
       return refusal(
@@ -4973,7 +4973,7 @@ function admitRoute(
     constructionDelta !== null && !("kind" in constructionDelta)
       ? constructionDelta
       : null;
-  const routeDigest = sha256Canonical(body as unknown as JsonValue);
+  const routeDigest = sha256Canonical(body);
   const routeRef =
     `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`;
   const terminalReasonRef = recursionEvidence !== null
@@ -5012,7 +5012,7 @@ function admitRoute(
     materializationRef: graph.materializationRef,
     graphCallId: sourceCursor.graphCallId,
     frameId: sourceCursor.frameId,
-    payload: { routeRef, routeDigest, ...body } as unknown as JsonValue,
+    payload: { routeRef, routeDigest, ...body },
   } as const);
   // Preserve the owner-only batch indexes while observations join each real
   // producer before the next dependent effect in this same transaction.
@@ -5060,19 +5060,19 @@ function admitRoute(
             nextActionProjectionDigest:
               admittedConstruction.projection.projectionDigest,
             nextActionProjection:
-              admittedConstruction.projection as unknown as JsonValue,
+              admittedConstruction.projection,
             nextActionBasisRef:
               admittedConstruction.intent.nextActionBasisRef,
             nextActionBasisDigest:
               admittedConstruction.intent.nextActionBasisDigest,
             nextActionBasis:
-              admittedConstruction.basis as unknown as JsonValue,
+              admittedConstruction.basis,
             constructionIntentRef:
               admittedConstruction.intent.constructionIntentRef,
             constructionIntentDigest:
               admittedConstruction.intent.constructionIntentDigest,
             constructionIntent:
-              admittedConstruction.intent as unknown as JsonValue,
+              admittedConstruction.intent,
           },
         }),
       ])
@@ -5441,8 +5441,8 @@ export function admitTraversalTransitionInActiveTransaction(
   if (
     admittedRoute === null ||
     !canonicalEquals(
-      admittedRoute as unknown as JsonValue,
-      route as unknown as JsonValue,
+      admittedRoute,
+      route,
     )
   ) {
     throw new TypeError(
@@ -5607,8 +5607,8 @@ function admitCompletedRetryTraversalTransitionUsing(
         }
         if (
           !canonicalEquals(
-            progresses as unknown as JsonValue,
-            input.progressPlan.progresses as unknown as JsonValue,
+            progresses,
+            input.progressPlan.progresses,
           )
         ) {
           throw new TypeError(
@@ -5717,8 +5717,8 @@ function admitBlockedRetryTraversalTransitionUsing(
           input.failurePlan.predecessorEventDigest !==
             runtimeEventPrefixDigest(predecessor) ||
           !canonicalEquals(
-            evidence.stoppedProgresses as unknown as JsonValue,
-            input.failurePlan.transition.stoppedProgresses as unknown as JsonValue,
+            evidence.stoppedProgresses,
+            input.failurePlan.transition.stoppedProgresses,
           ) ||
           evidence.cCall.cCallRef !== input.failurePlan.transition.close.cCallRef ||
           evidence.resultRef !==
@@ -5763,8 +5763,8 @@ function admitBlockedRetryTraversalTransitionUsing(
           : mode.input.selectRouteCandidate?.(projectRuntimeReplayGuard(stagedRun, stagedPrefix)) ?? input.candidate;
         if (candidate.transitionClass !== "route" ||
             !canonicalEquals(
-              candidate.evidence as unknown as JsonValue,
-              input.candidate.evidence as unknown as JsonValue,
+              candidate.evidence,
+              input.candidate.evidence,
             )) {
           throw new RouteTransitionAbort(refusal(
             "candidate_mismatch", "blocked staged selection changed its planned owner evidence",

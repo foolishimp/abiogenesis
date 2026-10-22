@@ -93,9 +93,9 @@ export function validateGraph(
     template: graph.template,
   };
   const graphFunctionDigest = ownedShape !== null
-    ? graph.graphFunctionDigest : sha256Canonical(graphFunction as unknown as JsonValue);
+    ? graph.graphFunctionDigest : sha256Canonical(graphFunction);
   if (
-    (ownedShape === null && graph.materializationDigest !== sha256Canonical(graphBody as unknown as JsonValue)) ||
+    (ownedShape === null && graph.materializationDigest !== sha256Canonical(graphBody)) ||
     graph.graphFunctionRef !== graphFunction.name ||
     graph.graphFunctionDigest !== graphFunctionDigest ||
     !programValidation.graphFunctionDigests.includes(graphFunctionDigest) ||
@@ -104,13 +104,13 @@ export function validateGraph(
     graph.admittedInputDigest !== basis.admittedInputDigest ||
     (graph.fanOutMaterializations !== expectedShape.fanOutMaterializations &&
       !canonicalEquals(
-        graph.fanOutMaterializations as unknown as JsonValue,
-        expectedShape.fanOutMaterializations as unknown as JsonValue,
+        graph.fanOutMaterializations,
+        expectedShape.fanOutMaterializations,
       )) ||
     (graph.template !== expectedShape.template &&
       !canonicalEquals(
-        graph.template as unknown as JsonValue,
-        expectedShape.template as unknown as JsonValue,
+        graph.template,
+        expectedShape.template,
       ))
   ) {
     return invalid(graph.materializationDigest, "materialized Graph does not preserve exact function, topology, input, and invocation basis");
@@ -127,7 +127,7 @@ export function validateGraph(
     admittedInputRef: graph.admittedInputRef,
     admittedInputDigest: graph.admittedInputDigest,
   };
-  const validationDigest = sha256Canonical(body as unknown as JsonValue);
+  const validationDigest = sha256Canonical(body);
   const validation = deepFreeze({
     kind: "graph_validation" as const,
     schemaVersion: "5.0.0" as const,

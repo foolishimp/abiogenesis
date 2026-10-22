@@ -194,6 +194,6 @@ export function isNativeSemanticGraphFunction(publication: Readonly<ModulePublic
       : constructNativeSemanticStageGraphFunctions(stage,
         publication.graphFunctions.find(g => g.name === stage.graphFunctionRef)?.declarations["abg.closure_contract"]!,
         publication.graphFunctions.find(g => g.name === stage.graphFunctionRef + "/native-assessment")?.declarations["abg.closure_contract"]!);
-    return candidates.some(candidate => canonicalEquals(canonicalizeAuthoredGtlCarrier(candidate, "graph_function") as unknown as JsonValue, graph as unknown as JsonValue));
+    return candidates.some(candidate => canonicalEquals(canonicalizeAuthoredGtlCarrier(candidate, "graph_function"), graph));
   } catch { return false; }
 }

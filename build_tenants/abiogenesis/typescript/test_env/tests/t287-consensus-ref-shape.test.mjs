@@ -6,6 +6,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import * as gtl from '../../build/code/src/gtl/index.js';
+import { sha256Canonical } from '../../build/code/src/shared/digests.js';
 
 const DIGEST = `sha256:${'1'.repeat(64)}`, ACTOR = 'actor://t287/consensus-ref-shape';
 
@@ -74,4 +75,40 @@ test('consensus reference arrays: shape-checked and compared without recursion; 
       assert.equal(check(candidate), false, `${site}: ${label} is unequal`);
     }
   }
+});
+
+// T-287 post-close repair C: the evaluation basis guard admits the evidence
+// response before its digest check (gtl/consensus.ts, isConsensusActionEvaluationBasis,
+// `admittedDigestIs(evidence.responseValue, evidence.responseDigest)`).
+test('consensus evaluation basis: the evidence response digest is checked over the admitted response', () => {
+  const publication = gtl.constructConsensusModulePublication({ productId: 'product://abiogenesis/typescript-tenant@5.0.0-dev.287',
+    artifactDigest: DIGEST, productContentDigest: `sha256:${'2'.repeat(64)}`, productManifestDigest: `sha256:${'3'.repeat(64)}`,
+    packageName: '@abiogenesis/typescript-tenant', packageVersion: '5.0.0-dev.287' });
+  const actionCatalog = publication.programs.find(program => program.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef).actionCatalog;
+  const snapshot = gtl.constructConsensusObservationSnapshot({ workspaceBindingId: 'workspace-binding://t287/consensus-ref-shape',
+    workspaceBindingDigest: DIGEST, actionCatalog, consensusInvocation: invocation() });
+  const nextActionBasis = gtl.evaluateConsensusGap(gtl.synthesizeConsensusModel(snapshot));
+  const candidate = { kind: 'consensus_result_candidate', schemaVersion: '5.0.0', subjectRef: 'ticket://abiogenesis/T-287',
+    subjectDigest: DIGEST, panelRef: 'panel://t287/consensus-ref-shape', policyRef: 'policy://t287/consensus-ref-shape@1',
+    roundRefs: ['round://t287/1'], findingSetRefs: [], submitterResponseRefs: ['submitter-response://t287/1'], rulings: [],
+    classification: 'unanimous_agreement', dissentProfileRefs: [],
+    terminalOutcome: { kind: 'consensus_round_outcome', schemaVersion: '5.0.0', roundRef: 'round://t287/1', outcome: 'closed_done',
+      findingSetRefs: [], rulingRefs: [], evidenceRefs: [] },
+    evidenceRefs: [], lineageRefs: ['lineage://t287/1'], contractFailureRef: null };
+  assert.equal(gtl.isConsensusResultCandidate(candidate), true, 'positive control: the response is a Consensus result candidate');
+  const evaluationBasis = (responseDigest) => {
+    const body = { kind: 'action_evaluation_basis', schemaVersion: '5.0.0',
+      constructionIntent: { actionKind: 'invoke_graph_function', selectedGraphFunctionRef: gtl.CONSENSUS_IDS.graphFunctionRef },
+      nextActionBasis, admittedEvidence: [{ responseValue: candidate, responseDigest,
+        semanticEvidenceAssetRefs: [gtl.CONSENSUS_IDS.consensusOutputAssetRef] }],
+      workspaceBinding: {}, actionCatalog: {}, closurePolicy: {},
+      runtimeEvidenceEventRefs: [1, 2, 3, 4, 5].map(n => `event://t287/consensus-ref-shape/${n}`) };
+    const basisDigest = sha256Canonical(body);
+    return { ...body, basisRef: `action-evaluation-basis://abiogenesis/${basisDigest.slice('sha256:'.length)}`, basisDigest };
+  };
+  assert.equal(gtl.isConsensusActionEvaluationBasis(evaluationBasis(sha256Canonical(candidate))), true,
+    'the response digest over the admitted response is accepted');
+  // Every earlier check passes (the basis digest is recomputed), so the answer
+  // is the response digest check's own.
+  assert.equal(gtl.isConsensusActionEvaluationBasis(evaluationBasis(DIGEST)), false, 'a different response digest is refused');
 });

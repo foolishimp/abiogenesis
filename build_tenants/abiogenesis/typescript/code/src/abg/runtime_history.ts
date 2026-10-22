@@ -7,23 +7,23 @@ import type { RuntimeEvent, RuntimeEventScope, RootEventProfileSchedule } from "
 
 /** @internal The Event Store constructs these locations only after authenticating
  * their physical row and complete logical envelope. A location is not evidence. */
-export interface RuntimeEventBodyLocation {
+export type RuntimeEventBodyLocation = {
   readonly offset: number;
   readonly byteLength: number;
   readonly physicalDigest: Sha256Digest;
   readonly prefixByteLength: number;
   readonly prefixDigest: Sha256Digest;
-}
+};
 
 /** @internal Only envelope and indexing facts belong to the operational history.
  * Neither this row nor an index retains an Event, payload or decoded body. */
-export interface RuntimeEventHistoryRow {
+export type RuntimeEventHistoryRow = {
   readonly envelope: Omit<RuntimeEvent, "payload">;
   readonly profileAfter: Sha256Digest;
   readonly scalarPayload: Readonly<Record<string, string | number | boolean | null>>;
   readonly selectorKeys: readonly string[];
   readonly body: RuntimeEventBodyLocation;
-}
+};
 
 /** @internal Exact Event Store body acquisition, not a caller-supplied reader. */
 export type RuntimeHistoryBodyReader = (row: RuntimeEventHistoryRow,
@@ -106,14 +106,14 @@ export class RuntimeHistory {
         const baseOwner = RuntimeHistorySelection.owner(this.#validation.base)!;
         const hash = baseOwner.canonicalHashAt(this.#validation.base.through);
         if (this.#validation.base.length !== 0) hash.update(",");
-        writeCanonicalJson(this.#validation.event as unknown as JsonValue, part => hash.update(part));
+        writeCanonicalJson(this.#validation.event, part => hash.update(part));
         this.#validationHash = hash;
       }
       return this.#validationHash.copy();
     }
     const hash = createHash("sha256").update("[");
     for (let i = 0; i < through; i++) {
-      if (i !== 0) hash.update(","); writeCanonicalJson(this.event(i) as unknown as JsonValue, part => hash.update(part));
+      if (i !== 0) hash.update(","); writeCanonicalJson(this.event(i), part => hash.update(part));
     }
     return hash;
   }
@@ -137,7 +137,7 @@ export class RuntimeHistory {
       throw new TypeError("canonical history progress differs from its validated event");
     const successor = this.#canonicalHash.copy();
     if (this.length !== 0) successor.update(",");
-    writeCanonicalJson(event as unknown as JsonValue, part => successor.update(part));
+    writeCanonicalJson(event, part => successor.update(part));
     this.#canonicalHash = successor;
     this.#canonicalDigests.push(`sha256:${successor.copy().update("]").digest("hex")}`);
     this.#rows.push(deepFreeze(row));
@@ -264,7 +264,7 @@ export class RuntimeHistory {
     const hash = forward ? prior!.hash.copy() : createHash("sha256").update("[");
     for (let index = forward ? prior!.length : 0; index < indices.length; index++) {
       if (index !== 0) hash.update(",");
-      writeCanonicalJson(this.event(indices.at(index)!) as unknown as JsonValue, text => { hash.update(text); });
+      writeCanonicalJson(this.event(indices.at(index)!), text => { hash.update(text); });
     }
     const digest: Sha256Digest = `sha256:${hash.copy().update("]").digest("hex")}`;
     if (prior === undefined) { prior = { length: indices.length, hash, digests: new Map() }; this.#scopeCanonical.set(indices.order, prior); }

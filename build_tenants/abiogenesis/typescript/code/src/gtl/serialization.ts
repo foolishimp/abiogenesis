@@ -16,10 +16,10 @@ export function admitCProgramSyntax(value: unknown): RawAdmissionResult<CProgram
   return rawAdmitValue<CProgramNode>(value, "c_program_term", "contract://abiogenesis/gtl/c-program-syntax@5");
 }
 
-function serialized<S>(value: unknown, admit: (supplied: unknown) => RawAdmissionResult<S>): string {
+function serialized(value: unknown, admit: (supplied: unknown) => RawAdmissionResult<JsonValue>): string {
   const admitted = admit(eraseNativeCProofMetadata(value));
   if (admitted.kind !== "raw_admitted_value") throw new TypeError(`${admitted.code}: ${admitted.message}`);
-  return canonicalJson(admitted.value as unknown as JsonValue);
+  return canonicalJson(admitted.value);
 }
 
 export function serializeGraphFunction(value: GraphFunction): string {

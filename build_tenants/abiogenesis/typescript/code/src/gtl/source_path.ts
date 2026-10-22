@@ -15,14 +15,14 @@ import type {
 
 export type CSourcePath = readonly string[];
 
-export interface CSourcePathRefusal {
+export type CSourcePathRefusal = {
   readonly kind: "c_source_path_refusal";
   readonly schemaVersion: "5.0.0";
   readonly code: "invalid_source_path" | "term_path_missing";
   readonly message: string;
-}
+};
 
-export interface CSourceContinuation {
+export type CSourceContinuation = {
   readonly kind: "c_source_continuation";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "advance" | "terminal";
@@ -36,7 +36,7 @@ export interface CSourceContinuation {
   readonly targetPath: CSourcePath | null;
   readonly targetTaskOrdinal: number | null;
   readonly targetRetryDepth: number;
-}
+};
 
 export interface CContinuationTarget {
   readonly kind: "c_continuation_target";
@@ -71,13 +71,13 @@ export interface CTraversalTarget {
   readonly inputDigest: Sha256Digest;
 }
 
-export interface CTraversalCoordinate {
+export type CTraversalCoordinate = {
   readonly nodeRef: string;
   readonly termPath: CSourcePath;
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly retryPath: readonly number[];
-}
+};
 
 export interface CTraversalSource extends CTraversalCoordinate {
   readonly inputRef: string;
@@ -729,7 +729,7 @@ export function deriveCEnclosingRetryTopology(
       nodeRef: locus!.nodeRef,
       retryTermPath: detachedContext.retryTermPath,
       taskOrdinal: detachedContext.taskOrdinal,
-    } as unknown as JsonValue);
+    });
     const segmentRef =
       `c-retry-topology-segment://abiogenesis/${
         segmentDigest.slice("sha256:".length)

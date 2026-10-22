@@ -55,7 +55,7 @@ export interface WorkspaceOpenPacket {
   readonly expectedWorkspaceAuthorityDigest: Sha256Digest;
 }
 
-export interface WorkspaceManifestAuthorityBasis {
+export type WorkspaceManifestAuthorityBasis = {
   readonly kind: "workspace_authority_basis";
   readonly schemaVersion: "5.0.0";
   readonly authorityRef: string;
@@ -63,14 +63,14 @@ export interface WorkspaceManifestAuthorityBasis {
   readonly source: "clean_creation" | "admitted_import";
   readonly importAuthorityRef: string | null;
   readonly importAuthorityDigest: Sha256Digest | null;
-}
+};
 
-export interface WorkspaceProvenanceCoordinate {
+export type WorkspaceProvenanceCoordinate = {
   readonly provenanceRef: string;
   readonly provenanceDigest: Sha256Digest;
-}
+};
 
-export interface WorkspaceManifest {
+export type WorkspaceManifest = {
   readonly kind: "workspace_manifest";
   readonly schemaVersion: "5.0.0";
   readonly workspaceRef: string;
@@ -91,7 +91,7 @@ export interface WorkspaceManifest {
   readonly bindingDigest: Sha256Digest | null;
   readonly configurationRef: string | null;
   readonly configurationDigest: Sha256Digest | null;
-}
+};
 
 export interface WorkspaceCreateResult {
   readonly kind: "workspace_create_result";
@@ -237,7 +237,7 @@ function constructAuthorityBasis(
         importAuthorityDigest: packet.importAuthority.authorityDigest,
         preservationPolicy: packet.preservationPolicy,
       };
-  const authorityDigest = sha256Canonical(body as unknown as JsonValue);
+  const authorityDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "workspace_authority_basis" as const,
     schemaVersion: "5.0.0" as const,
@@ -294,7 +294,7 @@ function constructManifest(
     preservationState,
   };
   const creationManifestDigest = sha256Canonical(
-    creationBody as unknown as JsonValue,
+    creationBody,
   );
   const creationManifestRef =
     `workspace-creation://abiogenesis/${creationManifestDigest.slice("sha256:".length)}`;
@@ -425,8 +425,8 @@ export function reconstructWorkspaceManifest(
     configurationDigest: null,
   };
   return canonicalEquals(
-    comparable as JsonValue,
-    expected as unknown as JsonValue,
+    comparable,
+    expected,
   )
     ? deepFreeze(value as unknown as WorkspaceManifest)
     : null;
@@ -529,7 +529,7 @@ export async function createWorkspace(
     const manifestPath = join(substrateRoot, WORKSPACE_MANIFEST_FILE);
     await writeFile(
       manifestPath,
-      `${canonicalJson(manifest as unknown as JsonValue)}\n`,
+      `${canonicalJson(manifest)}\n`,
       { encoding: "utf8", flag: "wx" },
     );
     return deepFreeze({

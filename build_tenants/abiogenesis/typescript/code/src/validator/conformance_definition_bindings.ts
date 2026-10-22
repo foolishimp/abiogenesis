@@ -299,9 +299,9 @@ function reconstructDeclarationBasis(
   });
   if (
       !exactCoordinateSet(catalog.boundPublications.map(publication => reference(publication.moduleRef,
-        sha256Canonical(publication as unknown as JsonValue))).sort(compareCoordinates),
+        sha256Canonical(publication))).sort(compareCoordinates),
       resources.declaredInventory.map(publication => reference(publication.moduleRef,
-        sha256Canonical(publication as unknown as JsonValue))).sort(compareCoordinates))) {
+        sha256Canonical(publication))).sort(compareCoordinates))) {
     throw new TypeError("conformance inventory differs from its admitted workspace, installs, lock or publication owners");
   }
   const declarationClosure = resolveProgramDeclarationClosure(catalog, catalogView, resources.packet.program.programRef);
@@ -361,11 +361,11 @@ const gtl_program = (
     }
     const program = reference(
       packet.program.programRef,
-      sha256Canonical(packet.program as unknown as JsonValue),
+      sha256Canonical(packet.program),
     );
     const publication = reference(
       packet.publication.moduleRef,
-      sha256Canonical(packet.publication as unknown as JsonValue),
+      sha256Canonical(packet.publication),
     );
     const inventory = resources.declaredInventory.map((entry) => {
       const canonical = canonicalizeAuthoredGtlCarrier(
@@ -380,8 +380,8 @@ const gtl_program = (
         );
       }
       return reference(
-        entry.moduleRef,
-        sha256Canonical(entry as unknown as JsonValue),
+        canonical.moduleRef,
+        sha256Canonical(canonical),
       );
     }).sort(compareCoordinates);
     const requestedInventory = request.inventoryBasis.kind ===
@@ -441,7 +441,7 @@ const gtl_program = (
       ? reference(native.evidenceRef, native.evidenceDigest)
       : reference(
         native.diagnosticRef,
-        sha256Canonical(native as unknown as JsonValue),
+        sha256Canonical(native),
       );
     const publicationAdmission = exactRawAdmission<ModulePublication>(
       packet.publication,
@@ -521,7 +521,7 @@ const gtl_program = (
     const inventoryCoordinate = request.inventoryBasis.kind ===
         "declared_inventory"
       ? (() => {
-        const digest = sha256Canonical(inventory as unknown as JsonValue);
+        const digest = sha256Canonical(inventory);
         return reference(
           `gtl-inventory://abiogenesis/${digest.slice("sha256:".length)}`,
           digest,

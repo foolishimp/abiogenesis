@@ -19,9 +19,7 @@ import type { JsonValue } from "./canonical_json.js";
  * boundary. Expected Product/ABG/GTL/HoG/Validator refusals are values in the
  * owner output algebra and never use this carrier.
  */
-export interface DefinitionExecutionFault<
-  K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
-> {
+export type DefinitionExecutionFault<K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike> = {
   readonly kind: "definition_execution_fault";
   readonly schemaVersion: "5.0.0";
   readonly definitionKey: K;
@@ -29,7 +27,7 @@ export interface DefinitionExecutionFault<
   readonly code: string;
   readonly message: string;
   readonly evidence: Readonly<Record<string, JsonValue>>;
-}
+};
 
 /**
  * The thin host-call carrier. `resources` is a sibling assertion supplied by
@@ -73,18 +71,13 @@ export type ExactDefinitionCallable<
   never
 >;
 
-export interface DefinitionHostFailure<
-  K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
-> {
+export type DefinitionHostFailure<K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike> = {
   readonly failureKind: "typed_execution_fault" | "defect_or_interruption";
   readonly fault: DefinitionExecutionFault<K> | null;
   readonly cause: string;
-}
+};
 
-export interface DefinitionHostReceipt<
-  TPacket extends OwnerContractSourceDeclaration = OwnerContractSourceDeclaration,
-  TResourceReceipt = unknown,
-> {
+export type DefinitionHostReceipt<TPacket extends OwnerContractSourceDeclaration = OwnerContractSourceDeclaration, TResourceReceipt = unknown> = {
   readonly kind: "definition_host_receipt";
   readonly schemaVersion: "5.0.0";
   readonly definitionKey: TPacket["definitionKey"];
@@ -93,7 +86,7 @@ export interface DefinitionHostReceipt<
   readonly ownerOutput: OwnerSemanticOutput<TPacket> | null;
   readonly resources: TResourceReceipt | null;
   readonly failure: DefinitionHostFailure<TPacket["definitionKey"]> | null;
-}
+};
 
 /** Package-internal Effect host membrane shared by every installed program. */
 export function runEffectProgram<A, E>(

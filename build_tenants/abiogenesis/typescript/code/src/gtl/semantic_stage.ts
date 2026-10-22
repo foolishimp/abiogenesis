@@ -13,7 +13,7 @@ const refs = v.array(ref);
 const strings = v.array(v.string());
 const sourceBindings = REQUIREMENT_TERM_SCHEMA.entries.sourceBindings;
 
-export interface SemanticProofPolicy {
+export type SemanticProofPolicy = {
   readonly policyRef: string;
   readonly sourceRequirementRef: string;
   readonly sourceBindings: RequirementTerm["sourceBindings"];
@@ -23,8 +23,8 @@ export interface SemanticProofPolicy {
   readonly unprovedScope: readonly string[];
   readonly closureRule: string;
   readonly obligationRef: string;
-}
-export interface SemanticProofShape {
+};
+export type SemanticProofShape = {
   readonly proofShapeRef: string;
   readonly requiredEvidenceRoles: readonly ("realization" | "verifier_artifact" | "verifier_execution" | "semantic_assessment")[];
   readonly sharedBasis: readonly string[];
@@ -33,8 +33,8 @@ export interface SemanticProofShape {
   readonly requirementRef: string;
   readonly obligationRef: string;
   readonly roleContractRefs: { readonly realization: string; readonly proof: string };
-}
-export interface SemanticAssetSurface {
+};
+export type SemanticAssetSurface = {
   readonly kind: string;
   readonly requiredContexts: readonly string[];
   readonly standardsRefs: readonly string[];
@@ -43,7 +43,7 @@ export interface SemanticAssetSurface {
   readonly rendererRef: string;
   readonly proofObligationRefs: readonly string[];
   readonly authoritySlots: readonly { readonly authorityKindRef: string; readonly disposition: "normal" | "bounded_fallback" | "forbidden_routine"; readonly fallbackPreconditionRefs: readonly string[] }[];
-}
+};
 export type SemanticWorksiteContentPolicy = "not_required" | "current_inventory";
 export type SemanticStageAssembly = {
   readonly ruleRef: string;
@@ -57,7 +57,7 @@ export type SemanticStageAssembly = {
   readonly contentPolicy: "role_scoped_worksite";
   readonly worksiteContentByRole: { readonly author: SemanticWorksiteContentPolicy; readonly assessor: SemanticWorksiteContentPolicy };
 });
-export interface SemanticStageDeclaration {
+export type SemanticStageDeclaration = {
   readonly declarationRef: string;
   readonly graphFunctionRef: string;
   readonly authorLocusRef: string;
@@ -69,8 +69,8 @@ export interface SemanticStageDeclaration {
   readonly rubric: readonly { readonly criterionRef: string; readonly instruction: string }[];
   readonly bodyCapabilities: readonly ("requirement_refinement" | "worksite_design" | "application_assessment")[];
   readonly assembly: SemanticStageAssembly;
-}
-export interface SemanticLifecycleDeclaration {
+};
+export type SemanticLifecycleDeclaration = {
   readonly declarationRef: string;
   readonly sourceDeclarationRef: string;
   readonly taskDataDigest: `sha256:${string}`;
@@ -78,7 +78,7 @@ export interface SemanticLifecycleDeclaration {
   readonly proofPolicies: readonly SemanticProofPolicy[];
   readonly proofShapes: readonly SemanticProofShape[];
   readonly stages: readonly SemanticStageDeclaration[];
-}
+};
 
 export const POLICY_SCHEMA = v.strictObject({ policyRef: ref, sourceRequirementRef: ref, sourceBindings,
   scope: ref, realizationMeaning: strings, proofMeaning: strings, unprovedScope: strings,
@@ -141,7 +141,7 @@ export function semanticLifecycleRefForProgram(publication: Readonly<ModulePubli
 export function validSemanticProgramOwners(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>,
   lifecyclePublication: Readonly<ModulePublication>, sourcePublication: Readonly<ModulePublication>): boolean {
   if (lifecyclePublication.semanticJobLifecycle !== undefined)
-    return canonicalEquals(sourcePublication as unknown as JsonValue, lifecyclePublication as unknown as JsonValue) &&
+    return canonicalEquals(sourcePublication, lifecyclePublication) &&
       validSemanticJobProgramOwners(publication, program, lifecyclePublication);
   const ref = semanticLifecycleRefForProgram(publication, program);
   return ref !== undefined && lifecyclePublication.semanticLifecycle?.declarationRef === ref &&

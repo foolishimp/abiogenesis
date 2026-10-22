@@ -14,6 +14,7 @@ import {
 import {
   admitExactDefinitionCall, definitionFault, isRecord, sameJson,
 } from "../public/binding/definition_binding_mechanics.js";
+import { admitJson } from "../shared/admit/index.js";
 import type { DefinitionCall, ExactDefinitionCallable } from "../shared/effect_definition.js";
 import {
   projectWorkspaceEnvironmentFromArtifactTruth,
@@ -131,17 +132,17 @@ export const admissionAuthorityResourceStructure = v.strictObject({
   authority: RESOLVED_ADMISSION_AUTHORITY_SCHEMA,
   grants: v.array(jsonValueSchema),
 });
-export interface AdmissionAuthorityResource {
+export type AdmissionAuthorityResource = {
   readonly basis: AdmissionCapabilityData;
   readonly authority: ResolvedAdmissionAuthority;
   readonly grants: readonly CapabilityGrant[];
-}
+};
 export type AdmissionAuthorizedResources<R> = R & {
   readonly admissionAuthority: AdmissionAuthorityResource;
 };
 
-function digest(value: unknown) {
-  return sha256Canonical(value as JsonValue);
+function digest(value: JsonValue) {
+  return sha256Canonical(value);
 }
 
 /** Exact request/resource scope. Grant coordinates are the output, not an input. */
@@ -306,8 +307,11 @@ export function withAdmissionAuthority<P extends OwnerContractSourceDeclaration,
         }
         const parsed = v.parse(admissionAuthorityResourceStructure, call.resources.admissionAuthority);
         const { admissionAuthority: _authority, ...resources } = call.resources;
-        if (!sameJson(parsed.basis.request, call.invocation.request) ||
-            parsed.basis.resourceScope.resourcesDigest !== digest(resources) ||
+        // The resource scope digest is taken over the admitted I-JSON resources;
+        // resources that are not I-JSON differ from the approved scope.
+        const admittedResources = admitJson(resources);
+        if (admittedResources.kind !== "ok" || !sameJson(parsed.basis.request, call.invocation.request) ||
+            parsed.basis.resourceScope.resourcesDigest !== digest(admittedResources.value) ||
             !sameJson(parsed.basis.resourceScope.authoritySlots, admissionAuthoritySlots(call.invocation.invocationAuthority.slots))) {
           throw new TypeError("admission resources differ from the approved request and authority scope");
         }

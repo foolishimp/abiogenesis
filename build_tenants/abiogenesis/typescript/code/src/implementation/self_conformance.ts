@@ -27,8 +27,8 @@ export function realizeSelfConformance(input: Readonly<Record<string, JsonValue>
         return owner === null || owner.nativeBasis.cCallRef !== occurrence.cCallRef ? null : evaluateSelfConformance(input, owner);
       })();
   if (result === null || result.owner.nativeBasis.cCallRef !== occurrence.cCallRef) throw new TypeError("self-conformance requires current admitted owner basis");
-  const resultCandidate = result as unknown as Readonly<Record<string, JsonValue>>;
+  const resultCandidate = result;
   return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
     resultCandidate, evidenceCandidates: [{ kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0",
-      implementationRef: ids.implementationRef, inputDigest: sha256Canonical(input as unknown as JsonValue), outputDigest: sha256Canonical(resultCandidate) }] });
+      implementationRef: ids.implementationRef, inputDigest: sha256Canonical(input), outputDigest: sha256Canonical(resultCandidate) }] });
 }

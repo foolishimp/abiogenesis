@@ -22,7 +22,7 @@ import { assertDurableRuntimePrefixBytes,type DurablePrefixCoordinate } from "..
 import { QUALIFICATION_PROOF_RESOURCE_SCHEMA,type QualificationProofResource,type QualificationEvidenceSelection } from "../validator/qualification_contracts.js";
 import { isQualificationBasisReady } from "../validator/qualification.js";
 import { refDigestSchema,admitRuntimeContract } from "../shared/public_function_contracts.js";
-import { canonicalEquals } from "../shared/value/index.js";
+import { canonicalEquals, presentMember } from "../shared/value/index.js";
 const exec=promisify(execFile);
 /** Output-only field selection shared by the physical snapshot and its bounded
  * copy check. It does not authenticate or reevaluate qualification. */
@@ -110,7 +110,7 @@ export async function publishReleaseSnapshot(request:PublishedRcSnapshotRequest,
   await copy(grant.artifact.snapshotName,artifact);await copy("release-claim",claim);
   const snapshot={kind:"release_snapshot_manifest",schemaVersion:"5.0.0",identity,sourceCommit,sourceTree,projectSubtree:".",artifact:basis.artifact,productManifest:basis.productManifest,productContentDigest:basis.productContentDigest,
    qualificationBasis:{ref:basis.basisRef,digest:basis.basisDigest},lawBasis:request.lawBasis,verdict:request.verdict,...verificationFields,packageIdentity:{productId:identity.productId,packageName:grant.artifact.packageName,version:identity.version},sourceRef:rcRef,predecessorRefs:remote,buildCommand:grant.buildCommand,packCommand:grant.packCommand,files:[...snapshotFiles]};
-  const manifestBytes=Buffer.from(canonicalJson(snapshot as unknown as JsonValue)+"\n");await copy("release-snapshot.json",manifestBytes);snapshotManifest={ref:pathToFileURL(join(grant.snapshotRoot,"release-snapshot.json")).href,digest:sha256Bytes(manifestBytes)};
+  const manifestBytes=Buffer.from(canonicalJson(snapshot)+"\n");await copy("release-snapshot.json",manifestBytes);snapshotManifest={ref:pathToFileURL(join(grant.snapshotRoot,"release-snapshot.json")).href,digest:sha256Bytes(manifestBytes)};
   await copy("SHA256SUMS",Buffer.from(snapshotFiles.map(f=>`${f.digest.slice(7)}  ${f.path}\n`).join("")));unknownEffects.pop();
   phase="remote_push";unknownEffects.push("atomic remote ref publication");
   await git(grant.sourceRoot,["push","--atomic","--porcelain",...updates.map(row=>`--force-with-lease=${row.ref}:${remote.find(r=>r.ref===row.ref)?.object??""}`),grant.remote,...updates.map(row=>`${row.ref}:${row.ref}`)]);
@@ -152,26 +152,26 @@ export function isReleaseOperationArtifact(value:unknown):value is ReleaseOperat
  let environment;
  try { environment=approved.basis.boundEnvironment===null?null:admitCapabilityEnvironment(approved.basis.boundEnvironment,null,false); }
  catch { return false; }
- if(!canonicalEquals(approved.grants, grants as unknown as JsonValue)||!canonicalEquals(approved.basis.request, a.request)||approved.basis.resourceScope.resourcesDigest!==a.resourceDigest||
+ if(!canonicalEquals(approved.grants, grants)||!canonicalEquals(approved.basis.request, a.request)||approved.basis.resourceScope.resourcesDigest!==a.resourceDigest||
     !canonicalEquals(approved.basis.resourceScope.authoritySlots, admissionAuthoritySlots(slots))||approved.basis.definition.definitionDigest!==a.invocation.definitionDigest||
-    environment?.workspaceAuthorityBasis.authorizedActorRef!==a.actorRef||!canonicalEquals(environment?.prefix as unknown as JsonValue, a.entryPrefix)||
+    environment?.workspaceAuthorityBasis.authorizedActorRef!==a.actorRef||!canonicalEquals(environment?.prefix, a.entryPrefix)||
     authority.actorRef!==a.actorRef||authority.authority.value.actorRef!==a.actorRef||authority.approval.value.actorRef!==a.actorRef||
     authority.authority.digest!==sha256Canonical(authority.authority.value)||authority.approval.digest!==sha256Canonical(authority.approval.value)||
     authority.approval.value.definitionDigest!==a.invocation.definitionDigest||authority.approval.value.requestDigest!==a.invocation.invocationPayloadDigest||authority.approval.value.scopeDigest!==scope.digest||
-    a.resourceDigest!==sha256Canonical(releaseArtifactResources(a) as unknown as JsonValue)||
+    a.resourceDigest!==sha256Canonical(releaseArtifactResources(a))||
     grants.some(g=>g.scopeRef!==scope.ref||g.scopeDigest!==scope.digest||g.approvalRef!==authority.approval.ref||g.approvalDigest!==authority.approval.digest||g.authorityBasisRef!==authority.authority.ref||g.authorityBasisDigest!==authority.authority.digest))return false;
- if(!canonicalEquals(slots.capability_grants as JsonValue, {requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))})||grants.some(g=>g.actorRef!==a.actorRef||g.definitionDigest!==a.invocation.definitionDigest||!canonicalEquals(g.definitionKey as unknown as JsonValue, p.definitionKey as JsonValue)))return false;
+ if((slots.capability_grants === undefined || !canonicalEquals(slots.capability_grants, {requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))}))||grants.some(g=>g.actorRef!==a.actorRef||g.definitionDigest!==a.invocation.definitionDigest||(p.definitionKey === undefined || !canonicalEquals(g.definitionKey, p.definitionKey))))return false;
  return isExactOperationInvocationCoordinate(a.invocation)&&canonicalEquals(a.scope, a.memberKey==="published_rc"?releaseAuthorityScope(a.request,a.proof,a.selection,a.effectGrant):releaseAcceptanceScope(a.request,a.proof,a.selection,a.effectGrant))&&
   (a.memberKey==="published_rc"||releaseRulingDecision(a.request,a.publication,a.ruling,a.effectGrant)===a.decision&&
     (a.observation.disposition!=="complete"||a.addendum!==null))&&
   isRecord(p)&&p.invocationRef===a.invocation.invocationRef&&p.definitionDigest===a.invocation.definitionDigest&&p.requestDigest===a.invocation.invocationPayloadDigest&&
-  canonicalEquals(p.request as JsonValue, a.request)&&isRecord(p.invocationAuthority)&&isRecord(p.invocationAuthority.slots)&&
-  canonicalEquals(p.invocationAuthority.slots.workspace_binding as JsonValue, a.workspaceBinding)&&canonicalEquals(p.invocationAuthority.slots.product_set as JsonValue, a.productSet)&&
-  canonicalEquals(p.invocationAuthority.slots.dependency_lock as JsonValue, a.dependencyLock)&&canonicalEquals(p.invocationAuthority.slots.capability_grants as JsonValue, a.capabilityGrants)&&
+  p.request !== undefined && canonicalEquals(p.request, a.request)&&isRecord(p.invocationAuthority)&&isRecord(p.invocationAuthority.slots)&&
+  p.invocationAuthority.slots.workspace_binding !== undefined && canonicalEquals(p.invocationAuthority.slots.workspace_binding, a.workspaceBinding)&&p.invocationAuthority.slots.product_set !== undefined && canonicalEquals(p.invocationAuthority.slots.product_set, a.productSet)&&
+  p.invocationAuthority.slots.dependency_lock !== undefined && canonicalEquals(p.invocationAuthority.slots.dependency_lock, a.dependencyLock)&&p.invocationAuthority.slots.capability_grants !== undefined && canonicalEquals(p.invocationAuthority.slots.capability_grants, a.capabilityGrants)&&
   isRecord(p.invocationAuthority.slots.actor)&&isRecord(p.invocationAuthority.slots.actor.actor)&&p.invocationAuthority.slots.actor.actor.ref===a.actorRef;
 }
 export function readReleaseArtifactBytes(path:string,coordinate:ReferenceDigest):ReleaseOperationArtifact|null{
- try{const bytes=readFileSync(path),value:unknown=JSON.parse(bytes.toString("utf8"));return isReleaseOperationArtifact(value)&&canonicalEquals(releaseArtifactCoordinate(value), coordinate as unknown as JsonValue)&&bytes.toString("utf8")===canonicalJson(value as unknown as JsonValue)?value:null;}catch{return null;}
+ try{const bytes=readFileSync(path),value:unknown=JSON.parse(bytes.toString("utf8"));return isReleaseOperationArtifact(value)&&canonicalEquals(releaseArtifactCoordinate(value), coordinate)&&bytes.toString("utf8")===canonicalJson(value)?value:null;}catch{return null;}
 }
 
 /** The resource body is conserved once across live admission and historical reads. */
@@ -193,12 +193,12 @@ export function releaseAcceptancePublicationMatches(request:TappedReleaseSnapsho
  const selected=rows.filter(r=>r.operationId==="abg.operation.release.snapshot"&&r.memberKey==="published_rc"&&
   canonicalEquals({ref:r.artifactRef,digest:r.artifactDigest}, request.acceptedRc));
  const basis=request.qualificationBasis,published=publication.request.qualificationBasis;
- if(selected.length!==1||!canonicalEquals(selected[0]!.artifact, publication as unknown as JsonValue)||publication.observation.disposition!=="complete"||
+ if(selected.length!==1||!canonicalEquals(selected[0]!.artifact, publication)||publication.observation.disposition!=="complete"||
     publication.observation.snapshotManifest===null||!canonicalEquals(releaseArtifactCoordinate(publication), request.acceptedRc)||
     !canonicalEquals(request.requestedIdentity, publication.request.requestedIdentity)||basis.subjectKind!=="installed_rc"||
     !["artifact","productManifest","productContentDigest","productId","productVersion"].every(key=>canonicalEquals(basis[key as keyof typeof basis], published[key as keyof typeof published])))return false;
  const prior=rows.filter(r=>r.operationId==="abg.operation.release.snapshot"&&r.memberKey==="tapped_release"&&
-  isRecord(r.artifact)&&isRecord(r.artifact.request)&&canonicalEquals(r.artifact.request.acceptedRc as JsonValue, request.acceptedRc)).at(-1);
+  isRecord(r.artifact)&&isRecord(r.artifact.request)&&canonicalEquals(presentMember(r.artifact.request.acceptedRc), request.acceptedRc)).at(-1);
  return prior===undefined?request.predecessor===null:canonicalEquals(request.predecessor, {ref:prior.artifactRef,digest:prior.artifactDigest})&&
   isRecord(prior.artifact)&&isRecord(prior.artifact.observation)&&prior.artifact.observation.disposition==="complete";
 }
@@ -242,7 +242,7 @@ export async function recordReleaseAcceptance(request:TappedReleaseSnapshotReque
   requireRelation(resolve(grant.addendumRoot)!==resolve(grant.artifactOutputRoot)&&!inside(grant.addendumRoot,grant.artifactOutputRoot)&&!inside(grant.artifactOutputRoot,grant.addendumRoot),"addendum and observation territories overlap");
   const body={kind:"same_rc_owner_ruling_addendum",schemaVersion:"5.0.0",request:releaseAcceptanceRequest(request,publication,grant.humanAuthority,grant.requiredEvidence),
    ruling,sourceApproval:grant.sourceApproval,decision,publication:request.acceptedRc,qualification:request.verdict,predecessor:request.predecessor};
-  const bytes=Buffer.from(canonicalJson(body as unknown as JsonValue)),digest=sha256Bytes(bytes),file=join(grant.addendumRoot,digest.slice(7)+".json");
+  const bytes=Buffer.from(canonicalJson(body)),digest=sha256Bytes(bytes),file=join(grant.addendumRoot,digest.slice(7)+".json");
   phase="addendum_write";unknownEffects.push(file);await mkdir(grant.addendumRoot,{recursive:true});await writeFile(file,bytes,{flag:"wx"});
   unknownEffects.pop();addendum={ref:pathToFileURL(file).href,digest};effects.push({kind:"owner_ruling_addendum",ref:addendum.ref,digest});
   phase="addendum_readback";requireRelation(sha256Bytes(await readFile(file))===digest,"written addendum differs from original ruling");

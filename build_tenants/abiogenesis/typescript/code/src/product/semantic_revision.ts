@@ -2,6 +2,7 @@ import { SEMANTIC_REVISION_IDS as ids } from "../gtl/semantic_revision_identity.
 import { isRetainedGraphInput, constructRetainedGraphInput } from "./worksite_preparation_contracts.js";
 import * as v from "valibot";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { admitJson } from "../shared/admit/index.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { RequirementTerm, GtlContractFulfillmentBinding } from "../gtl/requirement_handoff.js";
@@ -18,41 +19,41 @@ import { isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type Workspace
 import { isCapabilityGrantValue, type CapabilityGrant } from "./invocation.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+const hash = (x: JsonValue) => sha256Canonical(x);
 const ref = v.pipe(v.string(), v.minLength(1));
 const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/));
 const refs = v.array(ref);
-export interface SemanticRevisionCoordinate {
+export type SemanticRevisionCoordinate = {
   readonly cCallRef: string; readonly resultRef: string; readonly resultDigest: Sha256Digest;
   readonly resultAdmissionEventRef: string; readonly judgmentEventRef: string;
-}
+};
 const coordinate = v.strictObject({ cCallRef: ref, resultRef: ref, resultDigest: digest,
   resultAdmissionEventRef: ref, judgmentEventRef: ref });
-export interface NativeSemanticRevisionIntake {
+export type NativeSemanticRevisionIntake = {
   readonly kind: "native_semantic_revision_intake";
   readonly schemaVersion: "5.0.0";
   readonly sourceRun: { readonly ref: string; readonly digest: Sha256Digest };
   readonly sourcePrefix: DurablePrefixCoordinate;
-}
+};
 export function isNativeSemanticRevisionIntake(value: unknown): value is NativeSemanticRevisionIntake {
   return v.is(v.strictObject({ kind: v.literal("native_semantic_revision_intake"), schemaVersion: v.literal("5.0.0"),
     sourceRun: v.strictObject({ ref, digest }), sourcePrefix: v.custom(validateDurablePrefixCoordinate) }), value);
 }
-export interface SemanticRevisionSelection {
+export type SemanticRevisionSelection = {
   readonly kind: "semantic_revision_selection"; readonly schemaVersion: "5.0.0";
   readonly parent: SemanticRevisionCoordinate; readonly causes: readonly SemanticRevisionCoordinate[];
   readonly mode: "construction_repair" | "stage_revision";
   readonly selectedStageRef: string | null; readonly selectedObligationRefs: readonly string[];
   readonly selectedTargetRefs: readonly string[]; readonly reasonRef: string;
   readonly nativePhase?: "preconstruction" | "postconstruction";
-}
+};
 const selectionSchema = v.strictObject({ kind: v.literal("semantic_revision_selection"), schemaVersion: v.literal("5.0.0"),
   parent: coordinate, causes: v.pipe(v.array(coordinate), v.minLength(1)), mode: v.picklist(["construction_repair", "stage_revision"]),
   selectedStageRef: v.nullable(ref), selectedObligationRefs: refs, selectedTargetRefs: refs, reasonRef: ref,
   nativePhase: v.optional(v.picklist(["preconstruction", "postconstruction"])) });
 /** Native observation evidence stays native. This is an input to authenticate,
  * not a synthetic C0/C1 worksite or a new currentness owner. */
-export interface NativeSemanticRevisionWorksite {
+export type NativeSemanticRevisionWorksite = {
   readonly kind: "native_semantic_revision_worksite";
   readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
   readonly workspaceBinding: WorkspaceBinding;
@@ -62,7 +63,7 @@ export interface NativeSemanticRevisionWorksite {
   readonly construction: SemanticRevisionCoordinate | null;
   readonly source: NativeSemanticRevisionIntake;
   readonly acquisition?: SemanticRevisionCoordinate;
-}
+};
 export function isNativeSemanticRevisionWorksite(value: unknown): value is NativeSemanticRevisionWorksite {
   if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
   const x = value as NativeSemanticRevisionWorksite;
@@ -77,7 +78,7 @@ export function isNativeSemanticRevisionWorksite(value: unknown): value is Nativ
     x.context.workspaceAuthorityBasisDigest === x.workspaceAuthorityBasis.authorityBasisDigest &&
     x.context.workspaceBindingIdentity === x.workspaceBinding.bindingId && x.context.workspaceBindingDigest === x.workspaceBinding.bindingDigest;
 }
-export interface SemanticRevisionRequest {
+export type SemanticRevisionRequest = {
   readonly kind: "semantic_revision_request"; readonly schemaVersion: "5.0.0";
   readonly parent: SemanticRevisionCoordinate; readonly causes: readonly SemanticRevisionCoordinate[];
   readonly selection: SemanticRevisionCoordinate;
@@ -86,13 +87,13 @@ export interface SemanticRevisionRequest {
     { readonly mode: "stage_revision"; readonly selectedStageRef: string; readonly entryRole?: "author" | "assessor" };
   readonly currentWorksite: SemanticWorksiteBasis | null;
   readonly nativeWorksite?: NativeSemanticRevisionWorksite;
-}
-export interface SemanticRevisionSelectionInput {
+};
+export type SemanticRevisionSelectionInput = {
   readonly kind: "semantic_revision_selection_input"; readonly schemaVersion: "5.0.0";
   readonly parent: SemanticRevisionCoordinate; readonly causes: readonly SemanticRevisionCoordinate[];
   readonly currentWorksite: SemanticWorksiteBasis | null;
   readonly nativeWorksite?: NativeSemanticRevisionWorksite;
-}
+};
 const selectionInputSchema = v.strictObject({ kind: v.literal("semantic_revision_selection_input"), schemaVersion: v.literal("5.0.0"),
   parent: coordinate, causes: v.pipe(v.array(coordinate), v.minLength(1)), currentWorksite: v.unknown(), nativeWorksite: v.optional(v.unknown()) });
 export function isSemanticRevisionSelectionInput(x: unknown): x is SemanticRevisionSelectionInput {
@@ -105,16 +106,16 @@ export function isSemanticRevisionSelectionInput(x: unknown): x is SemanticRevis
 export function semanticRevisionSelectionInputMatchesRequest(input: unknown, request: SemanticRevisionRequest): boolean {
   try {
     if (!isSemanticRevisionSelectionInput(input) || !isSemanticRevisionRequest(request) ||
-      !canonicalEquals(input.parent as unknown as JsonValue, request.parent as unknown as JsonValue) || !canonicalEquals(input.causes as unknown as JsonValue, request.causes as unknown as JsonValue)) return false;
+      !canonicalEquals(input.parent, request.parent) || !canonicalEquals(input.causes, request.causes)) return false;
     if (input.nativeWorksite !== undefined || request.nativeWorksite !== undefined) {
       if (input.nativeWorksite === undefined || request.nativeWorksite === undefined) return false;
       const { capabilityGrant: _selectedGrant, acquisition: _selectedAcquisition, ...selected } = input.nativeWorksite;
       const { capabilityGrant: _currentGrant, acquisition: _currentAcquisition, ...current } = request.nativeWorksite;
-      return canonicalEquals(selected as unknown as JsonValue, current as unknown as JsonValue);
+      return canonicalEquals(selected, current);
     }
     if (input.currentWorksite === null || request.currentWorksite === null) return input.currentWorksite === request.currentWorksite;
     const projected = projectSemanticWorksiteCoordinates(input.currentWorksite, request.currentWorksite);
-    return projected !== null && canonicalEquals(projected as unknown as JsonValue, request.currentWorksite as unknown as JsonValue);
+    return projected !== null && canonicalEquals(projected, request.currentWorksite);
   } catch { return false; }
 }
 export function semanticRevisionSelectionSchema(nativePhase?: "preconstruction" | "postconstruction"): Readonly<Record<string, JsonValue>> {
@@ -136,18 +137,18 @@ function requestChoiceMatchesSelection(request: SemanticRevisionRequest, selecti
   return request.selectionChoice === undefined || request.selectionChoice.mode === selection.mode &&
     request.selectionChoice.selectedStageRef === selection.selectedStageRef;
 }
-export interface SemanticRevisionBasis {
+export type SemanticRevisionBasis = {
   readonly basisRef: string; readonly basisDigest: Sha256Digest;
   readonly request: SemanticRevisionRequest; readonly selection: SemanticRevisionSelection;
   readonly affectedStageRefs: readonly string[]; readonly preservedAssetRefs: readonly string[];
   readonly retainedTerms: readonly RequirementTerm[];
   readonly retainedBindings: readonly GtlContractFulfillmentBinding[];
   readonly parentRevisionRef: string | null;
-}
-export interface SemanticRevisionEnvelope {
+};
+export type SemanticRevisionEnvelope = {
   readonly kind: "semantic_revision_envelope"; readonly schemaVersion: "5.0.0";
   readonly revisionBasis: SemanticRevisionBasis; readonly current: SemanticStageEnvelope;
-}
+};
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 export function isSemanticRevisionSelection(x: unknown): x is SemanticRevisionSelection {
   return v.is(selectionSchema, x) && unique(x.causes.map(c => c.resultRef)) && unique(x.selectedObligationRefs) &&
@@ -179,16 +180,16 @@ export function isSemanticRevisionEnvelope(x: unknown): x is SemanticRevisionEnv
       basisRef === `semantic-revision://abiogenesis/${basisDigest.slice(7)}`;
   } catch { return false; }
 }
-function merge<T>(xs: readonly T[], key: (x: T) => string): readonly T[] | null {
+function merge<T extends JsonValue>(xs: readonly T[], key: (x: T) => string): readonly T[] | null {
   const rows = new Map<string, T>();
-  for (const x of xs) { const prior = rows.get(key(x)); if (prior !== undefined && !canonicalEquals(prior as unknown as JsonValue, x as unknown as JsonValue)) return null; rows.set(key(x), x); }
+  for (const x of xs) { const prior = rows.get(key(x)); if (prior !== undefined && !canonicalEquals(prior, x)) return null; rows.set(key(x), x); }
   return [...rows.values()];
 }
 /** Pure projection only. ABG must authenticate every input and regenerate this value before admission. */
 export function deriveSemanticRevision(parent: SemanticStageEnvelope | SemanticRevisionEnvelope,
   request: SemanticRevisionRequest, selection: SemanticRevisionSelection): Readonly<SemanticRevisionEnvelope> | null {
   if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || !requestChoiceMatchesSelection(request, selection) || request.nativeWorksite !== undefined || selection.nativePhase !== undefined ||
-    !canonicalEquals(request.parent as unknown as JsonValue, selection.parent as unknown as JsonValue) || !canonicalEquals(request.causes as unknown as JsonValue, selection.causes as unknown as JsonValue)) return null;
+    !canonicalEquals(request.parent, selection.parent) || !canonicalEquals(request.causes, selection.causes)) return null;
   const priorRevision = isSemanticRevisionEnvelope(parent) ? parent : null;
   const prior = priorRevision?.current ?? parent as SemanticStageEnvelope;
   if (!isSemanticStageEnvelope(prior)) return null;
@@ -228,11 +229,11 @@ export function deriveRevisionAssessment(input: SemanticRevisionEnvelope, stageR
 }
 
 /** Closed job arm; legacy fixed binding equality above is unchanged. */
-export interface SemanticJobRevisionEnvelope {
+export type SemanticJobRevisionEnvelope = {
   readonly kind: "semantic_revision_envelope"; readonly schemaVersion: "5.0.0";
   readonly revisionBasis: SemanticRevisionBasis & { readonly historicalAssets: readonly SemanticJobAsset[] };
   readonly current: SemanticJobEnvelope;
-}
+};
 export function isSemanticJobRevisionEnvelope(x: unknown): x is SemanticJobRevisionEnvelope {
   try {
     if (x === null || typeof x !== "object" || Array.isArray(x)) return false;
@@ -247,8 +248,11 @@ export function isSemanticJobRevisionEnvelope(x: unknown): x is SemanticJobRevis
     return basisDigest === hash(body) && basisRef === `semantic-revision://abiogenesis/${basisDigest.slice(7)}` &&
       unique(b.historicalAssets.map(a => a.assetRef)) && unique(b.affectedStageRefs) && unique(b.preservedAssetRefs) &&
       unique(b.retainedTerms.map(t => t.requirementRef)) && active !== null &&
-      b.retainedBindings.every(binding => e.current.bindingVersions.some(version => canonicalEquals(version.binding as unknown as JsonValue, binding as JsonValue))) &&
-      e.current.assets.filter(a => b.preservedAssetRefs.includes(a.assetRef)).every(a => b.historicalAssets.some(h => canonicalEquals(h as unknown as JsonValue, a as unknown as JsonValue)));
+      b.retainedBindings.every((binding: unknown) => {
+        const admittedBinding = admitJson(binding);
+        return admittedBinding.kind === "ok" && e.current.bindingVersions.some(version => canonicalEquals(version.binding, admittedBinding.value));
+      }) &&
+      e.current.assets.filter(a => b.preservedAssetRefs.includes(a.assetRef)).every(a => b.historicalAssets.some(h => canonicalEquals(h, a)));
   } catch { return false; }
 }
 export function deriveSemanticJobRevision(parent: SemanticJobEnvelope | SemanticJobRevisionEnvelope,
@@ -262,7 +266,7 @@ export function deriveSemanticJobRevision(parent: SemanticJobEnvelope | Semantic
     if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || !requestChoiceMatchesSelection(request, selection) ||
       (native === undefined ? !isSemanticWorksiteBasis(worksite) || historicalWorksite === null || selection.nativePhase !== undefined :
         worksite !== null || selection.nativePhase !== (native.construction === null ? "preconstruction" : "postconstruction")) ||
-      !canonicalEquals(request.parent as unknown as JsonValue, selection.parent as unknown as JsonValue) || !canonicalEquals(request.causes as unknown as JsonValue, selection.causes as unknown as JsonValue)) return null;
+      !canonicalEquals(request.parent, selection.parent) || !canonicalEquals(request.causes, selection.causes)) return null;
     const priorRevision = isSemanticJobRevisionEnvelope(parent) ? parent : null;
     const prior = priorRevision?.current ?? parent as SemanticJobEnvelope;
     if (!isSemanticJobEnvelope(prior)) return null;
@@ -281,7 +285,7 @@ export function deriveSemanticJobRevision(parent: SemanticJobEnvelope | Semantic
         selection.mode !== "stage_revision" || selection.selectedTargetRefs.length !== 0 ||
         selection.selectedStageRef !== operationalFailedStage.declarationRef ||
         prior.declaration.stages[stageIndex] === undefined ||
-        !canonicalEquals(operationalFailedStage as unknown as JsonValue, prior.declaration.stages[stageIndex] as unknown as JsonValue) ||
+        !canonicalEquals(operationalFailedStage, prior.declaration.stages[stageIndex]) ||
         (operationalRole === "assessor" ? pending === undefined || pending.stageRef !== operationalFailedStage.declarationRef ||
           pending.assessment !== null || !prior.assets.slice(0, -1).every(a => a.assessment?.disposition === "satisfied") :
           !prior.assets.every(a => a.assessment?.disposition === "satisfied")) ||
@@ -331,9 +335,9 @@ export function nativeSemanticRevisionConstruction(input: SemanticJobRevisionEnv
     selection.selectedTargetRefs.includes(target.relativePath) || selection.mode === "stage_revision" &&
     (target.obligationRefs.some(ref => selection.selectedObligationRefs.includes(ref)) ||
       !previous.some(old => old.relativePath === target.relativePath && canonicalEquals(old, target)))).map(t => t.relativePath);
-  return { selectedPaths, executionLimits: input.revisionBasis.request.nativeWorksite!.commandExecutionLimits, feedback: { selection: selection as unknown as JsonValue,
-    historicalAssets: input.revisionBasis.historicalAssets as unknown as JsonValue,
-    retainedTerms: input.revisionBasis.retainedTerms as unknown as JsonValue } };
+  return { selectedPaths, executionLimits: input.revisionBasis.request.nativeWorksite!.commandExecutionLimits, feedback: { selection: selection,
+    historicalAssets: input.revisionBasis.historicalAssets,
+    retainedTerms: input.revisionBasis.retainedTerms } };
 }
 export function constructNativeRevisionConstructionTask(input: SemanticJobRevisionEnvelope, operating: NativeSemanticOperating | undefined = input.revisionBasis.request.nativeWorksite) {
   const native = input.revisionBasis.request.nativeWorksite;
@@ -341,7 +345,7 @@ export function constructNativeRevisionConstructionTask(input: SemanticJobRevisi
   return constructNativeSemanticConstructionTask(input.current, operating, input.current.context, nativeSemanticRevisionConstruction(input));
 }
 export function constructNativeRevisionExecutionTask(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation) {
-  if (!isNativeWorkspaceWorkObservation(source) || !canonicalEquals(source.task as unknown as JsonValue, constructNativeRevisionConstructionTask(input, {...input.revisionBasis.request.nativeWorksite!, ...source.task}) as unknown as JsonValue))
+  if (!isNativeWorkspaceWorkObservation(source) || !canonicalEquals(source.task, constructNativeRevisionConstructionTask(input, {...input.revisionBasis.request.nativeWorksite!, ...source.task})))
     throw new TypeError("actual selected native revision construction required");
   return constructNativeSemanticExecutionTask(input.current, source, nativeSemanticRevisionConstruction(input));
 }
@@ -351,14 +355,14 @@ export function deriveNativeRevisionEvidence(input: SemanticJobRevisionEnvelope,
   command: Pick<SemanticRevisionCoordinate, "resultRef" | "resultDigest">): SemanticJobRevisionEnvelope | null {
   try {
     if (!isSemanticJobRevisionEnvelope(input) || !isNativeWorksiteCommandExecutionObservation(execution) ||
-      !canonicalEquals(execution.task as unknown as JsonValue, constructNativeRevisionExecutionTask(input, execution.task.sourceNativeWork) as unknown as JsonValue)) return null;
+      !canonicalEquals(execution.task, constructNativeRevisionExecutionTask(input, execution.task.sourceNativeWork))) return null;
     const artifacts = nativeSemanticEvidenceArtifacts(input.current, execution, nativeSemanticRevisionConstruction(input));
     if (artifacts === null) return null;
     return deepFreeze({ ...input, current: { ...input.current, context: execution.task.sourceNativeWork.after, worksite: null,
       evidence: { kind: "semantic_worksite_evidence", constructionResultRef: construction.resultRef, constructionResultDigest: construction.resultDigest,
         executionResultRef: command.resultRef, executionResultDigest: command.resultDigest,
-        constructionResult: execution.task.sourceNativeWork as unknown as Readonly<Record<string, JsonValue>>,
-        executionObservation: execution as unknown as Readonly<Record<string, JsonValue>>, artifacts } } });
+        constructionResult: execution.task.sourceNativeWork,
+        executionObservation: execution, artifacts } } });
   } catch { return null; }
 }
 export function deriveJobRevisionAsset(input: SemanticJobRevisionEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource) {
@@ -382,20 +386,22 @@ export function evaluateNativeSemanticRevisionRelation(predicate: string, input:
   if (!step && !roles.some(ref=>ref===predicate)) return null;
   try {
     if (predicate === ids.nativeIntakePredicateRef || step && isNativeSemanticRevisionIntake(input) && isSemanticRevisionSelectionInput(output))
-      return isNativeSemanticRevisionIntake(input) && isSemanticRevisionSelectionInput(output) && output.nativeWorksite !== undefined && canonicalEquals(input as unknown as JsonValue, output.nativeWorksite.source as unknown as JsonValue);
+      return isNativeSemanticRevisionIntake(input) && isSemanticRevisionSelectionInput(output) && output.nativeWorksite !== undefined && canonicalEquals(input, output.nativeWorksite.source);
     if (predicate === ids.nativeRequestPredicateRef || step && (isSemanticRevisionSelectionInput(input) || isSemanticRevisionSelection(input)) && isSemanticRevisionRequest(output))
       return isSemanticRevisionRequest(output) && output.nativeWorksite?.acquisition !== undefined &&
-        (isSemanticRevisionSelection(input) ? canonicalEquals(input.parent as unknown as JsonValue, output.parent as unknown as JsonValue) && canonicalEquals(input.causes as unknown as JsonValue, output.causes as unknown as JsonValue) && requestChoiceMatchesSelection(output,input) :
+        (isSemanticRevisionSelection(input) ? canonicalEquals(input.parent, output.parent) && canonicalEquals(input.causes, output.causes) && requestChoiceMatchesSelection(output,input) :
           isSemanticRevisionSelectionInput(input) ? semanticRevisionSelectionInputMatchesRequest(input,output) :
-            isNativeSemanticRevisionIntake(input) && canonicalEquals(input as unknown as JsonValue, output.nativeWorksite.source as unknown as JsonValue));
+            isNativeSemanticRevisionIntake(input) && canonicalEquals(input, output.nativeWorksite.source));
     if (step && isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output))
-      return canonicalEquals(input.parent as unknown as JsonValue, output.parent as unknown as JsonValue) && canonicalEquals(input.causes as unknown as JsonValue, output.causes as unknown as JsonValue);
+      return canonicalEquals(input.parent, output.parent) && canonicalEquals(input.causes, output.causes);
     if (predicate === ids.nativeConstructionPredicateRef || step && isSemanticJobRevisionEnvelope(input) && isNativeWorkspaceWorkTask(output))
       return isSemanticJobRevisionEnvelope(input) && isNativeWorkspaceWorkTask(output) &&
-        canonicalEquals(constructNativeRevisionConstructionTask(input,{...input.revisionBasis.request.nativeWorksite!,...output}) as unknown as JsonValue, output as unknown as JsonValue);
-    if (predicate === ids.nativeExecutionPredicateRef || step && isRetainedGraphInput(input) && isNativeWorksiteCommandExecutionTask(output))
-      return isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(input.entry) && isNativeWorkspaceWorkObservation(input.source) &&
-        canonicalEquals(constructNativeRevisionExecutionTask(input.entry,input.source) as unknown as JsonValue, output as JsonValue);
+        canonicalEquals(constructNativeRevisionConstructionTask(input,{...input.revisionBasis.request.nativeWorksite!,...output}), output);
+    if (predicate === ids.nativeExecutionPredicateRef || step && isRetainedGraphInput(input) && isNativeWorksiteCommandExecutionTask(output)) {
+      if (!isRetainedGraphInput(input) || !isSemanticJobRevisionEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return false;
+      const admittedOutput = admitJson(output);
+      return admittedOutput.kind === "ok" && canonicalEquals(constructNativeRevisionExecutionTask(input.entry,input.source), admittedOutput.value);
+    }
     if (predicate === ids.nativeEvidencePredicateRef || step && isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(output)) {
       if (isSemanticJobRevisionEnvelope(input) && isSemanticJobRevisionEnvelope(output) && output.current.evidence !== null)
         input = constructRetainedGraphInput(input,output.current.evidence.executionObservation);
@@ -404,8 +410,8 @@ export function evaluateNativeSemanticRevisionRelation(predicate: string, input:
       return canonicalEquals(
         deriveNativeRevisionEvidence(input.entry,input.source,
           {resultRef:evidence.constructionResultRef,resultDigest:evidence.constructionResultDigest},
-          {resultRef:evidence.executionResultRef,resultDigest:evidence.executionResultDigest}) as unknown as JsonValue,
-        output as unknown as JsonValue,
+          {resultRef:evidence.executionResultRef,resultDigest:evidence.executionResultDigest}),
+        output,
       );
     }
     if (step && isNativeWorkspaceWorkTask(input)) return resolveNativeWorkspaceWorkJudgmentRelation(NATIVE_WORKSPACE_WORK_IDS.judgmentPredicateRef)?.evaluate(input,output) === true;

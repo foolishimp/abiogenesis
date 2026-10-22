@@ -91,7 +91,7 @@ export const RELEASE_OPERATION_CONTRACTS=Object.freeze({snapshot:Object.freeze({
  published_rc:ownerContractPacket({operationId:"abg.operation.release.snapshot",memberKey:"published_rc"} as const,requestSchema,completeSchema,refusalSchema,null,owner("published_rc"),metadata("published_rc")),
  tapped_release:ownerContractPacket({operationId:"abg.operation.release.snapshot",memberKey:"tapped_release"} as const,tappedRequestSchema,tappedCompleteSchema,refusalSchema,null,owner("tapped_release"),metadata("tapped_release")),
 })});
-export const releaseHash=(value:unknown)=>sha256Canonical(value as JsonValue);
+export const releaseHash=(value:JsonValue)=>sha256Canonical(value);
 export function releaseRefusal(memberKey:ReleaseSnapshotMember,code:ReleaseSnapshotRefusal["code"],message:string,observation:ReleasePhysicalObservation|null=null,artifact:ReferenceDigest|null=null):ReleaseSnapshotRefusal{
  return deepFreeze({kind:"release_snapshot_refusal",schemaVersion:"5.0.0",memberKey,disposition:observation?.disposition==="incomplete_effect"?"incomplete_effect":"refused",code,message,artifact,observation});
 }

@@ -91,7 +91,7 @@ export function prepareInteractionResumeTraversalEntry(
     input.executionBasis.graphDigest !== input.graph.materializationDigest ||
     input.executionBasis.closureContractRef !==
       input.closureContract.closureContractRef ||
-    sha256Canonical(input.graphInput as JsonValue) !==
+    sha256Canonical(input.graphInput) !==
       input.graph.admittedInputDigest
   ) {
     return refuseTraversalEntry({
@@ -168,7 +168,7 @@ export function enterTraversal(
         "diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5",
       );
     }
-    if (!canonicalEquals(input.predecessorPrefix as unknown as JsonValue, candidate.successorPrefix as unknown as JsonValue)) {
+    if (!canonicalEquals(input.predecessorPrefix, candidate.successorPrefix)) {
       throw new TypeError(
         "diagnostic://abiogenesis/hog/projected-retry-prefix-mismatch@5",
       );
@@ -261,12 +261,12 @@ export function enterTraversal(
     if (
       traversalCursor === null ||
       targetTerm.kind === "traversal_refusal" ||
-      !canonicalEquals(traversalCursor as unknown as JsonValue, candidate.nextCursor as unknown as JsonValue) ||
-      !canonicalEquals(reprojected.cursor as unknown as JsonValue, candidate.nextCursor as unknown as JsonValue) ||
+      !canonicalEquals(traversalCursor, candidate.nextCursor) ||
+      !canonicalEquals(reprojected.cursor, candidate.nextCursor) ||
       traversalCursor.inputRef !== candidate.inputRef ||
       traversalCursor.inputDigest !== candidate.inputDigest ||
       targetTerm.inputCarrierRef !== candidate.inputContractRef ||
-      sha256Canonical(candidate.inputValue as unknown as JsonValue) !==
+      sha256Canonical(candidate.inputValue) !==
         candidate.inputDigest ||
       (
         materializedTargetInput !== null &&
@@ -319,7 +319,7 @@ export function enterTraversal(
       initialInput.resume.cursor.graphRef !== input.graph.materializationRef ||
       initialInput.resume.cursor.inputDigest !== initialInput.resume.inputDigest ||
       initialInput.resume.cursor.retryPath.length !== 0 ||
-      sha256Canonical(initialInput.resume.input as unknown as JsonValue) !==
+      sha256Canonical(initialInput.resume.input) !==
         initialInput.resume.inputDigest
     ) {
       return failEntry(
@@ -370,7 +370,7 @@ export function enterTraversal(
       input.predecessorPrefix,
       "initial-traversal-refusal",
       `diagnostic://abiogenesis/hog/${stop.code}@5`,
-      stop as unknown as JsonValue,
+      stop,
     );
   }
   const initialCursor = stop.kind === "traversal_stop_ref" ? stop.cursor : stop;
@@ -421,7 +421,7 @@ export function enterTraversal(
         input.predecessorPrefix,
         "cursor-refusal",
         `diagnostic://abiogenesis/hog/${cursorAdmission.code}@5`,
-        cursorAdmission as unknown as JsonValue,
+        cursorAdmission,
       );
     }
     activeRuntime = Object.freeze({

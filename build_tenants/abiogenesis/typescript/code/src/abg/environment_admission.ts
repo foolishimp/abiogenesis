@@ -297,7 +297,7 @@ function rehydrateProductInstallRowFromRows(
       authorityScopeRef: candidate.installId,
       authorityScopeDigest: candidate.productContentDigest,
       artifactRef: candidate.installId,
-      artifactDigest: sha256Canonical(candidate as unknown as JsonValue),
+      artifactDigest: sha256Canonical(candidate),
       invocationRef: row.invocationRef,
       admissionEventRef: row.admissionEventRef,
     }) === null
@@ -436,7 +436,7 @@ export type ExactPrefixWorkspaceEnvironmentRefusalCode =
   | "product_set_invalid"
   | "workspace_binding_invalid";
 
-export interface ExactPrefixWorkspaceEnvironment {
+export type ExactPrefixWorkspaceEnvironment = {
   readonly kind: "exact_prefix_workspace_environment";
   readonly schemaVersion: "5.0.0";
   readonly prefix: DurablePrefixCoordinate;
@@ -447,7 +447,7 @@ export interface ExactPrefixWorkspaceEnvironment {
   readonly productInstalls: readonly ProductInstall[];
   readonly resolvedProductLock: ResolvedProductLock;
   readonly productSet: ProductSet;
-}
+};
 
 export interface ExactPrefixWorkspaceEnvironmentRefusal {
   readonly kind: "exact_prefix_workspace_environment_refusal";
@@ -586,8 +586,8 @@ function deriveWorkspaceEnvironment(
     resolvedProductLock === undefined ||
     resolvedLocks.some((lock) =>
       !canonicalEquals(
-        lock as unknown as JsonValue,
-        resolvedProductLock as unknown as JsonValue,
+        lock,
+        resolvedProductLock,
       )
     )
   ) {
@@ -617,8 +617,8 @@ function deriveWorkspaceEnvironment(
   if (
     bindingTruth === null ||
     !canonicalEquals(
-      bindingTruth.installAdmissionEventRefs as unknown as JsonValue,
-      bindingRow.causationEventRefs as unknown as JsonValue,
+      bindingTruth.installAdmissionEventRefs,
+      bindingRow.causationEventRefs,
     )
   ) {
     return exactPrefixEnvironmentRefusal(
@@ -661,7 +661,7 @@ export function hasAdmittedProductInstall(
     authorityScopeRef: install.installId,
     authorityScopeDigest: install.productContentDigest,
     artifactRef: install.installId,
-    artifactDigest: sha256Canonical(candidate as unknown as JsonValue),
+    artifactDigest: sha256Canonical(candidate),
     admissionEventRef: install.admissionEventRef,
   }) !== null;
 }
@@ -671,7 +671,7 @@ export function projectAdmittedProductInstall(
   candidate: ProductInstallCandidate,
   invocationRef?: string,
 ): ProductInstall | null {
-  const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
+  const candidateDigest = sha256Canonical(candidate);
   const row = selectExactArtifactTruthRow(projection, {
     operationId: "abg.operation.product.install",
     authorityScopeRef: candidate.installId,
@@ -1070,7 +1070,7 @@ export function hasAdmittedWorkspaceBinding(
     lockId: binding.lockId,
     lockDigest: binding.lockDigest,
     roots: binding.roots,
-  } as unknown as JsonValue);
+  });
   return (
     bindingDigest === binding.bindingDigest &&
     selectExactArtifactTruthRow(projection, {
@@ -1150,7 +1150,7 @@ function admitProductInstallWithCandidateCheck(
       refusal: refusal("scope_mismatch", "install admission scope differs from the candidate"),
     };
   }
-  const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
+  const candidateDigest = sha256Canonical(candidate);
   const admission = admitArtifactFromOwner(
     store,
     basis,
@@ -1158,8 +1158,8 @@ function admitProductInstallWithCandidateCheck(
     candidate.installId,
     candidateDigest,
     {
-      artifact: candidate as unknown as JsonValue,
-      resolvedLock: resolvedLock as unknown as JsonValue,
+      artifact: candidate,
+      resolvedLock: resolvedLock,
     },
     resolvedLock,
   );
@@ -1290,8 +1290,8 @@ export function admitWorkspaceBinding(
       authority,
     ) ||
     !canonicalEquals(
-      reconstructedCandidate as unknown as JsonValue,
-      candidate as unknown as JsonValue,
+      reconstructedCandidate,
+      candidate,
     ) ||
     basis.authorityScopeRef !== candidate.bindingId ||
     basis.authorityScopeDigest !== candidate.bindingDigest
@@ -1311,8 +1311,8 @@ export function admitWorkspaceBinding(
     candidate.bindingId,
     candidate.bindingDigest,
     {
-      artifact: candidate as unknown as JsonValue,
-      workspaceAuthorityBasis: authority as unknown as JsonValue,
+      artifact: candidate,
+      workspaceAuthorityBasis: authority,
     },
   );
   if (admission.disposition === "coordinate_refused") {

@@ -76,9 +76,10 @@ function declarationsOf(input: unknown, resources?: QualificationResources): rea
 function referenceDependencies(input: unknown, resources?: QualificationResources): boolean {
   try {
     if (!record(input)) return true;
+    const fields: Readonly<Record<string, JsonValue>> = input;
     if (isQualificationAssessmentInput(input) && isQualificationReferenceForm(input.task)) { resolveQualificationAssessment(input, resources); return true; }
     if (isSelfConformanceInput(input) && isQualificationReferenceForm(input)) { resolveSelfConformanceInput(input, resources); return true; }
-    const proof = record(input.qualification) ? input.qualification.proof : input.proof;
+    const proof = record(fields.qualification) ? fields.qualification.proof : fields.proof;
     if (isQualificationProofResource(proof) && isQualificationReferenceForm(proof)) { resolveQualificationProof(proof, resources); return true; }
     if (isQualificationReferenceForm(input)) { if (resources === undefined || !("resource" in input) || !record(input.resource)) return false; resources.manifest(input.resource as unknown as QualificationCoordinate); }
     return true;
@@ -112,6 +113,8 @@ const nativeFacts = (prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix
   runtimePrefixComputation(prefix, NATIVE_PROOF, () => new NativeProofDerivation());
 // Equality is only a positive reuse discriminator for an already authenticated
 // immutable fact. The canonical relation remains the fallback for all data.
+// O-TYPE stop: channel. The qualification owners compare records of another
+// realm, and `admitJson` refuses a plain record of another realm.
 const sameFact = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a as JsonValue, b as JsonValue);
 // One operation borrows each authenticated source prefix and workspace
 // projection. These private associations cannot be supplied in JSON or confer
@@ -193,7 +196,7 @@ function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: s
       hash(exactOrNull(onlyExactMatch(closure.programPublication.programs.filter(p => p.programRef === root.programRef)))) !== root.programDigest) return null;
   const rootContract = selectExactClosureContract(closure, root.resultContractRef);
   if (rootContract === null || rootContract.contract.contractRef !== invocation.outputContractRef ||
-      hash(rootContract.contract) !== invocation.outputContractDigest || !canonicalEquals(rootContract.owner as unknown as JsonValue, invocation.outputContractOwner as unknown as JsonValue)) return null;
+      hash(rootContract.contract) !== invocation.outputContractDigest || !canonicalEquals(rootContract.owner, invocation.outputContractOwner)) return null;
   const owner = exactOrNull(onlyExactMatch(closure.graphFunctionOwners.filter(o => o.declarationRef === execution.graphFunctionRef)));
   if (owner === null) return null;
   const publication = exactOrNull(onlyExactMatch(closure.publications.filter(p => p.owningProductId === owner.productId && p.moduleRef === owner.moduleRef &&
@@ -314,7 +317,7 @@ export function malformedGtlAssessmentHasNativeOwner(proof: QualificationProofRe
         source.state.result.resultClass !== "success" || source.state.judgment.judgment !== "advance" ||
         source.state.result.contractRef !== "contract://abiogenesis/qualification/malformed-gtl-assessment@5" ||
         source.state.result.valueKind !== "malformed_gtl_assessment" ||
-        !canonicalEquals(source.state.result.value, assessment as unknown as JsonValue) || !sameFact(source.owner.input, assessment.input) ||
+        !canonicalEquals(source.state.result.value, assessment) || !sameFact(source.owner.input, assessment.input) ||
         !malformedSubjectMatches(source.owner, assessment.input) ||
         projectQualificationConsumer(assessment.nativeBasis, assessment.input) === null) return false;
     const competitors = source.owner.events.filter(e => e.kind === "c_call_opened" && e.aggregateId !== source.state.cCall.cCallRef)
@@ -414,7 +417,7 @@ function nativeRuntimeCases(input: NativeRuntimeAssessmentInput, proof: Qualific
       targetRef: selected.state.cCall.graphCallId, declarationProof: selected.owner.proof });
     const replay = retainedTerminal?.replay ?? projectRunTruthAtDurablePrefix(proof.prefix as DurablePrefixCoordinate, selected.state.cCall.runId);
     if (terminal.kind !== "abg_project_read_projection" || !record(terminal.value) || !record(terminal.value.terminalResult) ||
-      !canonicalEquals(terminal.value.terminalResult.value as JsonValue, selected.state.result.value) ||
+      (terminal.value.terminalResult.value === undefined || !canonicalEquals(terminal.value.terminalResult.value, selected.state.result.value)) ||
       replay.kind !== "abg_run_truth_projection" || replay.runtimeStatus !== "closed") return null;
     facts.terminals.set(terminalKey, { rows: runRows, terminal, replay });
     const t = terminal.value.terminalResult;
@@ -471,6 +474,7 @@ export function projectQualificationRulingForConsumer(basis: QualificationNative
     if (!referenceDependencies(input, resources)) return null;
     const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
     if (owner === null || owner.call.implementationRef !== RULING) return null;
+    // O-TYPE stop: channel. The input may be a record of another realm.
     const rows = projectFhContinuations(owner.prefix, deriveRuntimeEventCalculusProjection(owner.prefix)).filter(c =>
       c.runId === owner.call.runId && (c.status === "responded" || c.status === "resolved") && canonicalEquals(c.responseValue, input as JsonValue));
     const row = exactOrNull(onlyExactMatch(rows)); if (row === null) return null;
@@ -546,7 +550,7 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
       const preparation = graphOwner(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate, value.nativeBasis.cCallRef, view.task.declarations,
         { events: readRuntimeEventsAtDurablePrefix(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources: resources ?? executionProofFacts.get(proof)?.resources });
       const started = exactOrNull(onlyExactMatch(candidate.owner.events.filter(e => e.kind === "actor_invocation_started" && e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef)));
-      if (!canonicalEquals(value.task as unknown as JsonValue, candidate.owner.input.task as unknown as JsonValue) || !canonicalEquals(value.plan, plan) ||
+      if (!canonicalEquals(value.task, candidate.owner.input.task) || !canonicalEquals(value.plan, plan) ||
           !qualificationRawMatches(candidate.owner.input, value.raw, view) || preparation === null || started === null || !record(started.payload) ||
           preparation.call.cCallRef !== candidate.state.cCall.cCallRef || preparation.execution.basisDigest !== candidate.owner.execution.basisDigest ||
           !sameFact(preparation.input, candidate.owner.input) || projectCCallCarrierPhaseAtPrefix(preparation.prefix, preparation.call)?.phase !== "selected_no_evidence" ||
@@ -564,8 +568,9 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
           value.source.rawValueDigest !== hash(value.raw)) continue;
       const artifact = exactOrNull(onlyExactMatch(candidate.owner.events.filter(e => e.kind === "actor_result_artifact_observed" &&
         e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef)));
-      if (artifact === null || !record(artifact.payload) || typeof artifact.payload.finalOutput !== "string" ||
-          !canonicalEquals(JSON.parse(artifact.payload.finalOutput) as JsonValue, value.raw as unknown as JsonValue)) continue;
+      if (artifact === null || !record(artifact.payload) || typeof artifact.payload.finalOutput !== "string") continue;
+      const finalOutput: JsonValue = JSON.parse(artifact.payload.finalOutput);
+      if (!canonicalEquals(finalOutput, value.raw)) continue;
       const { cCallRef: _call, requestRef: _request, requestDigest: _digest, ...observation } = artifact.payload;
       if (hash(observation) !== value.source.observationDigest || value.source.inputDigest !== hash(candidate.owner.input) ||
           value.source.actorRef !== transport.actorRef || value.source.workerBindingRef !== transport.workerBindingRef ||
@@ -589,7 +594,7 @@ export function projectQualificationOwnerRuling(proof: QualificationProofResourc
     if (owner === null || owner.call.regime !== "F_H" || owner.call.actorCapabilityRef !== plan.ownerAuthorityRef ||
         response === null || response.kind !== "fh_interaction_responded" || !record(response.payload) || response.payload.actorRef !== plan.ownerActorRef || response.payload.capabilityRef !== plan.ownerAuthorityRef ||
         !record(owner.input) || owner.input.slotRef !== selection.slotRef || owner.input.actorRef !== plan.ownerActorRef ||
-        !canonicalEquals(owner.input.subjectBasis as JsonValue, plan.subjectBasis) || !canonicalEquals(owner.input.lawBasis as JsonValue, plan.lawBasis) ||
+        (owner.input.subjectBasis === undefined || !canonicalEquals(owner.input.subjectBasis, plan.subjectBasis)) || (owner.input.lawBasis === undefined || !canonicalEquals(owner.input.lawBasis, plan.lawBasis)) ||
         !qualificationRulingMatches(owner.input, row.responseValue, response.payload.actorRef)) return null;
     return deepFreeze(row.responseValue as unknown as QualificationOwnerRuling);
   } catch { return null; }
@@ -643,7 +648,7 @@ export function projectQualificationConstructionAuthors(proof: QualificationProo
       const continuation = projectFhContinuations(selectValidatedRuntimeEventPrefix(events), deriveRuntimeEventCalculusProjection(selectValidatedRuntimeEventPrefix(events)))
         .find(c => c.continuationRef === selectedContinuationRef);
       const request = continuation === undefined ? null : graphOwner(proof.prefix as DurablePrefixCoordinate, continuation.cCallRef, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof))?.input;
-      if (!record(request) || !canonicalEquals(request.recordSet as JsonValue, provenance.recordSet) || !canonicalEquals(request.attributedIdentities as JsonValue, identityPairs)) return null;
+      if (!record(request) || (request.recordSet === undefined || !canonicalEquals(request.recordSet, provenance.recordSet)) || (request.attributedIdentities === undefined || !canonicalEquals(request.attributedIdentities, identityPairs))) return null;
     }
     return [...new Set(identityPairs.map(p => p.actorIdentityRef))];
   } catch { return null; }
@@ -799,7 +804,7 @@ export function resolveQualificationExecutionMaterial(proof: QualificationProofR
           selected.state.cCall.regime === "F_P" && selected.state.result.resultClass === "success" &&
           selected.state.result.contractRef === WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef &&
           selected.state.judgment.judgment === "advance" && isObservedWorksiteCommandExecutionObservation(value) &&
-          canonicalEquals(selected.owner.input, value.task as unknown as JsonValue) &&
+          canonicalEquals(selected.owner.input, value.task) &&
           canonicalEquals(sourceBasis.workspaceBinding, coord(value.task.workspaceBinding.bindingId, value.task.workspaceBinding.bindingDigest))) {
         verification = constructQualificationVerificationMaterial({ basis, inventory, selection: verificationSelection,
           execution: selection.result, cCall: coord(selected.state.cCall.cCallRef, selected.state.cCall.cCallDigest), observation: value });
@@ -812,7 +817,7 @@ export function resolveQualificationExecutionMaterial(proof: QualificationProofR
           graphFunction: selection.source.graphFunction, input: selected.owner.input,
           catalogBasisDigest: selected.owner.proof.catalog.basisDigest,
           catalogViewDigest: selected.owner.proof.catalogView.viewDigest,
-        } }) } as unknown as JsonValue));
+        } }) }));
       material.push({ ref: selection.result.ref, path: selection.result.ref, digest: sha256Bytes(raw),
         byteCount: raw.length, contentBase64: raw.toString("base64") });
     }
@@ -858,7 +863,7 @@ export function qualificationHasNativeSelfConformance(input: QualificationVerdic
       s.kind === "self_conformance_selection" && s.selectionRef === input.selectionRef);
     if (selections.length !== 1) return false;
     const actual = projectQualificationSelfConformance({ ...input.proof, prefix: consumer.predecessorPrefix }, selections[0]!, input.basis, resources);
-    return actual !== null && canonicalEquals(actual as unknown as JsonValue, input.selfConformance as unknown as JsonValue);
+    return actual !== null && canonicalEquals(actual, input.selfConformance);
   } catch { return false; }
 }
 /** AF22 construction belongs to its authenticated immutable preparation cut.
@@ -917,7 +922,7 @@ export function projectQualificationVerdict(input: Readonly<{
       memberKey: "graph_call_result", prefix: proof.prefix as DurablePrefixCoordinate,
       targetRef: selected.state.cCall.graphCallId, declarationProof: selected.owner.proof });
     if (terminal.kind !== "abg_project_read_projection" || !record(terminal.value) ||
-        !record(terminal.value.terminalResult) || !canonicalEquals(terminal.value.terminalResult.value as JsonValue, value)) return null;
+        !record(terminal.value.terminalResult) || (terminal.value.terminalResult.value === undefined || !canonicalEquals(terminal.value.terminalResult.value, value))) return null;
     return deepFreeze(value);
   } catch { return null; }
 }

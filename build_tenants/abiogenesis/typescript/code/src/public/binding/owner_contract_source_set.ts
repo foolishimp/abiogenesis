@@ -47,21 +47,21 @@ export type DefinitionExecutionBindingKind =
   | "statically_composed_callable"
   | "owner_projection";
 
-export interface ExactOwnerMemberCoordinate {
+export type ExactOwnerMemberCoordinate = {
   readonly abstractModule: string;
   readonly exportName: string;
   readonly memberPath: readonly string[];
   readonly sourceModuleDigest: Sha256Digest;
   readonly memberDigest: Sha256Digest;
-}
+};
 
-export interface OwnerNativeSchemaIdentity {
+export type OwnerNativeSchemaIdentity = {
   readonly schemaRef: string;
   readonly schemaVersion: "5.0.0";
   readonly ownerMember: ExactOwnerMemberCoordinate;
-}
+};
 
-export interface ExactOwnerContractReference {
+export type ExactOwnerContractReference = {
   readonly definitionKey: PublicDefinitionKeyLike;
   readonly slot: IntrinsicOwnerContractSlot;
   readonly contractId: string;
@@ -70,7 +70,7 @@ export interface ExactOwnerContractReference {
   readonly ownerAuthorityRef: string;
   readonly ownerAuthorityDigest: Sha256Digest;
   readonly nativeSchemaIdentity: OwnerNativeSchemaIdentity;
-}
+};
 
 export interface ExactOwnerMetadataReference {
   readonly definitionKey: PublicDefinitionKeyLike;
@@ -78,22 +78,22 @@ export interface ExactOwnerMetadataReference {
   readonly metadataDigest: Sha256Digest;
 }
 
-export interface ExactOwnerCallableCoordinate {
+export type ExactOwnerCallableCoordinate = {
   readonly packageName: typeof OWNER_BINDING_PACKAGE_NAME;
   readonly packageExportPath: string;
   readonly namedExport: string;
   readonly memberPath: readonly string[];
   readonly ownerAuthorityRef: string;
   readonly callableContractDigest: Sha256Digest;
-}
+};
 
-export interface ExecutionBindingSpecification {
+export type ExecutionBindingSpecification = {
   readonly definitionKey: PublicDefinitionKeyLike;
   readonly kind: DefinitionExecutionBindingKind;
   readonly callable: ExactOwnerCallableCoordinate;
   readonly semanticOwnerRef: string;
   readonly selectedFrameRef: string;
-}
+};
 
 /** The accepted exact source-map packet. It is declarative and never callable. */
 export interface OwnerContractPacket {
@@ -302,7 +302,7 @@ function schemaDigest(
     ownerAuthorityRef: declaration.owner.authorityRef,
     ownerAuthorityDigest: declaration.owner.authorityDigest,
     schema: projectStrictJsonSchema(schema),
-  } as unknown as JsonValue);
+  });
 }
 
 function unresolvedSource(
@@ -321,7 +321,7 @@ function unresolvedSource(
     owner: declaration.owner,
     metadata: declaration.metadata,
     nativeSchemaDigests: schemaDigests,
-  } as unknown as JsonValue);
+  });
   return Object.freeze({
     moduleSource,
     declaration,
@@ -364,7 +364,7 @@ for (const abstractModule of [...new Set(
   moduleDigestByAbstractModule.set(abstractModule, sha256Canonical({
     abstractModule,
     members,
-  } as unknown as JsonValue));
+  }));
 }
 
 function contractIdFor(
@@ -430,7 +430,7 @@ function resolveSource(
   const metadataDigest = sha256Canonical({
     definitionKey: declaration.definitionKey,
     metadata,
-  } as unknown as JsonValue);
+  });
   const callableContractDigest = sha256Canonical({
     kind: "exact_definition_host_callable",
     schemaVersion: "5.0.0",
@@ -441,7 +441,7 @@ function resolveSource(
     nonTerminalSchemaRef:
       contracts.nonTerminal?.nativeSchemaIdentity.schemaRef ?? null,
     resourceRelation: "owner_indexed_sibling_assertion_and_receipt",
-  } as unknown as JsonValue);
+  });
   const executionBindingSpecification: ExecutionBindingSpecification = deepFreeze({
     definitionKey: declaration.definitionKey,
     kind: moduleSource.definitionBindingKind,
@@ -457,7 +457,7 @@ function resolveSource(
     selectedFrameRef: SELECTED_DEFINITION_FRAME,
   });
   const executionBindingSpecificationDigest = sha256Canonical(
-    executionBindingSpecification as unknown as JsonValue,
+    executionBindingSpecification,
   );
   const reference = (
     binding: ResolvedOwnerContractBinding | null,

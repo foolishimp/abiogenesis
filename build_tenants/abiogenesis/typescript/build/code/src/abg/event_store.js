@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { RuntimeDerivationSource } from "./runtime_derivation.js";
 import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineEventBody, inlineEventBodyCoordinate, inlineEventBodyKey, inlineEventBodyValue } from "./event_body_encoding.js";
@@ -1117,7 +1117,15 @@ export function validateDurablePrefixCoordinate(value) {
         identity.inode >= 0 &&
         isKnownRootEventContractDigest(identity.eventContractDigest) &&
         isSha256Digest(value.coordinateDigest) &&
-        sha256Canonical(body) === value.coordinateDigest;
+        admittedDigestIs(body, value.coordinateDigest);
+}
+/**
+ * A guard's digest check over a body built from unchecked members: the body
+ * is admitted through `admitJson` first, and a body that is not I-JSON fails.
+ */
+function admittedDigestIs(body, digest) {
+    const admitted = admitJson(body);
+    return admitted.kind === "ok" && sha256Canonical(admitted.value) === digest;
 }
 export function validateEventStoreReopenAuthority(value) {
     if (!isRecord(value))
@@ -1159,7 +1167,7 @@ export function validateEventStoreReopenAuthority(value) {
         durableByteLength: value.durableByteLength,
         eventContractDigest: value.eventContractDigest,
     };
-    return sha256Canonical(body) === value.authorityDigest;
+    return admittedDigestIs(body, value.authorityDigest);
 }
 export function validateEventStoreCloseHandoff(value) {
     if (!isRecord(value) ||
@@ -2009,7 +2017,13 @@ function assertRuntimeEventContract(candidate, profileDigest) {
             evidence: payload.evidence,
             provenance: payload.provenance,
         };
-        const witnessedActDigest = sha256Canonical(witnessedBody);
+        // The witnessed act is built from unchecked payload members: it is admitted
+        // as I-JSON before its digest, and a refusal is no exact witnessed act.
+        const admittedWitnessedBody = admitJson(witnessedBody);
+        if (admittedWitnessedBody.kind !== "ok") {
+            throw new TypeError("witness event payload is not one exact self-certified actor-attributed act");
+        }
+        const witnessedActDigest = sha256Canonical(admittedWitnessedBody.value);
         if (payload.act !== expectedAct ||
             !isSha256Digest(payload.actorDigest) ||
             !isSha256Digest(payload.subjectDigest) ||
@@ -2252,6 +2266,8 @@ function decodeHistoricalEvents(bytes, expectedProfileDigest) {
     let profile = null;
     for (let start = 0, end = encoded.indexOf(10); end !== -1; start = end + 1, end = encoded.indexOf(10, start)) {
         const line = encoded.toString("utf8", start, end);
+        // JSON.parse yields only JSON values; the canonical byte check below
+        // refuses any row that is not this value's canonical text.
         let physical;
         try {
             physical = JSON.parse(line);
@@ -2444,6 +2460,7 @@ function constructRuntimeHistory(source, inlineByEvent) {
         const bytes = readRuntimeHistoryRowBytes(source, row.body);
         if (bytes.at(-1) !== 10)
             throw new TypeError("selected durable body has an incomplete row");
+        // JSON.parse yields only JSON values; the canonical byte check refuses any other row.
         const line = bytes.toString("utf8", 0, bytes.length - 1), physical = JSON.parse(line);
         if (!isRecord(physical) || !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(bytes))
             throw new TypeError("selected durable body is not the authenticated canonical row");
@@ -2457,7 +2474,7 @@ function constructRuntimeHistory(source, inlineByEvent) {
         if (!isRecord(value) || !hasOnlyRuntimeEventKeys(value))
             throw new TypeError("selected logical event is invalid");
         const { payload, ...envelope } = value;
-        if (!canonicalEquals(envelope, row.envelope) ||
+        if (payload === undefined || !canonicalEquals(envelope, row.envelope) ||
             sha256Canonical(payload) !== row.envelope.payloadDigest)
             throw new TypeError("selected logical event differs from its authenticated envelope");
         const event = deepFreeze(value);
@@ -2534,6 +2551,7 @@ function decodeRuntimeHistoryDescriptor(source, byteLength, expectedProfileDiges
     let profile = null;
     const durableHash = foldRuntimeHistoryDescriptor(source.descriptor, byteLength, (bytes, offset) => {
         const line = bytes.toString("utf8", 0, bytes.length - 1);
+        // JSON.parse yields only JSON values; the canonical byte check refuses any other row.
         let physical;
         try {
             physical = JSON.parse(line);

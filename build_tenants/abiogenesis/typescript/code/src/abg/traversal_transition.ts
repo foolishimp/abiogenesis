@@ -1,4 +1,5 @@
 import { isRecord } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import type { RawAdmittedValue } from "../validator/raw_admission.js";
 import type {
   BlockedRouteAdmissionEvidence,
@@ -48,10 +49,10 @@ export interface TraversalRouteBodySource {
   readonly registeredSelectionApplicationRef?: string;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: `sha256:${string}`;
-  readonly nextActionProjection?: Readonly<object>;
+  readonly nextActionProjection?: Readonly<Record<string, JsonValue>>;
   readonly graphSpanReentryProjectionRef?: string;
   readonly graphSpanReentryProjectionDigest?: `sha256:${string}`;
-  readonly graphSpanReentryProjection?: Readonly<object>;
+  readonly graphSpanReentryProjection?: Readonly<Record<string, JsonValue>>;
 }
 
 export type TraversalTransitionCandidateBody =
@@ -185,8 +186,7 @@ export function projectTraversalRouteBody(
       : {
           nextActionProjectionRef: route.nextActionProjectionRef,
           nextActionProjectionDigest: route.nextActionProjectionDigest!,
-          nextActionProjection: route.nextActionProjection! as unknown as
-            Readonly<Record<string, JsonValue>>,
+          nextActionProjection: route.nextActionProjection!,
         }),
     ...(route.graphSpanReentryProjectionRef === undefined
       ? {}
@@ -195,8 +195,7 @@ export function projectTraversalRouteBody(
           graphSpanReentryProjectionDigest:
             route.graphSpanReentryProjectionDigest!,
           graphSpanReentryProjection:
-            route.graphSpanReentryProjection! as unknown as
-              Readonly<Record<string, JsonValue>>,
+            route.graphSpanReentryProjection!,
         }),
   };
 }
@@ -243,7 +242,7 @@ export function isRouteCandidate(value: unknown): value is RouteCandidate {
     typeof value.candidateDigest !== "string" ||
     typeof value.candidateRef !== "string"
   ) return false;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return value.candidateDigest === digest &&
     value.candidateRef ===
       `route-candidate://abiogenesis/${digest.slice("sha256:".length)}`;
@@ -252,7 +251,7 @@ export function isRouteCandidate(value: unknown): value is RouteCandidate {
 export function completeRouteCandidate(
   body: RouteCandidateBody,
 ): RouteCandidate {
-  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  const candidateDigest = sha256Canonical(body);
   const candidate = deepFreeze({
     kind: "traversal_route_candidate" as const,
     schemaVersion: "5.0.0" as const,
@@ -299,7 +298,9 @@ export function isTraversalTransitionCandidate(
       : value.route.routeKind === "retry"
   ) return false;
   const { candidateRef, candidateDigest, ...body } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return candidateDigest === digest && candidateRef ===
     `traversal-transition-candidate://abiogenesis/${digest.slice("sha256:".length)}`;
 }
@@ -307,7 +308,7 @@ export function isTraversalTransitionCandidate(
 export function completeTraversalTransitionCandidate(
   body: TraversalTransitionCandidateBody,
 ): TraversalTransitionCandidate {
-  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  const candidateDigest = sha256Canonical(body);
   const candidate = deepFreeze({
     ...body,
     candidateRef:

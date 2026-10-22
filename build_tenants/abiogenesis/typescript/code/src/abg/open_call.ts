@@ -84,7 +84,7 @@ export interface OpenedFrame {
   readonly openEventRef: string;
 }
 
-export interface OpenedTraversalScope {
+export type OpenedTraversalScope = {
   readonly kind: "opened_traversal_scope";
   readonly schemaVersion: "5.0.0";
   readonly scopeRef: string;
@@ -106,7 +106,7 @@ export interface OpenedTraversalScope {
   readonly frameDigest: Sha256Digest;
   readonly frameLineageId: string;
   readonly frameOpenEventRef: string;
-}
+};
 
 export interface OpenTraversalScopeAdmission {
   readonly kind: "traversal_scope_open_admission";
@@ -120,7 +120,7 @@ export interface OpenTraversalScopeAdmission {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-export interface OpenTraversalScopeRefusal {
+export type OpenTraversalScopeRefusal = {
   readonly kind: "traversal_scope_open_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -131,7 +131,7 @@ export interface OpenTraversalScopeRefusal {
     | "child_basis_not_admitted"
     | "parent_scope_mismatch";
   readonly message: string;
-}
+};
 
 export type TraversalScopeOpenSubject =
   | Readonly<{
@@ -288,7 +288,7 @@ export function hasOpenedTraversalScopeAtPrefix(
   const graphCallEvent = indexedRuntimeEvents(prefix, "id:" + scope.graphCallOpenEventRef).find((event) => event.eventId === scope.graphCallOpenEventRef);
   const frameEvent = indexedRuntimeEvents(prefix, "id:" + scope.frameOpenEventRef).find((event) => event.eventId === scope.frameOpenEventRef);
   return (
-    sha256Canonical(body as unknown as JsonValue) === scope.scopeDigest &&
+    sha256Canonical(body) === scope.scopeDigest &&
     scope.scopeRef === `traversal-scope://abiogenesis/${scope.scopeDigest.slice("sha256:".length)}` &&
     runEvent?.kind === "run_segment_opened" &&
     runEvent.aggregateType === "run" &&
@@ -517,7 +517,7 @@ export function openTraversalScope(
     );
     if (
       exactBasis === null || exactBasis.basisClass !== "root" ||
-      !canonicalEquals(exactBasis as unknown as JsonValue, subject.executionBasis as unknown as JsonValue)
+      !canonicalEquals(exactBasis, subject.executionBasis)
     ) {
       return scopeOpenRefusal(
         "execution_basis_not_admitted",
@@ -535,7 +535,7 @@ export function openTraversalScope(
       graphRef: exactBasis.graphRef,
       graphDigest: exactBasis.graphDigest,
     };
-    const runDigest = sha256Canonical(runBody as unknown as JsonValue);
+    const runDigest = sha256Canonical(runBody);
     const runId = `run://abiogenesis/${runDigest.slice("sha256:".length)}`;
     if (projectRunPhaseAtPrefix(authorityPrefix, {
       runId,
@@ -553,7 +553,7 @@ export function openTraversalScope(
       exactBasis,
       runId,
       runDigest,
-      runBody: runBody as unknown as Readonly<Record<string, JsonValue>>,
+      runBody: runBody,
     });
   } else {
     const runPrefix = selectValidatedRuntimeEventPrefix(
@@ -566,14 +566,14 @@ export function openTraversalScope(
     );
     const exactParentScope = rehydrateOpenedTraversalScopeAtPrefix(
       runPrefix,
-      subject.parentScope as unknown as Readonly<Record<string, JsonValue>>,
+      subject.parentScope,
     );
     if (
       exactBasis === null || exactBasis.basisClass !== "child" ||
       exactParentScope === null || exactBasis.parentCCallRef === null ||
       exactBasis.parentExecutionBasisRef === null ||
-      !canonicalEquals(exactBasis as unknown as JsonValue, subject.executionBasis as unknown as JsonValue) ||
-      !canonicalEquals(exactParentScope as unknown as JsonValue, subject.parentScope as unknown as JsonValue)
+      !canonicalEquals(exactBasis, subject.executionBasis) ||
+      !canonicalEquals(exactParentScope, subject.parentScope)
     ) {
       return scopeOpenRefusal(
         "child_basis_not_admitted",
@@ -620,7 +620,7 @@ export function openTraversalScope(
       parentFrameId: exactParentScope.frameId,
     };
     const graphCallDigest = sha256Canonical(
-      graphCallBody as unknown as JsonValue,
+      graphCallBody,
     );
     const graphCallId =
       `graph-call://abiogenesis/${graphCallDigest.slice("sha256:".length)}`;
@@ -705,7 +705,7 @@ export function openTraversalScope(
         ...(parentFrameId === null ? {} : { parentFrameId }),
       };
       const graphCallDigest = sha256Canonical(
-        graphCallBody as unknown as JsonValue,
+        graphCallBody,
       );
       const graphCallId =
         `graph-call://abiogenesis/${graphCallDigest.slice("sha256:".length)}`;
@@ -748,7 +748,7 @@ export function openTraversalScope(
         ...(parentFrameId === null ? {} : { parentFrameId }),
       };
       const frameLineageDigest = sha256Canonical(
-        frameLineageBody as unknown as JsonValue,
+        frameLineageBody,
       );
       const frameLineageId =
         `frame-lineage://abiogenesis/${frameLineageDigest.slice("sha256:".length)}`;
@@ -763,7 +763,7 @@ export function openTraversalScope(
         admittedInputRef: executionBasis.rawInputAdmissionRef,
         admittedInputDigest: executionBasis.rawInputDigest,
       };
-      const frameDigest = sha256Canonical(frameBody as unknown as JsonValue);
+      const frameDigest = sha256Canonical(frameBody);
       const frameId =
         `frame://abiogenesis/${frameDigest.slice("sha256:".length)}`;
       const frameStartedAt = captureNativeFrameBoundary(store);
@@ -814,7 +814,7 @@ export function openTraversalScope(
         frameLineageId,
         frameOpenEventRef: frameEvent.eventId,
       };
-      const scopeDigest = sha256Canonical(scopeBody as unknown as JsonValue);
+      const scopeDigest = sha256Canonical(scopeBody);
       const scope = deepFreeze({
         kind: "opened_traversal_scope" as const,
         schemaVersion: "5.0.0" as const,

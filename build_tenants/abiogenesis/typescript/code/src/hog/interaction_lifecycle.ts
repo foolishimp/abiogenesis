@@ -85,7 +85,7 @@ export function holdOwnedInteraction(
       stage: `interaction-${input.ordinal}`,
       diagnosticRef:
         "diagnostic://abiogenesis/interaction/admitted-basis-absent@5",
-      candidate: input.stop as unknown as JsonValue,
+      candidate: input.stop,
     });
   }
   const clock = {
@@ -111,7 +111,7 @@ export function holdOwnedInteraction(
       ...input,
       stage: `interaction-open-${input.ordinal}`,
       diagnosticRef: `diagnostic://abiogenesis/interaction/${opened.code}@5`,
-      candidate: opened as unknown as JsonValue,
+      candidate: opened,
     });
   }
   const pendingBasis = admissionBasis(
@@ -142,7 +142,7 @@ export function holdOwnedInteraction(
       predecessorPrefix: opened.successorPrefix,
       stage: `interaction-hold-route-${input.ordinal}`,
       diagnosticRef: `diagnostic://abiogenesis/hog/${proposal.code}@5`,
-      candidate: proposal as unknown as JsonValue,
+      candidate: proposal,
     });
   }
   const candidate = Abg.completeTraversalTransitionCandidate({

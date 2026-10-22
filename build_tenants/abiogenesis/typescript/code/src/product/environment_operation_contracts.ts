@@ -284,7 +284,7 @@ export function admitResolvedNativeContractClosure(
         sourceEnd: witness.sourceEnd,
         origin: witness.origin,
         selection: witness.selection,
-      } as unknown as JsonValue)) {
+      })) {
         issues.add(`/occurrences/${index}/sourceWitnesses`);
       }
     }
@@ -296,7 +296,7 @@ export function admitResolvedNativeContractClosure(
       targetExportedSymbol: target.targetExportedSymbol,
       requiredSymbolSpace: target.requiredSymbolSpace,
       boundaryDeclarationWitnesses: target.boundaryDeclarationWitnesses,
-    } as unknown as JsonValue)) {
+    })) {
       issues.add(`/occurrences/${index}/checkerTarget/targetIdentityDigest`);
     }
     if (occurrence.occurrenceRef !== sha256Canonical({
@@ -308,7 +308,7 @@ export function admitResolvedNativeContractClosure(
       sourceWitnesses: occurrence.sourceWitnesses,
       semanticSelection: occurrence.semanticSelection,
       checkerTarget: occurrence.checkerTarget,
-    } as unknown as JsonValue)) {
+    })) {
       issues.add(`/occurrences/${index}/occurrenceRef`);
     }
   }
@@ -328,8 +328,8 @@ export function admitResolvedNativeContractClosure(
     if (
       occurrence === undefined ||
       !canonicalEquals(
-        occurrence.checkerTarget as unknown as JsonValue,
-        binding.checkerTarget as unknown as JsonValue,
+        occurrence.checkerTarget,
+        binding.checkerTarget,
       )
     ) issues.add(`/nativeBindings/${index}/checkerTarget`);
   }

@@ -37,12 +37,12 @@ export function isAbgTypedTerminalResult(value: unknown): value is AbgTypedTermi
 
 /** Untrusted, immutable declaration evidence. Only the native projector can
  * join these bytes to the historical WorkspaceBinding, Catalog and Run. */
-export interface AbgHistoricalDeclarationProof {
+export type AbgHistoricalDeclarationProof = {
   readonly kind: "abg_historical_declaration_proof";
   readonly schemaVersion: "5.0.0";
   readonly catalog: ReadyGraphFunctionCatalog;
   readonly catalogView: GraphFunctionCatalogView;
-}
+};
 
 export const ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA = v.strictObject({
   kind: v.literal("abg_historical_declaration_proof"),

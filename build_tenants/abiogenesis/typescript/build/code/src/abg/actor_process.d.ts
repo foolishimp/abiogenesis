@@ -29,7 +29,7 @@ export interface ActorProcessRequest {
     readonly transportLane: "closed_prompt_proof" | "worker_executes";
     readonly prompt: string;
     readonly responseJsonSchema: Readonly<Record<string, JsonValue>>;
-    readonly responsePresentation?: WorkerTransportRequest["responsePresentation"];
+    readonly responsePresentation?: Exclude<WorkerTransportRequest["responsePresentation"], undefined>;
 }
 export interface ActorProcessObservation {
     readonly nativeResultAssessment?: NativeWorkerResultAssessment;
@@ -75,13 +75,13 @@ export interface ActorProcessObservation {
     }>;
 }
 export type ActorProcessCarrierValidationRefusalCode = "invalid_actor_process_observation" | "invalid_actor_process_request";
-export interface ActorProcessCarrierValidation {
+export type ActorProcessCarrierValidation = {
     readonly kind: "actor_process_carrier_validation";
     readonly schemaVersion: "5.0.0";
     readonly disposition: "valid";
     readonly request: Readonly<ActorProcessRequest>;
     readonly observation: Readonly<ActorProcessObservation>;
-}
+};
 export interface ActorProcessCarrierValidationRefusal {
     readonly kind: "actor_process_carrier_validation_refusal";
     readonly schemaVersion: "5.0.0";

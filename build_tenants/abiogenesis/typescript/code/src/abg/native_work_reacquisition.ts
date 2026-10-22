@@ -4,6 +4,7 @@ import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isDeepStrictEqual } from "node:util";
 /** Deterministic preparation of an existing closed native child, not new authorship. */
 import { type JsonValue } from "../shared/canonical_json.js";
+import { admitJson } from "../shared/admit/index.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { materializeGraph } from "../gtl/materialize.js";
 import { defaultGovernanceGraphFunctions } from "../gtl/default_library.js";
@@ -37,8 +38,8 @@ import { constructAbgHistoricalDeclarationReference, hasUniqueHistoricalDeclarat
   type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource } from "./terminal_result_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
-const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a as JsonValue, b as JsonValue);
-const hash = (a: unknown) => sha256Canonical(a as JsonValue);
+const same = (a: JsonValue, b: JsonValue) => a === b || isDeepStrictEqual(a, b) || canonicalEquals(a, b);
+const hash = (a: JsonValue) => sha256Canonical(a);
 const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === "object" && !Array.isArray(v);
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
@@ -56,8 +57,9 @@ function declarationProofFor(request: NativeWorksiteCommandReacquisitionRequest,
   resource?: AbgHistoricalGraphCallSourceResource): AbgHistoricalDeclarationProof | null {
   if (request.source.declarationReference === undefined) return request.source.declarationProof;
   if (resource === undefined || !hasUniqueHistoricalDeclarationDependencies(resource)) return null;
+  const reference = request.source.declarationReference;
   return exactOrNull(resolveExactMatch([resource.declarationProof, ...(resource.declarationDependencies ?? [])], proof =>
-    same(constructAbgHistoricalDeclarationReference(proof), request.source.declarationReference)));
+    same(constructAbgHistoricalDeclarationReference(proof), reference)));
 }
 /** Local facts from one already admitted request and exact current prefix.
  * The historical terminal and latest source checks retain their own owners. */
@@ -149,7 +151,7 @@ function projectNativeWorkReacquisitionOccurrence(basis: NativeWorkReacquisition
       execution.workspaceBindingId !== input.workspaceBinding.bindingId || execution.workspaceBindingDigest !== input.workspaceBinding.bindingDigest) return refused(refusal, stage, "definition_input_binding", { cCallRef: basis.cCallRef });
     stage = "native_occurrence_materialization";
     const graph = materializeGraph(gf, { invocationAdmissionRef: execution.invocationAdmissionRef, admittedInputRef: execution.rawInputAdmissionRef,
-      admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue as Readonly<Record<string, JsonValue>> });
+      admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue });
     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCallRef);
     const set = rehydrateAdmittedImplementationSetAtPrefix(prefix, execution.rootImplementationSetRef);
     const invocation = projectExactInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
@@ -160,7 +162,8 @@ function projectNativeWorkReacquisitionOccurrence(basis: NativeWorkReacquisition
       set.rows.filter(r => r.graphFunctionRef === call.graphFunctionRef && r.programLocusRef === call.programLocusRef &&
         r.implementationRef === implementationRef && r.implementationBindingRef === implementationBindingRef &&
         r.inputContractRef === call.inputContractRef && r.outputContractRef === call.outputContractRef).length !== 1 ||
-      invocation === null || invocation.capabilityGrants.length !== 1 || !same(invocation.capabilityGrants[0], input.capabilityGrant)) return refused(refusal, stage, "call_set_grant", { cCallRef: basis.cCallRef, basisRef: execution.basisRef, implementationSetRef: execution.rootImplementationSetRef });
+      invocation === null || invocation.capabilityGrants.length !== 1 || invocation.capabilityGrants[0] === undefined ||
+      !same(invocation.capabilityGrants[0], input.capabilityGrant)) return refused(refusal, stage, "call_set_grant", { cCallRef: basis.cCallRef, basisRef: execution.basisRef, implementationSetRef: execution.rootImplementationSetRef });
     return { call, execution, prefix };
   } catch (error) { return refused(refusal, stage, "caught", { cCallRef: basis.cCallRef }, error); }
 }
@@ -216,7 +219,8 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
   let stage = "native_preparation_owner";
   try {
     const owned = authenticateNativeInstructionAssemblyBasis(basis);
-    if (owned === null || !same(owned.inputValue, input) || !isGovernanceWorkState(input) ||
+    const admittedInput = admitJson(input);
+    if (owned === null || admittedInput.kind !== "ok" || !same(owned.inputValue, admittedInput.value) || !isGovernanceWorkState(input) ||
         owned.call.implementationRef !== governanceRef("implementation", "prepare-testing")) return refused(refusal, stage, "assembly_input_implementation");
     stage = "native_historical_declaration";
     if (historicalSource === undefined) return refused(refusal, stage, "resource_absent");
@@ -258,7 +262,9 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
 export function governanceNativeWorkReacquisitionResultMatches(basis: NativeInstructionAssemblyBasis, input: unknown, value: unknown): boolean {
   try {
     const owned = authenticateNativeInstructionAssemblyBasis(basis);
-    if (owned === null || !same(owned.inputValue, input) || !record(value) || !record(value.sourceReacquisition)) return false;
+    const admittedInput = admitJson(input);
+    if (owned === null || admittedInput.kind !== "ok" || admitJson(value).kind !== "ok" ||
+        !same(owned.inputValue, admittedInput.value) || !record(value) || !record(value.sourceReacquisition)) return false;
     const task = value as unknown as NativeWorksiteCommandExecutionTask, proof = task.sourceReacquisition;
     if (proof === undefined || !same(proof.nativeBasis, { predecessorPrefix: basis.predecessorPrefix, cCallRef: owned.call.cCallRef }) ||
         !isNativeWorksiteCommandReacquisitionRequest(proof.request) || !same(constructNativeWorksiteCommandExecutionTask({ ...proof.request, sourceReacquisition: proof }), task)) return false;
@@ -291,8 +297,10 @@ export async function nativeWorkReacquisitionContextCurrent(request: NativeWorks
  * historical preparation cut; it confers no current-source or effect authority. */
 export function nativeWorkReacquisitionResultMatches(input: unknown, value: unknown, currentOwnerPrefix?: DurablePrefixCoordinate,
   historicalSource?: AbgHistoricalGraphCallSourceResource): boolean {
-  if (!record(value) || !record(value.sourceReacquisition) || !record(value.sourceReacquisition.nativeBasis) ||
-      !same(input, value.sourceReacquisition.request)) return false;
+  const admittedInput = admitJson(input);
+  if (admittedInput.kind !== "ok" || admitJson(value).kind !== "ok" ||
+      !record(value) || !record(value.sourceReacquisition) || !record(value.sourceReacquisition.nativeBasis) ||
+      value.sourceReacquisition.request === undefined || !same(admittedInput.value, value.sourceReacquisition.request)) return false;
   try {
     const original = value.sourceReacquisition.nativeBasis as unknown as NativeWorkReacquisitionBasis;
     const basis = currentOwnerPrefix === undefined ? original : { ...original,
@@ -374,7 +382,7 @@ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: Runtime
     basis.rootImplementationSetRef !== input.parentBasis.rootImplementationSetRef || basis.rootImplementationSetDigest !== input.parentBasis.rootImplementationSetDigest ||
     result === null || judgment === null || result.runId !== input.runId || result.runId !== call.runId ||
     result.graphCallId !== call.graphCallId || result.basisId !== basis.basisRef || !record(result.payload) ||
-    result.payload.resultClass !== "success" || !same(result.payload.value, input.task) || result.payload.valueDigest !== hash(input.task) ||
+    result.payload.resultClass !== "success" || result.payload.value === undefined || !same(result.payload.value, input.task) || result.payload.valueDigest !== hash(input.task) ||
     result.payload.contractRef !== call.outputContractRef || !Array.isArray(result.payload.evidenceRefs) || result.payload.evidenceRefs.length !== 1 ||
     judgment.runId !== call.runId || judgment.graphCallId !== call.graphCallId || judgment.basisId !== basis.basisRef ||
     !record(judgment.payload) || judgment.payload.predicateRef !== call.judgmentPredicateRef || judgment.payload.contractRef !== call.judgmentContractRef ||
@@ -383,7 +391,8 @@ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: Runtime
     parentCall === null || parentCall.runId !== input.runId || parentCall.admissionOrdinal <= judgment.admissionOrdinal ||
     !record(parentCall.payload) || parentCall.payload.callClass !== "workflow" ||
     parentCall.payload.childGraphFunctionRef !== "graph-function://abiogenesis/worksite/command-execution@5" ||
-    invocation === null || invocation.capabilityGrants.length !== 1 || !same(invocation.capabilityGrants[0], input.task.capabilityGrant)) return null;
+    invocation === null || invocation.capabilityGrants.length !== 1 || invocation.capabilityGrants[0] === undefined ||
+    !same(invocation.capabilityGrants[0], input.task.capabilityGrant)) return null;
   const evidenceRefs = result.payload.evidenceRefs;
   const evidence = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + call.cCallRef), e => e.kind === "c_call_evidenced" && e.aggregateId === call.cCallRef &&
     e.basisId === basis.basisRef && e.runId === call.runId && e.graphCallId === call.graphCallId && record(e.payload) &&
@@ -391,7 +400,7 @@ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: Runtime
   if (evidence === null || !record(evidence.payload) || evidence.payload.evidenceClass !== "deterministic" ||
     evidence.payload.contractRef !== call.evidenceContractRef || evidence.payload.implementationRef !== call.implementationRef ||
     evidence.payload.inputDigest !== basis.rawInputDigest || evidence.payload.outputDigest !== result.payload.valueDigest ||
-    projectAdmittedCCallStateAtPrefix(prefix, call as unknown as Readonly<Record<string, JsonValue>>,
+    projectAdmittedCCallStateAtPrefix(prefix, call,
       { ...result.payload, kind: "admitted_c_call_result", schemaVersion: "5.0.0", disposition: "admitted", admissionEventRef: result.eventId },
       { ...judgment.payload, kind: "admitted_c_call_judgment", schemaVersion: "5.0.0", disposition: "admitted", admissionEventRef: judgment.eventId }) === null) return null;
   const source = projectNativeWorkCommandSourceAtPrefix(prefix, input.task);

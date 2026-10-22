@@ -13,9 +13,9 @@ import type { Outcome } from "./refusal.js";
 
 export type IJsonValue = JsonValue;
 
-export interface IJsonObject {
+export type IJsonObject = {
   readonly [key: string]: IJsonValue;
-}
+};
 
 export type IJsonAdmissionFailureCode = JsonAdmissionCode;
 

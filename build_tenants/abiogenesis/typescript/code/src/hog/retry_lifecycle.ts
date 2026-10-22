@@ -69,7 +69,7 @@ export type ProjectedRetryResumeRefusalCode =
   | "retry_route_refused"
   | "retry_attempt_refused";
 
-export interface ProjectedRetryResumeRefusal {
+export type ProjectedRetryResumeRefusal = {
   readonly kind: "projected_retry_resume_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -78,7 +78,7 @@ export interface ProjectedRetryResumeRefusal {
   readonly executableRetryInputRef: string | null;
   readonly executableRetryInputDigest: `sha256:${string}` | null;
   readonly lowerCause: JsonValue;
-}
+};
 
 export type ProjectedRetryResumeResult =
   | AbgRetry.ProjectedRetryResumeSuccess
@@ -240,13 +240,13 @@ export function resumeProjectedRetry(
   }
   if (
     fresh.kind !== "executable_retry_input" ||
-    !canonicalEquals(fresh as unknown as JsonValue, request.retry as unknown as JsonValue)
+    !canonicalEquals(fresh, request.retry)
   ) {
     return projectedRetryRefusal(
       request,
       "projection_mismatch",
       "supplied retry input differs from fresh D17 projection",
-      fresh as unknown as JsonValue,
+      fresh,
     );
   }
   try {
@@ -284,9 +284,7 @@ export function resumeProjectedRetry(
     );
     openedTraversalScope = Abg.rehydrateOpenedTraversalScopeAtPrefix(
       truth.runtimePrefix,
-      request.runtime.openedTraversalScope as unknown as Readonly<
-        Record<string, JsonValue>
-      >,
+      request.runtime.openedTraversalScope,
     );
     sourceTraversal = traverseFromCursor({
       program: request.runtime.program,
@@ -307,8 +305,8 @@ export function resumeProjectedRetry(
   if (
     executionBasis === null ||
     openedTraversalScope === null ||
-    !canonicalEquals(executionBasis as unknown as JsonValue, request.runtime.executionBasis as unknown as JsonValue) ||
-    !canonicalEquals(openedTraversalScope as unknown as JsonValue, request.runtime.openedTraversalScope as unknown as JsonValue) ||
+    !canonicalEquals(executionBasis, request.runtime.executionBasis) ||
+    !canonicalEquals(openedTraversalScope, request.runtime.openedTraversalScope) ||
     executionBasis.basisRef !== fresh.executionBasisRef ||
     executionBasis.basisDigest !== fresh.executionBasisDigest ||
     openedTraversalScope.scopeRef !== fresh.traversalScopeRef ||
@@ -359,7 +357,7 @@ export function resumeProjectedRetry(
       request,
       "retry_step_refused",
       "HoG could not derive the exact D17 retry successor step",
-      target as unknown as JsonValue,
+      target,
     );
   }
   let targetTraversal;
@@ -385,18 +383,18 @@ export function resumeProjectedRetry(
       request,
       "retry_step_refused",
       "D17 retry successor differs from its current traversal preflight",
-      targetTraversal as unknown as JsonValue,
+      targetTraversal,
     );
   }
   const projectedTarget = targetTraversal.kind === "traversal_cursor"
     ? targetTraversal
     : targetTraversal.cursor;
-  if (!canonicalEquals(projectedTarget as unknown as JsonValue, target as unknown as JsonValue)) {
+  if (!canonicalEquals(projectedTarget, target)) {
     return projectedRetryRefusal(
       request,
       "retry_step_refused",
       "D17 retry successor differs from its current traversal preflight",
-      targetTraversal as unknown as JsonValue,
+      targetTraversal,
     );
   }
   const proposal = Routes.proposeRetryRoute(
@@ -413,7 +411,7 @@ export function resumeProjectedRetry(
       request,
       "retry_route_refused",
       "HoG could not propose the exact D17 retry route",
-      proposal as unknown as JsonValue,
+      proposal,
     );
   }
   let candidate;
@@ -497,7 +495,7 @@ export function resumeProjectedRetry(
         ? "prefix_mismatch"
         : "retry_route_refused",
       "ABG refused the exact D17 retry route",
-      transition as unknown as JsonValue,
+      transition,
     );
   }
   if (transition.kind === "retry_admission_refusal") {
@@ -505,7 +503,7 @@ export function resumeProjectedRetry(
       request,
       "retry_attempt_refused",
       "ABG refused the exact D17 retry attempt",
-      transition as unknown as JsonValue,
+      transition,
     );
   }
   const attempt = transition.retryAttempt;
@@ -571,7 +569,7 @@ export function advanceOwnedRetryLifecycle(
       admitted.successorPrefix,
       "retry-failure-plan",
       `diagnostic://abiogenesis/hog/${failurePlan.code}@5`,
-      failurePlan as unknown as JsonValue,
+      failurePlan,
     );
   }
   const transition = failurePlan.transition;
@@ -591,7 +589,7 @@ export function advanceOwnedRetryLifecycle(
         admitted.successorPrefix,
         "retry-blocked-route",
         `diagnostic://abiogenesis/hog/${proposal.code}@5`,
-        proposal as unknown as JsonValue,
+        proposal,
       );
     }
     const candidate = Abg.completeTraversalTransitionCandidate({
@@ -649,7 +647,7 @@ export function advanceOwnedRetryLifecycle(
         admitted.successorPrefix,
         "retry-blocked-transition",
         `diagnostic://abiogenesis/hog/${route.code}@5`,
-        route as unknown as JsonValue,
+        route,
       );
     }
     const close = transition.close;
@@ -690,7 +688,7 @@ export function advanceOwnedRetryLifecycle(
       admitted.successorPrefix,
       "retry-failure-transition",
       `diagnostic://abiogenesis/hog/${retryTransition.code}@5`,
-      retryTransition as unknown as JsonValue,
+      retryTransition,
     );
   }
   const retry = AbgRetry.projectOwnedExecutableRetryInput({
@@ -714,7 +712,7 @@ export function advanceOwnedRetryLifecycle(
       retryTransition.successorPrefix,
       "retry-input-projection",
       `diagnostic://abiogenesis/hog/${retry.code}@5`,
-      retry as unknown as JsonValue,
+      retry,
     );
   }
   const resume = resumeProjectedRetry({
@@ -738,7 +736,7 @@ export function advanceOwnedRetryLifecycle(
       retryTransition.successorPrefix,
       "retry-resume",
       `diagnostic://abiogenesis/hog/${resume.code}@5`,
-      resume as unknown as JsonValue,
+      resume,
     );
   }
   return {

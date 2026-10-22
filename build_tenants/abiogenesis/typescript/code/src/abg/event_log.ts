@@ -37,8 +37,8 @@ export async function persistEventLog(
   const durableEvents = validateHistoricalEvents(encoded);
   if (
     !canonicalEquals(
-      durableEvents as unknown as JsonValue,
-      store.readAll() as unknown as JsonValue,
+      durableEvents,
+      store.readAll(),
     )
   ) {
     throw new TypeError("durable ABG event log differs from admitted in-memory truth");

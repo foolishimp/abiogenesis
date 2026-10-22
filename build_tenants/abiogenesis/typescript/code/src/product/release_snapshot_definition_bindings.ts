@@ -63,8 +63,8 @@ const owner=(call:Parameters<ExactDefinitionCallable<Packet,ReleasePublicationRe
   if(observation.disposition==="refused")return deepFreeze({ownerOutput:{outcomeKind:"refusal" as const,value:releaseRefusal("published_rc","publication_failure",observation.message,observation)},resources:{kind:"release_publication_receipt" as const,schemaVersion:"5.0.0" as const,eventResource:closeAbgEventResource(acquired,acquired.entryPrefix),artifact:null,artifactPath:null,admissionEventRef:null}});
   const invocation=constructExactOperationInvocationCoordinate({operationId:"abg.operation.release.snapshot",memberKey:"published_rc",definitionDigest:call.invocation.definitionDigest},call.invocation.invocationRef,call.invocation.requestDigest);
   const value:PublishedReleaseOperationArtifact={kind:"release_operation_observation",schemaVersion:"5.0.0",memberKey:"published_rc",scope,invocation:{...invocation,operationId:"abg.operation.release.snapshot",memberKey:"published_rc"},
-   entryPrefix:acquired.entryPrefix,admissionAuthority:approved as unknown as JsonValue,eventResource:resources.eventResource as unknown as JsonValue,grants:[...approved.grants] as unknown as JsonValue[],publicInvocation:call.invocation as unknown as JsonValue,resourceDigest:releaseHash(resources),actorRef:slots.actor!.actor.ref,
-   capabilityGrants:slots.capability_grants as unknown as JsonValue,workspaceBinding:binding,productSet:slots.product_set as unknown as JsonValue,dependencyLock:slots.dependency_lock!,request,
+   entryPrefix:acquired.entryPrefix,admissionAuthority:approved,eventResource:resources.eventResource,grants:[...approved.grants] as unknown as JsonValue[],publicInvocation:call.invocation,resourceDigest:releaseHash(resources),actorRef:slots.actor!.actor.ref,
+   capabilityGrants:slots.capability_grants,workspaceBinding:binding,productSet:slots.product_set,dependencyLock:slots.dependency_lock!,request,
    proof:resources.proof,selection:resources.selection,effectGrant:grant,observation};
   const committed=await commitReleaseArtifact(acquired,value,call.invocation.correlationRef,call.invocation.eventTime,environment.workspaceBinding.admissionEventRef,grant.artifactOutputRoot);
   ({artifact,artifactPath,admissionEventRef}=committed);const eventResource=committed.eventResource;
@@ -95,10 +95,10 @@ async function commitReleaseArtifact(acquired:AcquiredAbgEventResource,value:Rel
  const artifact=releaseArtifactCoordinate(value),artifactPath=join(outputRoot,artifact.digest.slice(7)+".json");
  let phase="artifact_write",admissionEventRef:string|null=null;
  try{
-  await mkdir(outputRoot,{recursive:true});await writeFile(artifactPath,canonicalJson(value as unknown as JsonValue),{flag:"wx"});
+  await mkdir(outputRoot,{recursive:true});await writeFile(artifactPath,canonicalJson(value),{flag:"wx"});
   phase="artifact_admission";const coordinate=constructExactOperationInvocationCoordinate({operationId:"abg.operation.release.snapshot",memberKey:value.memberKey,definitionDigest:value.invocation.definitionDigest},value.invocation.invocationRef,value.invocation.invocationPayloadDigest);
   const admitted=admitArtifact(acquired.store,{...coordinate,operationId:"abg.operation.release.snapshot",authorityScopeRef:value.scope.ref,authorityScopeDigest:value.scope.digest,
-   correlationId,eventTime,causationEventRefs:[causationEventRef],predecessorPrefix:acquired.entryPrefix},"abg.operation.release.snapshot",artifact.ref,artifact.digest,{artifact:value as unknown as JsonValue});
+   correlationId,eventTime,causationEventRefs:[causationEventRef],predecessorPrefix:acquired.entryPrefix},"abg.operation.release.snapshot",artifact.ref,artifact.digest,{artifact:value});
   if(admitted.disposition!=="admitted"&&admitted.disposition!=="idempotent")throw new TypeError(`release artifact admission refused: ${JSON.stringify(admitted)}`);
   admissionEventRef=admitted.admissionEventRef;phase="resource_close";
   return {artifact,artifactPath,admissionEventRef,eventResource:closeAbgEventResource(acquired,admitted.successorPrefix)};
@@ -136,9 +136,9 @@ const tappedOwner=(call:Parameters<ExactDefinitionCallable<TappedPacket,ReleaseA
   const invocation=constructExactOperationInvocationCoordinate({operationId:"abg.operation.release.snapshot",memberKey:"tapped_release",definitionDigest:call.invocation.definitionDigest},call.invocation.invocationRef,call.invocation.requestDigest);
   const value: TappedReleaseOperationArtifact = {kind:"release_operation_observation",schemaVersion:"5.0.0",memberKey:"tapped_release",scope,
    invocation:{...invocation,operationId:"abg.operation.release.snapshot",memberKey:"tapped_release"},entryPrefix:acquired.entryPrefix,
-   admissionAuthority:approved as unknown as JsonValue,eventResource:resources.eventResource as unknown as JsonValue,grants:[...approved.grants] as unknown as JsonValue[],
-   publicInvocation:call.invocation as unknown as JsonValue,resourceDigest:releaseHash(resources),actorRef:slots.actor!.actor.ref,capabilityGrants:slots.capability_grants as unknown as JsonValue,
-   workspaceBinding:binding,productSet:slots.product_set as unknown as JsonValue,dependencyLock:slots.dependency_lock!,request,proof:resources.proof,selection:resources.selection,effectGrant:grant,
+   admissionAuthority:approved,eventResource:resources.eventResource,grants:[...approved.grants] as unknown as JsonValue[],
+   publicInvocation:call.invocation,resourceDigest:releaseHash(resources),actorRef:slots.actor!.actor.ref,capabilityGrants:slots.capability_grants,
+   workspaceBinding:binding,productSet:slots.product_set,dependencyLock:slots.dependency_lock!,request,proof:resources.proof,selection:resources.selection,effectGrant:grant,
    publication:published,ruling:resources.ruling,decision:joined.decision,addendum:physical.addendum,observation};
   const committed=await commitReleaseArtifact(acquired,value,call.invocation.correlationRef,call.invocation.eventTime,environment.workspaceBinding.admissionEventRef,grant.artifactOutputRoot);
   const ownerOutput:OwnerSemanticOutput<TappedPacket>=observation.disposition==="complete"&&joined.decision==="accept"&&physical.addendum!==null

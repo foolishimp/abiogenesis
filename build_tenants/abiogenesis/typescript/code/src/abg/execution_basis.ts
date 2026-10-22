@@ -144,11 +144,11 @@ import { canonicalEquals, canonicalRecordDigest, type JsonRecord } from "../shar
 import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 import { checkExactRecord, resolveExactMatch, type RecordCheck } from "../shared/select/index.js";
 
-export interface RuntimeAdmissionBasis {
+export type RuntimeAdmissionBasis = {
   readonly eventTime: string;
   readonly correlationId: string;
   readonly causationEventRefs: readonly string[];
-}
+};
 
 /** Subordinate dispatch coordinates, authenticated against the existing event
  * prefix and implementation owners. This value grants no execution authority. */
@@ -168,26 +168,26 @@ export interface NativeInstructionAssemblyBasis {
  * own source/lifecycle/task law after this one exact authentication relation. */
 function deriveOwnedNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
   try {
-    const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+    const hash = (value: JsonValue) => sha256Canonical(value);
     const artifactTruth = projectOwnedPrefixArtifactTruth(basis.predecessorPrefix);
     if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return null;
     const prefix = runtimePrefixFromOwnedArtifactTruth(artifactTruth);
     if (prefix === null) return null;
     const execution = rehydrateExecutionBasisAtPrefix(prefix, basis.executionBasis.basisRef);
-    if (execution === null || !canonicalEquals(execution as unknown as JsonValue, basis.executionBasis)) return null;
+    if (execution === null || !canonicalEquals(execution, basis.executionBasis)) return null;
     const program = basis.publication.programs.find(p => p.programRef === execution.programRef);
     const functions = basis.declarationGraphFunctions.filter(g => g.name === execution.graphFunctionRef &&
       hash(g) === execution.graphFunctionDigest);
     if (program === undefined || hash(program) !== execution.programDigest || functions.length !== 1 ||
-      !canonicalEquals(functions[0] as JsonValue, basis.graphFunction)) return null;
+      (functions[0] === undefined || !canonicalEquals(functions[0], basis.graphFunction))) return null;
     const graph = materializeGraph(functions[0]!, { invocationAdmissionRef: execution.invocationAdmissionRef,
       admittedInputRef: execution.rawInputAdmissionRef, admittedInputDigest: execution.rawInputDigest,
       admittedInput: execution.rawInputValue });
     if (graph.materializationRef !== execution.graphRef || graph.materializationDigest !== execution.graphDigest ||
-      !canonicalEquals(graph as unknown as JsonValue, basis.graph as unknown as JsonValue)) return null;
+      !canonicalEquals(graph, basis.graph)) return null;
     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCall.cCallRef);
     const opened = call === null ? undefined : runtimeEventAtPrefix(prefix, call.openedEventRef);
-    if (call === null || !canonicalEquals(call as unknown as JsonValue, basis.cCall) || call.callClass !== "leaf" ||
+    if (call === null || !canonicalEquals(call, basis.cCall) || call.callClass !== "leaf" ||
       !hasAdmittedTraversalCursorAtPrefix(prefix, basis.cursor) || !isRecord(opened?.payload) ||
       opened.payload.cursorRef !== basis.cursor.cursorRef || opened.payload.cursorDigest !== basis.cursor.cursorDigest ||
       basis.cursor.executionBasisRef !== execution.basisRef || basis.cursor.graphCallId !== call.graphCallId ||
@@ -280,24 +280,22 @@ export interface InvocationRefusalAdmissionReceipt {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-export interface AdmittedImplementationResolutionRow
-  extends Omit<
+export type AdmittedImplementationResolutionRow = Omit<
     LeafImplementationResolutionCandidate,
     "disposition" | "kind" | "schemaVersion"
-  > {
+  > & {
   readonly kind: "admitted_implementation_resolution_row";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
-}
+};
 
-export interface AdmittedInteractionContractRow
-  extends Omit<ValidatedInteractionLeaf, "kind"> {
+export type AdmittedInteractionContractRow = Omit<ValidatedInteractionLeaf, "kind"> & {
   readonly kind: "admitted_interaction_contract_row";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
-}
+};
 
-export interface AdmittedImplementationSet {
+export type AdmittedImplementationSet = {
   readonly kind: "admitted_implementation_set";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -316,9 +314,9 @@ export interface AdmittedImplementationSet {
   readonly executableLeafKeys: readonly string[];
   readonly rows: readonly AdmittedImplementationResolutionRow[];
   readonly admissionEventRef: string;
-}
+};
 
-export interface AdmittedInteractionSet {
+export type AdmittedInteractionSet = {
   readonly kind: "admitted_interaction_set";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -331,7 +329,7 @@ export interface AdmittedInteractionSet {
   readonly interactionLeafKeys: readonly string[];
   readonly rows: readonly AdmittedInteractionContractRow[];
   readonly admissionEventRef: string;
-}
+};
 
 export interface AdmittedImplementationResolution {
   readonly kind: "admitted_implementation_resolution";
@@ -368,7 +366,7 @@ export interface AdmittedImplementationResolution {
   readonly admissionEventRef: string;
 }
 
-export interface ExecutionBasis {
+export type ExecutionBasis = {
   readonly constructionContinuationUse?: Readonly<{
     continuationRef: string; continuationDigest: Sha256Digest; sourceRunId: string;
     sourceExecutionBasisRef: string; pendingExecutionBasisRef: string;
@@ -442,7 +440,7 @@ export interface ExecutionBasis {
   readonly replayProjectionRef: string;
   readonly terminalKind: "completed";
   readonly admissionEventRef: string;
-}
+};
 
 export interface ExecutionBasisAdmission {
   readonly kind: "execution_basis_admission";
@@ -532,7 +530,7 @@ function worksiteAuthorityCarrier(
 ): WorksiteAuthorityCarrier | null {
   if (isWorksitePreparationInput(value)) {
     const task = preparationConstructionTasks(value)[0];
-    return task === undefined ? null : worksiteAuthorityCarrier(task as unknown as Readonly<Record<string, JsonValue>>);
+    return task === undefined ? null : worksiteAuthorityCarrier(task);
   }
   if (isWorksiteFileReplaceRequest(value)) {
     return {
@@ -594,12 +592,12 @@ function exactWorksiteEnvironmentAtPrefix(
   });
   if (environment.kind !== "exact_prefix_workspace_environment" ||
     !canonicalEquals(
-      environment.workspaceAuthorityBasis as unknown as JsonValue,
-      carrier.workspaceAuthorityBasis as unknown as JsonValue,
+      environment.workspaceAuthorityBasis,
+      carrier.workspaceAuthorityBasis,
     ) ||
     carrier.workspaceBinding !== null && !canonicalEquals(
-      environment.workspaceBinding as unknown as JsonValue,
-      carrier.workspaceBinding as unknown as JsonValue,
+      environment.workspaceBinding,
+      carrier.workspaceBinding,
     ) ||
     carrier.workspaceAuthorityBasis.workspaceId !==
       environment.workspaceBinding.workspaceId ||
@@ -636,10 +634,10 @@ export function exactProgramOwnerInstall(
   // Validator binds the full raw publication. Installed contribution bindings
   // use its semantic projection, which must be derived from those exact bytes.
   if (programPublication === undefined ||
-    sha256Canonical(programPublication as unknown as JsonValue) !== programPublicationDigest ||
+    sha256Canonical(programPublication) !== programPublicationDigest ||
     programPublication.moduleRef !== moduleRef ||
     programPublication.programs.filter((program) => program.programRef === programRef &&
-      sha256Canonical(program as unknown as JsonValue) === programDigest).length !== 1) return null;
+      sha256Canonical(program) === programDigest).length !== 1) return null;
   const semanticPublicationDigest = modulePublicationSemanticDigest(programPublication);
   const installs = environment.productInstalls.filter((install) =>
     install.installedRoot === environment.workspaceBinding.roots.productRoot &&
@@ -736,7 +734,7 @@ function exactC2SourceEnvironment(
     return invocation.sourceResultBasis === null && invocation.programRef === WORKSITE_COMMAND_EXECUTION_IDS.programRef &&
       invocation.graphFunctionRef === WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef &&
       invocation.inputContractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef &&
-      invocation.rawInputDigest === sha256Canonical(task as unknown as JsonValue) &&
+      invocation.rawInputDigest === sha256Canonical(task) &&
       invocation.workspaceBindingId === task.workspaceBinding.bindingId && invocation.workspaceBindingDigest === task.workspaceBinding.bindingDigest &&
       admitted?.kind === "invocation_admitted" && isJsonRecord(admitted.payload) &&
       admitted.payload.invocationAdmissionRef === invocation.invocationAdmissionRef && admitted.payload.rawInputDigest === invocation.rawInputDigest &&
@@ -747,14 +745,16 @@ function exactC2SourceEnvironment(
   if (nativeTask !== null) {
     const basis = invocation.sourceResultBasis;
     const source = projectNativeWorkCommandSourceAtPrefix(authorityPrefix, nativeTask);
-    if (basis === null || source === null || !canonicalEquals(basis.sourceResultValue, nativeTask.sourceNativeWork as unknown as JsonValue) ||
+    if (basis === null || source === null || !canonicalEquals(basis.sourceResultValue, nativeTask.sourceNativeWork) ||
       basis.sourceResultAdmissionEventRef !== source.sourceResult.eventId ||
       basis.sourceResultJudgmentEventRef !== source.sourceJudgment.eventId ||
       basis.sourceCCallRef !== nativeTask.sourceNativeWork.provenance.cCallRef) return false;
     const rehydrated = rehydrateInvocationSourceResultBasisAtDurablePrefix(durablePrefix, basis);
-    return rehydrated !== null && canonicalEquals(rehydrated as unknown as JsonValue, basis as unknown as JsonValue);
+    return rehydrated !== null && canonicalEquals(rehydrated, basis);
   }
   if (task.kind === "worksite_revision_command_execution_task") return false; // D2 is an authenticated child arm only.
+  // A native task returned above: `admittedNativeTask` yields every task its own guard admits.
+  if ("sourceNativeWork" in task) return false;
   if (task.readDependencyBasis !== undefined) return false; // Initial-job reads require their same-invocation native bridge.
   const basis = invocation.sourceResultBasis;
   const sourceKind = basis?.sourceGraphFunctionRef ===
@@ -777,9 +777,9 @@ function exactC2SourceEnvironment(
     sourceKind === null ||
     basis.sourceResultContractRef !== WORKSITE_CONSTRUCTION_IDS.resultContractRef ||
     basis.sourceResultValueDigest !== sha256Canonical(
-      task.sourceConstructionResult as unknown as JsonValue,
+      task.sourceConstructionResult,
     ) ||
-    !canonicalEquals(basis.sourceResultValue, task.sourceConstructionResult as unknown as JsonValue)) {
+    !canonicalEquals(basis.sourceResultValue, task.sourceConstructionResult)) {
     return false;
   }
   const sourceRunClosures = indexedRuntimeEvents(authorityPrefix, "run:" + basis.sourceRunId)
@@ -813,7 +813,7 @@ function exactC2SourceEnvironment(
     sourceDurablePrefix,
     basis,
   );
-  if (sourceBasis === null || !canonicalEquals(sourceBasis as unknown as JsonValue, basis as unknown as JsonValue)) return false;
+  if (sourceBasis === null || !canonicalEquals(sourceBasis, basis)) return false;
   const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(
     sourcePrefix,
     basis.sourceInvocationAdmissionRef,
@@ -921,18 +921,18 @@ function exactC2SourceEnvironment(
   );
   return sourceEnvironment.kind === "exact_prefix_workspace_environment" &&
     canonicalEquals(
-      sourceEnvironment.workspaceAuthorityBasis as unknown as JsonValue,
-      sourceCarrier.workspaceAuthorityBasis as unknown as JsonValue,
+      sourceEnvironment.workspaceAuthorityBasis,
+      sourceCarrier.workspaceAuthorityBasis,
     ) &&
     canonicalEquals(
-      sourceEnvironment.workspaceBinding as unknown as JsonValue,
-      sourceCarrier.workspaceBinding as unknown as JsonValue,
+      sourceEnvironment.workspaceBinding,
+      sourceCarrier.workspaceBinding,
     ) &&
     canonicalEquals(
-      sourceEnvironment.workspaceAuthorityBasis as unknown as JsonValue,
-      task.workspaceAuthorityBasis as unknown as JsonValue,
+      sourceEnvironment.workspaceAuthorityBasis,
+      task.workspaceAuthorityBasis,
     ) &&
-    canonicalEquals(sourceEnvironment.workspaceBinding as unknown as JsonValue, task.workspaceBinding as unknown as JsonValue);
+    canonicalEquals(sourceEnvironment.workspaceBinding, task.workspaceBinding);
 }
 
 function worksiteCommandTask(
@@ -989,7 +989,7 @@ export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
     // The native source branch below conjoins provenance and currentness once.
     if (nativeTask === null && !isObservedWorksiteCommandExecutionTask(value) && !worksiteExecutionSourcesCurrent(prefix, task)) return false;
     const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
-    if (invocation === null || invocation.capabilityGrants.length !== 1 || !canonicalEquals(invocation.capabilityGrants[0] as unknown as JsonValue, value.capabilityGrant as JsonValue)) return false;
+    if (invocation === null || invocation.capabilityGrants.length !== 1 || (invocation.capabilityGrants[0] === undefined || !canonicalEquals(invocation.capabilityGrants[0], value.capabilityGrant))) return false;
     if (execution.basisClass === "root") return exactC2SourceEnvironment(predecessor, prefix, invocation, task);
     if (execution.parentExecutionBasisRef === null || execution.parentCCallRef === null || typeof opened.runId !== "string") return false;
     const parent = rehydrateExecutionBasisAtPrefix(prefix, execution.parentExecutionBasisRef);
@@ -1027,7 +1027,7 @@ export function hasExactInvocationObservationBasis(
     program.actionCatalog === undefined ||
     !canonicalEquals(
       value.actionCatalog,
-      program.actionCatalog as unknown as JsonValue,
+      program.actionCatalog,
     )
   ) {
     return false;
@@ -1065,7 +1065,7 @@ function implementationSetBody(set: AdmittedImplementationSet): JsonValue {
     admissionEventRef: _admissionEventRef,
     ...body
   } = set;
-  return body as unknown as JsonValue;
+  return body;
 }
 
 function interactionSetBody(set: AdmittedInteractionSet): JsonValue {
@@ -1078,7 +1078,7 @@ function interactionSetBody(set: AdmittedInteractionSet): JsonValue {
     admissionEventRef: _admissionEventRef,
     ...body
   } = set;
-  return body as unknown as JsonValue;
+  return body;
 }
 
 /** One `implementation_admitted` event as a checked implementation set: the
@@ -1140,7 +1140,7 @@ export function admittedConstructionComposition(
   return (
       basis.constructionCompositionRef === composition.compositionRef &&
       basis.constructionCompositionDigest === compositionDigest &&
-      compositionDigest === sha256Canonical(body as unknown as JsonValue) &&
+      compositionDigest === sha256Canonical(body) &&
       composition.graphFunctionRef === basis.graphFunctionRef
     )
     ? composition
@@ -1209,7 +1209,7 @@ export function hasAdmittedImplementationSetAtPrefix(
     (candidate) => candidate.eventId === set.admissionEventRef,
   );
   return (
-    sha256Canonical(body as unknown as JsonValue) === set.implementationSetDigest &&
+    sha256Canonical(body) === set.implementationSetDigest &&
     set.implementationSetRef ===
       `implementation-set://abiogenesis/${set.implementationSetDigest.slice("sha256:".length)}` &&
     event?.kind === "implementation_admitted" &&
@@ -1224,7 +1224,7 @@ export function hasAdmittedImplementationSetAtPrefix(
         implementationSetRef: set.implementationSetRef,
         implementationSetDigest: set.implementationSetDigest,
         ...body,
-      } as unknown as JsonValue,
+      },
     )
   );
 }
@@ -1307,7 +1307,7 @@ export function hasAdmittedInteractionSetAtPrefix(
     (candidate) => candidate.eventId === set.admissionEventRef,
   );
   return (
-    sha256Canonical(body as unknown as JsonValue) === set.interactionSetDigest &&
+    sha256Canonical(body) === set.interactionSetDigest &&
     set.interactionSetRef ===
       `interaction-set://abiogenesis/${set.interactionSetDigest.slice("sha256:".length)}` &&
     event?.kind === "implementation_admitted" &&
@@ -1322,7 +1322,7 @@ export function hasAdmittedInteractionSetAtPrefix(
         interactionSetRef: set.interactionSetRef,
         interactionSetDigest: set.interactionSetDigest,
         ...body,
-      } as unknown as JsonValue,
+      },
     )
   );
 }
@@ -1423,7 +1423,7 @@ export function hasAdmittedImplementationResolution(
   } = resolution;
   const event = runtimeEventAtPrefix(selectRuntimeEventPrefixFromStore(store), resolution.admissionEventRef);
   return (
-    sha256Canonical(body as unknown as JsonValue) === resolution.resolutionDigest &&
+    sha256Canonical(body) === resolution.resolutionDigest &&
     resolution.resolutionRef ===
       `implementation-resolution://abiogenesis/${resolution.resolutionDigest.slice("sha256:".length)}` &&
     event?.kind === "implementation_admitted" &&
@@ -1454,8 +1454,8 @@ export function hasAdmittedExecutionBasisAtPrefix(
   );
   return projected !== null &&
     canonicalEquals(
-      projected as unknown as JsonValue,
-      basis as unknown as JsonValue,
+      projected,
+      basis,
     );
 }
 
@@ -1511,7 +1511,7 @@ export function admitInvocationRefusal(
     subjectDigest,
     contractOrDiagnosticRefs,
   };
-  const refusalDigest = sha256Canonical(body as unknown as JsonValue);
+  const refusalDigest = sha256Canonical(body);
   const refusalRef = `invocation-refusal://abiogenesis/${refusalDigest.slice("sha256:".length)}`;
   const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     store,
@@ -1629,8 +1629,8 @@ export function admitExecutionBasis(
       admittedGrant.grantRef !== rawInputValue.capabilityGrant.grantRef ||
       admittedGrant.grantDigest !== rawInputValue.capabilityGrant.grantDigest ||
       !canonicalEquals(
-        admittedGrant as unknown as JsonValue,
-        rawInputValue.capabilityGrant as unknown as JsonValue,
+        admittedGrant,
+        rawInputValue.capabilityGrant,
       ) ||
       rawInputValue.capabilityGrant.actorRef !==
         input.invocationAdmission.actorRef ||
@@ -1662,8 +1662,8 @@ export function admitExecutionBasis(
       admittedGrant.grantRef !== rawInputValue.capabilityGrant.grantRef ||
       admittedGrant.grantDigest !== rawInputValue.capabilityGrant.grantDigest ||
       !canonicalEquals(
-        admittedGrant as unknown as JsonValue,
-        rawInputValue.capabilityGrant as unknown as JsonValue,
+        admittedGrant,
+        rawInputValue.capabilityGrant,
       ) ||
       rawInputValue.workspaceBinding.bindingId !==
         input.invocationAdmission.workspaceBindingId ||
@@ -1697,8 +1697,8 @@ export function admitExecutionBasis(
       admittedGrant.grantRef !== rawInputValue.capabilityGrant.grantRef ||
       admittedGrant.grantDigest !== rawInputValue.capabilityGrant.grantDigest ||
       !canonicalEquals(
-        admittedGrant as unknown as JsonValue,
-        rawInputValue.capabilityGrant as unknown as JsonValue,
+        admittedGrant,
+        rawInputValue.capabilityGrant,
       ) ||
       rawInputValue.workspaceBinding.bindingId !==
         input.invocationAdmission.workspaceBindingId ||
@@ -1729,7 +1729,7 @@ export function admitExecutionBasis(
       admittedGrant === undefined ||
       input.invocationAdmission.capabilityGrantRefs[0] !==
         rawInputValue.capabilityGrant.grantRef ||
-      !canonicalEquals(admittedGrant as unknown as JsonValue, rawInputValue.capabilityGrant as unknown as JsonValue) ||
+      !canonicalEquals(admittedGrant, rawInputValue.capabilityGrant) ||
       rawInputValue.workspaceBinding.bindingId !==
         input.invocationAdmission.workspaceBindingId ||
       rawInputValue.workspaceBinding.bindingDigest !==
@@ -1772,8 +1772,8 @@ export function admitExecutionBasis(
   );
   if (
     !canonicalEquals(
-      input.invocationAdmission.gtlEntryCoordinate as unknown as JsonValue,
-      gtlEntryCoordinate as unknown as JsonValue,
+      input.invocationAdmission.gtlEntryCoordinate,
+      gtlEntryCoordinate,
     )
   ) {
     return reject(
@@ -1830,12 +1830,12 @@ export function admitExecutionBasis(
   const selectedInteractionLeafKeys = selectedInteractionRows.map((row) => row.requirementKey);
   if (
     !canonicalEquals(
-      input.resolutionSetCandidate.executableLeafKeys as unknown as JsonValue,
-      selectedExecutableLeafKeys as unknown as JsonValue,
+      input.resolutionSetCandidate.executableLeafKeys,
+      selectedExecutableLeafKeys,
     ) ||
     !canonicalEquals(
-      input.resolutionSetValidation.executableLeafKeys as unknown as JsonValue,
-      selectedExecutableLeafKeys as unknown as JsonValue,
+      input.resolutionSetValidation.executableLeafKeys,
+      selectedExecutableLeafKeys,
     ) ||
     input.resolutionSetCandidate.rows.length !== selectedExecutableRows.length ||
     input.resolutionSetCandidate.rows.some((row, index) =>
@@ -1893,7 +1893,7 @@ export function admitExecutionBasis(
   if (isWorksitePreparationInput(rawInputValue)) {
     const tasks = preparationConstructionTasks(rawInputValue);
     const grants = input.invocationAdmission.capabilityGrants;
-    if (grants.length !== 1 || tasks.some((task) => !canonicalEquals(task.capabilityGrant as unknown as JsonValue, grants[0] as unknown as JsonValue) ||
+    if (grants.length !== 1 || tasks.some((task) => (grants[0] === undefined || !canonicalEquals(task.capabilityGrant, grants[0])) ||
       task.capabilityGrant.definitionKey.memberKey !== (input.invocationAdmission.invocationVariant === "direct" ? "invoke" : input.invocationAdmission.invocationVariant) ||
       task.workspaceBinding.bindingId !== input.invocationAdmission.workspaceBindingId ||
       task.workspaceBinding.bindingDigest !== input.invocationAdmission.workspaceBindingDigest ||
@@ -1932,11 +1932,11 @@ export function admitExecutionBasis(
   }
   if (
     input.program.programRef !== input.invocationAdmission.programRef ||
-    sha256Canonical(input.program as unknown as JsonValue) !== input.invocationAdmission.programDigest ||
+    sha256Canonical(input.program) !== input.invocationAdmission.programDigest ||
     input.program.closureContractRef !== input.closureContract.closureContractRef ||
     input.closureContract.resultContractRef !== input.invocationAdmission.outputContractRef
   ) {
-    return reject(sha256Canonical(input.closureContract as unknown as JsonValue), "diagnostic://abiogenesis/execution-basis/closure-mismatch@5");
+    return reject(sha256Canonical(input.closureContract), "diagnostic://abiogenesis/execution-basis/closure-mismatch@5");
   }
   const implementationRows = input.resolutionSetCandidate.rows.map((row) => {
     const {
@@ -1966,7 +1966,7 @@ export function admitExecutionBasis(
     executableLeafKeys: selectedExecutableLeafKeys,
     rows: implementationRows,
   };
-  const implementationSetDigest = sha256Canonical(implementationSetBody as unknown as JsonValue);
+  const implementationSetDigest = sha256Canonical(implementationSetBody);
   const implementationSetRef =
     `implementation-set://abiogenesis/${implementationSetDigest.slice("sha256:".length)}`;
   const interactionRows = selectedInteractionRows.map((row) => {
@@ -1986,7 +1986,7 @@ export function admitExecutionBasis(
     interactionLeafKeys: selectedInteractionLeafKeys,
     rows: interactionRows,
   };
-  const interactionSetDigest = sha256Canonical(interactionSetBody as unknown as JsonValue);
+  const interactionSetDigest = sha256Canonical(interactionSetBody);
   const interactionSetRef =
     `interaction-set://abiogenesis/${interactionSetDigest.slice("sha256:".length)}`;
   const resolutionBody = legacyCandidate === undefined || legacyValidation === undefined
@@ -2021,7 +2021,7 @@ export function admitExecutionBasis(
     };
   const resolutionDigest = resolutionBody === null
     ? null
-    : sha256Canonical(resolutionBody as unknown as JsonValue);
+    : sha256Canonical(resolutionBody);
   const resolutionRef = resolutionDigest === null
     ? null
     : `implementation-resolution://abiogenesis/${resolutionDigest.slice("sha256:".length)}`;
@@ -2056,7 +2056,7 @@ export function admitExecutionBasis(
         ...interactionSetBody,
       },
       ...(resolutionBody === null ? {} : { resolutionRef, resolutionDigest, ...resolutionBody }),
-    } as unknown as JsonValue,
+    },
   });
   const implementationSet = deepFreeze({
     kind: "admitted_implementation_set" as const,
@@ -2087,19 +2087,19 @@ export function admitExecutionBasis(
       ...resolutionBody,
       admissionEventRef: setEvent.eventId,
     }) as AdmittedImplementationResolution;
-  const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
+  const closureContractDigest = sha256Canonical(input.closureContract);
   const localImplementationSubsetDigest = sha256Canonical({
     rootImplementationSetRef: implementationSet.implementationSetRef,
     rootImplementationSetDigest: implementationSet.implementationSetDigest,
     executableLeafKeys: implementationSet.executableLeafKeys,
     rows: implementationSet.rows,
-  } as unknown as JsonValue);
+  });
   const localInteractionSubsetDigest = sha256Canonical({
     rootInteractionSetRef: interactionSet.interactionSetRef,
     rootInteractionSetDigest: interactionSet.interactionSetDigest,
     interactionLeafKeys: interactionSet.interactionLeafKeys,
     rows: interactionSet.rows,
-  } as unknown as JsonValue);
+  });
   const executionBody = {
     ...(input.executionResolution.registeredSelectionDefinitionDigests === undefined ? {} : { registeredSelectionDefinitionDigests: input.executionResolution.registeredSelectionDefinitionDigests }),
     basisClass: "root" as const,
@@ -2164,7 +2164,7 @@ export function admitExecutionBasis(
     replayProjectionRef: input.closureContract.replayProjectionRef,
     terminalKind: input.closureContract.terminalKind,
   };
-  const basisDigest = sha256Canonical(executionBody as unknown as JsonValue);
+  const basisDigest = sha256Canonical(executionBody);
   const basisRef = `execution-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`;
   const basisEvent = admitRuntimeEvent(store, {
     kind: "basis_admitted",
@@ -2181,7 +2181,7 @@ export function admitExecutionBasis(
       basisRef,
       basisDigest,
       ...executionBody,
-    } as unknown as JsonValue,
+    },
   });
   const executionBasis = deepFreeze({
     kind: "execution_basis" as const,
@@ -2303,9 +2303,7 @@ function admitChildExecutionBasisUsing(
       );
       const parentScope = rehydrateOpenedTraversalScopeAtPrefix(
         runPrefix,
-        input.parentTraversalScope as unknown as Readonly<
-          Record<string, JsonValue>
-        >,
+        input.parentTraversalScope,
       );
       const rootImplementationSet = rehydrateAdmittedImplementationSetAtPrefix(
         authorityPrefix,
@@ -2321,20 +2319,20 @@ function admitChildExecutionBasisUsing(
         rootImplementationSet === null ||
         rootInteractionSet === null ||
         !canonicalEquals(
-          parent as unknown as JsonValue,
-          input.parentExecutionBasis as unknown as JsonValue,
+          parent,
+          input.parentExecutionBasis,
         ) ||
         !canonicalEquals(
-          parentScope as unknown as JsonValue,
-          input.parentTraversalScope as unknown as JsonValue,
+          parentScope,
+          input.parentTraversalScope,
         ) ||
         !canonicalEquals(
-          rootImplementationSet as unknown as JsonValue,
-          input.rootImplementationSet as unknown as JsonValue,
+          rootImplementationSet,
+          input.rootImplementationSet,
         ) ||
         !canonicalEquals(
-          rootInteractionSet as unknown as JsonValue,
-          input.rootInteractionSet as unknown as JsonValue,
+          rootInteractionSet,
+          input.rootInteractionSet,
         )
       ) return null;
       const parentCCall = projectCurrentChildParentCCallAtPrefix(runPrefix, {
@@ -2388,12 +2386,12 @@ function admitChildExecutionBasisUsing(
       "child traversal requires the exact admitted parent scope and root sets",
     );
   }
-  const graphFunctionDigest = sha256Canonical(input.graphFunction as unknown as JsonValue);
+  const graphFunctionDigest = sha256Canonical(input.graphFunction);
   if (
     !isProgramValidation(input.programValidation) ||
     input.programValidation.validationRef !== parent.programValidationRef ||
     input.program.programRef !== parent.programRef ||
-    sha256Canonical(input.program as unknown as JsonValue) !== parent.programDigest ||
+    sha256Canonical(input.program) !== parent.programDigest ||
     !input.program.callableMembership.includes(input.graphFunction.name)
   ) {
     return childRefusal(
@@ -2483,7 +2481,7 @@ function admitChildExecutionBasisUsing(
       rootImplementationSet.invocationAdmissionRef,
     );
     const programValidationDigest = sha256Canonical(
-      input.programValidation as unknown as JsonValue,
+      input.programValidation,
     );
     if (rootInvocation === null ||
       rootInvocation.invocationAdmissionRef !==
@@ -2624,14 +2622,14 @@ function admitChildExecutionBasisUsing(
     rootImplementationSetDigest: rootImplementationSet.implementationSetDigest,
     executableLeafKeys: localExecutableLeafKeys,
     rows: admittedExecutableRows,
-  } as unknown as JsonValue);
+  });
   const localInteractionSubsetDigest = sha256Canonical({
     rootInteractionSetRef: rootInteractionSet.interactionSetRef,
     rootInteractionSetDigest: rootInteractionSet.interactionSetDigest,
     interactionLeafKeys: localInteractionLeafKeys,
     rows: admittedInteractionRows,
-  } as unknown as JsonValue);
-  const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
+  });
+  const closureContractDigest = sha256Canonical(input.closureContract);
   const entryDigest = sha256Canonical({
     parentTraversalScopeRef: parentScope.scopeRef,
     parentCCallRef: current.parentCCall.cCallRef,
@@ -2639,7 +2637,7 @@ function admitChildExecutionBasisUsing(
     graphRef: input.graph.materializationRef,
     admittedInputRef: input.admittedInputRef,
     admittedInputDigest: input.admittedInputDigest,
-  } as unknown as JsonValue);
+  });
   const entryRef = `child-entry://abiogenesis/${entryDigest.slice("sha256:".length)}`;
   const executionBody = {
     basisClass: "child" as const,
@@ -2701,7 +2699,7 @@ function admitChildExecutionBasisUsing(
     replayProjectionRef: input.closureContract.replayProjectionRef,
     terminalKind: input.closureContract.terminalKind,
   };
-  const basisDigest = sha256Canonical(executionBody as unknown as JsonValue);
+  const basisDigest = sha256Canonical(executionBody);
   const basisRef = `execution-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`;
   if (
     rehydrateExecutionBasisAtPrefix(current.authorityPrefix, basisRef) !== null
@@ -2736,7 +2734,7 @@ function admitChildExecutionBasisUsing(
       basisRef,
       basisDigest,
       ...executionBody,
-    } as unknown as JsonValue,
+    },
     })];
   // A normal child admission returns the coordinate already authenticated by
   // its one durable publication. Preserve the existing staged nested path:
@@ -2802,13 +2800,13 @@ export function admitConstructionContinuationExecutionBasis(
     const { kind: _kind, schemaVersion: _version, disposition: _disposition, basisRef: _ref,
       basisDigest: _digest, admissionEventRef: _event, ...sourceBody } = source;
     const body = { ...sourceBody, constructionContinuationUse: use };
-    const basisDigest = sha256Canonical(body as unknown as JsonValue);
+    const basisDigest = sha256Canonical(body);
     const basisRef = `execution-basis://abiogenesis/${basisDigest.slice(7)}`;
     const event = admitRuntimeEvent(store, {
       kind: "basis_admitted", eventTime: basis.eventTime, aggregateType: "workspace", aggregateId: source.workspaceBindingId,
       parentAggregateId: source.invocationRef, causationEventRefs: [operation.eventId, source.admissionEventRef],
       correlationId: basis.correlationId, workflowVersion: "5.0.0", scopeClass: "workspace", basisId: basisRef,
-      payload: { basisRef, basisDigest, ...body } as unknown as JsonValue,
+      payload: { basisRef, basisDigest, ...body },
     });
     const executionBasis = deepFreeze({ kind: "execution_basis" as const, schemaVersion: "5.0.0" as const,
       disposition: "admitted" as const, basisRef, basisDigest, ...body, admissionEventRef: event.eventId });

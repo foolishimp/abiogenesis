@@ -292,8 +292,8 @@ function mergeApplications(
     if (
       existing !== undefined &&
       !canonicalEquals(
-        existing as unknown as JsonValue,
-        candidate as unknown as JsonValue,
+        existing,
+        candidate,
       )
     ) {
       throw new TypeError(
@@ -352,7 +352,7 @@ export function identityGraphFunction(
     contractRef,
     applicationRef: application.applicationRef,
   };
-  const digest = sha256Canonical(identity as unknown as JsonValue);
+  const digest = sha256Canonical(identity);
   const nodeRef =
     `node://abiogenesis/identity/${digest.slice("sha256:".length)}`;
   return canonicalizeAuthoredGtlCarrier({
@@ -501,7 +501,7 @@ export function composeGraphFunctions(
     rightGraphRef: right.template.graphRef,
     applicationRef: application.applicationRef,
   };
-  const graphDigest = sha256Canonical(graphIdentity as unknown as JsonValue);
+  const graphDigest = sha256Canonical(graphIdentity);
   if (leftIsIdentity && rightIsIdentity) {
     const base = identityGraphFunction({ name, contractRef: left.inputs[0]! });
     return canonicalizeAuthoredGtlCarrier({
@@ -664,7 +664,7 @@ export function substituteGraphFunction(
     innerGraphRef: inner.template.graphRef,
     applicationRef: application.applicationRef,
   };
-  const graphDigest = sha256Canonical(graphIdentity as unknown as JsonValue);
+  const graphDigest = sha256Canonical(graphIdentity);
   const graphFunction = {
     kind: "graph_function" as const,
     name,

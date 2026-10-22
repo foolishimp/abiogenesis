@@ -2,7 +2,7 @@
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, isSha256Digest, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { isAbgHistoricalDeclarationProof, type AbgHistoricalDeclarationProof } from "../abg/terminal_result_contracts.js";
 import { isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
@@ -21,7 +21,7 @@ import { isWorksiteExecutionTask as isPriorTask, worksiteExecutionSources as pri
 import { WORKSITE_COMMAND_FORWARD_IDS } from "./worksite_command_forward_identity.js";
 import { canonicalEquals } from "../shared/value/index.js";
 export { WORKSITE_COMMAND_FORWARD_IDS } from "./worksite_command_forward_identity.js";
-export interface WorksiteCommandForwardSource {
+export type WorksiteCommandForwardSource = {
   readonly prefix: DurablePrefixCoordinate;
   readonly invocationRef: string;
   readonly invocationAdmissionRef: string;
@@ -33,8 +33,8 @@ export interface WorksiteCommandForwardSource {
   readonly preparationResultEventRef: string;
   readonly preparationJudgmentEventRef: string;
   readonly declarationProof: AbgHistoricalDeclarationProof;
-}
-export interface WorksiteCommandForwardRequest {
+};
+export type WorksiteCommandForwardRequest = {
   readonly kind: "worksite_command_forward_request";
   readonly schemaVersion: "5.0.0";
   readonly requestRef: string;
@@ -44,16 +44,16 @@ export interface WorksiteCommandForwardRequest {
   readonly workspaceBinding: WorkspaceBinding;
   readonly capabilityGrant: CapabilityGrant;
   readonly protectedObservations: readonly Readonly<{ subject: WorksiteSubject; observation: FileWorksiteObservation }>[];
-}
-export interface WorksiteCommandForwardSnapshotSource {
+};
+export type WorksiteCommandForwardSnapshotSource = {
   readonly sourceMemberRef: string;
   readonly subject: WorksiteSubject;
   readonly observation: FileWorksiteObservation;
   readonly source: Readonly<{ kind: "retained_construction"; resultAdmissionEventRef: string; evidenceEventRef: string;
     bindingCoverEventRefs: readonly string[] }>;
-}
-export interface WorksiteCommandForwardTask extends Omit<WorksiteCommandExecutionTask,
-  "kind" | "protectedObservations" | "materializationPlanRef" | "rendererRef" | "instructionContractRef" | "resultContractRef"> {
+};
+export type WorksiteCommandForwardTask = Omit<WorksiteCommandExecutionTask,
+  "kind" | "protectedObservations" | "materializationPlanRef" | "rendererRef" | "instructionContractRef" | "resultContractRef"> & {
   readonly kind: "worksite_command_forward_task";
   readonly request: WorksiteCommandForwardRequest;
   readonly originalTask: WorksiteCommandExecutionTask;
@@ -63,15 +63,15 @@ export interface WorksiteCommandForwardTask extends Omit<WorksiteCommandExecutio
   readonly rendererRef: typeof WORKSITE_COMMAND_FORWARD_IDS.rendererRef;
   readonly instructionContractRef: typeof WORKSITE_COMMAND_FORWARD_IDS.taskContractRef;
   readonly resultContractRef: typeof WORKSITE_COMMAND_FORWARD_IDS.workerResultContractRef;
-}
-export interface WorksiteCommandForwardSnapshotMember extends Omit<WorksiteSnapshotMember, "kind"> {
+};
+export type WorksiteCommandForwardSnapshotMember = Omit<WorksiteSnapshotMember, "kind"> & {
   readonly kind: "worksite_command_forward_snapshot_member";
   readonly source: WorksiteCommandForwardSnapshotSource["source"];
-}
-export interface WorksiteCommandForwardArtifact extends Omit<WorksiteCommandHelperArtifact, "kind" | "snapshotMembers"> {
+};
+export type WorksiteCommandForwardArtifact = Omit<WorksiteCommandHelperArtifact, "kind" | "snapshotMembers"> & {
   readonly kind: "worksite_command_forward_helper_artifact";
   readonly snapshotMembers: readonly WorksiteCommandForwardSnapshotMember[];
-}
+};
 export interface WorksiteCommandForwardObservation extends Omit<WorksiteCommandExecutionObservation, "kind" | "task" | "snapshotMembers"> {
   readonly kind: "worksite_command_forward_observation";
   readonly task: WorksiteCommandForwardTask;
@@ -81,7 +81,7 @@ export type ExecutableWorksiteCommandTask = PriorTask | WorksiteCommandForwardTa
 export type ExecutableWorksiteCommandObservation = PriorObservation | WorksiteCommandForwardObservation;
 export type ExecutableWorksiteCommandArtifact = PriorArtifact | WorksiteCommandForwardArtifact;
 export type ExecutableWorksiteSnapshotMember = PriorMember | WorksiteCommandForwardSnapshotMember;
-const hash = (a: unknown) => sha256Canonical(a as JsonValue);
+const hash = (a: JsonValue) => sha256Canonical(a);
 const text = (v: unknown): v is string => typeof v === "string" && v.length > 0 && v.trim() === v && !v.includes("\0");
 export function constructWorksiteCommandForwardRequest(input: Omit<WorksiteCommandForwardRequest,"kind"|"schemaVersion"|"requestRef"|"requestDigest">): WorksiteCommandForwardRequest {
   const s = input.source;
@@ -99,7 +99,7 @@ export function constructWorksiteCommandForwardRequest(input: Omit<WorksiteComma
     input.protectedObservations.some(row => !isRecord(row) || !hasExactKeys(row,["subject","observation"]) ||
       !isWorksiteSubject(row.subject) || !isWorksiteObservation(row.observation) || row.observation.state !== "file" ||
       row.observation.subjectRef !== row.subject.subjectRef || row.observation.subjectDigest !== row.subject.subjectDigest ||
-      !canonicalEquals(constructWorksiteSubject({...input,subjectUri:row.subject.subjectUri,relativePath:row.subject.relativePath}) as unknown as JsonValue, row.subject as unknown as JsonValue)) ||
+      !canonicalEquals(constructWorksiteSubject({...input,subjectUri:row.subject.subjectUri,relativePath:row.subject.relativePath}), row.subject)) ||
     new Set(input.protectedObservations.map(r=>r.subject.subjectRef)).size !== input.protectedObservations.length)
     throw new TypeError("forward request requires exact historical coordinates and a complete current A/W assertion vector");
   const body = {source:input.source,workspaceAuthorityBasis:input.workspaceAuthorityBasis,workspaceBinding:input.workspaceBinding,
@@ -111,13 +111,13 @@ export function constructWorksiteCommandForwardRequest(input: Omit<WorksiteComma
 export function isWorksiteCommandForwardRequest(value: unknown): value is WorksiteCommandForwardRequest {
   if(!isRecord(value)||value.kind!=="worksite_command_forward_request"||value.schemaVersion!=="5.0.0"||
     !hasExactKeys(value,["kind","schemaVersion","requestRef","requestDigest","source","workspaceAuthorityBasis","workspaceBinding","capabilityGrant","protectedObservations"]))return false;
-  try{return canonicalEquals(value as unknown as JsonValue, constructWorksiteCommandForwardRequest(value as unknown as WorksiteCommandForwardRequest) as unknown as JsonValue);}catch{return false;}
+  try{const admitted=admitJson(value);return admitted.kind==="ok"&&canonicalEquals(admitted.value, constructWorksiteCommandForwardRequest(value as unknown as WorksiteCommandForwardRequest));}catch{return false;}
 }
 export function constructWorksiteCommandForwardTask(input: Readonly<{request:WorksiteCommandForwardRequest;originalTask:WorksiteCommandExecutionTask;
   snapshotSources:readonly WorksiteCommandForwardSnapshotSource[];bindingCoverEventRefs:readonly string[]}>): WorksiteCommandForwardTask {
   const {request,originalTask,snapshotSources,bindingCoverEventRefs}=input;
   if(!isWorksiteCommandForwardRequest(request)||!isWorksiteCommandExecutionTask(originalTask)||
-    !canonicalEquals(request.workspaceAuthorityBasis as unknown as JsonValue, originalTask.workspaceAuthorityBasis as unknown as JsonValue)||
+    !canonicalEquals(request.workspaceAuthorityBasis, originalTask.workspaceAuthorityBasis)||
     !Array.isArray(bindingCoverEventRefs)||bindingCoverEventRefs.length===0||!bindingCoverEventRefs.every(text)||
     new Set(bindingCoverEventRefs).size!==bindingCoverEventRefs.length||
     !Array.isArray(snapshotSources)||snapshotSources.length!==originalTask.sourceConstructionResult.members.length||
@@ -125,19 +125,20 @@ export function constructWorksiteCommandForwardTask(input: Readonly<{request:Wor
       const old=originalTask.protectedObservations[i],current=request.protectedObservations[i];
       return !isRecord(row)||!hasExactKeys(row,["sourceMemberRef","subject","observation","source"])||old===undefined||current===undefined||
         !isWorksiteSubject(row.subject)||!isWorksiteObservation(row.observation)||row.observation.state!=="file"||
-        row.sourceMemberRef!==old.sourceMemberRef||!canonicalEquals({subject:row.subject,observation:row.observation} as unknown as JsonValue, current as unknown as JsonValue)||
+        row.sourceMemberRef!==old.sourceMemberRef||!canonicalEquals({subject:row.subject,observation:row.observation}, current)||
         row.subject.subjectUri!==old.subject.subjectUri||row.subject.relativePath!==old.subject.relativePath||
         row.observation.fileIdentity!==old.observation.fileIdentity||row.observation.fileDigest!==old.observation.fileDigest||
         row.observation.byteLength!==old.observation.byteLength||!isRecord(row.source)||
         !hasExactKeys(row.source,["kind","resultAdmissionEventRef","evidenceEventRef","bindingCoverEventRefs"])||
         row.source.kind!=="retained_construction"||!text(row.source.resultAdmissionEventRef)||!text(row.source.evidenceEventRef)||
-        !canonicalEquals(row.source.bindingCoverEventRefs as JsonValue, bindingCoverEventRefs);
+        !Array.isArray(row.source.bindingCoverEventRefs)||row.source.bindingCoverEventRefs.length!==bindingCoverEventRefs.length||
+        !row.source.bindingCoverEventRefs.every((ref:unknown,j:number)=>ref===bindingCoverEventRefs[j]);
     }))throw new TypeError("forward task requires the complete unchanged construction vector and explicit native proof coordinates");
   const configuration=constructWorksiteCommandConfiguration({...request,commands:originalTask.commands,
     outcomePredicates:originalTask.outcomePredicates,allowedWriteTerritories:originalTask.allowedWriteTerritories,
     protectedSubjects:snapshotSources.map(r=>r.subject)});
-  if(!canonicalEquals(configuration.commands as unknown as JsonValue, originalTask.commands as unknown as JsonValue)||!canonicalEquals(configuration.predicates as unknown as JsonValue, originalTask.outcomePredicates as unknown as JsonValue)||
-    !canonicalEquals(configuration.allowedWriteTerritories as unknown as JsonValue, originalTask.allowedWriteTerritories as unknown as JsonValue))throw new TypeError("forward command meaning changed");
+  if(!canonicalEquals(configuration.commands, originalTask.commands)||!canonicalEquals(configuration.predicates, originalTask.outcomePredicates)||
+    !canonicalEquals(configuration.allowedWriteTerritories, originalTask.allowedWriteTerritories))throw new TypeError("forward command meaning changed");
   const {kind:_kind,schemaVersion:_schema,taskRef:_ref,taskDigest:_digest,protectedObservations:_observations,...old}=originalTask;
   const body={...old,workspaceAuthorityBasis:request.workspaceAuthorityBasis,workspaceBinding:request.workspaceBinding,capabilityGrant:request.capabilityGrant,
     materializationPlanRef:WORKSITE_COMMAND_FORWARD_IDS.materializationPlanRef,rendererRef:WORKSITE_COMMAND_FORWARD_IDS.rendererRef,
@@ -148,7 +149,7 @@ export function constructWorksiteCommandForwardTask(input: Readonly<{request:Wor
 }
 export function isWorksiteCommandForwardTask(value:unknown):value is WorksiteCommandForwardTask {
   if(!isRecord(value)||value.kind!=="worksite_command_forward_task"||value.schemaVersion!=="5.0.0")return false;
-  try{return canonicalEquals(value as unknown as JsonValue, constructWorksiteCommandForwardTask(value as unknown as WorksiteCommandForwardTask) as unknown as JsonValue);}catch{return false;}
+  try{const admitted=admitJson(value);return admitted.kind==="ok"&&canonicalEquals(admitted.value, constructWorksiteCommandForwardTask(value as unknown as WorksiteCommandForwardTask));}catch{return false;}
 }
 export function isExecutableWorksiteCommandTask(value:unknown):value is ExecutableWorksiteCommandTask {
   return isPriorTask(value)||isWorksiteCommandForwardTask(value);

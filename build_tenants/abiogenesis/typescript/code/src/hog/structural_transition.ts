@@ -102,7 +102,7 @@ function advanceStructuralTransitionUsing(
       input.predecessorPrefix,
       `structural-step-${input.ordinal}`,
       "diagnostic://abiogenesis/hog/structural-step-refused@5",
-      input.term as unknown as JsonValue,
+      input.term,
     );
   }
   const target = deriveStructuralTargetCursor(
@@ -116,7 +116,7 @@ function advanceStructuralTransitionUsing(
       input.predecessorPrefix,
       `structural-step-${input.ordinal}`,
       "diagnostic://abiogenesis/hog/structural-step-refused@5",
-      (target ?? input.term) as unknown as JsonValue,
+      (target ?? input.term),
     );
   }
   const retryInput = input.term.kind === "c_retry"
@@ -135,7 +135,7 @@ function advanceStructuralTransitionUsing(
       input.predecessorPrefix,
       `structural-step-${input.ordinal}`,
       "diagnostic://abiogenesis/hog/structural-step-refused@5",
-      input.term as unknown as JsonValue,
+      input.term,
     );
   }
   const exitsRetry = input.term.kind === "c_identity" &&
@@ -155,7 +155,7 @@ function advanceStructuralTransitionUsing(
       input.predecessorPrefix,
       `structural-step-${input.ordinal}`,
       "diagnostic://abiogenesis/hog/structural-step-refused@5",
-      input.term as unknown as JsonValue,
+      input.term,
     );
   }
   const clock = {
@@ -189,7 +189,7 @@ function advanceStructuralTransitionUsing(
       input.predecessorPrefix,
       `structural-progress-${input.ordinal}`,
       `diagnostic://abiogenesis/hog/${progressPlan.code}@5`,
-      progressPlan as unknown as JsonValue,
+      progressPlan,
     );
   }
   const replayState = progressPlan?.replayState ??
@@ -211,7 +211,7 @@ function advanceStructuralTransitionUsing(
       input.predecessorPrefix,
       `structural-route-${input.ordinal}`,
       `diagnostic://abiogenesis/hog/${proposal.code}@5`,
-      proposal as unknown as JsonValue,
+      proposal,
     );
   }
   const candidate = routeKind === "retry"
@@ -272,7 +272,7 @@ function advanceStructuralTransitionUsing(
       input.predecessorPrefix,
       `structural-transition-${input.ordinal}`,
       `diagnostic://abiogenesis/hog/${committed.code}@5`,
-      committed as unknown as JsonValue,
+      committed,
     );
   }
   const structural = applyAdmittedRoute(
@@ -291,7 +291,7 @@ function advanceStructuralTransitionUsing(
       committed.successorPrefix,
       `structural-step-${input.ordinal}`,
       "diagnostic://abiogenesis/hog/structural-step-refused@5",
-      structural as unknown as JsonValue,
+      structural,
     );
   }
   return {

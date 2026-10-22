@@ -357,7 +357,7 @@ export const CONSENSUS_IDS = Object.freeze({
   fhDecisionVocabularyRef: "abg.vocabulary.consensus-fh-decision",
 });
 
-export interface ConsensusSubject {
+export type ConsensusSubject = {
   readonly kind: "consensus_subject";
   readonly schemaVersion: "5.0.0";
   readonly subjectContractRef: string;
@@ -369,9 +369,9 @@ export interface ConsensusSubject {
   readonly workspaceRef: string;
   readonly ticketRef: string | null;
   readonly ticketDigest: Sha256Digest | null;
-}
+};
 
-export interface ConsensusSubjectMaterialization {
+export type ConsensusSubjectMaterialization = {
   readonly kind: "consensus_subject_materialization";
   readonly schemaVersion: "5.0.0";
   readonly materializationRef: string;
@@ -380,9 +380,9 @@ export interface ConsensusSubjectMaterialization {
   readonly contentDigest: Sha256Digest;
   readonly mediaType: "text/markdown; charset=utf-8";
   readonly content: string;
-}
+};
 
-export interface ConsensusReviewerInstruction {
+export type ConsensusReviewerInstruction = {
   readonly kind: "consensus_reviewer_instruction";
   readonly schemaVersion: "5.0.0";
   readonly instructionContractRef: string;
@@ -390,9 +390,9 @@ export interface ConsensusReviewerInstruction {
   readonly instructionDigest: Sha256Digest;
   readonly instructionText: string;
   readonly responseSchema: Readonly<Record<string, JsonValue>>;
-}
+};
 
-export interface ConsensusReviewerProfile {
+export type ConsensusReviewerProfile = {
   readonly kind: "consensus_reviewer_profile";
   readonly schemaVersion: "5.0.0";
   readonly profileRef: string;
@@ -404,9 +404,9 @@ export interface ConsensusReviewerProfile {
   readonly capabilityRefs: readonly string[];
   readonly actorRef: string;
   readonly workerBindingRef: string;
-}
+};
 
-export interface ConsensusSubmitterInstruction {
+export type ConsensusSubmitterInstruction = {
   readonly kind: "consensus_submitter_instruction";
   readonly schemaVersion: "5.0.0";
   readonly instructionContractRef: string;
@@ -414,9 +414,9 @@ export interface ConsensusSubmitterInstruction {
   readonly instructionDigest: Sha256Digest;
   readonly instructionText: string;
   readonly responseSchema: Readonly<Record<string, JsonValue>>;
-}
+};
 
-export interface ConsensusSubmitterProfile {
+export type ConsensusSubmitterProfile = {
   readonly kind: "consensus_submitter_profile";
   readonly schemaVersion: "5.0.0";
   readonly profileRef: string;
@@ -428,7 +428,7 @@ export interface ConsensusSubmitterProfile {
   readonly capabilityRefs: readonly string[];
   readonly actorRef: string;
   readonly workerBindingRef: string;
-}
+};
 
 export type ConsensusRoleInstruction =
   | ConsensusReviewerInstruction
@@ -438,15 +438,15 @@ export type ConsensusRoleProfile =
   | ConsensusReviewerProfile
   | ConsensusSubmitterProfile;
 
-export interface ConsensusPanel {
+export type ConsensusPanel = {
   readonly kind: "consensus_panel";
   readonly schemaVersion: "5.0.0";
   readonly panelRef: string;
   readonly panelDigest: Sha256Digest;
   readonly profiles: readonly ConsensusReviewerProfile[];
-}
+};
 
-export interface ConsensusRulingOverlay {
+export type ConsensusRulingOverlay = {
   readonly kind: "consensus_ruling_overlay";
   readonly schemaVersion: "5.0.0";
   readonly overlayRef: string;
@@ -459,9 +459,9 @@ export interface ConsensusRulingOverlay {
     ReviewRulingKind,
     "deferment"
   >;
-}
+};
 
-export interface ConsensusRoundPolicy {
+export type ConsensusRoundPolicy = {
   readonly kind: "consensus_round_policy";
   readonly schemaVersion: "5.0.0";
   readonly policyRef: string;
@@ -472,9 +472,9 @@ export interface ConsensusRoundPolicy {
   readonly rulingOverlay: ConsensusRulingOverlay | null;
   readonly escalationRuleRef: string;
   readonly foldbackContractRef: string;
-}
+};
 
-export interface ConsensusInvocation {
+export type ConsensusInvocation = {
   readonly kind: "consensus_invocation";
   readonly schemaVersion: "5.0.0";
   readonly invocationRef: string;
@@ -486,7 +486,7 @@ export interface ConsensusInvocation {
   readonly submitterInstruction: ConsensusSubmitterInstruction;
   readonly policy: ConsensusRoundPolicy;
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
-}
+};
 
 export interface ConsensusCatalogApplicationBinding {
   readonly handle: string;
@@ -500,7 +500,7 @@ export interface ConsensusCatalogApplicationBinding {
   }> | null;
 }
 
-export interface ConsensusReviewerTask {
+export type ConsensusReviewerTask = {
   readonly kind: "consensus_reviewer_task";
   readonly schemaVersion: "5.0.0";
   readonly taskRef: string;
@@ -524,24 +524,24 @@ export interface ConsensusReviewerTask {
   readonly priorSubmitterResponses: readonly ConsensusSubmitterResponseRecord[];
   readonly priorEvidenceRefs: readonly string[];
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
-}
+};
 
-export interface ReviewFinding {
+export type ReviewFinding = {
   readonly findingRef: string;
   readonly findingContractRef: string;
   readonly findingPayloadRef: string;
   readonly evidenceRefs: readonly string[];
-}
+};
 
-export interface ReviewRuling {
+export type ReviewRuling = {
   readonly rulingRef: string;
   readonly rulingKind: ReviewRulingKind;
   readonly findingRefs: readonly string[];
   readonly rationaleRef: string;
   readonly payloadRef: string;
-}
+};
 
-export interface ReviewFindings {
+export type ReviewFindings = {
   readonly kind: "review_findings";
   readonly schemaVersion: "5.0.0";
   readonly reviewerTaskRef: string;
@@ -562,9 +562,9 @@ export interface ReviewFindings {
   readonly residualRefs: readonly string[];
   readonly refusalRef: string | null;
   readonly task: ConsensusReviewerTask;
-}
+};
 
-export interface ConsensusRoundOutcome {
+export type ConsensusRoundOutcome = {
   readonly kind: "consensus_round_outcome";
   readonly schemaVersion: "5.0.0";
   readonly roundRef: string;
@@ -572,9 +572,9 @@ export interface ConsensusRoundOutcome {
   readonly findingSetRefs: readonly string[];
   readonly rulingRefs: readonly string[];
   readonly evidenceRefs: readonly string[];
-}
+};
 
-export interface ConsensusRoundState {
+export type ConsensusRoundState = {
   readonly kind: "consensus_round_state";
   readonly schemaVersion: "5.0.0";
   readonly invocationRef: string;
@@ -601,9 +601,9 @@ export interface ConsensusRoundState {
     readonly memberRef: string;
     readonly value: ConsensusReviewerTask;
   }[];
-}
+};
 
-export interface ConsensusFindingsVector {
+export type ConsensusFindingsVector = {
   readonly kind: "gtl_fan_out_vector";
   readonly schemaVersion: "5.0.0";
   readonly applicationRef: string;
@@ -613,9 +613,9 @@ export interface ConsensusFindingsVector {
     readonly outputMemberRef: string;
     readonly value: ReviewFindings;
   }[];
-}
+};
 
-export interface ConsensusSubmitterTask {
+export type ConsensusSubmitterTask = {
   readonly kind: "consensus_submitter_task";
   readonly schemaVersion: "5.0.0";
   readonly invocationRef: string;
@@ -632,13 +632,13 @@ export interface ConsensusSubmitterTask {
   readonly priorSubmitterResponseRefs: readonly string[];
   readonly priorEvidenceRefs: readonly string[];
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
-}
+};
 
 export type ConsensusRoleTask =
   | ConsensusReviewerTask
   | ConsensusSubmitterTask;
 
-export interface ConsensusSubmitterResponseRecord {
+export type ConsensusSubmitterResponseRecord = {
   readonly invocationRef: string;
   readonly responseRef: string;
   readonly outputDigest: Sha256Digest;
@@ -655,7 +655,7 @@ export interface ConsensusSubmitterResponseRecord {
   readonly addressedFindingRefs: readonly string[];
   readonly residualFindingRefs: readonly string[];
   readonly evidenceRefs: readonly string[];
-}
+};
 
 export interface ConsensusSubmitterResponse
   extends ConsensusSubmitterResponseRecord {
@@ -669,7 +669,7 @@ export type ConsensusRoleOccurrence =
   | ReviewFindings
   | ConsensusSubmitterResponse;
 
-export interface ConsensusResultCandidate {
+export type ConsensusResultCandidate = {
   readonly kind: "consensus_result_candidate";
   readonly schemaVersion: "5.0.0";
   readonly subjectRef: string;
@@ -686,7 +686,7 @@ export interface ConsensusResultCandidate {
   readonly evidenceRefs: readonly string[];
   readonly lineageRefs: readonly string[];
   readonly contractFailureRef: string | null;
-}
+};
 
 export interface ConsensusResult
   extends Omit<ConsensusResultCandidate, "kind"> {
@@ -695,7 +695,7 @@ export interface ConsensusResult
   readonly replayRef: string;
 }
 
-export interface ConsensusRoundDecision {
+export type ConsensusRoundDecision = {
   readonly kind: "consensus_resolution";
   readonly resolutionKind: "round_decision";
   readonly schemaVersion: "5.0.0";
@@ -704,9 +704,9 @@ export interface ConsensusRoundDecision {
   readonly outcome: ConsensusRoundOutcome;
   readonly result: ConsensusResultCandidate;
   readonly resolutionTerminal: boolean;
-}
+};
 
-export interface ConsensusHumanFinalization {
+export type ConsensusHumanFinalization = {
   readonly kind: "consensus_resolution";
   readonly resolutionKind: "human_finalization";
   readonly schemaVersion: "5.0.0";
@@ -718,7 +718,7 @@ export interface ConsensusHumanFinalization {
   readonly rationaleRef: string;
   readonly result: ConsensusResultCandidate;
   readonly resolutionTerminal: true;
-}
+};
 
 export type ConsensusResolution =
   | ConsensusRoundDecision
@@ -759,7 +759,7 @@ export interface TicketConsensusProjection {
   readonly replayRef: string;
 }
 
-export interface ConsensusObservationSnapshot {
+export type ConsensusObservationSnapshot = {
   readonly kind: "observation_snapshot";
   readonly schemaVersion: "5.0.0";
   readonly snapshotRef: string;
@@ -776,7 +776,7 @@ export interface ConsensusObservationSnapshot {
   readonly consensusInvocation: ConsensusInvocation;
   readonly consensusResultRef: string | null;
   readonly modelRef: string | null;
-}
+};
 
 function isRef(value: unknown): value is string {
   return isNonBlankRef(value);
@@ -850,7 +850,9 @@ function isConsensusActionCatalog(
     catalogDigest: _catalogDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.catalogDigest === digest &&
     value.catalogRef ===
       `action-catalog://product/${digest.slice("sha256:".length)}`;
@@ -878,7 +880,7 @@ export function constructConsensusObservationSnapshot(input: Readonly<{
     consensusResultRef: null,
     modelRef: null,
   };
-  const snapshotDigest = sha256Canonical(body as unknown as JsonValue);
+  const snapshotDigest = sha256Canonical(body);
   const snapshot = deepFreeze({
     ...body,
     snapshotRef:
@@ -941,7 +943,9 @@ export function isConsensusObservationSnapshot(
     snapshotDigest: _snapshotDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.snapshotDigest === digest &&
     value.snapshotRef ===
       `observation-snapshot://product/${digest.slice("sha256:".length)}`;
@@ -961,7 +965,7 @@ function consensusGapProjection(
       : "none" as const,
     resultRef: snapshot.consensusResultRef,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     gapRef: `gap://abg/consensus/${digest.slice("sha256:".length)}`,
@@ -998,7 +1002,7 @@ export function synthesizeConsensusModel(
     modelRef:
       `model://abg/consensus/${modelDigest.slice("sha256:".length)}`,
   };
-  const snapshotDigest = sha256Canonical(body as unknown as JsonValue);
+  const snapshotDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     snapshotRef:
@@ -1021,7 +1025,7 @@ export function evaluateConsensusGap(
     : "post_evidence" as const;
   const gapProjection = consensusGapProjection(input, phase);
   const targetInputDigest = sha256Canonical(
-    input.consensusInvocation as unknown as JsonValue,
+    input.consensusInvocation,
   );
   const body = {
     kind: "next_action_basis" as const,
@@ -1047,13 +1051,13 @@ export function evaluateConsensusGap(
     targetInputDigest,
     targetInput: input.consensusInvocation,
   };
-  const basisDigest = sha256Canonical(body as unknown as JsonValue);
+  const basisDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     basisRef:
       `next-action-basis://product/${basisDigest.slice("sha256:".length)}`,
     basisDigest,
-  }) as unknown as Readonly<Record<string, JsonValue>>;
+  });
 }
 
 export function isConsensusNextActionBasis(
@@ -1098,15 +1102,17 @@ export function isConsensusNextActionBasis(
   const declaredPolicy = admitJson(value.declaredPolicy);
   if (
     declaredPolicy.kind !== "ok" ||
-    !canonicalEquals(declaredPolicy.value, consensusConstructionPolicy() as unknown as JsonValue) ||
+    !canonicalEquals(declaredPolicy.value, consensusConstructionPolicy()) ||
     !isConsensusInvocation(value.targetInput) ||
     value.targetInputRef !== value.targetInput.invocationRef ||
     value.targetInputDigest !==
-      sha256Canonical(value.targetInput as unknown as JsonValue) ||
+      sha256Canonical(value.targetInput) ||
     !isRefArrayEqual(value.targetObligationRefs, [CONSENSUS_IDS.consensusObligationRef])
   ) return false;
   const { basisRef: _basisRef, basisDigest: _basisDigest, ...body } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.basisDigest === digest &&
     value.basisRef ===
       `next-action-basis://product/${digest.slice("sha256:".length)}`;
@@ -1138,26 +1144,33 @@ export function selectConsensusNextAction(
   if (!isConsensusNextActionBasis(input)) {
     throw new TypeError("Consensus action selection requires one exact basis");
   }
-  const frontier = input.runtimeFrontier as Readonly<
-    Record<string, JsonValue>
-  >;
+  const frontier = input.runtimeFrontier;
+  if (!isRecord(frontier)) {
+    throw new TypeError("Consensus action selection requires one exact basis");
+  }
   if (frontier.phase !== "initial") {
     throw new TypeError("Initial Consensus selection requires initial pressure");
   }
-  const gap = input.gapProjection as Readonly<Record<string, JsonValue>>;
+  const gap = input.gapProjection;
+  if (!isRecord(gap)) throw new TypeError("Consensus action selection requires one exact basis");
+  // The basis guard admitted these members; an absent one is no exact basis.
+  const basisRef = input.basisRef, basisDigest = input.basisDigest, gapRef = gap.gapRef;
+  if (basisRef === undefined || basisDigest === undefined || gapRef === undefined) {
+    throw new TypeError("Consensus action selection requires one exact basis");
+  }
   const body = {
     kind: "next_action_projection" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "selected" as const,
     actionKind: "invoke_graph_function",
-    nextActionBasisRef: input.basisRef,
-    nextActionBasisDigest: input.basisDigest,
+    nextActionBasisRef: basisRef,
+    nextActionBasisDigest: basisDigest,
     targetOutcomeRef: CONSENSUS_IDS.consensusTargetOutcomeRef,
     selectedActionRef: CONSENSUS_IDS.consensusActionRef,
     programRef: CONSENSUS_IDS.oneSurfaceProgramRef,
     graphFunctionRef: CONSENSUS_IDS.graphFunctionRef,
     targetProgramLocusRef: CONSENSUS_IDS.graphFunctionRef,
-    gapRef: gap.gapRef,
+    gapRef,
     targetObligationRefs: [CONSENSUS_IDS.consensusObligationRef],
     targetObligationBindings: [
       obligationBinding("bound", [CONSENSUS_IDS.consensusActionRef]),
@@ -1171,19 +1184,19 @@ export function selectConsensusNextAction(
       CONSENSUS_IDS.consensusActionRef,
     ]),
     lawfulBasisRefs: [
-      String(input.basisRef),
-      String(gap.gapRef),
+      String(basisRef),
+      String(gapRef),
       CONSENSUS_IDS.oneSurfaceProgramRef,
     ],
     rejectedAlternativeRefs: [],
   };
-  const projectionDigest = sha256Canonical(body as unknown as JsonValue);
+  const projectionDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     projectionRef:
       `next-action-projection://product/${projectionDigest.slice("sha256:".length)}`,
     projectionDigest,
-  }) as unknown as Readonly<Record<string, JsonValue>>;
+  });
 }
 
 export function isConsensusNextActionProjection(
@@ -1196,7 +1209,7 @@ export function isConsensusNextActionProjection(
   if (
     !isRef(projectionRef) ||
     !isDigest(projectionDigest) ||
-    projectionDigest !== sha256Canonical(body as unknown as JsonValue) ||
+    !admittedDigestIs(body, projectionDigest) ||
     projectionRef !==
       `next-action-projection://product/${projectionDigest.slice("sha256:".length)}`
   ) return false;
@@ -1237,14 +1250,15 @@ export function isConsensusActionEvaluationBasis(
   const evidence = value.admittedEvidence[0];
   const intent = value.constructionIntent;
   const { basisRef: _basisRef, basisDigest: _basisDigest, ...body } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   if (!(value.basisDigest === digest &&
     value.basisRef ===
       `action-evaluation-basis://abiogenesis/${digest.slice("sha256:".length)}` &&
     intent.actionKind === "invoke_graph_function" &&
     intent.selectedGraphFunctionRef === CONSENSUS_IDS.graphFunctionRef &&
-    evidence.responseDigest ===
-      sha256Canonical(evidence.responseValue as unknown as JsonValue))) return false;
+    admittedDigestIs(evidence.responseValue, evidence.responseDigest))) return false;
   return isRefArrayEqual(evidence.semanticEvidenceAssetRefs, [CONSENSUS_IDS.consensusOutputAssetRef]);
 }
 
@@ -1256,27 +1270,37 @@ export function evaluateConsensusAction(
       "Consensus action evaluation requires admitted child evidence",
     );
   }
-  const intent = input.constructionIntent as Readonly<
-    Record<string, JsonValue>
-  >;
-  const evidence = (input.admittedEvidence as readonly Readonly<
-    Record<string, JsonValue>
-  >[])[0]!;
+  const intent = input.constructionIntent, basis = input.nextActionBasis;
+  const admittedEvidence = input.admittedEvidence;
+  const evidence: JsonValue | undefined = Array.isArray(admittedEvidence) ? admittedEvidence[0] : undefined;
+  if (!isRecord(intent) || !isRecord(evidence) || !isRecord(basis)) {
+    throw new TypeError(
+      "Consensus action evaluation requires admitted child evidence",
+    );
+  }
+  // The evaluation-basis guard admitted these members; an absent one is no
+  // admitted child evidence.
+  const constructionIntentRef = intent.constructionIntentRef, responseRef = evidence.responseRef,
+    basisRef = input.basisRef, basisDigest = input.basisDigest, observationSnapshot = basis.observationSnapshot;
+  if (constructionIntentRef === undefined || responseRef === undefined || basisRef === undefined ||
+      basisDigest === undefined || observationSnapshot === undefined) {
+    throw new TypeError(
+      "Consensus action evaluation requires admitted child evidence",
+    );
+  }
   const ledgerBody = {
     kind: "edge_fulfillment_ledger" as const,
     schemaVersion: "5.0.0" as const,
-    constructionIntentRef: intent.constructionIntentRef,
+    constructionIntentRef,
     targetOutcomeRef: CONSENSUS_IDS.consensusTargetOutcomeRef,
     rows: [{
       obligationRef: CONSENSUS_IDS.consensusObligationRef,
-      evidenceRefs: [evidence.responseRef],
+      evidenceRefs: [responseRef],
       evidenceAssetRefs: [CONSENSUS_IDS.consensusOutputAssetRef],
       disposition: "fulfilled" as const,
     }],
   };
-  const ledgerDigest = sha256Canonical(
-    ledgerBody as unknown as JsonValue,
-  );
+  const ledgerDigest = sha256Canonical(ledgerBody);
   const edgeFulfillmentLedger = {
     ...ledgerBody,
     ledgerRef:
@@ -1286,47 +1310,40 @@ export function evaluateConsensusAction(
   const decisionBody = {
     kind: "edge_closure_decision" as const,
     schemaVersion: "5.0.0" as const,
-    constructionIntentRef: intent.constructionIntentRef,
+    constructionIntentRef,
     targetOutcomeRef: CONSENSUS_IDS.consensusTargetOutcomeRef,
     ledgerRef: edgeFulfillmentLedger.ledgerRef,
     disposition: "close_candidate" as const,
     correctionDisposition: null,
   };
-  const decisionDigest = sha256Canonical(
-    decisionBody as unknown as JsonValue,
-  );
+  const decisionDigest = sha256Canonical(decisionBody);
   const edgeClosureDecision = {
     ...decisionBody,
     decisionRef:
       `edge-closure-decision://product/${decisionDigest.slice("sha256:".length)}`,
     decisionDigest,
   };
-  const basis = input.nextActionBasis as Readonly<
-    Record<string, JsonValue>
-  >;
   const evaluationBody = {
     kind: "action_evaluation_projection" as const,
     schemaVersion: "5.0.0" as const,
-    actionEvaluationBasisRef: input.basisRef,
-    actionEvaluationBasisDigest: input.basisDigest,
-    constructionIntentRef: intent.constructionIntentRef,
+    actionEvaluationBasisRef: basisRef,
+    actionEvaluationBasisDigest: basisDigest,
+    constructionIntentRef,
     targetOutcomeRef: CONSENSUS_IDS.consensusTargetOutcomeRef,
-    admittedEvidenceRefs: [evidence.responseRef],
+    admittedEvidenceRefs: [responseRef],
     semanticEvidenceAssetRefs: [CONSENSUS_IDS.consensusOutputAssetRef],
-    observationSnapshot: basis.observationSnapshot,
+    observationSnapshot,
     runtimeArchiveInspection: null,
     edgeFulfillmentLedger,
     edgeClosureDecision,
   };
-  const actionEvaluationDigest = sha256Canonical(
-    evaluationBody as unknown as JsonValue,
-  );
+  const actionEvaluationDigest = sha256Canonical(evaluationBody);
   return deepFreeze({
     ...evaluationBody,
     actionEvaluationRef:
       `action-evaluation://product/${actionEvaluationDigest.slice("sha256:".length)}`,
     actionEvaluationDigest,
-  }) as unknown as Readonly<Record<string, JsonValue>>;
+  });
 }
 
 export function isConsensusActionEvaluationProjection(
@@ -1347,7 +1364,9 @@ export function isConsensusActionEvaluationProjection(
     actionEvaluationDigest: _actionEvaluationDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.actionEvaluationDigest === digest &&
     value.actionEvaluationRef ===
       `action-evaluation://product/${digest.slice("sha256:".length)}`;
@@ -1363,9 +1382,13 @@ export function refreshConsensusModel(
   }
   const prior = input.observationSnapshot as unknown as
     ConsensusObservationSnapshot;
-  const ledger = input.edgeFulfillmentLedger as Readonly<
-    Record<string, JsonValue>
-  >;
+  const ledger = input.edgeFulfillmentLedger;
+  const edgeClosureDecision = input.edgeClosureDecision;
+  if (!isRecord(ledger) || !isRecord(edgeClosureDecision)) {
+    throw new TypeError(
+      "Consensus refresh requires one exact action evaluation",
+    );
+  }
   const rows = ledger.rows;
   if (
     !Array.isArray(rows) ||
@@ -1391,13 +1414,11 @@ export function refreshConsensusModel(
       actionEvaluationRef: String(input.actionEvaluationRef),
       actionEvaluationBasisRef: evaluationBasisRef,
       constructionIntentRef: String(input.constructionIntentRef),
-      edgeClosureDecisionRef: String((
-        input.edgeClosureDecision as Readonly<Record<string, JsonValue>>
-      ).decisionRef),
+      edgeClosureDecisionRef: String(edgeClosureDecision.decisionRef),
     },
     consensusResultRef: rows[0].evidenceRefs[0],
   };
-  const snapshotDigest = sha256Canonical(body as unknown as JsonValue);
+  const snapshotDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     snapshotRef:
@@ -1424,9 +1445,10 @@ export function refreshConsensusNextAction(
   if (!isConsensusNextActionBasis(input)) {
     throw new TypeError("Consensus convergence requires one refreshed basis");
   }
-  const frontier = input.runtimeFrontier as Readonly<
-    Record<string, JsonValue>
-  >;
+  const frontier = input.runtimeFrontier;
+  if (!isRecord(frontier)) {
+    throw new TypeError("Consensus convergence requires one refreshed basis");
+  }
   const observation = input.observationSnapshot as unknown as
     ConsensusObservationSnapshot;
   if (
@@ -1438,34 +1460,50 @@ export function refreshConsensusNextAction(
       "Consensus convergence requires post-evidence result truth",
     );
   }
-  const gap = input.gapProjection as Readonly<Record<string, JsonValue>>;
+  const gap = input.gapProjection;
+  if (!isRecord(gap)) throw new TypeError("Consensus convergence requires one refreshed basis");
+  // The basis guard admitted these members; an absent one is no refreshed basis.
+  const basisRef = input.basisRef, basisDigest = input.basisDigest, gapRef = gap.gapRef;
+  const constructionIntentRef = observation.constructionState.constructionIntentRef;
+  const edgeClosureDecisionRef = observation.constructionState.edgeClosureDecisionRef;
+  if (basisRef === undefined || basisDigest === undefined || gapRef === undefined ||
+      constructionIntentRef === undefined || edgeClosureDecisionRef === undefined) {
+    throw new TypeError("Consensus convergence requires one refreshed basis");
+  }
   const body = {
     kind: "next_action_projection" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "converged" as const,
-    constructionIntentRef:
-      observation.constructionState.constructionIntentRef,
+    constructionIntentRef,
     targetOutcomeRef: CONSENSUS_IDS.consensusTargetOutcomeRef,
-    gapRef: gap.gapRef,
-    edgeClosureDecisionRef:
-      observation.constructionState.edgeClosureDecisionRef,
-    nextActionBasisRef: input.basisRef,
-    nextActionBasisDigest: input.basisDigest,
+    gapRef,
+    edgeClosureDecisionRef,
+    nextActionBasisRef: basisRef,
+    nextActionBasisDigest: basisDigest,
     targetObligationBindings: [obligationBinding("fulfilled", [])],
     priorityProjection: priorityProjection([]),
     lawfulBasisRefs: [
-      observation.constructionState.constructionIntentRef,
-      observation.constructionState.edgeClosureDecisionRef,
-      gap.gapRef,
+      constructionIntentRef,
+      edgeClosureDecisionRef,
+      gapRef,
     ],
   };
-  const projectionDigest = sha256Canonical(body as unknown as JsonValue);
+  const projectionDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     projectionRef:
       `next-action-projection://product/${projectionDigest.slice("sha256:".length)}`,
     projectionDigest,
-  }) as unknown as Readonly<Record<string, JsonValue>>;
+  });
+}
+
+/**
+ * A guard's digest check over an unchecked carrier body: the body is admitted
+ * through `admitJson` first, and a body that is not I-JSON fails the check.
+ */
+function admittedDigestIs(body: unknown, digest: unknown): boolean {
+  const admitted = admitJson(body);
+  return admitted.kind === "ok" && sha256Canonical(admitted.value) === digest;
 }
 
 function isDigest(value: unknown): value is Sha256Digest {
@@ -1536,7 +1574,7 @@ export function constructConsensusRoleInstruction(
   };
   const instruction = deepFreeze({
     ...body,
-    instructionDigest: sha256Canonical(body as unknown as JsonValue),
+    instructionDigest: sha256Canonical(body),
   });
   if (!isConsensusRoleInstruction(input.role, instruction)) {
     throw new TypeError(
@@ -1606,7 +1644,7 @@ export function constructConsensusRoleProfile(
   };
   const profile = deepFreeze({
     ...body,
-    configurationDigest: sha256Canonical(body as unknown as JsonValue),
+    configurationDigest: sha256Canonical(body),
   });
   if (!isConsensusRoleProfile(input.role, profile)) {
     throw new TypeError(`Consensus ${input.role} profile is incomplete`);
@@ -1650,7 +1688,7 @@ export function constructConsensusPanel(
   };
   const panel = deepFreeze({
     ...body,
-    panelDigest: sha256Canonical(body as unknown as JsonValue),
+    panelDigest: sha256Canonical(body),
   });
   if (!isConsensusPanel(panel)) {
     throw new TypeError(
@@ -1678,7 +1716,7 @@ export function constructConsensusRulingOverlay(
   };
   const overlay = deepFreeze({
     ...body,
-    overlayDigest: sha256Canonical(body as unknown as JsonValue),
+    overlayDigest: sha256Canonical(body),
   });
   if (!isConsensusRulingOverlay(overlay)) {
     throw new TypeError(
@@ -1704,7 +1742,7 @@ export function constructConsensusRoundPolicy(
   };
   const policy = deepFreeze({
     ...body,
-    policyDigest: sha256Canonical(body as unknown as JsonValue),
+    policyDigest: sha256Canonical(body),
   });
   if (!isConsensusRoundPolicy(policy)) {
     throw new TypeError(
@@ -1745,34 +1783,34 @@ export function consensusCatalogApplicationBindings(
     bind(
       CONSENSUS_IDS.subjectCatalogHandle,
       invocation.subject.subjectRef,
-      invocation.subject as unknown as JsonValue,
+      invocation.subject,
     ),
     ...invocation.panel.profiles.map((profile) =>
       bind(
         CONSENSUS_IDS.reviewerProfileCatalogHandle,
         profile.profileRef,
-        profile as unknown as JsonValue,
+        profile,
       )),
     ...invocation.instructions.map((instruction) =>
       bind(
         CONSENSUS_IDS.reviewerInstructionCatalogHandle,
         instruction.instructionContractRef,
-        instruction as unknown as JsonValue,
+        instruction,
       )),
     bind(
       CONSENSUS_IDS.submitterProfileCatalogHandle,
       invocation.submitterProfile.profileRef,
-      invocation.submitterProfile as unknown as JsonValue,
+      invocation.submitterProfile,
     ),
     bind(
       CONSENSUS_IDS.submitterInstructionCatalogHandle,
       invocation.submitterInstruction.instructionContractRef,
-      invocation.submitterInstruction as unknown as JsonValue,
+      invocation.submitterInstruction,
     ),
     bind(
       CONSENSUS_IDS.policyCatalogHandle,
       invocation.policy.policyRef,
-      invocation.policy as unknown as JsonValue,
+      invocation.policy,
     ),
   ];
   if (invocation.policy.rulingOverlay !== null) {
@@ -1780,7 +1818,7 @@ export function consensusCatalogApplicationBindings(
       bind(
         CONSENSUS_IDS.rulingOverlayCatalogHandle,
         invocation.policy.rulingOverlay.overlayRef,
-        invocation.policy.rulingOverlay as unknown as JsonValue,
+        invocation.policy.rulingOverlay,
         "overlay",
       ),
     );
@@ -1894,11 +1932,10 @@ export function isConsensusRoleInstruction(
   const responseSchema = admitJson(value.responseSchema);
   if (
     responseSchema.kind !== "ok" ||
-    !canonicalEquals(responseSchema.value, expectedSchema as unknown as JsonValue)
+    !canonicalEquals(responseSchema.value, expectedSchema)
   ) return false;
   const { instructionDigest: _instructionDigest, ...body } = value;
-  return value.instructionDigest ===
-    sha256Canonical(body as unknown as JsonValue);
+  return admittedDigestIs(body, value.instructionDigest);
 }
 
 export function isConsensusReviewerInstruction(
@@ -1976,8 +2013,7 @@ export function isConsensusRoleProfile(
     isRef(value.profileRef) &&
     isRef(value.roleContractRef) &&
     isDigest(configurationDigest) &&
-    configurationDigest ===
-      sha256Canonical(configuration as unknown as JsonValue) &&
+    admittedDigestIs(configuration, configurationDigest) &&
     isRef(value.instructionContractRef) &&
     isDigest(value.instructionDigest) &&
     value.resultContractRef === expectedResultContractRef &&
@@ -2015,8 +2051,7 @@ export function isConsensusPanel(value: unknown): value is ConsensusPanel {
       value.profiles.length
   ) return false;
   const { panelDigest: _panelDigest, ...body } = value;
-  return value.panelDigest ===
-    sha256Canonical(body as unknown as JsonValue);
+  return admittedDigestIs(body, value.panelDigest);
 }
 
 export function isConsensusRulingOverlay(
@@ -2043,8 +2078,7 @@ export function isConsensusRulingOverlay(
     value.acceptedFindingRulingKind === "deferment"
   ) return false;
   const { overlayDigest: _overlayDigest, ...body } = value;
-  return value.overlayDigest ===
-    sha256Canonical(body as unknown as JsonValue);
+  return admittedDigestIs(body, value.overlayDigest);
 }
 
 export function isConsensusRoundPolicy(
@@ -2072,8 +2106,7 @@ export function isConsensusRoundPolicy(
     value.foldbackContractRef !== CONSENSUS_IDS.foldbackContractRef
   ) return false;
   const { policyDigest: _policyDigest, ...body } = value;
-  return value.policyDigest ===
-    sha256Canonical(body as unknown as JsonValue);
+  return admittedDigestIs(body, value.policyDigest);
 }
 
 export function isConsensusInvocation(
@@ -2173,7 +2206,7 @@ function validateConsensusReviewerTask(
     ...taskBody
   } = task;
   const expectedTaskDigest = sha256Canonical(
-    taskBody as unknown as JsonValue,
+    taskBody,
   );
   const panelProfile = task.panel.profiles.find((profile) =>
     profile.profileRef === task.profile.profileRef
@@ -2192,8 +2225,8 @@ function validateConsensusReviewerTask(
     task.subject.panelRef === task.panel.panelRef &&
     panelProfile !== undefined &&
     canonicalEquals(
-      panelProfile as unknown as JsonValue,
-      task.profile as unknown as JsonValue,
+      panelProfile,
+      task.profile,
     ) &&
     task.subject.roundPolicyRef === task.policy.policyRef &&
     task.instruction.instructionContractRef ===
@@ -2275,7 +2308,7 @@ export function isReviewFindings(value: unknown): value is ReviewFindings {
     value.residualRefs.length === 0
   ) return false;
   const { outputDigest: _outputDigest, ...body } = value;
-  return value.outputDigest === sha256Canonical(body as unknown as JsonValue);
+  return admittedDigestIs(body, value.outputDigest);
 }
 
 export function isReviewRuling(value: unknown): value is ReviewRuling {
@@ -2438,7 +2471,7 @@ function consensusReviewerRoundBasisDigest(
     priorSubmitterResponses: task.priorSubmitterResponses,
     priorEvidenceRefs: task.priorEvidenceRefs,
     transportLane: task.transportLane,
-  } as unknown as JsonValue);
+  });
 }
 
 export function isConsensusFindingsVector(
@@ -2489,12 +2522,12 @@ export function isConsensusFindingsVector(
         member.value.panelRef === panel.panelRef &&
         member.value.panelPosition === ordinal &&
         canonicalEquals(
-          task.panel as unknown as JsonValue,
-          panel as unknown as JsonValue,
+          task.panel,
+          panel,
         ) &&
         canonicalEquals(
-          task.profile as unknown as JsonValue,
-          expectedProfile as unknown as JsonValue,
+          task.profile,
+          expectedProfile,
         ) &&
         consensusReviewerRoundBasisDigest(task) === roundBasisDigest;
     });
@@ -2540,7 +2573,7 @@ export function isConsensusSubmitterResponseRecord(
   const body = submitterResponseRecordBody(
     value as unknown as Readonly<ConsensusSubmitterResponseRecord>,
   );
-  const outputDigest = sha256Canonical(body as unknown as JsonValue);
+  const outputDigest = sha256Canonical(body);
   return value.outputDigest === outputDigest &&
     value.responseRef ===
       `submitter-response://abg/${outputDigest.slice("sha256:".length)}`;
@@ -2595,8 +2628,8 @@ function validateConsensusSubmitterTask(
   return task.priorRoundRefs.length === task.roundOrdinal - 1 &&
     task.priorSubmitterResponseRefs.length === task.roundOrdinal - 1 &&
     canonicalEquals(
-      task.findingsVector.members[0]!.value.task.panel as unknown as JsonValue,
-      task.panel as unknown as JsonValue,
+      task.findingsVector.members[0]!.value.task.panel,
+      task.panel,
     ) &&
     task.findingsVector.members[0]?.value.task.priorRoundRefs
     .every((ref, index) => ref === task.priorRoundRefs[index]) === true &&
@@ -2658,7 +2691,7 @@ export function isConsensusSubmitterResponse(
     value.submittingActorRef !== value.task.profile.actorRef ||
     value.profileRef !== value.task.profile.profileRef ||
     value.findingsVectorDigest !==
-      sha256Canonical(value.task.findingsVector as unknown as JsonValue)
+      sha256Canonical(value.task.findingsVector)
   ) return false;
   const findingRefs = value.task.findingsVector.members.flatMap((member) =>
     member.value.findings.map((finding) => finding.findingRef)
@@ -2784,7 +2817,7 @@ function constructConsensusRoundDecision(
     resolutionTerminal:
       result.terminalOutcome.outcome !== "escalate_fh",
   };
-  const decisionDigest = sha256Canonical(body as unknown as JsonValue);
+  const decisionDigest = sha256Canonical(body);
   const decision = deepFreeze({
     ...body,
     decisionRef:
@@ -2819,8 +2852,8 @@ export function isConsensusRoundDecision(
     !isConsensusResultCandidate(value.result) ||
     typeof value.resolutionTerminal !== "boolean" ||
     !canonicalEquals(
-      value.outcome as unknown as JsonValue,
-      value.result.terminalOutcome as unknown as JsonValue,
+      value.outcome,
+      value.result.terminalOutcome,
     ) ||
     value.resolutionTerminal !==
       (value.outcome.outcome !== "escalate_fh")
@@ -2830,7 +2863,9 @@ export function isConsensusRoundDecision(
     decisionDigest: _decisionDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.decisionDigest === digest &&
     value.decisionRef ===
       `consensus-round-decision://abg/${digest.slice("sha256:".length)}`;
@@ -2861,8 +2896,8 @@ export function isConsensusHumanFinalization(
     !isConsensusResultCandidate(value.result) ||
     value.resolutionTerminal !== true ||
     !canonicalEquals(
-      value.result.terminalOutcome as unknown as JsonValue,
-      value.roundDecision.outcome as unknown as JsonValue,
+      value.result.terminalOutcome,
+      value.roundDecision.outcome,
     ) ||
     value.result.contractFailureRef !== null ||
     value.result.classification !==
@@ -2878,7 +2913,9 @@ export function isConsensusHumanFinalization(
     finalizationDigest: _finalizationDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.finalizationDigest === digest &&
     value.finalizationRef ===
       `consensus-human-finalization://abg/${
@@ -2926,7 +2963,9 @@ export function isConsensusEscalationDecision(
     decisionDigest: _decisionDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.decisionDigest === digest &&
     value.decisionRef ===
       `consensus-escalation-decision://abg/${
@@ -2974,7 +3013,9 @@ export function isTicketConsensusProjection(
     projectionDigest: _projectionDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.projectionDigest === digest &&
     value.projectionRef ===
       `ticket-consensus-projection://abg/${digest.slice("sha256:".length)}`;
@@ -3057,7 +3098,7 @@ function constructReviewerRoleTask(
     priorEvidenceRefs: [...priorEvidenceRefs],
     transportLane: invocation.transportLane,
   };
-  const taskDigest = sha256Canonical(body as unknown as JsonValue);
+  const taskDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     taskRef:
@@ -3176,8 +3217,8 @@ function constructSubmitterRoleTask(
       member.value.task.subject.subjectRef !== first.subject.subjectRef ||
       member.value.task.subject.subjectDigest !== first.subject.subjectDigest ||
       !canonicalEquals(
-        member.value.task.panel as unknown as JsonValue,
-        first.panel as unknown as JsonValue,
+        member.value.task.panel,
+        first.panel,
       ) ||
       member.value.task.policy.policyDigest !== first.policy.policyDigest ||
       member.value.task.priorSubmitterResponses.length !==
@@ -3271,8 +3312,8 @@ export function reduceConsensusRound(
       row.task.subject.subjectRef !== task.subject.subjectRef ||
       row.task.subject.subjectDigest !== task.subject.subjectDigest ||
       !canonicalEquals(
-        row.task.panel as unknown as JsonValue,
-        task.panel as unknown as JsonValue,
+        row.task.panel,
+        task.panel,
       ) ||
       row.task.policy.policyDigest !== task.policy.policyDigest ||
       row.profileRef === findings[ordinal - 1]?.profileRef
@@ -3508,7 +3549,7 @@ export function finalizeConsensusEscalation(
     result,
     resolutionTerminal: true as const,
   };
-  const finalizationDigest = sha256Canonical(body as unknown as JsonValue);
+  const finalizationDigest = sha256Canonical(body);
   const finalization = deepFreeze({
     ...body,
     finalizationRef:
@@ -3557,7 +3598,7 @@ export function projectTicketConsensus(
     resultRef: result.resultRef,
     replayRef: result.replayRef,
   };
-  const projectionDigest = sha256Canonical(body as unknown as JsonValue);
+  const projectionDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     projectionRef:
@@ -3579,7 +3620,7 @@ function isConsensusRoundFold(input: unknown, output: unknown): boolean {
     response.roundRef === first.roundRef &&
     response.roundOrdinal === first.roundOrdinal &&
     response.findingsVectorDigest ===
-      sha256Canonical(input as unknown as JsonValue) &&
+      sha256Canonical(input) &&
     output.findingSets.length === input.members.length &&
     output.findingSets.every((row, ordinal) =>
       row.outputDigest === input.members[ordinal]?.value.outputDigest
@@ -3603,8 +3644,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusInvocation(input) &&
           isConsensusRoundState(output) &&
           canonicalEquals(
-            output as unknown as JsonValue,
-            initializeConsensus(input) as unknown as JsonValue,
+            output,
+            initializeConsensus(input),
           ),
         "initialization",
       );
@@ -3614,8 +3655,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusRoundState(input) &&
           isConsensusRoundState(output) &&
           canonicalEquals(
-            input as unknown as JsonValue,
-            output as unknown as JsonValue,
+            input,
+            output,
           ),
         "round-evaluation",
       );
@@ -3636,8 +3677,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
             isConsensusReviewerTask(input) &&
             isReviewFindings(output) &&
             canonicalEquals(
-              output.task as unknown as JsonValue,
-              input as unknown as JsonValue,
+              output.task,
+              input,
             ) &&
             output.profileRef === input.profile.profileRef &&
             output.configurationDigest === input.profile.configurationDigest &&
@@ -3647,16 +3688,16 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
             isConsensusFindingsVector(input) &&
             isConsensusSubmitterTask(output) &&
             canonicalEquals(
-              output as unknown as JsonValue,
-              constructConsensusSubmitterTask(input) as unknown as JsonValue,
+              output,
+              constructConsensusSubmitterTask(input),
             )
           ) ||
           (
             isConsensusSubmitterTask(input) &&
             isConsensusSubmitterResponse(output) &&
             canonicalEquals(
-              output.task as unknown as JsonValue,
-              input as unknown as JsonValue,
+              output.task,
+              input,
             ) &&
             output.task.invocationRef === input.invocationRef &&
             output.task.roundRef === input.roundRef &&
@@ -3666,8 +3707,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
             isConsensusSubmitterResponse(input) &&
             isConsensusRoundState(output) &&
             canonicalEquals(
-              output as unknown as JsonValue,
-              reduceConsensusRound(input) as unknown as JsonValue,
+              output,
+              reduceConsensusRound(input),
             )
           ) ||
           (
@@ -3682,8 +3723,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
             isConsensusSubmitterTask(input) &&
             isConsensusSubmitterResponse(output) &&
             canonicalEquals(
-              output.task as unknown as JsonValue,
-              input as unknown as JsonValue,
+              output.task,
+              input,
             ) &&
             output.submittingActorRef === input.profile.actorRef
           ) ||
@@ -3696,8 +3737,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusReviewerTask(input) &&
           isReviewFindings(output) &&
           canonicalEquals(
-            output.task as unknown as JsonValue,
-            input as unknown as JsonValue,
+            output.task,
+            input,
           ) &&
           output.profileRef === input.profile.profileRef &&
           output.configurationDigest === input.profile.configurationDigest &&
@@ -3710,8 +3751,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusFindingsVector(input) &&
           isConsensusSubmitterTask(output) &&
           canonicalEquals(
-            output as unknown as JsonValue,
-            constructConsensusSubmitterTask(input) as unknown as JsonValue,
+            output,
+            constructConsensusSubmitterTask(input),
           ),
         "submitter-task-preparation",
       );
@@ -3721,8 +3762,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusSubmitterTask(input) &&
           isConsensusSubmitterResponse(output) &&
           canonicalEquals(
-            output.task as unknown as JsonValue,
-            input as unknown as JsonValue,
+            output.task,
+            input,
           ) &&
           output.task.invocationRef === input.invocationRef &&
           output.task.roundRef === input.roundRef &&
@@ -3736,8 +3777,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusSubmitterResponse(input) &&
           isConsensusRoundState(output) &&
           canonicalEquals(
-            output as unknown as JsonValue,
-            reduceConsensusRound(input) as unknown as JsonValue,
+            output,
+            reduceConsensusRound(input),
           ),
         "round-reduction",
       );
@@ -3747,8 +3788,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusRoundState(input) &&
           isConsensusRoundDecision(output) &&
           canonicalEquals(
-            output as unknown as JsonValue,
-            prepareConsensusResolution(input) as unknown as JsonValue,
+            output,
+            prepareConsensusResolution(input),
           ),
         "finalization-preparation",
       );
@@ -3758,8 +3799,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusResolution(input) &&
           isConsensusResolution(output) &&
           canonicalEquals(
-            input as unknown as JsonValue,
-            output as unknown as JsonValue,
+            input,
+            output,
           ),
         "finalization-evaluation",
       );
@@ -3769,8 +3810,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusResolution(input) &&
           isConsensusResultCandidate(output) &&
           canonicalEquals(
-            output as unknown as JsonValue,
-            projectConsensusFinalResult(input) as unknown as JsonValue,
+            output,
+            projectConsensusFinalResult(input),
           ),
         "result-projection",
       );
@@ -3780,8 +3821,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
           isConsensusEscalationDecision(input) &&
           isConsensusHumanFinalization(output) &&
           canonicalEquals(
-            output as unknown as JsonValue,
-            finalizeConsensusEscalation(input) as unknown as JsonValue,
+            output,
+            finalizeConsensusEscalation(input),
           ),
         "fh-escalation",
       );
@@ -3792,28 +3833,27 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
             if (isConsensusObservationSnapshot(input)) {
               if (isConsensusObservationSnapshot(output)) {
                 return canonicalEquals(
-                  output as unknown as JsonValue,
-                  synthesizeConsensusModel(input) as unknown as JsonValue,
+                  output,
+                  synthesizeConsensusModel(input),
                 );
               }
               if (isConsensusNextActionBasis(output)) {
                 return canonicalEquals(
-                  output as unknown as JsonValue,
-                  evaluateConsensusGap(input) as unknown as JsonValue,
+                  output,
+                  evaluateConsensusGap(input),
                 );
               }
             }
             if (isConsensusNextActionBasis(input)) {
-              const frontier = input.runtimeFrontier as Readonly<
-                Record<string, JsonValue>
-              >;
+              const frontier = input.runtimeFrontier;
+              if (!isRecord(frontier)) return false;
               const expected = frontier.phase === "initial"
                 ? selectConsensusNextAction(input)
                 : refreshConsensusNextAction(input);
               return isConsensusNextActionProjection(output) &&
                 canonicalEquals(
-                  output as unknown as JsonValue,
-                  expected as unknown as JsonValue,
+                  output,
+                  expected,
                 );
             }
             if (
@@ -3821,12 +3861,9 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
               input.disposition === "selected" &&
               isConsensusActionEvaluationBasis(output)
             ) {
-              const basis = output.nextActionBasis as Readonly<
-                Record<string, JsonValue>
-              >;
-              const intent = output.constructionIntent as Readonly<
-                Record<string, JsonValue>
-              >;
+              const basis = output.nextActionBasis;
+              const intent = output.constructionIntent;
+              if (!isRecord(basis) || !isRecord(intent)) return false;
               return basis.basisRef === input.nextActionBasisRef &&
                 basis.basisDigest === input.nextActionBasisDigest &&
                 intent.selectedActionRef === input.selectedActionRef &&
@@ -3838,8 +3875,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
               isConsensusActionEvaluationProjection(output)
             ) {
               return canonicalEquals(
-                output as unknown as JsonValue,
-                evaluateConsensusAction(input) as unknown as JsonValue,
+                output,
+                evaluateConsensusAction(input),
               );
             }
             if (
@@ -3847,8 +3884,8 @@ export function resolveConsensusJudgmentRelation(predicateRef: string) {
               isConsensusObservationSnapshot(output)
             ) {
               return canonicalEquals(
-                output as unknown as JsonValue,
-                refreshConsensusModel(input) as unknown as JsonValue,
+                output,
+                refreshConsensusModel(input),
               );
             }
             return false;
@@ -4812,7 +4849,7 @@ export function constructConsensusModulePublication(
     }],
   };
   const actionCatalogDigest = sha256Canonical(
-    actionCatalogBody as unknown as JsonValue,
+    actionCatalogBody,
   );
   const constructionCompositionBody = {
     kind: "construction_composition" as const,
@@ -4849,7 +4886,7 @@ export function constructConsensusModulePublication(
     closurePolicy: consensusConstructionPolicy(),
   };
   const constructionCompositionDigest = sha256Canonical(
-    constructionCompositionBody as unknown as JsonValue,
+    constructionCompositionBody,
   );
   const oneSurfaceProgram: GtlProgram = {
     kind: "gtl_program",

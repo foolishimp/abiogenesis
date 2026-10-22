@@ -1,4 +1,5 @@
 import { isRecord, hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import { isAbsolute, posix, relative, resolve, win32 } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -43,7 +44,7 @@ export const WORKSITE_FILE_REPLACE_HANDLER_DIGEST = sha256Canonical({
   schemaVersion: "5.0.0",
 });
 
-export interface WorksiteSubject {
+export type WorksiteSubject = {
   readonly kind: "worksite_subject";
   readonly schemaVersion: "5.0.0";
   readonly subjectRef: string;
@@ -52,9 +53,9 @@ export interface WorksiteSubject {
   readonly workspaceBindingDigest: Sha256Digest;
   readonly subjectUri: string;
   readonly relativePath: string;
-}
+};
 
-export interface WorksiteTerritory {
+export type WorksiteTerritory = {
   readonly kind: "worksite_territory";
   readonly schemaVersion: "5.0.0";
   readonly territoryRef: string;
@@ -64,9 +65,9 @@ export interface WorksiteTerritory {
   readonly territoryUri: string;
   readonly relativeRoot: string;
   readonly operations: readonly ["atomic_replace"];
-}
+};
 
-interface WorksiteObservationBase {
+type WorksiteObservationBase = {
   readonly kind: "worksite_observation";
   readonly schemaVersion: "5.0.0";
   readonly observationRef: string;
@@ -74,24 +75,24 @@ interface WorksiteObservationBase {
   readonly workspaceBindingIdentity: string;
   readonly subjectRef: string;
   readonly subjectDigest: Sha256Digest;
-}
+};
 
-export interface AbsentWorksiteObservation extends WorksiteObservationBase {
+export type AbsentWorksiteObservation = WorksiteObservationBase & {
   readonly state: "absent";
-}
+};
 
-export interface FileWorksiteObservation extends WorksiteObservationBase {
+export type FileWorksiteObservation = WorksiteObservationBase & {
   readonly state: "file";
   readonly fileIdentity: string;
   readonly fileDigest: Sha256Digest;
   readonly byteLength: number;
-}
+};
 
 export type WorksiteObservation =
   | AbsentWorksiteObservation
   | FileWorksiteObservation;
 
-export interface WorksiteEffectAuthorization {
+export type WorksiteEffectAuthorization = {
   readonly kind: "worksite_effect_authorization";
   readonly schemaVersion: "5.0.0";
   readonly authorizationRef: string;
@@ -127,9 +128,9 @@ export interface WorksiteEffectAuthorization {
   readonly handlerDigest: Sha256Digest;
   readonly predecessorObservationRef: string;
   readonly predecessorObservationDigest: Sha256Digest;
-}
+};
 
-export interface WorksiteFileReplaceReceipt {
+export type WorksiteFileReplaceReceipt = {
   readonly kind: "worksite_file_replace_receipt";
   readonly schemaVersion: "5.0.0";
   readonly receiptRef: string;
@@ -142,9 +143,9 @@ export interface WorksiteFileReplaceReceipt {
   readonly afterObservationDigest: Sha256Digest;
   readonly writtenDigest: Sha256Digest;
   readonly committed: true;
-}
+};
 
-export interface WorksiteFileReplaceRequest {
+export type WorksiteFileReplaceRequest = {
   readonly kind: "worksite_file_replace_request";
   readonly schemaVersion: "5.0.0";
   readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
@@ -158,7 +159,7 @@ export interface WorksiteFileReplaceRequest {
   readonly replacementBytes: string;
   readonly replacementByteLength: number;
   readonly replacementDigest: Sha256Digest;
-}
+};
 
 export const WORKSITE_EFFECT_REFUSAL_CODES = [
   "invalid_coordinate",
@@ -180,7 +181,7 @@ export const WORKSITE_EFFECT_REFUSAL_CODES = [
 export type WorksiteEffectRefusalCode =
   (typeof WORKSITE_EFFECT_REFUSAL_CODES)[number];
 
-export interface WorksiteEffectRefusal {
+export type WorksiteEffectRefusal = {
   readonly kind: "worksite_effect_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -188,7 +189,7 @@ export interface WorksiteEffectRefusal {
   readonly message: string;
   readonly lastObservation: WorksiteObservation | null;
   readonly substrateCode: string | null;
-}
+};
 
 /** C0 owner evidence only; publication does not imply an admitted successor. */
 export interface WorksitePostPublicationDiagnostic {
@@ -368,8 +369,8 @@ export function worksitePostPublicationFailureMatches(
   if (!isWorksitePostPublicationFailure(value) || !isWorksiteFileReplaceRequest(request) ||
     !isWorksiteEffectAuthorization(expectedAuthorization) ||
     !canonicalEquals(
-      worksiteFailureAuthorization(value) as unknown as JsonValue,
-      expectedAuthorization as unknown as JsonValue,
+      worksiteFailureAuthorization(value),
+      expectedAuthorization,
     )) return false;
   const outcome = value.physicalOutcome;
   if (outcome.kind === "owner_completed") {
@@ -378,8 +379,8 @@ export function worksitePostPublicationFailureMatches(
       request.replacementDigest);
     return receipt.kind === "worksite_file_replace_receipt" &&
       canonicalEquals(
-        receipt as unknown as JsonValue,
-        outcome.completedOwner.receipt as unknown as JsonValue,
+        receipt,
+        outcome.completedOwner.receipt,
       ) &&
       outcome.completedOwner.successorObservation.byteLength === request.replacementByteLength;
   }
@@ -482,7 +483,7 @@ export function exactWorkspaceBinding(value: WorkspaceBinding): boolean {
     lockDigest: value.lockDigest,
     roots: value.roots,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return value.bindingDigest === digest &&
     value.bindingId === identity("workspace-binding://abiogenesis", digest);
 }
@@ -533,7 +534,7 @@ function exactExecutionBasis(value: ExecutionBasis): boolean {
     admissionEventRef: _admissionEventRef,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return value.basisDigest === digest &&
     value.basisRef === identity("execution-basis://abiogenesis", digest);
 }
@@ -566,7 +567,7 @@ function exactCCall(value: CCall): boolean {
       failureContractRef: value.failureContractRef,
     }
     : commonIdentity;
-  const digest = sha256Canonical(identityBody as unknown as JsonValue);
+  const digest = sha256Canonical(identityBody);
   return value.cCallDigest === digest && value.cCallRef === `c-call:${digest}`;
 }
 
@@ -589,7 +590,7 @@ function exactImplementationSet(value: AdmittedImplementationSet): boolean {
     admissionEventRef: _admissionEventRef,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return value.implementationSetDigest === digest &&
     value.implementationSetRef ===
       identity("implementation-set://abiogenesis", digest);
@@ -679,7 +680,7 @@ function exactAdmittedImplementationRow(
     leafResolutionCandidateDigest: _leafResolutionCandidateDigest,
     ...body
   } = value;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return value.leafResolutionCandidateDigest === digest &&
     value.leafResolutionCandidateRef ===
       identity("leaf-resolution-candidate://abiogenesis", digest);
@@ -1094,12 +1095,12 @@ export function constructWorksiteFileReplaceRequest(
     exactSubject.kind !== "worksite_subject" ||
     exactTerritory.kind !== "worksite_territory" ||
     !canonicalEquals(
-      exactSubject as unknown as JsonValue,
-      input.subject as unknown as JsonValue,
+      exactSubject,
+      input.subject,
     ) ||
     !canonicalEquals(
-      exactTerritory as unknown as JsonValue,
-      input.territory as unknown as JsonValue,
+      exactTerritory,
+      input.territory,
     )
   ) {
     return worksiteRefusal(
@@ -1250,12 +1251,12 @@ export function constructWorksiteEffectAuthorization(
     reproducedSubject.kind !== "worksite_subject" ||
     reproducedTerritory.kind !== "worksite_territory" ||
     !canonicalEquals(
-      reproducedSubject as unknown as JsonValue,
-      subject as unknown as JsonValue,
+      reproducedSubject,
+      subject,
     ) ||
     !canonicalEquals(
-      reproducedTerritory as unknown as JsonValue,
-      territory as unknown as JsonValue,
+      reproducedTerritory,
+      territory,
     ) ||
     !worksiteSubjectWithinTerritory(subject, territory)
   ) {
@@ -1585,7 +1586,7 @@ export const WORKSITE_FILE_PARENTS_HANDLER_DIGEST = sha256Canonical({
   operation: "parents_for_assessed_files", ownerClass: "selected_implementation", schemaVersion: "5.0.0",
 });
 
-export interface WorksiteFileParentsSource {
+export type WorksiteFileParentsSource = {
   readonly sourceEnvelopeRef: string;
   readonly sourceEnvelopeDigest: Sha256Digest;
   readonly sourceDesignAssetRef: string;
@@ -1594,13 +1595,13 @@ export interface WorksiteFileParentsSource {
   readonly jobDigest: Sha256Digest;
   readonly targets: readonly Readonly<{ relativePath: string; territory: WorksiteTerritory }>[];
   readonly parentWriteRoots: readonly string[];
-}
-export interface WorksiteAncestorObservation {
+};
+export type WorksiteAncestorObservation = {
   readonly relativePath: string;
   readonly state: "directory" | "absent";
   readonly fileIdentity: string | null;
-}
-export interface WorksiteFileParentsRequest extends WorksiteFileParentsSource {
+};
+export type WorksiteFileParentsRequest = WorksiteFileParentsSource & {
   readonly kind: "worksite_file_parents_request";
   readonly schemaVersion: "5.0.0";
   readonly requestRef: string;
@@ -1612,7 +1613,7 @@ export interface WorksiteFileParentsRequest extends WorksiteFileParentsSource {
   readonly workspaceBindingDigest: Sha256Digest;
   readonly capabilityGrant: CapabilityGrant;
   readonly ancestorObservations: readonly WorksiteAncestorObservation[];
-}
+};
 export interface WorksiteFileParentsRequestInput extends WorksiteFileParentsSource {
   readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
   readonly workspaceBinding: WorkspaceBinding;
@@ -1634,13 +1635,13 @@ export type WorksiteFileParentsAuthorization = Omit<WorksiteEffectAuthorization,
   jobRef: string;
   jobDigest: Sha256Digest;
 }>;
-export interface WorksiteFileParentOutcome {
+export type WorksiteFileParentOutcome = {
   readonly relativePath: string;
   readonly disposition: "existing" | "created";
   readonly identityState: "known" | "unknown";
   readonly fileIdentity: string | null;
-}
-export interface WorksiteFileParentsReceipt {
+};
+export type WorksiteFileParentsReceipt = {
   readonly kind: "worksite_file_parents_receipt";
   readonly schemaVersion: "5.0.0";
   readonly receiptRef: string;
@@ -1650,16 +1651,16 @@ export interface WorksiteFileParentsReceipt {
   readonly authorizationRef: string;
   readonly authorizationDigest: Sha256Digest;
   readonly outcomes: readonly WorksiteFileParentOutcome[];
-}
-export interface WorksiteFileParentsSuccess {
+};
+export type WorksiteFileParentsSuccess = {
   readonly kind: "worksite_file_parents_result";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "committed";
   readonly request: WorksiteFileParentsRequest;
   readonly authorization: WorksiteFileParentsAuthorization;
   readonly receipt: WorksiteFileParentsReceipt;
-}
-export interface WorksiteFileParentsFailure extends WorksiteEffectRefusal {
+};
+export type WorksiteFileParentsFailure = WorksiteEffectRefusal & {
   readonly phase: "file_parents";
   readonly physicalOutcome: Readonly<{
     request: WorksiteFileParentsRequest;
@@ -1667,7 +1668,7 @@ export interface WorksiteFileParentsFailure extends WorksiteEffectRefusal {
     outcomes: readonly WorksiteFileParentOutcome[];
     diagnostics: readonly WorksiteEffectRefusal[];
   }>;
-}
+};
 export type WorksiteFileParentsResult = WorksiteEffectRefusal | WorksiteFileParentsFailure | WorksiteFileParentsSuccess;
 
 /** Includes A's root observation; only strict descendants can be created. */
@@ -1730,10 +1731,10 @@ export function isWorksiteFileParentsRequest(value: unknown): value is WorksiteF
       if (observation.state === "absent") absent.add(path);
       else if ([...absent].some(root => path.startsWith(`${root}/`))) return false;
     }
-    const planDigest = sha256Canonical(fileParentsSource(request) as unknown as JsonValue);
+    const planDigest = sha256Canonical(fileParentsSource(request));
     const { kind: _k, schemaVersion: _s, requestRef: _r, requestDigest: _d, ...body } = request;
     return request.planDigest === planDigest && request.planRef === identity("worksite-file-parent-plan://abiogenesis", planDigest) &&
-      request.requestDigest === sha256Canonical(body as unknown as JsonValue) &&
+      request.requestDigest === sha256Canonical(body) &&
       request.requestRef === identity("worksite-file-parents-request://abiogenesis", request.requestDigest);
   } catch { return false; }
 }
@@ -1743,14 +1744,14 @@ export function constructWorksiteFileParentsRequest(input: WorksiteFileParentsRe
     return worksiteRefusal("binding_mismatch", "file parents require exact A/W");
   }
   const source = fileParentsSource(input);
-  const planDigest = sha256Canonical(source as unknown as JsonValue);
+  const planDigest = sha256Canonical(source);
   const body = {
     ...source, planRef: identity("worksite-file-parent-plan://abiogenesis", planDigest), planDigest,
     workspaceAuthorityBasis: input.workspaceAuthorityBasis,
     workspaceBindingIdentity: input.workspaceBinding.bindingId, workspaceBindingDigest: input.workspaceBinding.bindingDigest,
     capabilityGrant: input.capabilityGrant, ancestorObservations: input.ancestorObservations,
   };
-  const requestDigest = sha256Canonical(body as unknown as JsonValue);
+  const requestDigest = sha256Canonical(body);
   const result = deepFreeze({ kind: "worksite_file_parents_request" as const, schemaVersion: "5.0.0" as const,
     requestRef: identity("worksite-file-parents-request://abiogenesis", requestDigest), requestDigest, ...body });
   return isWorksiteFileParentsRequest(result) && input.targets.every(target => !protectedWorksitePath(input.workspaceAuthorityBasis, input.workspaceBinding, target.relativePath)) &&
@@ -1801,7 +1802,9 @@ export function isWorksiteFileParentsAuthorization(value: unknown): value is Wor
     value.handlerDigest !== WORKSITE_FILE_PARENTS_HANDLER_DIGEST ||
     Object.entries(value).some(([key, field]) => key.endsWith("Digest") ? !isSha256Digest(field) : !nonEmptyString(field))) return false;
   const { kind: _k, schemaVersion: _s, authorizationRef: _r, authorizationDigest: _d, ...body } = value;
-  const digest = sha256Canonical(body as JsonValue);
+  const admittedBody = admitJson(body);
+  if (admittedBody.kind !== "ok") return false;
+  const digest = sha256Canonical(admittedBody.value);
   return value.authorizationDigest === digest && value.authorizationRef === identity("worksite-file-parents-authorization://abiogenesis", digest);
 }
 
@@ -1830,7 +1833,7 @@ export function constructWorksiteFileParentsSuccess(request: WorksiteFileParents
   if (!isWorksiteFileParentsRequest(request) || !isWorksiteFileParentsAuthorization(authorization) ||
     !fileParentsAuthorityJoins(request, authorization) || !fileParentsOutcomesValid(request, outcomes, true)) return worksiteRefusal("invalid_coordinate", "completed file-parent receipt needs the full known ordered chain and exact authority");
   const body = { requestRef: request.requestRef, requestDigest: request.requestDigest, authorizationRef: authorization.authorizationRef, authorizationDigest: authorization.authorizationDigest, outcomes };
-  const receiptDigest = sha256Canonical(body as unknown as JsonValue);
+  const receiptDigest = sha256Canonical(body);
   return deepFreeze({ kind: "worksite_file_parents_result", schemaVersion: "5.0.0", disposition: "committed", request, authorization,
     receipt: { kind: "worksite_file_parents_receipt" as const, schemaVersion: "5.0.0" as const, receiptRef: identity("worksite-file-parents-receipt://abiogenesis", receiptDigest), receiptDigest, ...body } });
 }
@@ -1841,7 +1844,10 @@ export function isWorksiteFileParentsSuccess(value: unknown): value is WorksiteF
     !isWorksiteFileParentsRequest(value.request) || !isWorksiteFileParentsAuthorization(value.authorization) || !isRecord(value.receipt)) return false;
   const outcomes = value.receipt.outcomes;
   if (!fileParentsOutcomesValid(value.request, outcomes, true)) return false;
-  return canonicalEquals(value as unknown as JsonValue, constructWorksiteFileParentsSuccess(value.request, value.authorization, outcomes) as unknown as JsonValue);
+  // The candidate is unchecked: admitted before comparison with its reconstruction.
+  const admittedValue = admitJson(value);
+  return admittedValue.kind === "ok" &&
+    canonicalEquals(admittedValue.value, constructWorksiteFileParentsSuccess(value.request, value.authorization, outcomes));
 }
 
 /** Keep first failure and ordered physical facts; never compensate by deletion. */
@@ -1866,7 +1872,7 @@ export function isWorksiteFileParentsFailure(value: unknown): value is WorksiteF
 export type WorksiteContextEntry = Readonly<{ relativePath: string; state: "directory"; fileIdentity: string; members: readonly string[] }> |
   Readonly<{ relativePath: string; state: "file"; fileIdentity: string; byteLength: number; digest: Sha256Digest; encoding: "base64"; bytes: string }> |
   Readonly<{ relativePath: string; state: "absent" }>;
-export interface WorksiteContextObservation {
+export type WorksiteContextObservation = {
   readonly kind: "worksite_context_observation";
   readonly schemaVersion: "5.0.0";
   readonly observationRef: string;
@@ -1879,7 +1885,7 @@ export interface WorksiteContextObservation {
   readonly maxFiles: number;
   readonly maxBytes: number;
   readonly entries: readonly WorksiteContextEntry[];
-}
+};
 
 /** Saved-context validation is pure; it neither refreshes nor reconstructs I/O. */
 export function isWorksiteContextObservation(value: unknown): value is WorksiteContextObservation {
@@ -1927,7 +1933,7 @@ export function isWorksiteContextObservation(value: unknown): value is WorksiteC
       }
     }
     const { kind: _k, schemaVersion: _s, observationRef: _r, observationDigest: _d, ...body } = observation;
-    const digest = sha256Canonical(body as unknown as JsonValue);
+    const digest = sha256Canonical(body);
     return observation.observationDigest === digest && observation.observationRef === identity("worksite-context-observation://abiogenesis", digest);
   } catch { return false; }
 }

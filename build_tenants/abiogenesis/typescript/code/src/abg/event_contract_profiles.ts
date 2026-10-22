@@ -24,7 +24,7 @@ export const UNDISPATCHED_OWNER_REASON_VALUES = Object.freeze([
 export type UndispatchedOwnerStage = typeof UNDISPATCHED_OWNER_STAGE_VALUES[number];
 export type UndispatchedOwnerReason = typeof UNDISPATCHED_OWNER_REASON_VALUES[number];
 
-export interface UndispatchedOwnerObservation {
+export type UndispatchedOwnerObservation = {
   readonly kind: "undispatched_owner_observation";
   readonly schemaVersion: "5.0.0";
   readonly cCallRef: string;
@@ -43,7 +43,7 @@ export interface UndispatchedOwnerObservation {
   readonly errorClass: string | null;
   readonly errorCode: string | null;
   readonly diagnosticRef: string;
-}
+};
 const SAFE_ERROR_CLASSES = Object.freeze(["Error", "TypeError", "RangeError", "SyntaxError"]);
 const SAFE_ERROR_CODES = Object.freeze(["ENOENT", "EACCES", "EPERM", "ENOTDIR", "EISDIR", "ERR_MODULE_NOT_FOUND", "ERR_PACKAGE_PATH_NOT_EXPORTED"]);
 const OBSERVATION_KEYS = Object.freeze([
@@ -144,6 +144,6 @@ export function constructRootCurrentEventContractDescriptor(input: Readonly<{
     eventKinds: input.eventKinds,
     eventContracts: input.eventContracts,
     envelopeStamp: { key: "eventContractDigest", type: "sha256", owner: "native_store", identityParticipation: true },
-  }) as unknown as JsonValue;
+  });
   return Object.freeze({ descriptor, digest: sha256Canonical(descriptor) });
 }

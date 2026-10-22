@@ -1,5 +1,5 @@
 import { createHash, type Hash } from "node:crypto";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { RuntimeDerivationSource } from "./runtime_derivation.js";
 import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineEventBody, inlineEventBodyCoordinate, inlineEventBodyKey, inlineEventBodyValue,
@@ -148,24 +148,24 @@ type RootEventEnvelopeIdentity =
   | "materializationRef"
   | "runId";
 
-interface RootEventContractVariant {
+type RootEventContractVariant = {
   readonly aggregateType: RootEventAggregateType;
   readonly scopeClass: "run" | "workspace";
   readonly requiredEnvelopeIdentities: readonly RootEventEnvelopeIdentity[];
   readonly payloadVariantIndexes?: readonly number[];
-}
+};
 
-interface RootEventPayloadVariant {
+type RootEventPayloadVariant = {
   readonly requiredPayloadKeys: readonly string[];
   readonly allowedPayloadKeys: readonly string[];
   readonly expectedPayload?: Readonly<Record<string, string>>;
   readonly nullablePayloadKeys?: readonly string[];
-}
+};
 
-interface RootEventContract {
+type RootEventContract = {
   readonly variants: readonly RootEventContractVariant[];
   readonly payloadVariants: readonly RootEventPayloadVariant[];
-}
+};
 
 const payloadKeys = (value: string): readonly string[] =>
   Object.freeze(value.trim().split(/\s+/u));
@@ -1082,7 +1082,7 @@ const legacyDescriptorDigest = sha256Canonical({
   aggregateTypes: ROOT_EVENT_AGGREGATE_TYPE_VALUES,
   eventKinds: LEGACY_ROOT_EVENT_KIND_VALUES,
   eventContracts: LEGACY_ROOT_EVENT_CONTRACTS,
-} as unknown as JsonValue);
+});
 if (legacyDescriptorDigest !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST) {
   throw new TypeError("the immutable legacy event-contract table changed");
 }
@@ -1182,7 +1182,7 @@ export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContr
 const currentProfile = constructRootCurrentEventContractDescriptor({
   aggregateTypes: ROOT_EVENT_AGGREGATE_TYPE_VALUES,
   eventKinds: ROOT_EVENT_KIND_VALUES,
-  eventContracts: ROOT_EVENT_CONTRACTS as unknown as JsonValue,
+  eventContracts: ROOT_EVENT_CONTRACTS,
 });
 export const ROOT_EVENT_CONTRACT_DESCRIPTOR = currentProfile.descriptor;
 export const ROOT_EVENT_CONTRACT_DIGEST = currentProfile.digest;
@@ -1190,7 +1190,7 @@ export function isKnownRootEventContractDigest(value: unknown): value is Sha256D
   return value === LEGACY_ROOT_EVENT_CONTRACT_DIGEST || value === ROOT_EVENT_CONTRACT_DIGEST;
 }
 
-export interface RuntimeEventCandidate {
+export type RuntimeEventCandidate = {
   readonly kind: RootEventKind;
   readonly eventTime: string;
   readonly aggregateType: RootEventAggregateType;
@@ -1208,23 +1208,23 @@ export interface RuntimeEventCandidate {
   readonly frameId?: string;
   readonly frameLineageId?: string;
   readonly payload: JsonValue;
-}
+};
 
-export interface RuntimeEvent extends RuntimeEventCandidate {
+export type RuntimeEvent = RuntimeEventCandidate & {
   /** Absent under exact L; assigned by the native store under P. */
   readonly eventContractDigest?: Sha256Digest;
   readonly eventId: string;
   readonly admissionOrdinal: number;
   readonly payloadDigest: Sha256Digest;
-}
+};
 
-export interface EventStoreAppendRefusal {
+export type EventStoreAppendRefusal = {
   readonly kind: "event_store_append_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code: "prefix_mismatch" | "sink_unavailable";
   readonly message: string;
-}
+};
 
 export type CheckedArtifactAppendResult =
   | EventStoreAppendRefusal
@@ -1242,7 +1242,7 @@ export type RuntimeEventCandidateFactory = (
   admittedInBatch: readonly RuntimeEvent[],
 ) => RuntimeEventCandidate;
 
-export interface EventStoreReopenAuthority {
+export type EventStoreReopenAuthority = {
   readonly kind: "event_store_reopen_authority";
   readonly schemaVersion: "5.0.0";
   readonly eventLogPath: string;
@@ -1252,9 +1252,9 @@ export interface EventStoreReopenAuthority {
   readonly durableByteLength: number;
   readonly eventContractDigest: Sha256Digest;
   readonly authorityDigest: Sha256Digest;
-}
+};
 
-export interface DurablePrefixCoordinate {
+export type DurablePrefixCoordinate = {
   readonly kind: "durable_prefix_coordinate";
   readonly schemaVersion: "5.0.0";
   readonly eventLogRef: string;
@@ -1266,7 +1266,7 @@ export interface DurablePrefixCoordinate {
     readonly eventContractDigest: Sha256Digest;
   };
   readonly coordinateDigest: Sha256Digest;
-}
+};
 
 export type DurablePrefixReadFailureCode =
   | "file_identity_mismatch"
@@ -1285,11 +1285,11 @@ export class DurablePrefixReadError extends TypeError {
   }
 }
 
-export interface NewEmptyAppendSinkRequest {
+export type NewEmptyAppendSinkRequest = {
   readonly kind: "new_empty_append_sink_request";
   readonly schemaVersion: "5.0.0";
   readonly eventLogPath: string;
-}
+};
 
 export interface EventStoreAcquisitionRefusal {
   readonly kind: "event_store_acquisition_refusal";
@@ -1308,10 +1308,10 @@ export type NewEmptyAppendSinkResult =
   | EventStoreAcquisitionRefusal
   | NewEmptyAppendSinkContext;
 
-export interface EventStoreCloseHandoff {
+export type EventStoreCloseHandoff = {
   readonly prefix: DurablePrefixCoordinate;
   readonly reopenAuthority: EventStoreReopenAuthority;
-}
+};
 
 export interface ReopenedEventStoreContext {
   readonly kind: "reopened_event_store_context";
@@ -1951,7 +1951,16 @@ export function validateDurablePrefixCoordinate(
     (identity.inode as number) >= 0 &&
     isKnownRootEventContractDigest(identity.eventContractDigest) &&
     isSha256Digest(value.coordinateDigest) &&
-    sha256Canonical(body as unknown as JsonValue) === value.coordinateDigest;
+    admittedDigestIs(body, value.coordinateDigest);
+}
+
+/**
+ * A guard's digest check over a body built from unchecked members: the body
+ * is admitted through `admitJson` first, and a body that is not I-JSON fails.
+ */
+function admittedDigestIs(body: unknown, digest: unknown): boolean {
+  const admitted = admitJson(body);
+  return admitted.kind === "ok" && sha256Canonical(admitted.value) === digest;
 }
 
 export function validateEventStoreReopenAuthority(
@@ -1996,7 +2005,7 @@ export function validateEventStoreReopenAuthority(
     durableByteLength: value.durableByteLength,
     eventContractDigest: value.eventContractDigest,
   };
-  return sha256Canonical(body as JsonValue) === value.authorityDigest;
+  return admittedDigestIs(body, value.authorityDigest);
 }
 
 export function validateEventStoreCloseHandoff(
@@ -2173,7 +2182,7 @@ function readAuthenticatedRuntimePrefixBytes(
 
 function durableEventBytes(events: readonly RuntimeEvent[]): string {
   return events
-    .map((event) => `${canonicalJson(event as unknown as JsonValue)}\n`)
+    .map((event) => `${canonicalJson(event)}\n`)
     .join("");
 }
 
@@ -2914,7 +2923,7 @@ function assertRuntimeEventContract(
       if (!isRuntimeSystemProbeContract(payload.probeContract) || !isRuntimeProbeObservation(payload.observation) ||
           payload.probeContract.probeRef !== payload.observation.probeRef ||
           payload.probeContract.clockOriginRef !== payload.observation.clockOriginRef ||
-          payload.observation.scopeDigest !== sha256Canonical(payload.probeContract.scope as unknown as JsonValue) ||
+          payload.observation.scopeDigest !== sha256Canonical(payload.probeContract.scope) ||
           payload.probeContract.scope.runId !== candidate.runId ||
           payload.probeContract.scope.graphCallId !== candidate.graphCallId ||
           payload.probeContract.scope.frameId !== candidate.frameId ||
@@ -2987,9 +2996,15 @@ function assertRuntimeEventContract(
       evidence: payload.evidence,
       provenance: payload.provenance,
     };
-    const witnessedActDigest = sha256Canonical(
-      witnessedBody as unknown as JsonValue,
-    );
+    // The witnessed act is built from unchecked payload members: it is admitted
+    // as I-JSON before its digest, and a refusal is no exact witnessed act.
+    const admittedWitnessedBody = admitJson(witnessedBody);
+    if (admittedWitnessedBody.kind !== "ok") {
+      throw new TypeError(
+        "witness event payload is not one exact self-certified actor-attributed act",
+      );
+    }
+    const witnessedActDigest = sha256Canonical(admittedWitnessedBody.value);
     if (
       payload.act !== expectedAct ||
       !isSha256Digest(payload.actorDigest) ||
@@ -3026,7 +3041,7 @@ function assertRuntimeEventContract(
         afterDigest: payload.afterDigest!,
         changeClass: payload.changeClass!,
         owningTicketRef: payload.owningTicketRef!,
-      } as JsonValue)}`
+      })}`
     )
   ) {
     throw new TypeError("declaration reprice event carries invalid change truth");
@@ -3041,7 +3056,7 @@ function assertRuntimeEventContract(
         chainDigest: payload.chainDigest!,
         eventCount: payload.eventCount!,
         attestedBy: payload.attestedBy!,
-      } as JsonValue)}`
+      })}`
     )
   ) {
     throw new TypeError("replay attestation event is not self-certified");
@@ -3077,7 +3092,7 @@ function assertRuntimeEventContract(
           readonly ref: string;
         }[]).map((row) => row.ref),
         triagedBy: payload.triagedBy!,
-      } as unknown as JsonValue)}`
+      })}`
     )
   ) {
     throw new TypeError("defect intake event carries an invalid re-entry relation");
@@ -3123,7 +3138,7 @@ function assertRuntimeEventContract(
       segmentRef: payload.segmentRef!,
       observedBy: payload.observedBy!,
       rows: payload.rows,
-    } as unknown as JsonValue);
+    });
     if (payload.hygieneRef !== `workspace-hygiene:${hygieneDigest}`) {
       throw new TypeError("workspace hygiene event is not self-certified");
     }
@@ -3311,14 +3326,16 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
   for (let start = 0, end = encoded.indexOf(10); end !== -1;
     start = end + 1, end = encoded.indexOf(10, start)) {
     const line = encoded.toString("utf8", start, end);
-    let physical: unknown;
+    // JSON.parse yields only JSON values; the canonical byte check below
+    // refuses any row that is not this value's canonical text.
+    let physical: JsonValue;
     try {
       physical = JSON.parse(line);
     } catch {
       throw new TypeError("durable ABG event log contains invalid JSON");
     }
     if (
-      !isRecord(physical) || !Buffer.from(canonicalJson(physical as JsonValue) + "\n", "utf8").equals(encoded.subarray(start, end + 1))
+      !isRecord(physical) || !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(encoded.subarray(start, end + 1))
     ) {
       throw new TypeError("durable ABG event log contains a noncanonical event");
     }
@@ -3513,8 +3530,9 @@ function constructRuntimeHistory(source: RuntimeHistoryPhysicalSource, inlineByE
     }
     const bytes = readRuntimeHistoryRowBytes(source, row.body);
     if (bytes.at(-1) !== 10) throw new TypeError("selected durable body has an incomplete row");
-    const line = bytes.toString("utf8", 0, bytes.length - 1), physical: unknown = JSON.parse(line);
-    if (!isRecord(physical) ||  !Buffer.from(canonicalJson(physical as JsonValue) + "\n", "utf8").equals(bytes))
+    // JSON.parse yields only JSON values; the canonical byte check refuses any other row.
+    const line = bytes.toString("utf8", 0, bytes.length - 1), physical: JsonValue = JSON.parse(line);
+    if (!isRecord(physical) ||  !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(bytes))
       throw new TypeError("selected durable body is not the authenticated canonical row");
     const representation = decodeEventBody(physical, inlineByEvent, coordinate => {
       const selected = history.rowById(coordinate.eventRef);
@@ -3525,8 +3543,8 @@ function constructRuntimeHistory(source: RuntimeHistoryPhysicalSource, inlineByE
     const value = representation.event;
     if (!isRecord(value) || !hasOnlyRuntimeEventKeys(value)) throw new TypeError("selected logical event is invalid");
     const { payload, ...envelope } = value;
-    if (!canonicalEquals(envelope as JsonValue, row.envelope as unknown as JsonValue) ||
-        sha256Canonical(payload as JsonValue) !== row.envelope.payloadDigest)
+    if (payload === undefined || !canonicalEquals(envelope, row.envelope) ||
+        sha256Canonical(payload) !== row.envelope.payloadDigest)
       throw new TypeError("selected logical event differs from its authenticated envelope");
     const event = deepFreeze(value) as unknown as RuntimeEvent;
     selectedBodies.set(event.eventId, event);
@@ -3591,10 +3609,11 @@ function decodeRuntimeHistoryDescriptor(source: RuntimeHistoryPhysicalSource, by
   let profile: Sha256Digest | null = null;
   const durableHash = foldRuntimeHistoryDescriptor(source.descriptor, byteLength, (bytes, offset) => {
     const line = bytes.toString("utf8", 0, bytes.length - 1);
-    let physical: unknown;
+    // JSON.parse yields only JSON values; the canonical byte check refuses any other row.
+    let physical: JsonValue;
     try { physical = JSON.parse(line); }
     catch { throw new TypeError("durable ABG event log contains invalid JSON"); }
-    if (!isRecord(physical) ||  !Buffer.from(canonicalJson(physical as JsonValue) + "\n", "utf8").equals(bytes))
+    if (!isRecord(physical) ||  !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(bytes))
       throw new TypeError("durable ABG event log contains a noncanonical event");
     const selectedBodies = new Map<string, RuntimeEvent>();
     const representation = decodeEventBody(physical, inlineByEvent, coordinate =>
@@ -3636,13 +3655,13 @@ function decodeRuntimeHistoryDescriptor(source: RuntimeHistoryPhysicalSource, by
   return { history, inlineBodies, durableHash };
 }
 
-export interface RootEventProfileSchedule {
+export type RootEventProfileSchedule = {
   readonly kind: "root_event_profile_schedule";
   readonly schemaVersion: "5.0.0";
   readonly spans: readonly Readonly<{ eventContractDigest: Sha256Digest; firstOrdinal: number; lastOrdinal: number }>[];
   readonly boundaryEventRef: string | null;
   readonly currentEventContractDigest: Sha256Digest;
-}
+};
 function isRootEventProfileBoundary(event: RuntimeEventCandidate): boolean {
   return event.kind === "declaration_reprice_admitted" && isRecord(event.payload) &&
     event.payload.declarationRef === ROOT_EVENT_PROFILE_DECLARATION_REF;
@@ -3660,7 +3679,7 @@ function assertRootEventProfileBoundary(events: readonly RuntimeEvent[], candida
       p.changeClass !== "design_reframe" || p.reason !== ROOT_EVENT_PROFILE_UPGRADE_REASON ||
       p.operatorActorRef !== p.actorRef || p.act !== "reprice" ||
       !isRecord(p.contentValue) ||
-      sha256Canonical(p.contentValue as JsonValue) !== p.contentValueDigest ||
+      sha256Canonical(p.contentValue) !== p.contentValueDigest ||
       !["declarationRef", "beforeDigest", "afterDigest", "changeClass", "owningTicketRef", "reason"].every(key => (p.contentValue as Record<string, unknown>)[key] === p[key]) ||
       !Array.isArray(p.evidence) || !p.evidence.some(value => isRecord(value) &&
         value.ref === ROOT_CURRENT_EVENT_PROFILE_REF && value.digest === ROOT_EVENT_CONTRACT_DIGEST) ||

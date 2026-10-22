@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { sameCoordinate } from '../../build/code/src/public/binding/definition_binding_mechanics.js';
+import { sameCoordinate, sameJson } from '../../build/code/src/public/binding/definition_binding_mechanics.js';
 import { resolveExactMatch } from '../../build/code/src/shared/select/exact_match.js';
 import { admitJson, hasExactKeys } from '../../build/code/src/shared/admit/index.js';
 import { canonicalEquals } from '../../build/code/src/shared/value/index.js';
@@ -103,6 +103,22 @@ test('O-SCHEMA: the Product boundary admits input and contract values to I-JSON 
   assert.equal(provider.validateContractValue('governance_work_state', hidden), true, 'the shallow provider guard alone accepts it');
   assert.equal(product.admitInstalledProductInput(loaded, contractRef, hidden), null, 'admitInput refuses through its null channel');
   assert.equal(leaf.validateContractValue('governance_work_state', hidden), false, 'validateContractValue refuses');
+  // Post-close repair C: an unsafe integer is not I-JSON; the leaf refuses it before the Product's guard.
+  const unsafe = structuredClone(parsed);
+  unsafe.original.testing.commands.push({ count: Number.MAX_SAFE_INTEGER + 1 });
+  assert.equal(provider.validateContractValue('governance_work_state', unsafe), true, 'the shallow provider guard alone accepts it');
+  assert.equal(leaf.validateContractValue('governance_work_state', unsafe), false, 'validateContractValue refuses an unsafe integer');
+});
+
+test('O-TYPE: sameJson admits both sides; a function member or a cycle is never equal', () => {
+  const member = () => 7;
+  assert.equal(sameJson({ a: 1, b: [2] }, { b: [2], a: 1 }), true, 'positive control: canonical equality of I-JSON values');
+  assert.equal(sameJson({ a: 1, f: member }, { a: 1, f: member }), false, 'a function member is refused, not encoded as {}');
+  assert.equal(sameJson({ a: 1, f: member }, { a: 1, f: {} }), false);
+  const cycle = { a: 1 };
+  cycle.self = cycle;
+  assert.doesNotThrow(() => sameJson(cycle, cycle));
+  assert.equal(sameJson(cycle, cycle), false, 'a cycle is refused, with no identity shortcut');
 });
 
 test('O-SCHEMA: the Product boundary admits an interaction response candidate to I-JSON before the provider evaluates it', async () => {

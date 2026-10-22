@@ -84,6 +84,7 @@ import { sanitizeUndispatchedOwnerError, undispatchedOwnerDiagnosticRef,
   type UndispatchedOwnerObservation, type UndispatchedOwnerStage, type UndispatchedOwnerReason } from "../abg/event_contract_profiles.js";
 import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 import { admitIJsonValue } from "../shared/i_json.js";
+import { admitJson } from "../shared/admit/index.js";
 import {
   validateActorProcessCarrierPair,
   prepareActorProcessInvocation,
@@ -163,8 +164,8 @@ export function isClosedProbabilisticLeafInvocation(
     exchange.disposition === "valid" &&
     validated.kind === "actor_process_carrier_validation" &&
     canonicalEquals(
-      validated as unknown as JsonValue,
-      exchange as unknown as JsonValue,
+      validated,
+      exchange,
     );
 }
 
@@ -260,7 +261,7 @@ export function totalizeLeafImplementationFailure(input: Readonly<{
     schemaVersion: "5.0.0" as const,
     failureClass,
     diagnosticRef,
-  }) as Readonly<Record<string, JsonValue>>;
+  });
   const evidenceCandidates = resolution.computeRegime === "F_D"
     ? [{
         kind: "deterministic_evidence_candidate" as const,
@@ -484,10 +485,16 @@ function nativeJudgmentProofOperations(
 ): Readonly<NativeJudgmentProofOperations> {
   const historical = historicalSource === undefined ? {} : { historicalGraphCallSource: () =>
     currentOwnerPrefix === undefined ? null : projectHistoricalGraphCallSourceAtDurablePrefix(currentOwnerPrefix, historicalSource) };
-  if (predicateRef === qualificationIds.assessPredicate) return Object.freeze({ ...historical,
-    qualificationJudgment: () => preparation !== undefined && sha256Canonical(input as JsonValue) === preparation.request.inputDigest && preparation.matches(preparation.input, output),
-    qualificationRequest: () => preparation !== undefined && sha256Canonical(input as JsonValue) === preparation.request.inputDigest && preparation.matches(preparation.input, output) ? preparation.request : null,
-  });
+  if (predicateRef === qualificationIds.assessPredicate) {
+    const preparedFor = (owned: PreparedQualificationAssessment) => {
+      const admittedInput = admitJson(input);
+      return admittedInput.kind === "ok" && sha256Canonical(admittedInput.value) === owned.request.inputDigest && owned.matches(owned.input, output);
+    };
+    return Object.freeze({ ...historical,
+      qualificationJudgment: () => preparation !== undefined && preparedFor(preparation),
+      qualificationRequest: () => preparation !== undefined && preparedFor(preparation) ? preparation.request : null,
+    });
+  }
   if (predicateRef === SELF_CONFORMANCE_IDS.judgmentPredicateRef) return Object.freeze({ ...historical,
     qualificationSelfConformance: () => {
       if (!isSelfConformanceInput(input) || !isSelfConformanceResult(output)) return null;
@@ -1097,11 +1104,11 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     resolution: Readonly<LeafInvocationResolution>,
   ): AdmittedImplementationSet["rows"][number] | null {
     const resolutionDigest = sha256Canonical(
-      resolution as unknown as JsonValue,
+      resolution,
     );
     const matches = authority.implementationSet.rows.filter(
       (row) =>
-        sha256Canonical(row as unknown as JsonValue) === resolutionDigest,
+        sha256Canonical(row) === resolutionDigest,
     );
     return matches.length === 1 ? matches[0]! : null;
   }
@@ -1142,13 +1149,13 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     if (native) {
       const invocation = rehydrateInvocationAdmissionAtPrefix(authorityPrefix, executionAuthority.executionBasis.invocationAdmissionRef);
       return invocation !== null && invocation.capabilityGrants.some(grant =>
-        canonicalEquals(grant as unknown as JsonValue, call.input.capabilityGrant as unknown as JsonValue)) &&
+        call.input.capabilityGrant !== undefined && canonicalEquals(grant, call.input.capabilityGrant)) &&
       nativeWorkspaceWorkAuthorityMatches(call.input, executionAuthority) &&
       graphFunction.name === nativeWorkspaceWorkGraphFunctionRef(call.input) && graphFunction.effects.includes(nativeIds.effectUri) &&
       projectCCallCarrierPhaseAtPrefix(runtimePrefix, executionAuthority.cCall)?.phase === "selected_no_evidence" &&
       hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionAuthority.executionBasis) &&
       hasAdmittedImplementationSetAtPrefix(authorityPrefix, executionAuthority.implementationSet) &&
-      sha256Canonical(resolution as unknown as JsonValue) === executionAuthority.implementationResolutionDigest &&
+      sha256Canonical(resolution) === executionAuthority.implementationResolutionDigest &&
       call.occurrence.cCallRef === executionAuthority.cCallRef &&
       call.occurrence.runId === executionAuthority.cCall.runId &&
       call.occurrence.graphCallId === executionAuthority.cCall.graphCallId &&
@@ -1159,11 +1166,11 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     }
 
     const resolutionDigest = sha256Canonical(
-      resolution as unknown as JsonValue,
+      resolution,
     );
-    const requestDigest = sha256Canonical(call.input as unknown as JsonValue);
+    const requestDigest = sha256Canonical(call.input);
     const carrierResolutionDigest = sha256Canonical(
-      executionAuthority.implementationResolution as unknown as JsonValue,
+      executionAuthority.implementationResolution,
     );
     const authorization = parents ? constructWorksiteFileParentsAuthorization({
       workspaceBinding: executionAuthority.workspaceBinding,
@@ -1201,7 +1208,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       requestDigest === call.inputDigest &&
       requestDigest === executionAuthority.executionBasis.rawInputDigest &&
       sha256Canonical(
-        executionAuthority.executionBasis.rawInputValue as unknown as JsonValue,
+        executionAuthority.executionBasis.rawInputValue,
       ) === requestDigest &&
       executionAuthority.actorRef ===
         executionAuthority.workspaceBinding.authorizedActorRef &&
@@ -1218,7 +1225,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       executionAuthority.graphFunctionDigest ===
         executionAuthority.executionBasis.graphFunctionDigest &&
       graphFunction.name === executionAuthority.graphFunctionRef &&
-      sha256Canonical(graphFunction as unknown as JsonValue) ===
+      sha256Canonical(graphFunction) ===
         executionAuthority.graphFunctionDigest &&
       graphFunction.effects.includes(effectUri) &&
       call.input.workspaceBindingIdentity ===
@@ -1263,8 +1270,8 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       executionAuthority.implementationSetDigest ===
         authority.implementationSet.implementationSetDigest &&
       canonicalEquals(
-        executionAuthority.implementationSet as unknown as JsonValue,
-        authority.implementationSet as unknown as JsonValue,
+        executionAuthority.implementationSet,
+        authority.implementationSet,
       ) &&
       carrierResolutionDigest === resolutionDigest &&
       executionAuthority.implementationResolutionDigest === resolutionDigest &&
@@ -1327,7 +1334,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         return preimageRefusal("unadmitted_resolution");
       }
       if (
-        sha256Canonical(input.input as unknown as JsonValue) !==
+        sha256Canonical(input.input) !==
           input.inputDigest ||
         !port.validateContractValueByRef(
           input.resolution.inputContractRef,
@@ -1372,7 +1379,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           publicationDigest: owner.coordinate.publicationDigest,
         },
         implementationResolutionDigest: sha256Canonical(
-          admittedResolution as unknown as JsonValue,
+          admittedResolution,
         ),
         implementationRef: admittedResolution.implementationRef,
         inputContractRef: admittedResolution.inputContractRef,
@@ -1381,10 +1388,10 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         rawResultContractRef: workerContracts.resultContractRef,
         inputDigest: input.inputDigest,
         rawResultDigest: sha256Canonical(
-          input.rawResult as unknown as JsonValue,
+          input.rawResult,
         ),
       });
-      const verificationDigest = sha256Canonical(body as unknown as JsonValue);
+      const verificationDigest = sha256Canonical(body);
       const result = deepFreeze({
         kind: "verified_probabilistic_result_contract_preimage" as const,
         schemaVersion: "5.0.0" as const,
@@ -1393,7 +1400,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         verificationDigest,
         ...body,
       });
-      return verified === null || canonicalEquals(verified as unknown as JsonValue, result as unknown as JsonValue)
+      return verified === null || canonicalEquals(verified, result)
         ? result : preimageRefusal("contract_identity_mismatch");
     } catch {
       return preimageRefusal("owner_boundary_exception");
@@ -1463,7 +1470,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       const coordinates = authority.executionResolution.declarationClosure.graphFunctionOwners.filter(c => c.declarationRef === source.graphFunctionRef && c.moduleRef === publication.moduleRef);
       if (coordinates.length !== 1) return null;
       const bound = exactOwnerBinding(authority.executionResolution, coordinates[0]!);
-      return bound !== null && canonicalEquals(bound.publication as unknown as JsonValue, publication as unknown as JsonValue) ? bound.publication : null;
+      return bound !== null && canonicalEquals(bound.publication, publication) ? bound.publication : null;
     },
     semanticPublicationByDeclarationRef(declarationRef: string) {
       const matches = authority.executionResolution.declarationClosure.publications.filter(p => (p.semanticLifecycle ?? p.semanticJobLifecycle)?.declarationRef === declarationRef);
@@ -1477,7 +1484,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           c.declarationRef === graphFunctionRef && c.moduleRef === publication.moduleRef);
         if (coordinates.length !== 1) return null;
         const bound = exactOwnerBinding(authority.executionResolution, coordinates[0]!);
-        if (bound === null || !canonicalEquals(bound.publication as unknown as JsonValue, publication as unknown as JsonValue)) return null;
+        if (bound === null || !canonicalEquals(bound.publication, publication)) return null;
       }
       return publication;
     },
@@ -1613,7 +1620,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
                 ));
           },
           validateSuccess: (value) => (!isQualification || (isSelfQualification ? isSelfConformanceResult(value) &&
-            canonicalEquals(value.owner as unknown as JsonValue, qualificationOwner as unknown as JsonValue)
+            canonicalEquals(value.owner, qualificationOwner)
             : qualificationOwner !== null && qualificationResultRelation((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix,
               nativeJudgmentProofOperations((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix, authority.historicalSource, authority.qualificationResources, qualificationPreparation)))) && port.validateContractValue(
             admittedResolution.outputContractRef,

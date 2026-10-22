@@ -23,7 +23,7 @@ import {
 } from "./traversal_cursor.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-export interface FhResumeSuccessorInput {
+export type FhResumeSuccessorInput = {
   readonly kind: "fh_resume_successor_input";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -32,7 +32,7 @@ export interface FhResumeSuccessorInput {
   readonly inputValue: Readonly<Record<string, JsonValue>>;
   readonly inputContractRef: string | null;
   readonly inputValueKind: string | null;
-}
+};
 
 export interface FhResumeSuccessorCarrier {
   readonly inputContractRef: string | null;
@@ -150,7 +150,7 @@ export function deriveFhResumeSuccessorInputAtPrefix(
     !hasAdmittedExecutionBasisAtPrefix(prefix, executionBasis) ||
     executionBasis.basisRef !== opened?.basisId ||
     closureContract.closureContractRef !== executionBasis.closureContractRef ||
-    sha256Canonical(closureContract as unknown as JsonValue) !==
+    sha256Canonical(closureContract) !==
       executionBasis.closureContractDigest
   ) {
     throw new TypeError(
@@ -204,7 +204,7 @@ export function deriveFhResumeSuccessorInputAtPrefix(
     declaredPolicy === null ||
     !canonicalEquals(
       declaredPolicy,
-      composition.closurePolicy as unknown as JsonValue,
+      composition.closurePolicy,
     ) ||
     semanticEvidenceAssetRefs === null ||
     !canonicalEquals(semanticEvidenceAssetRefs, intent.outputAssetRefs)
@@ -216,7 +216,7 @@ export function deriveFhResumeSuccessorInputAtPrefix(
   const body = {
     kind: "action_evaluation_basis" as const,
     schemaVersion: "5.0.0" as const,
-    constructionIntent: intent as unknown as JsonValue,
+    constructionIntent: intent,
     nextActionBasis,
     admittedEvidence: [{
       kind: "admitted_semantic_evidence" as const,
@@ -263,21 +263,21 @@ export function deriveFhResumeSuccessorInputAtPrefix(
       "construction F_H continuation requires five distinct ordered runtime evidence events",
     );
   }
-  const basisDigest = sha256Canonical(body as unknown as JsonValue);
+  const basisDigest = sha256Canonical(body);
   const inputValue = deepFreeze({
     ...body,
     basisRef:
       `action-evaluation-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`,
     basisDigest,
   });
-  const inputDigest = sha256Canonical(inputValue as unknown as JsonValue);
+  const inputDigest = sha256Canonical(inputValue);
   return deepFreeze({
     kind: "fh_resume_successor_input" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
     inputRef: inputValue.basisRef,
     inputDigest,
-    inputValue: inputValue as unknown as Readonly<Record<string, JsonValue>>,
+    inputValue: inputValue,
     inputContractRef: successorCarrier.inputContractRef,
     inputValueKind: successorCarrier.inputValueKind,
   });

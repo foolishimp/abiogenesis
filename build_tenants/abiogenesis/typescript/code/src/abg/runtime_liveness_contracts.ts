@@ -3,6 +3,7 @@ import * as v from "valibot";
 import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 
 /** Fixed native declaration vocabulary, never a runtime registration API. */
 export const RUNTIME_PROBE_SOURCE_VALUES = Object.freeze([
@@ -22,7 +23,7 @@ export const RUNTIME_INVOCATION_DISPOSITION_VALUES = Object.freeze([
   "block", "inspect_archive", "escalate", "reprice_policy",
 ] as const);
 export type RuntimeInvocationDispositionKind = typeof RUNTIME_INVOCATION_DISPOSITION_VALUES[number];
-export interface RuntimeInvocationScope {
+export type RuntimeInvocationScope = {
   readonly basisRef: string;
   readonly programRef: string;
   readonly runId: string;
@@ -39,8 +40,8 @@ export interface RuntimeInvocationScope {
   readonly actorRef: string | null;
   readonly workerBindingRef: string | null;
   readonly backendRef: string | null;
-}
-export interface RuntimeWatchdogPolicy {
+};
+export type RuntimeWatchdogPolicy = {
   readonly kind: "runtime_watchdog_policy";
   readonly schemaVersion: "5.0.0";
   readonly policyRef: string;
@@ -49,8 +50,8 @@ export interface RuntimeWatchdogPolicy {
   readonly inactivityMs: number;
   readonly hardCapMs: number;
   readonly terminationGraceMs: number;
-}
-export interface RuntimeLivenessBinding {
+};
+export type RuntimeLivenessBinding = {
   readonly kind: "runtime_liveness_binding";
   readonly schemaVersion: "5.0.0";
   readonly clockOriginRef: string;
@@ -58,8 +59,8 @@ export interface RuntimeLivenessBinding {
   /** Native non-actor occurrences have no implicit numeric watchdog policy. */
   readonly policy: RuntimeWatchdogPolicy | null;
   readonly sources: readonly RuntimeProbeSource[];
-}
-export interface RuntimeSystemProbeContract {
+};
+export type RuntimeSystemProbeContract = {
   readonly kind: "runtime_system_probe_contract";
   readonly schemaVersion: "5.0.0";
   readonly probeRef: string;
@@ -70,8 +71,8 @@ export interface RuntimeSystemProbeContract {
   readonly sourceRef: string;
   readonly declarationEventRef: string;
   readonly required: boolean;
-}
-export interface RuntimeProbeObservation {
+};
+export type RuntimeProbeObservation = {
   readonly kind: "runtime_probe_observation";
   readonly schemaVersion: "5.0.0";
   readonly probeRef: string;
@@ -85,8 +86,8 @@ export interface RuntimeProbeObservation {
   readonly evidenceRefs: readonly string[];
   readonly coverage: "observed" | "unavailable";
   readonly signal: "coverage" | "activity" | "artifact_pending" | "artifact_admitted" | "artifact_rejected" | "external_interruption";
-}
-export interface RuntimeThresholdObservation {
+};
+export type RuntimeThresholdObservation = {
   readonly kind: "runtime_threshold_observation";
   readonly schemaVersion: "5.0.0";
   readonly clockOriginRef: string;
@@ -95,14 +96,14 @@ export interface RuntimeThresholdObservation {
   readonly scopeDigest: Sha256Digest;
   readonly evaluatedPrefixDigest: Sha256Digest;
   readonly projectionDigest: Sha256Digest;
-}
-export interface RuntimeInvocationDisposition {
+};
+export type RuntimeInvocationDisposition = {
   readonly kind: "runtime_invocation_disposition";
   readonly schemaVersion: "5.0.0";
   readonly disposition: RuntimeInvocationDispositionKind;
   readonly reason: string;
-}
-export interface RuntimeLivenessObserverProjection {
+};
+export type RuntimeLivenessObserverProjection = {
   readonly kind: "runtime_liveness_observer_projection";
   readonly schemaVersion: "5.0.0";
   readonly projectionRef: string;
@@ -126,7 +127,7 @@ export interface RuntimeLivenessObserverProjection {
   readonly externallyInterrupted: boolean;
   readonly artifactState: "absent" | "pending" | "admitted" | "rejected";
   readonly disposition: RuntimeInvocationDisposition;
-}
+};
 
 function record(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -140,8 +141,8 @@ function exact(value: unknown, keys: readonly string[]): value is Record<string,
 }
 function ref(value: unknown): value is string { return typeof value === "string" && value.length > 0; }
 function elapsed(value: unknown): value is number { return typeof value === "number" && Number.isFinite(value) && value >= 0; }
-export function runtimeLivenessDigest(value: unknown): Sha256Digest {
-  return sha256Canonical(value as JsonValue);
+export function runtimeLivenessDigest(value: JsonValue): Sha256Digest {
+  return sha256Canonical(value);
 }
 export function constructRuntimeWatchdogPolicy(input: Readonly<{
   startupMs: number; inactivityMs: number; hardCapMs: number; terminationGraceMs: number;
@@ -155,12 +156,13 @@ export function constructRuntimeWatchdogPolicy(input: Readonly<{
 export function isRuntimeWatchdogPolicy(value: unknown): value is RuntimeWatchdogPolicy {
   if (!exact(value, ["kind", "schemaVersion", "startupMs", "inactivityMs", "hardCapMs", "terminationGraceMs", "policyRef", "policyDigest"])) return false;
   try {
-    return canonicalEquals(
-      value as unknown as JsonValue,
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" && canonicalEquals(
+      admitted.value,
       constructRuntimeWatchdogPolicy({
         startupMs: value.startupMs as number, inactivityMs: value.inactivityMs as number,
         hardCapMs: value.hardCapMs as number, terminationGraceMs: value.terminationGraceMs as number,
-      }) as unknown as JsonValue,
+      }),
     );
   } catch { return false; }
 }
@@ -192,7 +194,8 @@ export function isRuntimeSystemProbeContract(value: unknown): value is RuntimeSy
   if (!exact(value, ["kind", "schemaVersion", "probeRef", "probeDigest", "scope", "clockOriginRef", "source", "sourceRef", "declarationEventRef", "required"])) return false;
   try {
     const { kind: _kind, schemaVersion: _version, probeRef: _ref, probeDigest: _digest, ...input } = value;
-    return canonicalEquals(value as unknown as JsonValue, constructRuntimeSystemProbeContract(input as never) as unknown as JsonValue);
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" && canonicalEquals(admitted.value, constructRuntimeSystemProbeContract(input as never));
   } catch { return false; }
 }
 export function isRuntimeProbeObservation(value: unknown): value is RuntimeProbeObservation {
@@ -242,9 +245,10 @@ export function isRuntimeLivenessObserverProjection(value: unknown): value is Ru
       !RUNTIME_INVOCATION_DISPOSITION_VALUES.includes(value.disposition.disposition as RuntimeInvocationDispositionKind) ||
       !ref(value.disposition.reason)) return false;
   const { projectionRef, projectionDigest, ...body } = value;
-  return projectionDigest === runtimeLivenessDigest(body) && projectionRef === `runtime-liveness://abiogenesis/${String(projectionDigest).slice(7)}`;
+  const admittedBody = admitJson(body);
+  return admittedBody.kind === "ok" && projectionDigest === runtimeLivenessDigest(admittedBody.value) && projectionRef === `runtime-liveness://abiogenesis/${String(projectionDigest).slice(7)}`;
 }
-export interface RuntimeLivenessReadProjection {
+export type RuntimeLivenessReadProjection = {
   readonly kind: "native_liveness_read_projection";
   readonly schemaVersion: "5.0.0";
   readonly profileSchedule: Readonly<{
@@ -253,7 +257,7 @@ export interface RuntimeLivenessReadProjection {
     boundaryEventRef: string | null; currentEventContractDigest: Sha256Digest;
   }>;
   readonly invocations: readonly RuntimeLivenessObserverProjection[];
-}
+};
 export function isRuntimeLivenessReadProjection(value: unknown): value is RuntimeLivenessReadProjection {
   if (!exact(value, ["kind", "schemaVersion", "profileSchedule", "invocations"]) ||
       value.kind !== "native_liveness_read_projection" || value.schemaVersion !== "5.0.0" ||

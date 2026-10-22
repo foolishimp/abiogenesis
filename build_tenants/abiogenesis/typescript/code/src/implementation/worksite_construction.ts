@@ -86,12 +86,12 @@ export const WORKSITE_PRESERVED_RESULT_DERIVE_IMPLEMENTATION_DESCRIPTOR = descri
 export function authenticateWorksitePreservedResult(input: WorksiteConstructionTask, occurrence: LeafExecutionOccurrence): Readonly<LeafRealizationCandidate> {
   const value = occurrence.worksitePreservedResultBasis === undefined ? null : projectWorksitePreservedResultArtifact(occurrence.worksitePreservedResultBasis, input);
   return value === null ? failure("preserved_source_invalid") : deterministicSuccess(recoveryIds.authenticateImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>, value as unknown as Readonly<Record<string, JsonValue>>);
+    input, value);
 }
 export function deriveWorksitePreservedCandidate(input: WorksitePreservedResultArtifact, occurrence: LeafExecutionOccurrence): Readonly<LeafRealizationCandidate> {
   const value = occurrence.worksitePreservedResultBasis === undefined ? null : projectWorksitePreservedCandidateBundle(occurrence.worksitePreservedResultBasis, input);
   return value === null ? failure("preserved_candidate_invalid") : deterministicSuccess(recoveryIds.deriveImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>, value as unknown as Readonly<Record<string, JsonValue>>);
+    input, value);
 }
 
 export const WORKSITE_CONSTRUCTION_REDUCER_IMPLEMENTATION_DESCRIPTOR =
@@ -155,8 +155,8 @@ function exactActorExchange(
 ): boolean {
   const observation = exchange.observation;
   return canonicalEquals(
-    exchange.request as unknown as JsonValue,
-    expectedRequest as unknown as JsonValue,
+    exchange.request,
+    expectedRequest,
   ) &&
     observation.actorRef === WORKSITE_CONSTRUCTION_IDS.workerActorRef &&
     observation.workerBindingRef ===
@@ -188,7 +188,7 @@ export function realizeWorksiteConstructionCandidate(
       "worksite candidate construction requires one exact admitted task",
     );
   }
-  const inputDigest = sha256Canonical(input as unknown as JsonValue);
+  const inputDigest = sha256Canonical(input);
   const workerRequest = occurrence.nativeInstructionAssemblyBasis === undefined ? deepFreeze({
     actorRef: WORKSITE_CONSTRUCTION_IDS.workerActorRef,
     workerBindingRef: WORKSITE_CONSTRUCTION_IDS.workerBindingRef,
@@ -210,7 +210,7 @@ export function realizeWorksiteConstructionCandidate(
       if (!exactActorExchange(
         input,
         inputDigest,
-        workerRequest as unknown as Readonly<Record<string, JsonValue>>,
+        workerRequest,
         exchange,
       )) return failure("transport_identity_mismatch");
       let rawValue: unknown;
@@ -241,9 +241,7 @@ export function realizeWorksiteConstructionCandidate(
         schemaVersion: "5.0.0" as const,
         disposition: "success" as const,
         evidenceCandidates: [] as const,
-        resultCandidate: bundle as unknown as Readonly<
-          Record<string, JsonValue>
-        >,
+        resultCandidate: bundle,
       });
     },
   });
@@ -261,8 +259,8 @@ export function realizeWorksiteFileReplaceVector(
   const result = constructWorksiteFileReplaceVector(input);
   return deterministicSuccess(
     WORKSITE_CONSTRUCTION_IDS.joinImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }
 
@@ -279,8 +277,8 @@ export function reduceWorksiteConstructionResults(
     reduceWorksiteFileReplaceResults(input);
   return deterministicSuccess(
     WORKSITE_CONSTRUCTION_IDS.reducerImplementationRef,
-    input as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
+    input,
+    result,
   );
 }
 

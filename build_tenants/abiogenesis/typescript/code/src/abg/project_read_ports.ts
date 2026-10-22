@@ -226,7 +226,7 @@ function exactOrThrow<T>(match: ExactMatch<T>, label: string): T {
 
 function eventRecord(event: RuntimeEvent): Readonly<Record<string, JsonValue>> {
   if (!isRecord(event.payload)) throw new TypeError("terminal event payload is not a record");
-  return event.payload as Readonly<Record<string, JsonValue>>;
+  return event.payload;
 }
 
 /** Reconstruct the existing scope carrier, then ask its native owner to verify
@@ -348,10 +348,10 @@ function terminalDeclaration(
   const closure = resolveExecutionDeclarationClosure(catalog, catalogView, root.programRef, root.graphFunctionRef);
   if (closure.kind !== "resolved_execution_declaration_closure") throw new TypeError("historical root declaration closure is absent");
   const program = exactOrThrow(onlyExactMatch(closure.programPublication.programs.filter((row) => row.programRef === root.programRef)), "root Program");
-  if (sha256Canonical(program as unknown as JsonValue) !== root.programDigest) throw new TypeError("historical Program digest differs");
+  if (sha256Canonical(program) !== root.programDigest) throw new TypeError("historical Program digest differs");
   const rootOutput = selectExactClosureContract(closure, root.resultContractRef);
-  if (rootOutput === null || sha256Canonical(rootOutput.contract as unknown as JsonValue) !== invocation.outputContractDigest ||
-      !canonicalEquals(rootOutput.owner as unknown as JsonValue, invocation.outputContractOwner as unknown as JsonValue)) {
+  if (rootOutput === null || sha256Canonical(rootOutput.contract) !== invocation.outputContractDigest ||
+      !canonicalEquals(rootOutput.owner, invocation.outputContractOwner)) {
     throw new TypeError("historical declaration proof crosses the admitted root output owner");
   }
   const implementationSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, root.rootImplementationSetRef);
@@ -370,7 +370,7 @@ function terminalDeclaration(
     const publication = exactOrThrow(onlyExactMatch(closure.publications.filter((row) => row.moduleRef === owner.moduleRef &&
       row.owningProductId === owner.productId && modulePublicationSemanticDigest(row) === owner.publicationDigest)), "GraphFunction publication");
     const graph = exactOrThrow(onlyExactMatch(publication.graphFunctions.filter((row) => row.name === child.graphFunctionRef)), "GraphFunction declaration");
-    if (sha256Canonical(graph as unknown as JsonValue) !== child.graphFunctionDigest ||
+    if (sha256Canonical(graph) !== child.graphFunctionDigest ||
         !program.callableMembership.includes(child.graphFunctionRef) || graph.outputs.length !== 1 ||
         graph.outputs[0] !== child.resultContractRef) throw new TypeError("child output is outside the admitted root declaration closure");
     if (child.basisClass === "root") continue;
@@ -384,23 +384,23 @@ function terminalDeclaration(
         !canonicalEquals(child.localExecutableLeafKeys, executable.map((row) => row.requirementKey)) ||
         !canonicalEquals(child.localInteractionLeafKeys, interactions.map((row) => row.requirementKey)) ||
         child.localImplementationSubsetDigest !== sha256Canonical({ rootImplementationSetRef: root.rootImplementationSetRef,
-          rootImplementationSetDigest: root.rootImplementationSetDigest, executableLeafKeys: child.localExecutableLeafKeys, rows: executable } as unknown as JsonValue) ||
+          rootImplementationSetDigest: root.rootImplementationSetDigest, executableLeafKeys: child.localExecutableLeafKeys, rows: executable }) ||
         child.localInteractionSubsetDigest !== sha256Canonical({ rootInteractionSetRef: root.rootInteractionSetRef,
-          rootInteractionSetDigest: root.rootInteractionSetDigest, interactionLeafKeys: child.localInteractionLeafKeys, rows: interactions } as unknown as JsonValue)) {
+          rootInteractionSetDigest: root.rootInteractionSetDigest, interactionLeafKeys: child.localInteractionLeafKeys, rows: interactions })) {
       throw new TypeError("child subsets differ from their admitted root sets");
     }
     const closureOwner = exactOrThrow(onlyExactMatch(closure.closureContractOwners.filter((row) => row.declarationRef === child.closureContractRef)), "child closure owner");
     const closurePublication = exactOrThrow(onlyExactMatch(closure.publications.filter((row) => row.moduleRef === closureOwner.moduleRef &&
       row.owningProductId === closureOwner.productId && modulePublicationSemanticDigest(row) === closureOwner.publicationDigest)), "child closure publication");
     const declaration = exactOrThrow(onlyExactMatch(closurePublication.closureContracts.filter((row) => row.closureContractRef === child.closureContractRef)), "child closure contract");
-    if (sha256Canonical(declaration as unknown as JsonValue) !== child.closureContractDigest ||
+    if (sha256Canonical(declaration) !== child.closureContractDigest ||
         declaration.closureScope !== "graph_call" || declaration.resultContractRef !== child.resultContractRef) {
       throw new TypeError("child closure contract differs from its admitted basis");
     }
   }
   const selected = selectExactClosureContract(closure, basis.resultContractRef);
   if (selected === null) throw new TypeError("child output contract has no unique historical owner");
-  const contract = truthCoordinate(selected.contract.contractRef, sha256Canonical(selected.contract as unknown as JsonValue));
+  const contract = truthCoordinate(selected.contract.contractRef, sha256Canonical(selected.contract));
   if (sourceInput === undefined) return { contract };
   const ancestor = exactOrThrow(onlyExactMatch(chain.filter((row) => row.graphFunctionRef === sourceInput.graphFunctionRef)), "selected source ancestor");
   const owner = exactOrThrow(onlyExactMatch(closure.graphFunctionOwners.filter((row) => row.declarationRef === ancestor.graphFunctionRef)), "source input owner");
@@ -649,7 +649,7 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
     // Only the internal owner may retain its exact immutable coordinate. Raw
     // packet admission and byte equality remain mandatory; copies stay cold.
     if (retainedPrefix !== undefined) {
-      if (!canonicalEquals(retainedPrefix as unknown as JsonValue, admitted.prefix as unknown as JsonValue))
+      if (!canonicalEquals(retainedPrefix, admitted.prefix))
         throw new TypeError("retained prefix differs from admitted read packet");
       packet = deepFreeze({ ...admitted, prefix: retainedPrefix });
     }
@@ -1032,7 +1032,7 @@ function projectGraphCallStatus(
     replayRef: context.replay.replayRef,
     replayDigest: context.replay.replayDigest,
     eventAtoms: context.eventAtoms,
-  } as unknown as JsonValue;
+  };
 }
 
 function projectRunResult(
@@ -1051,7 +1051,7 @@ function projectRunResult(
         terminalResult: context.truth.terminalResult,
         replayRef: context.truth.replay.ref,
         replayDigest: context.truth.replay.digest,
-      } as unknown as JsonValue;
+      };
 }
 
 function projectGraphCallResult(
@@ -1072,7 +1072,7 @@ function projectGraphCallResult(
         terminalResult: typed,
         replayRef: context.replay.replayRef,
         replayDigest: context.replay.replayDigest,
-      } as unknown as JsonValue;
+      };
 }
 
 function evidenceProjection(
@@ -1194,7 +1194,7 @@ function projectGraphCallReplay(
     ),
     replayRef: context.replay.replayRef,
     replayDigest: context.replay.replayDigest,
-  } as unknown as JsonValue;
+  };
 }
 
 function projectInteractionReplay(
@@ -1215,7 +1215,7 @@ function projectInteractionReplay(
         continuation: match.value.continuation,
         replayRef: match.value.context.replay.replayRef,
         replayDigest: match.value.context.replay.replayDigest,
-      } as unknown as JsonValue
+      }
     : ABSENT;
 }
 
@@ -1237,7 +1237,7 @@ function projectContinuationReplay(
         continuation: match.value.continuation,
         replayRef: match.value.context.replay.replayRef,
         replayDigest: match.value.context.replay.replayDigest,
-      } as unknown as JsonValue
+      }
     : ABSENT;
 }
 
@@ -1261,7 +1261,7 @@ function projectCCallReplay(
     ),
     replayRef: matches[0]!.context.replay.replayRef,
     replayDigest: matches[0]!.context.replay.replayDigest,
-  } as unknown as JsonValue;
+  };
 }
 
 /** Reuse C-call admission truth; no Public consumer reconstructs this spine. */
@@ -1289,7 +1289,7 @@ function gapCall(context: RunReadContext, route: NonNullable<ReturnType<typeof p
     row.implementationBindingRef === outcome.cCall.implementationBindingRef && row.implementationRef === outcome.cCall.implementationRef &&
     row.graphFunctionRef === outcome.cCall.graphFunctionRef) ?? []), "gap implementation contract");
   if (implementation.outputContractRef !== outcome.result.contractRef) throw new TypeError("gap output differs from its admitted implementation contract");
-  return { open, result, judgment, outcome, implementation, value: outcome.result.value as Readonly<Record<string, JsonValue>>,
+  return { open, result, judgment, outcome, implementation, value: outcome.result.value,
     projected: { result: truthCoordinate(outcome.result.resultRef, outcome.result.resultDigest),
       contractRef: outcome.result.contractRef, valueKind: outcome.result.valueKind,
       valueDigest: outcome.result.valueDigest, value: outcome.result.value,
@@ -1319,7 +1319,7 @@ function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: Canon
   }
   const next = gapCall(context, route, route.cCallRef, prepared.fullPrefix);
   const projection = route.nextActionProjection;
-  if (projection?.disposition !== "no_action" || !canonicalEquals(next.value, projection as unknown as JsonValue) ||
+  if (projection?.disposition !== "no_action" || !canonicalEquals(next.value, projection) ||
       next.outcome.result.valueKind !== "next_action_projection" || next.outcome.judgment.judgmentRef !== route.judgmentRef ||
       eventRecord(next.open).cursorRef !== route.sourceCursorRef || eventRecord(next.open).cursorDigest !== route.sourceCursorDigest ||
       !route.causationEventRefs.includes(next.judgment.eventId) || next.judgment.admissionOrdinal >= route.admissionOrdinal) {
@@ -1378,7 +1378,7 @@ function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: Canon
         basis.outcome.result.contractRef !== next.implementation.inputContractRef ||
         basis.outcome.cCall.implementationSetRef !== execution.implementationSetRef ||
         !isRecord(basis.value.gapProjection) || basis.value.gapProjection.gapRef !== projection.gapRef ||
-        !canonicalEquals(basis.value.targetObligationRefs as JsonValue, projection.targetObligationRefs)) {
+        (basis.value.targetObligationRefs === undefined || !canonicalEquals(basis.value.targetObligationRefs, projection.targetObligationRefs))) {
       throw new TypeError("no-action input does not join its exact admitted gap basis");
     }
     return basis.value;
@@ -1410,7 +1410,7 @@ function projectWorkspaceGaps(
       const context = canonicalRunContext(prepared, runId);
       return context === null || context.truth.workspaceBinding.ref !== targetRef ? [] : gapRows(prepared, context);
     }),
-  } as unknown as JsonValue;
+  };
 }
 
 function projectRunGaps(
@@ -1421,7 +1421,7 @@ function projectRunGaps(
   return context === null
     ? ABSENT
     : { runId: targetRef, frontiers: gapRows(prepared, context),
-        replayRef: context.replay.replayRef, replayDigest: context.replay.replayDigest } as unknown as JsonValue;
+        replayRef: context.replay.replayRef, replayDigest: context.replay.replayDigest };
 }
 
 /** Pure owner entry over already decoded history. This checks physical byte
@@ -1460,7 +1460,7 @@ function projectRunLawfulActions(
           }]
         : []
     ),
-  } as unknown as JsonValue;
+  };
 }
 
 function projectValue(
@@ -1552,15 +1552,19 @@ function projectPreparedRead<K extends AbgProjectReadMemberKey>(
       expectedMemberKey.startsWith("graph_call_") ? runtimeEventBodiesAtPrefix(prepared.fullPrefix)
         .find(event => event.kind === "graph_call_opened" && event.aggregateId === prepared.packet.targetRef)?.runId ?? null : null,
     expectedMemberKey.startsWith("graph_call_") ? prepared.packet.targetRef : undefined) : null;
-  const value = admitIJsonValue(nativeLiveness === null ? projected :
-    { ...(projected as Readonly<Record<string, JsonValue>>), nativeLiveness }, "ABG project read projection");
+  let projectedValue: JsonValue = projected;
+  if (nativeLiveness !== null) {
+    if (!isRecord(projected)) throw new TypeError("ABG project read liveness member requires an object projection");
+    projectedValue = { ...projected, nativeLiveness };
+  }
+  const value = admitIJsonValue(projectedValue, "ABG project read projection");
   const body = {
     memberKey: expectedMemberKey,
     targetRef: prepared.packet.targetRef,
     prefixCoordinateDigest: prepared.packet.prefix.coordinateDigest,
     value,
   };
-  const projectionDigest = sha256Canonical(body as unknown as JsonValue);
+  const projectionDigest = sha256Canonical(body);
   return deepFreeze({
     kind: "abg_project_read_projection" as const,
     schemaVersion: "5.0.0" as const,

@@ -16,7 +16,7 @@ export const GOVERNANCE_FULFILLMENT_STRENGTH = governanceRef("rule", "declared-c
 export const GOVERNANCE_FULFILLMENT_DISCOVERY = governanceRef("rule", "admitted-requirement-proposals");
 const ref = v.pipe(v.string(), v.minLength(1)), refs = v.array(ref), digest = v.pipe(ref, v.regex(/^sha256:[a-f0-9]{64}$/));
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
-const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+const hash = (value: JsonValue) => sha256Canonical(value);
 const judgment = v.picklist(["satisfied", "falsified", "indeterminate"]);
 const file = v.strictObject({ path: ref, digest });
 const proofRole = v.picklist(["realization", "verifier_artifact", "verifier_execution", "semantic_assessment"]);

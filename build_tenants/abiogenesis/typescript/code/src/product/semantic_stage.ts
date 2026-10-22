@@ -2,7 +2,7 @@ import * as v from "valibot";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isRequirementHandoffOutput, type RequirementHandoffOutput } from "./requirement_handoff.js";
 import type { RequirementTerm, GtlContractFulfillmentBinding } from "../gtl/requirement_handoff.js";
 import type { SemanticLifecycleDeclaration, SemanticStageDeclaration } from "../gtl/semantic_stage.js";
@@ -15,8 +15,8 @@ import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, Works
 import { constructWorksiteCommandPreparationInput, type WorksiteCommandPreparationInput } from "./worksite_preparation.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-export interface SemanticSourceQuote { readonly memberRef: string; readonly quote: string }
-export interface SemanticStatementCandidate {
+export type SemanticSourceQuote = { readonly memberRef: string; readonly quote: string };
+export type SemanticStatementCandidate = {
   readonly statementRef: string;
   readonly text: string;
   readonly modality: "normative" | "supporting" | "speculative" | "conflicting";
@@ -26,42 +26,42 @@ export interface SemanticStatementCandidate {
   /** Select only statements in authenticated incoming envelope.assets, never
    * statements introduced by this response or historical-only revision context. */
   readonly predecessorStatementRefs: readonly string[];
-}
-export interface SemanticRequirementCandidate {
+};
+export type SemanticRequirementCandidate = {
   readonly candidateRef: string;
   readonly meaning: string;
   readonly parentRequirementRefs: readonly string[];
   readonly sourceQuotes: readonly SemanticSourceQuote[];
-}
-export interface SemanticPressure {
+};
+export type SemanticPressure = {
   readonly pressureRef: string;
   readonly text: string;
   readonly requirementRefs: readonly string[];
   readonly disposition: "pending" | "conflicting" | "unassessed";
-}
-export interface SemanticWorksiteDesign {
+};
+export type SemanticWorksiteDesign = {
   readonly targets: readonly { readonly targetRef: string; readonly role: "implementation" | "verifier" | "configuration";
     readonly obligationRefs: readonly string[]; readonly changeInstruction: string }[];
   readonly commandRefs: readonly string[];
   readonly dependencyTargetRefs: readonly string[];
   readonly dependencyDisposition: "sufficient" | "unknown";
-}
-export interface SemanticAssetCandidate {
+};
+export type SemanticAssetCandidate = {
   readonly kind: "semantic_stage_asset_candidate";
   readonly schemaVersion: "5.0.0";
   readonly statements: readonly SemanticStatementCandidate[];
   readonly requirementCandidates: readonly SemanticRequirementCandidate[];
   readonly worksiteDesign: SemanticWorksiteDesign | null;
   readonly pressure: readonly SemanticPressure[];
-}
-export interface SemanticAssessmentCandidate {
+};
+export type SemanticAssessmentCandidate = {
   readonly kind: "semantic_stage_assessment_candidate";
   readonly schemaVersion: "5.0.0";
   readonly criteria: readonly { readonly criterionRef: string; readonly disposition: "satisfied" | "falsified" | "indeterminate";
     readonly explanation: string; readonly sourceQuotes: readonly SemanticSourceQuote[]; readonly statementRefs: readonly string[] }[];
   readonly pressure: readonly SemanticPressure[];
-}
-export interface SemanticWorksiteBasis {
+};
+export type SemanticWorksiteBasis = {
   readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
   readonly workspaceBinding: WorkspaceBinding;
   readonly capabilityGrant: CapabilityGrant;
@@ -70,8 +70,8 @@ export interface SemanticWorksiteBasis {
   readonly commands: readonly WorksiteDeclaredCommandInput[];
   readonly outcomePredicates: readonly WorksiteOutcomePredicateInput[];
   readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritoryInput[];
-}
-export interface SemanticActorSource {
+};
+export type SemanticActorSource = {
   readonly cCallRef: string; readonly inputDigest: Sha256Digest; readonly actorInvocationRef: string;
   readonly promptDigest: Sha256Digest; readonly transportDigest: Sha256Digest;
   /** Native actor identity remains above; this is the separate admitted F_D
@@ -79,8 +79,8 @@ export interface SemanticActorSource {
   readonly nativeWork?: { readonly adapterCCallRef: string; readonly adapterInputDigest: Sha256Digest;
     readonly observationRef: string; readonly observationDigest: Sha256Digest;
     readonly assetPath: string; readonly assetDigest: Sha256Digest };
-}
-export interface SemanticAsset {
+};
+export type SemanticAsset = {
   readonly assetRef: string; readonly assetDigest: Sha256Digest; readonly stageRef: string;
   readonly candidate: SemanticAssetCandidate;
   readonly groundedTerms: readonly RequirementTerm[];
@@ -88,8 +88,8 @@ export interface SemanticAsset {
   readonly source: SemanticActorSource;
   readonly assessment: { readonly candidate: SemanticAssessmentCandidate; readonly source: SemanticActorSource;
     readonly disposition: "satisfied" | "falsified" | "indeterminate" } | null;
-}
-export interface SemanticEvidenceInput {
+};
+export type SemanticEvidenceInput = {
   readonly kind: "semantic_worksite_evidence";
   readonly constructionResultRef: string; readonly constructionResultDigest: Sha256Digest;
   readonly executionResultRef: string; readonly executionResultDigest: Sha256Digest;
@@ -97,8 +97,8 @@ export interface SemanticEvidenceInput {
   readonly executionObservation: Readonly<Record<string, JsonValue>>;
   readonly artifacts: readonly { readonly subjectRef: string; readonly observationRef: string; readonly base64: string;
     readonly role: "realization" | "verifier_artifact" }[];
-}
-export interface SemanticStageEnvelope {
+};
+export type SemanticStageEnvelope = {
   readonly kind: "semantic_stage_envelope"; readonly schemaVersion: "5.0.0";
   readonly sourceHandoff: RequirementHandoffOutput;
   readonly lifecycle: SemanticLifecycleDeclaration;
@@ -109,7 +109,7 @@ export interface SemanticStageEnvelope {
   readonly evidence: SemanticEvidenceInput | null;
   readonly applicationCoverage: "non_closing";
   readonly remainingGaps: readonly string[];
-}
+};
 
 const ref = v.pipe(v.string(), v.minLength(1));
 const refs = v.array(ref);
@@ -130,7 +130,7 @@ const assetSchema = v.strictObject({ kind: v.literal("semantic_stage_asset_candi
 const assessmentSchema = v.strictObject({ kind: v.literal("semantic_stage_assessment_candidate"), schemaVersion: v.literal("5.0.0"),
   criteria: v.pipe(v.array(v.strictObject({ criterionRef: ref, disposition: v.picklist(["satisfied", "falsified", "indeterminate"]),
     explanation: ref, sourceQuotes: v.array(quote), statementRefs: refs })), v.minLength(1)), pressure: pressureList });
-const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+const hash = (x: JsonValue) => sha256Canonical(x);
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 function exactRecord(value: unknown, fields: readonly string[]): value is Record<string, unknown> {
   return isRecord(value) && hasExactKeys(value, fields);
@@ -190,7 +190,9 @@ export function isSemanticStageEnvelope(value: unknown): value is SemanticStageE
     value.kind !== "semantic_stage_envelope" || value.schemaVersion !== "5.0.0" ||
     !isRequirementHandoffOutput(value.sourceHandoff) || !isSemanticLifecycleDeclaration(value.lifecycle) ||
     (value.worksite !== null && !isSemanticWorksiteBasis(value.worksite)) || !Array.isArray(value.assets) ||
-    value.applicationCoverage !== "non_closing" || !canonicalEquals(value.remainingGaps as JsonValue, SEMANTIC_REMAINING_GAPS)) return false;
+    value.applicationCoverage !== "non_closing") return false;
+  const remainingGaps = admitJson(value.remainingGaps);
+  if (remainingGaps.kind !== "ok" || !canonicalEquals(remainingGaps.value, SEMANTIC_REMAINING_GAPS)) return false;
   const typed = value as unknown as SemanticStageEnvelope;
   return hash(typed.taskData) === typed.lifecycle.taskDataDigest && hash(typed.evaluationData) === typed.lifecycle.evaluationDataDigest &&
     typed.sourceHandoff.declaration.declarationRef === typed.lifecycle.sourceDeclarationRef &&
@@ -220,12 +222,12 @@ export function projectSemanticWorksiteCoordinates(historical: SemanticWorksiteB
       workspaceBinding: current.workspaceBinding,
       capabilityGrant: current.capabilityGrant,
     };
-    if (!canonicalEquals(historical.workspaceAuthorityBasis as unknown as JsonValue, current.workspaceAuthorityBasis as unknown as JsonValue) ||
+    if (!canonicalEquals(historical.workspaceAuthorityBasis, current.workspaceAuthorityBasis) ||
       historical.workspaceBinding.workspaceId !== current.workspaceBinding.workspaceId ||
       historical.capabilityGrant.actorRef !== current.capabilityGrant.actorRef ||
       historical.capabilityGrant.capabilityRef !== current.capabilityGrant.capabilityRef ||
       historical.capabilityGrant.operationId !== current.capabilityGrant.operationId ||
-      !canonicalEquals(historical.capabilityGrant.definitionKey as unknown as JsonValue, current.capabilityGrant.definitionKey as unknown as JsonValue) ||
+      !canonicalEquals(historical.capabilityGrant.definitionKey, current.capabilityGrant.definitionKey) ||
       historical.capabilityGrant.authorityBasisRef !== current.capabilityGrant.authorityBasisRef ||
       historical.capabilityGrant.authorityBasisDigest !== current.capabilityGrant.authorityBasisDigest ||
       !unique(historical.targets.map(row => row.target.subject.relativePath)) ||
@@ -336,7 +338,7 @@ export function deriveSemanticWorksiteConstructionConfiguration(envelope: Semant
         worksiteInventoryDigest: hash(worksite),
         currentWorksite: contextRows.map(row => ({ targetRef: row!.target.targetRef, path: row!.target.subject.relativePath,
           role: row!.role, text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(row!.base64, "base64")) })),
-        commands, outcomePredicates: worksite.outcomePredicates } as unknown as JsonValue),
+        commands, outcomePredicates: worksite.outcomePredicates }),
     ].join("\n\n");
     const constructionTask = constructWorksiteConstructionTask({ workspaceAuthorityBasis: worksite.workspaceAuthorityBasis,
       workspaceBinding: worksite.workspaceBinding, capabilityGrant: worksite.capabilityGrant,
@@ -423,8 +425,8 @@ export function semanticWorkerResultSchema(role: "author" | "assessor", bodyCapa
   // The native closed schema is authoritative after transport; this JSON Schema
   // is the declared transport projection of the same finite candidate fields.
   const string = { type: "string", minLength: 1 };
-  const array = (items: unknown) => ({ type: "array", items });
-  const object = (properties: Record<string, unknown>) => ({ type: "object", additionalProperties: false, properties, required: Object.keys(properties) });
+  const array = (items: JsonValue) => ({ type: "array", items });
+  const object = (properties: Readonly<Record<string, JsonValue>>) => ({ type: "object", additionalProperties: false, properties, required: Object.keys(properties) });
   const quotes = array(object({ memberRef: string, quote: string }));
   const refArray = array(string);
   const pressureSchema = array(object({ pressureRef: string, text: string, requirementRefs: refArray,
@@ -445,5 +447,5 @@ export function semanticWorkerResultSchema(role: "author" | "assessor", bodyCapa
     criteria: { ...array(object({ criterionRef: string, disposition: { enum: ["satisfied", "falsified", "indeterminate"] },
       explanation: string, sourceQuotes: quotes, statementRefs: { ...refArray,
         description: "Select only statementRef values from the exact current candidate being assessed, identified with its eligible refs in the native role instruction. Earlier predecessor assets are contextual evidence, not eligible criteria[].statementRefs. Empty arrays are allowed; never invent or substitute a ref. This domain does not prescribe a criterion disposition." } })), minItems: 1 }, pressure: pressureSchema,
-  }) as unknown as Readonly<Record<string, JsonValue>>;
+  });
 }

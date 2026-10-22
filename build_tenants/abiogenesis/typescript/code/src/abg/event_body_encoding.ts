@@ -24,8 +24,8 @@ const slotFor = (kind: unknown): BodySlot | null => kind === "basis_admitted" ? 
   : kind === "actor_transport_binding_admitted" ? "native_definition_material" : null;
 const fieldFor = (slot: Exclude<BodySlot, "native_definition_material">): "rawInputValue" | "value" => slot === "basis_input" ? "rawInputValue" : "value";
 
-// Shape checks only: members stay unknown; the store validates restored events.
-function nativeParts(payload: unknown) {
+// Shape checks only over a JSON payload; the store validates restored events.
+function nativeParts(payload: JsonValue) {
   if (!isRecord(payload) || !isRecord(payload.instructionAssembly)) return null;
   const assembly = payload.instructionAssembly;
   if (assembly.kind !== "native_instruction_assembly" || assembly.schemaVersion !== "5.0.0" ||
@@ -49,7 +49,7 @@ function valueAtSlot(payload: Record<string, JsonValue>, slot: BodySlot): JsonVa
   return isNativeDefinitionBundle(bundle) ? bundle : undefined;
 }
 
-function replaceValue<P extends Readonly<Record<string, unknown>>>(payload: P, slot: BodySlot, value: JsonValue): P {
+function replaceValue<P extends Readonly<Record<string, JsonValue>>>(payload: P, slot: BodySlot, value: JsonValue): P {
   if (slot !== "native_definition_material") return { ...payload, [fieldFor(slot)]: value };
   const parts = nativeParts(payload);
   if (parts === null || !isNativeDefinitionBundle(value)) throw new TypeError("native definition body slot is malformed");
@@ -57,7 +57,7 @@ function replaceValue<P extends Readonly<Record<string, unknown>>>(payload: P, s
     nativeBasis: { ...parts.basis, ...value } } } };
 }
 
-function omitValue(payload: Readonly<Record<string, unknown>>, slot: BodySlot): Record<string, unknown> {
+function omitValue(payload: Readonly<Record<string, JsonValue>>, slot: BodySlot): Record<string, JsonValue> {
   if (slot !== "native_definition_material") { const { [fieldFor(slot)]: _value, ...rest } = payload; return rest; }
   const parts = nativeParts(payload);
   if (parts === null) throw new TypeError("native definition body slot is malformed");
@@ -66,7 +66,7 @@ function omitValue(payload: Readonly<Record<string, unknown>>, slot: BodySlot): 
   return { ...payload, instructionAssembly: { ...parts.assembly, envelope: { ...parts.envelope, nativeBasis: basis } } };
 }
 
-function targetIsAbsent(payload: Readonly<Record<string, unknown>>, slot: BodySlot): boolean {
+function targetIsAbsent(payload: Readonly<Record<string, JsonValue>>, slot: BodySlot): boolean {
   if (slot !== "native_definition_material") return !Object.hasOwn(payload, fieldFor(slot));
   const parts = nativeParts(payload);
   return parts !== null && NATIVE_DEFINITION_FIELDS.every(field => !Object.hasOwn(parts.basis, field));
@@ -120,7 +120,7 @@ export function captureRuntimeEventCandidate(
   committed?: Pick<ReadonlyMap<string, InlineBody>, "get">,
   read?: InlineBodyReader,
 ): RuntimeEventCandidate {
-  const captured = JSON.parse(canonicalJson(candidate as unknown as JsonValue)) as RuntimeEventCandidate;
+  const captured = JSON.parse(canonicalJson(candidate)) as RuntimeEventCandidate;
   const slot = slotFor(captured.kind);
   if (slot === null || committed === undefined || !isRecord(captured.payload)) return captured;
   const value = valueAtSlot(captured.payload, slot);
@@ -137,14 +137,14 @@ export function captureRuntimeEventCandidate(
 /** The caller stages additions and publishes them only with the durable batch. */
 export function encodeEventBody(event: RuntimeEvent, committed: InlineEventBodies, staged: InlineEventBodies,
   read?: InlineBodyReader): string {
-  const inline = canonicalJson(event as unknown as JsonValue), body = inlineEventBody(event);
+  const inline = canonicalJson(event), body = inlineEventBody(event);
   if (body === null) return inline + "\n";
   const key = inlineEventBodyKey(body), source = staged.get(key) ?? committed.get(key);
   if (source !== undefined && compatibleSlots(source.slot, body.slot) && canonicalEquals(bodyValue(source, read), body.value!)) {
     const payload = omitValue(event.payload as Record<string, JsonValue>, body.slot);
     const encoded = canonicalJson({ kind: REFERENCE_RECORD, codecVersion: body.slot === "native_definition_material" ? 2 : 1, event: { ...event, payload },
       bodyReference: { sourceEventRef: source.eventRef, sourcePayloadDigest: source.payloadDigest,
-        sourceSlot: source.slot, bodyDigest: body.digest } } as unknown as JsonValue);
+        sourceSlot: source.slot, bodyDigest: body.digest } });
     // Ordinary small values remain inline when a reference would cost more.
     if (Buffer.byteLength(encoded) < Buffer.byteLength(inline)) return encoded + "\n";
   }
@@ -154,9 +154,9 @@ export function encodeEventBody(event: RuntimeEvent, committed: InlineEventBodie
 
 /** Resolves only already validated, physically inline sources from this stream.
  * The event store still validates the complete restored envelope and all stamps. */
-export function decodeEventBody(record: unknown, inlineByEvent: InlineEventBodies,
+export function decodeEventBody(record: JsonValue, inlineByEvent: InlineEventBodies,
   read?: InlineBodyReader): {
-  readonly event: unknown; readonly physicallyInline: boolean;
+  readonly event: JsonValue; readonly physicallyInline: boolean;
 } {
   if (!isRecord(record) || record.kind !== REFERENCE_RECORD) return { event: record, physicallyInline: true };
   const reference = record.bodyReference, event = record.event;

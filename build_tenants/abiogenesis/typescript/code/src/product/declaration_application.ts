@@ -80,7 +80,7 @@ export class CatalogApplicationConstructionError extends TypeError {
 function fail(code: CatalogApplicationRefusalCode, message: string): never {
   throw new CatalogApplicationConstructionError(code, message);
 }
-function digest(value: unknown) { return sha256Canonical(value as JsonValue); }
+function digest(value: JsonValue) { return sha256Canonical(value); }
 /** Owner boundary: `absent` and `many` fail with the catalog refusal code. */
 function exactOrFail<T>(match: ExactMatch<T>, code: CatalogApplicationRefusalCode, message: string): T {
   if (match.kind !== "one") fail(code, message);

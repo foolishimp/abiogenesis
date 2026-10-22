@@ -34,10 +34,10 @@ import { canonicalEquals } from "../shared/value/index.js";
 export const RESULT_ASSESS_CAPABILITY =
   "abg.capability.runtime.admit-fp-result@5" as const;
 
-export interface RefDigest<T = unknown> {
+export type RefDigest<T = unknown> = {
   readonly ref: string;
   readonly digest: Sha256Digest;
-}
+};
 
 export type RuntimeResult = AdmittedCCallResult;
 
@@ -47,21 +47,21 @@ export type ResultAssessmentDisposition =
   | "rejected"
   | "retry";
 
-export interface ResultAssessmentResidual {
+export type ResultAssessmentResidual = {
   readonly kind: "typed_residual";
   readonly code: string;
   readonly subjectRef: string;
   readonly message: string;
-}
+};
 
-export interface DeclaredResultAssessmentValue {
+export type DeclaredResultAssessmentValue = {
   readonly kind: "result_assessment_value";
   readonly schemaVersion: "5.0.0";
   readonly expectedResult: RefDigest<RuntimeResult>;
   readonly disposition: ResultAssessmentDisposition;
   readonly closureEligible: boolean;
   readonly residuals: readonly ResultAssessmentResidual[];
-}
+};
 
 export interface ContractAdmittedAssessmentValue {
   readonly kind: "contract_admitted_assessment_value";
@@ -83,7 +83,7 @@ export interface ResultAssessPacket {
   readonly currentBasis: RefDigest<ExecutionBasis>;
 }
 
-export interface ResultAssessmentCapabilityGrant {
+export type ResultAssessmentCapabilityGrant = {
   readonly kind: "result_assessment_capability_grant";
   readonly schemaVersion: "5.0.0";
   readonly grantRef: string;
@@ -91,7 +91,7 @@ export interface ResultAssessmentCapabilityGrant {
   readonly actorRef: string;
   readonly operationId: "abg.operation.result.assess";
   readonly capabilityRef: typeof RESULT_ASSESS_CAPABILITY;
-}
+};
 
 export interface ResultAssessmentInvocationAuthority {
   readonly kind: "result_assessment_invocation_authority";
@@ -115,7 +115,7 @@ export interface ResultAssessmentOperationContext {
   readonly causationEventRefs: readonly string[];
 }
 
-export interface ResultAssessmentTruth {
+export type ResultAssessmentTruth = {
   readonly expectedResult: RefDigest<RuntimeResult>;
   readonly assessmentContract: RefDigest<ProductPublicContract>;
   readonly assessmentValue: RefDigest<DeclaredResultAssessmentValue>;
@@ -127,7 +127,7 @@ export interface ResultAssessmentTruth {
   readonly actor: RefDigest;
   readonly capabilityGrant: RefDigest<ResultAssessmentCapabilityGrant>;
   readonly invocation: RefDigest;
-}
+};
 
 export interface ResultAssessResult {
   readonly kind: "result_assess_result";
@@ -239,10 +239,8 @@ function validDeclaredValue(
     ) ||
     typeof value.closureEligible !== "boolean" ||
     !Array.isArray(value.residuals) ||
-    value.residuals.some((row) => !validResidual(row)) ||
-    new Set(value.residuals.map((row) =>
-      sha256Canonical(row as unknown as JsonValue)
-    )).size !== value.residuals.length
+    !value.residuals.every(validResidual) ||
+    new Set(value.residuals.map((row) => sha256Canonical(row))).size !== value.residuals.length
   ) return false;
   if (
     (value.disposition !== "admitted" && value.closureEligible) ||
@@ -274,7 +272,7 @@ function validContractAdmittedValue(
     !isSha256Digest(value.valueDigest) ||
     !validDeclaredValue(value.value)
   ) return false;
-  const digest = sha256Canonical(value.value as unknown as JsonValue);
+  const digest = sha256Canonical(value.value);
   return value.valueDigest === digest &&
     value.valueRef ===
       `assessment-value://abiogenesis/${digest.slice("sha256:".length)}`;
@@ -375,7 +373,7 @@ function validInvocationAuthority(
     capabilityGrant: value.capabilityGrant,
     currentBasis: value.currentBasis,
   };
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   return value.authorityDigest === digest &&
     value.authorityRef ===
       `result-assessment-authority://abiogenesis/${digest.slice("sha256:".length)}`;
@@ -564,7 +562,7 @@ export function assessResult(
     events = readRuntimeEventsAtDurablePrefix(context.predecessorPrefix);
     if (
       context.store.digest() !==
-        sha256Canonical(events as unknown as JsonValue)
+        sha256Canonical(events)
     ) throw new TypeError("held store differs from predecessor event truth");
   } catch {
     return refusal(
@@ -650,7 +648,7 @@ export function assessResult(
   }
 
   const truth = assessmentTruth(packet, authority);
-  const assessmentDigest = sha256Canonical(truth as unknown as JsonValue);
+  const assessmentDigest = sha256Canonical(truth);
   const assessmentRef =
     `result-assessment://abiogenesis/${assessmentDigest.slice("sha256:".length)}`;
   const prior = events.filter((event) =>
@@ -727,7 +725,7 @@ export function assessResult(
           capabilityGrantDigest: authority.capabilityGrant.grantDigest,
           invocationRef: authority.invocationRef,
           invocationDigest: authority.invocationDigest,
-        } as unknown as JsonValue,
+        },
       })],
     );
     if (admittedEvents.length !== 1 || admittedEvents[0]!.kind !== "assessed") {

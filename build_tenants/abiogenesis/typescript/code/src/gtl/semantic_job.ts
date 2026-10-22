@@ -5,15 +5,15 @@ import { SEMANTIC_STAGE_IDS } from "./semantic_stage_identity.js";
 import { deepFreeze } from "../shared/immutable.js";
 
 /** Installed, job-independent constraints. Instances remain admitted values. */
-export interface SemanticJobProofTemplate {
+export type SemanticJobProofTemplate = {
   readonly templateRef: string;
   readonly realizationContractRef: string;
   readonly proofContractRef: string;
   readonly requiredEvidenceRoles: SemanticProofShape["requiredEvidenceRoles"];
   readonly sharedBasis: readonly string[];
   readonly requiredContent: readonly string[];
-}
-export interface SemanticJobLifecycleDeclaration {
+};
+export type SemanticJobLifecycleDeclaration = {
   readonly kind: "semantic_job_lifecycle_declaration";
   readonly schemaVersion: "5.0.0";
   readonly declarationRef: string;
@@ -23,7 +23,7 @@ export interface SemanticJobLifecycleDeclaration {
     readonly maxContextFiles: number; readonly maxContextBytes: number; readonly maxTargets: number; readonly maxCommands: number };
   readonly proofTemplates: readonly SemanticJobProofTemplate[];
   readonly stages: readonly SemanticStageDeclaration[];
-}
+};
 const ref = v.pipe(v.string(), v.minLength(1));
 const positive = v.pipe(v.number(), v.integer(), v.minValue(1));
 const refs = v.array(ref);

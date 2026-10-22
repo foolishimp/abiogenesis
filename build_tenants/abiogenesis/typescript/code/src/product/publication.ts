@@ -22,5 +22,5 @@ export function modulePublicationSemanticDigest(
       provenanceRefs: _provenanceRefs,
       ...contribution
     }) => contribution),
-  } as unknown as JsonValue);
+  });
 }

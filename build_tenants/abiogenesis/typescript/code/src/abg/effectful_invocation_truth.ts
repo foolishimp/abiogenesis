@@ -32,7 +32,7 @@ type ExplicitInvocationTruthPrefix =
   | DurablePrefixCoordinate
   | ValidatedRuntimeEventPrefix;
 
-export interface EffectfulPublicInvocationPriorAdmission {
+export type EffectfulPublicInvocationPriorAdmission = {
   readonly operationId:
     | "abg.operation.release.snapshot"
     | "abg.operation.product.install"
@@ -45,7 +45,7 @@ export interface EffectfulPublicInvocationPriorAdmission {
   readonly ownerInvocationDigest: Sha256Digest;
   readonly publicOperationEventRef: string;
   readonly admissionEventRef: string;
-}
+};
 
 export type EffectfulPublicInvocationTruth =
   | Readonly<{

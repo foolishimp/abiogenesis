@@ -56,3 +56,12 @@ export function writeCanonicalJson(value: JsonValue, write: (part: string) => vo
   }
   write("}");
 }
+
+/**
+ * A member that a canonical comparison or digest reads. An absent member
+ * throws the TypeError that writing `undefined` throws.
+ */
+export function presentMember<T>(value: T | undefined): T {
+  if (value === undefined) throw new TypeError("Cannot convert undefined or null to object");
+  return value;
+}

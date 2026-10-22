@@ -28,12 +28,12 @@ type CleanPacket = typeof WORKSPACE_OPERATION_CONTRACTS.create.clean;
 type ImportedPacket = typeof WORKSPACE_OPERATION_CONTRACTS.create.imported;
 type OpenPacket = typeof WORKSPACE_OPERATION_CONTRACTS.open.open;
 
-export interface WorkspaceResourceAssertion {
+export type WorkspaceResourceAssertion = {
   readonly kind: "workspace_resource_assertion";
   readonly schemaVersion: "5.0.0";
   readonly targetRoot: string;
   readonly targetRootDigest: Sha256Digest;
-}
+};
 
 export interface WorkspaceResourceReceipt {
   readonly kind: "workspace_resource_receipt";
@@ -71,7 +71,7 @@ function validateResources<TPacket extends CleanPacket | ImportedPacket | OpenPa
 ): DefinitionExecutionFault<TPacket["definitionKey"]> | null {
   let encoded: string;
   try {
-    encoded = canonicalJson(call.resources as unknown as JsonValue);
+    encoded = canonicalJson(call.resources);
   } catch {
     return fault(
       call.invocation.definitionKey,
@@ -85,7 +85,7 @@ function validateResources<TPacket extends CleanPacket | ImportedPacket | OpenPa
     targetRoot: call.invocation.request.targetRoot,
     targetRootDigest: targetRootDigest(call.invocation.request.targetRoot),
   };
-  return encoded === canonicalJson(expected as unknown as JsonValue)
+  return encoded === canonicalJson(expected)
     ? null
     : fault(
       call.invocation.definitionKey,
@@ -151,12 +151,12 @@ function receipt(
   const manifest = result.kind === "workspace_create_result"
     ? {
         locator: result.manifestPath,
-        valueDigest: sha256Canonical(result.manifest as unknown as JsonValue),
+        valueDigest: sha256Canonical(result.manifest),
       }
     : result.kind === "workspace_open_projection" && result.manifest !== null
     ? {
         locator: result.manifestPath,
-        valueDigest: sha256Canonical(result.manifest as unknown as JsonValue),
+        valueDigest: sha256Canonical(result.manifest),
       }
     : null;
   return deepFreeze({

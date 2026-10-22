@@ -12,6 +12,7 @@ import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, ABI5_PRODUCT_ID } from "../pro
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { isRecord } from "../shared/admit/index.js";
 const hash = (x) => sha256Canonical(x);
 const placeholder = `sha256:${"0".repeat(64)}`;
 export const SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS = semanticRevisionImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
@@ -21,11 +22,12 @@ export const SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS = semanticRevisionImpl
 export const [SEMANTIC_REVISION_SELECTION_DESCRIPTOR, SEMANTIC_REVISION_PROJECTION_DESCRIPTOR, SEMANTIC_REVISION_AUTHOR_DESCRIPTOR, SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR, SEMANTIC_REVISION_BRIDGE_DESCRIPTOR, SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR, SEMANTIC_REVISION_TERMINAL_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_INTAKE_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_REQUEST_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_CONSTRUCTION_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_EXECUTION_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_EVIDENCE_DESCRIPTOR] = SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
 function result(input, output, implementationRef, deterministic, failureClass = "revision_basis_or_evidence_unavailable") {
     const failure = output === null;
-    const value = failure ? { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass,
-        diagnosticRef: failureClass === "revision_basis_or_evidence_unavailable" ? "diagnostic://abiogenesis/semantic-revision/basis-or-evidence-unavailable@5" : `diagnostic://abiogenesis/semantic-revision/${failureClass}@5` } : output;
+    const failureValue = { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass,
+        diagnosticRef: failureClass === "revision_basis_or_evidence_unavailable" ? "diagnostic://abiogenesis/semantic-revision/basis-or-evidence-unavailable@5" : `diagnostic://abiogenesis/semantic-revision/${failureClass}@5` };
+    const value = output ?? failureValue;
     const evidenceCandidates = deterministic ? [{ kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0", implementationRef, inputDigest: hash(input), outputDigest: hash(value) }] : [];
     if (failure)
-        return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure", resultCandidate: value, evidenceCandidates, diagnosticRef: value.diagnosticRef });
+        return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure", resultCandidate: value, evidenceCandidates, diagnosticRef: failureValue.diagnosticRef });
     return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
         resultCandidate: value, evidenceCandidates: deterministic ? [{
                 kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0", implementationRef, inputDigest: hash(input), outputDigest: hash(value)
@@ -96,7 +98,7 @@ export function realizeSemanticRevisionSelection(input, occurrence, prepareAssem
                 return result(input, null, ids.selectionImplementationRef, false);
             try {
                 const raw = JSON.parse(o.finalOutput);
-                return result(input, (job ? jobRevisionSelectionMatchesBasis(basis, input, raw) : semanticRevisionSelectionMatchesBasis(basis, input, raw)) ? raw : null, ids.selectionImplementationRef, false);
+                return result(input, isRecord(raw) && (job ? jobRevisionSelectionMatchesBasis(basis, input, raw) : semanticRevisionSelectionMatchesBasis(basis, input, raw)) ? raw : null, ids.selectionImplementationRef, false);
             }
             catch {
                 return result(input, null, ids.selectionImplementationRef, false);
@@ -112,7 +114,7 @@ export function realizeSemanticRevisionNativeRequest(input, occurrence) {
     return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticRevisionRequest(occurrence.semanticStageBasis, input), ids.nativeRequestImplementationRef, true);
 }
 export function realizeSemanticRevisionNativeConstruction(input, occurrence) {
-    if (!isSemanticJobRevisionEnvelope(input) || !canonicalEquals(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits, selectedWorksiteCommandExecutionLimits()))
+    if (!isSemanticJobRevisionEnvelope(input) || (input.revisionBasis.request.nativeWorksite?.commandExecutionLimits === undefined || !canonicalEquals(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits, selectedWorksiteCommandExecutionLimits())))
         return result(input, null, ids.nativeConstructionImplementationRef, true);
     return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeRevisionConstructionTask(occurrence.semanticStageBasis, input), ids.nativeConstructionImplementationRef, true);
 }

@@ -48,7 +48,7 @@ const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" 
 /** Owner boundary: `absent` and `many` map to `undefined`. */
 const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 
-export interface TraversalCursorCandidate {
+export type TraversalCursorCandidate = {
   readonly kind: "traversal_cursor";
   readonly schemaVersion: "5.0.0";
   readonly cursorRef: string;
@@ -68,7 +68,7 @@ export interface TraversalCursorCandidate {
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly retryPath: readonly number[];
-}
+};
 
 export type TraversalCursorBody = Omit<
   TraversalCursorCandidate,
@@ -87,7 +87,7 @@ export interface TraversalCursorAdmission {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-export interface TraversalCursorAdmissionRefusal {
+export type TraversalCursorAdmissionRefusal = {
   readonly kind: "traversal_cursor_admission_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -99,7 +99,7 @@ export interface TraversalCursorAdmissionRefusal {
     | "graph_mismatch"
     | "scope_mismatch";
   readonly message: string;
-}
+};
 
 export type TraversalCursorAdmissionResult =
   | TraversalCursorAdmission
@@ -472,7 +472,8 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
     ref = payload.sourceCursorRef; digest = payload.sourceCursorDigest as Sha256Digest;
   }
   const initial = origins.pop()!;
-  const p = initial.payload as Readonly<Record<string, JsonValue>>;
+  const p = initial.payload;
+  if (!isJsonRecord(p)) return null;
   const input = inputCoordinate(p.inputRef, p.inputDigest);
   const continued = p.continuedFrom === undefined ? null
     : continuedCursorOrigin(prefix, graph, selected.executionBasisRef, p.continuedFrom);
@@ -696,14 +697,14 @@ export function isInteractionResumeCursorSuccessorAtPrefix(
       successorCursor.currentNodeRef === heldCursor.currentNodeRef &&
       successorCursor.position === heldCursor.position &&
       canonicalEquals(
-        successorCursor.termPath as unknown as JsonValue,
-        heldCursor.termPath as unknown as JsonValue,
+        successorCursor.termPath,
+        heldCursor.termPath,
       ) &&
       successorCursor.taskOrdinal === heldCursor.taskOrdinal &&
       successorCursor.attempt === heldCursor.attempt &&
       canonicalEquals(
-        successorCursor.retryPath as unknown as JsonValue,
-        heldCursor.retryPath as unknown as JsonValue,
+        successorCursor.retryPath,
+        heldCursor.retryPath,
       );
   } catch {
     return false;

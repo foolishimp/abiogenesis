@@ -16,7 +16,7 @@ import { isSemanticJobEnvelope, deriveSemanticJobAsset, deriveSemanticJobAssessm
 import { selectedWorksiteCommandExecutionLimits } from "./worksite_command_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-const hash = (x: unknown) => sha256Canonical(x as JsonValue);
+const hash = (x: JsonValue) => sha256Canonical(x);
 const placeholder = `sha256:${"0".repeat(64)}` as const;
 const bindings = semanticStageImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
   productId: ABI5_PRODUCT_ID, artifactDigest: placeholder, productContentDigest: placeholder, productManifestDigest: placeholder });
@@ -38,16 +38,16 @@ function failure(failureClass: string, deterministic?: Readonly<{
 }>, issues: readonly SemanticJobContractIssue[] = []): Readonly<LeafRealizationCandidate> {
   const diagnosticRef = `diagnostic://abiogenesis/semantic-stage/${failureClass}@5`;
   const resultCandidate = { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass, diagnosticRef,
-    ...(issues.length === 0 ? {} : { contractIssues: issues as unknown as JsonValue }) };
+    ...(issues.length === 0 ? {} : { contractIssues: issues }) };
   return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure",
     evidenceCandidates: deterministic === undefined ? [] : [{
       kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0", implementationRef: deterministic.implementationRef,
       inputDigest: hash(deterministic.input), outputDigest: hash(resultCandidate),
     }], resultCandidate, diagnosticRef });
 }
-function success(input: Readonly<Record<string, JsonValue>>, output: unknown, implementationRef: string, deterministic: boolean): Readonly<LeafRealizationCandidate> {
+function success(input: Readonly<Record<string, JsonValue>>, output: Readonly<Record<string, JsonValue>>, implementationRef: string, deterministic: boolean): Readonly<LeafRealizationCandidate> {
   return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
-    resultCandidate: output as Readonly<Record<string, JsonValue>>, evidenceCandidates: deterministic ? [{
+    resultCandidate: output, evidenceCandidates: deterministic ? [{
       kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0", implementationRef, inputDigest: hash(input), outputDigest: hash(output) }] : [] });
 }
 function semanticActor(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>, role: "author" | "assessor", prepareAssembly?: () => Readonly<NativeInstructionAssembly>):
@@ -63,7 +63,7 @@ function semanticActor(input: Readonly<Record<string, JsonValue>>, occurrence: R
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,
     complete(exchange) {
       const observation = exchange.observation;
-      if (!canonicalEquals(exchange.request as unknown as JsonValue, assembly.request as unknown as JsonValue) ||
+      if (!canonicalEquals(exchange.request, assembly.request) ||
         observation.promptDigest !== assembly.manifest.promptDigest || observation.toolCallCount !== 0 ||
         observation.inputDigest !== owner.inputDigest || observation.implementationRef !== owner.call.implementationRef ||
         observation.actorRef !== ids.workerActorRef || observation.workerBindingRef !== ids.workerBindingRef ||

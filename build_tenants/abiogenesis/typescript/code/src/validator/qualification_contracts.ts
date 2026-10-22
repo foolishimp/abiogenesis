@@ -59,7 +59,7 @@ const qualificationScopeSchema = v.strictObject({
   surfaceGroups: v.pipe(v.array(qualificationSurfaceGroupSchema), v.minLength(1)),
   // Each declared rule scope classifies the whole inventory through its own
   // disjoint domains. Absence retains the existing global partition meaning.
-  applicationDomains: v.optional(v.pipe(v.array(v.strictObject({ ruleGroupRef: ref,
+  applicationDomains: v.exactOptional(v.pipe(v.array(v.strictObject({ ruleGroupRef: ref,
     surfaceGroups: v.pipe(v.array(qualificationSurfaceGroupSchema), v.minLength(1)) })), v.minLength(1))),
 });
 export type QualificationScope = v.InferOutput<typeof qualificationScopeSchema>;
@@ -193,7 +193,7 @@ export const QUALIFICATION_EMBEDDED_TASK_SCHEMA = v.strictObject({
   taskRef: ref, taskDigest: digest, slotRef: ref, taskOrdinal: ordinal,
   subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA,
   catalog: QUALIFICATION_COORDINATE_SCHEMA, inventory: QUALIFICATION_COORDINATE_SCHEMA,
-  scope: v.optional(QUALIFICATION_SCOPE_SCHEMA),
+  scope: v.exactOptional(QUALIFICATION_SCOPE_SCHEMA),
   role: QUALIFICATION_ROLE_SCHEMA, context: CONTEXT_DECLARATION_SCHEMA,
   declarations: v.array(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA),
   assetSurface: QUALIFICATION_ASSET_SURFACE_SCHEMA, material: v.array(QUALIFICATION_MATERIAL_SCHEMA),
@@ -203,7 +203,7 @@ export const QUALIFICATION_EMBEDDED_TASK_SCHEMA = v.strictObject({
 });
 export const QUALIFICATION_REFERENCE_TASK_SCHEMA = v.strictObject({ ...QUALIFICATION_EMBEDDED_TASK_SCHEMA.entries,
   representation: v.literal("resource_refs_v1"), resource: QUALIFICATION_COORDINATE_SCHEMA,
-  scope: v.optional(selected("scope")), declarations: v.array(QUALIFICATION_DECLARATION_SELECTION_SCHEMA),
+  scope: v.exactOptional(selected("scope")), declarations: v.array(QUALIFICATION_DECLARATION_SELECTION_SCHEMA),
   material: v.array(selected("material")), provenance: selected("provenance") });
 export const QUALIFICATION_ASSESSMENT_TASK_SCHEMA = v.union([QUALIFICATION_EMBEDDED_TASK_SCHEMA, QUALIFICATION_REFERENCE_TASK_SCHEMA]);
 export type QualificationEmbeddedTask = v.InferOutput<typeof QUALIFICATION_EMBEDDED_TASK_SCHEMA>;
@@ -223,7 +223,7 @@ export const QUALIFICATION_RAW_JUDGMENT_SCHEMA = v.strictObject({
   criteria: v.pipe(v.array(v.strictObject({ ...QUALIFICATION_COVERAGE_SCHEMA.entries,
     disposition: v.picklist(["satisfied", "falsified", "indeterminate"]),
     applicability: v.picklist(["applicable", "inapplicable", "unknown"]),
-    grouping: v.optional(v.picklist(["justified", "falsified", "unknown"])),
+    grouping: v.exactOptional(v.picklist(["justified", "falsified", "unknown"])),
     reason: ref, sourceRefs: v.pipe(v.array(ref), v.minLength(1)), evidenceRefs: v.array(ref), residuals: v.array(ref) })), v.minLength(1)),
   residuals: v.array(ref),
   attributions: v.array(v.strictObject({ activationRef: ref, authorRef: ref, actorIdentityRef: ref, authorityRef: ref,
@@ -267,7 +267,7 @@ export const QUALIFICATION_SELECTION_SCHEMA = v.variant("kind", [
   v.strictObject({ kind: v.literal("execution_selection"), selectionRef: ref,
     slotRef: ref, programRef: ref, invocationAdmissionRef: ref,
     result: QUALIFICATION_COORDINATE_SCHEMA,
-    source: v.optional(v.strictObject({ sourceRef: ref, cCall: QUALIFICATION_COORDINATE_SCHEMA,
+    source: v.exactOptional(v.strictObject({ sourceRef: ref, cCall: QUALIFICATION_COORDINATE_SCHEMA,
       executionBasis: QUALIFICATION_COORDINATE_SCHEMA, graphFunction: QUALIFICATION_COORDINATE_SCHEMA })) }),
   v.strictObject({ kind: v.literal("self_conformance_selection"), selectionRef: ref,
     slotRef: ref, programRef: ref, invocationAdmissionRef: ref,
@@ -282,14 +282,14 @@ export const QUALIFICATION_EMBEDDED_PROOF_RESOURCE_SCHEMA = v.strictObject({
   selections: v.array(QUALIFICATION_SELECTION_SCHEMA),
   // Original native execution contexts are subordinate evidence selections,
   // never replacement consumer-local J/O/F11/AF22 authority.
-  executionSources: v.optional(v.array(v.strictObject({ sourceRef: ref,
+  executionSources: v.exactOptional(v.array(v.strictObject({ sourceRef: ref,
     basis: EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, prefix: QUALIFICATION_PREFIX_SCHEMA,
     declarations: v.array(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA) }))),
 });
 export const QUALIFICATION_REFERENCE_PROOF_RESOURCE_SCHEMA = v.strictObject({ ...QUALIFICATION_EMBEDDED_PROOF_RESOURCE_SCHEMA.entries,
   representation: v.literal("resource_refs_v1"), resource: QUALIFICATION_COORDINATE_SCHEMA,
   declarations: v.array(QUALIFICATION_DECLARATION_SELECTION_SCHEMA),
-  executionSources: v.optional(v.array(v.strictObject({ sourceRef: ref, basis: EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA,
+  executionSources: v.exactOptional(v.array(v.strictObject({ sourceRef: ref, basis: EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA,
     prefix: QUALIFICATION_PREFIX_SCHEMA, declarations: v.array(QUALIFICATION_DECLARATION_SELECTION_SCHEMA) }))) });
 export const QUALIFICATION_PROOF_RESOURCE_SCHEMA = v.union([QUALIFICATION_EMBEDDED_PROOF_RESOURCE_SCHEMA, QUALIFICATION_REFERENCE_PROOF_RESOURCE_SCHEMA]);
 export type QualificationEmbeddedProofResource = v.InferOutput<typeof QUALIFICATION_EMBEDDED_PROOF_RESOURCE_SCHEMA>;
@@ -359,7 +359,7 @@ export const NATIVE_RUNTIME_ASSESSMENT_SCHEMA = v.strictObject({
   input: NATIVE_RUNTIME_ASSESSMENT_INPUT_SCHEMA, nativeBasis: QUALIFICATION_NATIVE_BASIS_SCHEMA,
   cases: v.array(v.strictObject({ caseRef: ref, ...nativeRuntimeObservedStep.entries,
     terminal: QUALIFICATION_COORDINATE_SCHEMA, replay: QUALIFICATION_COORDINATE_SCHEMA,
-    steps: v.optional(v.pipe(v.array(nativeRuntimeObservedStep), v.minLength(1))) })),
+    steps: v.exactOptional(v.pipe(v.array(nativeRuntimeObservedStep), v.minLength(1))) })),
   disposition: v.picklist(["green", "red"]),
 });
 export type NativeRuntimeAssessmentInput = v.InferOutput<typeof NATIVE_RUNTIME_ASSESSMENT_INPUT_SCHEMA>;
@@ -418,7 +418,7 @@ export const QUALIFICATION_SELF_CONFORMANCE_SUMMARY_SCHEMA = v.strictObject({
   subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA,
   assessment: QUALIFICATION_COORDINATE_SCHEMA,
   disposition: v.picklist(["green", "red", "blocked"]), bypassRefs: v.array(ref),
-  verification: v.optional(v.nullable(QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA)),
+  verification: v.exactOptional(v.nullable(QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA)),
 });
 export const QUALIFICATION_VERDICT_INPUT_SCHEMA = v.strictObject({
   kind: v.literal("qualification_verdict_input"), schemaVersion: v.literal("5.0.0"),
@@ -471,9 +471,9 @@ export type ExactCandidateQualification<K extends "basis" | "verdict"> = K exten
   ? v.InferOutput<typeof qualificationDataSchemas.basis> : v.InferOutput<typeof EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA>;
 export type QualificationNativeBasis = v.InferOutput<typeof QUALIFICATION_NATIVE_BASIS_SCHEMA>;
 export function qualificationIdentityDigest(value: object, refKey: string, digestKey: string): Sha256Digest {
-  return sha256Canonical(Object.fromEntries(Object.entries(value).filter(([key]) => key !== refKey && key !== digestKey)) as JsonValue);
+  return sha256Canonical(Object.fromEntries(Object.entries(value).filter(([key]) => key !== refKey && key !== digestKey)));
 }
-export const qualificationHash = (value: unknown): Sha256Digest => sha256Canonical(value as JsonValue);
+export const qualificationHash = (value: JsonValue): Sha256Digest => sha256Canonical(value);
 export const uniqueQualificationRefs = (refs: readonly string[]): boolean => new Set(refs).size === refs.length;
 export function qualificationIdentity(value: object, refKey: string, digestKey: string, prefix: string): boolean {
   const row = value as Record<string, unknown>, d = qualificationIdentityDigest(value, refKey, digestKey);

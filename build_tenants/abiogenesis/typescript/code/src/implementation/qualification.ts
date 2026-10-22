@@ -27,9 +27,9 @@ function failure(failureClass: string): Readonly<LeafRealizationCandidate> {
     resultCandidate: { kind: "self_conformance_failure", schemaVersion: "5.0.0", failureClass, diagnosticRef },
     evidenceCandidates: [], diagnosticRef });
 }
-function success(input: unknown, value: unknown, implementationRef: string): Readonly<LeafRealizationCandidate> {
+function success(input: JsonValue, value: Readonly<Record<string, JsonValue>>, implementationRef: string): Readonly<LeafRealizationCandidate> {
   return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
-    resultCandidate: value as Record<string, JsonValue>, evidenceCandidates: [{ kind: "deterministic_evidence_candidate",
+    resultCandidate: value, evidenceCandidates: [{ kind: "deterministic_evidence_candidate",
       schemaVersion: "5.0.0", implementationRef, inputDigest: hash(input), outputDigest: hash(value) }] });
 }
 export function realizeQualificationAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
@@ -42,12 +42,12 @@ export function realizeQualificationAssessment(input: Readonly<Record<string, Js
   const nativeBasis = occurrence.qualificationOwnerBasis, preparation = nativeProof?.qualificationPreparation?.(input, occurrence) ?? prepareQualificationAssessment(input), workerRequest = preparation.request;
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest,
     complete(exchange: Readonly<ActorProcessCarrierValidation>) {
-      if (!canonicalEquals(exchange.request as unknown as JsonValue, workerRequest as unknown as JsonValue) || exchange.observation.disposition !== "success" ||
+      if (!canonicalEquals(exchange.request, workerRequest) || exchange.observation.disposition !== "success" ||
           exchange.observation.failureClass !== null || exchange.observation.inputDigest !== hash(input) ||
           exchange.observation.actorRef !== workerRequest.actorRef || exchange.observation.workerBindingRef !== workerRequest.workerBindingRef ||
           exchange.observation.implementationRef !== q.assessImplementation || exchange.observation.toolCallCount !== 0) return failure("assessment_transport_mismatch");
       try {
-        const raw: unknown = JSON.parse(exchange.observation.finalOutput);
+        const raw: JsonValue = JSON.parse(exchange.observation.finalOutput);
         const source: QualificationJudgment["source"] = { cCallRef: occurrence.cCallRef, inputDigest: hash(input),
           actorRef: exchange.observation.actorRef, workerBindingRef: exchange.observation.workerBindingRef,
           actorInvocationRef: exchange.observation.actorInvocationRef, transportBindingRef: exchange.observation.transportBindingRef,

@@ -307,7 +307,7 @@ export type CommittedFhInteractionResponseResult =
   | CommittedFhInteractionResponse
   | UnavailableEffectfulPublicInvocationTruth;
 
-export interface FhInteractionResumeAdmission {
+export type FhInteractionResumeAdmission = {
   readonly kind: "fh_interaction_resume_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "resolved";
@@ -325,7 +325,7 @@ export interface FhInteractionResumeAdmission {
   readonly successorCursorRef: string;
   readonly successorCursorDigest: Sha256Digest;
   readonly admissionEventRef: string;
-}
+};
 
 export interface PreparedFhInteractionResume {
   readonly kind: "prepared_fh_interaction_resume";
@@ -466,7 +466,7 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     graph.materializationDigest !== basis.graphDigest ||
     graph.graphFunctionRef !== basis.graphFunctionRef ||
     input.program.programRef !== basis.programRef ||
-    sha256Canonical(input.program as unknown as JsonValue) !==
+    sha256Canonical(input.program) !==
       basis.programDigest ||
     !input.program.callableMembership.includes(basis.graphFunctionRef) ||
     interactionSet.interactionSetRef !== basis.interactionSetRef ||
@@ -508,7 +508,7 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     programLocusRef: term.programLocusRef,
     retryPath: cursor.retryPath,
   };
-  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallDigest = sha256Canonical(identity);
   const cCallRef = `c-call:${cCallDigest}`;
   const cCallEvents = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter(
     (event) =>
@@ -595,7 +595,7 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     continuationContractRef: term.requirement.continuationContractRef,
   });
   const pendingValueDigest = sha256Canonical(
-    pendingValue as unknown as JsonValue,
+    pendingValue,
   );
   const evidenceBody = {
     cCallRef,
@@ -607,7 +607,7 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     requestRef,
     requestDigest,
   };
-  const evidenceDigest = sha256Canonical(evidenceBody as unknown as JsonValue);
+  const evidenceDigest = sha256Canonical(evidenceBody);
   const evidenceRef =
     `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
   const resultBody = {
@@ -619,7 +619,7 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     value: pendingValue,
     evidenceRefs: [evidenceRef],
   };
-  const resultDigest = sha256Canonical(resultBody as unknown as JsonValue);
+  const resultDigest = sha256Canonical(resultBody);
   const resultRef =
     `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
   const exactPayload = (
@@ -627,8 +627,8 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     payload: Readonly<Record<string, JsonValue>>,
   ): boolean => isRecord(event.payload) &&
     canonicalEquals(
-      event.payload as unknown as JsonValue,
-      payload as unknown as JsonValue,
+      event.payload,
+      payload,
     );
   const exactEnvelope = (event: RuntimeEvent): boolean =>
     event.parentAggregateId === scope.frameId &&
@@ -732,7 +732,7 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     admissionEventRef: resultEvent.eventId,
   }) as unknown as AdmittedCCallResult;
   const judgment = deepFreeze({
-    ...(judgmentEvent.payload as Readonly<Record<string, JsonValue>>),
+    ...(judgmentEvent.payload),
     kind: "admitted_c_call_judgment" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
@@ -740,9 +740,9 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
   }) as unknown as AdmittedCCallJudgment;
   const projected = projectPendingInteractionCarrier(
     prefix,
-    cCall as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
-    judgment as unknown as Readonly<Record<string, JsonValue>>,
+    cCall,
+    result,
+    judgment,
   );
   return projected !== null && projected.requestRef === requestRef &&
       projected.requestDigest === requestDigest
@@ -888,8 +888,8 @@ function resolvePreparedContinuationOperationCoordinateAtPrefix(
   );
   return coordinate !== null &&
       canonicalEquals(
-        prepared.event as unknown as JsonValue,
-        coordinate.event as unknown as JsonValue,
+        prepared.event,
+        coordinate.event,
       )
     ? coordinate
     : null;
@@ -1148,7 +1148,7 @@ export function rehydrateFhContinuationAtPrefix(
       pending.cCall.compositionRef,
     );
   const closureContractDigest = sha256Canonical(
-    expected.closureContract as unknown as JsonValue,
+    expected.closureContract,
   );
   const operationEvent = operationCoordinate?.event;
   const operationPayload = operationCoordinate?.payload ?? null;
@@ -1177,7 +1177,7 @@ export function rehydrateFhContinuationAtPrefix(
     digestField(opened, "catalogViewDigest") !== expected.catalogView.viewDigest ||
     stringField(opened, "programRef") !== expected.program.programRef ||
     digestField(opened, "programDigest") !==
-      sha256Canonical(expected.program as unknown as JsonValue) ||
+      sha256Canonical(expected.program) ||
     stringField(opened, "graphRef") !== expected.graph.materializationRef ||
     digestField(opened, "graphDigest") !== expected.graph.materializationDigest ||
     stringField(opened, "graphFunctionRef") !==
@@ -1202,7 +1202,7 @@ export function rehydrateFhContinuationAtPrefix(
     executionBasis.catalogViewDigest !== expected.catalogView.viewDigest ||
     executionBasis.programRef !== expected.program.programRef ||
     executionBasis.programDigest !==
-      sha256Canonical(expected.program as unknown as JsonValue) ||
+      sha256Canonical(expected.program) ||
     executionBasis.graphRef !== expected.graph.materializationRef ||
     executionBasis.graphDigest !== expected.graph.materializationDigest ||
     executionBasis.closureContractRef !==
@@ -1338,8 +1338,8 @@ export function prepareContinuationPublicOperation(
   if (
     reconstructedContinuation === undefined ||
     !canonicalEquals(
-      reconstructedContinuation as unknown as JsonValue,
-      continuation as unknown as JsonValue,
+      reconstructedContinuation,
+      continuation,
     )
   ) {
     throw new TypeError(
@@ -1540,7 +1540,7 @@ export function admitFhInteractionOpen(
     scope.scopeRef !== cursor.traversalScopeRef ||
     graph.materializationRef !== executionBasis.graphRef ||
     program.programRef !== executionBasis.programRef ||
-    sha256Canonical(inputValue as unknown as JsonValue) !== cursor.inputDigest ||
+    sha256Canonical(inputValue) !== cursor.inputDigest ||
     productBasis.workspaceBinding.bindingId !== executionBasis.workspaceBindingId ||
     productBasis.workspaceBinding.bindingDigest !==
       executionBasis.workspaceBindingDigest ||
@@ -1591,7 +1591,7 @@ export function admitFhInteractionOpen(
     constructionIntentRef:
       constructionIntent?.constructionIntentRef ?? null,
   };
-  const continuationDigest = sha256Canonical(identity as unknown as JsonValue);
+  const continuationDigest = sha256Canonical(identity);
   const continuationRef =
     `continuation://abiogenesis/${continuationDigest.slice("sha256:".length)}`;
   const event = admitRuntimeEvent(store, {
@@ -1649,11 +1649,11 @@ export function admitFhInteractionOpen(
       graphDigest: graph.materializationDigest,
       programValidationRef: productBasis.programValidation.validationRef,
       graphValidationRef: productBasis.graphValidation.validationRef,
-      openedTraversalScope: scope as unknown as JsonValue,
-      heldCursor: cursor as unknown as JsonValue,
-      cCall: cCall as unknown as JsonValue,
-      pendingResult: pending.result as unknown as JsonValue,
-      pendingJudgment: pending.judgment as unknown as JsonValue,
+      openedTraversalScope: scope,
+      heldCursor: cursor,
+      cCall: cCall,
+      pendingResult: pending.result,
+      pendingJudgment: pending.judgment,
       productId: productBasis.install.productId,
       productContentDigest: productBasis.install.productContentDigest,
       manifestDigest: productBasis.install.manifestDigest,
@@ -1756,12 +1756,12 @@ export function admitOwnedFhInteractionHold(
     evidence?.evidenceClass !== "hold" ||
     evidence.cCall.cCallRef !== cCall.cCallRef ||
     !canonicalEquals(
-      evidence.result as unknown as JsonValue,
-      input.pendingPlan.pending.result as unknown as JsonValue,
+      evidence.result,
+      input.pendingPlan.pending.result,
     ) ||
     !canonicalEquals(
-      evidence.judgment as unknown as JsonValue,
-      input.pendingPlan.pending.judgment as unknown as JsonValue,
+      evidence.judgment,
+      input.pendingPlan.pending.judgment,
     )
   ) {
     throw new TypeError(
@@ -1790,8 +1790,8 @@ export function admitOwnedFhInteractionHold(
       ) ?? input.routeCandidate;
       if (routeCandidate.transitionClass !== "route" ||
           !canonicalEquals(
-            routeCandidate.evidence as unknown as JsonValue,
-            input.routeCandidate.evidence as unknown as JsonValue,
+            routeCandidate.evidence,
+            input.routeCandidate.evidence,
           )) {
         throw new TypeError("F_H staged selection changed its planned owner evidence");
       }
@@ -1882,7 +1882,7 @@ function admitFhInteractionResponse(
       "F_H response requires one exact open continuation and admitted response operation",
     );
   }
-  const responseDigest = sha256Canonical(responseValue as unknown as JsonValue);
+  const responseDigest = sha256Canonical(responseValue);
   const responseRef =
     `interaction-response://abiogenesis/${responseDigest.slice("sha256:".length)}`;
   const event = admitRuntimeEvent(store, {
@@ -1967,7 +1967,7 @@ export function prepareFhInteractionResponse(
       "F_H response preparation requires one exact prefix-projected operation and open continuation",
     );
   }
-  const responseDigest = sha256Canonical(responseValue as unknown as JsonValue);
+  const responseDigest = sha256Canonical(responseValue);
   const responseRef =
     `interaction-response://abiogenesis/${responseDigest.slice("sha256:".length)}`;
   const candidate: RuntimeEventCandidate = {
@@ -2075,12 +2075,12 @@ export function commitFhInteractionResponseAtExpectedPrefix(
       );
       if (
         !canonicalEquals(
-          operationEvent as unknown as JsonValue,
-          prepared.publicOperation.event as unknown as JsonValue,
+          operationEvent,
+          prepared.publicOperation.event,
         ) ||
         !canonicalEquals(
-          responseEvent as unknown as JsonValue,
-          prepared.event as unknown as JsonValue,
+          responseEvent,
+          prepared.event,
         )
       ) {
         throw new TypeError(
@@ -2216,7 +2216,7 @@ export function prepareFhInteractionResume(
     successorInput.inputContractRef !==
       expectedSuccessorInput.inputContractRef ||
     successorInput.inputValueKind !== expectedSuccessorInput.inputValueKind ||
-    sha256Canonical(successorInput.inputValue as unknown as JsonValue) !==
+    sha256Canonical(successorInput.inputValue) !==
       expectedSuccessorInput.inputDigest ||
     !isTraversalCursorCandidate(successorCursor) ||
     successorCursor.runId !== continuation.runId ||
@@ -2261,7 +2261,7 @@ export function prepareFhInteractionResume(
       publicOperationEventRef: operation.admissionEventRef,
       actorRef: operation.actorRef,
       capabilityRef: operation.capabilityRef,
-      closureContract: closureContract as unknown as JsonValue,
+      closureContract: closureContract,
       durablePrefixDigest,
       responseRef: continuation.responseRef,
       responseDigest: continuation.responseDigest,
@@ -2271,7 +2271,7 @@ export function prepareFhInteractionResume(
       successorInputValue: successorInput.inputValue,
       successorInputContractRef: successorInput.inputContractRef,
       successorInputValueKind: successorInput.inputValueKind,
-      successorCursor: successorCursor as unknown as JsonValue,
+      successorCursor: successorCursor,
       successorCursorRef: successorCursor.cursorRef,
       successorCursorDigest: successorCursor.cursorDigest,
     },
@@ -2369,12 +2369,12 @@ export function commitFhInteractionResumeAtExpectedPrefix(
       );
       if (
         !canonicalEquals(
-          operationEvent as unknown as JsonValue,
-          prepared.publicOperation.event as unknown as JsonValue,
+          operationEvent,
+          prepared.publicOperation.event,
         ) ||
         !canonicalEquals(
-          resumeEvent as unknown as JsonValue,
-          prepared.event as unknown as JsonValue,
+          resumeEvent,
+          prepared.event,
         )
       ) {
         throw new TypeError(

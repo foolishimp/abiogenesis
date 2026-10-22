@@ -20,7 +20,7 @@ import {
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { isRecord } from "../shared/admit/index.js";
+import { admitJson, isRecord } from "../shared/admit/index.js";
 import { isExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
 import {
   constructRuntimeFluent,
@@ -65,7 +65,7 @@ export type ArtifactTruthConflictField =
   | "artifactDigest"
   | "admissionEventDigest";
 
-export interface ArtifactTruthRow {
+export type ArtifactTruthRow = {
   readonly operationId: string;
   readonly memberKey: string;
   readonly definitionDigest: string;
@@ -83,7 +83,7 @@ export interface ArtifactTruthRow {
   readonly admissionEventDigest: Sha256Digest;
   readonly admissionOrdinal: number;
   readonly causationEventRefs: readonly string[];
-}
+};
 
 interface FoldedArtifactTruthRow extends ArtifactTruthRow {
   readonly ownerAdmittedDisposition: "admitted";
@@ -94,7 +94,7 @@ export interface ArtifactTruthProjection {
   readonly artifacts: readonly FoldedArtifactTruthRow[];
 }
 
-export interface ExactPrefixArtifactTruthProjection {
+export type ExactPrefixArtifactTruthProjection = {
   readonly kind: "exact_prefix_artifact_truth_projection";
   readonly schemaVersion: "5.0.0";
   readonly prefix: DurablePrefixCoordinate;
@@ -103,7 +103,7 @@ export interface ExactPrefixArtifactTruthProjection {
   readonly rows: readonly ArtifactTruthRow[];
   readonly projectionRef: string;
   readonly projectionDigest: Sha256Digest;
-}
+};
 
 export type ExactPrefixArtifactTruthProjectionRefusalCode =
   | "file_identity_mismatch"
@@ -115,7 +115,7 @@ export type ExactPrefixArtifactTruthProjectionRefusalCode =
   | "artifact_truth_history_conflict"
   | "duplicate_artifact_admission";
 
-export interface ExactPrefixArtifactTruthProjectionRefusal {
+export type ExactPrefixArtifactTruthProjectionRefusal = {
   readonly kind: "exact_prefix_artifact_truth_projection_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -124,7 +124,7 @@ export interface ExactPrefixArtifactTruthProjectionRefusal {
   readonly eventRefs: readonly string[];
   readonly authorityScopeRef: string | null;
   readonly conflictingFields: readonly ArtifactTruthConflictField[];
-}
+};
 
 export type ExactPrefixArtifactTruthProjectionResult =
   | ExactPrefixArtifactTruthProjection
@@ -149,10 +149,10 @@ function recordPayload(
   row: RuntimeEventCalculusEffectRow,
 ): Readonly<Record<string, JsonValue>> {
   const payload = row.sourceEvent.payload;
-  if (typeof payload !== "object" || payload === null || Array.isArray(payload)) {
+  if (!isRecord(payload)) {
     throw new TypeError("artifact admission requires one closed object payload");
   }
-  return payload as Readonly<Record<string, JsonValue>>;
+  return payload;
 }
 
 function requiredString(
@@ -291,13 +291,12 @@ class RuntimeArtifactFacts {
     if (operationId === "abg.operation.product.install") {
       let checkedLock: ResolvedProductLock | undefined;
       const establishInlineLock = (value: unknown): value is ResolvedProductLock => {
-        if (establishedLock !== undefined &&
-          (value === establishedLock || canonicalEquals(
-            value as JsonValue,
-            establishedLock as unknown as JsonValue,
-          ))) {
-          checkedLock = establishedLock;
-          return true;
+        if (establishedLock !== undefined) {
+          const admitted = value === establishedLock ? null : admitJson(value);
+          if (admitted === null || (admitted.kind === "ok" && canonicalEquals(admitted.value, establishedLock))) {
+            checkedLock = establishedLock;
+            return true;
+          }
         }
         if (!isResolvedProductLock(value)) return false;
         checkedLock = value;
@@ -331,7 +330,7 @@ class RuntimeArtifactFacts {
             source.resolvedLock.lockDigest !== reference.lockDigest
           ) throw new TypeError("Product install lock reference lacks its exact earlier embedded body");
           checkedLock = source.resolvedLock;
-          resolvedLockBody = source.resolvedLock as unknown as JsonValue;
+          resolvedLockBody = source.resolvedLock;
         }
         const lock = resolvedLockBody as unknown as ResolvedProductLock;
         const productId = artifact.productId;
@@ -365,7 +364,7 @@ class RuntimeArtifactFacts {
         authorityScopeRef !== candidate.installId ||
         authorityScopeDigest !== candidate.productContentDigest ||
         artifactRef !== candidate.installId ||
-        artifactDigest !== sha256Canonical(candidate as unknown as JsonValue)
+        artifactDigest !== sha256Canonical(candidate)
       ) {
         throw new TypeError(
           "Product install artifact truth differs from its exact candidate scope",
@@ -385,7 +384,7 @@ class RuntimeArtifactFacts {
       });
     } else if (operationId === "abg.operation.release.snapshot") {
       if (!isReleaseOperationArtifact(artifact) || payload.resolvedLock !== undefined || payload.workspaceAuthorityBasis !== undefined ||
-          !canonicalEquals(artifact.invocation as unknown as JsonValue, {operationId,memberKey,definitionDigest,invocationRef,invocationPayloadDigest,invocationDigest}) ||
+          !canonicalEquals(artifact.invocation, {operationId,memberKey,definitionDigest,invocationRef,invocationPayloadDigest,invocationDigest}) ||
           artifact.scope.ref !== authorityScopeRef || artifact.scope.digest !== authorityScopeDigest ||
           releaseArtifactCoordinate(artifact).ref !== artifactRef || releaseArtifactCoordinate(artifact).digest !== artifactDigest ||
           (artifact.memberKey === "published_rc"
@@ -396,7 +395,7 @@ class RuntimeArtifactFacts {
       const environment = projectExactPrefixWorkspaceEnvironment(artifact.entryPrefix as DurablePrefixCoordinate, artifact.workspaceBinding);
       if (environment.kind !== "exact_prefix_workspace_environment" ||
           environment.workspaceAuthorityBasis.authorizedActorRef !== artifact.actorRef ||
-          !canonicalEquals(artifact.productSet, environment.productInstalls.map(productInstallCoordinate) as unknown as JsonValue) ||
+          !canonicalEquals(artifact.productSet, environment.productInstalls.map(productInstallCoordinate)) ||
           artifact.dependencyLock.ref !== environment.resolvedProductLock.lockId || artifact.dependencyLock.digest !== environment.resolvedProductLock.lockDigest ||
           event.causationEventRefs.length !== 1 || event.causationEventRefs[0] !== environment.workspaceBinding.admissionEventRef) {
         throw new TypeError("release artifact actor/environment differs from its exact admitted predecessor");
@@ -420,8 +419,8 @@ class RuntimeArtifactFacts {
             basis === undefined ||
             (basis.resolvedLock !== resolvedLock &&
               !canonicalEquals(
-                basis.resolvedLock as unknown as JsonValue,
-                resolvedLock as unknown as JsonValue,
+                basis.resolvedLock,
+                resolvedLock,
               ))
           )
         ? null
@@ -461,8 +460,8 @@ class RuntimeArtifactFacts {
       if (
         reconstructed.kind !== "workspace_binding_candidate" ||
         !canonicalEquals(
-          reconstructed as unknown as JsonValue,
-          candidate as unknown as JsonValue,
+          reconstructed,
+          candidate,
         ) ||
         authorityScopeRef !== candidate.bindingId ||
         authorityScopeDigest !== candidate.bindingDigest ||
@@ -606,7 +605,7 @@ export function prepareArtifactTruthCandidate(
   const artifacts = facts.artifacts.filter(row => row.admissionOrdinal <= predecessor.lastAdmissionOrdinal);
   assertUniqueArtifactTruth([...artifacts, prepared.artifact]);
   return (appended) => {
-    if (!canonicalEquals(appended.event as unknown as JsonValue, event as unknown as JsonValue)) {
+    if (!canonicalEquals(appended.event, event)) {
       throw new TypeError("artifact append differs from its exact pre-effect semantic projection");
     }
     const actualPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(appended.successorPrefix);
@@ -687,7 +686,7 @@ export function projectValidatedPrefixArtifactTruth(prefix: DurablePrefixCoordin
     lastAdmissionOrdinal: extent.lastOrdinal,
     rows,
   };
-  const projectionDigest = sha256Canonical(body as unknown as JsonValue);
+  const projectionDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     projectionRef:
@@ -802,11 +801,9 @@ export function validateExactPrefixArtifactTruthProjection(
     );
     if (options.requireCurrent && projected.kind === "exact_prefix_artifact_truth_projection")
       assertDurableRuntimePrefixCurrent(projected.prefix);
-    return projected.kind === "exact_prefix_artifact_truth_projection" &&
-      canonicalEquals(
-        projected as unknown as JsonValue,
-        value as JsonValue,
-      );
+    if (projected.kind !== "exact_prefix_artifact_truth_projection") return false;
+    const admitted = admitJson(value);
+    return admitted.kind === "ok" && canonicalEquals(projected, admitted.value);
   } catch {
     return false;
   }

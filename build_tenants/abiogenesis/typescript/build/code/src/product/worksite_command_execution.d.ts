@@ -13,13 +13,13 @@ import { type ExecutableWorksiteCommandTask as WorksiteExecutionTask, type Execu
 import { type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
 export { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
-export interface WorksiteCommandEnvironmentEntry {
+export type WorksiteCommandEnvironmentEntry = {
     readonly kind: "worksite_command_environment_entry";
     readonly schemaVersion: "5.0.0";
     readonly name: string;
     readonly value: string;
-}
-export interface WorksiteDeclaredCommand {
+};
+export type WorksiteDeclaredCommand = {
     readonly kind: "worksite_declared_command";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
@@ -31,19 +31,19 @@ export interface WorksiteDeclaredCommand {
     readonly timeoutMs: number;
     readonly terminationGraceMs: number;
     readonly expectedReports: readonly WorksiteExpectedReport[];
-}
-export interface WorksiteExpectedReport {
+};
+export type WorksiteExpectedReport = {
     readonly kind: "worksite_expected_report";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
     readonly reportIdentity: string;
     readonly relativePath: string;
-}
-export interface WorksiteExpectedReportInput {
+};
+export type WorksiteExpectedReportInput = {
     readonly reportIdentity: string;
     readonly relativePath: string;
-}
-export interface WorksiteDeclaredCommandInput {
+};
+export type WorksiteDeclaredCommandInput = {
     readonly commandId: string;
     readonly executable: string;
     readonly args: readonly string[];
@@ -52,24 +52,24 @@ export interface WorksiteDeclaredCommandInput {
     readonly timeoutMs: number;
     readonly terminationGraceMs: number;
     readonly expectedReports: readonly WorksiteExpectedReportInput[];
-}
-export interface WorksiteOutcomePredicate {
+};
+export type WorksiteOutcomePredicate = {
     readonly kind: "worksite_outcome_predicate";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
     readonly predicateId: string;
     readonly predicateKind: string;
     readonly declaration: JsonValue;
-}
-export interface WorksiteOutcomePredicateInput {
+};
+export type WorksiteOutcomePredicateInput = {
     readonly predicateId: string;
     readonly predicateKind: string;
     readonly declaration: JsonValue;
-}
-export interface WorksiteCommandExecutionLimits {
+};
+export type WorksiteCommandExecutionLimits = {
     readonly inactivityTimeoutMs: number;
     readonly absoluteTimeoutMs: number;
-}
+};
 export declare function projectWorksiteCommandExecutionBudget(task: Readonly<{
     commands: readonly Pick<WorksiteDeclaredCommandInput, "timeoutMs" | "terminationGraceMs">[];
     outcomePredicates: readonly Pick<WorksiteOutcomePredicateInput, "predicateKind" | "declaration">[];
@@ -95,22 +95,22 @@ export declare function projectWorksiteCommandExecutionBudget(task: Readonly<{
     requiredExecutionBudgetMs: number;
 }>;
 export declare function worksiteCommandExecutionBudgetFits(requiredBudget: number, limits: WorksiteCommandExecutionLimits): boolean;
-export interface WorksiteProtectedObservation {
+export type WorksiteProtectedObservation = {
     readonly kind: "worksite_protected_observation";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
     readonly sourceMemberRef: string;
     readonly subject: WorksiteSubject;
     readonly observation: FileWorksiteObservation;
-}
-export interface WorksiteProtectedObservationInput {
+};
+export type WorksiteProtectedObservationInput = {
     readonly sourceMemberRef: string;
     readonly subject: WorksiteSubject;
     readonly observation: FileWorksiteObservation;
-}
+};
 /** Initial-job read evidence, not a construction member or a revision grant.
  * ABG authenticates these coordinates against the same native bridge. */
-export interface WorksiteReadDependencyBasis {
+export type WorksiteReadDependencyBasis = {
     readonly kind: "semantic_job_read_dependencies";
     readonly schemaVersion: "5.0.0";
     readonly jobRef: string;
@@ -120,13 +120,13 @@ export interface WorksiteReadDependencyBasis {
     readonly contextObservationRef: string;
     readonly contextObservationDigest: Sha256Digest;
     readonly members: readonly WorksiteProtectedObservationInput[];
-}
+};
 type ReadDependencyInput = Omit<WorksiteReadDependencyBasis, "kind" | "schemaVersion" | "members"> & {
     readonly members: readonly Omit<WorksiteProtectedObservationInput, "sourceMemberRef">[];
 };
 export declare function constructWorksiteReadDependencyBasis(input: ReadDependencyInput): WorksiteReadDependencyBasis;
 export declare function isWorksiteReadDependencyBasis(value: unknown): value is WorksiteReadDependencyBasis;
-export interface WorksiteCommandWriteTerritory {
+export type WorksiteCommandWriteTerritory = {
     readonly kind: "worksite_command_write_territory";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
@@ -135,12 +135,12 @@ export interface WorksiteCommandWriteTerritory {
     readonly pathKind: "file" | "subtree";
     readonly relativePath: string;
     readonly purpose: "execution_evidence";
-}
-export interface WorksiteCommandWriteTerritoryInput {
+};
+export type WorksiteCommandWriteTerritoryInput = {
     readonly pathKind: "file" | "subtree";
     readonly relativePath: string;
-}
-export interface WorksiteCommandExecutionTask {
+};
+export type WorksiteCommandExecutionTask = {
     readonly kind: "worksite_command_execution_task";
     readonly schemaVersion: "5.0.0";
     readonly taskRef: string;
@@ -163,7 +163,7 @@ export interface WorksiteCommandExecutionTask {
     readonly protectedObservations: readonly WorksiteProtectedObservation[];
     readonly readDependencyBasis?: WorksiteReadDependencyBasis;
     readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritory[];
-}
+};
 export interface WorksiteCommandExecutionTaskInput {
     readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
     readonly workspaceBinding: WorkspaceBinding;
@@ -178,18 +178,18 @@ export interface WorksiteCommandExecutionTaskInput {
     readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritoryInput[];
 }
 /** Native source is an alternative, never a fabricated construction result. */
-export interface NativeWorksiteCommandExecutionTask extends Omit<WorksiteCommandExecutionTask, "sourceConstructionResultRef" | "sourceConstructionResultDigest" | "sourceConstructionResult" | "readDependencyBasis"> {
+export type NativeWorksiteCommandExecutionTask = Omit<WorksiteCommandExecutionTask, "sourceConstructionResultRef" | "sourceConstructionResultDigest" | "sourceConstructionResult" | "readDependencyBasis"> & {
     readonly sourceNativeWork: NativeWorkspaceWorkObservation;
     readonly sourceReacquisition?: NativeWorksiteCommandReacquisition;
-}
+};
 /** An observed input identifies existing files; it asserts no author or prior Result. */
-export interface ObservedWorksiteCommandExecutionTask extends Omit<WorksiteCommandExecutionTask, "sourceConstructionResultRef" | "sourceConstructionResultDigest" | "sourceConstructionResult" | "readDependencyBasis"> {
+export type ObservedWorksiteCommandExecutionTask = Omit<WorksiteCommandExecutionTask, "sourceConstructionResultRef" | "sourceConstructionResultDigest" | "sourceConstructionResult" | "readDependencyBasis"> & {
     readonly sourceObservedInput: Readonly<{
         kind: "observed_worksite_input";
         sourceSetRef: string;
         sourceSetDigest: Sha256Digest;
     }>;
-}
+};
 export interface ObservedWorksiteCommandExecutionTaskInput extends Omit<WorksiteCommandExecutionTaskInput, "sourceConstructionResultRef" | "sourceConstructionResultDigest" | "sourceConstructionResult" | "protectedObservations" | "readDependencyBasis"> {
     readonly observedFiles: readonly Readonly<{
         subject: WorksiteSubject;
@@ -209,9 +209,9 @@ export interface NativeWorksiteCommandExecutionTaskInput extends Omit<WorksiteCo
         relativePath: string;
     }>[];
 }
-export interface NativeWorksiteCommandExecutionObservation extends Omit<WorksiteCommandExecutionObservation, "task"> {
+export type NativeWorksiteCommandExecutionObservation = Omit<WorksiteCommandExecutionObservation, "task"> & {
     readonly task: NativeWorksiteCommandExecutionTask;
-}
+};
 export declare const NATIVE_WORK_REACQUISITION_IDS: Readonly<{
     graphFunctionRef: "graph-function://abiogenesis/worksite/native-command-reacquisition@5";
     programRef: "program://abiogenesis/worksite/native-command-reacquisition@5";
@@ -223,7 +223,7 @@ export declare const NATIVE_WORK_REACQUISITION_IDS: Readonly<{
     closureContractRef: "closure://abiogenesis/worksite/native-command-reacquisition@5";
     childClosureContractRef: "closure://abiogenesis/worksite/native-command-reacquisition-child@5";
 }>;
-export interface NativeWorksiteCommandReacquisitionRequest extends Omit<NativeWorksiteCommandExecutionTaskInput, "sourceReacquisition"> {
+export type NativeWorksiteCommandReacquisitionRequest = Omit<NativeWorksiteCommandExecutionTaskInput, "sourceReacquisition"> & {
     readonly kind: "native_worksite_command_reacquisition_request";
     readonly schemaVersion: "5.0.0";
     readonly requestRef: string;
@@ -240,15 +240,15 @@ export interface NativeWorksiteCommandReacquisitionRequest extends Omit<NativeWo
     })>;
     /** Full existing read scope, not only the selected C2 snapshot sources. */
     readonly currentContext: WorksiteContextObservation;
-}
-export interface NativeWorksiteCommandReacquisition {
+};
+export type NativeWorksiteCommandReacquisition = {
     readonly request: NativeWorksiteCommandReacquisitionRequest;
     readonly nativeBasis: Readonly<{
         predecessorPrefix: DurablePrefixCoordinate;
         cCallRef: string;
     }>;
     readonly bindingCoverEventRefs: readonly string[];
-}
+};
 export declare function constructNativeWorksiteCommandReacquisitionRequest(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">): NativeWorksiteCommandReacquisitionRequest;
 export declare function isNativeWorksiteCommandReacquisitionRequest(value: unknown): value is NativeWorksiteCommandReacquisitionRequest;
 export declare function constructNativeWorksiteCommandExecutionTask(input: NativeWorksiteCommandExecutionTaskInput): NativeWorksiteCommandExecutionTask;
@@ -258,15 +258,15 @@ export declare function isNativeWorksiteCommandExecutionTask(value: unknown): va
 export declare function constructObservedWorksiteCommandExecutionTask(input: ObservedWorksiteCommandExecutionTaskInput): ObservedWorksiteCommandExecutionTask;
 export declare function isObservedWorksiteCommandExecutionTask(value: unknown): value is ObservedWorksiteCommandExecutionTask;
 export declare function isC2WorksiteCommandExecutionTask(value: unknown): value is C2WorksiteCommandExecutionTask;
-export interface WorksiteObservedStream {
+export type WorksiteObservedStream = {
     readonly kind: "worksite_observed_stream";
     readonly schemaVersion: "5.0.0";
     readonly encoding: "base64";
     readonly payload: string;
     readonly byteLength: number;
     readonly digest: Sha256Digest;
-}
-export interface WorksiteCommandResult {
+};
+export type WorksiteCommandResult = {
     readonly kind: "worksite_command_result";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
@@ -288,8 +288,8 @@ export interface WorksiteCommandResult {
     readonly reportCount: number;
     readonly observationRef: string;
     readonly observationDigest: Sha256Digest;
-}
-export interface WorksiteReportObservation {
+};
+export type WorksiteReportObservation = {
     readonly kind: "worksite_report_observation";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
@@ -302,8 +302,8 @@ export interface WorksiteReportObservation {
     readonly digest: Sha256Digest | null;
     readonly observationRef: string;
     readonly observationDigest: Sha256Digest;
-}
-export interface WorksitePredicateObservation {
+};
+export type WorksitePredicateObservation = {
     readonly kind: "worksite_predicate_observation";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
@@ -312,8 +312,8 @@ export interface WorksitePredicateObservation {
     readonly observedValue: JsonValue;
     readonly evidence: readonly JsonValue[];
     readonly evidenceRefs: readonly string[];
-}
-export interface WorksitePathObservation {
+};
+export type WorksitePathObservation = {
     readonly kind: "worksite_path_observation";
     readonly schemaVersion: "5.0.0";
     readonly relativePath: string;
@@ -321,8 +321,8 @@ export interface WorksitePathObservation {
     readonly digest: Sha256Digest;
     readonly byteLength: number | null;
     readonly symlinkTarget: string | null;
-}
-export interface WorksitePathDelta {
+};
+export type WorksitePathDelta = {
     readonly kind: "worksite_path_delta";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
@@ -331,7 +331,7 @@ export interface WorksitePathDelta {
     readonly before: WorksitePathObservation | null;
     readonly after: WorksitePathObservation | null;
     readonly matchedTerritoryRef: string | null;
-}
+};
 export interface WorksiteCommandExecutionWorkerResult {
     readonly kind: "worksite_command_execution_worker_result";
     readonly schemaVersion: "5.0.0";
@@ -341,7 +341,7 @@ export interface WorksiteCommandExecutionWorkerResult {
     readonly helperArtifactRef: string;
     readonly helperArtifactDigest: Sha256Digest;
 }
-export interface WorksiteCommandExecutionProvenance {
+export type WorksiteCommandExecutionProvenance = {
     readonly kind: "worksite_command_execution_provenance";
     readonly schemaVersion: "5.0.0";
     readonly actorInvocationRef: string;
@@ -366,8 +366,8 @@ export interface WorksiteCommandExecutionProvenance {
         readonly inputByteLength: number;
     }>;
     readonly helperPlan: WorksiteCommandExecutionHelperPlan;
-}
-export interface WorksiteCommandHelperArtifact {
+};
+export type WorksiteCommandHelperArtifact = {
     readonly kind: "worksite_command_helper_artifact";
     readonly schemaVersion: "5.0.0";
     readonly artifactRef: string;
@@ -385,8 +385,8 @@ export interface WorksiteCommandHelperArtifact {
     readonly snapshotMembers: readonly WorksiteSnapshotMember[];
     readonly protectedBefore: readonly WorksiteObservation[];
     readonly protectedAfter: readonly WorksiteObservation[];
-}
-export interface WorksiteSnapshotMember {
+};
+export type WorksiteSnapshotMember = {
     readonly kind: "worksite_snapshot_member";
     readonly schemaVersion: "5.0.0";
     readonly ordinal: number;
@@ -396,8 +396,8 @@ export interface WorksiteSnapshotMember {
     readonly relativePath: string;
     readonly byteLength: number;
     readonly digest: Sha256Digest;
-}
-export interface WorksiteCommandExecutionHelperPlan {
+};
+export type WorksiteCommandExecutionHelperPlan = {
     readonly kind: "worksite_command_execution_helper_plan";
     readonly schemaVersion: "5.0.0";
     readonly attemptRef: string;
@@ -410,8 +410,8 @@ export interface WorksiteCommandExecutionHelperPlan {
     readonly toolCommand: string;
     readonly toolInputDigest: Sha256Digest;
     readonly toolInputByteLength: number;
-}
-export interface WorksiteCommandExecutionObservation {
+};
+export type WorksiteCommandExecutionObservation = {
     readonly kind: "worksite_command_execution_observation";
     readonly schemaVersion: "5.0.0";
     readonly observationRef: string;
@@ -427,7 +427,7 @@ export interface WorksiteCommandExecutionObservation {
     readonly snapshotRef: string;
     readonly snapshotDigest: Sha256Digest;
     readonly snapshotMembers: readonly WorksiteSnapshotMember[];
-}
+};
 export interface WorksiteCommandExecutionFailure {
     readonly kind: "worksite_command_execution_failure";
     readonly schemaVersion: "5.0.0";

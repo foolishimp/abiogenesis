@@ -19,10 +19,10 @@ export interface NativeRegisteredSelectionTask {
     }>;
     readonly maxPromptBytes: number;
 }
-export interface NativeRegisteredSelectionTarget {
+export type NativeRegisteredSelectionTarget = {
     readonly graphFunctionRef: string;
     readonly definitionDigest: Sha256Digest;
-}
+};
 export declare function isNativeRegisteredSelectionTask(x: unknown): x is NativeRegisteredSelectionTask;
 /** Raw shape validation confers no candidate-domain or execution authority. */
 export declare function isNativeRegisteredSelectionResponse(x: unknown): x is RecordValue;

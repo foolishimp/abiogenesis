@@ -129,8 +129,8 @@ export function constructCatalogAdmissionConservationWitness(
   inputRowKeys: readonly CatalogInputRowKey[],
 ): CatalogAdmissionConservationWitness {
   const canonicalKeys = [...inputRowKeys].sort((left, right) => {
-    const leftKey = canonicalJson(left as unknown as JsonValue);
-    const rightKey = canonicalJson(right as unknown as JsonValue);
+    const leftKey = canonicalJson(left);
+    const rightKey = canonicalJson(right);
     return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
   });
   const body = {
@@ -139,7 +139,7 @@ export function constructCatalogAdmissionConservationWitness(
   } as const;
   return Object.freeze({
     ...body,
-    conservationDigest: sha256Canonical(body as unknown as JsonValue),
+    conservationDigest: sha256Canonical(body),
   });
 }
 
@@ -161,16 +161,16 @@ export function admitCatalogAdmissionResult(
     exactInputRowKeys,
   );
   const outputKeys = value.rows.map((row) =>
-    canonicalJson(row.inputRowKey as unknown as JsonValue)
+    canonicalJson(row.inputRowKey)
   );
   const expectedKeys = expectedWitness.inputRowKeys.map((key) =>
-    canonicalJson(key as unknown as JsonValue)
+    canonicalJson(key)
   );
   const issues: string[] = [];
   if (
     !canonicalEquals(
-      value.conservation as unknown as JsonValue,
-      expectedWitness as unknown as JsonValue,
+      value.conservation,
+      expectedWitness,
     )
   ) issues.push("/conservation");
   if (

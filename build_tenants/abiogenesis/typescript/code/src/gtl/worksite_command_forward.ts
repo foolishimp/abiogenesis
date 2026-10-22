@@ -45,7 +45,7 @@ export function worksiteCommandForwardGraphFunctions(): readonly GraphFunction[]
   return [root,child].map(g=>canonicalizeAuthoredGtlCarrier(g,"graph_function"));
 }
 export function isWorksiteCommandForwardGraphFunction(value:GraphFunction):boolean {
-  return worksiteCommandForwardGraphFunctions().some(g=>canonicalEquals(g as unknown as JsonValue, value as unknown as JsonValue));
+  return worksiteCommandForwardGraphFunctions().some(g=>canonicalEquals(g, value));
 }
 export function constructWorksiteCommandForwardModulePublication(artifact:RootModuleArtifactBasis) {
   const graphFunctions=worksiteCommandForwardGraphFunctions();

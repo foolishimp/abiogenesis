@@ -264,7 +264,7 @@ function candidateCoordinate(
 ): ReferenceDigest<"InstalledProduct"> {
   return reference(
     candidate.installId,
-    sha256Canonical(candidate as unknown as JsonValue),
+    sha256Canonical(candidate),
   );
 }
 
@@ -428,7 +428,7 @@ function inputRow(
   key: CatalogInputRowKey;
   coordinate: ReferenceDigest<"CatalogContributionManifestRow">;
 }> {
-  const rowDigest = sha256Canonical(row as unknown as JsonValue);
+  const rowDigest = sha256Canonical(row);
   const coordinate = reference<"CatalogContributionManifestRow">(
     `catalog-contribution-row://abiogenesis/${rowDigest.slice("sha256:".length)}`,
     rowDigest,
@@ -621,7 +621,7 @@ const admit: AdmissionDefinitionOwner<
             call,
             "owner_projection",
             "catalog_conservation_failure",
-            canonicalJson(admitted.issuePaths as unknown as JsonValue),
+            canonicalJson(admitted.issuePaths),
           );
         }
         const ownerOutput = validatedOwnerOutput(

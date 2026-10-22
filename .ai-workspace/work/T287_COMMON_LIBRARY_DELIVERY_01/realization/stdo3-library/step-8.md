@@ -1306,3 +1306,376 @@ Jim's D11: "the answer is always remove tech debt". O-TYPE closes at every touch
 **Stop:** an (A) site with no refusal channel of its own, where refusing would be new behavior the owner's contract does not name: leave the cast, mark the row `stop: channel`, continue with the rest; a site whose discharge needs an event contract, payload key list or Product output contract change: same marking; a gate failure with a failure set not in `step-8-run-final.log`; anything outside the grant. Stopped rows are the only O-TYPE remainder and go to the Executive with the contract delta each needs.
 
 **Return contract.** One commit on `main`, no push. First line `Post-close repair C: O-TYPE discharged at the cast sites (D11)`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append `## Post-close repair return C` with: commit; the census table; totals by decision; the (A) sites and channels; the stopped rows with their deltas; the gate results; residuals.
+
+## Post-close repair return C
+
+- Commit: the commit carrying this Return (first line `Post-close repair C: O-TYPE discharged at the cast sites (D11)`, parent `0c362da15`); its hash is in the final report. Not pushed. Staged by path. Path key: `T` = `build_tenants/abiogenesis/typescript`; `W` = this folder. Census lines are at `0c362da15`.
+- Item 1, census: done, by AST. A path-sensitive tracer over the TypeScript checker enumerates every `as JsonValue`, `as unknown as JsonValue` and `as Readonly<Record<string, JsonValue>>` cast in `T/code/src` at `0c362da15`: 2951 casts in 179 files. Each cast is traced to `canonicalEquals`, `canonicalRecordDigest`, `writeCanonicalRecord`, `sha256Canonical`, `canonicalJson` or an `admit*` atom, through variables, parameters, returns, callbacks, field-matched member and element access, object and array literals, spreads and destructuring, with field stack depth 14. 2735 casts feed a sink. Two more are the operands of the ticket-listed `sameJson` in `public/installed_public_definition_call.ts`, which reach the installed codec through a method receiver the tracer does not resolve. Total: 2737.
+  - The table: `W/post-close-repair-c-census.tsv`, one row per cast, with columns `file:line | function | expression | static type before the cast | cast form | sink | producer | decision | channel | done`. The producer cell names each type on the cast's type path that is declared in `code/src`, with its file. It marks `[interface, now alias]` where this repair declares the interface as a type alias, and `[schema, exactOptional]` for the outputs of the self-conformance schemas.
+  - The explicit-`undefined` branches that replaced a cast over an optional member: `W/post-close-repair-c-undefined-branches.tsv`, 158 rows (27 (A), 131 (T)), keyed by function. Ten rows come from a completeness scan of the final tree (every `=== undefined`, `!== undefined` and `??` added since `0c362da15`) and are marked so.
+  - Ticket-listed sites: binding `sameJson` (`public/binding/definition_binding_mechanics.ts`) and public `sameJson` are (A). The `hog/parent_rehydration.ts` carrier casts (`:195`, `:338`, `:365`) are (T), and its stale O-TYPE comment is removed. The `jsonRecord` consumers in `abg/default_library.ts`, `abg/instruction_assembly.ts` and `product/default_library.ts` are (T), (I) or (A) per row. The guard-refined comparisons and relation evaluators of `gtl/consensus.ts` are (I) behind the module's guards, or (A) where a body is digested.
+- Totals by decision:
+
+  | family | (T) | (I) | (A) | stop: contract | stop: channel | no sink: (T) | no sink: (I) | no sink: kept |
+  | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+  | `abg` | 1154 | 146 | 67 | 0 | 3 | 83 | 5 | 29 |
+  | `gtl` | 131 | 7 | 19 | 0 | 0 | 0 | 6 | 2 |
+  | `hog` | 140 | 2 | 0 | 5 | 0 | 10 | 0 | 3 |
+  | `implementation` | 173 | 22 | 12 | 0 | 0 | 8 | 3 | 4 |
+  | `owner_bindings` | 5 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
+  | `product` | 621 | 19 | 63 | 0 | 0 | 35 | 0 | 10 |
+  | `public` | 33 | 0 | 13 | 0 | 0 | 3 | 0 | 3 |
+  | `shared` | 21 | 1 | 1 | 0 | 0 | 0 | 0 | 3 |
+  | `validator` | 69 | 5 | 4 | 0 | 1 | 5 | 0 | 1 |
+  | total | 2347 | 202 | 179 | 5 | 4 | 145 | 14 | 55 |
+
+  - Sink rows: 2737 = 2347 (T) + 202 (I) + 179 (A) + 5 `stop: contract` + 4 `stop: channel`. The (A) rows sit in 94 functions of 52 files.
+  - (T) is the cast removed where the static type at `0c362da15` is already JSON-assignable (variance casts included), or where the owner type is retyped. Retyping means an interface declared as a type alias, so that it is `JsonValue`-assignable, or a widened signature.
+  - (I) is a typed guard (`isRecord`, `isJsonRecord`, `typeof`) on a value that entered through an admitting validator; where the guard repeats a check the ingress already made, it throws or answers the guard's existing message or value.
+  - The 214 casts that feed no traced sink are outside the census. 159 of them went with the sink rows' types; 55 remain (residuals).
+- Item 2, apply: done; `tsc` clean. Both `sameJson` admit each side through `admitJson`; ok on both sides compares the canonical encodings; a refusal answers `false`. A cycle answers `false` as at the baseline: `admitJson` throws on a cycle and the surrounding `catch` answers `false`. The (A) sites, by channel. Each refuses a non-JSON value on its own channel. An absent member counts as non-JSON: the 27 (A) `undefined` branches below answer the site's refusal where `0c362da15` threw. Because `admitJson` checks the prototype, each (A) site also refuses a plain record of another realm, which `canonicalEquals` at `0c362da15` compared by structure (residual: realm). These two refusals are the only behavior changes. Function names are given with their census lines:
+  - false: 71 functions, 140 rows:
+    - [false] abg/runtime_liveness_contracts.ts `isRuntimeWatchdogPolicy` (159,160); abg/runtime_liveness_contracts.ts `isRuntimeSystemProbeContract` (195); product/worksite_construction_recovery.ts `isWorksitePreservedResultArtifact` (130); product/worksite_construction_recovery.ts `<anon>` (150,154); product/worksite_revision.ts `isWorksiteRevisionCommandExecutionTask` (163); product/worksite_command_forward.ts `isWorksiteCommandForwardRequest` (114); product/worksite_command_forward.ts `isWorksiteCommandForwardTask` (151); product/declaration_closure.ts `isResolvedDeclarationClosure` (243); product/worksite_branch_construction.ts `isWorksiteBranchConstructionTask` (436); product/worksite_preparation.ts `evaluate` (234); product/semantic_stage.ts `isSemanticStageEnvelope` (193); product/semantic_revision.ts `<anon>` (250,251); product/semantic_revision.ts `evaluateNativeSemanticRevisionRelation` (392,395,398); product/semantic_job.ts `evaluateNativeSemanticRelation` (970,973,976); validator/qualification.ts `matches` (593); product/implementation_resolution.ts `isPackagedLeafImplementationDescriptor` (260); abg/traversal_transition.ts `isTraversalTransitionCandidate` (302); implementation/leaf_execution_authority.ts `isExactAdmittedImplementationResolution` (175); abg/semantic_job.ts `semanticJobResultMatchesBasis` (386); abg/worksite_command_forward.ts `worksiteCommandForwardResultMatches` (283,284); abg/invocation_admission.ts `isInvocationSourceResultBasis` (405,414); abg/worksite_construction_recovery.ts `worksitePreservedResultMatchesBasis` (391); abg/requirement_handoff.ts `requirementHandoffResultMatches` (86); abg/c_call_outcome.ts `<anon>` (1290,1298,1302,1306); abg/artifact_truth.ts `validateExactPrefixArtifactTruthProjection` (807,808); abg/instruction_assembly.ts `registeredSelectionInstructionResultMatches` (450,453); product/worksite_command_execution.ts `same` (701); product/worksite_command_execution.ts `isExactWorkspaceBinding` (819); product/worksite_command_execution.ts `isPredicate` (1141); product/worksite_command_execution.ts `isCommandResult` (1717); product/worksite_command_execution.ts `isWorksiteExecutionObservation` (2165); abg/definition_event_resource.ts `validateAbgEventResourceOutcome` (156); product/invocation.ts `isInvocationPolicyBasis` (364); product/invocation.ts `isInvocationAuthority` (426); product/invocation.ts `isPublicInvocationCandidate` (524); product/invocation.ts `isCapabilityGrantValue` (702); product/worksite_effect.ts `isWorksiteFileParentsAuthorization` (1804); product/worksite_effect.ts `isWorksiteFileParentsSuccess` (1844); product/environment.ts `isWorkspaceAuthorityBasis` (1095,1096); product/environment.ts `workspaceBindingCandidateMatches` (1272); product/worksite_construction.ts `isExactWorkspaceBinding` (256); product/worksite_construction.ts `isWorksiteConstructionTarget` (387); product/worksite_construction.ts `isWorksiteConstructionTask` (534); product/worksite_construction.ts `isWorksiteCandidateBundle` (725)
+    - [false (both sides admitted)] public/binding/definition_binding_mechanics.ts `sameJson` (49)
+    - [false: admitJson(body) refused -> return false before the digest] gtl/consensus.ts `isConsensusActionCatalog` (853); gtl/consensus.ts `isConsensusObservationSnapshot` (944); gtl/consensus.ts `isConsensusNextActionBasis` (1105,1109); gtl/consensus.ts `isConsensusActionEvaluationBasis` (1240); gtl/consensus.ts `isConsensusActionEvaluationProjection` (1350); gtl/consensus.ts `isConsensusRoundDecision` (2833); gtl/consensus.ts `isConsensusHumanFinalization` (2881); gtl/consensus.ts `isConsensusEscalationDecision` (2929); gtl/consensus.ts `isTicketConsensusProjection` (2977)
+    - [false via local admittedDigestIs(body, digest)] gtl/consensus.ts `isConsensusNextActionProjection` (1199); gtl/consensus.ts `isConsensusRoleInstruction` (1897,1901); gtl/consensus.ts `isConsensusRoleProfile` (1980); gtl/consensus.ts `isConsensusPanel` (2019); gtl/consensus.ts `isConsensusRulingOverlay` (2047); gtl/consensus.ts `isConsensusRoundPolicy` (2076); gtl/consensus.ts `isReviewFindings` (2278)
+    - [false via admittedDigestIs (head line 1248)] gtl/consensus.ts `isConsensusActionEvaluationBasis` (1247)
+    - [false via local outputIs] abg/semantic_job.ts `semanticJobResultMatchesBasis` (389,390,393); abg/semantic_job.ts `nativeSemanticResultMatchesBasis` (573,574,575)
+    - [false / null (existing proof answers)] implementation/leaf_invocation_port.ts `<anon>` (488,489)
+    - [false: exactIJson now answers admitJson(value).kind === "ok"] abg/definition_event_resource.ts `exactIJson` (213)
+    - [false via local admittedDigestIs] abg/event_store.ts `validateDurablePrefixCoordinate` (1954)
+    - [false via admittedDigestIs] abg/event_store.ts `validateEventStoreReopenAuthority` (1999)
+    - [false (existing catch)] public/installed_definition_call_transport.ts `sameStructure` (146,147)
+    - [false (both sides admitted; throw is false)] public/installed_public_definition_call.ts `sameJson` (66,67)
+    - [false (expected now typed)] implementation/worksite_command_helper.ts `isWorksiteCommandExecutionLaunchManifest` (206,207)
+  - null: 13 functions, 22 rows:
+    - [null (existing catch)] abg/semantic_job.ts `projectSemanticJobEvidence` (379,380)
+    - [null] abg/semantic_revision.ts `nativeJobRevisionSubject` (343); abg/semantic_revision.ts `jobRevisionSubjectAtBasis` (413,416); abg/worksite_construction_recovery.ts `projectWorksitePreservedResultArtifact` (363,364); abg/instruction_assembly.ts `constructWorksiteNativeInstructionAssembly` (121,122); abg/worksite_input_provenance.ts `nativePreparationBridge` (621); public/gap_authority.ts `parsePublicGapAuthority` (239,244); public/run_projection_authority.ts `parsePublicRunProjectionAuthority` (191,195)
+    - [null (existing digest-mismatch refusals)] product/project_read_ports.ts `digestJson` (305)
+    - [null (no admitted failure source); hasAdmittedActorEvidence false] abg/c_call.ts `projectAdmittedProbabilisticTransport` (2090)
+    - [null (existing not-owned answer)] product/verify_product.ts `selectOwnedProductVerification` (144)
+    - [null (admitJson(body), admitJson(value) inside the existing try)] public/continuation_authority.ts `parsePublicContinuationAuthority` (197,202)
+    - [null -> existing refusal (configuration / contract_invalid) and packet guard false] product/materialization_operations.ts `digestJson` (141)
+  - refusal: 2 functions, 2 rows:
+    - [existing refusal `non_canonical_value` via admitIJsonValue for every kind] validator/raw_admission.ts `rawAdmitValue` (185)
+    - [existing refusal stale_basis] abg/instruction_assembly.ts `evaluateRegisteredSelectionInstructionAssembly` (247)
+  - TypeError: 9 functions, 12 rows:
+    - [TypeError (unreachable: static schema)] validator/qualification.ts `qualificationWorkerRequest` (564)
+    - [TypeError -> assembly refusal unknown_dependency] product/default_library.ts `projectFramedSynthesisPromptTask` (283)
+    - [existing TypeError "witness event payload is not one exact self-certified actor-attributed act"] abg/event_store.ts `assertRuntimeEventContract` (2991)
+    - [existing TypeError] abg/project_read_definition_bindings.ts `<anon>` (320)
+    - [TypeError -> existing preparation_invalid failure candidate] implementation/worksite_command_execution.ts `realizePreparation` (813)
+    - [existing leaf TypeError] implementation/worksite_command_forward.ts `prepareWorksiteCommandForward` (26,27); implementation/native_work_reacquisition.ts `prepareNativeWorksiteCommandReacquisition` (26,29)
+    - [digest of the admitted input (existing TypeError)] implementation/worksite_command_forward.ts `prepareWorksiteCommandForward` (30)
+    - [TypeError -> existing transport_failure refusal (exit 2)] public/cli.ts `<module>` (125)
+  - other: 2 functions, 3 rows:
+    - [uniqueness check false] shared/public_function_contracts.ts `canonicalIdentity` (184)
+    - [falls through to isResolvedProductLock (existing path)] abg/artifact_truth.ts `establishInlineLock` (296,297)
+  - (A) explicit-`undefined` branches (27 rows in 20 functions of 17 files). At `0c362da15`, an absent member that reached `canonicalEquals` threw a TypeError (`Cannot convert undefined or null to object`). Each such member is in recorded event payloads or input data, not an owner-constructed resource, so the 8a-2 fault channel does not apply. Each branch answers a refusal of the function's whole answer (`false`, `null`, the owner's refusal or TypeError):
+    - projectAdmittedActorTransport false (transport mismatch): abg/c_call.ts `projectAdmittedActorTransport`
+    - admitResult refusal: abg/c_call.ts `admitResult`
+    - projectGovernanceChoice null: abg/default_library.ts `projectGovernanceChoice`
+    - exactTaskTruth null: abg/fan_out_projection.ts `exactTaskTruth`
+    - exactOpenedBasis null: abg/fh_continuation_projection.ts `exactOpenedBasis`
+    - deriveSourceResultBasisAtPrefix null: abg/invocation_admission.ts `deriveSourceResultBasisAtPrefix`
+    - coveredGovernancePredecessor null: abg/invocation_execution_truth.ts `coveredGovernancePredecessor`
+    - nativeWorkReacquisitionResultMatches false: abg/native_work_reacquisition.ts `nativeWorkReacquisitionResultMatches`
+    - projectNativeWorkspaceWorkSourceAtPrefix null: abg/native_worksite_execution.ts `projectNativeWorkspaceWorkSourceAtPrefix`
+    - no-action input TypeError (existing refusal): abg/project_read_ports.ts `contents`
+    - nativeRuntimeCases null: abg/qualification_proof.ts `nativeRuntimeCases`
+    - runtime liveness validator false: abg/runtime_liveness.ts `createRuntimeLivenessEventValidator`
+    - semanticInputAtBasisEquals false: abg/semantic_stage.ts `semanticInputAtBasisEquals`
+    - completedC3Child null: abg/worksite_input_provenance.ts `completedC3Child`
+    - readDependencyPreparationHasNativeBridgeSource false: abg/worksite_input_provenance.ts `readDependencyPreparationHasNativeBridgeSourceAtPrefix`
+    - worksiteExecutionSourcesCurrent false: abg/worksite_revision.ts `worksiteExecutionSourcesCurrent`
+    - hasExactWorksiteLeafExecutionAuthority false: implementation/leaf_invocation_port.ts `hasExactWorksiteLeafExecutionAuthority`
+    - isReleaseOperationArtifact false: implementation/release_publication.ts `isReleaseOperationArtifact`
+    - reacquisitionTaskMatches false: product/worksite_command_execution.ts `reacquisitionTaskMatches`
+    - helperArtifactPreservesProtectedObservations false: product/worksite_command_execution.ts `helperArtifactPreservesProtectedObservations`
+  - Schema (A): 22 members move from `v.optional` to `v.exactOptional`, refusing an explicit `undefined`: `validator/self_conformance_contracts.ts` 9, `validator/qualification_contracts.ts` 9, `product/default_library.ts` 4.
+  - Named branches inside (I) rows, and corrections to the undefined-branch table:
+    - `validator/qualification.ts` `predicateOutcomes`: a non-record declaration answers `null` through the material's existing `catch`. An absent expected value throws from `expectedEquals()` as the comparison threw at `0c362da15`, so the material still answers `null` (T; three rows).
+    - `abg/semantic_revision.ts` `nativeIntakeFacts`: the added `?? null` is unreachable; the operand before it (`!…semanticJobLifecycle`) already refuses `original_job_or_lifecycle_mismatch`, as at `0c362da15` (T).
+    - `abg/traversal_route.ts` `admitRoute`: the added `candidate.boundInput === undefined` is unreachable; the clause before it (`(retained === null) !== (candidate.boundInput === undefined)`) already refuses with the bound-input detail, as at `0c362da15` (T).
+    - Restored throws (T, 16 sites in 15 functions of 9 files): where an absent-member branch would only drop one element from a set the owner then selects from (a `filter`, `flatMap` or loop `continue`, or a sequence it compares), the drop could turn the owner's refusal or fault at `0c362da15` into an acceptance. Those sites call `presentMember` (new in `shared/canonical_json.ts`, re-exported by `shared/value`), which throws the TypeError the canonical writer throws for `undefined`, so each answers as at `0c362da15`: `abg/c_call.ts` `signals` (at the sequence comparison); `abg/construction_continuation.ts` `deriveConstructionIntentContinuations`; `abg/retry.ts` `opened`; `abg/semantic_job.ts` `predecessor`, `validateWorksiteFileParentsPlanAtPrefix`; `abg/semantic_revision.ts` `semanticJobRevisionInputMatchesBasis`, `semanticRevisionInputMatchesBasis`; `abg/semantic_stage.ts` `exactSources`, `selectedSemanticPredecessor`; `abg/worksite_construction_recovery.ts` `taskBridge`, `nativeWorksiteRecoverySourceAtPrefix`; `abg/worksite_revision.ts` `matching`, `deriveCurrentOrigins`, `worksiteRevisionEntryBindingDisposition` (two); `implementation/release_publication.ts` `prior`. Four of them (`validateWorksiteFileParentsPlanAtPrefix`, both `semantic_revision` lookups, `nativeWorksiteRecoverySourceAtPrefix`) sit inside `catch { return false; }`: one `c_call_result_admitted` event without `value` (the payload contract allows it and does not require it) still answers `false` for the whole lookup (residual).
+    - The census channel cells of the casts at these sites now read `absent member throws (presentMember), as at 0c362da15`.
+    - Every added `x ?? null` that is compared (`abg/semantic_job.ts` `semanticJobInputMatchesBasis` and `semanticJobReadDependenciesAtPrefix`, `abg/semantic_stage.ts` `semanticInputMatchesBasis`, `abg/semantic_revision.ts` `projectRevisionDesignCoordinates`, the retry and C-call plan checks, `product/environment.ts`, `product/semantic_job.ts`) compares against a record, array or event that is never `null`, so an absent member stays unequal and the site refuses; the census cells say so where the branch is reachable. Every other added `undefined` test sits in a condition whose branch refuses (`return false`, `null`, `[]`, a refusal value, or a throw), is unreachable (`abg/worker_transport.ts` `collectToolUses`: values from `JSON.parse` hold no `undefined`), or is an equivalent restructure (`abg/instruction_assembly.ts`, `implementation/semantic_revision.ts` `result`).
+  - Digest identity: `abg/c_call.ts` `pendingInteractionBodyDigest` writes the same key set and bytes without the cast; the root event contract digest stays `sha256:6c8a9852…ae64`. The regenerated contracts (`T/contracts/capabilities/capability-definition-graph.json`, `T/contracts/worksite/command-execution-context.inventory.json`, `T/product-toolchain-manifest.json`) differ from `0c362da15` only in digest and reference fields; the `contractDigest` changes come from the `.d.ts` declaration inventory.
+  - Emitted JS of the final tree against `0c362da15`: 94 files, 780 token regions. 279 are admission, 88 explicit `undefined` branches, 57 imports, 44 record guards, 26 restored throws (`presentMember`, with its 9 imports and the helper), 22 `exactOptional`, 19 `??` and 245 other (5 of them multi-line template regions). The other regions are equivalent restructures, hoisted locals, renamed locals and the pin; each was read. Against the emitted JS before the realm restorations and `presentMember`, the only changes are those: `validator/self_conformance_semantics.js` has no token change from `0c362da15`, `abg/qualification_proof.js` keeps 12 of its 24 regions, and each restored site replaces its `undefined` branch with a `presentMember` call.
+- Stopped rows, 9. Each keeps its cast.
+  - `stop: contract`, 5:
+    - The casts: `hog/recursion_lifecycle.ts:570` (`blockRecursion`), `:1027` and `:1053` (`completeRecursionChildUsing`); `hog/workflow_lifecycle.ts:727` and `:1075` (`completeOwnedWorkflowLocus`). Each passes a completion or failure subject to `sha256Canonical`.
+    - The subject carries the owned runtime prefix object. The canonical writer encodes the prefix's `RuntimeHistorySelection` class instance, which has private fields, as `{}`, so the subject digest does not bind the selection.
+    - Delta: the subject contract carries the prefix's JSON coordinate (reference and digest) in place of the object. That changes a payload and digest contract, which this activation does not grant. The casts stay.
+  - `stop: channel`, 4:
+    - The casts: `abg/qualification_proof.ts:115` (`sameFact`, both operands; its callers `projectQualificationConsumer`, `projectNativeRuntimeAssessment`, `projectQualificationVerdict` and `graphOwner`), `:475` (`projectQualificationRulingForConsumer`, the response comparison), and `validator/self_conformance_semantics.ts:82` (`qualificationResultRelation`, the ruling predicate).
+    - Each compares a caller record that may come from another realm: the qualification lanes load these owners into a separate VM realm (`test_env/support/malformed-gtl-native-fixture.mjs`), and the relation holds across realms at `0c362da15` because `canonicalEquals` reads structure only. `admitJson` refuses a plain record whose prototype is another realm's `Object.prototype`. Admission at these sites turned `t287-native-runtime-gate` `:45` from pass to fail, and the owner's contract names no such refusal.
+    - Delta: `admitJson` accepts a plain record of any realm (design §4.1, the `shared/admit` atom), or the Executive rules that a realm-foreign record is refused and the case changes. Then these sites take (A) with `null`/`false`.
+- Grant:
+  - The hog/* files entered through the corrected census, and the schema files through the producer column.
+  - Each producer-only file appears in the producer cells of the rows it types: `shared/public_invocation.ts` 544 rows, `gtl/c_algebra.ts` 208, `gtl/semantic_job.ts` 182, `product/contracts.ts` 166, `gtl/contracts.ts` 162, `abg/terminal_result_contracts.ts` 79, `implementation/contracts.ts` 14, `hog/traversal_completion.ts` 13, `validator/self_conformance_contracts.ts` 7, `abg/effectful_invocation_truth.ts` 2, and `product/registered_selection_native.ts`, `shared/effect_definition.ts` and `shared/i_json.ts` 1 each.
+  - `gtl/worksite_command_execution.ts` is the source pin of the built `product/worksite_command_execution.js`, a census file; the build refuses a stale pin.
+  - `code/src` files edited, 193:
+  - census rows (178 files):
+    - `abg/`: `actor_process`, `artifact_truth`, `c_call_outcome`, `c_call`, `closure`, `construction_continuation`, `continuation`, `default_library`, `definition_event_resource`, `environment_admission`, `event_body_encoding`, `event_calculus`, `event_contract_profiles`, `event_log`, `event_prefix`, `event_store`, `execution_basis`, `fan_out_projection`, `fan_out`, `fh_continuation_projection`, `fh_resume_relation`, `graph_application`, `instruction_assembly`, `invocation_admission`, `invocation_execution_truth`, `native_work_effect`, `native_work_reacquisition`, `native_worksite_execution`, `open_call`, `probabilistic_result`, `project_read_definition_bindings`, `project_read_ports`, `qualification_proof`, `registered_selection_provenance`, `replay`, `requirement_handoff`, `retry`, `runtime_failure`, `runtime_history`, `runtime_liveness_contracts`, `runtime_liveness`, `semantic_job`, `semantic_revision`, `semantic_stage`, `stdo_environment`, `transport_contracts`, `traversal_cursor`, `traversal_route`, `traversal_transition`, `witness_admission_operation`, `witness_definition_bindings`, `worker_transport`, `worksite_command_forward`, `worksite_construction_recovery`, `worksite_input_provenance`, `worksite_revision`
+    - `gtl/`: `canonicalization`, `consensus`, `graph_applications`, `graph_construction`, `materialize`, `requirement_handoff`, `semantic_revision_publication`, `semantic_stage_publication`, `semantic_stage`, `serialization`, `source_path`, `stdo_run_environment`, `worksite_c0`, `worksite_command_forward`, `worksite_construction_recovery`
+    - `hog/`: `ccall_lifecycle`, `entry`, `graph_execute`, `interaction_lifecycle`, `interaction_resume`, `judgment`, `operator_support`, `parent_rehydration`, `recursion_lifecycle`, `retry_lifecycle`, `route_proposal`, `structural_transition`, `traversal`, `workflow_lifecycle`
+    - `implementation/`: `consensus`, `default_library`, `leaf_execution_authority`, `leaf_invocation_port`, `native_work_reacquisition`, `native_workspace_work`, `qualification`, `release_publication`, `requirement_handoff`, `self_conformance`, `semantic_revision`, `semantic_stage`, `worksite_branch_construction`, `worksite_command_execution`, `worksite_command_forward`, `worksite_command_helper`, `worksite_construction`, `worksite_file_replace`
+    - `owner_bindings/`: `run_invocation`
+    - `product/`: `admission_authority`, `builtin_semantics`, `catalog_definition_bindings`, `catalog_operation_contracts`, `catalog`, `declaration_application`, `declaration_closure`, `declaration_exports`, `default_library_fulfillment`, `default_library`, `environment_definition_bindings`, `environment_operation_contracts`, `environment`, `execution_resolution`, `implementation_resolution`, `install_definition_bindings`, `install_product`, `invocation`, `materialization_operations`, `native_workspace_assessment`, `native_workspace_work`, `project_read_definition_bindings`, `project_read_ports`, `public_contract_publication`, `publication`, `release_acceptance`, `release_snapshot_definition_bindings`, `release_snapshot_operations`, `requirement_handoff`, `result_assessment_operation`, `run_invocation_operation`, `semantic_job`, `semantic_revision`, `semantic_stage`, `semantics`, `stdo_environment`, `verification_definition_bindings`, `verify_product`, `worksite_branch_construction`, `worksite_command_execution`, `worksite_command_forward`, `worksite_construction_recovery`, `worksite_construction`, `worksite_effect`, `worksite_operations`, `worksite_preparation_contracts`, `worksite_preparation`, `worksite_revision`, `workspace_definition_bindings`, `workspace_operations`
+    - `public/binding/`: `definition_binding_mechanics`, `owner_contract_source_set`, `public_function_family`, `public_function_projections`
+    - `public/`: `cli`, `continuation_authority`, `gap_authority`, `installed_definition_call_transport`, `installed_public_definition_call`, `run_projection_authority`
+    - `shared/`: `capability_contracts`, `operation_definition_coordinate`, `public_function_contracts`
+    - `validator/`: `conformance_definition_bindings`, `conformance_operation`, `graph`, `implementation_resolution`, `qualification_contracts`, `qualification`, `raw_admission`, `self_conformance_basis`, `self_conformance_semantics`, `self_conformance`, `validation`
+  - producer column (15 files: owner types that reach census rows, declared as aliases; the schema members of `validator/self_conformance_contracts.ts`; the pin; `shared/canonical_json.ts`, which declares `JsonValue` and is named in 744 producer cells, for `presentMember`):
+    - `abg/`: `effectful_invocation_truth`, `terminal_result_contracts`
+    - `gtl/`: `c_algebra`, `contracts`, `semantic_job`; and `worksite_command_execution`, whose source pin of `product/worksite_command_execution.js` the build regenerates (digest `sha256:519bb6c5…3306`, byteCount 111262, span 101301-103609)
+    - `hog/`: `traversal_completion`
+    - `implementation/`: `contracts`
+    - `product/`: `contracts`, `registered_selection_native`
+    - `shared/`: `canonical_json`, `effect_definition`, `i_json`, `public_invocation`
+    - `validator/`: `self_conformance_contracts`
+  - The census names `gtl/declarations.ts` (one `any` parse cast, no sink), which is unedited.
+  - Tests: `T/test_env/tests/t287-common-computational-library.test.mjs` and `T/test_env/tests/t287-consensus-ref-shape.test.mjs`.
+  - Records: design §10.3 O-TYPE row (§4.1 states no old premise and is unchanged); the ticket's O-TYPE bullet and its two O-TYPE sentences in the same subsection (the status paragraph, owner item 6); the GOALS O-TYPE clauses (`GOAL-035` status, the library paragraph).
+  - Build outputs and the census files `W/post-close-repair-c-census.tsv` and `W/post-close-repair-c-undefined-branches.tsv`.
+- Item 3, tests added:
+  - `t287-common-computational-library`: the existing O-SCHEMA test now has a leaf `validateContractValue` case that refuses a worker output carrying an unsafe integer. New test `O-TYPE: sameJson admits both sides; a function member or a cycle is never equal`.
+  - `t287-consensus-ref-shape`: new test `consensus evaluation basis: the evidence response digest is checked over the admitted response`. It reaches `admittedDigestIs(evidence.responseValue, evidence.responseDigest)` in `isConsensusActionEvaluationBasis` (`:1248` at `0c362da15`): the right digest gives `true`, a wrong one `false`.
+- Gate (tenant root `T`; each lane alone, `node --experimental-vm-modules --test --test-concurrency=1`, `--test-timeout=600000` from batch 2; 2026-10-22T09:53Z to 12:54Z). Batch 1 ran on the tree before the `predicateOutcomes` and realm restorations; batch 2 on the tree before the realm restorations; batch 3 on the tree before the `presentMember` restorations; batch 4 on the final tree; the lanes that load the restored owners ran again on the final tree. Baselines: `step-8-run-final.log` for its 44 files; otherwise the same lane at `0c362da15` in a worktree (built in full, with the ignored fixture a lane reads linked in where it reported ENOENT).
+
+  | command | rc | wall | result | against the baseline |
+  | --- | --- | --- | --- | --- |
+  | `npx tsc --noEmit` (final tree) | 0 | - | clean | - |
+  | `npm run build` (final tree; also before batches 1 to 3) | 0 | 34s | manifest, capability graph and pin regenerated; the regenerated contracts differ from `0c362da15` only in digest and reference fields | - |
+  | `npm run lint:imports` (final tree) | 0 | 0s | 28 modules | - |
+  | `npm run lint:lifecycle` (final tree) | 0 | 0s | 284 modules, 10 allow-listed, no offender | - |
+  | `npm run test:installed:language` (final tree) | 0 | 46s | 1/1 | - |
+
+  Batch 1 (the named lanes and one lane per edited family):
+
+  | lane | rc | wall | result | against the baseline |
+  | --- | --- | --- | --- | --- |
+  | `t287-value-equality` (shared/value) | 0 | 1s | 4 tests, 4 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-common-computational-library` (shared, product/semantics, public/binding) | 0 | 0s | 7 tests, 7 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-select-family` (shared/select) | 0 | 0s | 7 tests, 7 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-calculus-fold` (abg calculus) | 0 | 2s | 6 tests, 6 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-consensus-ref-shape` (gtl/consensus) | 0 | 0s | 2 tests, 2 pass, 0 fail, 0 skip | includes the new `:1248` case |
+  | `m5-consensus-module` (gtl/consensus, implementation/consensus) | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | same set and first error lines as the log |
+  | `t287-native-frame-observation` (repair A case; abg/runtime_liveness) | 1 | 1s | 8 tests, 1 pass, 3 fail, 4 skip; fails at :189, :209, :237 | same three failures as repair A's return (`:189` explicit proof-local territory, an undefined path argument, a falsy assertion) |
+  | `m5-event-store-reopen` (abg/event_store) | 0 | 61s | 18 tests, 18 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `m5-retry-lifecycle-authority` (abg/retry, hog/retry_lifecycle) | 1 | 1s | 9 tests, 4 pass, 5 fail, 0 skip; fails at :21, :238, :281, :323, :533 | same set and first error lines as the log |
+  | `t287-lifecycle-failure-carrier` (hog lifecycles) | 0 | 0s | 5 tests, 5 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-native-semantic-revision` (abg/semantic_revision, instruction_assembly) | 1 | 1s | 9 tests, 4 pass, 4 fail, 1 skip; fails at :122, :270, :332, :531 | same set and first error lines as the log |
+  | `t287-ordered-reconstruction` (abg/replay) | 1 | 1s | 7 tests, 0 pass, 4 fail, 3 skip; fails at :22, :74, :103, :158 | same set and first error lines as the log |
+  | `t287-reconstruction-conservation` (abg/replay) | 0 | 0s | 2 tests, 0 pass, 0 fail, 2 skip | no failure in the log: same |
+  | `r10-projection-contracts` (abg/project_read_ports) | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | same set and first error lines as the log |
+  | `m5-s03-authority` (product/semantics) | 1 | 65s | 5 tests, 1 pass, 4 fail, 0 skip; fails at :96, :218, :285, :415 | same set and first error lines as the log |
+  | `t287-generic-job-lifecycle` (product/semantic_job) | 0 | 1s | 1 tests, 0 pass, 0 fail, 1 skip | no failure in the log: same |
+  | `t287-cross-cut-public-read` (public) | 1 | 86s | 5 tests, 4 pass, 1 fail, 0 skip; fails at :105 | same set and first error lines as the log |
+  | `t287-w2-05-static-binding-algebra` (public/binding) | 0 | 0s | 5 tests, 3 pass, 0 fail, 2 skip | no failure in the log: same |
+  | `t287-st2a-g-capability-definition-graph` (product contracts, capability graph) | 1 | 62s | 4 tests, 2 pass, 2 fail, 0 skip; fails at :74, :271 | same set and first error lines as the log |
+  | `t287-malformed-gtl-gate` (validator, gtl) | 1 | 1s | 6 tests, 5 pass, 1 fail, 0 skip; fails at :60 | same set and first error lines as the log |
+  | `m5-event-calculus-runtime` (abg/c_call, continuation) | 1 | 274s | 19 tests, 13 pass, 5 fail, 1 skip; fails at :372, :1316, :1471, :1548, :1590 | same set and first error lines as the log |
+  | `witness-reprice-definition-binding` (abg/witness_admission_operation) | 1 | 1s | 15 tests, 0 pass, 15 fail, 0 skip; fails at :27, :36, :67, :77, :94, :102, :112, :118, :124, :129, :147, :162, :169, :205, :226 | not in the log; at `0c362da15` the same set and first error lines (fixture preconditions) |
+  | `witness-run-stopped-definition-binding` (abg/witness_admission_operation) | 1 | 1s | 7 tests, 0 pass, 7 fail, 0 skip; fails at :31, :65, :77, :89, :96, :102, :117 | not in the log; at `0c362da15` the same set and first error lines (fixture preconditions) |
+  | `t287-native-c2-instruction-assembly` (abg/instruction_assembly) | 0 | 0s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t288-instruction-assembly-owner` (abg/instruction_assembly) | 0 | 0s | 11 tests, 4 pass, 0 fail, 7 skip | not in the log; no failure |
+  | `t287-default-library` (product/default_library, abg/default_library) | 0 | 3s | 20 tests, 17 pass, 0 fail, 3 skip | not in the log; no failure |
+  | `t287-native-work-unknown-effect` (abg/native_work_effect) | 0 | 2s | 10 tests, 10 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-route-reconstruction` (hog/route_proposal, abg/traversal_route) | 0 | 3s | 9 tests, 7 pass, 0 fail, 2 skip | not in the log; no failure |
+  | `t287-retry-run-prefix` (abg/retry) | 1 | 0s | 3 tests, 0 pass, 3 fail, 0 skip; fails at :59, :92, :107 | not in the log; at `0c362da15` the same set and first error lines (fixture preconditions) |
+  | `t287-governance-covered-source-use` (governance (abg/invocation_execution_truth)) | 1 | 1s | 8 tests, 2 pass, 3 fail, 3 skip; fails at :351, :386, :430 | not in the log; at `0c362da15` the same set and first error lines (fixture preconditions) |
+  | `t287-d1-semantic-stage` (product/semantic_stage) | 0 | 0s | 3 tests, 1 pass, 0 fail, 2 skip | not in the log; no failure |
+  | `t287-qualification-law` (validator/qualification) | 0 | 1s | 6 tests, 2 pass, 0 fail, 4 skip | not in the log; no failure |
+  | `m5-worker-transport` (abg/worker_transport) | 0 | 6s | 21 tests, 21 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-worksite-command-execution` (product, implementation worksite_command_execution) | 1 | 117s | 4 tests, 3 pass, 1 fail, 0 skip; fails at :407 | same set and first error lines as the log |
+  | `t287-observed-worksite-command` (implementation/worksite_command_helper) | 1 | 2s | 8 tests, 7 pass, 1 fail, 0 skip; fails at :43 | same set and first error lines as the log |
+
+  Batch 2: 92 rows. 89 are the lanes that import a module holding an (A) site and were not in batch 1. The other three are reruns on the final tree: `t287-qualification-law`, `t287-qualification-producer-context` and `t287-malformed-gtl-gate`. The nine qualification lanes show their final-tree run, and `t287-worksite-construction` its isolated rerun.
+
+  | lane | rc | wall | result | against the baseline |
+  | --- | --- | --- | --- | --- |
+  | `d1-preserved-result` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `d1-preserved-result-mechanics` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `d2-acknowledgment` | 1 | 0s | 4 tests, 0 pass, 4 fail, 0 skip; fails at :17, :34, :51, :81 | not in the log; at `0c362da15` the same set and first error lines |
+  | `d2-binding-query-reuse` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `d2-binding-transition` | 1 | 1s | 10 tests, 0 pass, 10 fail, 0 skip; fails at :6, :148, :172, :191, :208, :232, :247, :269, :289, :303 | not in the log; at `0c362da15` the same set and first error lines |
+  | `d2-bounded-repair` | 1 | 2s | 12 tests, 7 pass, 5 fail, 0 skip; fails at :10, :56, :66, :77, :103 | not in the log; at `0c362da15` the same set and first error lines |
+  | `d4-s01-program-owner` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `generic-input-retention` | 1 | 0s | 4 tests, 2 pass, 2 fail, 0 skip; fails at :82, :132 | not in the log; at `0c362da15` the same set and first error lines |
+  | `integration-shared-seams` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `m5-terminal-quiescence-owner` | 0 | 0s | 7 tests, 7 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `r10-child-proof` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `r3-workspace-binding` | 1 | 5s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :85 | not in the log; at `0c362da15` the same set and first error lines |
+  | `r9-causal-result-closure` | 1 | 82s | 2 tests, 0 pass, 2 fail, 0 skip; fails at :53, :721 | not in the log; at `0c362da15` the same set and first error lines |
+  | `retained-route-cursor-transition` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :26 | not in the log; at `0c362da15` the same set and first error lines |
+  | `runtime-scope-regressions` | 0 | 79s | 2 tests, 2 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `steel-basic-cli-c2` | 0 | 0s | 6 tests, 0 pass, 0 fail, 6 skip | not in the log; no failure |
+  | `t287-authenticated-owner-values` | 1 | 1s | 3 tests, 1 pass, 1 fail, 1 skip; fails at :39 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-c0-correction-regressions` | 1 | 88s | 4 tests, 3 pass, 1 fail, 0 skip; fails at :42 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-c0-post-publication-failure` | 0 | 2275s | 31 tests, 31 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-c2-core-environment` | 0 | 1s | 3 tests, 3 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-c2-owner-coordinate-reuse` | 1 | 1s | 6 tests, 0 pass, 6 fail, 0 skip; fails at :120, :195, :212, :227, :238, :266 | same set and first error lines as the log |
+  | `t287-calculus-state-transfer` | 1 | 571s | 8 tests, 3 pass, 3 fail, 0 skip; fails at :64, :70 | same set as the log; parent `:64` same first error; subtest `:70` reports "could not be started because its parent finished" where the log reports "did not finish before its parent and was cancelled" |
+  | `t287-cold-record-decoder` | 1 | 1s | 3 tests, 1 pass, 1 fail, 1 skip; fails at :77 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-continuation-causation` | 0 | 0s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-d1-requirement-handoff` | 0 | 1s | 5 tests, 2 pass, 0 fail, 3 skip | not in the log; no failure |
+  | `t287-default-library-fulfillment` | 0 | 1s | 7 tests, 7 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-deferred-application-restoration` | 1 | 1s | 2 tests, 0 pass, 2 fail, 0 skip; fails at :85, :116 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-event-body-encoding` | 0 | 14s | 14 tests, 14 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-event-calculus-owner-continuation` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | same set and first error lines as the log |
+  | `t287-generic-job-meaning` | 0 | 0s | 5 tests, 3 pass, 0 fail, 2 skip | not in the log; no failure |
+  | `t287-generic-job-parent-foldback` | 0 | 0s | 1 tests, 0 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-generic-job-read-dependency` | 0 | 1s | 2 tests, 1 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-generic-job-revision` | 0 | 0s | 4 tests, 1 pass, 0 fail, 3 skip | not in the log; no failure |
+  | `t287-held-prefix` | 0 | 1s | 6 tests, 0 pass, 0 fail, 6 skip | not in the log; no failure |
+  | `t287-historical-source-resource` | 1 | 37s | 2 tests, 1 pass, 1 fail, 0 skip; fails at :64 | not in the log; at `0c362da15`, with the ignored fixture `installed-frame-01` linked in, the same set and first error line |
+  | `t287-installed-product-coordinate` | 0 | 1s | 11 tests, 11 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-interrupted-event-resource-recovery` | 1 | 4s | 8 tests, 6 pass, 2 fail, 0 skip; fails at :74, :136 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-json-value-definition` | 0 | 0s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-management-context` | 0 | 1s | 14 tests, 12 pass, 0 fail, 2 skip | not in the log; no failure |
+  | `t287-management-stream-drain` | 0 | 5s | 8 tests, 4 pass, 0 fail, 4 skip | not in the log; no failure |
+  | `t287-native-assessment-evidence` | 1 | 0s | 4 tests, 1 pass, 3 fail, 0 skip; fails at :551, :559, :585 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-native-runtime-gate` | 0 | 1s | 7 tests, 6 pass, 0 fail, 1 skip | no failure in the log: same; rerun on the final tree |
+  | `t287-native-selection-profile-scope` | 0 | 1s | 4 tests, 4 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-native-structural-gates` | 0 | 3s | 9 tests, 9 pass, 0 fail, 0 skip | no failure in the log: same; rerun on the final tree |
+  | `t287-native-work-currentness-consumers` | 0 | 5s | 2 tests, 2 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-native-work-reacquisition` | 0 | 1s | 9 tests, 6 pass, 0 fail, 3 skip | not in the log; no failure |
+  | `t287-native-work-reacquisition-normalization` | 1 | 0s | 2 tests, 1 pass, 1 fail, 0 skip; fails at :21 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-native-worksite-execution` | 0 | 1s | 6 tests, 3 pass, 0 fail, 3 skip | not in the log; no failure |
+  | `t287-native-workspace-work` | 0 | 2s | 38 tests, 37 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-owned-native-proof` | 0 | 1s | 1 tests, 0 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-owned-process-lifetime` | 0 | 2s | 18 tests, 18 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-post-binding-worksite-write` | 1 | 78s | 2 tests, 1 pass, 1 fail, 0 skip; fails at :244 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-predecessor-context` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-public-terminal-projection` | 1 | 1s | 4 tests, 0 pass, 4 fail, 0 skip; fails at :34, :50, :68, :87 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-qual056-material` | 0 | 3s | 7 tests, 7 pass, 0 fail, 0 skip | not in the log; no failure; rerun on the final tree |
+  | `t287-qualification-carrier-resource` | 0 | 1s | 7 tests, 0 pass, 0 fail, 7 skip | not in the log; no failure |
+  | `t287-qualification-contraction` | 0 | 1s | 4 tests, 4 pass, 0 fail, 0 skip | not in the log; no failure; rerun on the final tree |
+  | `t287-qualification-fp-proof-delivery` | 0 | 0s | 1 tests, 0 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-qualification-parent-alias` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :18 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-qualification-producer-acquisition-reuse` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines; rerun on the final tree |
+  | `t287-qualification-raw-contract-preimage` | 0 | 0s | 1 tests, 0 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-qualification-scopes` | 0 | 1s | 17 tests, 17 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-r6-retry-success-exit` | 0 | 0s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-reacquisition-root-contract` | 1 | 1s | 2 tests, 0 pass, 1 fail, 1 skip; fails at :39 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-release-acceptance` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines; rerun on the final tree |
+  | `t287-release-publication` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-result-evidence-lineage-projection` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :215 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-runtime-activity-quiescence` | 0 | 0s | 1 tests, 1 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-runtime-failure-diagnostic` | 0 | 2s | 11 tests, 11 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-selected-action-authority` | 1 | 1s | 3 tests, 2 pass, 1 fail, 0 skip; fails at :35 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-st1-installed-cross-owner-hello` | 1 | 237s | 2 tests, 0 pass, 2 fail, 0 skip; fails at :116, :737 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-stdo-environment-citation` | 1 | 2s | 2 tests, 0 pass, 1 fail, 1 skip; fails at :16 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-stdo-run-environment` | 1 | 2s | 2 tests, 0 pass, 1 fail, 1 skip; fails at :87 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-undispatched-diagnostic` | 1 | 6s | 7 tests, 5 pass, 2 fail, 0 skip; fails at :93, :222 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-w2-05-install-catalog-owner-chain` | 1 | 41s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :286 | same set and first error lines as the log |
+  | `t287-wave2-owner-contract-source-set` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | same set and first error lines as the log |
+  | `t287-worksite-construction` | 1 | 81s | 3 tests, 0 pass, 3 fail, 0 skip; fails at :217, :361, :688 | not in the log; at `0c362da15` the same set and first error lines, with digests, timings, temporary paths and inodes masked; rerun alone (the first run timed out at `:361` and `:688` under load) |
+  | `t288-blocked-retry-entry` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :8 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t288-composition-conservation` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t288-initial-cursor-entry` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :8 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t288-logical-prefix-digest` | 1 | 1s | 2 tests, 0 pass, 2 fail, 0 skip; fails at :16, :35 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t288-prefix-structure` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t288-scoped-retry-guard` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :12 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t288-workflow-scope-conservation` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t289-install-event-bodies` | 1 | 0s | 4 tests, 0 pass, 4 fail, 0 skip; fails at :121, :323, :377, :435 | not in the log; at `0c362da15` the same set and first error lines |
+  | `w2-steel-serial-branch-installed` | 0 | 0s | 2 tests, 0 pass, 0 fail, 2 skip | not in the log; no failure |
+  | `w2-steel-single-start` | 1 | 0s | 8 tests, 6 pass, 1 fail, 1 skip; fails at :118 | not in the log; at `0c362da15` the same set and first error lines |
+  | `w2-steel-single-start-closure` | 0 | 0s | 8 tests, 0 pass, 0 fail, 8 skip | not in the log; no failure |
+  | `w2-steel-single-start-installed` | 0 | 0s | 1 tests, 0 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-qualification-law` | 0 | 1s | 6 tests, 2 pass, 0 fail, 4 skip | not in the log; no failure; rerun on the final tree |
+  | `t287-malformed-gtl-gate` | 1 | 0s | 6 tests, 5 pass, 1 fail, 0 skip; fails at :60 | same set and first error lines as the log; rerun on the final tree |
+  | `t287-qualification-producer-context` | 0 | 1s | 4 tests, 4 pass, 0 fail, 0 skip | not in the log; no failure; rerun on the final tree |
+
+  Batch 3 (the tree before the `presentMember` restorations, which return those sites to the `0c362da15` answer): 36 lanes that batches 1 and 2 did not run. 33 reach a module holding an (A) site through a `test_env/support` helper (a helper that imports the module or names its built path), and three more load owners into a separate VM realm. With batches 1 and 2 this covers every lane that loads owners into a separate realm (77 lanes).
+
+  | lane | rc | wall | result | against the baseline |
+  | --- | --- | --- | --- | --- |
+  | `d2-evidence-owner` | 1 | 0s | 2 tests, 0 pass, 2 fail, 0 skip; fails at :7, :27 | not in the log; at `0c362da15` the same set and first error lines |
+  | `d2-evidence-owner-lookup` | 1 | 0s | 9 tests, 0 pass, 9 fail, 0 skip; fails at :8, :19, :22, :27, :39 | not in the log; at `0c362da15` the same set and first error lines |
+  | `d2-historical-design` | 1 | 2s | 14 tests, 10 pass, 4 fail, 0 skip; fails at :8, :27, :35, :89 | not in the log; at `0c362da15` the same set and first error lines |
+  | `d2-workflow-step` | 1 | 0s | 9 tests, 0 pass, 9 fail, 0 skip; fails at :9, :22, :29, :42, :52, :65, :98, :108, :118 | not in the log; at `0c362da15` the same set and first error lines |
+  | `forward-command-contracts` | 0 | 1s | 8 tests, 8 pass, 0 fail, 0 skip | in the log, no failure there: same |
+  | `forward-command-owners` | 1 | 0s | 6 tests, 2 pass, 4 fail, 0 skip; fails at :7, :22, :37, :45 | same set and first error lines as the log |
+  | `m5-fresh-process-reconstruction` | 1 | 40s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :13 | same set and first error lines as the log |
+  | `r5-invocation-admission` | 1 | 76s | 3 tests, 0 pass, 3 fail, 0 skip; fails at :15, :100, :598 | not in the log; at `0c362da15` the same set and first error lines |
+  | `r6-implementation-resolution` | 1 | 42s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :14 | not in the log; at `0c362da15` the same set and first error lines |
+  | `r7-graph-validation-basis` | 0 | 158s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `r8-direct-hog-entry` | 1 | 39s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :19 | not in the log; at `0c362da15` the same set and first error lines |
+  | `rival-authority-mutations` | 1 | 85s | 3 tests, 1 pass, 2 fail, 0 skip; fails at :54, :78 | not in the log; at `0c362da15` the same set and first error lines |
+  | `steel-basic-cli-source-replay` | 0 | 0s | 2 tests, 0 pass, 0 fail, 2 skip | not in the log; no failure |
+  | `t287-conformance-owner-reuse` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | same set and first error lines as the log |
+  | `t287-declared-testing-capability` | 1 | 38s | 7 tests, 5 pass, 1 fail, 1 skip; fails at :174 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-exact-construction-intent` | 0 | 72s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-exact-prefix-projection-reuse` | 1 | 0s | 2 tests, 0 pass, 1 fail, 1 skip; fails at :14 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-f04a-probabilistic-result-candidate` | 1 | 40s | 2 tests, 1 pass, 1 fail, 0 skip; fails at :356 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-fh-hold-open` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-generic-job-intake` | 1 | 32s | 2 tests, 0 pass, 1 fail, 1 skip; fails at :12 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-generic-job-parent-audit` | 0 | 0s | 1 tests, 0 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-generic-job-worksite` | 0 | 1s | 9 tests, 9 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-live-worksite-construction` | 0 | 0s | 1 tests, 0 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-management-supervision` | 1 | 33s | 5 tests, 4 pass, 1 fail, 0 skip; fails at :105 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-native-event-time` | 1 | 0s | 6 tests, 0 pass, 4 fail, 2 skip; fails at :30, :66, :86, :108 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-native-frame-route-conservation` | 1 | 1s | 3 tests, 0 pass, 3 fail, 0 skip; fails at :5, :10, :14 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-native-owner-reuse` | 0 | 0s | 3 tests, 0 pass, 0 fail, 3 skip | not in the log; no failure |
+  | `t287-native-registered-selection` | 0 | 0s | 1 tests, 0 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-native-semantic-job` | 1 | 1s | 9 tests, 8 pass, 1 fail, 0 skip; fails at :224 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-recursive-registered-selection` | 1 | 49s | 4 tests, 2 pass, 1 fail, 1 skip; fails at :129 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-registered-graph-selection` | 1 | 37s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :15 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-selected-action` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-selected-execution-closure` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-st2a-e-exact-prefix-workspace-environment` | 0 | 41s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-wave2-installed-product-verification` | 0 | 83s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-worksite-branch-construction` | 1 | 108s | 2 tests, 0 pass, 2 fail, 0 skip; fails at :584, :669 | not in the log; at `0c362da15` the same set and first error lines, with digests, timings and the prefix byte length masked (the byte length differs between two runs of the final tree) |
+
+  Batch 4 (final tree): the lanes of the owners the `presentMember` restorations edit (`shared/canonical_json`, `abg/c_call`, `construction_continuation`, `retry`, `semantic_job`, `semantic_revision`, `semantic_stage`, `worksite_construction_recovery`, `worksite_revision`, `implementation/release_publication`), with the named library lanes and `m5-worker-transport` again, and the lanes whose subject is the `shared/value` surface or the declaration inventory (`t287-json-value-definition`, `t287-event-body-encoding`, `t287-select-family`, `t287-st2a-g-capability-definition-graph`).
+
+  | lane | rc | wall | result | against the baseline |
+  | --- | --- | --- | --- | --- |
+  | `t287-value-equality` | 0 | 1s | 4 tests, 4 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-common-computational-library` | 0 | 0s | 7 tests, 7 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-consensus-ref-shape` | 0 | 0s | 2 tests, 2 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-native-semantic-revision` | 1 | 2s | 9 tests, 4 pass, 4 fail, 1 skip; fails at :122, :270, :332, :531 | same set and first error lines as the log |
+  | `t287-generic-job-revision` | 0 | 0s | 4 tests, 1 pass, 0 fail, 3 skip | not in the log; no failure |
+  | `t287-generic-job-worksite` | 0 | 0s | 9 tests, 9 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-native-semantic-job` | 1 | 1s | 9 tests, 8 pass, 1 fail, 0 skip; fails at :224 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-d1-semantic-stage` | 0 | 1s | 3 tests, 1 pass, 0 fail, 2 skip | not in the log; no failure |
+  | `t287-generic-job-meaning` | 0 | 0s | 5 tests, 3 pass, 0 fail, 2 skip | not in the log; no failure |
+  | `t287-generic-job-read-dependency` | 0 | 1s | 2 tests, 1 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `t287-generic-job-parent-foldback` | 0 | 0s | 1 tests, 0 pass, 0 fail, 1 skip | not in the log; no failure |
+  | `m5-retry-lifecycle-authority` | 1 | 0s | 9 tests, 4 pass, 5 fail, 0 skip; fails at :21, :238, :281, :323, :533 | same set and first error lines as the log |
+  | `t287-retry-run-prefix` | 1 | 0s | 3 tests, 0 pass, 3 fail, 0 skip; fails at :59, :92, :107 | not in the log; at `0c362da15` the same set and first error lines |
+  | `m5-worker-transport` | 0 | 6s | 21 tests, 21 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-release-publication` | 1 | 0s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-release-acceptance` | 1 | 1s | 1 tests, 0 pass, 1 fail, 0 skip; fails at :1 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-exact-construction-intent` | 0 | 73s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-continuation-causation` | 0 | 0s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-selected-action-authority` | 1 | 2s | 3 tests, 2 pass, 1 fail, 0 skip; fails at :35 | not in the log; at `0c362da15` the same set and first error lines |
+  | `t287-native-work-reacquisition` | 0 | 0s | 9 tests, 6 pass, 0 fail, 3 skip | not in the log; no failure |
+  | `forward-command-owners` | 1 | 1s | 6 tests, 2 pass, 4 fail, 0 skip; fails at :7, :22, :37, :45 | same set and first error lines as the log |
+  | `t287-worksite-construction` | 1 | 80s | 3 tests, 0 pass, 3 fail, 0 skip; fails at :217, :361, :688 | not in the log; at `0c362da15` the same set and first error lines, with digests, timings, temporary paths and inodes masked |
+  | `m5-event-calculus-runtime` | 1 | 158s | 19 tests, 13 pass, 5 fail, 1 skip; fails at :372, :1316, :1471, :1548, :1590 | same set and first error lines as the log |
+  | `t287-json-value-definition` | 0 | 1s | 1 tests, 1 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-event-body-encoding` | 0 | 13s | 14 tests, 14 pass, 0 fail, 0 skip | not in the log; no failure |
+  | `t287-select-family` | 0 | 0s | 7 tests, 7 pass, 0 fail, 0 skip | no failure in the log: same |
+  | `t287-st2a-g-capability-definition-graph` | 1 | 34s | 4 tests, 2 pass, 2 fail, 0 skip; fails at :74, :271 | same set and first error lines as the log |
+
+  - No new failure set on the final tree. In batch 2, `t287-native-runtime-gate` `:45` failed (`qualificationResultRelation` answered `false` for a realm-foreign record). The realm restorations (`stop: channel`) repair it, and on the final tree the lane matches the log.
+  - Lanes outside the log that fail do so identically at `0c362da15`: fixture preconditions (missing frozen fixtures or ignored carriers), import errors and assertions that hold at both.
+- Residuals:
+  - 55 casts outside the sink census remain. Among them are four casts of `any` parse results (`gtl/declarations.ts:49`, `validator/raw_admission.ts:205`, `product/worksite_command_execution.ts:1097`, `implementation/worksite_command_helper.ts:1230`) and the `as unknown as` views of typed owner objects in `abg/project_read_ports.ts` and `public/installed_public_definition_call.ts`.
+  - The tracer does not resolve method receivers (`product.canonicalJson`), callees outside `code/src`, or flows through a `Map`. The ticket's list covered the receiver case it named.
+  - Decision for the Executive, realm: `admitJson` refuses a plain record of another realm, and `canonicalEquals` does not. Every (A) site therefore refuses a realm-foreign record that `0c362da15` compared. `code/src` creates no second realm (no `node:vm`). 161 lanes ran in this gate, 77 of them loading owners or harnesses into a separate VM realm. Only one result changed through a realm-foreign record: the qualification fixture's, at the four `stop: channel` casts. Every other lane keeps the failure set of the log or of `0c362da15`. A realm-foreign record that no lane builds can still reach an (A) site. A realm-independent plain-record check in `shared/admit` (§4.1) discharges the four stops and removes the hazard at every (A) site.
+  - Decision for the Executive: design §10.3 O-SCHEMA says "No other ingress takes a stricter I-JSON policy." That now conflicts with the O-TYPE row: the 179 (A) sites admit through `admitJson` at the site under D11, and `validator/raw_admission.ts` `rawAdmitValue` admits every raw kind as I-JSON, where before only the structural kinds were admitted. The O-SCHEMA cell is outside this grant; the sentence needs the Executive's reading (scope it to Product boundary ingress, or name the D11 site admissions).
+  - The consensus guard and evaluator edits in `gtl/consensus.ts` rest on `t287-consensus-ref-shape` (2 tests). `m5-consensus-module` fails at import (`ROOT_PUBLIC_OPERATION_IDS` is not exported by `public/index.js`), as in `step-8-run-final.log`.
+  - The ticket's step 4 residual line still names "the `JsonValue` casts of the O-TYPE open list"; that line is outside the O-TYPE bullet.
+  - 460 interfaces on the census rows' type paths are now type aliases, so they are `JsonValue`-assignable. This changes the exported `.d.ts` declarations, and the declaration-inventory digests with them, with no runtime effect.
+  - Shallow record guards remain where the members' owners narrow them (O-SHAPE).
+  - Local admission helpers remain duplicated across modules: `admittedDigestIs`, `sameAdmitted`, `projectionIs`, `outputIs`, `preparedFor`.
+  - `presentMember` is a new export of `shared/canonical_json.ts`, and `shared/value` re-exports that module whole, so it joins the `derive` family surface. Design §4.3 does not name it and is outside this grant: the Executive ratifies it there or moves it.
+  - Decision for the Executive, valueless result events: four lookups (`abg/semantic_job.ts` `validateWorksiteFileParentsPlanAtPrefix`, `abg/semantic_revision.ts` `semanticJobRevisionInputMatchesBasis` and `semanticRevisionInputMatchesBasis`, `abg/worksite_construction_recovery.ts` `nativeWorksiteRecoverySourceAtPrefix`) answer `false` when any `c_call_result_admitted` event in scope lacks `value`, which the payload contract allows; the other restored lookups throw. This repair keeps the `0c362da15` answer. Delta: filter the events without `value` before the comparison, so that such an event does not match and the lookup answers from the rest.
+  - The widening check covers each added `undefined` branch and its direct caller: a branch that answers a refusal of its function was checked at each call site for a caller that turns that refusal into a dropped element. Callers further up were not traced.
+  - The new explicit-member checks in `abg/witness_admission_operation.ts` (reprice `reason`; run-resumed and run-stopped `reasonKind`/`reasonDetail`) have no passing case: both witness lanes fail on fixture preconditions here and at `0c362da15`.
+  - The five stopped subjects encode `RuntimeHistorySelection` as `{}` until their contract carries the prefix coordinate.

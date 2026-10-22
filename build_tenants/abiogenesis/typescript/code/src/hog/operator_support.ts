@@ -26,10 +26,10 @@ export interface ExecutionClock {
 }
 
 export function canonicalDigest(
-  value: unknown,
+  value: JsonValue,
 ): `sha256:${string}` | null {
   try {
-    return sha256Canonical(value as JsonValue);
+    return sha256Canonical(value);
   } catch {
     return null;
   }

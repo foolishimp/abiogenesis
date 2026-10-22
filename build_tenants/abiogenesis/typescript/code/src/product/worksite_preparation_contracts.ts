@@ -10,7 +10,7 @@ import type { WorksiteRevisionCommandPreparationInput,
   WorksiteRevisionCommandPreparationBoundInput, WorksiteRevisionDependencyObservation } from "./worksite_revision.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-export interface WorksiteCommandPreparationInput {
+export type WorksiteCommandPreparationInput = {
   readonly kind: "worksite_command_preparation_input";
   readonly schemaVersion: "5.0.0";
   readonly constructionTask: WorksiteConstructionTask;
@@ -18,16 +18,16 @@ export interface WorksiteCommandPreparationInput {
   readonly outcomePredicates: readonly WorksiteOutcomePredicateInput[];
   readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritoryInput[];
   readonly readDependencyBasis?: WorksiteReadDependencyBasis;
-}
+};
 
-export interface WorksiteBranchCommandPreparationInput {
+export type WorksiteBranchCommandPreparationInput = {
   readonly kind: "worksite_branch_command_preparation_input";
   readonly schemaVersion: "5.0.0";
   readonly constructionTask: WorksiteBranchConstructionTask;
   readonly commands: readonly WorksiteDeclaredCommandInput[];
   readonly outcomePredicates: readonly WorksiteOutcomePredicateInput[];
   readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritoryInput[];
-}
+};
 
 export interface WorksiteCommandPreparationBoundInput {
   readonly kind: "worksite_command_preparation_bound_input";
@@ -138,7 +138,7 @@ export function isWorksiteRetentionContractRelation(binding: GtlEdgeInputBinding
     binding.sourceContractRef !== bound.fields.source.declaration.contractRef) return false;
   return contracts === undefined || [bound.declaration, bound.fields.entry.declaration, bound.fields.source.declaration].every((expected) => {
     const matches = contracts.filter((candidate) => candidate.contractRef === expected.contractRef);
-    return matches.length === 1 && canonicalEquals(matches[0] as unknown as JsonValue, expected as unknown as JsonValue);
+    return matches.length === 1 && matches[0] !== undefined && canonicalEquals(matches[0], expected);
   });
 }
 
@@ -175,7 +175,7 @@ export function isGraphInputRetentionContractRelation(binding: GtlEdgeInputBindi
     binding.entryContractRef === binding.targetContractRef || binding.sourceContractRef === binding.targetContractRef) return false;
   if (contracts === undefined) return true;
   const target=contracts.filter(c=>c.contractRef===binding.targetContractRef);
-  return target.length===1 && canonicalEquals(target[0] as unknown as JsonValue, RETAINED_GRAPH_INPUT_CONTRACT) &&
+  return target.length===1 && target[0] !== undefined && canonicalEquals(target[0], RETAINED_GRAPH_INPUT_CONTRACT) &&
     [binding.entryContractRef,binding.sourceContractRef].every(ref=>contracts.filter(c=>c.contractRef===ref).length===1);
 }
 export function constructRetainedGraphInput(entry: unknown, source: unknown): RetainedGraphInput {

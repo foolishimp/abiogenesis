@@ -77,7 +77,7 @@ export function constructExactOperationInvocationCoordinate(
     definitionDigest: definition.definitionDigest,
     invocationRef,
     invocationPayloadDigest,
-  } as JsonValue);
+  });
   return deepFreeze({
     ...definition,
     invocationRef,
@@ -117,5 +117,5 @@ export function isExactOperationInvocationCoordinate(
     definitionDigest: candidate.definitionDigest,
     invocationRef: candidate.invocationRef,
     invocationPayloadDigest: candidate.invocationPayloadDigest,
-  } as JsonValue);
+  });
 }

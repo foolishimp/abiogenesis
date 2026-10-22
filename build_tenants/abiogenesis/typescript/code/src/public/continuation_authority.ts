@@ -28,6 +28,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { admitJson } from "../shared/admit/index.js";
 
 export interface PublicContinuationAuthority {
   readonly kind: "public_continuation_authority";
@@ -105,8 +106,8 @@ export function constructPublicContinuationAuthority(
   return deepFreeze(
     JSON.parse(canonicalJson({
       ...body,
-      authorityDigest: sha256Canonical(body as unknown as JsonValue),
-    } as unknown as JsonValue)),
+      authorityDigest: sha256Canonical(body),
+    })),
   ) as PublicContinuationAuthority;
 }
 
@@ -193,13 +194,17 @@ export function parsePublicContinuationAuthority(
     ...body
   } = value;
   try {
+    // The authority arrives unchecked: it is admitted as I-JSON before its
+    // digest and copy, and a refusal is null.
+    const admittedBody = admitJson(body), admittedValue = admitJson(value);
     if (
-      sha256Canonical(body as unknown as JsonValue) !== authorityDigest
+      admittedBody.kind !== "ok" || admittedValue.kind !== "ok" ||
+      sha256Canonical(admittedBody.value) !== authorityDigest
     ) {
       return null;
     }
     return deepFreeze(
-      JSON.parse(canonicalJson(value as unknown as JsonValue)),
+      JSON.parse(canonicalJson(admittedValue.value)),
     ) as PublicContinuationAuthority;
   } catch {
     return null;

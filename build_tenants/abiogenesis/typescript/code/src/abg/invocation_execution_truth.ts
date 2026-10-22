@@ -59,14 +59,16 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
         source.sourceResultContractRef !== governanceContract("state")) return null;
     const invocation = projectExactInvocationAdmissionAtPrefix(prefix, source.sourceInvocationAdmissionRef);
     const result = indexedRuntimeEvents(prefix, "id:" + source.sourceResultAdmissionEventRef).filter(e => e.eventId === source.sourceResultAdmissionEventRef && e.kind === "c_call_result_admitted");
-    if (invocation === null || result.length !== 1 || !isRecord(result[0]!.payload) ||
-        result[0]!.payload.resultRef !== source.sourceResultRef || result[0]!.payload.resultDigest !== source.sourceResultDigest ||
-        result[0]!.payload.valueDigest !== source.sourceResultValueDigest || !canonicalEquals(result[0]!.payload.value as JsonValue, source.sourceResultValue) ||
-        result[0]!.aggregateId !== source.sourceCCallRef || result[0]!.runId !== source.sourceRunId ||
+    const resultEvent = result.length === 1 ? result[0] : undefined;
+    if (invocation === null || resultEvent === undefined || !isRecord(resultEvent.payload) ||
+        resultEvent.payload.resultRef !== source.sourceResultRef || resultEvent.payload.resultDigest !== source.sourceResultDigest ||
+        resultEvent.payload.valueDigest !== source.sourceResultValueDigest || resultEvent.payload.value === undefined ||
+        !canonicalEquals(resultEvent.payload.value, source.sourceResultValue) ||
+        resultEvent.aggregateId !== source.sourceCCallRef || resultEvent.runId !== source.sourceRunId ||
         invocation.workspaceBindingId !== source.workspaceBindingId || invocation.workspaceBindingDigest !== source.workspaceBindingDigest ||
         invocation.workspaceId !== workspaceBinding.workspaceId || invocation.actorRef !== workspaceBinding.authorizedActorRef ||
-        invocation.programRef !== program.programRef || invocation.programDigest !== sha256Canonical(program as unknown as JsonValue) ||
-        invocation.graphFunctionRef !== graphFunction.name || invocation.graphFunctionDigest !== sha256Canonical(graphFunction as unknown as JsonValue)) return null;
+        invocation.programRef !== program.programRef || invocation.programDigest !== sha256Canonical(program) ||
+        invocation.graphFunctionRef !== graphFunction.name || invocation.graphFunctionDigest !== sha256Canonical(graphFunction)) return null;
     const historical = input.historicalDeclarations.filter(p => p.catalog.basisDigest === invocation.catalogBasisDigest &&
       p.catalogView.viewDigest === invocation.catalogViewDigest);
     if (historical.length !== 1) return null;
@@ -77,7 +79,7 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
     const currentEnvironment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
       { ref: workspaceBinding.bindingId, digest: workspaceBinding.bindingDigest });
     if (oldEnvironment.kind !== "exact_prefix_workspace_environment" || currentEnvironment.kind !== "exact_prefix_workspace_environment" ||
-        !canonicalEquals(currentEnvironment.workspaceBinding as unknown as JsonValue, workspaceBinding as unknown as JsonValue)) return null;
+        !canonicalEquals(currentEnvironment.workspaceBinding, workspaceBinding)) return null;
     const reconstruct = (proof: AbgHistoricalDeclarationProof, env: typeof oldEnvironment) => reconstructHistoricalDeclarationCatalog(proof, {
       workspaceBinding: env.workspaceBindingCandidate, resolvedLock: env.resolvedProductLock,
       installedProducts: env.productInstalls.map(i => {
@@ -98,8 +100,8 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
     const inputContract = selectExactClosureContract(selected, invocation.inputContractRef);
     const outputContract = selectExactClosureContract(selected, invocation.outputContractRef);
     if (inputContract === null || outputContract === null ||
-        sha256Canonical(inputContract.contract as unknown as JsonValue) !== invocation.inputContractDigest || !canonicalEquals(inputContract.owner as unknown as JsonValue, invocation.inputContractOwner as unknown as JsonValue) ||
-        sha256Canonical(outputContract.contract as unknown as JsonValue) !== invocation.outputContractDigest || !canonicalEquals(outputContract.owner as unknown as JsonValue, invocation.outputContractOwner as unknown as JsonValue)) return null;
+        sha256Canonical(inputContract.contract) !== invocation.inputContractDigest || !canonicalEquals(inputContract.owner, invocation.inputContractOwner) ||
+        sha256Canonical(outputContract.contract) !== invocation.outputContractDigest || !canonicalEquals(outputContract.owner, invocation.outputContractOwner)) return null;
     const compared = compareGovernanceDeclarationPublications(oldClosure.publications, newClosure.publications,
       { historical: oldEnvironment.productInstalls, current: currentEnvironment.productInstalls });
     const basis = result[0]!.basisId === null ? null : projectExactExecutionBasisAtPrefix(prefix, result[0]!.basisId);
@@ -115,7 +117,7 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
       historicalDeclaration: constructAbgHistoricalDeclarationReference(historical[0]!),
       currentDeclaration: constructAbgHistoricalDeclarationReference(currentDeclaration),
       declarationMeaningDigest: compared.meaningDigest, declarationOwners: compared.owners, bindingCoverEventRefs: covers };
-    return deepFreeze({ ...body, useDigest: sha256Canonical(body as unknown as JsonValue) });
+    return deepFreeze({ ...body, useDigest: sha256Canonical(body) });
   } catch { return null; }
 }
 
@@ -126,7 +128,7 @@ function coveredGovernancePredecessor(prefix: RuntimeEventPrefix,
   invocation: InvocationAdmission): InvocationAdmission | null {
   const actual = projectExactInvocationAdmissionAtPrefix(prefix, invocation.invocationAdmissionRef);
   const source = actual?.sourceResultBasis;
-  if (actual === null || !canonicalEquals(actual as unknown as JsonValue, invocation as unknown as JsonValue) || source === null || source === undefined ||
+  if (actual === null || !canonicalEquals(actual, invocation) || source === null || source === undefined ||
       !isInvocationSourceResultBasis(source) || source.sourceResultContractRef !== governanceContract("state") ||
       !isGovernanceWorkState(source.sourceResultValue) || source.sourceResultValue.terminal ||
       actual.rawInputDigest !== source.sourceResultValueDigest) return null;
@@ -152,7 +154,7 @@ function coveredGovernancePredecessor(prefix: RuntimeEventPrefix,
       result.aggregateId !== source.sourceCCallRef || result.runId !== source.sourceRunId || result.graphCallId !== source.sourceGraphCallId ||
       result.payload.resultClass !== "success" || result.payload.contractRef !== source.sourceResultContractRef ||
       result.payload.resultRef !== source.sourceResultRef || result.payload.resultDigest !== source.sourceResultDigest ||
-      result.payload.valueDigest !== source.sourceResultValueDigest || !canonicalEquals(result.payload.value as JsonValue, source.sourceResultValue) ||
+      result.payload.valueDigest !== source.sourceResultValueDigest || (result.payload.value === undefined || !canonicalEquals(result.payload.value, source.sourceResultValue)) ||
       judgment.aggregateId !== result.aggregateId || judgment.basisId !== result.basisId || judgment.runId !== result.runId ||
       judgment.graphCallId !== result.graphCallId || judgment.frameId !== result.frameId ||
       judgment.payload.judgment !== "advance" || judgment.payload.resultRef !== source.sourceResultRef ||
@@ -181,7 +183,7 @@ export function governanceHistoricalDeclarationReferenceAtPrefix(prefix: Runtime
     while (current !== null && !seen.has(current.invocationAdmissionRef)) {
       seen.add(current.invocationAdmissionRef);
       const actual = projectExactInvocationAdmissionAtPrefix(prefix, current.invocationAdmissionRef);
-      if (actual === null || !canonicalEquals(actual as unknown as JsonValue, current as unknown as JsonValue)) return null;
+      if (actual === null || !canonicalEquals(actual, current)) return null;
       if (actual.invocationAdmissionRef === sourceBasis.invocationAdmissionRef) {
         return actual.workspaceBindingId === sourceBasis.workspaceBindingId && actual.workspaceBindingDigest === sourceBasis.workspaceBindingDigest &&
             actual.catalogBasisDigest === sourceBasis.catalogBasisDigest && actual.catalogViewDigest === sourceBasis.catalogViewDigest
@@ -345,7 +347,7 @@ export function projectExactInvocationAdmissionAtPrefix(
     ...(admission.runEnvironment === undefined ? {} : { runEnvironment: admission.runEnvironment }),
   };
   const operationId = "abg.operation.run.invoke";
-  return sha256Canonical(body as unknown as JsonValue) ===
+  return sha256Canonical(body) ===
         admission.invocationAdmissionDigest &&
       typeof admission.publicRequestInvocationRef === "string" &&
       admission.publicRequestInvocationRef.length > 0 &&
@@ -417,11 +419,11 @@ export function projectExactInvocationAdmissionAtPrefix(
       isRecord(publicEvent.payload.gtlEntryTerm) &&
       canonicalEquals(
         publicEvent.payload.gtlEntryCoordinate,
-        admission.gtlEntryCoordinate as unknown as JsonValue,
+        admission.gtlEntryCoordinate,
       ) &&
       canonicalEquals(
         publicEvent.payload.gtlEntryTerm,
-        admission.gtlEntryTerm as unknown as JsonValue,
+        admission.gtlEntryTerm,
       ) &&
       event.payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
       event.payload.invocationAdmissionDigest ===
@@ -555,8 +557,8 @@ export function hasExactInvocationAdmissionAtPrefix(
   );
   return projected !== null &&
     canonicalEquals(
-      projected as unknown as JsonValue,
-      admission as unknown as JsonValue,
+      projected,
+      admission,
     );
 }
 
@@ -616,7 +618,7 @@ function executionBasisBody(basis: ExecutionBasis): JsonValue {
     admissionEventRef: _admissionEventRef,
     ...body
   } = basis;
-  return body as unknown as JsonValue;
+  return body;
 }
 
 /** One `basis_admitted` event as a checked record: the projection admits the

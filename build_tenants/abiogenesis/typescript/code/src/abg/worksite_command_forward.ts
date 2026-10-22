@@ -27,8 +27,9 @@ import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } fro
 import { replayValidatedRuntimeEventPrefix } from "./replay.js";
 import { constructRunActiveFluent, runtimeFluentKey } from "./event_calculus.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson } from "../shared/admit/index.js";
 import { resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
-const hash=(a:unknown)=>sha256Canonical(a as JsonValue);
+const hash=(a:JsonValue)=>sha256Canonical(a);
 const record=(v:unknown):v is Record<string,JsonValue>=>v!==null&&typeof v==="object"&&!Array.isArray(v);
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
@@ -107,7 +108,7 @@ export function projectWorksiteCommandForwardSource(request:WorksiteCommandForwa
     const construction=projectClosedGraphCallTerminalAtDurablePrefix(s.prefix,s.constructionGraphCallRef,s.declarationProof);
     if(construction===null||construction.producer.runRef!==s.runId||construction.producer.invocationAdmissionRef!==s.invocationAdmissionRef||
       construction.producer.executionBasis.ref!==retained.sourceBasis.basisRef||!isWorksiteConstructionResult(construction.value)||
-      !canonicalEquals(construction.value, originalTask.sourceConstructionResult as unknown as JsonValue))return null;
+      !canonicalEquals(construction.value, originalTask.sourceConstructionResult))return null;
     const preparationGF=definition(parent!.graphFunctionRef),preparation=preparationGF===null?null:nativeLeaf(prefix,retained.preparationResult.aggregateId,preparationGF);
     if(preparation===null||preparation.result.resultClass!=="success"||preparation.judgment.judgment!=="advance"||
       preparation.resultEvent.eventId!==s.preparationResultEventRef||!canonicalEquals(preparation.result.value, originalTask))return null;
@@ -189,10 +190,10 @@ export function projectWorksiteCommandForwardRelation(current:DurablePrefixCoord
     if(!isWorksiteCommandForwardRequest(request)||!authenticateRuntimePrefixAncestry(s.prefix,current)||
       !worksiteCommandForwardUnconsumed(prefix,request,currentInvocationRef))return null;
     const source=projectWorksiteCommandForwardSource(request);
-    if(source===null||!source.events.every((e,i)=>canonicalEquals(e as unknown as JsonValue, events[i] as unknown as JsonValue)))return null;
+    if(source===null||!source.events.every((e,i)=>events[i] !== undefined && canonicalEquals(e, events[i])))return null;
     const environment=projectExactPrefixWorkspaceEnvironment(current,{ref:request.workspaceBinding.bindingId,digest:request.workspaceBinding.bindingDigest});
-    if(environment.kind!=="exact_prefix_workspace_environment"||!canonicalEquals(environment.workspaceAuthorityBasis as unknown as JsonValue, request.workspaceAuthorityBasis as unknown as JsonValue)||
-      !canonicalEquals(environment.workspaceBinding as unknown as JsonValue, request.workspaceBinding as unknown as JsonValue))return null;
+    if(environment.kind!=="exact_prefix_workspace_environment"||!canonicalEquals(environment.workspaceAuthorityBasis, request.workspaceAuthorityBasis)||
+      !canonicalEquals(environment.workspaceBinding, request.workspaceBinding))return null;
     const retained=projectClosedConstructionRetainedVector(prefix,source.originalTask,request,source.bases);
     if(retained===null)return null;
     const task=constructWorksiteCommandForwardTask({request,originalTask:source.originalTask,...retained});
@@ -201,11 +202,11 @@ export function projectWorksiteCommandForwardRelation(current:DurablePrefixCoord
   }catch{return null;}
 }
 export function worksiteCommandForwardEntryDisposition(prefix:DurablePrefixCoordinate,gf:GraphFunction,input:unknown,
-  binding:WorkspaceBinding,grants:readonly unknown[],sourceResultBasis:unknown):"not_applicable"|"covered"|"basis_fork_detected" {
+  binding:WorkspaceBinding,grants:readonly JsonValue[],sourceResultBasis:unknown):"not_applicable"|"covered"|"basis_fork_detected" {
   if(!isWorksiteCommandForwardRequest(input)&&gf.declarations["abg.worksite_command_forward"]===undefined&&
     gf.name!==F.graphFunctionRef&&gf.name!==F.childGraphFunctionRef)return "not_applicable";
   if(!isWorksiteCommandForwardRequest(input)||!isWorksiteCommandForwardGraphFunction(gf)||gf.name!==F.graphFunctionRef||
-    sourceResultBasis!=null||!canonicalEquals(binding as unknown as JsonValue, input.workspaceBinding as unknown as JsonValue)||grants.length!==1||!canonicalEquals(grants[0] as JsonValue, input.capabilityGrant as unknown as JsonValue))return "basis_fork_detected";
+    sourceResultBasis!=null||!canonicalEquals(binding, input.workspaceBinding)||grants.length!==1||grants[0]===undefined||!canonicalEquals(grants[0], input.capabilityGrant))return "basis_fork_detected";
   return projectWorksiteCommandForwardRelation(prefix,input,null,true)===null?"basis_fork_detected":"covered";
 }
 export interface WorksiteCommandForwardNativeBasis {
@@ -217,9 +218,9 @@ export function authenticateWorksiteCommandForwardBasis(basis:WorksiteCommandFor
   try{
     const events=readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix),prefix=selectValidatedRuntimeEventPrefix(events);
     const execution=projectExactExecutionBasisAtPrefix(prefix,basis.executionBasis.basisRef);
-    if(execution===null||!canonicalEquals(execution as unknown as JsonValue, basis.executionBasis)||!isWorksiteCommandForwardGraphFunction(basis.graphFunction))return null;
+    if(execution===null||!canonicalEquals(execution, basis.executionBasis)||!isWorksiteCommandForwardGraphFunction(basis.graphFunction))return null;
     const graph=graphFor(execution,basis.graphFunction),call=graph===null?null:projectOpenedCCallCarrierAtPrefix(prefix,graph,basis.cCall.cCallRef);
-    if(graph===null||!canonicalEquals(graph as unknown as JsonValue, basis.graph as unknown as JsonValue)||call===null||!canonicalEquals(call as unknown as JsonValue, basis.cCall)||call.callClass!=="leaf"||
+    if(graph===null||!canonicalEquals(graph, basis.graph)||call===null||!canonicalEquals(call, basis.cCall)||call.callClass!=="leaf"||
       !([F.prepareImplementationRef,F.implementationRef] as readonly string[]).includes(call.implementationRef??"")||
       !hasAdmittedTraversalCursorAtPrefix(prefix,basis.cursor)||basis.cursor.executionBasisRef!==execution.basisRef||
       basis.cursor.graphCallId!==call.graphCallId||basis.cursor.frameId!==call.frameId||
@@ -236,9 +237,9 @@ export function authenticateWorksiteCommandForwardBasis(basis:WorksiteCommandFor
     const relation=projectWorksiteCommandForwardRelation(basis.predecessorPrefix,request,execution.invocationAdmissionRef,physical);
     const invocation=projectExactInvocationAdmissionAtPrefix(prefix,execution.invocationAdmissionRef);
     if(relation===null||invocation?.graphFunctionRef!==F.graphFunctionRef||invocation.sourceResultBasis!==null||
-      invocation.capabilityGrants.length!==1||!canonicalEquals(invocation.capabilityGrants[0] as unknown as JsonValue, request.capabilityGrant as unknown as JsonValue))return null;
+      invocation.capabilityGrants.length!==1||(invocation.capabilityGrants[0] === undefined || !canonicalEquals(invocation.capabilityGrants[0], request.capabilityGrant)))return null;
     if(call.implementationRef===F.prepareImplementationRef){
-      if(execution.basisClass!=="root"||execution.graphFunctionRef!==F.graphFunctionRef||!canonicalEquals(execution.rawInputValue, request as unknown as JsonValue)||
+      if(execution.basisClass!=="root"||execution.graphFunctionRef!==F.graphFunctionRef||!canonicalEquals(execution.rawInputValue, request)||
         call.programLocusRef!==F.prepareNodeRef||basis.cursor.inputDigest!==hash(request))return null;
     }else if(!worksiteCommandForwardChildSourceAtPrefix(prefix,basis.predecessorPrefix,execution.parentExecutionBasisRef,
       execution.parentCCallRef,execution.rawInputValue,false))return null;
@@ -258,7 +259,7 @@ export function worksiteCommandForwardChildSourceAtPrefix(prefix:RuntimeEventPre
   try{
     if(parentRef===null||parentCCallRef===null||!isWorksiteCommandForwardTask(input))return false;
     const parent=projectExactExecutionBasisAtPrefix(prefix,parentRef),events=indexedRuntimeEvents(prefix,"aggregate:c_call:"+parentCCallRef);
-    if(parent===null||parent.graphFunctionRef!==F.graphFunctionRef||!canonicalEquals(parent.rawInputValue, input.request as unknown as JsonValue)||parent.basisClass!=="root")return false;
+    if(parent===null||parent.graphFunctionRef!==F.graphFunctionRef||!canonicalEquals(parent.rawInputValue, input.request)||parent.basisClass!=="root")return false;
     const parentCall=exactOrNull(resolveExactMatch(events,e=>e.kind==="c_call_opened"&&e.aggregateId===parentCCallRef&&e.basisId===parentRef));
     if(parentCall===null||!record(parentCall.payload)||parentCall.payload.callClass!=="workflow"||parentCall.payload.childGraphFunctionRef!==F.childGraphFunctionRef)return false;
     const parentPayload=parentCall.payload;
@@ -269,9 +270,9 @@ export function worksiteCommandForwardChildSourceAtPrefix(prefix:RuntimeEventPre
     if(producer===null||producer.cCall.implementationRef!==F.prepareImplementationRef||producer.cCall.programLocusRef!==F.prepareNodeRef||
       producer.basis.basisRef!==parentRef||producer.result.resultClass!=="success"||producer.judgment.judgment!=="advance"||
       producer.judgment.judgmentRef!==route.payload.judgmentRef||!route.causationEventRefs.includes(producer.judgmentEvent.eventId)||
-      !canonicalEquals(producer.result.value, input as unknown as JsonValue))return false;
+      !canonicalEquals(producer.result.value, input))return false;
     const relation=projectWorksiteCommandForwardRelation(durable,input.request,parent.invocationAdmissionRef,physical);
-    return relation!==null&&canonicalEquals(relation.task as unknown as JsonValue, input as unknown as JsonValue);
+    return relation!==null&&canonicalEquals(relation.task, input);
   }catch{return false;}
 }
 // The declaration is reconstructed, not selected by a caller or loaded by a host controller.
@@ -279,7 +280,12 @@ import { worksiteCommandForwardGraphFunctions } from "../gtl/worksite_command_fo
 function awaitFreeForwardRoot():GraphFunction{return worksiteCommandForwardGraphFunctions()[0]!;}
 export function worksiteCommandForwardResultMatches(basis:WorksiteCommandForwardNativeBasis,input:unknown,value:unknown):boolean {
   const owner=authenticateWorksiteCommandForwardBasis(basis,true);
-  return owner!==null&&(owner.call.implementationRef===F.prepareImplementationRef
-    ? canonicalEquals(input as JsonValue, owner.relation.task.request as unknown as JsonValue)&&canonicalEquals(value as JsonValue, owner.relation.task as unknown as JsonValue)
-    : isWorksiteCommandForwardObservation(value)&&canonicalEquals(value.task as unknown as JsonValue, owner.relation.task as unknown as JsonValue)&&canonicalEquals(input as JsonValue, owner.relation.task as unknown as JsonValue));
+  if(owner===null)return false;
+  const admittedInput=admitJson(input);
+  if(admittedInput.kind!=="ok")return false;
+  if(owner.call.implementationRef===F.prepareImplementationRef){
+    const admittedValue=admitJson(value);
+    return admittedValue.kind==="ok"&&canonicalEquals(admittedInput.value, owner.relation.task.request)&&canonicalEquals(admittedValue.value, owner.relation.task);
+  }
+  return isWorksiteCommandForwardObservation(value)&&canonicalEquals(value.task, owner.relation.task)&&canonicalEquals(admittedInput.value, owner.relation.task);
 }

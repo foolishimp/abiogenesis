@@ -16,7 +16,7 @@ import { canonicalJson } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import { canonicalEquals } from "../shared/value/index.js";
 const descriptorBody = {
     implementationRef: WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,
@@ -591,14 +591,17 @@ function realizePreparation(input, implementationRef, selection, branch, revisio
             : branch ? "worksite_branch_command_preparation_bound_input" : "worksite_command_preparation_bound_input";
         if (!admitted || kind !== expectedKind)
             throw new TypeError("preparation input does not match its declared leaf");
-        const resultCandidate = (selection && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
-            : !selection && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input) : null);
+        const resultCandidate = selection && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
+            : !selection && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input) : null;
         if (resultCandidate === null)
             throw new TypeError("preparation result absent");
+        const admittedInput = admitJson(input);
+        if (admittedInput.kind !== "ok")
+            throw new TypeError("preparation input is not admitted JSON");
         return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0",
             disposition: "success",
             evidenceCandidates: [{ kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0",
-                    implementationRef, inputDigest: sha256Canonical(input), outputDigest: sha256Canonical(resultCandidate) }], resultCandidate });
+                    implementationRef, inputDigest: sha256Canonical(admittedInput.value), outputDigest: sha256Canonical(resultCandidate) }], resultCandidate });
     }
     catch {
         const diagnosticRef = "diagnostic://abiogenesis/worksite/command-execution/preparation-invalid@5";

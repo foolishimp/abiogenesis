@@ -5,7 +5,7 @@ import type { ComputeRegime } from "./c_algebra.js";
 
 export type { ComputeRegime } from "./c_algebra.js";
 
-export interface ContractDeclaration extends structure.ContractValue<typeof structure.CONTRACT_DECLARATION_SCHEMA> {}
+export type ContractDeclaration = structure.ContractValue<typeof structure.CONTRACT_DECLARATION_SCHEMA> & {};
 
 export interface GtlEnvironment extends structure.ContractValue<typeof structure.ENVIRONMENT_SCHEMA> {}
 
@@ -56,7 +56,7 @@ export type GraphFunctionApplication =
   | IdentityApplication
   | SameObjectApplication;
 
-export interface GraphTemplate extends structure.ContractValue<typeof structure.GRAPH_TEMPLATE_SCHEMA> {}
+export type GraphTemplate = structure.ContractValue<typeof structure.GRAPH_TEMPLATE_SCHEMA> & {};
 
 export interface GraphMaterializationBasis {
   readonly invocationAdmissionRef: string;
@@ -65,14 +65,14 @@ export interface GraphMaterializationBasis {
   readonly admittedInput: Readonly<Record<string, JsonValue>>;
 }
 
-export interface FanOutMaterializedMember {
+export type FanOutMaterializedMember = {
   readonly ordinal: number;
   readonly memberRef: string;
   readonly memberDigest: Sha256Digest;
   readonly value: Readonly<Record<string, JsonValue>>;
-}
+};
 
-export interface FanOutMaterialization {
+export type FanOutMaterialization = {
   readonly applicationRef: string;
   readonly batchRef: string;
   readonly inputVectorRef: string;
@@ -80,7 +80,7 @@ export interface FanOutMaterialization {
   readonly inputMemberContractRef: string;
   readonly outputMemberContractRef: string;
   readonly members: readonly FanOutMaterializedMember[];
-}
+};
 
 export interface GtlGraph {
   readonly kind: "gtl_graph";
@@ -108,7 +108,7 @@ export interface ProgramStart extends structure.ContractValue<typeof structure.P
 
 export interface ProgramPublicAssetTarget extends structure.ContractValue<typeof structure.PROGRAM_PUBLIC_ASSET_TARGET_SCHEMA> {}
 
-export interface GtlActionCatalogRow extends structure.ContractValue<typeof structure.ACTION_CATALOG_ROW_SCHEMA> {}
+export type GtlActionCatalogRow = structure.ContractValue<typeof structure.ACTION_CATALOG_ROW_SCHEMA> & {};
 
 export interface GtlActionCatalog extends structure.ContractValue<typeof structure.ACTION_CATALOG_SCHEMA> {}
 
@@ -126,7 +126,7 @@ export type CatalogContributionKind = CatalogContribution["kind"];
 
 export interface CatalogContribution extends structure.ContractValue<typeof structure.CATALOG_CONTRIBUTION_SCHEMA> {}
 
-export interface ModulePublication extends structure.ContractValue<typeof structure.MODULE_PUBLICATION_SCHEMA> {}
+export type ModulePublication = structure.ContractValue<typeof structure.MODULE_PUBLICATION_SCHEMA> & {};
 
 export interface RootModuleArtifactBasis {
   readonly productId: string;

@@ -237,7 +237,7 @@ function completeBlockedWorkflowOutcome(
       outcome.successorPrefix,
       `${stage}-route-proposal`,
       `diagnostic://abiogenesis/hog/${candidate.code}@5`,
-      candidate as unknown as JsonValue,
+      candidate,
     );
   }
   const admitted = OwnedOutcome.admitOwnedCCallCompletion({
@@ -265,7 +265,7 @@ function completeBlockedWorkflowOutcome(
         outcome.successorPrefix,
         `${stage}-completion`,
         `diagnostic://abiogenesis/hog/${admitted.code}@5`,
-        admitted as unknown as JsonValue,
+        admitted,
       );
 }
 
@@ -308,7 +308,7 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
         runtime.predecessorPrefix,
         `workflow-step-${ordinal}`,
         "diagnostic://abiogenesis/hog/workflow-step-mismatch@5",
-        term as unknown as JsonValue,
+        term,
       );
     }
     const childGraphFunction =
@@ -330,7 +330,7 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
         );
     const childClosureDigest = childClosureContract === null
       ? null
-      : sha256Canonical(childClosureContract as unknown as JsonValue);
+      : sha256Canonical(childClosureContract);
     const judgmentPredicateRef =
       runtime.graphFunction.declarations["abg.judgment_predicate"];
     if (
@@ -352,8 +352,7 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
         runtime.predecessorPrefix,
         `workflow-contract-${ordinal}`,
         "diagnostic://abiogenesis/hog/workflow-failure-contract-ambiguous@5",
-        (failureResolution ?? { childGraphFunctionRef: term.graphFunctionRef }) as
-          unknown as JsonValue,
+        (failureResolution ?? { childGraphFunctionRef: term.graphFunctionRef }),
       );
     }
     const opened = Abg.openCCall({
@@ -396,7 +395,7 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
         runtime.predecessorPrefix,
         `workflow-parent-${ordinal}`,
         `diagnostic://abiogenesis/hog/${opened.code}@5`,
-        opened as unknown as JsonValue,
+        opened,
       );
     }
     const context: WorkflowParentContext = {
@@ -435,7 +434,7 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
         opened.successorPrefix,
         `workflow-input-${ordinal}`,
         "diagnostic://abiogenesis/hog/workflow-selected-input-mismatch@5",
-        term as unknown as JsonValue,
+        term,
       );
     }
     const prepared = preparation.prepare({
@@ -487,7 +486,7 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
                 prepared.successorPrefix,
                 "preparation-refusal-admission",
                 `diagnostic://abiogenesis/hog/${admission.code}@5`,
-                admission as unknown as JsonValue,
+                admission,
               ),
           outputValueKind: null,
           outputContractRef: null,
@@ -538,7 +537,7 @@ export function completeOwnedWorkflowLocus(
         child.successorPrefix,
         `workflow-hold-${ordinal}`,
         "diagnostic://abiogenesis/hog/workflow-hold-lineage-mismatch@5",
-        child as unknown as JsonValue,
+        child,
       );
     }
     const suspension: HeldWorkflowSuspension = deepFreeze({
@@ -599,7 +598,7 @@ export function completeOwnedWorkflowLocus(
         child.successorPrefix,
         "child-completion",
         child.diagnosticRef ?? "diagnostic://abiogenesis/hog/child-completion-incomplete@5",
-        child as unknown as JsonValue,
+        child,
         childCauseEventRefs,
       ),
       outputValueKind: null,
@@ -616,7 +615,7 @@ export function completeOwnedWorkflowLocus(
       child.successorPrefix,
       `workflow-contract-${ordinal}`,
       "diagnostic://abiogenesis/hog/workflow-result-contract-absent@5",
-      workflowTerm as unknown as JsonValue,
+      workflowTerm,
     );
   }
   const foldbackPreparation = prepareWorkflowChildFoldback({
@@ -659,7 +658,7 @@ export function completeOwnedWorkflowLocus(
       child.successorPrefix,
       `workflow-action-${ordinal}`,
       "diagnostic://abiogenesis/hog/workflow-action-evaluation-basis-absent@5",
-      workflowTerm as unknown as JsonValue,
+      workflowTerm,
     );
   }
   const foldback = foldbackPreparation.admit();
@@ -670,7 +669,7 @@ export function completeOwnedWorkflowLocus(
         child.successorPrefix,
         "child-foldback",
         `diagnostic://abiogenesis/hog/${foldback.code}@5`,
-        foldback as unknown as JsonValue,
+        foldback,
       ),
       outputValueKind: null,
       outputContractRef: null,
@@ -746,7 +745,7 @@ export function completeOwnedWorkflowLocus(
       resultOutcome.successorPrefix,
       `workflow-judgment-${ordinal}`,
       "diagnostic://abiogenesis/hog/workflow-judgment-relation-absent@5",
-      parentCCall as unknown as JsonValue,
+      parentCCall,
     );
   }
   const judgmentCandidate = proposeJudgmentCandidate({
@@ -823,7 +822,7 @@ export function completeOwnedWorkflowLocus(
           outcome.successorPrefix,
           `workflow-continuation-${ordinal}`,
           `diagnostic://abiogenesis/hog/${derived.code}@5`,
-          derived as unknown as JsonValue,
+          derived,
         );
       }
       target = derived;
@@ -854,7 +853,7 @@ export function completeOwnedWorkflowLocus(
         outcome.successorPrefix,
         `workflow-retry-progress-${ordinal}`,
         `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
-        retryExit as unknown as JsonValue,
+        retryExit,
       );
     }
     const candidate = Routes.proposeCCallOutcomeTransition({
@@ -874,7 +873,7 @@ export function completeOwnedWorkflowLocus(
         outcome.successorPrefix,
         `workflow-route-${ordinal}`,
         `diagnostic://abiogenesis/hog/${candidate.code}@5`,
-        candidate as unknown as JsonValue,
+        candidate,
       );
     }
     const admitted = OwnedOutcome.admitOwnedCCallCompletion({
@@ -899,7 +898,7 @@ export function completeOwnedWorkflowLocus(
         outcome.successorPrefix,
         `workflow-completion-${ordinal}`,
         `diagnostic://abiogenesis/hog/${admitted.code}@5`,
-        admitted as unknown as JsonValue,
+        admitted,
       );
     }
     return {
@@ -921,7 +920,7 @@ export function completeOwnedWorkflowLocus(
       outcome.successorPrefix,
       `fan-out-continuation-${ordinal}`,
       "diagnostic://abiogenesis/hog/fan-out-continuation-mismatch@5",
-      sourceContinuation as unknown as JsonValue,
+      sourceContinuation,
     );
   }
   const fanOutCompletion = Abg.admitFanOutCompletion({
@@ -945,7 +944,7 @@ export function completeOwnedWorkflowLocus(
       outcome.successorPrefix,
       `fan-out-${ordinal}`,
       `diagnostic://abiogenesis/hog/${fanOutCompletion.code}@5`,
-      fanOutCompletion as unknown as JsonValue,
+      fanOutCompletion,
     );
   }
   const fanOutAdmission = fanOutCompletion.admission;
@@ -960,7 +959,7 @@ export function completeOwnedWorkflowLocus(
         fanOutCompletion.successorPrefix,
         `fan-out-continuation-${ordinal}`,
         `diagnostic://abiogenesis/hog/${derived.code}@5`,
-        derived as unknown as JsonValue,
+        derived,
       );
     }
     target = derived;
@@ -991,7 +990,7 @@ export function completeOwnedWorkflowLocus(
       fanOutCompletion.successorPrefix,
       `fan-out-retry-progress-${ordinal}`,
       `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
-      retryExit as unknown as JsonValue,
+      retryExit,
     );
   }
   const fanOutReplay = retryExit?.kind === "successful_retry_exit_plan"
@@ -1018,7 +1017,7 @@ export function completeOwnedWorkflowLocus(
       fanOutCompletion.successorPrefix,
       `fan-out-route-${ordinal}`,
       `diagnostic://abiogenesis/hog/${route.code}@5`,
-      route as unknown as JsonValue,
+      route,
     );
   }
   const candidate = Abg.completeTraversalTransitionCandidate({
@@ -1063,7 +1062,7 @@ export function completeOwnedWorkflowLocus(
       fanOutCompletion.successorPrefix,
       `fan-out-route-${ordinal}`,
       `diagnostic://abiogenesis/hog/${admitted.code}@5`,
-      admitted as unknown as JsonValue,
+      admitted,
     );
   }
   if (admitted.disposition === "advanced") {
@@ -1090,7 +1089,7 @@ export function completeOwnedWorkflowLocus(
         admitted.transition.successorPrefix,
         `workflow-route-${ordinal}`,
         `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
-        nextCursor as unknown as JsonValue,
+        nextCursor,
       );
     }
     return {

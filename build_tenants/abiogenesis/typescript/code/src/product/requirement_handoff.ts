@@ -45,12 +45,12 @@ export const REQUIREMENT_HANDOFF_OUTPUT_SCHEMA = v.strictObject({
     gaps: v.tuple(REQUIREMENT_HANDOFF_GAPS.map(x => v.literal(x)) as [v.LiteralSchema<string, undefined>, ...v.LiteralSchema<string, undefined>[]]),
   }),
 });
-export interface RequirementHandoffInput {
+export type RequirementHandoffInput = {
   readonly kind: "requirement_handoff_input"; readonly schemaVersion: "5.0.0";
   readonly declarationRef: string; readonly sourceRoleRef: string;
   readonly members: readonly { readonly memberRef: string; readonly base64: string }[];
-}
-export interface RequirementHandoffCoordinate {
+};
+export type RequirementHandoffCoordinate = {
   readonly publicationDigest: `sha256:${string}`; readonly declarationDigest: `sha256:${string}`;
   readonly executionBasisRef: string; readonly executionBasisDigest: `sha256:${string}`;
   readonly programRef: string; readonly programDigest: `sha256:${string}`;
@@ -59,8 +59,8 @@ export interface RequirementHandoffCoordinate {
   readonly implementationResolutionRef: string; readonly implementationResolutionDigest: `sha256:${string}`;
   readonly predecessorPrefixDigest: `sha256:${string}`; readonly predecessorEventCount: number;
   readonly inputDigest: `sha256:${string}`;
-}
-export interface RequirementHandoffOutput {
+};
+export type RequirementHandoffOutput = {
   readonly kind: "requirement_handoff_output"; readonly schemaVersion: "5.0.0";
   readonly source: RequirementHandoffInput; readonly declaration: GtlRequirementHandoffDeclaration;
   readonly basis: RequirementHandoffCoordinate;
@@ -70,7 +70,7 @@ export interface RequirementHandoffOutput {
       readonly proofPolicyRef: string | null; readonly proofShapeRef: string | null;
       readonly disposition: "no_admitted_evidence"; readonly policyGap: boolean }[];
     readonly gaps: readonly string[] };
-}
+};
 export function isRequirementHandoffInput(value: unknown): value is RequirementHandoffInput {
   return v.is(REQUIREMENT_HANDOFF_INPUT_SCHEMA, value) &&
     new Set(value.members.map(x => x.memberRef)).size === value.members.length &&
@@ -100,8 +100,8 @@ export function deriveRequirementHandoffCandidate(
   input: RequirementHandoffInput, declaration: GtlRequirementHandoffDeclaration, basis: RequirementHandoffCoordinate,
 ): Readonly<RequirementHandoffOutput> | null {
   if (!requirementHandoffInputMatches(input, declaration) || !v.is(REQUIREMENT_HANDOFF_COORDINATE_SCHEMA, basis) ||
-    basis.inputDigest !== sha256Canonical(input as unknown as JsonValue) ||
-    basis.declarationDigest !== sha256Canonical(declaration as unknown as JsonValue)) return null;
+    basis.inputDigest !== sha256Canonical(input) ||
+    basis.declarationDigest !== sha256Canonical(declaration)) return null;
   return deepFreeze({ kind: "requirement_handoff_output", schemaVersion: "5.0.0", source: input, declaration, basis,
     coverage: { disposition: "non_closing", obligations: declaration.fulfillmentBindings.flatMap(binding =>
       (["realization", "proof"] as const).map(role => ({ obligationRef: binding.obligationRef,
@@ -119,5 +119,5 @@ export function isRequirementHandoffOutput(value: unknown): value is Requirement
   // The closed schema above checked all digest lexemes; retain the native public types.
   const typed = value as unknown as RequirementHandoffOutput;
   const expected = deriveRequirementHandoffCandidate(typed.source, typed.declaration, typed.basis);
-  return expected !== null && canonicalEquals(expected as unknown as JsonValue, value as unknown as JsonValue);
+  return expected !== null && canonicalEquals(expected, value);
 }

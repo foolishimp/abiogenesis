@@ -136,7 +136,7 @@ import {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
   type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
-import { canonicalEquals } from "../shared/value/index.js";
+import { canonicalEquals, presentMember } from "../shared/value/index.js";
 import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 import { admitJson } from "../shared/admit/index.js";
 import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
@@ -157,7 +157,7 @@ export interface RetryInputBasis {
   readonly inputValue: Readonly<Record<string, JsonValue>>;
 }
 
-export interface RetryEligibility {
+export type RetryEligibility = {
   readonly kind: "retry_eligibility";
   readonly schemaVersion: "5.0.0";
   readonly disposition:
@@ -177,9 +177,9 @@ export interface RetryEligibility {
   readonly failureSignalRef: string;
   readonly completedAttempts: readonly number[];
   readonly priorProgressRefs: readonly string[];
-}
+};
 
-export interface RetryAttemptAdmission {
+export type RetryAttemptAdmission = {
   readonly kind: "retry_attempt_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -201,9 +201,9 @@ export interface RetryAttemptAdmission {
   readonly priorJudgmentRef: string | null;
   readonly priorRouteRef: string;
   readonly admissionEventRef: string;
-}
+};
 
-interface RetryProgressAdmissionBase {
+type RetryProgressAdmissionBase = {
   readonly kind: "retry_progress_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -215,10 +215,9 @@ interface RetryProgressAdmissionBase {
   readonly attempt: number;
   readonly retryPath: readonly number[];
   readonly admissionEventRef: string;
-}
+};
 
-interface RetryFailureProgressAdmissionBase
-  extends RetryProgressAdmissionBase {
+type RetryFailureProgressAdmissionBase = RetryProgressAdmissionBase & {
   readonly cCallRef: string;
   readonly resultRef: string;
   readonly judgmentRef: string;
@@ -230,19 +229,17 @@ interface RetryFailureProgressAdmissionBase
   readonly inputRef: string;
   readonly inputDigest: Sha256Digest;
   readonly inputContractRef: string;
-}
+};
 
-export interface RetryContinuationProgressAdmission
-  extends RetryFailureProgressAdmissionBase {
+export type RetryContinuationProgressAdmission = RetryFailureProgressAdmissionBase & {
   readonly progressClass: "retry";
-}
+};
 
-export interface RetryStoppedProgressAdmission
-  extends RetryFailureProgressAdmissionBase {
+export type RetryStoppedProgressAdmission = RetryFailureProgressAdmissionBase & {
   readonly progressClass: "stopped";
   readonly stopReason: "boundary_terminal" | "propagated_inner_stop";
   readonly predecessorProgressRef: string | null;
-}
+};
 
 export type RetryBoundaryStoppedProgressAdmission =
   RetryStoppedProgressAdmission & Readonly<{
@@ -256,8 +253,7 @@ export type RetryPropagatedStoppedProgressAdmission =
     readonly predecessorProgressRef: string;
   }>;
 
-interface RetryCompletedProgressAdmissionBase
-  extends RetryProgressAdmissionBase {
+type RetryCompletedProgressAdmissionBase = RetryProgressAdmissionBase & {
   readonly progressClass: "completed";
   readonly completedRetryDepth: number;
   readonly completionClass: RetrySuccessCompletionClass;
@@ -267,7 +263,7 @@ interface RetryCompletedProgressAdmissionBase
   readonly targetCursorRef: string | null;
   readonly targetCursorDigest: Sha256Digest | null;
   readonly predecessorProgressRef: string | null;
-}
+};
 
 export type RetrySuccessCompletionClass =
   | "judged_success"
@@ -275,8 +271,7 @@ export type RetrySuccessCompletionClass =
   | "fh_resume_success"
   | "structural_identity_success";
 
-export interface RetryCCallCompletedProgressAdmission
-  extends RetryCompletedProgressAdmissionBase {
+export type RetryCCallCompletedProgressAdmission = RetryCompletedProgressAdmissionBase & {
   readonly completionClass:
     | "judged_success"
     | "fan_out_success"
@@ -284,12 +279,11 @@ export interface RetryCCallCompletedProgressAdmission
   readonly cCallRef: string;
   readonly resultRef: string;
   readonly judgmentRef: string;
-}
+};
 
-export interface RetryStructuralCompletedProgressAdmission
-  extends RetryCompletedProgressAdmissionBase {
+export type RetryStructuralCompletedProgressAdmission = RetryCompletedProgressAdmissionBase & {
   readonly completionClass: "structural_identity_success";
-}
+};
 
 export type RetryCompletedProgressAdmission =
   | RetryCCallCompletedProgressAdmission
@@ -343,7 +337,7 @@ export type RetryProgressAdmission =
   | RetryStoppedProgressAdmission
   | RetryCompletedProgressAdmission;
 
-export interface RetryAdmissionRefusal {
+export type RetryAdmissionRefusal = {
   readonly kind: "retry_admission_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -356,7 +350,7 @@ export interface RetryAdmissionRefusal {
     | "retry_not_declared"
     | "route_mismatch";
   readonly message: string;
-}
+};
 
 export type RetryAttemptAdmissionResult =
   | RetryAttemptAdmission
@@ -373,7 +367,7 @@ export interface RetryRuntimeFailureTransitionAdmission {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-export interface StagedRetryRuntimeFailureTransitionAdmission {
+export type StagedRetryRuntimeFailureTransitionAdmission = {
   readonly kind: "retry_runtime_failure_transition_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "blocked" | "retry";
@@ -383,7 +377,7 @@ export interface StagedRetryRuntimeFailureTransitionAdmission {
     | RetryStoppedProgressAdmission;
   readonly stoppedProgresses: readonly RetryStoppedProgressAdmission[];
   readonly eligibility: RetryEligibility;
-}
+};
 
 export interface RetryRuntimeFailureTransitionPlan {
   readonly kind: "retry_runtime_failure_transition_plan";
@@ -415,15 +409,15 @@ export type RetryFrontierSourceEventKind =
   | "c_call_judged"
   | "retry_progress_recorded";
 
-export interface RetryFrontierSource {
+export type RetryFrontierSource = {
   readonly eventRef: string;
   readonly admissionOrdinal: number;
   readonly payloadDigest: Sha256Digest;
   readonly eventKind: RetryFrontierSourceEventKind;
   readonly ownerSurface: "abg_retry" | "abg_c_call";
-}
+};
 
-export interface RetryAttemptFrontierRow {
+export type RetryAttemptFrontierRow = {
   readonly kind: "retry_attempt_frontier_row";
   readonly schemaVersion: "5.0.0";
   readonly rowRef: string;
@@ -451,9 +445,9 @@ export interface RetryAttemptFrontierRow {
     judgment: RetryFrontierSource;
     progress: RetryFrontierSource;
   }>;
-}
+};
 
-export interface RetryAttemptFrontier {
+export type RetryAttemptFrontier = {
   readonly kind: "retry_attempt_frontier";
   readonly schemaVersion: "5.0.0";
   readonly isFullFrontier: true;
@@ -470,9 +464,9 @@ export interface RetryAttemptFrontier {
   readonly reasonClasses: readonly WorkerTransportFailureClass[];
   readonly ownerSurfaces: readonly ("abg_retry" | "abg_c_call")[];
   readonly sourceEventKinds: readonly RetryFrontierSourceEventKind[];
-}
+};
 
-export interface RetryFrontierSelector {
+export type RetryFrontierSelector = {
   readonly kind: "retry_frontier_selector";
   readonly schemaVersion: "5.0.0";
   readonly runId: string;
@@ -480,7 +474,7 @@ export interface RetryFrontierSelector {
   readonly frameId: string;
   readonly retryBoundaryRef: string;
   readonly retryProgressRef: string;
-}
+};
 
 export interface ProjectExecutableRetryInputRequest {
   readonly prefix: DurablePrefixCoordinate;
@@ -490,7 +484,7 @@ export interface ProjectExecutableRetryInputRequest {
   readonly graph: Readonly<GtlGraph>;
 }
 
-export interface ExecutableRetryInput {
+export type ExecutableRetryInput = {
   readonly kind: "executable_retry_input";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "projected";
@@ -523,7 +517,7 @@ export interface ExecutableRetryInput {
   readonly inputValue: Readonly<Record<string, JsonValue>>;
   readonly nextAttempt: number;
   readonly nextRetryPath: readonly number[];
-}
+};
 
 export interface ProjectedRetryResumeSuccess {
   readonly kind: "projected_retry_resume";
@@ -568,7 +562,7 @@ export type ExecutableRetryInputRefusalCode =
   | "preimage_contract_mismatch"
   | "retry_not_permitted";
 
-export interface ExecutableRetryInputRefusal {
+export type ExecutableRetryInputRefusal = {
   readonly kind: "executable_retry_input_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
@@ -577,7 +571,7 @@ export interface ExecutableRetryInputRefusal {
   readonly selector: RetryFrontierSelector;
   readonly suppliedPrefixDigest: Sha256Digest | null;
   readonly citedSourceEventRefs: readonly string[];
-}
+};
 
 export type ProjectExecutableRetryInputResult =
   | ExecutableRetryInput
@@ -732,12 +726,12 @@ export function projectRetryResumeAtDurablePrefix(
     );
     if (
       executionBasis === null ||
-      !canonicalEquals(executionBasis as unknown as JsonValue, expectedExecutionBasis as unknown as JsonValue) ||
+      !canonicalEquals(executionBasis, expectedExecutionBasis) ||
       executionBasis.graphRef !== graph.materializationRef ||
       executionBasis.graphDigest !== graph.materializationDigest ||
       executionBasis.rawInputAdmissionRef !== graph.admittedInputRef ||
       executionBasis.rawInputDigest !== graph.admittedInputDigest ||
-      sha256Canonical(executionBasis.rawInputValue as unknown as JsonValue) !==
+      sha256Canonical(executionBasis.rawInputValue) !==
         executionBasis.rawInputDigest
     ) return null;
     const frontier = projectDeclaredCRetryFrontier(
@@ -800,8 +794,8 @@ export function projectRetryResumeAtDurablePrefix(
       attempt.inputDigest !== carrier.inputDigest ||
       !canonicalEquals(attempt.inputValue, carrier.inputValue) ||
       !canonicalEquals(attempt.retryPath, carrier.nextCursor.retryPath) ||
-      !canonicalEquals(active.cursor as unknown as JsonValue, carrier.nextCursor as unknown as JsonValue) ||
-      !canonicalEquals(active.currentCursor as unknown as JsonValue, carrier.nextCursor as unknown as JsonValue) ||
+      !canonicalEquals(active.cursor, carrier.nextCursor) ||
+      !canonicalEquals(active.currentCursor, carrier.nextCursor) ||
       progress.admissionEventRef !== carrier.progressEventRef
     ) return null;
     return deepFreeze({ cursor: carrier.nextCursor, executionBasis });
@@ -880,7 +874,7 @@ export function deriveRetryAttemptManifestRef(input: Readonly<{
   attempt: number;
   retryPath: readonly number[];
 }>): string {
-  const digest = sha256Canonical(input as unknown as JsonValue);
+  const digest = sha256Canonical(input);
   return `retry-attempt-manifest://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
@@ -914,7 +908,7 @@ export function projectDeclaredRetryAttemptCoordinates(
   });
 }
 
-export interface DeclaredCRetryCCallSelectedPhase {
+export type DeclaredCRetryCCallSelectedPhase = {
   readonly kind: "declared_c_retry_c_call_phase";
   readonly schemaVersion: "5.0.0";
   readonly phase: "selected_no_evidence" | "evidencing";
@@ -923,9 +917,9 @@ export interface DeclaredCRetryCCallSelectedPhase {
   readonly phaseProjection: CCallPhaseProjection;
   readonly result: null;
   readonly judgment: null;
-}
+};
 
-export interface DeclaredCRetryCCallResultPhase {
+export type DeclaredCRetryCCallResultPhase = {
   readonly kind: "declared_c_retry_c_call_phase";
   readonly schemaVersion: "5.0.0";
   readonly phase: "result_admitted";
@@ -934,9 +928,9 @@ export interface DeclaredCRetryCCallResultPhase {
   readonly phaseProjection: CCallPhaseProjection;
   readonly result: AdmittedCCallResult;
   readonly judgment: null;
-}
+};
 
-export interface DeclaredCRetryCCallJudgedPhase {
+export type DeclaredCRetryCCallJudgedPhase = {
   readonly kind: "declared_c_retry_c_call_phase";
   readonly schemaVersion: "5.0.0";
   readonly phase: "judged";
@@ -945,14 +939,14 @@ export interface DeclaredCRetryCCallJudgedPhase {
   readonly phaseProjection: CCallPhaseProjection;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
-}
+};
 
 export type DeclaredCRetryCCallPhase =
   | DeclaredCRetryCCallSelectedPhase
   | DeclaredCRetryCCallResultPhase
   | DeclaredCRetryCCallJudgedPhase;
 
-interface DeclaredCRetryAttemptRowBase {
+type DeclaredCRetryAttemptRowBase = {
   readonly schemaVersion: "5.0.0";
   readonly attempt: RetryAttemptAdmission;
   readonly attemptEventRef: string;
@@ -960,7 +954,7 @@ interface DeclaredCRetryAttemptRowBase {
   readonly attemptManifestRef: string;
   readonly originRoute: DeclaredCRetryAttemptOrigin;
   readonly cursor: TraversalCursorCandidate;
-}
+};
 
 export type DeclaredCRetryAttemptOrigin =
   HistoricalTraversalRouteProjection & Readonly<{
@@ -1016,8 +1010,7 @@ export type DeclaredCRetryProspectiveCCall =
     readonly cursorDigest: Sha256Digest;
   }>;
 
-export interface DeclaredCRetryPreCCallAttemptRow
-  extends DeclaredCRetryAttemptRowBase {
+export type DeclaredCRetryPreCCallAttemptRow = DeclaredCRetryAttemptRowBase & {
   readonly kind: "declared_c_retry_pre_c_call_attempt";
   readonly currentCursor: TraversalCursorCandidate;
   readonly cCallState: Readonly<{
@@ -1031,10 +1024,9 @@ export interface DeclaredCRetryPreCCallAttemptRow
     readonly DeclaredStructuralAdvanceProjection[];
   readonly progress: null;
   readonly consumption: Readonly<{ readonly kind: "attempt_active" }>;
-}
+};
 
-export interface DeclaredCRetryActiveCCallAttemptRow
-  extends DeclaredCRetryAttemptRowBase {
+export type DeclaredCRetryActiveCCallAttemptRow = DeclaredCRetryAttemptRowBase & {
   readonly kind: "declared_c_retry_active_c_call_attempt";
   readonly currentCursor: TraversalCursorCandidate;
   readonly cCalls: readonly DeclaredCRetryCCallPhase[];
@@ -1044,10 +1036,9 @@ export interface DeclaredCRetryActiveCCallAttemptRow
   readonly consumption: Readonly<{
     readonly kind: "attempt_active" | "fh_pending" | "workflow_pending";
   }>;
-}
+};
 
-export interface DeclaredCRetryNestedActiveAttemptRow
-  extends DeclaredCRetryAttemptRowBase {
+export type DeclaredCRetryNestedActiveAttemptRow = DeclaredCRetryAttemptRowBase & {
   readonly kind: "declared_c_retry_nested_active_attempt";
   readonly currentCursor: TraversalCursorCandidate;
   readonly cCalls: readonly DeclaredCRetryCCallPhase[];
@@ -1056,18 +1047,16 @@ export interface DeclaredCRetryNestedActiveAttemptRow
   readonly inner: DeclaredCRetryActiveFrontier;
   readonly progress: null;
   readonly consumption: Readonly<{ readonly kind: "attempt_active" }>;
-}
+};
 
-interface DeclaredCRetryProgressRowBase
-  extends DeclaredCRetryAttemptRowBase {
+type DeclaredCRetryProgressRowBase = DeclaredCRetryAttemptRowBase & {
   readonly cCalls: readonly DeclaredCRetryCCallPhase[];
   readonly structuralAdvanceLineage:
     readonly DeclaredStructuralAdvanceProjection[];
   readonly progressEventRef: string;
-}
+};
 
-export interface DeclaredCRetryRetryProgressRow
-  extends DeclaredCRetryProgressRowBase {
+export type DeclaredCRetryRetryProgressRow = DeclaredCRetryProgressRowBase & {
   readonly kind: "declared_c_retry_retry_progress";
   readonly progress: RetryContinuationProgressAdmission;
   readonly failureCCall: DeclaredCRetryCCallJudgedPhase;
@@ -1077,10 +1066,9 @@ export interface DeclaredCRetryRetryProgressRow
       readonly kind: "progress_consumed_by_retry";
       readonly route: DeclaredCRetryRetryConsumption;
     }>;
-}
+};
 
-export interface DeclaredCRetryBoundaryStoppedProgressRow
-  extends DeclaredCRetryProgressRowBase {
+export type DeclaredCRetryBoundaryStoppedProgressRow = DeclaredCRetryProgressRowBase & {
   readonly kind: "declared_c_retry_boundary_stopped_progress";
   readonly progress: RetryBoundaryStoppedProgressAdmission;
   readonly failureCCall: DeclaredCRetryCCallJudgedPhase;
@@ -1090,10 +1078,9 @@ export interface DeclaredCRetryBoundaryStoppedProgressRow
       readonly kind: "progress_consumed_by_exit";
       readonly route: DeclaredCRetryExitConsumption;
     }>;
-}
+};
 
-export interface DeclaredCRetryPropagatedStoppedProgressRow
-  extends DeclaredCRetryAttemptRowBase {
+export type DeclaredCRetryPropagatedStoppedProgressRow = DeclaredCRetryAttemptRowBase & {
   readonly kind: "declared_c_retry_propagated_stopped_progress";
   readonly cCalls: readonly [];
   readonly progress: RetryPropagatedStoppedProgressAdmission;
@@ -1106,10 +1093,9 @@ export interface DeclaredCRetryPropagatedStoppedProgressRow
       readonly kind: "progress_consumed_by_exit";
       readonly route: DeclaredCRetryExitConsumption;
     }>;
-}
+};
 
-export interface DeclaredCRetryCCallCompletedProgressRow
-  extends DeclaredCRetryProgressRowBase {
+export type DeclaredCRetryCCallCompletedProgressRow = DeclaredCRetryProgressRowBase & {
   readonly kind: "declared_c_retry_c_call_completed_progress";
   readonly progress: RetryCCallCompletedProgressAdmission;
   readonly completionCCall: DeclaredCRetryCCallJudgedPhase;
@@ -1119,10 +1105,9 @@ export interface DeclaredCRetryCCallCompletedProgressRow
       readonly kind: "progress_consumed_by_exit";
       readonly route: DeclaredCRetryExitConsumption;
     }>;
-}
+};
 
-export interface DeclaredCRetryPropagatedCompletedProgressRow
-  extends DeclaredCRetryAttemptRowBase {
+export type DeclaredCRetryPropagatedCompletedProgressRow = DeclaredCRetryAttemptRowBase & {
   readonly kind: "declared_c_retry_propagated_completed_progress";
   readonly cCalls: readonly [];
   readonly progress: RetryCompletedProgressAdmission & Readonly<{
@@ -1139,10 +1124,9 @@ export interface DeclaredCRetryPropagatedCompletedProgressRow
       readonly kind: "progress_consumed_by_exit";
       readonly route: DeclaredCRetryExitConsumption;
     }>;
-}
+};
 
-export interface DeclaredCRetryStructuralCompletedProgressRow
-  extends DeclaredCRetryAttemptRowBase {
+export type DeclaredCRetryStructuralCompletedProgressRow = DeclaredCRetryAttemptRowBase & {
   readonly kind: "declared_c_retry_structural_completed_progress";
   readonly cCalls: readonly [];
   readonly structuralAdvanceLineage:
@@ -1156,7 +1140,7 @@ export interface DeclaredCRetryStructuralCompletedProgressRow
       readonly kind: "progress_consumed_by_exit";
       readonly route: DeclaredCRetryExitConsumption;
     }>;
-}
+};
 
 export type DeclaredCRetryAttemptRow =
   | DeclaredCRetryPreCCallAttemptRow
@@ -1169,7 +1153,7 @@ export type DeclaredCRetryAttemptRow =
   | DeclaredCRetryPropagatedCompletedProgressRow
   | DeclaredCRetryStructuralCompletedProgressRow;
 
-interface DeclaredCRetryFrontierBase {
+type DeclaredCRetryFrontierBase = {
   readonly schemaVersion: "5.0.0";
   readonly disposition: "projected";
   readonly projectionRef: string;
@@ -1191,7 +1175,7 @@ interface DeclaredCRetryFrontierBase {
   readonly progressCoverage: readonly number[];
   readonly rows: readonly DeclaredCRetryAttemptRow[];
   readonly remainingBudget: number;
-}
+};
 
 export interface DeclaredCRetryEligibleFrontier
   extends DeclaredCRetryFrontierBase {
@@ -1212,14 +1196,13 @@ export interface DeclaredCRetryEligibleFrontier
     }>;
 }
 
-export interface DeclaredCRetryActiveFrontier
-  extends DeclaredCRetryFrontierBase {
+export type DeclaredCRetryActiveFrontier = DeclaredCRetryFrontierBase & {
   readonly kind: "declared_c_retry_active_frontier";
   readonly state: "attempt_active";
   readonly active: DeclaredCRetryPreCCallAttemptRow |
     DeclaredCRetryActiveCCallAttemptRow |
     DeclaredCRetryNestedActiveAttemptRow;
-}
+};
 
 export interface DeclaredCRetryAvailableProgressFrontier
   extends DeclaredCRetryFrontierBase {
@@ -1303,7 +1286,8 @@ function deriveRetryAttemptCursorCarrier(
     nonEmptyString(candidate.payload.traversalScopeRef)
   );
   if (initialRows.length !== 1) return null;
-  const initial = initialRows[0]!.payload as Readonly<Record<string, JsonValue>>;
+  const initial = initialRows[0]!.payload;
+  if (!isRecord(initial)) return null;
   const body = {
     programRef: initial.programRef as string,
     executionBasisRef: event.basisId,
@@ -1429,7 +1413,7 @@ export function projectRetryAttempt(
   const { attemptRef: _attemptRef, attemptDigest: _attemptDigest, ...attemptBody } =
     payload;
   const computedAttemptDigest = sha256Canonical(
-    attemptBody as unknown as JsonValue,
+    attemptBody,
   );
   if (
     payload.attemptDigest !== computedAttemptDigest ||
@@ -1603,13 +1587,14 @@ function exactAttemptEvent(
   );
   if (rows.length !== 1) return null;
   const event = rows[0]!;
-  const payload = event.payload as Readonly<Record<string, JsonValue>>;
+  const payload = event.payload;
+  if (!isRecord(payload)) return null;
   const { attemptRef: _ref, attemptDigest: _digest, ...attemptBody } = payload;
   const retryPath = positiveIntegerValues(payload.retryPath);
   const retryTermPath = stringValues(payload.retryTermPath);
   const wrappedTermPath = stringValues(payload.wrappedTermPath);
   const retryable = stringValues(payload.retryableFailureClasses);
-  const attemptDigest = sha256Canonical(attemptBody as unknown as JsonValue);
+  const attemptDigest = sha256Canonical(attemptBody);
   const routeRows = prior.filter((candidate) =>
     candidate.kind === "traversal_route_admitted" &&
     sharesProgressScope(candidate, progress) &&
@@ -1747,8 +1732,8 @@ function exactCCallPhaseEvents(
     !isRecord(fibre.payload) || !isRecord(result.payload) ||
     !isRecord(judgment.payload)
   ) return null;
-  const resultPayload = result.payload as Readonly<Record<string, JsonValue>>;
-  const judgmentPayload = judgment.payload as Readonly<Record<string, JsonValue>>;
+  const resultPayload = result.payload;
+  const judgmentPayload = judgment.payload;
   if (
     !sharesProgressScope(opened, progress) ||
     !sharesProgressScope(fibre, progress) ||
@@ -1972,7 +1957,7 @@ function projectRetryProgressAt(
   if (body === null ||
     typeof event.payload.progressDigest !== "string" ||
     typeof event.payload.progressRef !== "string") return null;
-  const digest = sha256Canonical(body as unknown as JsonValue);
+  const digest = sha256Canonical(body);
   const progressRef =
     `retry-progress://abiogenesis/${digest.slice("sha256:".length)}`;
   if (event.payload.progressDigest !== digest || event.payload.progressRef !== progressRef) {
@@ -2620,9 +2605,7 @@ function deriveProspectiveCCall(
   let identity: Readonly<Record<string, JsonValue>>;
   if (prospective.term.kind === "c_of") {
     programLocusRef = prospective.term.programLocusRef;
-    identity = { ...commonIdentity, programLocusRef } as unknown as Readonly<
-      Record<string, JsonValue>
-    >;
+    identity = { ...commonIdentity, programLocusRef };
   } else if (prospective.term.kind === "c_workflow") {
     const childGraphFunctionRef = prospective.term.graphFunctionRef;
     const implementationSet = rehydrateAdmittedImplementationSetAtPrefix(
@@ -2640,7 +2623,7 @@ function deriveProspectiveCCall(
       nodeRef: prospective.nodeRef,
       termPath: prospective.termPath,
       childGraphFunctionRef,
-    } as unknown as JsonValue);
+    });
     programLocusRef =
       `workflow-locus://abiogenesis/${locusDigest.slice("sha256:".length)}`;
     identity = {
@@ -2648,9 +2631,9 @@ function deriveProspectiveCCall(
       programLocusRef,
       childGraphFunctionRef,
       failureContractRef: failureContracts[0]!,
-    } as unknown as Readonly<Record<string, JsonValue>>;
+    };
   } else return null;
-  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallDigest = sha256Canonical(identity);
   return deepFreeze({
     kind: "declared_c_retry_prospective_c_call" as const,
     schemaVersion: "5.0.0" as const,
@@ -2927,8 +2910,8 @@ function projectExactInteractionResumeSuccessorAtPrefix(
       event.payload.heldCursorRef === heldCursor.cursorRef &&
       event.payload.heldCursorDigest === heldCursor.cursorDigest &&
       canonicalEquals(
-        event.payload.heldCursor as JsonValue,
-        heldCursor as unknown as JsonValue,
+        presentMember(event.payload.heldCursor),
+        heldCursor,
       )
     );
     if (opened.length !== 1) return [];
@@ -3001,7 +2984,7 @@ export function projectDeclaredCRetryFrontier(
     !hasAdmittedTraversalCursorAtPrefix(prefix, cursor) ||
     cursor.graphRef !== graph.materializationRef ||
     graphFunction.name !== graph.graphFunctionRef ||
-    sha256Canonical(graphFunction as unknown as JsonValue) !==
+    sha256Canonical(graphFunction) !==
       graph.graphFunctionDigest ||
     !Number.isSafeInteger(retryDepth) || retryDepth < 1 ||
     retryDepth > cursor.retryPath.length
@@ -3148,7 +3131,7 @@ export function projectDeclaredCRetryFrontier(
       latestFailure: null,
       stationarity: deepFreeze({ kind: "not_stationary" as const }),
     };
-    const projectionDigest = sha256Canonical(body as unknown as JsonValue);
+    const projectionDigest = sha256Canonical(body);
     return deepFreeze({
       ...body,
       projectionRef:
@@ -3912,7 +3895,7 @@ export function projectDeclaredCRetryFrontier(
       consumed: latest,
     };
   }
-  const projectionDigest = sha256Canonical(body as unknown as JsonValue);
+  const projectionDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     projectionRef:
@@ -4144,8 +4127,8 @@ export function projectDeclaredCRetryCCallWriteAtPrefix(
     exact.sourceCursor.cursorRef === cursor.cursorRef &&
     exact.sourceCursor.cursorDigest === cursor.cursorDigest &&
     canonicalEquals(
-      exact.cCall as unknown as JsonValue,
-      candidate as unknown as JsonValue,
+      exact.cCall,
+      candidate,
     )
   );
   return matches.length === 1 && matches[0] === frontier.active.cCalls.at(-1)
@@ -4261,7 +4244,7 @@ function structurallyFullRetryAttemptFrontier(
       sources.progress,
     ];
     const expectedDigest = sha256Canonical(
-      retryFrontierRowBody(row) as unknown as JsonValue,
+      retryFrontierRowBody(row),
     );
     if (
       row.kind !== "retry_attempt_frontier_row" ||
@@ -4315,7 +4298,7 @@ function structurallyFullRetryAttemptFrontier(
     allSources.map((source) => source.eventKind),
   );
   const expectedDigest = sha256Canonical(
-    retryFrontierBody(frontier) as unknown as JsonValue,
+    retryFrontierBody(frontier),
   );
   return sameNumbers(frontier.attemptCoverage, expectedCoverage) &&
     sameStrings(frontier.reasonClasses, expectedReasons) &&
@@ -4383,7 +4366,7 @@ function constructRetryAttemptFrontierRow(input: {
     inputDigest: input.attempt.inputDigest,
     sources: deepFreeze(sources) as RetryAttemptFrontierRow["sources"],
   };
-  const rowDigest = sha256Canonical(body as unknown as JsonValue);
+  const rowDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     rowRef:
@@ -4427,6 +4410,8 @@ function rehydrateRetryTraversalScope(
   const run = runRows[0]!;
   const graphCall = graphCallRows[0]!;
   const frame = frameRows[0]!;
+  const runPayload = run.payload, graphCallPayload = graphCall.payload, framePayload = frame.payload;
+  if (!isRecord(runPayload) || !isRecord(graphCallPayload) || !isRecord(framePayload)) return null;
   const scopeBody = {
     executionBasisRef: executionBasis.basisRef,
     executionBasisDigest: executionBasis.basisDigest,
@@ -4436,21 +4421,17 @@ function rehydrateRetryTraversalScope(
     graphFunctionRef: executionBasis.graphFunctionRef,
     graphRef: executionBasis.graphRef,
     runId: cursor.runId,
-    runDigest: (run.payload as Readonly<Record<string, JsonValue>>)
-      .runDigest as Sha256Digest,
+    runDigest: runPayload.runDigest as Sha256Digest,
     runOpenEventRef: run.eventId,
     graphCallId: cursor.graphCallId,
-    graphCallDigest: (graphCall.payload as Readonly<Record<string, JsonValue>>)
-      .graphCallDigest as Sha256Digest,
+    graphCallDigest: graphCallPayload.graphCallDigest as Sha256Digest,
     graphCallOpenEventRef: graphCall.eventId,
     frameId: cursor.frameId,
-    frameDigest: (frame.payload as Readonly<Record<string, JsonValue>>)
-      .frameDigest as Sha256Digest,
-    frameLineageId: (frame.payload as Readonly<Record<string, JsonValue>>)
-      .frameLineageId as string,
+    frameDigest: framePayload.frameDigest as Sha256Digest,
+    frameLineageId: framePayload.frameLineageId as string,
     frameOpenEventRef: frame.eventId,
   };
-  const scopeDigest = sha256Canonical(scopeBody as unknown as JsonValue);
+  const scopeDigest = sha256Canonical(scopeBody);
   const scopeRef =
     `traversal-scope://abiogenesis/${scopeDigest.slice("sha256:".length)}`;
   if (scopeRef !== cursor.traversalScopeRef) return null;
@@ -4571,9 +4552,9 @@ function projectExecutableRetryInputUsing(
     prefix,
     sourceCursor.executionBasisRef,
   );
-  const programDigest = sha256Canonical(request.program as unknown as JsonValue);
+  const programDigest = sha256Canonical(request.program);
   const graphFunctionDigest = sha256Canonical(
-    request.graphFunction as unknown as JsonValue,
+    request.graphFunction,
   );
   if (
     executionBasis === null ||
@@ -4768,7 +4749,7 @@ function projectExecutableRetryInputUsing(
       row.sources.progress.eventKind,
     ])),
   };
-  const frontierDigest = sha256Canonical(frontierBody as unknown as JsonValue);
+  const frontierDigest = sha256Canonical(frontierBody);
   const retryFrontier = deepFreeze({
     ...frontierBody,
     frontierRef:
@@ -4897,7 +4878,7 @@ function projectExecutableRetryInputUsing(
       nextAttempt,
     ],
   };
-  const projectionDigest = sha256Canonical(body as unknown as JsonValue);
+  const projectionDigest = sha256Canonical(body);
   return deepFreeze({
     ...body,
     projectionRef:
@@ -5037,7 +5018,7 @@ export function admitRetryAttempt(
     inputContractRef: context.inputCarrierRef,
     inputValue: deepFreeze(inputValue),
   };
-  const attemptDigest = sha256Canonical(body as unknown as JsonValue);
+  const attemptDigest = sha256Canonical(body);
   const attemptRef =
     `retry-attempt://abiogenesis/${attemptDigest.slice("sha256:".length)}`;
   let event: RuntimeEvent;
@@ -5061,7 +5042,7 @@ export function admitRetryAttempt(
         materializationRef: graph.materializationRef,
         graphCallId: cursor.graphCallId,
         frameId: cursor.frameId,
-        payload: { attemptRef, attemptDigest, ...body } as unknown as JsonValue,
+        payload: { attemptRef, attemptDigest, ...body },
       })],
     )[0]!;
   } catch (error) {
@@ -5345,16 +5326,16 @@ export function planRetryRuntimeFailureTransition(
     !isMaterializedGtlGraph(graph) ||
     projectedBasis === null ||
     !canonicalEquals(
-      projectedBasis as unknown as JsonValue,
-      executionBasis as unknown as JsonValue,
+      projectedBasis,
+      executionBasis,
     ) ||
     activeRow === null || activeCCall === null ||
     activeRow.currentCursor.cursorRef !== cursor.cursorRef ||
     activeRow.currentCursor.cursorDigest !== cursor.cursorDigest ||
     activeCCall !== activeRow.cCalls.at(-1) ||
     !canonicalEquals(
-      activeCCall.cCall as unknown as JsonValue,
-      cCall as unknown as JsonValue,
+      activeCCall.cCall,
+      cCall,
     ) ||
     declaredTerm.kind === "c_source_path_refusal" ||
     !isExecutableCLeaf(declaredTerm) ||
@@ -5468,7 +5449,7 @@ export function planRetryRuntimeFailureTransition(
   if (
     projectedAttempt.attempt !== cursor.attempt ||
     !sameNumbers(projectedAttempt.retryPath, cursor.retryPath) ||
-    sha256Canonical(projectedAttempt.inputValue as unknown as JsonValue) !==
+    sha256Canonical(projectedAttempt.inputValue) !==
       projectedAttempt.inputDigest
   ) {
     return refusal(
@@ -5598,7 +5579,7 @@ export function planRetryRuntimeFailureTransition(
     judgmentRef: close.judgment.judgmentRef,
   };
   const progressDigest = sha256Canonical(
-    progressBody as unknown as JsonValue,
+    progressBody,
   );
   const progressRef =
     `retry-progress://abiogenesis/${progressDigest.slice("sha256:".length)}`;
@@ -5671,7 +5652,7 @@ export function planRetryRuntimeFailureTransition(
         judgmentRef: close.judgment.judgmentRef,
       };
       const cascadeDigest = sha256Canonical(
-        cascadeBody as unknown as JsonValue,
+        cascadeBody,
       );
       const cascadeRef =
         `retry-progress://abiogenesis/${cascadeDigest.slice("sha256:".length)}`;
@@ -5736,8 +5717,8 @@ export function planRetryRuntimeFailureTransition(
     projectedSignal.failureClass !== closePlan.signal.failureClass ||
     projectedProgress?.state !== "progress_available" ||
     !canonicalEquals(
-      projectedProgress.available.progress as unknown as JsonValue,
-      progress as unknown as JsonValue,
+      projectedProgress.available.progress,
+      progress,
     ) ||
     stoppedProgresses.some((stopped) => {
       const projected = projectedFrontiers.find((candidate) =>
@@ -5746,8 +5727,8 @@ export function planRetryRuntimeFailureTransition(
       return projected?.state !== "progress_available" ||
         projected.available.progress.progressClass !== "stopped" ||
         !canonicalEquals(
-          projected.available.progress as unknown as JsonValue,
-          stopped as unknown as JsonValue,
+          projected.available.progress,
+          stopped,
         );
     }) ||
     (disposition === "retry" && stoppedProgresses.length !== 0) ||
@@ -5789,7 +5770,18 @@ function ownedRetryRuntimeFailurePlansCorrespond(
   const { projectedPrefix: bPrefix, replayState: bReplay, ...bFinite } = right;
   return runtimeEventPrefixesHaveSameOwnedCut(aPrefix, bPrefix) &&
     runtimeReplayGuardsHaveSameOwnedCut(aReplay, bReplay) &&
-    canonicalEquals(aFinite as unknown as JsonValue, bFinite as unknown as JsonValue);
+    canonicalEquals(aFinite, bFinite);
+}
+
+/** Canonical equality of two validated-prefix plans, member by member: the
+ * finite members, the validated prefix events and the replay guard. */
+function validatedRetryRuntimeFailurePlansEqual(
+  left: OwnedRetryRuntimeFailureTransitionPlan, right: OwnedRetryRuntimeFailureTransitionPlan,
+): boolean {
+  const { projectedPrefix: aPrefix, replayState: aReplay, ...aFinite } = left;
+  const { projectedPrefix: bPrefix, replayState: bReplay, ...bFinite } = right;
+  return aPrefix.kind === "validated_runtime_event_prefix" && bPrefix.kind === "validated_runtime_event_prefix" &&
+    canonicalEquals(aFinite, bFinite) && canonicalEquals(aPrefix.events, bPrefix.events) && canonicalEquals(aReplay, bReplay);
 }
 
 export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
@@ -5865,7 +5857,7 @@ export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
   if (
     exact.kind !== "retry_runtime_failure_transition_plan" ||
     (prefix.kind === "validated_runtime_event_prefix"
-      ? !canonicalEquals(exact as unknown as JsonValue, plan as unknown as JsonValue)
+      ? !validatedRetryRuntimeFailurePlansEqual(exact, plan)
       : !ownedRetryRuntimeFailurePlansCorrespond(exact, plan))
   ) {
     return refusal(
@@ -5881,8 +5873,8 @@ export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
     );
     if (
       !canonicalEquals(
-        projected as unknown as JsonValue,
-        plan.projectedEvents[index] as unknown as JsonValue,
+        projected,
+        plan.projectedEvents[index] ?? null,
       )
     ) {
       return refusal(
@@ -5899,8 +5891,8 @@ export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(
   const admittedEvents = sampledEvents.map(({ event }) => event);
   if (admittedEvents.some((event, index) =>
     !canonicalEquals(
-      event as unknown as JsonValue,
-      plan.projectedEvents[index] as unknown as JsonValue,
+      event,
+      plan.projectedEvents[index] ?? null,
     )
   )) {
     throw retryRuntimeFailureTransitionError(
@@ -6264,8 +6256,8 @@ function planCompletedRetryProgressFromHistory(
     ? projectedFanOutCompletion?.kind === "fan_out_completion_admission" &&
       projectedFanOutCompletion.completionKind === "complete_vector" &&
       canonicalEquals(
-        projectedFanOutCompletion as unknown as JsonValue,
-        completion.completion as unknown as JsonValue,
+        projectedFanOutCompletion,
+        completion.completion,
       ) &&
       projectedFanOutCompletion.taskRows.at(-1)?.cCallRef === cCall?.cCallRef &&
       projectedFanOutCompletion.taskRows.at(-1)?.resultRef === result?.resultRef &&
@@ -6446,16 +6438,16 @@ function planCompletedRetryProgressFromHistory(
       directPhaseSourceMatches &&
       cCall !== null && result !== null && judgment !== null &&
       canonicalEquals(
-        directPhase.cCall as unknown as JsonValue,
-        cCall as unknown as JsonValue,
+        directPhase.cCall,
+        cCall,
       ) &&
       canonicalEquals(
-        directPhase.result as unknown as JsonValue,
-        result as unknown as JsonValue,
+        directPhase.result,
+        result,
       ) &&
       canonicalEquals(
-        directPhase.judgment as unknown as JsonValue,
-        judgment as unknown as JsonValue,
+        directPhase.judgment,
+        judgment,
       );
   if (!directCompletionOwned) return refusal(
     "attempt_mismatch",
@@ -6489,7 +6481,7 @@ function planCompletedRetryProgressFromHistory(
   });
   for (let index = 1; index < planned.length; index += 1) {
     const predecessorDigest = sha256Canonical(
-      planned[index - 1]! as unknown as JsonValue,
+      planned[index - 1]!,
     );
     planned[index] = {
       ...planned[index]!,
@@ -6500,7 +6492,7 @@ function planCompletedRetryProgressFromHistory(
     };
   }
   const identities = planned.map((body) => {
-    const progressDigest = sha256Canonical(body as unknown as JsonValue);
+    const progressDigest = sha256Canonical(body);
     const progressRef =
       `retry-progress://abiogenesis/${
         progressDigest.slice("sha256:".length)
@@ -6586,8 +6578,8 @@ function planCompletedRetryProgressFromHistory(
       available.progressEventRef !== projectedEvents[index]!.eventId ||
       available.progress.progressRef !== progresses[index]!.progressRef ||
       !canonicalEquals(
-        available.progress as unknown as JsonValue,
-        progresses[index] as unknown as JsonValue,
+        available.progress,
+        progresses[index] ?? null,
       );
   });
   if (ownerMismatch) {
@@ -6680,7 +6672,7 @@ function ownedCompletedRetryProgressPlansCorrespond(left: OwnedCompletedRetryPro
   const { projectedPrefix: aPrefix, replayState: aReplay, ...aFinite } = left;
   const { projectedPrefix: bPrefix, replayState: bReplay, ...bFinite } = right;
   return runtimeEventPrefixesHaveSameOwnedCut(aPrefix, bPrefix) && runtimeReplayGuardsHaveSameOwnedCut(aReplay, bReplay) &&
-    canonicalEquals(aFinite as unknown as JsonValue, bFinite as unknown as JsonValue);
+    canonicalEquals(aFinite, bFinite);
 }
 
 function admitPlannedCompletedRetryProgressFromHistory(
@@ -6732,8 +6724,8 @@ function admitPlannedCompletedRetryProgressFromHistory(
     );
     if (
       !canonicalEquals(
-        projected as unknown as JsonValue,
-        plan.projectedEvents[index] as unknown as JsonValue,
+        projected,
+        plan.projectedEvents[index] ?? null,
       ) ||
       plan.progresses[index]?.admissionEventRef !== projected.eventId
     ) {
@@ -6749,8 +6741,8 @@ function admitPlannedCompletedRetryProgressFromHistory(
   );
   if (admittedEvents.some((event, index) =>
     !canonicalEquals(
-      event as unknown as JsonValue,
-      plan.projectedEvents[index] as unknown as JsonValue,
+      event,
+      plan.projectedEvents[index] ?? null,
     )
   )) {
     throw new TypeError(

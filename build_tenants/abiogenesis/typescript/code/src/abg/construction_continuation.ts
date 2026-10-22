@@ -8,12 +8,12 @@ import { isUndispatchedOwnerObservation } from "./event_contract_profiles.js";
 import { runtimeEventBodiesAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { admitRuntimeEvent, admitRuntimeEventTransactionAtDurablePrefix, readRuntimeEventsAtDurablePrefix, type AbgEventStore, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
-import { canonicalEquals } from "../shared/value/index.js";
+import { canonicalEquals, presentMember } from "../shared/value/index.js";
 
 /** A projection of an actual selected but undispatched consumer. It grants no
  * execution. Declaration, support, input and current-operation admission remain
  * required before any replacement scope can be opened. */
-export interface ConstructionIntentContinuation {
+export type ConstructionIntentContinuation = {
   readonly continuationKind: "construction_intent";
   readonly continuationRef: string;
   readonly continuationDigest: Sha256Digest;
@@ -38,8 +38,8 @@ export interface ConstructionIntentContinuation {
   readonly terminalEventRef: string | null;
   readonly status: "open" | "superseded" | "resolved";
   readonly predecessorContinuationRef?: string;
-}
-const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+};
+const hash = (value: JsonValue) => sha256Canonical(value);
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 
@@ -73,7 +73,7 @@ function deriveConstructionIntentContinuations(
       opened.payload.callClass !== "leaf" || fibre.payload.regime !== "F_P" ||
       fibre.payload.implementationRef !== observation.implementationRef ||
       result.payload.resultClass !== "failure" || judgment.payload.judgment !== "blocked" ||
-      result.payload.valueDigest !== hash(p.failureValue) || result.payload.valueDigest !== p.outputDigest ||
+      result.payload.valueDigest !== hash(presentMember(p.failureValue)) || result.payload.valueDigest !== p.outputDigest ||
       judgment.payload.resultRef !== result.payload.resultRef ||
       !Array.isArray(result.payload.evidenceRefs) || !result.payload.evidenceRefs.includes(p.evidenceRef) ||
       !result.causationEventRefs.includes(evidence.eventId) || !judgment.causationEventRefs.includes(result.eventId) ||
@@ -139,7 +139,7 @@ export function admitPendingConstructionIntentContinuation(store: AbgEventStore,
     kind: "construction_continuation_opened", eventTime, aggregateType: "continuation", aggregateId: candidate.continuationRef,
     parentAggregateId: candidate.frameId, causationEventRefs: [candidate.openedEventRef], correlationId,
     workflowVersion: "5.0.0", scopeClass: "run", basisId: candidate.executionBasisRef,
-    runId, graphCallId: candidate.graphCallId, frameId: candidate.frameId, payload: body as unknown as JsonValue,
+    runId, graphCallId: candidate.graphCallId, frameId: candidate.frameId, payload: body,
   })).successorPrefix!;
 }
 
@@ -772,7 +772,7 @@ export function prepareConstructionIntentContinuation(
 }> | null {
   const current = projectConstructionIntentContinuations(prefix, selected.runId)
     .find(c => c.continuationRef === selected.continuationRef && c.continuationDigest === selected.continuationDigest);
-  if (current?.status !== "open" || !canonicalEquals(current as unknown as JsonValue, selected as unknown as JsonValue)) return null;
+  if (current?.status !== "open" || !canonicalEquals(current, selected)) return null;
   const root = rehydrateExecutionBasisAtPrefix(prefix, current.parentExecutionBasisRef);
   const child = rehydrateExecutionBasisAtPrefix(prefix, current.executionBasisRef);
   if (root === null || child === null || root.basisClass !== "root" || root.constructionContinuationUse !== undefined ||
@@ -868,7 +868,7 @@ function constructionContinuationOperationCandidate(
       definitionDigest: basis.definitionDigest, invocationRef: basis.invocationRef,
       invocationPayloadDigest: basis.invocationPayloadDigest, invocationDigest: basis.invocationDigest,
       actorRef: grant.actorRef, authorityRef: invocation.authorityRef, authorityDigest: invocation.authorityDigest,
-      capabilityGrantRefs: [grant.grantRef], capabilityGrant: grant as unknown as JsonValue, capabilityRef: grant.capabilityRef,
+      capabilityGrantRefs: [grant.grantRef], capabilityGrant: grant, capabilityRef: grant.capabilityRef,
       policyRef: invocation.policyRef, policyDigest: invocation.policyDigest,
       workspaceBindingId: invocation.workspaceBindingId, workspaceBindingDigest: invocation.workspaceBindingDigest,
       catalogBasisRef: invocation.catalogBasisRef, catalogBasisDigest: invocation.catalogBasisDigest,
@@ -1604,7 +1604,7 @@ import { projectAdmittedWorkspaceBindingAtCoordinate, projectWitnessedWorkspaceB
 
 /** A selected route is the occurrence. This projection neither opens another
  * intent nor grants permission to run it. */
-export interface SelectedActionContinuation {
+export type SelectedActionContinuation = {
   readonly continuationKind: "selected_action";
   readonly continuationRef: string;
   readonly continuationDigest: Sha256Digest;
@@ -1625,7 +1625,7 @@ export interface SelectedActionContinuation {
   readonly openedEventRef: string;
   readonly terminalEventRef: string | null;
   readonly status: "open" | "consumed" | "resolved" | "superseded" | "abandoned";
-}
+};
 
 export function projectSelectedActionContinuations(prefix: ValidatedRuntimeEventPrefix,
   runId: string): readonly SelectedActionContinuation[];
@@ -2035,7 +2035,7 @@ export function admitSelectedActionContinuationOperation(store: AbgEventStore, p
         selectedActionRef: current.selectedActionRef, selectedActionDigest: current.selectedActionDigest,
         currentIntentRef: current.constructionIntentRef, currentIntentDigest: current.constructionIntentDigest,
         executionBasisRef: prepared.root.basisRef, executionBasisDigest: prepared.root.basisDigest,
-        basisRelation: use.request.basisRelation as unknown as JsonValue,
+        basisRelation: use.request.basisRelation,
       }));
     if (source.continuationRef !== current.continuationRef) admitRuntimeEvent(store, {
       kind: "continuation_superseded", eventTime: basis.eventTime, aggregateType: "continuation", aggregateId: source.continuationRef,
