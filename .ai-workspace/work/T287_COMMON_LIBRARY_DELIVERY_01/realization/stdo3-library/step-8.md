@@ -1212,3 +1212,64 @@ Worker: Opus 5.5, xhigh, fresh context, Writer grant. Head is the Executive's bo
 **Stop:** an item whose smallest fix leaves the grant; a gate suite failing with a failure set not in `step-8-run-final.log`; anything a design line contradicts.
 
 **Return contract.** One commit on `main`, no push. First line `Post-close repair A: liveness cut; streaming fold; O-SCHEMA boundary; consensus ref shape`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append `## Post-close repair return A` with: commit; items 1 to 4 with lines at head and the test names; the gate results; residuals.
+
+## Post-close repair return A
+
+- commit: the commit carrying this Return (first line `Post-close repair A: liveness cut; streaming fold; O-SCHEMA boundary; consensus ref shape`, parent `27912db91`, the Executive's D10 and D11 record, which landed on `main` during this repair and touches no grant file); its hash is in the final report. Not pushed. Staged by path. Path key: `T` = `build_tenants/abiogenesis/typescript`; `design` = `T/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`; lines are at this commit.
+- Item 1, liveness cut: done. In `T/code/src/abg/runtime_liveness.ts`, the cut is an explicit argument `ProcessLivenessCut` (`:715`) of `deriveRuntimeLivenessSemantics` (`:719`). The validator passes `"before_event"` (`:687`). The public `deriveRuntimeLiveness` passes `"at_prefix"` (`:914`). The read (`:832-833`) holds `actor_process_live` at `prefix` for `at_prefix`, and at the cut before the boundary event for `before_event`. A supplied reconstruction is reuse only and selects nothing.
+  - The public sites the activation names all reach `:914`: `deriveRuntimeLivenessWithPrefixDigest` (`:906`, base `:902`) through `deriveRuntimeLiveness` (`:901`) and through `projectRuntimeLivenessAtPrefixWithDigest` (`:936`, base `:930`, its call at `:943`). The three readers at `:288-302` read only the context. The comment the activation keeps true (base `:815-817`) is at `:821-825`: "read through holdsAt at `cut`: in the validator path at the cut before the event at `ordinal` ... in the public path at the prefix itself".
+  - Validator effect: the probe arm is unchanged.
+  - The timeout arm and its producer `admitRuntimeThreshold` (`:1027`) now read at the cut immediately before the timeout, not one event earlier. The answer changes only when the immediate predecessor is the start, exit or spawn failure of that process.
+  - No retained `*.jsonl` in the repository carries an admitted `actor_process_timeout_observed`.
+  - The other public callers (`retry.ts:5009`, `:5430`; `replay.ts:440`, `:1366`; `project_read_ports.ts:1550`) are reads outside a fold step.
+  - Case `public liveness reads process liveness at the requested prefix; the validator reads before its own event` (`T/test_env/tests/t287-native-frame-observation.test.mjs:259`) VM-links the built module over a fixed execution basis and retry budget:
+    - Process started: `actor_process_live` true, disposition `controlled_terminate`, a timeout validates.
+    - Process exited: false, `continue_waiting`, a timeout is refused.
+    - On the build at `bec07fe57`, the same harness gives the reverse answers.
+- Item 2, streaming fold: STOPPED, no edit. Stop rule: a design line contradicts the fix.
+  - design §4.4 (`:188`) states: "Its `advance` (`abg/event_calculus.ts:238`) copies the fold state once per call, applies each event to that copy in place with `applyStep` (`abg/calculus/fold.ts:191`), the in-place form of `foldStep` (`:261`), and freezes the copy when the call ends". The grant names only the §10.5 P-FOLD sentence (`design:635`), which stays unchanged.
+  - Replacement sentence for the next grant: "Its `advance` (`abg/event_calculus.ts:238`) applies each new event in place with `applyStep` (`abg/calculus/fold.ts:191`), the in-place form of `foldStep` (`:261`), to the one working state the derivation owns, and copies nothing; `forkAt` copies once for the fork (`workingFoldState`, `:154`); readers read the owned state."
+  - Hazards for that worker:
+    - (a) `emptyFoldState` (`fold.ts:93`) shares module-constant Maps and Sets, and its freeze is shallow. Start the owned state from `workingFoldState(emptyFoldState(...))`.
+    - (b) `forkAt` (`event_calculus.ts:187`) builds a frozen state with frozen clipped and declipped arrays, so the fork needs one `workingFoldState` copy.
+    - (c) Successive validated cuts of one source share one `runtimePrefixComputation` owner and one derivation (probe: cut 1, cut 2, cut 3 and the source return the same owner). So N projections over increasing cuts are N single-event advances. A batched advance needs a separately selected copy of the rows, or an internal hook.
+    - (d) `foldStep` also calls `workingFoldState`. Count copies only around the advances.
+- Item 3, O-SCHEMA boundary: done (D10). The admission sits at the dispatch in `T/code/src/product/semantics.ts`:
+  - `admitInstalledProductInput` (`:499`) admits the value with `admitJson` (`:512`) and passes the detached admitted value to the Product's `admitInput` (`:514`). A refused value returns `null`.
+  - `evaluateInstalledInteractionResponse` (`:517`) admits the response candidate (`:530`) before the Product's `evaluateInteractionResponse` (`:532`). A refused candidate returns `null`. The census found this third raw dispatch: the built-in providers' `evaluateInteractionResponse` runs `admitInput` on the candidate (`product/builtin_semantics.ts:190`, `:671`).
+  - `projectInstalledLeafSemantics` (`:603`) builds the leaf `validateContractValue` (`:616`), which admits (`:620`) before the Product's guard. A refused value is not a contract value.
+  - Census of the exported dispatchers in `semantics.ts`: these three take a raw `unknown` into a Product's guard. `validateInstalledInvocationBasis`, `projectInstalledPublicResult` and the two public-result roster reads pass typed bases. No module outside `product/semantics.ts` and `implementation/leaf_invocation_port.ts` dispatches `admitInput`, `evaluateInteractionResponse` or `validateContractValue` into a loaded Product. External callers: `product/run_invocation_operation.ts:531` calls the first; `m5-s03-authority` calls the second through `product/index.ts:144`; `implementation/leaf_invocation_port.ts:1504` and `:1519` call the leaf runtime that `:931` inspects. The built-in providers' compositions call `admitInput` only inside a provider, behind the boundary.
+  - The design §10.3 O-SCHEMA row (`design:612`) states the three methods.
+  - The admission at `:530` applies D10's rule to a third raw dispatch that the census found. D10 as recorded at `27912db91` names only `admitInput` and `validateContractValue`, so ratifying the extension is the Executive's call. Reversal: delete that admission block.
+  - Case `O-SCHEMA: the Product boundary admits input and contract values to I-JSON before the provider guard` (`T/test_env/tests/t287-common-computational-library.test.mjs:81`):
+    - A parsed JSON value is admitted detached, frozen and deep-equal, and it validates.
+    - With a function pushed into a nested command list, the default-library provider alone accepts, and both boundary methods refuse.
+  - Case `O-SCHEMA: the Product boundary admits an interaction response candidate to I-JSON before the provider evaluates it` (same file) loads a spy provider:
+    - A parsed candidate reaches the provider detached and deeply frozen.
+    - A function-bearing candidate returns `null` and never reaches the provider.
+- Item 4, consensus reference arrays: done. In `T/code/src/gtl/consensus.ts`, `isRefArrayEqual` (`:789`) checks the array, its length, and that each member is a reference equal to its counterpart. It does not recurse or encode.
+  - The seven sites are `:840`, `:841`, `:842`, `:928`, `:930`, `:1106` and `:1248`. `admitJson` stays at `:1098` (`declaredPolicy`) and `:1894` (`responseSchema`).
+  - New lane `T/test_env/tests/t287-consensus-ref-shape.test.mjs`, case `consensus reference arrays: shape-checked and compared without recursion; a cycle or NaN member is unequal`. At six sites, a fresh equal array is true. A cycle, `[NaN]`, a hole, a nested array and an extra member are false and do not throw. The fixture does not reach `:1248`.
+  - Baseline probe on a built worktree at `97b1200bc`: every cycle and `[NaN]` answers `false`, and a valid array answers `true`. `bec07fe57` threw `RangeError: Maximum call stack size exceeded` on a cycle. This commit answers `false`.
+- Gate, run on the committed tree (tenant root `T`; lanes with `node --experimental-vm-modules --test --test-concurrency=1`; 2026-10-22T06:53:42Z to 06:58:24Z):
+
+  | command | rc | wall | result |
+  | --- | --- | --- | --- |
+  | `npm run build` | 0 | 32s | manifest and capability graph regenerated |
+  | `npm run lint:imports` | 0 | 1s | 28 modules |
+  | `npm run lint:lifecycle` | 0 | 0s | 284 modules, 10 allow-listed, no offender |
+  | `t287-calculus-fold` | 0 | 1s | 6/6 |
+  | `t287-native-frame-observation` | 1 | 1s | new case passes; the other three unskipped cases (`:189` "explicit proof-local territory", an undefined path argument, a falsy assertion) fail on environment preconditions, the same as with the file at `bec07fe57`; 4 skip |
+  | `t287-common-computational-library` | 0 | 1s | 6/6 |
+  | `t287-consensus-ref-shape` | 0 | 0s | 1/1 |
+  | `m5-event-calculus-runtime` | 1 | 156s | 19 tests, 13 pass, 5 fail, 1 skip; fails at `:372`, `:1316`, `:1471`, `:1548`, `:1590` with the same first error lines as `step-8-run-final.log` (`abg.openCall is not a function` four times; `runtime_failure_observed/runtime_invocation_active`): same set |
+  | `m5-worker-transport` | 0 | 6s | 21/21; the log has no failure: same set |
+  | `m5-s03-authority` (nearest the response dispatch) | 1 | 39s | 5 tests, 1 pass, 4 fail at `:96`, `:218`, `:285`, `:415` with the log's first error lines: same set; the passing `:374` case calls `evaluateInstalledInteractionResponse` (`:396`) |
+  | `npm run test:installed:language` | 0 | 45s | 1/1 |
+
+- Residuals:
+  - Item 2 is open on design §4.4 `:188`.
+  - Leaf validation is now stricter. A worker output that carries a non-I-JSON value (an unsafe integer, a lone surrogate) is not a contract value. No lane exercises a live worker output at that edge.
+  - The judgment relation's `evaluate` (`implementation/leaf_invocation_port.ts:1526`) takes `unknown` input and output. It is a predicate, not an admission or contract guard, and is outside D10's three methods.
+  - Consensus site `:1248` has no exercising case.
+  - Finding 1 is repair B's. Finding 6: O-TYPE is open at the step 4 cast sites; Jim's D11 (recorded at `27912db91`) discharges them by one census activation, post-close repair C.

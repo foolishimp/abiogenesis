@@ -33,10 +33,14 @@ The [L1 design baseline](../.ai-workspace/work/T287_COMMON_COMPUTATIONAL_LIBRARY
 and [exact L2 design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disposition.md)
 retain their historical acceptance. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 supersedes the bounded C1 to C5 contracts of Root’s [conjunction](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md).
-The library is delivered on `main` at `562d4515a`: O-RESOURCE, O-SHAPE, O-CODEC,
-O-SCHEMA (by ingress premise) and O-KEY are closed with their sites, O-TYPE is
-recorded per site, and the two native composite comparisons are ingress
-questions decided per site. The design's proofs hold. The
+The library is on `main` at the commit that
+[post-close repair A](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-a)
+records. O-RESOURCE, O-SHAPE, O-CODEC and O-KEY are closed with their sites.
+O-SCHEMA is closed at the raw owner boundary. O-TYPE is open at the step 4
+cast sites, decided per site under D3; the owner's D11 discharges them by one
+census activation. The
+post-close review's helper-route finding is in repair, and its streaming-fold
+finding is open. The
 [T-287 delivery close](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#library-delivery-close-2026-10-23)
 records the evidence, the remainders migrated as touched and the items the
 owner decides. This is not full migration, source-readiness acceptance or a
