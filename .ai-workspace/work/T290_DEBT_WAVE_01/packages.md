@@ -433,3 +433,117 @@ Items, in this order. The Return carries one row per item: done or stopped, with
 **Stop:** any change to a shared atom's body or signature (`shared/admit/`); any change to an event payload, a candidate shape or a contract; a caller whose expected-key list carries a duplicate (item 1); an `unknown` ingress whose trace is ambiguous between two sources; a new red identity; a second bounded attempt at any item; any push.
 
 **Return contract.** One commit on `main`, no push. First line `TD-13: key-set and record-guard duplicates retired; the two unknown ingresses traced`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-13 return` below this section with: one row per item (done or stopped, lines at head); the guard census table; the two ingress traces with their premise lines and the choice made; the lane results as `tests/pass/fail/skipped` with every red attributed; the stop reports, if any, with the counterexample.
+
+## TD-13 return
+
+Worker: Opus 5.5, fresh context. Base `7e2481d6b`; this package's single commit is the next one on `main`, not pushed. Paths are relative to `build_tenants/abiogenesis/typescript/code/src/` unless they start with `design/` or `test_env/`.
+
+| Item | State | Lines at head `7e2481d6b` | Lines after |
+|---|---|---|---|
+| 1. Key sets | done | `abg/traversal_transition.ts` body `:86-94`, callers `:103`, `:108`, `:113`, `:117`, `:122`, `:127`, `:134`, `:138`, `:226`, `:276`; `abg/artifact_truth.ts` body `:169-171`, callers `:307`, `:319` | shared atom imported at `traversal_transition.ts:2` and `artifact_truth.ts:23`; callers `traversal_transition.ts:93`, `:98`, `:103`, `:107`, `:112`, `:117`, `:124`, `:128`, `:216`, `:266`; `artifact_truth.ts:303`, `:315` |
+| 2. Record guards | done; one parameter narrowing sits outside the two named hog files (see Ingresses) | guards `abg/c_call_outcome.ts:140`, `abg/traversal_route.ts:943`, `abg/c_call.ts:1555`, `abg/execution_basis.ts:949`, `abg/traversal_cursor.ts:109`, `hog/workflow_lifecycle.ts:136`, `hog/recursion_lifecycle.ts:140`; 266 call expressions | no `isJsonRecord` in `code/src`; `isRecord` imported at `c_call_outcome.ts:136`, `traversal_route.ts:7`, `c_call.ts:32`, `execution_basis.ts:74` (existing), `traversal_cursor.ts:8`, `workflow_lifecycle.ts:21`, `recursion_lifecycle.ts:33`; typed bindings `c_call_outcome.ts:187`, `traversal_route.ts:1251`; parameter `execution_basis.ts:961` |
+| 3. Carried findings | done | `abg/worksite_input_provenance.ts:517`; imports `abg/execution_basis.ts:22`, `abg/fan_out_projection.ts:26` (declaration `:23-27`), `abg/continuation.ts:144` (declaration `:141-146`), `abg/worksite_input_provenance.ts:10` | derivation deleted (its successor statement is now `:516`); import declarations `execution_basis.ts:22` and `worksite_input_provenance.ts:10` removed; `fan_out_projection.ts:23-26`; `continuation.ts:141-143` |
+| 4. Proof | done | `test_env/tests/t287-common-computational-library.test.mjs:135-145` | duplicate-key case `:146-149`; compile negatives in scratch (below) |
+| 5. Records | done | `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:615` (O-SHAPE), `:618` (O-KEY) | same lines; one sentence on the bodies appended to O-KEY, two on the guards and the ingresses appended to O-SHAPE |
+| 6. Lanes | done | | see Lanes |
+
+**Item 1.** `traversal_transition.ts:86-94` is the shared algorithm byte for byte (sort both lists, compare pairwise); its callers' outcomes are unchanged for every list, including the dynamic list at `:226`, whose parts (`required`, `nextAction`, `graphSpan` and the two optional names) are disjoint literals. `artifact_truth.ts:169-171` differs from the shared atom in two ways. (a) Duplicate expected key: on `{ a: 1, b: 2 }` with `["a", "a"]` the head expression `Object.keys(value).length === keys.length && keys.every((key) => Object.hasOwn(value, key))` returns `true` and `hasExactKeys` returns `false` (both evaluated in node). The callers' expected lists at head are `:307` `["kind", "schemaVersion", "productId", "installId", "installedRoot"]` and `:319` `["kind", "schemaVersion", "admissionEventRef", "admissionEventDigest", "lockId", "lockDigest"]`: no duplicate, so the shared refusal is the decided behavior and `t287-common-computational-library.test.mjs:149` states it. (b) Non-enumerable own key: `Object.hasOwn` counts one and `Object.keys` does not. Unreachable at both callers: the record is a member of an admitted event payload (`recordPayload`, `artifact_truth.ts:148`), and event payloads come from `JSON.parse` only (`abg/event_body_encoding.ts:123` for appended candidates, `abg/event_store.ts:3333`, `:3534`, `:3614` for decoded rows), which yields own enumerable data members. Both callers keep the throw channel (`TypeError` on mismatch) unchanged.
+
+**Item 2: guard census.** All seven bodies are `typeof value === "object" && value !== null && !Array.isArray(value)`, the body of `isRecord` (`shared/admit/record.ts:9`), so runtime behavior is unchanged at every call; the change is in the type the call claims. Argument types are from the TypeScript checker at each call expression at head.
+
+| Guard at head | Declared input | Call arguments (266) | What callers do with the result | Replaced by |
+|---|---|---|---|---|
+| `abg/c_call_outcome.ts:140` | `JsonValue \| undefined` | 27: 24 `JsonValue`, 2 `JsonValue \| undefined`, 1 `any` (`:221` `admittedGrant`) | select an event payload or member record and read members; refusal value, `null` or `false` | `isRecord`; `admittedGrant` typed `JsonValue \| undefined \| null` at its binding (head `:193`, after `:187`) |
+| `abg/traversal_route.ts:943` | `JsonValue \| undefined` | 114: 56 `JsonValue`, 51 `JsonValue \| undefined`, 7 `any` (`:1120`, `:1188`, `:1259`, `:1475`, `:2473`, `:2484`, `:2512`) | route, projection, basis and ledger shape checks; `null` or `false` | `isRecord`; ledger rows bound as `readonly JsonValue[]` before the loop (head `:1257`, after `:1251`); the other six `any` sites read members only by `typeof` or equality and compile with `unknown` members |
+| `abg/c_call.ts:1555` | `JsonValue \| undefined` | 75: 64 `JsonValue`, 7 `JsonValue \| undefined`, 4 typed records (`:3219`, `:6330`, `:6619`, `:6914`) | CCall candidate and payload shape checks; `null`, `false` or the owner's throw | `isRecord` |
+| `abg/execution_basis.ts:949` | `unknown` | 21: 18 `JsonValue`, 2 `JsonValue \| undefined`, 1 `unknown` (`:970`) | basis and payload checks; `:970` gates `hasExactWorksiteCommandLeafSourceAtDurablePrefix` on the `false` channel | `isRecord`; the `:967` parameter narrowed to `JsonValue` (after `:961`) |
+| `abg/traversal_cursor.ts:109` | `unknown` | 24: 17 `JsonValue`, 6 `JsonValue \| undefined`, 1 `unknown` (`:428` `origin`) | cursor payload checks; `:428` reads six members by `typeof === "string"` and compares them; `null` channel | `isRecord`; `:428` keeps `unknown` members, and nothing downstream claims JSON |
+| `hog/workflow_lifecycle.ts:136` | `unknown` | 2: `:642` `child.resultValue`, `:694` `childValue`; both statically JSON | `:642` feeds `childResultValue` of `deriveGraphFunctionActionEvaluationBasis`; `:694` routes a non-record to `failWorkflow`, a record to `resultCandidate` | `isRecord` |
+| `hog/recursion_lifecycle.ts:140` | `unknown` | 3: `:673` `restored.resultValue`, `:770` `event.payload`, `:884` `child.resultValue`; all `JsonValue` | `:673` feeds `prepareChildTraversal` `input`; `:770` selects the child result event; `:884` routes a non-record to `recursionFailure` | `isRecord` |
+
+The two `any` arguments that fed JSON consumers (`c_call_outcome.ts:221` into `canonicalEquals`; `traversal_route.ts:1259` into `nonEmptyStringArray`) were `JsonValue` erased by `Array.isArray`, which narrows `readonly JsonValue[]` to `readonly JsonValue[] & any[]`. Without the typed bindings the swap gives two `TS2345` errors. Origins at head: `admission` is `Readonly<Record<string, JsonValue>>` by `PAYLOAD_RECORD` (`c_call_outcome.ts:156`, applied at `:185`, read at `:191`), so `grants` (`:192`) is `JsonValue | undefined` before `Array.isArray`; the ledger is `edgeFulfillmentLedger(value: JsonValue | undefined)` (`traversal_route.ts:1232-1233`). The `traversal_route` binding is a checked assignment of `readonly JsonValue[] & any[]` to `readonly JsonValue[]`. The `c_call_outcome` binding has no `as`, but it accepts `grants[0]` as `any`, so TypeScript does not check that `any` to `JsonValue` step; the origin premise above carries it. Both are O-TYPE (T).
+
+**Ingresses.** The activation's premise does not match head. Neither named guard receives an `unknown` argument; the actual `unknown` arguments are at `execution_basis.ts:970` and `traversal_cursor.ts:428`.
+
+- `hog/recursion_lifecycle.ts:140`. Source: `restoreOwnedDeferredRecursion` (`:634`) and `completeOwnedRecursionChild`'s `child`, both `ExecutableTraversalCompletion`, whose `resultValue` is `JsonValue | null` (premise `hog/traversal_completion.ts:94`, produced from `CompletionValues.resultValue: JsonValue`, `:114`, at `:149`); and `RuntimeEvent.payload: JsonValue` (premise `abg/event_store.ts:1210`). Typed producers in `code/src`: narrowed. The guard is retired into `isRecord`, which over these arguments selects the `JsonValue` record member; no parameter remains to narrow.
+- `hog/workflow_lifecycle.ts:136`. Source: `completeOwnedWorkflowLocus`'s `child: OwnedExecutableTraversalCompletion` (`:518`; premise `hog/traversal_completion.ts:94`), `deriveGraphFunctionActionEvaluationBasis`'s return `Readonly<Record<string, JsonValue>> | null` (premise `abg/traversal_route.ts:2155`), and the string-member failure literal at `:688-693`. Narrowed, as above.
+- `abg/execution_basis.ts:967` (the `unknown` at `:970`). Source: the one `code/src` caller, `implementation/leaf_invocation_port.ts:1616`, passes `call.input`, declared `Readonly<Record<string, JsonValue>>` (premise `implementation/contracts.ts:426`). Narrowed: the parameter is `JsonValue`, and the runtime `isRecord` check stays, so the JS test callers keep the `false` channel. The exact record type surfaces `TS2345` at head `:992` (`value.capabilityGrant` is `JsonValue | undefined`). At head the guard's union with `WorksiteExecutionTask` hid that `undefined`, and the read sits inside the function's `try`/`catch` → `false`. Changing that expression is outside the grant, so `JsonValue`, the domain of the caller's type, is the narrowing. This parameter is in `execution_basis.ts`, not in the two hog files the grant names for a parameter change.
+- `abg/traversal_cursor.ts:426` (the `unknown` at `:428`). Callers pass `p.continuedFrom: JsonValue` (`:478`) and a six-string literal (`:761`). `isRecord` leaves the members `unknown`, the function checks each by `typeof`, and nothing claims JSON. No parameter change.
+
+**Item 4: discriminating negatives** (narrowing, so compile errors). Scratch copies of `code/src` with one appended function per ingress, all passing an `unknown` `{ member: () => 0 }`, or the literal itself, through the head path. With the head guards: `tsc --noEmit` exit 0. After:
+
+```
+hog/recursion_lifecycle.ts: error TS2322: Type 'Readonly<Record<string, unknown>>' is not assignable to type 'Readonly<Record<string, JsonValue>>'.
+  'string' index signatures are incompatible. Type 'unknown' is not assignable to type 'JsonValue'.
+    (return isRecord(raw) ? raw : null, typed Parameters<typeof prepareChildTraversal>[2]["input"] | null)
+hog/workflow_lifecycle.ts: error TS2322: the same, typed Parameters<typeof deriveGraphFunctionActionEvaluationBasis>[3]["childResultValue"] | null
+td13_scratch.ts: error TS2345: Argument of type '{ member: () => number; }' is not assignable to parameter of type 'JsonValue'.
+  Types of property 'member' are incompatible. Type '() => number' is not assignable to type 'JsonValue | undefined'.
+    (hasExactWorksiteCommandLeafSourceAtDurablePrefix(prefix, "c-call://scratch", { member: () => 0 }))
+```
+
+**Item 3.** `worksite_input_provenance.ts:517` (`const calculus = deriveRuntimeHeldFluentProjection(prefix)`) had two effects: an advance of the memoized fold to `prefix` (`abg/event_calculus.ts:292`) and one held-set copy and sort. The enclosing `projectSameRunWorksiteCommandSourceAtPrefix` returns at `:468` for native and observed tasks. So the next statement, `worksiteExecutionSourcesCurrent(prefix, input.task)`, always reaches `abg/worksite_revision.ts:800`, which derives the same projection on the same `prefix`. Every fold entry advances itself (`event_calculus.ts:292`), so nothing after `:517` depends on it, and a throwing fold step surfaces from `:800` on the same channel. Deleted. The four `holdsAt` imports are removed, along with the other names on those declarations that a one-off `tsc --noUnusedLocals` on a scratch copy reports unused:
+- `deriveRuntimeEventCalculusProjection` and `constructWorksiteObservationCurrentFluent` at `execution_basis.ts:22`;
+- `deriveRuntimeHeldFluentProjection` (unused once `:517` goes) and `constructWorksiteObservationCurrentFluent` at `worksite_input_provenance.ts:10`;
+- `constructRuntimeFluent` and `type RuntimeEventCalculusProjection` at `continuation.ts`.
+
+The `execution_basis.ts` and `worksite_input_provenance.ts` declarations empty and go, which drops each file's only edge to `event_calculus.js`. Each edited module loads as an entry point from `build/` (`execution_basis.js`, `worksite_input_provenance.js`, `continuation.js`, `fan_out_projection.js`, `index.js`), and the lanes load them. `tsconfig.json` has no `noUnusedLocals`; it is not enabled. The same one-off run still reports 24 unused names in these four files on other lines, outside the grant.
+
+**Lanes.** `npm run build` exit 0; it regenerated `build/code/src/abg/c_call_outcome.js` (tracked), `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json`, all committed. At head it regenerated nothing. `npx tsc --noEmit -p tsconfig.json` clean. `lint:imports`: 28 modules, clean. `lint:lifecycle`: 284 modules, 10 allow-listed, no offender.
+
+Every lane ran at head (`7e2481d6b`, rebuilt) and after. Counts, sorted red identities (file:line, test name, first error line) and skip sets are identical at head and after: 32 reds each, no new red identity. Skips are env-gated fixtures that are unset (retained installed prefixes, predecessor roots, proof territories).
+
+| Lane | Head | After | Reds |
+|---|---|---|---|
+| `t287-common-computational-library` | 9/9/0/0 | 9/9/0/0 | the duplicate-key assert joins test `:135` |
+| `generic-input-retention` | 4/2/2/0 | 4/2/2/0 | `:82`, `:132` "Event Calculus requires a nominal validated immutable event prefix": red at head, in neither source |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | `:26`: TD-07 return's list |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | file load, `ERR_MODULE_NOT_FOUND` under `.ai-workspace/comments/codex/...`: TD-07 return's list |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 | `:59`, `:92`, `:107` "select the immutable s02-installed-continuation-04 carrier": red at head, in neither source |
+| `t287-route-reconstruction` | 9/7/0/2 | 9/7/0/2 | |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 | |
+| `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | `:129` strict-equal assertion: red at head, in neither source |
+| `t287-runtime-failure-diagnostic` | 14/14/0/0 | 14/14/0/0 | |
+| `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 | |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 | |
+| `m5-event-store-reopen` | 18/18/0/0 | 18/18/0/0 | |
+| `r3-workspace-binding` | 1/0/1/0 | 1/0/1/0 | `:85` `product_verification_refusal`: red at head, in neither source |
+| `r5-invocation-admission` | 3/0/3/0 | 3/0/3/0 | `:15` ENOENT `code/src/public/operations.ts`, `:100`, `:598` `catalog_construction_refusal`: red at head, in neither source |
+| `steel-basic-cli-public` | 1/0/1/0 | 1/0/1/0 | `:269` `product.verify` refusal: red at head, in neither source |
+| `t287-authenticated-owner-values` | 3/1/1/1 | 3/1/1/1 | `:39` reference-equality assertion: red at head, in neither source |
+| `t287-conformance-owner-reuse` | 1/0/1/0 | 1/0/1/0 | file-level: `step-8-run-postclose-h.log:486` |
+| `t287-environment-projection-conservation` | 1/0/0/1 | 1/0/0/1 | |
+| `t287-exact-prefix-projection-reuse` | 2/0/1/1 | 2/0/1/1 | `:14` "explicit fresh proof territory required": red at head, in neither source |
+| `t287-governance-covered-source-use` | 8/2/3/3 | 8/2/3/3 | `:351`, `:386`, `:430` "select the frozen bounded fixture": red at head, in neither source |
+| `t287-installed-product-coordinate` | 11/11/0/0 | 11/11/0/0 | |
+| `t287-post-binding-worksite-write` | 2/1/1/0 | 2/1/1/0 | `:244`: TD-07 return's list |
+| `t287-ordered-reconstruction` | 7/0/4/3 | 7/0/4/3 | `:22`, `:74`, `:103`, `:158`: `step-8-run-postclose-h.log:587`, `:588`, `:589`, `:591` |
+| `t287-qualification-producer-acquisition-reuse` | 1/0/1/0 | 1/0/1/0 | file-level "explicit finite copied-history, retained context and exact historical owner fixtures required": red at head, in neither source |
+| `t287-reconstruction-conservation` | 2/0/0/2 | 2/0/0/2 | |
+| `t287-release-publication` | 1/0/1/0 | 1/0/1/0 | file-level "explicit disposable release-fixture territory required": red at head, in neither source |
+| `t287-release-acceptance` | 1/0/1/0 | 1/0/1/0 | file-level "explicit disposable F16 proof territory required": red at head, in neither source |
+| `t287-st2a-e-exact-prefix-workspace-environment` | 1/1/0/0 | 1/1/0/0 | |
+| `t287-w2-05-install-catalog-owner-chain` | 1/0/1/0 | 1/0/1/0 | `:286`: `step-8-run-postclose-h.log:663` |
+| `t288-environment-guard-contraction` | 1/0/0/1 | 1/0/0/1 | |
+| `t288-environment-context-reuse` | 1/0/0/1 | 1/0/0/1 | |
+| `t289-install-event-bodies` | 4/0/4/0 | 4/0/4/0 | `:121`, `:435` "explicit isolated proof territory / predecessor package ... required", `:323`, `:377` `ERR_INVALID_ARG_TYPE` path: red at head, in neither source |
+
+Thirteen lanes are red at head and outside both named sources: they are outside H's 48 files and outside the TD-07 five. Their reds are identical before and after this package. Seven of them (`t287-retry-run-prefix`, `t287-exact-prefix-projection-reuse`, `t287-governance-covered-source-use`, `t287-qualification-producer-acquisition-reuse`, `t287-release-publication`, `t287-release-acceptance`, `t289-install-event-bodies`) fail on an absent fixture or proof territory. The six identities attributed to H (`:486`, `:587`, `:588`, `:589`, `:591`, `:663`) carry the same first error line here as in H.
+
+**Grant boundary.** Five edits sit outside the grant's literal text: the Executive rules on each.
+1. The parameter narrowing at `execution_basis.ts:961`.
+2. The typed binding at `c_call_outcome.ts:187`, on a declaration and not a guard expression.
+3. The typed binding at `traversal_route.ts:1251`, likewise.
+4. The duplicate-key assert in `t287-common-computational-library.test.mjs`, a lane outside the set the item 4 module-name grep produces.
+5. The O-SHAPE clause that names `hasExactWorksiteCommandLeafSourceAtDurablePrefix` taking `JsonValue`, which reverts with edit 1.
+
+The alternative for 1 to 3 is to stop the site and keep its local guard, with the swap's error as the counterexample:
+- 1: `TS2345` at head `:986` and `:992`, `Readonly<Record<string, unknown>>` and `unknown` into `canonicalEquals`;
+- 2: `TS2345` at head `:223` into `canonicalEquals`;
+- 3: `TS2345` at head `:1268-1269` into `nonEmptyStringArray`.
+
+**Stops.** None.
+
+**Findings.**
+- The register's "five refine typed JSON" holds at the call sites, not the declarations. Four of the seven guards declare `unknown`; two of them (`execution_basis.ts:949`, `traversal_cursor.ts:109`) had the only actual `unknown` arguments.
+- Head `execution_basis.ts:992` reads `value.capabilityGrant` without an `undefined` check; the `try`/`catch` makes the outcome `false`. Narrowing the parameter to the caller's exact record type needs that check, a one-expression change outside this grant.

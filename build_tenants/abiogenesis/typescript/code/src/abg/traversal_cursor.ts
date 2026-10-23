@@ -5,6 +5,7 @@ import type { GtlGraph } from "../gtl/contracts.js";
 import { continuationCBatchContext, deriveCContinuationTarget, deriveCEnclosingRetryTopology, deriveCRetryTarget,
   deriveCStructuralTarget, resolveCProgramLocus, resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";
 import { projectRetainedWorksiteInputAtPrefix } from "./worksite_input_provenance.js";
+import { isRecord } from "../shared/admit/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
@@ -106,12 +107,6 @@ export type TraversalCursorAdmissionResult =
 
 const cursorAdmissions = new WeakSet<object>();
 
-function isJsonRecord(
-  value: unknown,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 function refusal(
   code: TraversalCursorAdmissionRefusal["code"],
   message: string,
@@ -188,9 +183,9 @@ export function traversalCursorAdmissionEventsAtPrefix(
   return indexedRuntimeEvents(prefix, "cursor-origin:" + cursor.cursorRef).filter((candidate) =>
     candidate.runId === cursor.runId && candidate.graphCallId === cursor.graphCallId &&
     candidate.frameId === cursor.frameId &&
-    isJsonRecord(candidate.payload) &&
+    isRecord(candidate.payload) &&
     (candidate.kind === "fh_interaction_resume_admitted"
-      ? candidate.payload.successorCursor !== undefined && isJsonRecord(candidate.payload.successorCursor) &&
+      ? candidate.payload.successorCursor !== undefined && isRecord(candidate.payload.successorCursor) &&
         candidate.payload.successorCursor.executionBasisRef === cursor.executionBasisRef
       : candidate.basisId === cursor.executionBasisRef) &&
     (
@@ -217,7 +212,7 @@ export function traversalCursorAdmissionEventsAtPrefix(
 }
 
 export function traversalCursorAdmissionDigest(event: RuntimeEvent): JsonValue | undefined {
-  if (!isJsonRecord(event.payload)) return undefined;
+  if (!isRecord(event.payload)) return undefined;
   return event.kind === "traversal_cursor_entered" ? event.payload.cursorDigest
     : event.kind === "traversal_route_admitted" ? event.payload.targetCursorDigest
     : event.kind === "fh_interaction_resume_admitted" ? event.payload.successorCursorDigest : undefined;
@@ -290,7 +285,7 @@ function* selectedTraversalInputOrigins(prefix: RuntimeEventPrefix, graph: Reado
     if (member !== undefined) yield { inputRef, inputDigest: member.memberDigest, value: member.value, event: null };
   }
   for (const event of indexedRuntimeEvents(prefix, "input-origin:" + inputRef)) {
-    if (!isJsonRecord(event.payload)) continue;
+    if (!isRecord(event.payload)) continue;
     const p = event.payload;
     // Registered inputs are canonical content identities. Their applicable use
     // is selected by the admitted cursor below, never by this global bucket.
@@ -299,14 +294,14 @@ function* selectedTraversalInputOrigins(prefix: RuntimeEventPrefix, graph: Reado
       : event.kind === "fh_interaction_resume_admitted" ? [p.successorInputRef, p.successorInputDigest, p.successorInputValue]
       : event.kind === "fan_out_completion_admitted" ? [p.outputVectorRef, p.outputVectorDigest, p.outputVector]
       : event.kind === "retry_attempt_opened" ? [p.inputRef, p.inputDigest, p.inputValue]
-      : event.kind === "traversal_route_admitted" && isJsonRecord(p.boundInput)
+      : event.kind === "traversal_route_admitted" && isRecord(p.boundInput)
         ? [p.boundInput.admissionRef, p.boundInput.subjectDigest, p.boundInput.value]
-      : event.kind === "traversal_route_admitted" && isJsonRecord(p.graphSpanReentryProjection)
+      : event.kind === "traversal_route_admitted" && isRecord(p.graphSpanReentryProjection)
         ? [p.graphSpanReentryProjection.targetInputRef, p.graphSpanReentryProjection.targetInputDigest, p.graphSpanReentryProjection.targetInput]
       : null;
     if (origin !== null && typeof origin[0] === "string" && typeof origin[1] === "string" && origin[2] !== undefined)
       yield { inputRef: origin[0], inputDigest: origin[1] as Sha256Digest, value: origin[2], event,
-        ...(event.kind === "traversal_route_admitted" && isJsonRecord(p.boundInput) ? { retained: true as const } : {}) };
+        ...(event.kind === "traversal_route_admitted" && isRecord(p.boundInput) ? { retained: true as const } : {}) };
   }
 }
 
@@ -322,7 +317,7 @@ export function projectTraversalInputAtPrefix(prefix: RuntimeEventPrefix,
   if (cursor.executionBasisRef !== execution.basisRef || cursor.graphRef !== graph.materializationRef ||
     !hasAdmittedTraversalCursorAtPrefix(prefix, cursor)) return null;
   const registeredOrigins = traversalCursorAdmissionEventsAtPrefix(prefix, cursor).filter(event =>
-    event.kind === "traversal_route_admitted" && isJsonRecord(event.payload) &&
+    event.kind === "traversal_route_admitted" && isRecord(event.payload) &&
     event.payload.registeredSelectionApplicationRef !== undefined);
   if (registeredOrigins.length > 0) {
     if (registeredOrigins.length !== 1 || traversalCursorAdmissionDigest(registeredOrigins[0]!) !== cursor.cursorDigest) return null;
@@ -395,18 +390,18 @@ function enclosingBatchEntry(graph: Readonly<GtlGraph>, source: TraversalCursorC
  * named dependency only; fan-out and F_H completion retain their own inputs. */
 function routeCompletedInput(prefix: RuntimeEventPrefix, route: RuntimeEvent,
   source: TraversalCursorCandidate): InputCoordinate | null {
-  if (!isJsonRecord(route.payload)) return null;
+  if (!isRecord(route.payload)) return null;
   const p = route.payload;
-  if (isJsonRecord(p.boundInput)) return inputCoordinate(p.boundInput.admissionRef, p.boundInput.subjectDigest);
+  if (isRecord(p.boundInput)) return inputCoordinate(p.boundInput.admissionRef, p.boundInput.subjectDigest);
   let witness = eventById(prefix, route.causationEventRefs[0]);
   let before = route.admissionOrdinal;
-  while (witness !== null && witness.kind === "retry_progress_recorded" && isJsonRecord(witness.payload) &&
+  while (witness !== null && witness.kind === "retry_progress_recorded" && isRecord(witness.payload) &&
     witness.payload.progressClass === "completed") {
     if (witness.admissionOrdinal >= before) return null;
     before = witness.admissionOrdinal;
     witness = eventById(prefix, witness.payload.completionWitnessEventRef);
   }
-  if (witness === null || witness.admissionOrdinal >= before || !isJsonRecord(witness.payload)) return null;
+  if (witness === null || witness.admissionOrdinal >= before || !isRecord(witness.payload)) return null;
   if (witness.kind === "fan_out_completion_admitted")
     return inputCoordinate(witness.payload.outputVectorRef, witness.payload.outputVectorDigest);
   if (witness.kind === "fh_interaction_resume_admitted")
@@ -416,7 +411,7 @@ function routeCompletedInput(prefix: RuntimeEventPrefix, route: RuntimeEvent,
   const results = indexedRuntimeEvents(prefix, "aggregate:c_call:" + p.cCallRef).filter(event =>
     event.kind === "c_call_result_admitted" && event.admissionOrdinal < route.admissionOrdinal &&
     event.runId === source.runId && event.graphCallId === source.graphCallId && event.frameId === source.frameId);
-  return results.length === 1 && isJsonRecord(results[0]!.payload)
+  return results.length === 1 && isRecord(results[0]!.payload)
     ? inputCoordinate(results[0]!.payload.resultRef, results[0]!.payload.valueDigest) : null;
 }
 
@@ -425,7 +420,7 @@ function routeCompletedInput(prefix: RuntimeEventPrefix, route: RuntimeEvent,
  * replacement frame; no new position or input is chosen here. */
 function continuedCursorOrigin(prefix: RuntimeEventPrefix, graph: Readonly<GtlGraph>,
   basisRef: string, origin: unknown): TraversalCursorCandidate | null {
-  if (!isJsonRecord(origin) || Object.keys(origin).length !== 6 ||
+  if (!isRecord(origin) || Object.keys(origin).length !== 6 ||
     !["cursorRef", "cursorDigest", "executionBasisRef", "runId", "graphCallId", "frameId"]
       .every(key => typeof origin[key] === "string")) return null;
   const basis = rehydrateExecutionBasisAtPrefix(prefix, basisRef);
@@ -438,7 +433,7 @@ function continuedCursorOrigin(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
   if (source === undefined || (basis.basisClass === "child" &&
     (source.cursorRef !== use.pendingCursorRef || source.cursorDigest !== use.pendingCursorDigest))) return null;
   if (basis.basisClass === "root" && !indexedRuntimeEvents(prefix, "kind:construction_intent_selected").some(e =>
-    e.runId === source.runId && e.basisId === source.executionBasisRef && isJsonRecord(e.payload) &&
+    e.runId === source.runId && e.basisId === source.executionBasisRef && isRecord(e.payload) &&
     e.payload.constructionIntentRef === use.constructionIntentRef && e.payload.constructionIntentDigest === use.constructionIntentDigest &&
     e.payload.targetCursorRef === source.cursorRef && e.payload.targetCursorDigest === source.cursorDigest)) return null;
   return source;
@@ -455,7 +450,7 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
     const matches = traversalCursorAdmissionEventsAtPrefix(prefix, { ...selected, cursorRef: ref });
     const event = exactOrNull(onlyExactMatch(matches));
     if (event === null || event.admissionOrdinal >= before || traversalCursorAdmissionDigest(event) !== digest ||
-      !isJsonRecord(event.payload)) return null;
+      !isRecord(event.payload)) return null;
     origins.push(event);
     before = event.admissionOrdinal;
     if (event.kind === "traversal_cursor_entered") break;
@@ -464,7 +459,7 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
       const opened = eventById(prefix, payload.openedEventRef);
       if (opened?.kind !== "fh_interaction_opened" || opened.admissionOrdinal >= before ||
         opened.runId !== selected.runId || opened.graphCallId !== selected.graphCallId || opened.frameId !== selected.frameId ||
-        !isJsonRecord(opened.payload)) return null;
+        !isRecord(opened.payload)) return null;
       payload = { sourceCursorRef: opened.payload.heldCursorRef!, sourceCursorDigest: opened.payload.heldCursorDigest! };
     }
     if (typeof payload.sourceCursorRef !== "string" || typeof payload.sourceCursorDigest !== "string") return null;
@@ -472,7 +467,7 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
   }
   const initial = origins.pop()!;
   const p = initial.payload;
-  if (!isJsonRecord(p)) return null;
+  if (!isRecord(p)) return null;
   const input = inputCoordinate(p.inputRef, p.inputDigest);
   const continued = p.continuedFrom === undefined ? null
     : continuedCursorOrigin(prefix, graph, selected.executionBasisRef, p.continuedFrom);
@@ -496,7 +491,7 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
     const payload = event.payload as Readonly<Record<string, JsonValue>>;
     let next: TraversalCursorCandidate;
     if (event.kind === "fh_interaction_resume_admitted") {
-      if (!isJsonRecord(payload.successorCursor)) return null;
+      if (!isRecord(payload.successorCursor)) return null;
       next = payload.successorCursor as unknown as TraversalCursorCandidate;
       const resumedInput = inputCoordinate(payload.successorInputRef, payload.successorInputDigest);
       if (resumedInput === null || !isInteractionResumeCursorSuccessorAtPrefix(prefix, current, resumedInput, next)) return null;
@@ -505,7 +500,7 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
       const term = resolveCProgramTermAtSourcePath(graph.template, current.currentNodeRef, current.termPath);
       if (term.kind === "c_source_path_refusal") return null;
       let target;
-      if (payload.routeKind === "re_enter" && isJsonRecord(payload.graphSpanReentryProjection)) {
+      if (payload.routeKind === "re_enter" && isRecord(payload.graphSpanReentryProjection)) {
         const projection = payload.graphSpanReentryProjection;
         if (typeof projection.targetProgramLocusRef !== "string") return null;
         const locus = resolveCProgramLocus(graph.template, projection.targetProgramLocusRef);
@@ -516,7 +511,7 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
       } else if (payload.routeKind === "retry" && payload.cCallRef !== null) {
         const progress = eventById(prefix, event.causationEventRefs[0]);
         if (progress?.kind !== "retry_progress_recorded" || progress.admissionOrdinal >= event.admissionOrdinal ||
-          !isJsonRecord(progress.payload) || progress.payload.progressClass !== "retry") return null;
+          !isRecord(progress.payload) || progress.payload.progressClass !== "retry") return null;
         const retryInput = inputCoordinate(progress.payload.inputRef, progress.payload.inputDigest);
         if (retryInput === null) return null;
         target = deriveCRetryTarget(graph, coordinate, retryInput);
@@ -525,10 +520,10 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
       } else if (payload.routeKind === "advance" && payload.registeredSelectionApplicationRef !== undefined) {
         const admittedInput = projectRegisteredSelectionInputAtPrefix(prefix, event);
         const results = indexedRuntimeEvents(prefix, "related:" + payload.cCallRef).filter(e =>
-          e.kind === "c_call_result_admitted" && e.basisId === current.executionBasisRef && isJsonRecord(e.payload));
+          e.kind === "c_call_result_admitted" && e.basisId === current.executionBasisRef && isRecord(e.payload));
         const result = exactOrUndefined(onlyExactMatch(results));
         const basis = rehydrateExecutionBasisAtPrefix(prefix, current.executionBasisRef);
-        if (admittedInput === null || result === undefined || !isJsonRecord(result.payload) ||
+        if (admittedInput === null || result === undefined || !isRecord(result.payload) ||
           typeof result.payload.contractRef !== "string" || result.payload.value === undefined || basis === null) return null;
         const relation = resolveRegisteredSelection(graph.template, current, result.payload.contractRef,
           result.payload.value, basis.registeredSelectionDefinitionDigests ?? {});
@@ -587,7 +582,7 @@ export function projectOpenedCCallTraversalInputAtPrefix(prefix: RuntimeEventPre
 } | null {
   const openedRows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef).filter(e => e.kind === "c_call_opened");
   const opened = exactOrUndefined(onlyExactMatch(openedRows));
-  if (opened === undefined || !isJsonRecord(opened.payload) || (opened.payload.callClass !== "leaf" && opened.payload.callClass !== "workflow") ||
+  if (opened === undefined || !isRecord(opened.payload) || (opened.payload.callClass !== "leaf" && opened.payload.callClass !== "workflow") ||
     typeof opened.basisId !== "string" || typeof opened.payload.programLocusRef !== "string" ||
     typeof opened.payload.cursorRef !== "string" || typeof opened.payload.cursorDigest !== "string") return null;
   const execution = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);

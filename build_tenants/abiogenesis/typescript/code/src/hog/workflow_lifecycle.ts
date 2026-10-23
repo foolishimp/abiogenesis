@@ -18,6 +18,7 @@ import type {
   GtlProgram,
 } from "../gtl/contracts.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
+import { isRecord } from "../shared/admit/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -133,12 +134,6 @@ export type OwnedExecutableTraversalCompletion = OwnedOutcomeValue<ExecutableTra
 export type OwnedTraversalLocusEvaluation = OwnedOutcomeValue<TraversalLocusEvaluation>;
 /** @internal */
 export type OwnedWorkflowLocusStep = OwnedOutcomeValue<WorkflowLocusStep>;
-function isJsonRecord(
-  value: unknown,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 function fanOutApplicationForBatch(
   graph: Readonly<GtlGraph>,
   batchRef: string | null,
@@ -639,7 +634,7 @@ export function completeOwnedWorkflowLocus(
   const intent = foldbackPreparation.intent;
   const actionValue = intent?.actionKind === "invoke_graph_function" &&
       child.disposition === "closed" && child.closureRef !== null &&
-      isJsonRecord(child.resultValue)
+      isRecord(child.resultValue)
     ? deriveGraphFunctionActionEvaluationBasis(
         child.successorPrefix,
         runtime.executionBasis,
@@ -691,7 +686,7 @@ export function completeOwnedWorkflowLocus(
         failureClass: "child_traversal_failed",
         diagnosticRef: failureDiagnosticRef,
       });
-  if (!isJsonRecord(childValue)) {
+  if (!isRecord(childValue)) {
     return failWorkflow(frame,
       foldback.successorPrefix,
       `workflow-result-${ordinal}`,

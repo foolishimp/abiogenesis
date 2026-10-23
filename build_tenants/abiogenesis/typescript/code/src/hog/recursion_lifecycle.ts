@@ -30,6 +30,7 @@ import type {
 } from "../gtl/contracts.js";
 import { recursionTerminationDecision } from "../gtl/graph_applications.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
+import { isRecord } from "../shared/admit/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -137,12 +138,6 @@ export type OwnedExecutableTraversalCompletion = OwnedOutcomeValue<ExecutableTra
 export type OwnedRecursionChildFoldFrame = OwnedOutcomeValue<RecursionChildFoldFrame>;
 /** @internal */
 export type OwnedRecursionApplicationStep = OwnedOutcomeValue<RecursionApplicationStep>;
-function isJsonRecord(
-  value: unknown,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 function failRecursionInput(
   input: Readonly<{
     traversalInput: CompleteExecutableTraversalInput<
@@ -670,7 +665,7 @@ function beginRecursionApplicationUsing(
       };
     }
     if (restored.cCallRef === null || restored.resultRef === null ||
-        !isJsonRecord(restored.resultValue)) {
+        !isRecord(restored.resultValue)) {
       return failRecursionInput(input,
         restored.successorPrefix,
         `recursion-child-${leafOrdinal}`,
@@ -767,7 +762,7 @@ function projectFailedRecursionChildTruth(
     .find(event => event.runId === childScope.runId &&
       event.graphCallId === childScope.graphCallId &&
       event.frameId === childScope.frameId && event.basisId === childBasis.basisRef &&
-      isJsonRecord(event.payload) && event.payload.resultRef === child.resultRef &&
+      isRecord(event.payload) && event.payload.resultRef === child.resultRef &&
       event.payload.cCallRef === child.cCallRef);
   return truth !== null && result !== undefined &&
       truth.outputDigest === sha256Canonical(child.resultValue) &&
@@ -881,7 +876,7 @@ function completeRecursionChildUsing(
   if (
     (child.disposition !== "closed" && child.disposition !== "blocked") ||
     child.resultRef === null || child.judgmentRef === null ||
-    child.resultValue === null || !isJsonRecord(child.resultValue)
+    child.resultValue === null || !isRecord(child.resultValue)
   ) {
     return recursionFailure(
       state,

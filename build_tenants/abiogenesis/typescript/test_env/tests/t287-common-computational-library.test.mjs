@@ -143,6 +143,10 @@ test('D04 fixed JSON key domains retain exact names; a NUL-containing key never 
   // P-KEYS counterexample: the retired NUL-joined bodies returned true here.
   assert.equal(hasExactKeys({ 'a\0b': 0 }, ['a', 'b']), false);
   assert.equal(hasExactKeys({ a: 0, b: 0 }, ['a\0b']), false);
+  // O-KEY duplicate-key decision: an expected list with a repeated key never
+  // matches. artifact_truth's retired private body (length and Object.hasOwn)
+  // returned true here; no caller's expected list carries a duplicate.
+  assert.equal(hasExactKeys({ a: 1, b: 2 }, ['a', 'a']), false);
   for (const record of [
     { kind: 'abg_admitted_body_reference_record', codecVersion: 1, event: {}, bodyReference: {}, extra: 0 },
     { kind: 'abg_admitted_body_reference_record', codecVersion: 2, event: {}, bodyReference: { sourceEventRef: 'event:one' } },

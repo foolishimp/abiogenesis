@@ -139,10 +139,7 @@ export function admitContinuationTerminal(
   return admitted[0]!;
 }
 import {
-  constructRuntimeFluent,
   deriveRuntimeHeldFluentProjection,
-  holdsAt,
-  type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
 import { runtimeEventPrefixDigest,
   runtimeEventBodiesAtPrefix,

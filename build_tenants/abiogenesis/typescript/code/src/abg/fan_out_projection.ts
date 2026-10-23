@@ -23,7 +23,6 @@ import type { RuntimeEvent } from "./event_store.js";
 import {
   constructScopedRetryFluent,
   runtimeFluentHoldsAtPrefix,
-  holdsAt,
 } from "./event_calculus.js";
 import type {
   CompleteFanOutAdmission,
