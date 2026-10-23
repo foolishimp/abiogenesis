@@ -7,7 +7,6 @@ import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { semanticJobReadDependenciesAtPrefix } from "./semantic_job.js";
 import { worksiteExecutionSourcesCurrent } from "./worksite_revision.js";
-import { deriveRuntimeHeldFluentProjection, holdsAt, constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
 /** Pure, prefix-owned provenance for the bounded worksite retention relation. */
 import { type JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -514,7 +513,6 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEvent
   // The serial C3 form additionally names the completed aggregate's actual reducer,
   // never a partial fan-out member or a child with merely equal bytes.
   let resultProjection = retained;
-  const calculus = deriveRuntimeHeldFluentProjection(prefix);
   if (!worksiteExecutionSourcesCurrent(prefix, input.task)) return null;
   if (branch) {
     const c3 = WORKSITE_BRANCH_CONSTRUCTION_IDS;

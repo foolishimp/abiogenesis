@@ -19,7 +19,6 @@ import { isWorksiteCommandForwardRequest, isWorksiteCommandForwardTask } from ".
 import { worksiteCommandForwardChildSourceAtPrefix } from "./worksite_command_forward.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { revisionPreparationHasNativeBridgeSourceAtPrefix, readDependencyPreparationHasNativeBridgeSourceAtPrefix } from "./worksite_input_provenance.js";
-import { deriveRuntimeEventCalculusProjection, holdsAt, constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
 import { isWorksitePreparationInput, preparationConstructionTasks } from "../product/worksite_preparation.js";
 import type {
   ClosureContract,
@@ -736,7 +735,7 @@ function exactC2SourceEnvironment(
       invocation.inputContractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef &&
       invocation.rawInputDigest === sha256Canonical(task) &&
       invocation.workspaceBindingId === task.workspaceBinding.bindingId && invocation.workspaceBindingDigest === task.workspaceBinding.bindingDigest &&
-      admitted?.kind === "invocation_admitted" && isJsonRecord(admitted.payload) &&
+      admitted?.kind === "invocation_admitted" && isRecord(admitted.payload) &&
       admitted.payload.invocationAdmissionRef === invocation.invocationAdmissionRef && admitted.payload.rawInputDigest === invocation.rawInputDigest &&
       !worksiteCommandSourcesInvalidatedAfter(authorityPrefix, admitted.admissionOrdinal, task.workspaceAuthorityBasis.canonicalRoot,
         task.protectedObservations.map(row => row.subject.relativePath));
@@ -826,11 +825,11 @@ function exactC2SourceEnvironment(
   }
   const basisEvents = indexedRuntimeEvents(sourcePrefix, "payload:invocationAdmissionRef:" + basis.sourceInvocationAdmissionRef).filter((event) =>
     event.kind === "basis_admitted" &&
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
     event.payload.basisClass === "root" &&
     event.payload.invocationAdmissionRef === basis.sourceInvocationAdmissionRef
   );
-  if (basisEvents.length !== 1 || !isJsonRecord(basisEvents[0]!.payload) ||
+  if (basisEvents.length !== 1 || !isRecord(basisEvents[0]!.payload) ||
     typeof basisEvents[0]!.payload.basisRef !== "string") return false;
   const sourceExecutionBasis = rehydrateExecutionBasisAtPrefix(
     sourcePrefix,
@@ -946,12 +945,6 @@ const implementationResolutions = new WeakSet<object>();
 const implementationSets = new WeakSet<object>();
 const interactionSets = new WeakSet<object>();
 
-function isJsonRecord(
-  value: unknown,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 /**
  * Raw input ingress for the record digest: `admitJson` detaches and deeply
  * freezes the value, and only its record member is admitted.
@@ -965,9 +958,9 @@ function detachJsonRecord(value: unknown): JsonRecord | null {
 
 /** Re-enters the current physical prefix before C2 creates any launch or observation artifact. */
 export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
-  predecessor: DurablePrefixCoordinate, cCallRef: string, value: unknown,
+  predecessor: DurablePrefixCoordinate, cCallRef: string, value: JsonValue,
 ): boolean {
-  if (!isJsonRecord(value)) return false;
+  if (!isRecord(value)) return false;
   try {
     const events = readRuntimeEventsAtDurablePrefix(predecessor, { requireCurrent: true });
     const prefix = selectValidatedRuntimeEventPrefix(events);
@@ -975,12 +968,12 @@ export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
     if (nativeTask === null && !isWorksiteExecutionTask(value)) return false;
     const task = (nativeTask ?? value) as unknown as WorksiteExecutionTask & Readonly<Record<string, JsonValue>>;
     const opens = events.filter((event) => event.kind === "c_call_opened" && event.aggregateId === cCallRef &&
-      event.graphFunctionRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef : WORKSITE_REVISION_IDS.graphFunctionRef) && isJsonRecord(event.payload));
+      event.graphFunctionRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef : WORKSITE_REVISION_IDS.graphFunctionRef) && isRecord(event.payload));
     if (opens.length !== 1 || opens[0]!.basisId === null) return false;
     const opened = opens[0]!;
     const execution = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId!);
     const fibres = events.filter((event) => event.kind === "c_call_fibre_selected" && event.aggregateId === cCallRef &&
-      event.basisId === opened.basisId && event.runId === opened.runId && isJsonRecord(event.payload) &&
+      event.basisId === opened.basisId && event.runId === opened.runId && isRecord(event.payload) &&
       event.payload.implementationRef === worksiteExecutionImplementationRef(task) &&
       event.payload.implementationBindingRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef : WORKSITE_REVISION_IDS.implementationBindingRef) && event.payload.regime === "F_P");
     if (execution === null || fibres.length !== 1 || !canonicalEquals(execution.rawInputValue, value) ||
@@ -1019,11 +1012,11 @@ export function hasExactInvocationObservationBasis(
     value.schemaVersion !== "5.0.0" ||
     typeof value.snapshotRef !== "string" ||
     typeof value.snapshotDigest !== "string" ||
-    !isJsonRecord(value.workspaceBinding) ||
+    !isRecord(value.workspaceBinding) ||
     value.workspaceBinding.workspaceBindingId !== workspaceBindingId ||
     value.workspaceBinding.workspaceBindingDigest !==
       workspaceBindingDigest ||
-    !isJsonRecord(value.actionCatalog) ||
+    !isRecord(value.actionCatalog) ||
     program.actionCatalog === undefined ||
     !canonicalEquals(
       value.actionCatalog,
@@ -1086,9 +1079,9 @@ function interactionSetBody(set: AdmittedInteractionSet): JsonValue {
  * body digest with the recorded `implementationSetDigest` (D2). */
 const IMPLEMENTATION_SET_RECORD: RecordCheck<RuntimeEvent, AdmittedImplementationSet> = Object.freeze({
   project: (event: RuntimeEvent): Outcome<AdmittedImplementationSet> =>
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
       event.payload.implementationSet !== undefined &&
-      isJsonRecord(event.payload.implementationSet)
+      isRecord(event.payload.implementationSet)
       ? ok(deepFreeze({
         kind: "admitted_implementation_set" as const,
         schemaVersion: "5.0.0" as const,
@@ -1106,9 +1099,9 @@ const IMPLEMENTATION_SET_RECORD: RecordCheck<RuntimeEvent, AdmittedImplementatio
 /** The interaction twin of `IMPLEMENTATION_SET_RECORD`. */
 const INTERACTION_SET_RECORD: RecordCheck<RuntimeEvent, AdmittedInteractionSet> = Object.freeze({
   project: (event: RuntimeEvent): Outcome<AdmittedInteractionSet> =>
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
       event.payload.interactionSet !== undefined &&
-      isJsonRecord(event.payload.interactionSet)
+      isRecord(event.payload.interactionSet)
       ? ok(deepFreeze({
         kind: "admitted_interaction_set" as const,
         schemaVersion: "5.0.0" as const,
@@ -1213,11 +1206,11 @@ export function hasAdmittedImplementationSetAtPrefix(
     set.implementationSetRef ===
       `implementation-set://abiogenesis/${set.implementationSetDigest.slice("sha256:".length)}` &&
     event?.kind === "implementation_admitted" &&
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
     event.payload.implementationSetRef === set.implementationSetRef &&
     event.payload.implementationSetDigest === set.implementationSetDigest &&
     event.payload.implementationSet !== undefined &&
-    isJsonRecord(event.payload.implementationSet) &&
+    isRecord(event.payload.implementationSet) &&
     canonicalEquals(
       event.payload.implementationSet,
       {
@@ -1311,11 +1304,11 @@ export function hasAdmittedInteractionSetAtPrefix(
     set.interactionSetRef ===
       `interaction-set://abiogenesis/${set.interactionSetDigest.slice("sha256:".length)}` &&
     event?.kind === "implementation_admitted" &&
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
     event.payload.interactionSetRef === set.interactionSetRef &&
     event.payload.interactionSetDigest === set.interactionSetDigest &&
     event.payload.interactionSet !== undefined &&
-    isJsonRecord(event.payload.interactionSet) &&
+    isRecord(event.payload.interactionSet) &&
     canonicalEquals(
       event.payload.interactionSet,
       {
@@ -1354,10 +1347,10 @@ export function rehydrateAdmittedImplementationSetAtPrefix(
     resolveExactMatch(indexedRuntimeEvents(prefix, "payload:implementationSetRef:" + implementationSetRef),
       (event) =>
         event.kind === "implementation_admitted" &&
-        isJsonRecord(event.payload) &&
+        isRecord(event.payload) &&
         event.payload.implementationSetRef === implementationSetRef &&
         event.payload.implementationSet !== undefined &&
-        isJsonRecord(event.payload.implementationSet)),
+        isRecord(event.payload.implementationSet)),
     IMPLEMENTATION_SET_RECORD,
   );
   // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
@@ -1394,10 +1387,10 @@ export function rehydrateAdmittedInteractionSetAtPrefix(
     resolveExactMatch(indexedRuntimeEvents(prefix, "payload:interactionSetRef:" + interactionSetRef),
       (event) =>
         event.kind === "implementation_admitted" &&
-        isJsonRecord(event.payload) &&
+        isRecord(event.payload) &&
         event.payload.interactionSetRef === interactionSetRef &&
         event.payload.interactionSet !== undefined &&
-        isJsonRecord(event.payload.interactionSet)),
+        isRecord(event.payload.interactionSet)),
     INTERACTION_SET_RECORD,
   );
   // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
@@ -1427,7 +1420,7 @@ export function hasAdmittedImplementationResolution(
     resolution.resolutionRef ===
       `implementation-resolution://abiogenesis/${resolution.resolutionDigest.slice("sha256:".length)}` &&
     event?.kind === "implementation_admitted" &&
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
     event.payload.resolutionRef === resolution.resolutionRef &&
     event.payload.resolutionDigest === resolution.resolutionDigest &&
     event.payload.resolutionValidationRef === resolution.resolutionValidationRef

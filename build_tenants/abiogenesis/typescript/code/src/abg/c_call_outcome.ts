@@ -133,15 +133,9 @@ import {
 } from "./traversal_route.js";
 import type { TraversalTransitionCandidate } from "./traversal_transition.js";
 import { canonicalEquals } from "../shared/value/index.js";
-import { admitJson } from "../shared/admit/index.js";
+import { admitJson, isRecord } from "../shared/admit/index.js";
 import { ok, type StructuralRefusal } from "../shared/refusal.js";
 import { checkExactRecord, onlyExactMatch, resolveExactMatch, type CheckedRecord, type RecordCheck } from "../shared/select/index.js";
-
-function isJsonRecord(
-  value: JsonValue | undefined,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 const PAYLOAD_NOT_RECORD: StructuralRefusal = Object.freeze({
   kind: "structural_refusal",
@@ -154,7 +148,7 @@ const PAYLOAD_NOT_RECORD: StructuralRefusal = Object.freeze({
 /** One selected event as a checked record: its payload is a record whose
  * canonical digest is the event's `payloadDigest`. */
 const PAYLOAD_RECORD: RecordCheck<RuntimeEvent, Readonly<Record<string, JsonValue>>> = Object.freeze({
-  project: (event: RuntimeEvent) => isJsonRecord(event.payload) ? ok(event.payload) : PAYLOAD_NOT_RECORD,
+  project: (event: RuntimeEvent) => isRecord(event.payload) ? ok(event.payload) : PAYLOAD_NOT_RECORD,
   digest: Object.freeze({
     expected: (event: RuntimeEvent) => event.payloadDigest,
     actual: (payload: Readonly<Record<string, JsonValue>>) => sha256Canonical(payload),
@@ -170,7 +164,7 @@ export function projectWorksiteBasisObservation(
   event: RuntimeEvent,
   priorEvents: readonly RuntimeEvent[],
 ): string | null {
-  const payload = isJsonRecord(event.payload) ? event.payload : null;
+  const payload = isRecord(event.payload) ? event.payload : null;
   const request = payload?.rawInputValue ?? null;
   if (!isWorksiteFileReplaceRequest(request) || payload === null) {
     return null;
@@ -180,7 +174,7 @@ export function projectWorksiteBasisObservation(
     ? onlyExactMatch<RuntimeEvent>([])
     : resolveExactMatch(priorEvents, (row) =>
         row.kind === "invocation_admitted" &&
-        isJsonRecord(row.payload) &&
+        isRecord(row.payload) &&
         row.payload.invocationAdmissionRef === invocationAdmissionRef
       ), PAYLOAD_RECORD);
   if (admissionRow.kind !== "one" ||
@@ -190,7 +184,7 @@ export function projectWorksiteBasisObservation(
   }
   const admission = admissionRow.value;
   const grants = admission.capabilityGrants;
-  const admittedGrant = Array.isArray(grants) && grants.length === 1
+  const admittedGrant: JsonValue | undefined | null = Array.isArray(grants) && grants.length === 1
     ? grants[0]
     : null;
   const basisClass = payload.basisClass;
@@ -201,7 +195,7 @@ export function projectWorksiteBasisObservation(
       typeof payload.parentCCallRef === "string" &&
       priorEvents.filter((row) =>
         row.kind === "basis_admitted" &&
-        isJsonRecord(row.payload) &&
+        isRecord(row.payload) &&
         row.payload.basisRef === payload.parentExecutionBasisRef &&
         row.payload.invocationAdmissionRef === invocationAdmissionRef &&
         row.payload.programRef === payload.programRef &&
@@ -213,12 +207,12 @@ export function projectWorksiteBasisObservation(
       priorEvents.filter((row) =>
         row.kind === "c_call_opened" &&
         row.basisId === payload.parentExecutionBasisRef &&
-        isJsonRecord(row.payload) &&
+        isRecord(row.payload) &&
         row.payload.cCallRef === payload.parentCCallRef &&
         row.payload.callClass === "workflow" &&
         row.payload.childGraphFunctionRef === payload.graphFunctionRef
       ).length === 1;
-  return admittedGrant !== null && isJsonRecord(admittedGrant) &&
+  return admittedGrant !== null && isRecord(admittedGrant) &&
       canonicalEquals(
         admittedGrant,
         request.capabilityGrant,
@@ -244,7 +238,7 @@ export function projectWorksiteSelectedOccurrence(
   fibreEvent: RuntimeEvent,
   priorEvents: readonly RuntimeEvent[],
 ) {
-  if (fibreEvent.kind !== "c_call_fibre_selected" || !isJsonRecord(fibreEvent.payload) ||
+  if (fibreEvent.kind !== "c_call_fibre_selected" || !isRecord(fibreEvent.payload) ||
     fibreEvent.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
     fibreEvent.payload.implementationBindingRef !== "implementation-binding://abiogenesis/worksite/file-replace-fd@5" ||
     fibreEvent.payload.implementationRef !== "implementation://abiogenesis/worksite/file-replace-fd@5") return null;
@@ -256,18 +250,18 @@ export function projectWorksiteSelectedOccurrence(
     row.kind === "c_call_opened" && row.aggregateId === cCallRef), PAYLOAD_RECORD));
   const fibre = checkedEventOrNull(checkExactRecord(resolveExactMatch(events, row =>
     row.kind === "c_call_fibre_selected" && row.aggregateId === cCallRef), PAYLOAD_RECORD));
-  const basisPayload = basisRow !== null && isJsonRecord(basisRow.payload) ? basisRow.payload : null;
+  const basisPayload = basisRow !== null && isRecord(basisRow.payload) ? basisRow.payload : null;
   const request = basisPayload?.rawInputValue;
   if (basisPayload === null || !isWorksiteFileReplaceRequest(request)) return null;
   const bindingRow = checkedEventOrNull(checkExactRecord(resolveExactMatch(events, row =>
     row.kind === "public_operation_artifact_admitted" &&
-    isJsonRecord(row.payload) && row.payload.operationId === "abg.operation.workspace.bind" &&
+    isRecord(row.payload) && row.payload.operationId === "abg.operation.workspace.bind" &&
     row.payload.artifactRef === request.workspaceBindingIdentity &&
     row.payload.artifactDigest === request.workspaceBindingDigest), PAYLOAD_RECORD));
   if (basisRow === null || opened === null || fibre === null || bindingRow === null ||
-    !isJsonRecord(basisRow.payload) || !isJsonRecord(opened.payload) ||
-    !isJsonRecord(fibre.payload) || !isJsonRecord(bindingRow.payload) ||
-    !isJsonRecord(bindingRow.payload.artifact) ||
+    !isRecord(basisRow.payload) || !isRecord(opened.payload) ||
+    !isRecord(fibre.payload) || !isRecord(bindingRow.payload) ||
+    !isRecord(bindingRow.payload.artifact) ||
     bindingRow.aggregateId !== request.workspaceBindingIdentity || bindingRow.basisId !== request.workspaceBindingIdentity ||
     bindingRow.payload.authorityScopeRef !== request.workspaceBindingIdentity ||
     bindingRow.payload.authorityScopeDigest !== request.workspaceBindingDigest ||
@@ -287,15 +281,15 @@ export function projectWorksiteSelectedOccurrence(
       opened.admissionOrdinal < fibre.admissionOrdinal)) return null;
   const implementationRow = checkedEventOrNull(checkExactRecord(resolveExactMatch(events, row =>
     row.kind === "implementation_admitted" &&
-    isJsonRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef), PAYLOAD_RECORD));
+    isRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef), PAYLOAD_RECORD));
   if (!isWorksiteFileReplaceRequest(request) ||
     basisPayload.rawInputDigest !== sha256Canonical(request) ||
     !canonicalEquals(
       request.workspaceAuthorityBasis,
       bindingRow.payload.workspaceAuthorityBasis!,
     ) ||
-    implementationRow === null || !isJsonRecord(implementationRow.payload) ||
-    !isJsonRecord(implementationRow.payload.implementationSet) ||
+    implementationRow === null || !isRecord(implementationRow.payload) ||
+    !isRecord(implementationRow.payload.implementationSet) ||
     implementationRow.admissionOrdinal >= basisRow.admissionOrdinal) return null;
   try {
     const workspaceBinding = { ...bindingRow.payload.artifact, kind: "workspace_binding",
@@ -351,7 +345,7 @@ export function worksiteSelectedOccurrenceDependencies(prefix: RuntimeEventPrefi
   if (typeof event.basisId === "string") add("basis:" + event.basisId);
   const bases = [...selected.values()].filter(row => row.kind === "basis_admitted" && row.basisId === event.basisId);
   for (const basis of bases) {
-    if (!isJsonRecord(basis.payload)) continue;
+    if (!isRecord(basis.payload)) continue;
     const p = basis.payload;
     for (const key of ["invocationAdmissionRef", "implementationSetRef"])
       if (typeof p[key] === "string") add("payload:" + key + ":" + p[key]);
@@ -366,14 +360,14 @@ export function worksiteSelectedOccurrenceDependencies(prefix: RuntimeEventPrefi
  * selected index row is only a candidate; every existing failure check remains. */
 export function projectWorksiteFailureResultRequest(event: RuntimeEvent,
   priorEvents: readonly RuntimeEvent[]): WorksiteFileReplaceRequest | null {
-  if (!isJsonRecord(event.payload) || event.payload.resultClass !== "failure") return null;
+  if (!isRecord(event.payload) || event.payload.resultClass !== "failure") return null;
   const refs = event.payload.evidenceRefs;
   const evidenceRefs: readonly string[] = Array.isArray(refs) && refs.every(ref => typeof ref === "string")
     ? refs as readonly string[] : [];
   const { resultRef, resultDigest, ...resultBody } = event.payload;
   const evidenceRows = priorEvents.filter(row =>
     row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId &&
-    isJsonRecord(row.payload) && evidenceRefs.includes(row.payload.evidenceRef as string));
+    isRecord(row.payload) && evidenceRefs.includes(row.payload.evidenceRef as string));
   const evidenceMatch = onlyExactMatch(evidenceRows);
   const evidenceEvent = evidenceMatch.kind === "one" ? evidenceMatch.value : null;
   if (event.kind !== "c_call_result_admitted" || evidenceRefs.length !== 1 ||
@@ -383,7 +377,7 @@ export function projectWorksiteFailureResultRequest(event: RuntimeEvent,
     resultDigest !== sha256Canonical(resultBody) ||
     resultRef !== `result://abiogenesis/${String(resultDigest).slice("sha256:".length)}` ||
     event.payload.valueDigest !== sha256Canonical(event.payload.value!) ||
-    evidenceEvent === null || !isJsonRecord(evidenceEvent.payload) ||
+    evidenceEvent === null || !isRecord(evidenceEvent.payload) ||
     evidenceEvent.admissionOrdinal >= event.admissionOrdinal ||
     evidenceEvent.basisId !== event.basisId || evidenceEvent.runId !== event.runId ||
     evidenceEvent.graphCallId !== event.graphCallId || evidenceEvent.frameId !== event.frameId ||
@@ -408,7 +402,7 @@ export function projectWorksiteFailureResultRequest(event: RuntimeEvent,
  * or the physical target population. The caller separately authenticates it. */
 export function worksiteFailureResultDependencies(prefix: RuntimeEventPrefix,
   event: RuntimeEvent): readonly RuntimeEvent[] {
-  if (event.kind !== "c_call_result_admitted" || !isJsonRecord(event.payload) ||
+  if (event.kind !== "c_call_result_admitted" || !isRecord(event.payload) ||
     event.payload.contractRef !== WORKSITE_C0_IDS.failureContractRef ||
     !isWorksitePostPublicationFailure(event.payload.value)) return [];
   const before = validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
@@ -419,7 +413,7 @@ export function worksiteFailureResultDependencies(prefix: RuntimeEventPrefix,
   add("basis:" + authorization.executionBasisRef);
   add("payload:artifactRef:" + authorization.workspaceBindingIdentity);
   const basis = [...selected.values()].find(row => row.kind === "basis_admitted" && row.basisId === authorization.executionBasisRef);
-  if (basis !== undefined && isJsonRecord(basis.payload) && typeof basis.payload.implementationSetRef === "string")
+  if (basis !== undefined && isRecord(basis.payload) && typeof basis.payload.implementationSetRef === "string")
     add("payload:implementationSetRef:" + basis.payload.implementationSetRef);
   for (const fibre of [...selected.values()].filter(row => row.kind === "c_call_fibre_selected"))
     for (const row of worksiteSelectedOccurrenceDependencies(before, fibre)) selected.set(row.eventId, row);
@@ -934,7 +928,7 @@ function projectCCallOutcomeReceiptFromTruth(
     : indexedRuntimeEvents(projection.runtimePrefix, "id:" + completion.evidenceEventRef).find((event) => event.eventId === completion.evidenceEventRef) ??
       null;
   const admittedResult = result?.kind === "c_call_result_admitted" &&
-      isJsonRecord(result.payload)
+      isRecord(result.payload)
     ? deepFreeze({
         kind: "admitted_c_call_result" as const,
         schemaVersion: "5.0.0" as const,
@@ -950,8 +944,8 @@ function projectCCallOutcomeReceiptFromTruth(
     completion.cCallRef !== basis.cCall.cCallRef ||
     result?.kind !== "c_call_result_admitted" ||
     judgment?.kind !== "c_call_judged" ||
-    !isJsonRecord(result.payload) ||
-    !isJsonRecord(judgment.payload) ||
+    !isRecord(result.payload) ||
+    !isRecord(judgment.payload) ||
     result.payload.resultRef !== completion.refusalResultRef ||
     admittedResult === null ||
     !isAdmittedCCallResult(admittedResult) ||
@@ -964,7 +958,7 @@ function projectCCallOutcomeReceiptFromTruth(
       (completion.rejectionEvidenceRef === null) ||
     (evidence !== null &&
       (evidence.kind !== "c_call_evidenced" ||
-        !isJsonRecord(evidence.payload) ||
+        !isRecord(evidence.payload) ||
         evidence.payload.evidenceRef !== completion.rejectionEvidenceRef))
   ) return null;
   return deepFreeze({

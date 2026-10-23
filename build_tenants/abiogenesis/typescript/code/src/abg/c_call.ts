@@ -29,7 +29,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { admitJson, hasExactKeys } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isUndispatchedOwnerObservation, type UndispatchedOwnerObservation } from "./event_contract_profiles.js";
 import { observeNativeCCallLiveness, observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import {
@@ -1037,7 +1037,7 @@ export function projectCCallPhase(
     event.kind === "child_preparation_refused"
   );
   const evidenceRefs = evidence.map((event) =>
-    isJsonRecord(event.payload) && typeof event.payload.evidenceRef === "string"
+    isRecord(event.payload) && typeof event.payload.evidenceRef === "string"
       ? event.payload.evidenceRef
       : null
   );
@@ -1054,8 +1054,8 @@ export function projectCCallPhase(
     openedRow.frameId !== fibreRow.frameId ||
     openedRow.parentAggregateId !== fibreRow.parentAggregateId ||
     openedRow.basisId !== fibreRow.basisId ||
-    !isJsonRecord(openedRow.payload) ||
-    !isJsonRecord(fibreRow.payload) ||
+    !isRecord(openedRow.payload) ||
+    !isRecord(fibreRow.payload) ||
     openedRow.payload.cCallRef !== cCallRef ||
     fibreRow.payload.cCallRef !== cCallRef ||
     openedRow.payload.callClass !== fibreRow.payload.callClass ||
@@ -1139,7 +1139,7 @@ export function projectCCallCarrierPhaseAtPrefix(
     opened.runId !== cCall.runId || fibre.runId !== cCall.runId ||
     opened.graphCallId !== cCall.graphCallId || fibre.graphCallId !== cCall.graphCallId ||
     opened.frameId !== cCall.frameId || fibre.frameId !== cCall.frameId ||
-    !isJsonRecord(opened.payload) || !isJsonRecord(fibre.payload) ||
+    !isRecord(opened.payload) || !isRecord(fibre.payload) ||
     opened.payload.cCallRef !== cCall.cCallRef ||
     opened.payload.cCallDigest !== cCall.cCallDigest ||
     opened.payload.callClass !== cCall.callClass ||
@@ -1243,8 +1243,8 @@ export function projectCurrentChildParentCCallAtPrefix(
     fibre.graphCallId !== coordinates.graphCallId ||
     opened.frameId !== coordinates.frameId ||
     fibre.frameId !== coordinates.frameId ||
-    !isJsonRecord(opened.payload) ||
-    !isJsonRecord(fibre.payload) ||
+    !isRecord(opened.payload) ||
+    !isRecord(fibre.payload) ||
     typeof opened.payload.cCallDigest !== "string" ||
     typeof opened.payload.callClass !== "string" ||
     typeof opened.payload.vectorIndex !== "number" ||
@@ -1346,8 +1346,8 @@ export function projectCurrentChildParentCCallAtPrefix(
     carrier.compositionRef.length === 0 ||
     result?.kind !== "c_call_result_admitted" ||
     judgment?.kind !== "c_call_judged" ||
-    !isJsonRecord(result.payload) ||
-    !isJsonRecord(judgment.payload) ||
+    !isRecord(result.payload) ||
+    !isRecord(judgment.payload) ||
     result.payload.cCallRef !== coordinates.parentCCallRef ||
     result.payload.resultRef !== coordinates.admittedInputRef ||
     result.payload.valueDigest !== coordinates.admittedInputDigest ||
@@ -1540,7 +1540,7 @@ export function projectAdmittedCCallOutcomeAtPrefix(
     judgment.resultRef !== result.resultRef ||
     judgment.resultDigest !== result.resultDigest ||
     (hasUndispatchedEvidence(prefix, cCall.cCallRef) && (judgment.judgment !== "blocked" ||
-      !isJsonRecord(result.value) || judgment.reasonRef !== result.value.diagnosticRef))
+      !isRecord(result.value) || judgment.reasonRef !== result.value.diagnosticRef))
   ) return null;
   const event = indexedRuntimeEvents(prefix, `id:${judgment.admissionEventRef}`)[0];
   return exactEventBody(event, "c_call_judged", {
@@ -1550,12 +1550,6 @@ export function projectAdmittedCCallOutcomeAtPrefix(
     }) && event!.causationEventRefs.includes(result.admissionEventRef)
     ? deepFreeze({ cCall, result, judgment })
     : null;
-}
-
-function isJsonRecord(
-  value: JsonValue | undefined,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function isCCall(value: object): boolean {
@@ -1833,7 +1827,7 @@ function projectAdmittedActorTransport(
     !Number.isSafeInteger(source.apiRetryCount) ||
     !Number.isSafeInteger(source.stdoutByteLength) ||
     !Number.isSafeInteger(source.stderrByteLength) ||
-    !isJsonRecord(source.artifactDigests) ||
+    !isRecord(source.artifactDigests) ||
     typeof source.artifactDigests.output !== "string" ||
     typeof source.artifactDigests.stdout !== "string" ||
     typeof source.artifactDigests.stderr !== "string"
@@ -1877,7 +1871,7 @@ function projectAdmittedActorTransport(
   const processTerminal = indexedRuntimeEvents(prefix, "id:" + lifecycle.processTerminalEventRef).find((event) =>
     event.eventId === lifecycle.processTerminalEventRef
   );
-  const artifactEventRef = terminal !== undefined && isJsonRecord(terminal.payload) &&
+  const artifactEventRef = terminal !== undefined && isRecord(terminal.payload) &&
       typeof terminal.payload.consumedArtifactEventRef === "string"
     ? terminal.payload.consumedArtifactEventRef
     : null;
@@ -1895,9 +1889,9 @@ function projectAdmittedActorTransport(
     fibreRows.length !== 1 || binding === undefined || actorStarted === undefined ||
     fibre === undefined || terminal === undefined || processTerminal === undefined ||
     artifact?.kind !== "actor_result_artifact_observed" ||
-    !isJsonRecord(binding.payload) || !isJsonRecord(actorStarted.payload) ||
-    !isJsonRecord(fibre.payload) || !isJsonRecord(terminal.payload) ||
-    !isJsonRecord(processTerminal.payload) || !isJsonRecord(artifact.payload)
+    !isRecord(binding.payload) || !isRecord(actorStarted.payload) ||
+    !isRecord(fibre.payload) || !isRecord(terminal.payload) ||
+    !isRecord(processTerminal.payload) || !isRecord(artifact.payload)
   ) return null;
   const { transportBindingRef: _bindingRef, transportBindingDigest, ...bindingBody } =
     binding.payload;
@@ -1998,7 +1992,7 @@ function projectAdmittedActorTransport(
     event.parentAggregateId === source.actorInvocationRef
   );
   const timeoutRows = actorRows.filter((event) =>
-    event.kind === "actor_process_timeout_observed" && isJsonRecord(event.payload)
+    event.kind === "actor_process_timeout_observed" && isRecord(event.payload)
   );
   const timeoutRow = onlyExactMatch(timeoutRows);
   const timeoutPayload = timeoutRow.kind === "one"
@@ -2014,12 +2008,12 @@ function projectAdmittedActorTransport(
           : null
     );
   const signals = actorRows.flatMap((event) =>
-    event.kind === "actor_process_signal_requested" && isJsonRecord(event.payload)
+    event.kind === "actor_process_signal_requested" && isRecord(event.payload)
       ? [event.payload.signal]
       : []
   );
   const streamBytes = (kind: RuntimeEvent["kind"]): number =>
-    actorRows.filter((event) => event.kind === kind && isJsonRecord(event.payload))
+    actorRows.filter((event) => event.kind === kind && isRecord(event.payload))
       .reduce((sum, event) =>
         sum + Number(
           (event.payload as Readonly<Record<string, JsonValue>>).byteLength,
@@ -2084,7 +2078,7 @@ function projectAdmittedProbabilisticTransport(
   const transport = projectAdmittedActorTransport(prefix, cCallRef, source);
   if (transport === null) return null;
   const artifactDigests = source.artifactDigests;
-  if (!isJsonRecord(artifactDigests)) return null;
+  if (!isRecord(artifactDigests)) return null;
   const classified = transport.failureClass;
   const stableFailureCandidate = classified === null ? null : admitJson({
     failureClass: classified,
@@ -2119,7 +2113,7 @@ function projectAdmittedProbabilisticTransport(
   // An absent or non-I-JSON source member is no admitted failure source.
   let stableFailureSource: Readonly<Record<string, JsonValue>> | null = null;
   if (stableFailureCandidate !== null) {
-    if (stableFailureCandidate.kind !== "ok" || !isJsonRecord(stableFailureCandidate.value)) return null;
+    if (stableFailureCandidate.kind !== "ok" || !isRecord(stableFailureCandidate.value)) return null;
     stableFailureSource = stableFailureCandidate.value;
   }
   return deepFreeze({
@@ -2210,7 +2204,7 @@ function deriveContractRejectionFailureSource(
 }
 
 function exactCCallEvidenceIdentity(event: RuntimeEvent): boolean {
-  if (event.kind !== "c_call_evidenced" || !isJsonRecord(event.payload)) {
+  if (event.kind !== "c_call_evidenced" || !isRecord(event.payload)) {
     return false;
   }
   const {
@@ -2236,7 +2230,7 @@ function exactProbabilisticFailureSource(
   if (
     evidence?.aggregateType !== "c_call" || evidence.aggregateId !== cCallRef ||
     evidence.parentAggregateId === null || !exactCCallEvidenceIdentity(evidence) ||
-    !isJsonRecord(evidence.payload) || evidence.payload.cCallRef !== cCallRef ||
+    !isRecord(evidence.payload) || evidence.payload.cCallRef !== cCallRef ||
     evidence.payload.evidenceClass !== "probabilistic_transport"
   ) return null;
   const projection = projectAdmittedProbabilisticTransport(
@@ -2266,7 +2260,7 @@ function exactContractRejectionFailureSource(
   );
   if (
     event?.aggregateType !== "c_call" || event.aggregateId !== cCallRef ||
-    !exactCCallEvidenceIdentity(event) || !isJsonRecord(event.payload) ||
+    !exactCCallEvidenceIdentity(event) || !isRecord(event.payload) ||
     event.payload.cCallRef !== cCallRef ||
     event.payload.evidenceClass !== "admission_rejection" ||
     event.payload.rejectedStage !== "result" ||
@@ -2300,14 +2294,14 @@ function admittedEvidencePayload(
 
 function hasUndispatchedEvidence(prefix: RuntimeEventPrefix, cCallRef: string): boolean {
   return indexedRuntimeEvents(prefix, "related:" + cCallRef).some(event => event.kind === "c_call_evidenced" &&
-    event.aggregateId === cCallRef && isJsonRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal");
+    event.aggregateId === cCallRef && isRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal");
 }
 function undispatchedResultRelation(prefix: RuntimeEventPrefix, cCall: CCall, result: AdmittedCCallResult): boolean {
   const events = runtimeEventBodiesAtPrefix(prefix);
   const evidence = indexedRuntimeEvents(prefix, "related:" + cCall.cCallRef).filter(event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef);
-  if (!evidence.some(event => isJsonRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal")) return true;
+  if (!evidence.some(event => isRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal")) return true;
   const event = evidence[0], p = event?.payload;
-  if (evidence.length !== 1 || event === undefined || !isJsonRecord(p) ||
+  if (evidence.length !== 1 || event === undefined || !isRecord(p) ||
       !exactCCallEvidenceIdentity(event) || event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ||
       result.resultClass !== "failure" || result.contractRef !== cCall.failureContractRef ||
       p.contractRef !== cCall.evidenceContractRef || p.outputDigest !== result.valueDigest ||
@@ -2351,7 +2345,7 @@ function projectOpenedLeafCCallCarrier(
   if (
     opened?.kind !== "c_call_opened" ||
     fibre?.kind !== "c_call_fibre_selected" ||
-    !isJsonRecord(opened.payload) || !isJsonRecord(fibre.payload) ||
+    !isRecord(opened.payload) || !isRecord(fibre.payload) ||
     opened.runId === undefined || opened.graphCallId === undefined ||
     opened.frameId === undefined || opened.basisId === undefined ||
     opened.graphFunctionRef !== graph.graphFunctionRef ||
@@ -2438,7 +2432,7 @@ function projectOpenedLeafCCallCarrier(
   const cursorCause = indexedRuntimeEvents(prefix, "id:" + opened.causationEventRefs[0]).find((event) =>
     event.eventId === opened.causationEventRefs[0] &&
     event.admissionOrdinal < opened.admissionOrdinal &&
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
     ((event.kind === "traversal_cursor_entered" &&
       event.payload.cursorRef === openedCursorRef &&
       event.payload.cursorDigest === openedCursorDigest) ||
@@ -2733,7 +2727,7 @@ function projectOpenedWorkflowCCallCarrier(
     opened?.kind !== "c_call_opened" ||
     fibre?.kind !== "c_call_fibre_selected" ||
     cursorAdmissionEventRef === null ||
-    !isJsonRecord(opened.payload) || !isJsonRecord(fibre.payload) ||
+    !isRecord(opened.payload) || !isRecord(fibre.payload) ||
     opened.parentAggregateId !== sourceCursor.frameId ||
     opened.basisId !== basis.basisRef || opened.runId !== sourceCursor.runId ||
     opened.graphFunctionRef !== graph.graphFunctionRef ||
@@ -2998,7 +2992,7 @@ function exactRuntimeFailureSource(
     candidate.eventId === source.admissionEventRef
   );
   if (
-    event === undefined || !isJsonRecord(event.payload) ||
+    event === undefined || !isRecord(event.payload) ||
     !canonicalEquals(
       event.payload,
       {
@@ -3128,7 +3122,7 @@ export function planCCallRuntimeFailureClose(
   const probabilisticCandidateValid = source.kind ===
       "admitted_c_call_evidence" &&
     source.outputDigest === failureCandidateDigest &&
-    isJsonRecord(failureCandidate) &&
+    isRecord(failureCandidate) &&
     failureCandidate.kind === failureValueKind &&
     failureCandidate.schemaVersion === "5.0.0" &&
     failureCandidate.failureClass === resolved.signal.failureClass &&
@@ -3209,14 +3203,14 @@ export function planCCallRuntimeFailureClose(
     projectedPrefix,
     cCall.cCallRef,
   ).flatMap((event) =>
-    event.kind === "c_call_evidenced" && isJsonRecord(event.payload) &&
+    event.kind === "c_call_evidenced" && isRecord(event.payload) &&
       typeof event.payload.evidenceRef === "string"
       ? [event.payload.evidenceRef]
       : []
   );
   const parsedCandidate: JsonValue = JSON.parse(canonicalJson(failureCandidate));
   const immutableCandidate = deepFreeze(parsedCandidate);
-  const candidateRecord = isJsonRecord(immutableCandidate) ? immutableCandidate : null;
+  const candidateRecord = isRecord(immutableCandidate) ? immutableCandidate : null;
   if (source.kind === "admitted_c_call_evidence" && candidateRecord === null) {
     throw new TypeError("admitted runtime failure candidate is not one JSON record");
   }
@@ -3468,13 +3462,13 @@ export function projectCCallRuntimeFailureSignal(
   if (
     result?.kind !== "c_call_result_admitted" ||
     judgment?.kind !== "c_call_judged" ||
-    !isJsonRecord(result.payload) || !isJsonRecord(judgment.payload) ||
+    !isRecord(result.payload) || !isRecord(judgment.payload) ||
     result.aggregateId !== cCallRef || judgment.aggregateId !== cCallRef ||
     result.payload.cCallRef !== cCallRef || judgment.payload.cCallRef !== cCallRef ||
     result.payload.resultRef !== resultRef || judgment.payload.resultRef !== resultRef ||
     judgment.payload.judgmentRef !== judgmentRef ||
     result.payload.resultClass !== "failure" ||
-    !isJsonRecord(result.payload.value) ||
+    !isRecord(result.payload.value) ||
     !isWorkerTransportFailureClass(result.payload.value.failureClass) ||
     typeof result.payload.value.diagnosticRef !== "string" ||
     typeof result.payload.value.failureSignalRef !== "string" ||
@@ -3493,7 +3487,7 @@ export function projectCCallRuntimeFailureSignal(
   const resultPayload = result.payload;
   const judgmentPayload = judgment.payload;
   const resultValue = resultPayload.value;
-  if (!isJsonRecord(resultValue)) return null;
+  if (!isRecord(resultValue)) return null;
   const evidenceRefs = resultPayload.evidenceRefs as readonly JsonValue[];
   const { resultRef: _resultRef, resultDigest, ...resultBody } = resultPayload;
   const { judgmentRef: _judgmentRef, judgmentDigest, ...judgmentBody } =
@@ -3508,12 +3502,12 @@ export function projectCCallRuntimeFailureSignal(
   ) return null;
   const sourceEvents = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter((event) =>
     event.kind === "c_call_evidenced" && event.aggregateId === cCallRef &&
-    isJsonRecord(event.payload) && typeof event.payload.evidenceRef === "string" &&
+    isRecord(event.payload) && typeof event.payload.evidenceRef === "string" &&
     evidenceRefs.includes(event.payload.evidenceRef) &&
     result.causationEventRefs.includes(event.eventId)
   );
   if (sourceEvents.length !== 1) return null;
-  const source = isJsonRecord(sourceEvents[0]!.payload) &&
+  const source = isRecord(sourceEvents[0]!.payload) &&
       sourceEvents[0]!.payload.evidenceClass === "admission_rejection"
     ? exactContractRejectionFailureSource(prefix, cCallRef, sourceEvents[0]!.eventId)
     : exactProbabilisticFailureSource(prefix, cCallRef, sourceEvents[0]!.eventId);
@@ -3664,7 +3658,7 @@ function revalidateProbabilisticResultCarrier(
       "runId",
       "taskOrdinal",
     ]) ||
-    !isJsonRecord(carrierValue.value) ||
+    !isRecord(carrierValue.value) ||
     carrierValue.kind !== "contract_admitted_probabilistic_result_candidate" ||
     carrierValue.schemaVersion !== "5.0.0" ||
     typeof carrierValue.candidateRef !== "string" ||
@@ -4211,11 +4205,11 @@ export function projectWorkflowCCallInputDigestAtPrefix(
   foldback: RuntimeEvent,
   result: RuntimeEvent,
 ): Sha256Digest | null {
-  if (!isJsonRecord(opened.payload) || opened.kind !== "c_call_opened" ||
+  if (!isRecord(opened.payload) || opened.kind !== "c_call_opened" ||
     opened.payload.callClass !== "workflow" || typeof opened.payload.cursorRef !== "string" ||
     typeof opened.basisId !== "string" || typeof opened.runId !== "string" ||
     typeof opened.graphCallId !== "string" || typeof opened.frameId !== "string" ||
-    !isJsonRecord(foldback.payload) || !isJsonRecord(result.payload)) return null;
+    !isRecord(foldback.payload) || !isRecord(result.payload)) return null;
   const origins = traversalCursorAdmissionEventsAtPrefix(prefix, {
     cursorRef: opened.payload.cursorRef, executionBasisRef: opened.basisId,
     runId: opened.runId, graphCallId: opened.graphCallId, frameId: opened.frameId,
@@ -4231,8 +4225,8 @@ export function projectWorkflowCCallInputDigestAtPrefix(
     !(opened.admissionOrdinal < foldback.admissionOrdinal && foldback.admissionOrdinal < result.admissionOrdinal)) return null;
   const evidence = indexedRuntimeEvents(prefix, "related:" + opened.aggregateId).filter(event =>
     event.kind === "c_call_evidenced" && sameScope(event) && event.aggregateId === opened.aggregateId &&
-    isJsonRecord(event.payload) && event.payload.evidenceClass === "sub_traversal");
-  if (evidence.length !== 1 || !isJsonRecord(evidence[0]!.payload)) return null;
+    isRecord(event.payload) && event.payload.evidenceClass === "sub_traversal");
+  if (evidence.length !== 1 || !isRecord(evidence[0]!.payload)) return null;
   const event = evidence[0]!, payload = event.payload as Readonly<Record<string, JsonValue>>;
   const evidenceRef = payload.evidenceRef;
   if (!exactCCallEvidenceIdentity(event) || typeof payload.inputDigest !== "string" || !/^sha256:[a-f0-9]{64}$/u.test(payload.inputDigest) ||
@@ -4246,7 +4240,7 @@ export function projectWorkflowCCallInputDigestAtPrefix(
     !(foldback.admissionOrdinal < event.admissionOrdinal && event.admissionOrdinal < result.admissionOrdinal) ||
     !Array.isArray(result.payload.evidenceRefs) || !result.payload.evidenceRefs.includes(evidenceRef)) return null;
   // Entry and resume also carry a direct input witness; conserve that join.
-  if (!isJsonRecord(origin.payload) ||
+  if (!isRecord(origin.payload) ||
     (origin.kind === "traversal_cursor_entered" && origin.payload.inputDigest !== payload.inputDigest) ||
     (origin.kind === "fh_interaction_resume_admitted" && origin.payload.successorInputDigest !== payload.inputDigest)) return null;
   return payload.inputDigest as Sha256Digest;
@@ -4567,7 +4561,7 @@ function exactEventBody(
   expected: Readonly<Record<string, JsonValue>>,
 ): boolean {
   return event?.kind === expectedKind &&
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
     canonicalEquals(
       event.payload,
       expected,
@@ -4718,13 +4712,13 @@ function projectAdmittedLeafCCallOutcomeFromPrefix(
   const resultEvent = cCallEvents.find(
     (event) =>
       event.kind === "c_call_result_admitted" &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.resultRef === input.resultRef,
   );
   const judgmentEvent = cCallEvents.find(
     (event) =>
       event.kind === "c_call_judged" &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.judgmentRef === input.judgmentRef,
   );
   if (
@@ -4732,8 +4726,8 @@ function projectAdmittedLeafCCallOutcomeFromPrefix(
     fibreEvent?.kind !== "c_call_fibre_selected" ||
     resultEvent === undefined ||
     judgmentEvent === undefined ||
-    !isJsonRecord(resultEvent.payload) ||
-    !isJsonRecord(judgmentEvent.payload)
+    !isRecord(resultEvent.payload) ||
+    !isRecord(judgmentEvent.payload)
   ) {
     return null;
   }
@@ -4949,11 +4943,11 @@ export function projectPendingInteractionCarrier(
     return null;
   }
   const requestRef =
-    isJsonRecord(result.value) && typeof result.value.requestRef === "string"
+    isRecord(result.value) && typeof result.value.requestRef === "string"
       ? result.value.requestRef
       : null;
   const requestDigest =
-    isJsonRecord(result.value) &&
+    isRecord(result.value) &&
       typeof result.value.requestDigest === "string" &&
       result.value.requestDigest.startsWith("sha256:")
       ? result.value.requestDigest as Sha256Digest
@@ -4991,7 +4985,7 @@ export function rehydratePendingInteraction(
   const continuationEvent = indexedRuntimeEvents(prefix!, "kind:" + "fh_interaction_opened").find(
     (event) =>
       event.kind === "fh_interaction_opened" &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.cCallRef === projected.cCall.cCallRef,
   );
   if (
@@ -6327,7 +6321,7 @@ export function undispatchedOwnerEvidenceMatches(
         candidate.kind !== "undispatched_owner_refusal_evidence_candidate" || candidate.schemaVersion !== "5.0.0" ||
         cCall.callClass !== "leaf" || cCall.regime !== "F_P" || !isUndispatchedOwnerObservation(candidate.ownerObservation) ||
         candidate.implementationRef !== cCall.implementationRef || candidate.inputDigest !== expectedInputDigest ||
-        candidate.failureContractRef !== cCall.failureContractRef || !isJsonRecord(candidate.failureValue) ||
+        candidate.failureContractRef !== cCall.failureContractRef || !isRecord(candidate.failureValue) ||
         !hasExactKeys(candidate.failureValue, ["kind", "schemaVersion", "failureClass", "diagnosticRef"]) ||
         candidate.failureValue.schemaVersion !== "5.0.0" || typeof candidate.failureValue.kind !== "string" ||
         candidate.outputDigest !== sha256Canonical(candidate.failureValue)) return false;
@@ -6342,7 +6336,7 @@ export function undispatchedOwnerEvidenceMatches(
     const opened = indexedRuntimeEvents(prefix, "id:" + cCall.openedEventRef).find(event => event.eventId === cCall.openedEventRef);
     const fibre = indexedRuntimeEvents(prefix, "id:" + cCall.fibreSelectedEventRef).find(event => event.eventId === cCall.fibreSelectedEventRef);
     if (opened?.kind !== "c_call_opened" || fibre?.kind !== "c_call_fibre_selected" ||
-        !isJsonRecord(opened.payload) || !isJsonRecord(fibre.payload) ||
+        !isRecord(opened.payload) || !isRecord(fibre.payload) ||
         opened.aggregateId !== cCall.cCallRef || fibre.payload.implementationRef !== cCall.implementationRef ||
         fibre.payload.regime !== "F_P") return false;
     if (typeof opened.payload.cursorRef !== "string") return false;
@@ -6353,7 +6347,7 @@ export function undispatchedOwnerEvidenceMatches(
     const origin = exactOrUndefined(onlyExactMatch(origins));
     if (origin === undefined || traversalCursorAdmissionDigest(origin) !== opened.payload.cursorDigest ||
         origin.admissionOrdinal >= opened.admissionOrdinal || opened.causationEventRefs[0] !== origin.eventId ||
-        !isJsonRecord(origin.payload)) return false;
+        !isRecord(origin.payload)) return false;
     // Routes retain the target identity, not a duplicate input body. Raw
     // admission below checks the actual cursor/input; cold result checking
     // consumes the exact evidence that admission established.
@@ -6362,8 +6356,8 @@ export function undispatchedOwnerEvidenceMatches(
     // Link actor/process children through the actual binding and invocation,
     // not an assumption that every process event repeats payload.cCallRef.
     const bindings = indexedRuntimeEvents(prefix, "kind:" + "actor_transport_binding_admitted").filter(event => event.kind === "actor_transport_binding_admitted" &&
-      isJsonRecord(event.payload) && event.payload.cCallRef === cCall.cCallRef);
-    const actors = indexedRuntimeEvents(prefix, "kind:" + "actor_invocation_started").filter(event => event.kind === "actor_invocation_started" && isJsonRecord(event.payload) &&
+      isRecord(event.payload) && event.payload.cCallRef === cCall.cCallRef);
+    const actors = indexedRuntimeEvents(prefix, "kind:" + "actor_invocation_started").filter(event => event.kind === "actor_invocation_started" && isRecord(event.payload) &&
       (event.payload.cCallRef === cCall.cCallRef || bindings.some(binding => binding.aggregateId === (event.payload as Record<string, JsonValue>).transportBindingRef)));
     return bindings.length === 0 && actors.length === 0 &&
       !indexedRuntimeEvents(prefix, "related:" + cCall.cCallRef).some(event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef);
@@ -6472,7 +6466,7 @@ function admitEvidenceUsingTransport(
     cursor.graphCallId === cCall.graphCallId && cursor.frameId === cCall.frameId &&
     cursor.executionBasisRef === cCall.basisId &&
     hasAdmittedTraversalCursorAtPrefix(prefix, cursor) &&
-    isJsonRecord(undispatchedOpened?.payload) &&
+    isRecord(undispatchedOpened?.payload) &&
     undispatchedOpened.payload.cursorRef === cursor.cursorRef &&
     undispatchedOpened.payload.cursorDigest === cursor.cursorDigest &&
     undispatchedOwnerEvidenceMatches(prefix, cCall, candidate, expectedInputDigest);
@@ -6616,7 +6610,7 @@ function admitEvidenceUsingTransport(
     digestPattern.test(candidate.observedOutputDigest) &&
     typeof candidate.promptDigest === "string" && digestPattern.test(candidate.promptDigest) &&
     typeof candidate.transportDigest === "string" && digestPattern.test(candidate.transportDigest) &&
-    isJsonRecord(candidate.artifactDigests) &&
+    isRecord(candidate.artifactDigests) &&
     candidate.transportDigest === candidate.artifactDigests.transport &&
     Object.values(candidate.artifactDigests).every(
       (digest) => typeof digest === "string" && digestPattern.test(digest),
@@ -6664,7 +6658,7 @@ function admitEvidenceUsingTransport(
     foldbackEvent?.kind === "child_foldback_admitted" &&
     foldbackEvent.runId === cCall.runId &&
     foldbackEvent.frameId === cCall.frameId &&
-    isJsonRecord(foldbackEvent.payload) &&
+    isRecord(foldbackEvent.payload) &&
     foldbackEvent.payload.parentCCallRef === cCall.cCallRef &&
     foldbackEvent.payload.foldbackRef === candidate.foldbackRef &&
     foldbackEvent.payload.foldbackDigest === candidate.foldbackDigest &&
@@ -6676,7 +6670,7 @@ function admitEvidenceUsingTransport(
       owner.phase.phase !== "evidencing") ||
     !commonValid ||
     (!deterministicValid && !probabilisticValid && !worksiteValid && !subTraversalValid && !undispatchedValid) ||
-    (owner?.rows.some(event => event.kind === "c_call_evidenced" && isJsonRecord(event.payload) &&
+    (owner?.rows.some(event => event.kind === "c_call_evidenced" && isRecord(event.payload) &&
       event.payload.evidenceClass === "undispatched_owner_refusal") === true) ||
     contractRef !== cCall.evidenceContractRef
   ) {
@@ -6901,7 +6895,7 @@ export function admitResult(
     owner?.phase.phase !== "evidencing" ||
     (cCall.retryPath.length !== 0 && retryOwner === null) ||
     (resultClass !== "success" && resultClass !== "failure") ||
-    !isJsonRecord(candidate) ||
+    !isRecord(candidate) ||
     candidate.kind !== valueKind ||
     candidate.schemaVersion !== "5.0.0" ||
     !validateValue(candidate) ||
@@ -6911,7 +6905,7 @@ export function admitResult(
       undispatched[0]!.failureContractRef !== contractRef ||
       undispatched[0]!.failureValue === undefined ||
       sha256Canonical(undispatched[0]!.failureValue) !== valueDigest ||
-      !isJsonRecord(candidate) || candidate.diagnosticRef !== undispatched[0]!.ownerObservation?.diagnosticRef)) ||
+      !isRecord(candidate) || candidate.diagnosticRef !== undispatched[0]!.ownerObservation?.diagnosticRef)) ||
     evidence.length !== evidenceEvents.length ||
     new Set(evidence.map((row) => row.evidenceRef)).size !== evidence.length ||
     evidence.some(
@@ -7041,13 +7035,13 @@ export function admitJudgment(
   const currentReplay = projectRuntimeReplayGuard(owner?.prefix ?? prefix, prefix);
   const currentCCall = projectReplayCCallGuardAtPrefix(owner?.prefix ?? prefix,cCall.cCallRef);
   const undispatchedEvidence = (owner?.rows ?? []).find(event => event.kind === "c_call_evidenced" &&
-    isJsonRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal");
+    isRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal");
   if (
     owner?.phase.phase !== "result_admitted" ||
     projectAdmittedCCallResultFromPhase(owner.prefix, cCall, result, owner.phase) === null ||
     currentCCall?.status !== "result_admitted" ||
     (undispatchedEvidence !== undefined && (candidate.judgment !== "blocked" ||
-      !isJsonRecord(result.value) || candidate.reasonRef !== result.value.diagnosticRef)) ||
+      !isRecord(result.value) || candidate.reasonRef !== result.value.diagnosticRef)) ||
     candidate.candidateDigest !== sha256Canonical(candidateValue) ||
     candidate.candidateRef !==
       `judgment-candidate://abiogenesis/${candidate.candidateDigest.slice("sha256:".length)}` ||
@@ -7183,7 +7177,7 @@ export function completeRejectedCCall(
 
   if (admissionRejection.stage === "judgment") {
     const payload = existingResultEvent!.payload;
-    if (!isJsonRecord(payload)) {
+    if (!isRecord(payload)) {
       throw new TypeError("existing admitted result payload is not replayable");
     }
     const payloadResultRef = payload.resultRef;
@@ -7249,7 +7243,7 @@ export function completeRejectedCCall(
       value: refusalValue,
       evidenceRefs: [
         ...rows.flatMap((event) =>
-          event.kind === "c_call_evidenced" && isJsonRecord(event.payload) &&
+          event.kind === "c_call_evidenced" && isRecord(event.payload) &&
             typeof event.payload.evidenceRef === "string"
             ? [event.payload.evidenceRef]
             : []

@@ -4,7 +4,7 @@ import { runtimeEventPrefixLastEnvelope, indexedRuntimeEvents, selectOwnedRuntim
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, constructRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
-import { hasExactKeys } from "../shared/admission_predicates.js";
+import { hasExactKeys, isRecord } from "../shared/admission_predicates.js";
 import { constructRetainedWorksiteInput } from "../product/worksite_preparation.js";
 import { rawAdmitValue, type RawAdmittedValue } from "../validator/raw_admission.js";
 import type {
@@ -623,11 +623,11 @@ function projectHistoricalTraversalRoute(
     event.materializationRef !== undefined &&
     event.aggregateId === event.frameId &&
     event.parentAggregateId === event.graphCallId &&
-    isJsonRecord(event.payload)
+    isRecord(event.payload)
   );
   if (matches.length !== 1) return null;
   const event = matches[0]!;
-  if (!isJsonRecord(event.payload)) return null;
+  if (!isRecord(event.payload)) return null;
   const { routeRef, routeDigest, ...body } = event.payload;
   let replayRoutes: ReplayState["routes"];
   try {
@@ -779,13 +779,13 @@ function projectAdmittedRoute(
   const constructionIntentEvent = indexedRuntimeEvents(prefix, "payload:routeRef:" + projected.routeRef).find((event) =>
     event.kind === "construction_intent_selected" &&
     event.causationEventRefs.includes(projected.admissionEventRef) &&
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
     event.payload.routeRef === projected.routeRef
   );
   const runStoppedEvent = indexedRuntimeEvents(prefix, "payload:routeRef:" + projected.routeRef).find((event) =>
     event.kind === "run_stopped" &&
     event.causationEventRefs.includes(projected.admissionEventRef) &&
-    isJsonRecord(event.payload) &&
+    isRecord(event.payload) &&
     event.payload.routeRef === projected.routeRef
   );
   return deepFreeze({
@@ -810,14 +810,14 @@ function projectAdmittedRoute(
     replayStateDigest: projected.replayStateDigest,
     constructionIntentRef:
       constructionIntentEvent !== undefined &&
-        isJsonRecord(constructionIntentEvent.payload) &&
+        isRecord(constructionIntentEvent.payload) &&
         typeof constructionIntentEvent.payload.constructionIntentRef ===
           "string"
         ? constructionIntentEvent.payload.constructionIntentRef
         : null,
     constructionIntentDigest:
       constructionIntentEvent !== undefined &&
-        isJsonRecord(constructionIntentEvent.payload) &&
+        isRecord(constructionIntentEvent.payload) &&
         typeof constructionIntentEvent.payload.constructionIntentDigest ===
           "string"
         ? constructionIntentEvent.payload.constructionIntentDigest as Sha256Digest
@@ -940,12 +940,6 @@ function refusal(
   };
 }
 
-function isJsonRecord(
-  value: JsonValue | undefined,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 const NEXT_ACTION_PROJECTION_KEYS = Object.freeze([
   "actionKind",
   "disposition",
@@ -992,7 +986,7 @@ function graphSpanReentryProjection(
   value: JsonValue,
 ): GraphSpanReentryProjection | null {
   if (
-    !isJsonRecord(value) ||
+    !isRecord(value) ||
     !hasExactKeys(value, GRAPH_SPAN_REENTRY_PROJECTION_KEYS) ||
     value.kind !== "graph_span_selection" ||
     value.schemaVersion !== "5.0.0" ||
@@ -1005,7 +999,7 @@ function graphSpanReentryProjection(
     typeof value.targetProgramLocusRef !== "string" ||
     typeof value.targetInputRef !== "string" ||
     typeof value.targetInputDigest !== "string" ||
-    !isJsonRecord(value.targetInput)
+    !isRecord(value.targetInput)
   ) {
     return null;
   }
@@ -1092,7 +1086,7 @@ function selectedNextActionProjection(
   value: JsonValue,
 ): SelectedNextActionProjection | null {
   if (
-    !isJsonRecord(value) ||
+    !isRecord(value) ||
     !hasExactKeys(value, NEXT_ACTION_PROJECTION_KEYS) ||
     value.kind !== "next_action_projection" ||
     value.schemaVersion !== "5.0.0" ||
@@ -1117,8 +1111,8 @@ function selectedNextActionProjection(
     !nonEmptyStringArray(value.outputAssetRefs) ||
     !Array.isArray(value.targetObligationBindings) ||
     value.targetObligationBindings.length === 0 ||
-    value.targetObligationBindings.some((row) => !isJsonRecord(row)) ||
-    !isJsonRecord(value.priorityProjection) ||
+    value.targetObligationBindings.some((row) => !isRecord(row)) ||
+    !isRecord(value.priorityProjection) ||
     !nonEmptyStringArray(value.lawfulBasisRefs) ||
     !stringArray(value.rejectedAlternativeRefs)
   ) {
@@ -1165,7 +1159,7 @@ function noActionNextActionProjection(
   value: JsonValue,
 ): NoActionNextActionProjection | null {
   if (
-    !isJsonRecord(value) ||
+    !isRecord(value) ||
     !hasExactKeys(value, GAP_STOP_PROJECTION_KEYS) ||
     value.kind !== "next_action_projection" ||
     value.schemaVersion !== "5.0.0" ||
@@ -1185,8 +1179,8 @@ function noActionNextActionProjection(
     !stringArray(value.missingAssetRefs) ||
     !Array.isArray(value.targetObligationBindings) ||
     value.targetObligationBindings.length === 0 ||
-    value.targetObligationBindings.some((row) => !isJsonRecord(row)) ||
-    !isJsonRecord(value.priorityProjection) ||
+    value.targetObligationBindings.some((row) => !isRecord(row)) ||
+    !isRecord(value.priorityProjection) ||
     !nonEmptyStringArray(value.lawfulBasisRefs) ||
     !stringArray(value.rejectedActionRefs)
   ) {
@@ -1212,7 +1206,7 @@ function nextActionBasis(
   value: JsonValue | undefined,
 ): Readonly<Record<string, JsonValue>> | null {
   if (
-    !isJsonRecord(value) ||
+    !isRecord(value) ||
     value.kind !== "next_action_basis" ||
     value.schemaVersion !== "5.0.0" ||
     typeof value.basisRef !== "string" ||
@@ -1233,7 +1227,7 @@ function edgeFulfillmentLedger(
   value: JsonValue | undefined,
 ): EdgeFulfillmentLedger | null {
   if (
-    !isJsonRecord(value) ||
+    !isRecord(value) ||
     !hasExactKeys(value, [
       "constructionIntentRef",
       "kind",
@@ -1254,9 +1248,10 @@ function edgeFulfillmentLedger(
   ) {
     return null;
   }
-  for (const row of value.rows) {
+  const rows: readonly JsonValue[] = value.rows;
+  for (const row of rows) {
     if (
-      !isJsonRecord(row) ||
+      !isRecord(row) ||
       !hasExactKeys(row, [
         "disposition",
         "evidenceRefs",
@@ -1284,7 +1279,7 @@ function edgeClosureDecision(
   value: JsonValue | undefined,
 ): EdgeClosureDecision | null {
   if (
-    !isJsonRecord(value) ||
+    !isRecord(value) ||
     !hasExactKeys(value, [
       "correctionDisposition",
       "constructionIntentRef",
@@ -1333,7 +1328,7 @@ function actionEvaluationProjection(
   value: JsonValue,
 ): ActionEvaluationProjection | null {
   if (
-    !isJsonRecord(value) ||
+    !isRecord(value) ||
     !hasExactKeys(value, [
       "actionEvaluationDigest",
       "actionEvaluationRef",
@@ -1360,7 +1355,7 @@ function actionEvaluationProjection(
     typeof value.targetOutcomeRef !== "string" ||
     !nonEmptyStringArray(value.admittedEvidenceRefs) ||
     !nonEmptyStringArray(value.semanticEvidenceAssetRefs) ||
-    !isJsonRecord(value.observationSnapshot)
+    !isRecord(value.observationSnapshot)
   ) {
     return null;
   }
@@ -1380,7 +1375,7 @@ function actionEvaluationProjection(
     (
       decision.disposition === "close_candidate"
         ? archive !== null
-        : !isJsonRecord(archive) ||
+        : !isRecord(archive) ||
           !hasExactKeys(archive, [
             "constructionIntentRef",
             "disposition",
@@ -1421,7 +1416,7 @@ function actionEvaluationBasis(
   value: JsonValue | undefined,
 ): Readonly<Record<string, JsonValue>> | null {
   if (
-    !isJsonRecord(value) ||
+    !isRecord(value) ||
     value.kind !== "action_evaluation_basis" ||
     value.schemaVersion !== "5.0.0" ||
     typeof value.basisRef !== "string" ||
@@ -1442,7 +1437,7 @@ function convergedNextActionProjection(
   value: JsonValue,
 ): ConvergedNextActionProjection | null {
   if (
-    !isJsonRecord(value) ||
+    !isRecord(value) ||
     !hasExactKeys(value, [
       "constructionIntentRef",
       "disposition",
@@ -1472,8 +1467,8 @@ function convergedNextActionProjection(
     typeof value.nextActionBasisDigest !== "string" ||
     !Array.isArray(value.targetObligationBindings) ||
     value.targetObligationBindings.length === 0 ||
-    value.targetObligationBindings.some((row) => !isJsonRecord(row)) ||
-    !isJsonRecord(value.priorityProjection) ||
+    value.targetObligationBindings.some((row) => !isRecord(row)) ||
+    !isRecord(value.priorityProjection) ||
     !nonEmptyStringArray(value.lawfulBasisRefs)
   ) {
     return null;
@@ -1538,36 +1533,36 @@ function constructionIntentForAdvance(
       event.runId === sourceCursor.runId &&
       event.graphCallId === sourceCursor.graphCallId &&
       event.frameId === sourceCursor.frameId &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.resultRef === sourceCursor.inputRef,
   );
   const selectedBasis =
-    basisEvent !== undefined && isJsonRecord(basisEvent.payload)
+    basisEvent !== undefined && isRecord(basisEvent.payload)
       ? nextActionBasis(basisEvent.payload.value)
       : null;
   const observationSnapshot =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.observationSnapshot)
+      isRecord(selectedBasis.observationSnapshot)
       ? selectedBasis.observationSnapshot
       : null;
   const snapshotWorkspace =
     observationSnapshot !== null &&
-      isJsonRecord(observationSnapshot.workspaceBinding)
+      isRecord(observationSnapshot.workspaceBinding)
       ? observationSnapshot.workspaceBinding
       : null;
   const snapshotActionCatalog =
     observationSnapshot !== null &&
-      isJsonRecord(observationSnapshot.actionCatalog)
+      isRecord(observationSnapshot.actionCatalog)
       ? observationSnapshot.actionCatalog
       : null;
   const selectedActionCatalog =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.admittedActionCatalog)
+      isRecord(selectedBasis.admittedActionCatalog)
       ? selectedBasis.admittedActionCatalog
       : null;
   const selectedPolicy =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.declaredPolicy)
+      isRecord(selectedBasis.declaredPolicy)
       ? selectedBasis.declaredPolicy
       : null;
   const targetObligationRefs =
@@ -1577,12 +1572,12 @@ function constructionIntentForAdvance(
       : null;
   const priorityScheme =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.priorityScheme)
+      isRecord(selectedBasis.priorityScheme)
       ? selectedBasis.priorityScheme
       : null;
   const runtimeFrontier =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.runtimeFrontier)
+      isRecord(selectedBasis.runtimeFrontier)
       ? selectedBasis.runtimeFrontier
       : null;
   const projectionPriority = projection?.priorityProjection;
@@ -1591,7 +1586,7 @@ function constructionIntentForAdvance(
   );
   const actionRow = exactOrUndefined(onlyExactMatch(actionRows));
   const selectedTargetInput =
-    selectedBasis !== null && isJsonRecord(selectedBasis.targetInput)
+    selectedBasis !== null && isRecord(selectedBasis.targetInput)
       ? selectedBasis.targetInput
       : null;
   const selectedTargetInputRef =
@@ -1808,46 +1803,46 @@ function noActionProjectionForStopRoute(
       event.runId === sourceCursor.runId &&
       event.graphCallId === sourceCursor.graphCallId &&
       event.frameId === sourceCursor.frameId &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.resultRef === sourceCursor.inputRef,
   );
   const selectedBasis =
-    basisEvent !== undefined && isJsonRecord(basisEvent.payload)
+    basisEvent !== undefined && isRecord(basisEvent.payload)
       ? nextActionBasis(basisEvent.payload.value)
       : null;
   const observationSnapshot =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.observationSnapshot)
+      isRecord(selectedBasis.observationSnapshot)
       ? selectedBasis.observationSnapshot
       : null;
   const snapshotWorkspace =
     observationSnapshot !== null &&
-      isJsonRecord(observationSnapshot.workspaceBinding)
+      isRecord(observationSnapshot.workspaceBinding)
       ? observationSnapshot.workspaceBinding
       : null;
   const snapshotActionCatalog =
     observationSnapshot !== null &&
-      isJsonRecord(observationSnapshot.actionCatalog)
+      isRecord(observationSnapshot.actionCatalog)
       ? observationSnapshot.actionCatalog
       : null;
   const selectedActionCatalog =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.admittedActionCatalog)
+      isRecord(selectedBasis.admittedActionCatalog)
       ? selectedBasis.admittedActionCatalog
       : null;
   const selectedPolicy =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.declaredPolicy)
+      isRecord(selectedBasis.declaredPolicy)
       ? selectedBasis.declaredPolicy
       : null;
   const runtimeFrontier =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.runtimeFrontier)
+      isRecord(selectedBasis.runtimeFrontier)
       ? selectedBasis.runtimeFrontier
       : null;
   const gapProjection =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.gapProjection)
+      isRecord(selectedBasis.gapProjection)
       ? selectedBasis.gapProjection
       : null;
   const targetObligationRefs =
@@ -1857,7 +1852,7 @@ function noActionProjectionForStopRoute(
       : null;
   const priorityScheme =
     selectedBasis !== null &&
-      isJsonRecord(selectedBasis.priorityScheme)
+      isRecord(selectedBasis.priorityScheme)
       ? selectedBasis.priorityScheme
       : null;
   const targetBindings = projection?.targetObligationBindings ?? null;
@@ -1877,7 +1872,7 @@ function noActionProjectionForStopRoute(
       : null;
   const constructionState =
     observationSnapshot !== null &&
-      isJsonRecord(observationSnapshot.constructionState)
+      isRecord(observationSnapshot.constructionState)
       ? observationSnapshot.constructionState
       : null;
   const correctionDelta = correctionDisposition === null ||
@@ -1889,10 +1884,10 @@ function noActionProjectionForStopRoute(
           event.runId === sourceCursor.runId &&
           event.graphCallId === sourceCursor.graphCallId &&
           event.frameId === sourceCursor.frameId &&
-          isJsonRecord(event.payload) &&
+          isRecord(event.payload) &&
           event.payload.edgeClosureDecisionRef ===
             constructionState.edgeClosureDecisionRef &&
-          isJsonRecord(event.payload.edgeClosureDecision) &&
+          isRecord(event.payload.edgeClosureDecision) &&
           event.payload.edgeClosureDecision.disposition ===
             "continue_candidate" &&
           event.payload.edgeClosureDecision.correctionDisposition ===
@@ -2060,8 +2055,8 @@ export function rehydrateConstructionIntentForCursorAtPrefix(
   const use = currentBasis?.constructionContinuationUse;
   const originEvent = use === undefined ? undefined : indexedRuntimeEvents(prefix, "payload:cursorRef:" + cursor.cursorRef).find(e =>
     e.kind === "traversal_cursor_entered" && e.runId === cursor.runId && e.frameId === cursor.frameId &&
-    isJsonRecord(e.payload) && e.payload.cursorRef === cursor.cursorRef && isJsonRecord(e.payload.continuedFrom));
-  const origin = originEvent !== undefined && isJsonRecord(originEvent.payload) && isJsonRecord(originEvent.payload.continuedFrom)
+    isRecord(e.payload) && e.payload.cursorRef === cursor.cursorRef && isRecord(e.payload.continuedFrom));
+  const origin = originEvent !== undefined && isRecord(originEvent.payload) && isRecord(originEvent.payload.continuedFrom)
     ? originEvent.payload.continuedFrom : null;
   const targetCursorRef = origin?.cursorRef ?? cursor.cursorRef;
   const targetCursorDigest = origin?.cursorDigest ?? cursor.cursorDigest;
@@ -2071,17 +2066,17 @@ export function rehydrateConstructionIntentForCursorAtPrefix(
       candidate.runId === (origin?.runId ?? cursor.runId) &&
       candidate.graphCallId === (origin?.graphCallId ?? cursor.graphCallId) &&
       candidate.frameId === (origin?.frameId ?? cursor.frameId) &&
-      isJsonRecord(candidate.payload) &&
+      isRecord(candidate.payload) &&
       candidate.payload.targetCursorRef === targetCursorRef,
   );
-  if (event === undefined || !isJsonRecord(event.payload)) return null;
+  if (event === undefined || !isRecord(event.payload)) return null;
   const intentValue = event.payload.constructionIntent;
   const projectionValue = event.payload.nextActionProjection;
   const basisValue = event.payload.nextActionBasis;
   const projection = selectedNextActionProjection(projectionValue ?? null);
   const selectedBasis = nextActionBasis(basisValue);
   if (
-    !isJsonRecord(intentValue) ||
+    !isRecord(intentValue) ||
     projection === null ||
     selectedBasis === null ||
     typeof intentValue.constructionIntentRef !== "string" ||
@@ -2116,7 +2111,7 @@ export function rehydrateConstructionIntentForCursorAtPrefix(
     typeof intentValue.selectedGraphFunctionRef !== "string" ||
     (
       intentValue.actionKind === "invoke_graph_function"
-        ? !isJsonRecord(intentValue.targetInput) ||
+        ? !isRecord(intentValue.targetInput) ||
           typeof intentValue.targetInputRef !== "string" ||
           typeof intentValue.targetInputDigest !== "string" ||
           sha256Canonical(intentValue.targetInput) !==
@@ -2175,8 +2170,8 @@ export function deriveGraphFunctionActionEvaluationBasis(
   );
   const selectedNextActionBasis =
     intentEvent !== undefined &&
-      isJsonRecord(intentEvent.payload) &&
-      isJsonRecord(intentEvent.payload.nextActionBasis)
+      isRecord(intentEvent.payload) &&
+      isRecord(intentEvent.payload.nextActionBasis)
       ? nextActionBasis(intentEvent.payload.nextActionBasis)
       : null;
   const resultEvent = events.find(
@@ -2184,7 +2179,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
       event.kind === "c_call_result_admitted" &&
       event.runId === cursor.runId &&
       event.graphFunctionRef === input.childGraphFunctionRef &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.resultRef === input.childResultRef,
   );
   const judgmentEvent = events.find(
@@ -2192,7 +2187,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
       event.kind === "c_call_judged" &&
       event.runId === cursor.runId &&
       event.graphFunctionRef === input.childGraphFunctionRef &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.judgmentRef === input.childJudgmentRef &&
       event.payload.resultRef === input.childResultRef,
   );
@@ -2201,7 +2196,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
       event.kind === "terminal_reached" &&
       event.runId === cursor.runId &&
       event.graphFunctionRef === input.childGraphFunctionRef &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.closureRef === input.childClosureRef,
   );
   const graphClosedEvent = events.find(
@@ -2217,7 +2212,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
     input.childResultValue,
   );
   const resultPayload =
-    resultEvent !== undefined && isJsonRecord(resultEvent.payload)
+    resultEvent !== undefined && isRecord(resultEvent.payload)
       ? resultEvent.payload
       : null;
   if (
@@ -2316,8 +2311,8 @@ function constructionIntentFromEvent(
 ): ConstructionIntentAdmission | null {
   if (
     event.kind !== "construction_intent_selected" ||
-    !isJsonRecord(event.payload) ||
-    !isJsonRecord(event.payload.constructionIntent)
+    !isRecord(event.payload) ||
+    !isRecord(event.payload.constructionIntent)
   ) {
     return null;
   }
@@ -2394,7 +2389,7 @@ function constructionDeltaForAdvance(
   const intentEvent = indexedRuntimeEvents(prefix, "kind:" + "construction_intent_selected").find(
     (event) =>
       event.kind === "construction_intent_selected" &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.constructionIntentRef ===
         evaluation.constructionIntentRef,
   );
@@ -2418,18 +2413,18 @@ function constructionDeltaForAdvance(
   const opened = indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_opened").find(
     (event) =>
       event.kind === "fh_interaction_opened" &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.constructionIntentRef ===
         evaluation.constructionIntentRef,
   );
-  const continuationRef = opened !== undefined && isJsonRecord(opened.payload)
+  const continuationRef = opened !== undefined && isRecord(opened.payload)
     ? opened.payload.continuationRef
     : null;
   const responded = typeof continuationRef === "string"
     ? indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_responded").find(
         (event) =>
           event.kind === "fh_interaction_responded" &&
-          isJsonRecord(event.payload) &&
+          isRecord(event.payload) &&
           event.payload.continuationRef === continuationRef,
       )
     : undefined;
@@ -2437,12 +2432,12 @@ function constructionDeltaForAdvance(
     ? indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_resume_admitted").find(
         (event) =>
           event.kind === "fh_interaction_resume_admitted" &&
-          isJsonRecord(event.payload) &&
+          isRecord(event.payload) &&
           event.payload.continuationRef === continuationRef,
       )
     : undefined;
   const interactionEvaluationBasis =
-    resumed !== undefined && isJsonRecord(resumed.payload)
+    resumed !== undefined && isRecord(resumed.payload)
       ? actionEvaluationBasis(resumed.payload.successorInputValue)
       : null;
   const graphFunctionEvaluationBasisEvent = indexedRuntimeEvents(prefix, "payload:resultRef:" + sourceCursor.inputRef).find(
@@ -2452,13 +2447,13 @@ function constructionDeltaForAdvance(
       event.runId === sourceCursor.runId &&
       event.graphCallId === sourceCursor.graphCallId &&
       event.frameId === sourceCursor.frameId &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.resultRef === sourceCursor.inputRef &&
       actionEvaluationBasis(event.payload.value) !== null,
   );
   const graphFunctionEvaluationBasis =
     graphFunctionEvaluationBasisEvent !== undefined &&
-      isJsonRecord(graphFunctionEvaluationBasisEvent.payload)
+      isRecord(graphFunctionEvaluationBasisEvent.payload)
       ? actionEvaluationBasis(
           graphFunctionEvaluationBasisEvent.payload.value,
         )
@@ -2470,7 +2465,7 @@ function constructionDeltaForAdvance(
     evaluationBasis !== null &&
       Array.isArray(evaluationBasis.admittedEvidence)
       ? evaluationBasis.admittedEvidence.flatMap((row) =>
-        isJsonRecord(row) && typeof row.responseRef === "string"
+        isRecord(row) && typeof row.responseRef === "string"
           ? [row.responseRef]
           : []
       )
@@ -2481,7 +2476,7 @@ function constructionDeltaForAdvance(
       ? [
           ...new Set(
             evaluationBasis.admittedEvidence.flatMap((row) =>
-              isJsonRecord(row) &&
+              isRecord(row) &&
                 Array.isArray(row.semanticEvidenceAssetRefs)
                 ? row.semanticEvidenceAssetRefs.filter(
                     (entry): entry is string =>
@@ -2501,16 +2496,16 @@ function constructionDeltaForAdvance(
       : [];
   const interactionResponseValue =
     responded !== undefined &&
-      isJsonRecord(responded.payload) &&
-      isJsonRecord(responded.payload.responseValue)
+      isRecord(responded.payload) &&
+      isRecord(responded.payload.responseValue)
       ? responded.payload.responseValue
       : null;
   const graphFunctionResponseValue =
     evaluationBasis !== null &&
       Array.isArray(evaluationBasis.admittedEvidence) &&
       evaluationBasis.admittedEvidence.length === 1 &&
-      isJsonRecord(evaluationBasis.admittedEvidence[0]) &&
-      isJsonRecord(evaluationBasis.admittedEvidence[0].responseValue)
+      isRecord(evaluationBasis.admittedEvidence[0]) &&
+      isRecord(evaluationBasis.admittedEvidence[0].responseValue)
       ? evaluationBasis.admittedEvidence[0].responseValue
       : null;
   const responseValue = intent?.actionKind === "invoke_graph_function"
@@ -2533,28 +2528,28 @@ function constructionDeltaForAdvance(
       : null;
   const evaluationObservation =
     evaluationNextActionBasis !== null &&
-      isJsonRecord(evaluationNextActionBasis.observationSnapshot)
+      isRecord(evaluationNextActionBasis.observationSnapshot)
       ? evaluationNextActionBasis.observationSnapshot
       : null;
   const evaluationWorkspace =
     evaluationObservation !== null &&
-      isJsonRecord(evaluationObservation.workspaceBinding)
+      isRecord(evaluationObservation.workspaceBinding)
       ? evaluationObservation.workspaceBinding
       : null;
   const evaluationActionCatalog =
     evaluationNextActionBasis !== null &&
-      isJsonRecord(evaluationNextActionBasis.admittedActionCatalog)
+      isRecord(evaluationNextActionBasis.admittedActionCatalog)
       ? evaluationNextActionBasis.admittedActionCatalog
       : null;
   const evaluationPolicy =
     evaluationBasis !== null &&
-      isJsonRecord(evaluationBasis.closurePolicy)
+      isRecord(evaluationBasis.closurePolicy)
       ? evaluationBasis.closurePolicy
       : null;
   const evidenced = indexedRuntimeEvents(prefix, "kind:" + "c_call_evidenced").find(
     (event) =>
       event.kind === "c_call_evidenced" &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.cCallRef === evidence.cCall.cCallRef,
   );
   const graphFunctionRuntimeEvents = basisRuntimeEventRefs.map(
@@ -2589,13 +2584,13 @@ function constructionDeltaForAdvance(
         intent?.admissionEventRef ?? "",
         opened?.eventId ?? "",
         String(
-          responded !== undefined && isJsonRecord(responded.payload)
+          responded !== undefined && isRecord(responded.payload)
             ? responded.payload.publicOperationEventRef
             : "",
         ),
         responded?.eventId ?? "",
         String(
-          resumed !== undefined && isJsonRecord(resumed.payload)
+          resumed !== undefined && isRecord(resumed.payload)
             ? resumed.payload.publicOperationEventRef
             : "",
         ),
@@ -2643,7 +2638,7 @@ function constructionDeltaForAdvance(
       executionBasis.actionCatalogRef ||
     evaluationActionCatalog.catalogDigest !==
       executionBasis.actionCatalogDigest ||
-    !isJsonRecord(evaluationBasis.actionCatalog) ||
+    !isRecord(evaluationBasis.actionCatalog) ||
     evaluationBasis.actionCatalog.actionCatalogRef !==
       intent.actionCatalogRef ||
     evaluationBasis.actionCatalog.actionCatalogDigest !==
@@ -2656,10 +2651,10 @@ function constructionDeltaForAdvance(
       evaluationPolicy,
       composition.closurePolicy,
     ) ||
-    !isJsonRecord(evaluationBasis.constructionIntent) ||
+    !isRecord(evaluationBasis.constructionIntent) ||
     evaluationBasis.constructionIntent.constructionIntentRef !==
       intent.constructionIntentRef ||
-    !isJsonRecord(evaluationBasis.workspaceBinding) ||
+    !isRecord(evaluationBasis.workspaceBinding) ||
     evaluationBasis.workspaceBinding.workspaceBindingId !==
       executionBasis.workspaceBindingId ||
     evaluationBasis.workspaceBinding.workspaceBindingDigest !==
@@ -2739,7 +2734,7 @@ function constructionDeltaForAdvance(
     ...actionEvaluationAdmissionBody,
   };
   const continuedObligations = executionBasis.constructionContinuationUse === undefined ? [] : indexedRuntimeEvents(prefix, "kind:" + "construction_continuation_opened").filter(event =>
-    event.kind === "construction_continuation_opened" && event.runId === sourceCursor.runId && isJsonRecord(event.payload) &&
+    event.kind === "construction_continuation_opened" && event.runId === sourceCursor.runId && isRecord(event.payload) &&
     event.payload.parentExecutionBasisRef === executionBasis.basisRef && event.payload.constructionIntentRef === intent.constructionIntentRef);
   if (executionBasis.constructionContinuationUse !== undefined && continuedObligations.length !== 1)
     return refusal("candidate_mismatch", "continued action evaluation lacks its exact current obligation");
@@ -2812,13 +2807,13 @@ export function hasResolvedRunConstructionIntentLineage(
   const intentEvents = events.filter(
     (event) =>
       event.kind === "construction_intent_selected" &&
-      isJsonRecord(event.payload) && (event.runId === runId ||
+      isRecord(event.payload) && (event.runId === runId ||
         (continuedUse !== undefined && event.runId === continuedUse.sourceRunId &&
           event.payload.constructionIntentRef === continuedUse.constructionIntentRef &&
           event.payload.constructionIntentDigest === continuedUse.constructionIntentDigest)),
   );
   return intentEvents.every((event) => {
-    if (!isJsonRecord(event.payload)) return false;
+    if (!isRecord(event.payload)) return false;
     const eventIntentRef = event.payload.constructionIntentRef;
     const eventIntentDigest = event.payload.constructionIntentDigest;
     return typeof eventIntentRef === "string" &&
@@ -2829,7 +2824,7 @@ export function hasResolvedRunConstructionIntentLineage(
           candidate.runId === runId &&
           (event.runId !== runId || (candidate.graphCallId === event.graphCallId && candidate.frameId === event.frameId)) &&
           candidate.admissionOrdinal > event.admissionOrdinal &&
-          isJsonRecord(candidate.payload) &&
+          isRecord(candidate.payload) &&
           candidate.payload.constructionIntentRef === eventIntentRef &&
           candidate.payload.constructionIntentDigest === eventIntentDigest &&
           candidate.payload.constructionCompositionRef ===
@@ -2878,7 +2873,7 @@ function hasGovernedConstructionClosure(
   const intentEvents = indexedRuntimeEvents(prefix, "kind:" + "construction_intent_selected").filter(
     (event) =>
       event.kind === "construction_intent_selected" &&
-      isJsonRecord(event.payload) && (event.runId === sourceCursor.runId ||
+      isRecord(event.payload) && (event.runId === sourceCursor.runId ||
         (executionBasis.constructionContinuationUse !== undefined &&
           event.runId === executionBasis.constructionContinuationUse.sourceRunId &&
           event.payload.constructionIntentRef === executionBasis.constructionContinuationUse.constructionIntentRef &&
@@ -2890,12 +2885,12 @@ function hasGovernedConstructionClosure(
   if (projection === null) return false;
   const intentEvent = intentEvents.find(
     (event) =>
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.constructionIntentRef ===
         projection.constructionIntentRef,
   );
   const intentRef =
-    intentEvent !== undefined && isJsonRecord(intentEvent.payload)
+    intentEvent !== undefined && isRecord(intentEvent.payload)
       ? intentEvent.payload.constructionIntentRef
       : undefined;
   if (typeof intentRef !== "string") return false;
@@ -2913,7 +2908,7 @@ function hasGovernedConstructionClosure(
       event.runId === sourceCursor.runId &&
       event.graphCallId === sourceCursor.graphCallId &&
       event.frameId === sourceCursor.frameId &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.constructionIntentRef === intentRef &&
       event.payload.constructionCompositionRef ===
         composition.compositionRef &&
@@ -2931,13 +2926,13 @@ function hasGovernedConstructionClosure(
       event.graphCallId === sourceCursor.graphCallId &&
       event.frameId === sourceCursor.frameId &&
       event.admissionOrdinal > deltaEvent.admissionOrdinal &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.resultRef === sourceCursor.inputRef &&
-      isJsonRecord(event.payload.value) &&
+      isRecord(event.payload.value) &&
       nextActionBasis(event.payload.value) !== null &&
-      isJsonRecord(event.payload.value.runtimeFrontier) &&
+      isRecord(event.payload.value.runtimeFrontier) &&
       event.payload.value.runtimeFrontier.phase === "post_evidence" &&
-      isJsonRecord(event.payload.value.gapProjection) &&
+      isRecord(event.payload.value.gapProjection) &&
       event.payload.value.gapProjection.gapRef === projection.gapRef,
   );
   const resultEvent = indexedRuntimeEvents(prefix, "id:" + evidence.result.admissionEventRef).find(
@@ -2945,23 +2940,23 @@ function hasGovernedConstructionClosure(
   );
   const refreshedBasis =
     refreshedBasisEvent !== undefined &&
-      isJsonRecord(refreshedBasisEvent.payload) &&
-      isJsonRecord(refreshedBasisEvent.payload.value)
+      isRecord(refreshedBasisEvent.payload) &&
+      isRecord(refreshedBasisEvent.payload.value)
       ? nextActionBasis(refreshedBasisEvent.payload.value)
       : null;
   const refreshedObservation =
     refreshedBasis !== null &&
-      isJsonRecord(refreshedBasis.observationSnapshot)
+      isRecord(refreshedBasis.observationSnapshot)
       ? refreshedBasis.observationSnapshot
       : null;
   const refreshedWorkspace =
     refreshedObservation !== null &&
-      isJsonRecord(refreshedObservation.workspaceBinding)
+      isRecord(refreshedObservation.workspaceBinding)
       ? refreshedObservation.workspaceBinding
       : null;
   const refreshedPolicy =
     refreshedBasis !== null &&
-      isJsonRecord(refreshedBasis.declaredPolicy)
+      isRecord(refreshedBasis.declaredPolicy)
       ? refreshedBasis.declaredPolicy
       : null;
   return deltaEvent !== undefined &&
@@ -3468,7 +3463,7 @@ function hasBlockedRouteEvidence(
     projected.judgment === "blocked" &&
     judgmentEvent?.kind === "c_call_judged" &&
     judgmentEvent.aggregateId === evidence.cCall.cCallRef &&
-    isJsonRecord(judgmentEvent.payload) &&
+    isRecord(judgmentEvent.payload) &&
     judgmentEvent.payload.judgmentRef === evidence.judgmentRef &&
     judgmentEvent.payload.resultRef === evidence.resultRef &&
     judgmentEvent.payload.judgment === "blocked" &&
@@ -4020,9 +4015,9 @@ function hasGraphSpanReentryRouteEvidence(
     (event) =>
       event.kind === "traversal_route_admitted" &&
       event.runId === source.runId &&
-      isJsonRecord(event.payload) &&
+      isRecord(event.payload) &&
       event.payload.routeKind === "re_enter" &&
-      isJsonRecord(event.payload.graphSpanReentryProjection) &&
+      isRecord(event.payload.graphSpanReentryProjection) &&
       event.payload.graphSpanReentryProjection.applicationRef ===
         application.applicationRef,
   ).length;
@@ -4297,12 +4292,12 @@ export function deriveRetainedCCallInputAtPrefix(
   if (term?.kind === "c_workflow") {
     const events = runtimeEventBodiesAtPrefix(prefix);
     const folds = indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + cCall.cCallRef).filter((event) => event.kind === "child_foldback_admitted" && event.runId === source.runId &&
-      event.graphCallId === source.graphCallId && isJsonRecord(event.payload) && event.payload.parentCCallRef === cCall.cCallRef);
+      event.graphCallId === source.graphCallId && isRecord(event.payload) && event.payload.parentCCallRef === cCall.cCallRef);
     const fold = exactOrUndefined(onlyExactMatch(folds));
-    const childGraphCallId = fold !== undefined && isJsonRecord(fold.payload) ? fold.payload.childGraphCallId : null;
-    const child = fold !== undefined && isJsonRecord(fold.payload) && typeof fold.payload.childExecutionBasisRef === "string"
+    const childGraphCallId = fold !== undefined && isRecord(fold.payload) ? fold.payload.childGraphCallId : null;
+    const child = fold !== undefined && isRecord(fold.payload) && typeof fold.payload.childExecutionBasisRef === "string"
       ? rehydrateExecutionBasisAtPrefix(prefix, fold.payload.childExecutionBasisRef) : null;
-    if (fold === undefined || !isJsonRecord(fold.payload) || child === null ||
+    if (fold === undefined || !isRecord(fold.payload) || child === null ||
       child.graphFunctionRef !== term.graphFunctionRef || child.parentCCallRef !== cCall.cCallRef ||
       child.parentExecutionBasisRef !== executionBasis.basisRef || fold.payload.childDisposition !== "closed" ||
       fold.payload.outputDigest !== result.valueDigest || typeof fold.payload.childClosureRef !== "string" ||
@@ -4425,11 +4420,11 @@ function admitRoute(
     (event) => event.kind === "traversal_cursor_entered",
   );
   const currentCursorRef = latestCursorEvent !== undefined &&
-      isJsonRecord(latestCursorEvent.payload)
+      isRecord(latestCursorEvent.payload)
     ? latestCursorEvent.kind === "fh_interaction_resume_admitted"
       ? latestCursorEvent.payload.successorCursorRef
       : latestCursorEvent.payload.targetCursorRef
-    : initialCursorEvent !== undefined && isJsonRecord(initialCursorEvent.payload)
+    : initialCursorEvent !== undefined && isRecord(initialCursorEvent.payload)
       ? initialCursorEvent.payload.cursorRef
       : null;
   if (

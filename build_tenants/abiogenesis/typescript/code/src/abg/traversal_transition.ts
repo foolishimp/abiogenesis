@@ -1,5 +1,5 @@
 import { isRecord } from "../shared/admission_predicates.js";
-import { admitJson } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import type { RawAdmittedValue } from "../validator/raw_admission.js";
 import type {
   BlockedRouteAdmissionEvidence,
@@ -82,16 +82,6 @@ export type TraversalTransitionCandidate = TraversalTransitionCandidateBody &
     candidateRef: string;
     candidateDigest: `sha256:${string}`;
   }>;
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  expectedKeys: readonly string[],
-): boolean {
-  const actual = Object.keys(value).sort();
-  const expected = [...expectedKeys].sort();
-  return actual.length === expected.length &&
-    actual.every((key, index) => key === expected[index]);
-}
 
 function isExactTransitionEvidence(
   value: unknown,
