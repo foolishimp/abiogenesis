@@ -2468,3 +2468,97 @@ Items, in this order. The Return carries one row per item: done or stopped, with
 **Stop:** any change under `code/src`, including the helper, the Product and the parent (a class that cannot be driven without one is a stop for that item, with the counterexample and the line that blocks it, and the other items land); a second bounded attempt at any item; any push.
 
 **Return contract.** One commit on `main`, no push. First line `Post-close repair G: the three helper failure classes driven through the installed helper`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append `## Post-close repair return G` with: one row per item (done or stopped, lines at head); for each class the inducing declaration, the helper's stderr message, the bound operation and the prefix the artifact carries, the subject's `processFacts` members that identify the failed process; the lane results as `tests/pass/fail/skipped` with the installed cases' runtimes; the stop reports, if any, with the counterexample.
+
+## Post-close repair return G
+
+Two of the three classes landed: `http_probe_failed` and `http_cleanup_unresolved`. `command_failed` stopped. No declaration makes a command's lifetime record a first error, so that class has no installed case. Items 2 to 6 landed. Nothing under `code/src` changed. `T` is `build_tenants/abiogenesis/typescript`; `W` is this directory.
+
+**Commit.** The commit carrying this Return, on `main` over `91dee97e4`, first line `Post-close repair G: the three helper failure classes driven through the installed helper`. Not pushed.
+
+| Item | State | Lines at head |
+|---|---|---|
+| 1, installed cases | done for `http_probe_failed` and `http_cleanup_unresolved`; stopped for `command_failed` | `T/test_env/tests/t287-worksite-command-execution.test.mjs`: hook in `helperFailureTransport` (`:196`), loader `:199-214`, generated lifetime wrapper `:205-212`, worker environment `:217-218`; paths and environment `:187-191`; `assertHelperFailureAdmitted` (`:239`) stderr `:243`, class `:272`, lifetimes `:275-276`, facts equality `:279-280` and inequality `:281-282`, per-class call `:296`, diagnostic `:297-300`; `helperFailureMode` `:1305` (modes `:1322-1332`); `assertHelperFailureMode` `:1340` (command class `:1346-1356`, HTTP prefix and predicate `:1358-1368`, failed and command processes `:1370-1378`, probe `:1380-1388`, cleanup `:1390-1401`); cases `:1405`, `:1409` |
+| 2, existing case | done; assertions kept, exchanges kept | the case `:1151` passes `"command_cleanup_unresolved"` (`:1153`); its four class-specific assertions moved to `:1346-1355`; exchanges run for that class only (`:934`), their hook environment `:319` |
+| 3, design §10.5 P-LIFECYCLE | done; three classes proved, `command_failed` stated as not drivable | `T/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:639` |
+| 4, design §9.2 citations | done for the six named | `T/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:558` (`:1135` to `:1157`), `:559` (`:1694`, `:1710`, `:1730` to `:1728`, `:1744`, `:1765`), `:561` (`:1398`, `:1411` to `:1426`, `:1439`) |
+| 5, lanes | done | below |
+| 6, records | done; GOALS unchanged | ticket `### Library delivery close (2026-10-23)` P-LIFECYCLE `:5358`; `specification/GOALS.md` does not name the classes |
+
+**Item 1.** The hook now records the facts of every lifetime that the installed lifetime module creates in the helper process, numbered in creation order. Each lifetime gets `lifetime-<n>.json` (the encoded facts) and `lifetime-<n>.process.json` (`ordinal`, `pid`, `spawnargs`, `target`). The facts file per process is required: a second write to one `wx` path would throw in the completion callback. Only the lifetime named by `ABG_T287_HELPER_UNCONFIRMED` gets the host with no signal and a group probe answering `unknown`, with `terminationGraceMs` 5. Every other lifetime keeps its own bounds and the real host. `processFacts` carries no pid, so the sidecar's spawn arguments identify the failed process. The case asserts that the subject's `processFacts` equal that process's file and differ from the other process's file.
+
+Edits to existing lines kept the line count, and the new code is appended after `:1289`. The cited lines `:196`, `:239`, `:308`, `:586`, `:1144`, `:1151`, `:1155` and `:1187` still land on the same functions and cases.
+
+| Class | Inducing declaration | Helper stderr | Bound operation | Prefix |
+|---|---|---|---|---|
+| `command_cleanup_unresolved` (`:1151`) | one command `node -e ""`; the hook targets lifetime 0 | `worksite command cleanup unresolved; dependent work stopped: ` | `command` = the process observation of `task.commands[0]` (`command://c2-ack/helper-failure`) | (0 commands, 0 predicates) |
+| `http_probe_failed` (`:1405`) | command `node -e ""`; predicates `process_exit` = 0, then `http_response_exact` launching `c2-source/service.mjs` with request method `G ET`; the hook targets no lifetime | `worksite HTTP probe failed; dependent work stopped: ` | `predicate` = `{ ordinal: 1, predicateId: "predicate://c2-ack/http-failure" }`; `request` = the declared request | (1, 1) |
+| `http_cleanup_unresolved` (`:1409`) | the same task with method `GET`; the launch answers 201 `abi-ok` once and exits 0; the hook targets lifetime 1, the launch | `worksite HTTP cleanup unresolved; dependent work stopped: ` | the same `predicate`; `observation.request` = the declared request plus the observed port | (1, 1) |
+
+`http_probe_failed` is induced by the owner-error route. The port is observed, then `http.request` throws `ERR_INVALID_HTTP_TOKEN` synchronously inside `oneHttpRequest`. The probe hands that error to `lifetime.fail` (`T/code/src/implementation/worksite_command_helper.ts:1136`), and the real host kills the launch's group. The Product's constructor admits `G ET`, because `request.method` is only non-empty text. This was checked in memory before the run.
+
+The `processFacts` members that identify the failed process, each equal to the hook's file for that process:
+
+| Class | Failed process (sidecar) | `processFacts` |
+|---|---|---|
+| `command_cleanup_unresolved` | lifetime 0, `spawnargs` `[node, "-e", ""]`, `target` true | `directExit` `{ status: 0, signal: null }`, `scopeAbsence` `unknown`, `firstError` null, `launchFailure` null, `signalAttempts` 2, `probeCount` 7 |
+| `http_probe_failed` | lifetime 1, `spawnargs` `[node, "c2-source/service.mjs", "<sandbox>/c2-source/evidence-http-port.txt"]`, `target` false | `firstError` `{ name: "TypeError", code: "ERR_INVALID_HTTP_TOKEN", message: "Method must be a valid HTTP token [\"G ET\"]" }`, `directExit` `{ status: null, signal: "SIGKILL" }`, `scopeAbsence` `absent`, `launchFailure` null, `signalAttempts` 1 |
+| `http_cleanup_unresolved` | lifetime 1, the launch's `spawnargs` as above, `target` true | `directExit` `{ status: 0, signal: null }`, `scopeAbsence` `unknown`, `firstError` null, `signalAttempts` 2 |
+
+In both HTTP cases, lifetime 0 is the validation command, with `spawnargs` `[node, "-e", ""]`, `target` false, `scopeAbsence` `absent` and `firstError` null. Its result is in the artifact's `commandResults` with `terminationConfirmed` true. Each case also asserts:
+
+- the helper exits non-zero;
+- its stdout is one canonical acknowledgment line, relayed as the C2 result's `finalOutput`, and its ref and digest equal the published artifact's recomputed ones;
+- the artifact's disposition is `failure`, and its `failure` is deep-equal to the cold-read subject;
+- the subject's keys are exact, and the admitted `c_call_result_admitted` has result class `failure` and class `helper_failure`.
+
+After the lane, no launched process remained: the recorded pids were absent, and no `c2-source/service.mjs` process was running.
+
+**Stop, `command_failed`.** The activation's two inducers give a launch failure, not a first error.
+
+The counterexample is a scratch probe against the built `build/code/src/shared/owned_process_lifetime.js` (Node 24.7.0, macOS). Each of these gives `EACCES` with `child.pid` undefined:
+
+- a declared executable that exists but cannot be executed (a mode-644 script, or a directory);
+- a `relativeCwd` the launch cannot enter (mode 000).
+
+Each results in `launchFailure.code` `EACCES`, `firstError` null, `noChildEstablished` true and terminal `spawn_failed`. In `runCommand` that is a command result with `exitStatus` 127 (`T/code/src/implementation/worksite_command_helper.ts:796`) and `terminationConfirmed` true, which is §10.5's no-child launch failure. Two other declarations publish nothing:
+
+- A `relativeCwd` that does not exist is refused before `spawn` (`:740`).
+- An executable file whose format the system cannot run gives `ENOEXEC`, which `spawn` throws synchronously (`:746`) before the lifetime exists.
+
+Both errors are rethrown at `:1449` with no artifact.
+
+The blocking lines are `T/code/src/shared/owned_process_lifetime.ts:273-278` and helper `:779`. The first sends an error with no child pid to `launchFailure`; only a child with a pid reaches `fail`. The second reads only `firstError`. The other sources of a first error, and why no declaration reaches them:
+
+- **Stream error guard** (`owned_process_lifetime.ts:293`): no child behavior makes a read on the parent's end of its stdio socket pair fail.
+- **Child `error` with a pid** (`:278`): Node emits this only for a failed `kill` or IPC send. The host signals the group through `process.kill` (`:84`), whose throw `:195` swallows.
+- **Observer throw inside `observe`** (`:216-218`): `runCommand`'s observers (`worksite_command_helper.ts:757-771`) push buffers, cancel timers, destroy streams and write the heartbeat. None of them throws for any declared value.
+- **Stream `destroy` in `complete`** (`:207`): none.
+- **Attach catch** (`worksite_command_helper.ts:775`): `child.stdout.on` and `timeoutTimer.after(command.timeoutMs)` throw only for a null stream, which needs `EMFILE` in the helper itself, or for a non-positive timeout, which the Product refuses.
+
+Two options are left for the Executive; neither was built. A hook-injected first error would drive the class over the installed route, for example a wrapped observer that throws, or `lifetime.fail` on the command's lifetime; but then the test induces the class, not the declared task. Alternatively, a source change could route some post-spawn condition to `firstError`, which is outside this grant. The class reaches an artifact only in the synthetic subject case (`:1187`).
+
+**Item 3.** P-LIFECYCLE now states that the helper route is proved on the installed path for three of the four classes. It names each case (`:1151`, `:1405`, `:1409`), `assertHelperFailureAdmitted` (`:239`), `assertHelperFailureMode` (`:1340`), `helperFailureMode` (`:1305`), what the hook does, the binding at each prefix, and the facts equality and inequality. It states that `command_failed` is not driven, with the two blocking lines. Its exchanges sentence (`:308`) is unchanged.
+
+**Item 4.** The six re-pointed citations:
+
+- `:1157` is the HTTP probe's `terminal`, from which `:1180` sets its `terminationConfirmed`.
+- `:1728` is `terminationConfirmed` in the command result's exact keys; `:1744` is its boolean check; `:1765` is its copy.
+- `:1426` is `command.terminationConfirmed`; `:1439` is the HTTP probe's `process.terminationConfirmed`.
+
+**Item 5.** `npm run build` rc 0, with no tracked output changed. `npx tsc --noEmit -p tsconfig.json` rc 0. `lint:imports`: 28 modules, rc 0. `lint:lifecycle`: 284 modules, 10 allow-listed, no offender, rc 0.
+
+| Lane | tests/pass/fail/skipped |
+|---|---|
+| `t287-worksite-command-execution` | 8/8/0/0, 312.9 s. Installed cases: success 84.9 s; `command_cleanup_unresolved` with its exchanges 77.1 s; `http_probe_failed` 75.2 s (78.1 s when run alone first); `http_cleanup_unresolved` 75.2 s |
+| `t287-observed-worksite-command` | 8/7/1/0 (`:43`, the recorded set) |
+| `m5-worker-transport` | 21/21/0/0 |
+| `forward-command-contracts` | 10/10/0/0 |
+
+**Item 6.** The ticket's P-LIFECYCLE bullet adds both HTTP cases with their lines, the hook, the prefix and facts each subject carries, "three of the four classes", and the `command_failed` finding with its blocking lines. The subsection's opening still names repair F's commit for the library, which is correct because G changes no library source. GOALS Current Selection does not name the classes, so it is unchanged. It still says "An installed C1 to C2 case drives that route".
+
+**Residuals.**
+
+- **Two stale §9.2 citations outside the six named.** Item 1 cites `T/code/src/implementation/worksite_command_helper.ts:776`; the command report's classifier is at `:793` at head. Item 2 cites `T/code/src/product/worksite_command_execution.ts:529`, which is `signalSequence` at head; the `terminationConfirmed` declaration is `:530`. The activation's "nothing else in §9.2" leaves both.
+- **No-child launch failure that publishes nothing.** Node throws some spawn errors synchronously: anything other than `EACCES`, `EAGAIN`, `EMFILE`, `ENFILE` and `ENOENT`, including `ENOEXEC`. For those, the command launch (`:746`) and the HTTP launch (`:1073`) leave no artifact and no acknowledgment. That contradicts §10.5's sentence that a no-child launch failure yields the admitted leaf result with `exitStatus` 127. The Product admits such a declaration, because an executable is any non-empty, unprotected path. Shown by the scratch probe only, not by an installed case. The repair is a source change, outside this grant.
+- **§9.3 item 4.** It still names "the failure thrown when the lifetime records a first error after launch" for both routes. On the command route no declaration reaches it. Outside this grant.
+- **Controlled worker.** The worker in every installed case is still a controlled worker.
