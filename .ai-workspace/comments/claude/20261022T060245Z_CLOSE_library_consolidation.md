@@ -4,25 +4,27 @@ Commentary, not law. Executive: Claude Fable 5.1. Plan post:
 `20261021T162409Z_PLAN_library_consolidation_pen.md`. Design authority:
 `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`.
 
-Restated 2026-10-23 after four post-close repairs. The first statement of
+Restated 2026-10-24 after five post-close repairs; repair F is pending. The first statement of
 this post (2026-10-22, at `562d4515a`) and its addendum are superseded by
 this text; their history is the commit chain below and `step-8.md`.
 
 ## Result
 
-Reopened 2026-10-24 by the fifth review (S2): the helper prints no
-acknowledgment when it fails after launch, and the parent refuses the
-exchange before it reads the artifact, so the D15 claim below is narrowed to
-artifact publication, downstream admission and cold retrieval under a
-supplied exchange. Repair E (`step-8.md`) carries the helper's
-acknowledgment through the worker to the parent; this post is restated when
-it lands.
+Reopened 2026-10-24 by the fifth and sixth reviews. Repair E landed
+(`280f5777f`): the helper prints its acknowledgment of the published artifact
+before its non-zero exit, the worker returns it unchanged, and the parent
+binds it to the artifact before it reads the disposition; the D15 claim below
+holds from the helper's exit on. Repair F (sixth review: the forward
+constructors trust their typed array inputs; the failure artifact's subject is
+not bound to the next undone operation) is activated, and this post is
+restated when it lands. The plan for the close and the debt wave is
+`.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md`.
 
-The library is on `main` at `0eacd4668` plus the bookkeeping commit that
+The library is on `main` at `280f5777f` plus the bookkeeping commit that
 carries this restatement (not pushed, not a release). Steps 2 to 8 landed as
-twelve code commits; four post-close repairs (A, C, B, D) landed as four more
-after three external reviews that Jim pasted and one same-family whole-diff
-review. Every owner obligation the design names is closed with its sites:
+twelve code commits; five post-close repairs (A, C, B, D, E) landed as five
+more after five external reviews that Jim pasted and one same-family
+whole-diff review. Every owner obligation the design names is closed with its sites:
 O-RESOURCE, O-SHAPE, O-CODEC and O-KEY at steps 3 to 8a; O-SCHEMA at the raw
 owner boundary (D10); O-TYPE at every census site (D11 to D14). The plan's
 completion condition, no O-* open, is met. The design's proofs P-EQUAL,
@@ -51,6 +53,7 @@ Jim" and "Residue the design records".
 | repair C | `99b80d6f5` | O-TYPE census (D11): 2887 of 2951 casts retired, nine stops |
 | repair B | `d8cf6b5d9` | streaming fold in place; realm admission (D12); valueless result events (D13); helper handoff stopped on the contract rule |
 | repair D | `0eacd4668` | forward-task comparison; lifecycle failure subjects (D14); helper failure handoff (D15); seam and fixture lanes; final run |
+| repair E | `280f5777f` | helper acknowledgment on failure (D15); acknowledgment bound to the artifact; final run |
 
 Executive bookkeeping commits sit between them (`0c362da15`, `837781a1a`,
 `2f1393061`, `3dbd3cd2f`, and the one carrying this text), each with the
@@ -123,8 +126,8 @@ and repair D proved it on an installed C1 to C2 path. One Executive row
 
 ## Test reality
 
-Final run at `0eacd4668` (`step-8-run-postclose-d.log`): 48 files in one
-invocation, 1160 s; 345 tests, 270 pass, 54 fail, 2 cancelled, 19 skipped;
+Final run at `280f5777f` (`step-8-run-postclose-e.log`): 48 files in one
+invocation, 1224 s; 345 tests, 270 pass, 54 fail, 2 cancelled, 19 skipped;
 25 files red. Every failing test is one of `step-8-run-postclose.log`'s,
 and that log's set is the first final run's (`step-8-run-final.log`) or the
 pre-plan baseline's at `97b1200bc` (repair B attributed the 68 lanes outside
@@ -137,10 +140,11 @@ set (`forward-command-owners`, `m5-consensus-module` at load,
 `t287-c2-owner-coordinate-reuse`, `t287-calculus-state-transfer` by its
 `:64` timeout, `t287-event-calculus-owner-continuation` at load,
 `t287-native-semantic-revision`, `t287-observed-worksite-command`,
-`t287-ordered-reconstruction`). Two baseline-red lanes were fixed in the
-post-close cycle because their cause was a test defect: the C2 suite's
-prompt-digest fixture (`sha256Bytes` where the Product digests canonically)
-and the reacquisition root lane's binding list, a step 4 seam. The two seams
+`t287-ordered-reconstruction`). Two lanes were fixed in the post-close
+cycle because their cause was a test defect: the C2 suite's prompt-digest
+fixture (`sha256Bytes` where the Product digests canonically), baseline-red,
+and the reacquisition root lane's binding list, baseline green and broken by
+the plan at step 4. The two seams
 this plan opened (`t287-c2a-fp-source-contract` at step 7, fixed in 8a; the
 reacquisition binding at step 4, fixed in D) are closed; the one law change
 (`m5-terminal-quiescence-owner`, step 6) went through D9 and its reversal
@@ -151,14 +155,16 @@ variable or a missing export, so their path edits are unexercised past
 load. The uat harness is 30 pass, 1 fail, 3 skipped; the failure ("canonical
 C2 budget fits") is baseline-red.
 
-New lanes and cases of the post-close cycle, all green at `0eacd4668`:
+New lanes and cases of the post-close cycle, all green at `280f5777f`:
 P-FOLD streaming (one owned state, 22 cuts); D12 realm admission with six
 refused shapes; D13 valueless result event; `sameJson` function member and
 cycle; the forward-task sparse cover vector; D14 over the five subject
 shapes, both admission routes, two Run selections over one prefix and a
 preserved earlier cut; D15 on an installed C1 to C2 path reading the helper
 failure subject cold from the admitted result (subject 3561 bytes, reference
-4887 bytes).
+4887 bytes), from the helper's exit on since repair E: the helper's
+acknowledgment relayed by the controlled worker, bound to the artifact by the
+parent, with a foreign acknowledgment and a failed transport refused.
 
 ## Items for Jim
 
@@ -181,10 +187,6 @@ failure subject cold from the admitted result (subject 3561 bytes, reference
 - D15's whole-path case covers `command_cleanup_unresolved`; the other three
   helper failure classes pass the Product constructor and validator in a
   probe outside the lanes, and no lane drives them into an artifact.
-- The acknowledgment's artifact-digest members are not read on any
-  non-success helper disposition (the parent returns on the artifact it read
-  before parsing the acknowledgment); this predates D15 and holds for
-  `helper_failure` too.
 - 1263 untracked files under
   `.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/` from the uat
   harness runs of this cycle (the repo tracks 120 files of an earlier run);

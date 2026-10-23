@@ -34,8 +34,9 @@ binds the finite callable/consumer/deletion/proof maps rather than leaving
 selected duplication under automatic retention or 5.1 allocation.
 
 The library is delivered and closed on `main` at the cut the
-[delivery close](#library-delivery-close-2026-10-23) records, frozen there for
-the independent review (L5). The lifecycle rule and the helper’s final-facts
+[delivery close](#library-delivery-close-2026-10-23) records; the post-close
+repairs and the debt wave are planned in [T-290](T-290-close-the-common-library-and-retire-the-registered-debt.md),
+whose Phase A exit is L5. The lifecycle rule and the helper’s final-facts
 and failure handoff are realized (D0, D8, D15 there). The five source cuts are
 historical; their content is in that commit chain. Combined candidate/build/
 P1/P5/P4 remain HELD until L5 acceptance. L4 is partial on older subjects, L5
@@ -308,10 +309,11 @@ established as a cause; exact finite passes keep their original scope.
 Combined build, P1/P5/P4 and dependents remain HELD until L5 acceptance and a
 later exact grant.
 
-Next: the independent review; then the [technical debt register](../../TECHNICAL_DEBT_REGISTER.md)
-in the order TD-06, TD-07, TD-17, TD-13, TD-14, each a realization refactor
-under the plan’s Worker/Reviewer shape, with TD-10, TD-12, TD-18 and TD-19
-held for the owner; then release work. Preserve old freezes, failed cuts and
+Next: [T-290](T-290-close-the-common-library-and-retire-the-registered-debt.md),
+Phase A (repairs F and G, the review pass, L5), Phase B (the
+[technical debt register](../../TECHNICAL_DEBT_REGISTER.md) in the order
+TD-06, TD-07, TD-17, TD-13, TD-14, then the rest), Phase C (the owner's
+decisions), Phase D (release work under this ticket). Preserve old freezes, failed cuts and
 main generated936; no cleanup, old Run migration or restarted historical
 attempt is selected.
 
