@@ -621,13 +621,16 @@ export type WorksiteCommandExecutionProvenance = {
 };
 
 /** A helper failure after launch, as its throw site encodes it (D15): the
- * declared command or HTTP request, or the observed command or probe, and the
- * owned process facts encoded once at that site. */
+ * declared command or HTTP request, or the observed command or probe, the
+ * predicate an HTTP class probes, and the owned process facts encoded once at
+ * that site. */
 export type WorksiteCommandHelperFailure = {
   readonly failureClass: "command_failed" | "command_cleanup_unresolved" | "http_probe_failed" | "http_cleanup_unresolved";
   readonly taskRef: string;
   readonly taskDigest: Sha256Digest;
   readonly attemptRef: string;
+  /** The two HTTP classes only. */
+  readonly predicate?: Readonly<{ ordinal: number; predicateId: string }>;
   readonly command?: JsonValue;
   readonly request?: JsonValue;
   readonly observation?: JsonValue;
@@ -1831,16 +1834,51 @@ const HELPER_FAILURE_CARRIERS = {
   http_probe_failed: "request", http_cleanup_unresolved: "observation",
 } as const;
 
-function isHelperFailure(task: WorksiteExecutionTask, value: unknown): value is WorksiteCommandHelperFailure {
+/** The subject names the next undone operation of the completed prefix. A
+ * command class names the next command, with no predicate observed:
+ * `command_failed` carries the declared command, `command_cleanup_unresolved`
+ * its process observation, bound through the declared members. An HTTP class,
+ * once every command is complete, names the next predicate, which is an
+ * `http_response_exact`, through `predicate`; the declared-request members its
+ * carrier holds equal that predicate's (the cleanup observation's request is
+ * `null` when the port was never observed). */
+function isHelperFailure(
+  task: WorksiteExecutionTask,
+  value: unknown,
+  commandsDone: number,
+  predicatesDone: number,
+): value is WorksiteCommandHelperFailure {
   if (!isRecord(value) || typeof value.failureClass !== "string" ||
     !Object.hasOwn(HELPER_FAILURE_CARRIERS, value.failureClass)) return false;
   const carrier = HELPER_FAILURE_CARRIERS[value.failureClass as keyof typeof HELPER_FAILURE_CARRIERS];
-  return exactKeys(value, ["attemptRef", carrier, "diagnostic", "failureClass", "processFacts", "taskDigest", "taskRef"]) &&
+  const http = carrier !== "command", operation = value[carrier];
+  if (!(exactKeys(value, ["attemptRef", carrier, "diagnostic", "failureClass", ...(http ? ["predicate"] : []),
+    "processFacts", "taskDigest", "taskRef"]) &&
     value.taskRef === task.taskRef && value.taskDigest === task.taskDigest && nonempty(value.attemptRef) &&
-    isRecord(value[carrier]) && isRecord(value.processFacts) &&
+    isRecord(operation) && isRecord(value.processFacts) &&
     isRecord(value.diagnostic) && exactKeys(value.diagnostic, ["message", "name"]) &&
     typeof value.diagnostic.name === "string" && typeof value.diagnostic.message === "string" &&
-    admitJson(value).kind === "ok";
+    admitJson(value).kind === "ok")) return false;
+  if (!http) {
+    const next = task.commands[commandsDone];
+    return predicatesDone === 0 && next !== undefined && (value.failureClass === "command_failed"
+      ? sameAdmitted(operation, next)
+      : operation.ordinal === next.ordinal && operation.commandId === next.commandId &&
+        operation.executable === next.executable && sameAdmitted(operation.args, next.args) &&
+        operation.relativeCwd === next.relativeCwd && sameAdmitted(operation.environment, next.environment) &&
+        operation.timeoutMs === next.timeoutMs && operation.terminationGraceMs === next.terminationGraceMs);
+  }
+  const next = task.outcomePredicates[predicatesDone];
+  if (commandsDone !== task.commands.length || next === undefined || next.predicateKind !== "http_response_exact" ||
+    !sameAdmitted(value.predicate, { ordinal: next.ordinal, predicateId: next.predicateId }) ||
+    !isRecord(next.declaration) || !isRecord(next.declaration.request)) return false;
+  const declared = next.declaration.request;
+  if (value.failureClass === "http_probe_failed") return sameAdmitted(operation, declared);
+  const request = operation.request;
+  return request === null || (isRecord(request) &&
+    exactKeys(request, ["hostname", "method", "path", "port", "timeoutMs"]) &&
+    request.hostname === declared.hostname && request.method === declared.method &&
+    request.path === declared.path && request.timeoutMs === declared.timeoutMs);
 }
 
 export interface WorksiteExecutionHelperArtifactInput {
@@ -1891,7 +1929,7 @@ export function constructWorksiteExecutionHelperArtifact(input: Readonly<Worksit
     // A failure after launch keeps the rows observed before it: a prefix of
     // the declared commands, then a prefix of the predicates.
     (input.disposition === "failure"
-      ? !isHelperFailure(input.task, input.failure) ||
+      ? !isHelperFailure(input.task, input.failure, input.commandResults.length, input.predicateObservations.length) ||
         input.commandResults.length > input.task.commands.length ||
         input.predicateObservations.length > input.task.outcomePredicates.length ||
         (input.predicateObservations.length !== 0 && input.commandResults.length !== input.task.commands.length)

@@ -1039,6 +1039,7 @@ async function runHttpProbe(
   executionRoot: string,
   declaration: Readonly<Record<string, JsonValue>>,
   attemptRef: string | null = null,
+  predicate: Readonly<{ ordinal: number; predicateId: string }> | null = null,
 ): Promise<JsonValue> {
   const launch = record(declaration.launch);
   const request = record(declaration.request);
@@ -1144,7 +1145,7 @@ async function runHttpProbe(
   }
   if (facts.firstError !== null) {
     const detail = {
-      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, request,
+      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, ...(predicate === null ? {} : { predicate }), request,
       diagnostic: { name: facts.firstError.name, message: facts.firstError.message },
       processFacts: encodeOwnedProcessFacts(facts),
     };
@@ -1183,7 +1184,7 @@ async function runHttpProbe(
   };
   if (!probe.process.terminationConfirmed) {
     const detail = {
-      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
+      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, ...(predicate === null ? {} : { predicate }),
       observation: probe, diagnostic: decodeStream(probe.process.stderr),
       processFacts: encodeOwnedProcessFacts(facts),
     };
@@ -1267,7 +1268,8 @@ async function predicateObservation(
       }));
   } else if (predicate.predicateKind === "http_response_exact") {
     const command = commandFor(task, commandResults, declaration);
-    observedValue = await runHttpProbe(task, executionRoot, declaration, attemptRef);
+    observedValue = await runHttpProbe(task, executionRoot, declaration, attemptRef,
+      { ordinal: predicate.ordinal, predicateId: predicate.predicateId });
     const probeDigest = sha256Canonical({
       predicateId: predicate.predicateId,
       observedValue,

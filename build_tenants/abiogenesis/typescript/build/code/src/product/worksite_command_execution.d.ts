@@ -368,13 +368,19 @@ export type WorksiteCommandExecutionProvenance = {
     readonly helperPlan: WorksiteCommandExecutionHelperPlan;
 };
 /** A helper failure after launch, as its throw site encodes it (D15): the
- * declared command or HTTP request, or the observed command or probe, and the
- * owned process facts encoded once at that site. */
+ * declared command or HTTP request, or the observed command or probe, the
+ * predicate an HTTP class probes, and the owned process facts encoded once at
+ * that site. */
 export type WorksiteCommandHelperFailure = {
     readonly failureClass: "command_failed" | "command_cleanup_unresolved" | "http_probe_failed" | "http_cleanup_unresolved";
     readonly taskRef: string;
     readonly taskDigest: Sha256Digest;
     readonly attemptRef: string;
+    /** The two HTTP classes only. */
+    readonly predicate?: Readonly<{
+        ordinal: number;
+        predicateId: string;
+    }>;
     readonly command?: JsonValue;
     readonly request?: JsonValue;
     readonly observation?: JsonValue;
