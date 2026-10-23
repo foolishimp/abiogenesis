@@ -535,30 +535,159 @@ function nativeWorkPhysicalScope(event: RuntimeEvent, priorEvents: readonly Runt
     affectsPath: path => changed === null ? nativeWorkspacePathWithin(path, value.task.writeRoots) : changed.has(path) };
 }
 
-/** A raw basis carries a value, not a new physical observation occurrence. */
-function worksiteBasisMayEstablish(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): boolean {
-  if (!isRecord(event.payload) || !isWorksiteFileReplaceRequest(event.payload.rawInputValue)) return false;
+/** One worksite cause as the support pass read it. */
+interface WorksiteCause {
+  readonly position: number;
+  readonly kind: RuntimeEvent["kind"];
+  readonly eventId: string;
+  readonly admissionOrdinal: number;
+  readonly basisId: unknown;
+  readonly aggregateId: unknown;
+  readonly failure: boolean;
+  readonly nativeRoot: unknown;
+}
+
+const supportObject = (value: unknown): value is Readonly<Record<string, unknown>> =>
+  typeof value === "object" && value !== null;
+
+/** The causal support of one basis admission, acquired in one pass over the
+ * caller's dependency list and read per cause; it lives for the call. Every
+ * row a C0 join can select (`worksiteTransitionForResult`,
+ * `projectWorksiteSelectedOccurrence` and their joins in c_call_outcome.ts) is
+ * a row of one kind whose one field equals one value, so `joins` keeps each
+ * such row under that kind, field and value, and a cause's support is the rows
+ * its own joins can select, before it, in list order. `subjectBases` and
+ * `subjectCalls` hold the bases and calls whose C0 request can be the
+ * subject's; no other C0 cause can name the subject. */
+function worksiteCauseSupport(priorEvents: readonly RuntimeEvent[], canonicalRoot: string, relativePath: string) {
+  const joins = new Map<string, Map<unknown, number[]>>(), ordinals: number[] = [];
+  const basisLinks = new Map<number, readonly unknown[]>(), fibreBases = new Map<number, unknown>();
+  const causes: WorksiteCause[] = [], subjectBases = new Set<unknown>(), subjectCalls = new Set<unknown>();
+  const join = (selector: string, value: unknown, position: number) => {
+    let values = joins.get(selector);
+    if (values === undefined) joins.set(selector, values = new Map());
+    const positions = values.get(value);
+    if (positions === undefined) values.set(value, [position]); else positions.push(position);
+  };
+  const namesSubject = (value: unknown) => supportObject(value) && supportObject(value.workspaceAuthorityBasis) &&
+    value.workspaceAuthorityBasis.canonicalRoot === canonicalRoot && supportObject(value.subject) &&
+    value.subject.relativePath === relativePath;
+  for (let position = 0; position < priorEvents.length; position++) {
+    const row = priorEvents[position]!, kind = row.kind, payload = supportObject(row.payload) ? row.payload : null;
+    ordinals.push(row.admissionOrdinal);
+    if (kind === "basis_admitted") {
+      join("basis_admitted:basisId", row.basisId, position);
+      if (payload !== null) {
+        join("basis_admitted:payload.basisRef", payload.basisRef, position);
+        const raw = payload.rawInputValue;
+        basisLinks.set(position, [payload.invocationAdmissionRef, payload.implementationSetRef, payload.parentExecutionBasisRef,
+          supportObject(raw) ? raw.workspaceBindingIdentity : undefined]);
+        if (namesSubject(raw)) subjectBases.add(row.basisId);
+      }
+    } else if (kind === "c_call_opened") {
+      join("c_call_opened:aggregateId", row.aggregateId, position);
+      join("c_call_opened:basisId", row.basisId, position);
+    } else if (kind === "c_call_evidenced") {
+      join("c_call_evidenced:aggregateId", row.aggregateId, position);
+      if (payload !== null && namesSubject(payload.request)) subjectCalls.add(row.aggregateId);
+    } else if (kind === "public_operation_artifact_admitted") {
+      if (payload !== null) join("public_operation_artifact_admitted:payload.artifactRef", payload.artifactRef, position);
+    } else if (kind === "implementation_admitted") {
+      if (payload !== null) join("implementation_admitted:payload.implementationSetRef", payload.implementationSetRef, position);
+    } else if (kind === "invocation_admitted") {
+      if (payload !== null) join("invocation_admitted:payload.invocationAdmissionRef", payload.invocationAdmissionRef, position);
+    }
+    if (kind === "c_call_fibre_selected") {
+      join("c_call_fibre_selected:aggregateId", row.aggregateId, position);
+      fibreBases.set(position, row.basisId);
+    }
+    if (kind === "c_call_result_admitted" || kind === "c_call_fibre_selected" ||
+      kind === "actor_invocation_failed" || kind === "actor_process_termination_unconfirmed") {
+      const value = payload?.value, task = supportObject(value) ? value.task : undefined;
+      causes.push({ position, kind, eventId: row.eventId, admissionOrdinal: row.admissionOrdinal, basisId: row.basisId,
+        aggregateId: row.aggregateId, failure: payload?.resultClass === "failure",
+        nativeRoot: supportObject(task) && supportObject(task.workspaceAuthorityBasis) ? task.workspaceAuthorityBasis.canonicalRoot : undefined });
+    }
+  }
+  // A C0 failure Result's request is its fibre's basis request (c_call_outcome.ts:331-333).
+  for (const cause of causes)
+    if (cause.kind === "c_call_fibre_selected" && subjectBases.has(cause.basisId)) subjectCalls.add(cause.aggregateId);
+  const selected = (selector: string, value: unknown): readonly number[] => joins.get(selector)?.get(value) ?? [];
+  const before = (cause: WorksiteCause): readonly RuntimeEvent[] => {
+    const rows = new Set<number>();
+    const take = (selector: string, value: unknown) => {
+      for (const position of selected(selector, value)) if (ordinals[position]! < cause.admissionOrdinal) rows.add(position);
+    };
+    const fibreSupport = (basisId: unknown, cCallRef: unknown) => {
+      take("basis_admitted:basisId", basisId);
+      take("c_call_opened:aggregateId", cCallRef);
+      take("c_call_fibre_selected:aggregateId", cCallRef);
+      for (const position of selected("basis_admitted:basisId", basisId)) {
+        const links = basisLinks.get(position);
+        if (links === undefined || ordinals[position]! >= cause.admissionOrdinal) continue;
+        const [invocationAdmissionRef, implementationSetRef, parentExecutionBasisRef, workspaceBindingIdentity] = links;
+        take("invocation_admitted:payload.invocationAdmissionRef", invocationAdmissionRef);
+        take("implementation_admitted:payload.implementationSetRef", implementationSetRef);
+        take("basis_admitted:payload.basisRef", parentExecutionBasisRef);
+        take("c_call_opened:basisId", parentExecutionBasisRef);
+        take("public_operation_artifact_admitted:payload.artifactRef", workspaceBindingIdentity);
+      }
+    };
+    if (cause.kind === "c_call_fibre_selected") fibreSupport(cause.basisId, cause.aggregateId);
+    if (cause.kind === "c_call_result_admitted") {
+      take("c_call_evidenced:aggregateId", cause.aggregateId);
+      if (cause.failure) for (const position of selected("c_call_fibre_selected:aggregateId", cause.aggregateId))
+        if (ordinals[position]! < cause.admissionOrdinal) fibreSupport(fibreBases.get(position), cause.aggregateId);
+    }
+    return [...rows].sort((left, right) => left - right).map(position => priorEvents[position]!);
+  };
+  return { causes, subjectBases, subjectCalls, before };
+}
+
+/** The last cause and the last establishment of the basis subject among the
+ * causes in `priorEvents`. Each cause is joined over its own support only; a
+ * C0 cause whose basis or call cannot name the subject is not joined, since
+ * its request cannot match below. */
+function worksiteBasisCauseOrdinals(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix):
+  Readonly<{ lastCause: number; lastEstablishment: number }> | null {
+  if (!isRecord(event.payload) || !isWorksiteFileReplaceRequest(event.payload.rawInputValue)) return null;
   const request = event.payload.rawInputValue;
+  const canonicalRoot = request.workspaceAuthorityBasis.canonicalRoot, relativePath = request.subject.relativePath;
+  const support = worksiteCauseSupport(priorEvents, canonicalRoot, relativePath);
   let lastCause = 0, lastEstablishment = 0;
-  for (const cause of priorEvents) {
-    if (cause.kind !== "c_call_result_admitted" && cause.kind !== "c_call_fibre_selected" &&
-      cause.kind !== "actor_invocation_failed" && cause.kind !== "actor_process_termination_unconfirmed") continue;
-    const before = priorEvents.filter(row => row.admissionOrdinal < cause.admissionOrdinal);
-    const transition = cause.kind === "c_call_result_admitted" ? worksiteTransitionForResult(cause, before) : null;
-    const selected = cause.kind === "c_call_fibre_selected" ? projectWorksiteSelectedOccurrence(cause, before) : null;
+  for (const cause of support.causes) {
+    const row = priorEvents[cause.position]!;
+    const transition = cause.kind === "c_call_result_admitted" && support.subjectCalls.has(cause.aggregateId)
+      ? worksiteTransitionForResult(row, support.before(cause)) : null;
+    const selected = cause.kind === "c_call_fibre_selected" && support.subjectBases.has(cause.basisId)
+      ? projectWorksiteSelectedOccurrence(row, support.before(cause)) : null;
     const causeRequest = transition?.request ?? selected?.request;
-    if (causeRequest !== undefined && causeRequest.workspaceAuthorityBasis.canonicalRoot === request.workspaceAuthorityBasis.canonicalRoot &&
-      causeRequest.subject.relativePath === request.subject.relativePath) {
+    if (causeRequest !== undefined && causeRequest.workspaceAuthorityBasis.canonicalRoot === canonicalRoot &&
+      causeRequest.subject.relativePath === relativePath) {
       lastCause = Math.max(lastCause, cause.admissionOrdinal);
       if (transition?.after === request.predecessorObservation.observationRef && transition.successorObservation !== null)
         lastEstablishment = Math.max(lastEstablishment, cause.admissionOrdinal);
     }
-    const native = nativeWorkPhysicalScope(cause, before, ownedPrefix === undefined ? undefined :
-      validatedRuntimeEventPrefixBeforeEvent(ownedPrefix, cause.eventId));
-    if (native?.canonicalRoot === request.workspaceAuthorityBasis.canonicalRoot && native.affectsPath(request.subject.relativePath))
+    const unknown = cause.kind === "actor_invocation_failed" || cause.kind === "actor_process_termination_unconfirmed";
+    // The cut before a cause refuses a cause absent from ownedPrefix. Only an
+    // unknown-effect cause reads the cut; another cause keeps the refusal.
+    const ownedBefore = ownedPrefix === undefined ? undefined
+      : unknown || ownedPrefix.kind !== "validated_runtime_event_prefix" || runtimeEventAtPrefix(ownedPrefix, cause.eventId) === undefined
+        ? validatedRuntimeEventPrefixBeforeEvent(ownedPrefix, cause.eventId) : undefined;
+    // With ownedPrefix the unknown-effect task reads that cut, not the list.
+    const native = unknown ? nativeWorkPhysicalScope(row, ownedPrefix === undefined
+      ? priorEvents.filter(prior => prior.admissionOrdinal < cause.admissionOrdinal) : [], ownedBefore)
+      : cause.kind === "c_call_result_admitted" && cause.nativeRoot === canonicalRoot ? nativeWorkPhysicalScope(row, support.before(cause)) : null;
+    if (native?.canonicalRoot === canonicalRoot && native.affectsPath(relativePath))
       lastCause = Math.max(lastCause, cause.admissionOrdinal);
   }
-  return lastCause === 0 || lastEstablishment >= lastCause;
+  return { lastCause, lastEstablishment };
+}
+
+/** A raw basis carries a value, not a new physical observation occurrence. */
+function worksiteBasisMayEstablish(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): boolean {
+  const ordinals = worksiteBasisCauseOrdinals(event, priorEvents, ownedPrefix);
+  return ordinals !== null && (ordinals.lastCause === 0 || ordinals.lastEstablishment >= ordinals.lastCause);
 }
 
 /** Physical target selection is shared; each caller retains its authenticated

@@ -4,7 +4,8 @@ import fs from 'node:fs/promises';
 import { syncBuiltinESMExports } from 'node:module';
 import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers, componentNativeAssessment } from '../support/t287-native-work-currentness-consumers.mjs';
+import { createU1Fixture, product, hash, ids, identity, clone, current, component, traceInvalidator, admittedResult, admitNativeSource, semanticFixtureHelpers, componentNativeAssessment,
+  createWorksiteCauseHistory, eventVisitCounter, builtModuleExports } from '../support/t287-native-work-currentness-consumers.mjs';
 import { publicOperationBasis } from '../support/root-installed-environment.mjs';
 import * as p from '../../build/code/src/product/index.js';
 import * as g from '../../build/code/src/gtl/index.js';
@@ -1074,4 +1075,182 @@ test('U1 physical target scope successor across bindings and native Result scope
     for (const f of localFixtures) f.store.closeDurableLog();
     // Fixture cleanup callbacks intentionally remain uncalled, including success.
   }
+});
+
+// TD-08: worksite currentness at basis admission. The equivalence reference is
+// worksiteBasisMayEstablish at head 7e2425376 (code/src/abg/calculus/axioms.ts:533-563),
+// transcribed from its build, with its two ordinals returned beside the boolean.
+// The owners it calls are unchanged by TD-08 and are read from the built module.
+let td08Module;
+const td08Axioms = () => td08Module ??= builtModuleExports('abg/calculus/axioms', ['worksiteBasisMayEstablish',
+  'worksiteBasisCauseOrdinals', 'worksiteCauseSupport', 'worksiteTransitionForResult', 'nativeWorkPhysicalScope',
+  'isRecord', 'isWorksiteFileReplaceRequest', 'projectWorksiteSelectedOccurrence', 'validatedRuntimeEventPrefixBeforeEvent']);
+function headWorksiteBasisCauseOrdinals(m, event, priorEvents, ownedPrefix) {
+  if (!m.isRecord(event.payload) || !m.isWorksiteFileReplaceRequest(event.payload.rawInputValue)) return null;
+  const request = event.payload.rawInputValue;
+  let lastCause = 0, lastEstablishment = 0;
+  for (const cause of priorEvents) {
+    if (cause.kind !== 'c_call_result_admitted' && cause.kind !== 'c_call_fibre_selected' &&
+      cause.kind !== 'actor_invocation_failed' && cause.kind !== 'actor_process_termination_unconfirmed') continue;
+    const before = priorEvents.filter(row => row.admissionOrdinal < cause.admissionOrdinal);
+    const transition = cause.kind === 'c_call_result_admitted' ? m.worksiteTransitionForResult(cause, before) : null;
+    const selected = cause.kind === 'c_call_fibre_selected' ? m.projectWorksiteSelectedOccurrence(cause, before) : null;
+    const causeRequest = transition?.request ?? selected?.request;
+    if (causeRequest !== undefined && causeRequest.workspaceAuthorityBasis.canonicalRoot === request.workspaceAuthorityBasis.canonicalRoot &&
+      causeRequest.subject.relativePath === request.subject.relativePath) {
+      lastCause = Math.max(lastCause, cause.admissionOrdinal);
+      if (transition?.after === request.predecessorObservation.observationRef && transition.successorObservation !== null)
+        lastEstablishment = Math.max(lastEstablishment, cause.admissionOrdinal);
+    }
+    const native = m.nativeWorkPhysicalScope(cause, before, ownedPrefix === undefined ? undefined :
+      m.validatedRuntimeEventPrefixBeforeEvent(ownedPrefix, cause.eventId));
+    if (native?.canonicalRoot === request.workspaceAuthorityBasis.canonicalRoot && native.affectsPath(request.subject.relativePath))
+      lastCause = Math.max(lastCause, cause.admissionOrdinal);
+  }
+  return { lastCause, lastEstablishment };
+}
+const TD08_CAUSES = ['c_call_result_admitted', 'c_call_fibre_selected', 'actor_invocation_failed', 'actor_process_termination_unconfirmed'];
+const td08Value = ordinals => ordinals !== null && (ordinals.lastCause === 0 || ordinals.lastEstablishment >= ordinals.lastCause);
+const td08Outcome = run => { try { return run(); } catch (error) { return { throws: error.message }; } };
+const td08Head = (m, event, prior, owned) => td08Outcome(() => {
+  const ordinals = headWorksiteBasisCauseOrdinals(m, event, prior, owned); return { ordinals, value: td08Value(ordinals) };
+});
+const td08New = (m, event, prior, owned) => td08Outcome(() => ({ ordinals: m.worksiteBasisCauseOrdinals(event, prior, owned),
+  value: m.worksiteBasisMayEstablish(event, prior, owned) }));
+const td08Shuffle = rows => {
+  const out = [...rows]; let seed = 0x2468ace;
+  for (let i = out.length - 1; i > 0; i--) { seed = (seed * 1103515245 + 12345) % 2147483648; const j = seed % (i + 1); [out[i], out[j]] = [out[j], out[i]]; }
+  return out;
+};
+
+test('TD-08 (a): basis-admission worksite currentness equals the head reference on every history and dependency list', async t => {
+  const m = await td08Axioms(), seen = { compared: 0, values: new Set(), throws: new Set(), located: 0 };
+  for (const preflight of [true, false]) {
+    const h = await createWorksiteCauseHistory(t, { preflight });
+    const subjects = [[h.first, 'target.txt'], [h.first, 'keep.txt'], [h.other, 'target.txt']], checks = [];
+    const checkpoint = async label => {
+      for (const [state, path] of subjects) checks.push({ label, subject: state.label + '/' + path, ...(await h.basis(state, path)) });
+    };
+    await checkpoint('initial');
+    await h.nativeChange('target.txt', preflight ? 'preflight' : 'store'); // before any change outside the native write roots
+    await checkpoint('native change');
+    const established = await h.c0(h.first, 'target.txt');
+    await checkpoint('established');
+    checks.push({ label: 'stale predecessor', subject: 'first/target.txt',
+      ...(await h.basis(h.first, 'target.txt', established.request.predecessorObservation)) });
+    await h.c0(h.other, 'target.txt'); await h.c0(h.first, 'keep.txt'); await h.c0(h.first, 'keep.txt', { runId: 'run://td08/other' });
+    await checkpoint('other root, other path, other Run');
+    await h.c0(h.first, 'target.txt', { mode: 'failure' });
+    await checkpoint('withdrawn');
+    await h.c0(h.first, 'target.txt', { runId: 'run://td08/other' });
+    await checkpoint('re-established');
+    await h.c0(h.first, 'target.txt', { mode: 'selected' });
+    await checkpoint('selected');
+    for (const kind of ['actor_process_termination_unconfirmed', 'actor_invocation_failed']) {
+      await h.c0(h.first, 'target.txt');
+      await checkpoint(kind + ' re-established');
+      for (const variant of ['other-run', 'no-task', 'task']) { h.unknown(kind, variant); await checkpoint(kind + ' ' + variant); }
+    }
+    const events = deepFreeze(clone(h.rows())), byId = new Map(events.map(row => [row.eventId, row]));
+    const full = prefixes.selectValidatedRuntimeEventPrefix(events), located = preflight ? null : h.f.prefix();
+    const firstCause = events.find(row => TD08_CAUSES.includes(row.kind));
+    const nonWorksite = events.find(row => row.kind === 'basis_admitted' && row.payload.rawInputValue?.kind !== 'worksite_file_replace_request');
+    checks.push({ label: 'not a worksite request', subject: 'none', event: nonWorksite });
+    const ordered = new Map();
+    for (const check of checks) {
+      const event = byId.get(check.event.eventId), prior = Object.freeze(events.filter(row => row.admissionOrdinal < event.admissionOrdinal));
+      const cut = prefixes.validatedRuntimeEventPrefixBeforeEvent(full, event.eventId);
+      const variants = [['ordered', prior], ['shuffled', td08Shuffle(prior)], ['reversed', [...prior].reverse()],
+        ['every row twice', prior.flatMap(row => [row, row])], ['owned historical cut', prior, cut],
+        ['owned cold prefix', prior, prefixes.selectValidatedRuntimeEventPrefix(prior)], ['shuffled, owned', td08Shuffle(prior), cut],
+        ['no dependencies, owned', [], cut], ['no dependencies', []],
+        ['causes absent from owned', prior, prefixes.validatedRuntimeEventPrefixBeforeEvent(full, firstCause.eventId)]];
+      if (located !== null) {
+        const before = prefixes.validatedRuntimeEventPrefixBeforeEvent(located, event.eventId);
+        variants.push(['located dependencies', calculus.eventCalculusDependencies(located, check.event, []), before],
+          ['located, causes absent', calculus.eventCalculusDependencies(located, check.event, []),
+            prefixes.validatedRuntimeEventPrefixBeforeEvent(located, firstCause.eventId)]);
+        seen.located += 1;
+      }
+      for (const [name, list, owned] of variants) {
+        const reference = td08Head(m, event, list, owned), actual = td08New(m, event, list, owned);
+        assert.deepEqual(actual, reference, `${preflight ? 'preflight' : 'store'} ${check.label} ${check.subject}: ${name}`);
+        seen.compared += 1;
+        if (reference.throws !== undefined) seen.throws.add(name + ': ' + reference.throws); else seen.values.add(reference.value);
+      }
+      ordered.set(check.label + ' ' + check.subject, td08Head(m, event, prior).value);
+      // Rollback: after the full fold, the fold of a shorter cut through this basis equals its cold fold.
+      calculus.deriveRuntimeEventCalculusProjection(full);
+      const next = events.find(row => row.admissionOrdinal === event.admissionOrdinal + 1);
+      const warm = next === undefined ? full : prefixes.validatedRuntimeEventPrefixBeforeEvent(full, next.eventId);
+      assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(warm), calculus.deriveRuntimeEventCalculusProjection(
+        prefixes.selectValidatedRuntimeEventPrefix(deepFreeze(clone(events.filter(row => row.admissionOrdinal <= event.admissionOrdinal))))),
+        `${check.label} ${check.subject}: rollback`);
+    }
+    // The cases decide what they name: the subject alone is withdrawn and re-established.
+    const at = (label, subject = 'first/target.txt') => ordered.get(label + ' ' + subject);
+    assert.equal(at('native change'), false);
+    assert.equal(at('established'), true);
+    assert.equal(at('stale predecessor'), false);
+    assert.equal(at('withdrawn'), false);
+    assert.equal(at('withdrawn', 'first/keep.txt'), at('other root, other path, other Run', 'first/keep.txt'));
+    assert.equal(at('withdrawn', 'second/target.txt'), at('other root, other path, other Run', 'second/target.txt'));
+    assert.equal(at('re-established'), true);
+    assert.equal(at('selected'), false);
+    for (const kind of ['actor_process_termination_unconfirmed', 'actor_invocation_failed']) {
+      assert.equal(at(kind + ' re-established'), true, kind);
+      assert.equal(at(kind + ' other-run'), true, kind + ' other Run');
+      assert.equal(at(kind + ' no-task'), true, kind + ' without a native task');
+      assert.equal(at(kind + ' task'), false, kind + ' with the native task');
+      assert.equal(at(kind + ' task', 'second/target.txt'), at(kind + ' re-established', 'second/target.txt'), kind + ' other root');
+    }
+    assert.equal(at('not a worksite request', 'none'), false);
+  }
+  assert.deepEqual([...seen.values].sort(), [false, true]);
+  assert.ok([...seen.throws].some(entry => entry.startsWith('causes absent from owned: historical event-prefix boundary')), [...seen.throws].join('\n'));
+  assert.ok(seen.located > 0);
+  t.diagnostic(`TD-08 equivalence: ${seen.compared} comparisons; refusals ${[...seen.throws].join(' | ')}`);
+});
+
+// TD-08 (b): visits of the dependency list by one basis admission's currentness
+// check: N C0 occurrences on the subject, or N on the same path under another
+// root followed by one on the subject. A visit is one run of property reads on
+// one row (eventVisitCounter). The head reference reproduces the visits the head
+// build gave in this harness at 7e2425376, before the change. The owned prefix
+// index is warmed first: in the fold it is shared across cuts of one source.
+const TD08_HEAD_BUILD_VISITS = { 'subject 1': 588, 'unrelated 1': 1215, 'subject 32': 73996, 'unrelated 32': 78219,
+  'subject 256': 3917388, 'unrelated 256': 3947595 };
+test('TD-08 (b): visits grow with the subject\'s causes; joins are independent of unrelated causes', async t => {
+  const m = await td08Axioms(), rows = [];
+  for (const n of [1, 32, 256]) for (const scenario of ['subject', 'unrelated']) {
+    const h = await createWorksiteCauseHistory(t);
+    if (scenario === 'unrelated') for (let i = 0; i < n; i++) await h.c0(h.other, 'target.txt');
+    for (let i = 0; i < (scenario === 'subject' ? n : 1); i++) await h.c0(h.first, 'target.txt');
+    const basis = await h.basis(h.first, 'target.txt');
+    const prior = h.rows().filter(row => row.admissionOrdinal < basis.event.admissionOrdinal);
+    const counter = eventVisitCounter(), counted = Object.freeze(prior.map(counter.wrap));
+    const owned = prefixes.selectValidatedRuntimeEventPrefix(counted);
+    prefixes.runtimeEventAtPrefix(owned, counted[0].eventId);
+    const { canonicalRoot } = basis.request.workspaceAuthorityBasis, { relativePath } = basis.request.subject;
+    const head = counter.measure(() => headWorksiteBasisCauseOrdinals(m, basis.event, counted));
+    const headOwned = counter.measure(() => headWorksiteBasisCauseOrdinals(m, basis.event, counted, owned));
+    const after = counter.measure(() => m.worksiteBasisCauseOrdinals(basis.event, counted));
+    const afterOwned = counter.measure(() => m.worksiteBasisCauseOrdinals(basis.event, counted, owned));
+    const acquisition = counter.measure(() => m.worksiteCauseSupport(counted, canonicalRoot, relativePath)).visits;
+    const causes = prior.filter(row => TD08_CAUSES.includes(row.kind)).length, key = scenario + ' ' + n;
+    assert.deepEqual(after.value, head.value, key); assert.deepEqual(afterOwned.value, headOwned.value, key + ' owned');
+    assert.ok(after.value.lastCause > 0 && after.value.lastEstablishment === after.value.lastCause, key + ': the subject is established');
+    assert.equal(head.visits, TD08_HEAD_BUILD_VISITS[key], key + ': the reference is head');
+    assert.equal(acquisition, prior.length, key + ': the support pass visits each row once');
+    const row = { n, scenario, prior: prior.length, causes, head: head.visits, headOwned: headOwned.visits, after: after.visits,
+      afterOwned: afterOwned.visits, acquisition, joins: after.visits - acquisition, boundary: afterOwned.visits - after.visits };
+    rows.push(row); t.diagnostic(JSON.stringify(row));
+  }
+  const of = (scenario, n) => rows.find(row => row.scenario === scenario && row.n === n);
+  assert.equal(of('unrelated', 32).joins, of('unrelated', 1).joins);
+  assert.equal(of('unrelated', 256).joins, of('unrelated', 1).joins);
+  assert.ok(of('subject', 1).joins < of('subject', 32).joins && of('subject', 32).joins < of('subject', 256).joins);
+  // With an owned prefix each cause's boundary is one `id:` lookup: it reads the
+  // cause and the prefix's last row, one run fewer where the last row is a cause.
+  for (const row of rows) assert.equal(row.boundary, 2 * row.causes - 1, JSON.stringify(row));
 });

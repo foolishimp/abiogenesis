@@ -1346,3 +1346,212 @@ Grant: `code/src/abg/calculus/axioms.ts` (the worksite currentness functions onl
 Stop (write the counterexample and the blocking line in the Return, keep the rest moving): any change to an axiom's effect refs, a fluent name, an event payload key or a failure class; any change under `shared/`; a cache keyed by anything other than the immutable prefix or the call; a change to `eventCalculusDependencies`' selection; a lane whose red identities change.
 
 Return contract: one commit on `main` with the first line `TD-08: worksite currentness support acquired once per basis; the per-cause scans retired` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-08 return` at the end of this record with the census (item 1), the support design (item 2), the equivalence and counter cases with their numbers before and after (item 3), the boundary statement (item 4), the lane table (item 6), and any stops. Nothing above your section is edited.
+
+## TD-08 return
+
+Worker: Opus 5.5, fresh context. Base `7e2425376`; this package's single commit is the next one on `main`, not pushed. Paths are relative to `build_tenants/abiogenesis/typescript/`. Head line numbers cite `7e2425376`; "now" cites the commit.
+
+| Item | State | Lines at head | Lines now |
+|---|---|---|---|
+| 1. Census | done | `code/src/abg/calculus/axioms.ts:539-563` | below |
+| 2. Support acquired once | done, with two deviations from the activation's wording (reasons below): the support is always one call-local index over the caller's list, never the `RuntimeEventIndex` of `ownedPrefix`; `before` is the cause's joined sub-list in list order, not a slice or a sort | `worksiteBasisMayEstablish` `:539-563` | `WorksiteCause` `:539-548`, `worksiteCauseSupport` `:562-645`, `worksiteBasisCauseOrdinals` `:651-685`, `worksiteBasisMayEstablish` `:688-691`; the other four Grant functions and `c_call_outcome.ts` unchanged |
+| 3. Proof | done; 3(b) holds for the joins, not for total visits (stop below) | | `test_env/tests/t287-native-work-currentness-consumers.test.mjs`: head reference `:1080-1124`, equivalence case `:1126-1213`, counter case `:1215-1256`; support generators `test_env/support/t287-native-work-currentness-consumers.mjs:385-594` |
+| 4. Boundaries | kept | | below |
+| 5. Records | done, no design edit; one pointer finding | | below |
+| 6. Lanes | done; red identities identical | | below |
+
+**Item 1. Census.**
+
+Production callers, by reading `code/src`. Head lines.
+
+| Callee | Caller | List passed | Ordered by `admissionOrdinal`? |
+|---|---|---|---|
+| `worksiteBasisMayEstablish` | `basis_admitted` axiom, `axioms.ts:660` (now `:789`), with `history?.prefix` | the axiom's dependency list | From the fold, yes. A validated prefix passes `prior` (`event_calculus.ts:95`); the derivation pushes it in fold order (`:259`) over a prefix whose ordinals are checked gap-free (`event_prefix.ts:550`). A located prefix passes the selected subset sorted at `event_calculus.ts:135`. From public `eventCalculusEffect(event, priorEvents)` (`axioms.ts:1698`) and `foldStep(state, event, dependencies)` (`fold.ts:275`), no: both take the caller's list as given. Counterexample: the shuffled and reversed lists of the TD-08 equivalence case are accepted and evaluated. |
+| `worksiteTransitionForResult` | `projectWorksiteTransitionForResult`, `axioms.ts:446` | caller's list | Its callers pass prefix lists filtered by ordinal: `replay.ts:1217-1220` (sorted dependencies or the prefix's events), `worksite_revision.ts:411`, `:570`, `:580`, `:685`, `:733`. Yes. |
+| | cause loop, `axioms.ts:547` | head `before` = `priorEvents.filter(< cause)` (`:546`) | iff the axiom's list is |
+| | result axiom, `axioms.ts:923` | the axiom's dependency list | as for `:660` |
+| `projectWorksiteSelectedOccurrence` (`c_call_outcome.ts:237`, filters again at `:246`) | cause loop, `axioms.ts:548` | head `before` | iff the axiom's list is |
+| | fibre axiom, `axioms.ts:784` | the axiom's dependency list | as for `:660` |
+| | `projectWorksiteFailureBasis`, `c_call_outcome.ts:333` | `projectWorksiteFailureResultRequest`'s list filtered at `:386` | iff its caller's list is |
+| | `native_worksite_execution.ts:237`, `event_calculus.ts:347` | `worksiteSelectedOccurrenceDependencies(prefix, e)` | yes, sorted at `c_call_outcome.ts:356` |
+| `nativeWorkPhysicalScope` | `projectNativeWorkRetiredObservations`, `axioms.ts:509`; called by the unknown-effect axioms `:865`, `:896` and the result axiom `:944` with `history?.prefix` | the axiom's dependency list | as for `:660` |
+| | cause loop, `axioms.ts:556`, with `validatedRuntimeEventPrefixBeforeEvent(ownedPrefix, cause.eventId)` per cause | head `before` | iff the axiom's list is |
+| `retiredWorksiteObservations` | `axioms.ts:510`, fibre axiom `:787`, result axiom `:924` | the same list as the caller above | as for `:660` |
+| `projectWorksiteFailureResultRequest` (`c_call_outcome.ts:361`) | `worksiteTransitionForResult`, `axioms.ts:464`; `native_worksite_execution.ts:246` | caller's list; `worksiteFailureResultDependencies` | as its caller; yes, sorted at `c_call_outcome.ts:420` |
+
+Every fold route delivers an ordered list. The two public entries do not guarantee order, so `Math.max` stays (`axioms.ts:667`, `:669`, `:682` now).
+
+**Counted work.** One basis admission on `first/target.txt`. Subject: N authenticated C0 file replacements on that subject (each one opened row, one F_D fibre, one evidence row, one Result), then the basis. Unrelated: N C0 replacements on `target.txt` under a second root, then one on the subject, then the basis. A visit is one run of property reads on one row of the dependency list (a counting proxy, `eventVisitCounter`, support `:402-413`). The Head column is the head build `7e2425376` measured in this harness before the change; the test's head reference reproduces it exactly (asserted). "Owned" passes a validated owned prefix over the same rows, its index warmed first, as in the fold; Head, owned is the head reference so run.
+
+| N | Scenario | Rows | Causes | Head | Head, owned | Now | Now, owned | Acquisition | Joins | Boundary |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | subject | 32 | 3 | 588 | 611 | 135 | 140 | 32 | 103 | 5 |
+| 1 | unrelated | 38 | 5 | 1,215 | 1,254 | 141 | 150 | 38 | 103 | 9 |
+| 32 | subject | 218 | 65 | 73,996 | 74,673 | 3,514 | 3,643 | 218 | 3,296 | 129 |
+| 32 | unrelated | 224 | 67 | 78,219 | 78,916 | 327 | 460 | 224 | 103 | 133 |
+| 256 | subject | 1,562 | 513 | 3,917,388 | 3,924,241 | 27,930 | 28,955 | 1,562 | 26,368 | 1,025 |
+| 256 | unrelated | 1,568 | 515 | 3,947,595 | 3,954,471 | 1,671 | 2,700 | 1,568 | 103 | 1,029 |
+
+- Acquisition: the visits of the support pass alone. It equals the row count at every point: each row is read once.
+- Joins: now minus acquisition.
+- Boundary: now with an owned prefix minus now without one. It equals 2 × causes − 1 at every point, as asserted.
+
+At head, visits grow as causes × rows. Unrelated causes cost the same as subject causes.
+
+**Item 2. Support design.**
+
+- `worksiteCauseSupport(priorEvents, canonicalRoot, relativePath)` makes one pass over the caller's list. It records:
+  - each row a C0 join can select, under its kind, one field and that field's value (nine selectors);
+  - each basis row's four links: invocation, implementation set, parent basis, binding artifact;
+  - the causes of the four kinds, in list order;
+  - `subjectBases`: the bases whose raw request names the subject;
+  - `subjectCalls`: the calls whose evidence request names the subject, plus the calls whose fibre has a subject basis. This second source exists because a failure Result's request is its fibre's basis request (`c_call_outcome.ts:331-333`).
+- `before(cause)` returns the rows of the cause's own joins with ordinal below the cause, deduplicated, in list order:
+  - for a fibre: its basis, opened row and fibre rows, plus each basis row's linked rows;
+  - for a Result: its evidence rows, and for a failure Result also the fibre support of each fibre of its call.
+
+  That is the sub-list of head's `before` that the helpers can select. Every read the helpers make of their list is a filter or exact match on a kind and one field equal to one value:
+  - `c_call_outcome.ts:175-179`, `:196-214`, `:247-252`, `:256-260`, `:270`, `:282-284`, `:331`, `:368`, `:386`;
+  - `axioms.ts:468-475`, `:529`.
+
+  The helpers are called unchanged on that sub-list.
+- `worksiteBasisCauseOrdinals` walks the causes once:
+  - It joins a Result only when its call is in `subjectCalls`. A Result outside that set has a request that cannot be the subject's, so the match at `:665-666` cannot hold.
+  - It joins a fibre only when its basis is in `subjectBases`.
+  - It calls the native scope for a Result only when its task root is the subject's root.
+  - Unknown-effect causes keep head's call: the cut of `ownedPrefix` when it is present (the task owner then ignores the list), otherwise head's filtered list.
+  - The two `Math.max` updates and the final comparison are head's.
+- **Boundary refusal kept.** At head, `validatedRuntimeEventPrefixBeforeEvent(ownedPrefix, cause.eventId)` ran for every cause and refused a cause absent from `ownedPrefix`. Now:
+  - for a validated prefix, an `id:` lookup (`runtimeEventAtPrefix`) does that refusal for every cause, and the cut is built only where it is read;
+  - for a located prefix, the cut is still built per cause (finding 3).
+- **Lifetime.** The support lives for the call. No memo is added. The `RuntimeEventIndex` is read only through the existing `id:` key and the existing cut.
+- **Why not the `RuntimeEventIndex` of `ownedPrefix`.** It is not the dependency list. Counterexample: `foldStep(emptyFoldState(source), basis, [])` where `source` holds a C0 Result on the subject.
+  - Head reads the empty list: `lastCause = 0`, true, so `worksite_observation_current` is initiated.
+  - Reading the index finds the Result: false, so that fluent is not initiated.
+  - That changes the axiom's effect refs, which is a Stop.
+
+  Design `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:189` says an entry reads "the event, its declared dependencies and the fold's own facts". The variant "no dependencies, owned" in the equivalence case pins this input.
+- **Why not a slice or a sort.** A slice, or a sort to make a slice possible, still hands each helper the whole `before`, so the work stays causes × rows. The joined sub-list is what retires the scan.
+
+**Item 3. Proof.**
+
+(a) Equivalence: `TD-08 (a)`, test `:1126-1213`. Two generated histories: preflight fixture rows, and actual EventStore admissions over the U1 store fixture. Both are built on `createU1Fixture` with a second root. The steps are:
+
+- a native observation Result changing the subject;
+- an establishment;
+- a basis whose predecessor is stale;
+- C0 on another root and the same path;
+- C0 on the same root and another path;
+- C0 in another Run;
+- a post-publication failure Result (withdrawal);
+- re-establishment in another Run;
+- a selected fibre with no Result.
+
+Then, for `actor_process_termination_unconfirmed` and for an `actor_invocation_failed` `transport_exception`: a re-establishment, then the cause in another Run, without a native task, and with the U1 native task.
+
+A basis is admitted on `first/target.txt`, `first/keep.txt` and `second/target.txt` at every step, plus one basis that is not a worksite request.
+
+Each basis is evaluated by the head reference and by the new code over these lists:
+
+- ordered;
+- shuffled;
+- reversed;
+- every row twice;
+- with the owned historical cut;
+- with an owned cold prefix;
+- shuffled with the owned cut;
+- no dependencies, with and without the owned cut;
+- causes absent from the owned prefix.
+
+The store history adds the located `eventCalculusDependencies` subset with its located cut, and the same subset with causes absent.
+
+Each comparison is a deep equality of `{ordinals: {lastCause, lastEstablishment} | null, value}`, or of the refusal message.
+
+- Total: 1,034 comparisons, all equal. Both values occur. Both refusal routes occur: validated, and located.
+- The case also asserts what the steps decide:
+  - the native change, the stale predecessor, the withdrawal, the selected fibre and each unknown cause with the native task make the subject false;
+  - establishment and re-establishment make it true;
+  - unknown causes in another Run or without a task leave it true;
+  - the other root and the other path are unaffected.
+- Rollback: after the full fold, the fold of the cut through each basis equals the cold fold at that cut, for every basis.
+- Mutation check, scratch run on the built module (restored after). Each of these mutations fails the case at its first divergent basis:
+  - dropping the boundary lookup;
+  - dropping the failure Result's fibre support;
+  - dropping `subjectCalls` from fibres.
+
+(b) Counter: `TD-08 (b)`, test `:1215-1256`. It produces the table above and asserts:
+
+- the head reference equals the head build at all six points;
+- the new ordinals equal head's, with and without the owned prefix;
+- the subject is established;
+- acquisition equals the row count;
+- unrelated joins are 103 at N = 1, 32 and 256;
+- subject joins increase with N;
+- the boundary equals 2 × causes − 1.
+
+**Item 4. Boundaries.**
+
+- Unchanged in the diff: `event_calculus.ts` (so `eventCalculusDependencies` and the located selection), `event_prefix.ts` (so the `RuntimeEventIndex` and its keys), `c_call_outcome.ts`, `shared/`.
+- The `basis_admitted` axiom body (`:788-800` now) is unchanged. Its input boolean equals head's on every compared input, and the folds through every basis equal their cold folds. So its effect refs are unchanged on the compared inputs.
+- No fluent name, payload key or failure class is touched.
+- No export is added. The tests read the private names from the built module (`builtModuleExports`, support `:388-397`).
+- No memo or module state is added, so nothing survives its prefix or its call.
+
+**Item 5. Records.**
+
+- Design `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:189` ("an entry reads the event, its declared dependencies and the fold's own facts that `axiomEffectOf` receives…") is the sentence on the axiom's reads, and it still holds. The basis entry reads its event and its declared dependency list, which it now acquires once per call. It reads the admitted source cut only for the unknown-effect task and the boundary refusal.
+- `:284` ("an admitted event in prefix order with its declared dependencies") also holds.
+- No design names the per-cause support, so there is no design edit.
+- Finding: the design's line pointers into `axioms.ts` move with this change. The design is outside the Grant and was not edited.
+  - `:189` cites `:1722` and `:1731`. These were already off at head: `AxiomFoldContext` was `:1728` and `axiomEffectOf` `:1737`. Now they are `:1857` and `:1866`.
+  - `:191` cites `ownedExactRuntimeFluentPatternRef` at `:1602`. That was exact at head; it is now `:1731`.
+  - `:203` (`:208-250`) is unaffected.
+- `npm run build` regenerated `contracts/capabilities/capability-definition-graph.json` and `product-toolchain-manifest.json` (digests only). No tracked file under `build/` changed.
+
+**Item 6. Lanes.** Checks before and after: `npm run build` rc 0; `tsc --noEmit` rc 0; `lint:imports` rc 0 (28 modules); `lint:lifecycle` rc 0 (284 modules, 10 allow-listed, no offender). Lanes, tests/pass/fail/skipped:
+
+| Lane | Before | After |
+|---|---|---|
+| `t287-native-work-currentness-consumers` | 2/2/0/0 | 4/4/0/0 (the two TD-08 cases added) |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 |
+| `t287-native-work-unknown-effect` | 10/10/0/0 | 10/10/0/0 |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 |
+| `t287-calculus-fold` | 12/12/0/0 | 12/12/0/0 |
+| `t287-exact-prefix-projection-reuse` | 2/0/1/1 | 2/0/1/1 |
+| `forward-command-contracts` | 10/10/0/0 | 10/10/0/0 |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 |
+| `t287-ordered-reconstruction` | 7/0/4/3 | 7/0/4/3 |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 |
+
+Red and skipped test identities are identical before and after, and so are the red failure messages:
+
+- `t287-exact-prefix-projection-reuse`: 1.
+- `m5-event-calculus-runtime`: 2, 12, 13, 14, 15.
+- `t287-ordered-reconstruction`: 1, 2, 3, 5.
+- `t287-c2-owner-coordinate-reuse`: 1 to 6.
+
+The only count change is the currentness lane's two new tests.
+
+**Stops.**
+
+- 3(b), as worded: No. Visits grow with N unrelated causes in total; the joins do not.
+  - Acquisition reads each row of the caller's list once (1,568 rows at unrelated N = 256), and with an owned prefix the boundary reads two rows per cause.
+  - Lower bound: an exact function of an arbitrary caller list must read each row, since any unread row can be a subject cause. That is Ω(rows) per call, and the validated fold passes the whole prior list (`event_calculus.ts:95`).
+  - Two routes would make the visits independent of unrelated causes, and each one meets a Stop:
+    - reading `ownedPrefix`'s index instead of the list changes effect refs. Blocking line: `axioms.ts:789` with the `foldStep` counterexample above.
+    - narrowing the validated dependency list changes `eventCalculusDependencies`' selection. Blocking line: `event_calculus.ts:95`.
+  - Held there; the rest of the package moved.
+- No other stop was met.
+
+**Findings.**
+
+1. Grant paths:
+   - The support module is `test_env/support/t287-native-work-currentness-consumers.mjs`, not `test_env/tests/…mjs`. The support path was the one changed.
+   - `projectWorksiteFailureResultRequest` is in `c_call_outcome.ts:361`, not `axioms.ts`. It was not changed.
+2. The activation marks no red for `t287-exact-prefix-projection-reuse`. It is red at head: test 1, `explicit fresh proof territory required`.
+3. Residual blocked by the Grant: for a located (owned or validation) `ownedPrefix`, each cause still pays `validatedRuntimeEventPrefixBeforeEvent`'s cut, which is O(1) unscoped and O(scope indices) scoped. Removing it needs an envelope-only presence lookup exported from `event_prefix.ts`. The Grant allows only a `RuntimeEventIndex` key there.
+4. Residual outside the Grant: without `ownedPrefix`, an unknown-effect cause still gives `projectNativeWorkUnknownEffectTask` (`native_work_effect.ts`) the full filtered list, which it validates as a prefix. That is O(rows) per unknown cause, as at head.
+5. The design pointer drift above.
+6. The currentness lane now takes 37 s; it took 5 s at head. The two TD-08 cases build their histories: 23 s for (a), 8 s for (b).
+7. The counter case pins the head visit counts (`TD08_HEAD_BUILD_VISITS`, test `:1221-1222`). Those counts depend on the fixture's shape, so a change to `createU1Fixture` or `createWorksiteCauseHistory` needs them re-measured from the test's head reference.
