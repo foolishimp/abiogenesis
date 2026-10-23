@@ -4,7 +4,7 @@ Commentary, not law. Executive: Claude Fable 5.1. Plan post:
 `20261021T162409Z_PLAN_library_consolidation_pen.md`. Design authority:
 `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`.
 
-Restated 2026-10-24 after five post-close repairs; repair F is pending. The first statement of
+Restated 2026-10-24 after six post-close repairs; repair G is pending. The first statement of
 this post (2026-10-22, at `562d4515a`) and its addendum are superseded by
 this text; their history is the commit chain below and `step-8.md`.
 
@@ -14,16 +14,18 @@ Reopened 2026-10-24 by the fifth and sixth reviews. Repair E landed
 (`280f5777f`): the helper prints its acknowledgment of the published artifact
 before its non-zero exit, the worker returns it unchanged, and the parent
 binds it to the artifact before it reads the disposition; the D15 claim below
-holds from the helper's exit on. Repair F (sixth review: the forward
-constructors trust their typed array inputs; the failure artifact's subject is
-not bound to the next undone operation) is activated, and this post is
-restated when it lands. The plan for the close and the debt wave is
+holds from the helper's exit on. Repair F landed (`195b65ddb`): the forward
+constructors admit their three array inputs at ingress, and the failure
+artifact's subject is bound to the next undone operation of its completed
+prefix, the two HTTP subjects naming their predicate. Repair G (the three
+helper failure classes without an installed case) is activated, and this
+post is restated when it lands. The plan for the close and the debt wave is
 `.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md`.
 
-The library is on `main` at `280f5777f` plus the bookkeeping commit that
+The library is on `main` at `195b65ddb` plus the bookkeeping commit that
 carries this restatement (not pushed, not a release). Steps 2 to 8 landed as
-twelve code commits; five post-close repairs (A, C, B, D, E) landed as five
-more after five external reviews that Jim pasted and one same-family
+twelve code commits; six post-close repairs (A, C, B, D, E, F) landed as six
+more after six external reviews that Jim pasted and one same-family
 whole-diff review. Every owner obligation the design names is closed with its sites:
 O-RESOURCE, O-SHAPE, O-CODEC and O-KEY at steps 3 to 8a; O-SCHEMA at the raw
 owner boundary (D10); O-TYPE at every census site (D11 to D14). The plan's
@@ -54,6 +56,7 @@ Jim" and "Residue the design records".
 | repair B | `d8cf6b5d9` | streaming fold in place; realm admission (D12); valueless result events (D13); helper handoff stopped on the contract rule |
 | repair D | `0eacd4668` | forward-task comparison; lifecycle failure subjects (D14); helper failure handoff (D15); seam and fixture lanes; final run |
 | repair E | `280f5777f` | helper acknowledgment on failure (D15); acknowledgment bound to the artifact; final run |
+| repair F | `195b65ddb` | forward ingress admission; helper failure subject bound to the next operation |
 
 Executive bookkeeping commits sit between them (`0c362da15`, `837781a1a`,
 `2f1393061`, `3dbd3cd2f`, and the one carrying this text), each with the
@@ -126,8 +129,8 @@ and repair D proved it on an installed C1 to C2 path. One Executive row
 
 ## Test reality
 
-Final run at `280f5777f` (`step-8-run-postclose-e.log`): 48 files in one
-invocation, 1224 s; 345 tests, 270 pass, 54 fail, 2 cancelled, 19 skipped;
+Final run at `195b65ddb` (`step-8-run-postclose-f.log`): 48 files in one
+invocation, 1214 s; 347 tests, 272 pass, 54 fail, 2 cancelled, 19 skipped;
 25 files red. Every failing test is one of `step-8-run-postclose.log`'s,
 and that log's set is the first final run's (`step-8-run-final.log`) or the
 pre-plan baseline's at `97b1200bc` (repair B attributed the 68 lanes outside
@@ -155,7 +158,7 @@ variable or a missing export, so their path edits are unexercised past
 load. The uat harness is 30 pass, 1 fail, 3 skipped; the failure ("canonical
 C2 budget fits") is baseline-red.
 
-New lanes and cases of the post-close cycle, all green at `280f5777f`:
+New lanes and cases of the post-close cycle, all green at `195b65ddb`:
 P-FOLD streaming (one owned state, 22 cuts); D12 realm admission with six
 refused shapes; D13 valueless result event; `sameJson` function member and
 cycle; the forward-task sparse cover vector; D14 over the five subject
@@ -164,7 +167,9 @@ preserved earlier cut; D15 on an installed C1 to C2 path reading the helper
 failure subject cold from the admitted result (subject 3561 bytes, reference
 4887 bytes), from the helper's exit on since repair E: the helper's
 acknowledgment relayed by the controlled worker, bound to the artifact by the
-parent, with a foreign acknowledgment and a failed transport refused.
+parent, with a foreign acknowledgment and a failed transport refused; the
+forward constructors refusing six one-hole inputs; the failure subject's
+binding over 19 subjects, seven admitted and twelve refused.
 
 ## Items for Jim
 

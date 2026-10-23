@@ -11,7 +11,7 @@
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_phase: A, close the library
-- current_package: F (activated 2026-10-24); E accepted at `280f5777f`
+- current_package: G (activated 2026-10-24); F accepted at `195b65ddb`
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
@@ -69,8 +69,8 @@ subject after an independent review with no open S0 to S2.
 | Package | Source | What lands | Size | State |
 |---|---|---|---|---|
 | E | fifth review S2 | The helper prints its acknowledgment for every disposition before its non-zero exit; the worker instruction treats that exit as an observation; the parent binds the acknowledgment to the artifact before it reads the disposition; the controlled worker relays the helper's stdout; final run attributed against D's log | M | accepted at `280f5777f` (step-8.md, `## Disposition of repair E`) |
-| F | sixth review S2, S3 | The forward request and task constructors admit their three array inputs at ingress and validate, compare and carry the admitted values; the failure artifact's subject is bound to the next undone command, or to the next `http_response_exact` predicate once the commands are complete | M | activated 2026-10-24 (step-8.md, `## Post-close repair activation F`) |
-| G | closing post, items for the owner | The three helper failure classes without a lane, `command_failed`, `http_probe_failed` and `http_cleanup_unresolved`, each driven through the installed helper into a failure artifact and an admitted failure, on E's route | M | after F |
+| F | sixth review S2, S3 | The forward request and task constructors admit their three array inputs at ingress and validate, compare and carry the admitted values; the failure artifact's subject is bound to the next undone command, or to the next `http_response_exact` predicate once the commands are complete | M | accepted at `195b65ddb` (step-8.md, `## Disposition of repair F`); the two HTTP subjects carry `predicate` |
+| G | closing post, items for the owner | The three helper failure classes without a lane, `command_failed`, `http_probe_failed` and `http_cleanup_unresolved`, each driven through the installed helper into a failure artifact and an admitted failure, on E's route | M | activated 2026-10-24 (step-8.md, `## Post-close repair activation G`) |
 | Restatement | sixth review S4; D15 | The closing post, the plan post's D15 row and the Ledger restated to the realized route; the reacquisition seam classified as a lane the plan broke at step 4, not baseline-red | S | Executive, with each acceptance |
 | Review pass | | The owner's independent pass on G's commit, disposed as the five before it; repairs only for S0 to S2, as further lettered packages | | the owner runs it |
 | L5 | T-287 dependency order | Delivery acceptance recorded by the owner; the release-resumption gate opens | | the owner |
@@ -132,6 +132,7 @@ D5 qualification; D6 publication. This ticket does not schedule them.
 | Date | Package | Commit | Executive check | State |
 |---|---|---|---|---|
 | 2026-10-24 | E | `280f5777f` | `tsc --noEmit` rc 0; `lint:imports` 28 modules rc 0; `lint:lifecycle` 284 modules, 10 allow-listed, no offender, rc 0; `t287-worksite-command-execution` 5/5; `forward-command-contracts` 9/9; `t287-runtime-failure-diagnostic` 12/12; `t287-lifecycle-failure-carrier` 5/5; `m5-worker-transport` 21/21; `t287-reacquisition-root-contract` 1 pass, 1 skip; `t287-calculus-fold` 7/7; `t287-common-computational-library` 9/9; tree clean | accepted |
-| 2026-10-24 | F | | | activated |
+| 2026-10-24 | F | `195b65ddb` | `tsc --noEmit` rc 0; `lint:imports` 28 modules rc 0; `lint:lifecycle` 284 modules, 10 allow-listed, no offender, rc 0; `forward-command-contracts` 10/10; `t287-worksite-command-execution` 6/6; `t287-runtime-failure-diagnostic` 12/12; `t287-lifecycle-failure-carrier` 5/5; `m5-worker-transport` 21/21; `t287-reacquisition-root-contract` 1 pass, 1 skip; `t287-calculus-fold` 7/7; `t287-common-computational-library` 9/9; `t287-owned-process-lifetime` 18/18; tree clean | accepted |
+| 2026-10-24 | G | | | activated |
 
-Next: repair F (Worker running); then G; then the review pass on G's commit.
+Next: repair G (Worker running); then the review pass on G's commit.
