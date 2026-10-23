@@ -5312,6 +5312,9 @@ Ledger. The step records are in
 This is not a release. O-TYPE is closed at every census site (D11, D12, D13,
 D14). The helper's failure after launch reaches the admitted failure (D15).
 The items for the owner below stay open.
+The [technical debt register](../../TECHNICAL_DEBT_REGISTER.md) (Codex, snapshot
+`2f1393061`) is reconciled at this cut: TD-01, TD-02 and TD-03 are closed by
+repairs B and D; its other 21 packages are unselected.
 
 **Commit chain.**
 
