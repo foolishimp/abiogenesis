@@ -3,7 +3,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createU1Fixture, prefixOf } from '../support/t287-native-work-currentness-consumers.mjs';
-import { emptyFoldState, foldStep, ROOT_DERIVED_RULES } from '../../build/code/src/abg/calculus/index.js';
+import { constructRuntimeFluentPattern, emptyFoldState, foldStep, ROOT_DERIVED_RULES } from '../../build/code/src/abg/calculus/index.js';
+import { applyClip, applyStep, workingFoldState } from '../../build/code/src/abg/calculus/fold.js';
 import { constructRuntimeFluent, deriveRuntimeEventCalculusProjection, eventCalculusDependencies, eventCalculusEffect,
   forkRuntimeEventCalculusAtForModuleTest, runtimeEventCalculusStateForModuleTest } from '../../build/code/src/abg/event_calculus.js';
 import { selectValidatedRuntimeEventPrefix, selectOwnedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent,
@@ -204,4 +205,114 @@ test('one producer: only actor_process_lifecycle initiates or terminates the fou
       assert.deepEqual(owned(rule.derive(state, event, rows.slice(0, index))), [], `${rule.ruleRef} on ${event.kind}`);
     if (index < 5) state = foldStep(state, event, rows.slice(0, index));
   });
+});
+
+// TD-06: the clip visit counter. `holds` counts every entry an applyStep or
+// applyClip visits: each `get` or `has`, and each entry an iteration yields.
+class CountingHolds extends Map {
+  visits = 0;
+  get(key) { this.visits += 1; return super.get(key); }
+  has(key) { this.visits += 1; return super.has(key); }
+  *entries() { for (const entry of super.entries()) { this.visits += 1; yield entry; } }
+  *keys() { for (const [key] of this.entries()) yield key; }
+  *values() { for (const [, value] of this.entries()) yield value; }
+  [Symbol.iterator]() { return this.entries(); }
+  forEach(callback, self) { for (const [key, value] of this.entries()) callback.call(self, value, key, this); }
+}
+const sha = n => `sha256:${n.toString(16).padStart(64, '0')}`;
+const TARGET = sha(0xabc), ABSENT = sha(0xdef), INACTIVITY = 'runtime_inactivity_asserted';
+const inactivity = identity => constructRuntimeFluent({ name: INACTIVITY, identity });
+// N unrelated held fluents and the target `runtime_inactivity_asserted(TARGET)`
+// at position N / 2: stdout fluents keyed by event id, as the native stdout
+// producer initiates them, and every fourth one a same-name sibling
+// `runtime_inactivity_asserted(other)`. Nothing in code/src initiates
+// `runtime_inactivity_asserted`, so a held target exists only by seeding.
+function seededWorking(n) {
+  const holds = new CountingHolds();
+  for (let i = 0; i < n; i += 1) {
+    if (i === n / 2) holds.set(inactivity(TARGET).fluentRef, inactivity(TARGET));
+    const fluent = i % 4 === 1 ? inactivity(sha(0x10000 + i))
+      : constructRuntimeFluent({ name: 'actor_stdout_available', identity: `event://t287/fold/stdout/${i}` });
+    holds.set(fluent.fluentRef, fluent);
+  }
+  holds.visits = 0;
+  return { ...workingFoldState(emptyFoldState(null)), holds };
+}
+// An observed probe of `scopeDigest` outside the root event contract over no
+// source prefix: the liveness rule derives nothing, and the axiom effect clips
+// `runtime_inactivity_asserted(scopeDigest)` exactly (calculus/axioms.ts).
+const probe = scopeDigest => row('runtime_activity_probe_observed', 1, 'frame', 'frame://t287/fold', null, {
+  observation: Object.freeze({ kind: 'runtime_probe_observation', schemaVersion: '5.0.0', probeRef: 'probe://t287/fold',
+    scopeDigest, clockOriginRef: 'clock://t287/fold', elapsedMs: 1, underlyingObservationRef: 'observation://t287/fold',
+    underlyingEventRef: null, sourceDigest: sha(1), sourceRevisionDigest: null, evidenceRefs: Object.freeze([]),
+    coverage: 'observed', signal: 'activity' }) });
+const transitionView = transition => ({
+  fluents: transition.fluents.map(entry => [entry.fluent.fluentRef, entry.held, entry.runId ?? null]),
+  clipped: [...transition.clipped],
+  effect: { initiates: transition.effect.initiates.map(fluent => fluent.fluentRef),
+    terminates: transition.effect.terminates.map(fluent => fluent.fluentRef),
+    clips: transition.effect.clips.map(pattern => [pattern.name, pattern.identity]),
+    declips: transition.effect.declips.map(pattern => [pattern.name, pattern.identity]) },
+});
+// The transitions the enumerating fold gave at head cff4f9dcd, before TD-06.
+const ref = (name, identity) => constructRuntimeFluent({ name, identity }).fluentRef;
+const headTransition = (digest, held) => ({
+  fluents: [...(held ? [[ref(INACTIVITY, digest), false, null]] : []),
+    [ref('runtime_activity_recent', digest), true, runId], [ref('runtime_invocation_active', digest), true, runId]],
+  clipped: held ? [ref(INACTIVITY, digest)] : [],
+  effect: { initiates: [ref('runtime_activity_recent', digest), ref('runtime_invocation_active', digest)], terminates: [],
+    clips: [[INACTIVITY, digest]], declips: [] },
+});
+
+test('TD-06: an exact clip reads its one held fluent; its visits are independent of the unrelated held population', t => {
+  const visits = {};
+  for (const n of [8, 2048]) {
+    const working = seededWorking(n), before = [...working.holds.keys()];
+    working.holds.visits = 0;
+    const transition = applyStep(working, probe(TARGET), []);
+    visits[n] = working.holds.visits;
+    assert.deepEqual(transitionView(transition), headTransition(TARGET, true), `N = ${n}: the transition the enumerating fold gave`);
+    assert.deepEqual(working.clippedFluentRefs, [ref(INACTIVITY, TARGET)], `N = ${n}: clippedFluentRefs`);
+    assert.deepEqual([...working.holds.keys()], [...before.filter(key => key !== ref(INACTIVITY, TARGET)),
+      ref('runtime_activity_recent', TARGET), ref('runtime_invocation_active', TARGET)], `N = ${n}: only the target leaves holds`);
+  }
+  assert.equal(visits[8], visits[2048], 'the exact clip visits a count independent of N');
+  assert.ok(visits[8] <= 1, `the exact clip visits at most one entry (${visits[8]})`);
+  t.diagnostic(JSON.stringify({ exactVisits: visits }));
+});
+
+test('TD-06 negative: a wildcard clip enumerates, its visits grow with N, and it clips every match in held order', t => {
+  const visits = {};
+  const wildcard = constructRuntimeFluentPattern({ name: INACTIVITY });
+  for (const n of [8, 2048]) {
+    const working = seededWorking(n), before = [...working.holds.entries()];
+    working.holds.visits = 0;
+    const fluents = [], clipped = [];
+    applyClip(working.holds, wildcard, fluents, clipped);
+    visits[n] = working.holds.visits;
+    const matches = before.filter(([, fluent]) => fluent.name === INACTIVITY);
+    assert.ok(matches.length > 1 && matches.some(([key]) => key === ref(INACTIVITY, TARGET)));
+    assert.deepEqual(clipped, matches.map(([key]) => key), `N = ${n}: every match, in held order`);
+    assert.deepEqual(fluents, matches.map(([, fluent]) => ({ fluent, held: false })), `N = ${n}: one transition per match`);
+    assert.deepEqual([...working.holds.entries()], before.filter(([, fluent]) => fluent.name !== INACTIVITY), `N = ${n}: the rest held`);
+  }
+  assert.deepEqual(visits, { 8: 9, 2048: 2049 }, 'the wildcard visits every held entry once');
+  t.diagnostic(JSON.stringify({ wildcardVisits: visits }));
+});
+
+test('TD-06: an exact clip of a fluent not held clips nothing, records nothing and keeps the step effect', t => {
+  const visits = {};
+  for (const n of [8, 2048]) {
+    const working = seededWorking(n), before = [...working.holds.keys()];
+    working.holds.visits = 0;
+    const transition = applyStep(working, probe(ABSENT), []);
+    visits[n] = working.holds.visits;
+    assert.deepEqual(transitionView(transition), headTransition(ABSENT, false), `N = ${n}: the transition the enumerating fold gave`);
+    assert.deepEqual(working.clippedFluentRefs, [], `N = ${n}: nothing in clippedFluentRefs`);
+    assert.deepEqual([...working.holds.keys()], [...before, ref('runtime_activity_recent', ABSENT),
+      ref('runtime_invocation_active', ABSENT)], `N = ${n}: every held fluent stays`);
+  }
+  assert.equal(visits[8], visits[2048]);
+  assert.ok(visits[8] <= 1);
+  t.diagnostic(JSON.stringify({ absentExactVisits: visits }));
 });
