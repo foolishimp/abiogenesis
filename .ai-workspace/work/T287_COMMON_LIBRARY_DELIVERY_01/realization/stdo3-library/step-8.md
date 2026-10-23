@@ -2223,3 +2223,98 @@ Attribution, by failing test file and line, first error line and first test-file
 - The Executive's narrowing at `1fafd137a` in the plan post's Ledger (`:389`) and in the closing post (`20261022T060245Z_CLOSE_library_consolidation.md`), both under `.ai-workspace/comments/claude/`, says D15's row and the post are restated when E lands. Both posts are outside this grant and are not restated.
 - The worker in both installed cases is still a controlled worker; no model reads the new sentence.
 - The other three helper failure classes (`command_failed`, `http_probe_failed`, `http_cleanup_unresolved`) still reach an artifact only in repair D's scratch probe. They share item 1's write and item 3's binding.
+
+## Disposition of repair E (Executive, 2026-10-24)
+
+Accepted at `280f5777f`. Read: the Return against the activation's items; the helper's `main` tail (the acknowledgment built for every disposition, the write awaited, the rethrow after it); the parent's completion (the acknowledgment parsed and bound to the artifact's `artifactRef` and `artifactDigest` before the disposition branch, `result_contract_failure` on a mismatch, the failure branch unchanged after it); the one sentence in the renderer and the C2 pin; the test's controlled worker (relays the helper's one stdout line, refuses exit 0), `assertHelperFailureAdmitted` (the acknowledgment line, its relay as `finalOutput` of the C2 result event, the binding to the published artifact's recomputed digest) and `assertHelperFailureExchanges` ((a) and (b) over a second failed artifact against the real `complete`); the design §9.3 item 4, §10.5 and §10.6 row 6 word diff; GOALS and the ticket subsection. Executive check on the head: `tsc --noEmit` rc 0; `lint:imports` 28 modules rc 0; `lint:lifecycle` 284 modules, 10 allow-listed, no offender, rc 0; `t287-worksite-command-execution` 5/5; `forward-command-contracts` 9/9; `t287-runtime-failure-diagnostic` 12/12; `t287-lifecycle-failure-carrier` 5/5; `m5-worker-transport` 21/21; `t287-reacquisition-root-contract` 1 pass, 1 skip; `t287-calculus-fold` 7/7; `t287-common-computational-library` 9/9; tree clean.
+
+| Return item | Disposition |
+|---|---|
+| 1, acknowledgment for every disposition | accepted; the fifth review's S2 closed at the helper |
+| 2, worker instruction and pin | accepted; Executive decision under D15, reversal recorded in T-290 Phase C |
+| 3, acknowledgment bound to the artifact | accepted; the unread-digest item for the owner is discharged; no lane changed class |
+| 4, controlled worker and the exchanges | accepted; the case discriminates (the Worker's two probes); (a) and (b) inside the installed case because a failed artifact needs the installed helper, stated |
+| 5, design records | accepted |
+| 6, final run | accepted; 56 failing identities equal to D's log, none only on either side |
+| 7, records | accepted |
+
+Residuals the Return names: the worker in both installed cases is a controlled worker, so no model has read the new sentence (a model-driven C2 run is release qualification, not this plan); the other three helper failure classes reach an artifact only in a scratch probe (T-290 package G). The fifth review's S2 is closed; its S3 was closed at `bd336a99b`. The sixth review follows. The plan for the close and the debt wave is `T-290`.
+
+## Sixth review (pasted by Jim, 2026-10-24; read-only, inspection and in-memory probes; subject `b5b8d0e24`)
+
+Verbatim.
+
+> Changes requested: one S2 implementation regression, one S3 artifact-validation defect, and S3/S4 record inconsistencies. No S0 or S1 found.
+>
+> Product frame: the common library supports the fixed fifteen-family ABG 5.0. GTL owns program meaning, HoG traverses it, and ABG owns admission; diagnostics must preserve those boundaries.
+>
+> Reviewed b5b8d0e24. Line numbers below refer to that cut. Current main has two later bookkeeping commits.
+>
+> 1. S2 — Forward construction still returns a task its validator rejects.
+>    worksite_command_forward.ts:119 admits only the retained candidate. The expected vector passes .every() and Set checks despite containing a hole:
+>
+>    input.bindingCoverEventRefs = Array(1);
+> for (const row of input.snapshotSources)
+>   row.source.bindingCoverEventRefs = [];
+>
+>    With otherwise valid fixture data, D’s immediate parent throws TypeError; D returns a task for which isWorksiteCommandForwardTask returns false. I independently reproduced this with both frozen source graphs and actual dependencies.
+>
+>    The weak top-level guard predates D, but this rejection-to-invalid-return change is introduced by D. Admit and validate the expected vector before comparison. The originally reported retained-vector negative is repaired.
+> 2. S3 — The new failure artifact accepts an operation the task never declares.
+>    worksite_command_execution.ts:1834 checks failure class and record shape without binding the failure to the next operation in the completed prefix.
+>
+>    An in-memory probe of the actual constructor and validator accepted a task with one command and zero predicates, but a failure subject containing failureClass: "http_probe_failed" and request: {}. Both completed vectors were empty.
+>
+>    The parent completion branch (implementation/worksite_command_execution.ts:744) adds no operation-binding check before wrapping that subject inline. This demonstrates malformed diagnostic attribution, not an execution-authority bypass.
+>
+>    The artifact extension is explicitly authorized by D15; preserving the Product failure value does not make this new artifact arm sufficiently validated. Bind command failures to the next command, and HTTP failures to the next HTTP predicate after commands complete.
+> 3. S3 — Frozen current-status records contradict the delivered implementation.
+>    At b5b8d0e24, GOALS.md:79 still calls lifecycle/helper work design-only and unimplemented. T-287:110 still lists owner obligations as open. These contradict the closing sections. Later commit bd336a99b corrects the relevant prose; that correction lies outside the reviewed cut.
+> 4. S4 — The closing post misclassifies the reacquisition seam as baseline-red.
+>    Closing post:132 groups it with baseline failures. The attribution records show baseline green and a missing canonicalEquals binding introduced at step 4. Its repair is real; this historical classification is inaccurate.
+>
+> Fourth-review conditions:
+>
+> | Condition | Disposition |
+> |---|---|
+> | Forward comparison and throwing refusal | Partial. Original negative fixed; opposite-operand admission remains defective, S2 above. |
+> | Comparison census | Sample supported. 867 rows reconcile as 846 re-typed, 20 merged, one structural. No additional private structural replacement established; counts do not discharge the typed-input defect. |
+> | D14 | Discharged at bounded component-route scope. Five projections, both admission routes, distinct Run selections, nested earlier cut, unchanged event keys and continued not_retained behavior are supported. |
+> | D15 actual handoff | Whole-path evidence supported; contract condition remains open. The installed case reaches real helper, parent, leaf admission and cold subject retrieval. The new artifact arm has the S3 defect above. |
+> | Final-run attribution | Discharged. Failure identities/errors reconcile when B’s appended standalone cancellation evidence is included. Comparing only integrated invocations changes the identity_end cancellation signature. |
+> | Closing records | Not fully discharged at b5b8d0e24. S3/S4 above. |
+> | Earlier fold-cost and D12 conditions | Discharged. The growth claim is narrowed; the structural prototype rule and supplied negative cases agree with actual admission probes. |
+>
+> The acknowledged digest, missing-class lanes and TD-06 clipping cost were not treated as findings.
+>
+> No builds, suites, edits, commits or pushes ran. Inspection and in-memory probes only.
+
+## Disposition of the sixth review (Executive, 2026-10-24)
+
+Verified by reading at `1fafd137a`. Finding 1: `shared/canonical_json.ts:34-42` writes an array by index and skips a hole, so `canonicalJson(Array(1))` is `[]` and `canonicalEquals([], Array(1))` is true; in `constructWorksiteCommandForwardTask` (`product/worksite_command_forward.ts:124-127`) the guard over the typed `bindingCoverEventRefs` is `.every(text)` and a `Set` size check, both of which a one-hole array passes, and only the row's candidate is admitted (`sameAdmittedRefs`, `:117-119`); the task then carries the holey vector, which `isWorksiteCommandForwardTask` admits through `admitJson` and refuses. The same class holds for `protectedObservations` in `constructWorksiteCommandForwardRequest` (`:100-104`: `.some`, `.map` and the `Set` check) and for `snapshotSources` (`:128`: `.some`). Finding 2: `isHelperFailure` (`product/worksite_command_execution.ts:1834-1844`) checks the class, the member set and the carrier's record shape; the failure branch of the artifact validator (`:1893-1897`) bounds the two completed vectors by length and nothing binds the subject to `task.commands[commandResults.length]` or to the next `http_response_exact` predicate after the commands complete. Finding 3: discharged at `bd336a99b`, outside the cut. Finding 4: the closing post's test-reality paragraph calls the reacquisition seam a baseline-red lane; repair B's attribution has it baseline green and broken at step 4.
+
+| Finding | Severity (Reviewer) | Priority (Executive) | Disposition |
+|---|---|---|---|
+| 1: the forward constructors trust their typed array inputs; a one-hole vector passes the guards, digests as empty and yields a task or request the validator refuses | S2 | P1 | Repair F item 1: the three array inputs are admitted at the constructor's ingress and the admitted values are validated, compared and carried; negatives beside the sparse case. The class beyond this module (typed arrays validated with `.every`, `.some` or a `Set` over caller input) is routed to the register's TD-14 as a named class for the owner's selection, not censused here. |
+| 2: the failure artifact's subject is not bound to the next undone operation of the completed prefix | S3 | P1 | Repair F item 2: command classes bind to `task.commands[commandResults.length]` with no predicate observed; HTTP classes require all commands complete and bind to the next `http_response_exact` predicate; the parent needs no change if the artifact validator binds. A member added to the two HTTP subjects, if the carriers cannot name the predicate, is inside D15's artifact arm (Executive; reversal for Jim). |
+| 3: records at the frozen cut | S3 | P2 | Discharged at `bd336a99b` and `1fafd137a`. |
+| 4: the seam classified as baseline-red in the closing post | S4 | P3 | Fixed in the closing post's restatement with repair E: one baseline-red lane (the prompt-digest fixture) and one lane the plan broke at step 4 (the reacquisition binding). |
+| Fourth-review conditions | — | — | As the table says; the two partials are E (acknowledgment handoff, fifth review) and F. |
+
+## Post-close repair activation F (Executive, 2026-10-24; forward ingress admission; failure subject binding)
+
+Worker: Opus 5.5, xhigh, fresh context, Writer grant. Head is the Executive's bookkeeping commit after repair E. Read this section, `## Sixth review` and `## Disposition of the sixth review` above, `## Post-close repair return D` items 1 and 4, `## Post-close repair return E`, design §9.3 items 3 and 4, §10.3 O-TYPE row and §10.6 row 6, and the files named below. Do not read other agents' comment directories.
+
+Items, in this order. The Return carries one row per item: done or stopped, with lines at head.
+
+1. **The forward constructors admit their array inputs.** `product/worksite_command_forward.ts`: in `constructWorksiteCommandForwardTask`, admit `bindingCoverEventRefs` and `snapshotSources` through `admitJson` before the guard; the guard validates the admitted values (non-empty, every element `text`, distinct; the rows as today); rows compare against the admitted vector; the task carries the admitted values. In `constructWorksiteCommandForwardRequest`, admit `protectedObservations` the same way before `.some`, `.map` and the `Set` check, and build the body from the admitted value. A refusal is the constructor's existing TypeError. Nothing else in the two constructors changes. `forward-command-contracts.test.mjs`, beside the sparse case (`:77`): for each of the three inputs, the one-hole vector `Array(1)` (and for `bindingCoverEventRefs` the sixth review's exact mutation with empty row vectors) throws TypeError, and the dense control passes `isWorksiteCommandForwardTask` or `isWorksiteCommandForwardRequest` and its JSON round trip.
+2. **The failure subject binds to the next undone operation.** `product/worksite_command_execution.ts`, the artifact validator's failure branch (`:1893-1897`) and `isHelperFailure` (`:1834-1844`): for `command_failed` and `command_cleanup_unresolved`, `predicateObservations.length === 0`, `commandResults.length < task.commands.length`, and the `command` carrier is canonically equal to `task.commands[commandResults.length]`; for `http_probe_failed` and `http_cleanup_unresolved`, `commandResults.length === task.commands.length`, `predicateObservations.length < task.outcomePredicates.length`, the next predicate `task.outcomePredicates[predicateObservations.length]` has `predicateKind === "http_response_exact"`, and the carrier names it. Read the helper's two HTTP details first (`implementation/worksite_command_helper.ts`, the `detail` objects before `:1151` and `:1190`, and `probe` at `:1158`): if the carrier's members identify the declared request (hostname, method, path, timeout of the predicate's declaration) bind through them; if not, add `predicate: { ordinal, predicateId }` to the two HTTP subjects at the helper and to `isHelperFailure`'s exact keys for those classes, and say so (inside D15's artifact arm; the Product failure value is untouched). Check what `request` carries when the port was never observed (`requestInput === null`, `:1140`): if the helper's own `constructWorksiteExecutionHelperArtifact` would refuse that subject, the carrier becomes a record stating the declared request and the port state, and the Return names the line. Confirm by reading that the parent's `:744` branch needs no change because `isWorksiteExecutionHelperArtifact(input, helperValue)` runs first (`:736`). Cases in `t287-worksite-command-execution.test.mjs` against the exported constructor and validator: the sixth review's probe (one command, zero predicates, `http_probe_failed` with `request: {}`) refused; a `command_failed` subject naming a command other than the next refused; an HTTP class with a command still undone refused; the installed whole-path case (its class `command_cleanup_unresolved`, bound to the next command) still admits.
+3. **Design records.** §10.6 row 6 and §9.3 item 4: the failure subject is bound to the next undone operation of the completed prefix. §10.3 O-TYPE row: a constructor admits a caller's typed array at its ingress before `.every`, `.some` or a `Set` check; the sentence names the forward module as realized and TD-14 for the class.
+4. **Lanes.** `npm run build`, `npx tsc --noEmit -p tsconfig.json`, `npm run lint:imports`, `npm run lint:lifecycle`; `forward-command-contracts`, `forward-command-owners`, `t287-worksite-command-execution`, `t287-observed-worksite-command`, `m5-worker-transport`. If item 2 changed a subject's member set, also the 48-file run as repair E (`step-8-run-postclose-e.log`) into `step-8-run-postclose-f.log`, attributed against E's log; otherwise no broad run.
+5. **Records.** The ticket's `### Library delivery close (2026-10-23)` subsection: the forward ingress admission and the subject binding, with their cases; GOALS Current Selection only if it names the forward fix.
+
+**Grant.** `product/worksite_command_forward.ts` (the two constructors' ingress, item 1); `product/worksite_command_execution.ts` (the failure branch and `isHelperFailure`, item 2); `implementation/worksite_command_helper.ts` (the two HTTP `detail` objects only, item 2, if needed); `gtl/worksite_command_execution.ts` (the pin, if the Product module changed its bytes; `npm run build` regenerates digests); `test_env/tests/forward-command-contracts.test.mjs`; `test_env/tests/t287-worksite-command-execution.test.mjs`; the design §9.3, §10.3, §10.6; the ticket's close subsection; GOALS Current Selection; `step-8.md` below this section only; `step-8-run-postclose-f.log` if run.
+
+**Stop:** any change to `isWorksiteCommandExecutionFailure`, to an event contract or payload key list, or to the Product failure value's classes; a validator loosened anywhere; a constructor that converts a hole instead of refusing it; a member added to a non-HTTP subject; a second bounded attempt at any item; any push.
+
+**Return contract.** One commit on `main`, no push. First line `Post-close repair F: forward ingress admission; helper failure subject bound to the next operation`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append `## Post-close repair return F` with: one row per item (done or stopped, lines at head); the lane results as `tests/pass/fail/skipped`; the broad-run table and attribution if run; the stop reports, if any, with the counterexample.

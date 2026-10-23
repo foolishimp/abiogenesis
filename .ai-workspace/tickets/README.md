@@ -6,7 +6,8 @@ This folder is the local ticket authority for `abiogenesis`.
 
 [T-287 Current Delivery Plan](active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan)
 owns ABIogenesis 5.0 delivery order, feature treatment, next work and deferred
-assurance. [GOAL-035](../../specification/GOALS.md#current-goal) owns the outcome;
+assurance. [T-290](active/T-290-close-the-common-library-and-retire-the-registered-debt.md)
+owns the library's post-close repairs and the technical debt wave. [GOAL-035](../../specification/GOALS.md#current-goal) owns the outcome;
 [Product Release Boundaries](../../specification/PRODUCT.md#50-and-51-release-boundaries)
 owns scope. This index is navigation, not a second status or plan surface.
 

@@ -408,3 +408,5 @@ Reviewer recommendations on the packages reserved for the owner, recorded for th
 | TD-10 | The consumer census first: which callers need only a fact or a cut; complete replay-witness semantics preserved wherever the witness is the contract; no persisted-contract change yet. |
 | TD-18 | The recovery trace: for each held field, recoverable from admitted history or legitimately warm; a demonstrated cold-recovery gap is resolved before the recovery path is claimed. |
 | TD-19 | Stop recursive copying into future proof packages now; historical deletion waits for an exact retention/deletion manifest of references, required evidence and recoverability. |
+
+The work-through is `tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md` (2026-10-24): its Phase B carries the realization packages in order, its Phase C the packages reserved for the owner, and its Ledger the grants and acceptances; this register keeps the evidence and the crosswalk.

@@ -86,10 +86,11 @@ reaches the admitted failure as its inline diagnostic subject (D15). The
 conjunction’s cross-consumer handoff, with its `process-failure.json` and
 stateless inspection, is withdrawn (D0).
 
-Next: the independent review of the closed library (L5 delivery acceptance);
-then the register’s order TD-06, TD-07, TD-17, TD-13, TD-14, with TD-10,
-TD-12, TD-18 and TD-19 held for the owner’s decision; release work resumes
-after acceptance. L4 remains partial on older subjects, including P1 pass/P5
+Next, under [T-290](../.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md):
+repair F and the helper failure class lanes, then the independent review of
+the closed library (L5 delivery acceptance); then the register’s order TD-06,
+TD-07, TD-17, TD-13, TD-14 and the rest, with TD-10, TD-12, TD-18 and TD-19
+held for the owner’s decision; release work resumes after acceptance. L4 remains partial on older subjects, including P1 pass/P5
 timeout; L5 acceptance is absent. No new broad design-review campaign is
 selected. Old failed cuts and main generated936 remain protected.
 
