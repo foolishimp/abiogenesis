@@ -557,7 +557,7 @@ export function semanticJobDesignIssues(envelope, design, executionLimits) {
             if (predicate.predicateKind !== "http_response_exact")
                 return;
             const declaration = predicate.declaration;
-            const launch = declaration !== null && typeof declaration === "object" && !Array.isArray(declaration) ? declaration.launch : null;
+            const launch = isRecord(declaration) ? declaration.launch : null;
             // C2 owns the closed HTTP shape; this Product relation additionally
             // applies the admitted job's executable bounds to its nested process.
             if (launch === null || typeof launch !== "object" || Array.isArray(launch) || !permittedLaunch(launch))

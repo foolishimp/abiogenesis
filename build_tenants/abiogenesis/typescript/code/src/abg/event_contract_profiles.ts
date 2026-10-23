@@ -2,6 +2,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { types } from "node:util";
+import { isRecord } from "../shared/admit/index.js";
 import { constructRuntimeFailureDiagnosticRef, readRuntimeFailureDiagnosticSubject } from "./runtime_failure.js";
 
 /** Exact retained profile. New native truth must never be stamped with L. */
@@ -95,8 +96,8 @@ function undispatchedDiagnosticMatches(x: Record<string, unknown>, stage: Undisp
   if (reason !== "thrown" || x.errorClass === null || typeof x.diagnosticRef !== "string") return false;
   try {
     const value = readRuntimeFailureDiagnosticSubject(x.diagnosticRef);
-    if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
-    const subject = value as Readonly<Record<string, JsonValue>>;
+    if (!isRecord(value)) return false;
+    const subject = value;
     const keys = ["diagnosticClassRef", "stage", "reason", "errorClass", "errorCode", "message", "stack", "messageTruncated", "stackTruncated"];
     return Object.keys(subject).length === keys.length && keys.every(key => Object.hasOwn(subject, key)) &&
       subject.diagnosticClassRef === undispatchedOwnerDiagnosticRef(stage, reason) && subject.stage === stage && subject.reason === reason &&

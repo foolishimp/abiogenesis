@@ -25,6 +25,7 @@ import {
   S06_COMMON_PUBLIC_CONTRACT_IDS,
   type PublicProjectionPayloads,
 } from "../public/binding/public_function_projections.js";
+import { isRecord } from "../shared/admit/index.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
@@ -540,13 +541,8 @@ function resolveDefinition(content: JsonValue, definitionRef: string | undefined
   let selected: JsonValue = content;
   for (const encoded of definitionRef.slice(2).split("/")) {
     const segment = encoded.replaceAll("~1", "/").replaceAll("~0", "~");
-    if (
-      typeof selected !== "object" ||
-      selected === null ||
-      Array.isArray(selected) ||
-      !Object.hasOwn(selected, segment)
-    ) return false;
-    selected = (selected as Readonly<Record<string, JsonValue>>)[segment]!;
+    if (!isRecord(selected) || !Object.hasOwn(selected, segment)) return false;
+    selected = selected[segment]!;
   }
   return true;
 }

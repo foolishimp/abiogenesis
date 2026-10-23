@@ -678,7 +678,7 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
             if (disposition !== "absent") {
                 try {
                     const raw = admitIJsonValue(JSON.parse(output), "native worker result artifact");
-                    if (typeof raw === "object" && raw !== null && !Array.isArray(raw)) {
+                    if (isRecord(raw)) {
                         const result = owner.port.verifyProbabilisticResultContractPreimage({ resolution: owner.resolution, input: owner.input,
                             inputDigest: input.expectedInputDigest, instructionContractRef: input.request.instructionContractRef,
                             rawResultContractRef: input.request.resultContractRef, rawResult: raw });
@@ -743,7 +743,7 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
             const underlyingObservationRef = `runtime-asset-observation://abiogenesis/${sha256Canonical({ probeRef: declaration.probeRef, sourceDigest, sourceRevisionDigest }).slice(7)}`;
             if (indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(input.store), "payload:underlyingObservationRef:" + underlyingObservationRef).some(event => {
                 const p = event.payload, observation = p.observation;
-                return typeof observation === "object" && observation !== null && !Array.isArray(observation) && observation.underlyingObservationRef === underlyingObservationRef;
+                return isRecord(observation) && observation.underlyingObservationRef === underlyingObservationRef;
             }))
                 return;
             const result = admitRuntimeActivityProbe({ store: input.store, predecessorPrefix: successorPrefix, actorInvocationRef,

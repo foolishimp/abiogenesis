@@ -167,9 +167,9 @@ function exactOpenedBasis(
   const openedPayload = opened.payload;
   const pending = projectPendingInteractionCarrier(
     prefix,
-    openedPayload.cCall as Readonly<Record<string, JsonValue>>,
-    openedPayload.pendingResult as Readonly<Record<string, JsonValue>>,
-    openedPayload.pendingJudgment as Readonly<Record<string, JsonValue>>,
+    opened.payload.cCall,
+    opened.payload.pendingResult,
+    opened.payload.pendingJudgment,
   );
   if (pending === null) return null;
   const events = runtimeEventBodiesAtPrefix(prefix);
@@ -180,9 +180,7 @@ function exactOpenedBasis(
   );
   const holdRoute = holdRoutes[0];
   const heldCursor = openedPayload.heldCursor as unknown as TraversalCursorCandidate;
-  const openedScope = openedPayload.openedTraversalScope as Readonly<
-    Record<string, JsonValue>
-  >;
+  const openedScope = opened.payload.openedTraversalScope;
   const constructionIntentRef = stringField(opened, "constructionIntentRef");
   const constructionIntentDigest = digestField(
     opened,

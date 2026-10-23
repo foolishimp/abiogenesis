@@ -206,7 +206,7 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
     typeof e.payload === "object" && e.payload !== null && !Array.isArray(e.payload) &&
     (e.payload as Record<string, unknown>).continuationKind === "construction_intent");
   for (const operation of constructionOperations) {
-    const p = operation.payload as Readonly<Record<string, import("../shared/canonical_json.js").JsonValue>>;
+    const p = operation.payload;
     const bases = events.filter(e => e.kind === "basis_admitted" && typeof e.payload === "object" &&
       e.payload !== null && !Array.isArray(e.payload) &&
       isRecord(e.payload) && isRecord(e.payload.constructionContinuationUse) &&
@@ -216,7 +216,7 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
     const use = basis?.constructionContinuationUse;
     const original = use === undefined ? null : projectExactExecutionBasisAtPrefix(validatedPrefix, use.sourceExecutionBasisRef);
     const invocation = original === null ? null : projectExactInvocationAdmissionAtPrefix(validatedPrefix, original.invocationAdmissionRef);
-    if (basis === null || use === undefined || original === null || invocation === null ||
+    if (!isRecord(p) || basis === null || use === undefined || original === null || invocation === null ||
       !continuationOperationWorkspaceCorresponds(operation, invocation) ||
       basis.invocationAdmissionRef !== original.invocationAdmissionRef || p.operationId !== "abg.operation.run.continue" ||
       p.memberKey !== "current_intent" || p.continuationRef !== use.continuationRef || p.continuationDigest !== use.continuationDigest ||

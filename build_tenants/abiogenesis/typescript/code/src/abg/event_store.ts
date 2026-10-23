@@ -1462,10 +1462,10 @@ const RUNTIME_EVENT_CANDIDATE_REQUIRED_KEYS = Object.freeze(
 );
 
 function payloadInvocationRef(event: RuntimeEvent): string | null {
-  if (typeof event.payload !== "object" || event.payload === null || Array.isArray(event.payload)) {
+  if (!isRecord(event.payload)) {
     return null;
   }
-  const value = (event.payload as Readonly<Record<string, JsonValue>>).invocationRef;
+  const value = event.payload.invocationRef;
   return typeof value === "string" ? value : null;
 }
 

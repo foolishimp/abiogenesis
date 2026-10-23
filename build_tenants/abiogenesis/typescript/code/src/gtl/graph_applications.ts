@@ -1,5 +1,6 @@
 import { isGraphInputRetentionContractRelation } from "../product/worksite_preparation_contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { isRecord } from "../shared/admit/index.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { requireRef } from "../shared/references.js";
@@ -165,15 +166,10 @@ export function recursionTerminationDecision(
   }
   let current: JsonValue = value;
   for (const segment of application.terminationFieldRef.slice(2).split(".")) {
-    if (
-      typeof current !== "object" ||
-      current === null ||
-      Array.isArray(current) ||
-      !Object.hasOwn(current, segment)
-    ) {
+    if (!isRecord(current) || !Object.hasOwn(current, segment)) {
       return null;
     }
-    current = (current as Readonly<Record<string, JsonValue>>)[segment]!;
+    current = current[segment]!;
   }
   return typeof current === "boolean" ? current : null;
 }

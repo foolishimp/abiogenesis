@@ -88,8 +88,8 @@ export function projectNativeWorkUnknownEffectTask(event: RuntimeEvent, priorEve
     const actor = checkedEventOrNull(checkExactRecord(resolveExactMatch(source("aggregate:actor_invocation:" + actorRef),
       row => row.kind === "actor_invocation_started" && row.aggregateId === actorRef), PAYLOAD_RECORD));
     if (actor === null) return null;
-    const ap = actor.payload as Readonly<Record<string, JsonValue>>;
-    if (typeof ap.cCallRef !== "string" || typeof ap.transportBindingRef !== "string") return null;
+    const ap = actor.payload;
+    if (!isRecord(ap) || typeof ap.cCallRef !== "string" || typeof ap.transportBindingRef !== "string") return null;
     const callRef = ap.cCallRef;
     const opened = checkedEventOrNull(checkExactRecord(resolveExactMatch(source("aggregate:c_call:" + callRef),
       row => row.kind === "c_call_opened" && row.aggregateId === callRef), PAYLOAD_RECORD));

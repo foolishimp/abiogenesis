@@ -649,7 +649,7 @@ function evaluateTraversalProgram(
         const selected = projectTraversalInputAtPrefix(
           projectOwnedRuntimeEventPrefixAtDurablePrefix(advanced.successorPrefix),
           frame.runtime.graph, frame.runtime.executionBasis, advanced.cursor);
-        if (selected === null || selected.value === null || typeof selected.value !== "object" || Array.isArray(selected.value))
+        if (selected === null || !isRecord(selected.value))
           return Effect.sync(() => failFrame(frame, advanced.successorPrefix, `structural-input-${frame.ordinal}`,
             "diagnostic://abiogenesis/hog/advanced-result-basis-absent@5", advanced.cursor));
         return Effect.succeed(Object.freeze({
@@ -661,7 +661,7 @@ function evaluateTraversalProgram(
               predecessorPrefix: advanced.successorPrefix,
             }),
             cursor: advanced.cursor,
-            input: selected.value as Readonly<Record<string, JsonValue>>,
+            input: selected.value,
             structuralOrdinal: frame.structuralOrdinal + 1,
           }),
           returns: Object.freeze([...state.returns]),
