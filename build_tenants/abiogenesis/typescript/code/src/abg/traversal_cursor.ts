@@ -20,8 +20,7 @@ import {
 import {
   constructRunActiveFluent,
   constructRuntimeFluent,
-  deriveRuntimeHeldFluentProjection,
-  holdsAt,
+  runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
   AbgEventStore,
@@ -804,18 +803,17 @@ function admitTraversalFrameCursor(
   const runPrefix = selectValidatedRuntimeEventPrefix(durableEvents, {
     runId: scope.runId,
   });
-  const currentRunTruth = deriveRuntimeHeldFluentProjection(runPrefix);
   if (
-    !holdsAt(currentRunTruth, constructRunActiveFluent(scope.runId)) ||
-    !holdsAt(
-      currentRunTruth,
+    !runtimeFluentHoldsAtPrefix(runPrefix, constructRunActiveFluent(scope.runId)) ||
+    !runtimeFluentHoldsAtPrefix(
+      runPrefix,
       constructRuntimeFluent({
         name: "graph_call_active",
         identity: scope.graphCallId,
       }),
     ) ||
-    !holdsAt(
-      currentRunTruth,
+    !runtimeFluentHoldsAtPrefix(
+      runPrefix,
       constructRuntimeFluent({
         name: "frame_active",
         identity: scope.frameId,

@@ -20,6 +20,7 @@ import {
   constructRuntimeFluent,
   deriveRuntimeHeldFluentProjection,
   holdsAt,
+  runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
   AbgEventStore,
@@ -245,16 +246,15 @@ function projectGraphCallPhaseAtPrefix(
     openEvent.payload.graphCallId !== input.graphCallId ||
     openEvent.payload.graphCallDigest !== input.graphCallDigest
   ) return null;
-  const calculus = deriveRuntimeHeldFluentProjection(prefix);
   if (closedEvents.length === 1) {
-    return holdsAt(calculus, constructRuntimeFluent({
+    return runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
         name: "graph_call_closed",
         identity: input.graphCallId,
       }))
       ? "closed"
       : null;
   }
-  return holdsAt(calculus, constructRuntimeFluent({
+  return runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
       name: "graph_call_active",
       identity: input.graphCallId,
     }))

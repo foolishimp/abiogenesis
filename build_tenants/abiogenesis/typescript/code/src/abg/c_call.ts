@@ -88,6 +88,7 @@ import {
   constructRuntimeFluentPattern,
   deriveRuntimeHeldFluentProjection,
   holdsAt,
+  runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
   replay,
@@ -1290,7 +1291,6 @@ export function projectCurrentChildParentCCallAtPrefix(
     return null;
   }
 
-  const calculus = deriveRuntimeHeldFluentProjection(prefix);
   const commonActive = [
     constructRuntimeFluent({ name: "run_active", identity: coordinates.runId }),
     constructRuntimeFluent({
@@ -1305,7 +1305,7 @@ export function projectCurrentChildParentCCallAtPrefix(
       name: "locus_active",
       identity: opened.payload.cursorRef,
     }),
-  ].every((fluent) => holdsAt(calculus, fluent));
+  ].every((fluent) => runtimeFluentHoldsAtPrefix(prefix, fluent));
   if (!commonActive) return null;
 
   if (
@@ -1313,8 +1313,8 @@ export function projectCurrentChildParentCCallAtPrefix(
     carrierPhase.phase === "selected_no_evidence" &&
     carrier.childGraphFunctionRef === coordinates.childGraphFunctionRef &&
     fibre.payload.childGraphFunctionRef === coordinates.childGraphFunctionRef &&
-    holdsAt(
-      calculus,
+    runtimeFluentHoldsAtPrefix(
+      prefix,
       constructRuntimeFluent({
         name: "c_call_active",
         identity: coordinates.parentCCallRef,
@@ -1357,8 +1357,8 @@ export function projectCurrentChildParentCCallAtPrefix(
     judgment.payload.judgment !== "advance" ||
     typeof judgment.payload.judgmentRef !== "string" ||
     !judgment.causationEventRefs.includes(result.eventId) ||
-    !holdsAt(
-      calculus,
+    !runtimeFluentHoldsAtPrefix(
+      prefix,
       constructRuntimeFluent({
         name: "c_call_judgment_available",
         identity: judgment.payload.judgmentRef,
@@ -1425,7 +1425,6 @@ function projectCCallOpeningAuthority(
       cursor.graphCallId !== exactScope.graphCallId ||
       cursor.frameId !== exactScope.frameId
     ) return null;
-    const calculus = deriveRuntimeHeldFluentProjection(runPrefix);
     if (![
       constructRuntimeFluent({
         name: "run_active",
@@ -1443,7 +1442,7 @@ function projectCCallOpeningAuthority(
         name: "locus_active",
         identity: cursor.cursorRef,
       }),
-    ].every((fluent) => holdsAt(calculus, fluent))) return null;
+    ].every((fluent) => runtimeFluentHoldsAtPrefix(runPrefix, fluent))) return null;
     return deepFreeze({
       expectedStorePrefixDigest,
       authorityPrefix,
@@ -4997,8 +4996,8 @@ export function rehydratePendingInteraction(
   );
   if (
     continuationEvent === undefined ||
-    !holdsAt(
-      deriveRuntimeHeldFluentProjection(prefix!),
+    !runtimeFluentHoldsAtPrefix(
+      prefix!,
       constructRuntimeFluent({
         name: "interaction_pending",
         identity: continuationEvent.aggregateId,

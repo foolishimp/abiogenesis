@@ -13,8 +13,7 @@ import {
 } from "./environment_admission.js";
 import {
   constructRuntimeFluent,
-  deriveRuntimeHeldFluentProjection,
-  holdsAt,
+  runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
   admitRuntimeEvent,
@@ -1069,13 +1068,12 @@ function prepareSemanticEvent(
       const runPrefix = selectValidatedRuntimeEventPrefix(events, {
         runId: packet.context.run.ref,
       });
-      const calculus = deriveRuntimeHeldFluentProjection(runPrefix);
       const current = packet.memberKey === "run-stopped"
-        ? holdsAt(calculus, constructRuntimeFluent({
+        ? runtimeFluentHoldsAtPrefix(runPrefix, constructRuntimeFluent({
             name: "run_active",
             identity: packet.context.run.ref,
           }))
-        : holdsAt(calculus, constructRuntimeFluent({
+        : runtimeFluentHoldsAtPrefix(runPrefix, constructRuntimeFluent({
             name: "operator_run_stopped",
             identity: packet.context.run.ref,
           }));

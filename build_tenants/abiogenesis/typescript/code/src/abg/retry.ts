@@ -87,6 +87,7 @@ import {
   constructScopedRetryFluent,
   deriveRuntimeHeldFluentProjection,
   holdsAt,
+  runtimeFluentHoldsAtPrefix,
   type RuntimeEventCalculusProjection, type RuntimeHeldFluentProjection,
 } from "./event_calculus.js";
 import { projectFhContinuations } from "./fh_continuation_projection.js";
@@ -2999,7 +3000,6 @@ export function projectDeclaredCRetryFrontier(
   if (context === undefined) return null;
 
   const events = runtimeEventBodiesAtPrefix(prefix);
-  const calculus = deriveRuntimeHeldFluentProjection(prefix);
   const boundaryRef = retryBoundaryRef(graph, cursor, context);
   const sameBoundaryEvent = (event: RuntimeEvent): boolean =>
     event.runId === cursor.runId &&
@@ -3012,7 +3012,7 @@ export function projectDeclaredCRetryFrontier(
     event.materializationRef === graph.materializationRef &&
     isRecord(event.payload) &&
     event.payload.retryBoundaryRef === boundaryRef;
-  const runActive = holdsAt(calculus, constructRuntimeFluent({
+  const runActive = runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
     name: "run_active",
     identity: cursor.runId,
   }));
@@ -3098,7 +3098,7 @@ export function projectDeclaredCRetryFrontier(
       entryRoute.cCallRef !== null || entryRoute.judgmentRef !== null ||
       entryRoute.consumedAvailabilityRefs.length !== 0 ||
       !runActive ||
-      !holdsAt(calculus, constructRuntimeFluent({
+      !runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
         name: "locus_active",
         identity: cursor.cursorRef,
       }))
@@ -3296,8 +3296,8 @@ export function projectDeclaredCRetryFrontier(
         edge.route.admissionEventRef)).size !== structuralAdvanceLineage.length
     ) return null;
 
-    const attemptActive = holdsAt(
-      calculus,
+    const attemptActive = runtimeFluentHoldsAtPrefix(
+      prefix,
       constructScopedRetryFluent("retry_attempt_active", {
         runId: cursor.runId,
         graphCallId: cursor.graphCallId,
@@ -3307,8 +3307,8 @@ export function projectDeclaredCRetryFrontier(
       }),
     );
     if ((progress === null) !== attemptActive) return null;
-    const progressAvailable = progress === null ? false : holdsAt(
-      calculus,
+    const progressAvailable = progress === null ? false : runtimeFluentHoldsAtPrefix(
+      prefix,
       constructScopedRetryFluent("retry_progress_available", {
         runId: cursor.runId,
         graphCallId: cursor.graphCallId,
@@ -3437,7 +3437,7 @@ export function projectDeclaredCRetryFrontier(
           ) === candidateIndex
         );
         const activeCursors = ownedCursors.filter((candidate) =>
-          holdsAt(calculus, constructRuntimeFluent({
+          runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
             name: "locus_active",
             identity: candidate.cursorRef,
           }))
@@ -3858,7 +3858,7 @@ export function projectDeclaredCRetryFrontier(
       rows.length >= context.budget ||
       latest.consumption.route.targetCursorRef !== cursor.cursorRef ||
       latest.consumption.route.targetCursorDigest !== cursor.cursorDigest ||
-      !holdsAt(calculus, constructRuntimeFluent({
+      !runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
         name: "locus_active",
         identity: cursor.cursorRef,
       }))

@@ -137,3 +137,173 @@ Items, in this order. The Return carries one row per item: done or stopped, with
 **Stop:** any change to `held()`, `project()`, `holdsAt`, `fluentAt`, `recordFluent`, the memoized class's transitions, or the fold; any change to a site's prefix, cut, or null and throw channel; a disagreement in item 1; a new red identity in item 5; a second bounded attempt at any item; any push.
 
 **Return contract.** One commit on `main`, no push. First line `TD-07: exact liveness queries read one fluent`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-07 return` below this section with: one row per item (done or stopped, lines at head); the item 1 cut table (fixture, cut, keys asked, agreement); the census table; the lane results as `tests/pass/fail/skipped` with attribution of every red; the stop reports, if any, with the counterexample.
+
+## TD-07 return
+
+Worker: Opus 5.5, fresh context. Base `6ee2cee43`; this package's single commit is the next one on `main`, not pushed. Paths are relative to `build_tenants/abiogenesis/typescript/`; `abg/` is `code/src/abg/`.
+
+| Item | State | Lines at head `6ee2cee43` | Lines after |
+|---|---|---|---|
+| 1. Equivalence, before any site moved | done; green at head before item 2 | `test_env/tests/t287-calculus-fold.test.mjs:1-318` | Cases at `:322-421`: `askedKeys` `:330`, `agreeAt` `:345`, `exactReadAgreement` `:365`, tests `:409` and `:417`. P-FOLD cases unchanged. |
+| 2. Route the exact point queries | partly done: 30 of 61 calls routed. The 7 lifecycle-fluent sites are stopped (see Stops). | the 61 `holdsAt(` calls in the census | the routed calls read `runtimeFluentHoldsAtPrefix` on the prefix each site already chose |
+| 3. The full projection unchanged | done | `abg/event_calculus.ts`: `recordFluent` `:225`, `fluentAt` `:229`, `project` `:264`, `held` `:280`, `deriveRuntimeHeldFluentProjection` `:318`; `holdsAt` at `abg/calculus/fold.ts:287-308` | No change to any of them or to the fold. No new function. `runtimeFluentHoldsAtPrefix` (`:333-339`, now `:332-338`) serves every routed site with its default ordinal. |
+| 4. Records | done | design `:191` | One sentence added to the `RuntimeEventCalculusDerivation` paragraph. |
+| 5. Lanes | done | | See Lanes. |
+
+**Item 1: the cut table.** The test asserts, at each cut, three equal answers for every asked key:
+- the exact read `runtimeFluentHoldsAtPrefix(cut, fluent)`;
+- the fluent point query `holdsAt(deriveRuntimeHeldFluentProjection(cut), fluent)`;
+- for a key with an identity, the exact-pattern point query `holdsAt(deriveRuntimeHeldFluentProjection(cut), constructRuntimeFluentPattern({ name, identity })).length !== 0`.
+
+The exact read is asked first at every cut, so it is the call that advances the derivation. The asked keys are:
+- every fluent that any effect row of the complete history initiates or terminates ("ever held");
+- each real name with an absent identity;
+- an absent name with each real identity, and with no identity.
+
+The test also asserts that every fluent held at the cut is one of the asked keys.
+
+| Fixture | Cut | Cuts | Keys asked | Held answers | Agreement |
+|---|---|---|---|---|---|
+| U1 store (22 events; 67 keys, 30 ever held) | cold through-event: a freshly selected copy per cut | 22 | 1474 | 305 | all |
+| | cold before-event | 22 | 1474 | 282 | all |
+| | warm validated through / before: advanced to the end first, so the slow path below the end | 22 / 22 | 1474 / 1474 | 305 / 282 | all |
+| | warm owned through / before | 22 / 22 | 1474 / 1474 | 305 / 282 | all |
+| | streaming before / through: the fast path, at the folded count | 22 / 22 | 1474 / 1474 | 282 / 305 | all |
+| | fork before / through: the owned cut at ordinal 11, extended by `extendRuntimeEventPlanPrefixForValidation` over the 11 remaining rows | 11 / 11 | 737 / 737 | 221 / 230 | all |
+| Counterexample A (3 events, 29 keys) | cold, warm, streaming; through and before | 3 per kind | 87 per kind | 9 through, 5 before | all |
+| Counterexample B (2 events, 25 keys) | same | 2 | 50 | 6, 2 | all |
+| Spawn failure, then the actor terminal (2 events, 17 keys) | same | 2 | 34 | 4, 2 | all |
+| Late confirmation (3 events, 16 keys) | same | 3 | 48 | 10, 7 | all |
+| S, U, exit, A, R (5 events, 36 keys) | same | 5 | 180 | 17, 13 | all |
+
+Totals: 15660 key reads, with no disagreement.
+
+Discrimination checks:
+- In the warm passes, at least one key holds at the through-event cut and not at the before-event cut. U1 has 60 such keys; each lifecycle fixture has 3 to 9.
+- Streaming asserts one owned state across the advances. Before each step, that state's ordinal equals the before-event cut's last ordinal.
+- The fork asserts that each validation prefix reads a state other than the owned derivation's.
+- A scratch mutant of the test read at `lastOrdinal - 1`, and it failed both cases.
+
+Nested read: not constructed. The owner-continuation shape needs its environment fixture (`t287-event-calculus-owner-continuation.test.mjs:18`), so I built no new one. Its state is covered instead. The streaming before-event cut reads the owned state at the folded count, before the step's transition is recorded. That is what a nested read of an earlier cut during a step reads (`advance` returns before it assigns the source). The one production nested read, `runtime_liveness.ts:840` through the liveness rule, is a lifecycle site and stays on `holdsAt`.
+
+**Item 2: the census.** I counted every `holdsAt(` call expression in `code/src` outside `abg/calculus/fold.ts`: 61 calls in 19 files. `fold.ts` adds 5 declaration lines (4 overloads and the implementation), giving 66 lines in 20 files. The activation's "65 in 20" is presumably a line count of that kind.
+
+A call is routed when all four of these hold:
+- (a) the query asks one key: a constructed fluent, or a pattern with both members set;
+- (b) the projection is `deriveRuntimeHeldFluentProjection(P)`, unmodified, with `P` in scope, and every reader of it is an exact point query;
+- (c) every path that ran the derivation still runs it before any exit, or a derivation of the same prefix comes earlier on that path;
+- (d) the fluent is not a lifecycle fluent.
+
+A routed call reads `runtimeFluentHoldsAtPrefix(P, fluent)` on the same `P`. Each local derivation with no remaining reader is removed, and so is each import with no remaining reader.
+
+Kept reasons:
+- **L**, lifecycle boundary: see Stops.
+- **List**: a list reader shares the projection, so the projection is built anyway. Point queries on it stay, under one rule.
+- **Carrier**: the projection is a parameter, a context or session carrier, or a filtered composite, so the site has no prefix of its own.
+- **Exit**: the derivation precedes an exit that asks no fluent, and no earlier derivation of the same prefix is guaranteed. Moving the derivation would drop a fold refusal on that path.
+
+| File | Lines at head | Query shape | Use | Disposition | Why |
+|---|---|---|---|---|---|
+| `abg/actor_process.ts` | 637 (projection `:635`) | pattern, `name` from `actor_process_live`, `_termination_unconfirmed`, `actor_cleanup_pending`; identity `processRef` | `.length !== 0`, three names | kept | L |
+| `abg/c_call.ts` | 1308, 1316, 1360 (projection `:1293`) | fluents `run_active`, `graph_call_active`, `frame_active`, `locus_active`; `c_call_active`; `c_call_judgment_available` | boolean | routed | Only exact readers. `:1308` always runs after `:1293`. The derivation was removed. |
+| `abg/c_call.ts` | 1446 (projection `:1428`) | four active fluents | boolean | routed | Immediate. Inside `try` / `catch → null`. |
+| `abg/c_call.ts` | 2038 | pattern `actor_process_terminated`, `source.processRef` | `.length !== 0` | kept | L. The identity is the non-empty `processTerminal.aggregateId` (`:1940`). |
+| `abg/c_call.ts` | 5000 | fluent `interaction_pending` | boolean | routed | inline |
+| `abg/c_call.ts` | 6641 | pattern `actor_process_terminated`, `candidate.processRef` | `.length !== 0` | kept | L. The identity is checked as a non-empty string (`:6603`). |
+| `abg/closure.ts` | 345 (projection `:255`) | fluent `terminal_route_available` | boolean | kept | List: `:354` maps `holds`, and `:291` hands it to `projectFhContinuations`. |
+| `abg/deferred_application.ts` | 128 (projection `:116`) | four fluents | boolean | routed | Immediate. The derivation and two imports were removed. |
+| `abg/event_calculus.ts` | 353 | `constructWorksiteObservationCurrentFluent` at the before-event cut | boolean | routed | Inline, same `before` prefix. See Findings for the grant reading. |
+| `abg/fh_continuation_projection.ts` | 734, 738, 742 | fluents `continuation_open`, `_response_available`, `_terminated` | boolean | kept | Carrier: `eventCalculus` is a parameter of `projectFhContinuations`, and replay passes the filtered composite. |
+| `abg/graph_application.ts` | 439, 505 | fluents `child_preparation_refused`, `child_foldback_available` | boolean | routed | inline |
+| `abg/graph_application.ts` | 614, 622, 629, 636 (projection `:582`) | fluents `graph_call_closed`, `frame_blocked`, `run_terminal`, `run_active` | boolean | routed | The next statement, `replayValidatedRuntimeEventPrefix(prefix, …)` at `:583`, derives the same prefix (`replay.ts:960`). Its cache return at `replay.ts:959` implies an earlier successful fold at that end. The derivation was removed. |
+| `abg/graph_application.ts` | 887 (projection `:876`) | fluent `c_call_judgment_available` | boolean | kept | Exit: `parentJudgmentEvent === undefined` returns a refusal without the query. |
+| `abg/invocation_admission.ts` | 523 (projection `:521`) | pattern `actor_process_terminated` | `.length !== 0` | kept | L. If routed, timing would hold: the replay guard at `:442` derives `runPrefix` first. |
+| `abg/open_call.ts` | 205, 209, 211 (projection `:201`) | `constructRunTerminalFluent`, `…Closed…`, `…Active…` | boolean | kept | Exit: `return "failed"` at `:202` comes before any query. |
+| `abg/open_call.ts` | 250, 257 (projection `:248`) | fluents `graph_call_closed`, `graph_call_active` | boolean | routed | Both branches query immediately. The derivation was removed. |
+| `abg/project_read_ports.ts` | 990, 1020 | fluent `graph_call_active` | boolean | kept | Carrier: `context.calculus`, built at `replay.ts:2166` and `:2176`. List: `:1007` publishes `holds`. |
+| `abg/replay.ts` | 467, 468, 469 (projection `:395`) | run terminal, closed and active fluents | boolean | kept | List: `:397-459` filter `holds`. |
+| `abg/replay.ts` | 966 (projection `:961`) | each held `worksite_observation_current` | boolean inside a filter | kept | List: it builds the `:964` composite. |
+| `abg/replay.ts` | 1231, 1242, 1301, 1323, 1356, 1424 | fluents `worksite_observation_current`, run terminal, `operator_run_stopped`, run closed, run active | boolean | kept | Carrier: `eventCalculus` is the filtered composite from `:964`. List: replay body `:1389`. |
+| `abg/replay.ts` | 2461 | pattern `actor_process_terminated` | `.length !== 0` | kept | L |
+| `abg/retry.ts` | 2035, 2249 (projection `:1997`) | `retry_attempt_active`, `locus_active` | boolean | kept | List: `priorCalculus` reaches `projectFhContinuations` (`:2206`, `:1918`). |
+| `abg/retry.ts` | 3015, 3101, 3299, 3310, 3440, 3861 (projection `:3002`) | `run_active`, `locus_active`, `constructScopedRetryFluent` attempt and progress | boolean | routed | Only exact readers. Between `:3002` and the unconditional `:3015` there is only the pure `retryBoundaryRef`. The derivation was removed. |
+| `abg/runtime_failure.ts` | 287 | `constructRunActiveFluent` | boolean | routed | Inline. Two imports were removed. |
+| `abg/runtime_liveness.ts` | 840 | pattern `actor_process_live`, at-prefix or before-event cut | `.length !== 0` | kept | L |
+| `abg/traversal_cursor.ts` | 809, 810, 817 (projection `:807`) | run, graph-call and frame active fluents | boolean | routed | Immediate. The derivation and two imports were removed. |
+| `abg/traversal_route.ts` | 910, 916, 922 (projection `:909`) | run, frame and locus active fluents | boolean | routed | Immediate. The derivation and the `holdsAt` import were removed. |
+| `abg/witness_admission_operation.ts` | 1074, 1078 (projection `:1072`) | `run_active`, `operator_run_stopped` | boolean | routed | Both ternary arms are immediate. The derivation and two imports were removed. |
+| `abg/worksite_construction_recovery.ts` | 56 | pattern `actor_process_terminated` | `.length !== 0` | kept | L |
+| `abg/worksite_revision.ts` | 577 | `constructWorksiteObservationCurrentFluent` | boolean | kept | Carrier: `work?.calculus`, the `RetainedOriginSession` member (`:565`, `:610`). Routing would leave that member dead. Removing it changes the carrier, which is outside the grant. |
+| `abg/worksite_revision.ts` | 812 (projection `:800`) | `constructWorksiteObservationCurrentFluent` | boolean in `every` | kept | Exit: `:803` returns `false`, and read-basis and retained-dependency rows return before the query (`:804-810`). |
+
+Totals:
+- Routed: 30 calls at 14 sites in 10 files.
+- Kept: 31 calls.
+  - L: 7 sites (7 calls).
+  - List: 4 sites (7 calls).
+  - Carrier: 4 sites (12 calls).
+  - Exit: 3 sites (5 calls).
+
+Unsure:
+- `event_calculus.ts:353`, the grant reading below.
+- `graph_application.ts:582`: its timing rests on `replay.ts:960` and `:959`.
+
+Unchanged at every routed site:
+- the prefix: the before-event prefix object at `event_calculus.ts:353`, and `prefix!` at `c_call.ts:5000`;
+- the guards ahead of each query;
+- the null and refusal returns.
+
+Evaluation order changed in one respect. Where a local derivation was removed, the fold now runs at the first query, after that query's fluent is constructed, not before. The result differs only if a fold refusal and an invalid fluent construction occur at once: both throw `TypeError`, with different messages.
+
+`holdsAt` validates every held fluent, and the exact read validates only the asked one. The fold constructs held fluents canonically, so that throw channel cannot be reached.
+
+**Stops.** Item 2, the lifecycle class: 7 sites, including the register's evidence site `runtime_liveness.ts:840`.
+
+Counterexample:
+- I routed `runtime_liveness.ts:840` in a scratch edit, keeping its at-prefix or before-event prefix unchanged.
+- `npm run lint:lifecycle` printed `code/src/abg/runtime_liveness.ts:842: constructRuntimeFluent({ name: "actor_process_live", identity: started.processRef }));` and `check-lifecycle-boundary: 1 offender(s)`, exit 1.
+- I reverted the edit.
+
+Blocking lines:
+- `scripts/check-lifecycle-boundary.mjs:94-102` (`isHoldsAtPatternName`) and `:169`: outside `abg/calculus/`, a lifecycle fluent name may appear only as the `name` of a pattern passed to `holdsAt`.
+- The design law behind the lint: design `:285` (§5 table), `:290` ("`holdsAt` is the only admitted reader of 'is this actor process gone'"), `:536` (§9.1, item 3) and `:641` (P-LAYER).
+
+The other lifecycle sites would fail the same way. `actor_process.ts:635-640` would pass the lint mechanically, because its allow-list matches line text. But the allow-list's stated reason, and design `:203` and `:209`, describe it as a `holdsAt` reader. I kept it with the other six.
+
+Routing this class needs the Executive to admit `runtimeFluentHoldsAtPrefix`, with a `constructRuntimeFluent` `name`, as a lifecycle reader in the lint and in design §5 and §9.1. That is outside this grant. No other stop.
+
+**Lanes.** Each result is tests/pass/fail/skipped, at head before any edit and then after. Head reds that `step-8-run-postclose-h.log` does not cover are attributed to my run at head `6ee2cee43` before any edit, with the same test names.
+
+- `npm run build`: exit 0. I ran it again after the design edit, and the manifest was unchanged.
+- `npx tsc --noEmit -p tsconfig.json`: exit 0.
+- `npm run lint:imports`: exit 0. 28 modules under `code/src/shared/` import only `code/src/shared/` and packages.
+- `npm run lint:lifecycle`: exit 0. 284 modules under `code/src`; 10 allow-listed sites; no offender.
+
+| Lane | Head `6ee2cee43` | After | Reds, all with the same test names and causes at head |
+|---|---|---|---|
+| `t287-calculus-fold` | 10/10/0/0 | 12/12/0/0 | none; the 2 new tests are TD-07's |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | In `step-8-run-postclose-h.log`: four fail on `abg.openCall is not a function`, and one fails on `runtime_failure_observed/runtime_invocation_active` (`:1453`). |
+| `t287-native-frame-observation` | 8/1/3/4 | 8/1/3/4 | In the H log (`:535-537`): the three tests named there; causes are a missing proof-local territory and an undefined `path` argument. |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 | none |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | Not in the H log; red at head. Module load fails with `ERR_MODULE_NOT_FOUND` on a `.ai-workspace/comments/codex/…/s02-installed-continuation-17` install. |
+| `witness-run-stopped-definition-binding` | 7/0/7/0 | 7/0/7/0 | Not in the H log; red at head. All 7 fail at `assert.ok(territory)` (`:31`, `:32`, `:65`): no evidence territory in the environment. |
+| `t287-route-reconstruction` | 9/7/0/2 | 9/7/0/2 | none |
+| `t287-post-binding-worksite-write` | 2/1/1/0 | 2/1/1/0 | Not in the H log; red at head. "T-287 C0 reaches its owner…" fails with `artifact truth is reachable only through its checked owner ingress`. |
+| `t287-native-work-unknown-effect` | 10/10/0/0 | 10/10/0/0 | none |
+| `t287-authenticated-owner-family` | 1/0/0/1 | 1/0/0/1 | none; skipped without `ABI5_OWNER_HISTORY` |
+| `t288-native-producer-membership` | 1/0/0/1 | 1/0/0/1 | none |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | Not in the H log; red at head. Fails with `traversal transition differs from its staged successor projection`, caused by `replay retained input has no exact entry/source/foldback provenance`. |
+| `t287-undispatched-diagnostic` | 7/5/2/0 | 7/5/2/0 | Not in the H log; red at head. Two tests fail; their causes include `event store was not constructed by this ABG module` and a regular-expression mismatch. |
+| `m5-worker-transport` | 21/21/0/0 | 21/21/0/0 | none |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | none |
+
+No new red identity. For each red lane, the sorted failing test names and the sorted error lines are identical between the run at head and the run after.
+
+**Findings.**
+- **Grant reading for `event_calculus.ts:353`.** I read the grant's routed-call-site clause as covering this call, and the `event_calculus.ts` clause as limiting new functions only. The edit is that one expression plus the now-unused `holdsAt` import (`:33`).
+- **Stale citations.** Removing that import line moves `advance` from `:241` to `:240`, which makes the design's citation `abg/event_calculus.ts:241` (`:191`) stale. The register's TD-07 evidence `event_calculus.ts:280–284` is now `:279–283`. Both are the Executive's to fix.
+- **Dead code, not edited (outside the grant).**
+  - `abg/worksite_input_provenance.ts:517` derives `calculus` and never reads it: a full held projection and sort, for nothing.
+  - `holdsAt` is imported and never called in `abg/execution_basis.ts:22`, `abg/fan_out_projection.ts:26`, `abg/continuation.ts:144` and `abg/worksite_input_provenance.ts:10`.
+- **Exit-kept sites.** `open_call.ts:201`, `graph_application.ts:876` and `worksite_revision.ts:800` would route if the Executive rules that the fold of these prefixes cannot refuse.
+- **Build outputs.** `npm run build` regenerated `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json` (content digests). Both are committed.
