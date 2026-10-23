@@ -4,7 +4,7 @@ Commentary, not law. Executive: Claude Fable 5.1. Plan post:
 `20261021T162409Z_PLAN_library_consolidation_pen.md`. Design authority:
 `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`.
 
-Restated 2026-10-24 after six post-close repairs; repair G is pending. The first statement of
+Restated 2026-10-24 after seven post-close repairs; repair H is pending. The first statement of
 this post (2026-10-22, at `562d4515a`) and its addendum are superseded by
 this text; their history is the commit chain below and `step-8.md`.
 
@@ -17,9 +17,14 @@ binds it to the artifact before it reads the disposition; the D15 claim below
 holds from the helper's exit on. Repair F landed (`195b65ddb`): the forward
 constructors admit their three array inputs at ingress, and the failure
 artifact's subject is bound to the next undone operation of its completed
-prefix, the two HTTP subjects naming their predicate. Repair G (the three
-helper failure classes without an installed case) is activated, and this
-post is restated when it lands. The plan for the close and the debt wave is
+prefix, the two HTTP subjects naming their predicate. Repair G landed
+(`68a5397dc`): `http_probe_failed` and `http_cleanup_unresolved` are driven
+through the installed helper by their declared tasks; `command_failed` is
+reachable by no declaration (a lifetime error after spawn), and whether it
+stays is yours (T-290 Phase C). Repair H (a synchronous spawn error such as
+`ENOEXEC` escapes the helper and publishes no artifact; it becomes the
+no-child launch failure the design states) is activated, and this post is
+restated when it lands. The plan for the close and the debt wave is
 `.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md`.
 
 The library is on `main` at `195b65ddb` plus the bookkeeping commit that
@@ -57,6 +62,7 @@ Jim" and "Residue the design records".
 | repair D | `0eacd4668` | forward-task comparison; lifecycle failure subjects (D14); helper failure handoff (D15); seam and fixture lanes; final run |
 | repair E | `280f5777f` | helper acknowledgment on failure (D15); acknowledgment bound to the artifact; final run |
 | repair F | `195b65ddb` | forward ingress admission; helper failure subject bound to the next operation |
+| repair G | `68a5397dc` | the two HTTP failure classes driven through the installed helper; `command_failed` stopped as unreachable |
 
 Executive bookkeeping commits sit between them (`0c362da15`, `837781a1a`,
 `2f1393061`, `3dbd3cd2f`, and the one carrying this text), each with the
@@ -169,7 +175,9 @@ failure subject cold from the admitted result (subject 3561 bytes, reference
 acknowledgment relayed by the controlled worker, bound to the artifact by the
 parent, with a foreign acknowledgment and a failed transport refused; the
 forward constructors refusing six one-hole inputs; the failure subject's
-binding over 19 subjects, seven admitted and twelve refused.
+binding over 19 subjects, seven admitted and twelve refused; the two HTTP
+failure classes driven through the installed helper by their declared tasks,
+each subject bound to its predicate and carrying the failed process's facts.
 
 ## Items for Jim
 
@@ -189,9 +197,10 @@ binding over 19 subjects, seven admitted and twelve refused.
 - The module-test fork from a middle cut to the end of a validated prefix
   differs from the warm projection of the end; it did so before repair B;
   module-test path only.
-- D15's whole-path case covers `command_cleanup_unresolved`; the other three
-  helper failure classes pass the Product constructor and validator in a
-  probe outside the lanes, and no lane drives them into an artifact.
+- `command_failed`: no declared task reaches it (a spawn error with no child
+  is the lifetime's launch failure, not a first error; repair G's trace).
+  Keep it as the command route's lifetime-error channel, or remove it, which
+  changes D15's artifact arm. T-290 Phase C.
 - 1263 untracked files under
   `.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/` from the uat
   harness runs of this cycle (the repo tracks 120 files of an earlier run);
