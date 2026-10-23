@@ -2707,3 +2707,18 @@ Attribution compares each failing test file and line, first error line and first
 - **The HTTP issue value.** The synchronous path's issue `process_exited_before_port` is the value the asynchronous path gives when the launch's close is observed by the end of its first 25 ms port wait, as the probe showed. A slower close would make the asynchronous path give `port_file_timeout`.
 - **Host.** `ENOEXEC` as a synchronous throw was observed on this host (macOS, Node 24.7.0) only.
 - **Controlled worker.** The worker in every installed case is still a controlled worker.
+
+## Disposition of repair H (Executive, 2026-10-24); Phase A closed
+
+Accepted at `46ed04895`. Read: the Return against the activation's four items; the helper diff in full (one producer, `noChildLaunchObservation`, converting only Node's errno exception from the spawn call and rethrowing anything else; the command and HTTP result builders lifted unchanged and called by both the lifetime path and the synchronous catch; the HTTP catch setting the port-file issue the asynchronous no-child failure gives, deterministically); the design word diff (§9.2 items 1 and 2, §9.3 item 4, §10.5); the test's two cases and `assertLaunchFailureAdmitted`; the broad run attributed line by line against F's log (same 56 failing tests, four more passes, the four installed cases). Executive check on the head: `tsc --noEmit` clean; `lint:imports` 28 modules; `lint:lifecycle` 284 modules, 10 allow-listed; `t287-worksite-command-execution` 10/10; `t287-owned-process-lifetime` 18/18; `m5-worker-transport` 21/21 (`exec_check_H.log`, 2026-10-24).
+
+| Return item | Disposition |
+|---|---|
+| 1, producer and the two sites | accepted; the result builders lifted out of the lifetime path are the same construction, and the lanes over that path stay green |
+| 2, two installed cases | accepted; before item 1 both cases left the helper at exit 1 with no artifact and no acknowledgment and the parent at `transport_identity_mismatch`; after it both reach an admitted observation with the declared predicate false and the launch's exit 127 in the result |
+| 3, records | accepted; the residual citations H listed outside its grant (§9.2 item 4, §10.6 row 6) and the GOALS pointer are fixed in this bookkeeping commit |
+| 4, lanes and the 48-file run | accepted; 351/276/54/2/19 at 1491 s against F's 347/272/54/2/19, no failing identity outside F's set |
+
+The other residuals are not defects in the obligation: the HTTP issue value on the asynchronous path depends on the launch's close timing and is not what the cases assert (the synchronous path sets it); `ENOEXEC` as a synchronous throw is Node's documented errno rule, observed here on macOS; the controlled worker remains the installed cases' worker by D15's design.
+
+Phase A is closed at `46ed04895`. Nine post-close repairs landed (A, C, B, D, E, F, G, H). The review subject for the owner's independent pass is `46ed04895`; its findings are disposed as further lettered packages only for S0 to S2. Phase B starts before that pass on the owner's instruction of 2026-10-24 ("keep working through"); its package records are `work/T290_DEBT_WAVE_01/packages.md`.

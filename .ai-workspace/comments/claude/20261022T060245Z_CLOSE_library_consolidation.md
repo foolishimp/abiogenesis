@@ -4,7 +4,7 @@ Commentary, not law. Executive: Claude Fable 5.1. Plan post:
 `20261021T162409Z_PLAN_library_consolidation_pen.md`. Design authority:
 `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`.
 
-Restated 2026-10-24 after seven post-close repairs; repair H is pending. The first statement of
+Restated 2026-10-24 after eight post-close repairs; Phase A of T-290 is closed. The first statement of
 this post (2026-10-22, at `562d4515a`) and its addendum are superseded by
 this text; their history is the commit chain below and `step-8.md`.
 
@@ -21,15 +21,18 @@ prefix, the two HTTP subjects naming their predicate. Repair G landed
 (`68a5397dc`): `http_probe_failed` and `http_cleanup_unresolved` are driven
 through the installed helper by their declared tasks; `command_failed` is
 reachable by no declaration (a lifetime error after spawn), and whether it
-stays is yours (T-290 Phase C). Repair H (a synchronous spawn error such as
-`ENOEXEC` escapes the helper and publishes no artifact; it becomes the
-no-child launch failure the design states) is activated, and this post is
-restated when it lands. The plan for the close and the debt wave is
+stays is yours (T-290 Phase C). Repair H landed (`46ed04895`): a
+synchronous spawn error (`ENOEXEC` and every errno Node throws before a
+child exists) is the no-child launch failure the design states, exit 127
+with termination confirmed, at both the command and the HTTP launch, the
+artifact published and acknowledged. Phase A of T-290 is closed at that
+commit; the Phase B debt wave runs from TD-06 on your instruction, and this
+post is next restated at the Phase B close. The plan for the close and the debt wave is
 `.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md`.
 
-The library is on `main` at `195b65ddb` plus the bookkeeping commit that
+The library is on `main` at `46ed04895` plus the bookkeeping commit that
 carries this restatement (not pushed, not a release). Steps 2 to 8 landed as
-twelve code commits; six post-close repairs (A, C, B, D, E, F) landed as six
+twelve code commits; eight post-close repairs (A, C, B, D, E, F, G, H) landed as eight
 more after six external reviews that Jim pasted and one same-family
 whole-diff review. Every owner obligation the design names is closed with its sites:
 O-RESOURCE, O-SHAPE, O-CODEC and O-KEY at steps 3 to 8a; O-SCHEMA at the raw
@@ -63,6 +66,7 @@ Jim" and "Residue the design records".
 | repair E | `280f5777f` | helper acknowledgment on failure (D15); acknowledgment bound to the artifact; final run |
 | repair F | `195b65ddb` | forward ingress admission; helper failure subject bound to the next operation |
 | repair G | `68a5397dc` | the two HTTP failure classes driven through the installed helper; `command_failed` stopped as unreachable |
+| repair H | `46ed04895` | synchronous spawn errors publish as no-child launch failures at both launches; two installed `ENOEXEC` cases |
 
 Executive bookkeeping commits sit between them (`0c362da15`, `837781a1a`,
 `2f1393061`, `3dbd3cd2f`, and the one carrying this text), each with the
@@ -135,8 +139,8 @@ and repair D proved it on an installed C1 to C2 path. One Executive row
 
 ## Test reality
 
-Final run at `195b65ddb` (`step-8-run-postclose-f.log`): 48 files in one
-invocation, 1214 s; 347 tests, 272 pass, 54 fail, 2 cancelled, 19 skipped;
+Final run at `46ed04895` (`step-8-run-postclose-h.log`): 48 files in one
+invocation, 1491 s; 351 tests, 276 pass, 54 fail, 2 cancelled, 19 skipped;
 25 files red. Every failing test is one of `step-8-run-postclose.log`'s,
 and that log's set is the first final run's (`step-8-run-final.log`) or the
 pre-plan baseline's at `97b1200bc` (repair B attributed the 68 lanes outside
@@ -164,7 +168,7 @@ variable or a missing export, so their path edits are unexercised past
 load. The uat harness is 30 pass, 1 fail, 3 skipped; the failure ("canonical
 C2 budget fits") is baseline-red.
 
-New lanes and cases of the post-close cycle, all green at `195b65ddb`:
+New lanes and cases of the post-close cycle, all green at `46ed04895`:
 P-FOLD streaming (one owned state, 22 cuts); D12 realm admission with six
 refused shapes; D13 valueless result event; `sameJson` function member and
 cycle; the forward-task sparse cover vector; D14 over the five subject
@@ -177,7 +181,8 @@ parent, with a foreign acknowledgment and a failed transport refused; the
 forward constructors refusing six one-hole inputs; the failure subject's
 binding over 19 subjects, seven admitted and twelve refused; the two HTTP
 failure classes driven through the installed helper by their declared tasks,
-each subject bound to its predicate and carrying the failed process's facts.
+each subject bound to its predicate and carrying the failed process's facts;
+the two `ENOEXEC` launches admitted as observations with exit 127.
 
 ## Items for Jim
 
