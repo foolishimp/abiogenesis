@@ -11,7 +11,7 @@
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_phase: A, close the library
-- current_package: TD-14 (activated 2026-10-24); TD-13 accepted at `50301d557`
+- current_package: TD-04 + TD-05 (activated 2026-10-24); TD-14 accepted at `8387f70b3`
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
@@ -143,6 +143,7 @@ D5 qualification; D6 publication. This ticket does not schedule them.
 | 2026-10-24 | TD-07 | `ea18189e3` | `tsc --noEmit` clean; both lints; `t287-calculus-fold` 12/12; `t287-native-workspace-work` 38/37/0/1; `t287-route-reconstruction` 9/7/0/2; `t287-native-work-unknown-effect` 10/10 (`exec_check_TD07.log`) | accepted for 30 routed calls; lifecycle reader to Phase C |
 | 2026-10-24 | TD-17 | `4bc5a945a` | `tsc --noEmit` clean; both lints; `t287-runtime-failure-diagnostic` 14/14; `t287-c2a-fp-source-contract` 4/4 (`exec_check_TD17.log`) | accepted; register row closed; §9.3 paragraph placed |
 | 2026-10-24 | TD-13 | `50301d557` | `tsc --noEmit` clean; both lints; `t287-common-computational-library` 9/9; `t287-runtime-failure-diagnostic` 14/14; `m5-event-store-reopen` 18/18; `t287-installed-product-coordinate` 11/11 (`exec_check_TD13.log`) | accepted; five out-of-grant typed edits ruled in; register row closed |
-| 2026-10-24 | TD-14 | | | activated |
+| 2026-10-24 | TD-14 | `8387f70b3` | `tsc --noEmit` clean; both lints; `npm run build` rc 0 (the C2 pin check passes at head); `m5-c-algebra-validation` 22/19/0/3; `t287-worksite-command-execution` 10/10; `forward-command-contracts` 10/10; `t287-native-c2-instruction-assembly` 1/1; `t287-native-workspace-work` 38/37/0/1; `t287-default-library-fulfillment` 7/7; `m5-event-store-reopen` 18/18; `t287-owned-process-lifetime` 18/18 (`exec_check_TD14.log`) | accepted; register row closed for 47 of 56; nine (T) carried by TD-15 + TD-16; the I-JSON domain sentence extended to the rule-config parse |
+| 2026-10-24 | TD-04 + TD-05 | | | activated (the R10 projection family; two obsolete-import lanes) |
 
-Next: TD-14 (Worker running); the owner's review pass on `46ed04895` whenever it comes.
+Next: TD-04 + TD-05 (Worker running); the owner's review pass on `46ed04895` whenever it comes.
