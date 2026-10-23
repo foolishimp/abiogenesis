@@ -11,7 +11,7 @@
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_phase: A, close the library
-- current_package: G (activated 2026-10-24); F accepted at `195b65ddb`
+- current_package: H (activated 2026-10-24); G accepted at `68a5397dc`
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
@@ -70,9 +70,10 @@ subject after an independent review with no open S0 to S2.
 |---|---|---|---|---|
 | E | fifth review S2 | The helper prints its acknowledgment for every disposition before its non-zero exit; the worker instruction treats that exit as an observation; the parent binds the acknowledgment to the artifact before it reads the disposition; the controlled worker relays the helper's stdout; final run attributed against D's log | M | accepted at `280f5777f` (step-8.md, `## Disposition of repair E`) |
 | F | sixth review S2, S3 | The forward request and task constructors admit their three array inputs at ingress and validate, compare and carry the admitted values; the failure artifact's subject is bound to the next undone command, or to the next `http_response_exact` predicate once the commands are complete | M | accepted at `195b65ddb` (step-8.md, `## Disposition of repair F`); the two HTTP subjects carry `predicate` |
-| G | closing post, items for the owner | The three helper failure classes without a lane, `command_failed`, `http_probe_failed` and `http_cleanup_unresolved`, each driven through the installed helper into a failure artifact and an admitted failure, on E's route | M | activated 2026-10-24 (step-8.md, `## Post-close repair activation G`) |
+| G | closing post, items for the owner | The three helper failure classes without a lane, `command_failed`, `http_probe_failed` and `http_cleanup_unresolved`, each driven through the installed helper into a failure artifact and an admitted failure, on E's route | M | accepted at `68a5397dc` for the two HTTP classes (step-8.md, `## Disposition of repair G`); `command_failed` is reachable by no declaration, Phase C |
+| H | repair G's finding | A synchronous spawn error (`ENOEXEC`) at either launch becomes the no-child launch failure the design states: exit 127, termination confirmed, the artifact published and acknowledged; two installed cases; the §9.3 and §9.2 record fixes | S | activated 2026-10-24 (step-8.md, `## Post-close repair activation H`) |
 | Restatement | sixth review S4; D15 | The closing post, the plan post's D15 row and the Ledger restated to the realized route; the reacquisition seam classified as a lane the plan broke at step 4, not baseline-red | S | Executive, with each acceptance |
-| Review pass | | The owner's independent pass on G's commit, disposed as the five before it; repairs only for S0 to S2, as further lettered packages | | the owner runs it |
+| Review pass | | The owner's independent pass on H's commit, disposed as the six before it; repairs only for S0 to S2, as further lettered packages | | the owner runs it |
 | L5 | T-287 dependency order | Delivery acceptance recorded by the owner; the release-resumption gate opens | | the owner |
 
 ## Phase B: the debt wave
@@ -112,7 +113,8 @@ first four are recorded in the register's reconciliation section.
 | TD-19 | Evidence copying: stop recursive copying into new proof packages now (S); historical deletion only after a retention and deletion manifest (L) | S then L |
 | D12 to D15 | Executive rulings taken without the owner, each with its reversal path in the plan post | |
 | E item 2 | The one sentence added to the worker instruction (a non-zero helper exit after its acknowledgment is an observation); reversal: delete it and refresh the C2 pin | |
-| F item 2 | A `predicate` member on the two HTTP failure subjects, if the Worker needs it to bind the predicate; reversal: bind through the declared request instead | |
+| F item 2 | The `predicate` member on the two HTTP failure subjects (taken; the cleanup carrier cannot name the request when the port was never observed); reversal: bind through the declared request and leave that case unbound | |
+| `command_failed` | Keep the class as the command route's lifetime-error channel after spawn, which no declaration reaches (repair G's trace), or remove it, which changes D15's artifact arm. Recommendation: keep, with §9.3 stating its reach | S |
 | `sameQualificationValue` | Restore it to the `validator` barrel (one line) or drop it from the package entries | S |
 | 40 tracked `build/` files | Keep tracking the regenerated outputs or untrack them | S |
 | O-SCHEMA | `admitJson` inside the schema, if refusal there is wanted beyond the raw owner boundary (D10) | S |
@@ -133,6 +135,7 @@ D5 qualification; D6 publication. This ticket does not schedule them.
 |---|---|---|---|---|
 | 2026-10-24 | E | `280f5777f` | `tsc --noEmit` rc 0; `lint:imports` 28 modules rc 0; `lint:lifecycle` 284 modules, 10 allow-listed, no offender, rc 0; `t287-worksite-command-execution` 5/5; `forward-command-contracts` 9/9; `t287-runtime-failure-diagnostic` 12/12; `t287-lifecycle-failure-carrier` 5/5; `m5-worker-transport` 21/21; `t287-reacquisition-root-contract` 1 pass, 1 skip; `t287-calculus-fold` 7/7; `t287-common-computational-library` 9/9; tree clean | accepted |
 | 2026-10-24 | F | `195b65ddb` | `tsc --noEmit` rc 0; `lint:imports` 28 modules rc 0; `lint:lifecycle` 284 modules, 10 allow-listed, no offender, rc 0; `forward-command-contracts` 10/10; `t287-worksite-command-execution` 6/6; `t287-runtime-failure-diagnostic` 12/12; `t287-lifecycle-failure-carrier` 5/5; `m5-worker-transport` 21/21; `t287-reacquisition-root-contract` 1 pass, 1 skip; `t287-calculus-fold` 7/7; `t287-common-computational-library` 9/9; `t287-owned-process-lifetime` 18/18; tree clean | accepted |
-| 2026-10-24 | G | | | activated |
+| 2026-10-24 | G | `68a5397dc` | `tsc --noEmit` clean; `lint:imports` 28 modules; `lint:lifecycle` 284 modules, 10 allow-listed; `t287-worksite-command-execution` 8/8; `forward-command-contracts` 10/10; `m5-worker-transport` 21/21; `t287-owned-process-lifetime` 18/18; `t287-lifecycle-failure-carrier` 5/5 (`exec_check_G.log`, 2026-10-24); the activation's premise confirmed by a direct probe on this host (Node 24.7.0): a mode-755 file of non-program bytes, and a shebang-less text file, each make `spawn` throw `ENOEXEC` synchronously; `ENOTDIR` likewise; `ENOENT` arrives as the asynchronous error | accepted; `command_failed` stopped, Phase C |
+| 2026-10-24 | H | | | activated |
 
-Next: repair G (Worker running); then the review pass on G's commit.
+Next: repair H (Worker running); then the review pass on H's commit.
