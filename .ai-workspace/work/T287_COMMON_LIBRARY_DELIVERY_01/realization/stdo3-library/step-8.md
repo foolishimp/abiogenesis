@@ -2318,3 +2318,118 @@ Items, in this order. The Return carries one row per item: done or stopped, with
 **Stop:** any change to `isWorksiteCommandExecutionFailure`, to an event contract or payload key list, or to the Product failure value's classes; a validator loosened anywhere; a constructor that converts a hole instead of refusing it; a member added to a non-HTTP subject; a second bounded attempt at any item; any push.
 
 **Return contract.** One commit on `main`, no push. First line `Post-close repair F: forward ingress admission; helper failure subject bound to the next operation`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append `## Post-close repair return F` with: one row per item (done or stopped, lines at head); the lane results as `tests/pass/fail/skipped`; the broad-run table and attribution if run; the stop reports, if any, with the counterexample.
+
+## Post-close repair return F
+
+All five items landed; nothing stopped. The forward constructors admit their three caller arrays before any guard reads them, and a hole is their `TypeError`. The helper's failure subject is bound to the next undone operation of its completed prefix. The two HTTP subjects gained the member `predicate: { ordinal, predicateId }`, because the cleanup observation cannot name the declared request when the port was never observed. The broad run is attributed against E's log. Two departures from the activation's wording are named under item 2. `T` is `build_tenants/abiogenesis/typescript`; `W` is this directory.
+
+**Commit.** The commit carrying this Return, on `main` over `68960dc1c`, first line `Post-close repair F: forward ingress admission; helper failure subject bound to the next operation`. Not pushed; staged by path.
+
+| Item | State | Lines at head |
+|---|---|---|
+| 1, forward ingress admission | done | `T/code/src/product/worksite_command_forward.ts`: `admitIngress` `:119-122`; request constructor admission `:89`, guard `:100-105`, body `:108`; task constructor admission `:132`, guard `:135-149`, protected subjects `:152`, body `:159`; case `T/test_env/tests/forward-command-contracts.test.mjs:89` |
+| 2, failure subject bound to the next undone operation | done; one member added to the two HTTP subjects | `T/code/src/product/worksite_command_execution.ts`: type member `predicate` `:633`, `isHelperFailure` `:1837-1882`, failure branch `:1932`; `T/code/src/implementation/worksite_command_helper.ts`: parameter `:1042`, HTTP details `:1148`, `:1187`, call `:1271-1272`; C2 pin `T/code/src/gtl/worksite_command_execution.ts:37`, `:39`, `:61`; `T/contracts/worksite/command-execution-context.inventory.json`; case `T/test_env/tests/t287-worksite-command-execution.test.mjs:1187` |
+| 3, design records | done | `T/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` §9.3 item 4 `:574`, §10.3 O-TYPE `:611`, §10.6 row 6 `:654` |
+| 4, lanes and broad run | done | `W/step-8-run-postclose-f.log` |
+| 5, records | done; GOALS unchanged | ticket `### Library delivery close (2026-10-23)` `:5290-5292`, `:5303-5305`, O-TYPE `:5346`, P-LIFECYCLE `:5358`, baseline attribution `:5360`; `specification/GOALS.md` unchanged |
+
+**Item 1.** `admitIngress` returns the `admitJson` value or `undefined`. The request constructor admits `protectedObservations`; the task constructor admits `bindingCoverEventRefs` and `snapshotSources`. The existing guards then read the admitted values: non-empty, every element `text`, distinct, and the rows as before. Each row expression is unchanged inside `!(…)` of an `.every` type predicate, so the admitted vectors narrow without a cast (O-TYPE decision (I)). The rows compare against the admitted cover vector. `constructWorksiteCommandConfiguration` takes its protected subjects from the admitted rows, and the request body and task body carry the admitted values. A refusal is each constructor's existing `TypeError`. A dense input digests as before; the case checks `taskDigest` and `requestDigest` against the harness's carriers. A scratch probe on the head build, before the edit, gave this per mutation:
+
+| Mutation | Head build | After |
+|---|---|---|
+| `bindingCoverEventRefs = Array(1)` | `TypeError` (the row comparison: `[ref]` against `[]`) | `TypeError` at admission |
+| the sixth review's mutation (`Array(1)`, every row's retained vector `[]`) | returns a task that `isWorksiteCommandForwardTask` refuses | `TypeError` |
+| `snapshotSources = Array(1)` | `TypeError` (the length check) | `TypeError` |
+| `snapshotSources` with a hole at index 1 (length 2) | returns a refused task | `TypeError` |
+| `protectedObservations = Array(1)` | returns a request that `isWorksiteCommandForwardRequest` refuses | `TypeError` |
+| `protectedObservations` with a hole at index 1 | returns a refused request | `TypeError` |
+
+The new case (`:89`) asserts all six and the dense controls: the task and the request each validate directly and after a JSON round trip. Before the source edit the case failed at `:105` with `Missing expected exception (TypeError)`.
+
+**Item 2.** What the helper carries, read first:
+
+- `command_failed` carries `command`, which is `task.commands[ordinal]` (`T/code/src/implementation/worksite_command_helper.ts:739`), the declared command.
+- `command_cleanup_unresolved` carries `command: processObservation` (`:801`, `:821`). That is the process observation: the eight declared members `ordinal`, `commandId`, `executable`, `args`, `relativeCwd`, `environment`, `timeoutMs` and `terminationGraceMs`, then the exit, stream and termination members. It has no `kind`, `schemaVersion` or `expectedReports`.
+- `http_probe_failed` carries `request`, which is `record(declaration.request)` (`:1045`). That is the declared request `{ hostname, method, path, timeoutMs }`, the same whether or not the port was observed, and never `null`.
+- `http_cleanup_unresolved` carries `observation: probe`. Its `request` is `requestInput` (`:1126`): `{ hostname, port, method, path, timeoutMs }` once the port is observed, and `null` when it never was.
+
+So one HTTP carrier cannot name the declared request. The two HTTP subjects therefore gain `predicate: { ordinal, predicateId }`, added in the helper's two HTTP `detail` objects (`:1148`, `:1187`). `isHelperFailure` adds `predicate` to its exact keys for those two classes. The Product type `WorksiteCommandHelperFailure` gains it as an optional member (`:633`), so its type predicate stays true. No non-HTTP subject changed. `isWorksiteCommandExecutionFailure`, every event contract and payload key list, and the Product failure value's classes are unchanged.
+
+The binding (`T/code/src/product/worksite_command_execution.ts:1837-1882`) takes the two completed lengths from the failure branch (`:1932`), whose length bounds are unchanged.
+
+- **Command classes.** These require `predicateObservations.length === 0` and `task.commands[commandResults.length]` present. `command_failed`'s `command` must be canonically equal to that command (`sameAdmitted`).
+- **`command_cleanup_unresolved`.** Its `command` must equal that command in the eight declared members, as `assertWorksiteCommandVectors` binds a result to its declaration.
+- **HTTP classes.** These require `commandResults.length === task.commands.length`, and the next predicate `task.outcomePredicates[predicateObservations.length]` must exist and be an `http_response_exact`. `predicate` must be canonically equal to `{ ordinal, predicateId }` of that predicate.
+- **Declared-request members.** The members the carrier holds equal that predicate's. `http_probe_failed`'s `request` is canonically equal to `declaration.request`. `http_cleanup_unresolved`'s `observation.request` is `null`, or has exactly `hostname`, `method`, `path`, `port` and `timeoutMs`, the four declared members equal.
+
+Port never observed: the subject's `request` (`http_probe_failed`) is the declared request, and the cleanup subject's carrier is the probe record with `request: null`. The helper's own `constructWorksiteExecutionHelperArtifact` admits both, so no carrier changes; the scratch probe below confirms it.
+
+Parent, by reading: the completion runs `isWorksiteExecutionHelperArtifact(input, helperValue)` at `T/code/src/implementation/worksite_command_execution.ts:734`, before the acknowledgment binding and the disposition branch at `:761`. The validator reconstructs through the constructor, so the binding applies there and the parent is unchanged.
+
+Departures from the activation's wording, both named:
+
+- (a) "The `command` carrier is canonically equal to `task.commands[commandResults.length]`" holds for `command_failed` only. For `command_cleanup_unresolved`, the class of the installed whole-path case, the carrier is the process observation, so canonical equality would refuse the helper's own artifact. That subject binds through its declared members, the activation's binding through the carrier's members applied to the command class. No member was added.
+- (b) The throw sites in `runHttpProbe` have no predicate in scope. `runHttpProbe` takes it as a trailing parameter, default `null` (`:1042`), passed at its one call in `predicateObservation` (`:1271-1272`). These two lines are outside "the two HTTP `detail` objects". The default keeps `t287-owned-process-lifetime`'s direct three-argument calls (`:484`, `:537`, `:579`) as they were; their subjects carry no `predicate`, and those cases read only the message. Because the member is inside `detail`, the two HTTP stderr messages now include `predicate`. Repair D's byte-identical message no longer holds for the HTTP classes; the command messages are unchanged.
+
+C2 pin, from the built module: digest `sha256:3ec989dcea8228026258ea700f9646b0ab8875445ee1d157db6ba0573de234b7`, byte count 115830 (was 113506), span `105745-108177` (was `103421-105853`). The span digest `sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf` is unchanged: the 2324 inserted bytes precede the renderer, and the span occurs once. `npm run build` regenerated the inventory, `contracts/capabilities/capability-definition-graph.json` and `product-toolchain-manifest.json`.
+
+The case (`:1187`, appended after the file's last case so no cited line moves) runs 19 subjects through the exported constructor and validator. The tasks come from `constructWorksiteCommandExecutionTask` over the forward harness's component task, and the rows are synthetic, in the style of `forward-observation-carrier.mjs`. For each subject the case builds the artifact by hand with its digest and ref.
+
+- **Admitted (7).** The constructor returns exactly the hand-built artifact, which the validator accepts directly and after a JSON round trip:
+  - `command_failed` naming the next command, at `(0, 0)` and at `(1, 0)`
+  - `command_cleanup_unresolved` naming the next command
+  - `http_probe_failed` once commands complete, and the same with `process_exit` observed first
+  - `http_cleanup_unresolved` with the port never observed, and with it observed
+- **Refused (12).** The constructor throws `TypeError` and the validator refuses the hand-built artifact:
+  - the sixth review's probe as reported: one command, zero predicates, `http_probe_failed` with `request: {}`
+  - the same with a `predicate` member
+  - `command_failed` naming the other command
+  - `command_failed` naming a completed command
+  - `command_cleanup_unresolved` naming the other command
+  - `command_failed` with every command complete
+  - `http_probe_failed` with a command undone
+  - `http_cleanup_unresolved` with a command undone
+  - `http_probe_failed` where the next predicate is `process_exit`
+  - a foreign `predicateId`
+  - a foreign `request` path (`http_probe_failed`)
+  - a foreign `request` path (`http_cleanup_unresolved`)
+- **On the head build.** The review's probe, the three command negatives and "`command_failed`, every command complete" were constructed and validated. Every subject carrying `predicate` was refused by the exact keys, the member being new.
+
+Real-helper probe (scratch, outside the lanes). The built helper source was linked as a `SourceTextModule` with `predicateObservation` exported, over a task of one command and the predicates `[process_exit, http_response_exact]`. Three runs:
+
+- `http_cleanup_unresolved`, port never observed (`request: null`, port state `absent`), under a lifetime whose group probe answers `unknown`
+- `http_cleanup_unresolved`, port observed, under the same lifetime
+- `http_probe_failed`, an owner error after the port (`ERR_INVALID_HTTP_TOKEN`), under the real lifetime
+
+Each subject carries `predicate: { ordinal: 1, predicateId: "component:http" }`. With `attemptRef` set as `main` sets it, each constructs a `failure` artifact at the prefix (1 command, 1 predicate), which passes the validator after a JSON round trip. At the prefix (1, 0), where the next predicate is `process_exit`, the constructor refuses it.
+
+**Item 3.** §9.3 item 4 names `predicate` on the two HTTP classes and states the binding: a command class names `task.commands[commandResults.length]`, with no predicate observed and through the declared members for the cleanup observation; an HTTP class, with every command complete, names `task.outcomePredicates[predicateObservations.length]`, an `http_response_exact`, and its carrier's declared-request members equal that predicate's. It also states why the carriers alone cannot name the predicate. §10.3 O-TYPE gains the ingress sentence: a constructor admits a caller's typed array before an `.every`, `.some` or `Set` check reads it, and validates, compares and carries the admitted value. It names the forward module's two constructors as realized and TD-14 (`T-290`) for the class. §10.6 row 6 adds the binding clause and moves the HTTP helper lines to `:1191` and `:1152`; "no Product output contract changes" is kept.
+
+**Item 4.** `npm run build`, `npx tsc --noEmit -p tsconfig.json`, `lint:imports` (28 modules) and `lint:lifecycle` (284 modules, 10 allow-listed, no offender) pass. Item 2 changed the HTTP subjects' member set, so the 48-file run follows the named lanes, in E's shape and over E's file list (`W/step-8-run-postclose-f.log`).
+
+| Lane | tests/pass/fail/skipped |
+|---|---|
+| `forward-command-contracts` | 10/10/0/0 |
+| `forward-command-owners` | 6/2/4/0 (E's set) |
+| `t287-worksite-command-execution` | 6/6/0/0 (the success case 88.9 s; the helper-failure case 79.3 s) |
+| `t287-observed-worksite-command` | 8/7/1/0 (`:43`, E's set) |
+| `m5-worker-transport` | 21/21/0/0 |
+| `t287-runtime-failure-diagnostic` | 12/12/0/0 |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 |
+| `t287-reacquisition-root-contract` | 2/1/0/1 |
+
+| Run | Files | Tests | Pass | Fail | Cancelled | Skipped | Wall |
+|---|---|---|---|---|---|---|---|
+| F, 48 files, one invocation | 48 (25 red) | 347 | 272 | 54 | 2 | 19 | 1214 s |
+| E (`W/step-8-run-postclose-e.log`) | 48 (25 red) | 345 | 270 | 54 | 2 | 19 | 1224 s |
+
+Attribution compares failing tests by file and line, first error line and first test-file location. Each log has 56 failing identities; none appears only in F and none only in E. The two added tests account for the extra 2 tests and 2 passes, and both pass. The `t287-calculus-state-transfer` `:64` timeout recurs, with `identity_end` cancelled at `:70`. The installed cases of `t287-worksite-command-execution` stay at `:1144`/`:1151` and pass (89.0 s, 85.2 s). `test:uat:harness` gives 34 tests, 30 pass, 1 fail, 3 skip; the failure is the recorded `harness.test.mjs:471` budget (18025250 against 18015000). No `not JSON after projection` refusal occurs. The attribution is appended to the log.
+
+**Item 5.** The ticket subsection now points at this Return. It states the sixth review's two repairs in its opening paragraph. Its O-TYPE bullet carries the ingress admission with the case at `:89` and TD-14 for the class. Its P-LIFECYCLE bullet names `predicate` on the HTTP subjects and the binding, with the case at `:1187`. Its baseline attribution carries F's run. GOALS Current Selection does not name the forward fix, so it is unchanged. It still says the library is at the commit repair E records.
+
+**Residuals.**
+
+- `http_cleanup_unresolved`'s carrier is bound through its request only. The probe's `portFile`, `response` and `process` members are not compared with the declaration. `http_probe_failed`'s `request` is bound in full.
+- The command and HTTP failure classes other than `command_cleanup_unresolved` reach an artifact through the in-lane synthetic case and this Return's scratch probe. No installed case drives them (T-290 package G).
+- The design's §9.2 item 2 and 4 line citations in the helper and Product modules (`:1135`, `:1398`, `:1411`, `:1694`, `:1710`, `:1730`) did not name their fields at `68960dc1c` either. They are outside this grant and not restated.
+- `sameAdmittedRefs` still admits the row's retained vector, although the whole `snapshotSources` vector is now admitted at ingress. That is redundant but harmless, and is left as the constructor's existing call.

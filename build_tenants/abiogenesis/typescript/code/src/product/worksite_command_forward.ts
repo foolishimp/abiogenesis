@@ -85,6 +85,8 @@ const hash = (a: JsonValue) => sha256Canonical(a);
 const text = (v: unknown): v is string => typeof v === "string" && v.length > 0 && v.trim() === v && !v.includes("\0");
 export function constructWorksiteCommandForwardRequest(input: Omit<WorksiteCommandForwardRequest,"kind"|"schemaVersion"|"requestRef"|"requestDigest">): WorksiteCommandForwardRequest {
   const s = input.source;
+  // The caller's typed vector is admitted at ingress: a hole is refused, not read.
+  const observed = admitIngress(input.protectedObservations);
   if (!isRecord(s) || !hasExactKeys(s,["prefix","invocationRef","invocationAdmissionRef","runId","failedCCallRef","failureEventRef",
     "runFailureEventRef","constructionGraphCallRef","preparationResultEventRef","preparationJudgmentEventRef","declarationProof"]) ||
     !validateDurablePrefixCoordinate(s.prefix) || !isAbgHistoricalDeclarationProof(s.declarationProof) ||
@@ -95,15 +97,15 @@ export function constructWorksiteCommandForwardRequest(input: Omit<WorksiteComma
     input.capabilityGrant.scopeDigest !== input.workspaceBinding.bindingDigest ||
     !["invoke","start"].includes(input.capabilityGrant.definitionKey.memberKey) ||
     input.capabilityGrant.actorRef !== input.workspaceBinding.authorizedActorRef ||
-    !Array.isArray(input.protectedObservations) || input.protectedObservations.length === 0 ||
-    input.protectedObservations.some(row => !isRecord(row) || !hasExactKeys(row,["subject","observation"]) ||
+    !Array.isArray(observed) || observed.length === 0 ||
+    !observed.every((row): row is WorksiteCommandForwardRequest["protectedObservations"][number] => !(!isRecord(row) || !hasExactKeys(row,["subject","observation"]) ||
       !isWorksiteSubject(row.subject) || !isWorksiteObservation(row.observation) || row.observation.state !== "file" ||
       row.observation.subjectRef !== row.subject.subjectRef || row.observation.subjectDigest !== row.subject.subjectDigest ||
-      !canonicalEquals(constructWorksiteSubject({...input,subjectUri:row.subject.subjectUri,relativePath:row.subject.relativePath}), row.subject)) ||
-    new Set(input.protectedObservations.map(r=>r.subject.subjectRef)).size !== input.protectedObservations.length)
+      !canonicalEquals(constructWorksiteSubject({...input,subjectUri:row.subject.subjectUri,relativePath:row.subject.relativePath}), row.subject))) ||
+    new Set(observed.map(r=>r.subject.subjectRef)).size !== observed.length)
     throw new TypeError("forward request requires exact historical coordinates and a complete current A/W assertion vector");
   const body = {source:input.source,workspaceAuthorityBasis:input.workspaceAuthorityBasis,workspaceBinding:input.workspaceBinding,
-    capabilityGrant:input.capabilityGrant,protectedObservations:input.protectedObservations};
+    capabilityGrant:input.capabilityGrant,protectedObservations:observed};
   const requestDigest=hash(body);
   return deepFreeze({kind:"worksite_command_forward_request",schemaVersion:"5.0.0",
     requestRef:`worksite-command-forward-request://abiogenesis/${requestDigest.slice(7)}`,requestDigest,...body});
@@ -113,6 +115,11 @@ export function isWorksiteCommandForwardRequest(value: unknown): value is Worksi
     !hasExactKeys(value,["kind","schemaVersion","requestRef","requestDigest","source","workspaceAuthorityBasis","workspaceBinding","capabilityGrant","protectedObservations"]))return false;
   try{const admitted=admitJson(value);return admitted.kind==="ok"&&canonicalEquals(admitted.value, constructWorksiteCommandForwardRequest(value as unknown as WorksiteCommandForwardRequest));}catch{return false;}
 }
+/** A caller's typed array is admitted before any check reads it; a refusal is `undefined`, which no guard accepts. */
+function admitIngress(value:unknown):JsonValue|undefined {
+  const outcome=admitJson(value);
+  return outcome.kind==="ok"?outcome.value:undefined;
+}
 /** The retained source's cover vector is unchecked: admitted, then compared canonically; a refusal is a mismatch. */
 function sameAdmittedRefs(candidate:unknown,refs:readonly string[]):boolean {
   const admitted=admitJson(candidate);
@@ -120,15 +127,17 @@ function sameAdmittedRefs(candidate:unknown,refs:readonly string[]):boolean {
 }
 export function constructWorksiteCommandForwardTask(input: Readonly<{request:WorksiteCommandForwardRequest;originalTask:WorksiteCommandExecutionTask;
   snapshotSources:readonly WorksiteCommandForwardSnapshotSource[];bindingCoverEventRefs:readonly string[]}>): WorksiteCommandForwardTask {
-  const {request,originalTask,snapshotSources,bindingCoverEventRefs}=input;
+  const {request,originalTask}=input;
+  // The caller's typed vectors are admitted at ingress: a hole is refused, not read.
+  const bindingCoverEventRefs=admitIngress(input.bindingCoverEventRefs),snapshotSources=admitIngress(input.snapshotSources);
   if(!isWorksiteCommandForwardRequest(request)||!isWorksiteCommandExecutionTask(originalTask)||
     !canonicalEquals(request.workspaceAuthorityBasis, originalTask.workspaceAuthorityBasis)||
     !Array.isArray(bindingCoverEventRefs)||bindingCoverEventRefs.length===0||!bindingCoverEventRefs.every(text)||
     new Set(bindingCoverEventRefs).size!==bindingCoverEventRefs.length||
     !Array.isArray(snapshotSources)||snapshotSources.length!==originalTask.sourceConstructionResult.members.length||
-    snapshotSources.length!==request.protectedObservations.length||snapshotSources.some((row,i)=>{
+    snapshotSources.length!==request.protectedObservations.length||!snapshotSources.every((row,i):row is WorksiteCommandForwardSnapshotSource=>{
       const old=originalTask.protectedObservations[i],current=request.protectedObservations[i];
-      return !isRecord(row)||!hasExactKeys(row,["sourceMemberRef","subject","observation","source"])||old===undefined||current===undefined||
+      return !(!isRecord(row)||!hasExactKeys(row,["sourceMemberRef","subject","observation","source"])||old===undefined||current===undefined||
         !isWorksiteSubject(row.subject)||!isWorksiteObservation(row.observation)||row.observation.state!=="file"||
         row.sourceMemberRef!==old.sourceMemberRef||!canonicalEquals({subject:row.subject,observation:row.observation}, current)||
         row.subject.subjectUri!==old.subject.subjectUri||row.subject.relativePath!==old.subject.relativePath||
@@ -136,7 +145,7 @@ export function constructWorksiteCommandForwardTask(input: Readonly<{request:Wor
         row.observation.byteLength!==old.observation.byteLength||!isRecord(row.source)||
         !hasExactKeys(row.source,["kind","resultAdmissionEventRef","evidenceEventRef","bindingCoverEventRefs"])||
         row.source.kind!=="retained_construction"||!text(row.source.resultAdmissionEventRef)||!text(row.source.evidenceEventRef)||
-        !sameAdmittedRefs(row.source.bindingCoverEventRefs,bindingCoverEventRefs);
+        !sameAdmittedRefs(row.source.bindingCoverEventRefs,bindingCoverEventRefs));
     }))throw new TypeError("forward task requires the complete unchanged construction vector and explicit native proof coordinates");
   const configuration=constructWorksiteCommandConfiguration({...request,commands:originalTask.commands,
     outcomePredicates:originalTask.outcomePredicates,allowedWriteTerritories:originalTask.allowedWriteTerritories,

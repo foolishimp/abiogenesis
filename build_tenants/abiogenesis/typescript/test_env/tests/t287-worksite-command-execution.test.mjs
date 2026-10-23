@@ -1177,3 +1177,113 @@ test('C2 complete cleanup budget displays per-operation drain and strict enclosi
     assert.equal(fits(required, { inactivityTimeoutMs: required + 2, absoluteTimeoutMs: required + 1 }), false);
   }
 });
+
+// A failure artifact's subject names the next undone operation of its completed
+// prefix: a command class the next command, with no predicate observed; an HTTP
+// class, once every command is complete, the next predicate, which is an
+// `http_response_exact`, through `predicate`, with any declared-request members
+// it carries equal to that predicate's. The rows are synthetic, in the style of
+// `forward-observation-carrier.mjs`; constructor and validator are the Product's.
+test("C2 helper failure subject is bound to the next undone operation of the completed prefix", async () => {
+  const { product, componentSource } = await import("../support/forward-command-harness.mjs");
+  const { originalTask } = componentSource();
+  const declared = (commandId) => ({ commandId, executable: "/usr/bin/true", args: [], relativeCwd: ".", environment: {},
+    timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] });
+  const exit = { predicateId: "component:exit", predicateKind: "process_exit",
+    declaration: { validationCommandId: "component:command", equals: 0 } };
+  const http = { predicateId: "component:http", predicateKind: "http_response_exact", declaration: {
+    validationCommandId: "component:command", status: 200, body: "ok",
+    launch: { executable: "/usr/bin/true", args: [product.WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder],
+      environment: {}, relativeCwd: ".", portFile: { relativePath: "evidence/port.txt" }, timeoutMs: 1000, terminationGraceMs: 100 },
+    request: { hostname: "127.0.0.1", method: "GET", path: "/", timeoutMs: 100 } } };
+  const taskOf = (commands, outcomePredicates) => product.constructWorksiteCommandExecutionTask({ ...originalTask,
+    commands: commands.map(declared), outcomePredicates });
+  const oneCommand = taskOf(["component:command"], []), twoCommands = taskOf(["component:command", "component:second"], []);
+  const httpOnly = taskOf(["component:command"], [http]), exitThenHttp = taskOf(["component:command"], [exit, http]);
+  const empty = { kind: "worksite_observed_stream", schemaVersion: "5.0.0", encoding: "base64", payload: "", byteLength: 0,
+    digest: product.sha256Bytes(Buffer.alloc(0)) };
+  const identity = (prefix, digest) => `${prefix}/${digest.slice(7)}`;
+  const processOf = (command) => ({ ordinal: command.ordinal, commandId: command.commandId, executable: command.executable,
+    args: command.args, relativeCwd: command.relativeCwd, environment: command.environment, timeoutMs: command.timeoutMs,
+    terminationGraceMs: command.terminationGraceMs });
+  const resultOf = (command) => {
+    const body = { ...processOf(command), exitStatus: 0, timedOut: false, processSignal: null, signalSequence: [],
+      terminationConfirmed: true, stdout: empty, stderr: empty, reports: [], reportCount: 0 };
+    const observationDigest = product.sha256Canonical(body);
+    return { kind: "worksite_command_result", schemaVersion: "5.0.0", ...body, observationDigest,
+      observationRef: identity("worksite-command-observation://abiogenesis", observationDigest) };
+  };
+  const subject = (task, failureClass, member) => ({ failureClass, taskRef: task.taskRef, taskDigest: task.taskDigest,
+    attemptRef: "synthetic-unadmitted:attempt", ...member, diagnostic: { name: "TypeError", message: "synthetic failure after launch" },
+    processFacts: { directExit: { status: 0, signal: null }, scopeAbsence: "unknown" } });
+  const named = (task, ordinal) => ({ predicate: { ordinal, predicateId: task.outcomePredicates[ordinal].predicateId } });
+  const commandFailed = (task, ordinal) => subject(task, "command_failed", { command: task.commands[ordinal] });
+  const commandCleanup = (task, ordinal) => subject(task, "command_cleanup_unresolved", { command: {
+    ...processOf(task.commands[ordinal]), exitStatus: 0, timedOut: false, processSignal: null, signalSequence: [],
+    terminationConfirmed: false, stdout: empty, stderr: empty } });
+  const httpProbe = (task, ordinal, request = task.outcomePredicates[ordinal].declaration.request) =>
+    subject(task, "http_probe_failed", { ...named(task, ordinal), request });
+  const httpCleanup = (task, ordinal, request = null) => subject(task, "http_cleanup_unresolved", { ...named(task, ordinal),
+    observation: { request, portFile: { relativePath: "evidence/port.txt", port: request?.port ?? null,
+      state: request === null ? "absent" : "observed", issue: request === null ? "port_file_timeout" : null, byteLength: null, digest: null },
+    response: null, process: { exitStatus: 0, processSignal: null, timedOut: false, signalSequence: [], terminationConfirmed: false,
+      stdout: empty, stderr: empty } } });
+  // The artifact as the constructor would build it, with its digest, for the validator alone.
+  const artifactOf = (task, failure, commandsDone, predicatesDone) => {
+    const sources = product.executableWorksiteCommandSources(task);
+    const snapshotMembers = sources.map((source, ordinal) => ({ kind: "worksite_snapshot_member", schemaVersion: "5.0.0", ordinal,
+      sourceMemberRef: source.sourceMemberRef, sourceObservationRef: source.observation.observationRef,
+      sourceObservationDigest: source.observation.observationDigest, relativePath: source.subject.relativePath,
+      byteLength: source.observation.byteLength, digest: source.observation.fileDigest }));
+    const snapshotDigest = product.sha256Canonical(snapshotMembers);
+    const body = { taskRef: task.taskRef, taskDigest: task.taskDigest, disposition: "failure",
+      commandResults: task.commands.slice(0, commandsDone).map(resultOf),
+      predicateObservations: task.outcomePredicates.slice(0, predicatesDone).map((row) => ({ kind: "worksite_predicate_observation",
+        schemaVersion: "5.0.0", ordinal: row.ordinal, predicateId: row.predicateId, predicateKind: row.predicateKind,
+        observedValue: 0, evidence: [], evidenceRefs: [] })),
+      worksiteDelta: [], productDelta: [], snapshotRoot: "/component/forward/sandbox",
+      snapshotRef: identity(product.executableWorksiteCommandIdentityPrefix(task, "snapshot"), snapshotDigest), snapshotDigest,
+      snapshotMembers, protectedBefore: sources.map((row) => row.observation), protectedAfter: sources.map((row) => row.observation),
+      failure };
+    const artifactDigest = product.sha256Canonical(body);
+    return { kind: "worksite_command_helper_artifact", schemaVersion: "5.0.0",
+      artifactRef: identity("worksite-command-helper-artifact://abiogenesis", artifactDigest), artifactDigest, ...body };
+  };
+  const cases = [
+    // The sixth review's probe, as reported and with a predicate member: no predicate is declared.
+    ["review probe: http_probe_failed, request {}, no predicate", oneCommand, subject(oneCommand, "http_probe_failed", { request: {} }), 0, 0, false],
+    ["review probe with a predicate member", oneCommand, subject(oneCommand, "http_probe_failed",
+      { predicate: { ordinal: 0, predicateId: "component:http" }, request: http.declaration.request }), 1, 0, false],
+    ["command_failed, the next command", twoCommands, commandFailed(twoCommands, 0), 0, 0, true],
+    ["command_failed, a command other than the next", twoCommands, commandFailed(twoCommands, 1), 0, 0, false],
+    ["command_failed, a completed command", twoCommands, commandFailed(twoCommands, 0), 1, 0, false],
+    ["command_failed, the next command after one completed", twoCommands, commandFailed(twoCommands, 1), 1, 0, true],
+    ["command_cleanup_unresolved, the next command", twoCommands, commandCleanup(twoCommands, 0), 0, 0, true],
+    ["command_cleanup_unresolved, a command other than the next", twoCommands, commandCleanup(twoCommands, 1), 0, 0, false],
+    ["command_failed, every command complete", exitThenHttp, commandFailed(exitThenHttp, 0), 1, 1, false],
+    ["http_probe_failed, a command still undone", httpOnly, httpProbe(httpOnly, 0), 0, 0, false],
+    ["http_probe_failed, commands complete", httpOnly, httpProbe(httpOnly, 0), 1, 0, true],
+    ["http_cleanup_unresolved, a command still undone", httpOnly, httpCleanup(httpOnly, 0), 0, 0, false],
+    ["http_cleanup_unresolved, port never observed", httpOnly, httpCleanup(httpOnly, 0), 1, 0, true],
+    ["http_cleanup_unresolved, port observed", httpOnly, httpCleanup(httpOnly, 0, { ...http.declaration.request, port: 4000 }), 1, 0, true],
+    ["http_cleanup_unresolved, a foreign request", httpOnly, httpCleanup(httpOnly, 0, { ...http.declaration.request, path: "/other", port: 4000 }), 1, 0, false],
+    ["http_probe_failed, the next predicate is process_exit", exitThenHttp, httpProbe(exitThenHttp, 1), 1, 0, false],
+    ["http_probe_failed, the next predicate", exitThenHttp, httpProbe(exitThenHttp, 1), 1, 1, true],
+    ["http_probe_failed, a foreign predicate id", httpOnly, { ...httpProbe(httpOnly, 0), predicate: { ordinal: 0, predicateId: "component:other" } }, 1, 0, false],
+    ["http_probe_failed, a foreign request", httpOnly, httpProbe(httpOnly, 0, { ...http.declaration.request, path: "/other" }), 1, 0, false],
+  ];
+  for (const [label, task, failure, commandsDone, predicatesDone, admitted] of cases) {
+    const artifact = artifactOf(task, failure, commandsDone, predicatesDone);
+    const construct = () => product.constructWorksiteExecutionHelperArtifact({ task, disposition: "failure", failure,
+      ...Object.fromEntries(["commandResults", "predicateObservations", "worksiteDelta", "productDelta", "snapshotRoot", "snapshotRef",
+        "snapshotDigest", "snapshotMembers", "protectedBefore", "protectedAfter"].map((key) => [key, artifact[key]])) });
+    if (admitted) {
+      assert.deepEqual(construct(), artifact, label);
+      assert.equal(product.isWorksiteExecutionHelperArtifact(task, artifact), true, label);
+      assert.equal(product.isWorksiteExecutionHelperArtifact(task, JSON.parse(product.canonicalJson(artifact))), true, label);
+    } else {
+      assert.throws(construct, TypeError, label);
+      assert.equal(product.isWorksiteExecutionHelperArtifact(task, artifact), false, label);
+    }
+  }
+});

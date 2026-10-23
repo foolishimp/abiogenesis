@@ -86,6 +86,36 @@ test('a sparse retained bindingCoverEventRefs throws at the real Product constru
   assert.throws(()=>p.constructWorksiteCommandForwardTask(input(sparse)),TypeError);
 });
 
+test('the forward constructors admit their three array inputs at ingress: a one-hole vector throws; the dense controls validate and round-trip',()=>{
+  const task=carrierTask();
+  const input=t=>({request:t.request,originalTask:t.originalTask,snapshotSources:t.snapshotSources,bindingCoverEventRefs:t.bindingCoverEventRefs});
+  const requestInput=r=>({source:r.source,workspaceAuthorityBasis:r.workspaceAuthorityBasis,workspaceBinding:r.workspaceBinding,
+    capabilityGrant:r.capabilityGrant,protectedObservations:r.protectedObservations});
+  const dense=p.constructWorksiteCommandForwardTask(input(structuredClone(task)));
+  assert.equal(dense.taskDigest,task.taskDigest);assert.equal(p.isWorksiteCommandForwardTask(dense),true);
+  assert.equal(p.isWorksiteCommandForwardTask(JSON.parse(p.canonicalJson(dense))),true);
+  const denseRequest=p.constructWorksiteCommandForwardRequest(requestInput(structuredClone(task.request)));
+  assert.equal(denseRequest.requestDigest,task.request.requestDigest);assert.equal(p.isWorksiteCommandForwardRequest(denseRequest),true);
+  assert.equal(p.isWorksiteCommandForwardRequest(JSON.parse(p.canonicalJson(denseRequest))),true);
+  const hole=t=>t.length===2&&!(1 in t);
+  // bindingCoverEventRefs: Array(1), and the sixth review's mutation (every row's retained vector empty).
+  for(const mutate of [t=>{t.bindingCoverEventRefs=Array(1);},
+    t=>{t.bindingCoverEventRefs=Array(1);for(const row of t.snapshotSources)row.source.bindingCoverEventRefs=[];}]){
+    const bad=structuredClone(task);mutate(bad);assert.equal(0 in bad.bindingCoverEventRefs,false);
+    assert.throws(()=>p.constructWorksiteCommandForwardTask(input(bad)),TypeError);
+  }
+  // snapshotSources: Array(1), and a length-matched vector with one hole.
+  for(const mutate of [t=>{t.snapshotSources=Array(1);},t=>{delete t.snapshotSources[1];assert.ok(hole(t.snapshotSources));}]){
+    const bad=structuredClone(task);mutate(bad);
+    assert.throws(()=>p.constructWorksiteCommandForwardTask(input(bad)),TypeError);
+  }
+  // protectedObservations: Array(1), and a length-matched vector with one hole.
+  for(const mutate of [r=>{r.protectedObservations=Array(1);},r=>{delete r.protectedObservations[1];assert.ok(hole(r.protectedObservations));}]){
+    const bad=structuredClone(task.request);mutate(bad);
+    assert.throws(()=>p.constructWorksiteCommandForwardRequest(requestInput(bad)),TypeError);
+  }
+});
+
 test('real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm',()=>{
   const task=carrierTask(),row=observationFor(task,1),contracts=semantics.resolveProbabilisticWorkerContracts({
     inputContractRef:F.taskContractRef,outputContractRef:F.observationContractRef,input:task});
