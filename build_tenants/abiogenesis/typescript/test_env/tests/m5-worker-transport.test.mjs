@@ -22,6 +22,9 @@ import { isNativeWorkerResultAssessment } from "../../build/code/src/abg/transpo
 import { nativeWorkspaceWorkReportSchema } from "../../build/code/src/product/native_workspace_work.js";
 import { parseNativeWorkspaceAssessmentResult } from "../../build/code/src/product/native_workspace_assessment.js";
 import { createWorkerTransportOutputObserver } from "../../build/code/src/abg/worker_transport.js";
+import { deepFreeze, isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
+import { admitIJsonText } from "../../build/code/src/shared/i_json.js";
+import { isRecord } from "../../build/code/src/shared/admit/index.js";
 
 function assertClaudeProtocol(args) {
   for (const [flag, value] of [
@@ -1110,4 +1113,311 @@ test('M5 an actual early stdin close rejects EPIPE after cleanup and leaves the 
   assert.equal(observed.finalized.firstError.code, 'EPIPE'); assert.equal(observed.finalized.noChildEstablished, false);
   assert.doesNotMatch(stderr, /Unhandled 'error' event/u);
   assert.equal(await optionalJson('archive/stdin-error-transport.json'), null, 'no fabricated transport result');
+});
+
+// TD-11: the head observer, transcribed from code/src/abg/worker_transport.ts
+// at d826dd0fc (:154-210, :239-352). It is the reference for the incremental
+// tool projection: every cut rebuilds the unique rows from all raw rows, with
+// one `find` over the unique rows so far for each raw row.
+function headToolUseIdentityInput(toolName, input) {
+  if (toolName !== "Bash") return input;
+  if (!isRecord(input)) throw new TypeError("Bash tool input must be one object");
+  const record = input;
+  if (!Object.hasOwn(record, "command") || typeof record.command !== "string") {
+    throw new TypeError("Bash tool input must carry one exact command string");
+  }
+  if (Object.hasOwn(record, "description") && typeof record.description !== "string") {
+    throw new TypeError("Bash tool input description must be a string when present");
+  }
+  return Object.fromEntries(Object.entries(record).filter(([key]) => key !== "description"));
+}
+function headCollectToolUses(value, structuredOutputExpected, rows) {
+  if (Array.isArray(value)) {
+    for (const entry of value) headCollectToolUses(entry, structuredOutputExpected, rows);
+    return;
+  }
+  if (!isRecord(value)) return;
+  const record = value;
+  const protocolStructuredOutput = structuredOutputExpected &&
+    record.type === "tool_use" && record.name === "StructuredOutput";
+  if (record.type === "tool_use" && !protocolStructuredOutput &&
+    typeof record.id === "string" && record.id.length > 0 &&
+    typeof record.name === "string" && record.name.length > 0 &&
+    Object.hasOwn(record, "input") && record.input !== undefined) {
+    try {
+      const inputBytes = Buffer.from(canonicalJson(headToolUseIdentityInput(record.name, record.input)), "utf8");
+      rows.push(deepFreeze({
+        kind: "worker_tool_invocation_evidence", schemaVersion: "5.0.0", ordinal: rows.length,
+        toolUseRef: record.id, toolName: record.name, inputDigest: sha256Bytes(inputBytes), inputByteLength: inputBytes.byteLength,
+      }));
+    } catch { /* counted, not evidenced */ }
+  }
+  for (const entry of Object.values(record)) headCollectToolUses(entry, structuredOutputExpected, rows);
+}
+function headCountToolUses(value, structuredOutputExpected) {
+  if (Array.isArray(value)) return value.reduce((count, entry) => count + headCountToolUses(entry, structuredOutputExpected), 0);
+  if (typeof value !== "object" || value === null) return 0;
+  const record = value;
+  const protocolStructuredOutput = structuredOutputExpected && record.type === "tool_use" && record.name === "StructuredOutput";
+  const current = record.type === "tool_use" && !protocolStructuredOutput ? 1 : 0;
+  return Object.values(record).reduce((count, entry) => count + headCountToolUses(entry, structuredOutputExpected), current);
+}
+function headWorkerTransportOutputObserver(structuredOutputExpected) {
+  let pending = "";
+  let structuredEventCount = 0;
+  let finalOutput = "";
+  let progressEventCount = 0;
+  let rawToolCallCount = 0;
+  const rawToolInvocations = [];
+  let apiRetryCount = 0;
+  const observeLine = (line) => {
+    if (line.trim().length === 0) return;
+    let value;
+    try { value = JSON.parse(line); } catch { return; }
+    structuredEventCount += 1;
+    if (typeof value !== "object" || value === null || Array.isArray(value)) return;
+    const record = value;
+    const retry = record.type === "api_retry" || record.type === "system" && record.subtype === "api_retry";
+    if (retry) { apiRetryCount += 1; return; }
+    const streamEvent = record.type === "stream_event" && typeof record.event === "object" && record.event !== null
+      ? record.event : null;
+    const reportedThinking = record.type === "system" && record.subtype === "thinking_tokens" &&
+      typeof record.estimated_tokens_delta === "number" && record.estimated_tokens_delta > 0;
+    if (record.type === "assistant" || record.type === "user" || record.type === "tool_progress" || reportedThinking ||
+        streamEvent !== null && ["message_start", "content_block_start", "content_block_delta",
+          "content_block_stop", "message_delta", "message_stop"].includes(String(streamEvent.type))) progressEventCount += 1;
+    if (record.type !== "stream_event") {
+      rawToolCallCount += headCountToolUses(record, structuredOutputExpected);
+      headCollectToolUses(value, structuredOutputExpected, rawToolInvocations);
+    }
+    if (record.type === "result") {
+      if (structuredOutputExpected) {
+        finalOutput = "";
+        if (record.subtype !== "success" || record.is_error !== false) return;
+        try {
+          const admitted = admitIJsonText(line, "worker structured result");
+          if (isRecord(admitted) && Object.hasOwn(admitted, "structured_output")) {
+            finalOutput = canonicalJson(admitted.structured_output);
+          }
+        } catch { /* raw stream retained */ }
+      } else if (typeof record.result === "string") {
+        finalOutput = record.result;
+      }
+    }
+  };
+  const snapshot = () => {
+    const toolInvocations = [];
+    let conflictingToolUseRef = false;
+    for (const row of rawToolInvocations) {
+      const prior = toolInvocations.find((candidate) => candidate.toolUseRef === row.toolUseRef);
+      if (prior === undefined) {
+        toolInvocations.push(deepFreeze({ ...row, ordinal: toolInvocations.length }));
+      } else if (prior.toolName !== row.toolName || prior.inputDigest !== row.inputDigest ||
+        prior.inputByteLength !== row.inputByteLength) {
+        conflictingToolUseRef = true;
+      }
+    }
+    const unevidencedToolUse = rawToolCallCount > rawToolInvocations.length;
+    return {
+      structuredEventCount,
+      progressEventCount,
+      toolCallCount: conflictingToolUseRef || unevidencedToolUse ? toolInvocations.length + 1 : toolInvocations.length,
+      toolInvocations: deepFreeze(toolInvocations),
+      apiRetryCount,
+      finalOutput,
+    };
+  };
+  return {
+    observe(chunk) {
+      pending += chunk;
+      let newline;
+      while ((newline = pending.indexOf("\n")) !== -1) {
+        observeLine(pending.slice(0, newline));
+        pending = pending.slice(newline + 1);
+      }
+      return snapshot();
+    },
+    finish() { observeLine(pending); pending = ""; return snapshot(); },
+  };
+}
+
+const td11Tool = (id, name, input) => ({ type: "tool_use", ...(id === undefined ? {} : { id }), name,
+  ...(input === undefined ? {} : { input }) });
+const td11Assistant = (...content) => JSON.stringify({ type: "assistant", message: { content } });
+// Rows every TD-11 stream shares: retries (one carrying a nested tool_use),
+// thinking progress, partial stream tool blocks, two tool_use blocks in one
+// line, a non-BMP character, an equal duplicate, a Bash duplicate differing
+// only in description, StructuredOutput, malformed, blank and non-object rows,
+// a failed result carrying a nested tool_use, and a successful result with
+// structured_output.
+const TD11_COMMON = [
+  JSON.stringify({ type: "system", subtype: "init" }),
+  JSON.stringify({ type: "system", subtype: "api_retry", attempt: 1, nested: td11Tool("toolu_retry", "Read", { path: "r" }) }),
+  JSON.stringify({ type: "api_retry" }),
+  JSON.stringify({ type: "system", subtype: "thinking_tokens", estimated_tokens: 9, estimated_tokens_delta: 5 }),
+  JSON.stringify({ type: "stream_event", event: { type: "content_block_start", content_block: td11Tool("toolu_a", "Read", {}) } }),
+  JSON.stringify({ type: "stream_event", event: { type: "content_block_delta", delta: { type: "input_json_delta", partial_json: '{"path":"α' } } }),
+  td11Assistant(td11Tool("toolu_a", "Read", { path: "α.txt" }), td11Tool("toolu_b", "Bash", { command: "ls", description: "list" })),
+  JSON.stringify({ type: "user", message: { content: [{ type: "tool_result", tool_use_id: "toolu_a", content: [{ type: "text", text: "ok 😀" }] }] } }),
+  td11Assistant(td11Tool("toolu_a", "Read", { path: "α.txt" })),
+  td11Assistant(td11Tool("toolu_b", "Bash", { description: "other words", command: "ls" })),
+  td11Assistant(td11Tool("toolu_so", "StructuredOutput", { kind: "bounded_verdict", count: 0 })),
+  "not json {",
+  "",
+  "   ",
+  JSON.stringify([1, 2]),
+  JSON.stringify("text"),
+  JSON.stringify({ type: "result", subtype: "error_max_turns", is_error: true, nested: [td11Tool("toolu_failed", "Read", { path: "f" })] }),
+  JSON.stringify({ type: "result", subtype: "success", is_error: false, result: "interim", structured_output: { kind: "bounded_verdict", count: 1 } }),
+];
+const TD11_STREAMS = {
+  // Equal and differing duplicates: a differing input, then a differing name.
+  conflict: [...TD11_COMMON,
+    td11Assistant(td11Tool("toolu_c", "Edit", { path: "c", text: "one" })),
+    td11Assistant(td11Tool("toolu_c", "Edit", { path: "c", text: "two" })),
+    td11Assistant(td11Tool("toolu_d", "Read", { path: "d" }), td11Tool("toolu_d", "Write", { path: "d" })),
+    JSON.stringify({ type: "result", subtype: "success", is_error: false, result: "final α" }),
+  ].join("\n") + "\n",
+  // A tool_use without an id, Bash without a command, a tool_use without input;
+  // the final successful result is a partial line that only `finish` drains.
+  unevidenced: [...TD11_COMMON,
+    td11Assistant(td11Tool(undefined, "Read", { path: "x" })),
+    td11Assistant(td11Tool("toolu_e", "Bash", { description: "no command" })),
+    td11Assistant(td11Tool("toolu_f", "Read")),
+    td11Assistant(td11Tool("toolu_g", "Glob", { pattern: "*" })),
+    JSON.stringify({ type: "result", subtype: "success", is_error: false, result: "final β", structured_output: { kind: "bounded_verdict", count: 2 } }),
+  ].join("\n"),
+  // Neither rule: only first-seen rows and equal duplicates; final partial line.
+  plain: [...TD11_COMMON, td11Assistant(td11Tool("toolu_h", "Read", { path: "h" })),
+    JSON.stringify({ type: "result", subtype: "success", is_error: false, result: "final γ" })].join("\n"),
+};
+function td11SameCut(actual, expected, where) {
+  assert.equal(JSON.stringify(actual), JSON.stringify(expected), where);
+  assert.deepStrictEqual(actual, expected, where);
+  assert.equal(Object.isFrozen(actual), Object.isFrozen(expected), where);
+  assert.equal(isDeeplyFrozen(actual.toolInvocations), true, where);
+  assert.equal(isDeeplyFrozen(expected.toolInvocations), true, where);
+}
+function td11Splits(text) {
+  const splits = [];
+  for (let width = 1; width <= text.length; width += 1) {
+    const chunks = [];
+    for (let index = 0; index < text.length; index += width) chunks.push(text.slice(index, index + width));
+    splits.push([`width ${width}`, chunks]);
+  }
+  for (let seed = 1; seed <= 16; seed += 1) {
+    let state = seed * 2654435761 >>> 0;
+    const next = () => (state = (Math.imul(state, 1664525) + 1013904223) >>> 0);
+    const chunks = [];
+    for (let index = 0; index < text.length;) {
+      const width = 1 + next() % (next() % 2 === 0 ? 7 : 300);
+      chunks.push(text.slice(index, index + width)); index += width;
+    }
+    splits.push([`seed ${seed}`, chunks]);
+  }
+  return splits;
+}
+
+test("TD-11: the incremental tool projection equals the head projection at every cut", () => {
+  for (const [name, text] of Object.entries(TD11_STREAMS)) {
+    for (const requested of [true, false]) {
+      const head = headWorkerTransportOutputObserver(requested);
+      head.observe(text);
+      const expectedFinal = head.finish();
+      for (const [split, chunks] of td11Splits(text)) {
+        const where = `${name} requested=${requested} ${split}`;
+        const reference = headWorkerTransportOutputObserver(requested);
+        const observer = createWorkerTransportOutputObserver(requested);
+        const retained = [];
+        chunks.forEach((chunk, index) => {
+          const pair = [observer.observe(chunk), reference.observe(chunk)];
+          td11SameCut(...pair, `${where} chunk ${index}`);
+          retained.push(pair);
+        });
+        const pair = [observer.finish(), reference.finish()];
+        td11SameCut(...pair, `${where} finish`);
+        td11SameCut(pair[0], expectedFinal, `${where} finish against one whole chunk`);
+        retained.push(pair);
+        // A snapshot read later is the value it had at its cut.
+        retained.forEach(([actual, expected], index) => td11SameCut(actual, expected, `${where} retained ${index}`));
+      }
+      const refs = expectedFinal.toolInvocations.map(row => row.toolUseRef);
+      assert.deepEqual(expectedFinal.toolInvocations.map(row => row.ordinal), refs.map((_, ordinal) => ordinal));
+      assert.equal(refs.includes("toolu_retry"), false, "a retry row admits no tool evidence");
+      assert.equal(refs.includes("toolu_so"), !requested, "StructuredOutput is protocol only when structured output is expected");
+      assert.equal(refs.includes("toolu_failed"), true, "a failed result row still carries its complete tool_use");
+      assert.equal(expectedFinal.apiRetryCount, 2);
+      assert.equal(expectedFinal.toolCallCount, expectedFinal.toolInvocations.length + (name === "plain" ? 0 : 1), `${name} +1 rule`);
+    }
+  }
+  const finalOf = (text, requested) => { const observer = createWorkerTransportOutputObserver(requested); observer.observe(text); return observer.finish(); };
+  assert.deepEqual(finalOf(TD11_STREAMS.conflict, true).toolInvocations.map(row => row.toolUseRef),
+    ["toolu_a", "toolu_b", "toolu_failed", "toolu_c", "toolu_d"]);
+  assert.equal(finalOf(TD11_STREAMS.conflict, false).finalOutput, "final α");
+  assert.equal(finalOf(TD11_STREAMS.unevidenced, true).finalOutput, canonicalJson({ kind: "bounded_verdict", count: 2 }));
+  assert.equal(finalOf(TD11_STREAMS.plain, true).finalOutput, "", "a final success without structured_output selects nothing");
+  assert.equal(finalOf(TD11_STREAMS.plain, false).finalOutput, "final γ");
+});
+
+// TD-11 counter. Old-row visits during one `observe`: each callback call of
+// an Array search over tool evidence rows (the head `find` comparison), and
+// each Map lookup of a TD-11 tool ref (the incremental first-seen check).
+test("TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N", t => {
+  const PREFIX = "toolu_td11_";
+  let visits = 0;
+  const spied = [];
+  const arm = () => {
+    for (const name of ["find", "findIndex", "findLast", "findLastIndex", "some", "every", "filter"]) {
+      const original = Array.prototype[name];
+      spied.push([Array.prototype, name, original]);
+      Array.prototype[name] = function (callback, self) {
+        return original.call(this, function (element, ...rest) {
+          if (element !== null && typeof element === "object" && element.kind === "worker_tool_invocation_evidence") visits += 1;
+          return callback.call(self, element, ...rest);
+        });
+      };
+    }
+    for (const name of ["get", "has"]) {
+      const original = Map.prototype[name];
+      spied.push([Map.prototype, name, original]);
+      Map.prototype[name] = function (key) {
+        if (typeof key === "string" && key.startsWith(PREFIX)) visits += 1;
+        return original.call(this, key);
+      };
+    }
+  };
+  const disarm = () => { for (const [owner, name, original] of spied.splice(0)) owner[name] = original; };
+  const line = index => td11Assistant(td11Tool(`${PREFIX}${index}`, "Read", { path: `f${index}` })) + "\n";
+  const run = (observer, n) => {
+    const perObserve = [];
+    let last;
+    for (let index = 0; index < n; index += 1) {
+      visits = 0; arm();
+      try { last = observer.observe(line(index)); } finally { disarm(); }
+      perObserve.push(visits);
+    }
+    return { perObserve, total: perObserve.reduce((sum, count) => sum + count, 0), last };
+  };
+  const counts = {};
+  for (const n of [1, 64, 512]) {
+    const head = run(headWorkerTransportOutputObserver(false), n);
+    const after = run(createWorkerTransportOutputObserver(false), n);
+    td11SameCut(after.last, head.last, `N = ${n}`);
+    assert.equal(after.last.toolInvocations.length, n);
+    // Head: the k-th observe compares k(k-1)/2 pairs; (N-1)N(N+1)/6 in all.
+    assert.equal(head.total, (n - 1) * n * (n + 1) / 6, `head total at N = ${n}`);
+    assert.equal(head.perObserve.at(-1), n * (n - 1) / 2, `head last observe at N = ${n}`);
+    // After: one first-seen lookup for the one new row, whatever N is.
+    assert.deepEqual([...new Set(after.perObserve)], [1], `after per observe at N = ${n}`);
+    counts[n] = { headTotal: head.total, headLast: head.perObserve.at(-1), afterTotal: after.total, afterMax: Math.max(...after.perObserve) };
+  }
+  // A chunk that adds no tool row reads no tool state at all.
+  const observer = createWorkerTransportOutputObserver(false);
+  for (let index = 0; index < 64; index += 1) observer.observe(line(index));
+  visits = 0; arm();
+  let progress;
+  try { progress = observer.observe(JSON.stringify({ type: "stream_event", event: { type: "content_block_delta" } }) + "\n"); }
+  finally { disarm(); }
+  assert.equal(visits, 0); assert.equal(progress.toolInvocations.length, 64);
+  t.diagnostic(`TD-11 visit counts ${JSON.stringify(counts)}`);
 });

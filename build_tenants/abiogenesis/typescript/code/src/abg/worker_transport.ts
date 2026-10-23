@@ -268,6 +268,14 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
   let progressEventCount = 0;
   let rawToolCallCount = 0;
   const rawToolInvocations: WorkerToolInvocationEvidence[] = [];
+  // The tool projection, maintained as raw rows arrive: each ref's first-seen
+  // row in first-seen order, and a sticky disagreement flag. A cut folds only
+  // the raw rows after `foldedToolInvocationCount`; no old row is read again.
+  let foldedToolInvocationCount = 0;
+  const firstSeenToolInvocations = new Map<string, WorkerToolInvocationEvidence>();
+  const toolInvocations: WorkerToolInvocationEvidence[] = [];
+  let conflictingToolUseRef = false;
+  let frozenToolInvocations: readonly WorkerToolInvocationEvidence[] = Object.freeze([]);
   let apiRetryCount = 0;
   const observeLine = (line: string): void => {
     if (line.trim().length === 0) return;
@@ -311,16 +319,22 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
     }
   };
   const snapshot = (): StructuredObservation => {
-    const toolInvocations: WorkerToolInvocationEvidence[] = [];
-    let conflictingToolUseRef = false;
-    for (const row of rawToolInvocations) {
-      const prior = toolInvocations.find((candidate) => candidate.toolUseRef === row.toolUseRef);
+    for (; foldedToolInvocationCount < rawToolInvocations.length; foldedToolInvocationCount += 1) {
+      const row = rawToolInvocations[foldedToolInvocationCount]!;
+      const prior = firstSeenToolInvocations.get(row.toolUseRef);
       if (prior === undefined) {
-        toolInvocations.push(deepFreeze({ ...row, ordinal: toolInvocations.length }));
+        const unique = deepFreeze({ ...row, ordinal: toolInvocations.length });
+        firstSeenToolInvocations.set(unique.toolUseRef, unique);
+        toolInvocations.push(unique);
       } else if (prior.toolName !== row.toolName || prior.inputDigest !== row.inputDigest ||
         prior.inputByteLength !== row.inputByteLength) {
         conflictingToolUseRef = true;
       }
+    }
+    // Rows are frozen at insertion; a cut forms a new frozen array only when
+    // a first-seen row arrived since the previous cut.
+    if (frozenToolInvocations.length !== toolInvocations.length) {
+      frozenToolInvocations = Object.freeze(toolInvocations.slice());
     }
     const unevidencedToolUse = rawToolCallCount > rawToolInvocations.length;
     return {
@@ -329,7 +343,7 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
       toolCallCount: conflictingToolUseRef || unevidencedToolUse
         ? toolInvocations.length + 1
         : toolInvocations.length,
-      toolInvocations: deepFreeze(toolInvocations),
+      toolInvocations: frozenToolInvocations,
       apiRetryCount,
       finalOutput,
     };
