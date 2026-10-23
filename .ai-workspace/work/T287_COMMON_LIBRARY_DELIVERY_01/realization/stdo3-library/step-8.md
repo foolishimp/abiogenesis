@@ -2594,3 +2594,116 @@ Items, in this order. The Return carries one row per item: done or stopped, with
 **Stop:** any change to `OwnedProcessFacts` or the lifetime's terminal classification; any change to the Product (`product/`), the parent (`implementation/worksite_command_execution.ts`), the failure classes or the artifact contract; a second bounded attempt at any item; any push.
 
 **Return contract.** One commit on `main`, no push. First line `Post-close repair H: synchronous spawn errors publish as no-child launch failures; records`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append `## Post-close repair return H` with: one row per item (done or stopped, lines at head); what the two cases gave at head before item 1; the producer's lines and the two call sites; the lane results as `tests/pass/fail/skipped`; the broad-run table and attribution against F's log; the stop reports, if any, with the counterexample.
+
+## Post-close repair return H
+
+All four items landed; nothing stopped. A synchronous spawn error at the helper's command launch and at its HTTP launch is now the same no-child launch failure that an asynchronous one gives. One producer in the helper turns the throw into that observation, and both launch sites call it. `OwnedProcessFacts`, the lifetime, its terminal classification, the Product, the parent, the failure classes and the artifact contract are unchanged. `T` is `build_tenants/abiogenesis/typescript`; `W` is this directory.
+
+**Commit.** The commit carrying this Return, on `main` over `6b8ac56a8`, first line `Post-close repair H: synchronous spawn errors publish as no-child launch failures; records`. Not pushed.
+
+| Item | State | Lines at head |
+|---|---|---|
+| 1, synchronous spawn error | done | `T/code/src/implementation/worksite_command_helper.ts`: `LaunchProcessObservation` `:734-744`; producer `noChildLaunchObservation` `:746-761` (errno test and rethrow `:756`, observation `:757-760`); `commandProcessObservation` `:763-786`; `commandResult` `:788-812`; command launch `:827-835`, its call `:834`; lifetime path's command tail `:881-897`; `httpProbeObservation` `:1091-1117`; HTTP launch `:1155-1168`, its call `:1166-1167`; lifetime path's probe `:1249-1259`; type imports `:13`, `:15` |
+| 2, installed cases | done | `T/test_env/tests/t287-worksite-command-execution.test.mjs`: file bytes and path `:1425-1426`; `launchFailureMode` `:1427` (`prepare` `:1428-1431`); `assertLaunchFailureAdmitted` `:1470` (record before any assertion `:1471-1486`, helper exit 0 `:1487`, acknowledgment `:1488-1494`, transport `:1495-1496`, admission and relay `:1497-1507`, artifact binding `:1508-1525`, no lifetime for the launch `:1527`, the no-child observation `:1529-1540`, command case `:1542-1555`, HTTP case `:1556-1580`); cases `:1590`, `:1594`. In-place edits, line count kept: `prepare` call `:198`, the worker's exit expectation per mode `:231`, configuration paths `:773`, dispatch `:932`, mode fallback `:1333` |
+| 3, records | done | design `T/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` §9.2 item 1 `:558`, item 2 `:559`, §9.3 item 4 `:574`, §10.5 P-LIFECYCLE `:639`; ticket `### Library delivery close (2026-10-23)` opening `:5291-5309`, P-LIFECYCLE `:5361`, baseline attribution `:5363`; GOALS unchanged |
+| 4, lanes and broad run | done | below; `W/step-8-run-postclose-h.log` |
+
+**Item 1.** The producer is `noChildLaunchObservation(error)` (`:754`). It takes the error `spawn` threw. It returns the seven process members the lifetime's asynchronous `launchFailure` gives: `exitStatus` 127, `processSignal` null, `timedOut` false, `signalSequence` `[]`, `terminationConfirmed` true, empty stdout, and stderr equal to the error's message, the bytes the lifetime's `onError` observer pushes. Both launch sites call it from the `catch` around `spawn`, before any lifetime, timer or heartbeat exists:
+
+- **Command launch** (`:834`): `commandResult(executionRoot, command, ordinal, noChildLaunchObservation(error))`. `commandResult` is the tail the lifetime path also returns through (`:897`). It observes the declared reports and computes the observation digest, so the result is built the same way on both paths.
+- **HTTP launch** (`:1166-1167`): `httpProbeObservation(null, { port file absent, issue "process_exited_before_port" }, null, noChildLaunchObservation(error))`. The lifetime path builds its probe with the same builder (`:1249`). The issue is the one the asynchronous path gives: it leaves the port loop after its first 25 ms wait with the launch already closed.
+
+The edit reaches past the two `catch` blocks. The no-duplication requirement means the synchronous path can share the result construction only if that construction is extracted. `commandProcessObservation`, `commandResult` and `httpProbeObservation` are therefore the existing tails lifted unchanged: the command observation literal with its report and digest step, and the probe literal. The lifetime path now builds its seven process members as `launched` and calls them. Its output is unchanged, as `t287-owned-process-lifetime` 18/18, `m5-worker-transport` 21/21, `t287-lifecycle-failure-carrier` 5/5 and the four earlier installed cases show.
+
+The producer converts only Node's errno exception from the spawn syscall (`syscall` "spawn", a string `code`) and rethrows anything else (`:756`). This follows the activation's "`spawn` and the errno as Node renders it". An argument Node refuses before it launches is no launch. No declaration the Product admits reaches such a throw: the Product refuses NUL in the executable (`T/code/src/product/worksite_command_execution.ts:716-717`), the arguments (`:1003`, `:1107`) and the environment values (`:926`), and refuses an empty executable.
+
+A scratch probe compared the built helper's `runCommand` and `runHttpProbe`, loaded with `await main();` swapped for exports as `m5-worker-transport` does, under the two kinds of launch error. The asynchronous one was an absent executable, `ENOENT`; the synchronous one was the mode-755 non-program file, `ENOEXEC`.
+
+- At head, the synchronous call threw `spawn ENOEXEC` on both routes. The asynchronous HTTP probe gave `request` null, port file `absent`, issue `process_exited_before_port`, `response` null, and process 127 with `terminationConfirmed` true.
+- After the repair, the synchronous command result equals the asynchronous one except for the identity members and stderr. The synchronous probe equals the asynchronous one except for the port file path and stderr. The synchronous stderr is `spawn ENOEXEC`; the asynchronous one is `spawn <path> ENOENT`.
+
+**Item 2.** Each case runs on G's shape: the installed helper under the hook of `helperFailureTransport`, with no target lifetime (`unconfirmed` `"none"`), the controlled worker and the real parent. The worker records the helper's exit and streams, requires exit 0 for these modes, and relays the one stdout line. The file is 7 bytes, `00 ff 00 ff 41 42 0a`, mode 755, at `<scratch>/c2-helper-failure/not-a-program`. That is outside the workspace and toolchain roots, which the Product requires.
+
+- **(a) `command_spawn_enoexec`**: one command, the file, with `process_exit` equals 0.
+- **(b) `http_spawn_enoexec`**: the validation command `node -e ""` with `process_exit` equals 0, then `http_response_exact` launching the file with the port-file placeholder, expecting 201 `abi-ok`.
+
+The assertion records the helper's exit, stderr and stdout, the published artifacts, the hook's lifetimes and the admitted results before it asserts anything. At head (`6b8ac56a8`, before item 1, helper built) both cases failed at `:1487`:
+
+| | (a) command launch | (b) HTTP launch |
+|---|---|---|
+| helper exit | 1 | 1 |
+| helper stderr | uncaught `Error: spawn ENOEXEC` (`errno` -8, `syscall` "spawn") thrown from `runCommand`, through `main` | the same, thrown from `runHttpProbe` through `predicateObservation` and `main` |
+| helper stdout | empty, no acknowledgment | empty, no acknowledgment |
+| artifact | attempt directory present, `result.json` absent | attempt directory present, `result.json` absent |
+| hook's lifetimes | none | `lifetime-0` (the validation command) |
+| parent | `c_call_result_admitted` `failure`, `worksite_command_execution_failure`, class `transport_identity_mismatch` | the same |
+
+After item 1, both pass (lane runtimes 77.6 s and 77.4 s):
+
+| | (a) command launch | (b) HTTP launch |
+|---|---|---|
+| helper exit | 0, stderr empty | 0, stderr empty |
+| acknowledgment | one canonical line; its ref and digest equal the published artifact's recomputed ones | the same |
+| artifact | one published, disposition `success`, no `failure` member, prefix (1, 1) | one published, disposition `success`, no `failure` member, prefix (1, 2) |
+| facts | `commandResults[0]`: `exitStatus` 127, `terminationConfirmed` true, `timedOut` false, `processSignal` null, `signalSequence` `[]`, stdout 0 bytes, stderr `spawn ENOEXEC` | `commandResults[0]` the validation command, exit 0; probe `process`: the same seven members as (a); `request` null; port file `absent`, `port` null, issue `process_exited_before_port`; `response` null |
+| predicate | `process_exit` observes 127 against the declared 0, so the comparison is false | `process_exit` observes 0; `http_response_exact` observes no response against the declared 201 `abi-ok`, so the comparison is false |
+| hook's lifetimes | none | `lifetime-0` only, whose spawn arguments are the validation command's |
+| parent | `c_call_result_admitted` `success`, `worksite_command_execution_observation`, equal to the artifact's vectors; no failure admitted; the C2 result's `finalOutput` is the helper's line | the same |
+
+The Product records observations, not comparisons: the C2 observation carries the observed value, and `validator/qualification.ts:159` compares it with the declaration. Each case therefore asserts the observed value and that it differs from the declared one.
+
+Load note: the first run after item 1 timed out both cases at their 180 s limit. During that run the host ran about seven times slower: `tsc --noEmit` took 52 s, against 6 s before and after. A scratch copy of the test file with longer limits, since removed, passed both cases under that load (438 s, 241 s). Those runtimes are not results. The lane run below, with `tsc` at 6 s, is.
+
+**Item 3.**
+
+- **Design §9.2 item 1** names the helper's classifier lines at head: `:879`, the command report's `terminal`; `:1247`, the HTTP probe's; `:1256`, which sets its `terminationConfirmed`. **Item 2** names `product/worksite_command_execution.ts:530`, the `terminationConfirmed` declaration.
+- **Design §9.3 item 4** states, after the command class's carrier, that `command_failed` is a lifetime-error channel after spawn that no declaration reaches. It gives G's trace with its sources at head and leaves keeping or removing the class to the owner (T-290 Phase C).
+- **Design §10.5 P-LIFECYCLE**:
+  - states the synchronous spawn error as the no-child launch failure, naming the producer, the launch lines, the two builders and the two cases with what each observes, and what the cases gave before the repair;
+  - corrects the single-process sentence: the facts differ from the validation command's only in the two HTTP cases, which run a second process;
+  - re-points `:779` to `:865`, the `firstError` read, and refers to §9.3 item 4 for the channels.
+- **Ticket subsection opening**: it names repair H's commit for the library, after repairs A to G, because H changes library source. One sentence adds H.
+- **Ticket P-LIFECYCLE line**: it re-points `:779` to `:865`, states §9.3 item 4's `command_failed` sentence, and states the synchronous spawn error with both cases.
+- **Ticket baseline attribution**: it adds H's final run.
+- **GOALS Current Selection** names the helper failure route (D15), not the no-child launch route, so it is unchanged.
+
+**Item 4.** `npm run build` rc 0. The only tracked outputs it changed are `T/contracts/capabilities/capability-definition-graph.json` and `T/product-toolchain-manifest.json`; no tracked file under `build/code/src` changed. `npx tsc --noEmit -p tsconfig.json` rc 0 (6 s). `lint:imports`: 28 modules, rc 0. `lint:lifecycle`: 284 modules, 10 allow-listed, no offender, rc 0.
+
+| Lane | tests/pass/fail/skipped |
+|---|---|
+| `t287-worksite-command-execution` | 10/10/0/0, 524 s wall. Installed cases: success `:1144` 91.5 s; `command_cleanup_unresolved` with its exchanges `:1151` 123.7 s; `http_probe_failed` `:1405` 76.6 s; `http_cleanup_unresolved` `:1409` 77.2 s; command launch `:1590` 77.6 s; HTTP launch `:1594` 77.4 s |
+| `t287-owned-process-lifetime` | 18/18/0/0 |
+| `t287-observed-worksite-command` | 8/7/1/0 (`:43`, F's set exactly) |
+| `m5-worker-transport` | 21/21/0/0 |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 |
+
+| Run | Files | Tests | Pass | Fail | Cancelled | Skipped | Wall |
+|---|---|---|---|---|---|---|---|
+| H, 48 files, one invocation | 48 (25 red) | 351 | 276 | 54 | 2 | 19 | 1491 s |
+| F (`W/step-8-run-postclose-f.log`) | 48 (25 red) | 347 | 272 | 54 | 2 | 19 | 1214 s |
+
+Attribution compares each failing test file and line, first error line and first test-file location; the H log carries it.
+
+- **Identities**: 56 in each log, none only in H, none only in F.
+- **The +4 tests and +4 passes** are four added cases in `t287-worksite-command-execution`, all passing: G's `:1405` and `:1409` (G ran no broad run) and H's `:1590` and `:1594`.
+- **Wall**: up 277 s with those four installed cases (76.4, 76.1, 75.2, 76.1 s).
+- **Recurring as in F**: the `t287-calculus-state-transfer` `:64` timeout, with `identity_end` cancelled at `:70`.
+- **Installed cases**: all six pass in the integrated run (85.9, 78.6, 76.4, 76.1, 75.2, 76.1 s).
+- **`test:uat:harness`**: 34 tests, 30 pass, 1 fail, 3 skip. The failure is the recorded `harness.test.mjs:471` budget at `:490` (18025250 against 18015000).
+- No `not JSON after projection` refusal occurs.
+
+**Residuals.**
+
+- **Stale helper citations outside this grant.** They are stale because item 1 adds lines above them. §9.2 item 4 cites `:1426` and `:1439`, now `:1501` and `:1514`. §10.6 row 6 cites the following:
+
+  | Cited | Now | Line |
+  |---|---|---|
+  | `:824` | `:894` | the command cleanup throw |
+  | `:1191` | `:1266` | the HTTP cleanup throw |
+  | `:785` | `:871` | the `command_failed` throw |
+  | `:1152` | `:1243` | the second line of the `http_probe_failed` throw, which begins at `:1242` |
+
+- **GOALS Current Selection** still says the library is at the commit repair F records. The ticket subsection now names repair H, because H changes `implementation/worksite_command_helper.ts`. GOALS was outside this activation's condition.
+- **The HTTP issue value.** The synchronous path's issue `process_exited_before_port` is the value the asynchronous path gives when the launch's close is observed by the end of its first 25 ms port wait, as the probe showed. A slower close would make the asynchronous path give `port_file_timeout`.
+- **Host.** `ENOEXEC` as a synchronous throw was observed on this host (macOS, Node 24.7.0) only.
+- **Controlled worker.** The worker in every installed case is still a controlled worker.

@@ -10,8 +10,9 @@ import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
   executableWorksiteCommandIdentityPrefix as worksiteExecutionIdentityPrefix,
   type ExecutableWorksiteCommandTask as WorksiteExecutionTask,
   type ExecutableWorksiteSnapshotMember as WorksiteExecutionSnapshotMember } from "../product/worksite_command_forward.js";
-import { spawn } from "node:child_process";
+import { spawn, type ChildProcessByStdio } from "node:child_process";
 import { request as httpRequest } from "node:http";
+import type { Readable } from "node:stream";
 import {
   link,
   lstat,
@@ -730,6 +731,86 @@ function unconfirmedScopeDiagnostic(facts: OwnedProcessFacts): Buffer {
   })}\n`, "utf8");
 }
 
+/** The process members of one launch's observation: a command result's, and an
+ * HTTP probe's `process`. */
+type LaunchProcessObservation = Readonly<{
+  exitStatus: number;
+  processSignal: NodeJS.Signals | null;
+  timedOut: boolean;
+  signalSequence: readonly ("SIGTERM" | "SIGKILL")[];
+  terminationConfirmed: boolean;
+  stdout: WorksiteObservedStream;
+  stderr: WorksiteObservedStream;
+}>;
+
+/** The no-child launch failure of a synchronous spawn error (design §10.5).
+ * For every errno but EACCES, EAGAIN, EMFILE, ENFILE and ENOENT, `spawn` throws
+ * its errno exception (`syscall` "spawn") before any child or lifetime exists;
+ * those five reach the lifetime as its `launchFailure`. The observation is the
+ * one that launch failure gives: exit 127, no signal, no timeout and no cleanup
+ * signal, termination confirmed, empty stdout and the error's message in
+ * stderr. Any other throw, such as an argument Node refuses before it launches,
+ * is rethrown. */
+function noChildLaunchObservation(error: unknown): LaunchProcessObservation {
+  const launch = error as NodeJS.ErrnoException;
+  if (!(error instanceof Error) || launch.syscall !== "spawn" || typeof launch.code !== "string") throw error;
+  return {
+    exitStatus: 127, processSignal: null, timedOut: false, signalSequence: [], terminationConfirmed: true,
+    stdout: stream(Buffer.alloc(0)), stderr: stream(Buffer.from(error.message, "utf8")),
+  };
+}
+
+/** A command's process observation: its declared members, then its launch's. */
+function commandProcessObservation(
+  command: WorksiteExecutionTask["commands"][number],
+  ordinal: number,
+  launched: LaunchProcessObservation,
+) {
+  return {
+    ordinal,
+    commandId: command.commandId,
+    executable: command.executable,
+    args: [...command.args],
+    relativeCwd: command.relativeCwd,
+    environment: command.environment,
+    timeoutMs: command.timeoutMs,
+    terminationGraceMs: command.terminationGraceMs,
+    exitStatus: launched.exitStatus,
+    timedOut: launched.timedOut,
+    processSignal: launched.processSignal,
+    signalSequence: launched.signalSequence,
+    terminationConfirmed: launched.terminationConfirmed,
+    stdout: launched.stdout,
+    stderr: launched.stderr,
+  };
+}
+
+/** A command's result: its process observation, its declared reports and its digest. */
+async function commandResult(
+  executionRoot: string,
+  command: WorksiteExecutionTask["commands"][number],
+  ordinal: number,
+  launched: LaunchProcessObservation,
+): Promise<WorksiteCommandResult> {
+  const reports = await Promise.all(command.expectedReports.map((row) =>
+    reportObservation(executionRoot, command, row)
+  ));
+  const body = {
+    ...commandProcessObservation(command, ordinal, launched),
+    reports,
+    reportCount: reports.filter((row) => row.state === "file").length,
+  };
+  const observationDigest = sha256Canonical(body);
+  const result = Object.freeze({
+    kind: "worksite_command_result" as const,
+    schemaVersion: "5.0.0" as const,
+    ...body,
+    observationRef: `worksite-command-observation://abiogenesis/${observationDigest.slice("sha256:".length)}`,
+    observationDigest,
+  });
+  return result;
+}
+
 async function runCommand(
   task: WorksiteExecutionTask,
   executionRoot: string,
@@ -743,10 +824,15 @@ async function runCommand(
     "directory",
   );
   const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));
-  const child = spawn(command.executable, [...command.args], {
-    cwd, env: environment, detached: process.platform !== "win32",
-    stdio: ["ignore", "pipe", "pipe"],
-  });
+  let child: ChildProcessByStdio<null, Readable, Readable>;
+  try {
+    child = spawn(command.executable, [...command.args], {
+      cwd, env: environment, detached: process.platform !== "win32",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+  } catch (error) {
+    return commandResult(executionRoot, command, ordinal, noChildLaunchObservation(error));
+  }
   activeCommand = child;
   const stdout: Buffer[] = [], stderr: Buffer[] = [];
   const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
@@ -792,30 +878,14 @@ async function runCommand(
   // A spawn failure has no child to clean up; an exit needs a confirmed boundary.
   const terminal = classifyOwnedProcessTerminal(facts);
   if (terminal === "unconfirmed") stderr.push(unconfirmedScopeDiagnostic(facts));
-  const observed = {
-    status: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
-    signal: facts.directExit?.signal ?? null, timedOut,
+  const launched: LaunchProcessObservation = {
+    exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
+    processSignal: facts.directExit?.signal ?? null, timedOut,
     signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== "unconfirmed",
-    stdout: Buffer.concat(stdout), stderr: Buffer.concat(stderr),
+    stdout: stream(Buffer.concat(stdout)), stderr: stream(Buffer.concat(stderr)),
   };
-  const processObservation = {
-    ordinal,
-    commandId: command.commandId,
-    executable: command.executable,
-    args: [...command.args],
-    relativeCwd: command.relativeCwd,
-    environment: command.environment,
-    timeoutMs: command.timeoutMs,
-    terminationGraceMs: command.terminationGraceMs,
-    exitStatus: observed.status,
-    timedOut: observed.timedOut,
-    processSignal: observed.signal,
-    signalSequence: observed.signalSequence,
-    terminationConfirmed: observed.terminationConfirmed,
-    stdout: stream(observed.stdout),
-    stderr: stream(observed.stderr),
-  };
-  if (!observed.terminationConfirmed) {
+  if (!launched.terminationConfirmed) {
+    const processObservation = commandProcessObservation(command, ordinal, launched);
     const detail = {
       taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
       command: processObservation, diagnostic: decodeStream(processObservation.stderr),
@@ -824,23 +894,7 @@ async function runCommand(
     throw new WorksiteHelperFailure("worksite command cleanup unresolved; dependent work stopped", detail,
       { failureClass: "command_cleanup_unresolved", ...detail, diagnostic: { name: "TypeError", message: detail.diagnostic } });
   }
-  const reports = await Promise.all(command.expectedReports.map((row) =>
-    reportObservation(executionRoot, command, row)
-  ));
-  const body = {
-    ...processObservation,
-    reports,
-    reportCount: reports.filter((row) => row.state === "file").length,
-  };
-  const observationDigest = sha256Canonical(body);
-  const result = Object.freeze({
-    kind: "worksite_command_result" as const,
-    schemaVersion: "5.0.0" as const,
-    ...body,
-    observationRef: `worksite-command-observation://abiogenesis/${observationDigest.slice("sha256:".length)}`,
-    observationDigest,
-  });
-  return result;
+  return commandResult(executionRoot, command, ordinal, launched);
 }
 
 function decodeStream(value: WorksiteObservedStream): string {
@@ -1034,6 +1088,34 @@ async function oneHttpRequest(input: Readonly<{
   });
 }
 
+/** An HTTP probe's observation: the request it sent, its port file, the
+ * response and its launch's process observation. */
+function httpProbeObservation(
+  request: Parameters<typeof oneHttpRequest>[0] | null,
+  portFile: Readonly<{ relativePath: string; port: number | null; bytes: Buffer | null; issue: string | null }>,
+  response: Awaited<ReturnType<typeof oneHttpRequest>>,
+  launched: LaunchProcessObservation,
+) {
+  return {
+    request,
+    portFile: {
+      relativePath: portFile.relativePath,
+      port: portFile.port,
+      state: portFile.port === null ? portFile.bytes === null ? "absent" : "invalid" : "observed",
+      issue: portFile.issue,
+      byteLength: portFile.bytes?.byteLength ?? null,
+      digest: portFile.bytes === null ? null : sha256Bytes(portFile.bytes),
+    },
+    response: response === null ? null : {
+      status: response.status,
+      body: response.body.toString("utf8"),
+      bodyDigest: sha256Bytes(response.body),
+      byteLength: response.body.byteLength,
+    },
+    process: launched,
+  };
+}
+
 async function runHttpProbe(
   task: WorksiteExecutionTask,
   executionRoot: string,
@@ -1070,12 +1152,20 @@ async function runHttpProbe(
       ? portFilePath
       : arg
   );
-  const child = spawn(launch.executable as string, launchArgs, {
-    cwd,
-    env: environment,
-    detached: process.platform !== "win32",
-    stdio: ["ignore", "pipe", "pipe"],
-  });
+  let child: ChildProcessByStdio<null, Readable, Readable>;
+  try {
+    child = spawn(launch.executable as string, launchArgs, {
+      cwd,
+      env: environment,
+      detached: process.platform !== "win32",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+  } catch (error) {
+    // The port file was absent before the launch and no child exists to write
+    // it: the issue the asynchronous launch failure gives.
+    return httpProbeObservation(null, { relativePath: portFileRelativePath, port: null, bytes: null,
+      issue: "process_exited_before_port" }, null, noChildLaunchObservation(error));
+  }
   activeCommand = child;
   const stdout: Buffer[] = [], stderr: Buffer[] = [];
   const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
@@ -1156,32 +1246,17 @@ async function runHttpProbe(
   const timedOut = launchExpired && portFileIssue === null;
   const terminal = classifyOwnedProcessTerminal(facts);
   if (terminal === "unconfirmed") stderr.push(unconfirmedScopeDiagnostic(facts));
-  const probe = {
-    request: requestInput,
-    portFile: {
-      relativePath: portFileRelativePath,
-      port: selectedPort,
-      state: selectedPort === null ? portFileBytes === null ? "absent" : "invalid" : "observed",
-      issue: portFileIssue,
-      byteLength: portFileBytes?.byteLength ?? null,
-      digest: portFileBytes === null ? null : sha256Bytes(portFileBytes),
-    },
-    response: response === null ? null : {
-      status: response.status,
-      body: response.body.toString("utf8"),
-      bodyDigest: sha256Bytes(response.body),
-      byteLength: response.body.byteLength,
-    },
-    process: {
-      exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
-      processSignal: facts.directExit?.signal ?? null,
-      timedOut,
-      signalSequence,
-      terminationConfirmed: terminal !== "unconfirmed",
-      stdout: stream(Buffer.concat(stdout)),
-      stderr: stream(Buffer.concat(stderr)),
-    },
-  };
+  const probe = httpProbeObservation(requestInput, {
+    relativePath: portFileRelativePath, port: selectedPort, bytes: portFileBytes, issue: portFileIssue,
+  }, response, {
+    exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
+    processSignal: facts.directExit?.signal ?? null,
+    timedOut,
+    signalSequence,
+    terminationConfirmed: terminal !== "unconfirmed",
+    stdout: stream(Buffer.concat(stdout)),
+    stderr: stream(Buffer.concat(stderr)),
+  });
   if (!probe.process.terminationConfirmed) {
     const detail = {
       taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, ...(predicate === null ? {} : { predicate }),
