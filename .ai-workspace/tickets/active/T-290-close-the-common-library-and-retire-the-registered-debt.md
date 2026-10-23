@@ -11,7 +11,7 @@
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_phase: A, close the library
-- current_package: TD-06 (activated 2026-10-24); Phase A closed at `46ed04895`
+- current_package: TD-07 (activated 2026-10-24); TD-06 accepted at `94ca67abf`
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
@@ -115,6 +115,7 @@ first four are recorded in the register's reconciliation section.
 | E item 2 | The one sentence added to the worker instruction (a non-zero helper exit after its acknowledgment is an observation); reversal: delete it and refresh the C2 pin | |
 | F item 2 | The `predicate` member on the two HTTP failure subjects (taken; the cleanup carrier cannot name the request when the port was never observed); reversal: bind through the declared request and leave that case unbound | |
 | `command_failed` | Keep the class as the command route's lifetime-error channel after spawn, which no declaration reaches (repair G's trace), or remove it, which changes D15's artifact arm. Recommendation: keep, with §9.3 stating its reach | S |
+| `runtime_inactivity_asserted` clip | Nothing in `code/src` initiates the fluent, so the probe axiom's exact clip (`axioms.ts:854`) never clips anything (TD-06's finding). Removing it from the law changes recorded effect rows and the replay witness under D1; keeping it is harmless cost (one key read since TD-06). Recommendation: keep until a producer of the fluent is designed, then decide with it | S |
 | `sameQualificationValue` | Restore it to the `validator` barrel (one line) or drop it from the package entries | S |
 | 40 tracked `build/` files | Keep tracking the regenerated outputs or untrack them | S |
 | O-SCHEMA | `admitJson` inside the schema, if refusal there is wanted beyond the raw owner boundary (D10) | S |
@@ -137,6 +138,7 @@ D5 qualification; D6 publication. This ticket does not schedule them.
 | 2026-10-24 | F | `195b65ddb` | `tsc --noEmit` rc 0; `lint:imports` 28 modules rc 0; `lint:lifecycle` 284 modules, 10 allow-listed, no offender, rc 0; `forward-command-contracts` 10/10; `t287-worksite-command-execution` 6/6; `t287-runtime-failure-diagnostic` 12/12; `t287-lifecycle-failure-carrier` 5/5; `m5-worker-transport` 21/21; `t287-reacquisition-root-contract` 1 pass, 1 skip; `t287-calculus-fold` 7/7; `t287-common-computational-library` 9/9; `t287-owned-process-lifetime` 18/18; tree clean | accepted |
 | 2026-10-24 | G | `68a5397dc` | `tsc --noEmit` clean; `lint:imports` 28 modules; `lint:lifecycle` 284 modules, 10 allow-listed; `t287-worksite-command-execution` 8/8; `forward-command-contracts` 10/10; `m5-worker-transport` 21/21; `t287-owned-process-lifetime` 18/18; `t287-lifecycle-failure-carrier` 5/5 (`exec_check_G.log`, 2026-10-24); the activation's premise confirmed by a direct probe on this host (Node 24.7.0): a mode-755 file of non-program bytes, and a shebang-less text file, each make `spawn` throw `ENOEXEC` synchronously; `ENOTDIR` likewise; `ENOENT` arrives as the asynchronous error | accepted; `command_failed` stopped, Phase C |
 | 2026-10-24 | H | `46ed04895` | `tsc --noEmit` clean; `lint:imports` 28 modules; `lint:lifecycle` 284 modules, 10 allow-listed; `t287-worksite-command-execution` 10/10; `t287-owned-process-lifetime` 18/18; `m5-worker-transport` 21/21 (`exec_check_H.log`, 2026-10-24) | accepted; Phase A closed |
-| 2026-10-24 | TD-06 | | | activated |
+| 2026-10-24 | TD-06 | `94ca67abf` | `tsc --noEmit` clean; both lints; `t287-calculus-fold` 10/10; `t287-native-runtime-gate` 7/6/0/1 (`exec_check_TD06.log`) | accepted; register row closed |
+| 2026-10-24 | TD-07 | | | activated |
 
-Next: TD-06 (Worker running); the owner's review pass on `46ed04895` whenever it comes.
+Next: TD-07 (Worker running); the owner's review pass on `46ed04895` whenever it comes.
