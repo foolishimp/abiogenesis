@@ -1489,7 +1489,8 @@ async function main(): Promise<void> {
     artifactPath,
     "file",
   );
-  if (failed !== null) throw failed;
+  // The acknowledgment is printed for every disposition, a failure included,
+  // and drained before the rethrow: a pipe is asynchronous.
   const workerReturnProjection = Object.freeze({
     kind: "worksite_command_execution_worker_result" as const,
     schemaVersion: "5.0.0" as const,
@@ -1499,9 +1500,13 @@ async function main(): Promise<void> {
     helperArtifactRef: artifact.artifactRef,
     helperArtifactDigest: artifact.artifactDigest,
   }) satisfies WorksiteCommandExecutionWorkerResult;
-  process.stdout.write(
-    `${canonicalJson(workerReturnProjection)}\n`,
-  );
+  await new Promise<void>((resolveWrite, rejectWrite) => {
+    process.stdout.write(
+      `${canonicalJson(workerReturnProjection)}\n`,
+      (error) => error ? rejectWrite(error) : resolveWrite(),
+    );
+  });
+  if (failed !== null) throw failed;
 }
 
 await main();
