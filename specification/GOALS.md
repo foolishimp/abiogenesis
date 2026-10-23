@@ -34,7 +34,7 @@ and [exact L2 design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disp
 retain their historical acceptance. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 supersedes the bounded C1 to C5 contracts of Root’s [conjunction](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md).
 The library is on `main` at the commit that
-[post-close repair E](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-e)
+[post-close repair F](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-f)
 records. O-RESOURCE, O-SHAPE, O-CODEC and O-KEY are closed with their sites.
 O-SCHEMA is closed at the raw owner boundary. O-TYPE is closed at every census
 site that feeds an equality, digest or admission atom (D11, D12, D13, D14;
@@ -87,7 +87,7 @@ conjunction’s cross-consumer handoff, with its `process-failure.json` and
 stateless inspection, is withdrawn (D0).
 
 Next, under [T-290](../.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md):
-repair F and the helper failure class lanes, then the independent review of
+repair G, the helper failure class lanes, then the independent review of
 the closed library (L5 delivery acceptance); then the register’s order TD-06,
 TD-07, TD-17, TD-13, TD-14 and the rest, with TD-10, TD-12, TD-18 and TD-19
 held for the owner’s decision; release work resumes after acceptance. L4 remains partial on older subjects, including P1 pass/P5
