@@ -11,7 +11,7 @@
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_phase: A, close the library
-- current_package: TD-08 (activated 2026-10-24); TD-11 accepted at `3c91f5200`
+- current_package: TD-15 + TD-16 (activated 2026-10-24); TD-08 accepted at `f6bdf13bd`
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
@@ -148,6 +148,7 @@ D5 qualification; D6 publication. This ticket does not schedule them.
 | 2026-10-24 | TD-14 | `8387f70b3` | `tsc --noEmit` clean; both lints; `npm run build` rc 0 (the C2 pin check passes at head); `m5-c-algebra-validation` 22/19/0/3; `t287-worksite-command-execution` 10/10; `forward-command-contracts` 10/10; `t287-native-c2-instruction-assembly` 1/1; `t287-native-workspace-work` 38/37/0/1; `t287-default-library-fulfillment` 7/7; `m5-event-store-reopen` 18/18; `t287-owned-process-lifetime` 18/18 (`exec_check_TD14.log`) | accepted; register row closed for 47 of 56; nine (T) carried by TD-15 + TD-16; the I-JSON domain sentence extended to the rule-config parse |
 | 2026-10-24 | TD-04 + TD-05 | `bf117cf92` | `tsc --noEmit` clean; both lints; `r10-projection-contracts` 10/9/1/0 (the one red is the Run-read validity ruling below); `m5-consensus-module` 18/11/7/0; `t287-wave2-owner-contract-source-set` 15/13/2/0; the packaged fixture tree unchanged after the lanes (`exec_check_TD0405.log`) | accepted as the R10 increment; register rows updated with the remaining increments; two Phase C rows added (evidence stores, Run read validity scope) |
 | 2026-10-24 | TD-11 | `3c91f5200` | `tsc --noEmit` clean; both lints; `npm run build` rc 0; `m5-worker-transport` 23/23; `t287-owned-process-lifetime` 18/18; `t287-native-workspace-work` 38/37/0/1; `t287-management-context` 14/12/0/2; `t287-lifecycle-failure-carrier` 5/5 (`exec_check_TD11.log`) | accepted; register row closed; the two regenerated digest files committed with the bookkeeping |
-| 2026-10-24 | TD-08 | | | activated |
+| 2026-10-24 | TD-08 | `f6bdf13bd` | `tsc --noEmit` clean; both lints; `npm run build` rc 0; `t287-native-work-currentness-consumers` 4/4; `t287-native-workspace-work` 38/37/0/1; `t287-native-work-reacquisition` 9/6/0/3; `t287-native-work-unknown-effect` 10/10; `t287-native-worksite-execution` 6/3/0/3; `t287-calculus-fold` 12/12; `t287-exact-prefix-projection-reuse` 2/0/1/1; `forward-command-contracts` 10/10; `m5-event-calculus-runtime` 19/13/5/1; `t287-ordered-reconstruction` 7/0/4/3; `t287-c2-owner-coordinate-reuse` 6/0/6/0; the four red lanes with the same identities as the Return and the head (`exec_check_TD08.log`) | accepted; register row closed; stop 3(b) ruled met; two design line pointers corrected |
+| 2026-10-24 | TD-15 + TD-16 | | | activated (with TD-14's nine casts and the C2 pin refresh) |
 
-Next: TD-08 (Worker running); the owner's review pass on `46ed04895` whenever it comes.
+Next: TD-15 + TD-16 (Worker running); then TD-23, TD-20, TD-21/22/24, the Phase B close; the owner's review pass on `46ed04895` whenever it comes.
