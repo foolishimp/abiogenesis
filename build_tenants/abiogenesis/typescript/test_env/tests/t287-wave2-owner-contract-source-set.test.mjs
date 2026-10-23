@@ -44,7 +44,7 @@ import {
 import * as verificationContractModule from
   "../../build/code/src/product/verification_operation_contracts.js";
 import {
-  ReleaseSnapshotPort,
+  RELEASE_OPERATION_CONTRACTS,
 } from "../../build/code/src/product/release_snapshot_operations.js";
 
 const digest = `sha256:${"0".repeat(64)}`;
@@ -1061,64 +1061,17 @@ test("D07 rejects legacy flat and nullable-reason catalog rows", () => {
   }).disposition, "refused");
 });
 
-test("D15 owner callable uses accepted refusal algebra without gate_incomplete", async () => {
-  const published = await ReleaseSnapshotPort.published_rc({
-    request: {
-      qualificationBasis: releaseBasis,
-      lawBasis: releaseLawBasis,
-      verdict: releaseVerdict,
-      requestedIdentity: releaseIdentity,
-    },
-  });
-  assert.equal(published.outcomeKind, "refusal");
-  assert.equal(published.value.code, "basis_mismatch");
-  assert.notEqual(published.value.code, "gate_incomplete");
-
-  const finalBasisValue = { candidate: "wave5-final-tap-absent" };
-  const finalBasis = {
-    ...releaseBasis,
-    subjectKind: "final_tap_candidate",
-    basisRef: "qualification-basis://wave5/final-tap-absent",
-    basisDigest: sha256Canonical(finalBasisValue),
-    basis: finalBasisValue,
-  };
-  const finalVerdictBody = {
-    ...releaseVerdictBody,
-    qualificationBasisRef: finalBasis.basisRef,
-    qualificationBasisDigest: finalBasis.basisDigest,
-  };
-  const finalVerdict = {
-    ...releaseVerdict,
-    verdictRef: "qualification-verdict://wave5/final-tap-absent",
-    verdictDigest: sha256Canonical(finalVerdictBody),
-    ...finalVerdictBody,
-  };
-  const releaseEvidence = (ref, value) => ({
-    ref,
-    digest: sha256Canonical(value),
-    value,
-  });
-  const tapped = await ReleaseSnapshotPort.tapped_release({
-    request: {
-      finalTapBasis: finalBasis,
-      lawBasis: releaseLawBasis,
-      verdict: finalVerdict,
-      requestedIdentity: releaseIdentity,
-      acceptedRc: releaseEvidence("release-cut://accepted-rc", { rc: true }),
-      installedRcQualification: releaseEvidence(
-        "qualification://installed-rc/absent",
-        { installed: false },
-      ),
-      finalTapDelta: releaseEvidence("final-tap-delta://empty", { paths: [] }),
-    },
-  });
-  assert.equal(tapped.outcomeKind, "refusal");
-  assert.equal(tapped.value.code, "installed_rc_authorization_missing");
-  assert.notEqual(tapped.value.code, "gate_incomplete");
-  assert.equal(
-    JSON.stringify(projectStrictJsonSchema(
-      packet("abg.operation.release.snapshot", "published_rc").refusalSchema,
-    )).includes("gate_incomplete"),
-    false,
-  );
+test("D15 release snapshot refusal algebra excludes gate_incomplete for every member", () => {
+  const members = Object.keys(RELEASE_OPERATION_CONTRACTS.snapshot);
+  assert.ok(members.length > 0);
+  for (const member of members) {
+    const declaration = RELEASE_OPERATION_CONTRACTS.snapshot[member];
+    assert.equal(packet("abg.operation.release.snapshot", member), declaration);
+    assert.equal(
+      JSON.stringify(projectStrictJsonSchema(declaration.refusalSchema))
+        .includes("gate_incomplete"),
+      false,
+      member,
+    );
+  }
 });

@@ -954,3 +954,169 @@ Grant: `test_env/tests/r10-child-proof.test.mjs`, `test_env/tests/r10-projection
 Stop (write the counterexample and the blocking line in the Return, keep the rest of the package moving): any edit under `code/src`, `build/`, `contracts/`, `design/` or a `.gitignore`; restoring a retired production export; a packaged input over 6 MB in total or a file that is not read by an assertion; rewriting a historical byte, digest or coordinate value; an assertion whose input exists in neither the ignored directory nor the repository (name it; it is a TD-04 next-increment row, not this package's); a change to a Product contract, an event payload key or a failure class; a test whose positive branch needs a retired authority to pass (do not weaken the authority).
 
 Return contract: one commit on `main` with the first line `TD-04 + TD-05: the R10 projection family runs from a clean checkout; two obsolete-import lanes retired` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-04 + TD-05 return` at the end of this record with: the census (item 1), the packaged inputs with bytes and the digest equalities (item 2), the assertion lists (items 3 and 5), the loader statement (item 4), the clean-worktree runs (item 5), the lane runs (item 6), stops, and the next-increment rows. Nothing above your section is edited.
+
+## TD-04 + TD-05 return
+
+Worker: Opus 5.5, fresh context. Base `2b585b87f`. This package's single commit is the next one on `main`, not pushed. The code and fixture files were committed first at `b939b3fd1`, and the clean worktree was cut from that commit. This record was then appended and the commit amended. `git diff --stat b939b3fd1 HEAD` touches only this file. Paths are relative to `build_tenants/abiogenesis/typescript/` unless they start with `.ai-workspace/`. "S01" is `.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/`. "D2-09" is `.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/`. Counts are tests/pass/fail/skipped.
+
+| Item | State | Lines at head `2b585b87f` | Lines after |
+|---|---|---|---|
+| 1. Census | done | below | |
+| 2. TD-04 inputs | done for `r10-projection-contracts` and `r10-retained-hello-projection.mjs`; stop for `r10-child-proof` and `r10-retained-child-projection.mjs` (Stops) | `r10-projection-contracts.test.mjs:20-24`, `:30`; `r10-retained-hello-projection.mjs:4`, `:7-13` | `r10-projection-contracts.test.mjs:6`, `:10`, `:22-28`, new test `:38-46`, call sites `:53`, `:92`, `:97`, `:167`; `r10-retained-hello-projection.mjs:6`, `:10-14`; new `test_env/fixtures/r10-projection-family/` |
+| 3. TD-05 assertions | done | `m5-consensus-module.test.mjs:26`, `:641-646`; `t287-wave2-owner-contract-source-set.test.mjs:46-48`, `:1064-1124` | `m5-consensus-module.test.mjs:26`, `:640-650`; `t287-wave2-owner-contract-source-set.test.mjs:46-48`, `:1064-1077` |
+| 4. Loaders | done; R10 loader kept | `test_env/support/r10-private-owner-harness.mjs` | unchanged |
+| 5. Proof | done | | Clean worktree |
+| 6. Lanes | done | | Lanes |
+
+**Item 1: census at `2b585b87f`** (rebuilt; `npm run build` regenerated no tracked file).
+
+| Lane | Head | First failing line | Cause class | Inputs read from an ignored directory |
+|---|---|---|---|---|
+| `r10-projection-contracts` | 1/0/1/0 | `:24` `DurablePrefixReadError` `file_identity_mismatch` "ABG durable prefix file identity differs from coordinate" | machine-bound coordinate. `call-11.jsonl` binds device 16777230, inode 449692970; the S01 log stats device 16777231, same inode. `:22` is an absolute `/Users/` path. The load failure hid a second cause at `:30`: the private name `outputFor` no longer exists in `abg/project_read_definition_bindings.js`. It was renamed and exported as `projectAbgReadOutput` in `0b1187c40` (obsolete API). | S01 `call-11.jsonl`, 9,304 bytes: `:23-24` close-handoff `prefix`, which every test uses. S01 `events-01/runtime.events.jsonl`, 2,797,774 bytes: every test through `events` and `prefix`, and `:65` (test "read before Run close is not_ready…") reads its first 19 lines directly. |
+| `r10-child-proof` | 1/0/1/0 | `:17` `ENOENT` on `<repo>/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl` | displaced path: `:14` resolves D2-09 at the repo root and `:118` resolves S01 at `build_tenants/fixture-program-selection-01`. Behind that, the D2-09 log has grown: `:18` asserts sha256 `4f561cea…`, which is the digest of its first 846 lines, and the file now has 913 lines (19,058,361 bytes, sha256 `f841bba9…`). `:139` is a machine-bound coordinate: it asserts device 16777230 and inode 449590349, and the file stats 16777231 and 449590349. | D2-09 `events-01/runtime.events.jsonl`, first 846 lines = 13,540,472 bytes: `:17-20` at module level, which every test uses; `prefixAt(67)` is 4,989,940 bytes and `prefixAt(831)` (`:77`) is 13,487,870 bytes. D2-09 `attempt-01/program-ready-16.json`, 12,781,893 bytes: `:17-21` `catalog`, `catalogView` and `closeHandoff.prefix`, which every test uses. S01 `call-9.jsonl`, 20,426,253 bytes: `:119`, test "conformance keeps the complete artifact-truth, inventory and Program joins…". S01 `call-11.jsonl`, 9,304 bytes: `:129`, same test. |
+| `m5-consensus-module` | 1/0/1/0 | `:26` `SyntaxError`: `public/index.js` does not provide `ROOT_PUBLIC_OPERATION_IDS` | obsolete API (retired in `adaeede02`) | none |
+| `t287-wave2-owner-contract-source-set` | 1/0/1/0 | `:47` `SyntaxError`: `product/release_snapshot_operations.js` does not provide `ReleaseSnapshotPort` | obsolete API (retired in `ad2a39f40`) | none |
+
+Support scripts in the family, run with `node --experimental-vm-modules`. No lane imports any of them.
+- `r10-retained-hello-projection.mjs`: exit 1, `:11` `ENOENT` on `build_tenants/fixture-program-selection-01/attempt-01/events-01/runtime.events.jsonl` (displaced path at `:7`).
+- `r10-retained-child-projection.mjs`: exit 1, `:10` `ENOENT` on D2-09 (displaced path at `:7`). It also asserts the whole-log hash (`:11`) and dev/ino (`:13`).
+- `r10-fresh-imports.mjs`: exit 0. It reads no fixture.
+
+A one-off check of each named import in the four lanes against the current exports found nothing missing beyond `:26` and `:47`.
+
+**Item 2: packaged inputs.** Each input is a byte-for-byte copy (`cmp` identical to the source; the committed blobs hash to the same digests). The source layout below S01 is kept.
+
+| File under `test_env/fixtures/r10-projection-family/` | Bytes | sha256 | Source | Read by |
+|---|---|---|---|---|
+| `s01-attempt-01/call-11.jsonl` | 9,304 | `3d4adcf616337360931993fbd10e42090c989ac24060d56318cd21ea9363f845` | S01 `call-11.jsonl` | `s01-store.mjs` `historical` (`acquisition.closeHandoff`). Its `reopenAuthority.eventContractDigest` selects the profile. Its `prefix` digest and length are asserted in `r10-projection-contracts.test.mjs:40-42` and `r10-retained-hello-projection.mjs:13-14`. |
+| `s01-attempt-01/events-01/runtime.events.jsonl` | 2,797,774 | `d2a677a2201dddb5b6f14d82b1c11e5d3cf95e9d369c30742cd750dac198e56c` | S01 `events-01/runtime.events.jsonl` | the owner's reopen; every `r10-projection-contracts` test through `prefix`, and `:78` reads 19 lines directly; `r10-retained-hello-projection.mjs`. |
+| `s01-store.mjs` | 28 lines | | new reader module (precedent: `t287-management-supervision/fresh-public-read.mjs`) | imported by both consumers |
+
+Packaged input total: 2,807,078 bytes. `call-11.jsonl` keeps its historical `/Users/` strings (`eventLogRef`, `eventLogPath`) as bytes. No family source file contains `/Users/`.
+
+`reopenPackagedS01Store(eventContractDigest)` builds an `event_store_reopen_authority` from the packaged file itself: its path, `stat` device and inode, byte length, and a sha256 computed with `node:crypto`. It then calls `reopenEventStore`, and on success calls `closeHeldEventStoreAtDurablePrefix` with no append. The close handoff's `prefix` is cold, so later reads authenticate the file again. No lock remains in `tmpdir()/abiogenesis-event-store-locks-v5/` for the two fixture inodes (496933743 here, 497086393 in the clean worktree) after the runs. The fixture is unchanged after the runs (`git status` clean in the worktree).
+
+One property this reader adds: `reopenEventStore` opens the tracked fixture `O_RDWR|O_APPEND` and writes a lock into `tmpdir()`. So the lane and the Hello script need write permission on `s01-attempt-01/events-01/runtime.events.jsonl`; a read-only checkout refuses `sink_unavailable`. A run killed between reopen and close leaves a lock that refuses the next run until it is removed.
+
+Digest equalities in the new test `r10-projection-contracts.test.mjs:38` ("the packaged log is the historical S01 prefix…"):
+- `eventLogRef` is the packaged file's URL.
+- `prefixDigest` is `sha256:d2a677a2…`, equal to the historical value.
+- `prefixLength` is 2,797,774, equal to the historical value.
+- `storeIdentity.eventContractDigest` is `sha256:fc3a6350…`, equal to the historical value and to the owner's `LEGACY_ROOT_EVENT_CONTRACT_DIGEST`.
+- The supplied profile is the historical one. The negative case shows that the bytes fix it: reopening under `ROOT_EVENT_CONTRACT_DIGEST` (`sha256:6c8a9852…`) refuses `invalid_event_history` "durable coordinate profile differs from authenticated history".
+
+New coordinates:
+- This checkout: device 16777231, inode 496933743, `coordinateDigest` `sha256:fdab3154…`.
+- Clean worktree: device 16777231, inode 497086393, `coordinateDigest` `sha256:70d4b112…`.
+
+The historical `storeIdentity` (device 16777230, inode 449692970), `eventLogRef` and `coordinateDigest` `sha256:208b0ec1…` are read as evidence only and are never compared with the live file.
+
+**Item 3: assertion lists.**
+- `m5-consensus-module`: the assertion at head `:641-646` now reads the Public operation inventory from `PUBLIC_OPERATION_CONTRACT_PROJECTIONS`. That is the current export of the same module, `public/index.js`; its owner is `public/binding/public_function_family.ts:485`. It maps `operationId`, checks that the list is non-empty, and checks that no id contains "consensus" (after `:640-650`). Nothing is deleted. The assertion sits in test `:486` "S05 module publishes the exact Consensus contracts, vocabularies, and ordinary GTL callable", which passes.
+- `t287-wave2-owner-contract-source-set`: the import becomes `RELEASE_OPERATION_CONTRACTS`, the current export of the same module, `product/release_snapshot_operations.js`. In test `:1064` the following are deleted as obsolete:
+  - the `ReleaseSnapshotPort.published_rc` call (head `:1065-1072`), with `published.outcomeKind === "refusal"` (`:1073`) and `published.value.code === "basis_mismatch"` (`:1074`);
+  - the local `finalBasis`, `finalVerdict` and `releaseEvidence` fixtures (`:1077-1100`);
+  - the `ReleaseSnapshotPort.tapped_release` call (`:1101-1114`), with `tapped.outcomeKind === "refusal"` (`:1115`) and `tapped.value.code === "installed_rc_authorization_missing"` (`:1116`). That code is absent from the current refusal picklist (`release_snapshot_operations.ts:79`).
+- These assertions call the owner. The current owner callable is `RELEASE_SNAPSHOT_DEFINITION_BINDINGS.snapshot.*` (`product/release_snapshot_definition_bindings.ts:157`), which takes an admitted DefinitionCall with admission authority, an acquired event resource and five authority slots. Its `basis_mismatch` branch (`:47`) belongs to that proof, not to this source-set lane.
+- The three `gate_incomplete` assertions (`:1075`, `:1117`, `:1118-1123`) now read the inventory: for each member of `RELEASE_OPERATION_CONTRACTS.snapshot`, the source-map packet is the same object, and the strict JSON projection of its refusal schema does not contain `gate_incomplete`.
+- The test is renamed from "D15 owner callable uses accepted refusal algebra without gate_incomplete" to "D15 release snapshot refusal algebra excludes gate_incomplete for every member", because it no longer invokes a callable.
+- No retired export was restored, and no count was written into either test.
+
+**Item 4: loaders.** `r10-private-owner-harness.mjs` `privateOwner(relative, names, overrides)` reads the emitted `build/code/src/<relative>`, appends `export { names }` to expose bindings the module does not export, sets `import.meta.url`, and links each specifier to a `SyntheticModule` over the real namespace merged with per-specifier overrides, with a link cache. The other loaders in `test_env/support`, and what each adds:
+- `witness-reprice-mechanics.mjs:25` `loadMechanism` has the same link, override, names and `import.meta` mechanics, but its body is `ts.transpileModule` of `code/src/<relative>.ts`: current source, not emitted output. It imports `privateOwner` itself (`:19`).
+- `t287-native-work-currentness-consumers.mjs:286` `component(name, overrides)` loads emitted output with overrides. It appends no names, sets no `import.meta` and has no link cache. In the same file, `:55` `componentNativeAssessment` has fixed overrides, and `:359` `semanticFixtureHelpers` slices a test file's text and appends exports.
+- `forward-owner-lookups.mjs:92` `moduleAt` is not exported; it has fixed overrides and a cache.
+- `d1-preserved-result-harness.mjs:190` interposes `node:fs` `readFileSync`.
+- `d2-binding-harness.mjs:164-207` has three linked modules with `node:fs` replay interposition.
+- `d2-bounded-harness.mjs:82` selects a source root and input profile.
+- `d2-historical-design-harness.mjs:76` has fixed overrides.
+- `t287-predecessor-context.mjs:56` has one fixed `semantic_stage` override.
+- `malformed-gtl-native-fixture.mjs:210-218` links a recursive `SourceTextModule` graph, optionally in a separate `vm.createContext` realm.
+- `d2-evidence-owner-harness.mjs:141` and `:161` use `runInNewContext` over function bodies extracted by regex, with a mapped `readFileSync`.
+
+None has the same mechanics. The R10 lanes need appended private names (`terminalResult`, `prepareRead` with an override, `scopeForBasis`, `terminalContract`, `graphCallContext`, `typedTerminalResult`, `reconstructDeclarationBasis`, two schemas), which `component` cannot provide. `loadMechanism` would change the subject from emitted output to transpiled source. Kept, byte-identical. The R10 loader is imported by 21 lanes: 18 directly, plus 3 through `witness-reprice-mechanics.mjs` (`t287-fh-hold-open`, `witness-reprice-definition-binding`, `witness-run-stopped-definition-binding`). That is 19 besides the R10 pair; none was edited.
+
+**Item 5: clean worktree.** `git worktree add --detach <scratchpad>/td0405/td0405-clean b939b3fd1`. Neither `typescript/` nor `build_tenants/abiogenesis/README.md` names an install step, so `npm ci` was run over the committed `package-lock.json` (16 packages added). Then `npm run build` (exit 0), then the four lanes. After the runs, `git status` in the worktree is clean.
+
+| Lane | Head, this checkout | After, this checkout | Clean worktree |
+|---|---|---|---|
+| `r10-projection-contracts` | 1/0/1/0 | 10/9/1/0 | 10/9/1/0 |
+| `r10-child-proof` (unedited, stop) | 1/0/1/0 | 1/0/1/0 | 1/0/1/0 |
+| `m5-consensus-module` | 1/0/1/0 | 18/11/7/0 | 18/11/7/0 |
+| `t287-wave2-owner-contract-source-set` | 1/0/1/0 | 15/13/2/0 | 15/13/2/0 |
+| `r10-retained-hello-projection.mjs` (script) | exit 1 | exit 0 | exit 0 |
+| `r10-retained-child-projection.mjs` (script, stop) | exit 1 | exit 1 | exit 1 |
+| `r10-fresh-imports.mjs` (script) | exit 0 | exit 0 | exit 0 |
+
+The ok/not-ok identities are the same after the edit in this checkout and in the clean worktree. In the clean worktree, `r10-child-proof` fails at `:17` with `ENOENT` on `<worktree>/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl`.
+
+Formerly load-failing assertions that now run, by test:
+- `r10-projection-contracts`: the module-level `truth.kind` and `replay.kind` checks run (`:30`, `:36`), and eight of the nine head tests pass:
+  - "six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster";
+  - "legal I-JSON null is not absence…";
+  - "held/failed/missing terminal truth cannot become a completed Product result";
+  - "read before Run close is not_ready while the actually closed root GraphCall is independently readable";
+  - "whole-prefix typed replay summary is conserved on first and empty-end pages; invalid offsets and arithmetic refuse";
+  - "scope and packet crossings refuse; root does not accept a caller declarationProof field";
+  - "native CCall owner rejects altered value, contract, producer, judgment and pre-result prefix without test-owned admission";
+  - "the shared mapper rejects crossed result aliases and keeps failed-command observation data verbatim".
+
+  The ninth runs and is red: "Run reads validate selected liveness while workspace replay retains the complete calculus". It fails at `:142` with `TypeError` "Cannot read properties of undefined (reading 'terminalResult')". The owner refuses the unrelated-scope variant with `abg_project_read_refusal` `invalid_history` "ABG project read owner projectors refused the durable event history", where the test expects the original terminal result. The new packaged-prefix test passes.
+- `m5-consensus-module`: all 18 tests run, and 11 pass: `:486`, `:654`, `:692`, `:891`, `:1068`, `:1087`, `:1224`, `:1244`, `:1278`, `:1391`, `:2153`. Red:
+  - `:1104`, `:1310`, `:1656`, `:1931` and `:2111` fail first at helper `:385`: `actor_process_carrier_validation_refusal` `invalid_actor_process_observation` "actor process observation must be one exact ordinary closed data object".
+  - `:1542` fails first at `:1572`: `event_store_reopen_refusal` `invalid_event_history` "runtime event payload matches no admitted event-contract variant".
+  - `:2247` fails first at `:2252`: `ENOENT` on `code/src/public/operations.ts`.
+- `t287-wave2-owner-contract-source-set`: all 15 tests run, and 13 pass, including the renamed D15 test. Red:
+  - `:609` fails first at `:611`: `isDeeplyFrozen(PUBLIC_FUNCTION_DEFINITION_FAMILY)` is `false`.
+  - `:796` fails first at `:798` on "D15": the representative release request is refused by the current request schema, with issue paths under `/lawBasis`, `/qualificationBasis` and `/requestedIdentity`.
+
+Owner branches the R10 lane reaches, by test:
+- "the packaged log is the historical S01 prefix…": positive, reopen under the historical profile. Negative, reopen under the current profile refuses `invalid_event_history`.
+- "six current owner outputs…": positive, `run_result`, `run_replay`, `graph_call_result` and `graph_call_replay` project, `projectAbgReadOutput` returns `result`, and `constructRunInvocationOutcome` handles `invoke` and `start`.
+- "legal I-JSON null…": positive, a null result row is selected. Negative, no row gives `null`.
+- "held/failed/missing terminal truth…": negatives give `nonterminal`, `runtime_failed`, `blocked`, and `refusal` both for a null terminal result and for a changed result digest.
+- "read before Run close…": negative, `run_result` at the 19-event prefix refuses `target_not_ready`. Positive, `graph_call_result` projects.
+- "whole-prefix typed replay…": positive at offsets 0 and the event count. Negatives give `cursor_invalid` and `range_invalid` three times.
+- "scope and packet crossings refuse…": negatives give `invalid_packet` for a caller `declarationProof` and `invalid_history` for a changed `coordinateDigest`; GraphCall and Run targets crossed both ways refuse.
+- "Run reads validate selected liveness…": positive, the original `run_result` and `workspace_replay` project. It is red at `:142`, so its three `invalid_history` negatives (`:143`, `:145`, `:146`) are not reached.
+- "native CCall owner rejects…": positive projection. Negatives give `null` for a changed value, contract, `cCallRef`, judgment `resultRef` and pre-result prefix.
+- "the shared mapper rejects…": negative, `projectAbgReadOutput` throws on a crossed result alias. Positive, the carrier schema admits a failed-command observation.
+- `r10-child-proof` reaches no branch.
+
+**Item 6: lanes.** `npx tsc --noEmit -p tsconfig.json`: clean. `npm run lint:imports`: 28 modules, clean. `npm run lint:lifecycle`: 284 modules, 10 allow-listed, no offender. There are no `code/src` edits. No file under `test_env/support` changed. The new `s01-store.mjs` is imported only by `r10-projection-contracts` and `r10-retained-hello-projection.mjs`. So no lane beyond the four was required. Paths that leave `test_env/` in the edited files are imports of the tenant's own `build/` output, as in every lane.
+
+**Edits beyond the activation's letter** (for the Executive's ruling).
+1. `r10-projection-contracts`: `outputFor` is read through `projectAbgReadOutput`, the current export of the same owner module: one import (`:10`), four call sites, and the `privateOwner` line at head `:30` removed. This is the item 3 rule applied to an R10 lane. The alternative is that the lane stays red at `:30` with `SyntaxError` "Export 'outputFor' is not defined in module".
+2. The wave-2 D15 test is renamed (item 3).
+3. The reader module `s01-store.mjs` is shared by the lane and the script, so the reopen is not written twice.
+
+**Stops.**
+1. `r10-child-proof` and `r10-retained-child-projection.mjs` would need a packaged input over 6 MB. Every test, and the script, reads D2-09 at module level: the 846-line log prefix (13,540,472 bytes, hashed whole at `:18`) and `program-ready-16.json` (12,781,893 bytes; `catalog` and `catalogView` form the declaration proof that every test uses). The smallest prefix any test uses (ordinal 67, 4,989,940 bytes) plus the ready file is 17,771,833 bytes. The `:117` test also needs S01 `call-9.jsonl` (20,426,253 bytes). Blocking lines: `r10-child-proof.test.mjs:14-21` and `r10-retained-child-projection.mjs:7-16`. Both files are unedited. Their paths above `test_env/` (`:14`, `:118`; `:7`) and the dev/ino assertions (`:139`; `:13`) remain.
+2. `m5-consensus-module` test `:2247` ("S05 generic Public and ABG invocation basis contain no Consensus branch") reads an input that exists in neither the ignored directory nor the repository. Counterexample: `ENOENT` at `:2252` on `code/src/public/operations.ts`. That file is the tenant's own source, deleted in `adaeede02`. Blocking line: `m5-consensus-module.test.mjs:2252`. The test is unedited.
+
+**Next-increment rows** (first failing line at `2b585b87f` unless stated "after").
+
+| Row | Lane or file | First failing line | Cause class |
+|---|---|---|---|
+| TD-04, D2-09 store | `r10-child-proof`, `r10-retained-child-projection.mjs` | `:17` and `:10`, `ENOENT` | displaced path; historical log grown past the asserted 846 lines; machine-bound dev/ino; inputs over 6 MB (Stop 1) |
+| TD-04, S01 `call-9.jsonl` | `r10-child-proof` test `:117` | not reached (module load) | input over 6 MB (20,426,253 bytes) |
+| owner ruling | `r10-projection-contracts` test `:109` | after: `:142` | Run read refuses `invalid_history` for a malformed liveness event in an unrelated Run scope; the test expects selected-scope validation. Not an input. |
+| TD-05 | `m5-consensus-module` `:1104`, `:1310`, `:1656`, `:1931`, `:2111` | after: helper `:385` | obsolete fixture contract (actor process observation shape) |
+| TD-05 | `m5-consensus-module` `:1542` | after: `:1572` | obsolete fixture contract (event payload variant) |
+| TD-04 | `m5-consensus-module` `:2247` | after: `:2252` | input exists nowhere (Stop 2): `code/src/public/operations.ts` was deleted in `adaeede02` |
+| TD-05 | `t287-wave2-owner-contract-source-set` `:796` | after: `:798` | obsolete fixture contract (D15 release request shape) |
+| owner ruling | `t287-wave2-owner-contract-source-set` `:609` | after: `:611` | `PUBLIC_FUNCTION_DEFINITION_FAMILY` not deeply frozen |
+| TD-04 | `d1-preserved-result-mechanics` (1/0/1/0) | `support/d1-preserved-result-harness.mjs:20` `ENOENT` on `build_tenants/abiogenesis/preimages/source-observation.json` | displaced path; also `tests/d1-preserved-result-mechanics.test.mjs:34`, an absolute `/Users/` path to `20260911_D2_BOUNDED_REPAIR/implementation-04/work` |
+| TD-05 | `t287-native-assessment-evidence` (4/1/3/0) | `:548` (tests `:551`, `:559`, `:585`) `TypeError` "profile schedule requires the original gap-free stamped history" | obsolete fixture contract (unstamped inline history). The `/Users/` strings at `:118`, `:136-137`, `:173-175` are inline row data. |
+| TD-04 | `t288-composition-conservation` (1/0/1/0) | `:12` "exact predecessor and immutable native history required" | missing input (`ABI5_COMPOSITION_PREDECESSOR`, `ABI5_COMPOSITION_SCRATCH` unset); `:62` is an absolute S01 path |
+| TD-04 | `w2-steel-single-start-installed` (1/0/0/1) | skip at `:252` | missing input (`ABI5_STEEL03_*`, `ABI5_WAVE1_FROZEN_ARTIFACT_PATH` unset) |
+| TD-04 | `w2-steel-serial-branch-installed` (2/0/0/2) | skips at `:254` | missing input (`ABI5_STEEL04_*`, `ABI5_WAVE1_FROZEN_ARTIFACT_PATH` unset) |
+| TD-04 | `support/d2-bounded-harness.mjs` | `:9`, `:11` | machine-bound `/Users/` paths (`20260910_D2_FRAME_REPAIR/implementation-01`; `20260909_D1_LIFECYCLE/…/bridge-input.json`) |
+| TD-04 | `support/declared-testing-capability.mjs` | `:18` | machine-bound CLI binary path |
+| TD-04 | `support/stdo-environment-pilot.mjs` | `:153-155` | machine-bound `~/Library/Application Support/…/v2.5.0-rc.7` install roots |
+| TD-04 | `support/d2-evidence-owner-harness.mjs` | `:9-10` | displaced path: `packageRoot/../../implementation-03/work` and `../../installed-continuation-07/installed-frame-01` resolve under `build_tenants/`, and neither exists |
+
+**Errata in the activation.**
+1. `r10-child-proof` does not resolve the S01 store at `:15`. `:14` resolves D2-09, a different store, and the first error is at `:17`. Only `:118` resolves S01. TD-14's row (`ENOENT` on `20260911_D2_BOUNDED_REPAIR/installed-continuation-09/…`) already showed this.
+2. The R10 loader has 21 importing lanes, not 24 (19 besides the R10 pair, not 22).
+3. The `file_identity_mismatch` comes from device drift (16777230 to 16777231). The inode is unchanged.

@@ -3,9 +3,11 @@ import test from 'node:test';
 import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
+import {pathToFileURL} from 'node:url';
 import * as v from 'valibot';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 import {ABG_PROJECT_READ_CONTRACTS} from '../../build/code/src/abg/project_read_operation_contracts.js';
+import {projectAbgReadOutput} from '../../build/code/src/abg/project_read_definition_bindings.js';
 import {RunProjectionPort,GraphCallProjectionPort,projectRunTruthAtDurablePrefix} from '../../build/code/src/abg/project_read_ports.js';
 import {constructRunInvocationOutcome} from '../../build/code/src/product/run_invocation_operation.js';
 import {ABG_TYPED_TERMINAL_RESULT_SCHEMA} from '../../build/code/src/abg/terminal_result_contracts.js';
@@ -17,27 +19,38 @@ import {PUBLIC_FUNCTION_DEFINITION_FAMILY,PUBLIC_OPERATION_CONTRACT_PROJECTIONS}
 import {ROOT_EVENT_CONTRACT_DIGEST,projectRuntimeEventFromValidatedHistory} from '../../build/code/src/abg/event_store.js';
 import {constructRuntimeSystemProbeContract} from '../../build/code/src/abg/runtime_liveness_contracts.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
-// Integration relocates test source only. This original S01 store is read-only;
-// no acquisition, append, Public invocation or application effect is selected.
-const native='/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01';
-const request=JSON.parse(fs.readFileSync(path.join(native,'call-11.jsonl'),'utf8'));
-const prefix=request.acquisition.closeHandoff.prefix,events=readRuntimeEventsAtDurablePrefix(prefix);
+import {storeRoot as native,eventLogPath,historical,reopenPackagedS01Store} from '../fixtures/r10-projection-family/s01-store.mjs';
+// Integration relocates test source only. The packaged S01 store is reopened once
+// by the store owner to obtain this file's coordinate and closed with no append;
+// no Public invocation or application effect is selected.
+const reopened=reopenPackagedS01Store(historical.reopenAuthority.eventContractDigest);
+assert.ok(reopened.prefix,JSON.stringify(reopened));
+const prefix=reopened.prefix,events=readRuntimeEventsAtDurablePrefix(prefix);
 const run=events.find(e=>e.kind==='run_segment_opened').runId,graph=events.find(e=>e.kind==='graph_call_opened').graphCallId;
 const truth=projectRunTruthAtDurablePrefix(prefix,run);assert.equal(truth.kind,'abg_run_truth_projection');
 const packet=(member,target=run)=>({kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:member,prefix,targetRef:target});
 const projection=(member,fromOrdinal=0,limit=1)=>({source:{sourceRef:member.startsWith('graph_call')?graph:run,sourceDigest:member.startsWith('graph_call')?truth.graphCall.digest:truth.run.digest},
   projectionBasis:{projectionBasisRef:prefix.eventLogRef,projectionBasisDigest:prefix.coordinateDigest},selector:{kind:'ordinal_page',fromOrdinal,limit}});
-const adapters=await privateOwner('abg/project_read_definition_bindings.js',['outputFor','PROJECT_READ_RESOURCE_ASSERTION_SCHEMA','GRAPH_CALL_TERMINAL_RESOURCE_ASSERTION_SCHEMA']);
 const owners=await privateOwner('abg/project_read_ports.js',['terminalResult']);
 const replay=RunProjectionPort.run_replay(packet('run_replay'));
 assert.equal(replay.kind,'abg_project_read_projection');
+
+test('the packaged log is the historical S01 prefix: the owner coordinate keeps its digest, length and profile; the current profile refuses it',()=>{
+  assert.equal(prefix.eventLogRef,pathToFileURL(eventLogPath).href);
+  assert.equal(prefix.prefixDigest,historical.prefix.prefixDigest);
+  assert.equal(prefix.prefixLength,historical.prefix.prefixLength);
+  assert.equal(prefix.storeIdentity.eventContractDigest,historical.prefix.storeIdentity.eventContractDigest);
+  const current=reopenPackagedS01Store(ROOT_EVENT_CONTRACT_DIGEST);
+  assert.equal(current.kind,'event_store_reopen_refusal',JSON.stringify(current));
+  assert.equal(current.code,'invalid_event_history');
+});
 
 test('six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster',()=>{
   assert.equal(PUBLIC_OPERATION_CONTRACT_PROJECTIONS.length,18);
   assert.equal(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.length,56);
   for(const [member,port,target] of [['run_result',RunProjectionPort.run_result,run],['run_replay',RunProjectionPort.run_replay,run],['graph_call_result',GraphCallProjectionPort.graph_call_result,graph],['graph_call_replay',GraphCallProjectionPort.graph_call_replay,graph]]) {
     const actual=port(packet(member,target));assert.equal(actual.kind,'abg_project_read_projection');
-    const output=adapters.outputFor(ABG_PROJECT_READ_CONTRACTS[member],projection(member),member,actual);
+    const output=projectAbgReadOutput(ABG_PROJECT_READ_CONTRACTS[member],projection(member),member,actual);
     assert.equal(output.outcomeKind,'result');assert.deepEqual(output.value.projection.terminalResult,truth.terminalResult);
   }
   for(const member of ['invoke','start'])assert.deepEqual(constructRunInvocationOutcome(member,truth).value.terminalResult,truth.terminalResult);
@@ -76,12 +89,12 @@ test('read before Run close is not_ready while the actually closed root GraphCal
 test('whole-prefix typed replay summary is conserved on first and empty-end pages; invalid offsets and arithmetic refuse',()=>{
   const count=replay.value.eventAtoms.length;
   for(const offset of [0,count]) {
-    const output=adapters.outputFor(ABG_PROJECT_READ_CONTRACTS.run_replay,projection('run_replay',offset,1),'run_replay',replay);
+    const output=projectAbgReadOutput(ABG_PROJECT_READ_CONTRACTS.run_replay,projection('run_replay',offset,1),'run_replay',replay);
     assert.equal(output.outcomeKind,'result');assert.equal(output.value.projection.status,'closed');
     assert.deepEqual(output.value.projection.terminalResult,truth.terminalResult);
   }
   for(const [offset,limit,code] of [[count+1,1,'cursor_invalid'],[Number.MAX_SAFE_INTEGER,1,'range_invalid'],[-1,1,'range_invalid'],[0,0,'range_invalid']]) {
-    const output=adapters.outputFor(ABG_PROJECT_READ_CONTRACTS.run_replay,projection('run_replay',offset,limit),'run_replay',replay);
+    const output=projectAbgReadOutput(ABG_PROJECT_READ_CONTRACTS.run_replay,projection('run_replay',offset,limit),'run_replay',replay);
     assert.equal(output.outcomeKind,'refusal');assert.equal(output.value.code,code);
   }
 });
@@ -151,7 +164,7 @@ test('native CCall owner rejects altered value, contract, producer, judgment and
 test('the shared mapper rejects crossed result aliases and keeps failed-command observation data verbatim',()=>{
   const actual=RunProjectionPort.run_result(packet('run_result'));
   const crossed={...actual,value:{...actual.value,admittedResult:{...actual.value.admittedResult,resultRef:'result://foreign'}}};
-  assert.throws(()=>adapters.outputFor(ABG_PROJECT_READ_CONTRACTS.run_result,projection('run_result'),'run_result',crossed),/terminal owner coordinates/);
+  assert.throws(()=>projectAbgReadOutput(ABG_PROJECT_READ_CONTRACTS.run_result,projection('run_result'),'run_result',crossed),/terminal owner coordinates/);
   const observation={kind:'mechanical_failed_command_observation',commandResults:[{exitStatus:1}]};
   const carrier={...truth.terminalResult,value:observation,valueDigest:sha256Canonical(observation)};
   assert.equal(v.safeParse(ABG_TYPED_TERMINAL_RESULT_SCHEMA,carrier).success,true,'carrier does not reprice a failed command into a successful command');

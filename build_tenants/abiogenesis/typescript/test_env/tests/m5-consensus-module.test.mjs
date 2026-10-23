@@ -23,7 +23,7 @@ import {
 } from "../../build/code/src/implementation/consensus.js";
 import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "../../build/code/src/product/builtin_semantics.js";
 import * as product from "../../build/code/src/product/index.js";
-import { ROOT_PUBLIC_OPERATION_IDS } from "../../build/code/src/public/index.js";
+import { PUBLIC_OPERATION_CONTRACT_PROJECTIONS } from "../../build/code/src/public/index.js";
 import { compareUnicodeCodeUnits } from "../../build/code/src/shared/canonical_json.js";
 import * as validator from "../../build/code/src/validator/index.js";
 import {
@@ -637,8 +637,12 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
     JSON.stringify(publication).match(/compiled|lowered/gu),
     null,
   );
+  const publicOperationIds = PUBLIC_OPERATION_CONTRACT_PROJECTIONS.map(
+    (row) => row.operationId,
+  );
+  assert.ok(publicOperationIds.length > 0);
   assert.equal(
-    ROOT_PUBLIC_OPERATION_IDS.some((operationId) =>
+    publicOperationIds.some((operationId) =>
       operationId.includes("consensus")
     ),
     false,
