@@ -342,3 +342,58 @@ Items, in this order. The Return carries one row per item: done or stopped, with
 **Stop:** any change to a failure class, a candidate or receipt member, `totalizeLeafImplementationFailure`, `closedProbabilisticOwnerReceipt`, `sanitizeUndispatchedOwnerError`'s policy, `abg/runtime_failure.ts`, or the admission path; a new red identity; a second bounded attempt at any item; any push.
 
 **Return contract.** One commit on `main`, no push. First line `TD-17: F_P completion failures keep their cause`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-17 return` below this section with: one row per item (done or stopped, lines at head); the diagnostic subject of each case at head and after; the lane results as `tests/pass/fail/skipped` with every red attributed; the stop reports, if any, with the counterexample.
+
+## TD-17 return
+
+Worker: Opus 5.5, fresh context. Base `58e23eec9`; this package's single commit is the next one on `main`, not pushed. Paths are relative to `build_tenants/abiogenesis/typescript/`; the port is `code/src/implementation/leaf_invocation_port.ts`.
+
+| Item | State | Lines at head `58e23eec9` | Lines after |
+|---|---|---|---|
+| 1. F_P completion keeps its cause by the F_D mechanism | done | `deterministicFailure` `:559-596`; F_P `complete(exchange)` `:762-810`: sync catch `:766`, `finalize` catch `:792`, rejection handler `:801` | producer `:559` comment, `:560-597`; sync-throw call site `:769` (catch `:767`); rejection call site `:804` (handler `:802`); `finalize` catch `:793` unchanged |
+| 2. Proof on the whole path | done, in `t287-runtime-failure-diagnostic` | lane `:1-492`; F_D admission case `:303` (now `:306`), unchanged | helpers `:376` (`probabilisticCompletionFailure`) and `:418` (`probabilisticCompletionCauseSurvivesAdmission`); tests `:450` (throws) and `:455` (rejects); imports `:7`, `:16`, `:17` |
+| 3. Design §9.3 sentence | stopped: the sentence does not exist | design `:567-577` (§9.3) | no design edit |
+| 4. Lanes | done | | see Lanes |
+
+**Item 1.** `deterministicFailure` is the one producer. Its stage union gains `implementation_completion`, its reason union gains `rejected`, the caught-error gate reads `reason === "thrown" || reason === "rejected"`, and `computeRegime` is `resolution.computeRegime` instead of the literal `"F_D"`. The four F_D call sites (head `:653`, `:667`, `:673`, `:688`; now `:654`, `:668`, `:674`, `:689`) are byte-identical: each runs only under `resolution.computeRegime === "F_D"`, so their subjects are unchanged. The two F_P sites call `deterministicFailure("implementation_completion", "thrown", error)` from `catch (error)` and `deterministicFailure("implementation_completion", "rejected", error)` from the rejection handler `(error: unknown) =>`. Sanitization is `sanitizeUndispatchedOwnerError` unchanged; the message is the own `message` data descriptor of a native error, 8192 bytes, truncation flagged, as F_D. The result candidate and every evidence candidate's `outputDigest` are rebound as F_D rebinds them; F_P evidence candidates are `[]`, so that map is empty. Unchanged: failure class (`implementation_exception`), candidate and receipt members, `totalizeLeafImplementationFailure`, `closedProbabilisticOwnerReceipt`, `abg/runtime_failure.ts`, the admission path. The `finalize` catch (`malformed_return` on an admission or validation throw) is not covered: the producer fixes `implementation_exception`, and covering it needs a failure-class parameter and a stage. The name `deterministicFailure` now covers the F_P completion; a rename touches the four F_D call sites and is left to the Executive.
+
+No reader keys on the class reference: `diagnostic://abiogenesis/implementation/implementation-exception@5` occurs in `code/src` only as `totalizeLeafImplementationFailure`'s template (`:258`), so replacing it with the inline reference on the F_P completion changes no admission decision. The undispatched F_P path (`undispatched`, `:598`) already puts a `data:` reference in an F_P failure value's `diagnosticRef`.
+
+**Item 2: diagnostic subjects.** Both cases run the actual F_P boundary (`invokeLeafOwnerBoundary` from source), the actual `complete(exchange)` with a carrier pair validated by `validateActorProcessCarrierPair`, then the fixture's `admitRuntimeFailure` with the decoded subject and the candidate's `diagnosticRef`, then `projectRuntimeFailureEvidenceAtPrefix` over a JSON-cloned cold prefix and the `run_evidence` Public projection. This is the F_D case's route: controlled basis/frame/replay premises; the installed C-call result route (`admitOwnedCCallResult`, `c_call_result_admitted`) is not exercised. A substituted subject (`reason` swapped) refuses before append.
+
+At head (the same two tests run against the unedited port; both red at the cold-read assertion, `:431`):
+
+| Case | `candidate.diagnosticRef` | cold `availability` | cold `diagnosticClassRef` | cold `subject` |
+|---|---|---|---|---|
+| throws (`TypeError`) | `diagnostic://abiogenesis/implementation/implementation-exception@5` | `not_retained` | `diagnostic://abiogenesis/implementation/implementation-exception@5` | `null` |
+| rejects (`Error`, `code: 'ENOENT'`) | same | `not_retained` | same | `null` |
+
+After (both green):
+
+| Case | cold `availability` | cold `subject` members |
+|---|---|---|
+| throws | `retained` | `diagnosticClassRef: diagnostic://abiogenesis/implementation/implementation-exception@5`, `computeRegime: F_P`, `implementationRef: implementation://diagnostic/probabilistic@5`, `inputDigest: sha256:f40505b2780f9fded56ccbfb5ae4e97ab7cb3a2020ab82c728e768bad10de653`, `stage: implementation_completion`, `reason: thrown`, `cause: { errorClass: TypeError, errorCode: null, message: "selected probabilistic completion cause", messageTruncated: false }` |
+| rejects | `retained` | the same with `reason: rejected`, `cause: { errorClass: Error, errorCode: ENOENT, message: "selected probabilistic rejection cause", messageTruncated: false }` |
+
+The F_D cases (`:259`, `:288`, `:306`, `:353`) are unchanged and green.
+
+**Lanes.** `npm run build` exit 0; it regenerated `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json` (one content digest each), both committed; at head it regenerated nothing. `npx tsc --noEmit -p tsconfig.json` clean. `lint:imports`: 28 modules, clean. `lint:lifecycle`: 284 modules, 10 allow-listed, no offender.
+
+| Lane | Head | After | Reds and skips |
+|---|---|---|---|
+| `t287-runtime-failure-diagnostic` | 12/12/0/0; with the two new cases on the unedited port 14/12/2/0 | 14/14/0/0 | the two head reds are the discriminating negative of item 2 |
+| `t287-c2a-fp-source-contract` | 4/4/0/0 | 4/4/0/0 | |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 | 1/0/0/1 | skip: `ABI5_F11_FP_ASSESSMENT_PACKET` and `ABI5_F11_FP_BASELINE_TENANT` unset |
+| `t287-undispatched-diagnostic` | 7/5/2/0 | 7/5/2/0 | `:93` (`false !== true` at `:135`) and `:222` (`event store was not constructed by this ABG module` at `:283`): the lane is on the TD-07 return's list of lanes red at head |
+| `m5-s03-authority` | 5/1/4/0 | 5/1/4/0 | `:96`, `:218` (capability grant requires exact workspace, policy, actor, and definition authority), `:285` (`declarationClosure` of undefined), `:415` (invalid envelope): `step-8-run-postclose-h.log:1007-1061` |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 | skips: `ABI5_NATIVE_SOURCE_READY_CATALOG` and `ABG_NATIVE_EXECUTION_RETAINED_LOG` unset |
+
+No new red identity: for each red lane, the sorted failing test names, locations and error lines are identical at head and after.
+
+**Stop: item 3.**
+- Counterexample: design §9.3 (`:567-577`) is "Process failure facts"; its seven items cover actor and helper process facts. No sentence in §9.3, or anywhere in the design, names F_D's retained cause: the design has no occurrence of `deterministicFailure`, `sanitizeUndispatchedOwnerError`, `implementation_exception` or `implementation_invocation`, and its one `F_D` (`:696`) is a table row on regime authority.
+- Blocking line: the grant names "the design sentence of item 3", and item 3 says "nothing else". Writing a new sentence is outside the grant. No design edit is made.
+- Proposed sentence, for the Executive to place: "A leaf owner failure caught at the boundary keeps its first cause inline: at the F_D boundary (stages `authority_verification`, `implementation_load` and `implementation_invocation`) and at the F_P completion after the effect (stage `implementation_completion`, reason `thrown` for a synchronous throw and `rejected` for a rejected Promise), the `implementation_exception` failure's `diagnosticRef` and `resultCandidate.diagnosticRef` are `constructRuntimeFailureDiagnosticRef({ diagnosticClassRef, computeRegime, implementationRef, inputDigest, stage, reason, cause })` (`implementation/leaf_invocation_port.ts:560`), with the cause sanitized by `sanitizeUndispatchedOwnerError` and the native error's own message (8192 bytes, truncation flagged), and `readRuntimeFailureDiagnosticSubject` reads it cold."
+
+**Findings.**
+- The activation's head range for `deterministicFailure` (`:559` to `:589`) ends at the `diagnosticRef` construction; the closure ends at `:596`.
+- The `finalize` catch (`:793`) still totalizes to the class reference `malformed-return@5` without its cause. Covering it is a failure-class parameter on the producer, outside this grant.

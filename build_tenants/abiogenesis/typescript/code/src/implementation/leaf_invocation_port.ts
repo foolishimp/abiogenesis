@@ -556,13 +556,14 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       failureValueKind,
       failureClass,
     }) as Readonly<LeafRealizationFailureCandidate>;
+  // The F_D boundary's failures and the F_P completion's; the regime is the resolution's.
   const deterministicFailure = (
-    stage: "authority_verification" | "implementation_load" | "implementation_invocation",
-    reason: "refused" | "thrown" | "missing_export",
+    stage: "authority_verification" | "implementation_load" | "implementation_invocation" | "implementation_completion",
+    reason: "refused" | "thrown" | "rejected" | "missing_export",
     error?: unknown,
   ): Readonly<LeafRealizationFailureCandidate> => {
     const original = totalizedFailure("implementation_exception");
-    const caught = reason === "thrown" && !types.isProxy(error) ? error : null;
+    const caught = (reason === "thrown" || reason === "rejected") && !types.isProxy(error) ? error : null;
     const safe = sanitizeUndispatchedOwnerError(caught);
     let message: string | null = null;
     let messageTruncated = false;
@@ -576,7 +577,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
     }
     const diagnosticRef = constructRuntimeFailureDiagnosticRef({
       diagnosticClassRef: original.diagnosticRef,
-      computeRegime: "F_D",
+      computeRegime: resolution.computeRegime,
       implementationRef: resolution.implementationRef,
       inputDigest,
       stage,
@@ -763,9 +764,9 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       let completedOutput: unknown;
       try {
         completedOutput = prepared.complete(exchange);
-      } catch {
+      } catch (error) {
         return closedProbabilisticOwnerReceipt(
-          totalizedFailure("implementation_exception"),
+          deterministicFailure("implementation_completion", "thrown", error),
           workerContracts,
           exchange,
         );
@@ -798,9 +799,9 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
         }
       };
       if (completedOutput instanceof Promise) {
-        return completedOutput.then(finalize, () =>
+        return completedOutput.then(finalize, (error: unknown) =>
           closedProbabilisticOwnerReceipt(
-            totalizedFailure("implementation_exception"),
+            deterministicFailure("implementation_completion", "rejected", error),
             workerContracts,
             exchange,
           ));

@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { SourceTextModule, SyntheticModule } from 'node:vm';
 import ts from 'typescript';
 import * as Cause from 'effect/Cause';
@@ -12,6 +13,8 @@ import * as events from '../../build/code/src/abg/event_store.js';
 import * as prefixes from '../../build/code/src/abg/event_prefix.js';
 import * as calculus from '../../build/code/src/abg/event_calculus.js';
 import { sha256Canonical as hash } from '../../build/code/src/shared/digests.js';
+import { validateActorProcessCarrierPair } from '../../build/code/src/abg/actor_process.js';
+import { deepFreeze } from '../../build/code/src/shared/immutable.js';
 import { acquireNewEmptyAppendSinkFixture } from '../support/new-empty-append-sink.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
@@ -363,6 +366,95 @@ test('successful deterministic returns and legacy opaque failure totalization re
   const malformed = await owner.invokeLeafOwnerBoundary({ ...input, loadImplementation: async () => () => null });
   assert.equal(malformed.candidate.resultCandidate.failureClass, 'malformed_return');
   assert.equal(malformed.candidate.diagnosticRef, 'diagnostic://abiogenesis/implementation/malformed-return@5');assert.ok(malformed.receipt);
+});
+
+// TD-17. The actual F_P owner boundary after its effect: the prepared completion
+// throws, or returns a Promise that rejects. The exchange is the actual validated
+// carrier pair. Admission and cold/Public readback are the deterministic case's:
+// the fixture's controlled basis/frame/replay premises, not the installed C-call
+// result route (c_call_result_admitted).
+async function probabilisticCompletionFailure(complete) {
+  const owner = await sourceOwner('implementation/leaf_invocation_port', {}, ['isLeafRealizationCandidate']);
+  const value = deepFreeze({ kind: 'diagnostic_input', privateBody: 'input-body-not-diagnostic' }), inputDigest = hash(value);
+  const resolution = deepFreeze({ computeRegime: 'F_P', implementationRef: 'implementation://diagnostic/probabilistic@5',
+    inputContractRef: 'contract://diagnostic/input@5', outputContractRef: 'contract://diagnostic/output@5',
+    modulePath: 'controlled-fixture-module', namedSymbol: 'controlledProbabilistic' });
+  const workerContracts = deepFreeze({ instructionContractRef: 'contract://diagnostic/instruction@5', resultContractRef: 'contract://diagnostic/raw-result@5' });
+  const prompt = 'Return one diagnostic result.', rawOutput = JSON.stringify({ kind: 'raw_output', schemaVersion: '5.0.0' });
+  const bytes = text => `sha256:${createHash('sha256').update(text).digest('hex')}`, digest = `sha256:${'a'.repeat(64)}`;
+  const request = deepFreeze({ actorRef: 'actor://diagnostic/probabilistic@5', workerBindingRef: 'worker-binding://diagnostic/probabilistic@5',
+    implementationRef: resolution.implementationRef, inputDigest, materializationPlanRef: 'materialization-plan://diagnostic/probabilistic@5',
+    rendererRef: 'renderer://diagnostic/probabilistic@5', ...workerContracts, transportLane: 'closed_prompt_proof', prompt, responseJsonSchema: {} });
+  const { transportLane, prompt: _prompt, responseJsonSchema: _schema, ...requested } = request;
+  const exchange = validateActorProcessCarrierPair(request, { ...requested, transportLane,
+    actorInvocationRef: 'actor-invocation://diagnostic/probabilistic/1', processRef: 'process://diagnostic/probabilistic/1',
+    transportBindingRef: 'transport-binding://diagnostic/probabilistic/1', transportBindingDigest: digest,
+    observedOutputDigest: hash(JSON.parse(rawOutput)), promptDigest: hash(prompt), transportDigest: digest,
+    disposition: 'success', failureClass: null, finalOutput: rawOutput, processStatus: 0, processSignal: null, timeoutClass: null,
+    timedOut: false, exitObserved: true, terminationConfirmed: true, signalSequence: [], structuredEventCount: 1, progressEventCount: 0,
+    toolCallCount: 0, toolInvocations: [], apiRetryCount: 0, stdoutByteLength: 0, stderrByteLength: 0,
+    artifactDigests: { output: bytes(rawOutput), prompt: bytes(prompt), stderr: bytes(''), stdout: bytes(''), transport: digest } });
+  assert.equal(exchange.kind, 'actor_process_carrier_validation');
+  const input = { resolution, value, inputDigest, failureValueKind: 'diagnostic_failure', verifyAuthority: () => true,
+    validateSuccess: () => false, resolveWorkerContracts: () => workerContracts,
+    occurrence: deepFreeze({ executionAuthority: null, cCallRef: 'c-call://diagnostic/probabilistic', runId: 'run://diagnostic',
+      graphCallId: 'graph-call://diagnostic', frameId: 'frame://diagnostic', programLocusRef: 'node://diagnostic', taskOrdinal: null, attempt: 1 }),
+    loadImplementation: async () => () => deepFreeze({ kind: 'prepared_probabilistic_leaf_invocation', schemaVersion: '5.0.0', workerRequest: request, complete }) };
+  const prepared = await owner.invokeLeafOwnerBoundary(input);
+  assert.equal(prepared.kind, 'prepared_probabilistic_leaf_owner_invocation');
+  const closed = await prepared.complete(exchange);
+  assert.equal(closed.kind, 'closed_leaf_owner_receipt');assert.equal(closed.computeRegime, 'F_P');
+  assert.equal(closed.effectDisposition, 'completed');assert.equal(Object.hasOwn(closed, 'ownerObservation'), false);
+  assert.deepEqual(closed.workerContracts, workerContracts);assert.equal(closed.receipt.computeRegime, 'F_P');
+  assert.equal(closed.receipt.candidate, closed.candidate);assert.equal(closed.receipt.actorProcessExchange, exchange);
+  const candidate = closed.candidate;
+  assert.equal(candidate.disposition, 'failure');assert.deepEqual(candidate.evidenceCandidates, []);
+  assert.deepEqual(Object.keys(candidate.resultCandidate).sort(), ['diagnosticRef', 'failureClass', 'kind', 'schemaVersion']);
+  assert.equal(candidate.resultCandidate.failureClass, 'implementation_exception');
+  assert.equal(candidate.resultCandidate.diagnosticRef, candidate.diagnosticRef);
+  assert.equal(owner.isLeafRealizationCandidate(candidate, 'F_P', () => false, input.failureValueKind), true);
+  return { input, candidate };
+}
+async function probabilisticCompletionCauseSurvivesAdmission(t, reason, error, complete) {
+  const failureOwner = await sourceOwner('abg/runtime_failure');
+  const { input, candidate } = await probabilisticCompletionFailure(complete);
+  const expected = { diagnosticClassRef: 'diagnostic://abiogenesis/implementation/implementation-exception@5', computeRegime: 'F_P',
+    implementationRef: input.resolution.implementationRef, inputDigest: input.inputDigest, stage: 'implementation_completion', reason,
+    cause: { errorClass: error.constructor.name, errorCode: error.code ?? null, message: error.message, messageTruncated: false } };
+  const subject = failureOwner.readRuntimeFailureDiagnosticSubject(candidate.diagnosticRef);
+  // The cold read decides: the first cause, stage, reason and invocation are in
+  // the admitted runtime_failure_observed, read back from a JSON-cloned prefix.
+  const f = await fixture(t), admitted = f.owner.admitRuntimeFailure({ ...f.input(), subject, diagnosticRef: candidate.diagnosticRef });
+  const handoff = f.store.projectReopenAuthorityAndClose();
+  const cold = prefixes.selectValidatedRuntimeEventPrefix(events.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(handoff.prefix))), { runId: f.scope.runId });
+  const evidence = failureOwner.projectRuntimeFailureEvidenceAtPrefix(cold);
+  assert.deepEqual({ availability: evidence[0].availability, diagnosticClassRef: evidence[0].diagnosticClassRef, subject: evidence[0].subject },
+    { availability: 'retained', diagnosticClassRef: expected.diagnosticClassRef, subject: expected });
+  assert.equal(evidence[0].subjectDigest, hash(expected));assert.equal(evidence[0].failureRef, admitted.admission.failureRef);
+  assert.equal(candidate.diagnosticRef, failureOwner.constructRuntimeFailureDiagnosticRef(expected));
+  assert.equal(JSON.stringify(subject).includes(input.value.privateBody), false);
+  const adapter = await sourceOwner('abg/project_read_definition_bindings', {}, ['evidenceProjection']);
+  const projected = adapter.evidenceProjection('run_evidence', { source: { sourceRef: f.scope.runId, sourceDigest: hash('run') } }, {
+    replayRef: 'replay://diagnostic', replayDigest: hash('replay'), evidenceRefs: [], eventAtoms: [], runtimeFailures: evidence,
+  });
+  const decoded = JSON.parse(decodeURIComponent(projected.evidence[0].ref.split(',').slice(1).join(',')));
+  assert.deepEqual(decoded.subject, expected);assert.equal(projected.evidence[0].digest, hash(decoded));
+  // A substituted subject refuses before append.
+  const g = await fixture(t), count = g.store.readAll().length;
+  assert.throws(() => g.owner.admitRuntimeFailure({ ...g.input(), subject: { ...subject, reason: reason === 'thrown' ? 'rejected' : 'thrown' },
+    diagnosticRef: candidate.diagnosticRef }), /retained subject digest/);
+  assert.equal(g.store.readAll().length, count);
+  t.diagnostic('Actual F_P boundary and completion with a validated carrier pair; controlled basis/frame/replay premises for failure admission and cold/Public readback, as the F_D case. Not the installed C-call result route.');
+}
+
+test('probabilistic completion that throws keeps its first cause through failure admission and cold/Public projection', async t => {
+  const error = new TypeError('selected probabilistic completion cause');
+  await probabilisticCompletionCauseSurvivesAdmission(t, 'thrown', error, () => { throw error; });
+});
+
+test('probabilistic completion that rejects keeps its first cause through failure admission and cold/Public projection', async t => {
+  const error = Object.assign(new Error('selected probabilistic rejection cause'), { code: 'ENOENT' });
+  await probabilisticCompletionCauseSurvivesAdmission(t, 'rejected', error, () => Promise.reject(error));
 });
 
 // D14. An outcome receipt's owned runtime prefix is a selection object the
