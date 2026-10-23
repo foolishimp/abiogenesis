@@ -12,8 +12,7 @@ import {
 } from "./execution_basis.js";
 import {
   constructRunActiveFluent,
-  deriveRuntimeHeldFluentProjection,
-  holdsAt,
+  runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
   indexedRuntimeEventEnvelopes,
@@ -284,8 +283,8 @@ export function admitRuntimeFailure(
     !hasOpenedTraversalScopeAtPrefix(authorityPrefix, scope) ||
     scope.executionBasisRef !== executionBasis.basisRef ||
     diagnosticRef.length === 0 ||
-    !holdsAt(
-      deriveRuntimeHeldFluentProjection(runPrefix),
+    !runtimeFluentHoldsAtPrefix(
+      runPrefix,
       constructRunActiveFluent(scope.runId),
     )
   ) {

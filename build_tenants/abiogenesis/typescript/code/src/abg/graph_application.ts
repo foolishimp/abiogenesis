@@ -34,6 +34,7 @@ import {
   constructRuntimeFluent,
   deriveRuntimeHeldFluentProjection,
   holdsAt,
+  runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import { hasExactPartialFanOutStopRouteBridge } from "./fan_out_projection.js";
 import {
@@ -436,8 +437,8 @@ export function projectApplicationChildPreparationRefusalAtPrefix(
     typeof body.diagnosticRef !== "string" ||
     typeof body.message !== "string" ||
     body.message.length === 0 ||
-    !holdsAt(
-      deriveRuntimeHeldFluentProjection(prefix),
+    !runtimeFluentHoldsAtPrefix(
+      prefix,
       constructRuntimeFluent({
         name: "child_preparation_refused",
         identity: refusalRef,
@@ -502,8 +503,8 @@ export function projectApplicationChildFoldbackAtPrefix(
     foldbackDigest !== sha256Canonical(body) ||
     foldbackRef !==
       `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}` ||
-    !holdsAt(
-      deriveRuntimeHeldFluentProjection(prefix),
+    !runtimeFluentHoldsAtPrefix(
+      prefix,
       constructRuntimeFluent({
         name: "child_foldback_available",
         identity: foldbackRef,
@@ -579,7 +580,6 @@ export function projectApplicationChildRouteAtPrefix(
   }>,
 ): ReplayRouteState | null {
   const events = runtimeEventBodiesAtPrefix(prefix);
-  const eventCalculus = deriveRuntimeHeldFluentProjection(prefix);
   const route = replayValidatedRuntimeEventPrefix(
     prefix,
     authorityPrefix,
@@ -611,30 +611,30 @@ export function projectApplicationChildRouteAtPrefix(
           event.payload.routeRef === route.routeRef,
       );
   const lifecycleCurrent = route.routeKind === "terminal"
-    ? holdsAt(
-        eventCalculus,
+    ? runtimeFluentHoldsAtPrefix(
+        prefix,
         constructRuntimeFluent({
           name: "graph_call_closed",
           identity: coordinates.graphCallId,
         }),
       )
     : matchingRunStopped === undefined
-    ? holdsAt(
-        eventCalculus,
+    ? runtimeFluentHoldsAtPrefix(
+        prefix,
         constructRuntimeFluent({
           name: "frame_blocked",
           identity: coordinates.frameId,
         }),
       )
-    : holdsAt(
-        eventCalculus,
+    : runtimeFluentHoldsAtPrefix(
+        prefix,
         constructRuntimeFluent({
           name: "run_terminal",
           identity: coordinates.runId,
         }),
       ) &&
-      !holdsAt(
-        eventCalculus,
+      !runtimeFluentHoldsAtPrefix(
+        prefix,
         constructRuntimeFluent({
           name: "run_active",
           identity: coordinates.runId,

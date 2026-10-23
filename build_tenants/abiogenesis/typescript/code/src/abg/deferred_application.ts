@@ -4,8 +4,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   constructRuntimeFluent,
-  deriveRuntimeHeldFluentProjection,
-  holdsAt,
+  runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
   readRuntimeEventsAtDurablePrefix,
@@ -113,7 +112,6 @@ function projectDeferredApplication(
       event.payload.resultRef === coordinates.resultRef,
   );
   if (resultEvent === undefined || !isRecord(resultEvent.payload)) return null;
-  const eventCalculus = deriveRuntimeHeldFluentProjection(currentPrefix);
   if (![
     constructRuntimeFluent({ name: "run_active", identity: coordinates.runId }),
     constructRuntimeFluent({ name: "frame_active", identity: coordinates.frameId }),
@@ -125,7 +123,7 @@ function projectDeferredApplication(
       name: "c_call_judgment_available",
       identity: coordinates.judgmentRef,
     }),
-  ].every((fluent) => holdsAt(eventCalculus, fluent))) {
+  ].every((fluent) => runtimeFluentHoldsAtPrefix(currentPrefix, fluent))) {
     return null;
   }
   return deepFreeze({

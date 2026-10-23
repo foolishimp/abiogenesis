@@ -88,7 +88,7 @@ import { indexedRuntimeEventEnvelopes, runtimeEventPrefixDigest, isOwnedRuntimeE
 import {
   constructRuntimeFluent,
   deriveRuntimeHeldFluentProjection,
-  holdsAt,
+  runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
   replayValidatedRuntimeEventPrefix,
@@ -906,21 +906,20 @@ export function isCurrentRecursionRouteSourceAtPrefix(
   ) {
     return false;
   }
-  const projection = deriveRuntimeHeldFluentProjection(prefix);
-  return holdsAt(
-    projection,
+  return runtimeFluentHoldsAtPrefix(
+    prefix,
     constructRuntimeFluent({
       name: "run_active",
       identity: coordinates.runId,
     }),
-  ) && holdsAt(
-    projection,
+  ) && runtimeFluentHoldsAtPrefix(
+    prefix,
     constructRuntimeFluent({
       name: "frame_active",
       identity: coordinates.frameId,
     }),
-  ) && holdsAt(
-    projection,
+  ) && runtimeFluentHoldsAtPrefix(
+    prefix,
     constructRuntimeFluent({
       name: "locus_active",
       identity: coordinates.sourceCursorRef,

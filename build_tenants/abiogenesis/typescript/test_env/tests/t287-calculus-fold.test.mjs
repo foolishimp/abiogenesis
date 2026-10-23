@@ -5,10 +5,12 @@ import test from 'node:test';
 import { createU1Fixture, prefixOf } from '../support/t287-native-work-currentness-consumers.mjs';
 import { constructRuntimeFluentPattern, emptyFoldState, foldStep, ROOT_DERIVED_RULES } from '../../build/code/src/abg/calculus/index.js';
 import { applyClip, applyStep, workingFoldState } from '../../build/code/src/abg/calculus/fold.js';
-import { constructRuntimeFluent, deriveRuntimeEventCalculusProjection, eventCalculusDependencies, eventCalculusEffect,
-  forkRuntimeEventCalculusAtForModuleTest, runtimeEventCalculusStateForModuleTest } from '../../build/code/src/abg/event_calculus.js';
+import { constructRuntimeFluent, deriveRuntimeEventCalculusProjection, deriveRuntimeHeldFluentProjection, eventCalculusDependencies,
+  eventCalculusEffect, forkRuntimeEventCalculusAtForModuleTest, holdsAt, runtimeEventCalculusStateForModuleTest,
+  runtimeFluentHoldsAtPrefix } from '../../build/code/src/abg/event_calculus.js';
 import { selectValidatedRuntimeEventPrefix, selectOwnedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent,
-  runtimeEventAtPrefixIndex, runtimeEventPrefixExtent } from '../../build/code/src/abg/event_prefix.js';
+  runtimeEventAtPrefixIndex, runtimeEventPrefixExtent, validatedRuntimeEventPrefixBeforeEvent,
+  extendRuntimeEventPlanPrefixForValidation, isValidationRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
 import { projectActorProcessLifecycle } from '../../build/code/src/abg/actor_process.js';
 
 const LIFECYCLE = ['actor_cleanup_pending', 'actor_process_live', 'actor_process_spawn_failed',
@@ -315,4 +317,105 @@ test('TD-06: an exact clip of a fluent not held clips nothing, records nothing a
   assert.equal(visits[8], visits[2048]);
   assert.ok(visits[8] <= 1);
   t.diagnostic(JSON.stringify({ absentExactVisits: visits }));
+});
+
+// TD-07: the exact read. The point query `holdsAt(deriveRuntimeHeldFluentProjection(cut), q)`,
+// with q one fluent (a boolean) or an exact pattern (`.length !== 0`), equals
+// runtimeFluentHoldsAtPrefix(cut, fluent), the derivation's fluentAt, at every
+// cut, for every key ever held and for absent keys.
+const ABSENT_NAME = 'td07_absent_fluent', ABSENT_IDENTITY = 'absent://t290/td-07';
+// Every fluent an effect row of the complete history initiates or terminates;
+// each real name with an absent identity; the absent name with each real
+// identity and with none. Derived from a separate copy of the rows.
+function askedKeys(rows) {
+  const held = new Map();
+  for (const effect of deriveRuntimeEventCalculusProjection(prefixOf(rows)).effectRows)
+    for (const fluent of [...effect.initiates, ...effect.terminates]) held.set(fluent.fluentRef, fluent);
+  const real = [...held.values()];
+  return { real: new Set(held.keys()), keys: [...real,
+    ...[...new Set(real.map(fluent => fluent.name))].map(name => constructRuntimeFluent({ name, identity: ABSENT_IDENTITY })),
+    ...[...new Set(real.flatMap(fluent => fluent.identity === null ? [] : [fluent.identity]))]
+      .map(identity => constructRuntimeFluent({ name: ABSENT_NAME, identity })),
+    constructRuntimeFluent({ name: ABSENT_NAME })] };
+}
+// One cut. The exact read of every key is asked first, so it is the call that
+// advances the derivation; it equals the held projection's fluent query and,
+// for a key with an identity, the exact-pattern query. Every held fluent is an
+// asked key. Returns the refs the exact read holds.
+function agreeAt(cut, asked, label, tally) {
+  const exact = asked.keys.map(fluent => runtimeFluentHoldsAtPrefix(cut, fluent));
+  const projection = deriveRuntimeHeldFluentProjection(cut);
+  asked.keys.forEach((fluent, index) => {
+    assert.equal(exact[index], holdsAt(projection, fluent), `${label}: ${fluent.fluentRef}`);
+    if (fluent.identity !== null) assert.equal(exact[index], holdsAt(projection,
+      constructRuntimeFluentPattern({ name: fluent.name, identity: fluent.identity })).length !== 0, `${label}: pattern ${fluent.fluentRef}`);
+  });
+  assert.ok(projection.holds.every(fluent => asked.real.has(fluent.fluentRef)), `${label}: every held fluent is an asked key`);
+  tally.cuts += 1; tally.keys += asked.keys.length; tally.held += exact.filter(Boolean).length;
+  return new Set(asked.keys.filter((_, index) => exact[index]).map(fluent => fluent.fluentRef));
+}
+const throughRow = (source, row) => validatedRuntimeEventPrefixThroughEvent(source, row.eventId);
+const beforeRow = (source, row) => validatedRuntimeEventPrefixBeforeEvent(source, row.eventId);
+
+// Cold, warm, streaming and, over an owned store, a fork at the middle cut;
+// at each, the through-event cut and the before-event cut runtime_liveness
+// selects. The fast path of held() (count equal to the folded count, reading
+// the owned state) is the streaming case; the slow path (fluentAt over every
+// key) is the warm case below the end; the fork reads through its base.
+function exactReadAgreement(t, fixture, rows, owned) {
+  const asked = askedKeys(rows), table = {};
+  const tally = kind => (table[kind] ??= { cuts: 0, keys: 0, held: 0 });
+  let boundary = 0;
+  rows.forEach((row, index) => {
+    agreeAt(prefixOf(rows.slice(0, index + 1)), asked, `${fixture} cold through ${row.admissionOrdinal}`, tally('cold through'));
+    agreeAt(beforeRow(prefixOf(rows.slice(0, index + 1)), row), asked, `${fixture} cold before ${row.admissionOrdinal}`, tally('cold before'));
+  });
+  for (const [kind, source] of [['warm validated', prefixOf(rows)], ...(owned === undefined ? [] : [['warm owned', owned]])]) {
+    deriveRuntimeEventCalculusProjection(source);
+    for (const row of rows) {
+      const at = agreeAt(throughRow(source, row), asked, `${fixture} ${kind} through ${row.admissionOrdinal}`, tally(`${kind} through`));
+      const before = agreeAt(beforeRow(source, row), asked, `${fixture} ${kind} before ${row.admissionOrdinal}`, tally(`${kind} before`));
+      boundary += [...at].filter(key => !before.has(key)).length;
+    }
+  }
+  // Streaming: before each step the derivation stands at the folded count,
+  // which is the state a nested read of the before-event cut during that step
+  // reads; the exact read at the through-event cut then advances it one event.
+  const streaming = prefixOf(rows), states = new Set();
+  for (const row of rows) {
+    const before = beforeRow(streaming, row), folded = runtimeEventCalculusStateForModuleTest(before);
+    assert.equal(folded.ordinal, runtimeEventPrefixExtent(before).lastOrdinal, `${fixture}: streaming stands at the folded count`);
+    states.add(folded);
+    agreeAt(before, asked, `${fixture} streaming before ${row.admissionOrdinal}`, tally('streaming before'));
+    agreeAt(throughRow(streaming, row), asked, `${fixture} streaming through ${row.admissionOrdinal}`, tally('streaming through'));
+  }
+  assert.equal(states.size, 1, `${fixture}: one owned state across the streaming advances`);
+  if (owned !== undefined) {
+    const middle = Math.floor(rows.length / 2);
+    let fork = throughRow(owned, rows[middle - 1]);
+    for (const row of rows.slice(middle)) {
+      fork = extendRuntimeEventPlanPrefixForValidation(fork, row);
+      assert.equal(isValidationRuntimeEventPrefix(fork), true, `${fixture}: the extension is a validation prefix`);
+      agreeAt(beforeRow(fork, row), asked, `${fixture} fork before ${row.admissionOrdinal}`, tally('fork before'));
+      agreeAt(fork, asked, `${fixture} fork through ${row.admissionOrdinal}`, tally('fork through'));
+      assert.notEqual(runtimeEventCalculusStateForModuleTest(fork), runtimeEventCalculusStateForModuleTest(owned),
+        `${fixture}: the validation prefix reads a fork, not the owned derivation`);
+    }
+  }
+  assert.ok(boundary > 0, `${fixture}: some boundary event initiates a key the before-event cut does not hold`);
+  t.diagnostic(JSON.stringify({ fixture, events: rows.length, keys: asked.keys.length, realKeys: asked.real.size, boundary, table }));
+}
+
+test('TD-07: the exact read equals the held-projection point query at every cut of the U1 store', async t => {
+  const f = await createU1Fixture(t, ['target.txt']);
+  f.cause();
+  f.exit();
+  f.cause('actor_invocation_failed');
+  exactReadAgreement(t, 'U1', f.store.readAll(), selectOwnedRuntimeEventPrefix(f.store));
+});
+
+test('TD-07: the exact read equals the held-projection point query at every cut of the actor process lifecycle rows', t => {
+  for (const [name, steps] of [...CASES.map(scenario => [scenario.name, scenario.steps.map(([step]) => step)]),
+    ['start, termination unconfirmed, exit, actor terminal, Run stop', ['S', 'U', 'exit', 'A', 'R']]])
+    exactReadAgreement(t, name, steps.map((step, index) => STEP[step](index + 1)));
 });

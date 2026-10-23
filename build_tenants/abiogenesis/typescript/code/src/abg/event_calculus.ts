@@ -30,7 +30,6 @@ import { canonicalEquals } from "../shared/value/index.js";
 import {
   constructWorksiteObservationCurrentFluent,
   emptyFoldState,
-  holdsAt,
   runtimeFluentKey,
   type EventCalculusEffect,
   type FoldInterruptionFact,
@@ -350,7 +349,7 @@ export function worksiteSelectedOccurrenceInputCurrent(authorityPrefix: RuntimeE
     occurrence.cCall.cCallDigest !== cCall.cCallDigest || occurrence.cCall.openedEventRef !== cCall.openedEventRef ||
     !canonicalEquals(occurrence.request, request)) return false;
   const before = validatedRuntimeEventPrefixBeforeEvent(authorityPrefix, fibre.eventId);
-  return holdsAt(deriveRuntimeHeldFluentProjection(before),
+  return runtimeFluentHoldsAtPrefix(before,
     constructWorksiteObservationCurrentFluent(request.predecessorObservation.observationRef)) &&
     !worksiteCommandSourcesInvalidatedAfter(authorityPrefix, fibre.admissionOrdinal,
       request.workspaceAuthorityBasis.canonicalRoot, [request.subject.relativePath]);
