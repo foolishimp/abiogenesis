@@ -11,7 +11,7 @@
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_phase: A, close the library
-- current_package: TD-17 (activated 2026-10-24); TD-07 accepted at `ea18189e3` (lifecycle class to Phase C)
+- current_package: TD-13 (activated 2026-10-24); TD-17 accepted at `4bc5a945a`
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
@@ -141,6 +141,7 @@ D5 qualification; D6 publication. This ticket does not schedule them.
 | 2026-10-24 | H | `46ed04895` | `tsc --noEmit` clean; `lint:imports` 28 modules; `lint:lifecycle` 284 modules, 10 allow-listed; `t287-worksite-command-execution` 10/10; `t287-owned-process-lifetime` 18/18; `m5-worker-transport` 21/21 (`exec_check_H.log`, 2026-10-24) | accepted; Phase A closed |
 | 2026-10-24 | TD-06 | `94ca67abf` | `tsc --noEmit` clean; both lints; `t287-calculus-fold` 10/10; `t287-native-runtime-gate` 7/6/0/1 (`exec_check_TD06.log`) | accepted; register row closed |
 | 2026-10-24 | TD-07 | `ea18189e3` | `tsc --noEmit` clean; both lints; `t287-calculus-fold` 12/12; `t287-native-workspace-work` 38/37/0/1; `t287-route-reconstruction` 9/7/0/2; `t287-native-work-unknown-effect` 10/10 (`exec_check_TD07.log`) | accepted for 30 routed calls; lifecycle reader to Phase C |
-| 2026-10-24 | TD-17 | | | activated |
+| 2026-10-24 | TD-17 | `4bc5a945a` | `tsc --noEmit` clean; both lints; `t287-runtime-failure-diagnostic` 14/14; `t287-c2a-fp-source-contract` 4/4 (`exec_check_TD17.log`) | accepted; register row closed; §9.3 paragraph placed |
+| 2026-10-24 | TD-13 | | | activated |
 
-Next: TD-17 (Worker running); the owner's review pass on `46ed04895` whenever it comes.
+Next: TD-13 (Worker running); the owner's review pass on `46ed04895` whenever it comes.
