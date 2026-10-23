@@ -12,6 +12,7 @@ import {
   axiomEffectOf,
   completeEffect,
   frameProbeScopeKey,
+  ownedExactRuntimeFluentPatternRef,
   ownedRuntimeFluentMatchesPattern,
   ownedRuntimeFluentPatternKey,
   runtimeFluentKey,
@@ -184,6 +185,27 @@ function addScope(map: Map<string, Set<string>>, key: string, digest: string): v
   else digests.add(digest);
 }
 
+/** @internal One clip pattern applied in place to `holds`: each held fluent
+ * the pattern matches is clipped, in held order, its transition appended to
+ * `fluents` and its ref to `clipped`. An exact pattern reads its one key; a
+ * wildcard enumerates `holds`. The enumeration reads the live map: deleting
+ * the current entry during a Map iteration neither skips nor repeats a later
+ * entry, and the loop adds none. */
+export function applyClip(holds: Map<string, RuntimeFluent>, pattern: RuntimeFluentPattern,
+  fluents: FoldFluentTransition[], clipped: string[]): void {
+  const ref = ownedExactRuntimeFluentPatternRef(pattern);
+  const held = ref === null ? undefined : holds.get(ref);
+  const candidates: Iterable<readonly [string, RuntimeFluent]> =
+    ref === null ? holds : held === undefined ? [] : [[ref, held]];
+  for (const [key, fluent] of candidates) {
+    if (ownedRuntimeFluentMatchesPattern(fluent, pattern)) {
+      fluents.push({ fluent, held: false });
+      holds.delete(key);
+      clipped.push(key);
+    }
+  }
+}
+
 /** @internal One step applied in place: terminates, clips, declips, then
  * initiates, and the probe and interruption facts of the event. The effect,
  * the declip keys and the event's facts are computed before any change, so a
@@ -219,15 +241,7 @@ export function applyStep(working: WorkingFoldState, event: RuntimeEvent, depend
     runIds.delete(fluent.fluentRef);
   }
   const clipped: string[] = [];
-  for (const pattern of effect.clips) {
-    for (const [key, fluent] of [...holds.entries()]) {
-      if (ownedRuntimeFluentMatchesPattern(fluent, pattern)) {
-        fluents.push({ fluent, held: false });
-        holds.delete(key);
-        clipped.push(key);
-      }
-    }
-  }
+  for (const pattern of effect.clips) applyClip(holds, pattern, fluents, clipped);
   for (const fluent of effect.initiates) {
     fluents.push(event.runId === undefined ? { fluent, held: true } : { fluent, held: true, runId: event.runId });
     holds.set(fluent.fluentRef, fluent);

@@ -1597,6 +1597,12 @@ export function ownedRuntimeFluentPatternKey(pattern: RuntimeFluentPattern): str
   return JSON.stringify([pattern.name, pattern.identity]);
 }
 
+/** @internal The ref of the one fluent an exact pattern (name and identity
+ * both set) can match, the key `holds` keeps it under; null for a wildcard. */
+export function ownedExactRuntimeFluentPatternRef(pattern: RuntimeFluentPattern): string | null {
+  return pattern.name === null || pattern.identity === null ? null : fluent(pattern.name, pattern.identity);
+}
+
 export function runtimeFluentMatchesPattern(
   fluent: RuntimeFluent,
   pattern: RuntimeFluentPattern,
