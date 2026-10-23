@@ -11,7 +11,7 @@ import { acquireNewEmptyAppendSinkFixture } from '../support/new-empty-append-si
 import * as native from '../../build/code/src/product/native_workspace_work.js';
 import { constructNativeWorksiteCommandExecutionTask } from '../../build/code/src/product/worksite_command_execution.js';
 import { createNewEmptyAppendSink, admitRuntimeEvent, admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
-  selectHeldEventStoreDurablePrefix, ROOT_EVENT_CONTRACTS } from '../../build/code/src/abg/event_store.js';
+  selectHeldEventStoreDurablePrefix, appendCheckedArtifactEvent, ROOT_EVENT_CONTRACTS } from '../../build/code/src/abg/event_store.js';
 import { selectValidatedRuntimeEventPrefix, selectOwnedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent,
   readOwnedRuntimeEventPrefixAtDurablePrefix, indexedRuntimeEvents } from '../../build/code/src/abg/event_prefix.js';
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
@@ -28,6 +28,9 @@ import { modulePublicationSemanticDigest } from '../../build/code/src/product/pu
 import { ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS as nativeSemantics } from '../../build/code/src/product/builtin_semantics.js';
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from '../../build/code/src/product/contracts.js';
 import { isNativeWorkerResultAssessment } from '../../build/code/src/abg/transport_contracts.js';
+import { syncBuiltinESMExports } from 'node:module';
+import { WORKSITE_C0_IDS, constructWorksiteC0PublicationParts } from '../../build/code/src/gtl/index.js';
+import { publicOperationBasis } from './root-installed-environment.mjs';
 
 const product = await loadWorksiteOwner(), hash = product.sha256Canonical, ids = native.NATIVE_WORKSPACE_WORK_IDS;
 const paths = ['target.txt', 'nested/file.txt', 'nested/absent.txt', 'keep.txt', 'nested-peer.txt', 'absent.txt'];
@@ -377,4 +380,215 @@ export async function semanticFixtureHelpers() {
     return new SyntheticModule(Object.keys(values), function () { for (const [key, value] of Object.entries(values)) this.setExport(key, value); });
   });
   await module.evaluate(); return module.namespace;
+}
+
+// TD-08: support for worksite currentness at basis admission.
+// One built module with private names exported for the module test only. The
+// built source is evaluated unchanged; its imports link to the shared modules.
+export async function builtModuleExports(name, exportNames) {
+  const file = resolve(import.meta.dirname, '../../build/code/src', name + '.js');
+  const module = new SourceTextModule((await fs.readFile(file, 'utf8')) + `\nexport { ${exportNames.join(', ')} };\n`,
+    { identifier: file + '#module-test' });
+  await module.link(async spec => {
+    const actual = await import(spec.startsWith('node:') ? spec : pathToFileURL(resolve(dirname(file), spec)).href);
+    return new SyntheticModule(Object.keys(actual), function () { for (const [key, value] of Object.entries(actual)) this.setExport(key, value); });
+  });
+  await module.evaluate(); return module.namespace;
+}
+
+// Counts prior-event visits: a visit is one run of property reads on one
+// wrapped event, so one predicate over a row counts once however many fields it
+// reads. Copies of references count nothing.
+export function eventVisitCounter() {
+  let counting = false, visits = 0, last = null;
+  const wrap = row => new Proxy(row, { get(target, key, receiver) {
+    if (counting && last !== target) { visits++; last = target; }
+    return Reflect.get(target, key, receiver);
+  } });
+  const measure = run => {
+    visits = 0; last = null; counting = true;
+    try { const value = run(); return { value, visits }; } finally { counting = false; }
+  };
+  return { wrap, measure };
+}
+
+// Authenticated C0 occurrences (binding artifact, C0 implementation set,
+// invocation, basis, opened, F_D fibre, actual Product authorization and
+// physical replacement, evidence and Result) on two roots, plus the U1 native
+// unknown-effect causes and a native Result. Rows are shape-checked fixture rows
+// (preflight) or actual EventStore admissions.
+export async function createWorksiteCauseHistory(t, { preflight = true, roots = ['target.txt'] } = {}) {
+  const f = await createU1Fixture(t, roots, { preflight });
+  const rows = () => preflight ? f.beforeRows : f.rows();
+  const second = await worksiteFixture(product);
+  t.after(async () => { await fs.rm(second.scratch, { recursive: true, force: true }); });
+  for (const path of ['target.txt', 'keep.txt']) await fs.writeFile(join(second.canonicalRoot, path), 'second\n');
+  const parts = constructWorksiteC0PublicationParts({ productId: 'product://td08/c0', artifactDigest: hash('td08-c0-artifact'),
+    productContentDigest: hash('td08-c0-content'), productManifestDigest: hash('td08-c0-manifest'),
+    packageName: '@abiogenesis/typescript-tenant', packageVersion: '5.0.0-dev.286' }, WORKSITE_C0_IDS.moduleRef);
+  const graph = parts.graphFunctions[0], declared = parts.implementationBindings[0];
+  const { kind, schemaVersion, disposition, leafResolutionCandidateRef, leafResolutionCandidateDigest, ...priorRow } = f.implementationSet.rows[0];
+  const { kind: _declaredKind, bindingRef, ...bindingFields } = declared;
+  const rowBody = { ...priorRow, ...bindingFields, graphFunctionRef: graph.name, graphFunctionDigest: hash(graph),
+    nodeRef: graph.template.startNodeRef, programLocusRef: graph.template.startNodeRef, implementationBindingRef: bindingRef };
+  const rowDigest = hash(rowBody), row = { kind, schemaVersion, disposition,
+    leafResolutionCandidateRef: identity('leaf-resolution-candidate', rowDigest), leafResolutionCandidateDigest: rowDigest, ...rowBody };
+  const setDigest = hash({ rows: [row] }), set = { implementationSetRef: identity('implementation-set', setDigest), implementationSetDigest: setDigest, rows: [row] };
+  const implementationEvent = f.atCut(() => f.append('implementation_admitted', 'workspace', f.workspaceBinding.bindingId,
+    { implementationSetRef: set.implementationSetRef, implementationSetDigest: setDigest, implementationSet: set,
+      interactionSetRef: 'interaction-set://td08/c0', interactionSetDigest: hash('td08-c0-interactions') }, { scopeClass: 'workspace' }));
+  const implementationSet = { kind: 'admitted_implementation_set', schemaVersion: '5.0.0', disposition: 'admitted', ...set, admissionEventRef: implementationEvent.eventId };
+  const environment = e => ({ workspaceAuthorityBasis: e.workspaceAuthorityBasis, workspaceBinding: e.workspaceBinding,
+    capabilityGrant: e.capabilityGrant, canonicalRoot: e.canonicalRoot, territory: e.territory, cCall: e.cCall });
+  const rootState = (e, label) => {
+    const env = environment(e);
+    const { kind: _bindingKind, admissionEventRef: _bindingEvent, ...bindingBody } = env.workspaceBinding;
+    const bindingCarrier = { kind: 'workspace_binding_candidate', ...bindingBody };
+    const artifactBasis = { ...publicOperationBasis(product, 'abg.operation.workspace.bind', bindingCarrier.bindingId, bindingCarrier.bindingDigest,
+      'invocation://td08/' + label + '-binding'), eventTime: f.common.eventTime, correlationId: f.common.correlationId };
+    const { operationId, memberKey, definitionDigest, invocationRef, invocationPayloadDigest, invocationDigest } = artifactBasis;
+    const payload = { operationId, memberKey, definitionDigest, authorityScopeRef: artifactBasis.authorityScopeRef,
+      authorityScopeDigest: artifactBasis.authorityScopeDigest, invocationRef, invocationPayloadDigest, invocationDigest,
+      ownerAdmittedDisposition: 'admitted', artifactRef: bindingCarrier.bindingId, artifactDigest: bindingCarrier.bindingDigest,
+      artifact: bindingCarrier, workspaceAuthorityBasis: env.workspaceAuthorityBasis,
+      causationEventRefs: artifactBasis.causationEventRefs, correlationId: artifactBasis.correlationId };
+    const envelope = { scopeClass: 'workspace', basisId: artifactBasis.authorityScopeRef, parentAggregateId: null,
+      causationEventRefs: artifactBasis.causationEventRefs, correlationId: artifactBasis.correlationId };
+    if (preflight) f.atCut(() => f.append('public_operation_artifact_admitted', 'workspace', artifactBasis.authorityScopeRef, payload, envelope));
+    else {
+      const appended = appendCheckedArtifactEvent(f.store, selectHeldEventStoreDurablePrefix(f.store), deepFreeze({
+        kind: 'public_operation_artifact_admitted', eventTime: artifactBasis.eventTime, aggregateType: 'workspace',
+        aggregateId: artifactBasis.authorityScopeRef, workflowVersion: '5.0.0', ...envelope, payload }));
+      assert.ok(appended.event, JSON.stringify(appended));
+    }
+    const invocation = f.atCut(() => f.invocation(env, { graphFunctionRef: graph.name, graphFunctionDigest: hash(graph) }));
+    return { label, env, invocation, canonicalRoot: env.canonicalRoot };
+  };
+  const first = rootState(f, 'first'), other = rootState(second, 'second');
+  let serial = 0;
+  const request = async (state, path, predecessorObservation) => {
+    const subject = product.constructWorksiteSubject({ ...state.env, relativePath: path, subjectUri: pathToFileURL(join(state.canonicalRoot, path)).href });
+    const observation = predecessorObservation ?? await product.observeWorksiteSubject(state.env.workspaceAuthorityBasis, state.env.workspaceBinding, subject);
+    return product.constructWorksiteFileReplaceRequest({ ...state.env, subject, territory: state.env.territory,
+      predecessorObservation: observation, replacementBytes: Buffer.from(`td08 ${++serial}\n`) });
+  };
+  const basisFor = (state, value) => f.atCut(() => f.basisFor(state.env, state.invocation, value, { graphFunctionRef: graph.name,
+    graphFunctionDigest: hash(graph), implementationSetRef: set.implementationSetRef, implementationSetDigest: setDigest }));
+  const eventOf = ref => rows().find(row => row.eventId === ref);
+  // A basis admission for one subject; the predecessor defaults to the physical observation now.
+  const basis = async (state, path, predecessorObservation) => {
+    const value = await request(state, path, predecessorObservation), admitted = basisFor(state, value);
+    return { request: value, event: eventOf(admitted.admissionEventRef) };
+  };
+  const faulted = async (input, target) => {
+    const original = { rename: fs.rename, open: fs.open }; let published = false, injected = 0;
+    fs.rename = async (source, destination) => { const result = await original.rename(source, destination); if (destination === target) published = true; return result; };
+    fs.open = async (path, ...args) => {
+      if (published && path === target) { injected += 1; throw Object.assign(new Error('TD-08 post-publication EIO'), { code: 'EIO' }); }
+      return original.open(path, ...args);
+    };
+    syncBuiltinESMExports();
+    try { return await product.replaceWorksiteFile(input); }
+    finally { Object.assign(fs, original); syncBuiltinESMExports(); assert.equal(injected, 1); }
+  };
+  // mode: 'success' (Result admitted), 'failure' (post-publication failure Result) or 'selected' (no effect yet).
+  const c0 = async (state, path, { mode = 'success', runId } = {}) => {
+    const value = await request(state, path), execution = basisFor(state, value), label = `td08/${++serial}`;
+    const executionBasis = { kind: 'execution_basis', schemaVersion: '5.0.0', disposition: 'admitted', ...execution };
+    const callBody = { basisId: execution.basisRef, graphCallId: 'graph-call://' + label, frameId: 'frame://' + label,
+      vectorIndex: 0, stageRole: 'file-replace', taskOrdinal: null, attempt: 1, programLocusRef: row.programLocusRef, retryPath: [] };
+    const cCallDigest = hash(callBody), callRef = `c-call:${cCallDigest}`;
+    const scope = { basisId: execution.basisRef, graphFunctionRef: graph.name, graphCallId: callBody.graphCallId, frameId: callBody.frameId,
+      ...(runId === undefined ? {} : { runId }) };
+    const occurrence = f.atCut(() => {
+      const opened = f.append('c_call_opened', 'c_call', callRef, { ...callBody, cCallRef: callRef, cCallDigest, callClass: 'leaf' }, scope);
+      const fibre = f.append('c_call_fibre_selected', 'c_call', callRef, { cCallRef: callRef, callClass: 'leaf', armId: WORKSITE_C0_IDS.armId,
+        regime: 'F_D', implementationRef: row.implementationRef, implementationBindingRef: row.implementationBindingRef,
+        implementationRequirementKey: row.requirementKey, implementationSetRef: set.implementationSetRef }, { ...scope, causationEventRefs: [opened.eventId] });
+      return { opened, fibre };
+    });
+    const cCall = { ...state.env.cCall, ...callBody, cCallRef: callRef, cCallDigest, graphFunctionRef: graph.name,
+      implementationSetRef: set.implementationSetRef, implementationRequirementKey: row.requirementKey,
+      implementationRef: row.implementationRef, implementationBindingRef: row.implementationBindingRef,
+      inputContractRef: row.inputContractRef, outputContractRef: row.outputContractRef,
+      failureContractRef: row.failureContractRef, refusalContractRef: row.refusalContractRef,
+      openedEventRef: occurrence.opened.eventId, fibreSelectedEventRef: occurrence.fibre.eventId, runId: runId ?? f.common.runId };
+    const authorization = product.constructWorksiteEffectAuthorization({ ...state.env, request: value, executionBasis, cCall, implementationSet });
+    assert.equal(authorization.kind, 'worksite_effect_authorization', JSON.stringify(authorization));
+    const result = { mode, request: value, fibre: occurrence.fibre, opened: occurrence.opened, authorization };
+    if (mode === 'selected') return result;
+    const input = { workspaceAuthorityBasis: state.env.workspaceAuthorityBasis, workspaceBinding: state.env.workspaceBinding,
+      implementationSet, executionBasis, cCall, request: value, authorization };
+    assert.equal(product.isWorksiteFileReplaceInput(input), true);
+    const physical = mode === 'failure' ? await faulted(input, join(state.canonicalRoot, path)) : await product.replaceWorksiteFile(input);
+    if (mode === 'failure') {
+      assert.equal(product.isWorksitePostPublicationFailure(physical), true, JSON.stringify(physical));
+      const evidence = f.atCut(() => {
+        const body = { cCallRef: callRef, contractRef: WORKSITE_C0_IDS.failureContractRef, evidenceClass: 'deterministic',
+          implementationRef: row.implementationRef, inputDigest: hash(value), outputDigest: hash(physical) };
+        const digest = hash(body);
+        return f.append('c_call_evidenced', 'c_call', callRef, { ...body, evidenceRef: identity('evidence', digest), evidenceDigest: digest },
+          { ...scope, causationEventRefs: [occurrence.fibre.eventId] });
+      });
+      const event = f.atCut(() => {
+        const body = { cCallRef: callRef, resultClass: 'failure', contractRef: WORKSITE_C0_IDS.failureContractRef,
+          valueKind: 'worksite_effect_refusal', value: physical, valueDigest: hash(physical), evidenceRefs: [evidence.payload.evidenceRef] };
+        const digest = hash(body);
+        return f.append('c_call_result_admitted', 'c_call', callRef, { ...body, resultRef: identity('result', digest), resultDigest: digest },
+          { ...scope, causationEventRefs: [evidence.eventId] });
+      });
+      return { ...result, physical, evidence, result: event };
+    }
+    assert.equal(physical.disposition, 'committed', JSON.stringify(physical));
+    const output = { kind: 'worksite_file_replace_output', schemaVersion: '5.0.0', authorization,
+      receipt: physical.receipt, successorObservation: physical.successorObservation };
+    const evidence = f.atCut(() => {
+      const body = { cCallRef: callRef, contractRef: WORKSITE_C0_IDS.outputContractRef, evidenceClass: 'worksite_file_replace',
+        implementationRef: row.implementationRef, inputDigest: hash(value), outputDigest: hash(output), request: value, authorization,
+        receipt: physical.receipt, successorObservation: physical.successorObservation };
+      const digest = hash(body);
+      return f.append('c_call_evidenced', 'c_call', callRef, { ...body, evidenceRef: identity('evidence', digest), evidenceDigest: digest },
+        { ...scope, causationEventRefs: [occurrence.fibre.eventId] });
+    });
+    const admitted = admittedResult(f, output, { callRef, contractRef: WORKSITE_C0_IDS.outputContractRef,
+      evidenceRefs: [evidence.payload.evidenceRef], scope: { ...scope, causationEventRefs: [evidence.eventId] } });
+    return { ...result, physical, evidence, result: admitted.event };
+  };
+  const foreignBasisId = () => rows().find(e => e.kind === 'basis_admitted' && e.payload.workspaceBindingId !== f.workspaceBinding.bindingId &&
+    e.payload.rawInputValue?.kind === 'worksite_file_replace_request').basisId;
+  // variant: 'task' (the U1 native task), 'no-task' (a basis without a native task) or 'other-run'.
+  const unknown = (kindName = 'actor_process_termination_unconfirmed', variant = 'task') => {
+    if (variant === 'task') return f.cause(kindName);
+    const extra = variant === 'no-task' ? { basisId: foreignBasisId(), causationEventRefs: [f.process.eventId] }
+      : { runId: 'run://td08/other', causationEventRefs: [] };
+    const cCallRef = f.process.payload.cCallRef;
+    return f.atCut(() => kindName === 'actor_invocation_failed'
+      ? f.append(kindName, 'actor_invocation', f.actorRef, { actorInvocationRef: f.actorRef, processRef: f.processRef, cCallRef, disposition: 'failure',
+        failureClass: 'transport_exception', transportBindingRef: f.binding.aggregateId, transportBindingDigest: f.binding.payload.transportBindingDigest,
+        diagnosticDigest: hash('td08 ' + variant) }, { parentAggregateId: cCallRef, ...extra })
+      : f.append(kindName, 'process', f.processRef, { actorInvocationRef: f.actorRef, processRef: f.processRef },
+        { parentAggregateId: f.actorRef, ...extra }));
+  };
+  // A native observation Result whose known change is `path` under the first root.
+  const nativeChange = async (path, label) => {
+    await fs.writeFile(join(f.canonicalRoot, path), 'native ' + label + '\n');
+    const after = await product.observeWorksiteContext({ workspaceAuthorityBasis: f.workspaceAuthorityBasis, workspaceBinding: f.workspaceBinding,
+      readRoots: f.task.context.readRoots, maxFiles: f.task.context.maxFiles, maxBytes: f.task.context.maxBytes });
+    const report = { summary: 'TD-08 native change ' + label, gaps: [] };
+    const value = native.constructNativeWorkspaceWorkObservation(f.task, after, report, { cCallRef: f.process.payload.cCallRef,
+      executionAuthorityRef: 'authority://td08/' + label, executionAuthorityDigest: hash(label), actorInvocationRef: f.actorRef,
+      transportBindingRef: f.binding.aggregateId, transportBindingDigest: f.binding.payload.transportBindingDigest,
+      promptDigest: hash(['prompt', label]), transportDigest: hash(['transport', label]) });
+    assert.equal(native.isNativeWorkspaceWorkObservation(value), true, JSON.stringify(value));
+    const nativeResultAssessment = await componentNativeAssessment(f.task, f.set, report);
+    const evidence = f.atCut(() => {
+      const body = { cCallRef: f.process.payload.cCallRef, contractRef: ids.observationContractRef, evidenceClass: 'probabilistic_transport',
+        implementationRef: ids.implementationRef, inputDigest: hash(f.task), outputDigest: hash(value), transportDigest: value.provenance.transportDigest, nativeResultAssessment };
+      const digest = hash(body);
+      return f.append('c_call_evidenced', 'c_call', body.cCallRef, { ...body, evidenceRef: identity('evidence', digest), evidenceDigest: digest });
+    });
+    return admittedResult(f, value, { callRef: f.process.payload.cCallRef, contractRef: ids.observationContractRef,
+      evidenceRefs: [evidence.payload.evidenceRef], scope: { causationEventRefs: [evidence.eventId] } }).event;
+  };
+  return { f, rows, first, other, graph, row, set, implementationSet, request, basis, c0, unknown, nativeChange, eventOf, preflight };
 }
