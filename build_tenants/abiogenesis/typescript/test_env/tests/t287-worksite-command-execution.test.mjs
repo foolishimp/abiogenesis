@@ -185,11 +185,14 @@ const helperFailureConfiguration = () => ({
   allowedWriteTerritories: [],
 });
 const helperFailurePaths = (scratch) => ({ root: join(scratch, "c2-helper-failure"),
-  facts: join(scratch, "c2-helper-failure/helper-command-facts.json"), record: join(scratch, "c2-helper-failure/helper.json") });
+  facts: join(scratch, "c2-helper-failure/helper-command-facts.json"), record: join(scratch, "c2-helper-failure/helper.json"),
+  exchangeFacts: join(scratch, "c2-helper-failure/helper-exchange-facts.json") });
+const helperFailureEnvironment = (paths, facts) => ({ ...process.env,
+  NODE_OPTIONS: `--import=${pathToFileURL(join(paths.root, "register.mjs")).href}`, ABG_T287_HELPER_FACTS: facts });
 
 // The controlled worker runs the helper once under the hook, records its exit
-// and streams, and relays a schema-valid acknowledgment: the parent reads the
-// helper artifact's disposition before the acknowledgment.
+// and streams, refuses a helper exit of 0, and relays the helper's own
+// acknowledgment, its one stdout line, unchanged.
 async function helperFailureTransport(scratch) {
   const paths = helperFailurePaths(scratch);
   await mkdir(paths.root);
@@ -221,16 +224,14 @@ async function helperFailureTransport(scratch) {
     "const taskSections=prompt.split('\\n\\n').filter(section=>section.startsWith('## task\\n'));",
     "if(taskSections.length!==1)throw Error('expected one canonical task section');",
     "const input=JSON.parse(JSON.parse(taskSections[0].slice('## task\\n'.length)).ownerPrompt.split('\\n\\n')[1]);",
-    "const schema=JSON.parse(process.argv[process.argv.indexOf('--json-schema')+1]).properties;",
     "console.log(JSON.stringify({type:'system',subtype:'init',model:'c2-helper-failure-proof'}));",
     "console.log(JSON.stringify({type:'assistant',message:{content:[{type:'tool_use',id:'toolu_c2_failure',name:'Bash',input}]}}));",
     `const helper=spawnSync('/bin/sh',['-c',input.command],{encoding:'utf8',maxBuffer:4*1024*1024,env:${helperEnvironment}});`,
     `fs.writeFileSync(${JSON.stringify(paths.record)},JSON.stringify({status:helper.status,signal:helper.signal,stdout:helper.stdout,stderr:helper.stderr}),{flag:'wx'});`,
     "if(helper.status===0)throw Error('the helper was expected to fail after launch');",
-    "const zeros='0'.repeat(64);",
-    "const ack={kind:schema.kind.const,schemaVersion:schema.schemaVersion.const,taskRef:schema.taskRef.const,taskDigest:schema.taskDigest.const,attemptRef:schema.attemptRef.const,",
-    "  helperArtifactRef:`${schema.helperArtifactRef.pattern.slice(1,-'/[a-f0-9]{64}$'.length)}/${zeros}`,helperArtifactDigest:`sha256:${zeros}`};",
-    "console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,structured_output:ack}));",
+    "const lines=helper.stdout.split('\\n');",
+    "if(lines.length!==2||lines[1]!=='')throw Error('expected exactly one acknowledgment line from the helper');",
+    "console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,structured_output:JSON.parse(lines[0])}));",
     "});", "",
   ].join("\n");
 }
@@ -240,7 +241,14 @@ async function assertHelperFailureAdmitted(context, { environment, product, abg,
   const helperRecord = JSON.parse(await readFile(paths.record, "utf8"));
   assert.notEqual(helperRecord.status, 0, JSON.stringify(helperRecord));
   assert.match(helperRecord.stderr, /worksite command cleanup unresolved; dependent work stopped: /u);
-  assert.equal(helperRecord.stdout, "", "no acknowledgment after a failure");
+  // The helper prints its acknowledgment before its non-zero exit: one canonical line.
+  const ackLines = helperRecord.stdout.split("\n");
+  assert.equal(ackLines.length, 2, JSON.stringify(helperRecord.stdout));
+  assert.equal(ackLines[1], "");
+  const ack = JSON.parse(ackLines[0]);
+  assert.equal(helperRecord.stdout, `${product.canonicalJson(ack)}\n`);
+  assert.equal(ack.taskRef, task.taskRef);
+  assert.equal(ack.taskDigest, task.taskDigest);
   const close = outcome.receipt?.resources?.eventResource?.closeHandoff;
   assert.ok(close, JSON.stringify(outcome));
   // Cold: the events are read back from the durable log through a JSON copy of the coordinate.
@@ -248,6 +256,11 @@ async function assertHelperFailureAdmitted(context, { environment, product, abg,
   const admitted = events.filter((event) => event.kind === "c_call_result_admitted" &&
     event.payload.value?.kind === "worksite_command_execution_failure");
   assert.equal(admitted.length, 1, JSON.stringify(events.map((event) => event.kind)));
+  // The worker relayed the helper's acknowledgment unchanged.
+  const actorResult = events.filter((event) => event.kind === "actor_result_artifact_observed" &&
+    event.payload.inputDigest === product.sha256Canonical(task));
+  assert.equal(actorResult.length, 1);
+  assert.equal(actorResult[0].payload.finalOutput, ackLines[0]);
   const value = admitted[0].payload.value;
   assert.equal(admitted[0].payload.resultClass, "failure");
   assert.equal(value.failureClass, "helper_failure", JSON.stringify(value));
@@ -267,11 +280,77 @@ async function assertHelperFailureAdmitted(context, { environment, product, abg,
   assert.deepEqual(subject.processFacts, helperFacts, "the helper's own command process facts");
   assert.equal(subject.processFacts.scopeAbsence, "unknown");
   assert.deepEqual(subject.processFacts.directExit, { status: 0, signal: null });
-  const artifact = JSON.parse(await readFile(product.worksiteCommandExecutionHelperPlan(task, subject.attemptRef).artifactPath, "utf8"));
+  // The acknowledgment names the admitted subject's attempt and the published artifact.
+  assert.equal(ack.attemptRef, subject.attemptRef);
+  const artifactBytes = await readFile(product.worksiteCommandExecutionHelperPlan(task, ack.attemptRef).artifactPath);
+  const artifact = JSON.parse(artifactBytes.toString("utf8"));
+  assert.equal(artifactBytes.toString("utf8"), `${product.canonicalJson(artifact)}\n`);
+  const { kind: _kind, schemaVersion: _schemaVersion, artifactRef, artifactDigest, ...artifactBody } = artifact;
+  const recomputedArtifactDigest = product.sha256Canonical(artifactBody);
+  assert.equal(artifactDigest, recomputedArtifactDigest);
+  assert.equal(artifactRef, `worksite-command-helper-artifact://abiogenesis/${recomputedArtifactDigest.slice("sha256:".length)}`);
+  assert.equal(ack.helperArtifactDigest, recomputedArtifactDigest);
+  assert.equal(ack.helperArtifactRef, artifactRef);
   assert.equal(artifact.disposition, "failure");
   assert.deepEqual(artifact.failure, subject);
   context.diagnostic(JSON.stringify({ helperFailureSubjectBytes: Buffer.byteLength(product.canonicalJson(subject)),
-    diagnosticRefBytes: Buffer.byteLength(value.diagnosticRef), resultEvent: admitted[0].eventId }));
+    diagnosticRefBytes: Buffer.byteLength(value.diagnosticRef), resultEvent: admitted[0].eventId,
+    acknowledgmentLineSha256: product.sha256Bytes(Buffer.from(helperRecord.stdout, "utf8")),
+    acknowledgmentHelperArtifactDigest: ack.helperArtifactDigest, recomputedArtifactDigest,
+    artifactFileSha256: product.sha256Bytes(artifactBytes), artifactFileBytes: artifactBytes.byteLength }));
+}
+
+// Owner-local exchanges over one failed artifact: the installed helper runs once
+// more, for a direct occurrence under the same hook, and prints its
+// acknowledgment before its non-zero exit. The relayed acknowledgment admits the
+// failure; an acknowledgment naming another artifact, and an exchange whose
+// transport did not succeed, are refused before the failure is read.
+async function assertHelperFailureExchanges(context, { environment, product, task, nodeRef }) {
+  const paths = helperFailurePaths(environment.scratch);
+  const implementation = await import(pathToFileURL(join(environment.installedRoot, "build/code/src/implementation/worksite_command_execution.js")).href);
+  const commandProduct = await import(pathToFileURL(join(environment.installedRoot, "build/code/src/product/worksite_command_execution.js")).href);
+  const { readRuntimeFailureDiagnosticSubject } = await import(pathToFileURL(
+    join(environment.installedRoot, "build/code/src/abg/runtime_failure.js")).href);
+  const occurrence = directOccurrence("helper-failure-exchanges", nodeRef);
+  const plan = helperPlanForOccurrence(product, task, occurrence);
+  context.signal.throwIfAborted();
+  const prepared = await implementation.realizeWorksiteCommandExecution(task, occurrence);
+  const helper = await new Promise((resolveRun) => execFile("/bin/sh", ["-c", plan.toolCommand], {
+    encoding: "utf8", maxBuffer: 4 * 1024 * 1024, env: helperFailureEnvironment(paths, paths.exchangeFacts),
+  }, (error, stdout, stderr) => resolveRun({ code: error === null ? 0 : error.code, stdout, stderr })));
+  assert.notEqual(helper.code, 0, JSON.stringify(helper));
+  assert.match(helper.stderr, /worksite command cleanup unresolved; dependent work stopped: /u);
+  const artifact = JSON.parse(await readFile(plan.artifactPath, "utf8"));
+  assert.equal(artifact.disposition, "failure");
+  const ack = JSON.parse(helper.stdout);
+  assert.equal(helper.stdout, `${product.canonicalJson(ack)}\n`);
+  assert.equal(ack.attemptRef, plan.attemptRef);
+  assert.equal(ack.helperArtifactRef, artifact.artifactRef);
+  assert.equal(ack.helperArtifactDigest, artifact.artifactDigest);
+  const outcomes = [];
+  async function completes(label, exchange, failureClass) {
+    context.signal.throwIfAborted();
+    const result = await prepared.complete(exchange);
+    assert.equal(result.disposition, "failure", label);
+    assert.equal(result.resultCandidate.failureClass, failureClass, label);
+    outcomes.push({ label, failureClass });
+    return result;
+  }
+  const relayed = await completes("relayed-acknowledgment",
+    exactHelperExchange(product, prepared, plan, "helper-failure-relayed", helper.stdout.trimEnd()), "helper_failure");
+  assert.deepEqual(readRuntimeFailureDiagnosticSubject(relayed.resultCandidate.diagnosticRef), artifact.failure);
+  // (a) A coherent acknowledgment that names another artifact: the zero-filled one
+  // the earlier controlled worker manufactured.
+  const zeros = "0".repeat(64);
+  const foreign = { ...ack, helperArtifactRef: `${ack.helperArtifactRef.slice(0, -64)}${zeros}`, helperArtifactDigest: `sha256:${zeros}` };
+  assert.equal(commandProduct.isWorksiteCommandExecutionWorkerResult(foreign), true);
+  await completes("foreign-artifact-acknowledgment",
+    exactHelperExchange(product, prepared, plan, "helper-failure-foreign", JSON.stringify(foreign)), "result_contract_failure");
+  // (b) The fifth review's trace: a transport that did not succeed never reaches the artifact.
+  const failedTransport = exactHelperExchange(product, prepared, plan, "helper-failure-transport", helper.stdout.trimEnd());
+  failedTransport.observation.disposition = "failure";
+  await completes("transport-not-success", failedTransport, "transport_identity_mismatch");
+  context.diagnostic(JSON.stringify({ helperFailureExchanges: outcomes }));
 }
 
 test("C2 explicit zero write territory preserves array, report and HTTP port authorization", async (t) => {
@@ -851,6 +930,8 @@ async function installedC2Case(context, helperFailure = false) {
   if (helperFailure) {
     phase = "helper failure handoff";
     await assertHelperFailureAdmitted(context, { environment, product, abg, task, outcome });
+    phase = "helper failure owner-local exchanges";
+    await assertHelperFailureExchanges(context, { environment, product, task, nodeRef: c2.nodeRef });
     return;
   }
   assert.equal(outcome.kind, "installed_definition_call_transport_result", JSON.stringify(outcome));

@@ -741,16 +741,7 @@ export function realizeWorksiteCommandExecution(
       if (!helperBytes.equals(canonicalHelperBytes)) {
         return failure("helper_artifact_contract_failure");
       }
-      if (helperValue.disposition === "failure") {
-        const subject = admitJson(helperValue.failure);
-        if (subject.kind !== "ok" || helperValue.failure?.attemptRef !== helperPlan.attemptRef) {
-          return failure("helper_artifact_contract_failure");
-        }
-        return failure("helper_failure", constructRuntimeFailureDiagnosticRef(subject.value));
-      }
-      if (helperValue.disposition !== "success") {
-        return failure(`helper_${helperValue.disposition}`);
-      }
+      // The worker's acknowledgment names this artifact on every disposition.
       let rawValue: unknown;
       try {
         rawValue = JSON.parse(exchange.observation.finalOutput) as unknown;
@@ -762,6 +753,20 @@ export function realizeWorksiteCommandExecution(
         workerResult = constructWorksiteCommandExecutionWorkerResult(input, rawValue, helperPlan);
       } catch {
         return failure("result_contract_failure");
+      }
+      if (workerResult.helperArtifactRef !== helperValue.artifactRef ||
+        workerResult.helperArtifactDigest !== helperValue.artifactDigest) {
+        return failure("result_contract_failure");
+      }
+      if (helperValue.disposition === "failure") {
+        const subject = admitJson(helperValue.failure);
+        if (subject.kind !== "ok" || helperValue.failure?.attemptRef !== helperPlan.attemptRef) {
+          return failure("helper_artifact_contract_failure");
+        }
+        return failure("helper_failure", constructRuntimeFailureDiagnosticRef(subject.value));
+      }
+      if (helperValue.disposition !== "success") {
+        return failure(`helper_${helperValue.disposition}`);
       }
       if (!helperArtifactPreservesProtectedObservations(input, helperValue)) {
         return failure("protected_observation_mismatch");

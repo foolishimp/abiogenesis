@@ -2262,7 +2262,7 @@ export function renderWorksiteCommandExecutionPrompt(
     "Do not add timeout, run_in_background, or any other operational input field. An optional string description is metadata only. Preserve the command string exactly.",
     "Return the helper's compact task/attempt/artifact acknowledgment unchanged. The helper retains every computed command, stream, and predicate in its full artifact; do not copy, summarize, or compute those rows.",
     "Do not run any declared command directly and do not use another tool call.",
-    "A nonzero subject-command exit is an observation, not a transport failure.",
+    "A nonzero subject-command exit is an observation, not a transport failure. A nonzero helper exit after it has printed its acknowledgment is also an observation; return that acknowledgment unchanged.",
     "Return only the JSON value required by the supplied schema.",
     canonicalJson({
       taskRef: task.taskRef,

@@ -2142,3 +2142,84 @@ Items, in this order. The Return carries one row per item: done or stopped, with
 **Stop:** a new failure class; any change to `isWorksiteCommandExecutionFailure`, to an event contract or payload key list, or to the helper's exit semantics (non-zero on failure); prompt text beyond the one sentence; an existing lane whose expected class changes under item 3 (stop item 3 only); a second bounded attempt at any item; any push.
 
 **Return contract.** One commit on `main`, no push. First line `Post-close repair E: helper acknowledgment on failure (D15); acknowledgment bound to the artifact; final run`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append `## Post-close repair return E` with: one row per item (done or stopped, lines at head); the whole-path case's acknowledgment and artifact digests as printed; the lane results as `tests/pass/fail/skipped`; the final-run table (files, tests, pass, fail, cancelled, skipped) and the attribution against D's log; the stop reports, if any, with the counterexample.
+
+## Post-close repair return E
+
+All seven items landed; nothing stopped. The helper prints its acknowledgment for every disposition and drains the write before it rethrows a failure, so it still exits non-zero with the same stderr message. The worker instruction carries the one sentence. The parent binds the acknowledgment to the artifact before it reads the disposition. The controlled worker relays the helper's one stdout line unchanged. `T` is `build_tenants/abiogenesis/typescript`; `W` is this directory.
+
+**Commit.** The commit carrying this Return, on `main` over `1fafd137a`, first line `Post-close repair E: helper acknowledgment on failure (D15); acknowledgment bound to the artifact; final run`.
+
+| Item | State | Lines at head |
+|---|---|---|
+| 1, helper acknowledgment for every disposition | done | `T/code/src/implementation/worksite_command_helper.ts` `main`: acknowledgment `:1494-1502`, awaited write `:1503-1508`, rethrow `:1509` |
+| 2, worker instruction | done | `T/code/src/product/worksite_command_execution.ts:2265`; C2 pin `T/code/src/gtl/worksite_command_execution.ts:37`, `:39`, `:61`; `T/contracts/worksite/command-execution-context.inventory.json` |
+| 3, acknowledgment bound to the artifact | done; no lane changes class | `T/code/src/implementation/worksite_command_execution.ts` completion: parse `:745-750`, construct `:751-756`, binding `:757-760`, disposition branch `:761` |
+| 4, controlled worker relays the helper's stdout | done, (a) and (b) | `T/test_env/tests/t287-worksite-command-execution.test.mjs`: relay `:232-234` in `helperFailureTransport` (`:196`); `assertHelperFailureAdmitted` (`:239`) acknowledgment `:244-251`, relay `:259-263`, artifact binding `:283-295`; `assertHelperFailureExchanges` (`:308`), (a) `:342-348`, (b) `:349-352`, called at `:933-934`; case `:1151` |
+| 5, design records | done | `T/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` §9.3 item 4 `:574`, §10.5 P-LIFECYCLE `:639`, §10.6 row 6 `:654` |
+| 6, final run | done; no failing identity beyond D's log | `W/step-8-run-postclose-e.log` |
+| 7, records | done | `specification/GOALS.md:37`, `:46-55`; ticket `### Library delivery close (2026-10-23)` `:5290-5291`, `:5297-5301`, P-LIFECYCLE `:5353`, baseline attribution `:5355`, post-close review finding 1 `:5387` |
+
+**Item 1.** The construction of `workerReturnProjection` and its write move above `if (failed !== null) throw failed;`. The write is `process.stdout.write(line, callback)` wrapped in a promise and awaited, on the success path as well; then the rethrow. Nothing else in `main` changes. Pre-launch failures and `main`'s two publication checks still throw before any output.
+
+**Item 2.** The sentence is appended to the paragraph string `"A nonzero subject-command exit is an observation, not a transport failure."` after one space, so the prompt keeps its paragraph count and the controlled workers' `split('\n\n')[1]` still selects the command object. Pin, from the built module: digest `sha256:3266a85c7c58a0280eb97c951517f0a891f8bfd8b9c17f2f6122d75e137ff2fe`, byte count 113506 (was 113382), span `103421-105853` (was `103421-105729`), span digest `sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf`. The start byte is unchanged; the byte count and the end byte each grow by the 124 inserted bytes. The span occurs once in the module. `npm run build` regenerated the inventory, `contracts/capabilities/capability-definition-graph.json` and `product-toolchain-manifest.json`.
+
+**Item 3.** `constructWorksiteCommandExecutionWorkerResult` does not bind the acknowledgment to the artifact. It checks the shape (the ref derived from the digest in the task's namespace), the task ref and digest, and the attempt. At `1fafd137a` the comparison with the artifact's `artifactRef` and `artifactDigest` existed only inside `constructWorksiteExecutionObservation`, on the success path. The parse and construction move from the success path to before the disposition branch, the binding follows them, and the success path reuses `workerResult` in its existing order. Every refusal is `result_contract_failure`; no class is added. No lane changes its expected class. The only lane that asserts this completion's classes is `t287-worksite-command-execution` (grep over `test_env` for `helper_(protected|territory|product)_mismatch`, `/helper_`, `helper_failure`, `helper_artifact` and `result_contract_failure`). Its nine raw-acknowledgment negatives answered `result_contract_failure` before and still do. Its artifact, manifest, absent-artifact and protected-source negatives are decided before the new point. The final run confirms both.
+
+**Item 4.** The controlled worker refuses a helper exit of 0, requires exactly one stdout line, and emits it parsed as `structured_output`. The schema and zero-filled lines are removed. `assertHelperFailureAdmitted` checks five things:
+
+- the stdout is one canonical line naming the task;
+- the C2 `actor_result_artifact_observed` carries that line as `finalOutput`;
+- its `attemptRef` is the admitted subject's;
+- its `helperArtifactRef` and `helperArtifactDigest` equal those of the published artifact file. The file is located through the helper plan for that attempt. The test checks that its bytes are canonical and recomputes the digest as `sha256Canonical` of the artifact body without `kind`, `schemaVersion`, `artifactRef` and `artifactDigest`, which is how the Product constructor digests it; the file's byte digest is a different value and is printed separately;
+- the exit is non-zero, and the stderr message, the admitted failure, its class, the Product guard and the cold read are unchanged.
+
+(a) and (b) run over a second failed artifact. In the same installed case, the installed helper runs again for a direct occurrence under the same hook, with its own facts file. Three exchanges go to that occurrence's real `complete`:
+
+- the relayed acknowledgment answers `helper_failure`, and its inline subject is the artifact's `failure`;
+- (a) a coherent acknowledgment naming another artifact, the zero-filled one the earlier worker manufactured, which `isWorksiteCommandExecutionWorkerResult` accepts, answers `result_contract_failure`;
+- (b) the relayed acknowledgment under an observation of disposition `failure` answers `transport_identity_mismatch`.
+
+Discrimination probes (scratch, restored and rebuilt before the final run). With the binding at `:757-760` removed, the case fails at `:347`: (a) answers `helper_failure`. With the rethrow before the write, the case fails at `:246`: the helper prints nothing and the worker refuses.
+
+Whole-path digests as printed by the case in the named lane run (`W/step-8-run-postclose-e.log:40`):
+
+| Member | Value |
+|---|---|
+| acknowledgment line `sha256Bytes` | `sha256:29cc9031b90563a26b51fb4537d453a1899403bd860b773c88b00fa8c8310f09` |
+| `ack.helperArtifactDigest` | `sha256:563c8a785955149d805e7b54cd6b79f8b7f282efe49e1ed9edd9ed470edf8dc4` |
+| recomputed artifact digest | `sha256:563c8a785955149d805e7b54cd6b79f8b7f282efe49e1ed9edd9ed470edf8dc4` |
+| artifact file `sha256Bytes` | `sha256:6abaff97b50b03880b8d78aeb67d0119ea96ebcb03995c4e54c2b8615782106e` (6806 bytes) |
+| subject | 3561 bytes canonical |
+| inline reference | 4887 bytes |
+
+The values are per run, because the artifact carries its sandbox root. The integrated run printed `sha256:a847d4a0eea81616a2ab6eabf0a693ba3d994216310cd2659ca10905ad6b13aa`, `sha256:6050f1d5ffeee3ce8ea7ef3a61862ab049d0fe4315d03c0a989c18e3b22f311d` twice, and `sha256:b8ad495479b9460564ef46ab14251ad7b888b52c0be7b9eb5129756db6d9eafd`.
+
+**Item 5.** §9.3 item 4 states the realized route. The helper prints its acknowledgment for every disposition and waits for the write before it rethrows. The worker returns the acknowledgment whatever the helper's exit, as the renderer's sentence instructs. The parent accepts only a successful transport with the planned Bash invocation. After it checks the artifact and before it reads the disposition, the parent requires the acknowledgment's ref and digest to equal the artifact's, `result_contract_failure` otherwise. P-LIFECYCLE names the case at `:1151` and `:239` and the exchanges at `:308`. §10.6 row 6 adds the acknowledgment sentence and keeps "no Product output contract changes".
+
+**Item 6.** `npm run build`, `lint:imports` (28 modules), `lint:lifecycle` (284 modules, 10 allow-listed, no offender) and `npx tsc --noEmit -p tsconfig.json` pass.
+
+| Lane | tests/pass/fail/skipped |
+|---|---|
+| `t287-worksite-command-execution` | 5/5/0/0 (the success case 86.7 s; the helper-failure case with its exchanges 80.1 s) |
+| `t287-observed-worksite-command` | 8/7/1/0 (`:43`, D's set) |
+| `forward-command-contracts` | 9/9/0/0 |
+| `forward-command-owners` | 6/2/4/0 (D's set) |
+| `t287-runtime-failure-diagnostic` | 12/12/0/0 |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 |
+| `m5-worker-transport` | 21/21/0/0 |
+| `t287-reacquisition-root-contract` | 2/1/0/1 |
+
+| Run | Files | Tests | Pass | Fail | Cancelled | Skipped | Wall |
+|---|---|---|---|---|---|---|---|
+| E, 48 files, one invocation | 48 (25 red) | 345 | 270 | 54 | 2 | 19 | 1224 s |
+| D (`W/step-8-run-postclose-d.log`) | 48 (25 red) | 345 | 270 | 54 | 2 | 19 | 1160 s |
+
+Attribution, by failing test file and line, first error line and first test-file location: 56 identities in each log, none only in E and none only in D. The `t287-calculus-state-transfer` `:64` timeout and the `identity_end` cancellation at `:70` recur as in D. `t287-worksite-command-execution` is green in both. Its installed cases move from `:1063`/`:1070` to `:1144`/`:1151` and pass in the run (93.2 s, 86.4 s). `test:uat:harness`: 34 tests, 30 pass, 1 fail, 3 skip; the failure is the recorded `harness.test.mjs:471` budget (18025250 against 18015000). No `not JSON after projection` refusal occurs. The attribution is appended to the log.
+
+**Item 7.** GOALS Current Selection points at this Return and states the realized route: the helper's failure artifact and acknowledgment, the worker's unchanged return, the parent's binding and the inline subject. It states that the installed case drives the route from the helper's exit, through a controlled worker relaying the helper's stdout, to the admitted result. The ticket subsection points at this Return. Its D15 sentence states the route from the helper's exit on. Its P-LIFECYCLE bullet names the binding and the case at `:1151`. Its baseline attribution carries E's final run. Its post-close review finding 1 names repair E for the acknowledgment handoff.
+
+**Residuals.**
+
+- The Executive's narrowing at `1fafd137a` in the plan post's Ledger (`:389`) and in the closing post (`20261022T060245Z_CLOSE_library_consolidation.md`), both under `.ai-workspace/comments/claude/`, says D15's row and the post are restated when E lands. Both posts are outside this grant and are not restated.
+- The worker in both installed cases is still a controlled worker; no model reads the new sentence.
+- The other three helper failure classes (`command_failed`, `http_probe_failed`, `http_cleanup_unresolved`) still reach an artifact only in repair D's scratch probe. They share item 1's write and item 3's binding.

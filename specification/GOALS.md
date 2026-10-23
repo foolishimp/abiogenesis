@@ -34,7 +34,7 @@ and [exact L2 design](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/disp
 retain their historical acceptance. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 supersedes the bounded C1 to C5 contracts of Root’s [conjunction](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md).
 The library is on `main` at the commit that
-[post-close repair D](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-d)
+[post-close repair E](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8.md#post-close-repair-return-e)
 records. O-RESOURCE, O-SHAPE, O-CODEC and O-KEY are closed with their sites.
 O-SCHEMA is closed at the raw owner boundary. O-TYPE is closed at every census
 site that feeds an equality, digest or admission atom (D11, D12, D13, D14;
@@ -43,14 +43,16 @@ The five lifecycle failure subjects carry the typed projection of their
 transition, with each outcome's own durable coordinate and Run selection in
 place of the owned prefix object. A plain record or array of any realm is
 admitted by structure. No private structural equality introduced by the plan
-remains. The post-close review's helper-route finding is repaired (D15): the
-helper publishes a failure after launch as its artifact's `failure`
-disposition, and the parent carries the admitted subject inline as the leaf
-failure's diagnostic reference, with the Product failure value unchanged; an
-installed C1 to C2 case reads the subject cold from the admitted result,
-under a supplied exchange: the helper prints no acknowledgment when it fails,
-so the handoff from its exit through the worker is under repair E (fifth
-review, S2). The
+remains. The post-close review's helper-route finding is repaired (D15,
+post-close repairs D and E): the helper publishes a failure after launch as
+its artifact's `failure` disposition, prints its acknowledgment of that
+artifact and exits non-zero; the worker returns the acknowledgment unchanged;
+the parent binds it to the artifact before it reads the disposition and
+carries the admitted subject inline as the leaf failure's diagnostic
+reference, with the Product failure value unchanged. An installed C1 to C2
+case drives that route from the helper's exit, through a controlled worker
+that relays the helper's stdout, to the admitted result and reads the subject
+cold. The
 streaming-fold finding is repaired: the derivation advances one owned working
 state in place, with no per-call copy of the fold state. The C2 suite's
 prompt-digest fixture and the reacquisition seam lane are repaired. The
